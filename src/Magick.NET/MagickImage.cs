@@ -3390,7 +3390,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 
-            StringInfo info = _nativeInstance.GetProfile(name);
+            var info = _nativeInstance.GetProfile(name);
             if (info == null || info.Datum == null)
                 return null;
 
