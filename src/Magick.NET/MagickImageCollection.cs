@@ -4,7 +4,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
 #if NETSTANDARD
 using System.Threading.Tasks;
@@ -1723,7 +1722,7 @@ namespace ImageMagick
             }
         }
 
-        private IMagickImage<byte> Smush(int offset, bool stack)
+        private IMagickImage<QuantumType> Smush(int offset, bool stack)
         {
             ThrowIfEmpty();
 
