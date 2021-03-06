@@ -36,6 +36,6 @@ namespace ImageMagick.Formats
         /// <summary>
         /// XYZ.
         /// </summary>
-        XYZ,
+        XYZ = 5,
     }
 }
