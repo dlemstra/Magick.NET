@@ -18,10 +18,10 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new DngReadDefines());
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "use_camera_wb"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "use_auto_wb"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "no_auto_bright"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "output_color"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "use-camera-wb"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "use-auto-wb"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "no-auto-bright"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "output-color"));
                 }
             }
         }

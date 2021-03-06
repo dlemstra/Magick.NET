@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "no_auto_bright"));
+                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "no-auto-bright"));
                 }
             }
         }

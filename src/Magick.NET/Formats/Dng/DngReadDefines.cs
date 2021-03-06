@@ -47,16 +47,16 @@ namespace ImageMagick.Formats
             get
             {
                 if (DisableAutoBrightness.HasValue)
-                    yield return CreateDefine("no_auto_bright", DisableAutoBrightness.Value);
+                    yield return CreateDefine("no-auto-bright", DisableAutoBrightness.Value);
 
                 if (OutputColor.HasValue)
-                    yield return CreateDefine("output_color", (int)OutputColor.Value);
+                    yield return CreateDefine("output-color", (int)OutputColor.Value);
 
                 if (UseCameraWhitebalance.HasValue)
-                    yield return CreateDefine("use_camera_wb", UseCameraWhitebalance.Value);
+                    yield return CreateDefine("use-camera-wb", UseCameraWhitebalance.Value);
 
                 if (UseAutoWhitebalance.HasValue)
-                    yield return CreateDefine("use_auto_wb", UseAutoWhitebalance.Value);
+                    yield return CreateDefine("use-auto-wb", UseAutoWhitebalance.Value);
             }
         }
     }

@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "use_camera_wb"));
+                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "use-camera-wb"));
                 }
             }
         }

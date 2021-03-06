@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Dng, "output_color"));
+                    Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Dng, "output-color"));
                 }
             }
         }
