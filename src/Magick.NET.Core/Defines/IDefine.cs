@@ -21,6 +21,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets the value of the define.
         /// </summary>
-        string? Value { get; }
+        string Value { get; }
     }
 }

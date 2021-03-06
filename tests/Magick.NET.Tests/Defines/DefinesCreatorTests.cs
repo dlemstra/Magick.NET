@@ -11,13 +11,15 @@ namespace Magick.NET.Tests
     public class DefinesCreatorTests
     {
         [Fact]
-        public void Test_Null()
+        public void Test_MagickGeometry()
         {
             using (var image = new MagickImage())
             {
                 image.Settings.SetDefines(new TestDefine());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.A, "null"));
+                var value = image.Settings.GetDefine(MagickFormat.A, "geo");
+
+                Assert.Equal("3x4+1+2", value);
             }
         }
 
@@ -32,7 +34,7 @@ namespace Magick.NET.Tests
             {
                 get
                 {
-                    yield return CreateDefine("null", (MagickGeometry)null);
+                    yield return CreateDefine("geo", new MagickGeometry(1, 2, 3, 4));
                 }
             }
         }

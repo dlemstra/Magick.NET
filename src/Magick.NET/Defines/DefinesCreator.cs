@@ -72,7 +72,11 @@ namespace ImageMagick.Defines
         /// <param name="value">The value of the define.</param>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
         protected MagickDefine CreateDefine(string name, IMagickGeometry value)
-            => new MagickDefine(Format, name, value?.ToString());
+        {
+            Throw.IfNull(nameof(value), value);
+
+            return new MagickDefine(Format, name, value.ToString());
+        }
 
         /// <summary>
         /// Create a define with the specified name and value.

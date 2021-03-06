@@ -13,11 +13,9 @@ namespace ImageMagick
         /// </summary>
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
-        public MagickDefine(string name, string? value)
+        public MagickDefine(string name, string value)
+            : this(MagickFormat.Unknown, name, value)
         {
-            Format = MagickFormat.Unknown;
-            Name = name;
-            Value = value;
         }
 
         /// <summary>
@@ -26,8 +24,11 @@ namespace ImageMagick
         /// <param name="format">The format of the define.</param>
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
-        public MagickDefine(MagickFormat format, string name, string? value)
+        public MagickDefine(MagickFormat format, string name, string value)
         {
+            Throw.IfNullOrEmpty(nameof(name), name);
+            Throw.IfNullOrEmpty(nameof(value), value);
+
             Format = format;
             Name = name;
             Value = value;
@@ -46,6 +47,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets the value of the define.
         /// </summary>
-        public string? Value { get; }
+        public string Value { get; }
     }
 }
