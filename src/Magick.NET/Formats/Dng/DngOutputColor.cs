@@ -37,5 +37,10 @@ namespace ImageMagick.Formats
         /// XYZ.
         /// </summary>
         XYZ = 5,
+
+        /// <summary>
+        /// Academy Color Encoding System.
+        /// </summary>
+        ACES = 6,
     }
 }
