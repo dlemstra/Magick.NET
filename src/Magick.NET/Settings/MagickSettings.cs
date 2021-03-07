@@ -605,20 +605,6 @@ namespace ImageMagick
             => _options[key] = value;
 
         /// <summary>
-        /// Creates a define string for the specified format and name.
-        /// </summary>
-        /// <param name="format">The format to set the define for.</param>
-        /// <param name="name">The name of the define.</param>
-        /// <returns>A string for the specified format and name.</returns>
-        protected static string ParseDefine(MagickFormat format, string name)
-        {
-            if (format == MagickFormat.Unknown)
-                return name;
-            else
-                return EnumHelper.GetName(GetModule(format)) + ":" + name;
-        }
-
-        /// <summary>
         /// Copies the settings from the specified <see cref="MagickSettings"/>.
         /// </summary>
         /// <param name="settings">The settings to copy the data from.</param>
@@ -654,6 +640,14 @@ namespace ImageMagick
                 _options[key] = settings._options[key];
 
             Drawing = settings.Drawing.Clone();
+        }
+
+        private static string ParseDefine(MagickFormat format, string name)
+        {
+            if (format == MagickFormat.Unknown)
+                return name;
+            else
+                return EnumHelper.GetName(GetModule(format)) + ":" + name;
         }
 
         private static MagickFormat GetModule(MagickFormat format)
