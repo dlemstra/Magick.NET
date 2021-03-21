@@ -32,8 +32,7 @@ namespace ImageMagick
         private EventHandler<ProgressEventArgs>? _progress;
         private EventHandler<WarningEventArgs>? _warning;
 
-        [NotNull]
-        private MagickSettings? _settings;
+        private MagickSettings _settings;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
@@ -7256,6 +7255,7 @@ namespace ImageMagick
             _nativeInstance.Warning += OnWarning;
         }
 
+        [MemberNotNull(nameof(_settings))]
         private void SetSettings(MagickSettings settings)
         {
             if (_settings != null)
