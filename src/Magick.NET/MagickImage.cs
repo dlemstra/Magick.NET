@@ -557,11 +557,7 @@ namespace ImageMagick
                 return _nativeInstance.ColorType;
             }
 
-            set
-            {
-                _nativeInstance.ColorType = value;
-                _settings.ColorType = value;
-            }
+            set => _nativeInstance.ColorType = value;
         }
 
         /// <summary>
