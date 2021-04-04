@@ -80,7 +80,7 @@ namespace ImageMagick.Formats
 
                 if (SkipProfiles.HasValue)
                 {
-                    string value = EnumHelper.ConvertFlags(SkipProfiles.Value);
+                    var value = EnumHelper.ConvertFlags(SkipProfiles.Value);
 
                     if (!string.IsNullOrEmpty(value))
                         yield return new MagickDefine("profile:skip", value);
