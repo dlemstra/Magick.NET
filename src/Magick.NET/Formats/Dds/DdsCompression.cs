@@ -4,17 +4,17 @@
 namespace ImageMagick.Formats
 {
     /// <summary>
-    /// Specifies dds compression methods.
+    /// Specifies a limited set of the available dds compression methods.
     /// </summary>
     public enum DdsCompression
     {
         /// <summary>
-        /// None.
+        /// Do not compress the pixels.
         /// </summary>
         None,
 
         /// <summary>
-        /// Dxt1.
+        /// Use Dxt1 instead of the default compression.
         /// </summary>
         Dxt1,
     }

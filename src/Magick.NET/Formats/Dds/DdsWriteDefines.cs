@@ -25,7 +25,8 @@ namespace ImageMagick.Formats
         public bool? ClusterFit { get; set; }
 
         /// <summary>
-        /// Gets or sets the compression that will be used (dds:compression).
+        /// Gets or sets the compression that will be used instead of the default compression. Only a limited set of the
+        /// compression methods are available for this. (dds:compression).
         /// </summary>
         public DdsCompression? Compression { get; set; }
 
