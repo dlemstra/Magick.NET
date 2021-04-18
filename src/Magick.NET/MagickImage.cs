@@ -819,7 +819,7 @@ namespace ImageMagick
             get => _nativeInstance.Quality;
             set
             {
-                int quality = value < 1 ? 1 : value;
+                var quality = value < 1 ? 1 : value;
                 quality = quality > 100 ? 100 : quality;
 
                 _nativeInstance.Quality = quality;
@@ -1406,7 +1406,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Border(int width, int height)
         {
-            MagickRectangle rectangle = new MagickRectangle(0, 0, width, height);
+            var rectangle = new MagickRectangle(0, 0, width, height);
             _nativeInstance.Border(rectangle);
         }
 
@@ -1587,7 +1587,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            MagickImage clone = new MagickImage();
+            var clone = new MagickImage();
             clone.SetInstance(new NativeMagickImage(_nativeInstance.CloneArea(geometry.Width, geometry.Height)));
             clone.SetSettings(_settings);
             clone.CopyPixels(this, geometry, 0, 0);
@@ -1852,8 +1852,8 @@ namespace ImageMagick
             if (other is null)
                 return 1;
 
-            int left = Width * Height;
-            int right = other.Width * other.Height;
+            var left = Width * Height;
+            var right = other.Width * other.Height;
 
             if (left == right)
                 return 0;
@@ -2381,7 +2381,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(blackPoint), blackPoint);
             Throw.IfNegative(nameof(whitePoint), whitePoint);
 
-            PointD contrast = CalculateContrastStretch(blackPoint, whitePoint);
+            var contrast = CalculateContrastStretch(blackPoint, whitePoint);
             _nativeInstance.ContrastStretch(contrast.X, contrast.Y, channels);
         }
 
@@ -2574,7 +2574,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(geometry), geometry);
 
-            IntPtr images = _nativeInstance.CropToTiles(geometry.ToString());
+            var images = _nativeInstance.CropToTiles(geometry.ToString());
             return CreateList(images);
         }
 
@@ -2718,7 +2718,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(drawables), drawables);
 
-            using (DrawingWand wand = new DrawingWand(this))
+            using (var wand = new DrawingWand(this))
             {
                 wand.Draw(drawables);
             }
@@ -3231,7 +3231,7 @@ namespace ImageMagick
         /// <returns>The 8bim profile from the image.</returns>
         public IEightBimProfile? Get8BimProfile()
         {
-            StringInfo info = _nativeInstance.GetProfile("8bim");
+            var info = _nativeInstance.GetProfile("8bim");
             if (info == null || info.Datum == null)
                 return null;
 
@@ -3311,7 +3311,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IExifProfile? GetExifProfile()
         {
-            StringInfo info = _nativeInstance.GetProfile("exif");
+            var info = _nativeInstance.GetProfile("exif");
             if (info == null || info.Datum == null)
                 return null;
 
@@ -3332,7 +3332,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IIptcProfile? GetIptcProfile()
         {
-            StringInfo info = _nativeInstance.GetProfile("iptc");
+            var info = _nativeInstance.GetProfile("iptc");
             if (info == null || info.Datum == null)
                 return null;
 
@@ -4212,7 +4212,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(saturation), saturation);
             Throw.IfNegative(nameof(hue), hue);
 
-            string modulate = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", brightness.ToDouble(), saturation.ToDouble(), hue.ToDouble());
+            var modulate = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", brightness.ToDouble(), saturation.ToDouble(), hue.ToDouble());
 
             _nativeInstance.Modulate(modulate);
         }
@@ -5080,7 +5080,7 @@ namespace ImageMagick
             var newReadSettings = CreateReadSettings(settings.ReadSettings);
             SetSettings(newReadSettings);
 
-            int expectedLength = GetExpectedLength(settings);
+            var expectedLength = GetExpectedLength(settings);
             Throw.IfTrue(nameof(data), count < expectedLength, "The array count is " + count + " but should be at least " + expectedLength + ".");
 
             _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, offset);
@@ -5124,7 +5124,7 @@ namespace ImageMagick
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            byte[] data = File.ReadAllBytes(filePath);
+            var data = File.ReadAllBytes(filePath);
             ReadPixels(data, 0, data.Length, settings);
         }
 
@@ -5918,10 +5918,10 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(args), args);
 
-            bool hasRed = EnumHelper.HasFlag(channels, ImageMagick.Channels.Red);
-            bool hasGreen = EnumHelper.HasFlag(channels, ImageMagick.Channels.Green);
-            bool hasBlue = EnumHelper.HasFlag(channels, ImageMagick.Channels.Blue);
-            bool hasAlpha = HasAlpha && EnumHelper.HasFlag(channels, ImageMagick.Channels.Alpha);
+            var hasRed = EnumHelper.HasFlag(channels, ImageMagick.Channels.Red);
+            var hasGreen = EnumHelper.HasFlag(channels, ImageMagick.Channels.Green);
+            var hasBlue = EnumHelper.HasFlag(channels, ImageMagick.Channels.Blue);
+            var hasAlpha = HasAlpha && EnumHelper.HasFlag(channels, ImageMagick.Channels.Alpha);
 
             Throw.IfTrue(nameof(channels), !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
 
@@ -6267,9 +6267,9 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            for (int y = 0; y < Height; y += image.Height)
+            for (var y = 0; y < Height; y += image.Height)
             {
-                for (int x = 0; x < Width; x += image.Width)
+                for (var x = 0; x < Width; x += image.Width)
                 {
                     Composite(image, x, y, compose, args);
                 }
@@ -6770,9 +6770,9 @@ namespace ImageMagick
 
             _settings.FileName = null;
 
-            using (StreamWrapper wrapper = StreamWrapper.CreateForWriting(stream))
+            using (var wrapper = StreamWrapper.CreateForWriting(stream))
             {
-                ReadWriteStreamDelegate writer = new ReadWriteStreamDelegate(wrapper.Write);
+                var writer = new ReadWriteStreamDelegate(wrapper.Write);
                 ReadWriteStreamDelegate? reader = null;
                 SeekStreamDelegate? seeker = null;
                 TellStreamDelegate? teller = null;
@@ -6963,7 +6963,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings.ReadSettings.Width, "ReadSettings.Width should be defined");
             Throw.IfNull(nameof(settings), settings.ReadSettings.Height, "ReadSettings.Height should be defined when pixel storage is set.");
 
-            int length = settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * settings.Mapping!.Length;
+            var length = settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * settings.Mapping!.Length;
             switch (settings.StorageType)
             {
                 case StorageType.Char:
@@ -7226,7 +7226,7 @@ namespace ImageMagick
 
         private void Read(string fileName, IMagickReadSettings<QuantumType>? readSettings, bool ping)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             var newReadSettings = CreateReadSettings(readSettings);
