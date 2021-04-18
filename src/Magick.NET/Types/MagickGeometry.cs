@@ -223,10 +223,10 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Returns a <see cref="IMagickGeometry"/> using the specified page size.
+        /// Initializes a new <see cref="IMagickGeometry"/> instance using the specified page size.
         /// </summary>
         /// <param name="pageSize">The page size.</param>
-        /// <returns>A <see cref="IMagickGeometry"/> that represents the specified page size.</returns>
+        /// <returns>A <see cref="IMagickGeometry"/> instance that represents the specified page size.</returns>
         public static IMagickGeometry FromPageSize(string pageSize)
         {
             Throw.IfNullOrEmpty(nameof(pageSize), pageSize);
