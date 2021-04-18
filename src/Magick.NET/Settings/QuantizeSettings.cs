@@ -13,7 +13,7 @@ namespace ImageMagick
         /// </summary>
         public QuantizeSettings()
         {
-            Colors = 1;
+            Colors = 256;
             DitherMethod = ImageMagick.DitherMethod.Riemersma;
         }
 
