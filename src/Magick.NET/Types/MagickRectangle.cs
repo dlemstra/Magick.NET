@@ -31,13 +31,16 @@ namespace ImageMagick
 
         public int Y { get; set; }
 
+        public static MagickRectangle? FromPageSize(string pageSize)
+            => NativeMagickRectangle.FromPageSize(pageSize);
+
         public static MagickRectangle? FromGeometry(IMagickGeometry geometry, MagickImage image)
         {
             if (geometry == null)
                 return null;
 
-            int width = geometry.Width;
-            int height = geometry.Height;
+            var width = geometry.Width;
+            var height = geometry.Height;
 
             if (geometry.IsPercentage)
             {
@@ -48,7 +51,8 @@ namespace ImageMagick
             return new MagickRectangle(geometry.X, geometry.Y, width, height);
         }
 
-        internal static INativeInstance CreateInstance() => new NativeMagickRectangle();
+        internal static INativeInstance CreateInstance()
+            => new NativeMagickRectangle();
 
         internal static MagickRectangle CreateInstance(INativeInstance nativeInstance)
         {
@@ -60,14 +64,12 @@ namespace ImageMagick
         }
 
         private NativeMagickRectangle CreateNativeInstance()
-        {
-            return new NativeMagickRectangle
+            => new NativeMagickRectangle
             {
                 X = X,
                 Y = Y,
                 Width = Width,
                 Height = Height,
             };
-        }
     }
 }

@@ -39,6 +39,8 @@ namespace ImageMagick
                 public static extern UIntPtr MagickRectangle_Height_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickRectangle_Height_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickRectangle_FromPageSize(IntPtr value);
             }
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
@@ -67,6 +69,8 @@ namespace ImageMagick
                 public static extern UIntPtr MagickRectangle_Height_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickRectangle_Height_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickRectangle_FromPageSize(IntPtr value);
             }
             #endif
         }
@@ -254,6 +258,26 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     NativeMethods.X86.MagickRectangle_Height_Set(Instance, (UIntPtr)value);
                     #endif
+                }
+            }
+            public static MagickRectangle FromPageSize(string value)
+            {
+                using (INativeInstance valueNative = UTF8Marshaler.CreateInstance(value))
+                {
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickRectangle_FromPageSize(valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickRectangle_FromPageSize(valueNative.Instance);
+                    #endif
+                    return MagickRectangle.CreateInstance(result);
                 }
             }
         }

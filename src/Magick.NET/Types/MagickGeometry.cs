@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Globalization;
 
 namespace ImageMagick
@@ -219,6 +220,23 @@ namespace ImageMagick
                 return !(right is null);
 
             return left.CompareTo(right) <= 0;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="IMagickGeometry"/> using the specified page size.
+        /// </summary>
+        /// <param name="pageSize">The page size.</param>
+        /// <returns>A <see cref="IMagickGeometry"/> that represents the specified page size.</returns>
+        public static IMagickGeometry FromPageSize(string pageSize)
+        {
+            Throw.IfNullOrEmpty(nameof(pageSize), pageSize);
+
+            var rectangle = MagickRectangle.FromPageSize(pageSize);
+            var geometry = FromRectangle(rectangle);
+            if (geometry == null)
+                throw new InvalidOperationException("Invalid page size specified.");
+
+            return geometry;
         }
 
         /// <summary>

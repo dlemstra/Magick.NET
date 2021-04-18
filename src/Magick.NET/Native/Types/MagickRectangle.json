@@ -18,5 +18,18 @@
       "name": "Height",
       "type": "size_t"
     }
+  ],
+  "methods": [
+    {
+      "name": "FromPageSize",
+      "type": "MagickRectangle",
+      "static": true,
+      "arguments": [
+        {
+          "name": "value",
+          "type": "string"
+        }
+      ]
+    }
   ]
 }
