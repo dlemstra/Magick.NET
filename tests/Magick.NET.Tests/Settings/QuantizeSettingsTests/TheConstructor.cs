@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
             {
                 var settings = new QuantizeSettings();
 
-                Assert.Equal(265, settings.Colors);
+                Assert.Equal(256, settings.Colors);
                 Assert.Equal(ColorSpace.Undefined, settings.ColorSpace);
                 Assert.Equal(DitherMethod.Riemersma, settings.DitherMethod);
                 Assert.False(settings.MeasureErrors);
