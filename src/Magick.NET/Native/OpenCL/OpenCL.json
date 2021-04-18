@@ -28,6 +28,10 @@
       ]
     },
     {
+      "name": "GetEnabled",
+      "type": "bool"
+    },
+    {
       "name": "SetEnabled",
       "type": "bool",
       "arguments": [

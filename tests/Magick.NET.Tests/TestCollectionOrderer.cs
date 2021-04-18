@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -28,6 +29,12 @@ namespace Magick.NET.Tests
             Directory.CreateDirectory(path);
 
             MagickNET.Initialize(configFiles, path);
+
+            // OpenCL should be disabled by default this is a hack to check that.
+            if (OpenCL.IsEnabled)
+                return null;
+
+            OpenCL.IsEnabled = true;
 
             return testCollections;
         }

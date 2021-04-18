@@ -22,7 +22,7 @@ namespace ImageMagick
             get
             {
                 if (!_isEnabled.HasValue)
-                    _isEnabled = NativeOpenCL.SetEnabled(true);
+                    _isEnabled = NativeOpenCL.GetEnabled();
 
                 return _isEnabled.Value;
             }

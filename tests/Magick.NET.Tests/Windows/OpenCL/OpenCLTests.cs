@@ -13,8 +13,6 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_IsEnabled()
         {
-            Assert.True(OpenCL.IsEnabled);
-
             OpenCL.IsEnabled = false;
             Assert.False(OpenCL.IsEnabled);
 
