@@ -64,5 +64,12 @@ namespace ImageMagick
         /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers).</param>
         /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
         IMagickGeometry Create(string value);
+
+        /// <summary>
+        /// Initializes a new <see cref="IMagickGeometry"/> instance using the specified page size.
+        /// </summary>
+        /// <param name="pageSize">The page size.</param>
+        /// <returns>A <see cref="IMagickGeometry"/> instance that represents the specified page size.</returns>
+        IMagickGeometry CreateFromPageSize(string pageSize);
     }
 }
