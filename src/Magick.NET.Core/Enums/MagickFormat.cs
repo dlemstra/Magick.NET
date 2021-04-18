@@ -1054,6 +1054,11 @@ namespace ImageMagick
         Rmf,
 
         /// <summary>
+        /// Rsvg.
+        /// </summary>
+        Rsvg,
+
+        /// <summary>
         /// Panasonic Lumix Raw Image.
         /// </summary>
         Rw2,
