@@ -10,7 +10,7 @@ namespace ImageMagick
     /// <summary>
     /// Represents an OpenCL device.
     /// </summary>
-    public sealed partial class OpenCLDevice
+    public sealed partial class OpenCLDevice : IOpenCLDevice
     {
         private readonly NativeOpenCLDevice _instance;
         private bool _profileKernels;
@@ -35,12 +35,6 @@ namespace ImageMagick
             => _instance.DeviceType;
 
         /// <summary>
-        /// Gets the name of the device.
-        /// </summary>
-        public string Name
-            => _instance.Name!;
-
-        /// <summary>
         /// Gets or sets a value indicating whether the device is enabled or disabled.
         /// </summary>
         public bool IsEnabled
@@ -53,13 +47,13 @@ namespace ImageMagick
         /// Gets all the kernel profile records for this devices.
         /// </summary>
         /// <returns>A <see cref="IEnumerable{OpenCLKernelProfileRecord}"/>.</returns>
-        public IEnumerable<OpenCLKernelProfileRecord> KernelProfileRecords
+        public IEnumerable<IOpenCLKernelProfileRecord> KernelProfileRecords
         {
             get
             {
                 UIntPtr length;
                 var records = _instance.GetKernelProfileRecords(out length);
-                var result = new Collection<OpenCLKernelProfileRecord>();
+                var result = new Collection<IOpenCLKernelProfileRecord>();
 
                 if (records == IntPtr.Zero)
                     return result;
@@ -75,6 +69,12 @@ namespace ImageMagick
                 return result;
             }
         }
+
+        /// <summary>
+        /// Gets the name of the device.
+        /// </summary>
+        public string Name
+            => _instance.Name!;
 
         /// <summary>
         /// Gets or sets a value indicating whether kernel profiling is enabled.

@@ -8,7 +8,7 @@ namespace ImageMagick
     /// <summary>
     /// Represents a kernel profile record for an OpenCL device.
     /// </summary>
-    public sealed partial class OpenCLKernelProfileRecord
+    public sealed partial class OpenCLKernelProfileRecord : IOpenCLKernelProfileRecord
     {
         private OpenCLKernelProfileRecord(NativeOpenCLKernelProfileRecord instance)
         {
