@@ -362,7 +362,7 @@ namespace ImageMagick
             get
             {
                 _nativeInstance.ResetArtifactIterator();
-                string name = _nativeInstance.GetNextArtifactName();
+                var name = _nativeInstance.GetNextArtifactName();
                 while (name != null)
                 {
                     yield return name;
@@ -379,7 +379,7 @@ namespace ImageMagick
             get
             {
                 _nativeInstance.ResetAttributeIterator();
-                string name = _nativeInstance.GetNextAttributeName();
+                var name = _nativeInstance.GetNextAttributeName();
                 while (name != null)
                 {
                     yield return name;
@@ -467,7 +467,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity blue primary point.
         /// </summary>
-        public IPrimaryInfo ChromaBluePrimary
+        public IPrimaryInfo? ChromaBluePrimary
         {
             get => _nativeInstance.ChromaBluePrimary;
             set => _nativeInstance.ChromaBluePrimary = value;
@@ -476,7 +476,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity green primary point.
         /// </summary>
-        public IPrimaryInfo ChromaGreenPrimary
+        public IPrimaryInfo? ChromaGreenPrimary
         {
             get => _nativeInstance.ChromaGreenPrimary;
             set => _nativeInstance.ChromaGreenPrimary = value;
@@ -485,7 +485,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity red primary point.
         /// </summary>
-        public IPrimaryInfo ChromaRedPrimary
+        public IPrimaryInfo? ChromaRedPrimary
         {
             get => _nativeInstance.ChromaRedPrimary;
             set => _nativeInstance.ChromaRedPrimary = value;
@@ -494,7 +494,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity white primary point.
         /// </summary>
-        public IPrimaryInfo ChromaWhitePoint
+        public IPrimaryInfo? ChromaWhitePoint
         {
             get => _nativeInstance.ChromaWhitePoint;
             set => _nativeInstance.ChromaWhitePoint = value;
@@ -636,7 +636,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the original file name of the image (only available if read from disk).
         /// </summary>
-        public string FileName
+        public string? FileName
             => _nativeInstance.FileName;
 
         /// <summary>
@@ -802,7 +802,7 @@ namespace ImageMagick
             get
             {
                 _nativeInstance.ResetProfileIterator();
-                string name = _nativeInstance.GetNextProfileName();
+                var name = _nativeInstance.GetNextProfileName();
                 while (name != null)
                 {
                     yield return name;
@@ -847,7 +847,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public string Signature
-            => _nativeInstance.Signature;
+            => _nativeInstance.Signature!;
 
         /// <summary>
         /// Gets the number of colors in the image.
@@ -3093,7 +3093,7 @@ namespace ImageMagick
         /// <param name="text">The text to get the font metrics for.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public ITypeMetric FontTypeMetrics(string text)
+        public ITypeMetric? FontTypeMetrics(string text)
             => FontTypeMetrics(text, false);
 
         /// <summary>
@@ -3103,7 +3103,7 @@ namespace ImageMagick
         /// <param name="ignoreNewlines">Specifies if newlines should be ignored.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public ITypeMetric FontTypeMetrics(string text, bool ignoreNewlines)
+        public ITypeMetric? FontTypeMetrics(string text, bool ignoreNewlines)
         {
             Throw.IfNullOrEmpty(nameof(text), text);
 
@@ -3121,7 +3121,7 @@ namespace ImageMagick
         /// <param name="expression">The expression, more info here: http://www.imagemagick.org/script/escape.php.</param>
         /// <returns>The result of the expression.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public string FormatExpression(string expression)
+        public string? FormatExpression(string expression)
         {
             Throw.IfNullOrEmpty(nameof(expression), expression);
 
@@ -3323,7 +3323,15 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode()
-            => Width.GetHashCode() ^ Height.GetHashCode() ^ Signature.GetHashCode();
+        {
+            var hashCode = Width.GetHashCode() ^ Height.GetHashCode();
+            var signature = Signature;
+
+            if (signature != null)
+                hashCode ^= signature.GetHashCode();
+
+            return hashCode;
+        }
 
         /// <summary>
         /// Retrieve the iptc profile from the image.
@@ -5605,7 +5613,7 @@ namespace ImageMagick
             => SetAttribute("8BIM:1999,2998:" + pathName, value);
 
         /// <summary>
-        /// Gets the compression of the image. This method should only be used when the encoder uses the compression of the image. For
+        /// Sets the compression of the image. This method should only be used when the encoder uses the compression of the image. For
         /// most usecases Setting.Compression should be used instead.
         /// </summary>
         /// <param name="compression">The compression method.</param>
@@ -7243,6 +7251,7 @@ namespace ImageMagick
         private void ResetSettings()
             => _settings.Format = MagickFormat.Unknown;
 
+        [MemberNotNull(nameof(_nativeInstance))]
         private void SetInstance(NativeMagickImage instance)
         {
             DisposeInstance();

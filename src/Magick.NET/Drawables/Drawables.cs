@@ -60,7 +60,7 @@ namespace ImageMagick
         /// <param name="text">The text to get the font metrics for.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public ITypeMetric FontTypeMetrics(string text)
+        public ITypeMetric? FontTypeMetrics(string text)
             => FontTypeMetrics(text, false);
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace ImageMagick
         /// <param name="ignoreNewlines">Specifies if newlines should be ignored.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public ITypeMetric FontTypeMetrics(string text, bool ignoreNewlines)
+        public ITypeMetric? FontTypeMetrics(string text, bool ignoreNewlines)
         {
             using (var image = new MagickImage(MagickColors.Transparent, 1, 1))
             {

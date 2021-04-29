@@ -659,9 +659,9 @@ namespace ImageMagick
             return formatInfo.ModuleFormat;
         }
 
-        private static Density? CreateDensity(string value)
+        private static Density? CreateDensity(string? value)
         {
-            if (string.IsNullOrEmpty(value))
+            if (value == null || value.Length == 0)
                 return null;
 
             return new Density(value);

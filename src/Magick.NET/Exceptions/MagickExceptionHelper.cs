@@ -41,6 +41,9 @@ namespace ImageMagick
             if (!string.IsNullOrEmpty(description))
                 message += " (" + description + ")";
 
+            if (message == null || message.Length == 0)
+                message = string.Empty;
+
             var result = Create(severity, message);
 
             var relatedExceptions = CreateRelatedExceptions(exception);

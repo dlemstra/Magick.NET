@@ -38,7 +38,7 @@ namespace ImageMagick
         /// Gets the name of the device.
         /// </summary>
         public string Name
-            => _instance.Name;
+            => _instance.Name!;
 
         /// <summary>
         /// Gets or sets a value indicating whether the device is enabled or disabled.
@@ -94,7 +94,7 @@ namespace ImageMagick
         /// Gets the OpenCL version supported by the device.
         /// </summary>
         public string Version
-            => _instance.Version;
+            => _instance.Version!;
 
         internal static OpenCLDevice? CreateInstance(IntPtr instance)
         {

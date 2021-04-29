@@ -23,7 +23,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the color of the area.
         /// </summary>
-        IMagickColor<TQuantumType> Color { get; }
+        IMagickColor<TQuantumType>? Color { get; }
 
         /// <summary>
         /// Gets the height of the area.

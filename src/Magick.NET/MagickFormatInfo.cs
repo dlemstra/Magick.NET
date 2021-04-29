@@ -184,8 +184,11 @@ namespace ImageMagick
             return Create(instance);
         }
 
-        private static MagickFormat GetFormat(string format)
+        private static MagickFormat GetFormat(string? format)
         {
+            if (format == null)
+                return MagickFormat.Unknown;
+
             format = format.Replace("-", string.Empty);
             if (format == "3FR")
                 format = "ThreeFr";

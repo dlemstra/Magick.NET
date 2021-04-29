@@ -12,7 +12,7 @@ namespace ImageMagick
     {
         private OpenCLKernelProfileRecord(NativeOpenCLKernelProfileRecord instance)
         {
-            Name = instance.Name;
+            Name = instance.Name!;
             Count = instance.Count;
             MaximumDuration = instance.MaximumDuration;
             MinimumDuration = instance.MinimumDuration;
@@ -63,7 +63,7 @@ namespace ImageMagick
             if (instance == IntPtr.Zero)
                 return null;
 
-            NativeOpenCLKernelProfileRecord nativeInstance = new NativeOpenCLKernelProfileRecord();
+            var nativeInstance = new NativeOpenCLKernelProfileRecord();
             nativeInstance.Instance = instance;
 
             return new OpenCLKernelProfileRecord(nativeInstance);

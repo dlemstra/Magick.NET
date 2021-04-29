@@ -86,22 +86,22 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity blue primary point.
         /// </summary>
-        IPrimaryInfo ChromaBluePrimary { get; set; }
+        IPrimaryInfo? ChromaBluePrimary { get; set; }
 
         /// <summary>
         /// Gets or sets the chromaticity green primary point.
         /// </summary>
-        IPrimaryInfo ChromaGreenPrimary { get; set; }
+        IPrimaryInfo? ChromaGreenPrimary { get; set; }
 
         /// <summary>
         /// Gets or sets the chromaticity red primary point.
         /// </summary>
-        IPrimaryInfo ChromaRedPrimary { get; set; }
+        IPrimaryInfo? ChromaRedPrimary { get; set; }
 
         /// <summary>
         /// Gets or sets the chromaticity white primary point.
         /// </summary>
-        IPrimaryInfo ChromaWhitePoint { get; set; }
+        IPrimaryInfo? ChromaWhitePoint { get; set; }
 
         /// <summary>
         /// Gets or sets the image class (DirectClass or PseudoClass)
@@ -269,7 +269,7 @@ namespace ImageMagick
         /// Gets the signature of this image.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        string? Signature { get; }
+        string Signature { get; }
 
         /// <summary>
         /// Gets the number of colors in the image.
@@ -1650,7 +1650,7 @@ namespace ImageMagick
         /// <param name="text">The text to get the font metrics for.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        ITypeMetric FontTypeMetrics(string text);
+        ITypeMetric? FontTypeMetrics(string text);
 
         /// <summary>
         /// Obtain font metrics for text string given current font, pointsize, and density settings.
@@ -1659,7 +1659,7 @@ namespace ImageMagick
         /// <param name="ignoreNewlines">Specifies if newlines should be ignored.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        ITypeMetric FontTypeMetrics(string text, bool ignoreNewlines);
+        ITypeMetric? FontTypeMetrics(string text, bool ignoreNewlines);
 
         /// <summary>
         /// Formats the specified expression, more info here: http://www.imagemagick.org/script/escape.php.
@@ -1667,7 +1667,7 @@ namespace ImageMagick
         /// <param name="expression">The expression, more info here: http://www.imagemagick.org/script/escape.php.</param>
         /// <returns>The result of the expression.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        string FormatExpression(string expression);
+        string? FormatExpression(string expression);
 
         /// <summary>
         /// Frame image with the default geometry (25x25+6+6).

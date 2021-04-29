@@ -27,7 +27,7 @@ namespace ImageMagick
         /// <param name="text">The text to get the font metrics for.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        ITypeMetric FontTypeMetrics(string text);
+        ITypeMetric? FontTypeMetrics(string text);
 
         /// <summary>
         /// Obtain font metrics for text string given current font, pointsize, and density settings.
@@ -36,7 +36,7 @@ namespace ImageMagick
         /// <param name="ignoreNewlines">Specifies if newlines should be ignored.</param>
         /// <returns>The font metrics for text.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        ITypeMetric FontTypeMetrics(string text, bool ignoreNewlines);
+        ITypeMetric? FontTypeMetrics(string text, bool ignoreNewlines);
 
         /// <summary>
         /// Creates a new <see cref="Paths"/> instance.

@@ -53,13 +53,13 @@ namespace ImageMagick
         /// Gets the ImageMagick delegate libraries.
         /// </summary>
         public static string Delegates
-            => NativeMagickNET.Delegates;
+            => NativeMagickNET.Delegates!;
 
         /// <summary>
         /// Gets the ImageMagick features.
         /// </summary>
         public static string Features
-            => NativeMagickNET.Features;
+            => NativeMagickNET.Features!;
 
         /// <summary>
         /// Gets the information about the supported formats.
@@ -86,7 +86,7 @@ namespace ImageMagick
                     for (int i = 0; i < (int)length; i++)
                     {
                         var fontFamily = NativeMagickNET.GetFontFamily(list, i);
-                        if (!string.IsNullOrEmpty(fontFamily) && !result.Contains(fontFamily))
+                        if (fontFamily != null && fontFamily.Length > 0 && !result.Contains(fontFamily))
                             result.Add(fontFamily);
                     }
                 }
@@ -119,7 +119,7 @@ namespace ImageMagick
                     for (int i = 0; i < (int)length; i++)
                     {
                         var fontName = NativeMagickNET.GetFontName(list, i);
-                        if (!string.IsNullOrEmpty(fontName))
+                        if (fontName != null && fontName.Length > 0)
                             result.Add(fontName);
                     }
                 }
