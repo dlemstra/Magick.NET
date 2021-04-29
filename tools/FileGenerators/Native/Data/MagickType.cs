@@ -67,7 +67,7 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_Type.EndsWith("Delegate"))
+                if (IsDelegate)
                     return false;
 
                 switch (_Type)
@@ -94,6 +94,9 @@ namespace FileGenerator.Native
 
         public bool IsBool
             => Managed == "bool";
+
+        public bool IsDelegate
+            => _Type.EndsWith("Delegate");
 
         public bool IsInstance
             => _Type == "Instance";

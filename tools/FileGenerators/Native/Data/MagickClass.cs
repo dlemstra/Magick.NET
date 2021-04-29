@@ -181,6 +181,15 @@ namespace FileGenerator.Native
             set;
         }
 
+        [DataMember(Name = "notNullable")]
+        public bool NotNullable
+        {
+            get;
+            set;
+        }
+
+        
+
         public IEnumerable<MagickProperty> Properties
         {
             get

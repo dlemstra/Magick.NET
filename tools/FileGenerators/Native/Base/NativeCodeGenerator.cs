@@ -26,16 +26,18 @@ namespace FileGenerator.Native
         {
             return GetArgumentsDeclaration(arguments, (argument) =>
             {
+                var isNullable = IsNullable(argument.Type);
+
                 if (argument.IsOut && !IsDynamic(argument.Type))
                     return "out " + argument.Type.Native;
                 else if (argument.IsOut)
                     return "out " + argument.Type.Managed;
                 else if (IsQuantumType(argument.Type))
-                    return "I" + argument.Type.Managed + "<QuantumType>";
+                    return "I" + argument.Type.Managed + "<QuantumType>?";
                 else if (HasInterface(argument.Type))
-                    return "I" + argument.Type.Managed;
+                    return "I" + argument.Type.Managed + (isNullable ? "?" : "");
                 else
-                    return argument.Type.Managed;
+                    return argument.Type.Managed + (isNullable ? "?" : "");
             }, (argument) =>
             {
                 return argument.IsHidden;
@@ -110,6 +112,8 @@ namespace FileGenerator.Native
         {
             return GetArgumentsDeclaration(arguments, (argument) =>
             {
+                var isNullable = argument.Type.IsDelegate;
+
                 if (argument.Type.HasInstance)
                     return "IntPtr";
 
@@ -122,7 +126,7 @@ namespace FileGenerator.Native
                 if (argument.IsOut && !IsDynamic(argument.Type))
                     return "out " + argument.Type.Native;
                 else
-                    return argument.Type.Native;
+                    return argument.Type.Native + (isNullable ? "?" : "");
             }, (argument) =>
             {
                 return false;
@@ -147,6 +151,9 @@ namespace FileGenerator.Native
         protected bool IsDynamic(string typeName)
             => _Classes.Any(c => c.Name == typeName && c.IsDynamic);
 
+        protected bool IsNullable(MagickType type)
+            => !type.IsVoid && !NotNullable(type) && (type.IsNativeString || type.IsDelegate || NeedsCreate(type) || HasInterface(type));
+
         protected bool IsDynamic(MagickType type)
             => IsDynamic(type.Managed);
 
@@ -162,7 +169,7 @@ namespace FileGenerator.Native
         }
 
         protected static void RegisterClasses(IEnumerable<MagickClass> magickClasses)
-            =>  _Classes = magickClasses.ToArray();
+            => _Classes = magickClasses.ToArray();
 
         protected void WriteCheckException(bool throws)
         {
@@ -230,6 +237,9 @@ namespace FileGenerator.Native
 
             return false;
         }
+
+        private bool NotNullable(MagickType type)
+            => _Classes.Any(c => c.Name == type.Managed && c.NotNullable);
 
         private bool UsesQuantumType(MagickType type)
             => type.IsQuantumType || IsQuantumType(type);

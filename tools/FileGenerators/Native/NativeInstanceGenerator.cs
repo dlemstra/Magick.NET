@@ -132,7 +132,7 @@ namespace FileGenerator.Native
 
             if (Class.DynamicMode.HasFlag(DynamicMode.ManagedToNative))
             {
-                WriteLine("internal static INativeInstance CreateInstance(" + name + " instance)");
+                WriteLine("internal static INativeInstance CreateInstance(" + name + "? instance)");
                 WriteStartColon();
                 WriteIf("instance == null", "return NativeInstance.Zero;");
                 if (Class.IsQuantumType || Class.HasInterface)
@@ -144,7 +144,7 @@ namespace FileGenerator.Native
 
             if (Class.DynamicMode.HasFlag(DynamicMode.NativeToManaged))
             {
-                WriteLine("internal static " + name + " CreateInstance(IntPtr instance)");
+                WriteLine("internal static " + name + "? CreateInstance(IntPtr instance)");
                 WriteStartColon();
                 WriteIf("instance == IntPtr.Zero", "return null;");
                 WriteLine("using (Native" + Class.Name + " nativeInstance = new Native" + Class.Name + "(instance))");
@@ -190,7 +190,7 @@ namespace FileGenerator.Native
 
         private void WriteCreateStart(string name, MagickType type)
         {
-            Write("using (INativeInstance " + name + "Native = ");
+            Write("using (var " + name + "Native = ");
 
             if (type.IsString)
                 Write("UTF8Marshaler");
@@ -248,10 +248,10 @@ namespace FileGenerator.Native
         {
             foreach (var method in Class.Methods)
             {
-                string arguments = GetArgumentsDeclaration(method.Arguments);
-                bool isStatic = Class.IsStatic || ((method.IsStatic && !method.Throws) && !method.CreatesInstance);
-                string typeName = GetTypeName(method.ReturnType);
-                WriteLine("public " + (isStatic ? "static " : "") + typeName + " " + method.Name + "(" + arguments + ")");
+                var arguments = GetArgumentsDeclaration(method.Arguments);
+                var isStatic = Class.IsStatic || ((method.IsStatic && !method.Throws) && !method.CreatesInstance);
+                var typeName = GetTypeName(method.ReturnType);
+                WriteLine("public " + (isStatic ? "static " : "") + typeName + (IsNullable(method.ReturnType) ? "?" : "") + " " + method.Name + "(" + arguments + ")");
 
                 WriteStartColon();
 
@@ -297,7 +297,7 @@ namespace FileGenerator.Native
 
                 var typeName = GetTypeName(property.Type);
 
-                WriteLine(typeName + " " + property.Name);
+                WriteLine(typeName + (IsNullable(property.Type) ? "?" : "") + " " + property.Name);
                 WriteStartColon();
 
                 WriteLine("get");
