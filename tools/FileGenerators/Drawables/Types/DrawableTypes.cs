@@ -61,8 +61,8 @@ namespace FileGenerator.Drawables
         private void LoadComments()
             => _Comments = XDocument.Load(AssemblyFile.Replace(".dll", ".xml"));
 
-        public DrawableTypes(QuantumDepth depth)
-          : base(depth)
+        public DrawableTypes()
+          : base()
         {
             LoadComments();
         }

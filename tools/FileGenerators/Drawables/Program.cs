@@ -7,7 +7,11 @@ namespace FileGenerator.Drawables
     {
         internal static void Main()
         {
-            DrawableAppDomainHelper.Execute();
+            IDrawablesGenerator.Generate();
+            DrawablesGenerator.Generate();
+
+            IPathsGenerator.Generate();
+            PathsGenerator.Generate();
         }
     }
 }

@@ -13,7 +13,7 @@ namespace FileGenerator.Drawables
 
         protected DrawableCodeGenerator(bool isInterface)
         {
-            Types = new DrawableTypes(QuantumDepth.Q16);
+            Types = new DrawableTypes();
             _isInterface = isInterface;
         }
 

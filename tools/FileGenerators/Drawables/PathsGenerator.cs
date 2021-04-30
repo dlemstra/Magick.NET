@@ -62,7 +62,7 @@ namespace FileGenerator.Drawables
         public static void Generate()
         {
             var generator = new PathsGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Paths\Generated\Paths.cs"));
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Drawables\Paths\Generated\Paths.cs"));
             generator.WriteStart("ImageMagick");
             generator.WritePaths();
             generator.WriteEnd();

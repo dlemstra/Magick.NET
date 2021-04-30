@@ -86,7 +86,7 @@ namespace FileGenerator.Drawables
         public static void Generate()
         {
             var generator = new DrawablesGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Shared\Drawables\Generated\Drawables.cs"));
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Drawables\Generated\Drawables.cs"));
             Generate(generator);
         }
     }
