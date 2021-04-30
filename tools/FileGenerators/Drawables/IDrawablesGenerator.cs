@@ -26,7 +26,7 @@ namespace FileGenerator.Drawables
         {
             var parameters = constructor.GetParameters();
             if (parameters.Length == 0)
-                return constructor.DeclaringType.GetConstructors().Count() == 1;
+                return constructor.DeclaringType!.GetConstructors().Count() == 1;
 
             return true;
         }
@@ -36,7 +36,7 @@ namespace FileGenerator.Drawables
             if (!IsValid(constructor))
                 return;
 
-            var name = constructor.DeclaringType.Name.Substring(8);
+            var name = constructor.DeclaringType!.Name.Substring(8);
             var parameters = constructor.GetParameters();
 
             foreach (string commentLine in Types.GetCommentLines(constructor, "IDrawables{TQuantumType}"))

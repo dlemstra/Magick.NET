@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Reflection;
 
 namespace FileGenerator.Drawables
@@ -20,7 +21,7 @@ namespace FileGenerator.Drawables
 
         private void WritePath(ConstructorInfo constructor)
         {
-            var name = constructor.DeclaringType.Name.Substring(4);
+            var name = constructor.DeclaringType!.Name.Substring(4);
             var parameters = constructor.GetParameters();
 
             foreach (string commentLine in Types.GetCommentLines(constructor, "IPaths{TQuantumType}"))

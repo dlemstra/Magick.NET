@@ -20,7 +20,7 @@ namespace FileGenerator.Drawables
 
         private void WritePath(ConstructorInfo constructor)
         {
-            var name = constructor.DeclaringType.Name.Substring(4);
+            var name = constructor.DeclaringType!.Name.Substring(4);
             var parameters = constructor.GetParameters();
 
             foreach (string commentLine in Types.GetCommentLines(constructor, "Paths"))

@@ -30,7 +30,7 @@ namespace FileGenerator
         protected void Write(int value)
             => _Writer.Write(value);
 
-        protected void Write(string value)
+        protected void Write(string? value)
             => _Writer.Write(value);
 
         protected void WriteEnd()

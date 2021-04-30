@@ -19,6 +19,9 @@ namespace FileGenerator.Drawables
             var cref = new XElement("see", new XAttribute("cref", className));
 
             var summary = comment.Element("summary");
+            if (summary == null)
+                throw new InvalidOperationException();
+
             summary.RemoveAll();
             summary.Add(
               new XText(Environment.NewLine),
@@ -58,18 +61,15 @@ namespace FileGenerator.Drawables
                    select constructor;
         }
 
-        private void LoadComments()
-            => _Comments = XDocument.Load(AssemblyFile.Replace(".dll", ".xml"));
-
         public DrawableTypes()
           : base()
         {
-            LoadComments();
+            _Comments = XDocument.Load(AssemblyFile.Replace(".dll", ".xml"));
         }
 
         public IEnumerable<string> GetCommentLines(ConstructorInfo constructor, string className)
         {
-            string memberName = "M:" + constructor.DeclaringType.FullName + ".#" + constructor.ToString().Substring(6);
+            string memberName = "M:" + constructor.DeclaringType!.FullName + ".#" + constructor.ToString()!.Substring(6);
             memberName = memberName.Replace("()", "");
             memberName = memberName.Replace(", ", ",");
             memberName = memberName.Replace("Boolean", "System.Boolean");
