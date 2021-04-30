@@ -13,11 +13,7 @@ namespace FileGenerator.Native
         private List<MagickArgument> _Arguments = new List<MagickArgument>();
 
         [DataMember(Name = "throws")]
-        public bool Throws
-        {
-            get;
-            set;
-        }
+        public bool Throws { get; set; }
 
         public IEnumerable<MagickArgument> Arguments
         {

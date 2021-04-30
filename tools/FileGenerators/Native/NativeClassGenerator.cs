@@ -7,7 +7,7 @@ namespace FileGenerator.Native
 {
     internal sealed class NativeClassGenerator : NativeCodeGenerator
     {
-        private string _Platform;
+        private string _Platform = string.Empty;
 
         private string _DllImport
         {
@@ -21,7 +21,7 @@ namespace FileGenerator.Native
         {
             foreach (var func in Class.Delegates)
             {
-                string arguments = GetNativeArgumentsDeclaration(func.Arguments);
+                var arguments = GetNativeArgumentsDeclaration(func.Arguments);
                 WriteLine("[UnmanagedFunctionPointer(CallingConvention.Cdecl)]");
                 WriteLine("private delegate " + func.Type + " " + func.Name + "Delegate(" + arguments + ");");
             }
@@ -42,7 +42,7 @@ namespace FileGenerator.Native
             if (!Class.HasNoConstructor)
             {
                 WriteLine(_DllImport);
-                string arguments = GetNativeArgumentsDeclaration(Class.Constructor.Arguments);
+                var arguments = GetNativeArgumentsDeclaration(Class.Constructor.Arguments);
                 WriteLine("public static extern IntPtr " + Class.Name + "_Create(" + arguments + ");");
             }
 
@@ -55,7 +55,7 @@ namespace FileGenerator.Native
             foreach (var method in Class.Methods)
             {
                 WriteLine(_DllImport);
-                string arguments = GetNativeArgumentsDeclaration(method);
+                var arguments = GetNativeArgumentsDeclaration(method);
                 WriteMarshal(method.ReturnType);
                 WriteLine("public static extern " + method.ReturnType.Native + " " + Class.Name + "_" + method.Name + "(" + arguments + ");");
             }
@@ -66,7 +66,7 @@ namespace FileGenerator.Native
             foreach (var property in Class.Properties)
             {
                 WriteLine(_DllImport);
-                string arguments = Class.IsStatic ? null : "IntPtr instance";
+                var arguments = Class.IsStatic ? null : "IntPtr instance";
                 if (property.Throws)
                     arguments += ", out IntPtr exception";
                 WriteMarshal(property.Type);

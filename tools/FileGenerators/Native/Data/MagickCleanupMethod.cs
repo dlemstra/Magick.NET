@@ -13,11 +13,7 @@ namespace FileGenerator.Native
         private List<string> _Arguments = new List<string>();
 
         [DataMember(Name = "name")]
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; } = string.Empty;
 
         public IEnumerable<string> Arguments
         {

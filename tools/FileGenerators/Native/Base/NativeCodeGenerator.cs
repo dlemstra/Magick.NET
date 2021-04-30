@@ -9,7 +9,7 @@ namespace FileGenerator.Native
 {
     internal abstract class NativeCodeGenerator : CodeGenerator
     {
-        private static MagickClass[] _Classes;
+        private static MagickClass[] _Classes = default!;
 
         protected NativeCodeGenerator(MagickClass magickClass)
         {
@@ -22,7 +22,7 @@ namespace FileGenerator.Native
             Class = parent.Class;
         }
 
-        protected string GetArgumentsDeclaration(IEnumerable<MagickArgument> arguments)
+        protected string? GetArgumentsDeclaration(IEnumerable<MagickArgument> arguments)
         {
             return GetArgumentsDeclaration(arguments, (argument) =>
             {
@@ -44,9 +44,9 @@ namespace FileGenerator.Native
             });
         }
 
-        protected string GetArgumentsDeclaration(IEnumerable<MagickArgument> arguments, Func<MagickArgument, string> typeFunc, Func<MagickArgument, bool> skipFunc)
+        protected string? GetArgumentsDeclaration(IEnumerable<MagickArgument> arguments, Func<MagickArgument, string> typeFunc, Func<MagickArgument, bool> skipFunc)
         {
-            string result = null;
+            string? result = null;
 
             foreach (var argument in arguments)
             {
@@ -62,9 +62,9 @@ namespace FileGenerator.Native
             return result;
         }
 
-        protected string GetNativeArgumentsCall(IEnumerable<MagickArgument> arguments)
+        protected string? GetNativeArgumentsCall(IEnumerable<MagickArgument> arguments)
         {
-            string result = null;
+            string? result = null;
 
             foreach (var argument in arguments)
             {
@@ -96,9 +96,9 @@ namespace FileGenerator.Native
             return result;
         }
 
-        protected string GetNativeArgumentsCall(MagickMethod method)
+        protected string? GetNativeArgumentsCall(MagickMethod method)
         {
-            string arguments = GetNativeArgumentsCall(method.Arguments);
+            var arguments = GetNativeArgumentsCall(method.Arguments);
 
             if (Class.IsStatic || method.IsStatic)
                 return arguments;
@@ -108,7 +108,7 @@ namespace FileGenerator.Native
                 return "Instance, " + arguments;
         }
 
-        protected string GetNativeArgumentsDeclaration(IEnumerable<MagickArgument> arguments)
+        protected string? GetNativeArgumentsDeclaration(IEnumerable<MagickArgument> arguments)
         {
             return GetArgumentsDeclaration(arguments, (argument) =>
             {
@@ -133,9 +133,9 @@ namespace FileGenerator.Native
             });
         }
 
-        protected string GetNativeArgumentsDeclaration(MagickMethod method)
+        protected string? GetNativeArgumentsDeclaration(MagickMethod method)
         {
-            string arguments = GetNativeArgumentsDeclaration(method.Arguments);
+            var arguments = GetNativeArgumentsDeclaration(method.Arguments);
 
             if (Class.IsStatic || method.IsStatic)
                 return arguments;

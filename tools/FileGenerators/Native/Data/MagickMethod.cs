@@ -10,11 +10,7 @@ namespace FileGenerator.Native
     internal sealed class MagickMethod
     {
         [DataMember(Name = "type")]
-        private string _Type
-        {
-            get;
-            set;
-        }
+        private string _Type { get; set; } = string.Empty;
 
         [DataMember(Name = "arguments")]
         private List<MagickArgument> _Arguments = new List<MagickArgument>();
@@ -46,44 +42,20 @@ namespace FileGenerator.Native
         }
 
         [DataMember(Name = "cleanup")]
-        public MagickCleanupMethod Cleanup
-        {
-            get;
-            set;
-        }
+        public MagickCleanupMethod? Cleanup { get; set; }
 
         [DataMember(Name = "instance")]
-        public bool CreatesInstance
-        {
-            get;
-            set;
-        }
+        public bool CreatesInstance { get; set; }
 
         [DataMember(Name = "static")]
-        public bool IsStatic
-        {
-            get;
-            set;
-        }
+        public bool IsStatic { get; set; }
 
         [DataMember(Name = "name")]
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; } = string.Empty;
 
         [DataMember(Name = "throws")]
-        public bool Throws
-        {
-            get;
-            set;
-        }
+        public bool Throws { get; set; }
 
-        public MagickType ReturnType
-        {
-            get;
-            private set;
-        }
+        public MagickType ReturnType { get; private set; } = default!;
     }
 }

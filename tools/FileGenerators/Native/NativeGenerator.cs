@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
@@ -14,11 +15,14 @@ namespace FileGenerator.Native
 
         private MagickClass CreateClass(FileInfo file)
         {
-            using (FileStream stream = file.OpenRead())
+            using (var stream = file.OpenRead())
             {
                 stream.Position = Encoding.UTF8.GetPreamble().Length;
 
-                MagickClass magickClass = (MagickClass)_Serializer.ReadObject(stream);
+                var magickClass = (MagickClass?)_Serializer.ReadObject(stream);
+                if (magickClass == null || file.Directory == null)
+                    throw new InvalidOperationException();
+
                 magickClass.Name = file.Name.Replace(".json", "");
                 magickClass.FileName = file.Directory.FullName + "\\" + magickClass.Name + ".cs";
                 if (string.IsNullOrEmpty(magickClass.ClassName))
@@ -34,7 +38,7 @@ namespace FileGenerator.Native
         {
             var directory = new DirectoryInfo(PathHelper.GetFullPath(@"\src\Magick.NET\Native"));
 
-            IEnumerable<MagickClass> classes = CreateClasses(directory.GetFiles("*.json", SearchOption.AllDirectories));
+            var classes = CreateClasses(directory.GetFiles("*.json", SearchOption.AllDirectories));
 
             NativeClassGenerator.Create(classes);
         }
@@ -46,9 +50,7 @@ namespace FileGenerator.Native
         }
 
         public NativeGenerator()
-        {
-            _Serializer = new DataContractJsonSerializer(typeof(MagickClass));
-        }
+            =>  _Serializer = new DataContractJsonSerializer(typeof(MagickClass));
 
         public static void Create()
         {

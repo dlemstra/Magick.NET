@@ -29,7 +29,7 @@ namespace FileGenerator.Native
             }
         }
 
-        private string CreateCleanupString(MagickMethod method)
+        private string? CreateCleanupString(MagickMethod method)
         {
             if (method.Cleanup == null)
             {
@@ -75,7 +75,7 @@ namespace FileGenerator.Native
 
             if (!Class.IsConst && !Class.HasNoConstructor)
             {
-                string arguments = GetArgumentsDeclaration(Class.Constructor.Arguments);
+                var arguments = GetArgumentsDeclaration(Class.Constructor.Arguments);
                 WriteLine("public Native" + Class.Name + "(" + arguments + ")");
                 WriteStartColon();
 
@@ -107,7 +107,7 @@ namespace FileGenerator.Native
 
         private void WriteCreateEnd(IEnumerable<MagickArgument> arguments)
         {
-            foreach (MagickArgument argument in arguments)
+            foreach (var argument in arguments)
             {
                 if (!NeedsCreate(argument.Type))
                     continue;
@@ -157,7 +157,7 @@ namespace FileGenerator.Native
 
         private void WriteCreateOut(IEnumerable<MagickArgument> arguments)
         {
-            foreach (MagickArgument argument in arguments)
+            foreach (var argument in arguments)
             {
                 if (!argument.IsOut || !NeedsCreate(argument.Type))
                     continue;
@@ -168,7 +168,7 @@ namespace FileGenerator.Native
 
         private void WriteCreateStart(IEnumerable<MagickArgument> arguments)
         {
-            foreach (MagickArgument argument in arguments)
+            foreach (var argument in arguments)
             {
                 if (!NeedsCreate(argument.Type))
                     continue;
@@ -378,15 +378,15 @@ namespace FileGenerator.Native
             else if (!method.ReturnType.IsVoid)
                 WriteLine(method.ReturnType.Native + " result;");
 
-            string arguments = GetNativeArgumentsCall(method);
-            string action = "NativeMethods.{0}." + Class.Name + "_" + method.Name + "(" + arguments + ");";
+            var arguments = GetNativeArgumentsCall(method);
+            var action = "NativeMethods.{0}." + Class.Name + "_" + method.Name + "(" + arguments + ");";
             if (!method.ReturnType.IsVoid || method.CreatesInstance)
                 action = "result = " + action;
             WriteNativeIfContent(action);
 
             WriteCreateOut(method.Arguments);
 
-            string cleanupString = CreateCleanupString(method);
+            var cleanupString = CreateCleanupString(method);
             if (!string.IsNullOrEmpty(cleanupString))
                 WriteCleanup(cleanupString);
             else if ((method.CreatesInstance) && !Class.IsConst)

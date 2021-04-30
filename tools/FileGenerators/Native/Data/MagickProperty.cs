@@ -9,43 +9,21 @@ namespace FileGenerator.Native
     internal sealed class MagickProperty
     {
         [DataMember(Name = "type")]
-        private string _Type
-        {
-            get;
-            set;
-        }
+        private string _Type { get; set; } = string.Empty;
 
         [OnDeserialized]
         private void Deserializated(StreamingContext context)
-        {
-            Type = new MagickType(_Type);
-        }
+            => Type = new MagickType(_Type);
 
         [DataMember(Name = "readonly")]
-        public bool IsReadOnly
-        {
-            get;
-            set;
-        }
+        public bool IsReadOnly { get; set; }
 
         [DataMember(Name = "name")]
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; } = string.Empty;
 
         [DataMember(Name = "throws")]
-        public bool Throws
-        {
-            get;
-            set;
-        }
+        public bool Throws { get; set; }
 
-        public MagickType Type
-        {
-            get;
-            private set;
-        }
+        public MagickType Type { get; private set; } = default!;
     }
 }

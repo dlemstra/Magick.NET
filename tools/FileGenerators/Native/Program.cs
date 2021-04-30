@@ -6,8 +6,6 @@ namespace FileGenerator.Native
     internal sealed class Program
     {
         internal static void Main()
-        {
-            NativeGenerator.Create();
-        }
+            => NativeGenerator.Create();
     }
 }

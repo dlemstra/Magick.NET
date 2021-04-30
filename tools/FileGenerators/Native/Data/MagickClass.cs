@@ -12,30 +12,22 @@ namespace FileGenerator.Native
     internal sealed class MagickClass
     {
         [DataMember(Name = "constructor")]
-        private MagickConstructor _Constructor = new MagickConstructor();
+        private MagickConstructor? _Constructor = new MagickConstructor();
 
         [DataMember(Name = "delegates")]
-        private List<MagickDelegate> _Delegates = new List<MagickDelegate>();
+        private List<MagickDelegate>? _Delegates = new List<MagickDelegate>();
 
         [DataMember(Name = "methods")]
-        private List<MagickMethod> _Methods = new List<MagickMethod>();
+        private List<MagickMethod>? _Methods = new List<MagickMethod>();
 
         [DataMember(Name = "properties")]
-        private List<MagickProperty> _Properties = new List<MagickProperty>();
+        private List<MagickProperty>? _Properties = new List<MagickProperty>();
 
         [DataMember(Name = "dynamic")]
-        private string _Dynamic
-        {
-            get;
-            set;
-        }
+        private string _Dynamic { get; set; } = string.Empty;
 
         [DataMember(Name = "nativeConstructor")]
-        private bool _HasNativeConstructor
-        {
-            get;
-            set;
-        }
+        private bool _HasNativeConstructor { get; set; }
 
         [OnDeserializing]
         private void BeforeDeserialization(StreamingContext context)
@@ -46,18 +38,10 @@ namespace FileGenerator.Native
         }
 
         [DataMember(Name = "access")]
-        public string Access
-        {
-            get;
-            set;
-        }
+        public string Access { get; set; } = string.Empty;
 
         [DataMember(Name = "className")]
-        public string ClassName
-        {
-            get;
-            set;
-        }
+        public string ClassName { get; set; } = string.Empty;
 
         public MagickConstructor Constructor
         {
@@ -93,69 +77,31 @@ namespace FileGenerator.Native
             }
         }
 
-        public string FileName
-        {
-            get;
-            set;
-        }
+        public string FileName { get; set; } = string.Empty;
 
         [DataMember(Name = "instance")]
-        public bool HasInstance
-        {
-            get;
-            set;
-        }
+        public bool HasInstance { get; set; }
 
         [DataMember(Name = "interface")]
-        public bool HasInterface
-        {
-            get;
-            set;
-        }
+        public bool HasInterface { get; set; }
 
         [DataMember(Name = "noConstructor")]
-        public bool HasNoConstructor
-        {
-            get;
-            set;
-        }
+        public bool HasNoConstructor { get; set; }
 
         public bool HasNativeConstructor
-        {
-            get
-            {
-                return _HasNativeConstructor || (!IsConst && (IsDynamic && DynamicMode.HasFlag(DynamicMode.NativeToManaged)));
-            }
-        }
+            => _HasNativeConstructor || (!IsConst && (IsDynamic && DynamicMode.HasFlag(DynamicMode.NativeToManaged)));
 
         [DataMember(Name = "const")]
-        public bool IsConst
-        {
-            get;
-            set;
-        }
+        public bool IsConst { get; set; }
 
         public bool IsDynamic
-        {
-            get
-            {
-                return DynamicMode != DynamicMode.None;
-            }
-        }
+            => DynamicMode != DynamicMode.None;
 
         [DataMember(Name = "quantumType")]
-        public bool IsQuantumType
-        {
-            get;
-            set;
-        }
+        public bool IsQuantumType { get; set; }
 
         [DataMember(Name = "static")]
-        public bool IsStatic
-        {
-            get;
-            set;
-        }
+        public bool IsStatic { get; set; }
 
         public IEnumerable<MagickMethod> Methods
         {
@@ -168,27 +114,13 @@ namespace FileGenerator.Native
             }
         }
 
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; } = string.Empty;
 
         [DataMember(Name = "namespace")]
-        public string Namespace
-        {
-            get;
-            set;
-        }
+        public string Namespace { get; set; } = string.Empty;
 
         [DataMember(Name = "notNullable")]
-        public bool NotNullable
-        {
-            get;
-            set;
-        }
-
-        
+        public bool NotNullable { get; set; }
 
         public IEnumerable<MagickProperty> Properties
         {

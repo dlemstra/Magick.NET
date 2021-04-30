@@ -34,17 +34,9 @@ namespace FileGenerator.Native
         }
 
         [DataMember(Name = "name")]
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; } = string.Empty;
 
         [DataMember(Name = "type")]
-        public string Type
-        {
-            get;
-            set;
-        }
+        public string Type { get; set; } = string.Empty;
     }
 }

@@ -8,7 +8,7 @@ namespace FileGenerator.Native
 {
     internal sealed class MagickType
     {
-        private string _Type;
+        private string _Type = string.Empty;
         private bool _IsEnum;
 
         private bool _NeedsTypeCast
@@ -20,6 +20,13 @@ namespace FileGenerator.Native
 
                 return _Type != Native || _Type != Managed;
             }
+        }
+
+        public MagickType(string type)
+        {
+            _Type = !string.IsNullOrEmpty(type) ? type : "void";
+            _IsEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET.Core\Enums\" + type + ".cs"));
+            _IsEnum = _IsEnum || File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Enums\" + type + ".cs"));
         }
 
         public string GetNativeType(string type)
@@ -54,13 +61,6 @@ namespace FileGenerator.Native
                 return "string";
 
             return type;
-        }
-
-        public MagickType(string type)
-        {
-            _Type = !string.IsNullOrEmpty(type) ? type : "void";
-            _IsEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET.Core\Enums\" + type + ".cs"));
-            _IsEnum = _IsEnum || File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Enums\" + type + ".cs"));
         }
 
         public bool HasInstance
@@ -128,11 +128,7 @@ namespace FileGenerator.Native
         }
 
         [DataMember(Name = "name")]
-        public string Name
-        {
-            get;
-            set;
-        }
+        public string Name { get; set; } = string.Empty;
 
         public string Native
             => GetNativeType(_Type);
