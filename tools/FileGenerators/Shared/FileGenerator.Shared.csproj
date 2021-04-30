@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net50</TargetFrameworks>
+    <Platforms>x64</Platforms>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 </Project>

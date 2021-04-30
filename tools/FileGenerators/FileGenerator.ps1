@@ -18,14 +18,12 @@ function executeFile($path)
 function generateFiles($name)
 {
   buildSolution "tools\FileGenerators\FileGenerator.$name.sln" "Configuration=Release"
-  executeFile "tools\FileGenerators\$name\bin\Release\FileGenerator.$name.exe"
+  executeFile "tools\FileGenerators\$name\bin\x64\Release\net50\FileGenerator.$name.exe"
 }
 
 function buildMagickNET()
 {
-  buildSolution "Magick.NET.sln" "Configuration=ReleaseQ8,RunCodeAnalysis=false,TargetFramework=net40,Platform=x86"
-  buildSolution "Magick.NET.sln" "Configuration=ReleaseQ16,RunCodeAnalysis=false,TargetFramework=net40,Platform=x86"
-  buildSolution "Magick.NET.sln" "Configuration=ReleaseQ16-HDRI,RunCodeAnalysis=false,TargetFramework=net40,Platform=x86"
+  buildSolution "Magick.NET.sln" "Configuration=ReleaseQ16,RunCodeAnalysis=false,Platform=x64"
 }
 
 if ($buildMagickNET -eq $true)
