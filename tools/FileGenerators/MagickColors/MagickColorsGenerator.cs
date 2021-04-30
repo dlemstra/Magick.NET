@@ -28,7 +28,7 @@ namespace FileGenerator.MagickColors
 
         private void WriteColor(string name, PropertyInfo property)
         {
-            var color = (Color)property.GetValue(null, null);
+            var color = (Color)property.GetValue(null, null)!;
 
             if (color.A == 0)
                 color = Color.FromArgb(0, 0, 0, 0);

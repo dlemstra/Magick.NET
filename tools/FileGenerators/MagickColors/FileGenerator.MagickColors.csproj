@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net50</TargetFrameworks>
     <OutputType>Exe</OutputType>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="../Shared/FileGenerator.Shared.csproj" />

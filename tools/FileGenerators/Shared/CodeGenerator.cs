@@ -9,7 +9,7 @@ namespace FileGenerator
 {
     public abstract class CodeGenerator
     {
-        private IndentedTextWriter _Writer;
+        private IndentedTextWriter _Writer = default!;
 
         protected CodeGenerator()
         {
