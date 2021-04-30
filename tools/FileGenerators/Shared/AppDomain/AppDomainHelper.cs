@@ -9,20 +9,13 @@ namespace FileGenerator
     public static class AppDomainHelper
     {
         public static AppDomain CreateDomain()
-        {
-            return AppDomain.CreateDomain("AppDomainHelper", null, new AppDomainSetup()
-            {
-                ApplicationName = "AppDomainHelper"
-            });
-        }
+            => AppDomain.CreateDomain("AppDomainHelper");
 
         public static TProxy CreateProxy<TProxy>(AppDomain domain)
           where TProxy : ApplicationProxy
         {
-            Type activator = typeof(TProxy);
-            TProxy proxy = domain.CreateInstanceAndUnwrap(
-                  Assembly.GetAssembly(activator).FullName,
-                  activator.ToString()) as TProxy;
+            var activator = typeof(TProxy);
+            var proxy = domain.CreateInstanceAndUnwrap(Assembly.GetAssembly(activator).FullName, activator.ToString()) as TProxy;
             return proxy;
         }
     }

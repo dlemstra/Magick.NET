@@ -10,7 +10,7 @@ namespace FileGenerator
     {
         public static string GetFullPath(string path)
         {
-            return Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\" + path);
+            return Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\..\" + path);
         }
     }
 }
