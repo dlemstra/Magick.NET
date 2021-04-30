@@ -48,33 +48,19 @@ namespace FileGenerator
             return Assembly.ReflectionOnlyLoad(File.ReadAllBytes(AssemblyFile));
         }
 
-        protected QuantumDepth Depth
-        {
-            get;
-            private set;
-        }
+        protected QuantumDepth Depth { get; }
 
-        protected Assembly MagickNET
-        {
-            get;
-            private set;
-        }
+        protected Assembly MagickNET { get; }
 
-        protected string AssemblyFile
-        {
-            get;
-            private set;
-        }
+        protected string AssemblyFile { get; }
 
         protected IEnumerable<Type> GetTypes()
-        {
-            return MagickNET.GetTypes();
-        }
+            => MagickNET.GetTypes();
 
         public MagickTypes(QuantumDepth depth)
         {
-            string folderName = GetFolderName(depth);
-            string quantumName = GetQuantumName(depth);
+            var folderName = GetFolderName(depth);
+            var quantumName = GetQuantumName(depth);
             AssemblyFile = PathHelper.GetFullPath(@"src\Magick.NET\bin\" + folderName + @"\x86\net40\Magick.NET-" + quantumName + @"-x86.dll");
             MagickNET = LoadAssembly();
             Depth = depth;

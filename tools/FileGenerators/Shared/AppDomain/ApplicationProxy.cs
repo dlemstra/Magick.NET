@@ -9,8 +9,6 @@ namespace FileGenerator
     public abstract class ApplicationProxy : MarshalByRefObject
     {
         protected Assembly ResolveAssembly(object sender, ResolveEventArgs args)
-        {
-            return Assembly.ReflectionOnlyLoad(args.Name);
-        }
+            => Assembly.ReflectionOnlyLoad(args.Name);
     }
 }

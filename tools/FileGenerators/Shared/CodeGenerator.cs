@@ -16,41 +16,25 @@ namespace FileGenerator
         }
 
         protected CodeGenerator(CodeGenerator parent)
-        {
-            _Writer = parent._Writer;
-        }
+            => _Writer = parent._Writer;
 
         protected int Indent
         {
-            get
-            {
-                return _Writer.Indent;
-            }
-            set
-            {
-                _Writer.Indent = value;
-            }
+            get => _Writer.Indent;
+            set => _Writer.Indent = value;
         }
 
         protected void Write(char value)
-        {
-            _Writer.Write(value);
-        }
+            => _Writer.Write(value);
 
         protected void Write(int value)
-        {
-            _Writer.Write(value);
-        }
+            => _Writer.Write(value);
 
         protected void Write(string value)
-        {
-            _Writer.Write(value);
-        }
+            => _Writer.Write(value);
 
         protected void WriteEnd()
-        {
-            WriteEndColon();
-        }
+            => WriteEndColon();
 
         protected void WriteElse(string action)
         {
@@ -83,9 +67,7 @@ namespace FileGenerator
         }
 
         protected void WriteLine(string value)
-        {
-            _Writer.WriteLine(value);
-        }
+            => _Writer.WriteLine(value);
 
         protected void WriteQuantumType()
         {
@@ -134,7 +116,7 @@ namespace FileGenerator
         {
             Console.WriteLine("Creating: " + fileName);
 
-            StreamWriter streamWriter = new StreamWriter(fileName);
+            var streamWriter = new StreamWriter(fileName);
             _Writer = new IndentedTextWriter(streamWriter, "    ");
         }
     }

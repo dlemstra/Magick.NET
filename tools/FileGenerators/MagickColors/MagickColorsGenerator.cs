@@ -3,7 +3,6 @@
 
 using System;
 using System.Drawing;
-using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
@@ -14,14 +13,10 @@ namespace FileGenerator.MagickColors
         Type _Type = typeof(Color);
 
         private string GetArguments(Color color)
-        {
-            return string.Format(CultureInfo.InvariantCulture, "{0}, {1}, {2}, {3}", color.R, color.G, color.B, color.A);
-        }
+            => $"{color.R}, {color.G}, {color.B}, {color.A}";
 
         private string GetComment(Color color)
-        {
-            return string.Format(CultureInfo.InvariantCulture, "Gets a system-defined color that has an RGBA value of #{0:X2}{1:X2}{2:X2}{3:X2}.", color.R, color.G, color.B, color.A);
-        }
+            => $"Gets a system-defined color that has an RGBA value of #{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}.";
 
         private void WriteColor(PropertyInfo property)
         {
@@ -33,7 +28,7 @@ namespace FileGenerator.MagickColors
 
         private void WriteColor(string name, PropertyInfo property)
         {
-            Color color = (Color)property.GetValue(null, null);
+            var color = (Color)property.GetValue(null, null);
 
             WriteComment(GetComment(color));
             WriteLine("public static MagickColor " + name + " => MagickColor.FromRgba(" + GetArguments(color) + ");");
@@ -65,7 +60,7 @@ namespace FileGenerator.MagickColors
 
         public static void Generate()
         {
-            MagickColorsGenerator generator = new MagickColorsGenerator();
+            var generator = new MagickColorsGenerator();
             generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Colors\MagickColors.cs"));
             generator.WriteStart("ImageMagick");
             generator.WriteColors();

@@ -9,8 +9,6 @@ namespace FileGenerator
     public static class PathHelper
     {
         public static string GetFullPath(string path)
-        {
-            return Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\..\" + path);
-        }
+            => Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\..\" + path);
     }
 }

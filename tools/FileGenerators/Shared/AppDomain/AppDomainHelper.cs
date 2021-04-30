@@ -15,8 +15,7 @@ namespace FileGenerator
           where TProxy : ApplicationProxy
         {
             var activator = typeof(TProxy);
-            var proxy = domain.CreateInstanceAndUnwrap(Assembly.GetAssembly(activator).FullName, activator.ToString()) as TProxy;
-            return proxy;
+            return domain.CreateInstanceAndUnwrap(Assembly.GetAssembly(activator).FullName, activator.ToString()) as TProxy;
         }
     }
 }
