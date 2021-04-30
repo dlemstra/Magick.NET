@@ -30,8 +30,14 @@ namespace FileGenerator.MagickColors
         {
             var color = (Color)property.GetValue(null, null);
 
+            if (color.A == 0)
+                color = Color.FromArgb(0, 0, 0, 0);
+
             WriteComment(GetComment(color));
-            WriteLine("public static MagickColor " + name + " => MagickColor.FromRgba(" + GetArguments(color) + ");");
+            WriteLine("public static MagickColor " + name);
+            Indent++;
+            WriteLine("=> MagickColor.FromRgba(" + GetArguments(color) + ");");
+            Indent--;
             WriteLine();
         }
 
