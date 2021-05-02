@@ -1,10 +1,10 @@
 <Project>
   <ItemGroup>
     <AdditionalFiles Include="../../../stylecop.json" Link="stylecop.json" />
-    <AdditionalFiles Include="../../../tests/Shared/Magick.NET.ruleset" Link="Magick.NET.ruleset" />
+    <AdditionalFiles Include="../../../tests/Magick.NET.ruleset" Link="Magick.NET.ruleset" />
   </ItemGroup>
 
   <PropertyGroup>
-    <CodeAnalysisRuleSet>../../../tests/Shared/Magick.NET.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>../../../tests/Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 </Project>
