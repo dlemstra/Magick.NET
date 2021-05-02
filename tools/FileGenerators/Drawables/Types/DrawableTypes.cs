@@ -12,7 +12,46 @@ namespace FileGenerator.Drawables
 {
     public sealed class DrawableTypes : MagickTypes
     {
-        private XDocument _Comments;
+        private XDocument _comments;
+
+        public DrawableTypes()
+          : base()
+        {
+            _comments = XDocument.Load(AssemblyFile.Replace(".dll", ".xml"));
+        }
+
+        public IEnumerable<string> GetCommentLines(ConstructorInfo constructor, string className)
+        {
+            string memberName = "M:" + constructor.DeclaringType!.FullName + ".#" + constructor.ToString()!.Substring(6);
+            memberName = memberName.Replace("()", string.Empty);
+            memberName = memberName.Replace(", ", ",");
+            memberName = memberName.Replace("Boolean", "System.Boolean");
+            memberName = memberName.Replace("Double", "System.Double");
+            memberName = memberName.Replace("Int32", "System.Int32");
+            if (memberName.Contains("`1["))
+            {
+                memberName = memberName.Replace("`1[", "{");
+                memberName = memberName.Replace("])", "})");
+            }
+
+            var comment = _comments.XPathSelectElement("/doc/members/member[@name='" + memberName + "']");
+            if (comment == null)
+                throw new NotImplementedException(memberName);
+
+            ModifyComment(comment, constructor.DeclaringType.Name, className);
+
+            foreach (var node in comment.Nodes())
+            {
+                foreach (string line in node.ToString().Split('\n'))
+                    yield return "/// " + line.Trim();
+            }
+        }
+
+        public IEnumerable<ConstructorInfo[]> GetDrawables()
+            => GetInterfaceConstructors("IDrawable");
+
+        public IEnumerable<ConstructorInfo[]> GetPaths()
+            => GetInterfaceConstructors("IPath");
 
         private static void ModifyComment(XElement comment, string typeName, string className)
         {
@@ -30,16 +69,13 @@ namespace FileGenerator.Drawables
               new XText($" operation to the "),
               cref,
               new XText("."),
-              new XText(Environment.NewLine)
-            );
+              new XText(Environment.NewLine));
 
             comment.Add(
               new XElement("returns",
                 new XText("The "),
                 cref,
-                new XText(" instance.")
-              )
-            );
+                new XText(" instance.")));
         }
 
         private IEnumerable<ConstructorInfo[]> GetInterfaceConstructors(string interfaceName)
@@ -60,44 +96,5 @@ namespace FileGenerator.Drawables
                    orderby constructor.GetParameters().Count()
                    select constructor;
         }
-
-        public DrawableTypes()
-          : base()
-        {
-            _Comments = XDocument.Load(AssemblyFile.Replace(".dll", ".xml"));
-        }
-
-        public IEnumerable<string> GetCommentLines(ConstructorInfo constructor, string className)
-        {
-            string memberName = "M:" + constructor.DeclaringType!.FullName + ".#" + constructor.ToString()!.Substring(6);
-            memberName = memberName.Replace("()", "");
-            memberName = memberName.Replace(", ", ",");
-            memberName = memberName.Replace("Boolean", "System.Boolean");
-            memberName = memberName.Replace("Double", "System.Double");
-            memberName = memberName.Replace("Int32", "System.Int32");
-            if (memberName.Contains("`1["))
-            {
-                memberName = memberName.Replace("`1[", "{");
-                memberName = memberName.Replace("])", "})");
-            }
-
-            var comment = _Comments.XPathSelectElement("/doc/members/member[@name='" + memberName + "']");
-            if (comment == null)
-                throw new NotImplementedException(memberName);
-
-            ModifyComment(comment, constructor.DeclaringType.Name, className);
-
-            foreach (var node in comment.Nodes())
-            {
-                foreach (string line in node.ToString().Split('\n'))
-                    yield return "/// " + line.Trim();
-            }
-        }
-
-        public IEnumerable<ConstructorInfo[]> GetDrawables()
-            => GetInterfaceConstructors("IDrawable");
-
-        public IEnumerable<ConstructorInfo[]> GetPaths()
-            => GetInterfaceConstructors("IPath");
     }
 }

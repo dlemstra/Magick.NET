@@ -12,7 +12,27 @@ namespace FileGenerator.Drawables
 {
     public class MagickTypes
     {
-        private readonly Assembly _MagickNET;
+        private readonly Assembly _magickNET;
+
+        public MagickTypes()
+        {
+            AssemblyFile = GetFileName(@"src\Magick.NET\bin\ReleaseQ16\x64\netstandard20\Magick.NET-Q16-x64.dll");
+            _magickNET = LoadAssembly();
+        }
+
+        protected string AssemblyFile { get; }
+
+        public IEnumerable<Type> GetInterfaceTypes(string interfaceName)
+        {
+            return from type in _magickNET.GetTypes()
+                   from interfaceType in type.GetInterfaces()
+                   where interfaceType.Name == interfaceName && type.IsPublic && !type.IsInterface && !type.IsAbstract
+                   orderby type.Name
+                   select type;
+        }
+
+        protected IEnumerable<Type> GetTypes()
+            => _magickNET.GetTypes();
 
         private Assembly LoadAssembly()
         {
@@ -40,26 +60,6 @@ namespace FileGenerator.Drawables
                 throw new InvalidOperationException("Unable to find file: " + AssemblyFile);
 
             return fileName;
-        }
-
-        protected string AssemblyFile { get; }
-
-        protected IEnumerable<Type> GetTypes()
-            => _MagickNET.GetTypes();
-
-        public MagickTypes()
-        {
-            AssemblyFile = GetFileName(@"src\Magick.NET\bin\ReleaseQ16\x64\netstandard20\Magick.NET-Q16-x64.dll");
-            _MagickNET = LoadAssembly();
-        }
-
-        public IEnumerable<Type> GetInterfaceTypes(string interfaceName)
-        {
-            return from type in _MagickNET.GetTypes()
-                   from interfaceType in type.GetInterfaces()
-                   where interfaceType.Name == interfaceName && type.IsPublic && !type.IsInterface && !type.IsAbstract
-                   orderby type.Name
-                   select type;
         }
     }
 }

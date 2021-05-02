@@ -12,6 +12,16 @@ namespace FileGenerator.Drawables
         {
         }
 
+        public static void Generate()
+        {
+            var generator = new PathsGenerator();
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Drawables\Paths\Generated\Paths.cs"));
+            generator.WriteStart("ImageMagick");
+            generator.WritePaths();
+            generator.WriteEnd();
+            generator.CloseWriter();
+        }
+
         protected override void WriteUsing()
         {
             WriteLine("using System.Collections.Generic;");
@@ -57,16 +67,6 @@ namespace FileGenerator.Drawables
             }
 
             WriteEndColon();
-        }
-
-        public static void Generate()
-        {
-            var generator = new PathsGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Drawables\Paths\Generated\Paths.cs"));
-            generator.WriteStart("ImageMagick");
-            generator.WritePaths();
-            generator.WriteEnd();
-            generator.CloseWriter();
         }
     }
 }

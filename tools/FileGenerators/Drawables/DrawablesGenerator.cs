@@ -14,6 +14,20 @@ namespace FileGenerator.Drawables
         {
         }
 
+        public static void Generate()
+        {
+            var generator = new DrawablesGenerator();
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Drawables\Generated\Drawables.cs"));
+            Generate(generator);
+        }
+
+        protected override void WriteUsing()
+        {
+            WriteLine("using System.Collections.Generic;");
+            WriteLine("using System.Text;");
+            WriteQuantumType();
+        }
+
         private static void Generate(DrawablesGenerator generator)
         {
             generator.WriteStart("ImageMagick");
@@ -75,20 +89,6 @@ namespace FileGenerator.Drawables
             }
 
             WriteEndColon();
-        }
-
-        protected override void WriteUsing()
-        {
-            WriteLine("using System.Collections.Generic;");
-            WriteLine("using System.Text;");
-            WriteQuantumType();
-        }
-
-        public static void Generate()
-        {
-            var generator = new DrawablesGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Drawables\Generated\Drawables.cs"));
-            Generate(generator);
         }
     }
 }

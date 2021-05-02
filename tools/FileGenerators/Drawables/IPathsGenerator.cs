@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Reflection;
 
 namespace FileGenerator.Drawables
@@ -11,6 +10,16 @@ namespace FileGenerator.Drawables
         private IPathsGenerator()
             : base(true)
         {
+        }
+
+        public static void Generate()
+        {
+            var generator = new IPathsGenerator();
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET.Core\Drawables\Paths\Generated\IPaths{TQuantumType}.cs"));
+            generator.WriteStart("ImageMagick");
+            generator.WritePaths();
+            generator.WriteEnd();
+            generator.CloseWriter();
         }
 
         protected override void WriteUsing()
@@ -52,16 +61,6 @@ namespace FileGenerator.Drawables
             }
 
             WriteEndColon();
-        }
-
-        public static void Generate()
-        {
-            var generator = new IPathsGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET.Core\Drawables\Paths\Generated\IPaths{TQuantumType}.cs"));
-            generator.WriteStart("ImageMagick");
-            generator.WritePaths();
-            generator.WriteEnd();
-            generator.CloseWriter();
         }
     }
 }

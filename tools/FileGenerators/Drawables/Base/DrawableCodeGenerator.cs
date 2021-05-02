@@ -21,12 +21,12 @@ namespace FileGenerator.Drawables
 
         protected string GetTypeName(Type type)
         {
-            string name = "";
+            var name = string.Empty;
             if (type.IsArray)
                 name += "params ";
 
             if (type.IsGenericType)
-                return name + type.Name.Replace("`1", "") + "<" + GetArgumentTypeName(type) + ">";
+                return name + type.Name.Replace("`1", string.Empty) + "<" + GetArgumentTypeName(type) + ">";
 
             switch (type.Name)
             {
@@ -47,7 +47,7 @@ namespace FileGenerator.Drawables
         {
             for (int i = 0; i < parameters.Length; i++)
             {
-                Write(this.GetTypeName(parameters[i].ParameterType));
+                Write(GetTypeName(parameters[i].ParameterType));
                 Write(" ");
                 Write(parameters[i].Name);
 
