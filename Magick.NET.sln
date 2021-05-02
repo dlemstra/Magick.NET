@@ -50,7 +50,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{61345F8D-881
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CADB374F-AC1D-4456-940E-2317DF1372C2}"
 	ProjectSection(SolutionItems) = preProject
-		tests\Shared\Magick.NET.props = tests\Shared\Magick.NET.props
+		tests\Magick.NET.props = tests\Magick.NET.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{4D648A8A-59E2-45A4-BEFD-44602709E044}"

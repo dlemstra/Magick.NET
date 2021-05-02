@@ -52,5 +52,5 @@
     <ProjectReference Include="../../src/Magick.NET.SystemWindowsMedia/Magick.NET.SystemWindowsMedia.csproj" />
   </ItemGroup>
 
-  <Import Project="../Shared/Magick.NET.props" />
+  <Import Project="../Magick.NET.props" />
 </Project>

@@ -52,5 +52,5 @@
     <ProjectReference Include="../../src/Magick.NET.SystemDrawing/Magick.NET.SystemDrawing.csproj" />
   </ItemGroup>
 
-  <Import Project="../Shared/Magick.NET.props" />
+  <Import Project="../Magick.NET.props" />
 </Project>

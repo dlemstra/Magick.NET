@@ -25,11 +25,11 @@
 
   <ItemGroup>
     <AdditionalFiles Include="../../stylecop.json" Link="stylecop.json" />
-    <AdditionalFiles Include="../Shared/Magick.NET.ruleset" Link="Magick.NET.ruleset" />
+    <AdditionalFiles Include="../Magick.NET.ruleset" Link="Magick.NET.ruleset" />
   </ItemGroup>
 
   <PropertyGroup>
-    <CodeAnalysisRuleSet>../Shared/Magick.NET.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>../Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>

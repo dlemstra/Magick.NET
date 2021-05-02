@@ -16,5 +16,5 @@
     <ProjectReference Include="../../src/Magick.NET.Core/Magick.NET.Core.csproj" />
   </ItemGroup>
 
-  <Import Project="../Shared/Magick.NET.props" />
+  <Import Project="../Magick.NET.props" />
 </Project>
