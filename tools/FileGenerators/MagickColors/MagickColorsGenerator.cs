@@ -10,7 +10,17 @@ namespace FileGenerator.MagickColors
 {
     internal sealed class MagickColorsGenerator : CodeGenerator
     {
-        Type _Type = typeof(Color);
+        private readonly Type _type = typeof(Color);
+
+        public static void Generate()
+        {
+            var generator = new MagickColorsGenerator();
+            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Colors\MagickColors.cs"));
+            generator.WriteStart("ImageMagick");
+            generator.WriteColors();
+            generator.WriteEnd();
+            generator.CloseWriter();
+        }
 
         private string GetArguments(Color color)
             => $"{color.R}, {color.G}, {color.B}, {color.A}";
@@ -20,7 +30,7 @@ namespace FileGenerator.MagickColors
 
         private void WriteColor(PropertyInfo property)
         {
-            if (property.PropertyType != _Type)
+            if (property.PropertyType != _type)
                 return;
 
             WriteColor(property.Name, property);
@@ -48,7 +58,7 @@ namespace FileGenerator.MagickColors
             WriteLine("public static class MagickColors");
             WriteStartColon();
 
-            var properties = _Type.GetProperties(BindingFlags.Public | BindingFlags.Static);
+            var properties = _type.GetProperties(BindingFlags.Public | BindingFlags.Static);
 
             WriteColor("None", properties.First(p => p.Name == "Transparent"));
             foreach (var property in properties)
@@ -62,16 +72,6 @@ namespace FileGenerator.MagickColors
             WriteLine("/// <summary>");
             WriteLine("/// " + comment);
             WriteLine("/// </summary>");
-        }
-
-        public static void Generate()
-        {
-            var generator = new MagickColorsGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET\Colors\MagickColors.cs"));
-            generator.WriteStart("ImageMagick");
-            generator.WriteColors();
-            generator.WriteEnd();
-            generator.CloseWriter();
         }
     }
 }

@@ -5,7 +5,14 @@
     <OutputType>Exe</OutputType>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333" PrivateAssets="All" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="../Shared/FileGenerator.Shared.csproj" />
   </ItemGroup>
+
+  <Import Project="../FileGenerator.props" />
 </Project>
