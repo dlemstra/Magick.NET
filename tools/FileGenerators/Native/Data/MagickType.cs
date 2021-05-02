@@ -8,59 +8,14 @@ namespace FileGenerator.Native
 {
     internal sealed class MagickType
     {
-        private string _Type = string.Empty;
-        private bool _IsEnum;
-
-        private bool _NeedsTypeCast
-        {
-            get
-            {
-                if (_Type == "Instance" || HasInstance || IsString)
-                    return false;
-
-                return _Type != Native || _Type != Managed;
-            }
-        }
+        private string _type = string.Empty;
+        private bool _isEnum;
 
         public MagickType(string type)
         {
-            _Type = !string.IsNullOrEmpty(type) ? type : "void";
-            _IsEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET.Core\Enums\" + type + ".cs"));
-            _IsEnum = _IsEnum || File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Enums\" + type + ".cs"));
-        }
-
-        public string GetNativeType(string type)
-        {
-            if (_Type == "void")
-                return "void";
-
-            if (_Type == "nativeString" || _Type == "string")
-                return "IntPtr";
-
-            if (_IsEnum || _Type == "size_t")
-                return "UIntPtr";
-
-            if (_Type == "ssize_t" || _Type == "Instance" || _Type == "voidInstance" || HasInstance)
-                return "IntPtr";
-
-            return type;
-        }
-
-        public string GetManagedType(string type)
-        {
-            if (type == "size_t" || type == "ssize_t")
-                return "int";
-
-            if (_Type == "voidInstance")
-                return "void";
-
-            if (_Type == "Instance")
-                return "IntPtr";
-
-            if (_Type == "nativeString")
-                return "string";
-
-            return type;
+            _type = !string.IsNullOrEmpty(type) ? type : "void";
+            _isEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET.Core\Enums\" + type + ".cs"));
+            _isEnum = _isEnum || File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Enums\" + type + ".cs"));
         }
 
         public bool HasInstance
@@ -70,7 +25,7 @@ namespace FileGenerator.Native
                 if (IsDelegate)
                     return false;
 
-                switch (_Type)
+                switch (_type)
                 {
                     case "byte":
                     case "byte[]":
@@ -87,7 +42,7 @@ namespace FileGenerator.Native
                     case "ulong":
                         return false;
                     default:
-                        return !_IsEnum;
+                        return !_isEnum;
                 }
             }
         }
@@ -96,34 +51,34 @@ namespace FileGenerator.Native
             => Managed == "bool";
 
         public bool IsDelegate
-            => _Type.EndsWith("Delegate");
+            => _type.EndsWith("Delegate");
 
         public bool IsInstance
-            => _Type == "Instance";
+            => _type == "Instance";
 
         public bool IsNativeString
-            => _Type == "nativeString";
+            => _type == "nativeString";
 
         public bool IsQuantumType
-            => _Type == "QuantumType" || _Type == "QuantumType[]";
+            => _type == "QuantumType" || _type == "QuantumType[]";
 
         public bool IsString
-            => _Type == "string";
+            => _type == "string";
 
         public bool IsVoid
-            => _Type == "void" || _Type == "voidInstance";
+            => _type == "void" || _type == "voidInstance";
 
         public string Managed
-            => GetManagedType(_Type);
+            => GetManagedType(_type);
 
         public string ManagedTypeCast
         {
             get
             {
-                if (_NeedsTypeCast)
+                if (NeedsTypeCast)
                     return "(" + Managed + ")";
 
-                return "";
+                return string.Empty;
             }
         }
 
@@ -131,17 +86,62 @@ namespace FileGenerator.Native
         public string Name { get; set; } = string.Empty;
 
         public string Native
-            => GetNativeType(_Type);
+            => GetNativeType(_type);
 
         public string NativeTypeCast
         {
             get
             {
-                if (_NeedsTypeCast)
+                if (NeedsTypeCast)
                     return "(" + Native + ")";
 
-                return "";
+                return string.Empty;
             }
+        }
+
+        private bool NeedsTypeCast
+        {
+            get
+            {
+                if (_type == "Instance" || HasInstance || IsString)
+                    return false;
+
+                return _type != Native || _type != Managed;
+            }
+        }
+
+        public string GetNativeType(string type)
+        {
+            if (_type == "void")
+                return "void";
+
+            if (_type == "nativeString" || _type == "string")
+                return "IntPtr";
+
+            if (_isEnum || _type == "size_t")
+                return "UIntPtr";
+
+            if (_type == "ssize_t" || _type == "Instance" || _type == "voidInstance" || HasInstance)
+                return "IntPtr";
+
+            return type;
+        }
+
+        public string GetManagedType(string type)
+        {
+            if (type == "size_t" || type == "ssize_t")
+                return "int";
+
+            if (_type == "voidInstance")
+                return "void";
+
+            if (_type == "Instance")
+                return "IntPtr";
+
+            if (_type == "nativeString")
+                return "string";
+
+            return type;
         }
     }
 }

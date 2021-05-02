@@ -11,7 +11,16 @@ namespace FileGenerator.Native
 {
     internal sealed class NativeGenerator
     {
-        private DataContractJsonSerializer _Serializer;
+        private readonly DataContractJsonSerializer _serializer;
+
+        public NativeGenerator()
+            => _serializer = new DataContractJsonSerializer(typeof(MagickClass));
+
+        public static void Create()
+        {
+            var nativeMethodsGenerator = new NativeGenerator();
+            nativeMethodsGenerator.CreateClasses();
+        }
 
         private MagickClass CreateClass(FileInfo file)
         {
@@ -19,11 +28,11 @@ namespace FileGenerator.Native
             {
                 stream.Position = Encoding.UTF8.GetPreamble().Length;
 
-                var magickClass = (MagickClass?)_Serializer.ReadObject(stream);
+                var magickClass = (MagickClass?)_serializer.ReadObject(stream);
                 if (magickClass == null || file.Directory == null)
                     throw new InvalidOperationException();
 
-                magickClass.Name = file.Name.Replace(".json", "");
+                magickClass.Name = file.Name.Replace(".json", string.Empty);
                 magickClass.FileName = file.Directory.FullName + "\\" + magickClass.Name + ".cs";
                 if (string.IsNullOrEmpty(magickClass.ClassName))
                 {
@@ -47,15 +56,6 @@ namespace FileGenerator.Native
         {
             foreach (FileInfo file in files)
                 yield return CreateClass(file);
-        }
-
-        public NativeGenerator()
-            =>  _Serializer = new DataContractJsonSerializer(typeof(MagickClass));
-
-        public static void Create()
-        {
-            var nativeMethodsGenerator = new NativeGenerator();
-            nativeMethodsGenerator.CreateClasses();
         }
     }
 }

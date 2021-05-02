@@ -7,14 +7,54 @@ namespace FileGenerator.Native
 {
     internal sealed class NativeClassGenerator : NativeCodeGenerator
     {
-        private string _Platform = string.Empty;
+        private string _platform = string.Empty;
 
-        private string _DllImport
+        public NativeClassGenerator(MagickClass magickClass)
+          : base(magickClass)
         {
-            get
+        }
+
+        private string DllImport
+           => "[DllImport(NativeLibrary." + _platform + "Name, CallingConvention = CallingConvention.Cdecl)]";
+
+        public static void Create(IEnumerable<MagickClass> magickClasses)
+        {
+            RegisterClasses(magickClasses);
+            foreach (var magickClass in magickClasses)
             {
-                return "[DllImport(NativeLibrary." + _Platform + "Name, CallingConvention = CallingConvention.Cdecl)]";
+                var codeGenerator = new NativeClassGenerator(magickClass);
+                codeGenerator.Create();
             }
+        }
+
+        public void Create()
+        {
+            CreateWriter(Class.FileName);
+
+            WriteStart(Class.Namespace);
+            string baseClass = string.Empty;
+            if (!Class.IsStatic && Class.HasInstance && !Class.IsConst && !Class.IsDynamic)
+                baseClass = " : IDisposable";
+
+            WriteLine(Class.Access + (Class.IsStatic ? " static" : string.Empty) + " partial class " + Class.ClassName + baseClass);
+            WriteStartColon();
+
+            WriteDelegates();
+
+            WriteLine("[SuppressUnmanagedCodeSecurity]");
+            WriteLine("private static class NativeMethods");
+            WriteStartColon();
+            WriteX64();
+            WriteX86();
+            WriteEndColon();
+
+            var generator = new NativeInstanceGenerator(this);
+            generator.Write();
+
+            WriteEndColon();
+            WriteEnd();
+
+            CloseWriter();
         }
 
         private void WriteDelegates()
@@ -41,12 +81,12 @@ namespace FileGenerator.Native
 
             if (!Class.HasNoConstructor)
             {
-                WriteLine(_DllImport);
+                WriteLine(DllImport);
                 var arguments = GetNativeArgumentsDeclaration(Class.Constructor.Arguments);
                 WriteLine("public static extern IntPtr " + Class.Name + "_Create(" + arguments + ");");
             }
 
-            WriteLine(_DllImport);
+            WriteLine(DllImport);
             WriteLine("public static extern void " + Class.Name + "_Dispose(IntPtr instance);");
         }
 
@@ -54,7 +94,7 @@ namespace FileGenerator.Native
         {
             foreach (var method in Class.Methods)
             {
-                WriteLine(_DllImport);
+                WriteLine(DllImport);
                 var arguments = GetNativeArgumentsDeclaration(method);
                 WriteMarshal(method.ReturnType);
                 WriteLine("public static extern " + method.ReturnType.Native + " " + Class.Name + "_" + method.Name + "(" + arguments + ");");
@@ -65,7 +105,7 @@ namespace FileGenerator.Native
         {
             foreach (var property in Class.Properties)
             {
-                WriteLine(_DllImport);
+                WriteLine(DllImport);
                 var arguments = Class.IsStatic ? null : "IntPtr instance";
                 if (property.Throws)
                     arguments += ", out IntPtr exception";
@@ -75,7 +115,7 @@ namespace FileGenerator.Native
                 if (property.IsReadOnly)
                     continue;
 
-                WriteLine(_DllImport);
+                WriteLine(DllImport);
                 arguments = Class.IsStatic ? null : "IntPtr instance, ";
                 if (property.Type.IsBool)
                     arguments += "[MarshalAs(UnmanagedType.Bool)] ";
@@ -91,11 +131,11 @@ namespace FileGenerator.Native
 
         private void WriteNativeMethods()
         {
-            if (_Platform == "X64")
+            if (_platform == "X64")
                 WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
             else
                 WriteLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
-            WriteLine("public static class " + _Platform);
+            WriteLine("public static class " + _platform);
             WriteStartColon();
             WriteNativeMethodsStaticConstructor();
             WriteDllImports();
@@ -106,7 +146,7 @@ namespace FileGenerator.Native
         private void WriteNativeMethodsStaticConstructor()
         {
             WriteLine("#if PLATFORM_AnyCPU");
-            WriteLine("static " + _Platform + "() { NativeLibraryLoader.Load(); }");
+            WriteLine("static " + _platform + "() { NativeLibraryLoader.Load(); }");
             WriteLine("#endif");
         }
 
@@ -118,59 +158,14 @@ namespace FileGenerator.Native
 
         private void WriteX64()
         {
-            _Platform = "X64";
+            _platform = "X64";
             WriteNativeMethods();
         }
 
         private void WriteX86()
         {
-            _Platform = "X86";
+            _platform = "X86";
             WriteNativeMethods();
-        }
-
-        public NativeClassGenerator(MagickClass magickClass)
-          : base(magickClass)
-        {
-        }
-
-        public static void Create(IEnumerable<MagickClass> magickClasses)
-        {
-            RegisterClasses(magickClasses);
-            foreach (var magickClass in magickClasses)
-            {
-                var codeGenerator = new NativeClassGenerator(magickClass);
-                codeGenerator.Create();
-            }
-        }
-
-        public void Create()
-        {
-            CreateWriter(Class.FileName);
-
-            WriteStart(Class.Namespace);
-            string baseClass = "";
-            if (!Class.IsStatic && Class.HasInstance && !Class.IsConst && !Class.IsDynamic)
-                baseClass = " : IDisposable";
-
-            WriteLine(Class.Access + (Class.IsStatic ? " static" : "") + " partial class " + Class.ClassName + baseClass);
-            WriteStartColon();
-
-            WriteDelegates();
-
-            WriteLine("[SuppressUnmanagedCodeSecurity]");
-            WriteLine("private static class NativeMethods");
-            WriteStartColon();
-            WriteX64();
-            WriteX86();
-            WriteEndColon();
-
-            var generator = new NativeInstanceGenerator(this);
-            generator.Write();
-
-            WriteEndColon();
-            WriteEnd();
-
-            CloseWriter();
         }
     }
 }

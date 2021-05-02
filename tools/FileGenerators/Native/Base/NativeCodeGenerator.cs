@@ -2,14 +2,14 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FileGenerator.Native
 {
     internal abstract class NativeCodeGenerator : CodeGenerator
     {
-        private static MagickClass[] _Classes = default!;
+        private static MagickClass[] _classes = default!;
 
         protected NativeCodeGenerator(MagickClass magickClass)
         {
@@ -21,6 +21,11 @@ namespace FileGenerator.Native
         {
             Class = parent.Class;
         }
+
+        protected MagickClass Class { get; }
+
+        protected static void RegisterClasses(IEnumerable<MagickClass> magickClasses)
+            => _classes = magickClasses.ToArray();
 
         protected string? GetArgumentsDeclaration(IEnumerable<MagickArgument> arguments)
         {
@@ -35,9 +40,9 @@ namespace FileGenerator.Native
                 else if (IsQuantumType(argument.Type))
                     return "I" + argument.Type.Managed + "<QuantumType>?";
                 else if (HasInterface(argument.Type))
-                    return "I" + argument.Type.Managed + (isNullable ? "?" : "");
+                    return "I" + argument.Type.Managed + (isNullable ? "?" : string.Empty);
                 else
-                    return argument.Type.Managed + (isNullable ? "?" : "");
+                    return argument.Type.Managed + (isNullable ? "?" : string.Empty);
             }, (argument) =>
             {
                 return argument.IsHidden;
@@ -77,7 +82,9 @@ namespace FileGenerator.Native
                         result += "out ";
                 }
                 else
+                {
                     result += argument.Type.NativeTypeCast;
+                }
 
                 if (NeedsCreate(argument.Type))
                 {
@@ -88,9 +95,13 @@ namespace FileGenerator.Native
                         result += ".Instance";
                 }
                 else if (argument.Type.HasInstance)
+                {
                     result += argument.Name + ".GetInstance()";
+                }
                 else
+                {
                     result += argument.Name;
+                }
             }
 
             return result;
@@ -126,7 +137,7 @@ namespace FileGenerator.Native
                 if (argument.IsOut && !IsDynamic(argument.Type))
                     return "out " + argument.Type.Native;
                 else
-                    return argument.Type.Native + (isNullable ? "?" : "");
+                    return argument.Type.Native + (isNullable ? "?" : string.Empty);
             }, (argument) =>
             {
                 return false;
@@ -146,10 +157,10 @@ namespace FileGenerator.Native
         }
 
         protected bool HasInterface(MagickType type)
-            => _Classes.Any(c => c.Name == type.Managed && c.HasInterface);
+            => _classes.Any(c => c.Name == type.Managed && c.HasInterface);
 
         protected bool IsDynamic(string typeName)
-            => _Classes.Any(c => c.Name == typeName && c.IsDynamic);
+            => _classes.Any(c => c.Name == typeName && c.IsDynamic);
 
         protected bool IsNullable(MagickType type)
             => !type.IsVoid && !NotNullable(type) && (type.IsNativeString || type.IsDelegate || NeedsCreate(type) || HasInterface(type));
@@ -158,7 +169,7 @@ namespace FileGenerator.Native
             => IsDynamic(type.Managed);
 
         protected bool IsQuantumType(MagickType type)
-            => _Classes.Any(c => c.Name == type.Managed && c.IsQuantumType);
+            => _classes.Any(c => c.Name == type.Managed && c.IsQuantumType);
 
         protected bool NeedsCreate(MagickType type)
         {
@@ -167,9 +178,6 @@ namespace FileGenerator.Native
 
             return IsDynamic(type.Managed);
         }
-
-        protected static void RegisterClasses(IEnumerable<MagickClass> magickClasses)
-            => _Classes = magickClasses.ToArray();
 
         protected void WriteCheckException(bool throws)
         {
@@ -225,8 +233,6 @@ namespace FileGenerator.Native
                 WriteLine();
         }
 
-        protected MagickClass Class { get; }
-
         private bool UsesQuantumType()
         {
             if (Class.Properties.Any(property => UsesQuantumType(property.Type)))
@@ -239,7 +245,7 @@ namespace FileGenerator.Native
         }
 
         private bool NotNullable(MagickType type)
-            => _Classes.Any(c => c.Name == type.Managed && c.NotNullable);
+            => _classes.Any(c => c.Name == type.Managed && c.NotNullable);
 
         private bool UsesQuantumType(MagickType type)
             => type.IsQuantumType || IsQuantumType(type);

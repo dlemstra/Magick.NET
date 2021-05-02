@@ -10,7 +10,7 @@ namespace FileGenerator.Native
     internal sealed class MagickCleanupMethod
     {
         [DataMember(Name = "arguments")]
-        private List<string> _Arguments = new List<string>();
+        private List<string> _arguments = new List<string>();
 
         [DataMember(Name = "name")]
         public string Name { get; set; } = string.Empty;
@@ -19,9 +19,9 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_Arguments != null)
+                if (_arguments != null)
                 {
-                    foreach (var argument in _Arguments)
+                    foreach (var argument in _arguments)
                     {
                         yield return argument;
                     }

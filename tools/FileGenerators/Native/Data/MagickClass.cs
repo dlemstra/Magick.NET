@@ -12,30 +12,22 @@ namespace FileGenerator.Native
     internal sealed class MagickClass
     {
         [DataMember(Name = "constructor")]
-        private MagickConstructor? _Constructor = new MagickConstructor();
+        private MagickConstructor? _constructor = new MagickConstructor();
 
         [DataMember(Name = "delegates")]
-        private List<MagickDelegate>? _Delegates = new List<MagickDelegate>();
+        private List<MagickDelegate>? _delegates = new List<MagickDelegate>();
 
         [DataMember(Name = "methods")]
-        private List<MagickMethod>? _Methods = new List<MagickMethod>();
+        private List<MagickMethod>? _methods = new List<MagickMethod>();
 
         [DataMember(Name = "properties")]
-        private List<MagickProperty>? _Properties = new List<MagickProperty>();
+        private List<MagickProperty>? _properties = new List<MagickProperty>();
 
         [DataMember(Name = "dynamic")]
-        private string _Dynamic { get; set; } = string.Empty;
+        private string _dynamic = string.Empty;
 
         [DataMember(Name = "nativeConstructor")]
-        private bool _HasNativeConstructor { get; set; }
-
-        [OnDeserializing]
-        private void BeforeDeserialization(StreamingContext context)
-        {
-            Access = "public";
-            HasInstance = true;
-            Namespace = "ImageMagick";
-        }
+        private bool _hasNativeConstructor = false;
 
         [DataMember(Name = "access")]
         public string Access { get; set; } = string.Empty;
@@ -47,10 +39,10 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_Constructor == null)
-                    _Constructor = new MagickConstructor();
+                if (_constructor == null)
+                    _constructor = new MagickConstructor();
 
-                return _Constructor;
+                return _constructor;
             }
         }
 
@@ -58,22 +50,21 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_Delegates != null)
-                    return _Delegates;
+                if (_delegates != null)
+                    return _delegates;
 
                 return Enumerable.Empty<MagickDelegate>();
             }
         }
 
-
         public DynamicMode DynamicMode
         {
             get
             {
-                if (string.IsNullOrEmpty(_Dynamic))
+                if (string.IsNullOrEmpty(_dynamic))
                     return DynamicMode.None;
 
-                return (DynamicMode)Enum.Parse(typeof(DynamicMode), _Dynamic);
+                return (DynamicMode)Enum.Parse(typeof(DynamicMode), _dynamic);
             }
         }
 
@@ -89,7 +80,7 @@ namespace FileGenerator.Native
         public bool HasNoConstructor { get; set; }
 
         public bool HasNativeConstructor
-            => _HasNativeConstructor || (!IsConst && (IsDynamic && DynamicMode.HasFlag(DynamicMode.NativeToManaged)));
+            => _hasNativeConstructor || (!IsConst && (IsDynamic && DynamicMode.HasFlag(DynamicMode.NativeToManaged)));
 
         [DataMember(Name = "const")]
         public bool IsConst { get; set; }
@@ -107,8 +98,8 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_Methods != null)
-                    return _Methods;
+                if (_methods != null)
+                    return _methods;
 
                 return Enumerable.Empty<MagickMethod>();
             }
@@ -126,11 +117,19 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_Properties != null)
-                    return _Properties;
+                if (_properties != null)
+                    return _properties;
 
                 return Enumerable.Empty<MagickProperty>();
             }
+        }
+
+        [OnDeserializing]
+        private void BeforeDeserialization(StreamingContext context)
+        {
+            Access = "public";
+            HasInstance = true;
+            Namespace = "ImageMagick";
         }
     }
 }

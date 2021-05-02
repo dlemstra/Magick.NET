@@ -10,22 +10,15 @@ namespace FileGenerator.Native
     internal sealed class MagickDelegate
     {
         [DataMember(Name = "arguments")]
-        private List<MagickArgument> _Arguments = new List<MagickArgument>();
-
-        [OnDeserialized]
-        private void Deserialized(StreamingContext context)
-        {
-            if (string.IsNullOrEmpty(Type))
-                Type = "void";
-        }
+        private List<MagickArgument> _arguments = new List<MagickArgument>();
 
         public IEnumerable<MagickArgument> Arguments
         {
             get
             {
-                if (_Arguments != null)
+                if (_arguments != null)
                 {
-                    foreach (var argument in _Arguments)
+                    foreach (var argument in _arguments)
                     {
                         yield return argument;
                     }
@@ -38,5 +31,12 @@ namespace FileGenerator.Native
 
         [DataMember(Name = "type")]
         public string Type { get; set; } = string.Empty;
+
+        [OnDeserialized]
+        private void Deserialized(StreamingContext context)
+        {
+            if (string.IsNullOrEmpty(Type))
+                Type = "void";
+        }
     }
 }

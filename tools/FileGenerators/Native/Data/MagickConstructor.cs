@@ -10,7 +10,7 @@ namespace FileGenerator.Native
     internal sealed class MagickConstructor
     {
         [DataMember(Name = "arguments")]
-        private List<MagickArgument> _Arguments = new List<MagickArgument>();
+        private List<MagickArgument> _arguments = new List<MagickArgument>();
 
         [DataMember(Name = "throws")]
         public bool Throws { get; set; }
@@ -19,10 +19,10 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_Arguments == null)
+                if (_arguments == null)
                     yield break;
 
-                foreach (var argument in _Arguments)
+                foreach (var argument in _arguments)
                 {
                     yield return argument;
                 }

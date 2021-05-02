@@ -9,11 +9,7 @@ namespace FileGenerator.Native
     internal sealed class MagickProperty
     {
         [DataMember(Name = "type")]
-        private string _Type { get; set; } = string.Empty;
-
-        [OnDeserialized]
-        private void Deserializated(StreamingContext context)
-            => Type = new MagickType(_Type);
+        private string _type = string.Empty;
 
         [DataMember(Name = "readonly")]
         public bool IsReadOnly { get; set; }
@@ -25,5 +21,9 @@ namespace FileGenerator.Native
         public bool Throws { get; set; }
 
         public MagickType Type { get; private set; } = default!;
+
+        [OnDeserialized]
+        private void Deserializated(StreamingContext context)
+            => Type = new MagickType(_type);
     }
 }

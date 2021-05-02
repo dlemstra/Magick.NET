@@ -9,6 +9,11 @@ namespace FileGenerator.Native
 {
     internal sealed class NativeInstanceGenerator : NativeCodeGenerator
     {
+        public NativeInstanceGenerator(NativeClassGenerator parent)
+            : base(parent)
+        {
+        }
+
         private bool IsNativeStatic
         {
             get
@@ -27,6 +32,55 @@ namespace FileGenerator.Native
 
                 return true;
             }
+        }
+
+        public void Write()
+        {
+            if (Class.IsStatic)
+            {
+                WriteLine("private static class Native" + Class.ClassName);
+                WriteStartColon();
+
+                WriteStaticConstructor();
+            }
+            else
+            {
+                if (!IsDynamic(Class.Name))
+                    WriteLine("private Native" + Class.ClassName + " _nativeInstance;");
+
+                string baseClass = string.Empty;
+                if (IsNativeStatic)
+                    baseClass = string.Empty;
+                else if (!Class.HasInstance)
+                    baseClass = " : NativeHelper";
+                else if (Class.IsConst)
+                    baseClass = " : ConstNativeInstance";
+                else
+                    baseClass = " : NativeInstance";
+
+                WriteLine("private " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.ClassName + baseClass);
+                WriteStartColon();
+
+                WriteStaticConstructor();
+
+                WriteDispose();
+
+                WriteConstructors();
+
+                WriteTypeName();
+            }
+
+            WriteProperties();
+
+            WriteMethods();
+
+            WriteEndColon();
+
+            if (!Class.HasInstance || Class.IsConst || Class.IsStatic)
+                return;
+
+            if (IsDynamic(Class.Name))
+                WriteCreateInstance();
         }
 
         private string? CreateCleanupString(MagickMethod method)
@@ -213,7 +267,6 @@ namespace FileGenerator.Native
             if (Class.IsConst || !Class.HasInstance)
                 return;
 
-
             WriteLine("protected override void Dispose(IntPtr instance)");
             WriteStartColon();
 
@@ -251,14 +304,16 @@ namespace FileGenerator.Native
                 var arguments = GetArgumentsDeclaration(method.Arguments);
                 var isStatic = Class.IsStatic || ((method.IsStatic && !method.Throws) && !method.CreatesInstance);
                 var typeName = GetTypeName(method.ReturnType);
-                WriteLine("public " + (isStatic ? "static " : "") + typeName + (IsNullable(method.ReturnType) ? "?" : "") + " " + method.Name + "(" + arguments + ")");
+                WriteLine("public " + (isStatic ? "static " : string.Empty) + typeName + (IsNullable(method.ReturnType) ? "?" : string.Empty) + " " + method.Name + "(" + arguments + ")");
 
                 WriteStartColon();
 
                 WriteCreateStart(method.Arguments);
 
                 if (method.Throws)
+                {
                     WriteThrow(method);
+                }
                 else
                 {
                     if (method.CreatesInstance)
@@ -297,7 +352,7 @@ namespace FileGenerator.Native
 
                 var typeName = GetTypeName(property.Type);
 
-                WriteLine(typeName + (IsNullable(property.Type) ? "?" : "") + " " + property.Name);
+                WriteLine(typeName + (IsNullable(property.Type) ? "?" : string.Empty) + " " + property.Name);
                 WriteStartColon();
 
                 WriteLine("get");
@@ -306,7 +361,7 @@ namespace FileGenerator.Native
                 WriteThrowStart(property.Throws);
 
                 WriteLine(property.Type.Native + " result;");
-                string arguments = !Class.IsStatic ? "Instance" : "";
+                string arguments = !Class.IsStatic ? "Instance" : string.Empty;
                 if (property.Throws)
                     arguments += ", out exception";
                 WriteNativeIfContent("result = NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Get(" + arguments + ");");
@@ -328,7 +383,7 @@ namespace FileGenerator.Native
                     else if (property.Type.HasInstance)
                         value = "value.GetInstance()";
 
-                    arguments = !Class.IsStatic ? "Instance, " : "";
+                    arguments = !Class.IsStatic ? "Instance, " : string.Empty;
 
                     if (property.Throws)
                         WriteThrowSet(property, value);
@@ -389,7 +444,7 @@ namespace FileGenerator.Native
             var cleanupString = CreateCleanupString(method);
             if (!string.IsNullOrEmpty(cleanupString))
                 WriteCleanup(cleanupString);
-            else if ((method.CreatesInstance) && !Class.IsConst)
+            else if (method.CreatesInstance && !Class.IsConst)
                 WriteLine("CheckException(exception, result);");
             else
                 WriteCheckException(true);
@@ -400,7 +455,9 @@ namespace FileGenerator.Native
                 WriteLine("  Instance = result;");
             }
             else
+            {
                 WriteReturn(method.ReturnType);
+            }
         }
 
         private void WriteThrowSet(MagickProperty property, string value)
@@ -409,60 +466,6 @@ namespace FileGenerator.Native
 
             WriteNativeIfContent("NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Set(Instance, " + value + ", out exception);");
             WriteCheckException(true);
-        }
-
-        public NativeInstanceGenerator(NativeClassGenerator parent)
-            : base(parent)
-        {
-        }
-
-        public void Write()
-        {
-            if (Class.IsStatic)
-            {
-                WriteLine("private static class Native" + Class.ClassName);
-                WriteStartColon();
-
-                WriteStaticConstructor();
-            }
-            else
-            {
-                if (!IsDynamic(Class.Name))
-                    WriteLine("private Native" + Class.ClassName + " _nativeInstance;");
-
-                string baseClass = "";
-                if (IsNativeStatic)
-                    baseClass = "";
-                else if (!Class.HasInstance)
-                    baseClass = " : NativeHelper";
-                else if (Class.IsConst)
-                    baseClass = " : ConstNativeInstance";
-                else
-                    baseClass = " : NativeInstance";
-
-                WriteLine("private " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.ClassName + baseClass);
-                WriteStartColon();
-
-                WriteStaticConstructor();
-
-                WriteDispose();
-
-                WriteConstructors();
-
-                WriteTypeName();
-            }
-
-            WriteProperties();
-
-            WriteMethods();
-
-            WriteEndColon();
-
-            if (!Class.HasInstance || Class.IsConst || Class.IsStatic)
-                return;
-
-            if (IsDynamic(Class.Name))
-                WriteCreateInstance();
         }
 
         private string GetTypeName(MagickType type)

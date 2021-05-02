@@ -9,11 +9,7 @@ namespace FileGenerator.Native
     internal sealed class MagickArgument
     {
         [DataMember(Name = "type")]
-        private string _Type { get; set; } = string.Empty;
-
-        [OnDeserialized]
-        private void Deserializated(StreamingContext context)
-            => Type = new MagickType(_Type);
+        private string _type = string.Empty;
 
         [DataMember(Name = "const")]
         public bool IsConst { get; set; }
@@ -36,7 +32,11 @@ namespace FileGenerator.Native
                 Name = "exception",
                 IsHidden = true,
                 IsOut = true,
-                Type = new MagickType("Instance")
+                Type = new MagickType("Instance"),
             };
+
+        [OnDeserialized]
+        private void Deserializated(StreamingContext context)
+            => Type = new MagickType(_type);
     }
 }
