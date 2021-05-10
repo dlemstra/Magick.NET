@@ -91,7 +91,7 @@ namespace Magick.NET.Tests
 
                     ColorAssert.Equal(MagickColors.Fuchsia, image, 0, 0);
                     ColorAssert.Equal(MagickColors.Lime, image, 455, 396);
-                    ColorAssert.Equal(MagickColors.Gold, image, 505, 451);
+                    ColorAssert.Equal(MagickColors.Gold, image, 512, 449);
                 }
             }
 

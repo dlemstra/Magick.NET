@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
                 {
                     images.Add(Files.FujiFilmFinePixS1ProJPG);
 
-                    QuantizeSettings settings = new QuantizeSettings
+                    var settings = new QuantizeSettings
                     {
                         Colors = 1,
                         MeasureErrors = false,
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
                 {
                     collection.Add(Files.FujiFilmFinePixS1ProJPG);
 
-                    QuantizeSettings settings = new QuantizeSettings
+                    var settings = new QuantizeSettings
                     {
                         Colors = 3,
                     };
@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
                 {
                     collection.Add(Files.FujiFilmFinePixS1ProJPG);
 
-                    QuantizeSettings settings = new QuantizeSettings
+                    var settings = new QuantizeSettings
                     {
                         Colors = 3,
                         MeasureErrors = true,
@@ -98,12 +98,12 @@ namespace Magick.NET.Tests
                     Assert.NotNull(errorInfo);
 
 #if Q8
-                    Assert.InRange(errorInfo.MeanErrorPerPixel, 13.62, 13.63);
+                    Assert.InRange(errorInfo.MeanErrorPerPixel, 11.58, 11.59);
 #else
-                    Assert.InRange(errorInfo.MeanErrorPerPixel, 3526, 3527);
+                    Assert.InRange(errorInfo.MeanErrorPerPixel, 2978, 2979);
 #endif
                     Assert.InRange(errorInfo.NormalizedMaximumError, 0.46, 0.47);
-                    Assert.InRange(errorInfo.NormalizedMeanError, 0.006, 0.007);
+                    Assert.InRange(errorInfo.NormalizedMeanError, 0.004, 0.005);
                 }
             }
         }
