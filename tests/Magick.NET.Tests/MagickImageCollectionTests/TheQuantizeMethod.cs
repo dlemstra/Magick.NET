@@ -100,7 +100,7 @@ namespace Magick.NET.Tests
 #if Q8
                     Assert.InRange(errorInfo.MeanErrorPerPixel, 11.54, 11.59);
 #else
-                    Assert.InRange(errorInfo.MeanErrorPerPixel, 2978, 2979);
+                    Assert.InRange(errorInfo.MeanErrorPerPixel, 2967, 2979);
 #endif
                     Assert.InRange(errorInfo.NormalizedMaximumError, 0.46, 0.47);
                     Assert.InRange(errorInfo.NormalizedMeanError, 0.004, 0.005);
