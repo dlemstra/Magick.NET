@@ -121,6 +121,20 @@ namespace Magick.NET.Tests
             }
         }
 
+        [Fact]
+        public void ShouldBeAbleToReadImageWithLargeScanLine()
+        {
+            using (var image = new MagickImage(MagickColors.Green, 1000, 1))
+            {
+                image.Settings.Compression = CompressionMethod.Zip;
+
+                var data = image.ToByteArray(MagickFormat.Tiff);
+                Assert.NotNull(data);
+
+                image.Read(data);
+            }
+        }
+
         private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
         {
             var value = profile.GetValue(tag);
