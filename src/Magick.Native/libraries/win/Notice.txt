@@ -2723,7 +2723,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ highway 0.0.0 ] copyright:
+[ highway 0.12.0 ] copyright:
 
                                  Apache License
                            Version 2.0, January 2004
@@ -3046,7 +3046,7 @@ We are required to state that
     CompuServe Incorporated."
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-xl 0.3.3 ] copyright:
+[ jpeg-xl 0.3.7 ] copyright:
 
 
                                  Apache License
