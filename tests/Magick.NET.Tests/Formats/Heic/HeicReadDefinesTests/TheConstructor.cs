@@ -18,6 +18,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new HeicReadDefines());
 
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
                 }
             }
