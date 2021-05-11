@@ -1290,7 +1290,7 @@ namespace ImageMagick
         public byte[] ToByteArray(IWriteDefines defines)
         {
             SetDefines(defines);
-            return ToByteArray(defines);
+            return ToByteArray(defines.Format);
         }
 
         /// <summary>
