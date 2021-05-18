@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
             }
         }
 
-        private OpenCLDevice GetEnabledDevice()
+        private IOpenCLDevice GetEnabledDevice()
         {
             foreach (var device in OpenCL.Devices)
             {

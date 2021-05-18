@@ -33,13 +33,13 @@ namespace ImageMagick
         /// <summary>
         /// Gets all the OpenCL devices.
         /// </summary>
-        /// <returns>A <see cref="OpenCLDevice"/> iteration.</returns>
-        public static IEnumerable<OpenCLDevice> Devices
+        /// <returns>A <see cref="IOpenCLDevice"/> iteration.</returns>
+        public static IEnumerable<IOpenCLDevice> Devices
         {
             get
             {
                 var devices = NativeOpenCL.GetDevices(out var length);
-                var result = new Collection<OpenCLDevice>();
+                var result = new Collection<IOpenCLDevice>();
 
                 if (devices == IntPtr.Zero)
                     return result;

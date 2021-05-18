@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
                 if (OpenCL.IsEnabled == false)
                     return false;
 
-                foreach (OpenCLDevice device in OpenCL.Devices)
+                foreach (var device in OpenCL.Devices)
                 {
                     if (device.IsEnabled)
                         return true;
