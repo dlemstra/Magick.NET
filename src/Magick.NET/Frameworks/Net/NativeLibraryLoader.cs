@@ -31,11 +31,7 @@ namespace ImageMagick
         {
             var version = (AssemblyFileVersionAttribute)Assembly.GetCustomAttributes(typeof(AssemblyFileVersionAttribute), false)[0];
 
-#if NET20
             var path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net20." + version.Version);
-#else
-            var path = Path.Combine(MagickAnyCPU.CacheDirectory, "Magick.NET.net40." + version.Version);
-#endif
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

@@ -3,12 +3,12 @@
 
 using System;
 using System.Runtime.InteropServices;
-#if NET20
+#if !NETSTANDARD
 using System.Security.Permissions;
 #endif
 
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
-#if NET20
+#if !NETSTANDARD
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, UnmanagedCode = true)]
 #endif

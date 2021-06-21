@@ -25,7 +25,7 @@ namespace ImageMagick
             _nativeInstance = new NativePixelCollection(image);
         }
 
-#if NET20
+#if !NETSTANDARD
         private delegate TResult Func<T, TResult>(T arg);
 #endif
 
