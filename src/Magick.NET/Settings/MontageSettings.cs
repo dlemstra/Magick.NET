@@ -98,14 +98,6 @@ namespace ImageMagick
         /// </summary>
         public IMagickColor<QuantumType>? TransparentColor { get; set; }
 
-        private static string? Convert(IMagickGeometry? geometry)
-        {
-            if (geometry == null)
-                return null;
-
-            return geometry.ToString();
-        }
-
         private static INativeInstance CreateNativeInstance(IMontageSettings<QuantumType> instance)
         {
             var result = new NativeMontageSettings();
@@ -115,13 +107,13 @@ namespace ImageMagick
             result.SetFillColor(instance.FillColor);
             result.SetFont(instance.Font);
             result.SetFontPointsize(instance.FontPointsize);
-            result.SetFrameGeometry(Convert(instance.FrameGeometry));
-            result.SetGeometry(Convert(instance.Geometry));
+            result.SetFrameGeometry(instance.FrameGeometry?.ToString());
+            result.SetGeometry(instance.Geometry?.ToString());
             result.SetGravity(instance.Gravity);
             result.SetShadow(instance.Shadow);
             result.SetStrokeColor(instance.StrokeColor);
             result.SetTextureFileName(instance.TextureFileName);
-            result.SetTileGeometry(Convert(instance.TileGeometry));
+            result.SetTileGeometry(instance.TileGeometry?.ToString());
             result.SetTitle(instance.Title);
 
             return result;
