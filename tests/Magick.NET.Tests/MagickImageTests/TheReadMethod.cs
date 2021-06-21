@@ -911,7 +911,7 @@ namespace Magick.NET.Tests
                     }
                 }
 
-#if NETCOREAPP
+#if NETCORE
                 [Fact]
                 public void ShouldReadImageFromMemoryStreamWhereBufferIsPubliclyVisible()
                 {

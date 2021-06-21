@@ -1,7 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-#if NETCOREAPP
+#if NETCORE
 using System;
 using System.IO;
 using System.Text;
