@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
 #if NETCORE
                 Assert.Contains("netstandard20", MagickNET.Version);
 #else
-                Assert.Contains("net40", MagickNET.Version);
+                Assert.Contains("net20", MagickNET.Version);
 #endif
             }
         }

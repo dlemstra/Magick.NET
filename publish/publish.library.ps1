@@ -15,11 +15,11 @@ param (
 function createMagickNetLibraryNuGetPackage($library, $version, $commit, $pfxPassword) {
     $xml = loadAndInitNuSpec $library $version $commit
 
-    if ($library -ne "Magick.NET.SystemWindowsMedia") {
+    if ($library -eq "Magick.NET.SystemWindowsMedia") {
+        addLibrary $xml $library "" "AnyCPU" "net40"
+    } else {
         addLibrary $xml $library "" "AnyCPU" "net20"
     }
-
-    addLibrary $xml $library "" "AnyCPU" "net40"
 
     if ($library -eq "Magick.NET.SystemWindowsMedia") {
         addLibrary $xml $library "" "AnyCPU" "netcoreapp3.1"

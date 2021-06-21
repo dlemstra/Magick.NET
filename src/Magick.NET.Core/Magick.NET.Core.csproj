@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net20;net40;netstandard20</TargetFrameworks>
+    <TargetFrameworks>net20;netstandard20</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>7.0.1.0</AssemblyVersion>
     <FileVersion>7.0.1.0</FileVersion>

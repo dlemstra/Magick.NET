@@ -15,7 +15,6 @@ param (
 
 function addMagickNetLibraries($xml, $quantumName, $platform) {
     addLibrary $xml "Magick.NET" $quantumName $platform "net20"
-    addLibrary $xml "Magick.NET" $quantumName $platform "net40"
     addLibrary $xml "Magick.NET" $quantumName $platform "netstandard20"
 }
 
@@ -81,7 +80,6 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit,
 
     if ($platform -ne "AnyCPU") {
         addFile $xml "Magick.NET.targets" "build\net20\$name.targets"
-        addFile $xml "Magick.NET.targets" "build\net40\$name.targets"
     }
 
     createAndSignNuGetPackage $xml $name $version $pfxPassword
