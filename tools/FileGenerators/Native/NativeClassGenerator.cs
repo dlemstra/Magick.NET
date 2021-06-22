@@ -7,15 +7,10 @@ namespace FileGenerator.Native
 {
     internal sealed class NativeClassGenerator : NativeCodeGenerator
     {
-        private string _platform = string.Empty;
-
         public NativeClassGenerator(MagickClass magickClass)
           : base(magickClass)
         {
         }
-
-        private string DllImport
-           => "[DllImport(NativeLibrary." + _platform + "Name, CallingConvention = CallingConvention.Cdecl)]";
 
         public static void Create(IEnumerable<MagickClass> magickClasses)
         {
@@ -67,45 +62,45 @@ namespace FileGenerator.Native
             }
         }
 
-        private void WriteDllImports()
+        private void WriteDllImports(string platform)
         {
-            WriteDllImportCreateAndDispose();
-            WriteDllImportProperties();
-            WriteDllImportMethods();
+            WriteDllImportCreateAndDispose(platform);
+            WriteDllImportProperties(platform);
+            WriteDllImportMethods(platform);
         }
 
-        private void WriteDllImportCreateAndDispose()
+        private void WriteDllImportCreateAndDispose(string platform)
         {
             if (Class.IsStatic || Class.IsConst || !Class.HasInstance)
                 return;
 
             if (!Class.HasNoConstructor)
             {
-                WriteLine(DllImport);
+                WriteLine(GetDllImport(platform));
                 var arguments = GetNativeArgumentsDeclaration(Class.Constructor.Arguments);
                 WriteLine("public static extern IntPtr " + Class.Name + "_Create(" + arguments + ");");
             }
 
-            WriteLine(DllImport);
+            WriteLine(GetDllImport(platform));
             WriteLine("public static extern void " + Class.Name + "_Dispose(IntPtr instance);");
         }
 
-        private void WriteDllImportMethods()
+        private void WriteDllImportMethods(string platform)
         {
             foreach (var method in Class.Methods)
             {
-                WriteLine(DllImport);
+                WriteLine(GetDllImport(platform));
                 var arguments = GetNativeArgumentsDeclaration(method);
                 WriteMarshal(method.ReturnType);
                 WriteLine("public static extern " + method.ReturnType.Native + " " + Class.Name + "_" + method.Name + "(" + arguments + ");");
             }
         }
 
-        private void WriteDllImportProperties()
+        private void WriteDllImportProperties(string platform)
         {
             foreach (var property in Class.Properties)
             {
-                WriteLine(DllImport);
+                WriteLine(GetDllImport(platform));
                 var arguments = Class.IsStatic ? null : "IntPtr instance";
                 if (property.Throws)
                     arguments += ", out IntPtr exception";
@@ -115,7 +110,7 @@ namespace FileGenerator.Native
                 if (property.IsReadOnly)
                     continue;
 
-                WriteLine(DllImport);
+                WriteLine(GetDllImport(platform));
                 arguments = Class.IsStatic ? null : "IntPtr instance, ";
                 if (property.Type.IsBool)
                     arguments += "[MarshalAs(UnmanagedType.Bool)] ";
@@ -129,24 +124,24 @@ namespace FileGenerator.Native
             }
         }
 
-        private void WriteNativeMethods()
+        private void WriteNativeMethods(string platform)
         {
-            if (_platform == "X64")
+            if (platform == "X64")
                 WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
             else
                 WriteLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
-            WriteLine("public static class " + _platform);
+            WriteLine("public static class " + platform);
             WriteStartColon();
-            WriteNativeMethodsStaticConstructor();
-            WriteDllImports();
+            WriteNativeMethodsStaticConstructor(platform);
+            WriteDllImports(platform);
             WriteEndColon();
             WriteLine("#endif");
         }
 
-        private void WriteNativeMethodsStaticConstructor()
+        private void WriteNativeMethodsStaticConstructor(string platform)
         {
             WriteLine("#if PLATFORM_AnyCPU");
-            WriteLine("static " + _platform + "() { NativeLibraryLoader.Load(); }");
+            WriteLine("static " + platform + "() { NativeLibraryLoader.Load(); }");
             WriteLine("#endif");
         }
 
@@ -157,15 +152,12 @@ namespace FileGenerator.Native
         }
 
         private void WriteX64()
-        {
-            _platform = "X64";
-            WriteNativeMethods();
-        }
+            => WriteNativeMethods("X64");
 
         private void WriteX86()
-        {
-            _platform = "X86";
-            WriteNativeMethods();
-        }
+            => WriteNativeMethods("X86");
+
+        private string GetDllImport(string platform)
+           => "[DllImport(NativeLibrary." + platform + "Name, CallingConvention = CallingConvention.Cdecl)]";
     }
 }

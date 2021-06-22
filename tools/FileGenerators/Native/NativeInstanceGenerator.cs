@@ -48,7 +48,7 @@ namespace FileGenerator.Native
                 if (!IsDynamic(Class.Name))
                     WriteLine("private Native" + Class.ClassName + " _nativeInstance;");
 
-                string baseClass = string.Empty;
+                string baseClass;
                 if (IsNativeStatic)
                     baseClass = string.Empty;
                 else if (!Class.HasInstance)
