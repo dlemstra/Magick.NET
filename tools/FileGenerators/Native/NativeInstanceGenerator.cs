@@ -133,7 +133,7 @@ namespace FileGenerator.Native
                 WriteLine("public Native" + Class.Name + "(" + arguments + ")");
                 WriteStartColon();
 
-                WriteCreateStart(Class.Constructor.Arguments);
+                WriteHelpingVariableStart(Class.Constructor.Arguments);
 
                 WriteThrowStart(Class.Constructor.Throws);
 
@@ -145,7 +145,7 @@ namespace FileGenerator.Native
 
                 WriteIf("Instance == IntPtr.Zero", "throw new InvalidOperationException();");
 
-                WriteCreateEnd(Class.Constructor.Arguments);
+                WriteHelpingVariableEnd(Class.Constructor.Arguments);
 
                 WriteEndColon();
             }
@@ -159,20 +159,18 @@ namespace FileGenerator.Native
             WriteEndColon();
         }
 
-        private void WriteCreateEnd(IEnumerable<MagickArgument> arguments)
+        private void WriteHelpingVariableEnd(IEnumerable<MagickArgument> arguments)
         {
             foreach (var argument in arguments)
             {
-                if (!NeedsCreate(argument.Type))
-                    continue;
-
-                WriteEndColon();
+                if (NeedsCreate(argument.Type) || argument.Type.IsFixed)
+                    WriteEndColon();
             }
         }
 
-        private void WriteCreateEnd(MagickProperty property)
+        private void WriteHelpingVariableEnd(MagickProperty property)
         {
-            if (NeedsCreate(property.Type))
+            if (NeedsCreate(property.Type) || property.Type.IsFixed)
                 WriteEndColon();
         }
 
@@ -220,38 +218,44 @@ namespace FileGenerator.Native
             }
         }
 
-        private void WriteCreateStart(IEnumerable<MagickArgument> arguments)
+        private void WriteHelpingVariableStart(IEnumerable<MagickArgument> arguments)
         {
             foreach (var argument in arguments)
             {
-                if (!NeedsCreate(argument.Type))
+                if (!NeedsCreate(argument.Type) && !argument.Type.IsFixed)
                     continue;
 
                 if (argument.IsOut)
                     WriteCreateStartOut(argument.Name, argument.Type);
                 else
-                    WriteCreateStart(argument.Name, argument.Type);
+                    WriteHelpingVariableStart(argument.Name, argument.Type);
             }
         }
 
-        private void WriteCreateStart(MagickProperty property)
+        private void WriteHelpingVariableStart(MagickProperty property)
         {
-            if (!NeedsCreate(property.Type))
-                return;
-
-            WriteCreateStart("value", property.Type);
+            if (NeedsCreate(property.Type) || property.Type.IsFixed)
+                WriteHelpingVariableStart("value", property.Type);
         }
 
-        private void WriteCreateStart(string name, MagickType type)
+        private void WriteHelpingVariableStart(string name, MagickType type)
         {
-            Write("using (var " + name + "Native = ");
-
-            if (type.IsString)
-                Write("UTF8Marshaler");
+            if (type.IsFixed)
+            {
+                WriteLine("fixed (" + type.FixedName + " " + name + "Fixed = " + name + ")");
+            }
             else
-                Write(type.ManagedName);
+            {
+                Write("using (var " + name + "Native = ");
 
-            WriteLine(".CreateInstance(" + name + "))");
+                if (type.IsString)
+                    Write("UTF8Marshaler");
+                else
+                    Write(type.ManagedName);
+
+                WriteLine(".CreateInstance(" + name + "))");
+            }
+
             WriteStartColon();
         }
 
@@ -308,7 +312,7 @@ namespace FileGenerator.Native
 
                 WriteStartColon();
 
-                WriteCreateStart(method.Arguments);
+                WriteHelpingVariableStart(method.Arguments);
 
                 WriteThrowStart(method.Throws);
 
@@ -347,7 +351,7 @@ namespace FileGenerator.Native
                     WriteReturn(method.ReturnType);
                 }
 
-                WriteCreateEnd(method.Arguments);
+                WriteHelpingVariableEnd(method.Arguments);
 
                 WriteEndColon();
             }
@@ -386,7 +390,7 @@ namespace FileGenerator.Native
                     WriteLine("set");
                     WriteStartColon();
 
-                    WriteCreateStart(property);
+                    WriteHelpingVariableStart(property);
 
                     string value = property.Type.NativeTypeCast + "value";
                     if (NeedsCreate(property.Type))
@@ -402,7 +406,7 @@ namespace FileGenerator.Native
                     WriteNativeIfContent("NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Set(" + arguments + ");");
                     WriteCheckException(property.Throws);
 
-                    WriteCreateEnd(property);
+                    WriteHelpingVariableEnd(property);
 
                     WriteEndColon();
                 }

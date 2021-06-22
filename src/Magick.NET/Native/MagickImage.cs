@@ -224,7 +224,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte[] datum, UIntPtr length, out IntPtr exception);
+                public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -460,11 +460,11 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte[] data, UIntPtr offset, out IntPtr exception);
+                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte* data, UIntPtr offset, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -792,7 +792,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte[] datum, UIntPtr length, out IntPtr exception);
+                public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1028,11 +1028,11 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte[] data, UIntPtr offset, out IntPtr exception);
+                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte* data, UIntPtr offset, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -2897,20 +2897,23 @@ namespace ImageMagick
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_AddProfile(Instance, nameNative.Instance, datum, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_AddProfile(Instance, nameNative.Instance, datum, (UIntPtr)length, out exception);
-                    #endif
-                    CheckException(exception);
+                    fixed (byte* datumFixed = datum)
+                    {
+                        IntPtr exception = IntPtr.Zero;
+                        #if PLATFORM_AnyCPU
+                        if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        NativeMethods.X86.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
+                        #endif
+                        CheckException(exception);
+                    }
                 }
             }
             public void AffineTransform(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
@@ -5224,23 +5227,26 @@ namespace ImageMagick
             {
                 using (var settingsNative = MagickSettings.CreateInstance(settings))
                 {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, data, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, data, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    if (result != IntPtr.Zero)
-                      Instance = result;
+                    fixed (byte* dataFixed = data)
+                    {
+                        IntPtr exception = IntPtr.Zero;
+                        IntPtr result;
+                        #if PLATFORM_AnyCPU
+                        if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                        #endif
+                        CheckException(exception, result);
+                        if (result != IntPtr.Zero)
+                          Instance = result;
+                    }
                 }
             }
             public void ReadFile(IMagickSettings<QuantumType>? settings)
@@ -5270,23 +5276,26 @@ namespace ImageMagick
             {
                 using (var mapNative = UTF8Marshaler.CreateInstance(map))
                 {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offset, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offset, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    if (result != IntPtr.Zero)
-                      Instance = result;
+                    fixed (byte* dataFixed = data)
+                    {
+                        IntPtr exception = IntPtr.Zero;
+                        IntPtr result;
+                        #if PLATFORM_AnyCPU
+                        if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, dataFixed, (UIntPtr)offset, out exception);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, dataFixed, (UIntPtr)offset, out exception);
+                        #endif
+                        CheckException(exception, result);
+                        if (result != IntPtr.Zero)
+                          Instance = result;
+                    }
                 }
             }
             public void ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)

@@ -69,7 +69,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_Quantize(IntPtr image, IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImageCollection_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImageCollection_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImageCollection_ReadFile(IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -121,7 +121,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImageCollection_Quantize(IntPtr image, IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImageCollection_ReadBlob(IntPtr settings, byte[] data, UIntPtr offset, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImageCollection_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImageCollection_ReadFile(IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -553,31 +553,34 @@ namespace ImageMagick
             {
                 using (var settingsNative = MagickSettings.CreateInstance(settings))
                 {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, data, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
-                        return result;
-                    if (magickException is MagickErrorException)
+                    fixed (byte* dataFixed = data)
                     {
-                        if (result != IntPtr.Zero)
-                            Dispose(result);
-                        throw magickException;
+                        IntPtr exception = IntPtr.Zero;
+                        IntPtr result;
+                        #if PLATFORM_AnyCPU
+                        if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                        #endif
+                        var magickException = MagickExceptionHelper.Create(exception);
+                        if (magickException == null)
+                            return result;
+                        if (magickException is MagickErrorException)
+                        {
+                            if (result != IntPtr.Zero)
+                                Dispose(result);
+                            throw magickException;
+                        }
+                        RaiseWarning(magickException);
+                        return result;
                     }
-                    RaiseWarning(magickException);
-                    return result;
                 }
             }
             public IntPtr ReadFile(IMagickSettings<QuantumType>? settings)

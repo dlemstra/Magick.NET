@@ -47,6 +47,20 @@ namespace FileGenerator.Native
             }
         }
 
+        public bool IsFixed
+        {
+            get
+            {
+                switch (_type)
+                {
+                    case "byte[]":
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        }
+
         public bool IsBool
             => ManagedName == "bool";
 
@@ -70,6 +84,9 @@ namespace FileGenerator.Native
 
         public string ManagedName
             => GetManagedName(_type);
+
+        public string FixedName
+            => ManagedName.Replace("[]", string.Empty) + "*";
 
         public string ManagedTypeCast
         {

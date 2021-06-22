@@ -86,7 +86,11 @@ namespace FileGenerator.Native
                     result += argument.Type.NativeTypeCast;
                 }
 
-                if (NeedsCreate(argument.Type))
+                if (argument.Type.IsFixed)
+                {
+                    result += argument.Name + "Fixed";
+                }
+                else if (NeedsCreate(argument.Type))
                 {
                     result += argument.Name + "Native";
                     if (argument.IsOut)
@@ -127,6 +131,9 @@ namespace FileGenerator.Native
 
                 if (argument.Type.HasInstance || argument.Type.IsString)
                     return "IntPtr";
+
+                if (argument.Type.IsFixed)
+                    return argument.Type.FixedName;
 
                 if (argument.Type.IsBool)
                     return "[MarshalAs(UnmanagedType.Bool)] bool";
