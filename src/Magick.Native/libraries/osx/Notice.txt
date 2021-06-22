@@ -5638,7 +5638,7 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ webp 1.0.3 ] copyright:
+[ webp 1.2.0 ] copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
