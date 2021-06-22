@@ -3209,6 +3209,23 @@ namespace ImageMagick
         /// Gaussian blur image.
         /// </summary>
         /// <param name="radius">The number of neighbor pixels to be included in the convolution.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void GaussianBlur(double radius)
+            => GaussianBlur(radius, 1.0);
+
+        /// <summary>
+        /// Gaussian blur image.
+        /// </summary>
+        /// <param name="radius">The number of neighbor pixels to be included in the convolution.</param>
+        /// <param name="channels">The channel(s) to blur.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void GaussianBlur(double radius, Channels channels)
+            => GaussianBlur(radius, 1.0, channels);
+
+        /// <summary>
+        /// Gaussian blur image.
+        /// </summary>
+        /// <param name="radius">The number of neighbor pixels to be included in the convolution.</param>
         /// <param name="sigma">The standard deviation of the gaussian bell curve.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void GaussianBlur(double radius, double sigma)

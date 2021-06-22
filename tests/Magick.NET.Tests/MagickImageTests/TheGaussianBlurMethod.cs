@@ -42,6 +42,24 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            [Fact]
+            public void ShouldUseTheCorrectDefaultValue()
+            {
+                using (var gaussian = new MagickImage(Files.Builtin.Wizard))
+                {
+                    gaussian.GaussianBlur(4.2);
+
+                    using (var blur = new MagickImage(Files.Builtin.Wizard))
+                    {
+                        blur.GaussianBlur(4.2, 1.0);
+
+                        double distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
+
+                        Assert.Equal(0.0, distortion);
+                    }
+                }
+            }
         }
     }
 }
