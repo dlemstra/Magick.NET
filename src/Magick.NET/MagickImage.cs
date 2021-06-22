@@ -4956,6 +4956,38 @@ namespace ImageMagick
             BackgroundColor = color;
         }
 
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySpan<byte> data)
+            => Read(data, null);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySpan<byte> data, MagickFormat format)
+            => Read(data, new MagickReadSettings { Format = format });
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings)
+        {
+            Throw.IfEmpty(nameof(data), data);
+
+            Read(data, readSettings, false);
+        }
+#endif
+
         /// <summary>
         /// Read single image frame.
         /// </summary>
@@ -7213,6 +7245,20 @@ namespace ImageMagick
 
             ResetSettings();
         }
+
+#if NETSTANDARD2_1
+        private void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping)
+        {
+            var newReadSettings = CreateReadSettings(readSettings);
+            SetSettings(newReadSettings);
+
+            _settings.Ping = ping;
+
+            _nativeInstance.ReadBlob(Settings, data, 0, data.Length);
+
+            ResetSettings();
+        }
+#endif
 
         private void Read(Stream stream, IMagickReadSettings<QuantumType>? readSettings, bool ping)
         {

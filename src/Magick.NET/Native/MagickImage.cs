@@ -5255,6 +5255,34 @@ namespace ImageMagick
                     }
                 }
             }
+            #if NETSTANDARD2_1
+            public void ReadBlob(IMagickSettings<QuantumType>? settings, ReadOnlySpan<byte> data, int offset, int length)
+            {
+                using (var settingsNative = MagickSettings.CreateInstance(settings))
+                {
+                    fixed (byte* dataFixed = &data.GetPinnableReference())
+                    {
+                        IntPtr exception = IntPtr.Zero;
+                        IntPtr result;
+                        #if PLATFORM_AnyCPU
+                        if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else
+                        #endif
+                        #if PLATFORM_x86 || PLATFORM_AnyCPU
+                        result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                        #endif
+                        CheckException(exception, result);
+                        if (result != IntPtr.Zero)
+                          Instance = result;
+                    }
+                }
+            }
+            #endif
             public void ReadFile(IMagickSettings<QuantumType>? settings)
             {
                 using (var settingsNative = MagickSettings.CreateInstance(settings))

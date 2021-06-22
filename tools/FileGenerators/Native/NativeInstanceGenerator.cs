@@ -242,7 +242,9 @@ namespace FileGenerator.Native
         {
             if (type.IsFixed)
             {
-                WriteLine("fixed (" + type.FixedName + " " + name + "Fixed = " + name + ")");
+                var input = type.IsSpan ? "&" + name + ".GetPinnableReference()" : name;
+
+                WriteLine("fixed (" + type.FixedName + " " + name + "Fixed = " + input + ")");
             }
             else
             {
@@ -305,6 +307,9 @@ namespace FileGenerator.Native
         {
             foreach (var method in Class.Methods)
             {
+                if (HasSpan(method))
+                    WriteLine("#if NETSTANDARD2_1");
+
                 var arguments = GetArgumentsDeclaration(method.Arguments);
                 var isStatic = Class.IsStatic || ((method.IsStatic && !method.Throws) && !method.CreatesInstance);
                 var typeName = GetTypeName(method.ReturnType);
@@ -354,6 +359,9 @@ namespace FileGenerator.Native
                 WriteHelpingVariableEnd(method.Arguments);
 
                 WriteEndColon();
+
+                if (HasSpan(method))
+                    WriteLine("#endif");
             }
         }
 

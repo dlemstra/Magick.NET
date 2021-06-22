@@ -2042,6 +2042,30 @@
       ]
     },
     {
+      "name": "ReadBlob",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments": [
+        {
+          "name": "settings",
+          "type": "MagickSettings"
+        },
+        {
+          "name": "data",
+          "type": "ReadOnlySpan<byte>"
+        },
+        {
+          "name": "offset",
+          "type": "size_t"
+        },
+        {
+          "name": "length",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
       "name": "ReadFile",
       "instance": true,
       "throws": true,

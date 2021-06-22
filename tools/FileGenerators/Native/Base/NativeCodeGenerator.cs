@@ -163,6 +163,9 @@ namespace FileGenerator.Native
         protected bool HasInterface(MagickType type)
             => _classes.Any(c => c.Name == type.ManagedName && c.HasInterface);
 
+        protected bool HasSpan(MagickMethod method)
+            => method.Arguments.Any(argument => argument.Type.IsSpan);
+
         protected bool IsDynamic(string typeName)
             => _classes.Any(c => c.Name == typeName && c.IsDynamic);
 

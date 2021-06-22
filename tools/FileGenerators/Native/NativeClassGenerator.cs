@@ -89,6 +89,9 @@ namespace FileGenerator.Native
         {
             foreach (var method in Class.Methods)
             {
+                if (HasSpan(method))
+                    continue;
+
                 WriteLine(GetDllImport(platform));
                 var arguments = GetNativeArgumentsDeclaration(method);
                 WriteMarshal(method.ReturnType);

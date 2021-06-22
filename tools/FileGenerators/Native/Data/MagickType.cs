@@ -48,7 +48,10 @@ namespace FileGenerator.Native
         }
 
         public bool IsFixed
-            => _type.EndsWith("[]");
+            => _type.EndsWith("[]") || IsSpan;
+
+        public bool IsSpan
+            => _type.StartsWith("ReadOnlySpan<");
 
         public bool IsBool
             => ManagedName == "bool";
@@ -75,7 +78,11 @@ namespace FileGenerator.Native
             => GetManagedName(_type);
 
         public string FixedName
-            => ManagedName.Replace("[]", string.Empty) + "*";
+            => ManagedName
+                .Replace("[]", string.Empty)
+                .Replace("ReadOnlySpan<", string.Empty)
+                .Replace(">", string.Empty)
+                + "*";
 
         public string ManagedTypeCast
         {
