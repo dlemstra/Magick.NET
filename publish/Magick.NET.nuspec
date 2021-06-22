@@ -20,10 +20,10 @@
       <group targetFramework=".NETFramework2.0">
         <dependency id="Magick.NET.Core" version="7.0.1.0" />
       </group>
-      <group targetFramework=".NETFramework4.0">
+      <group targetFramework=".NETStandard2.0">
         <dependency id="Magick.NET.Core" version="7.0.1.0" />
       </group>
-      <group targetFramework=".NETStandard2.0">
+      <group targetFramework=".NETStandard2.1">
         <dependency id="Magick.NET.Core" version="7.0.1.0" />
       </group>
     </dependencies>

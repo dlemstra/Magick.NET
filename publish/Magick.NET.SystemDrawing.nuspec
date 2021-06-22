@@ -20,12 +20,13 @@
       <group targetFramework=".NETFramework2.0">
         <dependency id="Magick.NET.Core" version="7.0.1.0" />
       </group>
-      <group targetFramework=".NETFramework4.0">
-        <dependency id="Magick.NET.Core" version="7.0.1.0" />
-      </group>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Magick.NET.Core" version="7.0.1.0" />
-        <dependency id="System.Drawing.Common" version="4.7.0" />
+        <dependency id="System.Drawing.Common" version="5.0.2" />
+      </group>
+      <group targetFramework=".NETStandard2.1">
+        <dependency id="Magick.NET.Core" version="7.0.1.0" />
+        <dependency id="System.Drawing.Common" version="5.0.2" />
       </group>
     </dependencies>
     <frameworkAssemblies>
