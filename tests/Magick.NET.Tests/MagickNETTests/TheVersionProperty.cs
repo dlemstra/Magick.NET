@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
             public void ShouldContainTheCorrectFramework()
             {
 #if NETCORE
-                Assert.Contains("netstandard20", MagickNET.Version);
+                Assert.Contains("netstandard21", MagickNET.Version);
 #else
                 Assert.Contains("net20", MagickNET.Version);
 #endif
