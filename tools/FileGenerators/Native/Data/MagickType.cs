@@ -48,7 +48,7 @@ namespace FileGenerator.Native
         }
 
         public bool IsBool
-            => Managed == "bool";
+            => ManagedName == "bool";
 
         public bool IsDelegate
             => _type.EndsWith("Delegate");
@@ -68,15 +68,15 @@ namespace FileGenerator.Native
         public bool IsVoid
             => _type == "void" || _type == "voidInstance";
 
-        public string Managed
-            => GetManagedType(_type);
+        public string ManagedName
+            => GetManagedName(_type);
 
         public string ManagedTypeCast
         {
             get
             {
                 if (NeedsTypeCast)
-                    return "(" + Managed + ")";
+                    return "(" + ManagedName + ")";
 
                 return string.Empty;
             }
@@ -85,15 +85,15 @@ namespace FileGenerator.Native
         [DataMember(Name = "name")]
         public string Name { get; set; } = string.Empty;
 
-        public string Native
-            => GetNativeType(_type);
+        public string NativeName
+            => GetNativeName(_type);
 
         public string NativeTypeCast
         {
             get
             {
                 if (NeedsTypeCast)
-                    return "(" + Native + ")";
+                    return "(" + NativeName + ")";
 
                 return string.Empty;
             }
@@ -106,11 +106,11 @@ namespace FileGenerator.Native
                 if (_type == "Instance" || HasInstance || IsString)
                     return false;
 
-                return _type != Native || _type != Managed;
+                return _type != NativeName || _type != ManagedName;
             }
         }
 
-        public string GetNativeType(string type)
+        public string GetNativeName(string type)
         {
             if (_type == "void")
                 return "void";
@@ -127,7 +127,7 @@ namespace FileGenerator.Native
             return type;
         }
 
-        public string GetManagedType(string type)
+        public string GetManagedName(string type)
         {
             if (type == "size_t" || type == "ssize_t")
                 return "int";

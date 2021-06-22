@@ -12,7 +12,7 @@ namespace ImageMagick
     public partial class ChannelPerceptualHash
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -39,7 +39,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private sealed class NativeChannelPerceptualHash : ConstNativeInstance
+        private unsafe sealed class NativeChannelPerceptualHash : ConstNativeInstance
         {
             static NativeChannelPerceptualHash() { Environment.Initialize(); }
             public NativeChannelPerceptualHash(IntPtr instance)

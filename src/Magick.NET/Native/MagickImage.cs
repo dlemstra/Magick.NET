@@ -30,7 +30,7 @@ namespace ImageMagick
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate long TellStreamDelegate(IntPtr user_data);
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -1170,7 +1170,7 @@ namespace ImageMagick
             #endif
         }
         private NativeMagickImage _nativeInstance;
-        private sealed class NativeMagickImage : NativeInstance
+        private unsafe sealed class NativeMagickImage : NativeInstance
         {
             static NativeMagickImage() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

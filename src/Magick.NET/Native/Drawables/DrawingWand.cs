@@ -22,7 +22,7 @@ namespace ImageMagick
     internal partial class DrawingWand : IDisposable
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -378,7 +378,7 @@ namespace ImageMagick
             #endif
         }
         private NativeDrawingWand _nativeInstance;
-        private sealed class NativeDrawingWand : NativeInstance
+        private unsafe sealed class NativeDrawingWand : NativeInstance
         {
             static NativeDrawingWand() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

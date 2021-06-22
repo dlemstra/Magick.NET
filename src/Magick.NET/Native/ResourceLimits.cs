@@ -12,7 +12,7 @@ namespace ImageMagick
     public static partial class ResourceLimits
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -99,7 +99,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private static class NativeResourceLimits
+        private unsafe static class NativeResourceLimits
         {
             static NativeResourceLimits() { Environment.Initialize(); }
             public static ulong Area

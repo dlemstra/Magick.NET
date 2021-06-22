@@ -12,7 +12,7 @@ namespace ImageMagick
     internal partial class StringInfo
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -39,7 +39,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private sealed class NativeStringInfo : ConstNativeInstance
+        private unsafe sealed class NativeStringInfo : ConstNativeInstance
         {
             static NativeStringInfo() { Environment.Initialize(); }
             public NativeStringInfo(IntPtr instance)

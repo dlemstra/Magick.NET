@@ -22,7 +22,7 @@ namespace ImageMagick
     internal partial class PixelCollection : IDisposable
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -66,7 +66,7 @@ namespace ImageMagick
             #endif
         }
         private NativePixelCollection _nativeInstance;
-        private sealed class NativePixelCollection : NativeInstance
+        private unsafe sealed class NativePixelCollection : NativeInstance
         {
             static NativePixelCollection() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

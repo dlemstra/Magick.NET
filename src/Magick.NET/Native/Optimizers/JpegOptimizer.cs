@@ -14,7 +14,7 @@ namespace ImageMagick.ImageOptimizers
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate int ReadWriteStreamDelegate(IntPtr data, UIntPtr length, IntPtr user_data);
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -41,7 +41,7 @@ namespace ImageMagick.ImageOptimizers
             }
             #endif
         }
-        private sealed class NativeJpegOptimizer : NativeHelper
+        private unsafe sealed class NativeJpegOptimizer : NativeHelper
         {
             static NativeJpegOptimizer() { Environment.Initialize(); }
             public void CompressFile(string? input, string? output, bool progressive, bool lossless, int quality)

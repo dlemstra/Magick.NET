@@ -14,7 +14,7 @@ namespace ImageMagick
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate void LogDelegate(UIntPtr type, IntPtr value);
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -73,7 +73,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private static class NativeMagickNET
+        private unsafe static class NativeMagickNET
         {
             static NativeMagickNET() { Environment.Initialize(); }
             public static string? Delegates

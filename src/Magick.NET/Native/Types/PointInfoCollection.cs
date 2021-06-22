@@ -12,7 +12,7 @@ namespace ImageMagick
     internal partial class PointInfoCollection : IDisposable
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -52,7 +52,7 @@ namespace ImageMagick
             #endif
         }
         private NativePointInfoCollection _nativeInstance;
-        private sealed class NativePointInfoCollection : NativeInstance
+        private unsafe sealed class NativePointInfoCollection : NativeInstance
         {
             static NativePointInfoCollection() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

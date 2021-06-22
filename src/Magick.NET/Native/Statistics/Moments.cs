@@ -12,7 +12,7 @@ namespace ImageMagick
     public partial class Moments
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -39,7 +39,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private static class NativeMoments
+        private unsafe static class NativeMoments
         {
             static NativeMoments() { Environment.Initialize(); }
             public static void DisposeList(IntPtr list)

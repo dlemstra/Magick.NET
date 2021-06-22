@@ -12,7 +12,7 @@ namespace ImageMagick
     internal static partial class MagickExceptionHelper
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -55,7 +55,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private static class NativeMagickExceptionHelper
+        private unsafe static class NativeMagickExceptionHelper
         {
             static NativeMagickExceptionHelper() { Environment.Initialize(); }
             public static string? Description(IntPtr exception)

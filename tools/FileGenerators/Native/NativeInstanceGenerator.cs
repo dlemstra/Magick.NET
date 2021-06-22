@@ -38,7 +38,7 @@ namespace FileGenerator.Native
         {
             if (Class.IsStatic)
             {
-                WriteLine("private static class Native" + Class.ClassName);
+                WriteLine("private unsafe static class Native" + Class.ClassName);
                 WriteStartColon();
 
                 WriteStaticConstructor();
@@ -58,7 +58,7 @@ namespace FileGenerator.Native
                 else
                     baseClass = " : NativeInstance";
 
-                WriteLine("private " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.ClassName + baseClass);
+                WriteLine("private unsafe " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.ClassName + baseClass);
                 WriteStartColon();
 
                 WriteStaticConstructor();
@@ -216,7 +216,7 @@ namespace FileGenerator.Native
                 if (!argument.IsOut || !NeedsCreate(argument.Type))
                     continue;
 
-                WriteLine(argument.Name + " = " + argument.Type.Managed + ".CreateInstance(" + argument.Name + "Native);");
+                WriteLine(argument.Name + " = " + argument.Type.ManagedName + ".CreateInstance(" + argument.Name + "Native);");
             }
         }
 
@@ -249,7 +249,7 @@ namespace FileGenerator.Native
             if (type.IsString)
                 Write("UTF8Marshaler");
             else
-                Write(type.Managed);
+                Write(type.ManagedName);
 
             WriteLine(".CreateInstance(" + name + "))");
             WriteStartColon();
@@ -257,7 +257,7 @@ namespace FileGenerator.Native
 
         private void WriteCreateStartOut(string name, MagickType type)
         {
-            WriteLine("using (INativeInstance " + name + "Native = " + type.Managed + ".CreateInstance())");
+            WriteLine("using (INativeInstance " + name + "Native = " + type.ManagedName + ".CreateInstance())");
             WriteStartColon();
             WriteLine("IntPtr " + name + "NativeOut = " + name + "Native.Instance;");
         }
@@ -315,7 +315,7 @@ namespace FileGenerator.Native
                 var hasResult = method.CreatesInstance || IsDynamic(method.ReturnType) || !method.ReturnType.IsVoid;
 
                 if (hasResult)
-                    WriteLine(method.ReturnType.Native + " result;");
+                    WriteLine(method.ReturnType.NativeName + " result;");
 
                 arguments = GetNativeArgumentsCall(method);
                 var action = "NativeMethods.{0}." + Class.Name + "_" + method.Name + "(" + arguments + ");";
@@ -371,7 +371,7 @@ namespace FileGenerator.Native
 
                 WriteThrowStart(property.Throws);
 
-                WriteLine(property.Type.Native + " result;");
+                WriteLine(property.Type.NativeName + " result;");
                 string arguments = !Class.IsStatic ? "Instance" : string.Empty;
                 if (property.Throws)
                     arguments += ", out exception";
@@ -417,13 +417,13 @@ namespace FileGenerator.Native
                 return;
 
             if (IsDynamic(type))
-                WriteLine("return " + type.Managed + ".CreateInstance(result);");
+                WriteLine("return " + type.ManagedName + ".CreateInstance(result);");
             else if (type.IsNativeString)
                 WriteLine("return UTF8Marshaler.NativeToManagedAndRelinquish(result);");
             else if (type.IsString)
                 WriteLine("return UTF8Marshaler.NativeToManaged(result);");
             else if (type.HasInstance)
-                WriteLine("return result.Create" + type.Managed + "();");
+                WriteLine("return result.Create" + type.ManagedName + "();");
             else
                 WriteLine("return " + type.ManagedTypeCast + "result;");
         }
@@ -438,7 +438,7 @@ namespace FileGenerator.Native
 
         private string GetTypeName(MagickType type)
         {
-            var typeName = type.Managed;
+            var typeName = type.ManagedName;
 
             if (IsQuantumType(type))
                 return "I" + typeName + "<QuantumType>";

@@ -12,7 +12,7 @@ namespace ImageMagick
     internal partial class PointInfo
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -39,7 +39,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private sealed class NativePointInfo : ConstNativeInstance
+        private unsafe sealed class NativePointInfo : ConstNativeInstance
         {
             static NativePointInfo() { Environment.Initialize(); }
             public NativePointInfo(IntPtr instance)

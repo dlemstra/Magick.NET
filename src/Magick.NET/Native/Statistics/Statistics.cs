@@ -12,7 +12,7 @@ namespace ImageMagick
     public partial class Statistics
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -39,7 +39,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private static class NativeStatistics
+        private unsafe static class NativeStatistics
         {
             static NativeStatistics() { Environment.Initialize(); }
             public static void DisposeList(IntPtr list)

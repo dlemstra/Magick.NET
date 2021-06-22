@@ -12,7 +12,7 @@ namespace ImageMagick.Formats
     public partial class PdfInfo
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -35,7 +35,7 @@ namespace ImageMagick.Formats
             }
             #endif
         }
-        private sealed class NativePdfInfo : NativeHelper
+        private unsafe sealed class NativePdfInfo : NativeHelper
         {
             static NativePdfInfo() { Environment.Initialize(); }
             public int PageCount(string? fileName, string? password)

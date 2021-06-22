@@ -37,7 +37,7 @@ namespace FileGenerator.Native
             WriteDelegates();
 
             WriteLine("[SuppressUnmanagedCodeSecurity]");
-            WriteLine("private static class NativeMethods");
+            WriteLine("private static unsafe class NativeMethods");
             WriteStartColon();
             WriteX64();
             WriteX86();
@@ -92,7 +92,7 @@ namespace FileGenerator.Native
                 WriteLine(GetDllImport(platform));
                 var arguments = GetNativeArgumentsDeclaration(method);
                 WriteMarshal(method.ReturnType);
-                WriteLine("public static extern " + method.ReturnType.Native + " " + Class.Name + "_" + method.Name + "(" + arguments + ");");
+                WriteLine("public static extern " + method.ReturnType.NativeName + " " + Class.Name + "_" + method.Name + "(" + arguments + ");");
             }
         }
 
@@ -105,7 +105,7 @@ namespace FileGenerator.Native
                 if (property.Throws)
                     arguments += ", out IntPtr exception";
                 WriteMarshal(property.Type);
-                WriteLine("public static extern " + property.Type.Native + " " + Class.Name + "_" + property.Name + "_Get(" + arguments + ");");
+                WriteLine("public static extern " + property.Type.NativeName + " " + Class.Name + "_" + property.Name + "_Get(" + arguments + ");");
 
                 if (property.IsReadOnly)
                     continue;
@@ -115,7 +115,7 @@ namespace FileGenerator.Native
                 if (property.Type.IsBool)
                     arguments += "[MarshalAs(UnmanagedType.Bool)] ";
 
-                arguments += property.Type.Native + " value";
+                arguments += property.Type.NativeName + " value";
 
                 if (property.Throws)
                     arguments += ", out IntPtr exception";

@@ -28,7 +28,7 @@ namespace ImageMagick
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate long TellStreamDelegate(IntPtr user_data);
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -135,7 +135,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private sealed class NativeMagickImageCollection : NativeHelper
+        private unsafe sealed class NativeMagickImageCollection : NativeHelper
         {
             static NativeMagickImageCollection() { Environment.Initialize(); }
             public IntPtr Append(IMagickImage? image, bool stack)

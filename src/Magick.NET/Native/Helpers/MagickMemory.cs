@@ -12,7 +12,7 @@ namespace ImageMagick
     internal static partial class MagickMemory
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -35,7 +35,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private static class NativeMagickMemory
+        private unsafe static class NativeMagickMemory
         {
             static NativeMagickMemory() { Environment.Initialize(); }
             public static void Relinquish(IntPtr value)

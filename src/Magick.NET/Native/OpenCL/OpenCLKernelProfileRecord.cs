@@ -12,7 +12,7 @@ namespace ImageMagick
     public partial class OpenCLKernelProfileRecord
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -51,7 +51,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private sealed class NativeOpenCLKernelProfileRecord : ConstNativeInstance
+        private unsafe sealed class NativeOpenCLKernelProfileRecord : ConstNativeInstance
         {
             static NativeOpenCLKernelProfileRecord() { Environment.Initialize(); }
             protected override string TypeName

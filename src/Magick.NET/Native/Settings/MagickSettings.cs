@@ -22,7 +22,7 @@ namespace ImageMagick
     public partial class MagickSettings
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -225,7 +225,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private sealed class NativeMagickSettings : NativeInstance
+        private unsafe sealed class NativeMagickSettings : NativeInstance
         {
             static NativeMagickSettings() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

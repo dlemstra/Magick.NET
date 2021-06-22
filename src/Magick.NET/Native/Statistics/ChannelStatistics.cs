@@ -12,7 +12,7 @@ namespace ImageMagick
     public partial class ChannelStatistics
     {
         [SuppressUnmanagedCodeSecurity]
-        private static class NativeMethods
+        private static unsafe class NativeMethods
         {
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
@@ -83,7 +83,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private sealed class NativeChannelStatistics : ConstNativeInstance
+        private unsafe sealed class NativeChannelStatistics : ConstNativeInstance
         {
             static NativeChannelStatistics() { Environment.Initialize(); }
             public NativeChannelStatistics(IntPtr instance)
