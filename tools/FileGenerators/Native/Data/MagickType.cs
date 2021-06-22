@@ -48,19 +48,7 @@ namespace FileGenerator.Native
         }
 
         public bool IsFixed
-        {
-            get
-            {
-                switch (_type)
-                {
-                    case "byte[]":
-                    case "double[]":
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        }
+            => _type.EndsWith("[]");
 
         public bool IsBool
             => ManagedName == "bool";

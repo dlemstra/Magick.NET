@@ -37,7 +37,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr PixelCollection_GetArea(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PixelCollection_SetArea(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, QuantumType[] values, UIntPtr length, out IntPtr exception);
+                public static extern void PixelCollection_SetArea(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, QuantumType* values, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr PixelCollection_ToByteArray(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -57,7 +57,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr PixelCollection_GetArea(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PixelCollection_SetArea(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, QuantumType[] values, UIntPtr length, out IntPtr exception);
+                public static extern void PixelCollection_SetArea(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, QuantumType* values, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr PixelCollection_ToByteArray(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -131,20 +131,23 @@ namespace ImageMagick
             }
             public void SetArea(int x, int y, int width, int height, QuantumType[] values, int length)
             {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, values, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, values, (UIntPtr)length, out exception);
-                #endif
-                CheckException(exception);
+                fixed (QuantumType* valuesFixed = values)
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    CheckException(exception);
+                }
             }
             public IntPtr ToByteArray(int x, int y, int width, int height, string? mapping)
             {
