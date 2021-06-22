@@ -125,10 +125,7 @@ namespace FileGenerator.Native
             {
                 var isNullable = argument.Type.IsDelegate;
 
-                if (argument.Type.HasInstance)
-                    return "IntPtr";
-
-                if (argument.Type.IsString)
+                if (argument.Type.HasInstance || argument.Type.IsString)
                     return "IntPtr";
 
                 if (argument.Type.IsBool)

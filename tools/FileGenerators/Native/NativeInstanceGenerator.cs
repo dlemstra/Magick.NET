@@ -383,12 +383,13 @@ namespace FileGenerator.Native
                     else if (property.Type.HasInstance)
                         value = "value.GetInstance()";
 
-                    arguments = !Class.IsStatic ? "Instance, " : string.Empty;
-
+                    arguments = (Class.IsStatic ? string.Empty : "Instance, ") + value;
                     if (property.Throws)
-                        WriteThrowSet(property, value);
-                    else
-                        WriteNativeIfContent("NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Set(" + arguments + value + ");");
+                        arguments += ", out exception";
+
+                    WriteThrowStart(property.Throws);
+                    WriteNativeIfContent("NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Set(" + arguments + ");");
+                    WriteCheckException(property.Throws);
 
                     WriteCreateEnd(property);
 
@@ -458,14 +459,6 @@ namespace FileGenerator.Native
             {
                 WriteReturn(method.ReturnType);
             }
-        }
-
-        private void WriteThrowSet(MagickProperty property, string value)
-        {
-            WriteThrowStart();
-
-            WriteNativeIfContent("NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Set(Instance, " + value + ", out exception);");
-            WriteCheckException(true);
         }
 
         private string GetTypeName(MagickType type)
