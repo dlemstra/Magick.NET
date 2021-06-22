@@ -1129,29 +1129,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_GaussianBlur()
-        {
-            using (var gaussian = new MagickImage(Files.Builtin.Wizard))
-            {
-                gaussian.GaussianBlur(5.5, 10.2);
-
-                using (var blur = new MagickImage(Files.Builtin.Wizard))
-                {
-                    blur.Blur(5.5, 10.2);
-
-                    double distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
-#if Q8
-                    Assert.InRange(distortion, 0.00066, 0.00067);
-#elif Q16
-                    Assert.InRange(distortion, 0.0000033, 0.0000034);
-#else
-                    Assert.InRange(distortion, 0.0000011, 0.0000012);
-#endif
-                }
-            }
-        }
-
-        [Fact]
         public void Test_GetClippingPath()
         {
             using (var image = new MagickImage(Files.InvitationTIF))
