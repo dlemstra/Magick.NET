@@ -101,18 +101,20 @@ namespace ImageMagick
             }
             public static int GetArea(IntPtr instance)
             {
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.ConnectedComponent_GetArea(instance);
+                result = NativeMethods.X64.ConnectedComponent_GetArea(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.ConnectedComponent_GetArea(instance);
+                result = NativeMethods.X86.ConnectedComponent_GetArea(instance);
                 #endif
+                return (int)result;
             }
             public static PointInfo GetCentroid(IntPtr instance)
             {
@@ -150,93 +152,105 @@ namespace ImageMagick
             }
             public static int GetHeight(IntPtr instance)
             {
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.ConnectedComponent_GetHeight(instance);
+                result = NativeMethods.X64.ConnectedComponent_GetHeight(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.ConnectedComponent_GetHeight(instance);
+                result = NativeMethods.X86.ConnectedComponent_GetHeight(instance);
                 #endif
+                return (int)result;
             }
             public static int GetId(IntPtr instance)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.ConnectedComponent_GetId(instance);
+                result = NativeMethods.X64.ConnectedComponent_GetId(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.ConnectedComponent_GetId(instance);
+                result = NativeMethods.X86.ConnectedComponent_GetId(instance);
                 #endif
+                return (int)result;
             }
             public static IntPtr GetInstance(IntPtr list, int index)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.ConnectedComponent_GetInstance(list, (UIntPtr)index);
+                result = NativeMethods.X64.ConnectedComponent_GetInstance(list, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.ConnectedComponent_GetInstance(list, (UIntPtr)index);
+                result = NativeMethods.X86.ConnectedComponent_GetInstance(list, (UIntPtr)index);
                 #endif
+                return result;
             }
             public static int GetWidth(IntPtr instance)
             {
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.ConnectedComponent_GetWidth(instance);
+                result = NativeMethods.X64.ConnectedComponent_GetWidth(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.ConnectedComponent_GetWidth(instance);
+                result = NativeMethods.X86.ConnectedComponent_GetWidth(instance);
                 #endif
+                return (int)result;
             }
             public static int GetX(IntPtr instance)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.ConnectedComponent_GetX(instance);
+                result = NativeMethods.X64.ConnectedComponent_GetX(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.ConnectedComponent_GetX(instance);
+                result = NativeMethods.X86.ConnectedComponent_GetX(instance);
                 #endif
+                return (int)result;
             }
             public static int GetY(IntPtr instance)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.ConnectedComponent_GetY(instance);
+                result = NativeMethods.X64.ConnectedComponent_GetY(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.ConnectedComponent_GetY(instance);
+                result = NativeMethods.X86.ConnectedComponent_GetY(instance);
                 #endif
+                return (int)result;
             }
         }
     }

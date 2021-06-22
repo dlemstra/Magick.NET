@@ -189,18 +189,20 @@ namespace ImageMagick
             {
                 using (var valueNative = UTF8Marshaler.CreateInstance(value))
                 {
+                    UIntPtr result;
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    return (GeometryFlags)NativeMethods.X64.MagickGeometry_Initialize(Instance, valueNative.Instance);
+                    result = NativeMethods.X64.MagickGeometry_Initialize(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    return (GeometryFlags)NativeMethods.X86.MagickGeometry_Initialize(Instance, valueNative.Instance);
+                    result = NativeMethods.X86.MagickGeometry_Initialize(Instance, valueNative.Instance);
                     #endif
+                    return (GeometryFlags)result;
                 }
             }
         }

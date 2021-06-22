@@ -395,36 +395,40 @@ namespace ImageMagick
             {
                 using (var otherNative = MagickColor.CreateInstance(other))
                 {
+                    bool result;
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    return NativeMethods.X64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+                    result = NativeMethods.X64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    return NativeMethods.X86.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+                    result = NativeMethods.X86.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
                     #endif
+                    return result;
                 }
             }
             public bool Initialize(string? value)
             {
                 using (var valueNative = UTF8Marshaler.CreateInstance(value))
                 {
+                    bool result;
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    return NativeMethods.X64.MagickColor_Initialize(Instance, valueNative.Instance);
+                    result = NativeMethods.X64.MagickColor_Initialize(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    return NativeMethods.X86.MagickColor_Initialize(Instance, valueNative.Instance);
+                    result = NativeMethods.X86.MagickColor_Initialize(Instance, valueNative.Instance);
                     #endif
+                    return result;
                 }
             }
         }

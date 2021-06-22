@@ -145,33 +145,37 @@ namespace ImageMagick
             }
             public static string? GetFontName(IntPtr instance, int index)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X64.Magick_GetFontName(instance, (UIntPtr)index));
+                result = NativeMethods.X64.Magick_GetFontName(instance, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X86.Magick_GetFontName(instance, (UIntPtr)index));
+                result = NativeMethods.X86.Magick_GetFontName(instance, (UIntPtr)index);
                 #endif
+                return UTF8Marshaler.NativeToManaged(result);
             }
             public static string? GetFontFamily(IntPtr instance, int index)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X64.Magick_GetFontFamily(instance, (UIntPtr)index));
+                result = NativeMethods.X64.Magick_GetFontFamily(instance, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X86.Magick_GetFontFamily(instance, (UIntPtr)index));
+                result = NativeMethods.X86.Magick_GetFontFamily(instance, (UIntPtr)index);
                 #endif
+                return UTF8Marshaler.NativeToManaged(result);
             }
             public static void DisposeFonts(IntPtr instance)
             {

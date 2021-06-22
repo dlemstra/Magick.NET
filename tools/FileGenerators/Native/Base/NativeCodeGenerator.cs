@@ -209,9 +209,6 @@ namespace FileGenerator.Native
             WriteLine("#endif");
         }
 
-        protected void WriteThrowStart()
-            => WriteThrowStart(true);
-
         protected void WriteThrowStart(bool throws)
         {
             if (throws)

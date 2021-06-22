@@ -98,18 +98,20 @@ namespace ImageMagick
             }
             public static byte ScaleToByte(QuantumType value)
             {
+                byte result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.Quantum_ScaleToByte(value);
+                result = NativeMethods.X64.Quantum_ScaleToByte(value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.Quantum_ScaleToByte(value);
+                result = NativeMethods.X86.Quantum_ScaleToByte(value);
                 #endif
+                return result;
             }
         }
     }

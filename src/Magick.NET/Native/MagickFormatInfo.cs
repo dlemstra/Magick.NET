@@ -379,18 +379,20 @@ namespace ImageMagick
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
+                    bool result;
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    return NativeMethods.X64.MagickFormatInfo_Unregister(nameNative.Instance);
+                    result = NativeMethods.X64.MagickFormatInfo_Unregister(nameNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    return NativeMethods.X86.MagickFormatInfo_Unregister(nameNative.Instance);
+                    result = NativeMethods.X86.MagickFormatInfo_Unregister(nameNative.Instance);
                     #endif
+                    return result;
                 }
             }
         }

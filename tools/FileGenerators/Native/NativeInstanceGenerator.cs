@@ -310,30 +310,41 @@ namespace FileGenerator.Native
 
                 WriteCreateStart(method.Arguments);
 
+                WriteThrowStart(method.Throws);
+
+                var hasResult = method.CreatesInstance || IsDynamic(method.ReturnType) || !method.ReturnType.IsVoid;
+
+                if (hasResult)
+                    WriteLine(method.ReturnType.Native + " result;");
+
+                arguments = GetNativeArgumentsCall(method);
+                var action = "NativeMethods.{0}." + Class.Name + "_" + method.Name + "(" + arguments + ");";
+                if (hasResult)
+                    action = "result = " + action;
+
+                WriteNativeIfContent(action);
+
                 if (method.Throws)
                 {
-                    WriteThrow(method);
+                    WriteCreateOut(method.Arguments);
+
+                    var cleanupString = CreateCleanupString(method);
+                    if (!string.IsNullOrEmpty(cleanupString))
+                        WriteCleanup(cleanupString);
+                    else if (method.CreatesInstance && !Class.IsConst)
+                        WriteLine("CheckException(exception, result);");
+                    else
+                        WriteCheckException(true);
+                }
+
+                if (hasResult && method.ReturnType.IsVoid)
+                {
+                    WriteLine("if (result != IntPtr.Zero)");
+                    WriteLine("  Instance = result;");
                 }
                 else
                 {
-                    if (method.CreatesInstance)
-                        throw new NotImplementedException();
-
-                    bool isDynamic = IsDynamic(method.ReturnType);
-
-                    if (isDynamic)
-                        WriteLine("IntPtr result;");
-                    arguments = GetNativeArgumentsCall(method);
-                    string action = GetAction("NativeMethods.{0}." + Class.Name + "_" + method.Name + "(" + arguments + ")", method.ReturnType);
-                    if (isDynamic)
-                        action = "result = " + action;
-                    else if (!method.ReturnType.IsVoid && !method.CreatesInstance)
-                        action = "return " + action;
-
-                    WriteNativeIf(action);
-
-                    if (isDynamic)
-                        WriteLine("return " + method.ReturnType.Managed + ".CreateInstance(result);");
+                    WriteReturn(method.ReturnType);
                 }
 
                 WriteCreateEnd(method.Arguments);
@@ -423,42 +434,6 @@ namespace FileGenerator.Native
                 return;
 
             WriteLine("static Native" + Class.ClassName + "() { Environment.Initialize(); }");
-        }
-
-        private void WriteThrow(MagickMethod method)
-        {
-            WriteThrowStart();
-
-            if (method.CreatesInstance)
-                WriteLine("IntPtr result;");
-            else if (!method.ReturnType.IsVoid)
-                WriteLine(method.ReturnType.Native + " result;");
-
-            var arguments = GetNativeArgumentsCall(method);
-            var action = "NativeMethods.{0}." + Class.Name + "_" + method.Name + "(" + arguments + ");";
-            if (!method.ReturnType.IsVoid || method.CreatesInstance)
-                action = "result = " + action;
-            WriteNativeIfContent(action);
-
-            WriteCreateOut(method.Arguments);
-
-            var cleanupString = CreateCleanupString(method);
-            if (!string.IsNullOrEmpty(cleanupString))
-                WriteCleanup(cleanupString);
-            else if (method.CreatesInstance && !Class.IsConst)
-                WriteLine("CheckException(exception, result);");
-            else
-                WriteCheckException(true);
-
-            if (method.CreatesInstance && method.ReturnType.IsVoid)
-            {
-                WriteLine("if (result != IntPtr.Zero)");
-                WriteLine("  Instance = result;");
-            }
-            else
-            {
-                WriteReturn(method.ReturnType);
-            }
         }
 
         private string GetTypeName(MagickType type)

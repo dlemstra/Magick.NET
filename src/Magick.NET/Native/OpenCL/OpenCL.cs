@@ -56,63 +56,71 @@ namespace ImageMagick
             static NativeOpenCL() { Environment.Initialize(); }
             public static IntPtr GetDevices(out UIntPtr length)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.OpenCL_GetDevices(out length);
+                result = NativeMethods.X64.OpenCL_GetDevices(out length);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.OpenCL_GetDevices(out length);
+                result = NativeMethods.X86.OpenCL_GetDevices(out length);
                 #endif
+                return result;
             }
             public static IntPtr GetDevice(IntPtr list, int index)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.OpenCL_GetDevice(list, (UIntPtr)index);
+                result = NativeMethods.X64.OpenCL_GetDevice(list, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.OpenCL_GetDevice(list, (UIntPtr)index);
+                result = NativeMethods.X86.OpenCL_GetDevice(list, (UIntPtr)index);
                 #endif
+                return result;
             }
             public static bool GetEnabled()
             {
+                bool result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.OpenCL_GetEnabled();
+                result = NativeMethods.X64.OpenCL_GetEnabled();
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.OpenCL_GetEnabled();
+                result = NativeMethods.X86.OpenCL_GetEnabled();
                 #endif
+                return result;
             }
             public static bool SetEnabled(bool value)
             {
+                bool result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.OpenCL_SetEnabled(value);
+                result = NativeMethods.X64.OpenCL_SetEnabled(value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.OpenCL_SetEnabled(value);
+                result = NativeMethods.X86.OpenCL_SetEnabled(value);
                 #endif
+                return result;
             }
         }
     }

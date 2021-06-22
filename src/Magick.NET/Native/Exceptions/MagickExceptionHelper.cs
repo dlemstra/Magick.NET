@@ -60,18 +60,20 @@ namespace ImageMagick
             static NativeMagickExceptionHelper() { Environment.Initialize(); }
             public static string? Description(IntPtr exception)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickExceptionHelper_Description(exception));
+                result = NativeMethods.X64.MagickExceptionHelper_Description(exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickExceptionHelper_Description(exception));
+                result = NativeMethods.X86.MagickExceptionHelper_Description(exception);
                 #endif
+                return UTF8Marshaler.NativeToManaged(result);
             }
             public static void Dispose(IntPtr exception)
             {
@@ -90,63 +92,71 @@ namespace ImageMagick
             }
             public static string? Message(IntPtr exception)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickExceptionHelper_Message(exception));
+                result = NativeMethods.X64.MagickExceptionHelper_Message(exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickExceptionHelper_Message(exception));
+                result = NativeMethods.X86.MagickExceptionHelper_Message(exception);
                 #endif
+                return UTF8Marshaler.NativeToManaged(result);
             }
             public static IntPtr Related(IntPtr exception, int index)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.MagickExceptionHelper_Related(exception, (UIntPtr)index);
+                result = NativeMethods.X64.MagickExceptionHelper_Related(exception, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.MagickExceptionHelper_Related(exception, (UIntPtr)index);
+                result = NativeMethods.X86.MagickExceptionHelper_Related(exception, (UIntPtr)index);
                 #endif
+                return result;
             }
             public static int RelatedCount(IntPtr exception)
             {
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.MagickExceptionHelper_RelatedCount(exception);
+                result = NativeMethods.X64.MagickExceptionHelper_RelatedCount(exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.MagickExceptionHelper_RelatedCount(exception);
+                result = NativeMethods.X86.MagickExceptionHelper_RelatedCount(exception);
                 #endif
+                return (int)result;
             }
             public static int Severity(IntPtr exception)
             {
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.MagickExceptionHelper_Severity(exception);
+                result = NativeMethods.X64.MagickExceptionHelper_Severity(exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.MagickExceptionHelper_Severity(exception);
+                result = NativeMethods.X86.MagickExceptionHelper_Severity(exception);
                 #endif
+                return (int)result;
             }
         }
     }

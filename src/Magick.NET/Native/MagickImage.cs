@@ -3195,18 +3195,20 @@ namespace ImageMagick
             }
             public int ChannelOffset(PixelChannel channel)
             {
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+                result = NativeMethods.X64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return (int)NativeMethods.X86.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+                result = NativeMethods.X86.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
                 #endif
+                return (int)result;
             }
             public void Charcoal(double radius, double sigma)
             {
@@ -4246,18 +4248,20 @@ namespace ImageMagick
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
+                    IntPtr result;
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetArtifact(Instance, nameNative.Instance));
+                    result = NativeMethods.X64.MagickImage_GetArtifact(Instance, nameNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetArtifact(Instance, nameNative.Instance));
+                    result = NativeMethods.X86.MagickImage_GetArtifact(Instance, nameNative.Instance);
                     #endif
+                    return UTF8Marshaler.NativeToManaged(result);
                 }
             }
             public string? GetAttribute(string? name)
@@ -4320,63 +4324,71 @@ namespace ImageMagick
             }
             public static IntPtr GetNext(IntPtr image)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.MagickImage_GetNext(image);
+                result = NativeMethods.X64.MagickImage_GetNext(image);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.MagickImage_GetNext(image);
+                result = NativeMethods.X86.MagickImage_GetNext(image);
                 #endif
+                return result;
             }
             public string? GetNextArtifactName()
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetNextArtifactName(Instance));
+                result = NativeMethods.X64.MagickImage_GetNextArtifactName(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetNextArtifactName(Instance));
+                result = NativeMethods.X86.MagickImage_GetNextArtifactName(Instance);
                 #endif
+                return UTF8Marshaler.NativeToManaged(result);
             }
             public string? GetNextAttributeName()
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetNextAttributeName(Instance));
+                result = NativeMethods.X64.MagickImage_GetNextAttributeName(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetNextAttributeName(Instance));
+                result = NativeMethods.X86.MagickImage_GetNextAttributeName(Instance);
                 #endif
+                return UTF8Marshaler.NativeToManaged(result);
             }
             public string? GetNextProfileName()
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X64.MagickImage_GetNextProfileName(Instance));
+                result = NativeMethods.X64.MagickImage_GetNextProfileName(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return UTF8Marshaler.NativeToManaged(NativeMethods.X86.MagickImage_GetNextProfileName(Instance));
+                result = NativeMethods.X86.MagickImage_GetNextProfileName(Instance);
                 #endif
+                return UTF8Marshaler.NativeToManaged(result);
             }
             public StringInfo? GetProfile(string? name)
             {
@@ -4474,35 +4486,39 @@ namespace ImageMagick
             }
             public bool HasChannel(PixelChannel channel)
             {
+                bool result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+                result = NativeMethods.X64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+                result = NativeMethods.X86.MagickImage_HasChannel(Instance, (UIntPtr)channel);
                 #endif
+                return result;
             }
             public bool HasProfile(string? name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
+                    bool result;
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    return NativeMethods.X64.MagickImage_HasProfile(Instance, nameNative.Instance);
+                    result = NativeMethods.X64.MagickImage_HasProfile(Instance, nameNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    return NativeMethods.X86.MagickImage_HasProfile(Instance, nameNative.Instance);
+                    result = NativeMethods.X86.MagickImage_HasProfile(Instance, nameNative.Instance);
                     #endif
+                    return result;
                 }
             }
             public IntPtr Histogram(out UIntPtr length)

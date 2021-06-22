@@ -59,18 +59,20 @@ namespace ImageMagick
             }
             public static IntPtr GetInstance(IMagickImage? image, IntPtr list, PixelChannel channel)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.PerceptualHash_GetInstance(image.GetInstance(), list, (UIntPtr)channel);
+                result = NativeMethods.X64.PerceptualHash_GetInstance(image.GetInstance(), list, (UIntPtr)channel);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.PerceptualHash_GetInstance(image.GetInstance(), list, (UIntPtr)channel);
+                result = NativeMethods.X86.PerceptualHash_GetInstance(image.GetInstance(), list, (UIntPtr)channel);
                 #endif
+                return result;
             }
         }
     }

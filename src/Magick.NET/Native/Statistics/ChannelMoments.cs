@@ -171,18 +171,20 @@ namespace ImageMagick
             }
             public double GetHuInvariants(int index)
             {
+                double result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+                result = NativeMethods.X64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+                result = NativeMethods.X86.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
                 #endif
+                return result;
             }
         }
     }

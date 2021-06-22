@@ -196,33 +196,37 @@ namespace ImageMagick
             }
             public IntPtr GetKernelProfileRecords(out UIntPtr length)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.OpenCLDevice_GetKernelProfileRecords(Instance, out length);
+                result = NativeMethods.X64.OpenCLDevice_GetKernelProfileRecords(Instance, out length);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.OpenCLDevice_GetKernelProfileRecords(Instance, out length);
+                result = NativeMethods.X86.OpenCLDevice_GetKernelProfileRecords(Instance, out length);
                 #endif
+                return result;
             }
             public static IntPtr GetKernelProfileRecord(IntPtr list, int index)
             {
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.OpenCLDevice_GetKernelProfileRecord(list, (UIntPtr)index);
+                result = NativeMethods.X64.OpenCLDevice_GetKernelProfileRecord(list, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.OpenCLDevice_GetKernelProfileRecord(list, (UIntPtr)index);
+                result = NativeMethods.X86.OpenCLDevice_GetKernelProfileRecord(list, (UIntPtr)index);
                 #endif
+                return result;
             }
             public void SetProfileKernels(bool value)
             {

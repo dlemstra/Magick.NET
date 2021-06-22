@@ -100,33 +100,37 @@ namespace ImageMagick
             }
             public double GetX(int index)
             {
+                double result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.PointInfoCollection_GetX(Instance, (UIntPtr)index);
+                result = NativeMethods.X64.PointInfoCollection_GetX(Instance, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.PointInfoCollection_GetX(Instance, (UIntPtr)index);
+                result = NativeMethods.X86.PointInfoCollection_GetX(Instance, (UIntPtr)index);
                 #endif
+                return result;
             }
             public double GetY(int index)
             {
+                double result;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                return NativeMethods.X64.PointInfoCollection_GetY(Instance, (UIntPtr)index);
+                result = NativeMethods.X64.PointInfoCollection_GetY(Instance, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                return NativeMethods.X86.PointInfoCollection_GetY(Instance, (UIntPtr)index);
+                result = NativeMethods.X86.PointInfoCollection_GetY(Instance, (UIntPtr)index);
                 #endif
+                return result;
             }
             public void Set(int index, double x, double y)
             {
