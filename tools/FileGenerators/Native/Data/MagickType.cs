@@ -54,6 +54,7 @@ namespace FileGenerator.Native
                 switch (_type)
                 {
                     case "byte[]":
+                    case "double[]":
                         return true;
                     default:
                         return false;

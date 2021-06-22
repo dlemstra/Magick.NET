@@ -21,7 +21,7 @@ namespace ImageMagick
                 static X64() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr DoubleMatrix_Create(double[] values, UIntPtr order);
+                public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DoubleMatrix_Dispose(IntPtr instance);
             }
@@ -33,7 +33,7 @@ namespace ImageMagick
                 static X86() { NativeLibraryLoader.Load(); }
                 #endif
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr DoubleMatrix_Create(double[] values, UIntPtr order);
+                public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DoubleMatrix_Dispose(IntPtr instance);
             }
@@ -59,20 +59,23 @@ namespace ImageMagick
             }
             public NativeDoubleMatrix(double[] values, int order)
             {
-                #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X64.DoubleMatrix_Create(values, (UIntPtr)order);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X86.DoubleMatrix_Create(values, (UIntPtr)order);
-                #endif
-                if (Instance == IntPtr.Zero)
-                    throw new InvalidOperationException();
+                fixed (double* valuesFixed = values)
+                {
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    Instance = NativeMethods.X64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    Instance = NativeMethods.X86.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
+                    #endif
+                    if (Instance == IntPtr.Zero)
+                        throw new InvalidOperationException();
+                }
             }
             protected override string TypeName
             {

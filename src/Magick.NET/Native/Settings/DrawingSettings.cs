@@ -133,7 +133,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double[] dash, UIntPtr length);
+                public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double* dash, UIntPtr length);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingSettings_SetStrokePattern(IntPtr Instance, IntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -249,7 +249,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double[] dash, UIntPtr length);
+                public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double* dash, UIntPtr length);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingSettings_SetStrokePattern(IntPtr Instance, IntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1161,18 +1161,21 @@ namespace ImageMagick
             }
             public void SetStrokeDashArray(double[] dash, int length)
             {
-                #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingSettings_SetStrokeDashArray(Instance, dash, (UIntPtr)length);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.DrawingSettings_SetStrokeDashArray(Instance, dash, (UIntPtr)length);
-                #endif
+                fixed (double* dashFixed = dash)
+                {
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_SetStrokeDashArray(Instance, dashFixed, (UIntPtr)length);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.DrawingSettings_SetStrokeDashArray(Instance, dashFixed, (UIntPtr)length);
+                    #endif
+                }
             }
             public void SetStrokePattern(IMagickImage? value)
             {

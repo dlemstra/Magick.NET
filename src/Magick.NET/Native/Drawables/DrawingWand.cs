@@ -161,7 +161,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_StrokeColor(IntPtr Instance, IntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void DrawingWand_StrokeDashArray(IntPtr Instance, double[] dash, UIntPtr length, out IntPtr exception);
+                public static extern void DrawingWand_StrokeDashArray(IntPtr Instance, double* dash, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_StrokeDashOffset(IntPtr Instance, double value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -337,7 +337,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_StrokeColor(IntPtr Instance, IntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void DrawingWand_StrokeDashArray(IntPtr Instance, double[] dash, UIntPtr length, out IntPtr exception);
+                public static extern void DrawingWand_StrokeDashArray(IntPtr Instance, double* dash, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_StrokeDashOffset(IntPtr Instance, double value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1543,20 +1543,23 @@ namespace ImageMagick
             }
             public void StrokeDashArray(double[] dash, int length)
             {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingWand_StrokeDashArray(Instance, dash, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.DrawingWand_StrokeDashArray(Instance, dash, (UIntPtr)length, out exception);
-                #endif
-                CheckException(exception);
+                fixed (double* dashFixed = dash)
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingWand_StrokeDashArray(Instance, dashFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.DrawingWand_StrokeDashArray(Instance, dashFixed, (UIntPtr)length, out exception);
+                    #endif
+                    CheckException(exception);
+                }
             }
             public void StrokeDashOffset(double value)
             {

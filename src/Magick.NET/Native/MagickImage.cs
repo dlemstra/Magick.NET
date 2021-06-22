@@ -318,7 +318,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr MagickImage_DetermineColorType(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double[] arguments, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double* arguments, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Edge(IntPtr Instance, double radius, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -333,7 +333,7 @@ namespace ImageMagick
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double[] values, UIntPtr length, out IntPtr exception);
+                public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double* values, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_EvaluateGeometry(IntPtr Instance, UIntPtr channels, IntPtr geometry, UIntPtr evaluateOperator, double value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -537,7 +537,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double[] values, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Sketch(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -886,7 +886,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr MagickImage_DetermineColorType(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double[] arguments, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double* arguments, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Edge(IntPtr Instance, double radius, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -901,7 +901,7 @@ namespace ImageMagick
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double[] values, UIntPtr length, out IntPtr exception);
+                public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double* values, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_EvaluateGeometry(IntPtr Instance, UIntPtr channels, IntPtr geometry, UIntPtr evaluateOperator, double value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1105,7 +1105,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double[] values, UIntPtr length, out IntPtr exception);
+                public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Sketch(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3834,23 +3834,26 @@ namespace ImageMagick
             }
             public void Distort(DistortMethod method, bool bestfit, double[] arguments, int length)
             {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, arguments, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, arguments, (UIntPtr)length, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
+                fixed (double* argumentsFixed = arguments)
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
+                    #endif
+                    CheckException(exception, result);
+                    if (result != IntPtr.Zero)
+                      Instance = result;
+                }
             }
             public void Edge(double radius)
             {
@@ -3970,20 +3973,23 @@ namespace ImageMagick
             }
             public void EvaluateFunction(Channels channels, EvaluateFunction evaluateFunction, double[] values, int length)
             {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, values, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, values, (UIntPtr)length, out exception);
-                #endif
-                CheckException(exception);
+                fixed (double* valuesFixed = values)
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    CheckException(exception);
+                }
             }
             public void EvaluateGeometry(Channels channels, MagickRectangle? geometry, EvaluateOperator evaluateOperator, double value)
             {
@@ -5965,23 +5971,26 @@ namespace ImageMagick
             }
             public void SparseColor(Channels channel, SparseColorMethod method, double[] values, int length)
             {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, values, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, values, (UIntPtr)length, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
+                fixed (double* valuesFixed = values)
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    CheckException(exception, result);
+                    if (result != IntPtr.Zero)
+                      Instance = result;
+                }
             }
             public void Sketch(double radius, double sigma, double angle)
             {
