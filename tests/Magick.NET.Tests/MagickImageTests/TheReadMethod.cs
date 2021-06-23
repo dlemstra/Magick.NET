@@ -814,7 +814,7 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
-                        image.Read(new ReadOnlySpan<byte>(bytes));
+                        image.Read(new Span<byte>(bytes));
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
                     }
@@ -824,7 +824,7 @@ namespace Magick.NET.Tests
             public class WithSpanAndMagickFormat
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                public void ShouldThrowExceptionWhenSpanIsEmpty()
                 {
                     using (var image = new MagickImage())
                     {
@@ -841,7 +841,7 @@ namespace Magick.NET.Tests
                     {
                         var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
                         {
-                            image.Read(new ReadOnlySpan<byte>(bytes), MagickFormat.Png);
+                            image.Read(new Span<byte>(bytes), MagickFormat.Png);
                         });
 
                         Assert.Contains("ReadPNGImage", exception.Message);
@@ -855,7 +855,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        image.Read(new ReadOnlySpan<byte>(bytes), MagickFormat.Png);
+                        image.Read(new Span<byte>(bytes), MagickFormat.Png);
 
                         Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
                     }
@@ -865,7 +865,7 @@ namespace Magick.NET.Tests
             public class WithSpanAndMagickReadSettings
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                public void ShouldThrowExceptionWhenSpanIsEmpty()
                 {
                     var settings = new MagickReadSettings();
 
@@ -881,7 +881,7 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
-                        image.Read(new ReadOnlySpan<byte>(bytes), null);
+                        image.Read(new Span<byte>(bytes), null);
                     }
                 }
 
@@ -896,7 +896,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(new ReadOnlySpan<byte>(bytes), settings));
+                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(new Span<byte>(bytes), settings));
 
                         Assert.Contains("ReadPNGImage", exception.Message);
                     }
@@ -914,7 +914,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        image.Read(new ReadOnlySpan<byte>(bytes), readSettings);
+                        image.Read(new Span<byte>(bytes), readSettings);
 
                         Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
                     }
