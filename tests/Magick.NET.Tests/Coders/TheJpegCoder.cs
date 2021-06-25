@@ -44,5 +44,29 @@ namespace Magick.NET.Tests
                 }
             }
         }
+
+        [Fact]
+        public void ShouldWriteTheXmpProfileToTheImage()
+        {
+            using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+            {
+                var profile = input.GetXmpProfile();
+                Assert.NotNull(profile);
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    input.Write(memoryStream, MagickFormat.Jpeg);
+                    memoryStream.Position = 0;
+
+                    using (var output = new MagickImage(memoryStream))
+                    {
+                        var result = output.GetXmpProfile();
+
+                        Assert.NotNull(result);
+                        Assert.True(result.Equals(profile));
+                    }
+                }
+            }
+        }
     }
 }
