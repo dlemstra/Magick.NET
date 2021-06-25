@@ -1117,6 +1117,39 @@ namespace ImageMagick
             Read(file.FullName, readSettings);
         }
 
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySpan<byte> data)
+            => Read(data, null);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySpan<byte> data, MagickFormat format)
+            => Read(data, new MagickReadSettings { Format = format });
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings)
+        {
+            Throw.IfEmpty(nameof(data), data);
+
+            Clear();
+            AddImages(data, readSettings, false);
+        }
+#endif
+
         /// <summary>
         /// Read all image frames.
         /// </summary>
@@ -1597,6 +1630,17 @@ namespace ImageMagick
             var result = _nativeInstance.ReadBlob(settings, data, offset, count);
             AddImages(result, settings);
         }
+
+#if NETSTANDARD2_1
+        private void AddImages(ReadOnlySpan<byte> data, IMagickReadSettings<byte>? readSettings, bool ping)
+        {
+            var settings = CreateSettings(readSettings);
+            settings.Ping = ping;
+
+            var result = _nativeInstance.ReadBlob(settings, data, 0, data.Length);
+            AddImages(result, settings);
+        }
+#endif
 
         private void AddImages(string fileName, IMagickReadSettings<QuantumType>? readSettings, bool ping)
         {

@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 #if NETSTANDARD
@@ -226,6 +227,16 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(FileInfo file, IMagickReadSettings<TQuantumType>? readSettings);
+
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(ReadOnlySpan<byte> data, IMagickReadSettings<TQuantumType>? readSettings);
+#endif
 
         /// <summary>
         /// Read all image frames.

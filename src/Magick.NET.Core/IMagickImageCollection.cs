@@ -206,6 +206,23 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(FileInfo file, MagickFormat format);
 
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(ReadOnlySpan<byte> data);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(ReadOnlySpan<byte> data, MagickFormat format);
+#endif
+
         /// <summary>
         /// Read all image frames.
         /// </summary>

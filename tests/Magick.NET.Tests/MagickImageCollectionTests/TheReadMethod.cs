@@ -519,6 +519,107 @@ namespace Magick.NET.Tests
                 }
             }
 
+#if NETCOREAPP
+            public class WithSpan
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        Assert.Throws<ArgumentException>("data", () => images.Read(Span<byte>.Empty));
+                    }
+                }
+
+                [Fact]
+                public void ShouldResetTheFormatAfterReading()
+                {
+                    var readSettings = new MagickReadSettings
+                    {
+                        Format = MagickFormat.Png,
+                    };
+
+                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+
+                    using (var images = new MagickImageCollection())
+                    {
+                        images.Read(new Span<byte>(bytes), readSettings);
+
+                        Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
+                    }
+                }
+            }
+
+            public class WithSpanAndMagickFormat
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        Assert.Throws<ArgumentException>("data", () => images.Read(Span<byte>.Empty, MagickFormat.Png));
+                    }
+                }
+
+                [Fact]
+                public void ShouldUseTheCorrectReaderWhenFormatIsSet()
+                {
+                    var bytes = Encoding.ASCII.GetBytes("%PDF-");
+
+                    using (var images = new MagickImageCollection())
+                    {
+                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(new Span<byte>(bytes), MagickFormat.Png));
+
+                        Assert.Contains("ReadPNGImage", exception.Message);
+                    }
+                }
+            }
+
+            public class WithSpanAndMagickReadSettings
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        var settings = new MagickReadSettings();
+
+                        Assert.Throws<ArgumentException>("data", () => images.Read(Span<byte>.Empty, settings));
+                    }
+                }
+
+                [Fact]
+                public void ShouldUseTheCorrectReaderWhenFormatIsSet()
+                {
+                    var bytes = Encoding.ASCII.GetBytes("%PDF-");
+                    var settings = new MagickReadSettings
+                    {
+                        Format = MagickFormat.Png,
+                    };
+
+                    using (var images = new MagickImageCollection())
+                    {
+                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(new Span<byte>(bytes), settings));
+
+                        Assert.Contains("ReadPNGImage", exception.Message);
+                    }
+                }
+
+                [Fact]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+
+                    using (var images = new MagickImageCollection())
+                    {
+                        images.Read(new Span<byte>(bytes), null);
+
+                        Assert.Single(images);
+                    }
+                }
+            }
+#endif
+
             public class WithStream
             {
                 [Fact]
