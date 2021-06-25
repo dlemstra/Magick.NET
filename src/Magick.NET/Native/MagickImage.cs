@@ -5260,7 +5260,7 @@ namespace ImageMagick
             {
                 using (var settingsNative = MagickSettings.CreateInstance(settings))
                 {
-                    fixed (byte* dataFixed = &data.GetPinnableReference())
+                    fixed (byte* dataFixed = data)
                     {
                         IntPtr exception = IntPtr.Zero;
                         IntPtr result;

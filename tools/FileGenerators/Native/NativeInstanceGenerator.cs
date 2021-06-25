@@ -242,9 +242,7 @@ namespace FileGenerator.Native
         {
             if (type.IsFixed)
             {
-                var input = type.IsSpan ? "&" + name + ".GetPinnableReference()" : name;
-
-                WriteLine("fixed (" + type.FixedName + " " + name + "Fixed = " + input + ")");
+                WriteLine("fixed (" + type.FixedName + " " + name + "Fixed = " + name + ")");
             }
             else
             {
