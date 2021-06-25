@@ -914,6 +914,30 @@ namespace ImageMagick
             Ping(file.FullName, readSettings);
         }
 
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read only metadata and not the pixel data from all image frames.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Ping(ReadOnlySpan<byte> data)
+            => Ping(data, null);
+
+        /// <summary>
+        /// Read only metadata and not the pixel data from all image frames.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Ping(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings)
+        {
+            Throw.IfEmpty(nameof(data), data);
+
+            Clear();
+            AddImages(data, readSettings, true);
+        }
+#endif
+
         /// <summary>
         /// Read only metadata and not the pixel data from all image frames.
         /// </summary>

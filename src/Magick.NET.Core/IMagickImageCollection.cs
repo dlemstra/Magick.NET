@@ -128,6 +128,15 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Ping(FileInfo file);
 
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read only metadata and not the pixel data from all image frames.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Ping(ReadOnlySpan<byte> data);
+#endif
+
         /// <summary>
         /// Read only metadata and not the pixel data from all image frames.
         /// </summary>
