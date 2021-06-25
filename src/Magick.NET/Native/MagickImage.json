@@ -2110,6 +2110,38 @@
       ]
     },
     {
+      "name": "ReadPixels",
+      "instance": true,
+      "throws": true,
+      "static": true,
+      "arguments": [
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        },
+        {
+          "name": "map",
+          "type": "string"
+        },
+        {
+          "name": "storageType",
+          "type": "StorageType"
+        },
+        {
+          "name": "data",
+          "type": "ReadOnlySpan<byte>"
+        },
+        {
+          "name": "offset",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
       "name": "ReadStream",
       "instance": true,
       "throws": true,

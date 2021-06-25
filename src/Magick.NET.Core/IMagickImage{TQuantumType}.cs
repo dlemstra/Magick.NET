@@ -775,6 +775,16 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void ReadPixels(FileInfo file, IPixelReadSettings<TQuantumType>? settings);
 
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ReadPixels(ReadOnlySpan<byte> data, IPixelReadSettings<TQuantumType>? settings);
+#endif
+
         /// <summary>
         /// Read single image frame from pixel data.
         /// </summary>
