@@ -38,7 +38,8 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        image.Ping(FileHelper.ReadAllBytes(Files.SnakewarePNG));
+                        var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                        image.Ping(bytes);
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
                     }
@@ -223,7 +224,8 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        image.Ping(FileHelper.ReadAllBytes(Files.CirclePNG), null);
+                        var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                        image.Ping(bytes, null);
                     }
                 }
 

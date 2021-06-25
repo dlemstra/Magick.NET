@@ -255,7 +255,8 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageCollectionFactory();
 
-                    using (var images = factory.Create(FileHelper.ReadAllBytes(Files.CirclePNG), null))
+                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    using (var images = factory.Create(bytes, null))
                     {
                     }
                 }

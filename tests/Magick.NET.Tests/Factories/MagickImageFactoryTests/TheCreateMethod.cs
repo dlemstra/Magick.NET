@@ -356,7 +356,8 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    using (var image = factory.Create(FileHelper.ReadAllBytes(Files.CirclePNG), (MagickReadSettings)null))
+                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    using (var image = factory.Create(bytes, (MagickReadSettings)null))
                     {
                     }
                 }
@@ -413,7 +414,8 @@ namespace Magick.NET.Tests
 
                     Assert.Throws<ArgumentNullException>("settings", () =>
                     {
-                        factory.Create(FileHelper.ReadAllBytes(Files.CirclePNG), (PixelReadSettings)null);
+                        var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                        factory.Create(bytes, (PixelReadSettings)null);
                     });
                 }
 

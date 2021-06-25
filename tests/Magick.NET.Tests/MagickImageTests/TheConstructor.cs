@@ -312,7 +312,8 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage(FileHelper.ReadAllBytes(Files.CirclePNG), (MagickReadSettings)null))
+                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    using (var image = new MagickImage(bytes, (MagickReadSettings)null))
                     {
                     }
                 }

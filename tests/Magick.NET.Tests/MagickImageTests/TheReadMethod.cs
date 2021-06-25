@@ -38,7 +38,8 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        image.Read(FileHelper.ReadAllBytes(Files.SnakewarePNG));
+                        var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                        image.Read(bytes);
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
                     }
@@ -336,7 +337,8 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        image.Read(FileHelper.ReadAllBytes(Files.CirclePNG), null);
+                        var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                        image.Read(bytes, null);
                     }
                 }
 
@@ -1024,7 +1026,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReadImageFromMemoryStreamWhereBufferIsNotPubliclyVisible()
                 {
-                    var data = File.ReadAllBytes(Files.CirclePNG);
+                    var data = FileHelper.ReadAllBytes(Files.CirclePNG);
                     var testBuffer = new byte[data.Length + 10];
                     data.CopyTo(testBuffer, index: 10);
 
@@ -1041,7 +1043,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReadImageFromMemoryStreamWhereBufferIsPubliclyVisible()
                 {
-                    var data = File.ReadAllBytes(Files.CirclePNG);
+                    var data = FileHelper.ReadAllBytes(Files.CirclePNG);
                     var testBuffer = new byte[data.Length + 10];
                     data.CopyTo(testBuffer, index: 10);
 
