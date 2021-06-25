@@ -5231,12 +5231,63 @@ namespace ImageMagick
             ReadPixels(data, 0, data.Length, settings);
         }
 
+#if NETSTANDARD
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<QuantumType>? settings)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            return ReadPixelsAsync(file.FullName, settings);
+        }
+#endif
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task ReadPixelsAsync(Stream stream, IPixelReadSettings<QuantumType>? settings)
+        {
+            Throw.IfNullOrEmpty(nameof(stream), stream);
+
+            var bytes = await Bytes.CreateAsync(stream);
+            ReadPixels(bytes.GetData(), 0, bytes.Length, settings);
+        }
+
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public async Task ReadPixelsAsync(string fileName, IPixelReadSettings<QuantumType>? settings)
+        {
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
+
+            var data = await File.ReadAllBytesAsync(filePath);
+            ReadPixels(data, 0, data.Length, settings);
+        }
+#endif
+#endif
+
         /// <summary>
         /// Reduce noise in image using a noise peak elimination filter.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void ReduceNoise()
-            => ReduceNoise(3);
+                => ReduceNoise(3);
 
         /// <summary>
         /// Reduce noise in image using a noise peak elimination filter.

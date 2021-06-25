@@ -801,6 +801,39 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void ReadPixels(string fileName, IPixelReadSettings<TQuantumType>? settings);
 
+#if NETSTANDARD
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<TQuantumType>? settings);
+#endif
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadPixelsAsync(Stream stream, IPixelReadSettings<TQuantumType>? settings);
+
+#if NETSTANDARD2_1
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadPixelsAsync(string fileName, IPixelReadSettings<TQuantumType>? settings);
+#endif
+#endif
+
         /// <summary>
         /// Separates the channels from the image and returns it as grayscale images.
         /// </summary>
