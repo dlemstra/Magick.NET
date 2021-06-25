@@ -12,14 +12,6 @@ namespace ImageMagick
         private readonly byte[] _data;
         private readonly int _length;
 
-        public Bytes(Stream stream)
-        {
-            Throw.IfNull(nameof(stream), stream);
-            Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
-
-            _data = GetData(stream, out _length);
-        }
-
         private Bytes(byte[] data, int length)
         {
             _data = data;
@@ -28,6 +20,16 @@ namespace ImageMagick
 
         public int Length
             => _length;
+
+        public static Bytes Create(Stream stream)
+        {
+            Throw.IfNull(nameof(stream), stream);
+            Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
+
+            var data = GetData(stream, out var length);
+
+            return new Bytes(data, length);
+        }
 
         public static Bytes? FromStreamBuffer(Stream stream)
         {

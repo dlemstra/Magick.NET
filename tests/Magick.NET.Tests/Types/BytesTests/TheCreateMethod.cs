@@ -10,14 +10,14 @@ namespace Magick.NET.Tests
 {
     public partial class BytesTests
     {
-        public class TheConstructor
+        public class TheCreateMethod
         {
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()
             {
                 Assert.Throws<ArgumentNullException>("stream", () =>
                 {
-                    new Bytes(null);
+                    Bytes.Create(null);
                 });
             }
 
@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
 
                     Assert.Throws<ArgumentException>("stream", () =>
                     {
-                        new Bytes(memStream);
+                        Bytes.Create(memStream);
                     });
                 }
             }
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
             {
                 using (var memStream = new MemoryStream())
                 {
-                    var bytes = new Bytes(memStream);
+                    var bytes = Bytes.Create(memStream);
 
                     Assert.Equal(0, bytes.Length);
                     Assert.NotNull(bytes.GetData());
@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
             {
                 using (var fileStream = File.OpenRead(Files.ImageMagickJPG))
                 {
-                    var bytes = new Bytes(fileStream);
+                    var bytes = Bytes.Create(fileStream);
 
                     Assert.Equal(18749, bytes.Length);
                     Assert.NotNull(bytes.GetData());
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
                 {
                     Assert.Throws<ArgumentException>("stream", () =>
                     {
-                        new Bytes(stream);
+                        Bytes.Create(stream);
                     });
                 }
             }
@@ -82,7 +82,7 @@ namespace Magick.NET.Tests
 
                     Assert.Throws<ArgumentException>("length", () =>
                     {
-                        new Bytes(stream);
+                        Bytes.Create(stream);
                     });
                 }
             }

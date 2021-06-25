@@ -5212,7 +5212,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
-            var bytes = new Bytes(stream);
+            var bytes = Bytes.Create(stream);
             ReadPixels(bytes.GetData(), 0, bytes.Length, settings);
         }
 
