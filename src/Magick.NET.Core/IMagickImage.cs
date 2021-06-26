@@ -3,18 +3,14 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using System.IO;
-#if NETSTANDARD
-using System.Threading.Tasks;
-#endif
 
 namespace ImageMagick
 {
     /// <summary>
     /// Interface that represents an ImageMagick image.
     /// </summary>
-    public interface IMagickImage : IDisposable
+    public partial interface IMagickImage : IDisposable
     {
         /// <summary>
         /// Event that will be raised when progress is reported by this image.
@@ -2433,15 +2429,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Ping(FileInfo file);
 
-#if NETSTANDARD2_1
-        /// <summary>
-        /// Reads only metadata and not the pixel data.
-        /// </summary>
-        /// <param name="data">The span of byte to read the information from.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Ping(ReadOnlySpan<byte> data);
-#endif
-
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
@@ -2605,23 +2592,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(FileInfo file, MagickFormat format);
 
-#if NETSTANDARD2_1
-        /// <summary>
-        /// Read single image frame.
-        /// </summary>
-        /// <param name="data">The byte span to read the image data from.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(ReadOnlySpan<byte> data);
-
-        /// <summary>
-        /// Read single image frame.
-        /// </summary>
-        /// <param name="data">The byte span to read the image data from.</param>
-        /// <param name="format">The format to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(ReadOnlySpan<byte> data, MagickFormat format);
-#endif
-
         /// <summary>
         /// Read single image frame.
         /// </summary>
@@ -2660,25 +2630,6 @@ namespace ImageMagick
         /// <param name="format">The format to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(string fileName, MagickFormat format);
-
-#if NETSTANDARD
-        /// <summary>
-        /// Read single image frame.
-        /// </summary>
-        /// <param name="stream">The stream to read the image data from.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task ReadAsync(Stream stream);
-
-        /// <summary>
-        /// Read single image frame.
-        /// </summary>
-        /// <param name="stream">The stream to read the image data from.</param>
-        /// <param name="format">The format to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task ReadAsync(Stream stream, MagickFormat format);
-#endif
 
         /// <summary>
         /// Reduce noise in image using a noise peak elimination filter.
@@ -3708,33 +3659,5 @@ namespace ImageMagick
         /// <param name="format">The format to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Write(string fileName, MagickFormat format);
-
-#if NETSTANDARD
-        /// <summary>
-        /// Writes the image to the specified stream.
-        /// </summary>
-        /// <param name="stream">The stream to write the image data to.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task WriteAsync(Stream stream);
-
-        /// <summary>
-        /// Writes the image to the specified stream.
-        /// </summary>
-        /// <param name="stream">The stream to write the image data to.</param>
-        /// <param name="defines">The defines to set.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task WriteAsync(Stream stream, IWriteDefines defines);
-
-        /// <summary>
-        /// Writes the image to the specified stream.
-        /// </summary>
-        /// <param name="stream">The stream to write the image data to.</param>
-        /// <param name="format">The format to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task WriteAsync(Stream stream, MagickFormat format);
-#endif
     }
 }

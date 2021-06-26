@@ -16,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
     <Compile Include="../Shared/NotNullAttribute.cs" Link="Helpers/NotNullAttribute.cs" />
+    <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
   </ItemGroup>
 
   <ItemGroup>

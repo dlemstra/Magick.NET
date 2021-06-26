@@ -1,13 +1,21 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
+#if NET20
 
 namespace ImageMagick
 {
     internal static partial class OperatingSystem
     {
-        public static bool Is64Bit =>
-            IntPtr.Size == 8;
+        public static bool IsWindows =>
+           true;
+
+        public static bool IsMacOS =>
+            false;
+
+        public static bool IsLinux =>
+            false;
     }
 }
+
+#endif

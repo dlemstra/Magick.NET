@@ -304,7 +304,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-#if NETCOREAPP
+#if NETCORE
             public class WithSpan
             {
                 [Fact]

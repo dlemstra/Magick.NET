@@ -4,9 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-#if NETSTANDARD
-using System.Threading.Tasks;
-#endif
 
 namespace ImageMagick
 {
@@ -14,7 +11,7 @@ namespace ImageMagick
     /// Interface that represents an ImageMagick image.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IMagickImage<TQuantumType> : IMagickImage, IEquatable<IMagickImage<TQuantumType>>, IComparable<IMagickImage<TQuantumType>>
+    public partial interface IMagickImage<TQuantumType> : IMagickImage, IEquatable<IMagickImage<TQuantumType>>, IComparable<IMagickImage<TQuantumType>>
         where TQuantumType : struct
     {
         /// <summary>
@@ -622,16 +619,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Ping(FileInfo file, IMagickReadSettings<TQuantumType>? readSettings);
 
-#if NETSTANDARD2_1
-        /// <summary>
-        /// Reads only metadata and not the pixel data.
-        /// </summary>
-        /// <param name="data">The span of byte to read the information from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Ping(ReadOnlySpan<byte> data, IMagickReadSettings<TQuantumType>? readSettings);
-#endif
-
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
@@ -712,16 +699,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(IMagickColor<TQuantumType> color, int width, int height);
 
-#if NETSTANDARD2_1
-        /// <summary>
-        /// Read single image frame.
-        /// </summary>
-        /// <param name="data">The span of bytes to read the image data from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(ReadOnlySpan<byte> data, IMagickReadSettings<TQuantumType>? readSettings);
-#endif
-
         /// <summary>
         /// Read single image frame.
         /// </summary>
@@ -737,17 +714,6 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(string fileName, IMagickReadSettings<TQuantumType>? readSettings);
-
-#if NETSTANDARD
-        /// <summary>
-        /// Read single image frame.
-        /// </summary>
-        /// <param name="stream">The stream to read the image data from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task ReadAsync(Stream stream, IMagickReadSettings<TQuantumType>? readSettings);
-#endif
 
         /// <summary>
         /// Read single image frame.
@@ -775,16 +741,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void ReadPixels(FileInfo file, IPixelReadSettings<TQuantumType>? settings);
 
-#if NETSTANDARD2_1
-        /// <summary>
-        /// Read single image frame.
-        /// </summary>
-        /// <param name="data">The span of bytes to read the image data from.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(ReadOnlySpan<byte> data, IPixelReadSettings<TQuantumType>? settings);
-#endif
-
         /// <summary>
         /// Read single image frame from pixel data.
         /// </summary>
@@ -800,39 +756,6 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void ReadPixels(string fileName, IPixelReadSettings<TQuantumType>? settings);
-
-#if NETSTANDARD
-#if NETSTANDARD2_1
-        /// <summary>
-        /// Read single image frame from pixel data.
-        /// </summary>
-        /// <param name="file">The file to read the image from.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<TQuantumType>? settings);
-#endif
-
-        /// <summary>
-        /// Read single image frame from pixel data.
-        /// </summary>
-        /// <param name="stream">The stream to read the image data from.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task ReadPixelsAsync(Stream stream, IPixelReadSettings<TQuantumType>? settings);
-
-#if NETSTANDARD2_1
-        /// <summary>
-        /// Read single image frame from pixel data.
-        /// </summary>
-        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task ReadPixelsAsync(string fileName, IPixelReadSettings<TQuantumType>? settings);
-#endif
-#endif
 
         /// <summary>
         /// Separates the channels from the image and returns it as grayscale images.

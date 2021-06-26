@@ -4,9 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-#if NETSTANDARD
-using System.Threading.Tasks;
-#endif
 
 namespace ImageMagick
 {
@@ -14,7 +11,7 @@ namespace ImageMagick
     /// Represents the collection of images.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IMagickImageCollection<TQuantumType> : IMagickImageCollection, IList<IMagickImage<TQuantumType>>
+    public partial interface IMagickImageCollection<TQuantumType> : IMagickImageCollection, IList<IMagickImage<TQuantumType>>
         where TQuantumType : struct
     {
         /// <summary>
@@ -177,16 +174,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Ping(FileInfo file, IMagickReadSettings<TQuantumType>? readSettings);
 
-#if NETSTANDARD2_1
-        /// <summary>
-        /// Read only metadata and not the pixel data from all image frames.
-        /// </summary>
-        /// <param name="data">The span of bytes to read the image data from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Ping(ReadOnlySpan<byte> data, IMagickReadSettings<TQuantumType>? readSettings);
-#endif
-
         /// <summary>
         /// Read only metadata and not the pixel data from all image frames.
         /// </summary>
@@ -238,16 +225,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(FileInfo file, IMagickReadSettings<TQuantumType>? readSettings);
 
-#if NETSTANDARD2_1
-        /// <summary>
-        /// Read all image frames.
-        /// </summary>
-        /// <param name="data">The span of bytes to read the image data from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Read(ReadOnlySpan<byte> data, IMagickReadSettings<TQuantumType>? readSettings);
-#endif
-
         /// <summary>
         /// Read all image frames.
         /// </summary>
@@ -263,17 +240,6 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(string fileName, IMagickReadSettings<TQuantumType>? readSettings);
-
-#if NETSTANDARD
-        /// <summary>
-        /// Read all image frames.
-        /// </summary>
-        /// <param name="stream">The stream to read the image data from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task ReadAsync(Stream stream, IMagickReadSettings<TQuantumType>? readSettings);
-#endif
 
         /// <summary>
         /// Smush images from list into single image in horizontal direction.

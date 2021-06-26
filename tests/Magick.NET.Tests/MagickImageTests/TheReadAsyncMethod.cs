@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
                     {
                         using (var image = new MagickImage())
                         {
-                            await Assert.ThrowsAsync<NotSupportedException>(() => image.ReadAsync(testStream));
+                            await Assert.ThrowsAsync<ArgumentException>("stream", () => image.ReadAsync(testStream));
                         }
                     }
                 }

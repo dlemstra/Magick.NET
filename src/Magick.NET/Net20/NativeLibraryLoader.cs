@@ -1,7 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-#if PLATFORM_AnyCPU && !NETSTANDARD
+#if NET20 && PLATFORM_AnyCPU
 using System.IO;
 using System.IO.Compression;
 using System.Reflection;
