@@ -19,7 +19,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to create <see cref="IMagickImageCollection{QuantumType}"/> instances.
     /// </summary>
-    public sealed class MagickImageCollectionFactory : IMagickImageCollectionFactory<QuantumType>
+    public sealed partial class MagickImageCollectionFactory : IMagickImageCollectionFactory<QuantumType>
     {
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
