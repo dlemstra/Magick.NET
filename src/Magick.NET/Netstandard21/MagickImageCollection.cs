@@ -22,6 +22,32 @@ namespace ImageMagick
     public sealed partial class MagickImageCollection : IMagickImageCollection<QuantumType>
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public MagickImageCollection(ReadOnlySpan<byte> data)
+            : this() => Read(data);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public MagickImageCollection(ReadOnlySpan<byte> data, MagickFormat format)
+            : this() => Read(data, format);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public MagickImageCollection(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType> readSettings)
+            : this() => Read(data, readSettings);
+
+        /// <summary>
         /// Read only metadata and not the pixel data from all image frames.
         /// </summary>
         /// <param name="data">The span of bytes to read the image data from.</param>

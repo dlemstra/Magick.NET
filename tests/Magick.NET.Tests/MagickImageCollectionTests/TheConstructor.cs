@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        public class TheConstructor
+        public partial class TheConstructor
         {
             public class WithByteArray
             {
