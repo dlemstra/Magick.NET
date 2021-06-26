@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+#if NETCORE
+
 using System;
 using ImageMagick;
 using Xunit;
@@ -22,22 +24,7 @@ namespace Magick.NET.Tests
         public partial class TheSetAreaMethod
         {
             [Fact]
-            public void ShouldThrowExceptionWhenArrayIsNull()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixels())
-                    {
-                        Assert.Throws<ArgumentNullException>("values", () =>
-                        {
-                            pixels.SetArea(10, 10, 1000, 1000, null);
-                        });
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayHasInvalidSize()
+            public void ShouldThrowExceptionWhenSpanHasInvalidSize()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -45,14 +32,14 @@ namespace Magick.NET.Tests
                     {
                         Assert.Throws<ArgumentException>("values", () =>
                         {
-                            pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
+                            pixels.SetArea(10, 10, 1000, 1000, new Span<QuantumType>(new QuantumType[] { 0, 0, 0, 0 }));
                         });
                     }
                 }
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenArrayHasTooManyValues()
+            public void ShouldThrowExceptionWhenSpanHasTooManyValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -61,21 +48,21 @@ namespace Magick.NET.Tests
                         Assert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                            pixels.SetArea(10, 10, 113, 108, values);
+                            pixels.SetArea(10, 10, 113, 108, new Span<QuantumType>(values));
                         });
                     }
                 }
             }
 
             [Fact]
-            public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
+            public void ShouldChangePixelsWhenSpanHasMaxNumberOfValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
                         var values = new QuantumType[113 * 108 * image.ChannelCount];
-                        pixels.SetArea(10, 10, 113, 108, values);
+                        pixels.SetArea(10, 10, 113, 108, new Span<QuantumType>(values));
 
                         ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
@@ -83,7 +70,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
+            public void ShouldThrowExceptionWhenSpanIsSpecifiedAndGeometryIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -91,21 +78,21 @@ namespace Magick.NET.Tests
                     {
                         Assert.Throws<ArgumentNullException>("geometry", () =>
                         {
-                            pixels.SetArea(null, new QuantumType[] { 0 });
+                            pixels.SetArea(null, new Span<QuantumType>(new QuantumType[] { 0 }));
                         });
                     }
                 }
             }
 
             [Fact]
-            public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
+            public void ShouldChangePixelsWhenGeometryAndSpanAreSpecified()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
                         var values = new QuantumType[113 * 108 * image.ChannelCount];
-                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
+                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), new Span<QuantumType>(values));
 
                         ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
@@ -114,3 +101,5 @@ namespace Magick.NET.Tests
         }
     }
 }
+
+#endif

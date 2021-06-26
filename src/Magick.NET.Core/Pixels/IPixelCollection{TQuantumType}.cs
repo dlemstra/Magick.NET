@@ -10,7 +10,7 @@ namespace ImageMagick
     /// Interface that can be used to access the individual pixels of an image.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQuantumType>>, IDisposable
+    public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQuantumType>>, IDisposable
         where TQuantumType : struct
     {
         /// <summary>

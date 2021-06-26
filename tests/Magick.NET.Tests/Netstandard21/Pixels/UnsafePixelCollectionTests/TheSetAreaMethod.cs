@@ -1,6 +1,9 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+#if NETCORE
+
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -18,54 +21,69 @@ namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        public partial class TheSetPixelsMethod
+        public partial class TheSetAreaMethod
         {
             [Fact]
-            public void ShouldNotThrowExceptionWhenArrayIsNull()
+            public void ShouldNotThrowExceptionWhenSpanHasInvalidSize()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        pixels.SetPixels(null);
+                        pixels.SetArea(10, 10, 1000, 1000, new Span<QuantumType>(new QuantumType[] { 0, 0, 0, 0 }));
                     }
                 }
             }
 
             [Fact]
-            public void ShouldNotThrowExceptionWhenIntHasInvalidSize()
+            public void ShouldNotThrowExceptionWhenSpanHasTooManyValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        pixels.SetPixels(new QuantumType[] { 0, 0, 0, 0 });
+                        var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                        pixels.SetArea(10, 10, 113, 108, new Span<QuantumType>(values));
                     }
                 }
             }
 
             [Fact]
-            public void ShouldNotThrowExceptionWhenArrayIsTooLong()
+            public void ShouldChangePixelsWhenSpanHasMaxNumberOfValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetPixels(values);
+                        var values = new QuantumType[113 * 108 * image.ChannelCount];
+                        pixels.SetArea(10, 10, 113, 108, new Span<QuantumType>(values));
+
+                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
                 }
             }
 
             [Fact]
-            public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
+            public void ShouldNotThrowExceptionWhenSpanIsSpecifiedAndGeometryIsNull()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
-                        pixels.SetPixels(values);
+                        pixels.SetArea(null, new Span<QuantumType>(new QuantumType[] { 0 }));
+                    }
+                }
+            }
+
+            [Fact]
+            public void ShouldChangePixelsWhenGeometryAndSpanAreSpecified()
+            {
+                using (var image = new MagickImage(Files.ImageMagickJPG))
+                {
+                    using (var pixels = image.GetPixelsUnsafe())
+                    {
+                        var values = new QuantumType[113 * 108 * image.ChannelCount];
+                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), new Span<QuantumType>(values));
 
                         ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
@@ -74,3 +92,5 @@ namespace Magick.NET.Tests
         }
     }
 }
+
+#endif

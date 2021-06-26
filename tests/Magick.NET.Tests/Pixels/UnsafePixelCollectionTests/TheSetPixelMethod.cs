@@ -19,7 +19,7 @@ namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        public class TheSetPixelMethod
+        public partial class TheSetPixelMethod
         {
             [Fact]
             public void ShouldNotThrowExceptionWhenPixelIsNull()

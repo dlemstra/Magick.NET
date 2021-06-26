@@ -149,6 +149,28 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
+            #if NETSTANDARD2_1
+            public void SetArea(int x, int y, int width, int height, ReadOnlySpan<QuantumType> values, int length)
+            {
+                fixed (QuantumType* valuesFixed = values)
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    CheckException(exception);
+                }
+            }
+            #endif
             public IntPtr ToByteArray(int x, int y, int width, int height, string? mapping)
             {
                 using (var mappingNative = UTF8Marshaler.CreateInstance(mapping))

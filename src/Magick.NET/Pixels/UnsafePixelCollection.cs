@@ -16,7 +16,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal sealed class UnsafePixelCollection : PixelCollection, IUnsafePixelCollection<QuantumType>
+    internal sealed partial class UnsafePixelCollection : PixelCollection, IUnsafePixelCollection<QuantumType>
     {
         public UnsafePixelCollection(MagickImage image)
             : base(image)

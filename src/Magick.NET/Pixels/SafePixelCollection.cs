@@ -17,7 +17,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal sealed class SafePixelCollection : PixelCollection
+    internal sealed partial class SafePixelCollection : PixelCollection
     {
         public SafePixelCollection(MagickImage image)
             : base(image)
@@ -200,14 +200,10 @@ namespace ImageMagick
         }
 
         private void CheckValues<T>(T[] values)
-        {
-            CheckValues(0, 0, values);
-        }
+            => CheckValues(0, 0, values);
 
         private void CheckValues<T>(int x, int y, T[] values)
-        {
-            CheckValues(x, y, Image.Width, Image.Height, values);
-        }
+            => CheckValues(x, y, Image.Width, Image.Height, values);
 
         private void CheckValues<T>(int x, int y, int width, int height, T[] values)
         {

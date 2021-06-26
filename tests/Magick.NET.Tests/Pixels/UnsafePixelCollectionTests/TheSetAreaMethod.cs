@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
 {
     public partial class UnsafePixelCollectionTests
     {
-        public class TheSetAreaMethod
+        public partial class TheSetAreaMethod
         {
             [Fact]
             public void ShouldNotThrowExceptionWhenArrayIsNull()

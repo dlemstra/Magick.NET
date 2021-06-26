@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+#if NETCORE
+
 using System;
 using ImageMagick;
 using Xunit;
@@ -22,22 +24,7 @@ namespace Magick.NET.Tests
         public partial class TheSetPixelsMethod
         {
             [Fact]
-            public void ShouldThrowExceptionWhenArrayIsNull()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixels())
-                    {
-                        Assert.Throws<ArgumentNullException>("values", () =>
-                        {
-                            pixels.SetPixels(null);
-                        });
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayHasInvalidSize()
+            public void ShouldThrowExceptionWhenSpanHasInvalidSize()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -45,14 +32,14 @@ namespace Magick.NET.Tests
                     {
                         Assert.Throws<ArgumentException>("values", () =>
                         {
-                            pixels.SetPixels(new QuantumType[] { 0, 0, 0, 0 });
+                            pixels.SetPixels(new Span<QuantumType>(new QuantumType[] { 0, 0, 0, 0 }));
                         });
                     }
                 }
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenArrayIsTooLong()
+            public void ShouldThrowExceptionWhenSpanIsTooLong()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
@@ -61,21 +48,21 @@ namespace Magick.NET.Tests
                         Assert.Throws<ArgumentException>("values", () =>
                         {
                             var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
-                            pixels.SetPixels(values);
+                            pixels.SetPixels(new Span<QuantumType>(values));
                         });
                     }
                 }
             }
 
             [Fact]
-            public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
+            public void ShouldChangePixelsWhenSpanHasMaxNumberOfValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
                     using (var pixels = image.GetPixels())
                     {
                         var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
-                        pixels.SetPixels(values);
+                        pixels.SetPixels(new Span<QuantumType>(values));
 
                         ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                     }
@@ -84,3 +71,5 @@ namespace Magick.NET.Tests
         }
     }
 }
+
+#endif
