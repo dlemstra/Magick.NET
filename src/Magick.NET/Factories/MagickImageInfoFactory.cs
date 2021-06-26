@@ -8,7 +8,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to create <see cref="IMagickImageInfo"/> instances.
     /// </summary>
-    public sealed class MagickImageInfoFactory : IMagickImageInfoFactory
+    public sealed partial class MagickImageInfoFactory : IMagickImageInfoFactory
     {
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
