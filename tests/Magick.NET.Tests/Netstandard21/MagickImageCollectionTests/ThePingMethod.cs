@@ -4,7 +4,6 @@
 #if NETCORE
 
 using System;
-using System.IO;
 using ImageMagick;
 using Xunit;
 
