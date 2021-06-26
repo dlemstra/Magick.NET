@@ -22,6 +22,41 @@ namespace ImageMagick
     public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInstance
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImage"/> class.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public MagickImage(ReadOnlySpan<byte> data)
+            : this() => Read(data);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImage"/> class.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public MagickImage(ReadOnlySpan<byte> data, MagickFormat format)
+            : this() => Read(data, format);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImage"/> class.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public MagickImage(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType> readSettings)
+            : this() => Read(data, readSettings);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImage"/> class.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public MagickImage(ReadOnlySpan<byte> data, IPixelReadSettings<QuantumType> settings)
+            : this() => ReadPixels(data, settings);
+
+        /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
         /// <param name="data">The span of byte to read the information from.</param>
