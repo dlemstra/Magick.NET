@@ -718,21 +718,12 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        using (FileStream fs = File.OpenRead(Files.Logos.MagickNETSVG))
+                        image.Read(Files.Logos.MagickNETSVG, new MagickReadSettings
                         {
-                            byte[] buffer = new byte[fs.Length + 1];
-                            fs.Read(buffer, 0, (int)fs.Length);
+                            Density = new Density(72),
+                        });
 
-                            using (MemoryStream memStream = new MemoryStream(buffer, 0, (int)fs.Length))
-                            {
-                                image.Read(memStream, new MagickReadSettings
-                                {
-                                    Density = new Density(72),
-                                });
-
-                                ColorAssert.Equal(new MagickColor("#231f20"), image, 129, 101);
-                            }
-                        }
+                        ColorAssert.Equal(new MagickColor("#231f20"), image, 129, 101);
                     }
                 }
             }
