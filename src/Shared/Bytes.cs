@@ -24,9 +24,13 @@ namespace ImageMagick
         public int Length
             => _length;
 
-        public static Bytes Create(Stream stream)
+        public static Bytes Create(Stream stream, bool allowEmptyStream = false)
         {
-            Throw.IfNull(nameof(stream), stream);
+            if (allowEmptyStream)
+                Throw.IfNull(nameof(stream), stream);
+            else
+                Throw.IfNullOrEmpty(nameof(stream), stream);
+
             Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
 
             var data = GetData(stream, out var length);
@@ -37,7 +41,7 @@ namespace ImageMagick
 #if NETSTANDARD
         public static async Task<Bytes> CreateAsync(Stream stream)
         {
-            Throw.IfNull(nameof(stream), stream);
+            Throw.IfNullOrEmpty(nameof(stream), stream);
             Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
 
             var (data, length) = await GetDataAsync(stream);

@@ -37,7 +37,7 @@ namespace ImageMagick
 
             Name = name;
 
-            var bytes = Bytes.Create(stream);
+            var bytes = Bytes.Create(stream, allowEmptyStream: true);
             _data = bytes.GetData();
         }
 

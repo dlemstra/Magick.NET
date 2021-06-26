@@ -15,32 +15,35 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()
             {
-                Assert.Throws<ArgumentNullException>("stream", () =>
-                {
-                    Bytes.Create(null);
-                });
+                Assert.Throws<ArgumentNullException>("stream", () => Bytes.Create(null));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenStreamPositionIsNotZero()
             {
-                using (var memStream = new MemoryStream())
+                using (var memStream = new MemoryStream(new byte[] { 42 }))
                 {
                     memStream.Position = 10;
 
-                    Assert.Throws<ArgumentException>("stream", () =>
-                    {
-                        Bytes.Create(memStream);
-                    });
+                    Assert.Throws<ArgumentException>("stream", () => Bytes.Create(memStream));
                 }
             }
 
             [Fact]
-            public void ShouldSetPropertiesWhenStreamIsEmpty()
+            public void ShouldThrowExceptionWhenStreamIsEmpty()
             {
                 using (var memStream = new MemoryStream())
                 {
-                    var bytes = Bytes.Create(memStream);
+                    Assert.Throws<ArgumentException>("stream", () => Bytes.Create(memStream));
+                }
+            }
+
+            [Fact]
+            public void ShouldSetPropertiesWhenStreamIsEmptyAndAllowEmptyStreamIsSet()
+            {
+                using (var memStream = new MemoryStream())
+                {
+                    var bytes = Bytes.Create(memStream, allowEmptyStream: true);
 
                     Assert.Equal(0, bytes.Length);
                     Assert.NotNull(bytes.GetData());
