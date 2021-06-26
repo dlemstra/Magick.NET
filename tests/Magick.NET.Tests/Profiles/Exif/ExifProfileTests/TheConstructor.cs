@@ -15,28 +15,19 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenStreamNull()
             {
-                Assert.Throws<ArgumentNullException>("stream", () =>
-                {
-                    new ExifProfile((Stream)null);
-                });
+                Assert.Throws<ArgumentNullException>("stream", () => new ExifProfile((Stream)null));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenFileNameNull()
             {
-                Assert.Throws<ArgumentNullException>("fileName", () =>
-                {
-                    new ExifProfile((string)null);
-                });
+                Assert.Throws<ArgumentNullException>("fileName", () => new ExifProfile((string)null));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenDataNull()
             {
-                Assert.Throws<ArgumentNullException>("data", () =>
-                {
-                    new ExifProfile((byte[])null);
-                });
+                Assert.Throws<ArgumentNullException>("data", () => new ExifProfile((byte[])null));
             }
 
             [Fact]
