@@ -19,7 +19,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that contains basic information about an image.
     /// </summary>
-    public sealed class MagickImageInfo : IMagickImageInfo
+    public sealed partial class MagickImageInfo : IMagickImageInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
@@ -35,9 +35,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(byte[] data)
           : this()
-        {
-            Read(data);
-        }
+            => Read(data);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
@@ -48,9 +46,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(byte[] data, int offset, int count)
           : this()
-        {
-            Read(data, offset, count);
-        }
+            => Read(data, offset, count);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
@@ -59,9 +55,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(FileInfo file)
           : this()
-        {
-            Read(file);
-        }
+            => Read(file);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
@@ -70,9 +64,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(Stream stream)
           : this()
-        {
-            Read(stream);
-        }
+            => Read(stream);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
@@ -81,9 +73,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(string fileName)
           : this()
-        {
-            Read(fileName);
-        }
+            => Read(fileName);
 
         /// <summary>
         /// Gets the color space of the image.
