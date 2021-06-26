@@ -16,7 +16,7 @@ namespace Magick.NET.Tests
             public class WithSpan
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                public void ShouldThrowExceptionWhenSpanIsEmpty()
                 {
                     var factory = new MagickImageInfoFactory();
 
