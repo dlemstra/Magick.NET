@@ -11,7 +11,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class ThePingMethod
+        public partial class ThePingMethod
         {
             public class WithByteArray
             {
@@ -452,91 +452,6 @@ namespace Magick.NET.Tests
                     }
                 }
             }
-
-#if NETCORE
-            public class WithSpan
-            {
-                [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("data", () => image.Ping(Span<byte>.Empty));
-                    }
-                }
-
-                [Fact]
-                public void ShouldPingImage()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
-                        image.Ping(new Span<byte>(bytes));
-                        Assert.Equal(286, image.Width);
-                        Assert.Equal(67, image.Height);
-                    }
-                }
-            }
-
-            public class WithSpanAndMagickReadSettings
-            {
-                [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
-                {
-                    var settings = new MagickReadSettings();
-
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("data", () => image.Ping(Span<byte>.Empty, settings));
-                    }
-                }
-
-                [Fact]
-                public void ShouldNotThrowExceptionWhenSettingsIsNull()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
-                        image.Ping(new Span<byte>(bytes), null);
-                    }
-                }
-
-                [Fact]
-                public void ShouldUseTheCorrectReaderWhenFormatIsSet()
-                {
-                    var bytes = Encoding.ASCII.GetBytes("%PDF-");
-                    var settings = new MagickReadSettings
-                    {
-                        Format = MagickFormat.Png,
-                    };
-
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Ping(new Span<byte>(bytes), settings));
-
-                        Assert.Contains("ReadPNGImage", exception.Message);
-                    }
-                }
-
-                [Fact]
-                public void ShouldResetTheFormatAfterReadingBytes()
-                {
-                    var readSettings = new MagickReadSettings
-                    {
-                        Format = MagickFormat.Png,
-                    };
-
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
-
-                    using (var image = new MagickImage())
-                    {
-                        image.Ping(new Span<byte>(bytes), readSettings);
-
-                        Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
-                    }
-                }
-            }
-#endif
 
             public class WithStream
             {
