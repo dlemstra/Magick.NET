@@ -24,13 +24,19 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
+        /// Gets or sets the video sync (video:vsync).
+        /// </summary>
+        public VideoSync? VideoSync { get; set; }
+
+        /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
         public override IEnumerable<IDefine> Defines
         {
             get
             {
-                yield break;
+                if (VideoSync != null)
+                    yield return new MagickDefine("video:vsync", EnumHelper.GetName(VideoSync.Value).ToLowerInvariant());
             }
         }
 
