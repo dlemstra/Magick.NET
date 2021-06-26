@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    using (MemoryStream memStream = new MemoryStream())
+                    using (var memStream = new MemoryStream())
                     {
                         var profile = new ExifProfile(memStream);
                         image.SetProfile(profile);
