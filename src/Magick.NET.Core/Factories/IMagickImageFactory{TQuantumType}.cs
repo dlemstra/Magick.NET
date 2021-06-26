@@ -9,7 +9,7 @@ namespace ImageMagick
     /// Class that can be used to create <see cref="IMagickImage{TQuantumType}"/> instances.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IMagickImageFactory<TQuantumType>
+    public partial interface IMagickImageFactory<TQuantumType>
         where TQuantumType : struct
     {
         /// <summary>
