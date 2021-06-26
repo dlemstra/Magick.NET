@@ -40,7 +40,6 @@ namespace Magick.NET.Tests
 
             public class WithSpanAndMagickFormat
             {
-
                 [Fact]
                 public void ShouldThrowExceptionWhenSpanIsEmpty()
                 {
