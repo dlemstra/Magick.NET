@@ -28,19 +28,13 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("data", () =>
-                    {
-                        new MagickImageCollection((byte[])null);
-                    });
+                    Assert.Throws<ArgumentNullException>("data", () => new MagickImageCollection((byte[])null));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("data", () =>
-                    {
-                        new MagickImageCollection(new byte[0]);
-                    });
+                    Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(new byte[0]));
                 }
 
                 [Fact]
@@ -65,46 +59,31 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("data", () =>
-                    {
-                        new MagickImageCollection(null, 0, 0);
-                    });
+                    Assert.Throws<ArgumentNullException>("data", () => new MagickImageCollection(null, 0, 0));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("data", () =>
-                    {
-                        new MagickImageCollection(new byte[] { }, 0, 0);
-                    });
+                    Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(new byte[] { }, 0, 0));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    Assert.Throws<ArgumentException>("offset", () =>
-                    {
-                        new MagickImageCollection(new byte[] { 215 }, -1, 0);
-                    });
+                    Assert.Throws<ArgumentException>("offset", () => new MagickImageCollection(new byte[] { 215 }, -1, 0));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    Assert.Throws<ArgumentException>("count", () =>
-                    {
-                        new MagickImageCollection(new byte[] { 215 }, 0, 0);
-                    });
+                    Assert.Throws<ArgumentException>("count", () => new MagickImageCollection(new byte[] { 215 }, 0, 0));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
-                    Assert.Throws<ArgumentException>("count", () =>
-                    {
-                        new MagickImageCollection(new byte[] { 215 }, 0, -1);
-                    });
+                    Assert.Throws<ArgumentException>("count", () => new MagickImageCollection(new byte[] { 215 }, 0, -1));
                 }
 
                 [Fact]
@@ -126,37 +105,25 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("data", () =>
-                    {
-                        new MagickImageCollection(null, 0, 0, MagickFormat.Png);
-                    });
+                    Assert.Throws<ArgumentNullException>("data", () => new MagickImageCollection(null, 0, 0, MagickFormat.Png));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("data", () =>
-                    {
-                        new MagickImageCollection(new byte[] { }, 0, 0, MagickFormat.Png);
-                    });
+                    Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(new byte[] { }, 0, 0, MagickFormat.Png));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenOffsetIsNegative()
                 {
-                    Assert.Throws<ArgumentException>("offset", () =>
-                    {
-                        new MagickImageCollection(new byte[] { 215 }, -1, 0, MagickFormat.Png);
-                    });
+                    Assert.Throws<ArgumentException>("offset", () => new MagickImageCollection(new byte[] { 215 }, -1, 0, MagickFormat.Png));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenCountIsZero()
                 {
-                    Assert.Throws<ArgumentException>("count", () =>
-                    {
-                        new MagickImageCollection(new byte[] { 215 }, 0, 0, MagickFormat.Png);
-                    });
+                    Assert.Throws<ArgumentException>("count", () => new MagickImageCollection(new byte[] { 215 }, 0, 0, MagickFormat.Png));
                 }
 
                 [Fact]
@@ -191,10 +158,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    Assert.Throws<ArgumentNullException>("data", () =>
-                    {
-                        new MagickImageCollection(null, 0, 0, settings);
-                    });
+                    Assert.Throws<ArgumentNullException>("data", () => new MagickImageCollection(null, 0, 0, settings));
                 }
 
                 [Fact]
@@ -202,10 +166,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    Assert.Throws<ArgumentException>("data", () =>
-                    {
-                        new MagickImageCollection(new byte[] { }, 0, 0, settings);
-                    });
+                    Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(new byte[] { }, 0, 0, settings));
                 }
 
                 [Fact]
@@ -213,10 +174,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    Assert.Throws<ArgumentException>("offset", () =>
-                    {
-                        new MagickImageCollection(new byte[] { 215 }, -1, 0, settings);
-                    });
+                    Assert.Throws<ArgumentException>("offset", () => new MagickImageCollection(new byte[] { 215 }, -1, 0, settings));
                 }
 
                 [Fact]
@@ -224,10 +182,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    Assert.Throws<ArgumentException>("count", () =>
-                    {
-                        new MagickImageCollection(new byte[] { 215 }, 0, 0, settings);
-                    });
+                    Assert.Throws<ArgumentException>("count", () => new MagickImageCollection(new byte[] { 215 }, 0, 0, settings));
                 }
 
                 [Fact]
@@ -235,12 +190,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    Assert.Throws<ArgumentException>("count", () =>
-                    {
-                        using (var images = new MagickImageCollection(new byte[] { 215 }, 0, -1, settings))
-                        {
-                        }
-                    });
+                    Assert.Throws<ArgumentException>("count", () => new MagickImageCollection(new byte[] { 215 }, 0, -1, settings));
                 }
 
                 [Fact]
@@ -288,10 +238,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("file", () =>
-                    {
-                        new MagickImageCollection((FileInfo)null);
-                    });
+                    Assert.Throws<ArgumentNullException>("file", () => new MagickImageCollection((FileInfo)null));
                 }
             }
 
@@ -300,10 +247,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("file", () =>
-                    {
-                        new MagickImageCollection((FileInfo)null, MagickFormat.Png);
-                    });
+                    Assert.Throws<ArgumentNullException>("file", () => new MagickImageCollection((FileInfo)null, MagickFormat.Png));
                 }
             }
 
@@ -312,12 +256,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("file", () =>
-                    {
-                        var settings = new MagickReadSettings();
+                    var settings = new MagickReadSettings();
 
-                        new MagickImageCollection((FileInfo)null, settings);
-                    });
+                    Assert.Throws<ArgumentNullException>("file", () => new MagickImageCollection((FileInfo)null, settings));
                 }
 
                 [Fact]
@@ -337,28 +278,19 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("fileName", () =>
-                    {
-                        new MagickImageCollection((string)null);
-                    });
+                    Assert.Throws<ArgumentNullException>("fileName", () => new MagickImageCollection((string)null));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("fileName", () =>
-                    {
-                        new MagickImageCollection(string.Empty);
-                    });
+                    Assert.Throws<ArgumentException>("fileName", () => new MagickImageCollection(string.Empty));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsInvalid()
                 {
-                    var exception = Assert.Throws<MagickBlobErrorException>(() =>
-                    {
-                        new MagickImageCollection(Files.Missing);
-                    });
+                    var exception = Assert.Throws<MagickBlobErrorException>(() => new MagickImageCollection(Files.Missing));
 
                     Assert.Contains("error/blob.c/OpenBlob", exception.Message);
                 }
@@ -383,19 +315,13 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("fileName", () =>
-                    {
-                        new MagickImageCollection((string)null, MagickFormat.Png);
-                    });
+                    Assert.Throws<ArgumentNullException>("fileName", () => new MagickImageCollection((string)null, MagickFormat.Png));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("fileName", () =>
-                    {
-                        new MagickImageCollection(string.Empty, MagickFormat.Png);
-                    });
+                    Assert.Throws<ArgumentException>("fileName", () => new MagickImageCollection(string.Empty, MagickFormat.Png));
                 }
             }
 
@@ -404,23 +330,17 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("fileName", () =>
-                    {
-                        var settings = new MagickReadSettings();
+                    var settings = new MagickReadSettings();
 
-                        new MagickImageCollection((string)null, settings);
-                    });
+                    Assert.Throws<ArgumentNullException>("fileName", () => new MagickImageCollection((string)null, settings));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("fileName", () =>
-                    {
-                        var settings = new MagickReadSettings();
+                    var settings = new MagickReadSettings();
 
-                        new MagickImageCollection(string.Empty, settings);
-                    });
+                    Assert.Throws<ArgumentException>("fileName", () => new MagickImageCollection(string.Empty, settings));
                 }
 
                 [Fact]
@@ -438,10 +358,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenImagesIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("images", () =>
-                    {
-                        new MagickImageCollection((IEnumerable<IMagickImage<QuantumType>>)null);
-                    });
+                    Assert.Throws<ArgumentNullException>("images", () => new MagickImageCollection((IEnumerable<IMagickImage<QuantumType>>)null));
                 }
 
                 [Fact]
@@ -449,21 +366,17 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection(Files.SnakewarePNG))
                     {
-                        Assert.Throws<ArgumentException>("images", () =>
-                        {
-                            new MagickImageCollection(images);
-                        });
+                        Assert.Throws<ArgumentException>("images", () => new MagickImageCollection(images));
                     }
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenImagesContainsDuplicates()
                 {
-                    Assert.Throws<InvalidOperationException>(() =>
+                    using (var image = new MagickImage())
                     {
-                        var image = new MagickImage();
-                        new MagickImageCollection(new[] { image, image });
-                    });
+                        Assert.Throws<InvalidOperationException>(() => new MagickImageCollection(new[] { image, image }));
+                    }
                 }
 
                 [Fact]
@@ -485,10 +398,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("stream", () =>
-                    {
-                        new MagickImageCollection((Stream)null);
-                    });
+                    Assert.Throws<ArgumentNullException>("stream", () => new MagickImageCollection((Stream)null));
                 }
 
                 [Fact]
@@ -514,19 +424,13 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("stream", () =>
-                    {
-                        new MagickImageCollection((Stream)null, MagickFormat.Png);
-                    });
+                    Assert.Throws<ArgumentNullException>("stream", () => new MagickImageCollection((Stream)null, MagickFormat.Png));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("stream", () =>
-                    {
-                        new MagickImageCollection(new MemoryStream(), MagickFormat.Png);
-                    });
+                    Assert.Throws<ArgumentException>("stream", () => new MagickImageCollection(new MemoryStream(), MagickFormat.Png));
                 }
             }
 
@@ -535,23 +439,17 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    Assert.Throws<ArgumentNullException>("stream", () =>
-                    {
-                        var settings = new MagickReadSettings();
+                    var settings = new MagickReadSettings();
 
-                        new MagickImageCollection((Stream)null, settings);
-                    });
+                    Assert.Throws<ArgumentNullException>("stream", () => new MagickImageCollection((Stream)null, settings));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("stream", () =>
-                    {
-                        var settings = new MagickReadSettings();
+                    var settings = new MagickReadSettings();
 
-                        new MagickImageCollection(new MemoryStream(), settings);
-                    });
+                    Assert.Throws<ArgumentException>("stream", () => new MagickImageCollection(new MemoryStream(), settings));
                 }
 
                 [Fact]
