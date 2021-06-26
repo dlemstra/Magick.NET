@@ -4,6 +4,7 @@
 #if NETSTANDARD2_1
 
 using System;
+using System.Collections.Generic;
 
 namespace ImageMagick
 {
@@ -12,6 +13,30 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class MagickImageInfo : IMagickImageInfo
     {
+        /// <summary>
+        /// Read basic information about an image with multiple frames/pages.
+        /// </summary>
+        /// <param name="data">The span of bytes to read the information from.</param>
+        /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public static IReadOnlyCollection<IMagickImageInfo> ReadCollection(ReadOnlySpan<byte> data)
+        {
+            var result = new List<MagickImageInfo>();
+
+            using (var images = new MagickImageCollection())
+            {
+                images.Ping(data);
+                foreach (var image in images)
+                {
+                    var info = new MagickImageInfo();
+                    info.Initialize(image);
+                    result.Add(info);
+                }
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Read basic information about an image.
         /// </summary>

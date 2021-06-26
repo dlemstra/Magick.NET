@@ -11,7 +11,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageInfoTests
     {
-        public class TheReadCollectionMethod
+        public partial class TheReadCollectionMethod
         {
             public class WithByteArray
             {
