@@ -4,6 +4,8 @@
 #if NETSTANDARD2_1
 
 using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace ImageMagick
 {
@@ -34,6 +36,42 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void ReadPixels(ReadOnlySpan<byte> data, IPixelReadSettings<TQuantumType>? settings);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadAsync(FileInfo file, IMagickReadSettings<TQuantumType>? readSettings);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadAsync(string fileName, IMagickReadSettings<TQuantumType>? readSettings);
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<TQuantumType>? settings);
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadPixelsAsync(string fileName, IPixelReadSettings<TQuantumType>? settings);
     }
 }
 

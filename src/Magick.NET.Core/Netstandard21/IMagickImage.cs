@@ -4,6 +4,8 @@
 #if NETSTANDARD2_1
 
 using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace ImageMagick
 {
@@ -31,6 +33,40 @@ namespace ImageMagick
         /// <param name="format">The format to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(ReadOnlySpan<byte> data, MagickFormat format);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadAsync(FileInfo file);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadAsync(FileInfo file, MagickFormat format);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadAsync(string fileName);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task ReadAsync(string fileName, MagickFormat format);
     }
 }
 
