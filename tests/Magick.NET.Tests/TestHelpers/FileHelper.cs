@@ -7,28 +7,21 @@ namespace Magick.NET.Tests
 {
     internal static class FileHelper
     {
-        public static byte[] ReadAllBytes(string fileName)
-        {
-            using (var input = OpenRead(fileName))
-            {
-                var bytes = new byte[input.Length];
-                input.Read(bytes, 0, bytes.Length);
-                return bytes;
-            }
-        }
-
         public static void Copy(string sourceFileName, string destFileName)
         {
-            using (var input = OpenRead(sourceFileName))
+            var bytes = File.ReadAllBytes(sourceFileName);
+
+            using (var output = File.Open(destFileName, FileMode.Create, FileAccess.Write))
             {
-                using (var output = File.Open(destFileName, FileMode.Create, FileAccess.ReadWrite))
-                {
-                    input.CopyTo(output);
-                }
+                output.Write(bytes, 0, bytes.Length);
             }
         }
 
-        public static FileStream OpenRead(string fileName)
-            => File.Open(fileName, FileMode.Open, FileAccess.Read, FileShare.Read);
+        public static MemoryStream OpenRead(string fileName)
+        {
+            var bytes = File.ReadAllBytes(fileName);
+
+            return new MemoryStream(bytes);
+        }
     }
 }

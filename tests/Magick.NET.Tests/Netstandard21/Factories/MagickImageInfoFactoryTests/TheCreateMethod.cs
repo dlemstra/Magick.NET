@@ -4,6 +4,7 @@
 #if NETCORE
 
 using System;
+using System.IO;
 using ImageMagick;
 using Xunit;
 
@@ -27,7 +28,7 @@ namespace Magick.NET.Tests
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageInfoFactory();
-                    var data = FileHelper.ReadAllBytes(Files.ImageMagickJPG);
+                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
 
                     var info = factory.Create(new Span<byte>(data));
 

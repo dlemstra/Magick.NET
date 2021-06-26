@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
 
         protected long AssertCompress(string fileName, bool resultIsSmaller, Func<Stream, bool> action)
         {
-            using (FileStream fileStream = FileHelper.OpenRead(fileName))
+            using (var fileStream = FileHelper.OpenRead(fileName))
             {
                 using (var memoryStream = new MemoryStream())
                 {
@@ -102,7 +102,7 @@ namespace Magick.NET.Tests
         {
             using (var tempFile = new TemporaryFile(fileName))
             {
-                using (FileStream fileStream = FileHelper.OpenRead(fileName))
+                using (var fileStream = FileHelper.OpenRead(fileName))
                 {
                     using (var memoryStream = new MemoryStream())
                     {

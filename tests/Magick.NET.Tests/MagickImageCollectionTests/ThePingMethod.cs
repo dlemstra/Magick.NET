@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     using (var images = new MagickImageCollection())
                     {
@@ -103,7 +103,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        var fileBytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                        var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
                         var bytes = new byte[fileBytes.Length + 10];
                         fileBytes.CopyTo(bytes, 10);
 
@@ -175,7 +175,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    var fileBytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                    var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
@@ -189,7 +189,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     using (var image = new MagickImageCollection())
                     {
@@ -203,7 +203,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
 
                     using (var images = new MagickImageCollection())
                     {

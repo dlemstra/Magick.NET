@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldNotThrowExceptionWhenByteArrayReadSettingsIsNull()
             {
-                var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                var bytes = File.ReadAllBytes(Files.SnakewarePNG);
 
                 using (var images = new MagickImageCollection())
                 {

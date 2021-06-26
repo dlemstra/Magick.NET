@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     using (var input = new MagickImageCollection(bytes, readSettings))
                     {
@@ -89,7 +89,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReadImage()
                 {
-                    var fileBytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                    var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
@@ -140,7 +140,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReadImage()
                 {
-                    var fileBytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                    var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
@@ -198,7 +198,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    var fileBytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                    var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
                     var bytes = new byte[fileBytes.Length + 10];
                     fileBytes.CopyTo(bytes, 10);
 
@@ -211,7 +211,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     using (var image = new MagickImageCollection(bytes, 0, bytes.Length, null))
                     {
@@ -224,7 +224,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
 
                     using (var images = new MagickImageCollection(bytes, null))
                     {

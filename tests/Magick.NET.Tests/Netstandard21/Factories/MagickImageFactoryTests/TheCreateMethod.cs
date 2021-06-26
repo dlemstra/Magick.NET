@@ -4,6 +4,7 @@
 #if NETCORE
 
 using System;
+using System.IO;
 using ImageMagick;
 using Xunit;
 
@@ -27,7 +28,7 @@ namespace Magick.NET.Tests
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageFactory();
-                    var data = FileHelper.ReadAllBytes(Files.ImageMagickJPG);
+                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
 
                     using (var image = factory.Create(new Span<byte>(data)))
                     {
@@ -53,7 +54,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
                     using (var image = factory.Create(new Span<byte>(bytes), (MagickReadSettings)null))
                     {
                     }
@@ -63,7 +64,7 @@ namespace Magick.NET.Tests
                 public void ShouldCreateMagickImage()
                 {
                     var factory = new MagickImageFactory();
-                    var data = FileHelper.ReadAllBytes(Files.ImageMagickJPG);
+                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
                     var readSettings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.Goldenrod,
@@ -94,7 +95,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
                     Assert.Throws<ArgumentNullException>("settings", () => factory.Create(new Span<byte>(bytes), (PixelReadSettings)null));
                 }
 

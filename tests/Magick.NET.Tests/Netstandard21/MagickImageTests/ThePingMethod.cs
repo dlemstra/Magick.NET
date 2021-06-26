@@ -4,6 +4,7 @@
 #if NETCORE
 
 using System;
+using System.IO;
 using System.Text;
 using ImageMagick;
 using Xunit;
@@ -30,7 +31,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                        var bytes = File.ReadAllBytes(Files.SnakewarePNG);
                         image.Ping(new Span<byte>(bytes));
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
@@ -56,7 +57,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                        var bytes = File.ReadAllBytes(Files.CirclePNG);
                         image.Ping(new Span<byte>(bytes), null);
                     }
                 }
@@ -86,7 +87,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     using (var image = new MagickImage())
                     {

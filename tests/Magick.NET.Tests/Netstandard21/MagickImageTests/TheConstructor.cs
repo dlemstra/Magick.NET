@@ -4,6 +4,7 @@
 #if NETCORE
 
 using System;
+using System.IO;
 using ImageMagick;
 using Xunit;
 
@@ -44,7 +45,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
                     using (var image = new MagickImage(new Span<byte>(bytes), (MagickReadSettings)null))
                     {
                     }

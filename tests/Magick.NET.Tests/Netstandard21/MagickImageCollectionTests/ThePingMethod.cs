@@ -4,6 +4,7 @@
 #if NETCORE
 
 using System;
+using System.IO;
 using ImageMagick;
 using Xunit;
 
@@ -32,7 +33,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     using (var images = new MagickImageCollection())
                     {
@@ -48,7 +49,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
 
                     using (var images = new MagickImageCollection())
                     {

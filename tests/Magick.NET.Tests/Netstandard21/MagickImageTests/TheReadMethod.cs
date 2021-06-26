@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        var bytes = FileHelper.ReadAllBytes(Files.SnakewarePNG);
+                        var bytes = File.ReadAllBytes(Files.SnakewarePNG);
                         image.Read(new Span<byte>(bytes));
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReadingBytes()
                 {
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     using (var image = new MagickImage())
                     {
@@ -98,7 +98,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                        var bytes = File.ReadAllBytes(Files.CirclePNG);
                         image.Read(new Span<byte>(bytes), null);
                     }
                 }
@@ -128,7 +128,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    var bytes = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                     using (var image = new MagickImage())
                     {
@@ -144,7 +144,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReadImageFromMemoryStreamWhereBufferIsPubliclyVisible()
                 {
-                    var data = FileHelper.ReadAllBytes(Files.CirclePNG);
+                    var data = File.ReadAllBytes(Files.CirclePNG);
                     var testBuffer = new byte[data.Length + 10];
                     data.CopyTo(testBuffer, index: 10);
 
