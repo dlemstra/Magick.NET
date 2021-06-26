@@ -48,16 +48,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
         {
-            Throw.IfNull(nameof(stream), stream);
+            var bytes = await Bytes.CreateAsync(stream);
 
-            using (var memStream = new MemoryStream())
-            {
-                await stream.CopyToAsync(memStream).ConfigureAwait(false);
-
-                memStream.Position = 0;
-                Clear();
-                AddImages(memStream, readSettings, false);
-            }
+            Clear();
+            AddImages(bytes.GetData(), 0, bytes.Length, readSettings, false);
         }
 
         /// <summary>

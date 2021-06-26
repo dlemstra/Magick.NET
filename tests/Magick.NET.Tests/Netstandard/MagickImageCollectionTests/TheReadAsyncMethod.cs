@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 #if NETCORE
+
 using System;
 using System.IO;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        public class TheReadAsyncMethod
+        public partial class TheReadAsyncMethod
         {
             public class WithStream
             {
@@ -22,7 +23,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync(null));
+                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null));
                     }
                 }
 
@@ -92,7 +93,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync(null, settings));
+                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null, settings));
                     }
                 }
 
@@ -144,4 +145,5 @@ namespace Magick.NET.Tests
         }
     }
 }
+
 #endif
