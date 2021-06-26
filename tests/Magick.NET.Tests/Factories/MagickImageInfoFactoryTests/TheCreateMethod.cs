@@ -29,10 +29,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentNullException>("data", () =>
-                    {
-                        factory.Create((byte[])null);
-                    });
+                    Assert.Throws<ArgumentNullException>("data", () => factory.Create((byte[])null));
                 }
 
                 [Fact]
@@ -40,10 +37,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentException>("data", () =>
-                    {
-                        factory.Create(new byte[] { });
-                    });
+                    Assert.Throws<ArgumentException>("data", () => factory.Create(new byte[] { }));
                 }
 
                 [Fact]
@@ -66,10 +60,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentNullException>("data", () =>
-                    {
-                        factory.Create(null, 0, 0);
-                    });
+                    Assert.Throws<ArgumentNullException>("data", () => factory.Create(null, 0, 0));
                 }
 
                 [Fact]
@@ -77,10 +68,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentException>("data", () =>
-                    {
-                        factory.Create(new byte[] { }, 0, 0);
-                    });
+                    Assert.Throws<ArgumentException>("data", () => factory.Create(new byte[] { }, 0, 0));
                 }
 
                 [Fact]
@@ -88,10 +76,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentException>("offset", () =>
-                    {
-                        factory.Create(new byte[] { 215 }, -1, 0);
-                    });
+                    Assert.Throws<ArgumentException>("offset", () => factory.Create(new byte[] { 215 }, -1, 0));
                 }
 
                 [Fact]
@@ -99,10 +84,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentException>("count", () =>
-                    {
-                        factory.Create(new byte[] { 215 }, 0, 0);
-                    });
+                    Assert.Throws<ArgumentException>("count", () => factory.Create(new byte[] { 215 }, 0, 0));
                 }
 
                 [Fact]
@@ -110,10 +92,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentException>("count", () =>
-                    {
-                        factory.Create(new byte[] { 215 }, 0, -1);
-                    });
+                    Assert.Throws<ArgumentException>("count", () => factory.Create(new byte[] { 215 }, 0, -1));
                 }
             }
 
@@ -124,10 +103,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentNullException>("file", () =>
-                    {
-                        factory.Create((FileInfo)null);
-                    });
+                    Assert.Throws<ArgumentNullException>("file", () => factory.Create((FileInfo)null));
                 }
 
                 [Fact]
@@ -150,10 +126,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentNullException>("fileName", () =>
-                    {
-                        factory.Create((string)null);
-                    });
+                    Assert.Throws<ArgumentNullException>("fileName", () => factory.Create((string)null));
                 }
 
                 [Fact]
@@ -161,10 +134,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentException>("fileName", () =>
-                    {
-                        factory.Create(string.Empty);
-                    });
+                    Assert.Throws<ArgumentException>("fileName", () => factory.Create(string.Empty));
                 }
 
                 [Fact]
@@ -186,10 +156,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentNullException>("stream", () =>
-                    {
-                        factory.Create((Stream)null);
-                    });
+                    Assert.Throws<ArgumentNullException>("stream", () => factory.Create((Stream)null));
                 }
 
                 [Fact]
@@ -197,10 +164,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentException>("stream", () =>
-                    {
-                        factory.Create(new MemoryStream());
-                    });
+                    Assert.Throws<ArgumentException>("stream", () => factory.Create(new MemoryStream()));
                 }
 
                 [Fact]
