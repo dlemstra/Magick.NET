@@ -8,7 +8,7 @@ namespace ImageMagick
     /// <summary>
     /// Interface that contains basic information about an image.
     /// </summary>
-    public interface IMagickImageInfo
+    public partial interface IMagickImageInfo
     {
         /// <summary>
         /// Gets the color space of the image.
