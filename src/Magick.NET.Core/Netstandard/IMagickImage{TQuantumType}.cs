@@ -18,8 +18,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         Task ReadAsync(Stream stream, IMagickReadSettings<TQuantumType>? readSettings);
 
         /// <summary>
@@ -27,8 +27,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         Task ReadPixelsAsync(Stream stream, IPixelReadSettings<TQuantumType>? settings);
     }
 }
