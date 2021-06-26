@@ -10,7 +10,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageInfoTests
     {
-        public class TheConstructor
+        public partial class TheConstructor
         {
             public class WithByteArray
             {
