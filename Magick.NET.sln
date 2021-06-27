@@ -39,7 +39,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6D1DE15B-E
 		docs\ReadRawImageFromCamera.md = docs\ReadRawImageFromCamera.md
 		docs\ResizeImage.md = docs\ResizeImage.md
 		docs\UsingColors.md = docs\UsingColors.md
-		docs\Versioning.md = docs\Versioning.md
 		docs\Watermark.md = docs\Watermark.md
 	EndProjectSection
 EndProject

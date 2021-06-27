@@ -52,7 +52,7 @@ this build in a production environment.
 
 ## Versioning
 
-Magick.NET uses the following: [versioning strategy](docs/Versioning.md).
+Magick.NET uses [semantic versioning](https://semver.org/#semantic-versioning-200).
 
 ## Donate
 
