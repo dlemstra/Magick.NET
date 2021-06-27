@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.WriteAsync(null));
+                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.WriteAsync((Stream)null));
                     }
                 }
             }
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.WriteAsync(null, MagickFormat.Bmp));
+                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.WriteAsync((Stream)null, MagickFormat.Bmp));
                     }
                 }
 
@@ -77,4 +77,5 @@ namespace Magick.NET.Tests
         }
     }
 }
+
 #endif

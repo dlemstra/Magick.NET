@@ -169,6 +169,135 @@ namespace ImageMagick
         public Task ReadAsync(string fileName, MagickFormat format)
             => ReadAsync(fileName, new MagickReadSettings { Format = format });
 
+        /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task WriteAsync(FileInfo file)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            if (_images.Count == 0)
+                return;
+
+            var formatInfo = MagickFormatInfo.Create(file);
+
+            try
+            {
+                AttachImages();
+
+                var bytes = formatInfo != null ? ToByteArray(formatInfo.Format) : ToByteArray();
+                await File.WriteAllBytesAsync(file.FullName, bytes).ConfigureAwait(false);
+            }
+            finally
+            {
+                DetachImages();
+            }
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(FileInfo file, IWriteDefines defines)
+        {
+            SetDefines(defines);
+            return WriteAsync(file, defines.Format);
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task WriteAsync(FileInfo file, MagickFormat format)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            if (_images.Count == 0)
+                return;
+
+            try
+            {
+                AttachImages();
+
+                var bytes = ToByteArray(format);
+                await File.WriteAllBytesAsync(file.FullName, bytes).ConfigureAwait(false);
+            }
+            finally
+            {
+                DetachImages();
+            }
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(string fileName)
+        {
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
+
+            return WriteAsync(new FileInfo(filePath));
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(string fileName, IWriteDefines defines)
+        {
+            SetDefines(defines);
+            return WriteAsync(fileName, defines.Format);
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task WriteAsync(string fileName, MagickFormat format)
+        {
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
+
+            if (_images.Count == 0)
+                return;
+
+            try
+            {
+                AttachImages();
+
+                var bytes = ToByteArray(format);
+                await File.WriteAllBytesAsync(filePath, bytes).ConfigureAwait(false);
+            }
+            finally
+            {
+                DetachImages();
+            }
+        }
+
         private void AddImages(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping)
         {
             var settings = CreateSettings(readSettings);

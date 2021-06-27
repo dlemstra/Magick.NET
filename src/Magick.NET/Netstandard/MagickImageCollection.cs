@@ -68,9 +68,6 @@ namespace ImageMagick
             if (_images.Count == 0)
                 return;
 
-            var settings = _images[0].GetSettings().Clone();
-            settings.FileName = null;
-
             try
             {
                 AttachImages();
