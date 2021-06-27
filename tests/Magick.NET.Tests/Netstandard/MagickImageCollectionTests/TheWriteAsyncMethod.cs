@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 #if NETCORE
+
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageCollectionTests
     {
-        public class TheWriteAsyncMethod
+        public partial class TheWriteAsyncMethod
         {
             public class WithStream
             {
@@ -26,7 +27,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithStreamAndFormat
+            public class WithStreamAndMagickFormat
             {
                 [Fact]
                 public async Task ShouldThrowExceptionWhenStreamIsNull()
