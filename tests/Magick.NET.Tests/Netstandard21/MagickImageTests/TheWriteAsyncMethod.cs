@@ -11,7 +11,7 @@ using Xunit;
 
 namespace Magick.NET.Tests
 {
-    public partial class MagickImageCollectionTests
+    public partial class MagickImageTests
     {
         public partial class TheWriteAsyncMethod
         {

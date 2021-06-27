@@ -12,7 +12,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class TheWriteAsyncMethod
+        public partial class TheWriteAsyncMethod
         {
             public class WithStream
             {
