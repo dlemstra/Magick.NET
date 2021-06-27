@@ -2376,7 +2376,7 @@ namespace Magick.NET.Tests
                 bytes = image.ToByteArray(MagickFormat.Jpg);
 
                 image.Read(bytes);
-                Assert.Equal(MagickFormat.Jpg, image.Format);
+                Assert.Equal(MagickFormat.Jpeg, image.Format);
 
                 bytes = image.ToByteArray(MagickFormat.Dds);
 

@@ -6348,8 +6348,15 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public byte[] ToByteArray(MagickFormat format)
         {
+            var currentFormat = _nativeInstance.Format;
+
             Format = format;
-            return ToByteArray();
+            var bytes = ToByteArray();
+
+            _nativeInstance.Format = currentFormat;
+            _settings.Format = MagickFormat.Unknown;
+
+            return bytes;
         }
 
         /// <summary>
