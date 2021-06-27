@@ -254,8 +254,7 @@ namespace ImageMagick
         public Task WriteAsync(FileInfo file, IWriteDefines defines)
         {
             _settings.SetDefines(defines);
-            _settings.Format = defines.Format;
-            return WriteAsync(file);
+            return WriteAsync(file, defines.Format);
         }
 
         /// <summary>
@@ -265,12 +264,12 @@ namespace ImageMagick
         /// <param name="format">The format to use.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task WriteAsync(FileInfo file, MagickFormat format)
+        public Task WriteAsync(FileInfo file, MagickFormat format)
         {
-            var currentFormat = Format;
-            _settings.Format = format;
-            await WriteAsync(file).ConfigureAwait(false);
-            Format = currentFormat;
+            Throw.IfNull(nameof(file), file);
+
+            var bytes = ToByteArray(format);
+            return File.WriteAllBytesAsync(file.FullName, bytes);
         }
 
         /// <summary>
@@ -297,8 +296,7 @@ namespace ImageMagick
         public Task WriteAsync(string fileName, IWriteDefines defines)
         {
             _settings.SetDefines(defines);
-            _settings.Format = defines.Format;
-            return WriteAsync(fileName);
+            return WriteAsync(fileName, defines.Format);
         }
 
         /// <summary>
@@ -308,12 +306,13 @@ namespace ImageMagick
         /// <param name="format">The format to use.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task WriteAsync(string fileName, MagickFormat format)
+        public Task WriteAsync(string fileName, MagickFormat format)
         {
-            var currentFormat = Format;
-            _settings.Format = format;
-            await WriteAsync(fileName).ConfigureAwait(false);
-            Format = currentFormat;
+            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
+
+            var bytes = ToByteArray(format);
+            return File.WriteAllBytesAsync(filePath, bytes);
         }
 
         private void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping)
