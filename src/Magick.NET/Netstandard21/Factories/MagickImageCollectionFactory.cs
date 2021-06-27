@@ -50,7 +50,7 @@ namespace ImageMagick
         public async Task<IMagickImageCollection<QuantumType>> CreateAsync(FileInfo file)
         {
             var images = new MagickImageCollection();
-            await images.ReadAsync(file);
+            await images.ReadAsync(file).ConfigureAwait(false);
 
             return images;
         }
@@ -65,7 +65,7 @@ namespace ImageMagick
         public async Task<IMagickImageCollection<QuantumType>> CreateAsync(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
         {
             var images = new MagickImageCollection();
-            await images.ReadAsync(file, readSettings);
+            await images.ReadAsync(file, readSettings).ConfigureAwait(false);
 
             return images;
         }
@@ -79,7 +79,7 @@ namespace ImageMagick
         public async Task<IMagickImageCollection<QuantumType>> CreateAsync(string fileName)
         {
             var images = new MagickImageCollection();
-            await images.ReadAsync(fileName);
+            await images.ReadAsync(fileName).ConfigureAwait(false);
 
             return images;
         }
@@ -94,7 +94,7 @@ namespace ImageMagick
         public async Task<IMagickImageCollection<QuantumType>> CreateAsync(string fileName, IMagickReadSettings<QuantumType> readSettings)
         {
             var images = new MagickImageCollection();
-            await images.ReadAsync(fileName, readSettings);
+            await images.ReadAsync(fileName, readSettings).ConfigureAwait(false);
 
             return images;
         }

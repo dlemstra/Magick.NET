@@ -30,7 +30,7 @@ namespace ImageMagick
         public async Task<IMagickImageCollection<QuantumType>> CreateAsync(Stream stream)
         {
             var images = new MagickImageCollection();
-            await images.ReadAsync(stream);
+            await images.ReadAsync(stream).ConfigureAwait(false);
 
             return images;
         }
@@ -45,7 +45,7 @@ namespace ImageMagick
         public async Task<IMagickImageCollection<QuantumType>> CreateAsync(Stream stream, IMagickReadSettings<QuantumType> readSettings)
         {
             var images = new MagickImageCollection();
-            await images.ReadAsync(stream, readSettings);
+            await images.ReadAsync(stream, readSettings).ConfigureAwait(false);
 
             return images;
         }

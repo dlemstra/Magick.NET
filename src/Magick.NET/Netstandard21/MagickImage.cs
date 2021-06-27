@@ -172,7 +172,7 @@ namespace ImageMagick
             var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            var bytes = await File.ReadAllBytesAsync(fileName);
+            var bytes = await File.ReadAllBytesAsync(fileName).ConfigureAwait(false);
 
             Read(bytes, readSettings, false);
         }
@@ -224,7 +224,7 @@ namespace ImageMagick
             string filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            var data = await File.ReadAllBytesAsync(filePath);
+            var data = await File.ReadAllBytesAsync(filePath).ConfigureAwait(false);
             ReadPixels(data, 0, data.Length, settings);
         }
 

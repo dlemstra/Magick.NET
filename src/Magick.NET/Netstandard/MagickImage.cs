@@ -50,7 +50,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(stream), stream);
 
-            var bytes = await Bytes.CreateAsync(stream);
+            var bytes = await Bytes.CreateAsync(stream).ConfigureAwait(false);
             Read(bytes.GetData(), readSettings);
         }
 
@@ -65,7 +65,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
-            var bytes = await Bytes.CreateAsync(stream);
+            var bytes = await Bytes.CreateAsync(stream).ConfigureAwait(false);
             ReadPixels(bytes.GetData(), 0, bytes.Length, settings);
         }
 

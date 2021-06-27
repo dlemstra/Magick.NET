@@ -153,7 +153,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(fileName), fileName);
 
-            var bytes = await File.ReadAllBytesAsync(fileName);
+            var bytes = await File.ReadAllBytesAsync(fileName).ConfigureAwait(false);
 
             Clear();
             AddImages(bytes, 0, bytes.Length, readSettings, false);

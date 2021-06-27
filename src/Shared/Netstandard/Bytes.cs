@@ -15,7 +15,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(stream), stream);
             Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
 
-            var (data, length) = await GetDataAsync(stream);
+            var (data, length) = await GetDataAsync(stream).ConfigureAwait(false);
 
             return new Bytes(data, length);
         }
@@ -31,13 +31,13 @@ namespace ImageMagick
             Throw.IfFalse(nameof(stream), stream.CanRead, "The stream is not readable.");
 
             if (stream.CanSeek)
-                return await GetDataWithSeekableStreamAsync(stream);
+                return await GetDataWithSeekableStreamAsync(stream).ConfigureAwait(false);
 
             var buffer = new byte[BufferSize];
             using (var tempStream = new MemoryStream())
             {
                 int count;
-                while ((count = await stream.ReadAsync(buffer, 0, BufferSize)) != 0)
+                while ((count = await stream.ReadAsync(buffer, 0, BufferSize).ConfigureAwait(false)) != 0)
                 {
                     CheckLength(tempStream.Length + count);
 
@@ -58,7 +58,7 @@ namespace ImageMagick
 
             int read = 0;
             int bytesRead;
-            while ((bytesRead = await stream.ReadAsync(data, read, length - read)) != 0)
+            while ((bytesRead = await stream.ReadAsync(data, read, length - read).ConfigureAwait(false)) != 0)
             {
                 read += bytesRead;
             }

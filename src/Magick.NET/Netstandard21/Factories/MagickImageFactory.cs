@@ -60,7 +60,7 @@ namespace ImageMagick
         public async Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file)
         {
             var image = new MagickImage();
-            await image.ReadAsync(file);
+            await image.ReadAsync(file).ConfigureAwait(false);
 
             return image;
         }
@@ -75,7 +75,7 @@ namespace ImageMagick
         public async Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
         {
             var image = new MagickImage();
-            await image.ReadAsync(file, readSettings);
+            await image.ReadAsync(file, readSettings).ConfigureAwait(false);
 
             return image;
         }
@@ -90,7 +90,7 @@ namespace ImageMagick
         public async Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file, IPixelReadSettings<QuantumType> settings)
         {
             var image = new MagickImage();
-            await image.ReadPixelsAsync(file, settings);
+            await image.ReadPixelsAsync(file, settings).ConfigureAwait(false);
 
             return image;
         }
@@ -104,7 +104,7 @@ namespace ImageMagick
         public async Task<IMagickImage<QuantumType>> CreateAsync(string fileName)
         {
             var image = new MagickImage();
-            await image.ReadAsync(fileName);
+            await image.ReadAsync(fileName).ConfigureAwait(false);
 
             return image;
         }
@@ -119,7 +119,7 @@ namespace ImageMagick
         public async Task<IMagickImage<QuantumType>> CreateAsync(string fileName, IMagickReadSettings<QuantumType> readSettings)
         {
             var image = new MagickImage();
-            await image.ReadAsync(fileName, readSettings);
+            await image.ReadAsync(fileName, readSettings).ConfigureAwait(false);
 
             return image;
         }
@@ -134,7 +134,7 @@ namespace ImageMagick
         public async Task<IMagickImage<QuantumType>> CreateAsync(string fileName, IPixelReadSettings<QuantumType> settings)
         {
             var image = new MagickImage();
-            await image.ReadPixelsAsync(fileName, settings);
+            await image.ReadPixelsAsync(fileName, settings).ConfigureAwait(false);
 
             return image;
         }
