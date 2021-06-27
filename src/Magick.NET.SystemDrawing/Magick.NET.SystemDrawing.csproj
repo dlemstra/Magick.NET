@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net20;netstandard20;netstandard21</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
-    <AssemblyVersion>2.0.17.0</AssemblyVersion>
-    <FileVersion>2.0.17.0</FileVersion>
-    <Version>2.0.17.0</Version>
+    <AssemblyVersion>3.0.0</AssemblyVersion>
+    <FileVersion>3.0.0</FileVersion>
+    <Version>3.0.0</Version>
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 
