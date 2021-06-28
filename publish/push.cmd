@@ -6,7 +6,7 @@ pause
 set /p ApiKey=<api.key.txt
 if not "%ApiKey%"=="" goto push
 
-echo Unable to find ApiKey.txt
+echo Unable to find api.key.txt
 goto done
 
 :push
