@@ -35,13 +35,5 @@ namespace ImageMagick
 
             throw new NotSupportedException();
         }
-
-        internal static void SetNext(this IMagickImage self, IMagickImage? next)
-        {
-            if (self is MagickImage image)
-                image.SetNext(next);
-            else
-                throw new NotSupportedException();
-        }
     }
 }

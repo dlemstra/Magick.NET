@@ -1552,7 +1552,8 @@ namespace ImageMagick
         {
             for (var i = 0; i < _images.Count - 1; i++)
             {
-                _images[i].SetNext(_images[i + 1]);
+                if (_images[i] is MagickImage image)
+                    image.SetNext(_images[i + 1]);
             }
         }
 
@@ -1569,7 +1570,8 @@ namespace ImageMagick
         {
             for (var i = 0; i < _images.Count - 1; i++)
             {
-                _images[i].SetNext(null);
+                if (_images[i] is MagickImage image)
+                    image.SetNext(null);
             }
         }
 

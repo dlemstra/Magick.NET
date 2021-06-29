@@ -29,15 +29,5 @@ namespace Magick.NET.Tests
                 image.GetInstance();
             });
         }
-
-        [Fact]
-        public void SetNext_ValueIsNull_ThrowsException()
-        {
-            IMagickImage<QuantumType> image = null;
-            Assert.Throws<NotSupportedException>(() =>
-            {
-                image.SetNext(null);
-            });
-        }
     }
 }
