@@ -239,6 +239,26 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            public class WithIDeskewSettings
+            {
+                [Fact]
+                public void ShouldRemoveAutoCrop()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var settings = new DeskewSettings
+                        {
+                            AutoCrop = true,
+                        };
+
+                        ArtifactsHelper.SetImageArtifacts(image, settings);
+                        ArtifactsHelper.RemoveImageArtifacts(image, settings);
+
+                        Assert.Empty(image.ArtifactNames);
+                    }
+                }
+            }
         }
     }
 }

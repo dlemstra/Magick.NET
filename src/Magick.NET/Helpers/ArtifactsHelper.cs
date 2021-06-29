@@ -112,5 +112,17 @@ namespace ImageMagick
             if (settings.PerimeterThreshold != null)
                 image.RemoveArtifact("connected-components:perimeter-threshold");
         }
+
+        public static void SetImageArtifacts(IMagickImage<QuantumType> image, IDeskewSettings settings)
+        {
+            if (settings.AutoCrop)
+                image.SetArtifact("deskew:auto-crop", settings.AutoCrop);
+        }
+
+        public static void RemoveImageArtifacts(IMagickImage<QuantumType> image, IDeskewSettings settings)
+        {
+            if (settings.AutoCrop)
+                image.RemoveArtifact("deskew:auto-crop");
+        }
     }
 }

@@ -2621,11 +2621,11 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNegative(nameof(settings), settings.Threshold);
 
-            settings.SetImageArtifacts(this);
+            ArtifactsHelper.SetImageArtifacts(this, settings);
 
             _nativeInstance.Deskew(settings.Threshold.ToQuantum());
 
-            settings.RemoveImageArtifacts(this);
+            ArtifactsHelper.RemoveImageArtifacts(this, settings);
 
             var artifact = GetArtifact("deskew:angle");
             if (!double.TryParse(artifact, NumberStyles.Any, CultureInfo.InvariantCulture, out var result))
