@@ -20,7 +20,8 @@ namespace Magick.NET.Tests
 
                     profile.RemoveThumbnail();
 
-                    Assert.Null(profile.CreateThumbnail());
+                    Assert.Equal(0, profile.ThumbnailLength);
+                    Assert.Equal(0, profile.ThumbnailOffset);
                 }
             }
         }

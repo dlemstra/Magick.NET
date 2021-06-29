@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net40</TargetFrameworks>
+    <TargetFrameworks>netstandard20</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2021 Dirk Lemstra</Copyright>

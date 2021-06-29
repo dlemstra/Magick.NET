@@ -619,7 +619,7 @@ namespace ImageMagick
             ColorType = settings.ColorType;
             Compression = settings.Compression;
             Debug = settings.Debug;
-            Density = settings.Density?.Clone();
+            Density = CloneDensity(settings.Density);
             Depth = settings.Depth;
             Endian = settings.Endian;
             Extract = MagickGeometry.Clone(settings.Extract);
@@ -665,6 +665,14 @@ namespace ImageMagick
                 return null;
 
             return new Density(value);
+        }
+
+        private static Density? CloneDensity(Density? density)
+        {
+            if (density == null)
+                return null;
+
+            return new Density(density.X, density.Y, density.Units);
         }
 
         private static INativeInstance CreateNativeInstance(IMagickSettings<QuantumType> instance)

@@ -34,6 +34,7 @@ namespace Magick.NET.Tests
 
                     profile = new ExifProfile(bytes);
 
+#if NETSTANDARD
                     using (var thumbnail = profile.CreateThumbnail())
                     {
                         Assert.NotNull(thumbnail);
@@ -41,6 +42,10 @@ namespace Magick.NET.Tests
                         Assert.Equal(85, thumbnail.Height);
                         Assert.Equal(MagickFormat.Jpeg, thumbnail.Format);
                     }
+#else
+                    Assert.NotEqual(0, profile.ThumbnailLength);
+                    Assert.NotEqual(0, profile.ThumbnailOffset);
+#endif
                 }
             }
         }
