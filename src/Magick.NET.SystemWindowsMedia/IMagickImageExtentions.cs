@@ -69,7 +69,7 @@ namespace ImageMagick
                 using (var pixels = image.GetPixelsUnsafe())
                 {
                     var bytes = pixels.ToByteArray(mapping);
-                    var dpi = image.GetDefaultDensity(useDensity ? DensityUnit.PixelsPerInch : DensityUnit.Undefined);
+                    var dpi = GetDefaultDensity(image, useDensity ? DensityUnit.PixelsPerInch : DensityUnit.Undefined);
                     return BitmapSource.Create(image.Width, image.Height, dpi.X, dpi.Y, format, null, bytes, stride);
                 }
             }
@@ -78,6 +78,16 @@ namespace ImageMagick
                 if (!ReferenceEquals(self, image))
                     image.Dispose();
             }
+        }
+
+        private static Density GetDefaultDensity(IMagickImage image, DensityUnit units)
+        {
+            Throw.IfNull(nameof(image), image);
+
+            if (units == DensityUnit.Undefined || (image.Density.Units == DensityUnit.Undefined && image.Density.X == 0 && image.Density.Y == 0))
+                return new Density(96);
+
+            return image.Density.ChangeUnits(units);
         }
     }
 }
