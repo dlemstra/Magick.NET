@@ -54,5 +54,8 @@ namespace ImageMagick
 
         public double GetY(int index)
             => _nativeInstance.GetY(index);
+
+        internal static IntPtr GetInstance(PointInfoCollection pointInfoCollection)
+            => pointInfoCollection._nativeInstance.Instance;
     }
 }

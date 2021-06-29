@@ -401,8 +401,6 @@ namespace FileGenerator.Native
                     string value = property.Type.NativeTypeCast + "value";
                     if (NeedsCreate(property.Type))
                         value = "valueNative.Instance";
-                    else if (property.Type.HasInstance)
-                        value = "value.GetInstance()";
 
                     arguments = (Class.IsStatic ? string.Empty : "Instance, ") + value;
                     if (property.Throws)

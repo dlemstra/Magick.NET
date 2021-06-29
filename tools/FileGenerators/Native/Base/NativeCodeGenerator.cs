@@ -100,7 +100,7 @@ namespace FileGenerator.Native
                 }
                 else if (argument.Type.HasInstance)
                 {
-                    result += argument.Name + ".GetInstance()";
+                    result += argument.Type.ManagedName + ".GetInstance(" + argument.Name + ")";
                 }
                 else
                 {

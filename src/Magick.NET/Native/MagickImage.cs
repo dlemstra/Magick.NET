@@ -3389,13 +3389,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Clut(Instance, image.GetInstance(), (UIntPtr)method, (UIntPtr)channels, out exception);
+                NativeMethods.X64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Clut(Instance, image.GetInstance(), (UIntPtr)method, (UIntPtr)channels, out exception);
+                NativeMethods.X86.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
             }
@@ -3499,13 +3499,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Compare(Instance, image.GetInstance(), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
+                result = NativeMethods.X64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Compare(Instance, image.GetInstance(), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
+                result = NativeMethods.X86.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
                 #endif
                 CheckException(exception, result);
                 return result;
@@ -3518,13 +3518,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_CompareDistortion(Instance, image.GetInstance(), (UIntPtr)metric, (UIntPtr)channels, out exception);
+                result = NativeMethods.X64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_CompareDistortion(Instance, image.GetInstance(), (UIntPtr)metric, (UIntPtr)channels, out exception);
+                result = NativeMethods.X86.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
                 return result;
@@ -3536,13 +3536,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Composite(Instance, image.GetInstance(), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+                NativeMethods.X64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Composite(Instance, image.GetInstance(), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+                NativeMethods.X86.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
             }
@@ -3553,13 +3553,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_CompositeGravity(Instance, image.GetInstance(), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+                NativeMethods.X64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_CompositeGravity(Instance, image.GetInstance(), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+                NativeMethods.X86.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
             }
@@ -3679,13 +3679,13 @@ namespace ImageMagick
                         if (OperatingSystem.Is64Bit)
                         #endif
                         #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.MagickImage_CopyPixels(Instance, image.GetInstance(), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
+                        NativeMethods.X64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
                         #endif
                         #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.MagickImage_CopyPixels(Instance, image.GetInstance(), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
+                        NativeMethods.X86.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
                         #endif
                         CheckException(exception);
                     }
@@ -3960,13 +3960,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Equals(Instance, image.GetInstance(), out exception);
+                result = NativeMethods.X64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Equals(Instance, image.GetInstance(), out exception);
+                result = NativeMethods.X86.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 CheckException(exception);
                 return result;
@@ -4483,13 +4483,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_HaldClut(Instance, image.GetInstance(), out exception);
+                NativeMethods.X64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_HaldClut(Instance, image.GetInstance(), out exception);
+                NativeMethods.X86.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 CheckException(exception);
             }
@@ -4802,13 +4802,13 @@ namespace ImageMagick
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Map(Instance, image.GetInstance(), settingsNative.Instance, out exception);
+                    result = NativeMethods.X64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Map(Instance, image.GetInstance(), settingsNative.Instance, out exception);
+                    result = NativeMethods.X86.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
                     #endif
                     CheckException(exception);
                     return result;
@@ -5833,13 +5833,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_SetColorMetric(Instance, image.GetInstance(), out exception);
+                result = NativeMethods.X64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_SetColorMetric(Instance, image.GetInstance(), out exception);
+                result = NativeMethods.X86.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 CheckException(exception);
                 return result;
@@ -5881,13 +5881,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetReadMask(Instance, image.GetInstance(), out exception);
+                NativeMethods.X64.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetReadMask(Instance, image.GetInstance(), out exception);
+                NativeMethods.X86.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 CheckException(exception);
             }
@@ -5898,13 +5898,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetWriteMask(Instance, image.GetInstance(), out exception);
+                NativeMethods.X64.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetWriteMask(Instance, image.GetInstance(), out exception);
+                NativeMethods.X86.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 CheckException(exception);
             }
@@ -6201,13 +6201,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Stegano(Instance, watermark.GetInstance(), out exception);
+                result = NativeMethods.X64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Stegano(Instance, watermark.GetInstance(), out exception);
+                result = NativeMethods.X86.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
                 #endif
                 CheckException(exception, result);
                 if (result != IntPtr.Zero)
@@ -6221,13 +6221,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Stereo(Instance, rightImage.GetInstance(), out exception);
+                result = NativeMethods.X64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Stereo(Instance, rightImage.GetInstance(), out exception);
+                result = NativeMethods.X86.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
                 #endif
                 CheckException(exception, result);
                 if (result != IntPtr.Zero)
@@ -6261,13 +6261,13 @@ namespace ImageMagick
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_SubImageSearch(Instance, reference.GetInstance(), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+                    result = NativeMethods.X64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_SubImageSearch(Instance, reference.GetInstance(), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+                    result = NativeMethods.X86.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
                     #endif
                     offset = MagickRectangle.CreateInstance(offsetNative);
                     CheckException(exception, result);
@@ -6301,13 +6301,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Texture(Instance, image.GetInstance(), out exception);
+                NativeMethods.X64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Texture(Instance, image.GetInstance(), out exception);
+                NativeMethods.X86.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
                 #endif
                 CheckException(exception);
             }

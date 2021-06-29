@@ -6890,6 +6890,17 @@ namespace ImageMagick
             return result;
         }
 
+        internal static IntPtr GetInstance(IMagickImage? image)
+        {
+            if (image == null)
+                return IntPtr.Zero;
+
+            if (image is MagickImage magickImage)
+                return magickImage._nativeInstance.Instance;
+
+            throw new NotSupportedException();
+        }
+
         internal static MagickSettings GetSettings(IMagickImage<QuantumType> image)
         {
             if (image?.Settings is MagickSettings settings)
@@ -6907,7 +6918,7 @@ namespace ImageMagick
         }
 
         internal void SetNext(IMagickImage? image)
-            => _nativeInstance.SetNext(image.GetInstance());
+            => _nativeInstance.SetNext(MagickImage.GetInstance(image));
 
         private static int GetExpectedLength(IPixelReadSettings<QuantumType> settings)
         {

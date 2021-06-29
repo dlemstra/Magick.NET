@@ -91,13 +91,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X64.PixelCollection_Create(image.GetInstance(), out exception);
+                Instance = NativeMethods.X64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X86.PixelCollection_Create(image.GetInstance(), out exception);
+                Instance = NativeMethods.X86.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
                 #endif
                 CheckException(exception, Instance);
                 if (Instance == IntPtr.Zero)

@@ -1132,13 +1132,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingSettings_SetFillPattern(Instance, value.GetInstance(), out exception);
+                NativeMethods.X64.DrawingSettings_SetFillPattern(Instance, MagickImage.GetInstance(value), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.DrawingSettings_SetFillPattern(Instance, value.GetInstance(), out exception);
+                NativeMethods.X86.DrawingSettings_SetFillPattern(Instance, MagickImage.GetInstance(value), out exception);
                 #endif
                 CheckException(exception);
             }
@@ -1184,13 +1184,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingSettings_SetStrokePattern(Instance, value.GetInstance(), out exception);
+                NativeMethods.X64.DrawingSettings_SetStrokePattern(Instance, MagickImage.GetInstance(value), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.DrawingSettings_SetStrokePattern(Instance, value.GetInstance(), out exception);
+                NativeMethods.X86.DrawingSettings_SetStrokePattern(Instance, MagickImage.GetInstance(value), out exception);
                 #endif
                 CheckException(exception);
             }

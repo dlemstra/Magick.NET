@@ -404,13 +404,13 @@ namespace ImageMagick
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    Instance = NativeMethods.X64.DrawingWand_Create(image.GetInstance(), settingsNative.Instance);
+                    Instance = NativeMethods.X64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    Instance = NativeMethods.X86.DrawingWand_Create(image.GetInstance(), settingsNative.Instance);
+                    Instance = NativeMethods.X86.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
                     #endif
                     if (Instance == IntPtr.Zero)
                         throw new InvalidOperationException();
@@ -481,13 +481,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingWand_Bezier(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
+                NativeMethods.X64.DrawingWand_Bezier(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.DrawingWand_Bezier(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
+                NativeMethods.X86.DrawingWand_Bezier(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception);
             }
@@ -606,13 +606,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, image.GetInstance(), out exception);
+                NativeMethods.X64.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, image.GetInstance(), out exception);
+                NativeMethods.X86.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, MagickImage.GetInstance(image), out exception);
                 #endif
                 CheckException(exception);
             }
@@ -1267,13 +1267,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingWand_Polygon(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
+                NativeMethods.X64.DrawingWand_Polygon(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.DrawingWand_Polygon(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
+                NativeMethods.X86.DrawingWand_Polygon(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception);
             }
@@ -1284,13 +1284,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingWand_Polyline(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
+                NativeMethods.X64.DrawingWand_Polyline(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.DrawingWand_Polyline(Instance, coordinates.GetInstance(), (UIntPtr)length, out exception);
+                NativeMethods.X86.DrawingWand_Polyline(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception);
             }
