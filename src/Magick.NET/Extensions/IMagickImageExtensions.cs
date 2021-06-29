@@ -27,13 +27,5 @@ namespace ImageMagick
 
             throw new NotSupportedException();
         }
-
-        internal static MagickSettings GetSettings(this IMagickImage<QuantumType>? self)
-        {
-            if (self?.Settings is MagickSettings settings)
-                return settings;
-
-            throw new NotSupportedException();
-        }
     }
 }

@@ -6147,7 +6147,7 @@ namespace ImageMagick
             if (geometry == null)
                 throw new InvalidOperationException();
 
-            return new MagickSearchResult(Create(result, image.GetSettings()), geometry, similarityMetric);
+            return new MagickSearchResult(Create(result, GetSettings(image)), geometry, similarityMetric);
         }
 
         /// <summary>
@@ -6888,6 +6888,14 @@ namespace ImageMagick
             }
 
             return result;
+        }
+
+        internal static MagickSettings GetSettings(IMagickImage<QuantumType> image)
+        {
+            if (image?.Settings is MagickSettings settings)
+                return settings;
+
+            throw new NotSupportedException();
         }
 
         internal int ChannelOffset(PixelChannel pixelChannel)

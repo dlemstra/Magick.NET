@@ -131,7 +131,7 @@ namespace ImageMagick.ImageOptimizers
 
             bool isCompressed = false;
 
-            using (TemporaryFile tempFile = new TemporaryFile())
+            using (var tempFile = new TemporaryFile())
             {
                 LosslessCompress(image);
                 image.Write(tempFile);
@@ -150,7 +150,7 @@ namespace ImageMagick.ImageOptimizers
         private static void LosslessCompress(IMagickImage<QuantumType> image)
         {
             image.Strip();
-            image.GetSettings().Interlace = Interlace.NoInterlace;
+            MagickImage.GetSettings(image).Interlace = Interlace.NoInterlace;
         }
 
         private static bool DoLosslessCompress(IMagickImage<QuantumType> image, Stream stream, long startPosition)
