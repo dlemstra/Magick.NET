@@ -80,7 +80,7 @@ namespace ImageMagick
                 {
                     using (var fileStream = File.Open(tempFile, FileMode.CreateNew))
                     {
-                        compressedStream.CopyTo(fileStream);
+                        StreamHelper.Copy(compressedStream, fileStream);
                     }
                 }
             }
