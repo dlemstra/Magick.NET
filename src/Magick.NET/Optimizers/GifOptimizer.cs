@@ -159,7 +159,7 @@ namespace ImageMagick.ImageOptimizers
 
             bool isCompressed = false;
 
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
                 LosslessCompress(image);
                 image.Write(memStream);
@@ -168,7 +168,7 @@ namespace ImageMagick.ImageOptimizers
                 {
                     isCompressed = true;
                     memStream.Position = 0;
-                    memStream.CopyTo(stream);
+                    StreamHelper.Copy(memStream, stream);
                     stream.SetLength(startPosition + memStream.Length);
                 }
             }
