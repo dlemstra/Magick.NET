@@ -316,6 +316,43 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            public class WithIMorphologySettings
+            {
+                [Fact]
+                public void ShouldSetConvolveBias()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var settings = new MorphologySettings
+                        {
+                            ConvolveBias = new Percentage(70),
+                        };
+
+                        ArtifactsHelper.SetImageArtifacts(image, settings);
+                        ArtifactsHelper.RemoveImageArtifacts(image, settings);
+
+                        Assert.Empty(image.ArtifactNames);
+                    }
+                }
+
+                [Fact]
+                public void ShouldSetConvolveScale()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var settings = new MorphologySettings
+                        {
+                            ConvolveScale = new MagickGeometry(1, 2, 3, 4),
+                        };
+
+                        ArtifactsHelper.SetImageArtifacts(image, settings);
+                        ArtifactsHelper.RemoveImageArtifacts(image, settings);
+
+                        Assert.Empty(image.ArtifactNames);
+                    }
+                }
+            }
         }
     }
 }

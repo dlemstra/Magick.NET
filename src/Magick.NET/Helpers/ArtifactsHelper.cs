@@ -154,5 +154,23 @@ namespace ImageMagick
             if (!string.IsNullOrEmpty(settings.SeedColors))
                 image.RemoveArtifact("kmeans:seed-colors");
         }
+
+        public static void SetImageArtifacts(IMagickImage<QuantumType> image, IMorphologySettings settings)
+        {
+            if (settings.ConvolveBias != null)
+                image.SetArtifact("convolve:bias", settings.ConvolveBias.ToString());
+
+            if (settings.ConvolveScale != null)
+                image.SetArtifact("convolve:scale", settings.ConvolveScale.ToString());
+        }
+
+        public static void RemoveImageArtifacts(IMagickImage<QuantumType> image, IMorphologySettings settings)
+        {
+            if (settings.ConvolveBias != null)
+                image.RemoveArtifact("convolve:bias");
+
+            if (settings.ConvolveScale != null)
+                image.RemoveArtifact("convolve:scale");
+        }
     }
 }

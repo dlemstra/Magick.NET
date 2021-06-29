@@ -4376,14 +4376,14 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(settings), settings);
 
-            settings.SetImageArtifacts(this);
+            ArtifactsHelper.SetImageArtifacts(this, settings);
 
             if (settings.UserKernel != null && settings.UserKernel.Length > 0)
                 Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
             else
                 Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
 
-            settings.RemoveImageArtifacts(this);
+            ArtifactsHelper.RemoveImageArtifacts(this, settings);
         }
 
         /// <summary>
