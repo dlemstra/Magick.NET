@@ -32,7 +32,8 @@ namespace ImageMagick
 
         public int Count { get; private set; }
 
-        IntPtr INativeInstance.Instance => _nativeInstance.Instance;
+        IntPtr INativeInstance.Instance
+            => _nativeInstance.Instance;
 
         public static void DisposeList(IntPtr instance)
         {
@@ -48,8 +49,10 @@ namespace ImageMagick
         public void Dispose()
             => _nativeInstance.Dispose();
 
-        public double GetX(int index) => _nativeInstance.GetX(index);
+        public double GetX(int index)
+            => _nativeInstance.GetX(index);
 
-        public double GetY(int index) => _nativeInstance.GetY(index);
+        public double GetY(int index)
+            => _nativeInstance.GetY(index);
     }
 }
