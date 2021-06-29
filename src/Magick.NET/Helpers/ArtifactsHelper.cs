@@ -124,5 +124,23 @@ namespace ImageMagick
             if (settings.AutoCrop)
                 image.RemoveArtifact("deskew:auto-crop");
         }
+
+        public static void SetImageArtifacts(IMagickImage<QuantumType> image, IDistortSettings settings)
+        {
+            if (settings.Scale != null)
+                image.SetArtifact("distort:scale", settings.Scale.Value.ToString(CultureInfo.InvariantCulture));
+
+            if (settings.Viewport != null)
+                image.SetArtifact("distort:viewport", settings.Viewport.ToString());
+        }
+
+        public static void RemoveImageArtifacts(IMagickImage<QuantumType> image, IDistortSettings settings)
+        {
+            if (settings.Scale != null)
+                image.RemoveArtifact("distort:scale");
+
+            if (settings.Viewport != null)
+                image.RemoveArtifact("distort:viewport");
+        }
     }
 }

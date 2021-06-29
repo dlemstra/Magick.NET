@@ -462,6 +462,56 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            public class WithIDistortSettings
+            {
+                [Fact]
+                public void ShouldNotSetTheAttributesWhenTheyAreNotSpecified()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var settings = new DistortSettings();
+
+                        ArtifactsHelper.SetImageArtifacts(image, settings);
+
+                        Assert.Empty(image.ArtifactNames);
+                    }
+                }
+
+                [Fact]
+                public void ShouldSetScale()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var settings = new DistortSettings
+                        {
+                            Scale = 4.2,
+                        };
+
+                        ArtifactsHelper.SetImageArtifacts(image, settings);
+
+                        Assert.Single(image.ArtifactNames);
+                        Assert.Equal("4.2", image.GetArtifact("distort:scale"));
+                    }
+                }
+
+                [Fact]
+                public void ShouldSetViewport()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var settings = new DistortSettings
+                        {
+                            Viewport = new MagickGeometry(1, 2, 3, 4),
+                        };
+
+                        ArtifactsHelper.SetImageArtifacts(image, settings);
+
+                        Assert.Single(image.ArtifactNames);
+                        Assert.Equal("3x4+1+2", image.GetArtifact("distort:viewport"));
+                    }
+                }
+            }
         }
     }
 }

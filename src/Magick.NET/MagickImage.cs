@@ -2683,11 +2683,11 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNullOrEmpty(nameof(arguments), arguments);
 
-            settings.SetImageArtifacts(this);
+            ArtifactsHelper.SetImageArtifacts(this, settings);
 
             _nativeInstance.Distort(method, settings.Bestfit, arguments, arguments.Length);
 
-            settings.RemoveImageArtifacts(this);
+            ArtifactsHelper.RemoveImageArtifacts(this, settings);
         }
 
         /// <summary>
