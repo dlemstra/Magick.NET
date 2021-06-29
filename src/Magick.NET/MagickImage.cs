@@ -2309,7 +2309,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(settings), settings);
 
-            settings.SetImageArtifacts(this);
+            ArtifactsHelper.SetImageArtifacts(this, settings);
 
             var objects = IntPtr.Zero;
 
@@ -2320,7 +2320,7 @@ namespace ImageMagick
             }
             finally
             {
-                settings.RemoveImageArtifacts(this);
+                ArtifactsHelper.RemoveImageArtifacts(this, settings);
                 ConnectedComponent.DisposeList(objects);
             }
         }
