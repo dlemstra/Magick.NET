@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>net20;netstandard20;netstandard21</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="../Shared/Net20/ExtensionAttribute.cs" Link="Net20/ExtensionAttribute.cs" />
     <Compile Include="../Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
     <Compile Include="../Shared/EnumHelper.cs" Link="Helpers/EnumHelper.cs" />
     <Compile Include="../Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
