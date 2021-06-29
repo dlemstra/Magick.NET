@@ -151,7 +151,7 @@ namespace ImageMagick
         {
             Initialize();
 
-            if (!tag.IsRepeatable())
+            if (!IptcTagHelper.IsRepeatable(tag))
             {
                 foreach (var iptcValue in _values)
                 {
@@ -178,9 +178,9 @@ namespace ImageMagick
         /// <param name="dateTimeOffset">The datetime.</param>
         public void SetValue(IptcTag tag, DateTimeOffset dateTimeOffset)
         {
-            var isDate = tag.IsDate();
+            var isDate = IptcTagHelper.IsDate(tag);
 
-            if (!isDate && !tag.IsTime())
+            if (!isDate && !IptcTagHelper.IsTime(tag))
             {
                 throw new ArgumentException("iptc tag is not a time or date type", nameof(tag));
             }

@@ -3,9 +3,9 @@
 
 namespace ImageMagick
 {
-    internal static class IptcTagExtensions
+    internal static class IptcTagHelper
     {
-        public static bool IsRepeatable(this IptcTag tag)
+        public static bool IsRepeatable(IptcTag tag)
         {
             switch (tag)
             {
@@ -49,7 +49,7 @@ namespace ImageMagick
             }
         }
 
-        public static bool IsDate(this IptcTag tag)
+        public static bool IsDate(IptcTag tag)
         {
             switch (tag)
             {
@@ -64,7 +64,7 @@ namespace ImageMagick
             }
         }
 
-        public static bool IsTime(this IptcTag tag)
+        public static bool IsTime(IptcTag tag)
         {
             switch (tag)
             {
