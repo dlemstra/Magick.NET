@@ -471,7 +471,7 @@ namespace ImageMagick
             try
             {
                 AttachImages();
-                complexSettings.SetImageArtifacts(_images[0]);
+                ArtifactsHelper.SetImageArtifacts(_images[0], complexSettings);
                 images = _nativeInstance.Complex(_images[0], complexSettings.ComplexOperator);
             }
             finally
@@ -483,7 +483,7 @@ namespace ImageMagick
             foreach (var image in MagickImage.CreateList(images, settings))
                 Add(image);
 
-            complexSettings.RemoveImageArtifacts(_images[0]);
+            ArtifactsHelper.RemoveImageArtifacts(_images[0], complexSettings);
         }
 
         /// <summary>
