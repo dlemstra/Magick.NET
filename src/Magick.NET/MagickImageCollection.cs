@@ -1006,8 +1006,8 @@ namespace ImageMagick
                 DetachImages();
             }
 
-            if (settings.MeasureErrors)
-                return _images[0].CreateErrorInfo();
+            if (settings.MeasureErrors && _images[0] is MagickImage image)
+                return MagickImage.CreateErrorInfo(image);
             else
                 return null;
         }

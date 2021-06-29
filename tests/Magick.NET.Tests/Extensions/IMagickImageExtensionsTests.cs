@@ -31,23 +31,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void CreateErrorInfo_ValueIsNull_ReturnsNull()
-        {
-            IMagickImage<QuantumType> image = null;
-            Assert.Null(image.CreateErrorInfo());
-        }
-
-        [Fact]
-        public void CreateErrorInfo_IMagickImageIsNotMagickImage_ThrowsException()
-        {
-            IMagickImage<QuantumType> image = Substitute.For<IMagickImage<QuantumType>>();
-            Assert.Throws<NotSupportedException>(() =>
-            {
-                image.CreateErrorInfo();
-            });
-        }
-
-        [Fact]
         public void SetNext_ValueIsNull_ThrowsException()
         {
             IMagickImage<QuantumType> image = null;

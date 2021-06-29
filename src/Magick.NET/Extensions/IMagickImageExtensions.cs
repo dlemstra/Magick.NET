@@ -36,17 +36,6 @@ namespace ImageMagick
             throw new NotSupportedException();
         }
 
-        internal static IMagickErrorInfo? CreateErrorInfo(this IMagickImage? self)
-        {
-            if (self == null)
-                return null;
-
-            if (self is MagickImage image)
-                return MagickImage.CreateErrorInfo(image);
-
-            throw new NotSupportedException();
-        }
-
         internal static void SetNext(this IMagickImage self, IMagickImage? next)
         {
             if (self is MagickImage image)
