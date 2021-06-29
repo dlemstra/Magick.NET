@@ -512,6 +512,39 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            public class WithIKmeansSettings
+            {
+                [Fact]
+                public void ShouldNotSetTheAttributesWhenTheyAreNotSpecified()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var settings = new KmeansSettings();
+
+                        ArtifactsHelper.SetImageArtifacts(image, settings);
+
+                        Assert.Empty(image.ArtifactNames);
+                    }
+                }
+
+                [Fact]
+                public void ShouldSetSeedColors()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var settings = new KmeansSettings
+                        {
+                            SeedColors = "red;blue",
+                        };
+
+                        ArtifactsHelper.SetImageArtifacts(image, settings);
+
+                        Assert.Single(image.ArtifactNames);
+                        Assert.Equal("red;blue", image.GetArtifact("kmeans:seed-colors"));
+                    }
+                }
+            }
         }
     }
 }

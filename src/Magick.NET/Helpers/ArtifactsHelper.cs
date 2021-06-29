@@ -142,5 +142,17 @@ namespace ImageMagick
             if (settings.Viewport != null)
                 image.RemoveArtifact("distort:viewport");
         }
+
+        public static void SetImageArtifacts(IMagickImage<QuantumType> image, IKmeansSettings settings)
+        {
+            if (settings.SeedColors != null && settings.SeedColors.Length > 0)
+                image.SetArtifact("kmeans:seed-colors", settings.SeedColors);
+        }
+
+        public static void RemoveImageArtifacts(IMagickImage<QuantumType> image, IKmeansSettings settings)
+        {
+            if (!string.IsNullOrEmpty(settings.SeedColors))
+                image.RemoveArtifact("kmeans:seed-colors");
+        }
     }
 }

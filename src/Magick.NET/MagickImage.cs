@@ -3794,11 +3794,11 @@ namespace ImageMagick
             Throw.IfNegative(nameof(settings), settings.NumberColors);
             Throw.IfNegative(nameof(settings), settings.MaxIterations);
 
-            settings.SetImageArtifacts(this);
+            ArtifactsHelper.SetImageArtifacts(this, settings);
 
             _nativeInstance.Kmeans(settings.NumberColors, settings.MaxIterations, settings.Tolerance);
 
-            settings.RemoveImageArtifacts(this);
+            ArtifactsHelper.RemoveImageArtifacts(this, settings);
         }
 
         /// <summary>

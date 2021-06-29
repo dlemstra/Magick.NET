@@ -296,6 +296,26 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            public class WithIKmeansSettings
+            {
+                [Fact]
+                public void ShouldRemoveSeedColors()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var settings = new KmeansSettings
+                        {
+                            SeedColors = "red;blue",
+                        };
+
+                        ArtifactsHelper.SetImageArtifacts(image, settings);
+                        ArtifactsHelper.RemoveImageArtifacts(image, settings);
+
+                        Assert.Empty(image.ArtifactNames);
+                    }
+                }
+            }
         }
     }
 }
