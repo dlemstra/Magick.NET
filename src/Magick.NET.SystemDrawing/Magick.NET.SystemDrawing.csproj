@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="../Shared/Net20/ExtensionAttribute.cs" Link="Net20/ExtensionAttribute.cs" />
     <Compile Include="../Shared/NotNullAttribute.cs" Link="Helpers/NotNullAttribute.cs" />
     <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
   </ItemGroup>
