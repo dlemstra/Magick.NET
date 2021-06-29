@@ -514,10 +514,10 @@ namespace ImageMagick
         /// </summary>
         public Percentage ColorFuzz
         {
-            get => PercentageExtensions.FromQuantum(_nativeInstance.ColorFuzz);
+            get => PercentageHelper.FromQuantum(_nativeInstance.ColorFuzz);
             set
             {
-                var newValue = value.ToQuantum();
+                var newValue = PercentageHelper.ToQuantum(value);
                 _nativeInstance.ColorFuzz = newValue;
                 _settings.ColorFuzz = newValue;
             }
@@ -1091,7 +1091,7 @@ namespace ImageMagick
         /// <param name="biasPercentage">Constant to subtract from pixel neighborhood mean.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void AdaptiveThreshold(int width, int height, Percentage biasPercentage)
-            => AdaptiveThreshold(width, height, biasPercentage.ToQuantum(), ImageMagick.Channels.All);
+            => AdaptiveThreshold(width, height, PercentageHelper.ToQuantum(biasPercentage), ImageMagick.Channels.All);
 
         /// <summary>
         /// Local adaptive threshold image.
@@ -1103,7 +1103,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) that should be thresholded.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void AdaptiveThreshold(int width, int height, Percentage biasPercentage, Channels channels)
-            => AdaptiveThreshold(width, height, biasPercentage.ToQuantum(), channels);
+            => AdaptiveThreshold(width, height, PercentageHelper.ToQuantum(biasPercentage), channels);
 
         /// <summary>
         /// Add noise to image with the specified noise type.
@@ -2623,7 +2623,7 @@ namespace ImageMagick
 
             ArtifactsHelper.SetImageArtifacts(this, settings);
 
-            _nativeInstance.Deskew(settings.Threshold.ToQuantum());
+            _nativeInstance.Deskew(PercentageHelper.ToQuantum(settings.Threshold));
 
             ArtifactsHelper.RemoveImageArtifacts(this, settings);
 
@@ -2832,7 +2832,7 @@ namespace ImageMagick
         /// <param name="percentage">The value.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Evaluate(Channels channels, EvaluateOperator evaluateOperator, Percentage percentage)
-            => Evaluate(channels, evaluateOperator, percentage.ToQuantum());
+            => Evaluate(channels, evaluateOperator, PercentageHelper.ToQuantum(percentage));
 
         /// <summary>
         /// Apply an arithmetic or bitwise operator to the image pixel quantums.
@@ -2859,7 +2859,7 @@ namespace ImageMagick
         /// <param name="percentage">The value.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Evaluate(Channels channels, IMagickGeometry geometry, EvaluateOperator evaluateOperator, Percentage percentage)
-            => Evaluate(channels, geometry, evaluateOperator, percentage.ToQuantum());
+            => Evaluate(channels, geometry, evaluateOperator, PercentageHelper.ToQuantum(percentage));
 
         /// <summary>
         /// Extend the image as defined by the width and height.
@@ -3648,7 +3648,7 @@ namespace ImageMagick
         /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage)
-            => InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType());
+            => InverseLevel(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage));
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -3672,7 +3672,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, Channels channels)
-            => InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), channels);
+            => InverseLevel(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), channels);
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -3696,7 +3696,7 @@ namespace ImageMagick
         /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint)
-            => InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), midpoint);
+            => InverseLevel(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), midpoint);
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -3722,7 +3722,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels)
-            => InverseLevel(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), midpoint, channels);
+            => InverseLevel(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), midpoint, channels);
 
         /// <summary>
         /// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -3835,7 +3835,7 @@ namespace ImageMagick
         /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage)
-            => Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType());
+            => Level(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage));
 
         /// <summary>
         /// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -3857,7 +3857,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, Channels channels)
-            => Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), channels);
+            => Level(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), channels);
 
         /// <summary>
         /// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -3879,7 +3879,7 @@ namespace ImageMagick
         /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma)
-            => Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), gamma);
+            => Level(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), gamma);
 
         /// <summary>
         /// Adjust the levels of the image by scaling the colors falling between specified white and
@@ -3903,7 +3903,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to level.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Level(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma, Channels channels)
-            => Level(blackPointPercentage.ToQuantumType(), whitePointPercentage.ToQuantumType(), gamma, channels);
+            => Level(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), gamma, channels);
 
         /// <summary>
         /// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -3939,7 +3939,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(blackPoint), blackPoint);
             Throw.IfNegative(nameof(whitePoint), whitePoint);
 
-            _nativeInstance.LinearStretch(blackPoint.ToQuantum(), whitePoint.ToQuantum());
+            _nativeInstance.LinearStretch(PercentageHelper.ToQuantum(blackPoint), PercentageHelper.ToQuantum(whitePoint));
         }
 
         /// <summary>
@@ -4158,7 +4158,7 @@ namespace ImageMagick
         /// <param name="height">The height of the pixels neighborhood.</param>
         /// <param name="colorDistance">The color distance.</param>
         public void MeanShift(int width, int height, Percentage colorDistance)
-            => _nativeInstance.MeanShift(width, height, colorDistance.ToQuantum());
+            => _nativeInstance.MeanShift(width, height, PercentageHelper.ToQuantum(colorDistance));
 
         /// <summary>
         /// Filter image by replacing each pixel component with the median color in a circular neighborhood.
@@ -4763,7 +4763,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentageLow), percentageLow);
             Throw.IfNegative(nameof(percentageHigh), percentageHigh);
 
-            RandomThreshold(percentageLow.ToQuantumType(), percentageHigh.ToQuantumType(), channels);
+            RandomThreshold(PercentageHelper.ToQuantumType(percentageLow), PercentageHelper.ToQuantumType(percentageHigh), channels);
         }
 
         /// <summary>
@@ -4802,7 +4802,7 @@ namespace ImageMagick
             Throw.IfNegative(nameof(percentageHighWhite), percentageHighWhite);
             Throw.IfNegative(nameof(percentageHighBlack), percentageHighBlack);
 
-            RangeThreshold(percentageLowBlack.ToQuantumType(), percentageLowWhite.ToQuantumType(), percentageHighWhite.ToQuantumType(), percentageHighBlack.ToQuantumType());
+            RangeThreshold(PercentageHelper.ToQuantumType(percentageLowBlack), PercentageHelper.ToQuantumType(percentageLowWhite), PercentageHelper.ToQuantumType(percentageHighWhite), PercentageHelper.ToQuantumType(percentageHighBlack));
         }
 
         /// <summary>
@@ -5468,7 +5468,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to blur.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage, Channels channels)
-            => _nativeInstance.SelectiveBlur(radius, sigma, thresholdPercentage.ToQuantum(), channels);
+            => _nativeInstance.SelectiveBlur(radius, sigma, PercentageHelper.ToQuantum(thresholdPercentage), channels);
 
         /// <summary>
         /// Separates the channels from the image and returns it as grayscale images.
@@ -5505,7 +5505,7 @@ namespace ImageMagick
         /// <param name="threshold">The tone threshold.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void SepiaTone(Percentage threshold)
-            => _nativeInstance.SepiaTone(threshold.ToQuantum());
+            => _nativeInstance.SepiaTone(PercentageHelper.ToQuantum(threshold));
 
         /// <summary>
         /// Inserts the artifact with the specified name and value into the artifact tree of the image.
@@ -5865,7 +5865,7 @@ namespace ImageMagick
         /// <param name="midpointPercentage">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void SigmoidalContrast(bool sharpen, double contrast, Percentage midpointPercentage)
-            => SigmoidalContrast(sharpen, contrast, midpointPercentage.ToQuantum());
+            => SigmoidalContrast(sharpen, contrast, PercentageHelper.ToQuantum(midpointPercentage));
 
         /// <summary>
         /// Sparse color image, given a set of coordinates, interpolates the colors found at those
@@ -5981,7 +5981,7 @@ namespace ImageMagick
         /// <param name="factorPercentage">The factor to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Solarize(Percentage factorPercentage)
-            => _nativeInstance.Solarize(factorPercentage.ToQuantum());
+            => _nativeInstance.Solarize(PercentageHelper.ToQuantum(factorPercentage));
 
         /// <summary>
         /// Sort pixels within each scanline in ascending order of intensity.
@@ -6177,7 +6177,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) that should be thresholded.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Threshold(Percentage percentage, Channels channels)
-            => _nativeInstance.Threshold(percentage.ToQuantum(), channels);
+            => _nativeInstance.Threshold(PercentageHelper.ToQuantum(percentage), channels);
 
         /// <summary>
         /// Resize image to thumbnail size.
@@ -6660,7 +6660,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="thresholdPercentage">The threshold for smoothing.</param>
         public void WaveletDenoise(Percentage thresholdPercentage)
-            => WaveletDenoise(thresholdPercentage.ToQuantumType(), 0.0);
+            => WaveletDenoise(PercentageHelper.ToQuantumType(thresholdPercentage), 0.0);
 
         /// <summary>
         /// Removes noise from the image using a wavelet transform.
@@ -6668,7 +6668,7 @@ namespace ImageMagick
         /// <param name="thresholdPercentage">The threshold for smoothing.</param>
         /// <param name="softness">Attenuate the smoothing threshold.</param>
         public void WaveletDenoise(Percentage thresholdPercentage, double softness)
-            => WaveletDenoise(thresholdPercentage.ToQuantumType(), softness);
+            => WaveletDenoise(PercentageHelper.ToQuantumType(thresholdPercentage), softness);
 
         /// <summary>
         /// Apply a white balancing to an image according to a grayworld assumption in the LAB colorspace.
