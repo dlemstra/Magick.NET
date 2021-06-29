@@ -8,8 +8,6 @@ namespace ImageMagick
     internal static partial class MagickMemory
     {
         public static void Relinquish(IntPtr value)
-        {
-            NativeMagickMemory.Relinquish(value);
-        }
+            => NativeMagickMemory.Relinquish(value);
     }
 }
