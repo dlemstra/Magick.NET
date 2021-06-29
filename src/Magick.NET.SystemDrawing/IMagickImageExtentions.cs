@@ -156,9 +156,19 @@ namespace ImageMagick
         {
             if (useDpi)
             {
-                var dpi = image.GetDefaultDensity(useDpi ? DensityUnit.PixelsPerInch : DensityUnit.Undefined);
+                var dpi = GetDefaultDensity(image, useDpi ? DensityUnit.PixelsPerInch : DensityUnit.Undefined);
                 bitmap.SetResolution((float)dpi.X, (float)dpi.Y);
             }
+        }
+
+        private static Density GetDefaultDensity(IMagickImage image, DensityUnit units)
+        {
+            Throw.IfNull(nameof(image), image);
+
+            if (units == DensityUnit.Undefined || (image.Density.Units == DensityUnit.Undefined && image.Density.X == 0 && image.Density.Y == 0))
+                return new Density(96);
+
+            return image.Density.ChangeUnits(units);
         }
 
         private static string GetMapping(PixelFormat format)
