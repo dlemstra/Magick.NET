@@ -1828,13 +1828,13 @@ namespace ImageMagick
             if (differenceImage == null)
                 throw new NotSupportedException();
 
-            settings.SetImageArtifacts(this);
+            ArtifactsHelper.SetImageArtifacts(this, settings);
 
             var result = _nativeInstance.Compare(image, settings.Metric, channels, out var distortion);
             if (result != IntPtr.Zero)
                 differenceImage._nativeInstance.Instance = result;
 
-            settings.RemoveImageArtifacts(this);
+            ArtifactsHelper.RemoveImageArtifacts(this, settings);
 
             return distortion;
         }
