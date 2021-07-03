@@ -4,12 +4,6 @@ about: Create a report to help us improve
 
 ---
 
-### Prerequisites
-
-- [x] I have written a descriptive issue title
-- [ ] I have verified that I am using the latest version of Magick.NET
-- [ ] I have searched [open](https://github.com/dlemstra/Magick.NET/issues) and [closed](https://github.com/dlemstra/Magick.NET/issues?q=is%3Aissue+is%3Aclosed) issues to ensure it has not already been reported
-
 ### Description
 <!-- A description of the bug -->
 
