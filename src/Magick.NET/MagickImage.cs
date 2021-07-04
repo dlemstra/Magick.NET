@@ -1046,7 +1046,7 @@ namespace ImageMagick
         /// <param name="height">The height of the pixel neighborhood.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void AdaptiveThreshold(int width, int height)
-            => AdaptiveThreshold(width, height, 0, ImageMagick.Channels.All);
+            => AdaptiveThreshold(width, height, 0, ImageMagick.Channels.Default);
 
         /// <summary>
         /// Local adaptive threshold image.
@@ -1068,7 +1068,7 @@ namespace ImageMagick
         /// <param name="bias">Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void AdaptiveThreshold(int width, int height, double bias)
-            => AdaptiveThreshold(width, height, bias, ImageMagick.Channels.All);
+            => AdaptiveThreshold(width, height, bias, ImageMagick.Channels.Default);
 
         /// <summary>
         /// Local adaptive threshold image.
@@ -1091,7 +1091,7 @@ namespace ImageMagick
         /// <param name="biasPercentage">Constant to subtract from pixel neighborhood mean.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void AdaptiveThreshold(int width, int height, Percentage biasPercentage)
-            => AdaptiveThreshold(width, height, PercentageHelper.ToQuantum(biasPercentage), ImageMagick.Channels.All);
+            => AdaptiveThreshold(width, height, PercentageHelper.ToQuantum(biasPercentage), ImageMagick.Channels.Default);
 
         /// <summary>
         /// Local adaptive threshold image.
@@ -2420,7 +2420,7 @@ namespace ImageMagick
         /// <param name="source">The source image to copy the pixels from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void CopyPixels(IMagickImage source)
-            => CopyPixels(source, ImageMagick.Channels.All);
+            => CopyPixels(source, ImageMagick.Channels.Default);
 
         /// <summary>
         /// Copies pixels from the source image to the destination image.
@@ -2444,7 +2444,7 @@ namespace ImageMagick
         /// <param name="geometry">The geometry to copy.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void CopyPixels(IMagickImage source, IMagickGeometry geometry)
-            => CopyPixels(source, geometry, ImageMagick.Channels.All);
+            => CopyPixels(source, geometry, ImageMagick.Channels.Default);
 
         /// <summary>
         /// Copies pixels from the source image to the destination image.
@@ -2465,7 +2465,7 @@ namespace ImageMagick
         /// <param name="offset">The offset to copy the pixels to.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void CopyPixels(IMagickImage source, IMagickGeometry geometry, PointD offset)
-            => CopyPixels(source, geometry, offset, ImageMagick.Channels.All);
+            => CopyPixels(source, geometry, offset, ImageMagick.Channels.Default);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -2489,7 +2489,7 @@ namespace ImageMagick
         /// <param name="y">The Y offset to start the copy from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y)
-            => CopyPixels(source, geometry, x, y, ImageMagick.Channels.All);
+            => CopyPixels(source, geometry, x, y, ImageMagick.Channels.Default);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -5476,7 +5476,7 @@ namespace ImageMagick
         /// <returns>The channels from the image as grayscale images.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IEnumerable<IMagickImage<QuantumType>> Separate()
-            => Separate(ImageMagick.Channels.All);
+            => Separate(ImageMagick.Channels.Default);
 
         /// <summary>
         /// Separates the specified channels from the image and returns it as grayscale images.
@@ -6168,7 +6168,7 @@ namespace ImageMagick
         /// <param name="percentage">The threshold percentage.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Threshold(Percentage percentage)
-            => Threshold(percentage, ImageMagick.Channels.All);
+            => Threshold(percentage, ImageMagick.Channels.Default);
 
         /// <summary>
         /// Threshold image.
