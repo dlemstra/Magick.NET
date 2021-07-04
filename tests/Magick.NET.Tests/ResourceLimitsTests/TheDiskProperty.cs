@@ -8,7 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [CollectionDefinition(nameof(TheDiskProperty), DisableParallelization = true)]
+        [CollectionDefinition(nameof(RunTestsSeparately), DisableParallelization = true)]
         public class TheDiskProperty
         {
             [Fact]

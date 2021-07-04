@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [CollectionDefinition(nameof(TheHeightProperty), DisableParallelization = true)]
+        [CollectionDefinition(nameof(RunTestsSeparately), DisableParallelization = true)]
         public class TheHeightProperty
         {
             [Fact]

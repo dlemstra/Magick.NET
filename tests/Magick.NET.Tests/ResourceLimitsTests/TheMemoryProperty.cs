@@ -9,7 +9,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [CollectionDefinition(nameof(TheMemoryProperty), DisableParallelization = true)]
+        [CollectionDefinition(nameof(RunTestsSeparately), DisableParallelization = true)]
         public class TheMemoryProperty
         {
             [Fact]

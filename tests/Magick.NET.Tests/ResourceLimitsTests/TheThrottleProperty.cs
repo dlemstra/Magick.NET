@@ -8,7 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [CollectionDefinition(nameof(TheThrottleProperty), DisableParallelization = true)]
+        [CollectionDefinition(nameof(RunTestsSeparately), DisableParallelization = true)]
         public class TheThrottleProperty
         {
             [Fact]

@@ -8,7 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [CollectionDefinition(nameof(TheSetRandomSeedMethod), DisableParallelization = true)]
+        [CollectionDefinition(nameof(RunTestsSeparately), DisableParallelization = true)]
         public class TheSetRandomSeedMethod
         {
             [Fact]
