@@ -8,6 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
+        [CollectionDefinition(nameof(TheThrottleProperty), DisableParallelization = true)]
         public class TheThrottleProperty
         {
             [Fact]
@@ -19,14 +20,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    var throttle = ResourceLimits.Throttle;
+                var throttle = ResourceLimits.Throttle;
 
-                    ResourceLimits.Throttle = 1U;
-                    Assert.Equal(1U, ResourceLimits.Throttle);
-                    ResourceLimits.Throttle = throttle;
-                });
+                ResourceLimits.Throttle = 1U;
+                Assert.Equal(1U, ResourceLimits.Throttle);
+                ResourceLimits.Throttle = throttle;
             }
         }
     }

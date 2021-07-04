@@ -33,17 +33,14 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldPerformAnOrderedDither()
             {
-                TestHelper.ExecuteInsideLock(() =>
+                using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (var image = new MagickImage(Files.Builtin.Logo))
-                    {
-                        image.OrderedDither("h4x4a");
+                    image.OrderedDither("h4x4a");
 
-                        ColorAssert.Equal(MagickColors.Yellow, image, 299, 212);
-                        ColorAssert.Equal(MagickColors.Red, image, 314, 228);
-                        ColorAssert.Equal(MagickColors.Black, image, 448, 159);
-                    }
-                });
+                    ColorAssert.Equal(MagickColors.Yellow, image, 299, 212);
+                    ColorAssert.Equal(MagickColors.Red, image, 314, 228);
+                    ColorAssert.Equal(MagickColors.Black, image, 448, 159);
+                }
             }
         }
     }

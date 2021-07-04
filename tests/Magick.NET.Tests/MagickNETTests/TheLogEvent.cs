@@ -8,21 +8,19 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
+        [CollectionDefinition(nameof(TheLogEvent), DisableParallelization = true)]
         public class TheLogEvent
         {
             [Fact]
             public void ShouldPassOrderedTests()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    ShouldNotCallLogDelegeteWhenLogEventsAreNotSet();
+                ShouldNotCallLogDelegeteWhenLogEventsAreNotSet();
 
-                    ShouldCallLogDelegateWhenLogEventsAreSet();
+                ShouldCallLogDelegateWhenLogEventsAreSet();
 
-                    ShouldLogTraceEventsWhenLogEventsIsSetToAll();
+                ShouldLogTraceEventsWhenLogEventsIsSetToAll();
 
-                    ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
-                });
+                ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
             }
 
             private void ShouldNotCallLogDelegeteWhenLogEventsAreNotSet()

@@ -18,6 +18,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
+        [CollectionDefinition(nameof(TheHeightProperty), DisableParallelization = true)]
         public class TheHeightProperty
         {
             [Fact]
@@ -36,14 +37,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    var height = ResourceLimits.Height;
+                var height = ResourceLimits.Height;
 
-                    ResourceLimits.Height = 100000U;
-                    Assert.Equal(100000U, ResourceLimits.Height);
-                    ResourceLimits.Height = height;
-                });
+                ResourceLimits.Height = 100000U;
+                Assert.Equal(100000U, ResourceLimits.Height);
+                ResourceLimits.Height = height;
             }
         }
     }

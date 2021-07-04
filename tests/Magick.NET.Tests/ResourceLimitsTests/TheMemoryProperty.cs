@@ -9,6 +9,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
+        [CollectionDefinition(nameof(TheMemoryProperty), DisableParallelization = true)]
         public class TheMemoryProperty
         {
             [Fact]
@@ -21,15 +22,12 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    var oldMemory = ResourceLimits.Memory;
-                    var newMemory = (ulong)(ResourceLimits.Memory * 0.9);
+                var oldMemory = ResourceLimits.Memory;
+                var newMemory = (ulong)(ResourceLimits.Memory * 0.9);
 
-                    ResourceLimits.Memory = newMemory;
-                    Assert.Equal(newMemory, ResourceLimits.Memory);
-                    ResourceLimits.Memory = oldMemory;
-                });
+                ResourceLimits.Memory = newMemory;
+                Assert.Equal(newMemory, ResourceLimits.Memory);
+                ResourceLimits.Memory = oldMemory;
             }
         }
     }

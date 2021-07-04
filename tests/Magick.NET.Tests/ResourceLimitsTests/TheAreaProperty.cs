@@ -9,6 +9,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
+        [CollectionDefinition(nameof(TheAreaProperty), DisableParallelization = true)]
         public class TheAreaProperty
         {
             [Fact]
@@ -21,14 +22,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    var area = ResourceLimits.Area;
+                var area = ResourceLimits.Area;
 
-                    ResourceLimits.Area = 10000000U;
-                    Assert.Equal(10000000U, ResourceLimits.Area);
-                    ResourceLimits.Area = area;
-                });
+                ResourceLimits.Area = 10000000U;
+                Assert.Equal(10000000U, ResourceLimits.Area);
+                ResourceLimits.Area = area;
             }
         }
     }

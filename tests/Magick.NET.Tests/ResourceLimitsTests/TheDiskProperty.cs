@@ -8,6 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
+        [CollectionDefinition(nameof(TheDiskProperty), DisableParallelization = true)]
         public class TheDiskProperty
         {
             [Fact]
@@ -19,14 +20,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    var disk = ResourceLimits.Disk;
+                var disk = ResourceLimits.Disk;
 
-                    ResourceLimits.Disk = 40000U;
-                    Assert.Equal(40000U, ResourceLimits.Disk);
-                    ResourceLimits.Disk = disk;
-                });
+                ResourceLimits.Disk = 40000U;
+                Assert.Equal(40000U, ResourceLimits.Disk);
+                ResourceLimits.Disk = disk;
             }
         }
     }

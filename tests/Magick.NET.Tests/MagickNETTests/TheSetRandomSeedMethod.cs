@@ -8,19 +8,17 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
+        [CollectionDefinition(nameof(TheSetRandomSeedMethod), DisableParallelization = true)]
         public class TheSetRandomSeedMethod
         {
             [Fact]
             public void ShouldPassOrderedTests()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    ShouldMakeDifferentPlasmaImageWhenNotSet();
+                ShouldMakeDifferentPlasmaImageWhenNotSet();
 
-                    ShouldMakeDuplicatePlasmaImagesWhenSet();
+                ShouldMakeDuplicatePlasmaImagesWhenSet();
 
-                    ShouldMakeDifferentPlasmaImageWhenNotSet();
-                });
+                ShouldMakeDifferentPlasmaImageWhenNotSet();
             }
 
             private void ShouldMakeDuplicatePlasmaImagesWhenSet()

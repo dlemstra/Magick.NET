@@ -8,6 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
+        [CollectionDefinition(nameof(TheListLengthProperty), DisableParallelization = true)]
         public class TheListLengthProperty
         {
             [Fact]
@@ -19,14 +20,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    var listLength = ResourceLimits.ListLength;
+                var listLength = ResourceLimits.ListLength;
 
-                    ResourceLimits.ListLength = 32U;
-                    Assert.Equal(32U, ResourceLimits.ListLength);
-                    ResourceLimits.ListLength = listLength;
-                });
+                ResourceLimits.ListLength = 32U;
+                Assert.Equal(32U, ResourceLimits.ListLength);
+                ResourceLimits.ListLength = listLength;
             }
         }
     }

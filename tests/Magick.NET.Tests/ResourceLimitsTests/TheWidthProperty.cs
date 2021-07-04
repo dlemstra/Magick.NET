@@ -18,6 +18,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
+        [CollectionDefinition(nameof(TheWidthProperty), DisableParallelization = true)]
         public class TheWidthProperty
         {
             [Fact]
@@ -36,14 +37,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    var width = ResourceLimits.Width;
+                var width = ResourceLimits.Width;
 
-                    ResourceLimits.Width = 200000U;
-                    Assert.Equal(200000U, ResourceLimits.Width);
-                    ResourceLimits.Width = width;
-                });
+                ResourceLimits.Width = 200000U;
+                Assert.Equal(200000U, ResourceLimits.Width);
+                ResourceLimits.Width = width;
             }
         }
     }

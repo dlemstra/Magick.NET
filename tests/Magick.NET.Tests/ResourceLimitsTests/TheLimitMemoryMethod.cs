@@ -9,6 +9,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
+        [CollectionDefinition(nameof(TheLimitMemoryMethod), DisableParallelization = true)]
         public class TheLimitMemoryMethod
         {
             [Fact]
@@ -26,38 +27,32 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldChangeAreaAndMemory()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    var area = ResourceLimits.Area;
-                    var memory = ResourceLimits.Memory;
+                var area = ResourceLimits.Area;
+                var memory = ResourceLimits.Memory;
 
-                    ResourceLimits.LimitMemory((Percentage)80);
+                ResourceLimits.LimitMemory((Percentage)80);
 
-                    Assert.NotEqual(area, ResourceLimits.Area);
-                    Assert.NotEqual(memory, ResourceLimits.Memory);
+                Assert.NotEqual(area, ResourceLimits.Area);
+                Assert.NotEqual(memory, ResourceLimits.Memory);
 
-                    ResourceLimits.Area = area;
-                    ResourceLimits.Memory = memory;
-                });
+                ResourceLimits.Area = area;
+                ResourceLimits.Memory = memory;
             }
 
 #if WINDOWS_BUILD
             [Fact]
             public void ShouldSetMemoryAndAreaToTheCorrectValues()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
-                    var area = ResourceLimits.Area;
-                    var memory = ResourceLimits.Memory;
+                var area = ResourceLimits.Area;
+                var memory = ResourceLimits.Memory;
 
-                    ResourceLimits.LimitMemory((Percentage)100);
+                ResourceLimits.LimitMemory((Percentage)100);
 
-                    Assert.InRange(ResourceLimits.Area, (area * 2) - 8192, (area * 2) + 8192);
-                    Assert.InRange(ResourceLimits.Memory, (memory * 2) - 8192, (memory * 2) + 8192);
+                Assert.InRange(ResourceLimits.Area, (area * 2) - 8192, (area * 2) + 8192);
+                Assert.InRange(ResourceLimits.Memory, (memory * 2) - 8192, (memory * 2) + 8192);
 
-                    ResourceLimits.Area = area;
-                    ResourceLimits.Memory = memory;
-                });
+                ResourceLimits.Area = area;
+                ResourceLimits.Memory = memory;
             }
 #endif
         }

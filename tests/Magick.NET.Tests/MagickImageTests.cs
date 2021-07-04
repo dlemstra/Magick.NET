@@ -62,30 +62,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_AddNoise()
-        {
-            TestHelper.ExecuteInsideLock(() =>
-            {
-                MagickNET.SetRandomSeed(1337);
-
-                using (var first = new MagickImage(Files.Builtin.Logo))
-                {
-                    first.AddNoise(NoiseType.Laplacian);
-                    ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
-
-                    using (var second = new MagickImage(Files.Builtin.Logo))
-                    {
-                        second.AddNoise(NoiseType.Laplacian, 2.0);
-                        ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
-                        Assert.False(first.Equals(second));
-                    }
-                }
-
-                MagickNET.ResetRandomSeed();
-            });
-        }
-
-        [Fact]
         public void Test_AffineTransform()
         {
             using (var image = new MagickImage(Files.Builtin.Wizard))
@@ -1540,36 +1516,33 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Normalize()
         {
-            TestHelper.ExecuteInsideLock(() =>
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                images.Add(new MagickImage("gradient:gray70-gray30", 100, 100));
+                images.Add(new MagickImage("gradient:blue-navy", 50, 100));
+
+                using (var colorRange = images.AppendHorizontally())
                 {
-                    images.Add(new MagickImage("gradient:gray70-gray30", 100, 100));
-                    images.Add(new MagickImage("gradient:blue-navy", 50, 100));
+                    ColorAssert.Equal(new MagickColor("gray70"), colorRange, 0, 0);
+                    ColorAssert.Equal(new MagickColor("blue"), colorRange, 101, 0);
 
-                    using (var colorRange = images.AppendHorizontally())
-                    {
-                        ColorAssert.Equal(new MagickColor("gray70"), colorRange, 0, 0);
-                        ColorAssert.Equal(new MagickColor("blue"), colorRange, 101, 0);
+                    ColorAssert.Equal(new MagickColor("gray30"), colorRange, 0, 99);
+                    ColorAssert.Equal(new MagickColor("navy"), colorRange, 101, 99);
 
-                        ColorAssert.Equal(new MagickColor("gray30"), colorRange, 0, 99);
-                        ColorAssert.Equal(new MagickColor("navy"), colorRange, 101, 99);
+                    colorRange.Normalize();
 
-                        colorRange.Normalize();
-
-                        ColorAssert.Equal(new MagickColor("white"), colorRange, 0, 0);
-                        ColorAssert.Equal(new MagickColor("blue"), colorRange, 101, 0);
+                    ColorAssert.Equal(new MagickColor("white"), colorRange, 0, 0);
+                    ColorAssert.Equal(new MagickColor("blue"), colorRange, 101, 0);
 
 #if Q8
-                        ColorAssert.Equal(new MagickColor("gray40"), colorRange, 0, 99);
-                        ColorAssert.Equal(new MagickColor("#0000b3"), colorRange, 101, 99);
+                    ColorAssert.Equal(new MagickColor("gray40"), colorRange, 0, 99);
+                    ColorAssert.Equal(new MagickColor("#0000b3"), colorRange, 101, 99);
 #else
-                        ColorAssert.Equal(new MagickColor("#662e662e662e"), colorRange, 0, 99);
-                        ColorAssert.Equal(new MagickColor("#00000000b317"), colorRange, 101, 99);
+                    ColorAssert.Equal(new MagickColor("#662e662e662e"), colorRange, 0, 99);
+                    ColorAssert.Equal(new MagickColor("#00000000b317"), colorRange, 101, 99);
 #endif
-                    }
                 }
-            });
+            }
         }
 
         [Fact]

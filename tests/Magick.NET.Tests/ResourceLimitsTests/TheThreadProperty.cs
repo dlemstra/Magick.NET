@@ -9,6 +9,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
+        [CollectionDefinition(nameof(TheThreadProperty), DisableParallelization = true)]
         public class TheThreadProperty
         {
             [Fact]
@@ -21,21 +22,18 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
-                TestHelper.ExecuteInsideLock(() =>
-                {
 #if OPENMP
-                    var thread = ResourceLimits.Thread;
+                var thread = ResourceLimits.Thread;
 
-                    Assert.NotEqual(1U, ResourceLimits.Thread);
-                    ResourceLimits.Thread = 1U;
-                    Assert.Equal(1U, ResourceLimits.Thread);
-                    ResourceLimits.Thread = thread;
+                Assert.NotEqual(1U, ResourceLimits.Thread);
+                ResourceLimits.Thread = 1U;
+                Assert.Equal(1U, ResourceLimits.Thread);
+                ResourceLimits.Thread = thread;
 #else
-                    Assert.Equal(1U, ResourceLimits.Thread);
-                    ResourceLimits.Thread = 2U;
-                    Assert.Equal(1U, ResourceLimits.Thread);
+                Assert.Equal(1U, ResourceLimits.Thread);
+                ResourceLimits.Thread = 2U;
+                Assert.Equal(1U, ResourceLimits.Thread);
 #endif
-                });
             }
         }
     }
