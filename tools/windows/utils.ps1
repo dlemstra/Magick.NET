@@ -1,22 +1,18 @@
 # Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 # Licensed under the Apache License, Version 2.0.
 
-function checkExitCode($msg)
-{
-  if ($LastExitCode -ne 0)
-  {
-    Write-Error $msg
-    Exit 1
-  }
+function checkExitCode($msg) {
+    if ($LastExitCode -ne 0) {
+        Write-Error $msg
+        Exit 1
+    }
 }
 
-function fullPath($path)
-{
-  return "$PSScriptRoot\..\..\$path"
+function fullPath($path) {
+    return "$PSScriptRoot\..\..\$path"
 }
 
-function buildSolution($solution, $properties)
-{
+function buildSolution($solution, $properties) {
     $path = fullPath $solution
     $directory = Split-Path -parent $path
     $filename = Split-Path -leaf $path
