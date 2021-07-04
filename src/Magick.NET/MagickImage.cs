@@ -6044,7 +6044,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IStatistics Statistics()
         {
-            var list = _nativeInstance.Statistics();
+            var list = _nativeInstance.Statistics(ImageMagick.Channels.Default);
             try
             {
                 return new Statistics(this, list);

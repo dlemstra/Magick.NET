@@ -551,7 +551,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Statistic(IntPtr Instance, UIntPtr type, UIntPtr width, UIntPtr height, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Statistics(IntPtr Instance, out IntPtr exception);
+                public static extern IntPtr MagickImage_Statistics(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Stegano(IntPtr Instance, IntPtr watermark, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1119,7 +1119,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Statistic(IntPtr Instance, UIntPtr type, UIntPtr width, UIntPtr height, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Statistics(IntPtr Instance, out IntPtr exception);
+                public static extern IntPtr MagickImage_Statistics(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Stegano(IntPtr Instance, IntPtr watermark, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -6165,7 +6165,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public IntPtr Statistics()
+            public IntPtr Statistics(Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -6173,13 +6173,13 @@ namespace ImageMagick
                 if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Statistics(Instance, out exception);
+                result = NativeMethods.X64.MagickImage_Statistics(Instance, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Statistics(Instance, out exception);
+                result = NativeMethods.X86.MagickImage_Statistics(Instance, (UIntPtr)channels, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
                 if (magickException == null)

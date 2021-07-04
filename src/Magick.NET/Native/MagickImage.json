@@ -2696,6 +2696,12 @@
       "name": "Statistics",
       "type": "Instance",
       "throws": true,
+      "arguments": [
+        {
+          "name": "channels",
+          "type": "Channels"
+        }
+      ],
       "cleanup": {
         "name": "ImageMagick.Statistics.DisposeList"
       }
