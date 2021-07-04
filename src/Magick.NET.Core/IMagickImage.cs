@@ -3217,6 +3217,14 @@ namespace ImageMagick
         IStatistics Statistics();
 
         /// <summary>
+        /// Returns the image statistics.
+        /// </summary>
+        /// <returns>The image statistics.</returns>
+        /// <param name="channels">The channel(s) that should be used.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        IStatistics Statistics(Channels channels);
+
+        /// <summary>
         /// Shade image using distant light source.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

@@ -27,6 +27,6 @@ namespace ImageMagick
         /// </summary>
         /// <param name="channel">The channel to get the statistics for.</param>
         /// <returns>The statistics for the specified channel.</returns>
-        IChannelStatistics GetChannel(PixelChannel channel);
+        IChannelStatistics? GetChannel(PixelChannel channel);
     }
 }

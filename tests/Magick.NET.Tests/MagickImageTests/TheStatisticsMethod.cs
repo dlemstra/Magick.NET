@@ -1,11 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
 
@@ -28,7 +24,6 @@ namespace Magick.NET.Tests
 
                     Assert.NotNull(red);
 
-                    Assert.NotNull(red);
                     Assert.Equal(8, red.Depth);
                     Assert.InRange(red.Entropy, 0.98, 0.99);
                     Assert.InRange(red.Kurtosis, -1.90, -1.89);
@@ -51,6 +46,42 @@ namespace Magick.NET.Tests
                     Assert.InRange(red.SumFourthPower, 29304727586.71, 29304727586.72);
                     Assert.InRange(red.SumSquared, 110920.40, 110920.41);
 #endif
+                }
+            }
+
+            [Fact]
+            public void ShouldOnlyUseTheSpecifiedChannels()
+            {
+                using (var image = new MagickImage(Files.MagickNETIconPNG))
+                {
+                    var statistics = image.Statistics(Channels.Red);
+
+                    Assert.NotNull(statistics);
+
+                    Assert.Equal(new[] { PixelChannel.Red, PixelChannel.Composite }, statistics.Channels);
+
+                    var red = statistics.GetChannel(PixelChannel.Red);
+                    Assert.NotNull(red);
+
+                    var green = statistics.GetChannel(PixelChannel.Green);
+                    Assert.Null(green);
+                }
+            }
+
+            [Fact]
+            public void ShouldAlwaysReturnTheCompositeChannel()
+            {
+                using (var image = new MagickImage(Files.SnakewarePNG))
+                {
+                    var statistics = image.Statistics(Channels.None);
+
+                    Assert.NotNull(statistics);
+
+                    Assert.Single(statistics.Channels);
+                    Assert.Equal(PixelChannel.Composite, statistics.Channels.First());
+
+                    var composite = statistics.Composite();
+                    Assert.NotNull(composite);
                 }
             }
         }

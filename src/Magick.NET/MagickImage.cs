@@ -6043,11 +6043,20 @@ namespace ImageMagick
         /// <returns>The image statistics.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IStatistics Statistics()
+            => Statistics(ImageMagick.Channels.Default);
+
+        /// <summary>
+        /// Returns the image statistics.
+        /// </summary>
+        /// <returns>The image statistics.</returns>
+        /// <param name="channels">The channel(s) that should be used.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IStatistics Statistics(Channels channels)
         {
-            var list = _nativeInstance.Statistics(ImageMagick.Channels.Default);
+            var list = _nativeInstance.Statistics(channels);
             try
             {
-                return new Statistics(this, list);
+                return new Statistics(this, list, channels);
             }
             finally
             {
