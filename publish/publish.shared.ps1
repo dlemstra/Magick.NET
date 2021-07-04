@@ -4,9 +4,16 @@
 . $PSScriptRoot\..\tools\windows\utils.ps1
 
 function addFile($xml, $source, $target) {
-    Write-Host "Adding '$source' as '$target'"
-
     $files = $xml.package.files
+
+    $namespaceManager = New-Object -TypeName "Xml.XmlNamespaceManager" -ArgumentList $xml.NameTable
+    $namespaceManager.AddNamespace("nuspec", $xml.DocumentElement.NamespaceURI)
+    if ($xml.SelectSingleNode("//nuspec:file[@target='$target']", $namespaceManager) -ne $null) {
+        Write-Host "Skipping '$source' because '$target' was already added"
+        return
+    }
+
+    Write-Host "Adding '$source' as '$target'"
 
     $file = $xml.CreateElement("file", $xml.DocumentElement.NamespaceURI)
 
