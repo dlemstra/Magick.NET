@@ -31,12 +31,13 @@ namespace Magick.NET.Tests
         {
             var readSettings = new MagickReadSettings()
             {
+                Font = "Arial",
                 AntiAlias = false,
             };
 
-            using (var imageA = new MagickImage("pango:Magick.NET"))
+            using (var imageA = new MagickImage("pango:1"))
             {
-                using (var imageB = new MagickImage("pango:Magick.NET", readSettings))
+                using (var imageB = new MagickImage("pango:1", readSettings))
                 {
                     Assert.NotEqual(imageA.Signature, imageB.Signature);
                 }
