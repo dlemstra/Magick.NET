@@ -34,9 +34,9 @@ namespace Magick.NET.Tests
                 AntiAlias = false,
             };
 
-            using (var imageA = new MagickImage("pango:1"))
+            using (var imageA = new MagickImage("pango:Magick.NET"))
             {
-                using (var imageB = new MagickImage("pango:1", readSettings))
+                using (var imageB = new MagickImage("pango:Magick.NET", readSettings))
                 {
                     Assert.NotEqual(imageA.Signature, imageB.Signature);
                 }
