@@ -10,6 +10,40 @@ namespace Magick.NET.Tests
     public class ThePangoCoder
     {
         [Fact]
+        public void ShouldUseInterlineSpacingSetting()
+        {
+            var readSettings = new MagickReadSettings()
+            {
+                TextInterlineSpacing = 20,
+            };
+
+            using (var imageA = new MagickImage("pango:Test\nTest"))
+            {
+                using (var imageB = new MagickImage("pango:Test\nTest", readSettings))
+                {
+                    Assert.NotEqual(imageA.Height, imageB.Height);
+                }
+            }
+        }
+
+        [Fact]
+        public void ShouldUseTextAntiAliasSetting()
+        {
+            var readSettings = new MagickReadSettings()
+            {
+                AntiAlias = false,
+            };
+
+            using (var imageA = new MagickImage("pango:1"))
+            {
+                using (var imageB = new MagickImage("pango:1", readSettings))
+                {
+                    Assert.NotEqual(imageA.Signature, imageB.Signature);
+                }
+            }
+        }
+
+        [Fact]
         public void IsThreadSafe()
         {
             string LoadImage()
@@ -20,7 +54,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            string signature = LoadImage();
+            var signature = LoadImage();
             Parallel.For(1, 10, (int i) =>
             {
                 Assert.Equal(signature, LoadImage());
@@ -30,7 +64,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void CanReadFromLargePangoFile()
         {
-            string fileName = "pango:<span font=\"Arial\">" + new string('*', 4500) + "</span>";
+            var fileName = "pango:<span font=\"Arial\">" + new string('*', 4500) + "</span>";
             using (var image = new MagickImage(fileName))
             {
             }
