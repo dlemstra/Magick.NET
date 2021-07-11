@@ -47,6 +47,36 @@ namespace Magick.NET.Tests
                 }
             }
 
+            public class WithGeometry
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenTextIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4)));
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenTextIsEmpty()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentException>("text", () => image.Annotate(string.Empty, new MagickGeometry(1, 2, 3, 4)));
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenGeometryIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null));
+                    }
+                }
+            }
+
             public class WithGeometryAndGravity
             {
                 [Fact]
