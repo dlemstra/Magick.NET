@@ -61,7 +61,7 @@ namespace Magick.NET.Tests
 
                     image.Trim();
 
-                    Assert.Equal(107, image.Width);
+                    Assert.Equal(108, image.Width);
                     Assert.Equal(19, image.Height);
                 }
             }
@@ -75,11 +75,11 @@ namespace Magick.NET.Tests
                     var pointSize = new DrawableFontPointSize(20);
                     var text = new DrawableText(250, 250, "Magick.NET");
 
-                    image.Draw(pointSize, new DrawableDensity(72), text);
+                    image.Draw(pointSize, new DrawableDensity(96), text);
 
                     image.Trim();
 
-                    Assert.Equal(142, image.Width);
+                    Assert.Equal(144, image.Width);
                     Assert.Equal(24, image.Height);
                 }
             }

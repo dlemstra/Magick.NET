@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage($"label:Masai Mara", readSettings))
             {
-                Assert.Equal(91, image.Width);
+                Assert.Equal(93, image.Width);
                 Assert.Equal(21, image.Height);
             }
         }

@@ -54,17 +54,20 @@ namespace Magick.NET.Tests
 
                     using (var pixels = image.GetPixels())
                     {
-                        pixelA = pixels.GetPixel(64, 6);
+                        pixelA = pixels.GetPixel(62, 6);
                     }
+
+                    ColorAssert.NotEqual(MagickColors.Transparent, pixelA.ToColor());
 
                     IPixel<QuantumType> pixelB;
                     image.Settings.FillColor = MagickColors.Yellow;
                     image.Read("caption:Magick.NET");
                     using (var pixels = image.GetPixels())
                     {
-                        pixelB = pixels.GetPixel(64, 6);
+                        pixelB = pixels.GetPixel(62, 6);
                     }
 
+                    ColorAssert.NotEqual(MagickColors.Transparent, pixelB.ToColor());
                     ColorAssert.NotEqual(pixelA.ToColor(), pixelB.ToColor());
                 }
             }
