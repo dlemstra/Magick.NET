@@ -13,18 +13,14 @@ namespace ImageMagick
         /// </summary>
         /// <param name="density">The vertical and horizontal resolution.</param>
         public DrawableDensity(double density)
-        {
-            Density = new PointD(density);
-        }
+            => Density = new PointD(density);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DrawableDensity"/> class.
         /// </summary>
         /// <param name="pointDensity">The vertical and horizontal resolution.</param>
         public DrawableDensity(PointD pointDensity)
-        {
-            Density = pointDensity;
-        }
+            => Density = pointDensity;
 
         /// <summary>
         /// Gets or sets the vertical and horizontal resolution.
