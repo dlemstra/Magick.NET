@@ -1,5 +1,5 @@
 # Libraries
-Magick.Native [c880f3275ae159026291d0dc5bc81947b48d48b5](https://github.com/dlemstra/Magick.Native/commit/c880f3275ae159026291d0dc5bc81947b48d48b5) is build with the following libraries:
+Magick.Native [01814ed9d3cf8be9484e7681878577b2124e9000](https://github.com/dlemstra/Magick.Native/commit/01814ed9d3cf8be9484e7681878577b2124e9000) is build with the following libraries:
 
 - aom 2.0.0 (2020-05-18)
 - brotli 1.0.9 (2020-08-27)
@@ -10,11 +10,11 @@ Magick.Native [c880f3275ae159026291d0dc5bc81947b48d48b5](https://github.com/dlem
 - ffi 3.2.1 (2014-11-12)
 - flif 0.3.0 (2017-04-28)
 - freetype 2.10.4 (2020-10-04)
-- fribidi 1.0.9 (2020-02-29)
+- fribidi 1.0.10 (2020-07-05)
 - glib 2.64.3 (2020-05-20)
 - harfbuzz 2.8.1 (2021-05-04)
 - highway 0.12.0 (2021-04-15)
-- ImageMagick 7.1.0-2
+- ImageMagick 7.1.0-3 beta
 - jp2 2.0.16 (2019-03-12)
 - jpeg-turbo 2.0.5 (2020-06-24)
 - jpeg-xl 0.3.7 (2021-03-29)
@@ -31,6 +31,7 @@ Magick.Native [c880f3275ae159026291d0dc5bc81947b48d48b5](https://github.com/dlem
 - pango 1.45.3 (2020-06-22)
 - pixman 0.40.0 (2020-04-19)
 - png 1.6.37 (2018-07-16)
+- raqm 0.7.1 (2020-11-22)
 - tiff 4.1.0 (2019-11-03)
 - webp 1.2.0 (2021-01-30)
 - zlib 1.2.11 (2017-01-15)
