@@ -106,32 +106,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Annotate()
-        {
-            using (var image = new MagickImage(MagickColors.Thistle, 200, 50))
-            {
-                image.Settings.FontPointsize = 20;
-                image.Settings.FillColor = MagickColors.Purple;
-                image.Settings.StrokeColor = MagickColors.Purple;
-                image.Annotate("Magick.NET", Gravity.East);
-
-                ColorAssert.Equal(MagickColors.Purple, image, 197, 17);
-                ColorAssert.Equal(MagickColors.Thistle, image, 174, 17);
-            }
-
-            using (var image = new MagickImage(MagickColors.GhostWhite, 200, 200))
-            {
-                image.Settings.FontPointsize = 30;
-                image.Settings.FillColor = MagickColors.Orange;
-                image.Settings.StrokeColor = MagickColors.Orange;
-                image.Annotate("Magick.NET", new MagickGeometry(75, 125, 0, 0), Gravity.Undefined, 45);
-
-                ColorAssert.Equal(MagickColors.GhostWhite, image, 104, 83);
-                ColorAssert.Equal(MagickColors.Orange, image, 118, 70);
-            }
-        }
-
-        [Fact]
         public void Test_AutoGamma()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
