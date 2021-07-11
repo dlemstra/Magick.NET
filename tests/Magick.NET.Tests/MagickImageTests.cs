@@ -987,36 +987,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_FontTypeMetrics()
-        {
-            using (var image = new MagickImage(MagickColors.Transparent, 100, 100))
-            {
-                image.Settings.Font = "Arial";
-                image.Settings.FontPointsize = 15;
-                var typeMetric = image.FontTypeMetrics("Magick.NET");
-                Assert.NotNull(typeMetric);
-                Assert.Equal(14, typeMetric.Ascent);
-                Assert.Equal(-4, typeMetric.Descent);
-                Assert.Equal(30, typeMetric.MaxHorizontalAdvance);
-                Assert.Equal(18, typeMetric.TextHeight);
-                Assert.Equal(82, typeMetric.TextWidth);
-                Assert.Equal(-2.138671875, typeMetric.UnderlinePosition);
-                Assert.Equal(1.0986328125, typeMetric.UnderlineThickness);
-
-                image.Settings.FontPointsize = 150;
-                typeMetric = image.FontTypeMetrics("Magick.NET");
-                Assert.NotNull(typeMetric);
-                Assert.Equal(136, typeMetric.Ascent);
-                Assert.Equal(-32, typeMetric.Descent);
-                Assert.Equal(300, typeMetric.MaxHorizontalAdvance);
-                Assert.Equal(168, typeMetric.TextHeight);
-                Assert.Equal(816, typeMetric.TextWidth);
-                Assert.Equal(-21.38671875, typeMetric.UnderlinePosition);
-                Assert.Equal(10.986328125, typeMetric.UnderlineThickness);
-            }
-        }
-
-        [Fact]
         public void Test_FormatInfo()
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
