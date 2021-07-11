@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
                 AntiAlias = false,
             };
 
-            var pango = @"pango:<span font_family=""Arial"">1</span>";
+            var pango = @"pango:<span font_family=""Aria; Verdana"">1</span>";
 
             using (var imageA = new MagickImage(pango))
             {
