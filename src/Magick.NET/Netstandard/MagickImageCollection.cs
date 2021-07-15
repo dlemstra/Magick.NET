@@ -3,6 +3,7 @@
 
 #if NETSTANDARD
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 #if Q8
@@ -48,7 +49,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
         {
-            var bytes = await Bytes.CreateAsync(stream).ConfigureAwait(false);
+            var bytes = await Bytes.CreateAsync(stream, CancellationToken.None).ConfigureAwait(false);
 
             Clear();
             AddImages(bytes.GetData(), 0, bytes.Length, readSettings, false);

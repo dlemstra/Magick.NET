@@ -4,23 +4,24 @@
 #if NETSTANDARD
 
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ImageMagick
 {
     internal sealed partial class Bytes
     {
-        public static async Task<Bytes> CreateAsync(Stream stream)
+        public static async Task<Bytes> CreateAsync(Stream stream, CancellationToken cancellationToken)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
             Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
 
-            var (data, length) = await GetDataAsync(stream).ConfigureAwait(false);
+            var (data, length) = await GetDataAsync(stream, cancellationToken).ConfigureAwait(false);
 
             return new Bytes(data, length);
         }
 
-        private static async Task<(byte[] Bytes, int Length)> GetDataAsync(Stream stream)
+        private static async Task<(byte[] Bytes, int Length)> GetDataAsync(Stream stream, CancellationToken cancellationToken)
         {
             if (stream is MemoryStream memStream)
             {
@@ -31,13 +32,13 @@ namespace ImageMagick
             Throw.IfFalse(nameof(stream), stream.CanRead, "The stream is not readable.");
 
             if (stream.CanSeek)
-                return await GetDataWithSeekableStreamAsync(stream).ConfigureAwait(false);
+                return await GetDataWithSeekableStreamAsync(stream, cancellationToken).ConfigureAwait(false);
 
             var buffer = new byte[BufferSize];
             using (var tempStream = new MemoryStream())
             {
                 int count;
-                while ((count = await stream.ReadAsync(buffer, 0, BufferSize).ConfigureAwait(false)) != 0)
+                while ((count = await stream.ReadAsync(buffer, 0, BufferSize, cancellationToken).ConfigureAwait(false)) != 0)
                 {
                     CheckLength(tempStream.Length + count);
 
@@ -49,7 +50,7 @@ namespace ImageMagick
             }
         }
 
-        private static async Task<(byte[] Bytes, int Length)> GetDataWithSeekableStreamAsync(Stream stream)
+        private static async Task<(byte[] Bytes, int Length)> GetDataWithSeekableStreamAsync(Stream stream, CancellationToken cancellationToken)
         {
             CheckLength(stream.Length);
 
@@ -58,7 +59,7 @@ namespace ImageMagick
 
             int read = 0;
             int bytesRead;
-            while ((bytesRead = await stream.ReadAsync(data, read, length - read).ConfigureAwait(false)) != 0)
+            while ((bytesRead = await stream.ReadAsync(data, read, length - read, cancellationToken).ConfigureAwait(false)) != 0)
             {
                 read += bytesRead;
             }
