@@ -59,7 +59,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="Percentage"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Percentage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
+        /// <param name="right">The second <see cref="Percentage"/> to compare.</param>
         public static bool operator ==(Percentage left, Percentage right)
             => Equals(left, right);
 
@@ -67,7 +67,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="Percentage"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Percentage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
+        /// <param name="right">The second <see cref="Percentage"/> to compare.</param>
         public static bool operator !=(Percentage left, Percentage right)
             => !Equals(left, right);
 
@@ -75,7 +75,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="Percentage"/> is more than the second <see cref="Percentage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="Percentage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
+        /// <param name="right">The second <see cref="Percentage"/> to compare.</param>
         public static bool operator >(Percentage left, Percentage right)
             => left.CompareTo(right) == 1;
 
@@ -83,7 +83,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="Percentage"/> is less than the second <see cref="Percentage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="Percentage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
+        /// <param name="right">The second <see cref="Percentage"/> to compare.</param>
         public static bool operator <(Percentage left, Percentage right)
             => left.CompareTo(right) == -1;
 
@@ -91,7 +91,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="Percentage"/> is less than or equal to the second <see cref="Percentage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="Percentage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
+        /// <param name="right">The second <see cref="Percentage"/> to compare.</param>
         public static bool operator >=(Percentage left, Percentage right)
             => left.CompareTo(right) >= 0;
 
@@ -99,14 +99,14 @@ namespace ImageMagick
         /// Determines whether the first <see cref="Percentage"/> is less than or equal to the second <see cref="Percentage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="Percentage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Percentage"/> to compare.</param>
+        /// <param name="right">The second <see cref="Percentage"/> to compare.</param>
         public static bool operator <=(Percentage left, Percentage right)
             => left.CompareTo(right) <= 0;
 
         /// <summary>
         /// Multiplies the value by the <see cref="Percentage"/>.
         /// </summary>
-        /// <param name="value"> The value to use.</param>
+        /// <param name="value">The value to use.</param>
         /// <param name="percentage">The <see cref="Percentage"/> to use.</param>
         public static double operator *(double value, Percentage percentage)
             => percentage.Multiply(value);
@@ -114,7 +114,7 @@ namespace ImageMagick
         /// <summary>
         /// Multiplies the value by the <see cref="Percentage"/>.
         /// </summary>
-        /// <param name="value"> The value to use.</param>
+        /// <param name="value">The value to use.</param>
         /// <param name="percentage">The <see cref="Percentage"/> to use.</param>
         public static int operator *(int value, Percentage percentage)
             => percentage.Multiply(value);

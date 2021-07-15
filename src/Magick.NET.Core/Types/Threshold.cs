@@ -46,7 +46,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="Threshold"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Threshold"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Threshold"/> to compare.</param>
+        /// <param name="right">The second <see cref="Threshold"/> to compare.</param>
         public static bool operator ==(Threshold left, Threshold right)
             => Equals(left, right);
 
@@ -54,7 +54,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="Threshold"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Threshold"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Threshold"/> to compare.</param>
+        /// <param name="right">The second <see cref="Threshold"/> to compare.</param>
         public static bool operator !=(Threshold left, Threshold right)
             => !Equals(left, right);
 

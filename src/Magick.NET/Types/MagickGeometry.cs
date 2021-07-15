@@ -160,7 +160,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="MagickGeometry"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator ==(MagickGeometry left, MagickGeometry right)
             => Equals(left, right);
 
@@ -168,7 +168,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="MagickGeometry"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator !=(MagickGeometry left, MagickGeometry right)
             => !Equals(left, right);
 
@@ -176,7 +176,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="MagickGeometry"/>  is more than the second <see cref="MagickGeometry"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator >(MagickGeometry left, MagickGeometry right)
         {
             if (left is null)
@@ -189,7 +189,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="MagickGeometry"/> is less than the second <see cref="MagickGeometry"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator <(MagickGeometry left, MagickGeometry right)
         {
             if (left is null)
@@ -202,7 +202,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="MagickGeometry"/> is more than or equal to the second <see cref="MagickGeometry"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator >=(MagickGeometry left, MagickGeometry right)
         {
             if (left is null)
@@ -215,7 +215,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="MagickGeometry"/> is less than or equal to the second <see cref="MagickGeometry"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickGeometry"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickGeometry"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickGeometry"/> to compare.</param>
         public static bool operator <=(MagickGeometry left, MagickGeometry right)
         {
             if (left is null)

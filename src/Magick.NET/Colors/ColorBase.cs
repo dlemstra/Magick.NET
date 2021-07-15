@@ -38,21 +38,21 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="ColorBase"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
+        /// <param name="right">The second <see cref="ColorBase"/> to compare.</param>
         public static bool operator ==(ColorBase? left, ColorBase? right) => Equals(left, right);
 
         /// <summary>
         /// Determines whether the specified <see cref="ColorBase"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
+        /// <param name="right">The second <see cref="ColorBase"/> to compare.</param>
         public static bool operator !=(ColorBase? left, ColorBase? right) => !Equals(left, right);
 
         /// <summary>
         /// Determines whether the first <see cref="ColorBase"/> is more than the second <see cref="ColorBase"/>.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
+        /// <param name="right">The second <see cref="ColorBase"/> to compare.</param>
         public static bool operator >(ColorBase? left, ColorBase? right)
         {
             if (left is null)
@@ -65,7 +65,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="ColorBase"/> is less than the second <see cref="ColorBase"/>.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
+        /// <param name="right">The second <see cref="ColorBase"/> to compare.</param>
         public static bool operator <(ColorBase? left, ColorBase? right)
         {
             if (left is null)
@@ -78,7 +78,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="ColorBase"/> is more than or equal to the second <see cref="ColorBase"/>.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
+        /// <param name="right">The second <see cref="ColorBase"/> to compare.</param>
         public static bool operator >=(ColorBase? left, ColorBase? right)
         {
             if (left is null)
@@ -91,7 +91,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="ColorBase"/> is less than or equal to the second <see cref="ColorBase"/>.
         /// </summary>
         /// <param name="left">The first <see cref="ColorBase"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ColorBase"/> to compare.</param>
+        /// <param name="right">The second <see cref="ColorBase"/> to compare.</param>
         public static bool operator <=(ColorBase? left, ColorBase? right)
         {
             if (left is null)

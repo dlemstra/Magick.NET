@@ -65,7 +65,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="Number"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Number"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        /// <param name="right">The second <see cref="Number"/> to compare.</param>
         public static bool operator ==(Number left, Number right)
             => Equals(left, right);
 
@@ -73,7 +73,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="Number"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="Number"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        /// <param name="right">The second <see cref="Number"/> to compare.</param>
         public static bool operator !=(Number left, Number right)
             => !Equals(left, right);
 
@@ -81,7 +81,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="Number"/> is more than the second <see cref="Number"/>.
         /// </summary>
         /// <param name="left">The first <see cref="Number"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        /// <param name="right">The second <see cref="Number"/> to compare.</param>
         public static bool operator >(Number left, Number right)
             => left.CompareTo(right) == 1;
 
@@ -89,7 +89,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="Number"/> is less than the second <see cref="Number"/>.
         /// </summary>
         /// <param name="left">The first <see cref="Number"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        /// <param name="right">The second <see cref="Number"/> to compare.</param>
         public static bool operator <(Number left, Number right)
             => left.CompareTo(right) == -1;
 
@@ -97,7 +97,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="Number"/> is more than or equal to the second <see cref="Number"/>.
         /// </summary>
         /// <param name="left">The first <see cref="Number"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        /// <param name="right">The second <see cref="Number"/> to compare.</param>
         public static bool operator >=(Number left, Number right)
             => left.CompareTo(right) >= 0;
 
@@ -105,7 +105,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="Number"/> is less than or equal to the second <see cref="Number"/>.
         /// </summary>
         /// <param name="left">The first <see cref="Number"/> to compare.</param>
-        /// <param name="right"> The second <see cref="Number"/> to compare.</param>
+        /// <param name="right">The second <see cref="Number"/> to compare.</param>
         public static bool operator <=(Number left, Number right)
             => left.CompareTo(right) <= 0;
 

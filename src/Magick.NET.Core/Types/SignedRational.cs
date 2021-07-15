@@ -83,7 +83,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="SignedRational"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="SignedRational"/>  to compare.</param>
-        /// <param name="right"> The second <see cref="SignedRational"/>  to compare.</param>
+        /// <param name="right">The second <see cref="SignedRational"/>  to compare.</param>
         public static bool operator ==(SignedRational left, SignedRational right)
             => Equals(left, right);
 
@@ -91,7 +91,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="SignedRational"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="SignedRational"/> to compare.</param>
-        /// <param name="right"> The second <see cref="SignedRational"/> to compare.</param>
+        /// <param name="right">The second <see cref="SignedRational"/> to compare.</param>
         public static bool operator !=(SignedRational left, SignedRational right)
             => !Equals(left, right);
 

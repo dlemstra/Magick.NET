@@ -28,7 +28,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="ExifTag"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ExifTag"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ExifTag"/> to compare.</param>
+        /// <param name="right">The second <see cref="ExifTag"/> to compare.</param>
         public static bool operator ==(ExifTag left, ExifTag right)
             => Equals(left, right);
 
@@ -36,7 +36,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="ExifTag"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="ExifTag"/> to compare.</param>
-        /// <param name="right"> The second <see cref="ExifTag"/> to compare.</param>
+        /// <param name="right">The second <see cref="ExifTag"/> to compare.</param>
         public static bool operator !=(ExifTag left, ExifTag right)
             => !Equals(left, right);
 

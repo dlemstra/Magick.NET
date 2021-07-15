@@ -871,7 +871,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="MagickImage"/> instances are considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator ==(MagickImage? left, MagickImage? right)
             => Equals(left, right);
 
@@ -879,7 +879,7 @@ namespace ImageMagick
         /// Determines whether the specified <see cref="MagickImage"/> instances are not considered equal.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator !=(MagickImage? left, MagickImage? right)
             => !Equals(left, right);
 
@@ -887,7 +887,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="MagickImage"/> is more than the second <see cref="MagickImage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator >(MagickImage? left, MagickImage? right)
         {
             if (left is null)
@@ -900,7 +900,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="MagickImage"/> is less than the second <see cref="MagickImage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator <(MagickImage? left, MagickImage? right)
         {
             if (left is null)
@@ -913,7 +913,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="MagickImage"/> is more than or equal to the second <see cref="MagickImage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator >=(MagickImage? left, MagickImage? right)
         {
             if (left is null)
@@ -926,7 +926,7 @@ namespace ImageMagick
         /// Determines whether the first <see cref="MagickImage"/> is less than or equal to the second <see cref="MagickImage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right"> The second <see cref="MagickImage"/> to compare.</param>
+        /// <param name="right">The second <see cref="MagickImage"/> to compare.</param>
         public static bool operator <=(MagickImage? left, MagickImage? right)
         {
             if (left is null)
