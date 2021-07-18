@@ -54,11 +54,11 @@ namespace Magick.NET.Tests
 
                     var base64 = image.ToBase64(defines);
                     Assert.NotNull(base64);
-                    Assert.Equal(10800, base64.Length);
+                    Assert.Equal(13144, base64.Length);
 
                     var bytes = Convert.FromBase64String(base64);
                     Assert.NotNull(bytes);
-                    Assert.Equal(8100, bytes.Length);
+                    Assert.Equal(9858, bytes.Length);
                 }
             }
         }
