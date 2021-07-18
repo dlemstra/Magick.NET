@@ -409,36 +409,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Warning()
-        {
-            var count = 0;
-            EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
-            {
-                Assert.NotNull(sender);
-                Assert.NotNull(arguments);
-                Assert.NotNull(arguments.Message);
-                Assert.NotNull(arguments.Exception);
-                Assert.NotEqual(string.Empty, arguments.Message);
-
-                count++;
-            };
-
-            using (var collection = new MagickImageCollection())
-            {
-                collection.Warning += warningDelegate;
-                collection.Read(Files.EightBimTIF);
-
-                Assert.NotEqual(0, count);
-
-                int expectedCount = count;
-                collection.Warning -= warningDelegate;
-                collection.Read(Files.EightBimTIF);
-
-                Assert.Equal(expectedCount, count);
-            }
-        }
-
-        [Fact]
         public void Test_Write()
         {
             var fileSize = new FileInfo(Files.RoseSparkleGIF).Length;

@@ -2505,36 +2505,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Warning()
-        {
-            int count = 0;
-            EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
-            {
-                Assert.NotNull(sender);
-                Assert.NotNull(arguments);
-                Assert.NotNull(arguments.Message);
-                Assert.NotEqual(string.Empty, arguments.Message);
-                Assert.NotNull(arguments.Exception);
-
-                count++;
-            };
-
-            using (var image = new MagickImage())
-            {
-                image.Warning += warningDelegate;
-                image.Read(Files.EightBimTIF);
-
-                Assert.NotEqual(0, count);
-
-                int expectedCount = count;
-                image.Warning -= warningDelegate;
-                image.Read(Files.EightBimTIF);
-
-                Assert.Equal(expectedCount, count);
-            }
-        }
-
-        [Fact]
         public void Test_WhiteThreshold()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
