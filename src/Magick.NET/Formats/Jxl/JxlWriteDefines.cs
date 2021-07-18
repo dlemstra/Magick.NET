@@ -20,7 +20,7 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
-        /// Gets or sets the jpeg-xl encoding effort. Valid values are in the range of 3 (falcon) to 9 (tortois) (jxl:dct-method).
+        /// Gets or sets the jpeg-xl encoding effort. Valid values are in the range of 3 (falcon) to 9 (tortois) (jxl:effort).
         /// </summary>
         public int? Effort { get; set; }
 
