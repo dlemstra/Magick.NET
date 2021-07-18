@@ -24,6 +24,11 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
+        /// Gets or sets the video pixel format (video:pixel-format).
+        /// </summary>
+        public string? PixelFormat { get; set; }
+
+        /// <summary>
         /// Gets or sets the video sync (video:vsync).
         /// </summary>
         public VideoSync? VideoSync { get; set; }
@@ -35,6 +40,9 @@ namespace ImageMagick.Formats
         {
             get
             {
+                if (PixelFormat?.Length > 0)
+                    yield return new MagickDefine("video:pixel-format", PixelFormat);
+
                 if (VideoSync != null)
                     yield return new MagickDefine("video:vsync", EnumHelper.GetName(VideoSync.Value).ToLowerInvariant());
             }

@@ -9,7 +9,7 @@ namespace Magick.NET.Tests
 {
     public partial class VideoReadDefinesTests
     {
-        public class ThePixelFormatProperty
+        public class TheVideoSyncProperty
         {
             [Fact]
             public void ShouldSetTheDefineWhenValueIsSet()
@@ -18,10 +18,10 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
                     {
-                        PixelFormat = "magick",
+                        VideoSync = VideoSync.PassThrough,
                     });
 
-                    Assert.Equal("magick", image.Settings.GetDefine("video:pixel-format"));
+                    Assert.Equal("passthrough", image.Settings.GetDefine("video:vsync"));
                 }
             }
 
@@ -32,10 +32,10 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
                     {
-                        PixelFormat = null,
+                        VideoSync = null,
                     });
 
-                    Assert.Null(image.Settings.GetDefine("video:pixel-format"));
+                    Assert.Null(image.Settings.GetDefine("video:vsync"));
                 }
             }
         }
