@@ -1891,6 +1891,31 @@ namespace ImageMagick
         void InterpolativeResize(int width, int height, PixelInterpolateMethod method);
 
         /// <summary>
+        /// Resize image to specified size using the specified interpolation method.
+        /// </summary>
+        /// <param name="geometry">The geometry to use.</param>
+        /// <param name="method">Pixel interpolate method.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void InterpolativeResize(IMagickGeometry geometry, PixelInterpolateMethod method);
+
+        /// <summary>
+        /// Resize image to specified size using the specified interpolation method.
+        /// </summary>
+        /// <param name="percentage">The percentage.</param>
+        /// <param name="method">Pixel interpolate method.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void InterpolativeResize(Percentage percentage, PixelInterpolateMethod method);
+
+        /// <summary>
+        /// Resize image to specified size using the specified interpolation method.
+        /// </summary>
+        /// <param name="percentageWidth">The percentage of the width.</param>
+        /// <param name="percentageHeight">The percentage of the height.</param>
+        /// <param name="method">Pixel interpolate method.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void InterpolativeResize(Percentage percentageWidth, Percentage percentageHeight, PixelInterpolateMethod method);
+
+        /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses
         /// the full range of color values, so that they lie between the given black and white points.
         /// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.

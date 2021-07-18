@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
                     image.InterpolativeResize(32, 32, PixelInterpolateMethod.Mesh);
 
                     Assert.Equal(32, image.Width);
-                    Assert.Equal(32, image.Height);
+                    Assert.Equal(11, image.Height);
                 }
             }
 

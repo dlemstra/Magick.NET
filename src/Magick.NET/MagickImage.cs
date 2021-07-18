@@ -3527,7 +3527,50 @@ namespace ImageMagick
         /// <param name="method">Pixel interpolate method.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InterpolativeResize(int width, int height, PixelInterpolateMethod method)
-            => _nativeInstance.InterpolativeResize(width, height, method);
+            => InterpolativeResize(new MagickGeometry(width, height), method);
+
+        /// <summary>
+        /// Resize image to specified size using the specified interpolation method.
+        /// </summary>
+        /// <param name="geometry">The geometry to use.</param>
+        /// <param name="method">Pixel interpolate method.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void InterpolativeResize(IMagickGeometry geometry, PixelInterpolateMethod method)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            _nativeInstance.InterpolativeResize(geometry.ToString(), method);
+        }
+
+        /// <summary>
+        /// Resize image to specified size using the specified interpolation method.
+        /// </summary>
+        /// <param name="percentage">The percentage.</param>
+        /// <param name="method">Pixel interpolate method.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void InterpolativeResize(Percentage percentage, PixelInterpolateMethod method)
+        {
+            Throw.IfNegative(nameof(percentage), percentage);
+
+            var geometry = new MagickGeometry(percentage, percentage);
+            InterpolativeResize(geometry, method);
+        }
+
+        /// <summary>
+        /// Resize image to specified size using the specified interpolation method.
+        /// </summary>
+        /// <param name="percentageWidth">The percentage of the width.</param>
+        /// <param name="percentageHeight">The percentage of the height.</param>
+        /// <param name="method">Pixel interpolate method.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void InterpolativeResize(Percentage percentageWidth, Percentage percentageHeight, PixelInterpolateMethod method)
+        {
+            Throw.IfNegative(nameof(percentageWidth), percentageWidth);
+            Throw.IfNegative(nameof(percentageHeight), percentageHeight);
+
+            var geometry = new MagickGeometry(percentageWidth, percentageHeight);
+            InterpolativeResize(geometry, method);
+        }
 
         /// <summary>
         /// Floodfill pixels not matching color (within fuzz factor) of target pixel(x,y) with
