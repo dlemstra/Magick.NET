@@ -75,7 +75,7 @@
 
   <ItemGroup>
     <Compile Include="../Magick.Native/TrademarkAttribute.cs" Link="TrademarkAttribute.cs" />
-    <Compile Include="../Shared/Netstandard/Bytes.cs" Link="Netstandard/Bytes.cs" />
+    <Compile Include="../Shared/Netstandard/Bytes.cs" Link="Netstandard20/Bytes.cs" />
     <Compile Include="../Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
     <Compile Include="../Shared/EnumHelper.cs" Link="Helpers/EnumHelper.cs" />
     <Compile Include="../Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
