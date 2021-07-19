@@ -5,6 +5,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 #if Q8
@@ -57,10 +58,20 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file)
+        public Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file)
+            => CreateAsync(file, CancellationToken.None);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file, CancellationToken cancellationToken)
         {
             var image = new MagickImage();
-            await image.ReadAsync(file).ConfigureAwait(false);
+            await image.ReadAsync(file, cancellationToken).ConfigureAwait(false);
 
             return image;
         }
@@ -72,10 +83,21 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
+        public Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
+            => CreateAsync(file, readSettings, CancellationToken.None);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file, IMagickReadSettings<QuantumType> readSettings, CancellationToken cancellationToken)
         {
             var image = new MagickImage();
-            await image.ReadAsync(file, readSettings).ConfigureAwait(false);
+            await image.ReadAsync(file, readSettings, cancellationToken).ConfigureAwait(false);
 
             return image;
         }
@@ -87,10 +109,21 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file, IPixelReadSettings<QuantumType> settings)
+        public Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file, IPixelReadSettings<QuantumType> settings)
+            => CreateAsync(file, settings, CancellationToken.None);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task<IMagickImage<QuantumType>> CreateAsync(FileInfo file, IPixelReadSettings<QuantumType> settings, CancellationToken cancellationToken)
         {
             var image = new MagickImage();
-            await image.ReadPixelsAsync(file, settings).ConfigureAwait(false);
+            await image.ReadPixelsAsync(file, settings, cancellationToken).ConfigureAwait(false);
 
             return image;
         }
@@ -101,10 +134,20 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task<IMagickImage<QuantumType>> CreateAsync(string fileName)
+        public Task<IMagickImage<QuantumType>> CreateAsync(string fileName)
+            => CreateAsync(fileName, CancellationToken.None);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task<IMagickImage<QuantumType>> CreateAsync(string fileName, CancellationToken cancellationToken)
         {
             var image = new MagickImage();
-            await image.ReadAsync(fileName).ConfigureAwait(false);
+            await image.ReadAsync(fileName, cancellationToken).ConfigureAwait(false);
 
             return image;
         }
@@ -116,10 +159,21 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task<IMagickImage<QuantumType>> CreateAsync(string fileName, IMagickReadSettings<QuantumType> readSettings)
+        public Task<IMagickImage<QuantumType>> CreateAsync(string fileName, IMagickReadSettings<QuantumType> readSettings)
+            => CreateAsync(fileName, readSettings, CancellationToken.None);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task<IMagickImage<QuantumType>> CreateAsync(string fileName, IMagickReadSettings<QuantumType> readSettings, CancellationToken cancellationToken)
         {
             var image = new MagickImage();
-            await image.ReadAsync(fileName, readSettings).ConfigureAwait(false);
+            await image.ReadAsync(fileName, readSettings, cancellationToken).ConfigureAwait(false);
 
             return image;
         }
@@ -131,10 +185,21 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task<IMagickImage<QuantumType>> CreateAsync(string fileName, IPixelReadSettings<QuantumType> settings)
+        public Task<IMagickImage<QuantumType>> CreateAsync(string fileName, IPixelReadSettings<QuantumType> settings)
+            => CreateAsync(fileName, settings, CancellationToken.None);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task<IMagickImage<QuantumType>> CreateAsync(string fileName, IPixelReadSettings<QuantumType> settings, CancellationToken cancellationToken)
         {
             var image = new MagickImage();
-            await image.ReadPixelsAsync(fileName, settings).ConfigureAwait(false);
+            await image.ReadPixelsAsync(fileName, settings, cancellationToken).ConfigureAwait(false);
 
             return image;
         }
