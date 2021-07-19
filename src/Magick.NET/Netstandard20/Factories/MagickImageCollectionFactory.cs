@@ -4,6 +4,7 @@
 #if NETSTANDARD
 
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 #if Q8
@@ -27,10 +28,20 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task<IMagickImageCollection<QuantumType>> CreateAsync(Stream stream)
+        public Task<IMagickImageCollection<QuantumType>> CreateAsync(Stream stream)
+            => CreateAsync(stream, CancellationToken.None);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task<IMagickImageCollection<QuantumType>> CreateAsync(Stream stream, CancellationToken cancellationToken)
         {
             var images = new MagickImageCollection();
-            await images.ReadAsync(stream).ConfigureAwait(false);
+            await images.ReadAsync(stream, cancellationToken).ConfigureAwait(false);
 
             return images;
         }
@@ -42,10 +53,21 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task<IMagickImageCollection<QuantumType>> CreateAsync(Stream stream, IMagickReadSettings<QuantumType> readSettings)
+        public Task<IMagickImageCollection<QuantumType>> CreateAsync(Stream stream, IMagickReadSettings<QuantumType> readSettings)
+            => CreateAsync(stream, readSettings, CancellationToken.None);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task<IMagickImageCollection<QuantumType>> CreateAsync(Stream stream, IMagickReadSettings<QuantumType> readSettings, CancellationToken cancellationToken)
         {
             var images = new MagickImageCollection();
-            await images.ReadAsync(stream, readSettings).ConfigureAwait(false);
+            await images.ReadAsync(stream, readSettings, cancellationToken).ConfigureAwait(false);
 
             return images;
         }
