@@ -7,21 +7,13 @@ using System.IO;
 
 namespace ImageMagick
 {
-    internal static class Throw
+    internal static partial class Throw
     {
         public static void IfFalse(string paramName, bool condition, string message)
         {
             if (!condition)
                 throw new ArgumentException(message, paramName);
         }
-
-#if NETSTANDARD2_1
-        public static void IfEmpty<T>(string paramName, [NotNull] ReadOnlySpan<T> value)
-        {
-            if (value.IsEmpty)
-                throw new ArgumentException("Value cannot be empty.", paramName);
-        }
-#endif
 
         public static void IfNull(string paramName, [NotNull] object? value)
         {
