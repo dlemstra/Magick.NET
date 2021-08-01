@@ -4,6 +4,7 @@
 #if NETSTANDARD2_1
 
 using System;
+using System.Buffers;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,6 +15,14 @@ namespace ImageMagick
     public partial interface IMagickImage<TQuantumType> : IMagickImage, IEquatable<IMagickImage<TQuantumType>>, IComparable<IMagickImage<TQuantumType>>
         where TQuantumType : struct
     {
+        /// <summary>
+        /// Reads only metadata and not the pixel data.
+        /// </summary>
+        /// <param name="data">The span of byte to read the information from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Ping(ReadOnlySequence<byte> data, IMagickReadSettings<TQuantumType>? readSettings);
+
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>

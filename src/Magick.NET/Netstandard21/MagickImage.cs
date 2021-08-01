@@ -4,6 +4,7 @@
 #if NETSTANDARD2_1
 
 using System;
+using System.Buffers;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -57,6 +58,27 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImage(ReadOnlySpan<byte> data, IPixelReadSettings<QuantumType> settings)
             : this() => ReadPixels(data, settings);
+
+        /// <summary>
+        /// Reads only metadata and not the pixel data.
+        /// </summary>
+        /// <param name="data">The span of byte to read the information from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Ping(ReadOnlySequence<byte> data)
+            => Ping(data, null);
+
+        /// <summary>
+        /// Reads only metadata and not the pixel data.
+        /// </summary>
+        /// <param name="data">The span of byte to read the information from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Ping(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType>? readSettings)
+        {
+            Throw.IfEmpty(nameof(data), data);
+
+            Read(data, readSettings, false);
+        }
 
         /// <summary>
         /// Reads only metadata and not the pixel data.
@@ -464,6 +486,17 @@ namespace ImageMagick
 
             var bytes = ToByteArray(format);
             return File.WriteAllBytesAsync(filePath, bytes, cancellationToken);
+        }
+
+        private void Read(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping)
+        {
+            if (data.IsSingleSegment)
+            {
+                Read(data.FirstSpan, readSettings, ping);
+                return;
+            }
+
+            throw new NotSupportedException();
         }
 
         private void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping)
