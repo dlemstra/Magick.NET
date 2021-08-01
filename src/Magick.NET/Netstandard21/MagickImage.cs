@@ -76,7 +76,7 @@ namespace ImageMagick
         {
             Throw.IfEmpty(nameof(data), data);
 
-            Read(data, readSettings, false);
+            Read(data, readSettings, true);
         }
 
         /// <summary>
