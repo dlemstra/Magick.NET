@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
     {
         public partial class TheReadPixelsMethod
         {
-            public class WithSpan
+            public class WithReadonlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenSpanIsEmpty()

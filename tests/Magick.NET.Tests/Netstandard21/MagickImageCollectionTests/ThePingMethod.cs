@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
     {
         public partial class ThePingMethod
         {
-            public class WithSpan
+            public class WithReadonlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenSpanIsEmpty()

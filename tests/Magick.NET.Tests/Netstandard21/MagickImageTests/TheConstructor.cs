@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
     {
         public partial class TheConstructor
         {
-            public class WithSpan
+            public class WithReadonlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenSpanIsEmpty()
@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithSpanAndMagickFormat
+            public class WithReadonlySpanAndMagickFormat
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenSpanIsEmpty()
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithSpanAndMagickReadSettings
+            public class WithReadonlySpanAndMagickReadSettings
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenSpanIsEmpty()
@@ -52,7 +52,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithSpanyAndPixelReadSettings
+            public class WithReadonlySpanyAndPixelReadSettings
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenSpanIsEmpty()

@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
     {
         public partial class TheCreateMethod
         {
-            public class WithSpan
+            public class WithReadonlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenSpanIsEmpty()
@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithByteSpanAndMagickReadSettings
+            public class WithReadonlySpanAndMagickReadSettings
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenSpanIsEmpty()
