@@ -5,7 +5,7 @@
   "delegates": [
     {
       "name": "ReadWriteStream",
-      "type": "int",
+      "type": "long",
       "arguments": [
         {
           "name": "data",

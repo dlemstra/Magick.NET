@@ -12,7 +12,7 @@ namespace ImageMagick.ImageOptimizers
     public partial class JpegOptimizer
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate int ReadWriteStreamDelegate(IntPtr data, UIntPtr length, IntPtr user_data);
+        private delegate long ReadWriteStreamDelegate(IntPtr data, UIntPtr length, IntPtr user_data);
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
         {

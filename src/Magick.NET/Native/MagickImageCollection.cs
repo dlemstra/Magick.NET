@@ -22,7 +22,7 @@ namespace ImageMagick
     public partial class MagickImageCollection
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate int ReadWriteStreamDelegate(IntPtr data, UIntPtr length, IntPtr user_data);
+        private delegate long ReadWriteStreamDelegate(IntPtr data, UIntPtr length, IntPtr user_data);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate long SeekStreamDelegate(long offset, IntPtr whence, IntPtr user_data);
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]

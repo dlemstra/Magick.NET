@@ -19,7 +19,7 @@ namespace Magick.NET.Tests
                 {
                     using (var streamWrapper = StreamWrapper.CreateForReading(stream))
                     {
-                        int count = streamWrapper.Read(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
+                        var count = streamWrapper.Read(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
                         Assert.Equal(0, count);
                     }
                 }
@@ -32,10 +32,10 @@ namespace Magick.NET.Tests
                 {
                     using (var streamWrapper = StreamWrapper.CreateForReading(stream))
                     {
-                        byte[] buffer = new byte[255];
+                        var buffer = new byte[255];
                         fixed (byte* p = buffer)
                         {
-                            int count = streamWrapper.Read((IntPtr)p, UIntPtr.Zero, IntPtr.Zero);
+                            var count = streamWrapper.Read((IntPtr)p, UIntPtr.Zero, IntPtr.Zero);
                             Assert.Equal(0, count);
                         }
                     }
@@ -51,10 +51,10 @@ namespace Magick.NET.Tests
                     {
                         using (var streamWrapper = StreamWrapper.CreateForReading(stream))
                         {
-                            byte[] buffer = new byte[10];
+                            var buffer = new byte[10];
                             fixed (byte* p = buffer)
                             {
-                                int count = streamWrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
+                                var count = streamWrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
                                 Assert.Equal(-1, count);
                             }
                         }
@@ -69,10 +69,10 @@ namespace Magick.NET.Tests
                 {
                     using (var streamWrapper = StreamWrapper.CreateForReading(stream))
                     {
-                        byte[] buffer = new byte[10];
+                        var buffer = new byte[10];
                         fixed (byte* p = buffer)
                         {
-                            int count = streamWrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
+                            var count = streamWrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
                             Assert.Equal(5, count);
                         }
                     }

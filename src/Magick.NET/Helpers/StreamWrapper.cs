@@ -51,9 +51,9 @@ namespace ImageMagick
         public void Dispose()
             => _handle.Free();
 
-        public int Read(IntPtr data, UIntPtr count, IntPtr user_data)
+        public long Read(IntPtr data, UIntPtr count, IntPtr user_data)
         {
-            int total = (int)count;
+            var total = (long)count;
             if (total == 0)
                 return 0;
 
@@ -61,15 +61,15 @@ namespace ImageMagick
                 return 0;
 
             byte* p = (byte*)data.ToPointer();
-            int bytesRead = 0;
+            long bytesRead = 0;
 
             while (total > 0)
             {
-                int length = Math.Min(total, BufferSize);
+                var length = Math.Min(total, BufferSize);
 
                 try
                 {
-                    length = _stream.Read(_buffer, 0, length);
+                    length = _stream.Read(_buffer, 0, (int)length);
                 }
                 catch
                 {
@@ -123,9 +123,9 @@ namespace ImageMagick
             }
         }
 
-        public int Write(IntPtr data, UIntPtr count, IntPtr user_data)
+        public long Write(IntPtr data, UIntPtr count, IntPtr user_data)
         {
-            int total = (int)count;
+            var total = (long)count;
             if (total == 0)
                 return 0;
 
@@ -136,13 +136,13 @@ namespace ImageMagick
 
             while (total > 0)
             {
-                int length = Math.Min(total, BufferSize);
+                var length = Math.Min(total, BufferSize);
 
                 p = FillBuffer(p, length);
 
                 try
                 {
-                    _stream.Write(_buffer, 0, length);
+                    _stream.Write(_buffer, 0, (int)length);
                 }
                 catch
                 {
@@ -152,10 +152,10 @@ namespace ImageMagick
                 total -= length;
             }
 
-            return (int)count;
+            return (long)count;
         }
 
-        private byte* FillBuffer(byte* p, int length)
+        private byte* FillBuffer(byte* p, long length)
         {
             byte* q = _bufferStart;
             while (length >= 4)
@@ -175,7 +175,7 @@ namespace ImageMagick
             return p;
         }
 
-        private byte* ReadBuffer(byte* p, int length)
+        private byte* ReadBuffer(byte* p, long length)
         {
             byte* q = _bufferStart;
             while (length >= 4)
