@@ -62,7 +62,7 @@ namespace ImageMagick
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
-        /// <param name="data">The span of byte to read the information from.</param>
+        /// <param name="data">The sequence of bytes to read the information from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Ping(ReadOnlySequence<byte> data)
             => Ping(data, null);
@@ -70,7 +70,7 @@ namespace ImageMagick
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
-        /// <param name="data">The span of byte to read the information from.</param>
+        /// <param name="data">The sequence of bytes to read the information from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Ping(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType>? readSettings)
@@ -83,7 +83,7 @@ namespace ImageMagick
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
-        /// <param name="data">The span of byte to read the information from.</param>
+        /// <param name="data">The span of bytes to read the information from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Ping(ReadOnlySpan<byte> data)
             => Ping(data, null);
@@ -91,7 +91,7 @@ namespace ImageMagick
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
-        /// <param name="data">The span of byte to read the information from.</param>
+        /// <param name="data">The span of bytes to read the information from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Ping(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings)

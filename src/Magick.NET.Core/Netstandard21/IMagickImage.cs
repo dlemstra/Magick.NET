@@ -17,28 +17,28 @@ namespace ImageMagick
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
-        /// <param name="data">The span of byte to read the information from.</param>
+        /// <param name="data">The sequence of bytes to read the information from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Ping(ReadOnlySequence<byte> data);
 
         /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
-        /// <param name="data">The span of byte to read the information from.</param>
+        /// <param name="data">The span of bytes to read the information from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Ping(ReadOnlySpan<byte> data);
 
         /// <summary>
         /// Read single image frame.
         /// </summary>
-        /// <param name="data">The byte span to read the image data from.</param>
+        /// <param name="data">The span of bytes to read the information from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(ReadOnlySpan<byte> data);
 
         /// <summary>
         /// Read single image frame.
         /// </summary>
-        /// <param name="data">The byte span to read the image data from.</param>
+        /// <param name="data">The span of bytes to read the information from.</param>
         /// <param name="format">The format to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(ReadOnlySpan<byte> data, MagickFormat format);

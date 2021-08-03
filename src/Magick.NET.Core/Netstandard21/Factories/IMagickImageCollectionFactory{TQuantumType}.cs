@@ -17,7 +17,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
         /// </summary>
-        /// <param name="data">The span of byte to read the image data from.</param>
+        /// <param name="data">The span of bytes to read the image data from.</param>
         /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         IMagickImageCollection<TQuantumType> Create(ReadOnlySpan<byte> data);
@@ -25,7 +25,7 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
         /// </summary>
-        /// <param name="data">The span of byte to read the image data from.</param>
+        /// <param name="data">The span of bytes to read the image data from.</param>
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
