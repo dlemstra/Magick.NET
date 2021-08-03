@@ -67,7 +67,7 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
-                public void ShouldResetTheFormatAfterReadingBytes()
+                public void ShouldResetTheFormatAfterReading()
                 {
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
@@ -121,7 +121,7 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
-                public void ShouldResetTheFormatAfterReadingBytes()
+                public void ShouldResetTheFormatAfterReading()
                 {
                     var readSettings = new MagickReadSettings
                     {

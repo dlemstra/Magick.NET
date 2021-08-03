@@ -258,7 +258,7 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
-                public void ShouldResetTheFormatAfterReadingBytes()
+                public void ShouldResetTheFormatAfterReading()
                 {
                     var readSettings = new MagickReadSettings
                     {
