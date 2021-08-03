@@ -4,6 +4,7 @@
 #if NETCORE
 
 using System;
+using System.Buffers;
 using System.IO;
 using ImageMagick;
 using Xunit;
@@ -14,6 +15,44 @@ namespace Magick.NET.Tests
     {
         public partial class TheConstructor
         {
+            public class WithReadOnlySequence
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenSequenceIsEmpty()
+                {
+                    Assert.Throws<ArgumentException>("data", () => new MagickImage(ReadOnlySequence<byte>.Empty));
+                }
+            }
+
+            public class WithReadOnlySequenceAndMagickFormat
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                {
+                    Assert.Throws<ArgumentException>("data", () => new MagickImage(ReadOnlySequence<byte>.Empty, MagickFormat.Png));
+                }
+            }
+
+            public class WithReadOnlySequenceAndMagickReadSettings
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenSequenceIsEmpty()
+                {
+                    var settings = new MagickReadSettings();
+
+                    Assert.Throws<ArgumentException>("data", () => new MagickImage(ReadOnlySequence<byte>.Empty, settings));
+                }
+
+                [Fact]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+                    using (var image = new MagickImage(new ReadOnlySequence<byte>(bytes), (MagickReadSettings)null))
+                    {
+                    }
+                }
+            }
+
             public class WithReadonlySpan
             {
                 [Fact]
