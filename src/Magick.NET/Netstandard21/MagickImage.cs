@@ -104,6 +104,36 @@ namespace ImageMagick
         /// <summary>
         /// Read single image frame.
         /// </summary>
+        /// <param name="data">The sequence of bytes to read the information from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySequence<byte> data)
+            => Read(data, null);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The sequence of bytes to read the information from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySequence<byte> data, MagickFormat format)
+            => Read(data, new MagickReadSettings { Format = format });
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The sequence of bytes to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType>? readSettings)
+        {
+            Throw.IfEmpty(nameof(data), data);
+
+            Read(data, readSettings, false);
+        }
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
         /// <param name="data">The span of bytes to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(ReadOnlySpan<byte> data)
