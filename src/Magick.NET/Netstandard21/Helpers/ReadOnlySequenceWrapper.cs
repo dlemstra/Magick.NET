@@ -1,0 +1,130 @@
+﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
+// Licensed under the Apache License, Version 2.0.
+
+#if NETSTANDARD2_1
+
+using System;
+using System.Buffers;
+using System.IO;
+
+namespace ImageMagick
+{
+    internal unsafe sealed class ReadOnlySequenceWrapper
+    {
+        private readonly ReadOnlySequence<byte> _data;
+        private long _currentOffset;
+        private long _totalOffset;
+        private ReadOnlySequence<byte>.Enumerator _enumerator;
+
+        public ReadOnlySequenceWrapper(ReadOnlySequence<byte> data)
+        {
+            _data = data;
+            _currentOffset = 0;
+            _totalOffset = 0;
+            _enumerator = data.GetEnumerator();
+            _enumerator.MoveNext();
+        }
+
+        public long Read(IntPtr data, UIntPtr count, IntPtr user_data)
+        {
+            var total = (long)count;
+            if (total == 0)
+                return 0;
+
+            if (data == IntPtr.Zero)
+                return 0;
+
+            byte* destination = (byte*)data.ToPointer();
+
+            long bytesRead = 0;
+            while (total > 0)
+            {
+                var current = _enumerator.Current.Span;
+
+                var length = Math.Min(total, current.Length - _currentOffset);
+
+                fixed (byte* source = current)
+                {
+                    Buffer.MemoryCopy(source + _currentOffset, destination, length, length);
+                }
+
+                _currentOffset += length;
+                _totalOffset += length;
+                bytesRead += length;
+                destination += length;
+                total -= length;
+
+                if (length == current.Length)
+                {
+                    if (!_enumerator.MoveNext())
+                        break;
+
+                    _currentOffset = 0;
+                }
+            }
+
+            return bytesRead;
+        }
+
+        public long Seek(long offset, IntPtr whence, IntPtr user_data)
+        {
+            var newOffset = GetNewOffset(offset, whence);
+            if (newOffset < 0)
+                return -1;
+
+            var steps = newOffset - _totalOffset;
+            if (steps > 0 && _currentOffset + steps < _enumerator.Current.Span.Length)
+            {
+                _currentOffset += steps;
+                _totalOffset = newOffset;
+            }
+            else
+            {
+                _totalOffset = -1;
+                _currentOffset = 0;
+
+                var remaining = newOffset;
+                _enumerator = _data.GetEnumerator();
+
+                while (_enumerator.MoveNext())
+                {
+                    var current = _enumerator.Current.Span;
+
+                    if (remaining < current.Length)
+                    {
+                        _currentOffset = remaining;
+                        _totalOffset = newOffset;
+                        break;
+                    }
+
+                    remaining -= current.Length;
+                }
+
+                if (remaining == 0)
+                    _totalOffset = newOffset;
+            }
+
+            return _totalOffset;
+        }
+
+        public long Tell(IntPtr user_data)
+            => _totalOffset;
+
+        private long GetNewOffset(long offset, IntPtr whence)
+        {
+            switch ((SeekOrigin)whence)
+            {
+                case SeekOrigin.Begin:
+                    return offset;
+                case SeekOrigin.Current:
+                    return _totalOffset + offset;
+                case SeekOrigin.End:
+                    return _data.Length - offset;
+                default:
+                    return -1;
+            }
+        }
+    }
+}
+
+#endif

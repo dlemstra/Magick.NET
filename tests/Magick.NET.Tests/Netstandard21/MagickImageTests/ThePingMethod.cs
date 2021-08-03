@@ -19,7 +19,7 @@ namespace Magick.NET.Tests
             public class WithReadOnlySequence
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenSequenceIsEmpty()
                 {
                     using (var image = new MagickImage())
                     {
@@ -38,12 +38,26 @@ namespace Magick.NET.Tests
                         Assert.Equal(67, image.Height);
                     }
                 }
+
+                [Fact]
+                public void ShouldSupportMultipleSegments()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                        var sequence = TestReadOnlySequence.Create(bytes);
+
+                        image.Ping(sequence);
+                        Assert.Equal(286, image.Width);
+                        Assert.Equal(67, image.Height);
+                    }
+                }
             }
 
             public class WithReadOnlySequenceAndMagickReadSettings
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenSequenceIsEmpty()
                 {
                     var settings = new MagickReadSettings();
 

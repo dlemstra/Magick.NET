@@ -77,7 +77,7 @@ namespace ImageMagick
         {
             Throw.IfEmpty(nameof(data), data);
 
-            Read(data, readSettings, false);
+            Read(data, readSettings, true);
         }
 
         /// <summary>
@@ -481,7 +481,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public Task WriteAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             var bytes = ToByteArray(format);
@@ -496,7 +496,20 @@ namespace ImageMagick
                 return;
             }
 
-            throw new NotSupportedException();
+            var newReadSettings = CreateReadSettings(readSettings);
+            SetSettings(newReadSettings);
+
+            _settings.Ping = ping;
+            _settings.FileName = null;
+
+            var wrapper = new ReadOnlySequenceWrapper(data);
+            var reader = new ReadWriteStreamDelegate(wrapper.Read);
+            var seeker = new SeekStreamDelegate(wrapper.Seek);
+            var teller = new TellStreamDelegate(wrapper.Tell);
+
+            _nativeInstance.ReadStream(Settings, reader, seeker, teller);
+
+            ResetSettings();
         }
 
         private void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping)
