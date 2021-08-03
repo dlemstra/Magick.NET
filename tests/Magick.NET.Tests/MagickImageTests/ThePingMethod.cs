@@ -39,9 +39,12 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+
                         image.Ping(bytes);
+
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
             }
@@ -103,8 +106,10 @@ namespace Magick.NET.Tests
                         fileBytes.CopyTo(bytes, 10);
 
                         image.Ping(bytes, 10, bytes.Length - 10);
+
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
             }
@@ -178,8 +183,10 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         image.Ping(bytes, 10, bytes.Length - 10, settings);
+
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
 
@@ -191,6 +198,8 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         image.Ping(bytes, 0, bytes.Length, null);
+
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
             }
@@ -226,6 +235,8 @@ namespace Magick.NET.Tests
                     {
                         var bytes = File.ReadAllBytes(Files.CirclePNG);
                         image.Ping(bytes, null);
+
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
 
@@ -261,6 +272,7 @@ namespace Magick.NET.Tests
                         image.Ping(bytes, readSettings);
 
                         Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
             }
@@ -296,6 +308,8 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         image.Ping(new FileInfo(Files.CirclePNG), null);
+
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
             }
@@ -348,9 +362,11 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         image.Ping(Files.SnakewarePNG);
+
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
                         Assert.Equal(MagickFormat.Png, image.Format);
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
 
@@ -360,9 +376,11 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         image.Ping(Files.Builtin.Rose);
+
                         Assert.Equal(70, image.Width);
                         Assert.Equal(46, image.Height);
                         Assert.Equal(MagickFormat.Pnm, image.Format);
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
 
@@ -372,10 +390,12 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         image.Ping(Files.RoseSparkleGIF);
+
                         Assert.Equal("RöseSparkle.gif", Path.GetFileName(image.FileName));
                         Assert.Equal(70, image.Width);
                         Assert.Equal(46, image.Height);
                         Assert.Equal(MagickFormat.Gif, image.Format);
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
 
@@ -385,9 +405,11 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         image.Ping("png:" + Files.SnakewarePNG);
+
                         Assert.Equal(286, image.Width);
                         Assert.Equal(67, image.Height);
                         Assert.Equal(MagickFormat.Png, image.Format);
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
 
@@ -399,6 +421,7 @@ namespace Magick.NET.Tests
                         image.Ping(Files.EightBimTIF);
 
                         Assert.NotNull(image.Get8BimProfile());
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
             }
@@ -433,6 +456,8 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         image.Ping(Files.CirclePNG, null);
+
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
 
@@ -449,6 +474,7 @@ namespace Magick.NET.Tests
                         image.Ping(Files.CirclePNG, readSettings);
 
                         Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
+                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                     }
                 }
             }
@@ -493,9 +519,11 @@ namespace Magick.NET.Tests
                         using (var fileStream = File.OpenRead(Files.SnakewarePNG))
                         {
                             image.Ping(fileStream);
+
                             Assert.Equal(286, image.Width);
                             Assert.Equal(67, image.Height);
                             Assert.Equal(MagickFormat.Png, image.Format);
+                            Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                         }
                     }
                 }
@@ -520,6 +548,7 @@ namespace Magick.NET.Tests
                                     Assert.Equal(image.Height, testImage.Height);
                                     Assert.Equal(image.Format, testImage.Format);
                                     Assert.Equal(0.0, image.Compare(testImage, ErrorMetric.RootMeanSquared));
+                                    Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                                 }
                             }
                         }
@@ -546,6 +575,7 @@ namespace Magick.NET.Tests
                                     Assert.Equal(image.Height, testImage.Height);
                                     Assert.Equal(image.Format, testImage.Format);
                                     Assert.Equal(0.0, image.Compare(testImage, ErrorMetric.RootMeanSquared));
+                                    Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                                 }
                             }
                         }
@@ -585,6 +615,8 @@ namespace Magick.NET.Tests
                         using (var image = new MagickImage())
                         {
                             image.Ping(fileStream, null);
+
+                            Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                         }
                     }
                 }
@@ -624,6 +656,7 @@ namespace Magick.NET.Tests
                             image.Ping(stream, readSettings);
 
                             Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
+                            Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                         }
                     }
                 }
