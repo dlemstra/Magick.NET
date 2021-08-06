@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
     {
         public partial class TheReadCollectionMethod
         {
-            public class WithReadonlySpan
+            public class WithReadOnlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()

@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
     {
         public partial class TheReadMethod
         {
-            public class WithReadonlySequence
+            public class WithReadOnlySequence
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpan
+            public class WithReadOnlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()

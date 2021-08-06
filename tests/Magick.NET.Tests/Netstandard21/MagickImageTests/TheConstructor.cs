@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpan
+            public class WithReadOnlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpanAndMagickFormat
+            public class WithReadOnlySpanAndMagickFormat
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpanAndMagickReadSettings
+            public class WithReadOnlySpanAndMagickReadSettings
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -91,7 +91,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpanyAndPixelReadSettings
+            public class WithReadOnlySpanyAndPixelReadSettings
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()

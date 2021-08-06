@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
     {
         public partial class TheCreateMethod
         {
-            public class WithReadonlySequence
+            public class WithReadOnlySequence
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySequenceAndMagickReadSettings
+            public class WithReadOnlySequenceAndMagickReadSettings
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -80,7 +80,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpan
+            public class WithReadOnlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -104,7 +104,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpanAndMagickReadSettings
+            public class WithReadOnlySpanAndMagickReadSettings
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -145,7 +145,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpanAndPixelReadSettings
+            public class WithReadOnlySpanAndPixelReadSettings
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()

@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
     {
         public partial class TheConstructor
         {
-            public class WithReadonlySequence
+            public class WithReadOnlySequence
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySequenceAndMagickFormat
+            public class WithReadOnlySequenceAndMagickFormat
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySequenceAndMagickReadSettings
+            public class WithReadOnlySequenceAndMagickReadSettings
             {
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpan
+            public class WithReadOnlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -99,7 +99,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpanAndMagickFormat
+            public class WithReadOnlySpanAndMagickFormat
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -119,7 +119,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpanAndMagickReadSettings
+            public class WithReadOnlySpanAndMagickReadSettings
             {
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()

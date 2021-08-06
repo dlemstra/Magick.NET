@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithReadonlySpan
+            public class WithReadOnlySpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
