@@ -4,6 +4,7 @@
 #if NETSTANDARD2_1
 
 using System;
+using System.Buffers;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,13 @@ namespace ImageMagick
     /// <content/>
     public partial interface IMagickImageCollection : IDisposable
     {
+        /// <summary>
+        /// Read only metadata and not the pixel data from all image frames.
+        /// </summary>
+        /// <param name="data">The sequence of bytes to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Ping(ReadOnlySequence<byte> data);
+
         /// <summary>
         /// Read only metadata and not the pixel data from all image frames.
         /// </summary>
