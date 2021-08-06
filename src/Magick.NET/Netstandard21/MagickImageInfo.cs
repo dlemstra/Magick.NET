@@ -17,6 +17,15 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
         /// </summary>
+        /// <param name="data">The sequence of bytes to read the information from.</param>
+        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public MagickImageInfo(ReadOnlySequence<byte> data)
+            => Read(data);
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
+        /// </summary>
         /// <param name="data">The span of bytes to read the information from.</param>
         /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
