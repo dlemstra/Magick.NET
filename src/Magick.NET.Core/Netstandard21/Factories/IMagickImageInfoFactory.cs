@@ -4,6 +4,7 @@
 #if NETSTANDARD2_1
 
 using System;
+using System.Buffers;
 
 namespace ImageMagick
 {
@@ -12,6 +13,14 @@ namespace ImageMagick
     /// </summary>
     public partial interface IMagickImageInfoFactory
     {
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
+        /// </summary>
+        /// <param name="data">The sequence of bytes to read the information from.</param>
+        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        IMagickImageInfo Create(ReadOnlySequence<byte> data);
+
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
         /// </summary>
