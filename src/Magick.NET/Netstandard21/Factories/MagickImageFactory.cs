@@ -4,6 +4,7 @@
 #if NETSTANDARD2_1
 
 using System;
+using System.Buffers;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,6 +24,35 @@ namespace ImageMagick
     /// <content />
     public sealed partial class MagickImageFactory : IMagickImageFactory<QuantumType>
     {
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="data">The sequence of bytes to read the image data from.</param>
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage<QuantumType> Create(ReadOnlySequence<byte> data)
+            => new MagickImage(data);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="data">The sequence of bytes to read the image data from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage<QuantumType> Create(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType> readSettings)
+            => new MagickImage(data);
+
+        /// <summary>
+        /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
+        /// </summary>
+        /// <param name="data">The sequence of bytes to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage<QuantumType> Create(ReadOnlySequence<byte> data, IPixelReadSettings<QuantumType> settings)
+            => new MagickImage(data);
+
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
         /// </summary>
