@@ -4,6 +4,7 @@
 #if NETSTANDARD2_1
 
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 
 namespace ImageMagick
@@ -44,6 +45,20 @@ namespace ImageMagick
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Read basic information about an image.
+        /// </summary>
+        /// <param name="data">The sequence of bytes to read the information from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Read(ReadOnlySequence<byte> data)
+        {
+            using (var image = new MagickImage())
+            {
+                image.Ping(data);
+                Initialize(image);
+            }
         }
 
         /// <summary>
