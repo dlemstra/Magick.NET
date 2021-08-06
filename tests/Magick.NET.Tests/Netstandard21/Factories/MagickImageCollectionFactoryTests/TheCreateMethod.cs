@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpan
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     var factory = new MagickImageCollectionFactory();
 
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpanAndMagickReadSettings
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     var factory = new MagickImageCollectionFactory();
                     var settings = new MagickReadSettings();

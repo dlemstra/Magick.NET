@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
             public class WithReadOnlySequenceAndMagickFormat
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     Assert.Throws<ArgumentException>("data", () => new MagickImage(ReadOnlySequence<byte>.Empty, MagickFormat.Png));
                 }
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpan
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     Assert.Throws<ArgumentException>("data", () => new MagickImage(Span<byte>.Empty));
                 }
@@ -65,7 +65,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpanAndMagickFormat
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     Assert.Throws<ArgumentException>("data", () => new MagickImage(Span<byte>.Empty, MagickFormat.Png));
                 }
@@ -74,7 +74,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpanAndMagickReadSettings
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     var settings = new MagickReadSettings();
 
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpanyAndPixelReadSettings
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     var settings = new PixelReadSettings();
 

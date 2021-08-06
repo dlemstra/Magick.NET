@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpan
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     using (var images = new MagickImageCollection())
                     {

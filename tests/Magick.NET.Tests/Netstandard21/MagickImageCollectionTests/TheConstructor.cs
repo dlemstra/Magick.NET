@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpan
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(Span<byte>.Empty));
                 }
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpanAndMagickFormat
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(Span<byte>.Empty, MagickFormat.Png));
                 }

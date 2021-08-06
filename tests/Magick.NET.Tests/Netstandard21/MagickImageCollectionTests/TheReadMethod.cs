@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpan
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpanAndMagickFormat
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     using (var images = new MagickImageCollection())
                     {
@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
             public class WithReadonlySpanAndMagickReadSettings
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenSpanIsEmpty()
+                public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     using (var images = new MagickImageCollection())
                     {
