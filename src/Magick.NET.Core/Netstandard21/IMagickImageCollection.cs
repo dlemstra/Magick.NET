@@ -31,6 +31,21 @@ namespace ImageMagick
         /// <summary>
         /// Read all image frames.
         /// </summary>
+        /// <param name="data">The sequence of bytes to read the image data from.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(ReadOnlySequence<byte> data);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="data">The sequence of bytes to read the image data from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Read(ReadOnlySequence<byte> data, MagickFormat format);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
         /// <param name="data">The span of bytes to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Read(ReadOnlySpan<byte> data);
