@@ -1256,8 +1256,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public byte[] ToByteArray(MagickFormat format)
         {
-            SetFormat(format);
-            return ToByteArray();
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                return ToByteArray();
+            }
         }
 
         /// <summary>
@@ -1326,7 +1328,7 @@ namespace ImageMagick
         public void Write(FileInfo file, IWriteDefines defines)
         {
             SetDefines(defines);
-            Write(file);
+            Write(file, defines.Format);
         }
 
         /// <summary>
@@ -1338,8 +1340,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(FileInfo file, MagickFormat format)
         {
-            SetFormat(format);
-            Write(file);
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                Write(file);
+            }
         }
 
         /// <summary>
@@ -1397,8 +1401,7 @@ namespace ImageMagick
         public void Write(Stream stream, IWriteDefines defines)
         {
             SetDefines(defines);
-            SetFormat(defines.Format);
-            Write(stream);
+            Write(stream, defines.Format);
         }
 
         /// <summary>
@@ -1409,8 +1412,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(Stream stream, MagickFormat format)
         {
-            SetFormat(format);
-            Write(stream);
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                Write(stream);
+            }
         }
 
         /// <summary>
@@ -1464,8 +1469,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(string fileName, MagickFormat format)
         {
-            SetFormat(format);
-            Write(fileName);
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                Write(fileName);
+            }
         }
 
         private static MagickSettings CreateSettings(IMagickReadSettings<QuantumType>? readSettings)
@@ -1608,14 +1615,6 @@ namespace ImageMagick
             foreach (var image in _images)
             {
                 image.Settings.SetDefines(defines);
-            }
-        }
-
-        private void SetFormat(MagickFormat format)
-        {
-            foreach (var image in _images)
-            {
-                image.Settings.Format = format;
             }
         }
 

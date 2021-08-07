@@ -148,8 +148,7 @@ namespace ImageMagick
         public Task WriteAsync(Stream stream, IWriteDefines defines, CancellationToken cancellationToken)
         {
             SetDefines(defines);
-            SetFormat(defines.Format);
-            return WriteAsync(stream, cancellationToken);
+            return WriteAsync(stream, defines.Format, cancellationToken);
         }
 
         /// <summary>
@@ -170,10 +169,12 @@ namespace ImageMagick
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Task WriteAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken)
+        public async Task WriteAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken)
         {
-            SetFormat(format);
-            return WriteAsync(stream, cancellationToken);
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                await WriteAsync(stream, cancellationToken);
+            }
         }
     }
 }
