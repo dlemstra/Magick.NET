@@ -74,7 +74,7 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool Compress(string fileName, int quality)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoCompress(new FileInfo(fileName), false, quality);
@@ -122,7 +122,7 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(string fileName)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoCompress(new FileInfo(fileName), true, 0);
@@ -147,12 +147,12 @@ namespace ImageMagick.ImageOptimizers
 
         private static void DoNativeCompress(Stream input, Stream output, bool progressive, bool lossless, int quality)
         {
-            using (StreamWrapper readWrapper = StreamWrapper.CreateForReading(input))
+            using (var readWrapper = StreamWrapper.CreateForReading(input))
             {
-                using (StreamWrapper writeWrapper = StreamWrapper.CreateForWriting(output))
+                using (var writeWrapper = StreamWrapper.CreateForWriting(output))
                 {
-                    ReadWriteStreamDelegate reader = new ReadWriteStreamDelegate(readWrapper.Read);
-                    ReadWriteStreamDelegate writer = new ReadWriteStreamDelegate(writeWrapper.Write);
+                    var reader = new ReadWriteStreamDelegate(readWrapper.Read);
+                    var writer = new ReadWriteStreamDelegate(writeWrapper.Write);
 
                     var nativeJpegOptimizer = new NativeJpegOptimizer();
                     nativeJpegOptimizer.CompressStream(reader, writer, progressive, lossless, quality);
@@ -162,13 +162,13 @@ namespace ImageMagick.ImageOptimizers
 
         private bool DoCompress(FileInfo file, bool lossless, int quality)
         {
-            using (TemporaryFile tempFile = new TemporaryFile())
+            using (var tempFile = new TemporaryFile())
             {
                 DoNativeCompress(file, tempFile, Progressive, lossless, quality);
 
                 if (OptimalCompression)
                 {
-                    using (TemporaryFile tempFileOptimal = new TemporaryFile())
+                    using (var tempFileOptimal = new TemporaryFile())
                     {
                         DoNativeCompress(file, tempFileOptimal, !Progressive, lossless, quality);
 
@@ -189,10 +189,10 @@ namespace ImageMagick.ImageOptimizers
         {
             ImageOptimizerHelper.CheckStream(stream);
 
-            bool isCompressed = false;
-            long startPosition = stream.Position;
+            var isCompressed = false;
+            var startPosition = stream.Position;
 
-            MemoryStream memStream = new MemoryStream();
+            var memStream = new MemoryStream();
 
             try
             {
@@ -202,7 +202,7 @@ namespace ImageMagick.ImageOptimizers
                 {
                     stream.Position = startPosition;
 
-                    MemoryStream memStreamOptimal = new MemoryStream();
+                    var memStreamOptimal = new MemoryStream();
 
                     try
                     {
