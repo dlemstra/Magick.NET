@@ -8,19 +8,18 @@ namespace ImageMagick
 {
     internal sealed class TemporaryFile : IDisposable
     {
-        private FileInfo _tempFile;
+        private readonly FileInfo _tempFile;
 
         public TemporaryFile()
         {
             _tempFile = new FileInfo(Path.GetTempFileName());
         }
 
-        public long Length => _tempFile.Length;
+        public long Length
+            => _tempFile.Length;
 
         public static implicit operator FileInfo(TemporaryFile file)
-        {
-            return file._tempFile;
-        }
+            => file._tempFile;
 
         public void CopyTo(FileInfo file)
         {
