@@ -55,7 +55,7 @@ namespace ImageMagick
                 }
                 catch
                 {
-                    return -1;
+                    return bytesRead;
                 }
 
                 _currentOffset += length;
