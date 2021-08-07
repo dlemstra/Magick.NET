@@ -39,13 +39,23 @@ namespace ImageMagick
             long bytesRead = 0;
             while (total > 0)
             {
-                var current = _enumerator.Current.Span;
+                long length = 0;
+                ReadOnlySpan<byte> current;
 
-                var length = Math.Min(total, current.Length - _currentOffset);
-
-                fixed (byte* source = current)
+                try
                 {
-                    Buffer.MemoryCopy(source + _currentOffset, destination, length, length);
+                    current = _enumerator.Current.Span;
+
+                    length = Math.Min(total, current.Length - _currentOffset);
+
+                    fixed (byte* source = current)
+                    {
+                        Buffer.MemoryCopy(source + _currentOffset, destination, length, length);
+                    }
+                }
+                catch
+                {
+                    return -1;
                 }
 
                 _currentOffset += length;
@@ -56,8 +66,15 @@ namespace ImageMagick
 
                 if (length == current.Length)
                 {
-                    if (!_enumerator.MoveNext())
-                        break;
+                    try
+                    {
+                        if (!_enumerator.MoveNext())
+                            break;
+                    }
+                    catch
+                    {
+                        return -1;
+                    }
 
                     _currentOffset = 0;
                 }
@@ -84,20 +101,28 @@ namespace ImageMagick
                 _currentOffset = 0;
 
                 var remaining = newOffset;
-                _enumerator = _data.GetEnumerator();
 
-                while (_enumerator.MoveNext())
+                try
                 {
-                    var current = _enumerator.Current.Span;
+                    _enumerator = _data.GetEnumerator();
 
-                    if (remaining < current.Length)
+                    while (_enumerator.MoveNext())
                     {
-                        _currentOffset = remaining;
-                        _totalOffset = newOffset;
-                        break;
-                    }
+                        var current = _enumerator.Current.Span;
 
-                    remaining -= current.Length;
+                        if (remaining < current.Length)
+                        {
+                            _currentOffset = remaining;
+                            _totalOffset = newOffset;
+                            break;
+                        }
+
+                        remaining -= current.Length;
+                    }
+                }
+                catch
+                {
+                    return _totalOffset;
                 }
 
                 if (remaining == 0)
