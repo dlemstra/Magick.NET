@@ -6400,15 +6400,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public byte[] ToByteArray(MagickFormat format)
         {
-            var currentFormat = _nativeInstance.Format;
-
-            Format = format;
-            var bytes = ToByteArray();
-
-            _nativeInstance.Format = currentFormat;
-            _settings.Format = MagickFormat.Unknown;
-
-            return bytes;
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                return ToByteArray();
+            }
         }
 
         /// <summary>
@@ -6784,7 +6779,7 @@ namespace ImageMagick
         public void Write(FileInfo file, IWriteDefines defines)
         {
             _settings.SetDefines(defines);
-            Write(file);
+            Write(file, defines.Format);
         }
 
         /// <summary>
@@ -6795,8 +6790,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(FileInfo file, MagickFormat format)
         {
-            _settings.Format = format;
-            Write(file);
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                Write(file);
+            }
         }
 
         /// <summary>
@@ -6839,8 +6836,7 @@ namespace ImageMagick
         public void Write(Stream stream, IWriteDefines defines)
         {
             _settings.SetDefines(defines);
-            _settings.Format = defines.Format;
-            Write(stream);
+            Write(stream, defines.Format);
         }
 
         /// <summary>
@@ -6851,10 +6847,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(Stream stream, MagickFormat format)
         {
-            var currentFormat = Format;
-            _settings.Format = format;
-            Write(stream);
-            Format = currentFormat;
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                Write(stream);
+            }
         }
 
         /// <summary>
@@ -6864,7 +6860,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(string fileName)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
@@ -6881,7 +6877,7 @@ namespace ImageMagick
         public void Write(string fileName, IWriteDefines defines)
         {
             _settings.SetDefines(defines);
-            Write(fileName);
+            Write(fileName, defines.Format);
         }
 
         /// <summary>
@@ -6892,8 +6888,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(string fileName, MagickFormat format)
         {
-            _settings.Format = format;
-            Write(fileName);
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                Write(fileName);
+            }
         }
 
         internal static IMagickImage<QuantumType>? Clone(IMagickImage<QuantumType>? image)

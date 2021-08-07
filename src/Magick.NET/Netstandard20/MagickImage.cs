@@ -158,8 +158,7 @@ namespace ImageMagick
         public Task WriteAsync(Stream stream, IWriteDefines defines, CancellationToken cancellationToken)
         {
             _settings.SetDefines(defines);
-            _settings.Format = defines.Format;
-            return WriteAsync(stream, cancellationToken);
+            return WriteAsync(stream, defines.Format, cancellationToken);
         }
 
         /// <summary>
@@ -182,10 +181,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public async Task WriteAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken)
         {
-            var currentFormat = Format;
-            _settings.Format = format;
-            await WriteAsync(stream, cancellationToken).ConfigureAwait(false);
-            Format = currentFormat;
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                await WriteAsync(stream, cancellationToken).ConfigureAwait(false);
+            }
         }
     }
 }
