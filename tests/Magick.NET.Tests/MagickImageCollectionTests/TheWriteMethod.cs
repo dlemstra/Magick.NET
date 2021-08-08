@@ -66,6 +66,7 @@ namespace Magick.NET.Tests
                         using (var tempfile = new TemporaryFile("foobar"))
                         {
                             input.Write(tempfile.FileInfo, MagickFormat.Tiff);
+                            Assert.Equal(MagickFormat.Png, input[0].Format);
 
                             using (var output = new MagickImageCollection(tempfile.FileInfo))
                             {
@@ -159,6 +160,7 @@ namespace Magick.NET.Tests
                         using (var tempfile = new TemporaryFile("foobar"))
                         {
                             input.Write(tempfile.FullName, MagickFormat.Tiff);
+                            Assert.Equal(MagickFormat.Png, input[0].Format);
 
                             using (var output = new MagickImageCollection(tempfile.FullName))
                             {
@@ -252,6 +254,7 @@ namespace Magick.NET.Tests
                             using (var stream = new NonSeekableStream(memoryStream))
                             {
                                 input.Write(stream, MagickFormat.Tiff);
+                                Assert.Equal(MagickFormat.Png, input[0].Format);
 
                                 memoryStream.Position = 0;
                                 using (var output = new MagickImageCollection(stream))

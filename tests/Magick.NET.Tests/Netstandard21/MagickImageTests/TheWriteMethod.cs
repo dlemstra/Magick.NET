@@ -57,6 +57,7 @@ namespace Magick.NET.Tests
                         var bufferWriter = new ArrayBufferWriter<byte>();
 
                         input.Write(bufferWriter, MagickFormat.Tiff);
+                        Assert.Equal(MagickFormat.Png, input.Format);
 
                         using (var output = new MagickImage(bufferWriter.WrittenSpan))
                         {
