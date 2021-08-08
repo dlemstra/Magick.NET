@@ -124,102 +124,6 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithStream
-            {
-                [Fact]
-                public void ShouldThrowExceptionWhenFileIsNull()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null));
-                    }
-                }
-            }
-
-            public class WithStreamAndMagickFormat
-            {
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNull()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null, MagickFormat.Bmp));
-                    }
-                }
-
-                [Fact]
-                public void ShouldUseTheSpecifiedFormat()
-                {
-                    using (var input = new MagickImage(Files.CirclePNG))
-                    {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            using (var stream = new NonSeekableStream(memoryStream))
-                            {
-                                input.Write(stream, MagickFormat.Tiff);
-                                Assert.Equal(MagickFormat.Png, input.Format);
-
-                                memoryStream.Position = 0;
-                                using (var output = new MagickImage(stream))
-                                {
-                                    Assert.Equal(MagickFormat.Tiff, output.Format);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            public class WithStreamAndWriteDefines
-            {
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNull()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        var defines = new JpegWriteDefines();
-
-                        Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null, defines));
-                    }
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenWriteDefinesIsNull()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        using (var stream = new MemoryStream())
-                        {
-                            Assert.Throws<ArgumentNullException>("defines", () => image.Write(stream, null));
-                        }
-                    }
-                }
-
-                [Fact]
-                public void ShouldUseTheSpecifiedFormat()
-                {
-                    using (var input = new MagickImage(Files.CirclePNG))
-                    {
-                        using (var stream = new MemoryStream())
-                        {
-                            var defines = new JpegWriteDefines
-                            {
-                                DctMethod = JpegDctMethod.Fast,
-                            };
-
-                            input.Write(stream, defines);
-                            Assert.Equal(MagickFormat.Png, input.Format);
-
-                            stream.Position = 0;
-                            using (var output = new MagickImage(stream))
-                            {
-                                Assert.Equal(MagickFormat.Jpeg, output.Format);
-                            }
-                        }
-                    }
-                }
-            }
-
             public class WithFileName
             {
                 [Fact]
@@ -333,6 +237,102 @@ namespace Magick.NET.Tests
                             Assert.Equal(MagickFormat.Png, input.Format);
 
                             using (var output = new MagickImage(tempfile))
+                            {
+                                Assert.Equal(MagickFormat.Jpeg, output.Format);
+                            }
+                        }
+                    }
+                }
+            }
+
+            public class WithStream
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenFileIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null));
+                    }
+                }
+            }
+
+            public class WithStreamAndMagickFormat
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null, MagickFormat.Bmp));
+                    }
+                }
+
+                [Fact]
+                public void ShouldUseTheSpecifiedFormat()
+                {
+                    using (var input = new MagickImage(Files.CirclePNG))
+                    {
+                        using (var memoryStream = new MemoryStream())
+                        {
+                            using (var stream = new NonSeekableStream(memoryStream))
+                            {
+                                input.Write(stream, MagickFormat.Tiff);
+                                Assert.Equal(MagickFormat.Png, input.Format);
+
+                                memoryStream.Position = 0;
+                                using (var output = new MagickImage(stream))
+                                {
+                                    Assert.Equal(MagickFormat.Tiff, output.Format);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            public class WithStreamAndWriteDefines
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var defines = new JpegWriteDefines();
+
+                        Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null, defines));
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenWriteDefinesIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            Assert.Throws<ArgumentNullException>("defines", () => image.Write(stream, null));
+                        }
+                    }
+                }
+
+                [Fact]
+                public void ShouldUseTheSpecifiedFormat()
+                {
+                    using (var input = new MagickImage(Files.CirclePNG))
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            var defines = new JpegWriteDefines
+                            {
+                                DctMethod = JpegDctMethod.Fast,
+                            };
+
+                            input.Write(stream, defines);
+                            Assert.Equal(MagickFormat.Png, input.Format);
+
+                            stream.Position = 0;
+                            using (var output = new MagickImage(stream))
                             {
                                 Assert.Equal(MagickFormat.Jpeg, output.Format);
                             }
