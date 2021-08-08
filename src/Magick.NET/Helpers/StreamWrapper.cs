@@ -60,7 +60,7 @@ namespace ImageMagick
             if (data == IntPtr.Zero)
                 return 0;
 
-            byte* p = (byte*)data.ToPointer();
+            byte* destination = (byte*)data.ToPointer();
             long bytesRead = 0;
 
             while (total > 0)
@@ -81,7 +81,7 @@ namespace ImageMagick
 
                 bytesRead += length;
 
-                p = ReadBuffer(p, length);
+                destination = ReadBuffer(destination, length);
 
                 total -= length;
             }
@@ -132,13 +132,13 @@ namespace ImageMagick
             if (data == IntPtr.Zero)
                 return 0;
 
-            byte* p = (byte*)data.ToPointer();
+            byte* source = (byte*)data.ToPointer();
 
             while (total > 0)
             {
                 var length = Math.Min(total, BufferSize);
 
-                p = FillBuffer(p, length);
+                source = FillBuffer(source, length);
 
                 try
                 {
@@ -155,44 +155,44 @@ namespace ImageMagick
             return (long)count;
         }
 
-        private byte* FillBuffer(byte* p, long length)
+        private byte* FillBuffer(byte* source, long length)
         {
-            byte* q = _bufferStart;
+            byte* destination = _bufferStart;
             while (length >= 4)
             {
-                *(q++) = *(p++);
-                *(q++) = *(p++);
-                *(q++) = *(p++);
-                *(q++) = *(p++);
+                *(destination++) = *(source++);
+                *(destination++) = *(source++);
+                *(destination++) = *(source++);
+                *(destination++) = *(source++);
                 length -= 4;
             }
 
             while (length-- > 0)
             {
-                *(q++) = *(p++);
+                *(destination++) = *(source++);
             }
 
-            return p;
+            return source;
         }
 
-        private byte* ReadBuffer(byte* p, long length)
+        private byte* ReadBuffer(byte* destination, long length)
         {
-            byte* q = _bufferStart;
+            byte* source = _bufferStart;
             while (length >= 4)
             {
-                *(p++) = *(q++);
-                *(p++) = *(q++);
-                *(p++) = *(q++);
-                *(p++) = *(q++);
+                *(destination++) = *(source++);
+                *(destination++) = *(source++);
+                *(destination++) = *(source++);
+                *(destination++) = *(source++);
                 length -= 4;
             }
 
             while (length-- > 0)
             {
-                *(p++) = *(q++);
+                *(destination++) = *(source++);
             }
 
-            return p;
+            return destination;
         }
     }
 }
