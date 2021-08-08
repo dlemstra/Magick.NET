@@ -315,6 +315,65 @@ namespace ImageMagick
             => ReadAsync(fileName, new MagickReadSettings { Format = format }, cancellationToken);
 
         /// <summary>
+        /// Writes the images to the specified buffer writter. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="bufferWriter">The buffer writer to write the images to.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Write(IBufferWriter<byte> bufferWriter)
+        {
+            Throw.IfNull(nameof(bufferWriter), bufferWriter);
+
+            if (_images.Count == 0)
+                return;
+
+            var settings = GetSettings().Clone();
+            settings.FileName = null;
+
+            try
+            {
+                AttachImages();
+
+                var wrapper = new BufferWriterWrapper(bufferWriter);
+                var writer = new ReadWriteStreamDelegate(wrapper.Write);
+
+                _nativeInstance.WriteStream(_images[0], settings, writer, null, null, null);
+            }
+            finally
+            {
+                DetachImages();
+            }
+        }
+
+        /// <summary>
+        /// Writes the images to the specified buffer writter. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="bufferWriter">The buffer writer to write the images to.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Write(IBufferWriter<byte> bufferWriter, IWriteDefines defines)
+        {
+            SetDefines(defines);
+            Write(bufferWriter, defines.Format);
+        }
+
+        /// <summary>
+        /// Writes the images to the specified buffer writter. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="bufferWriter">The buffer writer to write the images to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Write(IBufferWriter<byte> bufferWriter, MagickFormat format)
+        {
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                Write(bufferWriter);
+            }
+        }
+
+        /// <summary>
         /// Writes the images to the specified file. If the output image's file format does not
         /// allow multi-image files multiple files will be written.
         /// </summary>
@@ -440,7 +499,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public Task WriteAsync(string fileName, CancellationToken cancellationToken)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return WriteAsync(new FileInfo(filePath), cancellationToken);
@@ -494,7 +553,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public async Task WriteAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             if (_images.Count == 0)
