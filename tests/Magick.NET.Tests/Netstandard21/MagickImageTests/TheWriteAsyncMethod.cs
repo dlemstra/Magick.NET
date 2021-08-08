@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using ImageMagick;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests
@@ -73,6 +74,55 @@ namespace Magick.NET.Tests
                             using (var output = new MagickImage(tempfile))
                             {
                                 Assert.Equal(MagickFormat.Tiff, output.Format);
+                            }
+                        }
+                    }
+                }
+            }
+
+            public class WithFileAndWriteDefines
+            {
+                [Fact]
+                public async Task ShouldThrowExceptionWhenFileIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var defines = new JpegWriteDefines();
+
+                        await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.WriteAsync((FileInfo)null, defines));
+                    }
+                }
+
+                [Fact]
+                public async Task ShouldThrowExceptionWhenWriteDefinesIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var file = new FileInfo(Files.CirclePNG);
+                        await Assert.ThrowsAsync<ArgumentNullException>("defines", () => image.WriteAsync(file, null));
+                    }
+                }
+
+                [Fact]
+                public async Task ShouldUseTheSpecifiedFormat()
+                {
+                    using (var input = new MagickImage(Files.CirclePNG))
+                    {
+                        using (var tempfile = new TemporaryFile("foobar"))
+                        {
+                            var defines = new JpegWriteDefines
+                            {
+                                DctMethod = JpegDctMethod.Fast,
+                            };
+
+                            await input.WriteAsync(tempfile, defines);
+                            Assert.Equal(MagickFormat.Png, input.Format);
+
+                            using (var output = new MagickImage())
+                            {
+                                await output.ReadAsync(tempfile);
+
+                                Assert.Equal(MagickFormat.Jpeg, output.Format);
                             }
                         }
                     }
@@ -147,6 +197,55 @@ namespace Magick.NET.Tests
                             using (var output = new MagickImage(tempfile.FullName))
                             {
                                 Assert.Equal(MagickFormat.Tiff, output.Format);
+                            }
+                        }
+                    }
+                }
+            }
+
+            public class WithFileNameAndWriteDefines
+            {
+                [Fact]
+                public async Task ShouldThrowExceptionWhenFileNameIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var defines = new JpegWriteDefines();
+
+                        await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.WriteAsync((string)null, defines));
+                    }
+                }
+
+                [Fact]
+                public async Task ShouldThrowExceptionWhenWriteDefinesIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var file = new FileInfo(Files.CirclePNG);
+                        await Assert.ThrowsAsync<ArgumentNullException>("defines", () => image.WriteAsync(file, null));
+                    }
+                }
+
+                [Fact]
+                public async Task ShouldUseTheSpecifiedFormat()
+                {
+                    using (var input = new MagickImage(Files.CirclePNG))
+                    {
+                        using (var tempfile = new TemporaryFile("foobar"))
+                        {
+                            var defines = new JpegWriteDefines
+                            {
+                                DctMethod = JpegDctMethod.Fast,
+                            };
+
+                            await input.WriteAsync(tempfile.FullName, defines);
+                            Assert.Equal(MagickFormat.Png, input.Format);
+
+                            using (var output = new MagickImage())
+                            {
+                                await output.ReadAsync(tempfile.FullName);
+
+                                Assert.Equal(MagickFormat.Jpeg, output.Format);
                             }
                         }
                     }
