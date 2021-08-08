@@ -173,7 +173,7 @@ namespace ImageMagick
         {
             using (_ = new TemporaryMagickFormat(this, format))
             {
-                await WriteAsync(stream, cancellationToken);
+                await WriteAsync(stream, cancellationToken).ConfigureAwait(false);
             }
         }
     }
