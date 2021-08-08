@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick ] copyright:
+[ ImageMagick 7.1.0-5 beta (2021-08-08) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -122,7 +122,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ aom 2.0.0 ] copyright:
+[ aom 2.0.0 (2020-05-18) ] copyright:
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -154,7 +154,7 @@ POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ brotli 1.0.9 ] copyright:
+[ brotli 1.0.9 (2020-08-27) ] copyright:
 
 Copyright (c) 2009, 2010, 2013-2016 by the Brotli Authors.
 
@@ -178,7 +178,7 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ bzlib 1.0.8 ] copyright:
+[ bzlib 1.0.8 (2019-07-13) ] copyright:
 
 
 --------------------------------------------------------------------------
@@ -225,7 +225,7 @@ bzip2/libbzip2 version 1.0.8 of 13 July 2019
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ cairo 1.16.0 ] copyright:
+[ cairo 1.16.0 (2018-10-19) ] copyright:
 
 
                   GNU LESSER GENERAL PUBLIC LICENSE
@@ -740,7 +740,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ croco 0.6.13 ] copyright:
+[ croco 0.6.13 (2019-04-06) ] copyright:
 
 		  GNU LIBRARY GENERAL PUBLIC LICENSE
 		       Version 2, June 1991
@@ -1226,7 +1226,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ exr 2.5.1 ] copyright:
+[ exr 2.5.1 (2020-05-11) ] copyright:
 
 Copyright (c) 2006-2019 OpenEXR a Series of LF Projects, LLC. All rights reserved.
 
@@ -1257,7 +1257,7 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ffi 3.2.1 ] copyright:
+[ ffi 3.2.1 (2014-11-12) ] copyright:
 
 libffi - Copyright (c) 1996-2014  Anthony Green, Red Hat, Inc and others.
 See source files for details.
@@ -1316,7 +1316,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ freetype 2.10.4 ] copyright:
+[ freetype 2.10.4 (2020-10-04) ] copyright:
 
                     The FreeType Project LICENSE
                     ----------------------------
@@ -1490,7 +1490,7 @@ Legal Terms
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ fribidi 1.0.10 ] copyright:
+[ fribidi 1.0.10 (2020-07-05) ] copyright:
 
 		  GNU LESSER GENERAL PUBLIC LICENSE
 		       Version 2.1, February 1999
@@ -1999,7 +1999,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ glib 2.64.3 ] copyright:
+[ glib 2.64.3 (2020-05-20) ] copyright:
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
@@ -2506,7 +2506,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 2.8.1 ] copyright:
+[ harfbuzz 2.8.1 (2021-05-04) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -2549,7 +2549,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ highway 0.12.0 ] copyright:
+[ highway 0.12.0 (2021-04-15) ] copyright:
 
                                  Apache License
                            Version 2.0, January 2004
@@ -2754,7 +2754,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
    limitations under the License.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-turbo 2.0.5 ] copyright:
+[ jpeg-turbo 2.0.5 (2020-06-24) ] copyright:
 
 In plain English:
 
@@ -2816,7 +2816,7 @@ We are required to state that
     CompuServe Incorporated."
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-xl 0.3.7 ] copyright:
+[ jpeg-xl 0.3.7 (2021-03-29) ] copyright:
 
 
                                  Apache License
@@ -3024,7 +3024,7 @@ We are required to state that
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lcms 2.12 ] copyright:
+[ lcms 2.12 (2021-03-06) ] copyright:
 
 Little CMS
 Copyright (c) 1998-2020 Marti Maria Saguer
@@ -3050,7 +3050,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ libde265 1.0.8 ] copyright:
+[ libde265 1.0.8 (2020-11-02) ] copyright:
 
 * The library `libde265` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT license.
@@ -3926,7 +3926,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ libheif 1.12.0 ] copyright:
+[ libheif 1.12.0 (2021-05-05) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -4802,7 +4802,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ liblzma 5.2.5 ] copyright:
+[ liblzma 5.2.5 (2020-03-17) ] copyright:
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
@@ -5309,7 +5309,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ libraw 0.20.0.1 ] copyright:
+[ libraw 0.20.0.1 (2021-02-08) ] copyright:
 
  ** LibRaw: Raw images processing library **
 
@@ -5341,7 +5341,7 @@ Copyright (c) 2005 Adobe Systems Incorporated, licensed under MIT license
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ librsvg 2.40.20 ] copyright:
+[ librsvg 2.40.20 (2017-12-15) ] copyright:
 
 		    GNU GENERAL PUBLIC LICENSE
 		       Version 2, June 1991
@@ -5686,7 +5686,7 @@ Public License instead of this License.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ libxml 2.9.10 ] copyright:
+[ libxml 2.9.10 (2019-10-30) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files hash.c,
 list.c and the trio files, which are covered by a similar licence but
@@ -5714,7 +5714,7 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ libzip 1.7.3 ] copyright:
+[ libzip 1.7.3 (2020-07-15) ] copyright:
 
 Copyright (C) 1999-2020 Dieter Baron and Thomas Klausner
 
@@ -5750,7 +5750,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lqr 0.4.2 ] copyright:
+[ lqr 0.4.2 (2012-12-04) ] copyright:
 
 		   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
@@ -5920,7 +5920,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openjpeg 2.3.1 ] copyright:
+[ openjpeg 2.3.1 (2019-02-26) ] copyright:
 
 /*
  * The copyright in this software is being made available under the 2-clauses 
@@ -5964,7 +5964,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ pango 1.45.3 ] copyright:
+[ pango 1.45.3 (2020-06-22) ] copyright:
 
 		  GNU LIBRARY GENERAL PUBLIC LICENSE
 		       Version 2, June 1991
@@ -6451,7 +6451,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ pixman 0.40.0 ] copyright:
+[ pixman 0.40.0 (2020-04-19) ] copyright:
 
 The following is the MIT license, agreed upon by most contributors.
 Copyright holders of new code should use this license statement where
@@ -6498,7 +6498,7 @@ possible. They may also add themselves to the list below.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ png 1.6.37.0 ] copyright:
+[ png 1.6.37 (2018-07-16) ] copyright:
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
@@ -6637,7 +6637,7 @@ be appreciated.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ raqm 0.7.1 ] copyright:
+[ raqm 0.7.1 (2020-11-22) ] copyright:
 
 The MIT License (MIT)
 
@@ -6664,7 +6664,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ tiff 4.3.0 ] copyright:
+[ tiff 4.3.0 (2020-04-20) ] copyright:
 
 Copyright (c) 1988-1997 Sam Leffler
 Copyright (c) 1991-1997 Silicon Graphics, Inc.
@@ -6690,7 +6690,7 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ webp 1.2.0 ] copyright:
+[ webp 1.2.0 (2021-01-30) ] copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
@@ -6725,7 +6725,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ zlib 1.2.11 ] copyright:
+[ zlib 1.2.11 (2017-01-15) ] copyright:
 
  (C) 1995-2017 Jean-loup Gailly and Mark Adler
 
