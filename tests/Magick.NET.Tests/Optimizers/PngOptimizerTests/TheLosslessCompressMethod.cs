@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
 
                     using (TemporaryFile tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
                     {
-                        var result = optimizer.LosslessCompress(tempFile);
+                        var result = optimizer.LosslessCompress(tempFile.FileInfo);
                         Assert.False(result);
                     }
                 }

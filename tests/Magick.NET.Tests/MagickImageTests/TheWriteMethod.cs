@@ -36,9 +36,9 @@ namespace Magick.NET.Tests
                     {
                         using (var tempFile = new TemporaryFile(".jpg"))
                         {
-                            input.Write(tempFile);
+                            input.Write(tempFile.FileInfo);
 
-                            using (var output = new MagickImage(tempFile))
+                            using (var output = new MagickImage(tempFile.FileInfo))
                             {
                                 Assert.Equal(MagickFormat.Jpeg, output.Format);
                             }
@@ -65,10 +65,10 @@ namespace Magick.NET.Tests
                     {
                         using (var tempfile = new TemporaryFile("foobar"))
                         {
-                            input.Write(tempfile, MagickFormat.Tiff);
+                            input.Write(tempfile.FileInfo, MagickFormat.Tiff);
                             Assert.Equal(MagickFormat.Png, input.Format);
 
-                            using (var output = new MagickImage(tempfile))
+                            using (var output = new MagickImage(tempfile.FileInfo))
                             {
                                 Assert.Equal(MagickFormat.Tiff, output.Format);
                             }
@@ -112,10 +112,10 @@ namespace Magick.NET.Tests
                                 DctMethod = JpegDctMethod.Fast,
                             };
 
-                            input.Write(tempfile, defines);
+                            input.Write(tempfile.FileInfo, defines);
                             Assert.Equal(MagickFormat.Png, input.Format);
 
-                            using (var output = new MagickImage(tempfile))
+                            using (var output = new MagickImage(tempfile.FileInfo))
                             {
                                 Assert.Equal(MagickFormat.Jpeg, output.Format);
                             }
@@ -236,7 +236,7 @@ namespace Magick.NET.Tests
                             input.Write(tempfile.FullName, defines);
                             Assert.Equal(MagickFormat.Png, input.Format);
 
-                            using (var output = new MagickImage(tempfile))
+                            using (var output = new MagickImage(tempfile.FullName))
                             {
                                 Assert.Equal(MagickFormat.Jpeg, output.Format);
                             }

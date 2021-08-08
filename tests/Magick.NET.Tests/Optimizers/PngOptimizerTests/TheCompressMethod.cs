@@ -49,11 +49,11 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotOptimizeAnimatedPNG()
                 {
-                    PngOptimizer optimizer = new PngOptimizer();
+                    var optimizer = new PngOptimizer();
 
-                    using (TemporaryFile tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
+                    using (var tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
                     {
-                        var result = optimizer.Compress(tempFile);
+                        var result = optimizer.Compress(tempFile.FileInfo);
                         Assert.False(result);
                     }
                 }
@@ -61,22 +61,22 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldDisableAlphaChannelWhenPossible()
                 {
-                    using (TemporaryFile tempFile = new TemporaryFile("no-alpha.png"))
+                    using (var tempFile = new TemporaryFile("no-alpha.png"))
                     {
                         using (var image = new MagickImage(Files.MagickNETIconPNG))
                         {
                             Assert.True(image.HasAlpha);
                             image.ColorAlpha(new MagickColor("yellow"));
                             image.HasAlpha = true;
-                            image.Write(tempFile);
+                            image.Write(tempFile.FileInfo);
 
-                            image.Read(tempFile);
+                            image.Read(tempFile.FileInfo);
 
                             Assert.True(image.HasAlpha);
 
-                            Optimizer.LosslessCompress(tempFile);
+                            Optimizer.LosslessCompress(tempFile.FileInfo);
 
-                            image.Read(tempFile);
+                            image.Read(tempFile.FileInfo);
                             Assert.False(image.HasAlpha);
                         }
                     }
@@ -120,7 +120,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotReadable()
                 {
-                    using (TestStream stream = new TestStream(false, true, true))
+                    using (var stream = new TestStream(false, true, true))
                     {
                         Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
                     }
@@ -129,7 +129,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotWriteable()
                 {
-                    using (TestStream stream = new TestStream(true, false, true))
+                    using (var stream = new TestStream(true, false, true))
                     {
                         Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
                     }
@@ -138,7 +138,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotSeekable()
                 {
-                    using (TestStream stream = new TestStream(true, true, false))
+                    using (var stream = new TestStream(true, true, false))
                     {
                         Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
                     }

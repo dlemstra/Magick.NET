@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                     var optimizer = new ImageOptimizer();
                     using (var file = new TemporaryFile("empty"))
                     {
-                        var result = optimizer.LosslessCompress(file);
+                        var result = optimizer.LosslessCompress(file.FileInfo);
                         Assert.False(result);
                     }
                 }

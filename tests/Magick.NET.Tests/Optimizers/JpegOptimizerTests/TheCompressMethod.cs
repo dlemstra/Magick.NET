@@ -52,16 +52,16 @@ namespace Magick.NET.Tests
                     using (var tempFile = new TemporaryFile(Files.ImageMagickJPG))
                     {
                         var optimizer = new JpegOptimizer();
-                        optimizer.Compress(tempFile);
+                        optimizer.Compress(tempFile.FileInfo);
 
-                        var info = new MagickImageInfo(tempFile);
+                        var info = new MagickImageInfo(tempFile.FileInfo);
                         Assert.Equal(85, info.Quality);
 
                         FileHelper.Copy(Files.ImageMagickJPG, tempFile.FullName);
 
-                        optimizer.Compress(tempFile, 40);
+                        optimizer.Compress(tempFile.FileInfo, 40);
 
-                        info = new MagickImageInfo(tempFile);
+                        info = new MagickImageInfo(tempFile.FileInfo);
                         Assert.Equal(40, info.Quality);
                     }
                 }
@@ -78,13 +78,13 @@ namespace Magick.NET.Tests
 
                     using (var tempFile = new TemporaryFile(Files.PictureJPG))
                     {
-                        var result = Optimizer.Compress(tempFile);
+                        var result = Optimizer.Compress(tempFile.FileInfo);
 
                         Assert.True(result);
 
                         using (var image = new MagickImage())
                         {
-                            image.Ping(tempFile);
+                            image.Ping(tempFile.FileInfo);
 
                             Assert.NotNull(image.GetColorProfile());
                         }
@@ -103,13 +103,13 @@ namespace Magick.NET.Tests
 
                     using (var tempFile = new TemporaryFile(Files.PictureJPG))
                     {
-                        var result = Optimizer.Compress(tempFile);
+                        var result = Optimizer.Compress(tempFile.FileInfo);
 
                         Assert.True(result);
 
                         using (var image = new MagickImage())
                         {
-                            image.Ping(tempFile);
+                            image.Ping(tempFile.FileInfo);
 
                             Assert.Null(image.GetExifProfile());
                         }

@@ -39,9 +39,9 @@ namespace Magick.NET.Tests
                     {
                         using (var tempFile = new TemporaryFile(".jpg"))
                         {
-                            await input.WriteAsync(tempFile);
+                            await input.WriteAsync(tempFile.FileInfo);
 
-                            using (var output = new MagickImage(tempFile))
+                            using (var output = new MagickImage(tempFile.FileInfo))
                             {
                                 Assert.Equal(MagickFormat.Jpeg, output.Format);
                             }
@@ -68,10 +68,10 @@ namespace Magick.NET.Tests
                     {
                         using (var tempfile = new TemporaryFile("foobar"))
                         {
-                            await input.WriteAsync(tempfile, MagickFormat.Tiff);
+                            await input.WriteAsync(tempfile.FileInfo, MagickFormat.Tiff);
                             Assert.Equal(MagickFormat.Png, input.Format);
 
-                            using (var output = new MagickImage(tempfile))
+                            using (var output = new MagickImage(tempfile.FileInfo))
                             {
                                 Assert.Equal(MagickFormat.Tiff, output.Format);
                             }
@@ -115,12 +115,12 @@ namespace Magick.NET.Tests
                                 DctMethod = JpegDctMethod.Fast,
                             };
 
-                            await input.WriteAsync(tempfile, defines);
+                            await input.WriteAsync(tempfile.FileInfo, defines);
                             Assert.Equal(MagickFormat.Png, input.Format);
 
                             using (var output = new MagickImage())
                             {
-                                await output.ReadAsync(tempfile);
+                                await output.ReadAsync(tempfile.FileInfo);
 
                                 Assert.Equal(MagickFormat.Jpeg, output.Format);
                             }

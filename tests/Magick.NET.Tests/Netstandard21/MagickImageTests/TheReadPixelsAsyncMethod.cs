@@ -46,10 +46,9 @@ namespace Magick.NET.Tests
 
                     using (var temporyFile = new TemporaryFile(bytes))
                     {
-                        FileInfo file = temporyFile;
                         using (var image = new MagickImage())
                         {
-                            await image.ReadPixelsAsync(file, settings);
+                            await image.ReadPixelsAsync(temporyFile.FileInfo, settings);
 
                             Assert.Equal(1, image.Width);
                             Assert.Equal(1, image.Height);

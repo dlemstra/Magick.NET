@@ -412,8 +412,7 @@ namespace Magick.NET.Tests
 
                     using (var temporyFile = new TemporaryFile(bytes))
                     {
-                        FileInfo file = temporyFile;
-                        using (var image = new MagickImage(file, settings))
+                        using (var image = new MagickImage(temporyFile.FileInfo, settings))
                         {
                             Assert.Equal(1, image.Width);
                             Assert.Equal(1, image.Height);

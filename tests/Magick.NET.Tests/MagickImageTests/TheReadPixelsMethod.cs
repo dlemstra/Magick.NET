@@ -177,7 +177,7 @@ namespace Magick.NET.Tests
                     {
                         Assert.Throws<ArgumentNullException>("settings", () =>
                         {
-                            image.ReadPixels(new byte[] { 215 }, 0, 1, (PixelReadSettings)null);
+                            image.ReadPixels(new byte[] { 215 }, 0, 1, null);
                         });
                     }
                 }
@@ -220,10 +220,9 @@ namespace Magick.NET.Tests
 
                     using (var temporyFile = new TemporaryFile(bytes))
                     {
-                        FileInfo file = temporyFile;
                         using (var image = new MagickImage())
                         {
-                            image.ReadPixels(file, settings);
+                            image.ReadPixels(temporyFile.FileInfo, settings);
 
                             Assert.Equal(1, image.Width);
                             Assert.Equal(1, image.Height);

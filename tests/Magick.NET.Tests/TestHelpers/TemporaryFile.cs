@@ -8,12 +8,10 @@ namespace Magick.NET.Tests
 {
     public class TemporaryFile : IDisposable
     {
-        private FileInfo _tempFile;
-
         public TemporaryFile(byte[] data)
         {
-            _tempFile = new FileInfo(Path.GetTempFileName());
-            File.WriteAllBytes(_tempFile.FullName, data);
+            FileInfo = new FileInfo(Path.GetTempFileName());
+            File.WriteAllBytes(FileInfo.FullName, data);
         }
 
         public TemporaryFile(string fileName)
@@ -24,37 +22,36 @@ namespace Magick.NET.Tests
                 CreateEmptyFile(fileName);
         }
 
+        public FileInfo FileInfo { get; private set; }
+
         public string FullName
-            => _tempFile.FullName;
+            => FileInfo.FullName;
 
         public long Length
-            => _tempFile.Length;
-
-        public static implicit operator FileInfo(TemporaryFile file)
-            => file._tempFile;
+        {
+            get
+            {
+                FileInfo.Refresh();
+                return FileInfo.Length;
+            }
+        }
 
         public void Dispose()
-            => Cleanup.DeleteFile(_tempFile);
-
-        public FileStream OpenWrite()
-            => _tempFile.OpenWrite();
-
-        public void Refresh()
-            => _tempFile.Refresh();
+            => Cleanup.DeleteFile(FileInfo);
 
         private void CreateEmptyFile(string fileName)
         {
-            _tempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
-            using (var fileStream = _tempFile.OpenWrite())
+            FileInfo = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
+            using (var fileStream = FileInfo.OpenWrite())
             {
             }
         }
 
         private void CreateFromFile(string fileName)
         {
-            _tempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + Path.GetFileName(fileName)));
-            FileHelper.Copy(fileName, _tempFile.FullName);
-            _tempFile.Refresh();
+            FileInfo = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + Path.GetFileName(fileName)));
+            FileHelper.Copy(fileName, FileInfo.FullName);
+            FileInfo.Refresh();
         }
     }
 }

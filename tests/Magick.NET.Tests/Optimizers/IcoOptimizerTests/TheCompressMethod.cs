@@ -49,11 +49,11 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotOptimizeAnimatedPNG()
                 {
-                    PngOptimizer optimizer = new PngOptimizer();
+                    var optimizer = new PngOptimizer();
 
-                    using (TemporaryFile tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
+                    using (var tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
                     {
-                        var result = optimizer.Compress(tempFile);
+                        var result = optimizer.Compress(tempFile.FileInfo);
                         Assert.False(result);
                     }
                 }

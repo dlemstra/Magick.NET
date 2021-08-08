@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 {
                     using (TemporaryFile file = new TemporaryFile("foo.pdf"))
                     {
-                        Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(file, null));
+                        Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(file.FileInfo, null));
                     }
                 }
             }

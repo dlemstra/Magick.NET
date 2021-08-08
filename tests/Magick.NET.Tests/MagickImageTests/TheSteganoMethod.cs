@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
 
                         using (var temporaryFile = new TemporaryFile(".png"))
                         {
-                            image.Write(temporaryFile);
+                            image.Write(temporaryFile.FullName);
 
                             var settings = new MagickReadSettings
                             {

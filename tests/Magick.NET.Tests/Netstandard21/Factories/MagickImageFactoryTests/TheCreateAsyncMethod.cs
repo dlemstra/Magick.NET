@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
 
                     using (var temporaryFile = new TemporaryFile(data))
                     {
-                        using (var image = await factory.CreateAsync(temporaryFile, settings))
+                        using (var image = await factory.CreateAsync(temporaryFile.FileInfo, settings))
                         {
                             Assert.IsType<MagickImage>(image);
                             Assert.Equal(2, image.Width);

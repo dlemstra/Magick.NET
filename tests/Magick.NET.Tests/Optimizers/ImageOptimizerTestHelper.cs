@@ -16,7 +16,7 @@ namespace Magick.NET.Tests
             {
                 var before = tempFile.Length;
 
-                var result = action(tempFile);
+                var result = action(tempFile.FileInfo);
 
                 var after = tempFile.Length;
 
@@ -39,7 +39,6 @@ namespace Magick.NET.Tests
 
                 var result = action(tempFile.FullName);
 
-                tempFile.Refresh();
                 var after = tempFile.Length;
 
                 Assert.Equal(resultIsSmaller, result);
@@ -86,7 +85,7 @@ namespace Magick.NET.Tests
         {
             using (var tempFile = new TemporaryFile(fileName))
             {
-                Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile));
+                Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.FileInfo));
             }
         }
 

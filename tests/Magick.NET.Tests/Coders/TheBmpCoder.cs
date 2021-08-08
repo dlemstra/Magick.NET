@@ -11,11 +11,11 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldBeAbleToReadBmp3Format()
         {
-            using (TemporaryFile file = new TemporaryFile(Files.MagickNETIconPNG))
+            using (var file = new TemporaryFile(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(file))
+                using (var image = new MagickImage(file.FileInfo))
                 {
-                    image.Write(file, MagickFormat.Bmp3);
+                    image.Write(file.FileInfo, MagickFormat.Bmp3);
                 }
 
                 var settings = new MagickReadSettings
@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
                     Format = MagickFormat.Bmp3,
                 };
 
-                using (var image = new MagickImage(file, settings))
+                using (var image = new MagickImage(file.FileInfo, settings))
                 {
                     Assert.Equal(MagickFormat.Bmp3, image.Format);
                 }

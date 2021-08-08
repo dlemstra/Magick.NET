@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
                 {
                     using (var tempFile = new TemporaryFile("test.palm"))
                     {
-                        using (var fs = tempFile.OpenWrite())
+                        using (var fs = tempFile.FileInfo.OpenWrite())
                         {
                             var bytes = new byte[4] { 0, 0, 0, 0 };
                             fs.Write(bytes, 0, bytes.Length);
@@ -85,7 +85,7 @@ namespace Magick.NET.Tests
 
                         Assert.Throws<MagickPolicyErrorException>(() =>
                         {
-                            using (var image = new MagickImage(tempFile))
+                            using (var image = new MagickImage(tempFile.FileInfo))
                             {
                             }
                         });

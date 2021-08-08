@@ -57,13 +57,13 @@ namespace Magick.NET.Tests
 
                     using (TemporaryFile tempFile = new TemporaryFile(Files.PictureJPG))
                     {
-                        var result = Optimizer.LosslessCompress(tempFile);
+                        var result = Optimizer.LosslessCompress(tempFile.FileInfo);
 
                         Assert.True(result);
 
                         using (var image = new MagickImage())
                         {
-                            image.Ping(tempFile);
+                            image.Ping(tempFile.FileInfo);
 
                             Assert.NotNull(image.GetColorProfile());
                         }
@@ -82,13 +82,13 @@ namespace Magick.NET.Tests
 
                     using (TemporaryFile tempFile = new TemporaryFile(Files.PictureJPG))
                     {
-                        var result = Optimizer.LosslessCompress(tempFile);
+                        var result = Optimizer.LosslessCompress(tempFile.FileInfo);
 
                         Assert.True(result);
 
                         using (var image = new MagickImage())
                         {
-                            image.Ping(tempFile);
+                            image.Ping(tempFile.FileInfo);
 
                             Assert.NotNull(image.GetExifProfile());
                         }

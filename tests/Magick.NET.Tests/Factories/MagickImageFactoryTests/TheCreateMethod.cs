@@ -518,7 +518,7 @@ namespace Magick.NET.Tests
 
                     using (var temporaryFile = new TemporaryFile(data))
                     {
-                        using (var image = factory.Create(temporaryFile, settings))
+                        using (var image = factory.Create(temporaryFile.FileInfo, settings))
                         {
                             Assert.IsType<MagickImage>(image);
                             Assert.Equal(2, image.Width);

@@ -36,9 +36,9 @@ namespace Magick.NET.Tests
                     {
                         using (var tempFile = new TemporaryFile(".jpg"))
                         {
-                            input.Write(tempFile);
+                            input.Write(tempFile.FileInfo);
 
-                            using (var output = new MagickImageCollection(tempFile))
+                            using (var output = new MagickImageCollection(tempFile.FileInfo))
                             {
                                 Assert.Equal(MagickFormat.Jpeg, output[0].Format);
                             }
@@ -65,9 +65,9 @@ namespace Magick.NET.Tests
                     {
                         using (var tempfile = new TemporaryFile("foobar"))
                         {
-                            input.Write(tempfile, MagickFormat.Tiff);
+                            input.Write(tempfile.FileInfo, MagickFormat.Tiff);
 
-                            using (var output = new MagickImageCollection(tempfile))
+                            using (var output = new MagickImageCollection(tempfile.FileInfo))
                             {
                                 Assert.Single(output);
                                 Assert.Equal(MagickFormat.Tiff, output[0].Format);
@@ -113,12 +113,12 @@ namespace Magick.NET.Tests
                                 Endian = Endian.MSB,
                             };
 
-                            input.Write(tempfile, MagickFormat.Tiff);
+                            input.Write(tempfile.FileInfo, MagickFormat.Tiff);
                             Assert.Equal(MagickFormat.Png, input[0].Format);
 
                             using (var output = new MagickImageCollection())
                             {
-                                output.Read(tempfile);
+                                output.Read(tempfile.FileInfo);
 
                                 Assert.Single(output);
                                 Assert.Equal(MagickFormat.Tiff, output[0].Format);
