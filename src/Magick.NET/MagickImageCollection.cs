@@ -1612,6 +1612,8 @@ namespace ImageMagick
 
         private void SetDefines(IWriteDefines defines)
         {
+            Throw.IfNull(nameof(defines), defines);
+
             foreach (var image in _images)
             {
                 image.Settings.SetDefines(defines);
