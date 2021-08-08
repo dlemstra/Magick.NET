@@ -396,6 +396,49 @@ namespace ImageMagick
         /// <summary>
         /// Writes the image to the specified file.
         /// </summary>
+        /// <param name="bufferWriter">The buffer writer to write the image to.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Write(IBufferWriter<byte> bufferWriter)
+        {
+            Throw.IfNull(nameof(bufferWriter), bufferWriter);
+
+            _settings.FileName = null;
+
+            var wrapper = new BufferWriterWrapper(bufferWriter);
+            var writer = new ReadWriteStreamDelegate(wrapper.Write);
+
+            _nativeInstance.WriteStream(_settings, writer, null, null, null);
+        }
+
+        /// <summary>
+        /// Writes the image to the specified file.
+        /// </summary>
+        /// <param name="bufferWriter">The buffer writer to write the image to.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Write(IBufferWriter<byte> bufferWriter, IWriteDefines defines)
+        {
+            _settings.SetDefines(defines);
+            Write(bufferWriter, defines.Format);
+        }
+
+        /// <summary>
+        /// Writes the image to the specified file.
+        /// </summary>
+        /// <param name="bufferWriter">The buffer writer to write the image to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Write(IBufferWriter<byte> bufferWriter, MagickFormat format)
+        {
+            using (_ = new TemporaryMagickFormat(this, format))
+            {
+                Write(bufferWriter);
+            }
+        }
+
+        /// <summary>
+        /// Writes the image to the specified file.
+        /// </summary>
         /// <param name="file">The file to write the image to.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

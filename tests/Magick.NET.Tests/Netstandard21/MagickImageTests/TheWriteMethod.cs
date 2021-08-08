@@ -1,0 +1,70 @@
+﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
+// Licensed under the Apache License, Version 2.0.
+
+#if NETCORE
+
+using System;
+using System.Buffers;
+using System.IO;
+using ImageMagick;
+using Xunit;
+
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
+namespace Magick.NET.Tests
+{
+    public partial class MagickImageTests
+    {
+        public partial class TheWriteMethod
+        {
+            public class WithBufferWriter
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenBufferWriterIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<QuantumType>)null));
+                    }
+                }
+            }
+
+            public class WithBufferWriterAndMagickFormat
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenBufferWriterIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<QuantumType>)null, MagickFormat.Bmp));
+                    }
+                }
+
+                [Fact]
+                public void ShouldUseTheSpecifiedFormat()
+                {
+                    using (var input = new MagickImage(Files.CirclePNG))
+                    {
+                        var bufferWriter = new ArrayBufferWriter<byte>();
+
+                        input.Write(bufferWriter, MagickFormat.Tiff);
+
+                        using (var output = new MagickImage(bufferWriter.WrittenSpan))
+                        {
+                            Assert.Equal(MagickFormat.Tiff, output.Format);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+#endif

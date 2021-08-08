@@ -10,7 +10,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class TheWriteMethod
+        public partial class TheWriteMethod
         {
             public class WithFile
             {

@@ -133,6 +133,29 @@ namespace ImageMagick
         /// <summary>
         /// Writes the image to the specified file.
         /// </summary>
+        /// <param name="bufferWriter">The buffer writer to write the image to.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Write(IBufferWriter<byte> bufferWriter);
+
+        /// <summary>
+        /// Writes the image to the specified file.
+        /// </summary>
+        /// <param name="bufferWriter">The buffer writer to write the image to.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Write(IBufferWriter<byte> bufferWriter, IWriteDefines defines);
+
+        /// <summary>
+        /// Writes the image to the specified file.
+        /// </summary>
+        /// <param name="bufferWriter">The buffer writer to write the image to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Write(IBufferWriter<byte> bufferWriter, MagickFormat format);
+
+        /// <summary>
+        /// Writes the image to the specified file.
+        /// </summary>
         /// <param name="file">The file to write the image to.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
