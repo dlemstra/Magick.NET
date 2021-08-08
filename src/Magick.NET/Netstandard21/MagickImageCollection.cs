@@ -517,7 +517,7 @@ namespace ImageMagick
         {
             if (data.IsSingleSegment)
             {
-                AddImages(data, readSettings, ping);
+                AddImages(data.FirstSpan, readSettings, ping);
                 return;
             }
 
