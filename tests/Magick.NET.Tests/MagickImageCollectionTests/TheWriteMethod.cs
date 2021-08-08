@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using ImageMagick;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests
@@ -76,6 +77,57 @@ namespace Magick.NET.Tests
                 }
             }
 
+            public class WithFileAndWriteDefines
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenFileIsNull()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        var defines = new TiffWriteDefines();
+
+                        Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null, defines));
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenDefinesIsNull()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        var file = new FileInfo(Files.CirclePNG);
+
+                        Assert.Throws<ArgumentNullException>("defines", () => images.Write(file, null));
+                    }
+                }
+
+                [Fact]
+                public void ShouldUseTheSpecifiedFormat()
+                {
+                    using (var input = new MagickImageCollection(Files.CirclePNG))
+                    {
+                        using (var tempfile = new TemporaryFile("foobar"))
+                        {
+                            var defines = new TiffWriteDefines()
+                            {
+                                Endian = Endian.MSB,
+                            };
+
+                            input.Write(tempfile, MagickFormat.Tiff);
+                            Assert.Equal(MagickFormat.Png, input[0].Format);
+
+                            using (var output = new MagickImageCollection())
+                            {
+                                output.Read(tempfile);
+
+                                Assert.Single(output);
+                                Assert.Equal(MagickFormat.Tiff, output[0].Format);
+                            }
+                        }
+                    }
+                }
+            }
+
             public class WithFileName
             {
                 [Fact]
@@ -110,6 +162,55 @@ namespace Magick.NET.Tests
 
                             using (var output = new MagickImageCollection(tempfile.FullName))
                             {
+                                Assert.Single(output);
+                                Assert.Equal(MagickFormat.Tiff, output[0].Format);
+                            }
+                        }
+                    }
+                }
+            }
+
+            public class WithFileNameAndWriteDefines
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenFileNameIsNull()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        var defines = new TiffWriteDefines();
+
+                        Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null, defines));
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenDefinesIsNull()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        Assert.Throws<ArgumentNullException>("defines", () => images.Write(Files.CirclePNG, null));
+                    }
+                }
+
+                [Fact]
+                public void ShouldUseTheSpecifiedFormat()
+                {
+                    using (var input = new MagickImageCollection(Files.CirclePNG))
+                    {
+                        using (var tempfile = new TemporaryFile("foobar"))
+                        {
+                            var defines = new TiffWriteDefines()
+                            {
+                                Endian = Endian.MSB,
+                            };
+
+                            input.Write(tempfile.FullName, MagickFormat.Tiff);
+                            Assert.Equal(MagickFormat.Png, input[0].Format);
+
+                            using (var output = new MagickImageCollection())
+                            {
+                                output.Read(tempfile.FullName);
+
                                 Assert.Single(output);
                                 Assert.Equal(MagickFormat.Tiff, output[0].Format);
                             }
@@ -171,6 +272,59 @@ namespace Magick.NET.Tests
                         using (var memoryStream = new MemoryStream())
                         {
                             Assert.Throws<MagickMissingDelegateErrorException>(() => input.Write(memoryStream, MagickFormat.Xc));
+                        }
+                    }
+                }
+            }
+
+            public class WithStreamAndWriteDefines
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenStreamIsNull()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        var defines = new TiffWriteDefines();
+
+                        Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null, defines));
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenDefinesIsNull()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            Assert.Throws<ArgumentNullException>("defines", () => images.Write(stream, null));
+                        }
+                    }
+                }
+
+                [Fact]
+                public void ShouldUseTheSpecifiedFormat()
+                {
+                    using (var input = new MagickImageCollection(Files.CirclePNG))
+                    {
+                        using (var stream = new MemoryStream())
+                        {
+                            var defines = new TiffWriteDefines()
+                            {
+                                Endian = Endian.MSB,
+                            };
+
+                            input.Write(stream, MagickFormat.Tiff);
+                            Assert.Equal(MagickFormat.Png, input[0].Format);
+
+                            using (var output = new MagickImageCollection())
+                            {
+                                stream.Position = 0;
+                                output.Read(stream);
+
+                                Assert.Single(output);
+                                Assert.Equal(MagickFormat.Tiff, output[0].Format);
+                            }
                         }
                     }
                 }
