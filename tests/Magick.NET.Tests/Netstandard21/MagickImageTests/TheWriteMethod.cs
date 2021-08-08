@@ -5,20 +5,9 @@
 
 using System;
 using System.Buffers;
-using System.IO;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
-
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
 
 namespace Magick.NET.Tests
 {
@@ -33,7 +22,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<QuantumType>)null));
+                        Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<byte>)null));
                     }
                 }
             }
@@ -45,7 +34,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage())
                     {
-                        Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<QuantumType>)null, MagickFormat.Bmp));
+                        Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<byte>)null, MagickFormat.Bmp));
                     }
                 }
 
@@ -76,7 +65,7 @@ namespace Magick.NET.Tests
                     {
                         var defines = new JpegWriteDefines();
 
-                        Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<QuantumType>)null, defines));
+                        Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<byte>)null, defines));
                     }
                 }
 
