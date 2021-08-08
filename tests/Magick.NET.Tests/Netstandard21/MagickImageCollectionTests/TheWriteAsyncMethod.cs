@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
     {
         public partial class TheWriteAsyncMethod
         {
-            public class WithFile
+            public class WithFileInfo
             {
                 [Fact]
                 public async Task ShouldThrowExceptionWhenFileIsNull()
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithFileAndMagickFormat
+            public class WithFileInfoAndMagickFormat
             {
                 [Fact]
                 public async Task ShouldThrowExceptionWhenFileIsNull()

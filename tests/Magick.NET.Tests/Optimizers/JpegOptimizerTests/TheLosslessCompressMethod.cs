@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
                 AssertLosslessCompressInvalidFileFormat(Files.CirclePNG);
             }
 
-            public class WithFile : TheLosslessCompressMethod
+            public class WithFileInfo : TheLosslessCompressMethod
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()

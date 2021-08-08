@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
                 AssertCompressInvalidFileFormat(Files.ImageMagickJPG);
             }
 
-            public class WithFile : TheCompressMethod
+            public class WithFileInfo : TheCompressMethod
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()

@@ -12,7 +12,7 @@ namespace Magick.NET.Tests
     {
         public class TheIsSupportedMethod
         {
-            public class WithFile
+            public class WithFileInfo
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()

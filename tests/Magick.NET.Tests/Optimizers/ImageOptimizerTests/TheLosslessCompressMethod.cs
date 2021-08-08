@@ -12,7 +12,7 @@ namespace Magick.NET.Tests
     {
         public class TheLosslessCompressMethod
         {
-            public class WithFile : ImageOptimizerTestHelper
+            public class WithFileInfo : ImageOptimizerTestHelper
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()

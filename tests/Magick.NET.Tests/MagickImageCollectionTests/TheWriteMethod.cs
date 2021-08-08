@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
     {
         public class TheWriteMethod
         {
-            public class WithFile
+            public class WithFileInfo
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithFileAndMagickFormat
+            public class WithFileInfoAndMagickFormat
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
                 }
             }
 
-            public class WithFileAndWriteDefines
+            public class WithFileInfoAndWriteDefines
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()

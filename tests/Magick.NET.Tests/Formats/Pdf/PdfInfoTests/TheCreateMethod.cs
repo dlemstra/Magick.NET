@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
     {
         public class TheCreateMethod
         {
-            public class WithFile
+            public class WithFileInfo
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
