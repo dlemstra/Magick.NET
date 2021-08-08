@@ -224,7 +224,7 @@ namespace Magick.NET.Tests
             public class WithStream
             {
                 [Fact]
-                public void ShouldThrowExceptionWhenFileIsNull()
+                public void ShouldThrowExceptionWhenStreamIsNull()
                 {
                     using (var images = new MagickImageCollection())
                     {
