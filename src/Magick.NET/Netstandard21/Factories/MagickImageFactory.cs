@@ -41,7 +41,7 @@ namespace ImageMagick
         /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickImage<QuantumType> Create(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType> readSettings)
-            => new MagickImage(data);
+            => new MagickImage(data, readSettings);
 
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
