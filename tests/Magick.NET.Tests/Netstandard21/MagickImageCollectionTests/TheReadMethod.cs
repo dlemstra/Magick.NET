@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
                     using (var images = new MagickImageCollection())
                     {
                         var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-                        var sequence = TestReadOnlySequence.Create(bytes);
+                        var sequence = TestReadOnlySequence.Create(bytes, 1);
 
                         images.Read(sequence);
 

@@ -10,27 +10,29 @@ namespace Magick.NET.Tests
 {
     internal sealed class TestReadOnlySequence : ReadOnlySequenceSegment<byte>
     {
-        private TestReadOnlySequence(byte value)
+        private TestReadOnlySequence(byte[] value, int start, int length)
         {
-            Memory = new ReadOnlyMemory<byte>(new[] { value }, 0, 1);
+            Memory = new ReadOnlyMemory<byte>(value, start, length);
         }
 
-        public static ReadOnlySequence<byte> Create(byte[] data)
+        public static ReadOnlySequence<byte> Create(byte[] data, int sequenceSize)
         {
-            var first = new TestReadOnlySequence(data[0]);
-            var last = first.Append(data[1]);
+            var first = new TestReadOnlySequence(data, 0, sequenceSize);
+            var length = sequenceSize;
+            var last = first.Append(data, sequenceSize, length);
 
-            for (var i = 2; i < data.Length; i++)
+            for (var i = sequenceSize + sequenceSize; i < data.Length; i += sequenceSize)
             {
-                last = last.Append(data[i]);
+                length = Math.Min(data.Length - i, sequenceSize);
+                last = last.Append(data, i, length);
             }
 
-            return new ReadOnlySequence<byte>(first, 0, last, 1);
+            return new ReadOnlySequence<byte>(first, 0, last, length);
         }
 
-        private TestReadOnlySequence Append(byte value)
+        private TestReadOnlySequence Append(byte[] value, int start, int length)
         {
-            var next = new TestReadOnlySequence(value)
+            var next = new TestReadOnlySequence(value, start, length)
             {
                 RunningIndex = RunningIndex + Memory.Length,
             };
