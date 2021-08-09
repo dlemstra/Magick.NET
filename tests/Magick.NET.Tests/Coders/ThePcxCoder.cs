@@ -15,6 +15,7 @@ namespace Magick.NET.Tests
             using (var input = new MagickImage(MagickColors.Purple, 1, 1))
             {
                 input.ColorType = ColorType.Bilevel;
+                Assert.Equal(ClassType.Pseudo, input.ClassType);
 
                 using (var memoryStream = new MemoryStream())
                 {
@@ -25,6 +26,7 @@ namespace Magick.NET.Tests
                     using (var output = new MagickImage(memoryStream))
                     {
                         Assert.Equal(1, output.Depth);
+                        Assert.Equal(ClassType.Pseudo, output.ClassType);
                     }
                 }
             }
