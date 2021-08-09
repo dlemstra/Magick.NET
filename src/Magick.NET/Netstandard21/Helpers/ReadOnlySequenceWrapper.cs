@@ -64,7 +64,7 @@ namespace ImageMagick
                 destination += length;
                 total -= length;
 
-                if (length == current.Length)
+                if (_currentOffset == current.Length)
                 {
                     try
                     {
