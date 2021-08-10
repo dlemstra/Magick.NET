@@ -103,7 +103,7 @@ namespace ImageMagick.Configuration
         {
             foreach (var configFile in Files)
             {
-                string outputFile = Path.Combine(path, configFile.FileName);
+                var outputFile = Path.Combine(path, configFile.FileName);
                 if (File.Exists(outputFile))
                     continue;
 
