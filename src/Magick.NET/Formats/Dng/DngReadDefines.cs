@@ -20,12 +20,12 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
-        /// Gets or sets a value indicating wether auto whitebalance should be used (dng:use_auto_wb).
+        /// Gets or sets a value indicating wether auto brightness should be used (dng:no-auto-bright).
         /// </summary>
         public bool? DisableAutoBrightness { get; set; }
 
         /// <summary>
-        /// Gets or sets the output color.
+        /// Gets or sets the output color (dng:output-color).
         /// </summary>
         public DngOutputColor? OutputColor { get; set; }
 
