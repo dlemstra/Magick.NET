@@ -316,7 +316,7 @@ namespace ImageMagick
 
         private static void CheckImageMagickFiles(string path)
         {
-            foreach (IConfigurationFile configurationFile in ConfigurationFiles.Default.Files)
+            foreach (var configurationFile in ConfigurationFiles.Default.Files)
             {
                 var fileName = Path.Combine(path, configurationFile.FileName);
                 Throw.IfFalse(nameof(path), File.Exists(fileName), $"Unable to find file: {fileName}");
