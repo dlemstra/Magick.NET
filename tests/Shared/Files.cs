@@ -136,6 +136,9 @@ namespace Magick.NET
             public static string LayerStylesSamplePSD
                 => Root + @"Images/Coders/layer-styles-sample.psd";
 
+            public static string RawKodakDC50KDC
+                => Root + @"Images/Coders/RAW_KODAK_DC50.KDC";
+
             public static string PageTIF
                 => Root + @"Images/Coders/Page.tif";
 

@@ -30,6 +30,11 @@ namespace ImageMagick.Formats
         public DngOutputColor? OutputColor { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating wether the embedded thumbnail should be read (dng:read-thumbnail).
+        /// </summary>
+        public bool? ReadThumbnail { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating wether auto whitebalance should be used (dng:use_auto_wb).
         /// </summary>
         public bool? UseAutoWhitebalance { get; set; }
@@ -51,6 +56,9 @@ namespace ImageMagick.Formats
 
                 if (OutputColor.HasValue)
                     yield return CreateDefine("output-color", (int)OutputColor.Value);
+
+                if (ReadThumbnail.HasValue)
+                    yield return CreateDefine("read-thumbnail", ReadThumbnail.Value);
 
                 if (UseCameraWhitebalance.HasValue)
                     yield return CreateDefine("use-camera-wb", UseCameraWhitebalance.Value);
