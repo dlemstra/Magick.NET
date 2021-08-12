@@ -91,10 +91,12 @@ namespace Magick.NET.SystemDrawing.Tests
                     image.ColorType = ColorType.Bilevel;
                     image.ClassType = ClassType.Direct;
 
+                    Assert.Equal(ColorSpace.Gray, image.ColorSpace);
+
                     using (var bitmap = image.ToBitmapWithDensity())
                     {
                         for (int i = 0; i < image.Width; i++)
-                            ColorAssert.Equal(MagickColors.White, ToMagickColor(bitmap.GetPixel(i, 0)));
+                            ColorAssert.Equal(MagickColors.Black, ToMagickColor(bitmap.GetPixel(i, 0)));
                     }
                 }
             }
