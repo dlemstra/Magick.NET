@@ -13,8 +13,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnDifferentValueWhenChannelChanged()
             {
-                ColorCMYK first = new ColorCMYK(0, 0, 0, 0);
-                int hashCode = first.GetHashCode();
+                var first = new ColorCMYK(0, 0, 0, 0);
+                var hashCode = first.GetHashCode();
 
                 first.K = Quantum.Max;
                 Assert.NotEqual(hashCode, first.GetHashCode());
