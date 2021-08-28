@@ -13,8 +13,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnDifferentValueWhenChannelChanged()
             {
-                ColorHSL first = new ColorHSL(0.0, 0.0, 0.0);
-                int hashCode = first.GetHashCode();
+                var first = new ColorHSL(0.0, 0.0, 0.0);
+                var hashCode = first.GetHashCode();
 
                 first.Hue = first.Saturation = first.Lightness = 1.0;
                 Assert.NotEqual(hashCode, first.GetHashCode());
