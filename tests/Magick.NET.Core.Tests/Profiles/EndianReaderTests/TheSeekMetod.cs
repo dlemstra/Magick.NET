@@ -24,7 +24,7 @@ namespace Magick.NET.Core.Tests
             {
                 var reader = new EndianReader(new byte[] { 0, 0, 0 });
 
-                var result = reader.Seek(2);
+                reader.Seek(2);
                 Assert.Equal(2U, reader.Index);
             }
         }
