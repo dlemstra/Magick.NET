@@ -160,31 +160,6 @@ namespace Magick.NET.Tests
             Assert.Equal(0, first.Y);
             Assert.Equal(Quantum.Max, first.K);
             Assert.Equal(Quantum.Max, first.A);
-
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("white");
-            });
-
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("#ff00ff");
-            });
-
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("#ffff0000fffff");
-            });
-
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("#ffff0000fffff0000fffff");
-            });
-
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("#fff");
-            });
         }
     }
 }
