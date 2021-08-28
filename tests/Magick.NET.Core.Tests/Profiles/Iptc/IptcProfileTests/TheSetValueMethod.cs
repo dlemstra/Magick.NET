@@ -117,6 +117,7 @@ namespace Magick.NET.Core.Tests
 
                 var actual = profile.GetValue(tag);
                 Assert.Equal("19940317", actual.Value);
+                Assert.Equal(8, actual.Length);
             }
 
             [Theory]
