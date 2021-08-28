@@ -18,6 +18,20 @@ namespace Magick.NET.Core.Tests
 
                 Assert.Equal("42", value.ToString());
             }
+
+            [Theory]
+            [InlineData(1, "None")]
+            [InlineData(2, "Inches")]
+            [InlineData(3, "Centimeter")]
+            [InlineData(4, "4")]
+            public void ShouldReturnTheExifTagDescriptionWhenItIsPresent(ushort input, string expected)
+            {
+                var exifProfile = new ExifProfile();
+
+                exifProfile.SetValue(ExifTag.ResolutionUnit, input);
+                var value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+                Assert.Equal(expected, value.ToString());
+            }
         }
     }
 }
