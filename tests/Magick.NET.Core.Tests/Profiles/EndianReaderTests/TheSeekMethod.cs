@@ -11,7 +11,7 @@ namespace Magick.NET.Core.Tests
         public class TheSeekMetod
         {
             [Fact]
-            public void ShouldReturnFalseIsIndexIsTooHigh()
+            public void ShouldReturnFalseWhenIndexIsTooHigh()
             {
                 var reader = new EndianReader(new byte[] { 0 });
 
