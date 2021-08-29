@@ -26,22 +26,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_IEquatable()
-        {
-            ColorCMYK first = new ColorCMYK(0, Quantum.Max, 0, 0);
-
-            Test_IEquatable_NullAndSelf(first);
-
-            ColorCMYK second = new ColorCMYK(0, Quantum.Max, 0, 0);
-
-            Test_IEquatable_Equal(first, second);
-
-            second = new ColorCMYK(0, 0, Quantum.Max, 0);
-
-            Test_IEquatable_NotEqual(first, second);
-        }
-
-        [Fact]
         public void Test_ImplicitOperator()
         {
             ColorCMYK expected = new ColorCMYK(Quantum.Max, 0, 0, 0);
