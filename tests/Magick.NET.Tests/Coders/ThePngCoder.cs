@@ -80,6 +80,9 @@ namespace Magick.NET.Tests
                         exifProfile = output.GetExifProfile();
 
                         Assert.NotNull(exifProfile);
+
+                        var value = exifProfile.GetValue(ExifTag.ImageUniqueID);
+                        Assert.Equal("Have a nice day", value.ToString());
                     }
                 }
             }
