@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReadAIFromNonSeekableStream()
             {
-                using (NonSeekableStream stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI))
+                using (var stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI))
                 {
                     using (var image = new MagickImage())
                     {
