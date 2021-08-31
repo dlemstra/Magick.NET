@@ -67,7 +67,7 @@ namespace ImageMagick
         /// Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
         /// when discriminating between pixels.
         /// </summary>
-        IMagickGeometry? BoundingBox { get; }
+        IMagickGeometry BoundingBox { get; }
 
         /// <summary>
         /// Gets the number of channels that the image contains.
@@ -244,7 +244,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the preferred size and location of an image canvas.
         /// </summary>
-        IMagickGeometry? Page { get; set; }
+        IMagickGeometry Page { get; set; }
 
         /// <summary>
         /// Gets the names of the profiles.

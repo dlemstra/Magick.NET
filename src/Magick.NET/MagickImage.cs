@@ -432,8 +432,17 @@ namespace ImageMagick
         /// Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
         /// when discriminating between pixels.
         /// </summary>
-        public IMagickGeometry? BoundingBox
-            => MagickGeometry.FromRectangle(_nativeInstance.BoundingBox);
+        public IMagickGeometry BoundingBox
+        {
+            get
+            {
+                var boundingBox = _nativeInstance.BoundingBox;
+                if (boundingBox == null)
+                    throw new MagickErrorException("Unable to allocate rectangle");
+
+                return MagickGeometry.FromRectangle(boundingBox);
+            }
+        }
 
         /// <summary>
         /// Gets the number of channels that the image contains.
@@ -781,13 +790,20 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the preferred size and location of an image canvas.
         /// </summary>
-        public IMagickGeometry? Page
+        public IMagickGeometry Page
         {
-            get => MagickGeometry.FromRectangle(_nativeInstance.Page);
+            get
+            {
+                var page = _nativeInstance.BoundingBox;
+                if (page == null)
+                    throw new MagickErrorException("Unable to allocate rectangle");
+
+                return MagickGeometry.FromRectangle(page);
+            }
+
             set
             {
-                if (value != null)
-                    _nativeInstance.Page = MagickRectangle.FromGeometry(value, this);
+                _nativeInstance.Page = MagickRectangle.FromGeometry(value, this);
             }
         }
 
@@ -6196,9 +6212,6 @@ namespace ImageMagick
             var result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out var rectangle, out double similarityMetric);
 
             var geometry = MagickGeometry.FromRectangle(rectangle);
-            if (geometry == null)
-                throw new InvalidOperationException();
-
             return new MagickSearchResult(Create(result, GetSettings(image)), geometry, similarityMetric);
         }
 

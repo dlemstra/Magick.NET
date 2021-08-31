@@ -234,11 +234,10 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(pageSize), pageSize);
 
             var rectangle = MagickRectangle.FromPageSize(pageSize);
-            var geometry = FromRectangle(rectangle);
-            if (geometry == null)
+            if (rectangle == null)
                 throw new InvalidOperationException("Invalid page size specified.");
 
-            return geometry;
+            return FromRectangle(rectangle);
         }
 
         /// <summary>
@@ -419,13 +418,8 @@ namespace ImageMagick
             };
         }
 
-        internal static IMagickGeometry? FromRectangle(MagickRectangle? rectangle)
-        {
-            if (rectangle == null)
-                return null;
-
-            return new MagickGeometry(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-        }
+        internal static IMagickGeometry FromRectangle(MagickRectangle rectangle)
+            => new MagickGeometry(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 
         internal static IMagickGeometry? FromString(string? value)
             => value == null ? null : new MagickGeometry(value);
