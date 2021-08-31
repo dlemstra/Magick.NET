@@ -794,7 +794,7 @@ namespace ImageMagick
         {
             get
             {
-                var page = _nativeInstance.BoundingBox;
+                var page = _nativeInstance.Page;
                 if (page == null)
                     throw new MagickErrorException("Unable to allocate rectangle");
 
