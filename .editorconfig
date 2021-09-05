@@ -22,7 +22,7 @@ csharp_prefer_simple_using_statement = false
 
 dotnet_sort_system_directives_first = true:error
 
-csharp_style_pattern_matching_over_as_with_null_check = true
+csharp_style_pattern_matching_over_as_with_null_check = true:error
 
 csharp_style_prefer_range_operator = false
 
