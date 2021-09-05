@@ -286,7 +286,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(images), images);
             Throw.IfTrue(nameof(images), images is MagickImageCollection, "Not allowed to add collection.");
 
-            foreach (IMagickImage<QuantumType> image in images)
+            foreach (var image in images)
             {
                 Add(image);
             }
@@ -338,7 +338,7 @@ namespace ImageMagick
             try
             {
                 AttachImages();
-                IntPtr image = _nativeInstance.Append(_images[0], false);
+                var image = _nativeInstance.Append(_images[0], false);
                 return MagickImage.Create(image, GetSettings());
             }
             finally
@@ -359,7 +359,7 @@ namespace ImageMagick
             try
             {
                 AttachImages();
-                IntPtr image = _nativeInstance.Append(_images[0], true);
+                var image = _nativeInstance.Append(_images[0], true);
                 return MagickImage.Create(image, GetSettings());
             }
             finally
@@ -600,7 +600,7 @@ namespace ImageMagick
             try
             {
                 AttachImages();
-                IntPtr image = _nativeInstance.Merge(_images[0], LayerMethod.Flatten);
+                var image = _nativeInstance.Merge(_images[0], LayerMethod.Flatten);
                 return MagickImage.Create(image, GetSettings());
             }
             finally
@@ -1193,7 +1193,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void RePage()
         {
-            foreach (IMagickImage<QuantumType> image in _images)
+            foreach (var image in _images)
             {
                 image.RePage();
             }
@@ -1509,7 +1509,7 @@ namespace ImageMagick
             settings.FileName = filePath;
             settings.Ping = ping;
 
-            IntPtr result = _nativeInstance.ReadFile(settings);
+            var result = _nativeInstance.ReadFile(settings);
             AddImages(result, settings);
         }
 
