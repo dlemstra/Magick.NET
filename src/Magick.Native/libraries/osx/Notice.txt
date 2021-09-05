@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.0-5 beta (2021-08-12) ] copyright:
+[ ImageMagick 7.1.0-6 (2021-09-04) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -1213,7 +1213,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ fontconfig  ] copyright:
+[ fontconfig 2.12.6 (2017-09-21) ] copyright:
 
 fontconfig/COPYING
 
