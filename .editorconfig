@@ -1,13 +1,22 @@
 root = true
 
-[*.cs]
+[*.{cmd,cs,md,nuspec,ps1,sh,yml}]
 
-indent_size = 4
 indent_style = space
-tab_width = 4
-
 insert_final_newline = true
 trim_trailing_whitespace = true
+
+[*.{nuspec,yml}]
+
+indent_size = 2
+tab_width = 2
+
+[*.{cs,ps1,sh}]
+
+indent_size = 4
+tab_width = 4
+
+[*.cs]
 
 dotnet_sort_system_directives_first = true
 
