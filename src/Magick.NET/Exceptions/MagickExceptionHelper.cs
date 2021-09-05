@@ -60,7 +60,7 @@ namespace ImageMagick
                 return null;
 
             var result = new List<MagickException>();
-            for (int i = 0; i < nestedCount; i++)
+            for (var i = 0; i < nestedCount; i++)
             {
                 var nested = NativeMagickExceptionHelper.Related(exception, i);
                 result.Add(CreateException(nested));
