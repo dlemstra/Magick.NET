@@ -44,7 +44,7 @@ namespace Magick.NET.SystemWindowsMedia.Tests
                 {
                     image.ColorSpace = ColorSpace.CMYK;
 
-                    BitmapSource bitmapSource = image.ToBitmapSource();
+                    var bitmapSource = image.ToBitmapSource();
 
                     Assert.Equal(PixelFormats.Cmyk32, bitmapSource.Format);
                     Assert.Equal(10, bitmapSource.Width);
@@ -70,7 +70,7 @@ namespace Magick.NET.SystemWindowsMedia.Tests
                 {
                     image.HasAlpha = true;
 
-                    BitmapSource bitmapSource = image.ToBitmapSource();
+                    var bitmapSource = image.ToBitmapSource();
 
                     Assert.Equal(PixelFormats.Bgra32, bitmapSource.Format);
                     Assert.Equal(5, bitmapSource.Width);
@@ -96,7 +96,7 @@ namespace Magick.NET.SystemWindowsMedia.Tests
                 {
                     image.ColorSpace = ColorSpace.YCbCr;
 
-                    BitmapSource bitmapSource = image.ToBitmapSource();
+                    var bitmapSource = image.ToBitmapSource();
 
                     Assert.Equal(PixelFormats.Rgb24, bitmapSource.Format);
                     Assert.Equal(5, bitmapSource.Width);

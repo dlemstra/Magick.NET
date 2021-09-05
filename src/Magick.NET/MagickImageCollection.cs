@@ -1366,9 +1366,9 @@ namespace ImageMagick
             {
                 AttachImages();
 
-                using (StreamWrapper wrapper = StreamWrapper.CreateForWriting(stream))
+                using (var wrapper = StreamWrapper.CreateForWriting(stream))
                 {
-                    ReadWriteStreamDelegate writer = new ReadWriteStreamDelegate(wrapper.Write);
+                    var writer = new ReadWriteStreamDelegate(wrapper.Write);
                     ReadWriteStreamDelegate? reader = null;
                     SeekStreamDelegate? seeker = null;
                     TellStreamDelegate? teller = null;
@@ -1530,7 +1530,7 @@ namespace ImageMagick
 
             using (var wrapper = StreamWrapper.CreateForReading(stream))
             {
-                ReadWriteStreamDelegate reader = new ReadWriteStreamDelegate(wrapper.Read);
+                var reader = new ReadWriteStreamDelegate(wrapper.Read);
                 SeekStreamDelegate? seeker = null;
                 TellStreamDelegate? teller = null;
 

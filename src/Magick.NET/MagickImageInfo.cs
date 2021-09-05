@@ -188,7 +188,7 @@ namespace ImageMagick
                 images.Ping(stream);
                 foreach (var image in images)
                 {
-                    MagickImageInfo info = new MagickImageInfo();
+                    var info = new MagickImageInfo();
                     info.Initialize(image);
                     yield return info;
                 }
@@ -208,7 +208,7 @@ namespace ImageMagick
                 images.Ping(fileName);
                 foreach (var image in images)
                 {
-                    MagickImageInfo info = new MagickImageInfo();
+                    var info = new MagickImageInfo();
                     info.Initialize(image);
                     yield return info;
                 }

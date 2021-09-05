@@ -25,7 +25,7 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldUsePngFormatWhenBitmapIsPng()
             {
-                using (Bitmap bitmap = new Bitmap(Files.SnakewarePNG))
+                using (var bitmap = new Bitmap(Files.SnakewarePNG))
                 {
                     using (var image = new MagickImage())
                     {
@@ -41,7 +41,7 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldUseBmpFormatWhenBitmapIsMemoryBmp()
             {
-                using (Bitmap bitmap = new Bitmap(100, 50, PixelFormat.Format24bppRgb))
+                using (var bitmap = new Bitmap(100, 50, PixelFormat.Format24bppRgb))
                 {
                     Assert.Equal(bitmap.RawFormat, ImageFormat.MemoryBmp);
 
