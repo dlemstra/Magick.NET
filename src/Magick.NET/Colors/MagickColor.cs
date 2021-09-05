@@ -424,7 +424,7 @@ namespace ImageMagick
 
             var r = Quantum.ScaleToByte(R);
             var g = Quantum.ScaleToByte(G);
-            var b = Quantum.ScaleToByte(G);
+            var b = Quantum.ScaleToByte(B);
             if (A == Quantum.Max)
                 return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", r, g, b);
 
