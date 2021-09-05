@@ -13,7 +13,7 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class MagickFormatInfo : IMagickFormatInfo
     {
-        private static readonly Dictionary<MagickFormat, MagickFormatInfo> _All = LoadFormats();
+        private static readonly Dictionary<MagickFormat, MagickFormatInfo> _all = LoadFormats();
 
         private MagickFormatInfo()
         {
@@ -65,7 +65,7 @@ namespace ImageMagick
         public MagickFormat ModuleFormat { get; private set; }
 
         internal static IEnumerable<MagickFormatInfo> All
-            => _All.Values;
+            => _all.Values;
 
         /// <summary>
         /// Returns the format information. The extension of the supplied file is used to determine
@@ -94,10 +94,10 @@ namespace ImageMagick
         /// <returns>The format information.</returns>
         public static MagickFormatInfo? Create(MagickFormat format)
         {
-            if (!_All.ContainsKey(format))
+            if (!_all.ContainsKey(format))
                 return null;
 
-            return _All[format];
+            return _all[format];
         }
 
         /// <summary>
