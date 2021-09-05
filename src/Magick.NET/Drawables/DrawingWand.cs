@@ -26,7 +26,7 @@ namespace ImageMagick
 
         public void Draw(IEnumerable<IDrawable> drawables)
         {
-            foreach (IDrawable drawable in drawables)
+            foreach (var drawable in drawables)
             {
                 ((IDrawingWand)drawable).Draw(this);
             }
@@ -115,7 +115,7 @@ namespace ImageMagick
 
         public void PathArcAbs(IEnumerable<PathArc> pathArcs)
         {
-            foreach (PathArc pathArc in pathArcs)
+            foreach (var pathArc in pathArcs)
             {
                 _nativeInstance.PathArcAbs(pathArc.X, pathArc.Y, pathArc.RadiusX, pathArc.RadiusY, pathArc.RotationX, pathArc.UseLargeArc, pathArc.UseSweep);
             }
@@ -123,7 +123,7 @@ namespace ImageMagick
 
         public void PathArcRel(IEnumerable<PathArc> pathArcs)
         {
-            foreach (PathArc pathArc in pathArcs)
+            foreach (var pathArc in pathArcs)
             {
                 _nativeInstance.PathArcRel(pathArc.X, pathArc.Y, pathArc.RadiusX, pathArc.RadiusY, pathArc.RotationX, pathArc.UseLargeArc, pathArc.UseSweep);
             }
@@ -143,7 +143,7 @@ namespace ImageMagick
 
         public void PathLineToAbs(IEnumerable<PointD> coordinates)
         {
-            foreach (PointD coordinate in coordinates)
+            foreach (var coordinate in coordinates)
             {
                 _nativeInstance.PathLineToAbs(coordinate.X, coordinate.Y);
             }
@@ -163,7 +163,7 @@ namespace ImageMagick
 
         public void PathLineToRel(IEnumerable<PointD> coordinates)
         {
-            foreach (PointD coordinate in coordinates)
+            foreach (var coordinate in coordinates)
             {
                 _nativeInstance.PathLineToRel(coordinate.X, coordinate.Y);
             }

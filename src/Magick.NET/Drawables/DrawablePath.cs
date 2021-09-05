@@ -45,7 +45,7 @@ namespace ImageMagick
                 return;
 
             wand.PathStart();
-            foreach (IPath path in _paths)
+            foreach (var path in _paths)
                 ((IDrawingWand)path).Draw(wand);
             wand.PathFinish();
         }

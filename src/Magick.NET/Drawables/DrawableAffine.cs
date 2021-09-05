@@ -93,30 +93,24 @@ namespace ImageMagick
         /// <param name="translateX">The X coordinate of the translation element.</param>
         /// <param name="translateY">The Y coordinate of the translation element.</param>
         public void TransformOrigin(double translateX, double translateY)
-        {
-            DrawableAffine affine = new DrawableAffine();
-
-            affine.TranslateX = translateX;
-            affine.TranslateY = translateY;
-
-            Transform(affine);
-        }
+            => Transform(new DrawableAffine
+            {
+                TranslateX = translateX,
+                TranslateY = translateY,
+            });
 
         /// <summary>
         /// Sets the rotation to use.
         /// </summary>
         /// <param name="angle">The angle of the rotation.</param>
         public void TransformRotation(double angle)
-        {
-            DrawableAffine affine = new DrawableAffine();
-
-            affine.ScaleX = Math.Cos(DegreesToRadians(Math.IEEERemainder(angle, 360.0)));
-            affine.ScaleY = Math.Cos(DegreesToRadians(Math.IEEERemainder(angle, 360.0)));
-            affine.ShearX = -Math.Sin(DegreesToRadians(Math.IEEERemainder(angle, 360.0)));
-            affine.ShearY = Math.Sin(DegreesToRadians(Math.IEEERemainder(angle, 360.0)));
-
-            Transform(affine);
-        }
+            => Transform(new DrawableAffine
+            {
+                ScaleX = Math.Cos(DegreesToRadians(Math.IEEERemainder(angle, 360.0))),
+                ScaleY = Math.Cos(DegreesToRadians(Math.IEEERemainder(angle, 360.0))),
+                ShearX = -Math.Sin(DegreesToRadians(Math.IEEERemainder(angle, 360.0))),
+                ShearY = Math.Sin(DegreesToRadians(Math.IEEERemainder(angle, 360.0))),
+            });
 
         /// <summary>
         /// Sets the scale to use.
@@ -124,51 +118,43 @@ namespace ImageMagick
         /// <param name="scaleX">The X coordinate scaling element.</param>
         /// <param name="scaleY">The Y coordinate scaling element.</param>
         public void TransformScale(double scaleX, double scaleY)
-        {
-            DrawableAffine affine = new DrawableAffine();
-
-            affine.ScaleX = scaleX;
-            affine.ScaleY = scaleY;
-
-            Transform(affine);
-        }
+            => Transform(new DrawableAffine
+            {
+                ScaleX = scaleX,
+                ScaleY = scaleY,
+            });
 
         /// <summary>
         /// Skew to use in X axis.
         /// </summary>
         /// <param name="skewX">The X skewing element.</param>
         public void TransformSkewX(double skewX)
-        {
-            DrawableAffine affine = new DrawableAffine();
-
-            affine.ShearX = Math.Tan(DegreesToRadians(Math.IEEERemainder(skewX, 360.0)));
-
-            Transform(affine);
-        }
+            => Transform(new DrawableAffine
+            {
+                ShearX = Math.Tan(DegreesToRadians(Math.IEEERemainder(skewX, 360.0))),
+            });
 
         /// <summary>
         /// Skew to use in Y axis.
         /// </summary>
         /// <param name="skewY">The Y skewing element.</param>
         public void TransformSkewY(double skewY)
-        {
-            DrawableAffine affine = new DrawableAffine();
+            => Transform(new DrawableAffine
+            {
+                ShearY = Math.Tan(DegreesToRadians(Math.IEEERemainder(skewY, 360.0))),
+            });
 
-            affine.ShearY = Math.Tan(DegreesToRadians(Math.IEEERemainder(skewY, 360.0)));
-
-            Transform(affine);
-        }
-
-        private static double DegreesToRadians(double x) => Math.PI * x / 180.0;
+        private static double DegreesToRadians(double x)
+            => Math.PI * x / 180.0;
 
         private void Transform(DrawableAffine affine)
         {
-            double scaleX = ScaleX;
-            double scaleY = ScaleY;
-            double shearX = ShearX;
-            double shearY = ShearY;
-            double translateX = TranslateX;
-            double translateY = TranslateY;
+            var scaleX = ScaleX;
+            var scaleY = ScaleY;
+            var shearX = ShearX;
+            var shearY = ShearY;
+            var translateX = TranslateX;
+            var translateY = TranslateY;
 
             ScaleX = (scaleX * affine.ScaleX) + (shearY * affine.ShearX);
             ScaleY = (shearX * affine.ShearY) + (scaleY * affine.ScaleY);

@@ -112,6 +112,7 @@ namespace ImageMagick
         /// Draws this instance with the drawing wand.
         /// </summary>
         /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand) => wand?.Composite(X, Y, Width, Height, Compose, _image);
+        void IDrawingWand.Draw(DrawingWand wand)
+            => wand?.Composite(X, Y, Width, Height, Compose, _image);
     }
 }

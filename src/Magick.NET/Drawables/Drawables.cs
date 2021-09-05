@@ -74,7 +74,7 @@ namespace ImageMagick
         {
             using (var image = new MagickImage(MagickColors.Transparent, 1, 1))
             {
-                using (DrawingWand wand = new DrawingWand(image))
+                using (var wand = new DrawingWand(image))
                 {
                     wand.Draw(this);
 

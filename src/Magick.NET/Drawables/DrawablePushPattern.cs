@@ -57,6 +57,7 @@ namespace ImageMagick
         /// Draws this instance with the drawing wand.
         /// </summary>
         /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand) => wand?.PushPattern(ID, X, Y, Width, Height);
+        void IDrawingWand.Draw(DrawingWand wand)
+            => wand?.PushPattern(ID, X, Y, Width, Height);
     }
 }

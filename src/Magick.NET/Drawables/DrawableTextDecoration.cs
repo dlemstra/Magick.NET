@@ -26,6 +26,7 @@ namespace ImageMagick
         /// Draws this instance with the drawing wand.
         /// </summary>
         /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand) => wand?.TextDecoration(Decoration);
+        void IDrawingWand.Draw(DrawingWand wand)
+            => wand?.TextDecoration(Decoration);
     }
 }

@@ -29,6 +29,7 @@ namespace ImageMagick
         /// Draws this instance with the drawing wand.
         /// </summary>
         /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand) => wand?.ClipPath(ClipPath);
+        void IDrawingWand.Draw(DrawingWand wand)
+            => wand?.ClipPath(ClipPath);
     }
 }

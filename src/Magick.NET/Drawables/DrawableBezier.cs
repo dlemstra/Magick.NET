@@ -33,12 +33,14 @@ namespace ImageMagick
         /// <summary>
         /// Gets the coordinates.
         /// </summary>
-        public IEnumerable<PointD> Coordinates => _coordinates.ToList();
+        public IEnumerable<PointD> Coordinates
+            => _coordinates.ToList();
 
         /// <summary>
         /// Draws this instance with the drawing wand.
         /// </summary>
         /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand) => wand?.Bezier(_coordinates.ToList());
+        void IDrawingWand.Draw(DrawingWand wand)
+            => wand?.Bezier(_coordinates.ToList());
     }
 }
