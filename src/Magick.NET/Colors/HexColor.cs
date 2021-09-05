@@ -29,7 +29,7 @@ namespace ImageMagick
 
         private static bool TryParseQ8(string value, List<QuantumType> channels)
         {
-            var size = 0;
+            int size;
             if (value.Length == 4 || value.Length == 5)
                 size = 1;
             else if (value.Length == 3 || value.Length == 7 || value.Length == 9)

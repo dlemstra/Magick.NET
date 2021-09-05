@@ -38,9 +38,11 @@ dotnet_style_qualification_for_field = false:error
 dotnet_style_qualification_for_method = false:error
 dotnet_style_qualification_for_property = false:error
 
-csharp_style_var_for_built_in_types=true:error
-csharp_style_var_when_type_is_apparent=true:error
-csharp_style_var_elsewhere=true:error
+csharp_style_var_for_built_in_types = true:error
+csharp_style_var_when_type_is_apparent = true:error
+csharp_style_var_elsewhere = true:error
+
+csharp_style_unused_value_assignment_preference = true:error
 
 dotnet_naming_rule.camel_case_for_private_internal_fields.severity = suggestion
 dotnet_naming_rule.camel_case_for_private_internal_fields.symbols  = private_internal_fields
