@@ -12,7 +12,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(coordinates), coordinates);
 
-            Coordinates = CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
+            Coordinates = DrawableCoordinates<TCoordinateType>.CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
         }
 
         protected List<TCoordinateType> Coordinates { get; }
@@ -20,12 +20,12 @@ namespace ImageMagick
         public IList<TCoordinateType> ToList()
             => Coordinates;
 
-        private List<TCoordinateType> CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
+        private static List<TCoordinateType> CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
         {
             if (coordinates.Count == 0)
                 throw new ArgumentException("Value cannot be empty", nameof(coordinates));
 
-            foreach (TCoordinateType coordinate in coordinates)
+            foreach (var coordinate in coordinates)
             {
                 if (coordinate == null)
                     throw new ArgumentNullException(nameof(coordinates), "Value should not contain null values");
