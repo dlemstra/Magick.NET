@@ -83,7 +83,7 @@ namespace ImageMagick
                 {
                     list = NativeMagickNET.GetFonts(out length);
 
-                    for (int i = 0; i < (int)length; i++)
+                    for (var i = 0; i < (int)length; i++)
                     {
                         var fontFamily = NativeMagickNET.GetFontFamily(list, i);
                         if (fontFamily != null && fontFamily.Length > 0 && !result.Contains(fontFamily))
@@ -116,7 +116,7 @@ namespace ImageMagick
                 {
                     list = NativeMagickNET.GetFonts(out length);
 
-                    for (int i = 0; i < (int)length; i++)
+                    for (var i = 0; i < (int)length; i++)
                     {
                         var fontName = NativeMagickNET.GetFontName(list, i);
                         if (fontName != null && fontName.Length > 0)
