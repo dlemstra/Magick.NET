@@ -24,6 +24,8 @@ dotnet_sort_system_directives_first = true:error
 
 csharp_style_pattern_matching_over_as_with_null_check = true
 
+csharp_style_prefer_range_operator = false
+
 dotnet_style_qualification_for_event = false:error
 dotnet_style_qualification_for_field = false:error
 dotnet_style_qualification_for_method = false:error
