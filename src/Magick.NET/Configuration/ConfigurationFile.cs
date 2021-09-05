@@ -19,7 +19,7 @@ namespace ImageMagick.Configuration
 
         private string LoadData()
         {
-            using (Stream stream = TypeHelper.GetManifestResourceStream(typeof(ConfigurationFile), "ImageMagick.Resources.Xml", FileName))
+            using (var stream = TypeHelper.GetManifestResourceStream(typeof(ConfigurationFile), "ImageMagick.Resources.Xml", FileName))
             {
                 using (var reader = new StreamReader(stream))
                 {

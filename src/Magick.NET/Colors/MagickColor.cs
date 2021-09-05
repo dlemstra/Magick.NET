@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 
 #if Q8
@@ -492,7 +491,7 @@ namespace ImageMagick
             if (instance == IntPtr.Zero)
                 return null;
 
-            using (NativeMagickColor nativeInstance = new NativeMagickColor(instance))
+            using (var nativeInstance = new NativeMagickColor(instance))
             {
                 count = (int)nativeInstance.Count;
                 return new MagickColor(nativeInstance);
@@ -535,7 +534,7 @@ namespace ImageMagick
 
         private void ParseHexColor(string color)
         {
-            if (!HexColor.TryParse(color, out List<QuantumType> colors))
+            if (!HexColor.TryParse(color, out var colors))
                 throw new ArgumentException("Invalid hex value.", nameof(color));
 
             if (colors.Count == 1)

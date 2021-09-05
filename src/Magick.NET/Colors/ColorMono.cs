@@ -72,7 +72,7 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateColor()
         {
-            QuantumType color = IsBlack ? (QuantumType)0.0 : Quantum.Max;
+            var color = IsBlack ? (QuantumType)0.0 : Quantum.Max;
             Color.R = color;
             Color.G = color;
             Color.B = color;

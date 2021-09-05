@@ -85,7 +85,7 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateColor()
         {
-            QuantumType gray = Quantum.ScaleToQuantum(_shade);
+            var gray = Quantum.ScaleToQuantum(_shade);
             Color.R = gray;
             Color.G = gray;
             Color.B = gray;

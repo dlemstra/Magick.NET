@@ -102,11 +102,11 @@ namespace ImageMagick
                 return;
             }
 
-            double h = 6.0 * (Hue - Math.Floor(Hue));
-            double f = h - Math.Floor(h);
-            double p = Value * (1.0 - Saturation);
-            double q = Value * (1.0 - (Saturation * f));
-            double t = Value * (1.0 - (Saturation * (1.0 - f)));
+            var h = 6.0 * (Hue - Math.Floor(Hue));
+            var f = h - Math.Floor(h);
+            var p = Value * (1.0 - Saturation);
+            var q = Value * (1.0 - (Saturation * f));
+            var t = Value * (1.0 - (Saturation * (1.0 - f)));
             switch ((int)h)
             {
                 case 0:
@@ -149,12 +149,12 @@ namespace ImageMagick
             Saturation = 0.0;
             Value = 0.0;
 
-            double min = Math.Min(Math.Min(red, green), blue);
-            double max = Math.Max(Math.Max(red, green), blue);
+            var min = Math.Min(Math.Min(red, green), blue);
+            var max = Math.Max(Math.Max(red, green), blue);
 
             if (Math.Abs(max) < double.Epsilon)
                 return;
-            double delta = max - min;
+            var delta = max - min;
             Saturation = delta / max;
             Value = (1.0 / Quantum.Max) * max;
             if (Math.Abs(delta) < double.Epsilon)

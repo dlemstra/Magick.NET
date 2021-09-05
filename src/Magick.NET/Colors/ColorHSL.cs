@@ -82,15 +82,15 @@ namespace ImageMagick
         protected override void UpdateColor()
         {
             double c;
-            double h = Hue * 360.0;
+            var h = Hue * 360.0;
             if (Lightness <= 0.5)
                 c = 2.0 * Lightness * Saturation;
             else
                 c = (2.0 - (2.0 * Lightness)) * Saturation;
-            double min = Lightness - (0.5 * c);
+            var min = Lightness - (0.5 * c);
             h -= 360.0 * Math.Floor(h / 360.0);
             h /= 60.0;
-            double x = c * (1.0 - Math.Abs(h - (2.0 * Math.Floor(h / 2.0)) - 1.0));
+            var x = c * (1.0 - Math.Abs(h - (2.0 * Math.Floor(h / 2.0)) - 1.0));
             switch ((int)Math.Floor(h))
             {
                 case 0:
@@ -129,10 +129,10 @@ namespace ImageMagick
 
         private void Initialize(double red, double green, double blue)
         {
-            double quantumScale = 1.0 / Quantum.Max;
-            double max = Math.Max(red, Math.Max(green, blue)) * quantumScale;
-            double min = Math.Min(red, Math.Min(green, blue)) * quantumScale;
-            double c = max - min;
+            var quantumScale = 1.0 / Quantum.Max;
+            var max = Math.Max(red, Math.Max(green, blue)) * quantumScale;
+            var min = Math.Min(red, Math.Min(green, blue)) * quantumScale;
+            var c = max - min;
 
             Lightness = (max + min) / 2.0;
             if (c <= 0.0)

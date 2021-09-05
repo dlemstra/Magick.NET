@@ -109,7 +109,7 @@ namespace ImageMagick.Configuration
 
                 using (var fileStream = File.Open(outputFile, FileMode.CreateNew))
                 {
-                    byte[] data = Encoding.UTF8.GetBytes(configFile.Data);
+                    var data = Encoding.UTF8.GetBytes(configFile.Data);
                     fileStream.Write(data, 0, data.Length);
                 }
             }

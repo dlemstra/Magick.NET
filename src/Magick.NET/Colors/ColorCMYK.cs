@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.Collections.Generic;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -168,7 +167,7 @@ namespace ImageMagick
 
             if (color[0] == '#')
             {
-                if (!HexColor.TryParse(color, out List<QuantumType> colors))
+                if (!HexColor.TryParse(color, out var colors))
                     throw new ArgumentException("Invalid hex value.", nameof(color));
 
                 if (colors.Count == 4)
