@@ -508,9 +508,9 @@ namespace ImageMagick
             Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, _images.Count);
             Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, array.Length);
 
-            int indexI = 0;
-            int length = Math.Min(array.Length, _images.Count);
-            for (int indexA = arrayIndex; indexA < length; indexA++)
+            var indexI = 0;
+            var length = Math.Min(array.Length, _images.Count);
+            for (var indexA = arrayIndex; indexA < length; indexA++)
             {
                 array[indexA] = _images[indexI++].Clone();
             }
@@ -1426,7 +1426,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(string fileName)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
@@ -1502,7 +1502,7 @@ namespace ImageMagick
 
         private void AddImages(string fileName, IMagickReadSettings<QuantumType>? readSettings, bool ping)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             var settings = CreateSettings(readSettings);
