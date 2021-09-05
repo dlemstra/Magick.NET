@@ -28,6 +28,8 @@ csharp_style_pattern_matching_over_as_with_null_check = true:error
 csharp_style_prefer_range_operator = false
 csharp_style_prefer_switch_expression = true:error
 
+dotnet_style_predefined_type_for_locals_parameters_members = true:error
+
 dotnet_style_qualification_for_event = false:error
 dotnet_style_qualification_for_field = false:error
 dotnet_style_qualification_for_method = false:error
