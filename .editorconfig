@@ -26,8 +26,8 @@ dotnet_style_qualification_for_method = false:error
 dotnet_style_qualification_for_property = false:error
 
 csharp_style_var_for_built_in_types=true:error
-csharp_style_var_when_type_is_apparent=true:silent
-csharp_style_var_elsewhere=true:silent
+csharp_style_var_when_type_is_apparent=true
+csharp_style_var_elsewhere=true
 
 dotnet_naming_rule.camel_case_for_private_internal_fields.severity = suggestion
 dotnet_naming_rule.camel_case_for_private_internal_fields.symbols  = private_internal_fields
