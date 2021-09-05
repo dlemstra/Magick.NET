@@ -7187,7 +7187,7 @@ namespace ImageMagick
             var managedOrigin = UTF8Marshaler.NativeToManaged(origin);
             var eventArgs = new ProgressEventArgs(managedOrigin, (int)offset, (int)extent);
             _progress(this, eventArgs);
-            return eventArgs.Cancel ? false : true;
+            return !eventArgs.Cancel;
         }
 
         private void OnWarning(object sender, WarningEventArgs arguments)

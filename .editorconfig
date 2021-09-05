@@ -26,6 +26,7 @@ dotnet_sort_system_directives_first = true:error
 csharp_style_pattern_matching_over_as_with_null_check = true:error
 
 csharp_style_prefer_range_operator = false
+dotnet_style_prefer_simplified_boolean_expressions = true:error
 csharp_style_prefer_switch_expression = true:error
 
 dotnet_style_predefined_type_for_locals_parameters_members = true:error
