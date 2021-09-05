@@ -56,8 +56,7 @@ namespace ImageMagick
 
         internal static MagickRectangle CreateInstance(INativeInstance nativeInstance)
         {
-            var instance = nativeInstance as NativeMagickRectangle;
-            if (instance == null)
+            if (nativeInstance is not NativeMagickRectangle instance)
                 throw new InvalidOperationException();
 
             return new MagickRectangle(instance);
