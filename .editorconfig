@@ -18,7 +18,9 @@ tab_width = 4
 
 [*.cs]
 
-dotnet_sort_system_directives_first = true
+csharp_prefer_simple_using_statement = false
+
+dotnet_sort_system_directives_first = true:error
 
 dotnet_style_qualification_for_event = false:error
 dotnet_style_qualification_for_field = false:error
