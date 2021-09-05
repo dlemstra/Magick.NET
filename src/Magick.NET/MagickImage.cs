@@ -6989,26 +6989,17 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings.ReadSettings.Height, "ReadSettings.Height should be defined when pixel storage is set.");
 
             var length = settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * settings.Mapping!.Length;
-            switch (settings.StorageType)
+            return settings.StorageType switch
             {
-                case StorageType.Char:
-                    return length;
-                case StorageType.Double:
-                    return length * sizeof(double);
-                case StorageType.Float:
-                    return length * sizeof(float);
-                case StorageType.Int32:
-                    return length * sizeof(Int32);
-                case StorageType.Int64:
-                    return length * sizeof(Int64);
-                case StorageType.Quantum:
-                    return length * sizeof(QuantumType);
-                case StorageType.Short:
-                    return length * sizeof(ushort);
-                case StorageType.Undefined:
-                default:
-                    throw new NotSupportedException();
-            }
+                StorageType.Char => length,
+                StorageType.Double => length * sizeof(double),
+                StorageType.Float => length * sizeof(float),
+                StorageType.Int32 => length * sizeof(Int32),
+                StorageType.Int64 => length * sizeof(Int64),
+                StorageType.Quantum => length * sizeof(QuantumType),
+                StorageType.Short => length * sizeof(ushort),
+                _ => throw new NotSupportedException(),
+            };
         }
 
         private static string ToBase64(byte[] bytes)
