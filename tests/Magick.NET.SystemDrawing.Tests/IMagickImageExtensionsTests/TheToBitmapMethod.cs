@@ -95,7 +95,11 @@ namespace Magick.NET.SystemDrawing.Tests
 
                     using (var bitmap = image.ToBitmap())
                     {
+#if Q8
                         var expected = new MagickColor("#494949ff");
+#else
+                        var expected = new MagickColors.Black;
+#endif
                         for (var i = 0; i < image.Width; i++)
                             ColorAssert.Equal(expected, ToMagickColor(bitmap.GetPixel(i, 0)));
                     }
