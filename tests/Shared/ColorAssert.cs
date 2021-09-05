@@ -73,7 +73,7 @@ namespace Magick.NET
         private static void Equal(IMagickColor<QuantumType> expected, IPixel<QuantumType> actual, string messageSuffix)
             => Equal(expected, actual.ToColor(), messageSuffix);
 
-        private static void Equal(QuantumType expected, QuantumType actual, IMagickColor<QuantumType> expectedColor, IMagickColor<QuantumType> actualColor, float delta, string channel, string messageSuffix)
+        private static void Equal(QuantumType expected, QuantumType actual, IMagickColor<QuantumType> expectedColor, IMagickColor<QuantumType> actualColor, double delta, string channel, string messageSuffix)
         {
 #if Q16HDRI
             if (double.IsNaN(actual))
@@ -81,7 +81,7 @@ namespace Magick.NET
 #endif
 
             if (actual < expected - delta || actual > expected + delta)
-                throw new XunitException(channel + " is not equal (" + expectedColor.ToString() + " != " + actualColor.ToString() + ")" + messageSuffix);
+                throw new XunitException(channel + " is not equal (" + expectedColor.ToString() + " != " + actualColor.ToString() + ") (" + expected + " != " + actual + ") " + messageSuffix);
         }
 
         private static void NotEqual(IMagickColor<QuantumType> expected, IPixel<QuantumType> actual, string messageSuffix)
