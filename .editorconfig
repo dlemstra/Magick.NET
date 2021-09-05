@@ -19,6 +19,7 @@ tab_width = 4
 [*.cs]
 
 csharp_prefer_simple_using_statement = false
+csharp_prefer_static_local_function = true: rror
 
 dotnet_sort_system_directives_first = true:error
 

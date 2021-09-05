@@ -6548,7 +6548,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Trim(params Gravity[] edges)
         {
-            IEnumerable<string> GravityToEdge(Gravity[] edges)
+            static IEnumerable<string> GravityToEdge(Gravity[] edges)
             {
                 foreach (var edge in edges)
                 {
