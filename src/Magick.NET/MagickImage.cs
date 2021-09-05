@@ -5161,7 +5161,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void ReadPixels(string fileName, IPixelReadSettings<QuantumType>? settings)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             var data = File.ReadAllBytes(filePath);
@@ -6209,7 +6209,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            var result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out var rectangle, out double similarityMetric);
+            var result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out var rectangle, out var similarityMetric);
 
             var geometry = MagickGeometry.FromRectangle(rectangle);
             return new MagickSearchResult(Create(result, GetSettings(image)), geometry, similarityMetric);

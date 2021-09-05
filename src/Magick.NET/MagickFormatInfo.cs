@@ -108,7 +108,7 @@ namespace ImageMagick
         /// <returns>The format information.</returns>
         public static MagickFormatInfo? Create(string fileName)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return Create(new FileInfo(filePath));
@@ -213,7 +213,7 @@ namespace ImageMagick
                 list = instance.CreateList(out length);
 
                 var ptr = list;
-                for (int i = 0; i < (int)length; i++)
+                for (var i = 0; i < (int)length; i++)
                 {
                     instance.GetInfo(list, i);
 

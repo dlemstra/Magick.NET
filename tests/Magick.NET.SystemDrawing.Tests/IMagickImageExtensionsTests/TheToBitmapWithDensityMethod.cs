@@ -95,7 +95,7 @@ namespace Magick.NET.SystemDrawing.Tests
 
                     using (var bitmap = image.ToBitmapWithDensity())
                     {
-                        for (int i = 0; i < image.Width; i++)
+                        for (var i = 0; i < image.Width; i++)
                             ColorAssert.Equal(MagickColors.Black, ToMagickColor(bitmap.GetPixel(i, 0)));
                     }
                 }
@@ -108,7 +108,7 @@ namespace Magick.NET.SystemDrawing.Tests
                 {
                     using (var bitmap = image.ToBitmapWithDensity())
                     {
-                        for (int i = 0; i < image.Width; i++)
+                        for (var i = 0; i < image.Width; i++)
                             ColorAssert.Equal(MagickColors.Magenta, ToMagickColor(bitmap.GetPixel(i, 0)));
                     }
                 }
@@ -126,7 +126,7 @@ namespace Magick.NET.SystemDrawing.Tests
                         var color = MagickColors.Magenta;
                         color.A = Quantum.Max;
 
-                        for (int i = 0; i < image.Width; i++)
+                        for (var i = 0; i < image.Width; i++)
                             ColorAssert.Equal(color, ToMagickColor(bitmap.GetPixel(i, 0)));
                     }
                 }

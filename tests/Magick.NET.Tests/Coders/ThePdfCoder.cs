@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
 
             var results = new Task[3];
 
-            for (int i = 0; i < results.Length; ++i)
+            for (var i = 0; i < results.Length; ++i)
             {
                 results[i] = Task.Run(() =>
                 {
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 });
             }
 
-            for (int i = 0; i < results.Length; ++i)
+            for (var i = 0; i < results.Length; ++i)
             {
                 results[i].Wait();
             }

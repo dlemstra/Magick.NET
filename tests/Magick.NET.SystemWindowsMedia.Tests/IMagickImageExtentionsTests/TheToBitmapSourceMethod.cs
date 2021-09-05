@@ -64,7 +64,7 @@ namespace Magick.NET.SystemWindowsMedia.Tests
             [Fact]
             public void ShouldReturnImageWithBgra32FormatForRgbaImage()
             {
-                byte[] pixels = new byte[200];
+                var pixels = new byte[200];
 
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {
@@ -90,7 +90,7 @@ namespace Magick.NET.SystemWindowsMedia.Tests
             [Fact]
             public void ShouldReturnImageWithRgb24FormatForYCbCrImage()
             {
-                byte[] pixels = new byte[150];
+                var pixels = new byte[150];
 
                 using (var image = new MagickImage(MagickColors.Red, 5, 10))
                 {

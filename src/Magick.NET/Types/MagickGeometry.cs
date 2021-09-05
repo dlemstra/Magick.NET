@@ -250,8 +250,8 @@ namespace ImageMagick
             if (other is null)
                 return 1;
 
-            int left = Width * Height;
-            int right = other.Width * other.Height;
+            var left = Width * Height;
+            var right = other.Width * other.Height;
 
             if (left == right)
                 return 0;
@@ -426,11 +426,11 @@ namespace ImageMagick
 
         private static int ParseInt(string value)
         {
-            int index = 0;
+            var index = 0;
             while (index < value.Length && !char.IsNumber(value[index]))
                 index++;
 
-            int start = index;
+            var start = index;
             while (index < value.Length && char.IsNumber(value[index]))
                 index++;
 
