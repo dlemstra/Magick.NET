@@ -1184,7 +1184,7 @@ namespace ImageMagick
         /// <param name="boundingArea">The bounding area.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Annotate(string text, IMagickGeometry boundingArea)
-            => Annotate(text, boundingArea, Gravity.Northwest, 0.0);
+            => Annotate(text, boundingArea, Gravity.Undefined, 0.0);
 
         /// <summary>
         /// Annotate using specified text, bounding area, and placement gravity.
