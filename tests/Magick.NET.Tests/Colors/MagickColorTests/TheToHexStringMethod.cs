@@ -14,19 +14,15 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectString()
             {
-                var color = new MagickColor(MagickColors.Red);
-                Assert.Equal("#FF0000", color.ToHexString());
+                var color = MagickColors.PowderBlue;
+                Assert.Equal("#B0E0E6", color.ToHexString());
             }
 
             [Fact]
             public void ShouldIncludeTheAlphaChannelWhenNotFullyOpquery()
             {
-                var color = new MagickColor(MagickColors.Red)
-                {
-                    A = 0,
-                };
-
-                Assert.Equal("#FF000000", color.ToHexString());
+                var color = new MagickColor("#b0e0e680");
+                Assert.Equal("#B0E0E680", color.ToHexString());
             }
 
             [Fact]
