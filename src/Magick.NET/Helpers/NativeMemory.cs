@@ -26,7 +26,7 @@ namespace ImageMagick.Helpers
                 *(destination++) = *(source++);
             }
 #else
-            Buffer.MemoryCopy(source, destination, length, size);
+            Buffer.MemoryCopy(source, destination, size, size);
 #endif
         }
 #endif
@@ -50,7 +50,7 @@ namespace ImageMagick.Helpers
                 *(destination++) = *(source++);
             }
 #else
-            Buffer.MemoryCopy(source, destination, length, size);
+            Buffer.MemoryCopy(source, destination, size, size);
 #endif
         }
 #endif
