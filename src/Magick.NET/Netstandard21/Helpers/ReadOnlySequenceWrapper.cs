@@ -34,7 +34,7 @@ namespace ImageMagick
             if (data == IntPtr.Zero)
                 return 0;
 
-            byte* destination = (byte*)data.ToPointer();
+            var destination = (byte*)data.ToPointer();
 
             long bytesRead = 0;
             while (total > 0)
@@ -136,19 +136,13 @@ namespace ImageMagick
             => _totalOffset;
 
         private long GetNewOffset(long offset, IntPtr whence)
-        {
-            switch ((SeekOrigin)whence)
+            => (SeekOrigin)whence switch
             {
-                case SeekOrigin.Begin:
-                    return offset;
-                case SeekOrigin.Current:
-                    return _totalOffset + offset;
-                case SeekOrigin.End:
-                    return _data.Length - offset;
-                default:
-                    return -1;
-            }
-        }
+                SeekOrigin.Begin => offset,
+                SeekOrigin.Current => _totalOffset + offset,
+                SeekOrigin.End => _data.Length - offset,
+                _ => -1,
+            };
     }
 }
 

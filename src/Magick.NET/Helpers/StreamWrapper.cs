@@ -173,7 +173,7 @@ namespace ImageMagick
 
         private byte* ReadBuffer(byte* destination, long length)
         {
-            byte* source = _bufferStart;
+            var source = _bufferStart;
             while (length >= 4)
             {
                 *(destination++) = *(source++);
