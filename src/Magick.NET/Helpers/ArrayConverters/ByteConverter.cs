@@ -15,8 +15,8 @@ namespace ImageMagick
 
             unsafe
             {
-                int length = 0;
-                byte* walk = (byte*)nativeData;
+                var length = 0;
+                var walk = (byte*)nativeData;
 
                 // find the end of the string
                 while (*(walk++) != 0)
@@ -34,7 +34,7 @@ namespace ImageMagick
             if (nativeData == IntPtr.Zero)
                 return null;
 
-            byte[] buffer = new byte[length];
+            var buffer = new byte[length];
             Marshal.Copy(nativeData, buffer, 0, length);
             return buffer;
         }

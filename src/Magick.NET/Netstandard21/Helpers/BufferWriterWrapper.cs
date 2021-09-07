@@ -28,7 +28,7 @@ namespace ImageMagick
             if (data == IntPtr.Zero)
                 return 0;
 
-            byte* source = (byte*)data.ToPointer();
+            var source = (byte*)data.ToPointer();
 
             while (total > 0)
             {
