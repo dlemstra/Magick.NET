@@ -110,7 +110,7 @@ namespace ImageMagick
             if (_data?.Length != data.Length)
                 return false;
 
-            for (int i = 0; i < _data.Length; i++)
+            for (var i = 0; i < _data.Length; i++)
             {
                 if (_data[i] != data[i])
                     return false;
