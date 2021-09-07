@@ -6,6 +6,7 @@
 using System;
 using System.Buffers;
 using System.IO;
+using ImageMagick.Helpers;
 
 namespace ImageMagick
 {
@@ -50,7 +51,7 @@ namespace ImageMagick
 
                     fixed (byte* source = current)
                     {
-                        Buffer.MemoryCopy(source + _currentOffset, destination, length, length);
+                        NativeMemory.Copy(source + _currentOffset, destination, length);
                     }
                 }
                 catch

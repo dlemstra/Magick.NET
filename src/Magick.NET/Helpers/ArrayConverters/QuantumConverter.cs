@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using ImageMagick.Helpers;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -23,21 +24,22 @@ namespace ImageMagick
                 return null;
 
             var result = new QuantumType[length];
-
             unsafe
             {
 #if Q8
-                var sourcePtr = (byte*)nativeData;
+                var source = (byte*)nativeData;
+                fixed (byte* destination = result)
 #elif Q16
-                var sourcePtr = (ushort*)nativeData;
+                var source = (ushort*)nativeData;
+                fixed (ushort* destination = result)
 #elif Q16HDRI
-                var sourcePtr = (float*)nativeData;
+                var source = (float*)nativeData;
+                fixed (float* destination = result)
 #else
 #error Not implemented!
 #endif
-                for (var i = 0; i < length; ++i)
                 {
-                    result[i] = *sourcePtr++;
+                    NativeMemory.Copy(source, destination, length);
                 }
             }
 

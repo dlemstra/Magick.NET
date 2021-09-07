@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
+using ImageMagick.Helpers;
 
 namespace ImageMagick
 {
@@ -153,42 +154,14 @@ namespace ImageMagick
 
         private byte* FillBuffer(byte* source, long length)
         {
-            var destination = _bufferStart;
-            while (length >= 4)
-            {
-                *(destination++) = *(source++);
-                *(destination++) = *(source++);
-                *(destination++) = *(source++);
-                *(destination++) = *(source++);
-                length -= 4;
-            }
-
-            while (length-- > 0)
-            {
-                *(destination++) = *(source++);
-            }
-
-            return source;
+            NativeMemory.Copy(source, _bufferStart, length);
+            return source + length;
         }
 
         private byte* ReadBuffer(byte* destination, long length)
         {
-            var source = _bufferStart;
-            while (length >= 4)
-            {
-                *(destination++) = *(source++);
-                *(destination++) = *(source++);
-                *(destination++) = *(source++);
-                *(destination++) = *(source++);
-                length -= 4;
-            }
-
-            while (length-- > 0)
-            {
-                *(destination++) = *(source++);
-            }
-
-            return destination;
+            NativeMemory.Copy(_bufferStart, destination, length);
+            return destination + length;
         }
     }
 }
