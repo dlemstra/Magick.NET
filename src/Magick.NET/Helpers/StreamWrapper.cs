@@ -60,7 +60,7 @@ namespace ImageMagick
             if (data == IntPtr.Zero)
                 return 0;
 
-            byte* destination = (byte*)data.ToPointer();
+            var destination = (byte*)data.ToPointer();
             long bytesRead = 0;
 
             while (total > 0)
@@ -93,17 +93,13 @@ namespace ImageMagick
         {
             try
             {
-                switch ((SeekOrigin)whence)
+                return (SeekOrigin)whence switch
                 {
-                    case SeekOrigin.Begin:
-                        return _stream.Seek(_streamStart + offset, SeekOrigin.Begin) - _streamStart;
-                    case SeekOrigin.Current:
-                        return _stream.Seek(offset, SeekOrigin.Current) - _streamStart;
-                    case SeekOrigin.End:
-                        return _stream.Seek(offset, SeekOrigin.End) - _streamStart;
-                    default:
-                        return -1;
-                }
+                    SeekOrigin.Begin => _stream.Seek(_streamStart + offset, SeekOrigin.Begin) - _streamStart,
+                    SeekOrigin.Current => _stream.Seek(offset, SeekOrigin.Current) - _streamStart,
+                    SeekOrigin.End => _stream.Seek(offset, SeekOrigin.End) - _streamStart,
+                    _ => -1,
+                };
             }
             catch
             {
@@ -132,7 +128,7 @@ namespace ImageMagick
             if (data == IntPtr.Zero)
                 return 0;
 
-            byte* source = (byte*)data.ToPointer();
+            var source = (byte*)data.ToPointer();
 
             while (total > 0)
             {
@@ -157,7 +153,7 @@ namespace ImageMagick
 
         private byte* FillBuffer(byte* source, long length)
         {
-            byte* destination = _bufferStart;
+            var destination = _bufferStart;
             while (length >= 4)
             {
                 *(destination++) = *(source++);
