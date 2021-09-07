@@ -34,8 +34,8 @@ namespace ImageMagick
                 return IntPtr.Zero;
 
             // not null terminated
-            byte[] strbuf = Encoding.UTF8.GetBytes(value);
-            IntPtr buffer = Marshal.AllocHGlobal(strbuf.Length + 1);
+            var strbuf = Encoding.UTF8.GetBytes(value);
+            var buffer = Marshal.AllocHGlobal(strbuf.Length + 1);
             Marshal.Copy(strbuf, 0, buffer, strbuf.Length);
 
             // write the terminating null
