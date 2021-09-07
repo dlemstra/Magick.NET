@@ -108,7 +108,7 @@ namespace ImageMagick
 
         public virtual void SetIntArea(int x, int y, int width, int height, int[] values)
         {
-            QuantumType[] castedValues = CastArray(values, Quantum.Convert);
+            var castedValues = CastArray(values, Quantum.Convert);
             SetAreaUnchecked(x, y, width, height, castedValues);
         }
 
@@ -225,7 +225,7 @@ namespace ImageMagick
         private static QuantumType[] CastArray<T>(T[] values, Func<T, QuantumType> convertMethod)
         {
             var result = new QuantumType[values.Length];
-            for (int i = 0; i < values.Length; i++)
+            for (var i = 0; i < values.Length; i++)
                 result[i] = convertMethod(values[i]);
 
             return result;
