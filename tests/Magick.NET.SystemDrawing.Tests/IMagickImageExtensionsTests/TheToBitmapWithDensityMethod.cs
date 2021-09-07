@@ -70,7 +70,7 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldChangeTheColorSpaceToSrgb()
             {
-                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     image.ColorSpace = ColorSpace.YCbCr;
 
@@ -86,7 +86,7 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldBeAbleToConvertGrayImage()
             {
-                using (var image = new MagickImage(ToMagickColor(Color.Magenta), 5, 1))
+                using (var image = new MagickImage(MagickColors.Magenta, 5, 1))
                 {
                     image.ColorType = ColorType.Bilevel;
                     image.ClassType = ClassType.Direct;
@@ -105,7 +105,7 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldBeAbleToConvertRgbImage()
             {
-                using (var image = new MagickImage(ToMagickColor(Color.Magenta), 5, 1))
+                using (var image = new MagickImage(MagickColors.Magenta, 5, 1))
                 {
                     using (var bitmap = image.ToBitmapWithDensity())
                     {
@@ -118,7 +118,7 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldBeAbleToConvertRgbaImage()
             {
-                using (var image = new MagickImage(ToMagickColor(Color.Magenta), 5, 1))
+                using (var image = new MagickImage(MagickColors.Magenta, 5, 1))
                 {
                     image.Alpha(AlphaOption.On);
 
@@ -136,7 +136,7 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldSetTheDensityOfTheBitmap()
             {
-                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     image.Density = new Density(300, 200);
 
@@ -151,7 +151,7 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldThrowExceptionWhenImageFormatIsNull()
             {
-                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     Assert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmapWithDensity(null));
                 }
@@ -160,7 +160,7 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldSetTheDensityOfTheBitmapWhenFormatIsUsed()
             {
-                using (var image = new MagickImage(ToMagickColor(Color.Red), 1, 1))
+                using (var image = new MagickImage(MagickColors.Red, 1, 1))
                 {
                     image.Density = new Density(300, 200);
 
