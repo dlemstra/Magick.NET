@@ -8,7 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [CollectionDefinition(nameof(RunTestsSeparately))]
+        [Collection(nameof(RunTestsSeparately))]
         public class TheAddNoiseMethod
         {
             [Fact]

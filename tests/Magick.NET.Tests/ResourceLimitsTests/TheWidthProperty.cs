@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
 {
     public partial class ResourceLimitsTests
     {
-        [CollectionDefinition(nameof(RunTestsSeparately))]
+        [Collection(nameof(RunTestsSeparately))]
         public class TheWidthProperty
         {
             [Fact]
