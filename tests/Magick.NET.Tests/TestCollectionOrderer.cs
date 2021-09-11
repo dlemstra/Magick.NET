@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -40,7 +39,7 @@ namespace Magick.NET.Tests
         }
 
         /// <summary>
-        /// Used by <see cref="MagickNETTests.TheInitializeMethod.WithPath.ShouldThrowExceptionWhenInitializedWithCustomPolicyThatDisablesReadingPalmFiles"/>.
+        /// Used by <see cref="MagickNETTests.ThePolicy.ShouldCauseAnExceptionWhenThePalmCoderIsDisabled"/>.
         /// </summary>
         /// <param name="data">The current policy.</param>
         /// <returns>The new policy.</returns>
@@ -54,7 +53,7 @@ namespace Magick.NET.Tests
             var doc = new XmlDocument();
             using (var stringReader = new StringReader(data))
             {
-                using (XmlReader reader = XmlReader.Create(stringReader, settings))
+                using (var reader = XmlReader.Create(stringReader, settings))
                 {
                     doc.Load(reader);
                 }
