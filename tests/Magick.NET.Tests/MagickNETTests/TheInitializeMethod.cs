@@ -11,6 +11,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
+        [Collection(nameof(RunTestsSeparately))]
         public class TheInitializeMethod : MagickNETTests
         {
             public class WithPath
@@ -36,7 +37,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenXmlFileIsMissing()
                 {
-                    string path = Files.Root + @"../../src/Magick.Native/resources/Release";
+                    var path = Files.Root + @"../../src/Magick.Native/resources/Release";
 #if Q8
                     path += "Q8";
 #elif Q16
@@ -45,9 +46,9 @@ namespace Magick.NET.Tests
                     path += "Q16-HDRI";
 #endif
 
-                    foreach (string fileName in Directory.GetFiles(path, "*.xml"))
+                    foreach (var fileName in Directory.GetFiles(path, "*.xml"))
                     {
-                        string tempFile = fileName + ".tmp";
+                        var tempFile = fileName + ".tmp";
 
                         Cleanup.DeleteFile(tempFile);
 
@@ -66,29 +67,6 @@ namespace Magick.NET.Tests
                         {
                             File.Move(tempFile, fileName);
                         }
-                    }
-                }
-
-                /// <summary>
-                /// The policy is initialized with <see cref="TestCollectionOrderer"/> at the start of all tests.
-                /// </summary>
-                [Fact]
-                public void ShouldThrowExceptionWhenInitializedWithCustomPolicyThatDisablesReadingPalmFiles()
-                {
-                    using (var tempFile = new TemporaryFile("test.palm"))
-                    {
-                        using (var fs = tempFile.FileInfo.OpenWrite())
-                        {
-                            var bytes = new byte[4] { 0, 0, 0, 0 };
-                            fs.Write(bytes, 0, bytes.Length);
-                        }
-
-                        Assert.Throws<MagickPolicyErrorException>(() =>
-                        {
-                            using (var image = new MagickImage(tempFile.FileInfo))
-                            {
-                            }
-                        });
                     }
                 }
             }
@@ -123,7 +101,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldWriteCustomPolicyToDisk()
                 {
-                    string policy = @"<test/>";
+                    var policy = @"<test/>";
 
                     string path = null;
                     try
@@ -178,7 +156,7 @@ namespace Magick.NET.Tests
                 {
                     using (var directory = new TemporaryDirectory())
                     {
-                        string path = directory.FullName;
+                        var path = directory.FullName;
 
                         MagickNET.Initialize(ConfigurationFiles.Default, path);
 
@@ -191,7 +169,7 @@ namespace Magick.NET.Tests
                 {
                     using (var directory = new TemporaryDirectory())
                     {
-                        string path = directory.FullName;
+                        var path = directory.FullName;
 
                         MagickNET.Initialize(ConfigurationFiles.Default, path);
                         MagickNET.Initialize(ConfigurationFiles.Default, path);
