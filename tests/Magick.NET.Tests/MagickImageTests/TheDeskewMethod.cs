@@ -54,9 +54,7 @@ namespace Magick.NET.Tests
 
                     image.Deskew(new Percentage(10));
 
-                    image.Clamp();
-
-                    ColorAssert.Equal(MagickColors.Black, image, 471, 92);
+                    ColorAssert.Equal(new MagickColor("#007400740074ffff"), image, 471, 92);
                 }
             }
 

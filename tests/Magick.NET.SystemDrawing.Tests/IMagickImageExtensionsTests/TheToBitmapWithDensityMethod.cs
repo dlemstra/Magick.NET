@@ -88,6 +88,8 @@ namespace Magick.NET.SystemDrawing.Tests
             {
                 using (var image = new MagickImage(MagickColors.Magenta, 5, 1))
                 {
+                    image.Extent(5, 2, MagickColors.Honeydew);
+
                     image.ColorType = ColorType.Bilevel;
                     image.ClassType = ClassType.Direct;
 
@@ -95,9 +97,11 @@ namespace Magick.NET.SystemDrawing.Tests
 
                     using (var bitmap = image.ToBitmapWithDensity())
                     {
-                        var expected = new MagickColor("#494949494949ffff");
                         for (var i = 0; i < image.Width; i++)
-                            ColorAssert.Equal(expected, ToMagickColor(bitmap.GetPixel(i, 0)));
+                            ColorAssert.Equal(MagickColors.Black, ToMagickColor(bitmap.GetPixel(i, 0)));
+
+                        for (var i = 0; i < image.Width; i++)
+                            ColorAssert.Equal(MagickColors.White, ToMagickColor(bitmap.GetPixel(i, 1)));
                     }
                 }
             }
