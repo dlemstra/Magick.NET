@@ -40,6 +40,7 @@ namespace Magick.NET.Tests
 
         /// <summary>
         /// Used by <see cref="MagickNETTests.ThePolicy.ShouldCauseAnExceptionWhenThePalmCoderIsDisabled"/>.
+        /// and <see cref="MagickNETTests.ThePolicy.ShouldCauseAnExceptionWhenTheSunModuleIsDisabled"/>.
         /// </summary>
         /// <param name="data">The current policy.</param>
         /// <returns>The new policy.</returns>
@@ -59,14 +60,29 @@ namespace Magick.NET.Tests
                 }
             }
 
-            var policy = doc.CreateElement("policy");
-            SetAttribute(policy, "domain", "coder");
-            SetAttribute(policy, "rights", "none");
-            SetAttribute(policy, "pattern", "{PALM}");
-
-            doc.DocumentElement.AppendChild(policy);
+            SetPolicyRights(doc, "coder", "PALM", "none");
+            SetPolicyRights(doc, "module", "{SUN,JPEG}", "none");
+            SetPolicyRights(doc, "module", "{JPEG}", "read | write");
 
             return doc.OuterXml;
+        }
+
+        private static void SetPolicyRights(XmlDocument doc, string domain, string pattern, string rights)
+        {
+            var policy = doc.CreateElement("policy");
+            SetAttribute(policy, "domain", domain);
+            SetAttribute(policy, "rights", rights);
+            SetAttribute(policy, "pattern", pattern);
+
+            doc.DocumentElement.AppendChild(policy);
+        }
+
+        private static void SetAttribute(XmlElement element, string name, string value)
+        {
+            var attribute = element.OwnerDocument.CreateAttribute(name);
+            attribute.Value = value;
+
+            element.Attributes.Append(attribute);
         }
 
         private static string CreateTypeData() => $@"
@@ -76,13 +92,5 @@ namespace Magick.NET.Tests
 <type format=""ttf"" name=""CourierNew"" fullname=""Courier New"" family=""Courier New"" glyphs=""{Files.Fonts.CourierNew}""/>
 </typemap>
 ";
-
-        private static void SetAttribute(XmlElement element, string name, string value)
-        {
-            var attribute = element.OwnerDocument.CreateAttribute(name);
-            attribute.Value = value;
-
-            element.Attributes.Append(attribute);
-        }
     }
 }

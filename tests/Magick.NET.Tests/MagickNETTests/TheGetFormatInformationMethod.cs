@@ -38,6 +38,9 @@ namespace Magick.NET.Tests
 
             private static bool ShouldReport(MagickFormat format)
             {
+                if (IsDisabledThroughPolicy(format))
+                    return false;
+
                 if (!OperatingSystem.IsWindows)
                 {
                     if (format == MagickFormat.Clipboard || format == MagickFormat.Emf || format == MagickFormat.Wmf)
@@ -55,6 +58,12 @@ namespace Magick.NET.Tests
 
                 return true;
             }
+
+            /// <summary>
+            /// Disabled with <see cref="TestCollectionOrderer.ModifyPolicy(string)"/>.
+            /// </summary>
+            private static bool IsDisabledThroughPolicy(MagickFormat format)
+                => format == MagickFormat.Sun || format == MagickFormat.Ras;
         }
     }
 }
