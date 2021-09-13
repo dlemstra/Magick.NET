@@ -432,7 +432,7 @@ namespace ImageMagick
         /// Gets the smallest bounding box enclosing non-border pixels. The current fuzz value is used
         /// when discriminating between pixels.
         /// </summary>
-        public IMagickGeometry BoundingBox
+        public IMagickGeometry? BoundingBox
         {
             get
             {
@@ -440,7 +440,11 @@ namespace ImageMagick
                 if (boundingBox == null)
                     throw new MagickErrorException("Unable to allocate rectangle");
 
-                return MagickGeometry.FromRectangle(boundingBox);
+                var rectangle = MagickGeometry.FromRectangle(boundingBox);
+                if (rectangle.Width == 0 || rectangle.Height == 0)
+                    return null;
+
+                return rectangle;
             }
         }
 
