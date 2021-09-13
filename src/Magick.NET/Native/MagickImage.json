@@ -118,7 +118,8 @@
     {
       "name": "BoundingBox",
       "type": "MagickRectangle",
-      "readonly": true
+      "readonly": true,
+      "throws": true
     },
     {
       "name": "ChannelCount",

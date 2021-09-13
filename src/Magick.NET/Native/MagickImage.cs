@@ -72,7 +72,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_BorderColor_Set(IntPtr instance, IntPtr value);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance);
+                public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -640,7 +640,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_BorderColor_Set(IntPtr instance, IntPtr value);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance);
+                public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1481,19 +1481,21 @@ namespace ImageMagick
             {
                 get
                 {
+                    IntPtr exception = IntPtr.Zero;
                     IntPtr result;
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_BoundingBox_Get(Instance);
+                    result = NativeMethods.X64.MagickImage_BoundingBox_Get(Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_BoundingBox_Get(Instance);
+                    result = NativeMethods.X86.MagickImage_BoundingBox_Get(Instance, out exception);
                     #endif
+                    CheckException(exception);
                     return MagickRectangle.CreateInstance(result);
                 }
             }
