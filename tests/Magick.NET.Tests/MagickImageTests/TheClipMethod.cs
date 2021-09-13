@@ -23,13 +23,13 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheCorrectColorsWhenInsideIsFalse()
             {
-                AssertClipColors(false, 0);
+                AssertClipColors(false, Quantum.Max);
             }
 
             [Fact]
             public void ShouldSetTheCorrectColorsWhenInsideIsTrue()
             {
-                AssertClipColors(true, Quantum.Max);
+                AssertClipColors(true, 0);
             }
 
             private static void AssertClipColors(bool inside, QuantumType value)
