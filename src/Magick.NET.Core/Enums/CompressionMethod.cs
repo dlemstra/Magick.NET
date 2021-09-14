@@ -137,5 +137,10 @@ namespace ImageMagick
         /// DWAB.
         /// </summary>
         DWAB,
+
+        /// <summary>
+        /// BC7.
+        /// </summary>
+        BC7,
     }
 }
