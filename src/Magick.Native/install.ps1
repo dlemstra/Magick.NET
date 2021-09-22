@@ -93,19 +93,19 @@ function copyLibraries($source, $target) {
 
     [void](New-Item -ItemType directory -Path "$target\win")
     Copy-Item "$source\**\content\windows\**\**\*.dll" -Force "$target\win"
-    copyNotice "$source\**\content\windows\Notice.txt" "$target\win\Notice.txt"
+    copyNotice "$source\**\content\windows\NOTICE" "$target\win\Notice.txt"
 
     [void](New-Item -ItemType directory -Path "$target\linux")
     Copy-Item "$source\**\content\linux\**\**\*.so" -Force "$target\linux"
-    copyNotice "$source\**\content\linux\Notice.txt" "$target\linux\Notice.txt"
+    copyNotice "$source\**\content\linux\NOTICE" "$target\linux\Notice.txt"
 
     [void](New-Item -ItemType directory -Path "$target\linux-musl")
     Copy-Item "$source\**\content\linux-musl\**\**\*.so" -Force "$target\linux-musl"
-    copyNotice "$source\**\content\linux-musl\Notice.txt" "$target\linux-musl\Notice.txt"
+    copyNotice "$source\**\content\linux-musl\NOTICE" "$target\linux-musl\Notice.txt"
 
     [void](New-Item -ItemType directory -Path "$target\osx")
     Copy-Item "$source\**\content\macos\**\**\*.dylib" -Force "$target\osx"
-    copyNotice "$source\**\content\macos\Notice.txt" "$target\osx\Notice.txt"
+    copyNotice "$source\**\content\macos\NOTICE" "$target\osx\Notice.txt"
 }
 
 function copyResource($source, $target, $quantum) {
