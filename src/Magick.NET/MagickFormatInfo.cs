@@ -77,14 +77,14 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(file), file);
 
-            MagickFormat? format = null;
+            MagickFormat format = default;
             if (file.Extension != null && file.Extension.Length > 1)
-                format = EnumHelper.Parse<MagickFormat>(file.Extension.Substring(1));
+                format = EnumHelper.Parse(file.Extension.Substring(1), MagickFormat.Unknown);
 
-            if (format == null)
+            if (format == MagickFormat.Unknown)
                 return null;
 
-            return Create(format.Value);
+            return Create(format);
         }
 
         /// <summary>

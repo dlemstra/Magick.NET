@@ -10,38 +10,40 @@ namespace ImageMagick
     internal static class EnumHelper
     {
         public static string ConvertFlags<TEnum>(TEnum value)
-          where TEnum : struct, IConvertible
+          where TEnum : Enum
         {
             var flags = new List<string>();
 
             foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
             {
                 if (HasFlag(value, enumValue))
-                    flags.Add(Enum.GetName(typeof(TEnum), enumValue));
+                {
+                    var name = GetName(enumValue);
+                    if (!flags.Contains(name))
+                        flags.Add(name);
+                }
             }
 
             return string.Join(",", flags.ToArray());
         }
 
         public static string GetName<TEnum>(TEnum value)
-          where TEnum : struct, IConvertible
-        {
-            return Enum.GetName(typeof(TEnum), value);
-        }
+          where TEnum : Enum
+            => Enum.GetName(typeof(TEnum), value);
 
         public static bool HasFlag<TEnum>(TEnum value, TEnum flag)
-          where TEnum : struct, IConvertible
+          where TEnum : Enum
         {
-            var flagValue = flag.ToUInt32(CultureInfo.InvariantCulture);
-            return (value.ToUInt32(CultureInfo.InvariantCulture) & flagValue) == flagValue;
+            var flagValue = Convert.ToInt32(flag);
+            return (Convert.ToInt32(value) & flagValue) == flagValue;
         }
 
         public static TEnum Parse<TEnum>(int value, TEnum defaultValue)
-          where TEnum : struct, IConvertible
+          where TEnum : Enum
         {
             foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
             {
-                if (value == enumValue.ToInt32(CultureInfo.InvariantCulture))
+                if (value == Convert.ToInt32(enumValue))
                     return enumValue;
             }
 
@@ -49,7 +51,7 @@ namespace ImageMagick
         }
 
         public static TEnum Parse<TEnum>(string? value, TEnum defaultValue)
-          where TEnum : struct, IConvertible
+          where TEnum : Enum
         {
             if (string.IsNullOrEmpty(value))
                 return defaultValue;
@@ -63,24 +65,12 @@ namespace ImageMagick
             return defaultValue;
         }
 
-        public static TEnum? Parse<TEnum>(string value)
-          where TEnum : struct, IConvertible
-        {
-            foreach (var name in Enum.GetNames(typeof(TEnum)))
-            {
-                if (name.Equals(value, StringComparison.OrdinalIgnoreCase))
-                    return (TEnum?)Enum.Parse(typeof(TEnum), name);
-            }
-
-            return null;
-        }
-
         public static TEnum Parse<TEnum>(ushort value, TEnum defaultValue)
-          where TEnum : struct, IConvertible
+          where TEnum : Enum
         {
             foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
             {
-                if (value == enumValue.ToUInt16(CultureInfo.InvariantCulture))
+                if (value == Convert.ToInt32(enumValue))
                     return enumValue;
             }
 
