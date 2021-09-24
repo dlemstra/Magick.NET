@@ -236,7 +236,7 @@ namespace ImageMagick
             if (exifValue.DataType == ExifDataType.String)
                 WriteValue(ExifDataType.String, value, stream);
 
-            foreach (object obj in (Array)value)
+            foreach (var obj in (Array)value)
                 WriteValue(exifValue.DataType, obj, stream);
         }
 

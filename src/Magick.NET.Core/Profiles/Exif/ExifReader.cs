@@ -37,7 +37,7 @@ namespace ImageMagick
         {
             var result = new TDataType[numberOfComponents];
 
-            for (int i = 0; i < numberOfComponents; i++)
+            for (var i = 0; i < numberOfComponents; i++)
             {
                 result.SetValue(read(), i);
             }
