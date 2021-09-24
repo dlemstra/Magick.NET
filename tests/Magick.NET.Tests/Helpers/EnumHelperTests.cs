@@ -34,15 +34,6 @@ namespace Magick.NET.Tests
 
             dataType = EnumHelper.Parse<ExifDataType>("Longer");
             Assert.Null(dataType);
-
-            dataType = (ExifDataType?)EnumHelper.Parse(typeof(ExifDataType), string.Empty);
-            Assert.Null(dataType);
-
-            dataType = (ExifDataType?)EnumHelper.Parse(typeof(ExifDataType), "Long");
-            Assert.Equal(ExifDataType.Long, dataType);
-
-            dataType = (ExifDataType?)EnumHelper.Parse(typeof(ExifDataType), "Longer");
-            Assert.Null(dataType);
         }
     }
 }

@@ -86,16 +86,5 @@ namespace ImageMagick
 
             return defaultValue;
         }
-
-        public static object? Parse(Type enumType, string value)
-        {
-            foreach (var name in Enum.GetNames(enumType))
-            {
-                if (name.Equals(value, StringComparison.OrdinalIgnoreCase))
-                    return Enum.Parse(enumType, name);
-            }
-
-            return null;
-        }
     }
 }
