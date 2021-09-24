@@ -245,7 +245,7 @@ namespace ImageMagick
             if (data == null || data[0] != 0x1c)
                 return;
 
-            int i = 0;
+            var i = 0;
             while (i + 4 < data.Length)
             {
                 if (data[i++] != 0x1c)
