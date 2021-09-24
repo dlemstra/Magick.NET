@@ -12,7 +12,7 @@ namespace ImageMagick
         public static string ConvertFlags<TEnum>(TEnum value)
           where TEnum : struct, IConvertible
         {
-            List<string> flags = new List<string>();
+            var flags = new List<string>();
 
             foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
             {
@@ -32,7 +32,7 @@ namespace ImageMagick
         public static bool HasFlag<TEnum>(TEnum value, TEnum flag)
           where TEnum : struct, IConvertible
         {
-            uint flagValue = flag.ToUInt32(CultureInfo.InvariantCulture);
+            var flagValue = flag.ToUInt32(CultureInfo.InvariantCulture);
             return (value.ToUInt32(CultureInfo.InvariantCulture) & flagValue) == flagValue;
         }
 
@@ -54,7 +54,7 @@ namespace ImageMagick
             if (string.IsNullOrEmpty(value))
                 return defaultValue;
 
-            foreach (string name in Enum.GetNames(typeof(TEnum)))
+            foreach (var name in Enum.GetNames(typeof(TEnum)))
             {
                 if (name.Equals(value, StringComparison.OrdinalIgnoreCase))
                     return (TEnum)Enum.Parse(typeof(TEnum), name);
@@ -66,7 +66,7 @@ namespace ImageMagick
         public static TEnum? Parse<TEnum>(string value)
           where TEnum : struct, IConvertible
         {
-            foreach (string name in Enum.GetNames(typeof(TEnum)))
+            foreach (var name in Enum.GetNames(typeof(TEnum)))
             {
                 if (name.Equals(value, StringComparison.OrdinalIgnoreCase))
                     return (TEnum?)Enum.Parse(typeof(TEnum), name);
@@ -89,7 +89,7 @@ namespace ImageMagick
 
         public static object? Parse(Type enumType, string value)
         {
-            foreach (string name in Enum.GetNames(enumType))
+            foreach (var name in Enum.GetNames(enumType))
             {
                 if (name.Equals(value, StringComparison.OrdinalIgnoreCase))
                     return Enum.Parse(enumType, name);
