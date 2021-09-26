@@ -112,8 +112,8 @@ namespace ImageMagick
             if (FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
                 return FrameIndex.Value.ToString(CultureInfo.InvariantCulture);
 
-            int frame = FrameIndex ?? 0;
-            int count = FrameCount ?? 1;
+            var frame = FrameIndex ?? 0;
+            var count = FrameCount ?? 1;
             return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + count);
         }
 
@@ -122,7 +122,7 @@ namespace ImageMagick
             if (Defines == null)
                 return;
 
-            foreach (IDefine define in Defines.Defines)
+            foreach (var define in Defines.Defines)
             {
                 SetOption(GetDefineKey(define), define.Value);
             }
