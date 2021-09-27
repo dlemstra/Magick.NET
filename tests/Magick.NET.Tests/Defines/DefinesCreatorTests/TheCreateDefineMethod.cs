@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ImageMagick;
@@ -105,6 +106,15 @@ namespace Magick.NET.Tests
                     Assert.Equal(MagickFormat.A, define.Format);
                     Assert.Equal("test", define.Name);
                     Assert.Equal("42", define.Value);
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenValueIsNull()
+                {
+                    var testDefine = new TestDefine();
+                    IMagickGeometry value = null;
+
+                    Assert.Throws<ArgumentNullException>("value", () => testDefine.PublicCreateDefine("test", value));
                 }
             }
 
