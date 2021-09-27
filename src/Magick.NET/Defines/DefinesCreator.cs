@@ -95,7 +95,7 @@ namespace ImageMagick.Defines
         /// <typeparam name="TEnum">The type of the enumeration.</typeparam>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
         protected MagickDefine CreateDefine<TEnum>(string name, TEnum value)
-          where TEnum : struct
+          where TEnum : Enum
             => new MagickDefine(Format, name, Enum.GetName(typeof(TEnum), value));
 
         /// <summary>
