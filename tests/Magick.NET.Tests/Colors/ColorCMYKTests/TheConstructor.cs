@@ -17,7 +17,7 @@ using QuantumType = System.Single;
 
 namespace Magick.NET.Tests
 {
-    public partial class ColorCMYKTests : ColorBaseTests<ColorCMYK>
+    public partial class ColorCMYKTests
     {
         public class TheConstructor
         {
@@ -74,6 +74,49 @@ namespace Magick.NET.Tests
                 {
                     new ColorCMYK("#FFFG000000000000");
                 });
+            }
+
+            [Fact]
+            public void ShouldConvertPercentageToColor()
+            {
+                var color = new ColorCMYK((Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
+                Assert.Equal(0, color.C);
+                Assert.Equal(Quantum.Max, color.M);
+                Assert.Equal(0, color.Y);
+                Assert.Equal(Quantum.Max, color.K);
+                Assert.Equal(Quantum.Max, color.A);
+
+                color = new ColorCMYK((Percentage)100, (Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
+                Assert.Equal(Quantum.Max, color.C);
+                Assert.Equal(0, color.M);
+                Assert.Equal(Quantum.Max, color.Y);
+                Assert.Equal(0, color.K);
+                Assert.Equal(Quantum.Max, color.A);
+            }
+
+            [Fact]
+            public void ShouldConvertHexValueToColor()
+            {
+                var color = new ColorCMYK("#0ff0");
+                Assert.Equal(0, color.C);
+                Assert.Equal(Quantum.Max, color.M);
+                Assert.Equal(Quantum.Max, color.Y);
+                Assert.Equal(0, color.K);
+                Assert.Equal(Quantum.Max, color.A);
+
+                color = new ColorCMYK("#ff00ff00");
+                Assert.Equal(Quantum.Max, color.C);
+                Assert.Equal(0, color.M);
+                Assert.Equal(Quantum.Max, color.Y);
+                Assert.Equal(0, color.K);
+                Assert.Equal(Quantum.Max, color.A);
+
+                color = new ColorCMYK("#0000ffff0000ffff");
+                Assert.Equal(0, color.C);
+                Assert.Equal(Quantum.Max, color.M);
+                Assert.Equal(0, color.Y);
+                Assert.Equal(Quantum.Max, color.K);
+                Assert.Equal(Quantum.Max, color.A);
             }
         }
     }

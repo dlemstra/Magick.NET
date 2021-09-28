@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Magick.NET.Tests
 {
-    public partial class ColorCMYKTests : ColorBaseTests<ColorCMYK>
+    public partial class ColorCMYKTests
     {
         public class TheNativeInstance
         {
