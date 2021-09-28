@@ -8,7 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class ColorCMYKTests
     {
-        public class TheColorProperties
+        public class TheProperties
         {
             [Fact]
             public void ShouldSetTheCorrectValue()
