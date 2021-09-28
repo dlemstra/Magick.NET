@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenOtherIsNull()
             {
-                var color = new ColorCMYK(1, 2, 4, 4);
+                var color = new ColorCMYK(1, 2, 3, 4);
 
                 Assert.Equal(1, color.CompareTo(null));
             }
