@@ -16,7 +16,7 @@ using QuantumType = System.Single;
 
 namespace Magick.NET.Tests
 {
-    public partial class ColorHSLTests : ColorBaseTests<ColorHSL>
+    public partial class ColorHSLTests
     {
         public class TheFromMagickColorMethod
         {
