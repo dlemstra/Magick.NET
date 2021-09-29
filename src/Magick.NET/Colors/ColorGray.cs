@@ -37,7 +37,10 @@ namespace ImageMagick
         private ColorGray(IMagickColor<QuantumType> color)
           : base(color)
         {
-            _shade = Quantum.ScaleToQuantum(color.R);
+            _shade =
+                (0.212656 * Quantum.ScaleToDouble(color.R)) +
+                (0.715158 * Quantum.ScaleToDouble(color.G)) +
+                (0.072186 * Quantum.ScaleToDouble(color.B));
         }
 
         /// <summary>
@@ -45,10 +48,7 @@ namespace ImageMagick
         /// </summary>
         public double Shade
         {
-            get
-            {
-                return _shade;
-            }
+            get => _shade;
 
             set
             {
