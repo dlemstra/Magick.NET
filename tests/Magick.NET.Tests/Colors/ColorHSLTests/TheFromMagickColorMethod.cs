@@ -21,6 +21,14 @@ namespace Magick.NET.Tests
         public class TheFromMagickColorMethod
         {
             [Fact]
+            public void ShouldReturnNullWhenValueIsNull()
+            {
+                var result = ColorHSL.FromMagickColor(null);
+
+                Assert.Null(result);
+            }
+
+            [Fact]
             public void ShouldInitializeTheProperties()
             {
                 var color = new MagickColor(Quantum.Max, Quantum.Max, (QuantumType)(Quantum.Max * 0.02));
