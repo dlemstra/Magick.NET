@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Magick.NET.Tests
 {
-    public class ColorMonoTests : ColorBaseTests<ColorMono>
+    public class ColorMonoTestss : ColorBaseTests<ColorMono>
     {
         [Fact]
         public void Test_GetHashCode()
