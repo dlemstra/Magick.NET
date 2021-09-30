@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
 
                 Assert.InRange(hslColor.Hue, 0.16, 0.17);
                 Assert.InRange(hslColor.Lightness, 0.5, 0.6);
-                Assert.InRange(hslColor.Saturation, 0.99, 1.0);
+                Assert.InRange(hslColor.Saturation, 0.99, 1.01);
             }
         }
     }
