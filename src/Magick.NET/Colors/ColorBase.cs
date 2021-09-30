@@ -26,6 +26,8 @@ namespace ImageMagick
         /// <param name="color">The color to use.</param>
         protected ColorBase(IMagickColor<QuantumType> color)
         {
+            Throw.IfNull(nameof(color), color);
+
             Color = color;
         }
 

@@ -43,8 +43,8 @@ namespace ImageMagick
         /// </summary>
         public QuantumType B
         {
-            get { return Color.B; }
-            set { Color.B = value; }
+            get => Color.B;
+            set => Color.B = value;
         }
 
         /// <summary>
@@ -52,8 +52,8 @@ namespace ImageMagick
         /// </summary>
         public QuantumType G
         {
-            get { return Color.G; }
-            set { Color.G = value; }
+            get => Color.G;
+            set => Color.G = value;
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace ImageMagick
         /// </summary>
         public QuantumType R
         {
-            get { return Color.R; }
-            set { Color.R = value; }
+            get => Color.R;
+            set => Color.R = value;
         }
 
         /// <summary>
