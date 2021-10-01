@@ -203,7 +203,7 @@ namespace ImageMagick
             var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
             Directory.CreateDirectory(path);
 
-            InitializePrivate(configFiles, path);
+            InitializeConfiguration(configFiles, path);
 
             return path;
         }
@@ -219,7 +219,7 @@ namespace ImageMagick
 
             var newPath = FileHelper.GetFullPath(path);
 
-            InitializePrivate(configFiles, newPath);
+            InitializeConfiguration(configFiles, newPath);
         }
 
         /// <summary>
@@ -323,7 +323,7 @@ namespace ImageMagick
             }
         }
 
-        private static void InitializePrivate(ConfigurationFiles configFiles, string newPath)
+        private static void InitializeConfiguration(ConfigurationFiles configFiles, string newPath)
         {
             configFiles.WriteInDirectory(newPath);
 
