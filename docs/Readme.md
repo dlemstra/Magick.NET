@@ -76,8 +76,7 @@ _Be aware that you need a [license](https://www.ghostscript.com/doc/current/Comm
 
 ## Initialization
 
-Because Magick.NET embeds all the ImageMagick files __you don't need to initialize__ the library. You can however decide to use your own xml
-configuration files. Documentation about the initialization can be found [here](Initialization.md).
+Magick.NET uses ImageMagick and this will be initialized the first time you using something that uses ImageMagick. You can however decide to initialize ImageMagick on startup of your application and for example use your own xml configuration files. Documentation about the initialization can be found [here](Initialization.md).
 
 ## Temporary directory
 

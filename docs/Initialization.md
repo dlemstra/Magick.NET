@@ -1,7 +1,25 @@
 # Initialization
 
-There are two ways to initialize the ImageMagick library. One option is to initialize the library with xml configuration files on disc. Another option is using a class that
-contains the data of all the configuration files.
+There are three ways to initialize the ImageMagick library these are described below.
+
+### Simple initialization
+
+The example below shows how you can initialize the library and make sure the ImageMagick library is properly initialized.
+
+```C#
+using System;
+using ImageMagick;
+
+namespace MagickExample
+{
+    internal class Program
+    {
+        internal static void Main(string[] args)
+        {
+            MagickNET.Initialize();
+        }
+    }
+}
 
 ### Initialize with xml files
 
