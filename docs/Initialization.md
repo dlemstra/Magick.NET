@@ -20,6 +20,7 @@ namespace MagickExample
         }
     }
 }
+```
 
 ### Initialize with xml files
 
