@@ -156,7 +156,7 @@ namespace ImageMagick
             {
                 if (!_profiles.ContainsKey(resourceName))
                 {
-                    using (Stream stream = TypeHelper.GetManifestResourceStream(typeof(ColorProfile), resourcePath, resourceName))
+                    using (var stream = TypeHelper.GetManifestResourceStream(typeof(ColorProfile), resourcePath, resourceName))
                     {
                         _profiles[resourceName] = new ColorProfile(stream);
                     }
