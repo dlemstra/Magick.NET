@@ -11,8 +11,7 @@ installPackage() {
     dotnet add package Magick.Native --version $version --package-directory nuget
 
     mkdir ../temp
-    ls -lR nuget/magick.native
-    cp -R nuget/magick.native/$version/* ../temp
+    cp -R nuget/magick.native/$version/content/* ../temp
     cd ..
 }
 
@@ -23,11 +22,11 @@ copyToTestProject() {
 
     folder=../../tests/Magick.NET.Tests/bin/Test$quantum$openmp/AnyCPU/netcoreapp3.1
     mkdir -p $folder
-    cp temp/content/$runtime/Release$quantum$openmp/x64/Magick.Native-$quantum$openmp-x64.dll* $folder | true
+    cp temp/$runtime/Release$quantum$openmp/x64/Magick.Native-$quantum$openmp-x64.dll* $folder | true
 
     folder=resources/Release$quantum
     mkdir -p $folder
-    cp temp/content/resources/Release$quantum$openmp/x64/*.xml $folder | true
+    cp temp/resources/Release$quantum$openmp/x64/*.xml $folder | true
 }
 
 copyToTestProjects() {
