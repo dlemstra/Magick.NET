@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Magick.NET.Tests
 {
-    public class TheCaptionCoder
+    public partial class TheCaptionCoder
     {
         [Fact]
         public void ShouldAddCorrectLineBreaks1()
@@ -44,9 +44,10 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, readSettings))
             {
-                ColorAssert.Equal(MagickColors.Green, image, 170, 67);
-                ColorAssert.Equal(MagickColors.Red, image, 441, 26);
-                ColorAssert.Equal(MagickColors.Red, image, 395, 55);
+                ColorAssert.Equal(MagickColors.Green, image, 158, 55);
+                ColorAssert.Equal(MagickColors.Green, image, 179, 81);
+                ColorAssert.Equal(MagickColors.Red, image, 443, 25);
+                ColorAssert.Equal(MagickColors.Red, image, 392, 55);
                 ColorAssert.Equal(MagickColors.Red, image, 231, 116);
                 ColorAssert.Equal(new MagickColor("#0000"), image, 170, 93);
             }
