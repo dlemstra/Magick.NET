@@ -11,7 +11,7 @@ installPackage() {
     dotnet add package Magick.Native --version $version --package-directory nuget
 
     mkdir ../temp
-    ls -all nuget/magick.native
+    ls -lR nuget/magick.native
     cp -R nuget/magick.native/$version/* ../temp
     cd ..
 }
