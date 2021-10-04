@@ -177,6 +177,9 @@ namespace Magick.NET
 
             public static string KaushanScript
                 => Root + @"Fonts/KaushanScript-Regular.ttf";
+
+            public static string PhillySans
+                => Root + @"Fonts/PhillySans.otf";
         }
 
         public static class Logos

@@ -23,5 +23,23 @@ namespace Magick.NET.Tests
                 ColorAssert.Equal(MagickColors.Black, image, 17, 200);
             }
         }
+
+        [Fact]
+        public void ShouldUseTheCorrectOffset()
+        {
+            var settings = new MagickReadSettings
+            {
+                Width = 650,
+                Font = Files.Fonts.PhillySans,
+            };
+
+            using (var image = new MagickImage("label:snow", settings))
+            {
+                ColorAssert.Equal(MagickColors.White, image, 0, 232);
+                ColorAssert.Equal(MagickColors.Black, image, 2, 234);
+                ColorAssert.Equal(MagickColors.White, image, 636, 140);
+                ColorAssert.Equal(MagickColors.Black, image, 633, 140);
+            }
+        }
     }
 }
