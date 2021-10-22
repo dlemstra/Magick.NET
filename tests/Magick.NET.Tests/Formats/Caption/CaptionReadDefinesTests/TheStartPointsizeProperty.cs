@@ -9,17 +9,19 @@ namespace Magick.NET.Tests
 {
     public partial class CaptionReadDefinesTests
     {
-        public class TheConstructor
+        public class TheStartPointsizeProperty
         {
             [Fact]
-            public void ShouldNotSetAnyDefines()
+            public void ShouldSetTheDefine()
             {
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new CaptionReadDefines());
+                    image.Settings.SetDefines(new CaptionReadDefines
+                    {
+                        StartFontPointsize = 42,
+                    });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
+                    Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
                 }
             }
         }

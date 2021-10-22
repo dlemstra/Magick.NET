@@ -25,6 +25,11 @@ namespace ImageMagick.Formats
         public double? MaxFontPointsize { get; set; }
 
         /// <summary>
+        /// Gets or sets a the start font pointsize (caption:start-pointsize).
+        /// </summary>
+        public double? StartFontPointsize { get; set; }
+
+        /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
         public override IEnumerable<IDefine> Defines
@@ -33,6 +38,9 @@ namespace ImageMagick.Formats
             {
                 if (MaxFontPointsize.HasValue)
                     yield return CreateDefine("max-pointsize", MaxFontPointsize.Value);
+
+                if (StartFontPointsize.HasValue)
+                    yield return CreateDefine("start-pointsize", StartFontPointsize.Value);
             }
         }
     }
