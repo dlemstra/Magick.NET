@@ -14,12 +14,14 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
+                var defines = new CaptionReadDefines
+                {
+                    StartFontPointsize = 42,
+                };
+
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new CaptionReadDefines
-                    {
-                        StartFontPointsize = 42,
-                    });
+                    image.Settings.SetDefines(defines);
 
                     Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
                 }
