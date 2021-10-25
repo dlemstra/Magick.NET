@@ -59,13 +59,13 @@ namespace Magick.NET.Tests
         {
             using (var tempFile = new TemporaryFile(fileName))
             {
-                bool compressed1 = Optimizer.Compress(tempFile.FileInfo);
+                var compressed1 = Optimizer.Compress(tempFile.FileInfo);
 
-                long after1 = tempFile.Length;
+                var after1 = tempFile.Length;
 
-                bool compressed2 = Optimizer.Compress(tempFile.FileInfo);
+                var compressed2 = Optimizer.Compress(tempFile.FileInfo);
 
-                long after2 = tempFile.Length;
+                var after2 = tempFile.Length;
 
                 Assert.InRange(after1, after2 - 1, after2 + 1);
                 Assert.True(compressed1);
