@@ -25,6 +25,11 @@ namespace ImageMagick.Formats
         public bool? DisableAutoBrightness { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating the interpolation quality (dng:interpolation-quality).
+        /// </summary>
+        public DngInterpolation? InterpolationQuality { get; set; }
+
+        /// <summary>
         /// Gets or sets the output color (dng:output-color).
         /// </summary>
         public DngOutputColor? OutputColor { get; set; }
@@ -35,12 +40,12 @@ namespace ImageMagick.Formats
         public bool? ReadThumbnail { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating wether auto whitebalance should be used (dng:use_auto_wb).
+        /// Gets or sets a value indicating wether auto whitebalance should be used (dng:use-auto-wb).
         /// </summary>
         public bool? UseAutoWhitebalance { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating wether the whitebalance of the camera should be used (dng:use_camera_wb).
+        /// Gets or sets a value indicating wether the whitebalance of the camera should be used (dng:use-camera-wb).
         /// </summary>
         public bool? UseCameraWhitebalance { get; set; }
 
@@ -51,6 +56,9 @@ namespace ImageMagick.Formats
         {
             get
             {
+                if (InterpolationQuality.HasValue)
+                    yield return CreateDefine("interpolation-quality", (int)InterpolationQuality.Value);
+
                 if (DisableAutoBrightness.HasValue)
                     yield return CreateDefine("no-auto-bright", DisableAutoBrightness.Value);
 
