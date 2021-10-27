@@ -189,33 +189,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Interlace()
-        {
-            using (var image = new MagickImage(MagickColors.Fuchsia, 100, 60))
-            {
-                using (MemoryStream memStream = new MemoryStream())
-                {
-                    image.Format = MagickFormat.Jpeg;
-                    image.Write(memStream);
-
-                    memStream.Position = 0;
-                    image.Read(memStream);
-                    Assert.Equal(Interlace.NoInterlace, image.Interlace);
-                }
-
-                using (MemoryStream memStream = new MemoryStream())
-                {
-                    image.Interlace = Interlace.Undefined;
-                    image.Write(memStream);
-
-                    memStream.Position = 0;
-                    image.Read(memStream);
-                    Assert.Equal(Interlace.Jpeg, image.Interlace);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_StrokeAntiAlias()
         {
             using (var image = new MagickImage(MagickColors.Purple, 300, 300))
