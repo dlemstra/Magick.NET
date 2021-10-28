@@ -18,8 +18,7 @@ namespace Magick.NET.Tests
                 {
                     using (var memStream = new MemoryStream())
                     {
-                        image.Format = MagickFormat.Jpeg;
-                        image.Write(memStream);
+                        image.Write(memStream, MagickFormat.Jpeg);
 
                         memStream.Position = 0;
                         image.Read(memStream);
@@ -37,7 +36,7 @@ namespace Magick.NET.Tests
                     using (var memStream = new MemoryStream())
                     {
                         image.Interlace = Interlace.Undefined;
-                        image.Write(memStream);
+                        image.Write(memStream, MagickFormat.Jpeg);
 
                         memStream.Position = 0;
                         image.Read(memStream);
