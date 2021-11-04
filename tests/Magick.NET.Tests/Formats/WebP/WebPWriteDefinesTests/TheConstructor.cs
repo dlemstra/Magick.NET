@@ -23,6 +23,7 @@ namespace Magick.NET.Tests
                     Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "alpha-quality"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "auto-filter"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "emulate-jpeg-size"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "exact"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "filter-strength"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "filter-sharpness"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "filter-type"));

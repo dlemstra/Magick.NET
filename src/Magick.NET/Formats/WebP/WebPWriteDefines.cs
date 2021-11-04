@@ -45,6 +45,11 @@ namespace ImageMagick.Formats
         public bool? EmulateJpegSize { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating wether RGB values should be preserved in transparent area. It's disabled by default to help compressibility.
+        /// </summary>
+        public bool? Exact { get; set; }
+
+        /// <summary>
         /// Gets or sets strength of the filter sharpness, between 0 and 7 (least sharp) (webp:filter-sharpness).
         /// </summary>
         public int? FilterSharpness { get; set; }
@@ -161,6 +166,9 @@ namespace ImageMagick.Formats
                 if (EmulateJpegSize.HasValue)
                     yield return CreateDefine("emulate-jpeg-size", EmulateJpegSize.Value);
 
+                if (Exact.HasValue)
+                    yield return CreateDefine("exact", Exact.Value);
+
                 if (FilterStrength.HasValue)
                     yield return CreateDefine("filter-strength", FilterStrength.Value);
 
@@ -185,6 +193,9 @@ namespace ImageMagick.Formats
                 if (NearLossless.HasValue)
                     yield return CreateDefine("near-lossless", NearLossless.Value);
 
+                if (PartitionLimit.HasValue)
+                    yield return CreateDefine("partition-limit", PartitionLimit.Value);
+
                 if (Partitions.HasValue)
                     yield return CreateDefine("partitions", Partitions.Value);
 
@@ -193,9 +204,6 @@ namespace ImageMagick.Formats
 
                 if (Preprocessing.HasValue)
                     yield return CreateDefine("preprocessing", (int)Preprocessing.Value);
-
-                if (PartitionLimit.HasValue)
-                    yield return CreateDefine("partition-limit", PartitionLimit.Value);
 
                 if (Segment.HasValue)
                     yield return CreateDefine("segment", Segment.Value);
