@@ -33,18 +33,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_AffineTransform()
-        {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                DrawableAffine affineMatrix = new DrawableAffine(1, 0.5, 0, 0, 0, 0);
-                image.AffineTransform(affineMatrix);
-                Assert.Equal(482, image.Width);
-                Assert.Equal(322, image.Height);
-            }
-        }
-
-        [Fact]
         public void Test_AnimationDelay()
         {
             using (var image = new MagickImage())
