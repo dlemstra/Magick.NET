@@ -65,7 +65,7 @@ Starting with Magick.NET 7.0.7.700 there are extra packages for the x64 build of
 You only need to install Ghostscript if you want to convert EPS/PDF/PS files. Make sure you only install the version of GhostScript with the same
 platform. If you use the 64-bit version of Magick.NET you should also install the 64-bit version of Ghostscript. You can use the 32-bit version
 together with the 64-version but you will get a better performance if you keep the platforms the same. Ghostscript can be downloaded here:
-http://www.ghostscript.com/download/gsdnld.html. If you don't want to install Ghostscript on your machine you can copy `gsdll32.dll/gsdl64.dll` and
+https://ghostscript.com/releases/gsdnld.html. If you don't want to install Ghostscript on your machine you can copy `gsdll32.dll/gsdl64.dll` and
 `gswin32c.exe/gswin64c.exe` to your server and tell Magick.NET where the file is located with the code below.
 
 ```C#
