@@ -107,7 +107,7 @@ namespace Magick.NET.Tests
                 {
                     var info = MagickImageInfo.ReadCollection(Files.InvitationTIF);
 
-                    IMagickImageInfo first = info.First();
+                    var first = info.First();
                     Assert.Equal(ColorSpace.sRGB, first.ColorSpace);
                     Assert.Equal(CompressionMethod.Zip, first.Compression);
                     Assert.EndsWith("Invitation.tif", first.FileName);
