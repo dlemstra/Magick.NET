@@ -29,6 +29,17 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the opacity mask of a layer should be preserved and add it back to
+        /// the layer when the image is saved. This option should only be used when converting from a PSD file to another
+        /// PSD file (psd:preserve-opacity-mask).
+        /// </summary>
+        public bool? PreserveOpacityMask
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
         public override IEnumerable<IDefine> Defines
@@ -37,6 +48,9 @@ namespace ImageMagick.Formats
             {
                 if (AlphaUnblend.Equals(false))
                     yield return CreateDefine("alpha-unblend", false);
+
+                if (PreserveOpacityMask.HasValue)
+                    yield return CreateDefine("preserve-opacity-mask", PreserveOpacityMask.Value);
             }
         }
     }

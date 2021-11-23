@@ -9,17 +9,21 @@ namespace Magick.NET.Tests
 {
     public partial class PsdReadDefinesTests
     {
-        public class TheConstructor
+        public class ThePreserveOpacityMaskProperty
         {
             [Fact]
-            public void ShouldNotSetAnyDefine()
+            public void ShouldSetTheDefine()
             {
+                var defines = new PsdReadDefines
+                {
+                    PreserveOpacityMask = true,
+                };
+
                 using (var image = new MagickImage())
                 {
-                    image.Settings.SetDefines(new PsdReadDefines());
+                    image.Settings.SetDefines(defines);
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "preserve-opacity-mask"));
+                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Psd, "preserve-opacity-mask"));
                 }
             }
         }
