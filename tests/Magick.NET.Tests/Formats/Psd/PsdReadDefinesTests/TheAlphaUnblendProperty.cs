@@ -14,20 +14,16 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefine()
             {
-                var settings = new MagickReadSettings
+                var defines = new PsdReadDefines
                 {
-                    Defines = new PsdReadDefines
-                    {
-                        AlphaUnblend = false,
-                    },
+                    AlphaUnblend = false,
                 };
 
                 using (var image = new MagickImage())
                 {
-                    image.Read(Files.Coders.PlayerPSD, settings);
+                    image.Settings.SetDefines(defines);
 
-                    var define = image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend");
-                    Assert.Equal("false", define);
+                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
                 }
             }
 
