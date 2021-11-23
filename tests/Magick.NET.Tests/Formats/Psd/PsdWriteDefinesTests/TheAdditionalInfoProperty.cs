@@ -62,7 +62,7 @@ namespace Magick.NET.Tests
             private static void CheckProfile(IMagickImage<QuantumType> image, int expectedLength)
             {
                 var profile = image.GetProfile("psd:additional-info");
-                int actualLength = profile?.ToByteArray().Length ?? 0;
+                var actualLength = profile?.ToByteArray().Length ?? 0;
                 Assert.Equal(expectedLength, actualLength);
             }
 
