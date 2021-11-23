@@ -61,7 +61,7 @@ namespace ImageMagick.Formats
                 var key = Encoding.ASCII.GetString(bytes, offset, 4);
                 offset += 4;
 
-                int size = bytes[offset++] << 24;
+                var size = bytes[offset++] << 24;
                 size |= bytes[offset++] << 16;
                 size |= bytes[offset++] << 8;
                 size |= bytes[offset++];
@@ -71,7 +71,7 @@ namespace ImageMagick.Formats
 
                 if ("luni".Equals(key, StringComparison.OrdinalIgnoreCase))
                 {
-                    int count = bytes[offset++] << 24;
+                    var count = bytes[offset++] << 24;
                     count |= bytes[offset++] << 16;
                     count |= bytes[offset++] << 8;
                     count |= bytes[offset++];
