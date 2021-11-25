@@ -20,6 +20,7 @@ namespace Magick.NET.Tests
 
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "preserve-opacity-mask"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "replicate-profile"));
                 }
             }
         }

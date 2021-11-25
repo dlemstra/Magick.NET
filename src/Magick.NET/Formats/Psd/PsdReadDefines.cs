@@ -40,6 +40,15 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the profile should be replicate to all the layers (psd:replicate-profile).
+        /// </summary>
+        public bool? ReplicateProfile
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
         public override IEnumerable<IDefine> Defines
@@ -51,6 +60,9 @@ namespace ImageMagick.Formats
 
                 if (PreserveOpacityMask.HasValue)
                     yield return CreateDefine("preserve-opacity-mask", PreserveOpacityMask.Value);
+
+                if (ReplicateProfile.HasValue)
+                    yield return CreateDefine("replicate-profile", ReplicateProfile.Value);
             }
         }
     }

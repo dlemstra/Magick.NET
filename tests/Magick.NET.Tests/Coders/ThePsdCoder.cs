@@ -3,6 +3,7 @@
 
 using System.IO;
 using ImageMagick;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests
@@ -23,7 +24,15 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldReadTheProfileForAllLayers()
         {
-            using (var images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD))
+            var readSettings = new MagickReadSettings
+            {
+                Defines = new PsdReadDefines
+                {
+                    ReplicateProfile = true,
+                },
+            };
+
+            using (var images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD, readSettings))
             {
                 Assert.Equal(4, images.Count);
 
