@@ -591,19 +591,6 @@ namespace ImageMagick
             return clone;
         }
 
-        internal string? GetOption(string key)
-        {
-            Throw.IfNullOrEmpty(nameof(key), key);
-
-            if (_options.TryGetValue(key, out var result))
-                return result;
-
-            return null;
-        }
-
-        internal void SetOption(string key, string? value)
-            => _options[key] = value;
-
         /// <summary>
         /// Copies the settings from the specified <see cref="MagickSettings"/>.
         /// </summary>
@@ -641,6 +628,14 @@ namespace ImageMagick
 
             Drawing = settings.Drawing.Clone();
         }
+
+        /// <summary>
+        /// Sets an image option.
+        /// </summary>
+        /// <param name="key">The key of the option.</param>
+        /// <param name="value">The value of the option.</param>
+        protected void SetOption(string key, string? value)
+            => _options[key] = value;
 
         private static string ParseDefine(MagickFormat format, string name)
         {
@@ -731,6 +726,16 @@ namespace ImageMagick
                 MagickFormat.SparseColor => "SPARSE-COLOR",
                 _ => EnumHelper.GetName(Format).ToUpperInvariant(),
             };
+
+        private string? GetOption(string key)
+        {
+            Throw.IfNullOrEmpty(nameof(key), key);
+
+            if (_options.TryGetValue(key, out var result))
+                return result;
+
+            return null;
+        }
 
         private void SetOptionAndArtifact(string key, double value)
             => SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
