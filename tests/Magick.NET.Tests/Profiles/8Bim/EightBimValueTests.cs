@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
         public void Test_ToByteArray()
         {
             var value = Get8BimValue();
-            byte[] bytes = value.ToByteArray();
+            var bytes = value.ToByteArray();
             Assert.Equal(273, bytes.Length);
         }
 
