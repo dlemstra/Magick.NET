@@ -30,7 +30,7 @@ namespace ImageMagick
 
         internal MagickSettings()
         {
-            using (NativeMagickSettings instance = new NativeMagickSettings())
+            using (var instance = new NativeMagickSettings())
             {
                 AntiAlias = instance.AntiAlias;
                 BackgroundColor = instance.BackgroundColor;
@@ -213,7 +213,7 @@ namespace ImageMagick
                 if (string.IsNullOrEmpty(weight))
                     return FontWeight.Undefined;
 
-                if (!int.TryParse(weight, NumberStyles.Number, CultureInfo.InvariantCulture, out int fontweight))
+                if (!int.TryParse(weight, NumberStyles.Number, CultureInfo.InvariantCulture, out var fontweight))
                     return FontWeight.Undefined;
 
                 return EnumHelper.Parse(fontweight, FontWeight.Undefined);
@@ -506,7 +506,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(name), name);
 
-            string key = ParseDefine(format, name);
+            var key = ParseDefine(format, name);
             if (_options.ContainsKey(key))
                 _options.Remove(key);
         }
@@ -576,7 +576,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(defines), defines);
 
-            foreach (IDefine define in defines.Defines)
+            foreach (var define in defines.Defines)
             {
                 if (define != null)
                     SetDefine(define.Format, define.Name, define.Value);
@@ -595,7 +595,7 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(key), key);
 
-            if (_options.TryGetValue(key, out string? result))
+            if (_options.TryGetValue(key, out var result))
                 return result;
 
             return null;
@@ -636,7 +636,7 @@ namespace ImageMagick
             Quality = settings.Quality;
             Size = settings.Size;
 
-            foreach (string key in settings._options.Keys)
+            foreach (var key in settings._options.Keys)
                 _options[key] = settings._options[key];
 
             Drawing = settings.Drawing.Clone();
@@ -714,7 +714,7 @@ namespace ImageMagick
             result.SetScenes(settings.Scenes);
             result.SetSize(settings.Size);
 
-            foreach (string key in settings._options.Keys)
+            foreach (var key in settings._options.Keys)
                 result.SetOption(key, settings._options[key]);
 
             return result;
