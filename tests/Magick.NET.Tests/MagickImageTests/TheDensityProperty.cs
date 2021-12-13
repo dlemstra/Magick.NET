@@ -66,6 +66,37 @@ namespace Magick.NET.Tests
                     Assert.Equal(252, image.Height);
                 }
             }
+
+            [Fact]
+            public void ShouldUpdateTheDensitOfTheExifProfileInsideThe8BimProfile()
+            {
+                using (var input = new MagickImage(Files.EightBimJPG))
+                {
+                    input.Density = new Density(96);
+
+                    using (var stream = new MemoryStream())
+                    {
+                        input.Write(stream);
+
+                        var profile = input.GetExifProfile();
+                        var value = profile.GetValue(ExifTag.XResolution);
+                        Assert.Equal(96.0, value.Value.ToDouble());
+
+                        stream.Position = 0;
+
+                        using (var output = new MagickImage(stream))
+                        {
+                            output.Read(stream);
+
+                            Assert.Equal(96.0, input.Density.X);
+
+                            profile = output.GetExifProfile();
+                            value = profile.GetValue(ExifTag.XResolution);
+                            Assert.Equal(96.0, value.Value.ToDouble());
+                        }
+                    }
+                }
+            }
         }
     }
 }
