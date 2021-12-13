@@ -36,6 +36,12 @@ namespace ImageMagick
         int? Height { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the exif profile should be used to update some of the
+        /// properties of the image (e.g. <see cref="IMagickImage.Density"/>, <see cref="IMagickImage.Orientation"/>).
+        /// </summary>
+        bool SyncImageWithExifProfile { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether the monochrome reader shoul be used. This is
         /// supported by: PCL, PDF, PS and XPS.
         /// </summary>

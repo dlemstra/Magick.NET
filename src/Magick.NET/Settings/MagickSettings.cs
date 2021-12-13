@@ -630,6 +630,21 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets an image option.
+        /// </summary>
+        /// <param name="key">The key of the option.</param>
+        /// <returns>The value of the option.</returns>
+        protected string? GetOption(string key)
+        {
+            Throw.IfNullOrEmpty(nameof(key), key);
+
+            if (_options.TryGetValue(key, out var result))
+                return result;
+
+            return null;
+        }
+
+        /// <summary>
         /// Sets an image option.
         /// </summary>
         /// <param name="key">The key of the option.</param>
@@ -726,16 +741,6 @@ namespace ImageMagick
                 MagickFormat.SparseColor => "SPARSE-COLOR",
                 _ => EnumHelper.GetName(Format).ToUpperInvariant(),
             };
-
-        private string? GetOption(string key)
-        {
-            Throw.IfNullOrEmpty(nameof(key), key);
-
-            if (_options.TryGetValue(key, out var result))
-                return result;
-
-            return null;
-        }
 
         private void SetOptionAndArtifact(string key, double value)
             => SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
