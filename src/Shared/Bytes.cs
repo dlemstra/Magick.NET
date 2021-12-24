@@ -37,9 +37,7 @@ namespace ImageMagick
 
         public static Bytes? FromStreamBuffer(Stream stream)
         {
-            var memStream = stream as MemoryStream;
-
-            if (memStream == null || memStream.Position != 0)
+            if (stream is not MemoryStream memStream || memStream.Position != 0)
                 return null;
 
             var data = GetDataFromMemoryStreamBuffer(memStream, out var length);
