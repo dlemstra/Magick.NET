@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.0-18 beta (2021-12-12) ] copyright:
+[ ImageMagick 7.1.0-20 beta (2021-12-25) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -1257,9 +1257,9 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ffi 3.2.1 (2014-11-12) ] copyright:
+[ ffi 3.4.2 (2021-06-29) ] copyright:
 
-libffi - Copyright (c) 1996-2014  Anthony Green, Red Hat, Inc and others.
+libffi - Copyright (c) 1996-2021  Anthony Green, Red Hat, Inc and others.
 See source files for details.
 
 Permission is hereby granted, free of charge, to any person obtaining
