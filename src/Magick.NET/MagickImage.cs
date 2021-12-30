@@ -3540,6 +3540,14 @@ namespace ImageMagick
             => _nativeInstance.Implode(amount, method);
 
         /// <summary>
+        /// Returns the sum of values (pixel values) in the image.
+        /// </summary>
+        /// <returns>The sum of values (pixel values) in the image.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public IMagickImage<QuantumType>? Integral()
+            => Create(_nativeInstance.Integral());
+
+        /// <summary>
         /// Resize image to specified size using the specified interpolation method.
         /// </summary>
         /// <param name="width">The new width.</param>

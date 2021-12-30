@@ -1538,6 +1538,11 @@
       ]
     },
     {
+      "name": "Integral",
+      "type": "Instance",
+      "throws": true
+    },
+    {
       "name": "InterpolativeResize",
       "instance": true,
       "throws": true,

@@ -329,6 +329,13 @@ namespace ImageMagick
         Dictionary<IMagickColor<TQuantumType>, int> Histogram();
 
         /// <summary>
+        /// Returns the sum of values (pixel values) in the image.
+        /// </summary>
+        /// <returns>The sum of values (pixel values) in the image.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        IMagickImage<TQuantumType>? Integral();
+
+        /// <summary>
         /// Floodfill pixels not matching color (within fuzz factor) of target pixel(x,y) with
         /// replacement alpha value using method.
         /// </summary>
