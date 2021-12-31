@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
         {
             Assert.Throws<ArgumentNullException>("defines", () =>
             {
-                MagickReadSettings settings = new MagickReadSettings((IReadDefines)null);
+                var settings = new MagickReadSettings((IReadDefines)null);
             });
         }
 
@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
         {
             using (var collection = new MagickImageCollection())
             {
-                MagickReadSettings settings = new MagickReadSettings();
+                var settings = new MagickReadSettings();
                 settings.Density = new Density(150);
 
                 collection.Read(Files.RoseSparkleGIF, settings);
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Extract_DefaultValueIsNull()
         {
-            MagickReadSettings settings = new MagickReadSettings();
+            var settings = new MagickReadSettings();
             Assert.Null(settings.ExtractArea);
         }
 
@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
         {
             Assert.Throws<ArgumentException>("readSettings", () =>
             {
-                MagickReadSettings settings = new MagickReadSettings
+                var settings = new MagickReadSettings
                 {
                     FrameCount = 2,
                 };
@@ -91,7 +91,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage())
             {
-                MagickReadSettings settings = new MagickReadSettings();
+                var settings = new MagickReadSettings();
                 settings.Density = new Density(300);
 
                 image.Read(Files.SnakewarePNG, settings);
@@ -111,7 +111,7 @@ namespace Magick.NET.Tests
                 var imageA = new MagickImage();
                 var imageB = new MagickImage();
 
-                MagickReadSettings settings = new MagickReadSettings();
+                var settings = new MagickReadSettings();
 
                 imageA.Read(Files.RoseSparkleGIF, settings);
                 Assert.Equal(image, imageA);
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage())
             {
-                MagickReadSettings settings = new MagickReadSettings();
+                var settings = new MagickReadSettings();
                 settings.Width = 10;
 
                 image.Read("xc:fuchsia", settings);
@@ -185,11 +185,11 @@ namespace Magick.NET.Tests
             {
                 image.Read(Files.RoseSparkleGIF);
 
-                Type type = image.Settings.GetType();
-                BindingFlags flags = BindingFlags.Instance | BindingFlags.NonPublic;
-                int numberScenes = (int)type.GetProperty("NumberScenes", flags).GetValue(image.Settings, null);
-                int scene = (int)type.GetProperty("Scene", flags).GetValue(image.Settings, null);
-                string scenes = (string)type.GetProperty("Scenes", flags).GetValue(image.Settings, null);
+                var type = image.Settings.GetType();
+                var flags = BindingFlags.Instance | BindingFlags.NonPublic;
+                var numberScenes = (int)type.GetProperty("NumberScenes", flags).GetValue(image.Settings, null);
+                var scene = (int)type.GetProperty("Scene", flags).GetValue(image.Settings, null);
+                var scenes = (string)type.GetProperty("Scenes", flags).GetValue(image.Settings, null);
 
                 Assert.Equal(1, numberScenes);
                 Assert.Equal(0, scene);

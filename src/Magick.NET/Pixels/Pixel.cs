@@ -122,7 +122,7 @@ namespace ImageMagick
 
             var otherValue = other.ToArray();
 
-            for (int i = 0; i < _value.Length; i++)
+            for (var i = 0; i < _value.Length; i++)
             {
                 if (_value[i] != otherValue[i])
                     return false;
@@ -202,8 +202,8 @@ namespace ImageMagick
             if (value.Length == 2)
                 return new MagickColor(value[0], value[0], value[0], value[1]);
 
-            bool hasBlackChannel = _collection != null && _collection.GetIndex(PixelChannel.Black) != -1;
-            bool hasAlphaChannel = _collection != null && _collection.GetIndex(PixelChannel.Alpha) != -1;
+            var hasBlackChannel = _collection != null && _collection.GetIndex(PixelChannel.Black) != -1;
+            var hasAlphaChannel = _collection != null && _collection.GetIndex(PixelChannel.Alpha) != -1;
 
             if (hasBlackChannel)
             {
@@ -232,11 +232,11 @@ namespace ImageMagick
             if (_collection == null)
                 return _value;
 
-            int index = _collection.GetIndex(PixelChannel.Index);
+            var index = _collection.GetIndex(PixelChannel.Index);
             if (index == -1)
                 return _value;
 
-            List<QuantumType> newValue = new List<QuantumType>(_value);
+            var newValue = new List<QuantumType>(_value);
             newValue.RemoveAt(index);
 
             return newValue.ToArray();

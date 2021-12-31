@@ -102,7 +102,7 @@ namespace Magick.NET
 
             foreach (var path in paths)
             {
-                string directory = Path.GetFullPath(path).Replace('\\', '/');
+                var directory = Path.GetFullPath(path).Replace('\\', '/');
                 if (Directory.Exists(directory + "Images"))
                     return directory;
             }

@@ -82,7 +82,7 @@ namespace ImageMagick
             length = (int)stream.Length;
             var data = new byte[length];
 
-            int read = 0;
+            var read = 0;
             int bytesRead;
             while ((bytesRead = stream.Read(data, read, length - read)) != 0)
             {

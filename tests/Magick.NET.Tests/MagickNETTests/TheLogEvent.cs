@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
-                    int count = 0;
+                    var count = 0;
                     void LogDelegate(object sender, LogEventArgs arguments)
                     {
                         count++;
@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
-                    int count = 0;
+                    var count = 0;
                     void LogDelegate(object sender, LogEventArgs arguments)
                     {
                         Assert.Null(sender);
@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
 
             private void ShouldLogTraceEventsWhenLogEventsIsSetToAll()
             {
-                int traceEvents = 0;
+                var traceEvents = 0;
                 void LogDelegate(object sender, LogEventArgs arguments)
                 {
                     if (arguments.EventType == LogEvents.Trace)
@@ -101,7 +101,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
-                    int count = 0;
+                    var count = 0;
                     void LogDelegate(object sender, LogEventArgs arguments)
                     {
                         count++;

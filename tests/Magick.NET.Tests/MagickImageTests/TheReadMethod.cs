@@ -428,7 +428,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReadImage()
                 {
-                    MagickColor red = new MagickColor("red");
+                    var red = new MagickColor("red");
 
                     using (var image = new MagickImage())
                     {
@@ -442,7 +442,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReadImageFromCmkyColorName()
                 {
-                    MagickColor red = new MagickColor("cmyk(0%,100%,100%,0)");
+                    var red = new MagickColor("cmyk(0%,100%,100%,0)");
 
                     using (var image = new MagickImage())
                     {
@@ -613,7 +613,7 @@ namespace Magick.NET.Tests
                     {
                         var exception = Assert.Throws<MagickBlobErrorException>(() => image.Read("~/test.gif"));
 
-                        string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
                         Assert.Contains("error/blob.c/OpenBlob", exception.Message);
                         Assert.Contains(baseDirectory, exception.Message);
                     }
