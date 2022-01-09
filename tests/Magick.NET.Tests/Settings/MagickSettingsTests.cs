@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
                 Assert.Equal(ColorType.Grayscale, image.ColorType);
                 image.Settings.ColorType = ColorType.TrueColor;
 
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     image.Format = MagickFormat.Jpg;
                     image.Write(memStream);
@@ -96,7 +96,7 @@ namespace Magick.NET.Tests
 
                 image.Settings.Compression = CompressionMethod.NoCompression;
 
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     image.Format = MagickFormat.Bmp;
                     image.Write(memStream);
@@ -126,14 +126,14 @@ namespace Magick.NET.Tests
             {
                 Assert.Equal(Endian.Undefined, image.Settings.Endian);
 
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     image.Settings.Endian = Endian.MSB;
                     image.Format = MagickFormat.Ipl;
                     image.Write(memStream);
                     memStream.Position = 0;
 
-                    MagickReadSettings settings = new MagickReadSettings();
+                    var settings = new MagickReadSettings();
                     settings.Format = MagickFormat.Ipl;
 
                     using (var result = new MagickImage(memStream, settings))
@@ -153,7 +153,7 @@ namespace Magick.NET.Tests
 
                 image.Settings.FillPattern = new MagickImage(Files.SnakewarePNG);
 
-                PointD[] coordinates = new PointD[4];
+                var coordinates = new PointD[4];
                 coordinates[0] = new PointD(50, 50);
                 coordinates[1] = new PointD(150, 50);
                 coordinates[2] = new PointD(150, 150);

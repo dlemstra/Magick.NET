@@ -147,7 +147,7 @@ namespace Magick.NET.Tests
                 {
                     using (var tempDir = new TemporaryDirectory("爱"))
                     {
-                        string tempFile = Path.Combine(tempDir.FullName, "ImageMagick.jpg");
+                        var tempFile = Path.Combine(tempDir.FullName, "ImageMagick.jpg");
                         FileHelper.Copy(Files.ImageMagickJPG, tempFile);
 
                         Optimizer.Compress(tempFile);
