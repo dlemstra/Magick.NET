@@ -97,7 +97,7 @@ jobs:
 
   windows:
     name: Windows
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     strategy:
       matrix:
@@ -177,7 +177,7 @@ jobs:
 
   libraries:
     name: Library
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     strategy:
       matrix:
