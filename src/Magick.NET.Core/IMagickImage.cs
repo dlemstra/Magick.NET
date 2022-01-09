@@ -1380,8 +1380,8 @@ namespace ImageMagick
         void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y, Channels channels);
 
         /// <summary>
-        /// Crop image (subregion of original image) using CropPosition.Center. You should call
-        /// RePage afterwards unless you need the Page information.
+        /// Crop image (subregion of original image). RePage should be called unless the Page information
+        /// is needed.
         /// </summary>
         /// <param name="width">The width of the subregion.</param>
         /// <param name="height">The height of the subregion.</param>
@@ -1389,8 +1389,8 @@ namespace ImageMagick
         void Crop(int width, int height);
 
         /// <summary>
-        /// Crop image (subregion of original image). You should call RePage afterwards unless you
-        /// need the Page information.
+        /// Crop image (subregion of original image). RePage should be called unless the Page information
+        /// is needed.
         /// </summary>
         /// <param name="width">The width of the subregion.</param>
         /// <param name="height">The height of the subregion.</param>
@@ -1399,16 +1399,16 @@ namespace ImageMagick
         void Crop(int width, int height, Gravity gravity);
 
         /// <summary>
-        /// Crop image (subregion of original image). You should call RePage afterwards unless you
-        /// need the Page information.
+        /// Crop image (subregion of original image). RePage should be called unless the Page information
+        /// is needed.
         /// </summary>
         /// <param name="geometry">The subregion to crop.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Crop(IMagickGeometry geometry);
 
         /// <summary>
-        /// Crop image (subregion of original image). You should call RePage afterwards unless you
-        /// need the Page information.
+        /// Crop image (subregion of original image). RePage should be called unless the Page information
+        /// is needed.
         /// </summary>
         /// <param name="geometry">The subregion to crop.</param>
         /// <param name="gravity">The position where the cropping should start from.</param>
