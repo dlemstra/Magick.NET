@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
                     ColorAssert.Equal(MagickColors.Azure, image, 158, 125);
                     ColorAssert.Equal(MagickColors.Black, image, 158, 126);
                     ColorAssert.Equal(MagickColors.Azure, image, 209, 127);
-                    ColorAssert.Equal(MagickColors.Black, image, 209, 128);
+                    ColorAssert.Equal(MagickColors.Black, image, 208, 128);
                 }
             }
         }
