@@ -58,6 +58,8 @@ function copyToTestProject($source, $target, $quantum, $platform) {
     Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net452\$fileName"
     [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net60")
     Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net60\$fileName"
+    [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net60-windows")
+    Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net60-windows\$fileName"
 }
 
 function copyToTestProjects($source, $target) {
