@@ -989,6 +989,11 @@ namespace ImageMagick
         Pwp,
 
         /// <summary>
+        /// Quite OK image format.
+        /// </summary>
+        Qoi,
+
+        /// <summary>
         /// Raw red samples.
         /// </summary>
         R,
