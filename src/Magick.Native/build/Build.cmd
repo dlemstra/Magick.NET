@@ -21,24 +21,24 @@ cd ..\..\src\Magick.Native\bin\Debug%quantumName%\%platformName%
 
 set testfolder=..\..\..\..\..\..\Magick.NET\tests
 
-if not exist %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net452 mkdir %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net452
+if not exist %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net462 mkdir %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net462
 if not exist %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net60 mkdir %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net60
-copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net452
-copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net452
+copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net462
+copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net462
 copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net60
 copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net60
 
-if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net452 mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net452
+if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net462 mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net462
 if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net60-windows mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net60-windows
-copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net452
-copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net452
+copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net462
+copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net462
 copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net60-windows
 copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net60-windows
 
-if not exist %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net452 mkdir %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net452
+if not exist %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net462 mkdir %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net462
 if not exist %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net60-windows mkdir %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net60-windows
-copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net452
-copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net452
+copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net462
+copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net462
 copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net60-windows
 copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%platformName%\net60-windows
 

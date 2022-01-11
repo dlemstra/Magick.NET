@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net60;net452</TargetFrameworks>
+    <TargetFrameworks>net60;net462</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <Configurations>Debug;Test</Configurations>
   </PropertyGroup>
