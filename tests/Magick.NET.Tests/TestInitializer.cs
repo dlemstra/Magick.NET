@@ -13,9 +13,9 @@ namespace Magick.NET.Tests
     {
 #if NETCOREAPP
         [ModuleInitializer]
-#endif
         public static void InitializeModule()
             => Initialize();
+#endif
 
         public static bool Initialize()
         {
