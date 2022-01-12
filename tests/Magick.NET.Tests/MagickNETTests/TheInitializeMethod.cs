@@ -11,9 +11,9 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        [Collection(nameof(RunTestsSeparately))]
         public class TheInitializeMethod : MagickNETTests
         {
+            [Collection(nameof(RunTestsSeparately))]
             public class WithPath
             {
                 [Fact]
@@ -71,6 +71,7 @@ namespace Magick.NET.Tests
                 }
             }
 
+            [Collection(nameof(RunTestsSeparately))]
             public class WithConfigurationFiles
             {
                 [Fact]
@@ -120,6 +121,7 @@ namespace Magick.NET.Tests
                 }
             }
 
+            [Collection(nameof(RunTestsSeparately))]
             public class WithConfigurationFilesAndPath
             {
                 [Fact]
