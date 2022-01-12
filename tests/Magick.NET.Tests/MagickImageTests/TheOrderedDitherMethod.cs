@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.IO;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +9,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
+        [Collection(nameof(RunTestsSeparately))]
         public class TheOrderedDitherMethod
         {
             [Fact]
