@@ -50,6 +50,11 @@ namespace Magick.NET.Tests
                         return false;
                 }
 
+#if PLATFORM_arm64
+                if (format == MagickFormat.Flif)
+                    return false;
+#endif
+
                 if (OperatingSystem.IsMacOS)
                 {
                     if (format == MagickFormat.Jxl)
