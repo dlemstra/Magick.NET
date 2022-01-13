@@ -12,6 +12,7 @@ namespace ImageMagick
         public const string QuantumName = Quantum + OpenMP;
 
         public const string X86Name = Name + "-" + QuantumName + "-x86.dll";
+
 #if PLATFORM_arm64
         public const string X64Name = Name + "-" + QuantumName + "-arm64.dll";
 #else
