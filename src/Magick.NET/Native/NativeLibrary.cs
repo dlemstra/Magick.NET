@@ -13,7 +13,7 @@ namespace ImageMagick
 
         public const string X86Name = Name + "-" + QuantumName + "-x86.dll";
 #if PLATFORM_arm64
-        public const string X86Name = Name + "-" + QuantumName + "--arm64.dll";
+        public const string X64Name = Name + "-" + QuantumName + "--arm64.dll";
 #else
         public const string X64Name = Name + "-" + QuantumName + "-x64.dll";
 #endif
