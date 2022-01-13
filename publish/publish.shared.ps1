@@ -92,6 +92,7 @@ function removetargetFramework($xml, $targetFramework) {
     $namespaceManager.AddNamespace("nuspec", $xml.DocumentElement.NamespaceURI)
     $group = $xml.SelectSingleNode("//nuspec:group[@targetFramework='$targetFramework']", $namespaceManager)
     if ($group -ne $null) {
+        Write-Host "Removing target framework '$targetFramework'"
         $group.ParentNode.RemoveChild($group)
     }
 }
