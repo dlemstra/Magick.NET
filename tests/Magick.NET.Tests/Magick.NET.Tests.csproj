@@ -36,10 +36,6 @@
     <QuantumType>Q16-HDRI</QuantumType>
   </PropertyGroup>
 
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('netcore'))">
-    <DefineConstants>$(DefineConstants);NETCORE</DefineConstants>
-  </PropertyGroup>
-
   <PropertyGroup Condition="$(Configuration.StartsWith('Debug'))">
     <DefineConstants>$(DefineConstants);DEBUG_TEST</DefineConstants>
   </PropertyGroup>
