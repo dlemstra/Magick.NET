@@ -107,7 +107,7 @@ jobs:
     strategy:
       matrix:
         quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
-        platformName: [x86, x64, Any CPU]
+        platformName: [x86, x64, arm64, Any CPU]
         exclude:
         - quantumName: Q8-OpenMP
           platformName: x86
@@ -115,6 +115,12 @@ jobs:
           platformName: x86
         - quantumName: Q16-HDRI-OpenMP
           platformName: x86
+        - quantumName: Q8-OpenMP
+          platformName: arm64
+        - quantumName: Q16-OpenMP
+          platformName: arm64
+        - quantumName: Q16-HDRI-OpenMP
+          platformName: arm64
         - quantumName: Q8-OpenMP
           platformName: Any CPU
         - quantumName: Q16-OpenMP
@@ -142,10 +148,12 @@ jobs:
       working-directory: src/Magick.Native
 
     - name: Build Magick.NET (Test)
+      if: ${{ matrix.platformName != 'arm64' }}
       run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test'
       working-directory: build/windows
 
     - name: Test Magick.NET
+      if: ${{ matrix.platformName != 'arm64' }}
       run: './test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
       working-directory: build/windows
 

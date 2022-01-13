@@ -14,7 +14,9 @@ param (
 . $PSScriptRoot\publish.shared.ps1
 
 function addMagickNetLibraries($xml, $quantumName, $platform) {
-    addLibrary $xml "Magick.NET" $quantumName $platform "net20"
+    if ($platform -ne "arm64") {
+        addLibrary $xml "Magick.NET" $quantumName $platform "net20"
+    }
     addLibrary $xml "Magick.NET" $quantumName $platform "netstandard20"
     addLibrary $xml "Magick.NET" $quantumName $platform "netstandard21"
 }
@@ -76,10 +78,14 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit,
         $platform = "AnyCPU"
     }
 
+    if ($platform -eq "arm64") {
+        removetargetFramework $xml ".NETFramework2.0"
+    }
+
     addMagickNetLibraries $xml $quantumName $platform
     addNativeLibraries $xml $quantumName $platform
 
-    if ($platform -ne "AnyCPU") {
+    if (($platform -ne "AnyCPU") -and ($platform -ne "arm64")) {
         addFile $xml "Magick.NET.targets" "build\net20\$name.targets"
     }
 

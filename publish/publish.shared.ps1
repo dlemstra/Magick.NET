@@ -86,3 +86,12 @@ function loadAndInitNuSpec($library, $version, $commit) {
 
     return $xml
 }
+
+function removetargetFramework($xml, targetFramework) {
+    $namespaceManager = New-Object -TypeName "Xml.XmlNamespaceManager" -ArgumentList $xml.NameTable
+    $namespaceManager.AddNamespace("nuspec", $xml.DocumentElement.NamespaceURI)
+    $group = $xml.SelectSingleNode("//nuspec:group[@targetFramework='$targetFramework']", $namespaceManager)
+    if ($group -ne $null) {
+        $group.ParentNode.RemoveChild($group)
+    }
+}
