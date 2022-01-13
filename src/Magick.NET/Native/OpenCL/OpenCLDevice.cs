@@ -14,7 +14,7 @@ namespace ImageMagick
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
             public static class X64
             {
                 #if PLATFORM_AnyCPU
@@ -87,7 +87,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLDevice_BenchmarkScore_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -107,7 +107,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLDevice_DeviceType_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -127,7 +127,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLDevice_IsEnabled_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -143,7 +143,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.OpenCLDevice_IsEnabled_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -162,7 +162,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLDevice_Name_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -182,7 +182,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLDevice_Version_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -200,7 +200,7 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.OpenCLDevice_GetKernelProfileRecords(Instance, out length);
                 #endif
                 #if PLATFORM_AnyCPU
@@ -217,7 +217,7 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.OpenCLDevice_GetKernelProfileRecord(list, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
@@ -233,7 +233,7 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.X64.OpenCLDevice_SetProfileKernels(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU

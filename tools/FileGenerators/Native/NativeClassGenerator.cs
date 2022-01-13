@@ -130,7 +130,7 @@ namespace FileGenerator.Native
         private void WriteNativeMethods(string platform)
         {
             if (platform == "X64")
-                WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
+                WriteLine("#if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU");
             else
                 WriteLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
             WriteLine("public static class " + platform);

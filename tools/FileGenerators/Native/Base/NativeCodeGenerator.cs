@@ -206,7 +206,7 @@ namespace FileGenerator.Native
             WriteLine("if (OperatingSystem.Is64Bit)");
             WriteLine("#endif");
 
-            WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
+            WriteLine("#if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU");
             WriteLine(string.Format(action, "X64"));
             WriteLine("#endif");
 

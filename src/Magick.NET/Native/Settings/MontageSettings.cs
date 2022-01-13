@@ -24,7 +24,7 @@ namespace ImageMagick
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
             public static class X64
             {
                 #if PLATFORM_AnyCPU
@@ -113,7 +113,7 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_Dispose(instance);
                 #endif
                 #if PLATFORM_AnyCPU
@@ -128,7 +128,7 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.X64.MontageSettings_Create();
                 #endif
                 #if PLATFORM_AnyCPU
@@ -154,7 +154,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetBackgroundColor(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -172,7 +172,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetBorderColor(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -188,7 +188,7 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_SetBorderWidth(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
@@ -205,7 +205,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetFillColor(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -223,7 +223,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetFont(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -239,7 +239,7 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_SetFontPointsize(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
@@ -256,7 +256,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetFrameGeometry(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -274,7 +274,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetGeometry(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -290,7 +290,7 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_SetGravity(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
@@ -305,7 +305,7 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MontageSettings_SetShadow(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
@@ -322,7 +322,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetStrokeColor(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -340,7 +340,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetTextureFileName(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -358,7 +358,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetTileGeometry(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
@@ -376,7 +376,7 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MontageSettings_SetTitle(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
