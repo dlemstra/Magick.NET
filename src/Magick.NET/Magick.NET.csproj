@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFrameworks>netstandard21;netstandard20;net20</TargetFrameworks>
-    <Platforms>x86;x64;AnyCPU</Platforms>
+    <Platforms>x86;x64;arm64;AnyCPU</Platforms>
     <AssemblyVersion>8.5.0</AssemblyVersion>
     <FileVersion>8.5.0</FileVersion>
     <Version>8.5.0</Version>
