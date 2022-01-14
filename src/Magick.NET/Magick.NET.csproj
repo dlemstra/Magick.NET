@@ -56,6 +56,10 @@
 
   <PropertyGroup Condition="'$(Platform)' == 'x64'">
     <PlatformTarget>x64</PlatformTarget>
+  </PropertyGroup> 
+
+  <PropertyGroup Condition="'$(Platform)' == 'arm64'">
+    <PlatformTarget>ARM64</PlatformTarget>
   </PropertyGroup>
 
   <PropertyGroup>
