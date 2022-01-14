@@ -46,10 +46,13 @@ function copyToSamplesProject($source, $target, $quantum, $platform) {
 function copyToSamplesProjects($source, $target) {
     copyToSamplesProject $source $target "Q8" "x86"
     copyToSamplesProject $source $target "Q8" "x64"
+    copyToSamplesProject $source $target "Q8" "arm64"
     copyToSamplesProject $source $target "Q16" "x86"
     copyToSamplesProject $source $target "Q16" "x64"
+    copyToSamplesProject $source $target "Q16" "arm64"
     copyToSamplesProject $source $target "Q16-HDRI" "x86"
     copyToSamplesProject $source $target "Q16-HDRI" "x64"
+    copyToSamplesProject $source $target "Q16-HDRI" "arm64"
 }
 
 function copyToTestProject($source, $target, $quantum, $platform) {
@@ -65,13 +68,19 @@ function copyToTestProject($source, $target, $quantum, $platform) {
 function copyToTestProjects($source, $target) {
     copyToTestProject $source $target "Q8" "x86"
     copyToTestProject $source $target "Q8" "x64"
+    copyToTestProject $source $target "Q8" "arm64"
     copyToTestProject $source $target "Q8-OpenMP" "x64"
+    copyToTestProject $source $target "Q8-OpenMP" "arm64"
     copyToTestProject $source $target "Q16" "x86"
     copyToTestProject $source $target "Q16" "x64"
+    copyToTestProject $source $target "Q16" "arm64"
     copyToTestProject $source $target "Q16-OpenMP" "x64"
+    copyToTestProject $source $target "Q16-OpenMP" "arm64"
     copyToTestProject $source $target "Q16-HDRI" "x86"
     copyToTestProject $source $target "Q16-HDRI" "x64"
+    copyToTestProject $source $target "Q16-HDRI" "arm64"
     copyToTestProject $source $target "Q16-HDRI-OpenMP" "x64"
+    copyToTestProject $source $target "Q16-HDRI-OpenMP" "arm64"
 }
 
 function copyMetadata($source, $target) {
