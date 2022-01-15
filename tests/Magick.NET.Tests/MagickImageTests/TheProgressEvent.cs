@@ -37,7 +37,7 @@ namespace Magick.NET.Tests
                     Assert.False(image.IsDisposed);
                 }
 
-                Assert.True(progress <= (Percentage)1);
+                Assert.InRange((int)progress, 0, 2);
             }
 
             [Fact]
