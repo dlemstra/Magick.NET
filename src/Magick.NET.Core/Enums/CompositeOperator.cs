@@ -407,5 +407,15 @@ namespace ImageMagick
         /// RMSE.
         /// </summary>
         RMSE,
+
+        /// <summary>
+        /// SaliencyBlend.
+        /// </summary>
+        SaliencyBlend,
+
+        /// <summary>
+        /// SeamlessBlend.
+        /// </summary>
+        SeamlessBlend,
     }
 }
