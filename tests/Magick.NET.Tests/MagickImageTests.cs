@@ -1572,44 +1572,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Progress()
-        {
-            var progress = new Percentage(0);
-            var cancel = false;
-            EventHandler<ProgressEventArgs> progressEvent = (sender, arguments) =>
-            {
-                Assert.NotNull(sender);
-                Assert.NotNull(arguments);
-                Assert.NotNull(arguments.Origin);
-                Assert.False(arguments.Cancel);
-
-                progress = arguments.Progress;
-                if (cancel)
-                    arguments.Cancel = true;
-            };
-
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Progress += progressEvent;
-
-                image.Flip();
-                Assert.Equal(100, (int)progress);
-            }
-
-            cancel = true;
-
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Progress += progressEvent;
-
-                image.Flip();
-
-                Assert.True(progress <= (Percentage)1);
-                Assert.False(image.IsDisposed);
-            }
-        }
-
-        [Fact]
         public void Test_Quantize()
         {
             QuantizeSettings settings = new QuantizeSettings();
