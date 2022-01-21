@@ -14,7 +14,7 @@ namespace ImageMagick
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
         {
-            #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
             {
                 #if PLATFORM_AnyCPU
@@ -53,6 +53,48 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Width_Set(ulong value);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_LimitMemory(double percentage);
+            }
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            public static class ARM64
+            {
+                #if PLATFORM_AnyCPU
+                static ARM64() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Area_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Area_Set(ulong value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Disk_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Disk_Set(ulong value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Height_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Height_Set(ulong value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_ListLength_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_ListLength_Set(ulong value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Memory_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Memory_Set(ulong value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Thread_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Thread_Set(ulong value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Throttle_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Throttle_Set(ulong value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_Width_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_Width_Set(ulong value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_LimitMemory(double percentage);
             }
             #endif
@@ -110,8 +152,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ResourceLimits_Area_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.ResourceLimits_Area_Get();
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -126,8 +174,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.ResourceLimits_Area_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.ResourceLimits_Area_Set(value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -145,8 +199,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ResourceLimits_Disk_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.ResourceLimits_Disk_Get();
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -161,8 +221,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.ResourceLimits_Disk_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.ResourceLimits_Disk_Set(value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -180,8 +246,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ResourceLimits_Height_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.ResourceLimits_Height_Get();
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -196,8 +268,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.ResourceLimits_Height_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.ResourceLimits_Height_Set(value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -215,8 +293,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ResourceLimits_ListLength_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.ResourceLimits_ListLength_Get();
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -231,8 +315,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.ResourceLimits_ListLength_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.ResourceLimits_ListLength_Set(value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -250,8 +340,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ResourceLimits_Memory_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.ResourceLimits_Memory_Get();
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -266,8 +362,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.ResourceLimits_Memory_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.ResourceLimits_Memory_Set(value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -285,8 +387,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ResourceLimits_Thread_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.ResourceLimits_Thread_Get();
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -301,8 +409,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.ResourceLimits_Thread_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.ResourceLimits_Thread_Set(value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -320,8 +434,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ResourceLimits_Throttle_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.ResourceLimits_Throttle_Get();
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -336,8 +456,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.ResourceLimits_Throttle_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.ResourceLimits_Throttle_Set(value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -355,8 +481,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.ResourceLimits_Width_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.ResourceLimits_Width_Get();
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -371,8 +503,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.ResourceLimits_Width_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.ResourceLimits_Width_Set(value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -387,8 +525,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.ResourceLimits_LimitMemory(percentage);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.ResourceLimits_LimitMemory(percentage);
                 #endif
                 #if PLATFORM_AnyCPU
                 else

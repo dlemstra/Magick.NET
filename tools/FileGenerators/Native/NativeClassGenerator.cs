@@ -40,6 +40,7 @@ namespace FileGenerator.Native
             WriteLine("private static unsafe class NativeMethods");
             WriteStartColon();
             WriteX64();
+            WriteARM64();
             WriteX86();
             WriteEndColon();
 
@@ -130,7 +131,9 @@ namespace FileGenerator.Native
         private void WriteNativeMethods(string platform)
         {
             if (platform == "X64")
-                WriteLine("#if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU");
+                WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
+            else if (platform == "ARM64")
+                WriteLine("#if PLATFORM_arm64 || PLATFORM_AnyCPU");
             else
                 WriteLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
             WriteLine("public static class " + platform);
@@ -155,7 +158,10 @@ namespace FileGenerator.Native
         }
 
         private void WriteX64()
-        => WriteNativeMethods("X64");
+            => WriteNativeMethods("X64");
+
+        private void WriteARM64()
+            => WriteNativeMethods("ARM64");
 
         private void WriteX86()
             => WriteNativeMethods("X86");

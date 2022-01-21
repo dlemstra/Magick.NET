@@ -59,7 +59,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit)
+                        if (OperatingSystem.Is64Bit || OperatingSystem.IsArm64)
                         {
                             pixels.GetValue(x, y);
                         }

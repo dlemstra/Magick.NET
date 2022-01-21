@@ -14,7 +14,7 @@ namespace ImageMagick
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
         {
-            #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
             {
                 #if PLATFORM_AnyCPU
@@ -23,6 +23,18 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DoubleMatrix_Dispose(IntPtr instance);
+            }
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            public static class ARM64
+            {
+                #if PLATFORM_AnyCPU
+                static ARM64() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DoubleMatrix_Dispose(IntPtr instance);
             }
             #endif
@@ -47,8 +59,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DoubleMatrix_Dispose(instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DoubleMatrix_Dispose(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -64,8 +82,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     Instance = NativeMethods.X64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    Instance = NativeMethods.ARM64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
                     #endif
                     #if PLATFORM_AnyCPU
                     else

@@ -24,7 +24,7 @@ namespace ImageMagick
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
         {
-            #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
             {
                 #if PLATFORM_AnyCPU
@@ -121,6 +121,106 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickSettings_SetScene(IntPtr Instance, UIntPtr value);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetSize(IntPtr Instance, IntPtr value);
+            }
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            public static class ARM64
+            {
+                #if PLATFORM_AnyCPU
+                static ARM64() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Create();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Dispose(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_AntiAlias_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_AntiAlias_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_BackgroundColor_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_BackgroundColor_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_ColorSpace_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_ColorSpace_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_ColorType_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_ColorType_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_Compression_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Compression_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_Debug_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Debug_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Density_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Density_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_Depth_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Depth_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_Endian_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Endian_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Extract_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Extract_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Format_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Format_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickSettings_Font_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Font_Set(IntPtr instance, IntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern double MagickSettings_FontPointsize_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_FontPointsize_Set(IntPtr instance, double value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_Monochrome_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Monochrome_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern UIntPtr MagickSettings_Interlace_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Interlace_Set(IntPtr instance, UIntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                [return: MarshalAs(UnmanagedType.Bool)]
+                public static extern bool MagickSettings_Verbose_Get(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_Verbose_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetOption(IntPtr Instance, IntPtr key, IntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetPage(IntPtr Instance, IntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetPing(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetQuality(IntPtr Instance, UIntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetScenes(IntPtr Instance, IntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void MagickSettings_SetScene(IntPtr Instance, UIntPtr value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickSettings_SetSize(IntPtr Instance, IntPtr value);
             }
             #endif
@@ -233,8 +333,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickSettings_Dispose(instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_Dispose(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -248,8 +354,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.X64.MagickSettings_Create();
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                Instance = NativeMethods.ARM64.MagickSettings_Create();
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -275,8 +387,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_AntiAlias_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_AntiAlias_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -291,8 +409,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_AntiAlias_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_AntiAlias_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -310,8 +434,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_BackgroundColor_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_BackgroundColor_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -328,8 +458,14 @@ namespace ImageMagick
                         #if PLATFORM_AnyCPU
                         if (OperatingSystem.Is64Bit)
                         #endif
-                        #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.IsArm64)
+                        #endif
+                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                        NativeMethods.ARM64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -348,8 +484,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_ColorSpace_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_ColorSpace_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -364,8 +506,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_ColorSpace_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -383,8 +531,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_ColorType_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_ColorType_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -399,8 +553,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_ColorType_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -418,8 +578,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Compression_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Compression_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -434,8 +600,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_Compression_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Compression_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -453,8 +625,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Debug_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Debug_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -469,8 +647,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_Debug_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Debug_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -488,8 +672,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Density_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Density_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -506,8 +696,14 @@ namespace ImageMagick
                         #if PLATFORM_AnyCPU
                         if (OperatingSystem.Is64Bit)
                         #endif
-                        #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.MagickSettings_Density_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.IsArm64)
+                        #endif
+                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                        NativeMethods.ARM64.MagickSettings_Density_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -526,8 +722,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Depth_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Depth_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -542,8 +744,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_Depth_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Depth_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -561,8 +769,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Endian_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Endian_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -577,8 +791,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Endian_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -596,8 +816,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Extract_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Extract_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -614,8 +840,14 @@ namespace ImageMagick
                         #if PLATFORM_AnyCPU
                         if (OperatingSystem.Is64Bit)
                         #endif
-                        #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.MagickSettings_Extract_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.IsArm64)
+                        #endif
+                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                        NativeMethods.ARM64.MagickSettings_Extract_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -634,8 +866,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Format_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Format_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -652,8 +890,14 @@ namespace ImageMagick
                         #if PLATFORM_AnyCPU
                         if (OperatingSystem.Is64Bit)
                         #endif
-                        #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.MagickSettings_Format_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.IsArm64)
+                        #endif
+                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                        NativeMethods.ARM64.MagickSettings_Format_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -672,8 +916,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Font_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Font_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -690,8 +940,14 @@ namespace ImageMagick
                         #if PLATFORM_AnyCPU
                         if (OperatingSystem.Is64Bit)
                         #endif
-                        #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.MagickSettings_Font_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.IsArm64)
+                        #endif
+                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                        NativeMethods.ARM64.MagickSettings_Font_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -710,8 +966,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_FontPointsize_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_FontPointsize_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -726,8 +988,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_FontPointsize_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_FontPointsize_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -745,8 +1013,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Monochrome_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Monochrome_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -761,8 +1035,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_Monochrome_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Monochrome_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -780,8 +1060,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Interlace_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Interlace_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -796,8 +1082,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Interlace_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -815,8 +1107,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickSettings_Verbose_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickSettings_Verbose_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -831,8 +1129,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_Verbose_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Verbose_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -847,8 +1151,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickSettings_SetColorFuzz(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetColorFuzz(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -864,8 +1174,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_SetFileName(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_SetFileName(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -880,8 +1196,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -899,8 +1221,14 @@ namespace ImageMagick
                         #if PLATFORM_AnyCPU
                         if (OperatingSystem.Is64Bit)
                         #endif
-                        #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.IsArm64)
+                        #endif
+                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                        NativeMethods.ARM64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -918,8 +1246,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_SetPage(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_SetPage(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -934,8 +1268,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickSettings_SetPing(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetPing(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -949,8 +1289,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickSettings_SetQuality(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetQuality(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -966,8 +1312,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_SetScenes(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_SetScenes(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -982,8 +1334,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickSettings_SetScene(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetScene(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -999,8 +1357,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.MagickSettings_SetSize(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_SetSize(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else

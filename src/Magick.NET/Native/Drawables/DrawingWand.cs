@@ -24,7 +24,7 @@ namespace ImageMagick
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
         {
-            #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
             {
                 #if PLATFORM_AnyCPU
@@ -197,6 +197,182 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_Translation(IntPtr Instance, double x, double y, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Viewbox(IntPtr Instance, double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, out IntPtr exception);
+            }
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            public static class ARM64
+            {
+                #if PLATFORM_AnyCPU
+                static ARM64() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr DrawingWand_Create(IntPtr image, IntPtr settings);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Dispose(IntPtr instance);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Affine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Alpha(IntPtr Instance, double x, double y, UIntPtr paintMethod, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Arc(IntPtr Instance, double startX, double startY, double endX, double endY, double startDegrees, double endDegrees, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Bezier(IntPtr Instance, IntPtr coordinates, UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_BorderColor(IntPtr Instance, IntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Circle(IntPtr Instance, double originX, double originY, double perimeterX, double perimeterY, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_ClipPath(IntPtr Instance, IntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_ClipRule(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_ClipUnits(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Color(IntPtr Instance, double x, double y, UIntPtr paintMethod, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Composite(IntPtr Instance, double x, double y, double width, double height, UIntPtr compositeOperator, IntPtr image, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Density(IntPtr Instance, IntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Ellipse(IntPtr Instance, double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_FillColor(IntPtr Instance, IntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_FillOpacity(IntPtr Instance, double value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_FillPatternUrl(IntPtr Instance, IntPtr url, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_FillRule(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Font(IntPtr Instance, IntPtr fontName, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_FontFamily(IntPtr Instance, IntPtr family, UIntPtr style, UIntPtr weight, UIntPtr stretch, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_FontPointSize(IntPtr Instance, double value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr DrawingWand_FontTypeMetrics(IntPtr Instance, IntPtr text, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewLines, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Gravity(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Line(IntPtr Instance, double startX, double startY, double endX, double endY, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathArcAbs(IntPtr Instance, double x, double y, double radiusX, double radiusY, double rotationX, [MarshalAs(UnmanagedType.Bool)] bool useLargeArc, [MarshalAs(UnmanagedType.Bool)] bool useSweep, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathArcRel(IntPtr Instance, double x, double y, double radiusX, double radiusY, double rotationX, [MarshalAs(UnmanagedType.Bool)] bool useLargeArc, [MarshalAs(UnmanagedType.Bool)] bool useSweep, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Render(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Text(IntPtr Instance, double x, double y, IntPtr text, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathClose(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathCurveToAbs(IntPtr Instance, double x1, double y1, double x2, double y2, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathCurveToRel(IntPtr Instance, double x1, double y1, double x2, double y2, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathFinish(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathLineToAbs(IntPtr Instance, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathLineToRel(IntPtr Instance, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathLineToHorizontalAbs(IntPtr Instance, double x, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathLineToHorizontalRel(IntPtr Instance, double x, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathLineToVerticalAbs(IntPtr Instance, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathLineToVerticalRel(IntPtr Instance, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathMoveToAbs(IntPtr Instance, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathMoveToRel(IntPtr Instance, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathQuadraticCurveToAbs(IntPtr Instance, double x1, double y1, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathQuadraticCurveToRel(IntPtr Instance, double x1, double y1, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathSmoothCurveToAbs(IntPtr Instance, double x2, double y2, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathSmoothCurveToRel(IntPtr Instance, double x2, double y2, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathSmoothQuadraticCurveToAbs(IntPtr Instance, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathSmoothQuadraticCurveToRel(IntPtr Instance, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PathStart(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Point(IntPtr Instance, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Polygon(IntPtr Instance, IntPtr coordinates, UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Polyline(IntPtr Instance, IntPtr coordinates, UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PopClipPath(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PopGraphicContext(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PopPattern(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PushClipPath(IntPtr Instance, IntPtr clipPath, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PushGraphicContext(IntPtr Instance, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_PushPattern(IntPtr Instance, IntPtr id, double x, double y, double width, double height, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Rectangle(IntPtr Instance, double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Rotation(IntPtr Instance, double angle, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_RoundRectangle(IntPtr Instance, double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, double cornerWidth, double cornerHeight, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Scaling(IntPtr Instance, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_SkewX(IntPtr Instance, double angle, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_SkewY(IntPtr Instance, double angle, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokeAntialias(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool isEnabled, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokeColor(IntPtr Instance, IntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokeDashArray(IntPtr Instance, double* dash, UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokeDashOffset(IntPtr Instance, double value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokeLineCap(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokeLineJoin(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokeMiterLimit(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokeOpacity(IntPtr Instance, double value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokePatternUrl(IntPtr Instance, IntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_StrokeWidth(IntPtr Instance, double value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_TextAlignment(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_TextAntialias(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool isEnabled, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_TextDecoration(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_TextDirection(IntPtr Instance, UIntPtr value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_TextEncoding(IntPtr Instance, IntPtr encoding, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_TextInterlineSpacing(IntPtr Instance, double value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_TextInterwordSpacing(IntPtr Instance, double value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_TextKerning(IntPtr Instance, double value, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_TextUnderColor(IntPtr Instance, IntPtr color, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void DrawingWand_Translation(IntPtr Instance, double x, double y, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void DrawingWand_Viewbox(IntPtr Instance, double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY, out IntPtr exception);
             }
             #endif
@@ -386,8 +562,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Dispose(instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Dispose(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -403,8 +585,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     Instance = NativeMethods.X64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    Instance = NativeMethods.ARM64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -429,8 +617,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Affine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Affine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -446,8 +640,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Alpha(Instance, x, y, (UIntPtr)paintMethod, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Alpha(Instance, x, y, (UIntPtr)paintMethod, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -463,8 +663,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Arc(Instance, startX, startY, endX, endY, startDegrees, endDegrees, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Arc(Instance, startX, startY, endX, endY, startDegrees, endDegrees, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -480,8 +686,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Bezier(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Bezier(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -499,8 +711,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_BorderColor(Instance, valueNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_BorderColor(Instance, valueNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -517,8 +735,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Circle(Instance, originX, originY, perimeterX, perimeterY, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Circle(Instance, originX, originY, perimeterX, perimeterY, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -536,8 +760,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_ClipPath(Instance, valueNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_ClipPath(Instance, valueNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -554,8 +784,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_ClipRule(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_ClipRule(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -571,8 +807,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_ClipUnits(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_ClipUnits(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -588,8 +830,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Color(Instance, x, y, (UIntPtr)paintMethod, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Color(Instance, x, y, (UIntPtr)paintMethod, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -605,8 +853,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, MagickImage.GetInstance(image), out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Composite(Instance, x, y, width, height, (UIntPtr)compositeOperator, MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -624,8 +878,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_Density(Instance, valueNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_Density(Instance, valueNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -642,8 +902,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Ellipse(Instance, originX, originY, radiusX, radiusY, startDegrees, endDegrees, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Ellipse(Instance, originX, originY, radiusX, radiusY, startDegrees, endDegrees, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -661,8 +927,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_FillColor(Instance, valueNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_FillColor(Instance, valueNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -679,8 +951,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_FillOpacity(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_FillOpacity(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -698,8 +976,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_FillPatternUrl(Instance, urlNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_FillPatternUrl(Instance, urlNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -716,8 +1000,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_FillRule(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_FillRule(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -735,8 +1025,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -755,8 +1051,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -773,8 +1075,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_FontPointSize(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_FontPointSize(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -793,8 +1101,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -821,8 +1135,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Gravity(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Gravity(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -838,8 +1158,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Line(Instance, startX, startY, endX, endY, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Line(Instance, startX, startY, endX, endY, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -855,8 +1181,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathArcAbs(Instance, x, y, radiusX, radiusY, rotationX, useLargeArc, useSweep, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathArcAbs(Instance, x, y, radiusX, radiusY, rotationX, useLargeArc, useSweep, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -872,8 +1204,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathArcRel(Instance, x, y, radiusX, radiusY, rotationX, useLargeArc, useSweep, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathArcRel(Instance, x, y, radiusX, radiusY, rotationX, useLargeArc, useSweep, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -889,8 +1227,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Render(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Render(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -908,8 +1252,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_Text(Instance, x, y, textNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_Text(Instance, x, y, textNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -926,8 +1276,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathClose(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathClose(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -943,8 +1299,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathCurveToAbs(Instance, x1, y1, x2, y2, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathCurveToAbs(Instance, x1, y1, x2, y2, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -960,8 +1322,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathCurveToRel(Instance, x1, y1, x2, y2, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathCurveToRel(Instance, x1, y1, x2, y2, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -977,8 +1345,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathFinish(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathFinish(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -994,8 +1368,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToAbs(Instance, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathLineToAbs(Instance, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1011,8 +1391,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToRel(Instance, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathLineToRel(Instance, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1028,8 +1414,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToHorizontalAbs(Instance, x, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathLineToHorizontalAbs(Instance, x, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1045,8 +1437,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToHorizontalRel(Instance, x, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathLineToHorizontalRel(Instance, x, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1062,8 +1460,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToVerticalAbs(Instance, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathLineToVerticalAbs(Instance, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1079,8 +1483,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathLineToVerticalRel(Instance, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathLineToVerticalRel(Instance, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1096,8 +1506,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathMoveToAbs(Instance, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathMoveToAbs(Instance, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1113,8 +1529,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathMoveToRel(Instance, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathMoveToRel(Instance, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1130,8 +1552,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathQuadraticCurveToAbs(Instance, x1, y1, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathQuadraticCurveToAbs(Instance, x1, y1, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1147,8 +1575,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathQuadraticCurveToRel(Instance, x1, y1, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathQuadraticCurveToRel(Instance, x1, y1, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1164,8 +1598,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathSmoothCurveToAbs(Instance, x2, y2, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathSmoothCurveToAbs(Instance, x2, y2, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1181,8 +1621,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathSmoothCurveToRel(Instance, x2, y2, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathSmoothCurveToRel(Instance, x2, y2, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1198,8 +1644,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathSmoothQuadraticCurveToAbs(Instance, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathSmoothQuadraticCurveToAbs(Instance, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1215,8 +1667,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathSmoothQuadraticCurveToRel(Instance, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathSmoothQuadraticCurveToRel(Instance, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1232,8 +1690,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PathStart(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PathStart(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1249,8 +1713,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Point(Instance, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Point(Instance, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1266,8 +1736,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Polygon(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Polygon(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1283,8 +1759,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Polyline(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Polyline(Instance, PointInfoCollection.GetInstance(coordinates), (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1300,8 +1782,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PopClipPath(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PopClipPath(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1317,8 +1805,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PopGraphicContext(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PopGraphicContext(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1334,8 +1828,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PopPattern(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PopPattern(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1353,8 +1853,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_PushClipPath(Instance, clipPathNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_PushClipPath(Instance, clipPathNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1371,8 +1877,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_PushGraphicContext(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PushGraphicContext(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1390,8 +1902,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_PushPattern(Instance, idNative.Instance, x, y, width, height, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_PushPattern(Instance, idNative.Instance, x, y, width, height, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1408,8 +1926,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Rectangle(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Rectangle(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1425,8 +1949,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Rotation(Instance, angle, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Rotation(Instance, angle, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1442,8 +1972,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_RoundRectangle(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_RoundRectangle(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, cornerWidth, cornerHeight, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1459,8 +1995,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Scaling(Instance, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Scaling(Instance, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1476,8 +2018,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_SkewX(Instance, angle, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_SkewX(Instance, angle, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1493,8 +2041,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_SkewY(Instance, angle, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_SkewY(Instance, angle, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1510,8 +2064,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeAntialias(Instance, isEnabled, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_StrokeAntialias(Instance, isEnabled, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1529,8 +2089,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_StrokeColor(Instance, valueNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_StrokeColor(Instance, valueNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1549,8 +2115,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_StrokeDashArray(Instance, dashFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_StrokeDashArray(Instance, dashFixed, (UIntPtr)length, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1567,8 +2139,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeDashOffset(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_StrokeDashOffset(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1584,8 +2162,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeLineCap(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_StrokeLineCap(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1601,8 +2185,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeLineJoin(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_StrokeLineJoin(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1618,8 +2208,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeMiterLimit(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_StrokeMiterLimit(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1635,8 +2231,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeOpacity(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_StrokeOpacity(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1654,8 +2256,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_StrokePatternUrl(Instance, valueNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_StrokePatternUrl(Instance, valueNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1672,8 +2280,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_StrokeWidth(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_StrokeWidth(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1689,8 +2303,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextAlignment(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_TextAlignment(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1706,8 +2326,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextAntialias(Instance, isEnabled, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_TextAntialias(Instance, isEnabled, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1723,8 +2349,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextDecoration(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_TextDecoration(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1740,8 +2372,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextDirection(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_TextDirection(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1759,8 +2397,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_TextEncoding(Instance, encodingNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_TextEncoding(Instance, encodingNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1777,8 +2421,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextInterlineSpacing(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_TextInterlineSpacing(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1794,8 +2444,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextInterwordSpacing(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_TextInterwordSpacing(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1811,8 +2467,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_TextKerning(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_TextKerning(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1830,8 +2492,14 @@ namespace ImageMagick
                     #if PLATFORM_AnyCPU
                     if (OperatingSystem.Is64Bit)
                     #endif
-                    #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.DrawingWand_TextUnderColor(Instance, colorNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingWand_TextUnderColor(Instance, colorNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1848,8 +2516,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Translation(Instance, x, y, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Translation(Instance, x, y, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1865,8 +2539,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.DrawingWand_Viewbox(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Viewbox(Instance, upperLeftX, upperLeftY, lowerRightX, lowerRightY, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else

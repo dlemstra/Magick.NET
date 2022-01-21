@@ -14,7 +14,7 @@ namespace ImageMagick
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
         {
-            #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
             public static class X64
             {
                 #if PLATFORM_AnyCPU
@@ -23,6 +23,18 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_Initialize();
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void Environment_SetEnv(IntPtr name, IntPtr value);
+            }
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            public static class ARM64
+            {
+                #if PLATFORM_AnyCPU
+                static ARM64() { NativeLibraryLoader.Load(); }
+                #endif
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void Environment_Initialize();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_SetEnv(IntPtr name, IntPtr value);
             }
             #endif
@@ -46,8 +58,14 @@ namespace ImageMagick
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.Is64Bit)
                 #endif
-                #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.Environment_Initialize();
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.Environment_Initialize();
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -65,8 +83,14 @@ namespace ImageMagick
                         #if PLATFORM_AnyCPU
                         if (OperatingSystem.Is64Bit)
                         #endif
-                        #if PLATFORM_x64 || PLATFORM_arm64 || PLATFORM_AnyCPU
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.IsArm64)
+                        #endif
+                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                        NativeMethods.ARM64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else

@@ -7,7 +7,6 @@ namespace ImageMagick
 {
     internal static partial class OperatingSystem
     {
-        public static bool Is64Bit =>
-            IntPtr.Size == 8;
+        public static bool Is64Bit { get; } = IntPtr.Size == 8;
     }
 }

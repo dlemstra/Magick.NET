@@ -15,6 +15,9 @@ namespace ImageMagick
 
         public static bool IsLinux =>
             false;
+
+        public static bool IsArm64 =>
+            false;
     }
 }
 
