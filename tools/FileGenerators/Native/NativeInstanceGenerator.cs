@@ -95,7 +95,7 @@ namespace FileGenerator.Native
 
             var cleanup = method.Cleanup;
 
-            string result = cleanup.Name + "(result";
+            var result = cleanup.Name + "(result";
             if (cleanup.Arguments.Count() > 0)
                 result += ", " + string.Join(", ", cleanup.Arguments);
             return result + ");";
@@ -382,7 +382,7 @@ namespace FileGenerator.Native
                 WriteThrowStart(property.Throws);
 
                 WriteLine(property.Type.NativeName + " result;");
-                string arguments = !Class.IsStatic ? "Instance" : string.Empty;
+                var arguments = !Class.IsStatic ? "Instance" : string.Empty;
                 if (property.Throws)
                     arguments += ", out exception";
                 WriteNativeIfContent("result = NativeMethods.{0}." + Class.Name + "_" + property.Name + "_Get(" + arguments + ");");
@@ -398,7 +398,7 @@ namespace FileGenerator.Native
 
                     WriteHelpingVariableStart(property);
 
-                    string value = property.Type.NativeTypeCast + "value";
+                    var value = property.Type.NativeTypeCast + "value";
                     if (NeedsCreate(property.Type))
                         value = "valueNative.Instance";
 

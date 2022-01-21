@@ -27,7 +27,7 @@ namespace FileGenerator.Native
             CreateWriter(Class.FileName);
 
             WriteStart(Class.Namespace);
-            string baseClass = string.Empty;
+            var baseClass = string.Empty;
             if (!Class.IsStatic && Class.HasInstance && !Class.IsConst && !Class.IsDynamic)
                 baseClass = " : IDisposable";
 
@@ -155,7 +155,7 @@ namespace FileGenerator.Native
         }
 
         private void WriteX64()
-            => WriteNativeMethods("X64");
+        => WriteNativeMethods("X64");
 
         private void WriteX86()
             => WriteNativeMethods("X86");

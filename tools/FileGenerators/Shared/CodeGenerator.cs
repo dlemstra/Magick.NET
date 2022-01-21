@@ -74,7 +74,7 @@ namespace FileGenerator
 
         protected void WriteLine()
         {
-            int indent = Indent;
+            var indent = Indent;
             Indent = 0;
             _writer.WriteLine();
             Indent = indent;

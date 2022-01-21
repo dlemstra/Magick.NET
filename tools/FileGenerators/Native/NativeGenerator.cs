@@ -54,7 +54,7 @@ namespace FileGenerator.Native
 
         private IEnumerable<MagickClass> CreateClasses(IEnumerable<FileInfo> files)
         {
-            foreach (FileInfo file in files)
+            foreach (var file in files)
                 yield return CreateClass(file);
         }
     }
