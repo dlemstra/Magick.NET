@@ -19,7 +19,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit || OperatingSystem.IsArm64)
+                        if (OperatingSystem.Is64Bit)
                         {
                             pixels.ToShortArray(-1, 0, 1, 1, "RGB");
                         }

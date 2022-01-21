@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit || OperatingSystem.IsArm64)
+                        if (OperatingSystem.Is64Bit)
                         {
                             Assert.Throws<MagickImageErrorException>(() =>
                             {
@@ -83,7 +83,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit || OperatingSystem.IsArm64)
+                        if (OperatingSystem.Is64Bit)
                         {
                             Assert.Throws<MagickImageErrorException>(() =>
                             {
@@ -181,7 +181,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit || OperatingSystem.IsArm64)
+                        if (OperatingSystem.Is64Bit)
                         {
                             pixels.GetArea(x, y, width, height);
                         }
