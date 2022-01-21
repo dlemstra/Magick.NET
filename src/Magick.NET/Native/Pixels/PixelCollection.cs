@@ -92,16 +92,16 @@ namespace ImageMagick
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.PixelCollection_Dispose(instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.PixelCollection_Dispose(instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.PixelCollection_Dispose(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -114,16 +114,16 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.ARM64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                Instance = NativeMethods.X64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -147,16 +147,16 @@ namespace ImageMagick
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.PixelCollection_GetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.PixelCollection_GetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.PixelCollection_GetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -173,16 +173,16 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -200,16 +200,16 @@ namespace ImageMagick
                 {
                     IntPtr exception = IntPtr.Zero;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.PixelCollection_SetArea(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -228,16 +228,16 @@ namespace ImageMagick
                     IntPtr exception = IntPtr.Zero;
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -265,16 +265,16 @@ namespace ImageMagick
                     IntPtr exception = IntPtr.Zero;
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else

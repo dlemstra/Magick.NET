@@ -57,16 +57,16 @@ namespace ImageMagick.Formats
                         IntPtr exception = IntPtr.Zero;
                         UIntPtr result;
                         #if PLATFORM_AnyCPU
-                        if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        result = NativeMethods.X64.PdfInfo_PageCount(fileNameNative.Instance, passwordNative.Instance, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.IsArm64)
+                        if (OperatingSystem.IsArm64)
                         #endif
                         #if PLATFORM_arm64 || PLATFORM_AnyCPU
                         result = NativeMethods.ARM64.PdfInfo_PageCount(fileNameNative.Instance, passwordNative.Instance, out exception);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        result = NativeMethods.X64.PdfInfo_PageCount(fileNameNative.Instance, passwordNative.Instance, out exception);
                         #endif
                         #if PLATFORM_AnyCPU
                         else

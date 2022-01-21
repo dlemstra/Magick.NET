@@ -203,19 +203,19 @@ namespace FileGenerator.Native
         protected void WriteNativeIfContent(string action)
         {
             WriteLine("#if PLATFORM_AnyCPU");
-            WriteLine("if (OperatingSystem.Is64Bit)");
-            WriteLine("#endif");
-
-            WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
-            WriteLine(string.Format(action, "X64"));
-            WriteLine("#endif");
-
-            WriteLine("#if PLATFORM_AnyCPU");
-            WriteLine("else if (OperatingSystem.IsArm64)");
+            WriteLine("if (OperatingSystem.IsArm64)");
             WriteLine("#endif");
 
             WriteLine("#if PLATFORM_arm64 || PLATFORM_AnyCPU");
             WriteLine(string.Format(action, "ARM64"));
+            WriteLine("#endif");
+
+            WriteLine("#if PLATFORM_AnyCPU");
+            WriteLine("else if (OperatingSystem.Is64Bit)");
+            WriteLine("#endif");
+
+            WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
+            WriteLine(string.Format(action, "X64"));
             WriteLine("#endif");
 
             WriteLine("#if PLATFORM_AnyCPU");

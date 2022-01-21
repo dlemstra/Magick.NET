@@ -379,16 +379,16 @@ namespace ImageMagick
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingSettings_Dispose(instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.DrawingSettings_Dispose(instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingSettings_Dispose(instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -400,16 +400,16 @@ namespace ImageMagick
             public NativeDrawingSettings()
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X64.DrawingSettings_Create();
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.ARM64.DrawingSettings_Create();
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                Instance = NativeMethods.X64.DrawingSettings_Create();
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -433,16 +433,16 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_BorderColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_BorderColor_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_BorderColor_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -457,16 +457,16 @@ namespace ImageMagick
                     using (var valueNative = MagickColor.CreateInstance(value))
                     {
                         #if PLATFORM_AnyCPU
-                        if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_BorderColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.IsArm64)
+                        if (OperatingSystem.IsArm64)
                         #endif
                         #if PLATFORM_arm64 || PLATFORM_AnyCPU
                         NativeMethods.ARM64.DrawingSettings_BorderColor_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.DrawingSettings_BorderColor_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -483,16 +483,16 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_FillColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_FillColor_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_FillColor_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -507,16 +507,16 @@ namespace ImageMagick
                     using (var valueNative = MagickColor.CreateInstance(value))
                     {
                         #if PLATFORM_AnyCPU
-                        if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.IsArm64)
+                        if (OperatingSystem.IsArm64)
                         #endif
                         #if PLATFORM_arm64 || PLATFORM_AnyCPU
                         NativeMethods.ARM64.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -533,16 +533,16 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_FillRule_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_FillRule_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_FillRule_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -555,16 +555,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_FillRule_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_FillRule_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_FillRule_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -580,16 +580,16 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_Font_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_Font_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_Font_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -604,16 +604,16 @@ namespace ImageMagick
                     using (var valueNative = UTF8Marshaler.CreateInstance(value))
                     {
                         #if PLATFORM_AnyCPU
-                        if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_Font_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.IsArm64)
+                        if (OperatingSystem.IsArm64)
                         #endif
                         #if PLATFORM_arm64 || PLATFORM_AnyCPU
                         NativeMethods.ARM64.DrawingSettings_Font_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.DrawingSettings_Font_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -630,16 +630,16 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_FontFamily_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_FontFamily_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_FontFamily_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -654,16 +654,16 @@ namespace ImageMagick
                     using (var valueNative = UTF8Marshaler.CreateInstance(value))
                     {
                         #if PLATFORM_AnyCPU
-                        if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_FontFamily_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.IsArm64)
+                        if (OperatingSystem.IsArm64)
                         #endif
                         #if PLATFORM_arm64 || PLATFORM_AnyCPU
                         NativeMethods.ARM64.DrawingSettings_FontFamily_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.DrawingSettings_FontFamily_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -680,16 +680,16 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_FontPointsize_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_FontPointsize_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_FontPointsize_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -702,16 +702,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_FontPointsize_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_FontPointsize_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_FontPointsize_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -727,16 +727,16 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_FontStyle_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_FontStyle_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_FontStyle_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -749,16 +749,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_FontStyle_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_FontStyle_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_FontStyle_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -774,16 +774,16 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_FontWeight_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_FontWeight_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_FontWeight_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -796,16 +796,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_FontWeight_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_FontWeight_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_FontWeight_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -821,16 +821,16 @@ namespace ImageMagick
                 {
                     bool result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_StrokeAntiAlias_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_StrokeAntiAlias_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_StrokeAntiAlias_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -843,16 +843,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_StrokeAntiAlias_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_StrokeAntiAlias_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_StrokeAntiAlias_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -868,16 +868,16 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_StrokeColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_StrokeColor_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_StrokeColor_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -892,16 +892,16 @@ namespace ImageMagick
                     using (var valueNative = MagickColor.CreateInstance(value))
                     {
                         #if PLATFORM_AnyCPU
-                        if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_StrokeColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.IsArm64)
+                        if (OperatingSystem.IsArm64)
                         #endif
                         #if PLATFORM_arm64 || PLATFORM_AnyCPU
                         NativeMethods.ARM64.DrawingSettings_StrokeColor_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.DrawingSettings_StrokeColor_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -918,16 +918,16 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_StrokeDashOffset_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_StrokeDashOffset_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_StrokeDashOffset_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -940,16 +940,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_StrokeDashOffset_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_StrokeDashOffset_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_StrokeDashOffset_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -965,16 +965,16 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_StrokeLineCap_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_StrokeLineCap_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_StrokeLineCap_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -987,16 +987,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_StrokeLineCap_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_StrokeLineCap_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_StrokeLineCap_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1012,16 +1012,16 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_StrokeLineJoin_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_StrokeLineJoin_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_StrokeLineJoin_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1034,16 +1034,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_StrokeLineJoin_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_StrokeLineJoin_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_StrokeLineJoin_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1059,16 +1059,16 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_StrokeMiterLimit_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_StrokeMiterLimit_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_StrokeMiterLimit_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1081,16 +1081,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_StrokeMiterLimit_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_StrokeMiterLimit_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_StrokeMiterLimit_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1106,16 +1106,16 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_StrokeWidth_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_StrokeWidth_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_StrokeWidth_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1128,16 +1128,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_StrokeWidth_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_StrokeWidth_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_StrokeWidth_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1153,16 +1153,16 @@ namespace ImageMagick
                 {
                     bool result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_TextAntiAlias_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_TextAntiAlias_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_TextAntiAlias_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1175,16 +1175,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_TextAntiAlias_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_TextAntiAlias_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_TextAntiAlias_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1200,16 +1200,16 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_TextDirection_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_TextDirection_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_TextDirection_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1222,16 +1222,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_TextDirection_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_TextDirection_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_TextDirection_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1247,16 +1247,16 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_TextEncoding_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_TextEncoding_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_TextEncoding_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1271,16 +1271,16 @@ namespace ImageMagick
                     using (var valueNative = UTF8Marshaler.CreateInstance(value))
                     {
                         #if PLATFORM_AnyCPU
-                        if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_TextEncoding_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.IsArm64)
+                        if (OperatingSystem.IsArm64)
                         #endif
                         #if PLATFORM_arm64 || PLATFORM_AnyCPU
                         NativeMethods.ARM64.DrawingSettings_TextEncoding_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.DrawingSettings_TextEncoding_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -1297,16 +1297,16 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_TextGravity_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_TextGravity_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_TextGravity_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1319,16 +1319,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_TextGravity_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_TextGravity_Set(Instance, (UIntPtr)value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_TextGravity_Set(Instance, (UIntPtr)value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1344,16 +1344,16 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_TextInterlineSpacing_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_TextInterlineSpacing_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_TextInterlineSpacing_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1366,16 +1366,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_TextInterlineSpacing_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_TextInterlineSpacing_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_TextInterlineSpacing_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1391,16 +1391,16 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_TextInterwordSpacing_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_TextInterwordSpacing_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_TextInterwordSpacing_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1413,16 +1413,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_TextInterwordSpacing_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_TextInterwordSpacing_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_TextInterwordSpacing_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1438,16 +1438,16 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_TextKerning_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_TextKerning_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_TextKerning_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1460,16 +1460,16 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_TextKerning_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_TextKerning_Set(Instance, value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_TextKerning_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1485,16 +1485,16 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingSettings_TextUnderColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.DrawingSettings_TextUnderColor_Get(Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.DrawingSettings_TextUnderColor_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1509,16 +1509,16 @@ namespace ImageMagick
                     using (var valueNative = MagickColor.CreateInstance(value))
                     {
                         #if PLATFORM_AnyCPU
-                        if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.IsArm64)
+                        if (OperatingSystem.IsArm64)
                         #endif
                         #if PLATFORM_arm64 || PLATFORM_AnyCPU
                         NativeMethods.ARM64.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
+                        #endif
+                        #if PLATFORM_AnyCPU
+                        else if (OperatingSystem.Is64Bit)
+                        #endif
+                        #if PLATFORM_x64 || PLATFORM_AnyCPU
+                        NativeMethods.X64.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
                         else
@@ -1533,16 +1533,16 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingSettings_SetFillPattern(Instance, MagickImage.GetInstance(value), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.DrawingSettings_SetFillPattern(Instance, MagickImage.GetInstance(value), out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingSettings_SetFillPattern(Instance, MagickImage.GetInstance(value), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1556,16 +1556,16 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1580,16 +1580,16 @@ namespace ImageMagick
                 fixed (double* dashFixed = dash)
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_SetStrokeDashArray(Instance, dashFixed, (UIntPtr)length);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_SetStrokeDashArray(Instance, dashFixed, (UIntPtr)length);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_SetStrokeDashArray(Instance, dashFixed, (UIntPtr)length);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
@@ -1603,16 +1603,16 @@ namespace ImageMagick
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DrawingSettings_SetStrokePattern(Instance, MagickImage.GetInstance(value), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.DrawingSettings_SetStrokePattern(Instance, MagickImage.GetInstance(value), out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingSettings_SetStrokePattern(Instance, MagickImage.GetInstance(value), out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1627,16 +1627,16 @@ namespace ImageMagick
                 using (var valueNative = UTF8Marshaler.CreateInstance(value))
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_SetText(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.IsArm64)
+                    if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.DrawingSettings_SetText(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_SetText(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else

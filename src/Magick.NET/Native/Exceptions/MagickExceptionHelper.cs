@@ -82,16 +82,16 @@ namespace ImageMagick
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickExceptionHelper_Description(exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickExceptionHelper_Description(exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickExceptionHelper_Description(exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -104,16 +104,16 @@ namespace ImageMagick
             public static void Dispose(IntPtr exception)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickExceptionHelper_Dispose(exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickExceptionHelper_Dispose(exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickExceptionHelper_Dispose(exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -126,16 +126,16 @@ namespace ImageMagick
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickExceptionHelper_Message(exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickExceptionHelper_Message(exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickExceptionHelper_Message(exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -149,16 +149,16 @@ namespace ImageMagick
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickExceptionHelper_Related(exception, (UIntPtr)index);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickExceptionHelper_Related(exception, (UIntPtr)index);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickExceptionHelper_Related(exception, (UIntPtr)index);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -172,16 +172,16 @@ namespace ImageMagick
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickExceptionHelper_RelatedCount(exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickExceptionHelper_RelatedCount(exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickExceptionHelper_RelatedCount(exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -195,16 +195,16 @@ namespace ImageMagick
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickExceptionHelper_Severity(exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.IsArm64)
+                if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickExceptionHelper_Severity(exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (OperatingSystem.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickExceptionHelper_Severity(exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
