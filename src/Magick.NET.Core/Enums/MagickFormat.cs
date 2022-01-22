@@ -359,11 +359,6 @@ namespace ImageMagick
         Fl32,
 
         /// <summary>
-        /// Free Lossless Image Format.
-        /// </summary>
-        Flif,
-
-        /// <summary>
         /// Flash Video Stream.
         /// </summary>
         Flv,
