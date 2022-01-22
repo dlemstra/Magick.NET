@@ -21,6 +21,7 @@ namespace Magick.NET.Tests
 
                     Assert.Null(image.Settings.GetDefine("video:vsync"));
                     Assert.Null(image.Settings.GetDefine("video:pixel-format"));
+                    Assert.Null(image.Settings.GetDefine("video:intermediate-format"));
                 }
             }
 
