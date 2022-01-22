@@ -45,15 +45,7 @@ namespace Magick.NET.Tests
                 {
                     if (format == MagickFormat.Clipboard || format == MagickFormat.Emf || format == MagickFormat.Wmf)
                         return false;
-
-                    if (format == MagickFormat.Flif)
-                        return false;
                 }
-
-#if PLATFORM_arm64
-                if (format == MagickFormat.Flif)
-                    return false;
-#endif
 
                 if (OperatingSystem.IsMacOS)
                 {
