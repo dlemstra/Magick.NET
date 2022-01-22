@@ -379,6 +379,11 @@ namespace ImageMagick
         Fts,
 
         /// <summary>
+        /// Formatted text image.
+        /// </summary>
+        Ftxt,
+
+        /// <summary>
         /// Raw green samples.
         /// </summary>
         G,
