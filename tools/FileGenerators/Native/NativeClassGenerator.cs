@@ -138,16 +138,8 @@ namespace FileGenerator.Native
                 WriteLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
             WriteLine("public static class " + platform);
             WriteStartColon();
-            WriteNativeMethodsStaticConstructor(platform);
             WriteDllImports(platform);
             WriteEndColon();
-            WriteLine("#endif");
-        }
-
-        private void WriteNativeMethodsStaticConstructor(string platform)
-        {
-            WriteLine("#if PLATFORM_AnyCPU");
-            WriteLine("static " + platform + "() { NativeLibraryLoader.Load(); }");
             WriteLine("#endif");
         }
 

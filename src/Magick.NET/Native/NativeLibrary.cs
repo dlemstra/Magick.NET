@@ -32,9 +32,5 @@ namespace ImageMagick
 #else
         private const string OpenMP = "";
 #endif
-
-#if PLATFORM_AnyCPU
-        public static string PlatformName => OperatingSystem.Is64Bit ? "x64" : "x86";
-#endif
     }
 }
