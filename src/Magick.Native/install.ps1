@@ -55,30 +55,44 @@ function copyToSamplesProjects($source, $target) {
     copyToSamplesProject $source $target "Q16-HDRI" "arm64"
 }
 
-function copyToTestProject($source, $target, $quantum, $platform) {
-    $fileName = "Magick.Native-$quantum-$platform.dll"
+function copyToTestProject($source, $target, $quantum, $platform, $libraryPlatform = "") {
+    if ($libraryPlatform -eq "") {
+        $libraryPlatform = $platform
+    }
+
+    $fileName = "Magick.Native-$quantum-$libraryPlatform.dll"
+
     [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net462")
     Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net462\$fileName"
-    [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net60")
-    Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net60\$fileName"
-    [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net60-windows")
-    Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net60-windows\$fileName"
+
+    if ($platform -ne "AnyCPU") {
+        [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net60")
+        Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net60\$fileName"
+        [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net60-windows")
+        Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net60-windows\$fileName"
+    }
 }
 
 function copyToTestProjects($source, $target) {
     copyToTestProject $source $target "Q8" "x86"
     copyToTestProject $source $target "Q8" "x64"
     copyToTestProject $source $target "Q8" "arm64"
+    copyToTestProject $source $target "Q8" "AnyCPU" "x86"
+    copyToTestProject $source $target "Q8" "AnyCPU" "x64"
     copyToTestProject $source $target "Q8-OpenMP" "x64"
     copyToTestProject $source $target "Q8-OpenMP" "arm64"
     copyToTestProject $source $target "Q16" "x86"
     copyToTestProject $source $target "Q16" "x64"
     copyToTestProject $source $target "Q16" "arm64"
+    copyToTestProject $source $target "Q16" "AnyCPU" "x86"
+    copyToTestProject $source $target "Q16" "AnyCPU" "x64"
     copyToTestProject $source $target "Q16-OpenMP" "x64"
     copyToTestProject $source $target "Q16-OpenMP" "arm64"
     copyToTestProject $source $target "Q16-HDRI" "x86"
     copyToTestProject $source $target "Q16-HDRI" "x64"
     copyToTestProject $source $target "Q16-HDRI" "arm64"
+    copyToTestProject $source $target "Q16-HDRI" "AnyCPU" "x86"
+    copyToTestProject $source $target "Q16-HDRI" "AnyCPU" "x64"
     copyToTestProject $source $target "Q16-HDRI-OpenMP" "x64"
     copyToTestProject $source $target "Q16-HDRI-OpenMP" "arm64"
 }
