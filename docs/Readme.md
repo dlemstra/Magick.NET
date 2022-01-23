@@ -4,7 +4,7 @@
 
 You have two options to get the Magick.NET binaries in your project:
 - Use NuGet:
-  - Right click on the references of your project and choose 'Manage NuGet packages'. 
+  - Right click on the references of your project and choose 'Manage NuGet packages'.
   - Search for Magick.NET and choose the package that uses the platform of your choice: x86/x64 or AnyCPU.
 - Build Magick.NET yourself:
   - Instructions on how to build Magick.NET can be found [here](../Building.md).
@@ -19,25 +19,9 @@ The Q16-HDRI version uses twice the amount of memory as the Q16. It is more prec
 and it allows out-of-bound pixels (less than 0 and more than 65535). The Q8 version is the recommended version. If you need to read/write images
 with a better quality you should use the Q16 version instead.
 
-## AnyCPU
-
-The AnyCPU version of Magick.NET is designed to allow your application to be used in a 32 bit or a 64 bit environment. When one of the classes
-in the library is used it will detect if the application pool is 32 or 64 bit. It will then read the x86 or the x64 version of the dll from an
-embedded resource. This resource is written to a temporary directory to improve the start up time the next it is used. You can change the
-directory that is used with the `CacheDirectory` property of the `MagickAnyCPU` class when the default directory is causing issues in your
-production environment.
-
-```C#
-MagickAnyCPU.CacheDirectory = @"C:\MyProgram\MyTempDir";
-```
-
-If you are planning to read RAW files you should configure the folder and copy the dcraw executable to that folder. If you don't want to do
-this you will need to add the folder that contains the executable to your %PATH%. More information about reading RAW files can be found here:
-[Read raw image from camera](ReadRawImageFromCamera.md).
-
 ## .NET Standard / .NET Core
 
-Starting with version 7.0.0.0102 support for .NET Standard was added. This used to be a separate NuGet package but starting with 7.0.6.0 
+Starting with version 7.0.0.0102 support for .NET Standard was added. This used to be a separate NuGet package but starting with 7.0.6.0
 this became part of the normal NuGet package. On Windows this works without any extra steps but on Linux this will require some extra work.
 Instructions for the cross-platform build can be found [here](CrossPlatform.md).
 

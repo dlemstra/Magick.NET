@@ -68,15 +68,6 @@
     <DocumentationFile>bin/$(Configuration)/$(Platform)/$(TargetFrameWork)/Magick.NET-$(QuantumName)-$(Platform).xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(Platform)' == 'AnyCPU' and !$(TargetFramework.StartsWith('netstandard'))">
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/libraries/win/Magick.Native-$(QuantumName)-x86.gz">
-      <LogicalName>ImageMagick.Resources.Library.Magick.Native_x86.gz</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)/../Magick.Native/libraries/win/Magick.Native-$(QuantumName)-x64.gz">
-      <LogicalName>ImageMagick.Resources.Library.Magick.Native_x64.gz</LogicalName>
-    </EmbeddedResource>
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Include="../Magick.Native/TrademarkAttribute.cs" Link="TrademarkAttribute.cs" />
     <Compile Include="../Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
