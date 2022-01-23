@@ -34,9 +34,9 @@ namespace Magick.NET.Tests
                     Assert.Equal(264, formatsCount);
 #endif
                 else if (OperatingSystem.IsLinux)
-                    Assert.Equal(260, formatsCount);
+                    Assert.Equal(261, formatsCount);
                 else
-                    Assert.Equal(259, formatsCount);
+                    Assert.Equal(260, formatsCount);
             }
         }
     }
