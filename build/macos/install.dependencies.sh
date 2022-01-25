@@ -1,5 +1,5 @@
 #!/bin/bash
 set -e
 
-brew install fontconfig
+brew install ffmpeg fontconfig
 fc-list

@@ -15,6 +15,11 @@ $sourceGhostscriptExe = "https://github.com/ArtifexSoftware/ghostpdl-downloads/r
 $targetGhostscriptExe = "$PSScriptRoot\..\..\tools\windows\gs9550w32.exe"
 Invoke-WebRequest $sourceGhostscriptExe -OutFile $targetGhostscriptExe
 
+Write-Host "Downloading FFmpeg 4.2.3"
+$sourceFFmpegExe = "https://github.com/ImageMagick/ImageMagick-Windows/releases/download/20200615/ffmpeg-4.2.3-win64.exe"
+$targetFFmpegExe = "c:\vcpkg\ffmpeg.exe"
+Invoke-WebRequest $sourceFFmpegExe -OutFile $targetFFmpegExe
+
 if ($pfxUri.Length -gt 0) {
     Write-Host "Downloading code signing certificate"
     Invoke-WebRequest $pfxUri -OutFile "$PSScriptRoot\ImageMagick.pfx"

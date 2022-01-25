@@ -166,6 +166,9 @@ namespace Magick.NET
             public static string TestMNG
                 => Root + @"Images/Coders/Test.mng";
 
+            public static string TestMP4
+                => Root + @"Images/Coders/Test.mp4";
+
             public static string WizardPSD
                 => Root + @"Images/Coders/wizard.psd";
         }

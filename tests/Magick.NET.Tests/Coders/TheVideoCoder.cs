@@ -1,0 +1,48 @@
+﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
+// Licensed under the Apache License, Version 2.0.
+
+using ImageMagick;
+using ImageMagick.Formats;
+using Xunit;
+
+namespace Magick.NET.Tests
+{
+    public partial class TheVideoCoder
+    {
+        [Fact]
+        public void ShouldUseWebPAsTheDefaultIntermediateFormat()
+        {
+            using (var images = new MagickImageCollection(Files.Coders.TestMP4))
+            {
+                Assert.Equal(2, images.Count);
+
+                Assert.Equal(20, images[0].AnimationDelay);
+                Assert.Equal(2, images[0].Width);
+                Assert.Equal(2, images[0].Height);
+                ColorAssert.Equal(MagickColors.Black, images[0], 0, 0);
+
+                Assert.Equal(12, images[1].AnimationDelay);
+                Assert.Equal(2, images[1].Width);
+                Assert.Equal(2, images[1].Height);
+                ColorAssert.Equal(MagickColors.White, images[1], 0, 0);
+            }
+        }
+
+        [Fact]
+        public void ShouldUsePamAsTheIntermediateFormatWhenSpecificied()
+        {
+            var videoDefines = new VideoReadDefines(MagickFormat.Mp4)
+            {
+                IntermediateFormat = IntermediateFormat.Pam,
+            };
+
+            var readSettings = new MagickReadSettings();
+            readSettings.SetDefines(videoDefines);
+
+            using (var images = new MagickImageCollection(Files.Coders.TestMP4, readSettings))
+            {
+                Assert.Equal(8, images.Count);
+            }
+        }
+    }
+}
