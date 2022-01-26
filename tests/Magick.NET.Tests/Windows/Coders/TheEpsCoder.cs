@@ -3,7 +3,6 @@
 
 #if WINDOWS_BUILD
 
-using System.Linq;
 using ImageMagick;
 using Xunit;
 
