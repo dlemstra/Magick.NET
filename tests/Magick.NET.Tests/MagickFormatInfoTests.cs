@@ -6,19 +6,8 @@ using Xunit;
 
 namespace Magick.NET.Tests
 {
-    public class MagickFormatInfoTests
+    public partial class MagickFormatInfoTests
     {
-        [Fact]
-        public void Test_IEquatable()
-        {
-            var first = MagickFormatInfo.Create(MagickFormat.Png);
-            var second = MagickNET.GetFormatInformation(Files.SnakewarePNG);
-
-            Assert.True(first == second);
-            Assert.True(first.Equals(second));
-            Assert.True(first.Equals((object)second));
-        }
-
         [Fact]
         public void Test_Properties()
         {
