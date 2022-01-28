@@ -45,8 +45,8 @@ Follow me on twitter([@MagickNET](https://twitter.com/MagickNET)) to receive inf
 
 ## Development build
 
-Every commit to Magick.NET is automatically build and tested with the help of [AppVeyor](http://www.appveyor.com). This build also includes the creation of a NuGet package.
-These packages can be downloaded from the following NuGet feed: [https://ci.appveyor.com/nuget/Magick.NET](https://ci.appveyor.com/nuget/Magick.NET). It is not recommended to use
+Every commit to Magick.NET is automatically build and tested with the help of [GitHub Actions](https://github.com/features/actions). This build also includes the creation of a NuGet package.
+These packages can be downloaded here: [https://github.com/dlemstra/Magick.NET/actions](https://github.com/dlemstra/Magick.NET/actions). It is not recommended to use
 this build in a production environment.
 
 ## Versioning
