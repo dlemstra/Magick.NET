@@ -79,7 +79,7 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit,
     addMagickNetLibraries $xml $quantumName $platform
     addNativeLibraries $xml $quantumName $platform
 
-    if ($platform -ne "arm64")) {
+    if ($platform -ne "arm64") {
         if ($platform -eq "AnyCPU") {
             addFile $xml "Magick.NET.targets" "build\netstandard20\$name.targets"
         } else {
