@@ -14,9 +14,16 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.376" PrivateAssets="All" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net20'">
+    <Compile Include="../Shared/Net20/EnumHelper.cs" Link="Net20/Helpers/EnumHelper.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net20'">
+    <Compile Include="../Shared/Netstandard20/EnumHelper.cs" Link="Netstandard20/Helpers/EnumHelper.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Include="../Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
-    <Compile Include="../Shared/EnumHelper.cs" Link="Helpers/EnumHelper.cs" />
     <Compile Include="../Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
     <Compile Include="../Shared/MemberNotNullAttribute.cs" Link="Helpers/MemberNotNullAttribute.cs" />
     <Compile Include="../Shared/NotNullAttribute.cs" Link="Helpers/NotNullAttribute.cs" />
