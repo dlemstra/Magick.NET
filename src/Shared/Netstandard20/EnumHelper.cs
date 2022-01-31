@@ -9,7 +9,7 @@ namespace ImageMagick
     internal static class EnumHelper
     {
         public static string ConvertFlags<TEnum>(TEnum value)
-          where TEnum : Enum
+            where TEnum : struct, Enum
         {
             var flags = new List<string>();
 
@@ -27,18 +27,15 @@ namespace ImageMagick
         }
 
         public static string GetName<TEnum>(TEnum value)
-          where TEnum : Enum
+            where TEnum : struct, Enum
             => Enum.GetName(typeof(TEnum), value);
 
         public static bool HasFlag<TEnum>(TEnum value, TEnum flag)
-          where TEnum : Enum
-        {
-            var flagValue = Convert.ToInt32(flag);
-            return (Convert.ToInt32(value) & flagValue) == flagValue;
-        }
+            where TEnum : struct, Enum
+            => value.HasFlag(flag);
 
         public static TEnum Parse<TEnum>(int value, TEnum defaultValue)
-          where TEnum : Enum
+            where TEnum : struct, Enum
         {
             foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
             {
@@ -50,7 +47,7 @@ namespace ImageMagick
         }
 
         public static TEnum Parse<TEnum>(string? value, TEnum defaultValue)
-          where TEnum : Enum
+            where TEnum : struct, Enum
         {
             if (string.IsNullOrEmpty(value))
                 return defaultValue;
@@ -65,7 +62,7 @@ namespace ImageMagick
         }
 
         public static TEnum Parse<TEnum>(ushort value, TEnum defaultValue)
-          where TEnum : Enum
+            where TEnum : struct, Enum
         {
             foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
             {
