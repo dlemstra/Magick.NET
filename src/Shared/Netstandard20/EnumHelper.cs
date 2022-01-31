@@ -41,14 +41,8 @@ namespace ImageMagick
         public static TEnum Parse<TEnum>(string? value, TEnum defaultValue)
             where TEnum : struct, Enum
         {
-            if (string.IsNullOrEmpty(value))
-                return defaultValue;
-
-            foreach (var name in Enum.GetNames(typeof(TEnum)))
-            {
-                if (name.Equals(value, StringComparison.OrdinalIgnoreCase))
-                    return (TEnum)Enum.Parse(typeof(TEnum), name);
-            }
+            if (Enum.TryParse(value, true, out TEnum result))
+                return result;
 
             return defaultValue;
         }
