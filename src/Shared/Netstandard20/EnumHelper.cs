@@ -36,15 +36,7 @@ namespace ImageMagick
 
         public static TEnum Parse<TEnum>(int value, TEnum defaultValue)
             where TEnum : struct, Enum
-        {
-            foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
-            {
-                if (value == Convert.ToInt32(enumValue))
-                    return enumValue;
-            }
-
-            return defaultValue;
-        }
+            => Parse((object)value, defaultValue);
 
         public static TEnum Parse<TEnum>(string? value, TEnum defaultValue)
             where TEnum : struct, Enum
@@ -63,12 +55,14 @@ namespace ImageMagick
 
         public static TEnum Parse<TEnum>(ushort value, TEnum defaultValue)
             where TEnum : struct, Enum
+            => Parse((object)(int)value, defaultValue);
+
+        private static TEnum Parse<TEnum>(object value, TEnum defaultValue)
+            where TEnum : struct, Enum
         {
-            foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
-            {
-                if (value == Convert.ToInt32(enumValue))
-                    return enumValue;
-            }
+            var enumValue = (TEnum)value;
+            if (Enum.IsDefined(typeof(TEnum), enumValue))
+                return enumValue;
 
             return defaultValue;
         }
