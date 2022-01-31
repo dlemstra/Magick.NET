@@ -54,9 +54,8 @@ namespace ImageMagick
         private static TEnum Parse<TEnum>(object value, TEnum defaultValue)
             where TEnum : struct, Enum
         {
-            var enumValue = (TEnum)value;
-            if (Enum.IsDefined(typeof(TEnum), enumValue))
-                return enumValue;
+            if (Enum.IsDefined(typeof(TEnum), value))
+                return (TEnum)value;
 
             return defaultValue;
         }
