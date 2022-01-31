@@ -23,7 +23,7 @@ namespace ImageMagick
                 }
             }
 
-            return string.Join(",", flags.ToArray());
+            return string.Join(",", flags);
         }
 
         public static string GetName<TEnum>(TEnum value)
