@@ -16,13 +16,15 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="ExifTag"/> class.
         /// </summary>
         /// <param name="value">The value.</param>
-        protected ExifTag(ushort value) => _value = value;
+        protected ExifTag(ushort value)
+            => _value = value;
 
         /// <summary>
         /// Converts the specified <see cref="ExifTag"/> to a <see cref="ushort"/>.
         /// </summary>
         /// <param name="tag">The <see cref="ExifTag"/> to convert.</param>
-        public static explicit operator ushort(ExifTag tag) => tag?._value ?? (ushort)ExifTagValue.Unknown;
+        public static explicit operator ushort(ExifTag tag)
+            => tag?._value ?? (ushort)ExifTagValue.Unknown;
 
         /// <summary>
         /// Determines whether the specified <see cref="ExifTag"/> instances are considered equal.
