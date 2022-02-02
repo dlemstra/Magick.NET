@@ -69,24 +69,5 @@ namespace Magick.NET.Tests
             Assert.Null(formatInfo.MimeType);
             Assert.Equal(MagickFormat.Pango, formatInfo.ModuleFormat);
         }
-
-        [Fact]
-        public void Test_Unregister()
-        {
-            var formatInfo = MagickNET.GetFormatInformation(MagickFormat.X3f);
-            Assert.NotNull(formatInfo);
-            Assert.True(formatInfo.Unregister());
-
-            var settings = new MagickReadSettings
-            {
-                Format = MagickFormat.X3f,
-            };
-
-            Assert.Throws<MagickMissingDelegateErrorException>(() =>
-            {
-                var image = new MagickImage();
-                image.Read(new byte[] { 1, 2, 3, 4 }, settings);
-            });
-        }
     }
 }
