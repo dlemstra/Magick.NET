@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.Null(image.Settings.GetDefine("profile:skip"));
+                    Assert.Equal("64", image.Settings.GetDefine("profile:skip"));
                 }
             }
 
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
 
                     image.Read(Files.FujiFilmFinePixS1ProJPG, settings);
                     Assert.Null(image.GetIptcProfile());
-                    Assert.Equal("Icc,Iptc", image.Settings.GetDefine("profile:skip"));
+                    Assert.Equal("Icc, Iptc", image.Settings.GetDefine("profile:skip"));
                 }
             }
         }

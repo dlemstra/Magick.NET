@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
 
                 var result = EnumHelper.ConvertFlags(blueRed);
 
-                Assert.Equal("None,Red,Yellow", result);
+                Assert.Equal("Cyan, Blue", result);
             }
         }
     }
