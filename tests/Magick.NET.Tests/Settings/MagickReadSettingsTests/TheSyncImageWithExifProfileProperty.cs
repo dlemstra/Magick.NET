@@ -8,7 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickSettingsTests
     {
-        public class TheSyncWithExifProfileProperty
+        public class TheSyncImageWithExifProfileProperty
         {
             [Fact]
             public void ShouldReturnTrueAsTheDefaultValue()
