@@ -2,29 +2,14 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.Collections.Generic;
 
 namespace ImageMagick
 {
     internal static class EnumHelper
     {
         public static string ConvertFlags<TEnum>(TEnum value)
-          where TEnum : Enum
-        {
-            var flags = new List<string>();
-
-            foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
-            {
-                if (HasFlag(value, enumValue))
-                {
-                    var name = GetName(enumValue);
-                    if (!flags.Contains(name))
-                        flags.Add(name);
-                }
-            }
-
-            return string.Join(",", flags.ToArray());
-        }
+            where TEnum : Enum
+            => value.ToString();
 
         public static string GetName<TEnum>(TEnum value)
           where TEnum : Enum
