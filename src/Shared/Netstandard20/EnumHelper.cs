@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.Collections.Generic;
 
 namespace ImageMagick
 {
@@ -10,21 +9,7 @@ namespace ImageMagick
     {
         public static string ConvertFlags<TEnum>(TEnum value)
             where TEnum : struct, Enum
-        {
-            var flags = new List<string>();
-
-            foreach (TEnum enumValue in Enum.GetValues(typeof(TEnum)))
-            {
-                if (HasFlag(value, enumValue))
-                {
-                    var name = GetName(enumValue);
-                    if (!flags.Contains(name))
-                        flags.Add(name);
-                }
-            }
-
-            return string.Join(",", flags);
-        }
+            => value.ToString();
 
         public static string GetName<TEnum>(TEnum value)
             where TEnum : struct, Enum
