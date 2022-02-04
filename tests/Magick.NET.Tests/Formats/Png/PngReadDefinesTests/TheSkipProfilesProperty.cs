@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
                         SkipProfiles = (PngProfileTypes)64,
                     });
 
-                    Assert.Null(image.Settings.GetDefine("profile:skip"));
+                    Assert.Equal("64", image.Settings.GetDefine("profile:skip"));
                 }
             }
 
@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
                         SkipProfiles = PngProfileTypes.Icc | PngProfileTypes.Iptc,
                     });
 
-                    Assert.Equal("Icc,Iptc", image.Settings.GetDefine("profile:skip"));
+                    Assert.Equal("Icc, Iptc", image.Settings.GetDefine("profile:skip"));
                 }
             }
 
