@@ -78,7 +78,7 @@ namespace Magick.NET.Tests
                     {
                         image.RangeThreshold(new Percentage(40), new Percentage(40), new Percentage(60), new Percentage(60));
 
-                        ColorAssert.Equal(MagickColors.Black, image, 22, 102);
+                        ColorAssert.Equal(MagickColors.Black, image, 22, 101);
                         ColorAssert.Equal(MagickColors.White, image, 22, 103);
                         ColorAssert.Equal(MagickColors.White, image, 22, 152);
                         ColorAssert.Equal(MagickColors.Black, image, 22, 154);
@@ -99,7 +99,7 @@ namespace Magick.NET.Tests
                         var highBlack = (QuantumType)(Quantum.Max * 0.6);
                         image.RangeThreshold(lowBlack, lowWhite, highWhite, highBlack);
 
-                        ColorAssert.Equal(MagickColors.Black, image, 22, 102);
+                        ColorAssert.Equal(MagickColors.Black, image, 22, 101);
                         ColorAssert.Equal(MagickColors.White, image, 22, 103);
                         ColorAssert.Equal(MagickColors.White, image, 22, 152);
                         ColorAssert.Equal(MagickColors.Black, image, 22, 154);
