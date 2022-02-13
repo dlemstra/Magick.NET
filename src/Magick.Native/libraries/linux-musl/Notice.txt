@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.0-23 (2022-02-05) ] copyright:
+[ ImageMagick 7.1.0-24 (2022-02-12) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -56,7 +56,7 @@ Terms and Conditions for Use, Reproduction, and Distribution
 
 The legally binding and authoritative terms and conditions for use, reproduction, and distribution of ImageMagick follow:
 
-Copyright 1999-2021 ImageMagick Studio LLC, a non-profit organization dedicated to making software imaging solutions freely available.
+Copyright @ 1999 ImageMagick Studio LLC, a non-profit organization dedicated to making software imaging solutions freely available.
 
 1. Definitions.
 
