@@ -1,5 +1,4 @@
 @echo off
-call "..\..\tools\windows\init.visualstudio.cmd"
 
 echo "src\Magick.Native\Install.cmd should be executed before running the tests"
 pause
