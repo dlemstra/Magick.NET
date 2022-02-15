@@ -12,6 +12,12 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldWriteCorrectOutputImage()
         {
+            if (OperatingSystem.IsMacOS)
+            {
+                // There is no jpeg-xl support on macOS.
+                return;
+            }
+
             using (var image = new MagickImage(Files.Builtin.Logo))
             {
                 using (var memoryStream = new MemoryStream())
