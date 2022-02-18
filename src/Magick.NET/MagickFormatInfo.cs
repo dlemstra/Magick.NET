@@ -101,6 +101,22 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Returns the format information. The header of the image in the array of bytes is used to
+        /// determine the format.
+        /// </summary>
+        /// <param name="data">The array of bytes to read the image header from.</param>
+        /// <returns>The format information.</returns>
+        public static MagickFormatInfo? Create(byte[] data)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+
+            var instance = new NativeMagickFormatInfo();
+            instance.GetInfoWithBlob(data, data.Length);
+
+            return Create(instance);
+        }
+
+        /// <summary>
         /// Returns the format information. The extension of the supplied file name is used to
         /// determine the format.
         /// </summary>

@@ -15,6 +15,43 @@ namespace Magick.NET.Tests
     {
         public class TheGetFormatInformationMethod
         {
+            public class WithByteArray
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenArrayIsNull()
+                {
+                    var exception = Assert.Throws<ArgumentNullException>(() => MagickNET.GetFormatInformation((byte[])null));
+
+                    Assert.Equal("data", exception.ParamName);
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenArrayIsEmpty()
+                {
+                    var exception = Assert.Throws<ArgumentException>(() => MagickNET.GetFormatInformation(Array.Empty<byte>()));
+
+                    Assert.Equal("data", exception.ParamName);
+                }
+
+                [Fact]
+                public void ShouldReturnNullWhenFormatCannotBeDetermined()
+                {
+                    var formatInfo = MagickNET.GetFormatInformation(new byte[] { 42 });
+
+                    Assert.Null(formatInfo);
+                }
+
+                [Fact]
+                public void ShouldReturnTheCorrectInfoForTheJpgFormat()
+                {
+                    var bytes = File.ReadAllBytes(Files.ImageMagickJPG);
+                    var formatInfo = MagickNET.GetFormatInformation(bytes);
+
+                    Assert.NotNull(formatInfo);
+                    Assert.Equal(MagickFormat.Jpeg, formatInfo.Format);
+                }
+            }
+
             public class WithFileInfo
             {
                 [Fact]

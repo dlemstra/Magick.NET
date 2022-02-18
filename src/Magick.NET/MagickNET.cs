@@ -171,6 +171,15 @@ namespace ImageMagick
             => MagickFormatInfo.Create(fileName);
 
         /// <summary>
+        /// Returns the format information. The header of the image in the array of bytes is used to
+        /// determine the format.
+        /// </summary>
+        /// <param name="data">The array of bytes to read the image header from.</param>
+        /// <returns>The format information.</returns>
+        public static IMagickFormatInfo? GetFormatInformation(byte[] data)
+            => MagickFormatInfo.Create(data);
+
+        /// <summary>
         /// Initializes ImageMagick.
         /// </summary>
         public static void Initialize()

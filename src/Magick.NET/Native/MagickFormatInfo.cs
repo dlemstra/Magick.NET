@@ -49,6 +49,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickFormatInfo_GetInfoByName(IntPtr name, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickFormatInfo_GetInfoWithBlob(byte* data, UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickFormatInfo_Unregister(IntPtr name);
             }
@@ -88,6 +90,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickFormatInfo_GetInfoByName(IntPtr name, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickFormatInfo_GetInfoWithBlob(byte* data, UIntPtr length, out IntPtr exception);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickFormatInfo_Unregister(IntPtr name);
             }
@@ -126,6 +130,8 @@ namespace ImageMagick
                 public static extern IntPtr MagickFormatInfo_GetInfo(IntPtr list, UIntPtr index, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickFormatInfo_GetInfoByName(IntPtr name, out IntPtr exception);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr MagickFormatInfo_GetInfoWithBlob(byte* data, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickFormatInfo_Unregister(IntPtr name);
@@ -480,6 +486,35 @@ namespace ImageMagick
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
+                    #endif
+                    CheckException(exception);
+                    if (result != IntPtr.Zero)
+                      Instance = result;
+                }
+            }
+            public void GetInfoWithBlob(byte[] data, int length)
+            {
+                fixed (byte* dataFixed = data)
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickFormatInfo_GetInfoWithBlob(dataFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickFormatInfo_GetInfoWithBlob(dataFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickFormatInfo_GetInfoWithBlob(dataFixed, (UIntPtr)length, out exception);
                     #endif
                     CheckException(exception);
                     if (result != IntPtr.Zero)

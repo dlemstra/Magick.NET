@@ -111,6 +111,22 @@
       ]
     },
     {
+      "name": "GetInfoWithBlob",
+      "instance": true,
+      "static": true,
+      "throws": true,
+      "arguments": [
+        {
+          "name": "data",
+          "type": "byte[]"
+        },
+        {
+          "name": "length",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
       "name": "Unregister",
       "type": "bool",
       "static": true,
