@@ -521,6 +521,37 @@ namespace ImageMagick
                       Instance = result;
                 }
             }
+            #if NETSTANDARD2_1
+            public void GetInfoWithBlob(ReadOnlySpan<byte> data, int length)
+            {
+                fixed (byte* dataFixed = data)
+                {
+                    IntPtr exception = IntPtr.Zero;
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickFormatInfo_GetInfoWithBlob(dataFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickFormatInfo_GetInfoWithBlob(dataFixed, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickFormatInfo_GetInfoWithBlob(dataFixed, (UIntPtr)length, out exception);
+                    #endif
+                    CheckException(exception);
+                    if (result != IntPtr.Zero)
+                      Instance = result;
+                }
+            }
+            #endif
             public static bool Unregister(string? name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))

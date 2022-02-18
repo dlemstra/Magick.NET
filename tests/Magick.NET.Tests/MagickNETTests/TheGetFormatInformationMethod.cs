@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickNETTests
     {
-        public class TheGetFormatInformationMethod
+        public partial class TheGetFormatInformationMethod
         {
             public class WithByteArray
             {
