@@ -163,8 +163,7 @@ namespace ImageMagick
             => MagickFormatInfo.Create(format);
 
         /// <summary>
-        /// Returns the format information of the specified format based on the extension of the
-        /// file. If that fails the format will be determined by 'pinging' the file.
+        /// Returns the format information of the specified format based on the extension of the file.
         /// </summary>
         /// <param name="fileName">The name of the file to get the format for.</param>
         /// <returns>The format information.</returns>
