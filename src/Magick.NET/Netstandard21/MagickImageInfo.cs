@@ -9,9 +9,7 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Class that contains basic information about an image.
-    /// </summary>
+    /// <content />
     public sealed partial class MagickImageInfo : IMagickImageInfo
     {
         /// <summary>
