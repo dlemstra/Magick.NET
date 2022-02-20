@@ -8,7 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class TheSigmoidalContrastMethod : MagickImageTests
+        public class TheInverseSigmoidalContrastMethod : MagickImageTests
         {
             [Fact]
             public void ShouldUseHalfOfQuantumForMidpointByDefault()
@@ -17,8 +17,8 @@ namespace Magick.NET.Tests
                 {
                     using (var other = image.Clone())
                     {
-                        image.SigmoidalContrast(4.0);
-                        other.SigmoidalContrast(4.0, new Percentage(50));
+                        image.InverseSigmoidalContrast(4.0);
+                        other.InverseSigmoidalContrast(4.0, new Percentage(50));
 
                         var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
                         Assert.Equal(0.0, difference);
@@ -33,10 +33,10 @@ namespace Magick.NET.Tests
                 {
                     using (var other = image.Clone())
                     {
-                        other.SigmoidalContrast(4.0, new Percentage(25));
+                        other.InverseSigmoidalContrast(4.0, new Percentage(25));
 
                         var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.InRange(difference, 0.051, 0.052);
+                        Assert.InRange(difference, 0.073, 0.074);
                     }
                 }
             }

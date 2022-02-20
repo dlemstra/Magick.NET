@@ -3828,6 +3828,32 @@ namespace ImageMagick
             => Opaque(target, fill, true);
 
         /// <summary>
+        /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void InverseSigmoidalContrast(double contrast)
+            => InverseSigmoidalContrast(contrast, Quantum.Max * 0.5);
+
+        /// <summary>
+        /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast to use.</param>
+        /// <param name="midpoint">The midpoint to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void InverseSigmoidalContrast(double contrast, double midpoint)
+             => _nativeInstance.SigmoidalContrast(false, contrast, midpoint);
+
+        /// <summary>
+        /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast to use.</param>
+        /// <param name="midpointPercentage">The midpoint to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void InverseSigmoidalContrast(double contrast, Percentage midpointPercentage)
+            => InverseSigmoidalContrast(contrast, PercentageHelper.ToQuantum(midpointPercentage));
+
+        /// <summary>
         /// Add alpha channel to image, setting pixels that don't match the specified color to transparent.
         /// </summary>
         /// <param name="color">The color that should not be made transparent.</param>
@@ -5889,16 +5915,7 @@ namespace ImageMagick
         /// <param name="contrast">The contrast.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void SigmoidalContrast(double contrast)
-            => SigmoidalContrast(true, contrast);
-
-        /// <summary>
-        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
-        /// </summary>
-        /// <param name="sharpen">Specifies if sharpening should be used.</param>
-        /// <param name="contrast">The contrast.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SigmoidalContrast(bool sharpen, double contrast)
-            => SigmoidalContrast(sharpen, contrast, Quantum.Max * 0.5);
+            => SigmoidalContrast(contrast, Quantum.Max * 0.5);
 
         /// <summary>
         /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
@@ -5907,17 +5924,7 @@ namespace ImageMagick
         /// <param name="midpoint">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void SigmoidalContrast(double contrast, double midpoint)
-            => SigmoidalContrast(true, contrast, midpoint);
-
-        /// <summary>
-        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
-        /// </summary>
-        /// <param name="sharpen">Specifies if sharpening should be used.</param>
-        /// <param name="contrast">The contrast to use.</param>
-        /// <param name="midpoint">The midpoint to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SigmoidalContrast(bool sharpen, double contrast, double midpoint)
-            => _nativeInstance.SigmoidalContrast(sharpen, contrast, midpoint);
+             => _nativeInstance.SigmoidalContrast(true, contrast, midpoint);
 
         /// <summary>
         /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
@@ -5926,17 +5933,7 @@ namespace ImageMagick
         /// <param name="midpointPercentage">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void SigmoidalContrast(double contrast, Percentage midpointPercentage)
-            => SigmoidalContrast(true, contrast, midpointPercentage);
-
-        /// <summary>
-        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
-        /// </summary>
-        /// <param name="sharpen">Specifies if sharpening should be used.</param>
-        /// <param name="contrast">The contrast to use.</param>
-        /// <param name="midpointPercentage">The midpoint to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SigmoidalContrast(bool sharpen, double contrast, Percentage midpointPercentage)
-            => SigmoidalContrast(sharpen, contrast, PercentageHelper.ToQuantum(midpointPercentage));
+            => SigmoidalContrast(contrast, PercentageHelper.ToQuantum(midpointPercentage));
 
         /// <summary>
         /// Sparse color image, given a set of coordinates, interpolates the colors found at those

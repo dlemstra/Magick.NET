@@ -1960,6 +1960,29 @@ namespace ImageMagick
         void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels);
 
         /// <summary>
+        /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void InverseSigmoidalContrast(double contrast);
+
+        /// <summary>
+        /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast to use.</param>
+        /// <param name="midpoint">The midpoint to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void InverseSigmoidalContrast(double contrast, double midpoint);
+
+        /// <summary>
+        /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast to use.</param>
+        /// <param name="midpointPercentage">The midpoint to use.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void InverseSigmoidalContrast(double contrast, Percentage midpointPercentage);
+
+        /// <summary>
         /// Applies k-means color reduction to an image. This is a colorspace clustering or segmentation technique.
         /// </summary>
         /// <param name="settings">The kmeans settings.</param>
@@ -3111,14 +3134,6 @@ namespace ImageMagick
         /// <summary>
         /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
-        /// <param name="sharpen">Specifies if sharpening should be used.</param>
-        /// <param name="contrast">The contrast.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SigmoidalContrast(bool sharpen, double contrast);
-
-        /// <summary>
-        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
-        /// </summary>
         /// <param name="contrast">The contrast to use.</param>
         /// <param name="midpoint">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -3127,28 +3142,10 @@ namespace ImageMagick
         /// <summary>
         /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
         /// </summary>
-        /// <param name="sharpen">Specifies if sharpening should be used.</param>
-        /// <param name="contrast">The contrast to use.</param>
-        /// <param name="midpoint">The midpoint to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SigmoidalContrast(bool sharpen, double contrast, double midpoint);
-
-        /// <summary>
-        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
-        /// </summary>
         /// <param name="contrast">The contrast to use.</param>
         /// <param name="midpointPercentage">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void SigmoidalContrast(double contrast, Percentage midpointPercentage);
-
-        /// <summary>
-        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
-        /// </summary>
-        /// <param name="sharpen">Specifies if sharpening should be used.</param>
-        /// <param name="contrast">The contrast to use.</param>
-        /// <param name="midpointPercentage">The midpoint to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SigmoidalContrast(bool sharpen, double contrast, Percentage midpointPercentage);
 
         /// <summary>
         /// Simulates a pencil sketch.
