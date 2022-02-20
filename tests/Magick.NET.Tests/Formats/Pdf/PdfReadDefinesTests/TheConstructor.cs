@@ -19,6 +19,7 @@ namespace Magick.NET.Tests
                     image.Settings.SetDefines(new PdfReadDefines());
 
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
+                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "interpolate"));
                     Assert.Null(image.Settings.GetDefine("authenticate"));
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));

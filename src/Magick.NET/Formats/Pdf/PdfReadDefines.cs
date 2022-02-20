@@ -25,6 +25,11 @@ namespace ImageMagick.Formats
         public IMagickGeometry? FitPage { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether annotations should be hidden (pdf:hide-annotations).
+        /// </summary>
+        public bool? HideAnnotations { get; set; }
+
+        /// <summary>
         /// Gets or sets a value indicating whether all images are forced to be interpolated at full device resolution.
         /// </summary>
         public bool? Interpolate { get; set; }
@@ -53,6 +58,9 @@ namespace ImageMagick.Formats
             {
                 if (FitPage != null)
                     yield return CreateDefine("fit-page", FitPage);
+
+                if (HideAnnotations == true)
+                    yield return CreateDefine("hide-annotations", HideAnnotations.Value);
 
                 if (Interpolate == true)
                     yield return CreateDefine("interpolate", Interpolate.Value);
