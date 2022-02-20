@@ -3501,15 +3501,15 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public Dictionary<IMagickColor<QuantumType>, int> Histogram()
         {
-            var result = IntPtr.Zero;
+            var histogram = IntPtr.Zero;
             try
             {
-                result = _nativeInstance.Histogram(out var length);
-                return MagickColorCollection.ToDictionary(result, (int)length);
+                histogram = _nativeInstance.Histogram(out var length);
+                return MagickColorCollection.ToDictionary(histogram, (int)length);
             }
             finally
             {
-                MagickColorCollection.DisposeList(result);
+                MagickColorCollection.DisposeList(histogram);
             }
         }
 
