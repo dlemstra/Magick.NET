@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheDefineWhenValueIsTrue()
             {
-                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                using (var image = new MagickImage())
                 {
                     image.Settings.SetDefines(new PdfReadDefines
                     {
