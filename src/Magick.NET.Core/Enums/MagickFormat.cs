@@ -1129,6 +1129,11 @@ namespace ImageMagick
         Stegano,
 
         /// <summary>
+        /// String to image and back.
+        /// </summary>
+        StrImg,
+
+        /// <summary>
         /// SUN Rasterfile.
         /// </summary>
         Sun,
