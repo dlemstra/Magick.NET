@@ -66,6 +66,6 @@ namespace ImageMagick
         /// <summary>
         /// Gets the settings to use when reading the image.
         /// </summary>
-        public IMagickReadSettings<QuantumType> ReadSettings { get; internal set; }
+        public IMagickReadSettings<QuantumType> ReadSettings { get; }
     }
 }
