@@ -7208,6 +7208,7 @@ namespace ImageMagick
             SetSettings(newReadSettings);
 
             _settings.Ping = ping;
+            _settings.FileName = null;
 
             _nativeInstance.ReadBlob(Settings, data, offset, length);
 
