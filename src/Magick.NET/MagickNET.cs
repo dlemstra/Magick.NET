@@ -301,7 +301,7 @@ namespace ImageMagick
         {
 #if NETSTANDARD
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-               NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
+                NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
 #else
             NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
 #endif
