@@ -2590,6 +2590,10 @@
         {
           "name": "midpoint",
           "type": "double"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
         }
       ]
     },

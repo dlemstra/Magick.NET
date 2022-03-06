@@ -534,7 +534,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Shear(IntPtr Instance, double xAngle, double yAngle, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, out IntPtr exception);
+                public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1101,7 +1101,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Shear(IntPtr Instance, double xAngle, double yAngle, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, out IntPtr exception);
+                public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1668,7 +1668,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Shear(IntPtr Instance, double xAngle, double yAngle, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, out IntPtr exception);
+                public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -8079,26 +8079,26 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void SigmoidalContrast(bool sharpen, double contrast, double midpoint)
+            public void SigmoidalContrast(bool sharpen, double contrast, double midpoint, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, out exception);
+                NativeMethods.ARM64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, out exception);
+                NativeMethods.X64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, out exception);
+                NativeMethods.X86.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
             }
