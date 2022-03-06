@@ -29,14 +29,29 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldAdjustTheImageContrast()
             {
-                using (var image = new MagickImage(Files.NoisePNG))
+                using (var image = new MagickImage(Files.PictureJPG))
                 {
                     using (var other = image.Clone())
                     {
                         other.InverseSigmoidalContrast(4.0, new Percentage(25));
 
                         var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.InRange(difference, 0.073, 0.074);
+                        Assert.InRange(difference, 0.11, 0.12);
+                    }
+                }
+            }
+
+            [Fact]
+            public void ShouldAdjustTheSpecifiedChannel()
+            {
+                using (var image = new MagickImage(Files.PictureJPG))
+                {
+                    using (var other = image.Clone())
+                    {
+                        other.InverseSigmoidalContrast(4.0, Quantum.Max * 0.25, Channels.Blue);
+
+                        var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
+                        Assert.InRange(difference, 0.05, 0.06);
                     }
                 }
             }

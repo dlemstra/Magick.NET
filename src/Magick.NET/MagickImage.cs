@@ -3842,7 +3842,17 @@ namespace ImageMagick
         /// <param name="midpoint">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseSigmoidalContrast(double contrast, double midpoint)
-             => _nativeInstance.SigmoidalContrast(false, contrast, midpoint, ImageMagick.Channels.Default);
+             => SigmoidalContrast(contrast, midpoint, ImageMagick.Channels.Default);
+
+        /// <summary>
+        /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast to use.</param>
+        /// <param name="midpoint">The midpoint to use.</param>
+        /// <param name="channels">The channel(s) that should be adjusted.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void InverseSigmoidalContrast(double contrast, double midpoint, Channels channels)
+             => _nativeInstance.SigmoidalContrast(false, contrast, midpoint, channels);
 
         /// <summary>
         /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
@@ -5924,7 +5934,17 @@ namespace ImageMagick
         /// <param name="midpoint">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void SigmoidalContrast(double contrast, double midpoint)
-             => _nativeInstance.SigmoidalContrast(true, contrast, midpoint, ImageMagick.Channels.Default);
+             => SigmoidalContrast(contrast, midpoint, ImageMagick.Channels.Default);
+
+        /// <summary>
+        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast to use.</param>
+        /// <param name="midpoint">The midpoint to use.</param>
+        /// <param name="channels">The channel(s) that should be adjusted.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void SigmoidalContrast(double contrast, double midpoint, Channels channels)
+             => _nativeInstance.SigmoidalContrast(true, contrast, midpoint, channels);
 
         /// <summary>
         /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.

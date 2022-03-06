@@ -1978,6 +1978,15 @@ namespace ImageMagick
         /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
         /// </summary>
         /// <param name="contrast">The contrast to use.</param>
+        /// <param name="midpoint">The midpoint to use.</param>
+        /// <param name="channels">The channel(s) that should be adjusted.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void InverseSigmoidalContrast(double contrast, double midpoint, Channels channels);
+
+        /// <summary>
+        /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast to use.</param>
         /// <param name="midpointPercentage">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void InverseSigmoidalContrast(double contrast, Percentage midpointPercentage);
@@ -3138,6 +3147,15 @@ namespace ImageMagick
         /// <param name="midpoint">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void SigmoidalContrast(double contrast, double midpoint);
+
+        /// <summary>
+        /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
+        /// </summary>
+        /// <param name="contrast">The contrast to use.</param>
+        /// <param name="midpoint">The midpoint to use.</param>
+        /// <param name="channels">The channel(s) that should be adjusted.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SigmoidalContrast(double contrast, double midpoint, Channels channels);
 
         /// <summary>
         /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
