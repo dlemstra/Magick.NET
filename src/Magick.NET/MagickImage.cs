@@ -5275,6 +5275,17 @@ namespace ImageMagick
             RemoveProfile(profile.Name);
         }
 
+        /// <inheritdoc/>
+        public void RemoveProfiles(params IImageProfile[] profiles)
+        {
+            Throw.IfNullOrEmpty(nameof(profiles), profiles);
+
+            foreach (var profile in profiles)
+            {
+                RemoveProfile(profile);
+            }
+        }
+
         /// <summary>
         /// Remove a named profile from the image.
         /// </summary>
@@ -5285,6 +5296,17 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(name), name);
 
             _nativeInstance.RemoveProfile(name);
+        }
+
+        /// <inheritdoc/>
+        public void RemoveProfiles(params string[] names)
+        {
+            Throw.IfNullOrEmpty(nameof(names), names);
+
+            foreach (var name in names)
+            {
+                RemoveProfile(name);
+            }
         }
 
         /// <summary>
