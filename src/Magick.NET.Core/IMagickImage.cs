@@ -2732,11 +2732,25 @@ namespace ImageMagick
         public void RemoveProfile(IImageProfile profile);
 
         /// <summary>
+        /// Remove multiple profiles from the image.
+        /// </summary>
+        /// <param name="profiles">The profiles to remove.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void RemoveProfiles(params IImageProfile[] profiles);
+
+        /// <summary>
         /// Remove a named profile from the image.
         /// </summary>
         /// <param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void RemoveProfile(string name);
+
+        /// <summary>
+        /// Remove multiple named profiles from the image.
+        /// </summary>
+        /// <param name="names">The names of the profiles (e.g. "ICM", "IPTC", or a generic profile names).</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void RemoveProfiles(params string[] names);
 
         /// <summary>
         /// Removes the associated read mask of the image.
