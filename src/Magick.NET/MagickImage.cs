@@ -3842,7 +3842,7 @@ namespace ImageMagick
         /// <param name="midpoint">The midpoint to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseSigmoidalContrast(double contrast, double midpoint)
-             => SigmoidalContrast(contrast, midpoint, ImageMagick.Channels.Default);
+             => InverseSigmoidalContrast(contrast, midpoint, ImageMagick.Channels.Default);
 
         /// <summary>
         /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
