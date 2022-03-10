@@ -386,7 +386,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public async Task ReadPixelsAsync(string fileName, IPixelReadSettings<QuantumType>? settings, CancellationToken cancellationToken)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             var data = await File.ReadAllBytesAsync(filePath, cancellationToken).ConfigureAwait(false);
@@ -530,7 +530,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public Task WriteAsync(string fileName, CancellationToken cancellationToken)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return WriteAsync(new FileInfo(filePath), cancellationToken);
