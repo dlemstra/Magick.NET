@@ -3,4 +3,4 @@ set -e
 
 cd src/Magick.Native
 ./create-nuget-config.sh $1 $2
-./install.sh linux-musl
+./install.sh linux-musl x64

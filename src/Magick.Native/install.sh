@@ -17,31 +17,33 @@ installPackage() {
 
 copyToTestProject() {
     local runtime=$1
-    local quantum=$2
-    local openmp=$3
+    local platform=$2
+    local quantum=$3
+    local openmp=$4
 
     folder=../../tests/Magick.NET.Tests/bin/Test$quantum$openmp/AnyCPU/net60
     mkdir -p $folder
-    cp temp/$runtime/Release$quantum$openmp/x64/Magick.Native-$quantum$openmp-x64.dll* $folder | true
+    cp temp/$runtime/Release$quantum$openmp/$platform/Magick.Native-$quantum$openmp-$platform.dll* $folder | true
 
     folder=resources/Release$quantum
     mkdir -p $folder
-    cp temp/resources/Release$quantum$openmp/x64/*.xml $folder | true
+    cp temp/resources/Release$quantum$openmp/$platform/*.xml $folder | true
 }
 
 copyToTestProjects() {
     local runtime=$1
+    local platform=$2
 
-    copyToTestProject $runtime "Q8" ""
-    copyToTestProject $runtime "Q16" ""
-    copyToTestProject $runtime "Q16-HDRI" ""
+    copyToTestProject $runtime $platform "Q8" ""
+    copyToTestProject $runtime $platform "Q16" ""
+    copyToTestProject $runtime $platform "Q16-HDRI" ""
 
-    copyToTestProject $runtime "Q8" "-OpenMP"
-    copyToTestProject $runtime "Q16" "-OpenMP"
-    copyToTestProject $runtime "Q16-HDRI" "-OpenMP"
+    copyToTestProject $runtime $platform "Q8" "-OpenMP"
+    copyToTestProject $runtime $platform "Q16" "-OpenMP"
+    copyToTestProject $runtime $platform "Q16-HDRI" "-OpenMP"
 }
 
 if [ ! -d "temp" ]; then
     installPackage
-    copyToTestProjects $1
+    copyToTestProjects $1 $2
 fi
