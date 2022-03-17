@@ -22,4 +22,4 @@ COPY tests /build/tests
 
 COPY build/linux-arm64/test.Magick.NET.sh /build
 
-RUN cd /build; ./test.Magick.NET.sh .
+RUN cd /build; ./test.Magick.NET.sh
