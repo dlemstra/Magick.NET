@@ -75,6 +75,28 @@ jobs:
     - name: Build and Test
       run: build/linux-musl/test.Magick.NET.sh
 
+  linux_arm64:
+    name: 'Linux arm64 (Q8/Q16/Q16-HDRI)'
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+
+    - name: Install dependencies
+      run: build/linux-arm64/install.dependencies.sh
+
+    - name: Install Magick.Native
+      run: 'build/linux-arm64/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+
+    - name: Build and Test
+      run: |
+        export path=$(pwd)
+        docker run -v $path:/Magick.NET mcr.microsoft.com/dotnet/sdk:6.0-focal-arm64v8 /Magick.NET/build/linux-arm64/test.Magick.NET.sh /Magick.NET
+
   macos:
     name: 'MacOS (Q8/Q16/Q16-HDRI)'
     runs-on: macos-11
