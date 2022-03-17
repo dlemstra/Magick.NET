@@ -10,7 +10,6 @@ buildAndTest() {
     dotnet test tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f net60 -c Test$quantum
 }
 
-cd $1
 buildAndTest "Q8"
 buildAndTest "Q16"
 buildAndTest "Q16-HDRI"
