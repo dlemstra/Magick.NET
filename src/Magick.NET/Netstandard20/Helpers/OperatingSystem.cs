@@ -15,7 +15,7 @@ namespace ImageMagick
 
         public static bool IsLinux { get; } = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
-        public static bool IsArm64 { get; } = IsWindows && RuntimeInformation.ProcessArchitecture == Architecture.Arm64;
+        public static bool IsArm64 { get; } = !IsMacOS && RuntimeInformation.ProcessArchitecture == Architecture.Arm64;
     }
 }
 
