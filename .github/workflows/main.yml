@@ -89,6 +89,11 @@ jobs:
     - name: Install Magick.Native
       run: 'build/linux-arm64/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
 
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@master
+      with:
+        platforms: arm64
+
     - name: Build and Test
       run: |
         export path=$(pwd)
