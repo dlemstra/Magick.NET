@@ -11,7 +11,7 @@
         },
         {
           "name": "value",
-          "type": "IntPtr"
+          "type": "Instance"
         }
       ]
     }
