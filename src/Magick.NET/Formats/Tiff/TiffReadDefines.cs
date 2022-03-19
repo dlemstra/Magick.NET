@@ -25,6 +25,11 @@ namespace ImageMagick.Formats
         public bool? IgnoreExifPoperties { get; set; }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the layers should be ignored (tiff:ignore-layers).
+        /// </summary>
+        public bool? IgnoreLayers { get; set; }
+
+        /// <summary>
         /// Gets or sets the tiff tags that should be ignored (tiff:ignore-tags).
         /// </summary>
         public IEnumerable<string>? IgnoreTags { get; set; }
@@ -38,6 +43,9 @@ namespace ImageMagick.Formats
             {
                 if (IgnoreExifPoperties.Equals(true))
                     yield return CreateDefine("exif-properties", false);
+
+                if (IgnoreLayers != null)
+                    yield return CreateDefine("ignore-layers", IgnoreLayers.Value);
 
                 var ignoreTags = CreateDefine("ignore-tags", IgnoreTags);
                 if (ignoreTags != null)
