@@ -77,7 +77,7 @@ namespace ImageMagick
             #endif
         }
         private NativePixelCollection _nativeInstance;
-        private unsafe sealed class NativePixelCollection : NativeInstance
+        private unsafe sealed partial class NativePixelCollection : NativeInstance
         {
             static NativePixelCollection() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

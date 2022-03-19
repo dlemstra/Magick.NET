@@ -178,7 +178,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeMagickImageCollection : NativeHelper
+        private unsafe sealed partial class NativeMagickImageCollection : NativeHelper
         {
             static NativeMagickImageCollection() { Environment.Initialize(); }
             public IntPtr Append(IMagickImage? image, bool stack)

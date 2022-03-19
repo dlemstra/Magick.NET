@@ -42,7 +42,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativePointInfo : ConstNativeInstance
+        private unsafe sealed partial class NativePointInfo : ConstNativeInstance
         {
             static NativePointInfo() { Environment.Initialize(); }
             public NativePointInfo(IntPtr instance)

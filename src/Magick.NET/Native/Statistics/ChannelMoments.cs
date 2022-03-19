@@ -66,7 +66,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeChannelMoments : ConstNativeInstance
+        private unsafe sealed partial class NativeChannelMoments : ConstNativeInstance
         {
             static NativeChannelMoments() { Environment.Initialize(); }
             public NativeChannelMoments(IntPtr instance)

@@ -138,7 +138,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeMagickFormatInfo : ConstNativeInstance
+        private unsafe sealed partial class NativeMagickFormatInfo : ConstNativeInstance
         {
             static NativeMagickFormatInfo() { Environment.Initialize(); }
             protected override string TypeName

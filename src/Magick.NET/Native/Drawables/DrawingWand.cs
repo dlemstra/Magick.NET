@@ -545,7 +545,7 @@ namespace ImageMagick
             #endif
         }
         private NativeDrawingWand _nativeInstance;
-        private unsafe sealed class NativeDrawingWand : NativeInstance
+        private unsafe sealed partial class NativeDrawingWand : NativeInstance
         {
             static NativeDrawingWand() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

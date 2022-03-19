@@ -78,7 +78,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativePrimaryInfo : NativeInstance
+        private unsafe sealed partial class NativePrimaryInfo : NativeInstance
         {
             static NativePrimaryInfo() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

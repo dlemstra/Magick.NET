@@ -1735,7 +1735,7 @@ namespace ImageMagick
             #endif
         }
         private NativeMagickImage _nativeInstance;
-        private unsafe sealed class NativeMagickImage : NativeInstance
+        private unsafe sealed partial class NativeMagickImage : NativeInstance
         {
             static NativeMagickImage() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

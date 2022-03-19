@@ -42,7 +42,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeChannelPerceptualHash : ConstNativeInstance
+        private unsafe sealed partial class NativeChannelPerceptualHash : ConstNativeInstance
         {
             static NativeChannelPerceptualHash() { Environment.Initialize(); }
             public NativeChannelPerceptualHash(IntPtr instance)

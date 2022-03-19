@@ -78,7 +78,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeTypeMetric : NativeInstance
+        private unsafe sealed partial class NativeTypeMetric : NativeInstance
         {
             static NativeTypeMetric() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

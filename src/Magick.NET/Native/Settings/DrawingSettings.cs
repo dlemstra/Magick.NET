@@ -364,7 +364,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeDrawingSettings : NativeInstance
+        private unsafe sealed partial class NativeDrawingSettings : NativeInstance
         {
             static NativeDrawingSettings() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

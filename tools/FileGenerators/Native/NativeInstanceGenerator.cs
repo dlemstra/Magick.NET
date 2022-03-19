@@ -58,7 +58,7 @@ namespace FileGenerator.Native
                 else
                     baseClass = " : NativeInstance";
 
-                WriteLine("private unsafe " + (IsNativeStatic ? "static" : "sealed") + " class Native" + Class.ClassName + baseClass);
+                WriteLine("private unsafe " + (IsNativeStatic ? "static" : "sealed") + " partial class Native" + Class.ClassName + baseClass);
                 WriteStartColon();
 
                 WriteStaticConstructor();

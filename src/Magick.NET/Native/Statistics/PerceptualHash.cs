@@ -42,7 +42,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe static class NativePerceptualHash
+        private unsafe static partial class NativePerceptualHash
         {
             static NativePerceptualHash() { Environment.Initialize(); }
             public static void DisposeList(IntPtr list)

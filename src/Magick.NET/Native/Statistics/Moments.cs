@@ -42,7 +42,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe static class NativeMoments
+        private unsafe static partial class NativeMoments
         {
             static NativeMoments() { Environment.Initialize(); }
             public static void DisposeList(IntPtr list)

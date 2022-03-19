@@ -42,7 +42,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeDoubleMatrix : NativeInstance
+        private unsafe sealed partial class NativeDoubleMatrix : NativeInstance
         {
             static NativeDoubleMatrix() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

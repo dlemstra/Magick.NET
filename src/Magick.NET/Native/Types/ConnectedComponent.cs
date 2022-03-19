@@ -100,7 +100,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe static class NativeConnectedComponent
+        private unsafe static partial class NativeConnectedComponent
         {
             static NativeConnectedComponent() { Environment.Initialize(); }
             public static void DisposeList(IntPtr list)

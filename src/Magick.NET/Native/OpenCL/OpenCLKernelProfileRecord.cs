@@ -60,7 +60,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeOpenCLKernelProfileRecord : ConstNativeInstance
+        private unsafe sealed partial class NativeOpenCLKernelProfileRecord : ConstNativeInstance
         {
             static NativeOpenCLKernelProfileRecord() { Environment.Initialize(); }
             protected override string TypeName

@@ -72,7 +72,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeQuantizeSettings : NativeInstance
+        private unsafe sealed partial class NativeQuantizeSettings : NativeInstance
         {
             static NativeQuantizeSettings() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

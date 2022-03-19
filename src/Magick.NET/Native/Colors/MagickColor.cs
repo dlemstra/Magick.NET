@@ -151,7 +151,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeMagickColor : NativeInstance
+        private unsafe sealed partial class NativeMagickColor : NativeInstance
         {
             static NativeMagickColor() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

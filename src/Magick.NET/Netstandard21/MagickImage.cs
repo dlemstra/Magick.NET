@@ -622,6 +622,10 @@ namespace ImageMagick
 
             ResetSettings();
         }
+
+        private unsafe sealed partial class NativeMagickImage : NativeInstance
+        {
+        }
     }
 }
 

@@ -36,7 +36,7 @@ namespace ImageMagick.Formats
             }
             #endif
         }
-        private unsafe sealed class NativePdfInfo : NativeHelper
+        private unsafe sealed partial class NativePdfInfo : NativeHelper
         {
             static NativePdfInfo() { Environment.Initialize(); }
             public int PageCount(string? fileName, string? password)

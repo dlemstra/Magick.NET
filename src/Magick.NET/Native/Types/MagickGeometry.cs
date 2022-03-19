@@ -72,7 +72,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeMagickGeometry : NativeInstance
+        private unsafe sealed partial class NativeMagickGeometry : NativeInstance
         {
             static NativeMagickGeometry() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

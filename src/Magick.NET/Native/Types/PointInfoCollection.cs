@@ -61,7 +61,7 @@ namespace ImageMagick
             #endif
         }
         private NativePointInfoCollection _nativeInstance;
-        private unsafe sealed class NativePointInfoCollection : NativeInstance
+        private unsafe sealed partial class NativePointInfoCollection : NativeInstance
         {
             static NativePointInfoCollection() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

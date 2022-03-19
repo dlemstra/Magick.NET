@@ -136,7 +136,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeMontageSettings : NativeInstance
+        private unsafe sealed partial class NativeMontageSettings : NativeInstance
         {
             static NativeMontageSettings() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

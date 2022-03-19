@@ -87,7 +87,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeOpenCLDevice : ConstNativeInstance
+        private unsafe sealed partial class NativeOpenCLDevice : ConstNativeInstance
         {
             static NativeOpenCLDevice() { Environment.Initialize(); }
             protected override string TypeName

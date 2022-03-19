@@ -42,7 +42,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeStringInfo : ConstNativeInstance
+        private unsafe sealed partial class NativeStringInfo : ConstNativeInstance
         {
             static NativeStringInfo() { Environment.Initialize(); }
             public NativeStringInfo(IntPtr instance)

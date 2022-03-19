@@ -54,7 +54,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeOffsetInfo : NativeInstance
+        private unsafe sealed partial class NativeOffsetInfo : NativeInstance
         {
             static NativeOffsetInfo() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)

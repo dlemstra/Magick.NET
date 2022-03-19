@@ -96,7 +96,7 @@ namespace ImageMagick
             }
             #endif
         }
-        private unsafe sealed class NativeMagickRectangle : NativeInstance
+        private unsafe sealed partial class NativeMagickRectangle : NativeInstance
         {
             static NativeMagickRectangle() { Environment.Initialize(); }
             protected override void Dispose(IntPtr instance)
