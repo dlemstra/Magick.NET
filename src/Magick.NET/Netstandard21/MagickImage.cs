@@ -625,6 +625,13 @@ namespace ImageMagick
 
         private unsafe sealed partial class NativeMagickImage : NativeInstance
         {
+            public void ReadPixels(int width, int height, string? map, StorageType storageType, ReadOnlySpan<byte> data, int offsetInBytes)
+            {
+                fixed (byte* dataFixed = data)
+                {
+                    ReadPixels(width, height, map, storageType, dataFixed, offsetInBytes);
+                }
+            }
         }
     }
 }

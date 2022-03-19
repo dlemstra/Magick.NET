@@ -463,7 +463,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte* data, UIntPtr offset, out IntPtr exception);
+                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1030,7 +1030,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte* data, UIntPtr offset, out IntPtr exception);
+                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1597,7 +1597,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, byte* data, UIntPtr offset, out IntPtr exception);
+                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -7161,72 +7161,35 @@ namespace ImageMagick
                       Instance = result;
                 }
             }
-            public void ReadPixels(int width, int height, string? map, StorageType storageType, byte[] data, int offset)
+            public void ReadPixels(int width, int height, string? map, StorageType storageType, void* data, int offsetInBytes)
             {
                 using (var mapNative = UTF8Marshaler.CreateInstance(map))
                 {
-                    fixed (byte* dataFixed = data)
-                    {
-                        IntPtr exception = IntPtr.Zero;
-                        IntPtr result;
-                        #if PLATFORM_AnyCPU
-                        if (OperatingSystem.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        result = NativeMethods.ARM64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, dataFixed, (UIntPtr)offset, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, dataFixed, (UIntPtr)offset, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, dataFixed, (UIntPtr)offset, out exception);
-                        #endif
-                        CheckException(exception, result);
-                        if (result != IntPtr.Zero)
-                          Instance = result;
-                    }
+                    IntPtr exception = IntPtr.Zero;
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+                    #endif
+                    CheckException(exception, result);
+                    if (result != IntPtr.Zero)
+                      Instance = result;
                 }
             }
-            #if NETSTANDARD2_1
-            public void ReadPixels(int width, int height, string? map, StorageType storageType, ReadOnlySpan<byte> data, int offset)
-            {
-                using (var mapNative = UTF8Marshaler.CreateInstance(map))
-                {
-                    fixed (byte* dataFixed = data)
-                    {
-                        IntPtr exception = IntPtr.Zero;
-                        IntPtr result;
-                        #if PLATFORM_AnyCPU
-                        if (OperatingSystem.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        result = NativeMethods.ARM64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, dataFixed, (UIntPtr)offset, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, dataFixed, (UIntPtr)offset, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, dataFixed, (UIntPtr)offset, out exception);
-                        #endif
-                        CheckException(exception, result);
-                        if (result != IntPtr.Zero)
-                          Instance = result;
-                    }
-                }
-            }
-            #endif
             public void ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)
             {
                 using (var settingsNative = MagickSettings.CreateInstance(settings))

@@ -7307,5 +7307,16 @@ namespace ImageMagick
             _settings = settings;
             _settings.Artifact += OnArtifact;
         }
+
+        private unsafe sealed partial class NativeMagickImage : NativeInstance
+        {
+            public void ReadPixels(int width, int height, string? map, StorageType storageType, byte[] data, int offsetInBytes)
+            {
+                fixed (byte* dataFixed = data)
+                {
+                    ReadPixels(width, height, map, storageType, dataFixed, offsetInBytes);
+                }
+            }
+        }
     }
 }

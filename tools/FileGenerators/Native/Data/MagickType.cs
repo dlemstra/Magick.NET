@@ -40,6 +40,7 @@ namespace FileGenerator.Native
                     case "ssize_t":
                     case "string":
                     case "ulong":
+                    case "void*":
                         return false;
                     default:
                         return !_isEnum;
