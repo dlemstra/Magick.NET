@@ -57,7 +57,7 @@ namespace ImageMagick
             var length = (int)stream.Length;
             var data = new byte[length];
 
-            int read = 0;
+            var read = 0;
             int bytesRead;
             while ((bytesRead = await stream.ReadAsync(data, read, length - read, cancellationToken).ConfigureAwait(false)) != 0)
             {
