@@ -17,7 +17,7 @@
       "arguments": [
         {
           "name": "origin",
-          "type": "Instance"
+          "type": "IntPtr"
         },
         {
           "name": "offset",
