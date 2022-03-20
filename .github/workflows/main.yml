@@ -103,9 +103,6 @@ jobs:
       with:
         platforms: arm64
 
-    - name: Build
-      run: build/linux-arm64/build.Magick.NET.sh
-
     - name: Test
       run: |
         export path=$(pwd)
