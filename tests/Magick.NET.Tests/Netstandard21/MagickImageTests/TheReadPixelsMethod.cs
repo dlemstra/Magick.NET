@@ -58,14 +58,14 @@ namespace Magick.NET.Tests
                     var settings = new PixelReadSettings
                     {
                         Mapping = null,
-                        StorageType = StorageType.Quantum,
+                        StorageType = StorageType.Char,
                     };
 
                     using (var image = new MagickImage())
                     {
                         var exception = Assert.Throws<ArgumentException>("settings", () =>
                         {
-                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
+                            image.ReadPixels(new Span<byte>(new byte[] { 215 }), settings);
                         });
                         Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
                     }
@@ -77,14 +77,14 @@ namespace Magick.NET.Tests
                     var settings = new PixelReadSettings
                     {
                         Mapping = string.Empty,
-                        StorageType = StorageType.Quantum,
+                        StorageType = StorageType.Char,
                     };
 
                     using (var image = new MagickImage())
                     {
                         var exception = Assert.Throws<ArgumentException>("settings", () =>
                         {
-                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
+                            image.ReadPixels(new Span<byte>(new byte[] { 215 }), settings);
                         });
                         Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
                     }
@@ -96,16 +96,16 @@ namespace Magick.NET.Tests
                     var settings = new PixelReadSettings
                     {
                         Mapping = "R",
-                        StorageType = StorageType.Char,
+                        StorageType = StorageType.Undefined,
                     };
 
                     using (var image = new MagickImage())
                     {
                         var exception = Assert.Throws<ArgumentException>("settings", () =>
                         {
-                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
+                            image.ReadPixels(new Span<byte>(new byte[] { 215 }), settings);
                         });
-                        Assert.Contains("Storage type should be Quantum.", exception.Message);
+                        Assert.Contains("Storage type should not be undefined.", exception.Message);
                     }
                 }
 
