@@ -9,7 +9,9 @@ You have two options to get the Magick.NET binaries in your project:
 - Build Magick.NET yourself:
   - Instructions on how to build Magick.NET can be found [here](../Building.md).
 
-If you want to be able to read an AI/EPS/PDF/PS file you need to install [Ghostscript](https://www.ghostscript.com/download/gsdnld.html).
+For some formats additional software needs to be installed:
+- AI/EPS/PDF/PS requires [Ghostscript](https://www.ghostscript.com/download/gsdnld.html).
+- Video (AVI/MP4/etc..) requires [FFmpeg](https://ffmpeg.org/).
 
 ## Q8, Q16 or Q16-HDRI?
 
