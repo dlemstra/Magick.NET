@@ -28,7 +28,10 @@ jobs:
     - name: Install Magick.Native
       run: 'build/linux/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
 
-    - name: Build and Test
+    - name: Build
+      run: build/linux/build.Magick.NET.sh
+
+    - name: Test
       run: build/linux/test.Magick.NET.sh
 
   linux_openmp:
@@ -50,7 +53,10 @@ jobs:
     - name: Install Magick.Native
       run: 'build/linux-openmp/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
 
-    - name: Build and Test
+    - name: Build
+      run: build/linux-openmp/build.Magick.NET.sh
+
+    - name: Test
       run: build/linux-openmp/test.Magick.NET.sh
 
   linux_musl:
@@ -72,7 +78,10 @@ jobs:
     - name: Install Magick.Native
       run: 'build/linux-musl/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
 
-    - name: Build and Test
+    - name: Build
+      run: build/linux-musl/build.Magick.NET.sh
+
+    - name: Test
       run: build/linux-musl/test.Magick.NET.sh
 
   linux_arm64:
@@ -94,7 +103,10 @@ jobs:
       with:
         platforms: arm64
 
-    - name: Build and Test
+    - name: Build
+      run: build/linux-arm64/build.Magick.NET.sh
+
+    - name: Test
       run: |
         export path=$(pwd)
         docker run -v $path:/Magick.NET mcr.microsoft.com/dotnet/sdk:6.0-focal-arm64v8 /Magick.NET/build/linux-arm64/github-actions.sh
@@ -121,7 +133,10 @@ jobs:
     - name: Install Magick.Native
       run: 'build/macos/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
 
-    - name: Build and Test
+    - name: Build
+      run: build/macos/build.Magick.NET.sh
+
+    - name: Test
       run: build/macos/test.Magick.NET.sh
 
   windows:

@@ -20,6 +20,10 @@ COPY logo /build/logo
 
 COPY tests /build/tests
 
+COPY build/linux-openmp/build.Magick.NET.sh /build
+
+RUN cd /build; ./build.Magick.NET.sh
+
 COPY build/linux-openmp/test.Magick.NET.sh /build
 
 RUN cd /build; ./test.Magick.NET.sh

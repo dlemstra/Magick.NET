@@ -20,6 +20,10 @@ COPY logo /build/logo
 
 COPY tests /build/tests
 
+COPY build/linux/build.Magick.NET.sh /build
+
+RUN cd /build; ./build.Magick.NET.sh
+
 COPY build/linux/test.Magick.NET.sh /build
 
 RUN cd /build; ./test.Magick.NET.sh

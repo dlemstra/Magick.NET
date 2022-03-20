@@ -126,6 +126,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{C4C8ACAC-0081-49E7-A20B-06DB39A98EB3}"
 	ProjectSection(SolutionItems) = preProject
 		build\linux\build.cmd = build\linux\build.cmd
+		build\linux\build.Magick.NET.sh = build\linux\build.Magick.NET.sh
 		build\linux\Dockerfile = build\linux\Dockerfile
 		build\linux\install.dependencies.sh = build\linux\install.dependencies.sh
 		build\linux\install.Magick.Native.sh = build\linux\install.Magick.Native.sh
@@ -151,6 +152,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EE5A8EB5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macos", "macos", "{8BAE93F7-10BB-409F-8823-52D0F766E44D}"
 	ProjectSection(SolutionItems) = preProject
+		build\macos\build.Magick.NET.sh = build\macos\build.Magick.NET.sh
 		build\macos\install.dependencies.sh = build\macos\install.dependencies.sh
 		build\macos\install.Magick.Native.sh = build\macos\install.Magick.Native.sh
 		build\macos\test.Magick.NET.sh = build\macos\test.Magick.NET.sh
@@ -176,6 +178,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-musl", "linux-musl", "{5F85869A-E670-4097-AEC0-80D746531315}"
 	ProjectSection(SolutionItems) = preProject
 		build\linux-musl\build.cmd = build\linux-musl\build.cmd
+		build\linux-musl\build.Magick.NET.sh = build\linux-musl\build.Magick.NET.sh
 		build\linux-musl\Dockerfile = build\linux-musl\Dockerfile
 		build\linux-musl\install.dependencies.sh = build\linux-musl\install.dependencies.sh
 		build\linux-musl\install.Magick.Native.sh = build\linux-musl\install.Magick.Native.sh
@@ -186,6 +189,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-openmp", "linux-openmp", "{9CBABB42-7921-4697-AC1D-DABDBAED752B}"
 	ProjectSection(SolutionItems) = preProject
 		build\linux-openmp\build.cmd = build\linux-openmp\build.cmd
+		build\linux-openmp\build.Magick.NET.sh = build\linux-openmp\build.Magick.NET.sh
 		build\linux-openmp\Dockerfile = build\linux-openmp\Dockerfile
 		build\linux-openmp\install.dependencies.sh = build\linux-openmp\install.dependencies.sh
 		build\linux-openmp\install.Magick.Native.sh = build\linux-openmp\install.Magick.Native.sh
@@ -196,7 +200,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-arm64", "linux-arm64", "{36D7C362-16CF-4BA6-80B0-F353A54F1262}"
 	ProjectSection(SolutionItems) = preProject
 		build\linux-arm64\build.cmd = build\linux-arm64\build.cmd
+		build\linux-arm64\build.Magick.NET.sh = build\linux-arm64\build.Magick.NET.sh
 		build\linux-arm64\Dockerfile = build\linux-arm64\Dockerfile
+		build\linux-arm64\github-actions.sh = build\linux-arm64\github-actions.sh
 		build\linux-arm64\install.dependencies.sh = build\linux-arm64\install.dependencies.sh
 		build\linux-arm64\install.Magick.Native.sh = build\linux-arm64\install.Magick.Native.sh
 		build\linux-arm64\run.cmd = build\linux-arm64\run.cmd
