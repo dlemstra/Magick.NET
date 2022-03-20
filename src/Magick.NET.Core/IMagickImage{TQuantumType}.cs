@@ -740,6 +740,26 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void ReadPixels(byte[] data, int offset, int count, IPixelReadSettings<TQuantumType>? settings);
 
+#if !Q8
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The quantum array to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ReadPixels(TQuantumType[] data, IPixelReadSettings<TQuantumType>? settings);
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="data">The quantum array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of items to read.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ReadPixels(TQuantumType[] data, int offset, int count, IPixelReadSettings<TQuantumType>? settings);
+#endif
+
         /// <summary>
         /// Read single image frame from pixel data.
         /// </summary>

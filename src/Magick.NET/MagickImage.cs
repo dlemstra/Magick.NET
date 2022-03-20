@@ -5162,17 +5162,62 @@ namespace ImageMagick
             Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
             Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
             Throw.IfNull(nameof(settings), settings);
-            Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
             Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
+            Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+
+            var newReadSettings = CreateReadSettings(settings.ReadSettings);
+            SetSettings(newReadSettings);
+
+            var expectedLength = GetExpectedByteLength(settings);
+            Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+
+            _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, offset);
+        }
+
+#if !Q8
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The quantum array to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ReadPixels(QuantumType[] data, IPixelReadSettings<QuantumType>? settings)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+
+            ReadPixels(data, 0, data.Length, settings);
+        }
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="data">The quantum array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="count">The maximum number of items to read.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ReadPixels(QuantumType[] data, int offset, int count, IPixelReadSettings<QuantumType>? settings)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+            Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
+            Throw.IfTrue(nameof(count), count < 1, "The number of items should be at least 1.");
+            Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
+            Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of items should not exceed the length of the array.");
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
+            Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
 
             var newReadSettings = CreateReadSettings(settings.ReadSettings);
             SetSettings(newReadSettings);
 
             var expectedLength = GetExpectedLength(settings);
-            Throw.IfTrue(nameof(data), count < expectedLength, "The array count is " + count + " but should be at least " + expectedLength + ".");
+            Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
 
-            _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, offset);
+            var offsetInBytes = ToByteCount(settings.StorageType, offset);
+
+            _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, offsetInBytes);
         }
+#endif
 
         /// <summary>
         /// Read single image frame from pixel data.
@@ -7012,13 +7057,30 @@ namespace ImageMagick
         internal void SetNext(IMagickImage? image)
             => _nativeInstance.SetNext(MagickImage.GetInstance(image));
 
-        private static int GetExpectedLength(IPixelReadSettings<QuantumType> settings)
+        private static int GetExpectedByteLength(IPixelReadSettings<QuantumType> settings)
+        {
+            var length = GetExpectedLength(settings);
+            return ToByteCount(settings.StorageType, length);
+        }
+
+        private static int GetExpectedLength(IPixelReadSettings<ushort> settings)
         {
             Throw.IfNull(nameof(settings), settings.ReadSettings.Width, "ReadSettings.Width should be defined");
-            Throw.IfNull(nameof(settings), settings.ReadSettings.Height, "ReadSettings.Height should be defined when pixel storage is set.");
+            Throw.IfNull(nameof(settings), settings.ReadSettings.Height, "ReadSettings.Height should be defined.");
 
-            var length = settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * settings.Mapping!.Length;
-            return settings.StorageType switch
+            return settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * settings.Mapping!.Length;
+        }
+
+        private static string ToBase64(byte[] bytes)
+        {
+            if (bytes == null)
+                return string.Empty;
+
+            return Convert.ToBase64String(bytes);
+        }
+
+        private static int ToByteCount(StorageType storageType, int length)
+            => storageType switch
             {
                 StorageType.Char => length,
                 StorageType.Double => length * sizeof(double),
@@ -7029,15 +7091,6 @@ namespace ImageMagick
                 StorageType.Short => length * sizeof(ushort),
                 _ => throw new NotSupportedException(),
             };
-        }
-
-        private static string ToBase64(byte[] bytes)
-        {
-            if (bytes == null)
-                return string.Empty;
-
-            return Convert.ToBase64String(bytes);
-        }
 
         private PointD CalculateContrastStretch(Percentage blackPoint, Percentage whitePoint)
         {
@@ -7317,6 +7370,16 @@ namespace ImageMagick
                     ReadPixels(width, height, map, storageType, dataFixed, offsetInBytes);
                 }
             }
+
+#if !Q8
+            public void ReadPixels(int width, int height, string? map, StorageType storageType, QuantumType[] data, int offsetInBytes)
+            {
+                fixed (QuantumType* dataFixed = data)
+                {
+                    ReadPixels(width, height, map, storageType, dataFixed, offsetInBytes);
+                }
+            }
+#endif
         }
     }
 }

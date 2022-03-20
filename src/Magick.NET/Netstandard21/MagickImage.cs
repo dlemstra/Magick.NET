@@ -330,16 +330,43 @@ namespace ImageMagick
         {
             Throw.IfEmpty(nameof(data), data);
             Throw.IfNull(nameof(settings), settings);
+            Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
+            Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+
+            var newReadSettings = CreateReadSettings(settings.ReadSettings);
+            SetSettings(newReadSettings);
+
+            var count = data.Length;
+            var expectedLength = GetExpectedByteLength(settings);
+            Throw.IfTrue(nameof(data), count < expectedLength, "The array count is " + count + " but should be at least " + expectedLength + ".");
+
+            _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0);
+        }
+
+#if !Q8
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="data">The span of quantum to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ReadPixels(ReadOnlySpan<QuantumType> data, IPixelReadSettings<QuantumType>? settings)
+        {
+            Throw.IfEmpty(nameof(data), data);
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
+            Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
 
             var newReadSettings = CreateReadSettings(settings.ReadSettings);
             SetSettings(newReadSettings);
 
             var count = data.Length;
             var expectedLength = GetExpectedLength(settings);
-            Throw.IfTrue(nameof(data), count < expectedLength, "The array count is " + count + " but should be at least " + expectedLength + ".");
+            Throw.IfTrue(nameof(data), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
 
             _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0);
         }
+#endif
 
         /// <summary>
         /// Read single image frame from pixel data.
@@ -632,6 +659,17 @@ namespace ImageMagick
                     ReadPixels(width, height, map, storageType, dataFixed, offsetInBytes);
                 }
             }
+
+#if !Q8
+            public void ReadPixels(int width, int height, string? map, StorageType storageType, ReadOnlySpan<QuantumType> data, int offsetInBytes)
+            {
+                fixed (QuantumType* dataFixed = data)
+                {
+                    ReadPixels(width, height, map, storageType, dataFixed, offsetInBytes);
+                }
+            }
+#endif
+
         }
     }
 }

@@ -7,13 +7,23 @@ using System;
 using ImageMagick;
 using Xunit;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
         public partial class TheReadPixelsMethod
         {
-            public class WithReadOnlySpan
+            public class WithReadOnlyByteSpan
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
@@ -22,10 +32,11 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        Assert.Throws<ArgumentException>("data", () =>
+                        var exception = Assert.Throws<ArgumentException>("data", () =>
                         {
                             image.ReadPixels(Span<byte>.Empty, settings);
                         });
+                        Assert.Contains("Value cannot be empty.", exception.Message);
                     }
                 }
 
@@ -38,6 +49,63 @@ namespace Magick.NET.Tests
                         {
                             image.ReadPixels(new Span<byte>(new byte[] { 215 }), null);
                         });
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenMappingIsNull()
+                {
+                    var settings = new PixelReadSettings
+                    {
+                        Mapping = null,
+                        StorageType = StorageType.Quantum,
+                    };
+
+                    using (var image = new MagickImage())
+                    {
+                        var exception = Assert.Throws<ArgumentException>("settings", () =>
+                        {
+                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
+                        });
+                        Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenMappingIsEmpty()
+                {
+                    var settings = new PixelReadSettings
+                    {
+                        Mapping = string.Empty,
+                        StorageType = StorageType.Quantum,
+                    };
+
+                    using (var image = new MagickImage())
+                    {
+                        var exception = Assert.Throws<ArgumentException>("settings", () =>
+                        {
+                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
+                        });
+                        Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenStorageTypeIsInvalid()
+                {
+                    var settings = new PixelReadSettings
+                    {
+                        Mapping = "R",
+                        StorageType = StorageType.Char,
+                    };
+
+                    using (var image = new MagickImage())
+                    {
+                        var exception = Assert.Throws<ArgumentException>("settings", () =>
+                        {
+                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
+                        });
+                        Assert.Contains("Storage type should be Quantum.", exception.Message);
                     }
                 }
 
@@ -84,6 +152,78 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+#if !Q8
+            public class WithReadOnlyQuantumSpan
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenDataIsEmpty()
+                {
+                    var settings = new PixelReadSettings
+                    {
+                        StorageType = StorageType.Quantum,
+                    };
+
+                    using (var image = new MagickImage())
+                    {
+                        var exception = Assert.Throws<ArgumentException>("data", () =>
+                        {
+                            image.ReadPixels(Span<QuantumType>.Empty, settings);
+                        });
+                        Assert.Contains("Value cannot be empty.", exception.Message);
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenSettingsIsNull()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentNullException>("settings", () =>
+                        {
+                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), null);
+                        });
+                    }
+                }
+
+                [Fact]
+                public void ShouldReadSpan()
+                {
+                    var data = new QuantumType[]
+                    {
+                        0, 0, 0, Quantum.Max,
+                        0, Quantum.Max, 0, 0,
+                    };
+
+                    var settings = new PixelReadSettings(2, 1, StorageType.Quantum, PixelMapping.RGBA);
+
+                    using (var image = new MagickImage())
+                    {
+                        image.ReadPixels(new Span<QuantumType>(data), settings);
+
+                        Assert.Equal(2, image.Width);
+                        Assert.Equal(1, image.Height);
+
+                        using (var pixels = image.GetPixels())
+                        {
+                            var pixel = pixels.GetPixel(0, 0);
+                            Assert.Equal(4, pixel.Channels);
+                            Assert.Equal(0, pixel.GetChannel(0));
+                            Assert.Equal(0, pixel.GetChannel(1));
+                            Assert.Equal(0, pixel.GetChannel(2));
+                            Assert.Equal(Quantum.Max, pixel.GetChannel(3));
+
+                            pixel = pixels.GetPixel(1, 0);
+                            Assert.Equal(4, pixel.Channels);
+                            Assert.Equal(0, pixel.GetChannel(0));
+                            Assert.Equal(Quantum.Max, pixel.GetChannel(1));
+                            Assert.Equal(0, pixel.GetChannel(2));
+                            Assert.Equal(0, pixel.GetChannel(3));
+                        }
+                    }
+                }
+            }
+#endif
         }
     }
 }
