@@ -109,7 +109,7 @@ namespace Magick.NET.Tests
                     {
                         Assert.Throws<ArgumentNullException>("data", () =>
                         {
-                            image.ReadPixels(null, 0, 0, settings);
+                            image.ReadPixels((byte[])null, 0, 0, settings);
                         });
                     }
                 }
@@ -167,6 +167,20 @@ namespace Magick.NET.Tests
                         {
                             image.ReadPixels(new byte[] { 215 }, 0, -1, settings);
                         });
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenCountIsTooLow()
+                {
+                    var settings = new PixelReadSettings(1, 1, StorageType.Char, PixelMapping.RGB);
+
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentException>("count", () =>
+                       {
+                           image.ReadPixels(new byte[] { 215 }, settings);
+                       });
                     }
                 }
 
