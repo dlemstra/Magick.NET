@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new Jp2WriteDefines
                     {
-                        Rate = new float[] { },
+                        Rate = System.Array.Empty<float>(),
                     });
 
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "rate"));

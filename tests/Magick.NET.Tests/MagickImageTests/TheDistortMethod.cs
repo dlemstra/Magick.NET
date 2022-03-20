@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
                 {
                     Assert.Throws<ArgumentException>("arguments", () =>
                     {
-                        image.Distort(DistortMethod.Perspective, new double[] { });
+                        image.Distort(DistortMethod.Perspective, Array.Empty<double>());
                     });
                 }
             }
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
                 {
                     Assert.Throws<ArgumentException>("arguments", () =>
                     {
-                        image.Distort(DistortMethod.Perspective, new DistortSettings(), new double[] { });
+                        image.Distort(DistortMethod.Perspective, new DistortSettings(), Array.Empty<double>());
                     });
                 }
             }

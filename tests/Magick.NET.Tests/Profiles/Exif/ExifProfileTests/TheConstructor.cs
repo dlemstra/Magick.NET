@@ -48,7 +48,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var data = new byte[] { };
+                    var data = Array.Empty<byte>();
                     var profile = new ExifProfile(data);
                     image.SetProfile(profile);
                 }

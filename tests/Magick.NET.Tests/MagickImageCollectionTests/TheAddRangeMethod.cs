@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        images.AddRange(new byte[0]);
+                        images.AddRange(Array.Empty<byte>());
                     }
                 });
             }
@@ -77,7 +77,7 @@ namespace Magick.NET.Tests
             {
                 using (var images = new MagickImageCollection())
                 {
-                    images.AddRange(new IMagickImage<QuantumType>[0]);
+                    images.AddRange(Array.Empty<IMagickImage<ushort>>());
 
                     Assert.Empty(images);
                 }
@@ -100,7 +100,7 @@ namespace Magick.NET.Tests
             {
                 using (var images = new MagickImageCollection())
                 {
-                    images.AddRange(new IMagickImage<QuantumType>[] { });
+                    images.AddRange(Array.Empty<IMagickImage<ushort>>());
 
                     Assert.Empty(images);
                 }

@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
                 {
                     Assert.Throws<ArgumentException>("arguments", () =>
                     {
-                        image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, new double[] { });
+                        image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, Array.Empty<double>());
                     });
                 }
             }

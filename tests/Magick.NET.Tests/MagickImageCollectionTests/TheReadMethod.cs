@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[0]));
+                        Assert.Throws<ArgumentException>("data", () => images.Read(Array.Empty<byte>()));
                     }
                 }
 
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, 0, 0));
+                        Assert.Throws<ArgumentException>("data", () => images.Read(Array.Empty<byte>(), 0, 0));
                     }
                 }
 
@@ -130,7 +130,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, 0, 0, MagickFormat.Png));
+                        Assert.Throws<ArgumentException>("data", () => images.Read(Array.Empty<byte>(), 0, 0, MagickFormat.Png));
                     }
                 }
 
@@ -196,7 +196,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, 0, 0, settings));
+                        Assert.Throws<ArgumentException>("data", () => images.Read(Array.Empty<byte>(), 0, 0, settings));
                     }
                 }
 
@@ -277,7 +277,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, MagickFormat.Png));
+                        Assert.Throws<ArgumentException>("data", () => images.Read(Array.Empty<byte>(), MagickFormat.Png));
                     }
                 }
 
@@ -315,7 +315,7 @@ namespace Magick.NET.Tests
                     {
                         var settings = new MagickReadSettings();
 
-                        Assert.Throws<ArgumentException>("data", () => images.Read(new byte[] { }, settings));
+                        Assert.Throws<ArgumentException>("data", () => images.Read(Array.Empty<byte>(), settings));
                     }
                 }
 

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(new byte[0]).ToArray());
+                    Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(Array.Empty<byte>()).ToArray());
                 }
             }
 
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(new byte[] { }, 0, 0).ToArray());
+                    Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(Array.Empty<byte>(), 0, 0).ToArray());
                 }
 
                 [Fact]

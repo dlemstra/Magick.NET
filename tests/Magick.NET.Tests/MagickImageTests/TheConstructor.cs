@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImage(new byte[] { }));
+                    Assert.Throws<ArgumentException>("data", () => new MagickImage(Array.Empty<byte>()));
                 }
             }
 
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImage(new byte[] { }, 0, 0));
+                    Assert.Throws<ArgumentException>("data", () => new MagickImage(Array.Empty<byte>(), 0, 0));
                 }
 
                 [Fact]
@@ -71,7 +71,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImage(new byte[] { }, 0, 0, MagickFormat.Png));
+                    Assert.Throws<ArgumentException>("data", () => new MagickImage(Array.Empty<byte>(), 0, 0, MagickFormat.Png));
                 }
 
                 [Fact]
@@ -108,7 +108,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    Assert.Throws<ArgumentException>("data", () => new MagickImage(new byte[] { }, 0, 0, settings));
+                    Assert.Throws<ArgumentException>("data", () => new MagickImage(Array.Empty<byte>(), 0, 0, settings));
                 }
 
                 [Fact]
@@ -157,7 +157,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImage(new byte[] { }, MagickFormat.Png));
+                    Assert.Throws<ArgumentException>("data", () => new MagickImage(Array.Empty<byte>(), MagickFormat.Png));
                 }
             }
 
@@ -176,7 +176,7 @@ namespace Magick.NET.Tests
                 {
                     var settings = new MagickReadSettings();
 
-                    Assert.Throws<ArgumentException>("data", () => new MagickImage(new byte[] { }, settings));
+                    Assert.Throws<ArgumentException>("data", () => new MagickImage(Array.Empty<byte>(), settings));
                 }
 
                 [Fact]

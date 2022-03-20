@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageCollectionFactory();
 
-                    Assert.Throws<ArgumentException>("data", () => factory.Create(new byte[] { }));
+                    Assert.Throws<ArgumentException>("data", () => factory.Create(Array.Empty<byte>()));
                 }
 
                 [Fact]
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageCollectionFactory();
 
-                    Assert.Throws<ArgumentException>("data", () => factory.Create(new byte[] { }, 0, 0));
+                    Assert.Throws<ArgumentException>("data", () => factory.Create(Array.Empty<byte>(), 0, 0));
                 }
 
                 [Fact]
@@ -128,7 +128,7 @@ namespace Magick.NET.Tests
                     var factory = new MagickImageCollectionFactory();
                     var settings = new MagickReadSettings();
 
-                    Assert.Throws<ArgumentException>("data", () => factory.Create(new byte[] { }, 0, 0, settings));
+                    Assert.Throws<ArgumentException>("data", () => factory.Create(Array.Empty<byte>(), 0, 0, settings));
                 }
 
                 [Fact]
@@ -203,7 +203,7 @@ namespace Magick.NET.Tests
                     var factory = new MagickImageCollectionFactory();
                     var settings = new MagickReadSettings();
 
-                    Assert.Throws<ArgumentException>("data", () => factory.Create(new byte[] { }, settings));
+                    Assert.Throws<ArgumentException>("data", () => factory.Create(Array.Empty<byte>(), settings));
                 }
 
                 [Fact]

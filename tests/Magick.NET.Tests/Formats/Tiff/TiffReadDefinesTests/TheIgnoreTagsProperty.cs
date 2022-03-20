@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new TiffReadDefines
                     {
-                        IgnoreTags = new string[] { },
+                        IgnoreTags = System.Array.Empty<string>(),
                     });
 
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));

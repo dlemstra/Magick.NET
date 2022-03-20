@@ -135,7 +135,7 @@ namespace Magick.NET.Tests
                 {
                     using (var image = new MagickImage(Files.SnakewarePNG))
                     {
-                        image.SetProfile(new TestImageProfile("foo", new byte[0]));
+                        image.SetProfile(new TestImageProfile("foo", Array.Empty<byte>()));
 
                         Assert.False(image.HasProfile("foo"));
                     }

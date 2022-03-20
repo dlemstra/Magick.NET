@@ -88,7 +88,7 @@ namespace Magick.NET.Tests
 
             Assert.Throws<ArgumentException>("coordinates", () =>
             {
-                new PathArcAbs(new PathArc[] { });
+                new PathArcAbs(Array.Empty<PathArc>());
             });
 
             Assert.Throws<ArgumentNullException>("coordinates", () =>
@@ -108,7 +108,7 @@ namespace Magick.NET.Tests
 
             Assert.Throws<ArgumentException>("coordinates", () =>
             {
-                new PathArcRel(new PathArc[] { });
+                new PathArcRel(Array.Empty<PathArc>());
             });
 
             Assert.Throws<ArgumentNullException>("coordinates", () =>
@@ -128,7 +128,7 @@ namespace Magick.NET.Tests
 
             Assert.Throws<ArgumentException>("coordinates", () =>
             {
-                new PathLineToAbs(new PointD[] { });
+                new PathLineToAbs(Array.Empty<PointD>());
             });
 
             Assert.Throws<ArgumentException>("coordinates", () =>
@@ -143,7 +143,7 @@ namespace Magick.NET.Tests
 
             Assert.Throws<ArgumentException>("coordinates", () =>
             {
-                new PathLineToRel(new PointD[] { });
+                new PathLineToRel(Array.Empty<PointD>());
             });
         }
 

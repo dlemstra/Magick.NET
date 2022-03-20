@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    Assert.Throws<ArgumentException>("data", () => imageInfo.Read(new byte[0]));
+                    Assert.Throws<ArgumentException>("data", () => imageInfo.Read(Array.Empty<byte>()));
                 }
             }
 
@@ -46,7 +46,7 @@ namespace Magick.NET.Tests
                 {
                     IMagickImageInfo imageInfo = new MagickImageInfo();
 
-                    Assert.Throws<ArgumentException>("data", () => imageInfo.Read(new byte[] { }, 0, 0));
+                    Assert.Throws<ArgumentException>("data", () => imageInfo.Read(Array.Empty<byte>(), 0, 0));
                 }
 
                 [Fact]

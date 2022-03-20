@@ -532,7 +532,7 @@ namespace Magick.NET.Tests
         {
             Assert.Throws<ArgumentException>("data", () =>
             {
-                new MagickImage(new byte[0]);
+                new MagickImage(Array.Empty<byte>());
             });
 
             Assert.Throws<ArgumentNullException>("data", () =>

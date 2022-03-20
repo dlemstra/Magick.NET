@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
                 {
                     Assert.Throws<ArgumentException>("terms", () =>
                     {
-                        images.Polynomial(new double[] { });
+                        images.Polynomial(Array.Empty<double>());
                     });
                 }
             }

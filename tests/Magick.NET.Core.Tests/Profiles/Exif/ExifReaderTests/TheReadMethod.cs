@@ -14,7 +14,7 @@ namespace Magick.NET.Core.Tests
             [Fact]
             public void ShouldReturnEmptyCollectionWhenDataIsEmpty()
             {
-                var data = new byte[] { };
+                var data = System.Array.Empty<byte>();
 
                 var result = ExifReader.Read(data);
 

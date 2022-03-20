@@ -25,7 +25,7 @@ namespace Magick.NET.Core.Tests
             {
                 Assert.Throws<ArgumentException>("data", () =>
                 {
-                    new EndianReader(new byte[] { });
+                    new EndianReader(Array.Empty<byte>());
                 });
             }
         }

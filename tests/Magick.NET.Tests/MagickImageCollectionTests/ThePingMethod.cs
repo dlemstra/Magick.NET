@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () => images.Ping(new byte[0]));
+                        Assert.Throws<ArgumentException>("data", () => images.Ping(Array.Empty<byte>()));
                     }
                 }
 
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () => images.Ping(new byte[] { }, 0, 0));
+                        Assert.Throws<ArgumentException>("data", () => images.Ping(Array.Empty<byte>(), 0, 0));
                     }
                 }
 
@@ -135,7 +135,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        Assert.Throws<ArgumentException>("data", () => images.Ping(new byte[] { }, 0, 0, settings));
+                        Assert.Throws<ArgumentException>("data", () => images.Ping(Array.Empty<byte>(), 0, 0, settings));
                     }
                 }
 

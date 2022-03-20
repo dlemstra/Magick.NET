@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new Jp2WriteDefines
                     {
-                        Quality = new float[] { },
+                        Quality = System.Array.Empty<float>(),
                     });
 
                     Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "quality"));

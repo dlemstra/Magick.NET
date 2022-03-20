@@ -185,7 +185,7 @@ namespace Magick.NET.Tests
 
             Assert.Throws<ArgumentException>("coordinates", () =>
             {
-                new DrawableBezier(new PointD[] { });
+                new DrawableBezier(Array.Empty<PointD>());
             });
 
             Assert.Throws<ArgumentNullException>("clipPath", () =>
