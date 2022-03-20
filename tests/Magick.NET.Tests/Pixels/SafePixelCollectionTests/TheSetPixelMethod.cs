@@ -185,7 +185,7 @@ namespace Magick.NET.Tests
                     {
                         Assert.Throws<ArgumentException>("value", () =>
                         {
-                            pixels.SetPixel(0, 0, Array.Empty<ushort>());
+                            pixels.SetPixel(0, 0, Array.Empty<QuantumType>());
                         });
                     }
                 }

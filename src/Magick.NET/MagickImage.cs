@@ -7016,7 +7016,7 @@ namespace ImageMagick
             return ToByteCount(settings.StorageType, length);
         }
 
-        private static int GetExpectedLength(IPixelReadSettings<ushort> settings)
+        private static int GetExpectedLength(IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNull(nameof(settings), settings.ReadSettings.Width, "ReadSettings.Width should be defined");
             Throw.IfNull(nameof(settings), settings.ReadSettings.Height, "ReadSettings.Height should be defined.");

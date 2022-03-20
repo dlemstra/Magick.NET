@@ -173,7 +173,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        pixels.SetPixel(0, 0, System.Array.Empty<ushort>());
+                        pixels.SetPixel(0, 0, System.Array.Empty<QuantumType>());
                     }
                 }
             }
