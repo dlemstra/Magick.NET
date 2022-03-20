@@ -84,17 +84,6 @@ namespace ImageMagick
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
         /// </summary>
         /// <param name="data">The byte array to read the image data from.</param>
-        /// <param name="offset">The offset at which to begin reading data.</param>
-        /// <param name="count">The maximum number of bytes to read.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(byte[] data, int offset, int count, IPixelReadSettings<QuantumType> settings)
-            : this() => ReadPixels(data, offset, count, settings);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickImage"/> class.
-        /// </summary>
-        /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="format">The format to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImage(byte[] data, MagickFormat format)
@@ -108,15 +97,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImage(byte[] data, IMagickReadSettings<QuantumType> readSettings)
             : this() => Read(data, readSettings);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickImage"/> class.
-        /// </summary>
-        /// <param name="data">The byte array to read the image data from.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(byte[] data, IPixelReadSettings<QuantumType> settings)
-            : this() => ReadPixels(data, settings);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
@@ -143,15 +123,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImage(FileInfo file, IMagickReadSettings<QuantumType> readSettings)
             : this() => Read(file, readSettings);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickImage"/> class.
-        /// </summary>
-        /// <param name="file">The file to read the image from.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(FileInfo file, IPixelReadSettings<QuantumType> settings)
-            : this() => ReadPixels(file, settings);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
@@ -207,15 +178,6 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImage"/> class.
         /// </summary>
-        /// <param name="stream">The stream to read the image data from.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(Stream stream, IPixelReadSettings<QuantumType> settings)
-            : this() => ReadPixels(stream, settings);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickImage"/> class.
-        /// </summary>
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImage(string fileName)
@@ -248,15 +210,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImage(string fileName, MagickFormat format)
           : this() => Read(fileName, format);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickImage"/> class.
-        /// </summary>
-        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public MagickImage(string fileName, IPixelReadSettings<QuantumType> settings)
-          : this() => ReadPixels(fileName, settings);
 
         private MagickImage(NativeMagickImage instance, MagickSettings settings)
         {
