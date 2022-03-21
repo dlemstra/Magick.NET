@@ -53,15 +53,17 @@ function addNativeLibraries($xml, $quantumName, $platform) {
 
     addNativeLibrary $xml $platform "win" "$quantumName-$platform.dll"
 
+    if ($platform -ne "x86") {
+        addNativeLibrary $xml $platform "linux" "$quantumName-$platform.dll.so"
+    }
+
     if ($platform -eq "x64") {
-        if ($quantumName.EndsWith("-OpenMP")) {
-            addOpenMPLibrary $xml
-            addNativeLibrary $xml $platform "linux" "$quantumName-$platform.dll.so"
-        } else {
-            addNativeLibrary $xml $platform "linux" "$quantumName-$platform.dll.so"
-            addNativeLibrary $xml $platform "linux-musl" "$quantumName-$platform.dll.so"
-            addNativeLibrary $xml $platform "osx" "$quantumName-$platform.dll.dylib"
-        }
+        addNativeLibrary $xml $platform "linux-musl" "$quantumName-$platform.dll.so"
+        addNativeLibrary $xml $platform "osx" "$quantumName-$platform.dll.dylib"
+    }
+    
+    if ($quantumName.EndsWith("-OpenMP")) {
+        addOpenMPLibrary $xml
     }
 }
 
