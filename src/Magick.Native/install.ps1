@@ -39,8 +39,8 @@ function installPackage($version, $target) {
 
 function copyToSamplesProject($source, $target, $quantum, $platform) {
     $fileName = "Magick.Native-$quantum-$platform.dll"
-    [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net40")
-    Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net40\$fileName"
+    [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\netstandard20")
+    Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\netstandard20\$fileName"
 }
 
 function copyToSamplesProjects($source, $target) {
