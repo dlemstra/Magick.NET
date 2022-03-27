@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net50</TargetFrameworks>
+    <TargetFrameworks>net60</TargetFrameworks>
     <Platforms>x64</Platforms>
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.333" PrivateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406" PrivateAssets="All" />
   </ItemGroup>
 
   <Import Project="../FileGenerator.props" />
