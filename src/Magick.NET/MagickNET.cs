@@ -147,6 +147,12 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the version of ImageMagick.
+        /// </summary>
+        public static string ImageMagickVersion
+            => NativeMagickNET.ImageMagickVersion!;
+
+        /// <summary>
         /// Returns the format information of the specified format based on the extension of the file.
         /// </summary>
         /// <param name="file">The file to get the format for.</param>

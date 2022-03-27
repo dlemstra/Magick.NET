@@ -26,6 +26,11 @@
       "name": "Features",
       "type": "string",
       "readonly": true
+    },
+    {
+      "name": "ImageMagickVersion",
+      "type": "string",
+      "readonly": true
     }
   ],
   "methods": [

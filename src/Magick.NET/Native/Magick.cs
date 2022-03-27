@@ -24,6 +24,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr Magick_Features_Get();
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr Magick_ImageMagickVersion_Get();
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr Magick_GetFonts(out UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr Magick_GetFontName(IntPtr instance, UIntPtr index);
@@ -49,6 +51,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr Magick_Features_Get();
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr Magick_ImageMagickVersion_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr Magick_GetFonts(out UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr Magick_GetFontName(IntPtr instance, UIntPtr index);
@@ -73,6 +77,8 @@ namespace ImageMagick
                 public static extern IntPtr Magick_Delegates_Get();
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr Magick_Features_Get();
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr Magick_ImageMagickVersion_Get();
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr Magick_GetFonts(out UIntPtr length, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -143,6 +149,32 @@ namespace ImageMagick
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.Magick_Features_Get();
+                    #endif
+                    return UTF8Marshaler.NativeToManaged(result);
+                }
+            }
+            public static string? ImageMagickVersion
+            {
+                get
+                {
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.Magick_ImageMagickVersion_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.Magick_ImageMagickVersion_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.Magick_ImageMagickVersion_Get();
                     #endif
                     return UTF8Marshaler.NativeToManaged(result);
                 }
