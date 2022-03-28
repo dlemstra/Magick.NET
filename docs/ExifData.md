@@ -4,7 +4,7 @@
 
 ```C#
 // Read image from file
-using (var image = new MagickImage("FujiFilmFinePixS1Pro.jpg"))
+using (var image = new MagickImage("c:\path\to\FujiFilmFinePixS1Pro.jpg"))
 {
     // Retrieve the exif information
     var profile = image.GetExifProfile();
@@ -27,7 +27,7 @@ using (var image = new MagickImage("FujiFilmFinePixS1Pro.jpg"))
 
 ```C#
 // Read image from file
-using (var image = new MagickImage("FujiFilmFinePixS1Pro.jpg"))
+using (var image = new MagickImage("c:\path\to\FujiFilmFinePixS1Pro.jpg"))
 {
     // Retrieve the exif information
     var profile = image.GetExifProfile();
@@ -37,7 +37,7 @@ using (var image = new MagickImage("FujiFilmFinePixS1Pro.jpg"))
     {
         // Check if exif profile contains thumbnail and save it
         if (thumbnail != null)
-            thumbnail.Write("FujiFilmFinePixS1Pro.thumb.jpg");
+            thumbnail.Write("c:\path\to\FujiFilmFinePixS1Pro.thumb.jpg");
     }
 }
 ```

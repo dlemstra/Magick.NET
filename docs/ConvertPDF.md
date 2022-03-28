@@ -19,16 +19,16 @@ settings.Density = new Density(300, 300);
 using (var images = new MagickImageCollection())
 {
     // Add all the pages of the pdf file to the collection
-    images.Read("Snakeware.pdf", settings);
+    images.Read("c:\path\to\Snakeware.pdf", settings);
 
     var page = 1;
     foreach (var image in images)
     {
         // Write page to file that contains the page number
-        image.Write("Snakeware.Page" + page + ".png");
+        image.Write("c:\path\to\Snakeware.Page" + page + ".png");
         // Writing to a specific format works the same as for a single image
         image.Format = MagickFormat.Ptif;
-        image.Write("Snakeware.Page" + page + ".tif");
+        image.Write("c:\path\to\Snakeware.Page" + page + ".tif");
         page++;
     }
 }
@@ -44,20 +44,20 @@ settings.Density = new Density(300);
 using (var images = new MagickImageCollection())
 {
     // Add all the pages of the pdf file to the collection
-    images.Read("Snakeware.pdf", settings);
+    images.Read("c:\path\to\Snakeware.pdf", settings);
 
     // Create new image that appends all the pages horizontally
     using (var horizontal = images.AppendHorizontally())
     {
         // Save result as a png
-        horizontal.Write("Snakeware.horizontal.png");
+        horizontal.Write("c:\path\to\Snakeware.horizontal.png");
     }
 
     // Create new image that appends all the pages vertically
     using (var vertical = images.AppendVertically())
     {
         // Save result as a png
-        vertical.Write("Snakeware.vertical.png");
+        vertical.Write("c:\path\to\Snakeware.vertical.png");
     }
 }
 ```
@@ -68,12 +68,12 @@ using (var images = new MagickImageCollection())
 using (var collection = new MagickImageCollection())
 {
     // Add first page
-    collection.Add(new MagickImage("SnakewarePage1.jpg"));
+    collection.Add(new MagickImage("c:\path\to\SnakewarePage1.jpg"));
     // Add second page
-    collection.Add(new MagickImage("SnakewarePage2.jpg"));
+    collection.Add(new MagickImage("c:\path\to\SnakewarePage2.jpg"));
 
     // Create pdf file with two pages
-    collection.Write("Snakeware.pdf");
+    collection.Write("c:\path\to\Snakeware.pdf");
 }
 ```
 
@@ -81,10 +81,10 @@ using (var collection = new MagickImageCollection())
 
 ```C#
 // Read image from file
-using (var image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
 {
     // Create pdf file with a single page
-    image.Write("Snakeware.pdf");
+    image.Write("c:\path\to\Snakeware.pdf");
 }
 ```
 
@@ -98,7 +98,7 @@ using (var collection = new MagickImageCollection())
     settings.FrameCount = 1; // Number of pages
 
     // Read only the first page of the pdf file
-    collection.Read("Snakeware.pdf", settings);
+    collection.Read("c:\path\to\Snakeware.pdf", settings);
 
     // Clear the collection
     collection.Clear();
@@ -106,6 +106,6 @@ using (var collection = new MagickImageCollection())
     settings.FrameCount = 2; // Number of pages
 
     // Read the first two pages of the pdf file
-    collection.Read("Snakeware.pdf", settings);
+    collection.Read("c:\path\to\Snakeware.pdf", settings);
 }
 ```

@@ -2,10 +2,10 @@
 
 ```C#
 // Read image that needs a watermark
-using (var image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
 {
     // Read the watermark that will be put on top of the image
-    using (var watermark = new MagickImage("Magick.NET.png"))
+    using (var watermark = new MagickImage("c:\path\to\Magick.NET.png"))
     {
         // Draw the watermark in the bottom right corner
         image.Composite(watermark, Gravity.Southeast, CompositeOperator.Over);
@@ -18,6 +18,6 @@ using (var image = new MagickImage("Snakeware.jpg"))
     }
 
     // Save the result
-    image.Write("Snakeware.watermark.jpg");
+    image.Write("c:\path\to\Snakeware.watermark.jpg");
 }
 ```

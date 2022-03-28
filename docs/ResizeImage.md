@@ -4,7 +4,7 @@
 
 ```C#
 // Read from file
-using (var collection = new MagickImageCollection(SampleFiles.SnakewareGif))
+using (var collection = new MagickImageCollection("c:\path\to\SnakewareGif"))
 {
     // This will remove the optimization and change the image to how it looks at that point
     // during the animation. More info here: http://www.imagemagick.org/Usage/anim_basics/#coalesce
@@ -18,7 +18,7 @@ using (var collection = new MagickImageCollection(SampleFiles.SnakewareGif))
     }
 
     // Save the result
-    collection.Write(SampleFiles.OutputDirectory + "Snakeware.resized.gif");
+    collection.Write("c:\path\to\Snakeware.resized.gif");
 }
 ```
 
@@ -26,7 +26,7 @@ using (var collection = new MagickImageCollection(SampleFiles.SnakewareGif))
 
 ```C#
 // Read from file
-using (var image = new MagickImage(SampleFiles.SnakewarePng))
+using (var image = new MagickImage("c:\path\to\SnakewarePng"))
 {
     var size = new MagickGeometry(100, 100);
     // This will resize the image to a fixed size without maintaining the aspect ratio.
@@ -36,6 +36,6 @@ using (var image = new MagickImage(SampleFiles.SnakewarePng))
     image.Resize(size);
 
     // Save the result
-    image.Write(SampleFiles.OutputDirectory + "Snakeware.100x100.png");
+    image.Write("c:\path\to\Snakeware.100x100.png");
 }
 ```

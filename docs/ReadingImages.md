@@ -4,7 +4,7 @@
 
 ```C#
 // Read from file.
-using (var image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
 {
 }
 
@@ -32,7 +32,7 @@ using (var image = new MagickImage("xc:yellow", settings))
 
 using (var image = new MagickImage())
 {
-    image.Read("Snakeware.jpg");
+    image.Read("c:\path\to\Snakeware.jpg");
     image.Read(memStream);
     image.Read("xc:yellow", settings);
 
@@ -47,7 +47,7 @@ using (var image = new MagickImage())
 
 ```C#
 // Read from file
-var info = new MagickImageInfo("Snakeware.jpg");
+var info = new MagickImageInfo("c:\path\to\Snakeware.jpg");
 
 // Read from stream
 using (var memStream = LoadMemoryStreamImage())
@@ -60,7 +60,7 @@ var data = LoadImageBytes();
 info = new MagickImageInfo(data);
 
 info = new MagickImageInfo();
-info.Read("Snakeware.jpg");
+info.Read("c:\path\to\Snakeware.jpg");
 using (var memStream = LoadMemoryStreamImage())
 {
     info.Read(memStream);
@@ -80,7 +80,7 @@ Console.WriteLine(info.Density.Units);
 
 ```C#
 // Read from file
-using (var collection = new MagickImageCollection("Snakeware.gif"))
+using (var collection = new MagickImageCollection("c:\path\to\Snakeware.gif"))
 {
 }
 
@@ -102,18 +102,18 @@ using (var collection = new MagickImageCollection(data))
 var settings = new MagickReadSettings();
 settings.Density = new Density(144);
 
-using (var collection = new MagickImageCollection("Snakeware.pdf", settings))
+using (var collection = new MagickImageCollection("c:\path\to\Snakeware.pdf", settings))
 {
 }
 
 using (var collection = new MagickImageCollection())
 {
-    collection.Read("Snakeware.jpg");
+    collection.Read("c:\path\to\Snakeware.jpg");
     using (var memStream = LoadMemoryStreamImage())
     {
         collection.Read(memStream);
     }
     collection.Read(data);
-    collection.Read("Snakeware.pdf", settings);
+    collection.Read("c:\path\to\Snakeware.pdf", settings);
 }
 ```

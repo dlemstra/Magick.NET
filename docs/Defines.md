@@ -4,12 +4,12 @@
 
 ```C#
 // Read image from file
-using (var image = new MagickImage("Snakeware.png"))
+using (var image = new MagickImage("c:\path\to\Snakeware.png"))
 {
     // Tells the dds coder to use dxt1 compression when writing the image
     image.Settings.SetDefine(MagickFormat.Dds, "compression", "dxt1");
     // Write the image
-    image.Write("Snakeware.dds");
+    image.Write("c:\path\to\Snakeware.dds");
 }
 ```
 
@@ -21,11 +21,11 @@ var settings = new MagickReadSettings();
 settings.SetDefine(MagickFormat.Jpeg, "size", "32x32");
 
 // Read image from file
-using (var image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
 {
     // Create thumnail that is 32 pixels wide and 32 pixels high
     image.Thumbnail(32,32);
     // Save image as tiff
-    image.Write("Snakeware.tiff");
+    image.Write("c:\path\to\Snakeware.tiff");
 }
 ```

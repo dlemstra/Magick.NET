@@ -4,10 +4,10 @@
 
 ```C#
 // Read first frame of gif image
-using (var image = new MagickImage("Snakeware.gif"))
+using (var image = new MagickImage("c:\path\to\Snakeware.gif"))
 {
     // Save frame as jpg
-    image.Write("Snakeware.jpg");
+    image.Write("c:\path\to\Snakeware.jpg");
 }
 
 // Write to stream
@@ -30,7 +30,7 @@ using (var memStream = new MemoryStream())
 }
 
 // Read image from file
-using (var image = new MagickImage("Snakeware.png"))
+using (var image = new MagickImage("c:\path\to\Snakeware.png"))
 {
     // Sets the output format to jpeg
     image.Format = MagickFormat.Jpeg;
@@ -51,31 +51,31 @@ settings.ColorSpace = ColorSpace.sRGB;
 using (var image = new MagickImage())
 {
     // Reads the eps image, the specified settings tell Ghostscript to create an sRGB image
-    image.Read("Snakeware.eps", settings);
+    image.Read("c:\path\to\Snakeware.eps", settings);
 
     // Save image as tiff
-    image.Write("Snakeware.tiff");
+    image.Write("c:\path\to\Snakeware.tiff");
 }
 
 // Read image from file
-using (var image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
 {
     // Will use the CMYK profile if the image does not contain a color profile.
     // The second profile will transform the colorspace from CMYK to RGB
     image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.SRGB);
 
     // Save image as png
-    image.Write(SampleFiles.OutputDirectory + "Snakeware.png");
+    image.Write("c:\path\to\Snakeware.png");
 }
 
 // Use custom color profile
-using (var image = new MagickImage("Snakeware.jpg"))
+using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
 {
     // Will use the CMYK profile if your image does not contain a color profile.
     // The second profile will transform the colorspace from your custom icc profile
     image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, new ColorProfile("YourProfile.icc"));
 
     // Save image as tiff
-    image.Write("Snakeware.tiff");
+    image.Write("c:\path\to\Snakeware.tiff");
 }
 ```

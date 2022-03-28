@@ -1,7 +1,7 @@
 # Using colors
 
 ```C#
-using (var image = new MagickImage("Snakeware.png"))
+using (var image = new MagickImage("c:\path\to\Snakeware.png"))
 {
     image.TransparentChroma(MagickColors.Black, MagickColors.Blue);
     image.BackgroundColor = new ColorMono(true).ToMagickColor();
