@@ -12,7 +12,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldWriteCorrectOutputImage()
         {
-            if (OperatingSystem.IsMacOS || (OperatingSystem.IsLinux && OperatingSystem.IsArm64))
+            if (OperatingSystem.IsMacOS)
             {
                 // There is no jpeg-xl support on macOS.
                 return;

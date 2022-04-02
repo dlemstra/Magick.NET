@@ -220,7 +220,7 @@ namespace Magick.NET.Tests
                             return false;
                     }
 
-                    if (OperatingSystem.IsMacOS || (OperatingSystem.IsLinux && OperatingSystem.IsArm64))
+                    if (OperatingSystem.IsMacOS)
                     {
                         if (format == MagickFormat.Jxl)
                             return false;
