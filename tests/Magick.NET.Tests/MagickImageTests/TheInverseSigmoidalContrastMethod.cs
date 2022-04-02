@@ -8,7 +8,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class TheInverseSigmoidalContrastMethod : MagickImageTests
+        public class TheInverseSigmoidalContrastMethod
         {
             [Fact]
             public void ShouldUseHalfOfQuantumForMidpointByDefault()
