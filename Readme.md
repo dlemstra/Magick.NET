@@ -83,7 +83,7 @@ Magick.NET uses [semantic versioning](https://semver.org/#semantic-versioning-20
 
 ## Sponsors
 
-- @HEIC-to-JPEG-Dev
+- [@HEIC-to-JPEG-Dev](https://github.com/HEIC-to-JPEG-Dev)
 
 ## Donate
 
