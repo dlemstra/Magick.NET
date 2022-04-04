@@ -1928,15 +1928,13 @@ namespace Magick.NET.Tests
                 image.VirtualPixelMethod = VirtualPixelMethod.Background;
                 image.Shear(20, 40);
 
-#if Q8
+                Assert.Equal(186, image.Width);
+                Assert.Equal(195, image.Height);
+
+                ColorAssert.Equal(MagickColors.Red, image, 14, 68);
                 ColorAssert.Equal(MagickColors.Firebrick, image, 45, 6);
-                ColorAssert.Equal(new MagickColor("#807b7bff"), image, 98, 86);
+                ColorAssert.Equal(MagickColors.Blue, image, 150, 171);
                 ColorAssert.Equal(MagickColors.Firebrick, image, 158, 181);
-#else
-                ColorAssert.Equal(MagickColors.Firebrick, image, 45, 6);
-                ColorAssert.Equal(new MagickColor("#80a27ac17ac1ffff"), image, 98, 86);
-                ColorAssert.Equal(MagickColors.Firebrick, image, 158, 181);
-#endif
             }
         }
 
