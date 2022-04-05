@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.0-28 (2022-03-20) ] copyright:
+[ ImageMagick 7.1.0-30 beta (2022-04-03) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -2946,7 +2946,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lcms 2.12 (2021-03-06) ] copyright:
+[ lcms 2.13,1 (2022-02-03) ] copyright:
 
 Little CMS
 Copyright (c) 1998-2020 Marti Maria Saguer
@@ -6612,7 +6612,7 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ webp 1.2.0 (2021-01-30) ] copyright:
+[ webp 1.2.2 (2022-01-11) ] copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
@@ -6647,7 +6647,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ zlib 1.2.11 (2017-01-15) ] copyright:
+[ zlib 1.2.12 (2022-03-27) ] copyright:
 
  (C) 1995-2017 Jean-loup Gailly and Mark Adler
 
