@@ -2,9 +2,9 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard21;netstandard20;net462</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
-    <AssemblyVersion>4.0.0</AssemblyVersion>
-    <FileVersion>4.0.19</FileVersion>
-    <Version>4.0.19</Version>
+    <AssemblyVersion>5.0.0</AssemblyVersion>
+    <FileVersion>5.0.0</FileVersion>
+    <Version>5.0.0</Version>
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 
