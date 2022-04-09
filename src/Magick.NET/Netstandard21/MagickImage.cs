@@ -636,7 +636,7 @@ namespace ImageMagick
             var seeker = new SeekStreamDelegate(wrapper.Seek);
             var teller = new TellStreamDelegate(wrapper.Tell);
 
-            _nativeInstance.ReadStream(Settings, reader, seeker, teller);
+            _nativeInstance.ReadStream(_settings, reader, seeker, teller);
 
             ResetSettings();
         }
@@ -648,7 +648,7 @@ namespace ImageMagick
 
             _settings.Ping = ping;
 
-            _nativeInstance.ReadBlob(Settings, data, 0, data.Length);
+            _nativeInstance.ReadBlob(_settings, data, 0, data.Length);
 
             ResetSettings();
         }
