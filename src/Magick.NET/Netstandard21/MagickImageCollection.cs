@@ -29,7 +29,8 @@ namespace ImageMagick
         /// <param name="data">The sequence of bytes to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(ReadOnlySequence<byte> data)
-            : this() => Read(data);
+            : this()
+            => Read(data);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -38,7 +39,8 @@ namespace ImageMagick
         /// <param name="format">The format to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(ReadOnlySequence<byte> data, MagickFormat format)
-            : this() => Read(data, format);
+            : this()
+            => Read(data, format);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -47,7 +49,8 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType> readSettings)
-            : this() => Read(data, readSettings);
+            : this()
+            => Read(data, readSettings);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -55,7 +58,8 @@ namespace ImageMagick
         /// <param name="data">The span of bytes to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(ReadOnlySpan<byte> data)
-            : this() => Read(data);
+            : this()
+            => Read(data);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -64,7 +68,8 @@ namespace ImageMagick
         /// <param name="format">The format to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(ReadOnlySpan<byte> data, MagickFormat format)
-            : this() => Read(data, format);
+            : this()
+            => Read(data, format);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageCollection"/> class.
@@ -73,7 +78,8 @@ namespace ImageMagick
         /// <param name="readSettings">The settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageCollection(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType> readSettings)
-            : this() => Read(data, readSettings);
+            : this()
+            => Read(data, readSettings);
 
         /// <summary>
         /// Read only metadata and not the pixel data from all image frames.

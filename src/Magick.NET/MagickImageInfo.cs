@@ -34,7 +34,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the information from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(byte[] data)
-          : this()
+            : this()
             => Read(data);
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(byte[] data, int offset, int count)
-          : this()
+            : this()
             => Read(data, offset, count);
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(FileInfo file)
-          : this()
+            : this()
             => Read(file);
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(Stream stream)
-          : this()
+            : this()
             => Read(stream);
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public MagickImageInfo(string fileName)
-          : this()
+            : this()
             => Read(fileName);
 
         /// <summary>
