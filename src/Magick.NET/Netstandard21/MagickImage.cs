@@ -317,6 +317,7 @@ namespace ImageMagick
 
             var bytes = await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
 
+            cancellationToken.ThrowIfCancellationRequested();
             Read(bytes, readSettings, false);
         }
 
@@ -417,6 +418,8 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             var data = await File.ReadAllBytesAsync(filePath, cancellationToken).ConfigureAwait(false);
+
+            cancellationToken.ThrowIfCancellationRequested();
             ReadPixels(data, 0, data.Length, settings);
         }
 
