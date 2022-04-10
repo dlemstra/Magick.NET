@@ -95,6 +95,18 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
+                public async Task ShouldUseTheFilename()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        await image.ReadAsync(Files.ImageMagickICO);
+                        Assert.Equal(64, image.Width);
+                        Assert.Equal(64, image.Height);
+                        Assert.Equal(MagickFormat.Ico, image.Format);
+                    }
+                }
+
+                [Fact]
                 public async Task ShouldNotUseBaseDirectoryOfCurrentAppDomainWhenFileNameIsTilde()
                 {
                     using (var image = new MagickImage())
