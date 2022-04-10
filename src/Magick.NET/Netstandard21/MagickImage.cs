@@ -493,9 +493,8 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(file), file);
 
-            var formatInfo = MagickFormatInfo.Create(file);
-
-            var bytes = formatInfo != null ? ToByteArray(formatInfo.Format) : ToByteArray();
+            var format = EnumHelper.ParseMagickFormatFromExtension(file);
+            var bytes = format != MagickFormat.Unknown ? ToByteArray(format) : ToByteArray();
             return File.WriteAllBytesAsync(file.FullName, bytes, cancellationToken);
         }
 
