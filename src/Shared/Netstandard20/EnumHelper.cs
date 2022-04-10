@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.IO;
 
 namespace ImageMagick
 {
@@ -35,6 +36,15 @@ namespace ImageMagick
         public static TEnum Parse<TEnum>(ushort value, TEnum defaultValue)
             where TEnum : struct, Enum
             => Parse((object)(int)value, defaultValue);
+
+        public static MagickFormat ParseMagickFormatFromExtension(FileInfo file)
+        {
+            MagickFormat format = default;
+            if (file.Extension != null && file.Extension.Length > 1)
+                format = Parse(file.Extension.Substring(1), MagickFormat.Unknown);
+
+            return format;
+        }
 
         private static TEnum Parse<TEnum>(object value, TEnum defaultValue)
             where TEnum : struct, Enum

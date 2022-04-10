@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.IO;
 
 namespace ImageMagick
 {
@@ -59,6 +60,15 @@ namespace ImageMagick
             }
 
             return defaultValue;
+        }
+
+        public static MagickFormat ParseMagickFormatFromExtension(FileInfo file)
+        {
+            MagickFormat format = default;
+            if (file.Extension != null && file.Extension.Length > 1)
+                format = Parse(file.Extension.Substring(1), MagickFormat.Unknown);
+
+            return format;
         }
     }
 }

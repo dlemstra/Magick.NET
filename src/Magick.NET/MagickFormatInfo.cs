@@ -77,9 +77,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(file), file);
 
-            MagickFormat format = default;
-            if (file.Extension != null && file.Extension.Length > 1)
-                format = EnumHelper.Parse(file.Extension.Substring(1), MagickFormat.Unknown);
+            var format = EnumHelper.ParseMagickFormatFromExtension(file);
 
             if (format == MagickFormat.Unknown)
                 return null;
