@@ -325,7 +325,7 @@ namespace ImageMagick
             var bytes = await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
 
             cancellationToken.ThrowIfCancellationRequested();
-            Read(bytes, readSettings, false);
+            Read(bytes, readSettings, false, fileName);
         }
 
         /// <summary>
@@ -647,12 +647,13 @@ namespace ImageMagick
             ResetSettings();
         }
 
-        private void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping)
+        private void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping, string? fileName = null)
         {
             var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
 
             _settings.Ping = ping;
+            _settings.FileName = fileName;
 
             _nativeInstance.ReadBlob(_settings, data, 0, data.Length);
 
