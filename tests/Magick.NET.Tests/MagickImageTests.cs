@@ -23,16 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_AdaptiveThreshold()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.AdaptiveThreshold(10, 10);
-                ColorAssert.Equal(MagickColors.White, image, 50, 75);
-            }
-        }
-
-        [Fact]
         public void Test_AnimationDelay()
         {
             using (var image = new MagickImage())
