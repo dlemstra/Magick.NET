@@ -13,6 +13,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheFontWhenReadingImage()
             {
+                if (OperatingSystem.IsMacOS)
+                    return;
+
                 using (var image = new MagickImage())
                 {
                     Assert.Null(image.Settings.Font);
@@ -21,13 +24,9 @@ namespace Magick.NET.Tests
                     image.Settings.FontPointsize = 40;
                     image.Read("pango:Test");
 
-                    // Different result on MacOS
-                    if (image.Width != 40)
-                    {
-                        Assert.Equal(128, image.Width);
-                        Assert.Contains(image.Height, new[] { 58, 62 });
-                        ColorAssert.Equal(MagickColors.Black, image, 26, 22);
-                    }
+                    Assert.Equal(128, image.Width);
+                    Assert.Contains(image.Height, new[] { 58, 62 });
+                    ColorAssert.Equal(MagickColors.Black, image, 26, 22);
                 }
             }
         }
