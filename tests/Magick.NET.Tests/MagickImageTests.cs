@@ -23,22 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_AnimationDelay()
-        {
-            using (var image = new MagickImage())
-            {
-                image.AnimationDelay = 60;
-                Assert.Equal(60, image.AnimationDelay);
-
-                image.AnimationDelay = -1;
-                Assert.Equal(60, image.AnimationDelay);
-
-                image.AnimationDelay = 0;
-                Assert.Equal(0, image.AnimationDelay);
-            }
-        }
-
-        [Fact]
         public void Test_AnimationIterations()
         {
             using (var image = new MagickImage())
