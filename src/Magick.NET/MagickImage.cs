@@ -1200,16 +1200,14 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Extracts the 'mean' from the image and adjust the image to try make set its gamma.
-        /// appropriatally.
+        /// Extracts the 'mean' from the image and adjust the image to try make set its gamma appropriatally.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void AutoGamma()
             => AutoGamma(ImageMagick.Channels.Composite);
 
         /// <summary>
-        /// Extracts the 'mean' from the image and adjust the image to try make set its gamma.
-        /// appropriatally.
+        /// Extracts the 'mean' from the image and adjust the image to try make set its gamma appropriatally.
         /// </summary>
         /// <param name="channels">The channel(s) to set the gamma for.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
