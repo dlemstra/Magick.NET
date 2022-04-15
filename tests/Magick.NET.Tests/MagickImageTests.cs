@@ -23,17 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_BlackThreshold()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.BlackThreshold(new Percentage(90));
-                ColorAssert.Equal(MagickColors.Black, image, 43, 74);
-                ColorAssert.Equal(new MagickColor("#0000f8"), image, 60, 74);
-            }
-        }
-
-        [Fact]
         public void Test_BackgroundColor()
         {
             using (var image = new MagickImage("xc:red", 1, 1))
