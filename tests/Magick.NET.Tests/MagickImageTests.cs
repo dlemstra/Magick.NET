@@ -23,26 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_BackgroundColor()
-        {
-            using (var image = new MagickImage("xc:red", 1, 1))
-            {
-                ColorAssert.Equal(new MagickColor("White"), image.BackgroundColor);
-            }
-
-            MagickColor red = new MagickColor("Red");
-
-            using (var image = new MagickImage(red, 1, 1))
-            {
-                ColorAssert.Equal(red, image.BackgroundColor);
-
-                image.Read(new MagickColor("Purple"), 1, 1);
-
-                ColorAssert.Equal(MagickColors.Purple, image.BackgroundColor);
-            }
-        }
-
-        [Fact]
         public void Test_BitDepth()
         {
             using (var image = new MagickImage(Files.RoseSparkleGIF))

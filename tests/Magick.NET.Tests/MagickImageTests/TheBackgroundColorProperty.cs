@@ -24,6 +24,39 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
+            public void ShouldHaveWhiteAsTheDefaultColor()
+            {
+                using (var image = new MagickImage("xc:red", 1, 1))
+                {
+                    ColorAssert.Equal(new MagickColor("White"), image.BackgroundColor);
+                }
+            }
+
+            [Fact]
+            public void ShouldBeSetFromTheConstructor()
+            {
+                var red = new MagickColor("Red");
+
+                using (var image = new MagickImage(red, 1, 1))
+                {
+                    ColorAssert.Equal(red, image.BackgroundColor);
+                }
+            }
+
+            [Fact]
+            public void ShouldBeSetWhenReadingMagickColor()
+            {
+                using (var image = new MagickImage())
+                {
+                    var purple = MagickColors.Purple;
+
+                    image.Read(purple, 1, 1);
+
+                    ColorAssert.Equal(purple, image.BackgroundColor);
+                }
+            }
+
+            [Fact]
             public void ShouldSetTheBackgroundColorWhenReadingImage()
             {
                 using (var image = new MagickImage())
