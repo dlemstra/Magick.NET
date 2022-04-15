@@ -23,22 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_AnimationIterations()
-        {
-            using (var image = new MagickImage())
-            {
-                image.AnimationIterations = 60;
-                Assert.Equal(60, image.AnimationIterations);
-
-                image.AnimationIterations = -1;
-                Assert.Equal(60, image.AnimationIterations);
-
-                image.AnimationIterations = 0;
-                Assert.Equal(0, image.AnimationIterations);
-            }
-        }
-
-        [Fact]
         public void Test_AutoGamma()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
