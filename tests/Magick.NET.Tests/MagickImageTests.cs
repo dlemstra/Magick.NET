@@ -23,17 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_AutoGamma()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.AutoGamma();
-
-                ColorAssert.Equal(new MagickColor("#00000003017E"), image, 496, 429);
-            }
-        }
-
-        [Fact]
         public void Test_BlackThreshold()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
