@@ -23,18 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_BitDepth()
-        {
-            using (var image = new MagickImage(Files.RoseSparkleGIF))
-            {
-                Assert.Equal(8, image.BitDepth());
-
-                image.Threshold((Percentage)50);
-                Assert.Equal(1, image.BitDepth());
-            }
-        }
-
-        [Fact]
         public void Test_BlueShift()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
