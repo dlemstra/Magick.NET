@@ -37,12 +37,7 @@ namespace Magick.NET.Tests
 #endif
 
                 ColorAssert.Equal(MagickColors.White, image, 180, 80);
-
-#if Q8 || Q16
                 ColorAssert.Equal(new MagickColor("#ac2cb333c848"), image, 350, 265);
-#else
-                ColorAssert.Equal(new MagickColor("#ac2cb333c848"), image, 350, 265);
-#endif
             }
         }
 
