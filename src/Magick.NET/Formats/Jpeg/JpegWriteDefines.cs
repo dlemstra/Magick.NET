@@ -77,25 +77,16 @@ namespace ImageMagick.Formats
             }
         }
 
-        private string CreateSamplingFactors(JpegSamplingFactor samplingFactor)
-        {
-            switch (samplingFactor)
+        private static string CreateSamplingFactors(JpegSamplingFactor samplingFactor)
+            => samplingFactor switch
             {
-                case JpegSamplingFactor.Ratio410:
-                    return "4x2,1x1,1x1";
-                case JpegSamplingFactor.Ratio411:
-                    return "4x1,1x1,1x1";
-                case JpegSamplingFactor.Ratio420:
-                    return "2x2,1x1,1x1";
-                case JpegSamplingFactor.Ratio422:
-                    return "2x1,1x1,1x1";
-                case JpegSamplingFactor.Ratio440:
-                    return "1x2,1x1,1x1";
-                case JpegSamplingFactor.Ratio444:
-                    return "1x1,1x1,1x1";
-                default:
-                    throw new InvalidOperationException();
-            }
-        }
+                JpegSamplingFactor.Ratio410 => "4x2,1x1,1x1",
+                JpegSamplingFactor.Ratio411 => "4x1,1x1,1x1",
+                JpegSamplingFactor.Ratio420 => "2x2,1x1,1x1",
+                JpegSamplingFactor.Ratio422 => "2x1,1x1,1x1",
+                JpegSamplingFactor.Ratio440 => "1x2,1x1,1x1",
+                JpegSamplingFactor.Ratio444 => "1x1,1x1,1x1",
+                _ => throw new InvalidOperationException(),
+            };
     }
 }
