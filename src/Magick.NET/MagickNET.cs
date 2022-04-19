@@ -26,7 +26,7 @@ namespace ImageMagick
         {
             add
             {
-                if (_log == null)
+                if (_log is null)
                 {
                     _nativeLog = new LogDelegate(OnLog);
                     NativeMagickNET.SetLogDelegate(_nativeLog);
@@ -40,7 +40,7 @@ namespace ImageMagick
             {
                 _log -= value;
 
-                if (_log == null)
+                if (_log is null)
                 {
                     NativeMagickNET.SetLogDelegate(null);
                     NativeMagickNET.SetLogEvents("None");
@@ -346,7 +346,7 @@ namespace ImageMagick
 
         private static void OnLog(UIntPtr type, IntPtr text)
         {
-            if (_log == null)
+            if (_log is null)
                 return;
 
             var managedText = UTF8Marshaler.NativeToManaged(text);

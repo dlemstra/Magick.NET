@@ -10,7 +10,7 @@ using (var image = new MagickImage("c:\path\to\FujiFilmFinePixS1Pro.jpg"))
     var profile = image.GetExifProfile();
 
     // Check if image contains an exif profile
-    if (profile == null)
+    if (profile is null)
         Console.WriteLine("Image does not contain exif information.");
     else
     {

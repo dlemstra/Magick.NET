@@ -83,7 +83,7 @@ namespace ImageMagick
             ImageOptimizerHelper.CheckStream(stream);
 
             var optimizer = GetOptimizer(stream);
-            if (optimizer == null)
+            if (optimizer is null)
                 return false;
 
             optimizer.OptimalCompression = OptimalCompression;
@@ -105,7 +105,7 @@ namespace ImageMagick
         /// <returns>True when the supplied formation information is supported.</returns>
         public bool IsSupported(IMagickFormatInfo? formatInfo)
         {
-            if (formatInfo == null)
+            if (formatInfo is null)
                 return false;
 
             foreach (var optimizer in _optimizers)
@@ -177,7 +177,7 @@ namespace ImageMagick
             ImageOptimizerHelper.CheckStream(stream);
 
             var optimizer = GetOptimizer(stream);
-            if (optimizer == null)
+            if (optimizer is null)
                 return false;
 
             optimizer.OptimalCompression = OptimalCompression;
@@ -198,7 +198,7 @@ namespace ImageMagick
         private bool DoLosslessCompress(FileInfo file)
         {
             var optimizer = GetOptimizer(file);
-            if (optimizer == null)
+            if (optimizer is null)
                 return false;
 
             optimizer.OptimalCompression = OptimalCompression;
@@ -208,7 +208,7 @@ namespace ImageMagick
         private bool DoCompress(FileInfo file)
         {
             var optimizer = GetOptimizer(file);
-            if (optimizer == null)
+            if (optimizer is null)
                 return false;
 
             optimizer.OptimalCompression = OptimalCompression;
@@ -229,7 +229,7 @@ namespace ImageMagick
 
         private IImageOptimizer? GetOptimizer(IMagickFormatInfo? info)
         {
-            if (info == null)
+            if (info is null)
                 return null;
 
             foreach (var optimizer in _optimizers)

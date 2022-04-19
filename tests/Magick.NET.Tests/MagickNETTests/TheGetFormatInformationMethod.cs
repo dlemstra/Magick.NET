@@ -198,7 +198,7 @@ namespace Magick.NET.Tests
                             continue;
 
                         var formatInfo = MagickNET.GetFormatInformation(format);
-                        if (formatInfo == null)
+                        if (formatInfo is null)
                         {
                             if (ShouldReport(format))
                                 missingFormats.Add(format.ToString());

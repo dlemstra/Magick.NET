@@ -80,7 +80,7 @@ namespace ImageMagick
         /// <returns>A <see cref="ColorRGB"/> instance.</returns>
         public static ColorRGB? FromMagickColor(IMagickColor<QuantumType> color)
         {
-            if (color == null)
+            if (color is null)
                 return null;
 
             return new ColorRGB(color);
@@ -93,7 +93,7 @@ namespace ImageMagick
         public ColorRGB? ComplementaryColor()
         {
             var hsv = ColorHSV.FromMagickColor(ToMagickColor());
-            if (hsv == null)
+            if (hsv is null)
                 return null;
 
             hsv.HueShift(180);

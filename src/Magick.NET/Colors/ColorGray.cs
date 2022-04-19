@@ -74,7 +74,7 @@ namespace ImageMagick
         /// <returns>A <see cref="ColorGray"/> instance.</returns>
         public static ColorGray? FromMagickColor(MagickColor color)
         {
-            if (color == null)
+            if (color is null)
                 return null;
 
             return new ColorGray(color);

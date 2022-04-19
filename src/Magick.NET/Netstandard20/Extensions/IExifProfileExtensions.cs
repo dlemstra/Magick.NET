@@ -39,7 +39,7 @@ namespace ImageMagick
 
             var data = self.GetData();
 
-            if (data == null || data.Length < (thumbnailOffset + thumbnailLength))
+            if (data is null || data.Length < (thumbnailOffset + thumbnailLength))
                 return null;
 
             var result = new byte[thumbnailLength];

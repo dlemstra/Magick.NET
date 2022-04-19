@@ -234,7 +234,7 @@ namespace ImageMagick
             get => _images[index];
             set
             {
-                if (value == null)
+                if (value is null)
                     throw new InvalidOperationException("Not allowed to add null value.");
 
                 if (!ReferenceEquals(value, _images[index]))
@@ -1494,7 +1494,7 @@ namespace ImageMagick
 
         private static MagickSettings CreateSettings(IMagickReadSettings<QuantumType>? readSettings)
         {
-            if (readSettings == null)
+            if (readSettings is null)
                 return new MagickSettings();
 
             return new MagickReadSettings(readSettings);
@@ -1502,7 +1502,7 @@ namespace ImageMagick
 
         private static string ToBase64(byte[] bytes)
         {
-            if (bytes == null)
+            if (bytes is null)
                 return string.Empty;
 
             return Convert.ToBase64String(bytes);

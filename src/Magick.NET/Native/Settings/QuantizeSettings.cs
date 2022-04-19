@@ -234,7 +234,7 @@ namespace ImageMagick
         }
         internal static INativeInstance CreateInstance(IQuantizeSettings? instance)
         {
-            if (instance == null)
+            if (instance is null)
                 return NativeInstance.Zero;
             return QuantizeSettings.CreateNativeInstance(instance);
         }

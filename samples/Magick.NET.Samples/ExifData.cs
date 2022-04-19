@@ -17,7 +17,7 @@ namespace Magick.NET.Samples
                 var profile = image.GetExifProfile();
 
                 // Check if image contains an exif profile
-                if (profile == null)
+                if (profile is null)
                     Console.WriteLine("Image does not contain exif information.");
                 else
                 {

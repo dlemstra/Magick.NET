@@ -41,7 +41,7 @@ namespace ImageMagick
                 return null;
 
             var data = GetDataFromMemoryStreamBuffer(memStream, out var length);
-            if (data == null)
+            if (data is null)
                 return null;
 
             return new Bytes(data, length);

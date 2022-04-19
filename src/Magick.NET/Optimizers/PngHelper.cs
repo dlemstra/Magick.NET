@@ -44,7 +44,7 @@ namespace ImageMagick.ImageOptimizers
                     image.Quality = quality;
                     image.Write(tempFile);
 
-                    if (bestFile == null || bestFile.Length > tempFile.Length)
+                    if (bestFile is null || bestFile.Length > tempFile.Length)
                     {
                         if (bestFile != null)
                             bestFile.Dispose();
@@ -81,7 +81,7 @@ namespace ImageMagick.ImageOptimizers
                     image.Quality = quality;
                     image.Write(memStream);
 
-                    if (bestStream == null || memStream.Length < bestStream.Length)
+                    if (bestStream is null || memStream.Length < bestStream.Length)
                     {
                         if (bestStream != null)
                             bestStream.Dispose();

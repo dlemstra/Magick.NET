@@ -152,7 +152,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
 
             var magickImage = image as MagickImage;
-            if (magickImage == null)
+            if (magickImage is null)
                 throw new NotSupportedException();
 
             SetSettings(magickImage._settings.Clone());
@@ -247,7 +247,7 @@ namespace ImageMagick
         {
             add
             {
-                if (_progress == null)
+                if (_progress is null)
                 {
                     _nativeProgress = new ProgressDelegate(OnProgress);
                     _nativeInstance.SetProgressDelegate(_nativeProgress);
@@ -260,7 +260,7 @@ namespace ImageMagick
             {
                 _progress -= value;
 
-                if (_progress == null)
+                if (_progress is null)
                 {
                     _nativeInstance.SetProgressDelegate(null);
                     _nativeProgress = null;
@@ -407,7 +407,7 @@ namespace ImageMagick
             get
             {
                 var boundingBox = _nativeInstance.BoundingBox;
-                if (boundingBox == null)
+                if (boundingBox is null)
                     throw new MagickErrorException("Unable to allocate rectangle");
 
                 var rectangle = MagickGeometry.FromRectangle(boundingBox);
@@ -578,7 +578,7 @@ namespace ImageMagick
             get => new Density(_nativeInstance.ResolutionX, _nativeInstance.ResolutionY, _nativeInstance.ResolutionUnits);
             set
             {
-                if (value == null)
+                if (value is null)
                     return;
 
                 _nativeInstance.ResolutionX = value.X;
@@ -769,7 +769,7 @@ namespace ImageMagick
             get
             {
                 var page = _nativeInstance.Page;
-                if (page == null)
+                if (page is null)
                     throw new MagickErrorException("Unable to allocate rectangle");
 
                 return MagickGeometry.FromRectangle(page);
@@ -1813,7 +1813,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(difference), difference);
 
             var differenceImage = difference as MagickImage;
-            if (differenceImage == null)
+            if (differenceImage is null)
                 throw new NotSupportedException();
 
             ArtifactsHelper.SetImageArtifacts(this, settings);
@@ -3234,7 +3234,7 @@ namespace ImageMagick
         public IEightBimProfile? Get8BimProfile()
         {
             var info = _nativeInstance.GetProfile("8bim");
-            if (info == null || info.Datum == null)
+            if (info is null || info.Datum is null)
                 return null;
 
             return new EightBimProfile(this, info.Datum);
@@ -3314,7 +3314,7 @@ namespace ImageMagick
         public IExifProfile? GetExifProfile()
         {
             var info = _nativeInstance.GetProfile("exif");
-            if (info == null || info.Datum == null)
+            if (info is null || info.Datum is null)
                 return null;
 
             return new ExifProfile(info.Datum);
@@ -3343,7 +3343,7 @@ namespace ImageMagick
         public IIptcProfile? GetIptcProfile()
         {
             var info = _nativeInstance.GetProfile("iptc");
-            if (info == null || info.Datum == null)
+            if (info is null || info.Datum is null)
                 return null;
 
             return new IptcProfile(info.Datum);
@@ -3387,7 +3387,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(name), name);
 
             var info = _nativeInstance.GetProfile(name);
-            if (info == null || info.Datum == null)
+            if (info is null || info.Datum is null)
                 return null;
 
             return new ImageProfile(name, info.Datum);
@@ -3417,7 +3417,7 @@ namespace ImageMagick
         public IXmpProfile? GetXmpProfile()
         {
             var info = _nativeInstance.GetProfile("xmp");
-            if (info == null || info.Datum == null)
+            if (info is null || info.Datum is null)
                 return null;
 
             return new XmpProfile(info.Datum);
@@ -5736,7 +5736,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(profile), profile);
 
             var datum = profile.ToByteArray();
-            if (datum == null || datum.Length == 0)
+            if (datum is null || datum.Length == 0)
                 return;
 
             _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
@@ -5761,7 +5761,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(profile), profile);
 
             var datum = profile.ToByteArray();
-            if (datum == null || datum.Length == 0)
+            if (datum is null || datum.Length == 0)
                 return;
 
             if (mode == ColorTransformMode.Quantum)
@@ -6997,7 +6997,7 @@ namespace ImageMagick
 
         internal static IntPtr GetInstance(IMagickImage? image)
         {
-            if (image == null)
+            if (image is null)
                 return IntPtr.Zero;
 
             if (image is MagickImage magickImage)
@@ -7041,7 +7041,7 @@ namespace ImageMagick
 
         private static string ToBase64(byte[] bytes)
         {
-            if (bytes == null)
+            if (bytes is null)
                 return string.Empty;
 
             return Convert.ToBase64String(bytes);
@@ -7082,7 +7082,7 @@ namespace ImageMagick
                 Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The frame count can only be set to 1 when a single image is being read.");
 
             MagickReadSettings newReadSettings;
-            if (readSettings == null)
+            if (readSettings is null)
                 newReadSettings = new MagickReadSettings(_settings);
             else
                 newReadSettings = new MagickReadSettings(readSettings);
@@ -7105,7 +7105,7 @@ namespace ImageMagick
 
         private void DisposeInstance()
         {
-            if (_nativeInstance == null)
+            if (_nativeInstance is null)
                 return;
 
             _nativeInstance.Warning -= OnWarning;
@@ -7215,7 +7215,7 @@ namespace ImageMagick
         private ColorProfile? GetColorProfile(string name)
         {
             var info = _nativeInstance.GetProfile(name);
-            if (info == null || info.Datum == null)
+            if (info is null || info.Datum is null)
                 return null;
 
             return new ColorProfile(name, info.Datum);
@@ -7223,7 +7223,7 @@ namespace ImageMagick
 
         private void OnArtifact(object sender, ArtifactEventArgs arguments)
         {
-            if (arguments.Value == null)
+            if (arguments.Value is null)
                 RemoveArtifact(arguments.Key);
             else
                 SetArtifact(arguments.Key, arguments.Value);
@@ -7231,7 +7231,7 @@ namespace ImageMagick
 
         private bool OnProgress(IntPtr origin, long offset, ulong extent, IntPtr userData)
         {
-            if (_progress == null)
+            if (_progress is null)
                 return true;
 
             var managedOrigin = UTF8Marshaler.NativeToManaged(origin);

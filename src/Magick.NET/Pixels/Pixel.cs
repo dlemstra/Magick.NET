@@ -171,7 +171,7 @@ namespace ImageMagick
         /// <param name="values">The values.</param>
         public void SetValues(QuantumType[] values)
         {
-            if (values == null || values.Length != _value.Length)
+            if (values is null || values.Length != _value.Length)
                 return;
 
             Array.Copy(values, 0, _value, 0, _value.Length);
@@ -229,7 +229,7 @@ namespace ImageMagick
 
         private QuantumType[] GetValueWithoutIndexChannel()
         {
-            if (_collection == null)
+            if (_collection is null)
                 return _value;
 
             var index = _collection.GetIndex(PixelChannel.Index);

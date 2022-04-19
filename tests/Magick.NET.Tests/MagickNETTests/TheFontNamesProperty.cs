@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
             {
                 var fontNames = MagickNET.FontNames.ToArray();
                 var fontName = fontNames.FirstOrDefault(f => f == "Arial");
-                if (fontName == null)
+                if (fontName is null)
                     throw new XunitException($"Unable to find Arial in font families: {string.Join(",", fontNames)}");
             }
         }

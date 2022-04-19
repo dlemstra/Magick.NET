@@ -234,7 +234,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(pageSize), pageSize);
 
             var rectangle = MagickRectangle.FromPageSize(pageSize);
-            if (rectangle == null)
+            if (rectangle is null)
                 throw new InvalidOperationException("Invalid page size specified.");
 
             return FromRectangle(rectangle);
@@ -399,7 +399,7 @@ namespace ImageMagick
 
         internal static IMagickGeometry? Clone(IMagickGeometry? value)
         {
-            if (value == null)
+            if (value is null)
                 return null;
 
             return new MagickGeometry
@@ -422,7 +422,7 @@ namespace ImageMagick
             => new MagickGeometry(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 
         internal static IMagickGeometry? FromString(string? value)
-            => value == null ? null : new MagickGeometry(value);
+            => value is null ? null : new MagickGeometry(value);
 
         private static int ParseInt(string value)
         {

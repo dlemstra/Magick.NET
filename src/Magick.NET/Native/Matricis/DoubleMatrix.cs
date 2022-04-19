@@ -102,7 +102,7 @@ namespace ImageMagick
         }
         internal static INativeInstance CreateInstance(IDoubleMatrix? instance)
         {
-            if (instance == null)
+            if (instance is null)
                 return NativeInstance.Zero;
             return DoubleMatrix.CreateNativeInstance(instance);
         }

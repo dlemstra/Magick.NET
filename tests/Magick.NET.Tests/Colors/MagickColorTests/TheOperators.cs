@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
             {
                 var color = MagickColors.Red;
 
-                Assert.False(color == null);
+                Assert.False(color is null);
                 Assert.True(color != null);
                 Assert.False(color < null);
                 Assert.False(color <= null);

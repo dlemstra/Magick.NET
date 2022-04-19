@@ -61,7 +61,7 @@ namespace ImageMagick
         /// <returns>A <see cref="ColorMono"/> instance.</returns>
         public static ColorMono? FromMagickColor(IMagickColor<QuantumType> color)
         {
-            if (color == null)
+            if (color is null)
                 return null;
 
             return new ColorMono(color);

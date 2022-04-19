@@ -1108,7 +1108,7 @@ namespace ImageMagick
                     result = NativeMethods.X86.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
                     #endif
                     var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
+                    if (magickException is null)
                         return result;
                     if (magickException is MagickErrorException)
                     {

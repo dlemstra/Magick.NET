@@ -30,7 +30,7 @@ namespace ImageMagick
 
         protected void RaiseWarning(MagickException? exception)
         {
-            if (_warningEvent == null)
+            if (_warningEvent is null)
                 return;
 
             if (exception is MagickWarningException warning)

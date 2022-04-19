@@ -24,7 +24,7 @@ namespace ImageMagick
 
         public static ExifData Read(byte[] data)
         {
-            if (data == null || data.Length == 0)
+            if (data is null || data.Length == 0)
                 return new ExifData();
 
             var reader = new ExifReader(data);
@@ -81,7 +81,7 @@ namespace ImageMagick
             for (ushort i = 0; i < count; i++)
             {
                 var value = CreateValue();
-                if (value == null)
+                if (value is null)
                     continue;
 
                 var duplicate = false;
@@ -138,7 +138,7 @@ namespace ImageMagick
                     value = CreateValue(tag, dataType, numberOfComponents);
             }
 
-            if (value == null)
+            if (value is null)
                 _data.InvalidTags.Add(new UnkownExifTag(tag));
 
             _reader.Seek(oldIndex + 4);
@@ -152,10 +152,10 @@ namespace ImageMagick
                 return null;
 
             var exifValue = ExifValues.Create(tag);
-            if (exifValue == null)
+            if (exifValue is null)
                 exifValue = ExifValues.Create(tag, dataType, numberOfComponents);
 
-            if (exifValue == null)
+            if (exifValue is null)
                 return null;
 
             var value = ReadValue(dataType, numberOfComponents);
@@ -260,11 +260,11 @@ namespace ImageMagick
         private Rational ReadRational()
         {
             var numerator = _reader.ReadLong();
-            if (numerator == null)
+            if (numerator is null)
                 return default;
 
             var denominator = _reader.ReadLong();
-            if (denominator == null)
+            if (denominator is null)
                 return default;
 
             return new Rational(numerator.Value, denominator.Value, false);
@@ -273,11 +273,11 @@ namespace ImageMagick
         private unsafe SignedRational ReadSignedRational()
         {
             var numerator = _reader.ReadLong();
-            if (numerator == null)
+            if (numerator is null)
                 return default;
 
             var denominator = _reader.ReadLong();
-            if (denominator == null)
+            if (denominator is null)
                 return default;
 
             var num = numerator.Value;

@@ -42,7 +42,7 @@ namespace ImageMagick
         {
             get
             {
-                if (_x == -1 || _row == null)
+                if (_x == -1 || _row is null)
                     throw new InvalidOperationException();
 
                 var pixel = new QuantumType[_collection.Channels];

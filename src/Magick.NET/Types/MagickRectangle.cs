@@ -36,7 +36,7 @@ namespace ImageMagick
 
         public static MagickRectangle? FromGeometry(IMagickGeometry geometry, MagickImage image)
         {
-            if (geometry == null)
+            if (geometry is null)
                 return null;
 
             var width = geometry.Width;

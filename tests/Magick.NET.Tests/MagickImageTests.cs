@@ -1031,7 +1031,7 @@ namespace Magick.NET.Tests
         {
             MagickImage first = new MagickImage(MagickColors.Red, 10, 10);
 
-            Assert.False(first == null);
+            Assert.False(first is null);
             Assert.False(first.Equals(null));
             Assert.True(first.Equals(first));
             Assert.True(first.Equals((object)first));
@@ -1051,7 +1051,7 @@ namespace Magick.NET.Tests
             second.Dispose();
 
             first = null;
-            Assert.True(first == null);
+            Assert.True(first is null);
             Assert.False(first != null);
         }
 

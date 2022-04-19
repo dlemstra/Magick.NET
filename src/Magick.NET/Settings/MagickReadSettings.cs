@@ -153,7 +153,7 @@ namespace ImageMagick
 
         private void ApplyDefines()
         {
-            if (Defines == null)
+            if (Defines is null)
                 return;
 
             foreach (var define in Defines.Defines)

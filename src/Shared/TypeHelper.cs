@@ -18,7 +18,7 @@ namespace ImageMagick
             where T : Attribute
         {
             var field = value.GetType().GetField(value.ToString());
-            if (field == null)
+            if (field is null)
                 return null;
 
             return (T[])field.GetCustomAttributes(typeof(T), false);

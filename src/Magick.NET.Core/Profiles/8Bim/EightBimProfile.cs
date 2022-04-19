@@ -120,7 +120,7 @@ namespace ImageMagick
                 return null;
 
             var data = GetData();
-            if (data == null)
+            if (data is null)
                 return null;
 
             return ClipPathReader.Read(_width, _height, data, offset, length);
@@ -136,7 +136,7 @@ namespace ImageMagick
             _values = new Collection<IEightBimValue>();
 
             var data = GetData();
-            if (data == null)
+            if (data is null)
                 return;
 
             int i = 0;

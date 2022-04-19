@@ -154,7 +154,7 @@ namespace ImageMagick
         private static Encoding? GetTextEncoding(NativeDrawingSettings instance)
         {
             var name = instance.TextEncoding;
-            if (name == null || name.Length == 0)
+            if (name is null || name.Length == 0)
                 return null;
 
             try

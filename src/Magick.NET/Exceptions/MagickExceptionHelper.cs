@@ -11,7 +11,7 @@ namespace ImageMagick
         public static MagickException? Check(IntPtr exception)
         {
             var magickException = Create(exception);
-            if (magickException == null)
+            if (magickException is null)
                 return null;
 
             if (magickException is MagickErrorException)
@@ -41,7 +41,7 @@ namespace ImageMagick
             if (!string.IsNullOrEmpty(description))
                 message += " (" + description + ")";
 
-            if (message == null || message.Length == 0)
+            if (message is null || message.Length == 0)
                 message = string.Empty;
 
             var result = Create(severity, message);

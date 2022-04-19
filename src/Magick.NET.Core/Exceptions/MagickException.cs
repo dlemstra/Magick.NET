@@ -29,7 +29,7 @@ namespace ImageMagick
         {
             get
             {
-                if (_relatedExceptions == null)
+                if (_relatedExceptions is null)
                     return new MagickException[0];
 
                 return _relatedExceptions;

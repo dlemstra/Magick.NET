@@ -30,7 +30,7 @@ namespace ImageMagick
 
         internal static IntPtr ManagedToNative(string? value)
         {
-            if (value == null)
+            if (value is null)
                 return IntPtr.Zero;
 
             // not null terminated
@@ -50,7 +50,7 @@ namespace ImageMagick
         internal static string? NativeToManaged(IntPtr nativeData)
         {
             var strbuf = ByteConverter.ToArray(nativeData);
-            if (strbuf == null)
+            if (strbuf is null)
                 return null;
 
             if (strbuf.Length == 0)

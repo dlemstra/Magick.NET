@@ -237,7 +237,7 @@ namespace ImageMagick
                     result = NativeMethods.X86.PixelCollection_ToByteArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
                     #endif
                     var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
+                    if (magickException is null)
                         return result;
                     if (magickException is MagickErrorException)
                     {
@@ -274,7 +274,7 @@ namespace ImageMagick
                     result = NativeMethods.X86.PixelCollection_ToShortArray(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
                     #endif
                     var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
+                    if (magickException is null)
                         return result;
                     if (magickException is MagickErrorException)
                     {

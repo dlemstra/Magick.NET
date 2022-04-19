@@ -597,7 +597,7 @@ namespace ImageMagick
         /// <param name="settings">The settings to copy the data from.</param>
         protected void CopyFrom(MagickSettings settings)
         {
-            if (settings == null)
+            if (settings is null)
                 return;
 
             AntiAlias = settings.AntiAlias;
@@ -663,7 +663,7 @@ namespace ImageMagick
         private static MagickFormat GetModule(MagickFormat format)
         {
             var formatInfo = MagickNET.GetFormatInformation(format);
-            if (formatInfo == null)
+            if (formatInfo is null)
                 return format;
 
             return formatInfo.ModuleFormat;
@@ -671,7 +671,7 @@ namespace ImageMagick
 
         private static Density? CreateDensity(string? value)
         {
-            if (value == null || value.Length == 0)
+            if (value is null || value.Length == 0)
                 return null;
 
             return new Density(value);
@@ -679,7 +679,7 @@ namespace ImageMagick
 
         private static Density? CloneDensity(Density? density)
         {
-            if (density == null)
+            if (density is null)
                 return null;
 
             return new Density(density.X, density.Y, density.Units);

@@ -204,7 +204,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Append(MagickImage.GetInstance(image), stack, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -238,7 +238,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Coalesce(MagickImage.GetInstance(image), out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -272,7 +272,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Combine(MagickImage.GetInstance(image), (UIntPtr)colorSpace, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -306,7 +306,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Complex(MagickImage.GetInstance(image), (UIntPtr)complexOperator, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -340,7 +340,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Deconstruct(MagickImage.GetInstance(image), out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -395,7 +395,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Evaluate(MagickImage.GetInstance(image), (UIntPtr)evaluateOperator, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -455,7 +455,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Merge(MagickImage.GetInstance(image), (UIntPtr)method, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -491,7 +491,7 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImageCollection_Montage(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
                     #endif
                     var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
+                    if (magickException is null)
                         return result;
                     if (magickException is MagickErrorException)
                     {
@@ -526,7 +526,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Morph(MagickImage.GetInstance(image), (UIntPtr)frames, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -560,7 +560,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Optimize(MagickImage.GetInstance(image), out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -594,7 +594,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_OptimizePlus(MagickImage.GetInstance(image), out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -653,7 +653,7 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImageCollection_Polynomial(MagickImage.GetInstance(image), termsFixed, (UIntPtr)length, out exception);
                     #endif
                     var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
+                    if (magickException is null)
                         return result;
                     if (magickException is MagickErrorException)
                     {
@@ -718,7 +718,7 @@ namespace ImageMagick
                         result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                         #endif
                         var magickException = MagickExceptionHelper.Create(exception);
-                        if (magickException == null)
+                        if (magickException is null)
                             return result;
                         if (magickException is MagickErrorException)
                         {
@@ -759,7 +759,7 @@ namespace ImageMagick
                         result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                         #endif
                         var magickException = MagickExceptionHelper.Create(exception);
-                        if (magickException == null)
+                        if (magickException is null)
                             return result;
                         if (magickException is MagickErrorException)
                         {
@@ -798,7 +798,7 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
                     #endif
                     var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
+                    if (magickException is null)
                         return result;
                     if (magickException is MagickErrorException)
                     {
@@ -835,7 +835,7 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
                     #endif
                     var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
+                    if (magickException is null)
                         return result;
                     if (magickException is MagickErrorException)
                     {
@@ -870,7 +870,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImageCollection_Smush(MagickImage.GetInstance(image), (IntPtr)offset, stack, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {

@@ -41,7 +41,7 @@ namespace ImageMagick
         /// <param name="wand">The want to draw on.</param>
         void IDrawingWand.Draw(DrawingWand wand)
         {
-            if (wand == null)
+            if (wand is null)
                 return;
 
             wand.PathStart();

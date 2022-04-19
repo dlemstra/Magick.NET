@@ -39,7 +39,7 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_constructor == null)
+                if (_constructor is null)
                     _constructor = new MagickConstructor();
 
                 return _constructor;

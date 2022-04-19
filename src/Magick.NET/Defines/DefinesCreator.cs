@@ -107,7 +107,7 @@ namespace ImageMagick.Defines
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
         protected MagickDefine? CreateDefine<T>(string name, IEnumerable<T>? value)
         {
-            if (value == null)
+            if (value is null)
                 return null;
 
             var values = new List<string>();

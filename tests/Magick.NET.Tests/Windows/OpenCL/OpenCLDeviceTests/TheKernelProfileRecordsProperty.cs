@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
         public void ShouldReturnTheCorrectInformation()
         {
             var device = GetEnabledDevice();
-            if (device == null)
+            if (device is null)
                 return;
 
             device.ProfileKernels = true;

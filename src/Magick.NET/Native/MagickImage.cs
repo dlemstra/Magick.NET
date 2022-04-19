@@ -4975,7 +4975,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_ConvexHull(Instance, out length, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -5618,7 +5618,7 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
                     #endif
                     var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException == null)
+                    if (magickException is null)
                         return result;
                     if (magickException is MagickErrorException)
                     {
@@ -6158,7 +6158,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Histogram(Instance, out length, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -6606,7 +6606,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Moments(Instance, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -6666,7 +6666,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -6905,7 +6905,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_PerceptualHash(Instance, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {
@@ -8270,7 +8270,7 @@ namespace ImageMagick
                 result = NativeMethods.X86.MagickImage_Statistics(Instance, (UIntPtr)channels, out exception);
                 #endif
                 var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException == null)
+                if (magickException is null)
                     return result;
                 if (magickException is MagickErrorException)
                 {

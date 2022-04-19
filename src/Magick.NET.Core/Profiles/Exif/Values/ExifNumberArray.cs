@@ -14,7 +14,7 @@ namespace ImageMagick
         {
             get
             {
-                if (Value == null)
+                if (Value is null)
                     return ExifDataType.Short;
 
                 for (int i = 0; i < Value.Length; i++)

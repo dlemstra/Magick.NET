@@ -200,7 +200,7 @@ namespace ImageMagick
 
         private static MagickFormat GetFormat(string? format)
         {
-            if (format == null)
+            if (format is null)
                 return MagickFormat.Unknown;
 
             format = format.Replace("-", string.Empty);

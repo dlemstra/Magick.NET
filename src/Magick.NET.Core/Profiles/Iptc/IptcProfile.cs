@@ -242,7 +242,7 @@ namespace ImageMagick
             _values = new Collection<IIptcValue>();
 
             var data = GetData();
-            if (data == null || data[0] != 0x1c)
+            if (data is null || data[0] != 0x1c)
                 return;
 
             var i = 0;

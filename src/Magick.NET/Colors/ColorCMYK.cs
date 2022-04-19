@@ -155,7 +155,7 @@ namespace ImageMagick
         /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
         public static ColorCMYK? FromMagickColor(IMagickColor<QuantumType> color)
         {
-            if (color == null)
+            if (color is null)
                 return null;
 
             return new ColorCMYK(color);

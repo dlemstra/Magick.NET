@@ -153,7 +153,7 @@ namespace ImageMagick
         }
         internal static INativeInstance CreateInstance(OffsetInfo? instance)
         {
-            if (instance == null)
+            if (instance is null)
                 return NativeInstance.Zero;
             return instance.CreateNativeInstance();
         }

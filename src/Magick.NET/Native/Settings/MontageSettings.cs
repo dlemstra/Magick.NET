@@ -517,7 +517,7 @@ namespace ImageMagick
         }
         internal static INativeInstance CreateInstance(IMontageSettings<QuantumType>? instance)
         {
-            if (instance == null)
+            if (instance is null)
                 return NativeInstance.Zero;
             return MontageSettings.CreateNativeInstance(instance);
         }

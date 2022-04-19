@@ -29,7 +29,7 @@ namespace FileGenerator.Native
                 stream.Position = Encoding.UTF8.GetPreamble().Length;
 
                 var magickClass = (MagickClass?)_serializer.ReadObject(stream);
-                if (magickClass == null || file.Directory == null)
+                if (magickClass is null || file.Directory is null)
                     throw new InvalidOperationException();
 
                 magickClass.Name = file.Name.Replace(".json", string.Empty);

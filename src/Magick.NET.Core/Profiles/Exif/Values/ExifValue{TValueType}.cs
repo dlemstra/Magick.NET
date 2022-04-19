@@ -43,7 +43,7 @@ namespace ImageMagick
 
         public override string? ToString()
         {
-            if (Value == null)
+            if (Value is null)
                 return null;
 
             var description = GetDescription(Tag, Value);
@@ -58,7 +58,7 @@ namespace ImageMagick
             var tagValue = (ExifTagValue)(ushort)tag;
             var attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tagValue);
 
-            if (attributes == null || attributes.Length == 0)
+            if (attributes is null || attributes.Length == 0)
                 return null;
 
             foreach (var attribute in attributes)

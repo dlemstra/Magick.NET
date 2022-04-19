@@ -70,7 +70,7 @@ namespace ImageMagick
         /// <returns>A <see cref="ColorYUV"/> instance.</returns>
         public static ColorYUV? FromMagickColor(IMagickColor<QuantumType> color)
         {
-            if (color == null)
+            if (color is null)
                 return null;
 
             return new ColorYUV(color);

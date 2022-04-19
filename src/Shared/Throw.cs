@@ -23,7 +23,7 @@ namespace ImageMagick
 
         public static void IfNull(string paramName, [NotNull] object? value, string message)
         {
-            if (value == null)
+            if (value is null)
                 throw new ArgumentNullException(paramName, message);
         }
 

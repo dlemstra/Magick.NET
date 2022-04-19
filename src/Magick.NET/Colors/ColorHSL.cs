@@ -70,7 +70,7 @@ namespace ImageMagick
         /// <returns>A <see cref="ColorHSL"/> instance.</returns>
         public static ColorHSL? FromMagickColor(IMagickColor<QuantumType> color)
         {
-            if (color == null)
+            if (color is null)
                 return null;
 
             return new ColorHSL(color);

@@ -471,7 +471,7 @@ namespace ImageMagick
 
         internal static IMagickColor<QuantumType>? Clone(IMagickColor<QuantumType>? value)
         {
-            if (value == null)
+            if (value is null)
                 return value;
 
             return new MagickColor

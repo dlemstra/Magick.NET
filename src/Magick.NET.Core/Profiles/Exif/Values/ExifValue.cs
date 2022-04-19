@@ -50,7 +50,7 @@ namespace ImageMagick
             var hashCode = Tag.GetHashCode();
 
             var value = GetValue();
-            if (value == null)
+            if (value is null)
                 return hashCode;
 
             return hashCode ^= value.GetHashCode();

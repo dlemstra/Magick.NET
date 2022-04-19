@@ -186,7 +186,7 @@ namespace ImageMagick
             }
 
             var newExifValue = ExifValues.Create(tag);
-            if (newExifValue == null)
+            if (newExifValue is null)
                 throw new NotSupportedException();
 
             newExifValue.SetValue(value);
@@ -198,7 +198,7 @@ namespace ImageMagick
         /// </summary>
         protected override void UpdateData()
         {
-            if (_data == null)
+            if (_data is null)
             {
                 return;
             }
@@ -220,7 +220,7 @@ namespace ImageMagick
                 return;
 
             var data = GetData();
-            if (data == null)
+            if (data is null)
             {
                 _data = new ExifData();
                 return;

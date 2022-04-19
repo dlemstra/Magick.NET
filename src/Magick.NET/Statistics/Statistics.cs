@@ -60,7 +60,7 @@ namespace ImageMagick
         /// <returns>Truw when the specified object is equal to the current <see cref="Statistics"/>.</returns>
         public override bool Equals(object? obj)
         {
-            if (obj == null)
+            if (obj is null)
                 return false;
 
             return Equals(obj as IStatistics);

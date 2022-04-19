@@ -35,7 +35,7 @@ namespace FileGenerator.Drawables
             }
 
             var comment = _comments.XPathSelectElement("/doc/members/member[@name='" + memberName + "']");
-            if (comment == null)
+            if (comment is null)
                 throw new NotImplementedException(memberName);
 
             ModifyComment(comment, constructor.DeclaringType.Name, className);
@@ -58,7 +58,7 @@ namespace FileGenerator.Drawables
             var cref = new XElement("see", new XAttribute("cref", className));
 
             var summary = comment.Element("summary");
-            if (summary == null)
+            if (summary is null)
                 throw new InvalidOperationException();
 
             summary.RemoveAll();

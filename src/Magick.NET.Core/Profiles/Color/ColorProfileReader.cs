@@ -17,7 +17,7 @@ namespace ImageMagick
 
         public static ColorProfileData Read(byte[]? data)
         {
-            if (data == null)
+            if (data is null)
                 return new ColorProfileData();
 
             var reader = new ColorProfileReader(data);
@@ -61,7 +61,7 @@ namespace ImageMagick
             _reader.Seek(16);
 
             var colorSpace = _reader.ReadString(4);
-            if (colorSpace == null)
+            if (colorSpace is null)
                 return;
 
             _data.ColorSpace = DetermineColorSpace(colorSpace.TrimEnd());
@@ -102,7 +102,7 @@ namespace ImageMagick
             var offset = _reader.ReadLong();
             var length = _reader.ReadLong();
 
-            if (offset == null || length == null)
+            if (offset is null || length is null)
                 return null;
 
             var originalIndex = _reader.Index;
@@ -137,7 +137,7 @@ namespace ImageMagick
                 return null;
 
             var length = _reader.ReadLong();
-            if (length == null)
+            if (length is null)
                 return null;
 
             return _reader.ReadString(length.Value);

@@ -51,7 +51,7 @@ namespace Magick.NET.Tests
             {
                 var first = image.GetIptcProfile();
 
-                Assert.False(first == null);
+                Assert.False(first is null);
                 Assert.False(first.Equals(null));
                 Assert.True(first.Equals(first));
                 Assert.True(first.Equals((object)first));

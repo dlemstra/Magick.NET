@@ -45,7 +45,7 @@ namespace ImageMagick
         /// <returns>A new <see cref="Drawables"/> instance.</returns>
         public IDrawables<QuantumType> Drawables()
         {
-            if (_drawables == null)
+            if (_drawables is null)
                 return new Drawables().Path(this);
 
             return _drawables.Path(this);

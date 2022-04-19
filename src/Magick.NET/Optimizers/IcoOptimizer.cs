@@ -152,7 +152,7 @@ namespace ImageMagick.ImageOptimizers
                 for (int y = 0; y < image.Height; y++)
                 {
                     var row = pixels.GetArea(0, y, image.Width, 1);
-                    if (row == null)
+                    if (row is null)
                         continue;
 
                     for (int i = alphaIndex; i < row.Length; i += channels)

@@ -111,7 +111,7 @@ namespace ImageMagick
         public XmlReader? CreateReader()
         {
             var data = GetData();
-            if (data == null)
+            if (data is null)
                 return null;
 
             var memStream = new MemoryStream(data, 0, data.Length);

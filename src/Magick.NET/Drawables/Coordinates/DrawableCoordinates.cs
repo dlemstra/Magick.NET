@@ -27,7 +27,7 @@ namespace ImageMagick
 
             foreach (var coordinate in coordinates)
             {
-                if (coordinate == null)
+                if (coordinate is null)
                     throw new ArgumentNullException(nameof(coordinates), "Value should not contain null values");
             }
 

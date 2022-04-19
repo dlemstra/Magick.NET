@@ -25,7 +25,7 @@ namespace ImageMagick
 
         public override QuantumType[]? GetArea(IMagickGeometry geometry)
         {
-            if (geometry == null)
+            if (geometry is null)
                 return null;
 
             return base.GetArea(geometry);
@@ -33,7 +33,7 @@ namespace ImageMagick
 
         public override IntPtr GetAreaPointer(IMagickGeometry geometry)
         {
-            if (geometry == null)
+            if (geometry is null)
                 return IntPtr.Zero;
 
             return base.GetAreaPointer(geometry);
@@ -125,7 +125,7 @@ namespace ImageMagick
 
         public override byte[]? ToByteArray(IMagickGeometry geometry, string mapping)
         {
-            if (geometry == null)
+            if (geometry is null)
                 return null;
 
             return base.ToByteArray(geometry, mapping);
@@ -133,7 +133,7 @@ namespace ImageMagick
 
         public override byte[]? ToByteArray(int x, int y, int width, int height, string mapping)
         {
-            if (mapping == null)
+            if (mapping is null)
                 return null;
 
             return base.ToByteArray(x, y, width, height, mapping);
@@ -141,7 +141,7 @@ namespace ImageMagick
 
         public override ushort[]? ToShortArray(IMagickGeometry geometry, string mapping)
         {
-            if (geometry == null)
+            if (geometry is null)
                 return null;
 
             return base.ToShortArray(geometry, mapping);
@@ -149,7 +149,7 @@ namespace ImageMagick
 
         public override ushort[]? ToShortArray(int x, int y, int width, int height, string mapping)
         {
-            if (mapping == null)
+            if (mapping is null)
                 return null;
 
             return base.ToShortArray(x, y, width, height, mapping);

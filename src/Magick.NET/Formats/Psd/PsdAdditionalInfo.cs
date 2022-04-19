@@ -41,11 +41,11 @@ namespace ImageMagick.Formats
             Throw.IfNull(nameof(image), image);
 
             var profile = image.GetProfile("psd:additional-info");
-            if (profile == null)
+            if (profile is null)
                 return null;
 
             var bytes = profile.ToByteArray();
-            if (bytes == null)
+            if (bytes is null)
                 return null;
 
             return ParseAdditionalInfo(bytes);

@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
             {
                 var color = new ColorYUV(0, 0, 0);
 
-                Assert.False(color == null);
+                Assert.False(color is null);
                 Assert.True(color != null);
                 Assert.False(color < null);
                 Assert.False(color <= null);

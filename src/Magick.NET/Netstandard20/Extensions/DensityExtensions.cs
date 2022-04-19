@@ -19,7 +19,7 @@ namespace ImageMagick
         /// <returns>A <see cref="MagickGeometry"/> based on the specified width and height in cm or inches.</returns>
         public static IMagickGeometry? ToGeometry(this Density self, double width, double height)
         {
-            if (self == null)
+            if (self is null)
                 return null;
 
             int pixelWidth = (int)(width * self.X);

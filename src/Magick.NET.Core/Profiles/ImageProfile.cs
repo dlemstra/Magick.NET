@@ -132,7 +132,7 @@ namespace ImageMagick
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode()
         {
-            if (_data == null)
+            if (_data is null)
                 return Name.GetHashCode();
 
             return _data.GetHashCode() ^ Name.GetHashCode();
@@ -164,7 +164,7 @@ namespace ImageMagick
 
         private static byte[] Copy(byte[]? data)
         {
-            if (data == null || data.Length == 0)
+            if (data is null || data.Length == 0)
                 return new byte[0];
 
             var result = new byte[data.Length];

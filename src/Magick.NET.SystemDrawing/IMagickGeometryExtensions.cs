@@ -25,7 +25,7 @@ namespace ImageMagick
         /// <returns>A <see cref="Color"/> instance.</returns>
         public static Rectangle ToRectangle(this IMagickGeometry self)
         {
-            if (self == null)
+            if (self is null)
                 return default;
 
             return new Rectangle(self.X, self.Y, self.Width, self.Height);

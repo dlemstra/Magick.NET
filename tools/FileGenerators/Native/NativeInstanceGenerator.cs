@@ -85,7 +85,7 @@ namespace FileGenerator.Native
 
         private string? CreateCleanupString(MagickMethod method)
         {
-            if (method.Cleanup == null)
+            if (method.Cleanup is null)
             {
                 if (!Class.HasInstance && method.ReturnType.IsInstance)
                     return "Dispose(result);";
@@ -112,7 +112,7 @@ namespace FileGenerator.Native
         private void WriteCleanup(string cleanupString)
         {
             WriteLine("var magickException = MagickExceptionHelper.Create(exception);");
-            WriteIf("magickException == null", "return result;");
+            WriteIf("magickException is null", "return result;");
             WriteLine("if (magickException is MagickErrorException)");
             WriteStartColon();
             WriteIf("result != IntPtr.Zero", cleanupString);
@@ -186,7 +186,7 @@ namespace FileGenerator.Native
             {
                 WriteLine("internal static INativeInstance CreateInstance(" + name + "? instance)");
                 WriteStartColon();
-                WriteIf("instance == null", "return NativeInstance.Zero;");
+                WriteIf("instance is null", "return NativeInstance.Zero;");
                 if (Class.IsQuantumType || Class.HasInterface)
                     WriteLine("return " + Class.Name + ".CreateNativeInstance(instance);");
                 else

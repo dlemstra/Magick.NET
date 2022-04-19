@@ -29,7 +29,7 @@ namespace ImageMagick
         public static Color ToColor<TQuantumType>(this IMagickColor<TQuantumType> self)
             where TQuantumType : struct
         {
-            if (self == null)
+            if (self is null)
                 return default;
 
             var bytes = self.ToByteArray();

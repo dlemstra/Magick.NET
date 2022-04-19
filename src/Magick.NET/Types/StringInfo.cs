@@ -22,7 +22,7 @@ namespace ImageMagick
             var native = new NativeStringInfo(instance);
 
             var datum = ByteConverter.ToArray(native.Datum, native.Length);
-            if (datum == null)
+            if (datum is null)
                 return null;
 
             return new StringInfo(datum);

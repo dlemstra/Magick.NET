@@ -88,7 +88,7 @@ namespace ImageMagick
         public unsafe float? ReadFloat()
         {
             uint? result = ReadLong();
-            if (result == null)
+            if (result is null)
                 return null;
 
             uint value = result.Value;
