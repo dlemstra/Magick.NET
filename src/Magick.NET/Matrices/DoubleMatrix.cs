@@ -67,7 +67,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(values), values);
             Throw.IfTrue(nameof(values), values.Length != Order, "Invalid length");
 
-            for (int y = 0; y < Order; y++)
+            for (var y = 0; y < Order; y++)
             {
                 SetValue(x, y, values[y]);
             }
@@ -84,7 +84,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(values), values);
             Throw.IfTrue(nameof(values), values.Length != Order, "Invalid length");
 
-            for (int x = 0; x < Order; x++)
+            for (var x = 0; x < Order; x++)
             {
                 SetValue(x, y, values[x]);
             }
