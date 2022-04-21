@@ -70,7 +70,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0 });
+                        var pixel = new Pixel(0, 0, new QuantumType[] { 0 });
                         pixels.SetPixel(pixel);
 
                         ColorAssert.Equal(MagickColors.Cyan, image, 0, 0);
@@ -85,7 +85,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
+                        var pixel = new Pixel(0, 0, new QuantumType[] { 0, 0, 0, 0 });
                         pixels.SetPixel(pixel);
 
                         ColorAssert.Equal(MagickColors.Black, image, 0, 0);
@@ -100,7 +100,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Pixel pixel = new Pixel(0, 0, new QuantumType[] { 0, Quantum.Max, 0 });
+                        var pixel = new Pixel(0, 0, new QuantumType[] { 0, Quantum.Max, 0 });
                         pixels.SetPixel(pixel);
 
                         ColorAssert.Equal(MagickColors.Lime, image, 0, 0);
@@ -127,8 +127,8 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Pixel pixelA = new Pixel(0, 0, new QuantumType[] { 0 });
-                        Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0 });
+                        var pixelA = new Pixel(0, 0, new QuantumType[] { 0 });
+                        var pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0 });
                         pixels.SetPixel(new Pixel[] { pixelA, pixelB });
 
                         ColorAssert.Equal(MagickColors.Cyan, image, 0, 0);
@@ -144,8 +144,8 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        Pixel pixelA = new Pixel(0, 0, new QuantumType[] { Quantum.Max, 0, 0 });
-                        Pixel pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0, Quantum.Max });
+                        var pixelA = new Pixel(0, 0, new QuantumType[] { Quantum.Max, 0, 0 });
+                        var pixelB = new Pixel(1, 0, new QuantumType[] { 0, 0, Quantum.Max });
                         pixels.SetPixel(new Pixel[] { pixelA, pixelB });
 
                         ColorAssert.Equal(MagickColors.Red, image, 0, 0);
