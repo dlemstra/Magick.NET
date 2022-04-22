@@ -23,25 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_BlueShift()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                ColorAssert.NotEqual(MagickColors.White, image, 180, 80);
-
-                image.BlueShift(2);
-
-#if Q16HDRI
-                ColorAssert.NotEqual(MagickColors.White, image, 180, 80);
-                image.Clamp();
-#endif
-
-                ColorAssert.Equal(MagickColors.White, image, 180, 80);
-                ColorAssert.Equal(new MagickColor("#ac2cb333c848"), image, 350, 265);
-            }
-        }
-
-        [Fact]
         public void Test_BrightnessContrast()
         {
             using (var image = new MagickImage(Files.Builtin.Wizard))
