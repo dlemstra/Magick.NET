@@ -133,6 +133,9 @@ namespace Magick.NET
             public static string GrimJP2
                 => Root + @"Images/Coders/grim.jp2";
 
+            public static string EmptyExifAVIF
+                => Root + @"Images/Coders/empty-exif.avif";
+
             public static string IgnoreTagTIF
                 => Root + @"Images/Coders/IgnoreTag.tif";
 

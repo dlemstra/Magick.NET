@@ -32,5 +32,16 @@ namespace Magick.NET.Tests
                 }
             }
         }
+
+        [Fact]
+        public void ShouldIgnoreEmptyExifProfile()
+        {
+            using (var image = new MagickImage(Files.Coders.EmptyExifAVIF))
+            {
+                Assert.Equal(1, image.Width);
+                Assert.Equal(1, image.Height);
+                ColorAssert.Equal(MagickColors.Magenta, image, 1, 1);
+            }
+        }
     }
 }
