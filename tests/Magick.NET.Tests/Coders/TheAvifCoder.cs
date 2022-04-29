@@ -36,11 +36,16 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldIgnoreEmptyExifProfile()
         {
-            using (var image = new MagickImage(Files.Coders.EmptyExifAVIF))
+            using (var image = new MagickImage())
             {
-                Assert.Equal(1, image.Width);
-                Assert.Equal(1, image.Height);
-                ColorAssert.Equal(MagickColors.Magenta, image, 1, 1);
+                try
+                {
+                    image.Read(Files.Coders.EmptyExifAVIF);
+                }
+                catch (MagickCorruptImageErrorException exception)
+                {
+                    Assert.Contains("Invalid clean-aperture specification", exception.Message);
+                }
             }
         }
     }
