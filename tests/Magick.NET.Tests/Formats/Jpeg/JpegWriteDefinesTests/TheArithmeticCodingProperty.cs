@@ -47,8 +47,8 @@ namespace Magick.NET.Tests
                         memStream.Position = 0;
                         using (var output = new MagickImage(memStream))
                         {
-                            var coding = output.GetAttribute("jpeg:coding");
-                            Assert.Equal("arithmetic", coding);
+                            var arithmeticCoding = output.GetAttribute("jpeg:arithmetic-coding");
+                            Assert.Equal("true", arithmeticCoding);
                         }
                     }
                 }
