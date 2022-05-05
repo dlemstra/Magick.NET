@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
             {
                 var geometry = new MagickGeometry(10, 5);
 
-                Assert.False(geometry is null);
+                Assert.False(geometry == null);
                 Assert.True(geometry != null);
                 Assert.False(geometry < null);
                 Assert.False(geometry <= null);

@@ -15,7 +15,7 @@ namespace Magick.NET.Core.Tests
             {
                 var value = new ExifLong(ExifTag.SubIFDOffset);
 
-                Assert.False(value is null);
+                Assert.False(value == null);
                 Assert.True(value != null);
                 Assert.False(null == value);
                 Assert.True(null != value);

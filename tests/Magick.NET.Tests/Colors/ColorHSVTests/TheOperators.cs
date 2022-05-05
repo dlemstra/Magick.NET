@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
             {
                 var color = new ColorHSV(0, 0, 0);
 
-                Assert.False(color is null);
+                Assert.False(color == null);
                 Assert.True(color != null);
                 Assert.False(color < null);
                 Assert.False(color <= null);

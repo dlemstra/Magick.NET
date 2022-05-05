@@ -1010,14 +1010,14 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_IEquatable()
         {
-            MagickImage first = new MagickImage(MagickColors.Red, 10, 10);
+            var first = new MagickImage(MagickColors.Red, 10, 10);
 
-            Assert.False(first is null);
+            Assert.False(first == null);
             Assert.False(first.Equals(null));
             Assert.True(first.Equals(first));
             Assert.True(first.Equals((object)first));
 
-            MagickImage second = new MagickImage(MagickColors.Red, 10, 10);
+            var second = new MagickImage(MagickColors.Red, 10, 10);
 
             Assert.True(first == second);
             Assert.True(first.Equals(second));
@@ -1032,7 +1032,7 @@ namespace Magick.NET.Tests
             second.Dispose();
 
             first = null;
-            Assert.True(first is null);
+            Assert.True(first == null);
             Assert.False(first != null);
         }
 
