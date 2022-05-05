@@ -69,7 +69,7 @@ namespace ImageMagick.Formats
                 if (FancyUpsampling.HasValue)
                     yield return CreateDefine("fancy-upsampling", FancyUpsampling.Value);
 
-                if (Size != null)
+                if (Size is not null)
                     yield return CreateDefine("size", Size);
 
                 if (SkipProfiles.HasValue)

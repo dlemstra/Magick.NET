@@ -56,7 +56,7 @@ namespace ImageMagick.Formats
         {
             get
             {
-                if (FitPage != null)
+                if (FitPage is not null)
                     yield return CreateDefine("fit-page", FitPage);
 
                 if (HideAnnotations == true)
@@ -65,7 +65,7 @@ namespace ImageMagick.Formats
                 if (Interpolate == true)
                     yield return CreateDefine("interpolate", Interpolate.Value);
 
-                if (Password != null)
+                if (Password is not null)
                     yield return new MagickDefine("authenticate", Password);
 
                 if (UseCropBox.HasValue)

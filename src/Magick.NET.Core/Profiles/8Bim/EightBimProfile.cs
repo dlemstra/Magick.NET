@@ -129,7 +129,7 @@ namespace ImageMagick
         [MemberNotNull(nameof(_clipPaths), nameof(_values))]
         private void Initialize()
         {
-            if (_clipPaths != null && _values != null)
+            if (_clipPaths is not null && _values is not null)
                 return;
 
             _clipPaths = new Collection<IClipPath>();
@@ -182,7 +182,7 @@ namespace ImageMagick
                     if (isClipPath)
                     {
                         var clipPath = CreateClipPath(name!, i, length);
-                        if (clipPath != null)
+                        if (clipPath is not null)
                             _clipPaths.Add(clipPath);
                     }
 

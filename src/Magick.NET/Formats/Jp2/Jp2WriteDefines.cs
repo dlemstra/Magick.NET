@@ -54,11 +54,11 @@ namespace ImageMagick.Formats
                     yield return CreateDefine("progression-order", ProgressionOrder.Value);
 
                 var quality = CreateDefine("quality", Quality);
-                if (quality != null)
+                if (quality is not null)
                     yield return quality;
 
                 var rate = CreateDefine("rate", Rate);
-                if (rate != null)
+                if (rate is not null)
                     yield return rate;
             }
         }

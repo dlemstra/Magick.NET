@@ -330,7 +330,7 @@ namespace ImageMagick
             {
                 _nativeInstance.ResetArtifactIterator();
                 var name = _nativeInstance.GetNextArtifactName();
-                while (name != null)
+                while (name is not null)
                 {
                     yield return name;
                     name = _nativeInstance.GetNextArtifactName();
@@ -347,7 +347,7 @@ namespace ImageMagick
             {
                 _nativeInstance.ResetAttributeIterator();
                 var name = _nativeInstance.GetNextAttributeName();
-                while (name != null)
+                while (name is not null)
                 {
                     yield return name;
                     name = _nativeInstance.GetNextAttributeName();
@@ -548,7 +548,7 @@ namespace ImageMagick
             get => GetAttribute("comment");
             set
             {
-                if (value != null)
+                if (value is not null)
                     SetAttribute("comment", value);
                 else
                     RemoveAttribute("comment");
@@ -736,7 +736,7 @@ namespace ImageMagick
             get => GetAttribute("label");
             set
             {
-                if (value != null)
+                if (value is not null)
                     SetAttribute("label", value);
                 else
                     RemoveAttribute("label");
@@ -790,7 +790,7 @@ namespace ImageMagick
             {
                 _nativeInstance.ResetProfileIterator();
                 var name = _nativeInstance.GetNextProfileName();
-                while (name != null)
+                while (name is not null)
                 {
                     yield return name;
                     name = _nativeInstance.GetNextProfileName();
@@ -1973,7 +1973,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            if (args != null)
+            if (args is not null)
                 _nativeInstance.SetArtifact("compose:args", args);
 
             try
@@ -1982,7 +1982,7 @@ namespace ImageMagick
             }
             finally
             {
-                if (args != null)
+                if (args is not null)
                     _nativeInstance.RemoveArtifact("compose:args");
             }
         }
@@ -2189,7 +2189,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            if (args != null)
+            if (args is not null)
                 _nativeInstance.SetArtifact("compose:args", args);
 
             try
@@ -2198,7 +2198,7 @@ namespace ImageMagick
             }
             finally
             {
-                if (args != null)
+                if (args is not null)
                     _nativeInstance.RemoveArtifact("compose:args");
             }
         }
@@ -3300,7 +3300,7 @@ namespace ImageMagick
         {
             var profile = GetColorProfile("icc");
 
-            if (profile != null)
+            if (profile is not null)
                 return profile;
 
             return GetColorProfile("icm");
@@ -3329,7 +3329,7 @@ namespace ImageMagick
             var hashCode = Width.GetHashCode() ^ Height.GetHashCode();
             var signature = Signature;
 
-            if (signature != null)
+            if (signature is not null)
                 hashCode ^= signature.GetHashCode();
 
             return hashCode;
@@ -4453,7 +4453,7 @@ namespace ImageMagick
 
             ArtifactsHelper.SetImageArtifacts(this, settings);
 
-            if (settings.UserKernel != null && settings.UserKernel.Length > 0)
+            if (settings.UserKernel is not null && settings.UserKernel.Length > 0)
                 Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
             else
                 Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
@@ -7078,7 +7078,7 @@ namespace ImageMagick
 
         private MagickReadSettings CreateReadSettings(IMagickReadSettings<QuantumType>? readSettings)
         {
-            if (readSettings != null && readSettings.FrameCount.HasValue)
+            if (readSettings is not null && readSettings.FrameCount.HasValue)
                 Throw.IfFalse(nameof(readSettings), readSettings.FrameCount.Value == 1, "The frame count can only be set to 1 when a single image is being read.");
 
             MagickReadSettings newReadSettings;
@@ -7098,7 +7098,7 @@ namespace ImageMagick
 
             if (disposing)
             {
-                if (_settings != null)
+                if (_settings is not null)
                     _settings.Artifact -= OnArtifact;
             }
         }
@@ -7118,7 +7118,7 @@ namespace ImageMagick
             using (var pixels = GetPixelsUnsafe())
             {
                 target = pixels.GetPixel(x, y).ToColor();
-                if (target != null)
+                if (target is not null)
                     target.A = alpha;
             }
 
@@ -7135,7 +7135,7 @@ namespace ImageMagick
                 target = pixels.GetPixel(x, y).ToColor();
             }
 
-            if (target != null)
+            if (target is not null)
                 FloodFill(color, x, y, target, invert);
         }
 
@@ -7169,7 +7169,7 @@ namespace ImageMagick
                 target = pixels.GetPixel(x, y).ToColor();
             }
 
-            if (target != null)
+            if (target is not null)
                 FloodFill(image, x, y, target, invert);
         }
 
@@ -7261,7 +7261,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
             var bytes = Bytes.FromStreamBuffer(stream);
-            if (bytes != null)
+            if (bytes is not null)
             {
                 Read(bytes.GetData(), 0, bytes.Length, readSettings, ping);
                 return;
@@ -7322,7 +7322,7 @@ namespace ImageMagick
         [MemberNotNull(nameof(_settings))]
         private void SetSettings(MagickSettings settings)
         {
-            if (_settings != null)
+            if (_settings is not null)
                 _settings.Artifact -= OnArtifact;
 
             _settings = settings;

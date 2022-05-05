@@ -216,7 +216,7 @@ namespace ImageMagick
         [MemberNotNull(nameof(_data))]
         private void InitializeValues()
         {
-            if (_data != null)
+            if (_data is not null)
                 return;
 
             var data = GetData();

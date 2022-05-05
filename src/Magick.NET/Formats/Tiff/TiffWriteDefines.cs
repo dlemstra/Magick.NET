@@ -84,7 +84,7 @@ namespace ImageMagick.Formats
                 if (RowsPerStrip.HasValue)
                     yield return CreateDefine("rows-per-strip", RowsPerStrip.Value);
 
-                if (TileGeometry != null)
+                if (TileGeometry is not null)
                     yield return CreateDefine("tile-geometry", TileGeometry);
 
                 if (WriteLayers)

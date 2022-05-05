@@ -113,7 +113,7 @@ namespace ImageMagick.Defines
             var values = new List<string>();
             foreach (var val in value)
             {
-                if (val != null)
+                if (val is not null)
                     values.Add(val.ToString());
             }
 

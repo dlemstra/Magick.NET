@@ -236,7 +236,7 @@ namespace ImageMagick
         [MemberNotNull(nameof(_values))]
         private void Initialize()
         {
-            if (_values != null)
+            if (_values is not null)
                 return;
 
             _values = new Collection<IIptcValue>();

@@ -419,7 +419,7 @@ namespace ImageMagick
         {
             foreach (var image in _images)
             {
-                if (image != null)
+                if (image is not null)
                     image.Dispose();
             }
 
@@ -731,7 +731,7 @@ namespace ImageMagick
             using (var collection = new MagickImageCollection())
             {
                 collection.AddRange(MagickImage.CreateList(images, GetSettings()));
-                if (settings.TransparentColor != null)
+                if (settings.TransparentColor is not null)
                 {
                     foreach (var image in collection)
                     {
@@ -1535,7 +1535,7 @@ namespace ImageMagick
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
             var bytes = Bytes.FromStreamBuffer(stream);
-            if (bytes != null)
+            if (bytes is not null)
             {
                 AddImages(bytes.GetData(), 0, bytes.Length, readSettings, ping);
                 return;
@@ -1601,7 +1601,7 @@ namespace ImageMagick
 
         private void Dispose(bool disposing)
         {
-            if (_nativeInstance != null)
+            if (_nativeInstance is not null)
                 _nativeInstance.Warning -= OnWarning;
 
             if (disposing)

@@ -9,7 +9,7 @@ namespace Magick.NET.Tests
     {
         public static void DeleteDirectory(string path)
         {
-            if (path != null && Directory.Exists(path))
+            if (path is not null && Directory.Exists(path))
                 Directory.Delete(path, true);
         }
 
@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
 
         public static void DeleteFile(string path)
         {
-            if (path != null && File.Exists(path))
+            if (path is not null && File.Exists(path))
                 File.Delete(path);
         }
 

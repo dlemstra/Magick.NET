@@ -82,7 +82,7 @@ namespace Magick.NET.Tests
                         var message = exception.Message;
 
                         var relatedException = exception.RelatedExceptions.FirstOrDefault();
-                        if (relatedException != null)
+                        if (relatedException is not null)
                             message += relatedException.Message;
 
                         Assert.Contains("This file requires a password for access.", message);

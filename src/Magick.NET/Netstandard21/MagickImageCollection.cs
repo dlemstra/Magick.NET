@@ -411,7 +411,7 @@ namespace ImageMagick
             {
                 AttachImages();
 
-                var bytes = formatInfo != null ? ToByteArray(formatInfo.Format) : ToByteArray();
+                var bytes = formatInfo is not null ? ToByteArray(formatInfo.Format) : ToByteArray();
                 await File.WriteAllBytesAsync(file.FullName, bytes, cancellationToken).ConfigureAwait(false);
             }
             finally

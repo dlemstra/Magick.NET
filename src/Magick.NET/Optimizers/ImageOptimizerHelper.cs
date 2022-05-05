@@ -36,7 +36,7 @@ namespace ImageMagick
         public static IMagickFormatInfo? GetFormatInformation(FileInfo file)
         {
             var info = MagickNET.GetFormatInformation(file);
-            if (info != null)
+            if (info is not null)
                 return info;
 
             try
@@ -63,7 +63,7 @@ namespace ImageMagick
         public static IMagickFormatInfo? GetFormatInformation(string fileName)
         {
             var info = MagickNET.GetFormatInformation(fileName);
-            if (info != null)
+            if (info is not null)
                 return info;
 
             try

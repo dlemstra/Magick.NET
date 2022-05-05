@@ -16,7 +16,7 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_arguments != null)
+                if (_arguments is not null)
                 {
                     foreach (var argument in _arguments)
                     {

@@ -47,7 +47,7 @@ namespace ImageMagick
                 return null;
 
             var description = GetDescription(Tag, Value);
-            if (description != null)
+            if (description is not null)
                 return description;
 
             return StringValue;

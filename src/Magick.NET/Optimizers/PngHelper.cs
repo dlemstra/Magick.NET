@@ -46,7 +46,7 @@ namespace ImageMagick.ImageOptimizers
 
                     if (bestFile is null || bestFile.Length > tempFile.Length)
                     {
-                        if (bestFile != null)
+                        if (bestFile is not null)
                             bestFile.Dispose();
 
                         bestFile = tempFile;
@@ -56,7 +56,7 @@ namespace ImageMagick.ImageOptimizers
                 }
                 finally
                 {
-                    if (tempFile != null)
+                    if (tempFile is not null)
                         tempFile.Dispose();
                 }
             }
@@ -83,7 +83,7 @@ namespace ImageMagick.ImageOptimizers
 
                     if (bestStream is null || memStream.Length < bestStream.Length)
                     {
-                        if (bestStream != null)
+                        if (bestStream is not null)
                             bestStream.Dispose();
 
                         bestStream = memStream;
@@ -93,7 +93,7 @@ namespace ImageMagick.ImageOptimizers
                 }
                 finally
                 {
-                    if (memStream != null)
+                    if (memStream is not null)
                         memStream.Dispose();
                 }
             }

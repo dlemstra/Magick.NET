@@ -24,7 +24,7 @@ namespace ImageMagick
             Order = order;
 
             _values = new double[Order * Order];
-            if (values != null)
+            if (values is not null)
             {
                 Throw.IfFalse(nameof(values), (Order * Order) == values.Length, "Invalid number of values specified");
                 Array.Copy(values, _values, _values.Length);

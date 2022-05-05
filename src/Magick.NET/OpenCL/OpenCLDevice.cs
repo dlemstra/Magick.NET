@@ -62,7 +62,7 @@ namespace ImageMagick
                 {
                     var instance = NativeOpenCLDevice.GetKernelProfileRecord(records, i);
                     var record = OpenCLKernelProfileRecord.CreateInstance(instance);
-                    if (record != null)
+                    if (record is not null)
                         result.Add(record);
                 }
 

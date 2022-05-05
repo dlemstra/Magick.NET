@@ -232,7 +232,7 @@ namespace ImageMagick
                     instance.GetInfo(list, i);
 
                     var formatInfo = Create(instance);
-                    if (formatInfo != null)
+                    if (formatInfo is not null)
                         formats[formatInfo.Format] = formatInfo;
 
                     ptr = new IntPtr(ptr.ToInt64() + i);
@@ -252,11 +252,11 @@ namespace ImageMagick
         private static void AddStealthCoders(NativeMagickFormatInfo instance, Dictionary<MagickFormat, MagickFormatInfo> formats)
         {
             var formatInfo = Create(instance, "DIB");
-            if (formatInfo != null)
+            if (formatInfo is not null)
                 formats[formatInfo.Format] = formatInfo;
 
             formatInfo = Create(instance, "TIF");
-            if (formatInfo != null)
+            if (formatInfo is not null)
                 formats[formatInfo.Format] = formatInfo;
         }
     }

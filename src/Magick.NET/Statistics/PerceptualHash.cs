@@ -110,7 +110,7 @@ namespace ImageMagick
         private void AddChannel(MagickImage image, IntPtr list, PixelChannel channel)
         {
             var instance = CreateChannelPerceptualHash(image, list, channel);
-            if (instance != null)
+            if (instance is not null)
                 _channels.Add(instance.Channel, instance);
         }
     }

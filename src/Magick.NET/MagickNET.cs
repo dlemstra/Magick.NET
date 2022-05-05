@@ -86,7 +86,7 @@ namespace ImageMagick
                     for (var i = 0; i < (int)length; i++)
                     {
                         var fontFamily = NativeMagickNET.GetFontFamily(list, i);
-                        if (fontFamily != null && fontFamily.Length > 0 && !result.Contains(fontFamily))
+                        if (fontFamily is not null && fontFamily.Length > 0 && !result.Contains(fontFamily))
                             result.Add(fontFamily);
                     }
                 }
@@ -119,7 +119,7 @@ namespace ImageMagick
                     for (var i = 0; i < (int)length; i++)
                     {
                         var fontName = NativeMagickNET.GetFontName(list, i);
-                        if (fontName != null && fontName.Length > 0)
+                        if (fontName is not null && fontName.Length > 0)
                             result.Add(fontName);
                     }
                 }
@@ -295,7 +295,7 @@ namespace ImageMagick
         {
             _logEvents = events;
 
-            if (_log != null)
+            if (_log is not null)
                 SetLogEvents();
         }
 

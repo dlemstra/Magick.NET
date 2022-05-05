@@ -47,7 +47,7 @@ namespace ImageMagick
             var result = Create(severity, message);
 
             var relatedExceptions = CreateRelatedExceptions(exception);
-            if (relatedExceptions != null)
+            if (relatedExceptions is not null)
                 result.SetRelatedException(relatedExceptions);
 
             return result;

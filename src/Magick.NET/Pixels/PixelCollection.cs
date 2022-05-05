@@ -126,7 +126,7 @@ namespace ImageMagick
 
         public virtual void SetPixel(IPixel<QuantumType> pixel)
         {
-            if (pixel != null)
+            if (pixel is not null)
                 SetPixelUnchecked(pixel.X, pixel.Y, pixel.ToArray());
         }
 

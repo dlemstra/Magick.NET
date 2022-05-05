@@ -19,97 +19,97 @@ namespace ImageMagick
     {
         public static void SetImageArtifacts(IMagickImage<QuantumType> image, ICompareSettings<QuantumType> settings)
         {
-            if (settings.HighlightColor != null)
+            if (settings.HighlightColor is not null)
                 image.SetArtifact("compare:highlight-color", settings.HighlightColor.ToString());
 
-            if (settings.LowlightColor != null)
+            if (settings.LowlightColor is not null)
                 image.SetArtifact("compare:lowlight-color", settings.LowlightColor.ToString());
 
-            if (settings.MasklightColor != null)
+            if (settings.MasklightColor is not null)
                 image.SetArtifact("compare:masklight-color", settings.MasklightColor.ToString());
         }
 
         public static void RemoveImageArtifacts(IMagickImage<QuantumType> image, ICompareSettings<QuantumType> settings)
         {
-            if (settings.HighlightColor != null)
+            if (settings.HighlightColor is not null)
                 image.RemoveArtifact("compare:highlight-color");
 
-            if (settings.LowlightColor != null)
+            if (settings.LowlightColor is not null)
                 image.RemoveArtifact("compare:lowlight-color");
 
-            if (settings.MasklightColor != null)
+            if (settings.MasklightColor is not null)
                 image.RemoveArtifact("compare:masklight-color");
         }
 
         public static void SetImageArtifacts(IMagickImage<QuantumType> image, IComplexSettings settings)
         {
-            if (settings.SignalToNoiseRatio != null)
+            if (settings.SignalToNoiseRatio is not null)
                 image.SetArtifact("complex:snr", settings.SignalToNoiseRatio.Value.ToString(CultureInfo.InvariantCulture));
         }
 
         public static void RemoveImageArtifacts(IMagickImage<QuantumType> image, IComplexSettings self)
         {
-            if (self.SignalToNoiseRatio != null)
+            if (self.SignalToNoiseRatio is not null)
                 image.RemoveArtifact("complex:snr");
         }
 
         public static void SetImageArtifacts(IMagickImage<QuantumType> image, IConnectedComponentsSettings settings)
         {
-            if (settings.AngleThreshold != null)
+            if (settings.AngleThreshold is not null)
                 image.SetArtifact("connected-components:angle-threshold", settings.AngleThreshold.Value.ToString());
 
-            if (settings.AreaThreshold != null)
+            if (settings.AreaThreshold is not null)
                 image.SetArtifact("connected-components:area-threshold", settings.AreaThreshold.Value.ToString());
 
-            if (settings.CircularityThreshold != null)
+            if (settings.CircularityThreshold is not null)
                 image.SetArtifact("connected-components:circularity-threshold", settings.CircularityThreshold.Value.ToString());
 
-            if (settings.DiameterThreshold != null)
+            if (settings.DiameterThreshold is not null)
                 image.SetArtifact("connected-components:diameter-threshold", settings.DiameterThreshold.Value.ToString());
 
-            if (settings.EccentricityThreshold != null)
+            if (settings.EccentricityThreshold is not null)
                 image.SetArtifact("connected-components:eccentricity-threshold", settings.EccentricityThreshold.Value.ToString());
 
-            if (settings.MajorAxisThreshold != null)
+            if (settings.MajorAxisThreshold is not null)
                 image.SetArtifact("connected-components:major-axis-threshold", settings.MajorAxisThreshold.Value.ToString());
 
             if (settings.MeanColor)
                 image.SetArtifact("connected-components:mean-color", settings.MeanColor);
 
-            if (settings.MinorAxisThreshold != null)
+            if (settings.MinorAxisThreshold is not null)
                 image.SetArtifact("connected-components:minor-axis-threshold", settings.MinorAxisThreshold.Value.ToString());
 
-            if (settings.PerimeterThreshold != null)
+            if (settings.PerimeterThreshold is not null)
                 image.SetArtifact("connected-components:perimeter-threshold", settings.PerimeterThreshold.Value.ToString());
         }
 
         public static void RemoveImageArtifacts(IMagickImage<QuantumType> image, IConnectedComponentsSettings settings)
         {
-            if (settings.AngleThreshold != null)
+            if (settings.AngleThreshold is not null)
                 image.RemoveArtifact("connected-components:angle-threshold");
 
-            if (settings.AreaThreshold != null)
+            if (settings.AreaThreshold is not null)
                 image.RemoveArtifact("connected-components:area-threshold");
 
-            if (settings.CircularityThreshold != null)
+            if (settings.CircularityThreshold is not null)
                 image.RemoveArtifact("connected-components:circularity-threshold");
 
-            if (settings.DiameterThreshold != null)
+            if (settings.DiameterThreshold is not null)
                 image.RemoveArtifact("connected-components:diameter-threshold");
 
-            if (settings.EccentricityThreshold != null)
+            if (settings.EccentricityThreshold is not null)
                 image.RemoveArtifact("connected-components:eccentricity-threshold");
 
-            if (settings.MajorAxisThreshold != null)
+            if (settings.MajorAxisThreshold is not null)
                 image.RemoveArtifact("connected-components:major-axis-threshold");
 
             if (settings.MeanColor)
                 image.RemoveArtifact("connected-components:mean-color");
 
-            if (settings.MinorAxisThreshold != null)
+            if (settings.MinorAxisThreshold is not null)
                 image.RemoveArtifact("connected-components:minor-axis-threshold");
 
-            if (settings.PerimeterThreshold != null)
+            if (settings.PerimeterThreshold is not null)
                 image.RemoveArtifact("connected-components:perimeter-threshold");
         }
 
@@ -127,25 +127,25 @@ namespace ImageMagick
 
         public static void SetImageArtifacts(IMagickImage<QuantumType> image, IDistortSettings settings)
         {
-            if (settings.Scale != null)
+            if (settings.Scale is not null)
                 image.SetArtifact("distort:scale", settings.Scale.Value.ToString(CultureInfo.InvariantCulture));
 
-            if (settings.Viewport != null)
+            if (settings.Viewport is not null)
                 image.SetArtifact("distort:viewport", settings.Viewport.ToString());
         }
 
         public static void RemoveImageArtifacts(IMagickImage<QuantumType> image, IDistortSettings settings)
         {
-            if (settings.Scale != null)
+            if (settings.Scale is not null)
                 image.RemoveArtifact("distort:scale");
 
-            if (settings.Viewport != null)
+            if (settings.Viewport is not null)
                 image.RemoveArtifact("distort:viewport");
         }
 
         public static void SetImageArtifacts(IMagickImage<QuantumType> image, IKmeansSettings settings)
         {
-            if (settings.SeedColors != null && settings.SeedColors.Length > 0)
+            if (settings.SeedColors is not null && settings.SeedColors.Length > 0)
                 image.SetArtifact("kmeans:seed-colors", settings.SeedColors);
         }
 
@@ -157,19 +157,19 @@ namespace ImageMagick
 
         public static void SetImageArtifacts(IMagickImage<QuantumType> image, IMorphologySettings settings)
         {
-            if (settings.ConvolveBias != null)
+            if (settings.ConvolveBias is not null)
                 image.SetArtifact("convolve:bias", settings.ConvolveBias.ToString());
 
-            if (settings.ConvolveScale != null)
+            if (settings.ConvolveScale is not null)
                 image.SetArtifact("convolve:scale", settings.ConvolveScale.ToString());
         }
 
         public static void RemoveImageArtifacts(IMagickImage<QuantumType> image, IMorphologySettings settings)
         {
-            if (settings.ConvolveBias != null)
+            if (settings.ConvolveBias is not null)
                 image.RemoveArtifact("convolve:bias");
 
-            if (settings.ConvolveScale != null)
+            if (settings.ConvolveScale is not null)
                 image.RemoveArtifact("convolve:scale");
         }
     }

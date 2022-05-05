@@ -53,7 +53,7 @@ namespace ImageMagick
             var instance = NativeMoments.GetInstance(list, channel);
 
             var result = ChannelMoments.Create(channel, instance);
-            if (result != null)
+            if (result is not null)
                 _channels.Add(result.Channel, result);
         }
     }

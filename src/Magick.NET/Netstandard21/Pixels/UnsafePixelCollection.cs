@@ -21,7 +21,7 @@ namespace ImageMagick
     {
         public override void SetArea(IMagickGeometry geometry, ReadOnlySpan<QuantumType> values)
         {
-            if (geometry != null)
+            if (geometry is not null)
                 base.SetArea(geometry, values);
         }
     }

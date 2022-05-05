@@ -202,8 +202,8 @@ namespace ImageMagick
             if (value.Length == 2)
                 return new MagickColor(value[0], value[0], value[0], value[1]);
 
-            var hasBlackChannel = _collection != null && _collection.GetIndex(PixelChannel.Black) != -1;
-            var hasAlphaChannel = _collection != null && _collection.GetIndex(PixelChannel.Alpha) != -1;
+            var hasBlackChannel = _collection is not null && _collection.GetIndex(PixelChannel.Black) != -1;
+            var hasAlphaChannel = _collection is not null && _collection.GetIndex(PixelChannel.Alpha) != -1;
 
             if (hasBlackChannel)
             {
@@ -244,7 +244,7 @@ namespace ImageMagick
 
         private void UpdateCollection()
         {
-            if (_collection != null)
+            if (_collection is not null)
                 _collection.SetPixelUnchecked(X, Y, _value);
         }
     }

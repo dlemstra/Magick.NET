@@ -69,7 +69,7 @@ namespace ImageMagick.Formats
                 if (OptimizeCoding.HasValue)
                     yield return CreateDefine("optimize-coding", OptimizeCoding.Value);
 
-                if (QuantizationTables != null && QuantizationTables.Length > 0)
+                if (QuantizationTables is not null && QuantizationTables.Length > 0)
                     yield return CreateDefine("q-table", QuantizationTables);
 
                 if (SamplingFactor.HasValue)

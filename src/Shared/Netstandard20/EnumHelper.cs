@@ -40,7 +40,7 @@ namespace ImageMagick
         public static MagickFormat ParseMagickFormatFromExtension(FileInfo file)
         {
             MagickFormat format = default;
-            if (file.Extension != null && file.Extension.Length > 1)
+            if (file.Extension is not null && file.Extension.Length > 1)
                 format = Parse(file.Extension.Substring(1), MagickFormat.Unknown);
 
             return format;

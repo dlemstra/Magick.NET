@@ -112,7 +112,7 @@ namespace ImageMagick.ImageOptimizers
 
             using (var image = new MagickImage(file))
             {
-                if (image.GetAttribute("png:acTL") != null)
+                if (image.GetAttribute("png:acTL") is not null)
                 {
                     return false;
                 }
@@ -126,7 +126,7 @@ namespace ImageMagick.ImageOptimizers
                     var pngHelper = new PngHelper(this);
                     bestFile = pngHelper.FindBestFileQuality(image, out _);
 
-                    if (bestFile != null && bestFile.Length < file.Length)
+                    if (bestFile is not null && bestFile.Length < file.Length)
                     {
                         isCompressed = true;
                         bestFile.CopyTo(file);
@@ -135,7 +135,7 @@ namespace ImageMagick.ImageOptimizers
                 }
                 finally
                 {
-                    if (bestFile != null)
+                    if (bestFile is not null)
                         bestFile.Dispose();
                 }
             }
@@ -161,7 +161,7 @@ namespace ImageMagick.ImageOptimizers
                     var pngHelper = new PngHelper(this);
                     bestStream = pngHelper.FindBestStreamQuality(image, out _);
 
-                    if (bestStream != null && bestStream.Length < (stream.Length - startPosition))
+                    if (bestStream is not null && bestStream.Length < (stream.Length - startPosition))
                     {
                         isCompressed = true;
                         stream.Position = startPosition;
@@ -174,7 +174,7 @@ namespace ImageMagick.ImageOptimizers
                 }
                 finally
                 {
-                    if (bestStream != null)
+                    if (bestStream is not null)
                         bestStream.Dispose();
                 }
             }

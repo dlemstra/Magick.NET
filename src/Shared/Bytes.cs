@@ -95,7 +95,7 @@ namespace ImageMagick
         private static byte[] GetDataFromMemoryStream(MemoryStream memStream, out int length)
         {
             var data = GetDataFromMemoryStreamBuffer(memStream, out length);
-            if (data != null)
+            if (data is not null)
                 return data;
 
             data = memStream.ToArray();

@@ -48,7 +48,7 @@ namespace ImageMagick
                 {
                     var instance = NativeOpenCL.GetDevice(devices, i);
                     var device = OpenCLDevice.CreateInstance(instance);
-                    if (device != null)
+                    if (device is not null)
                         result.Add(device);
                 }
 

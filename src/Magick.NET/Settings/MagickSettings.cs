@@ -578,7 +578,7 @@ namespace ImageMagick
 
             foreach (var define in defines.Defines)
             {
-                if (define != null)
+                if (define is not null)
                     SetDefine(define.Format, define.Name, define.Value);
             }
         }

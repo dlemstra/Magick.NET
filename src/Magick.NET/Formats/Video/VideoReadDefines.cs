@@ -45,13 +45,13 @@ namespace ImageMagick.Formats
         {
             get
             {
-                if (IntermediateFormat != null)
+                if (IntermediateFormat is not null)
                     yield return new MagickDefine("video:intermediate-format", EnumHelper.GetName(IntermediateFormat.Value).ToLowerInvariant());
 
                 if (PixelFormat?.Length > 0)
                     yield return new MagickDefine("video:pixel-format", PixelFormat);
 
-                if (VideoSync != null)
+                if (VideoSync is not null)
                     yield return new MagickDefine("video:vsync", EnumHelper.GetName(VideoSync.Value).ToLowerInvariant());
             }
         }

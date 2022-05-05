@@ -80,7 +80,7 @@ namespace ImageMagick
             get => _strokeDashArray;
             set
             {
-                if (value != null)
+                if (value is not null)
                     _strokeDashArray = new List<double>(value).ToArray();
             }
         }
@@ -145,7 +145,7 @@ namespace ImageMagick
 
                 Affine = Affine,
                 FillPattern = MagickImage.Clone(FillPattern),
-                _strokeDashArray = _strokeDashArray != null ? (double[])_strokeDashArray.Clone() : null,
+                _strokeDashArray = _strokeDashArray is not null ? (double[])_strokeDashArray.Clone() : null,
                 StrokePattern = MagickImage.Clone(StrokePattern),
                 Text = Text,
             };
@@ -187,7 +187,7 @@ namespace ImageMagick
             instance.StrokeWidth = StrokeWidth;
             instance.TextAntiAlias = TextAntiAlias;
             instance.TextDirection = TextDirection;
-            if (TextEncoding != null)
+            if (TextEncoding is not null)
                 instance.TextEncoding = TextEncoding.WebName;
             instance.TextGravity = TextGravity;
             instance.TextInterlineSpacing = TextInterlineSpacing;
@@ -195,13 +195,13 @@ namespace ImageMagick
             instance.TextKerning = TextKerning;
             instance.TextUnderColor = TextUnderColor;
 
-            if (Affine != null)
+            if (Affine is not null)
                 instance.SetAffine(Affine.ScaleX, Affine.ScaleY, Affine.ShearX, Affine.ShearY, Affine.TranslateX, Affine.TranslateY);
-            if (FillPattern != null)
+            if (FillPattern is not null)
                 instance.SetFillPattern(FillPattern);
-            if (_strokeDashArray != null)
+            if (_strokeDashArray is not null)
                 instance.SetStrokeDashArray(_strokeDashArray, _strokeDashArray.Length);
-            if (StrokePattern != null)
+            if (StrokePattern is not null)
                 instance.SetStrokePattern(StrokePattern);
             if (!string.IsNullOrEmpty(Text))
                 instance.SetText(Text);

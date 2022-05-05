@@ -58,7 +58,7 @@ namespace FileGenerator.Native
                 if (skipFunc(argument))
                     continue;
 
-                if (result != null)
+                if (result is not null)
                     result += ", ";
 
                 result += typeFunc(argument) + " " + argument.Name;
@@ -73,7 +73,7 @@ namespace FileGenerator.Native
 
             foreach (var argument in arguments)
             {
-                if (result != null)
+                if (result is not null)
                     result += ", ";
 
                 if (argument.IsOut)

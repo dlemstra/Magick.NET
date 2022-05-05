@@ -298,7 +298,7 @@ namespace ImageMagick
 
         public void TextEncoding(Encoding value)
         {
-            if (value != null)
+            if (value is not null)
                 _nativeInstance.TextEncoding(value.WebName);
         }
 

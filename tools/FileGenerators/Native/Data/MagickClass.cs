@@ -50,7 +50,7 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_delegates != null)
+                if (_delegates is not null)
                     return _delegates;
 
                 return Enumerable.Empty<MagickDelegate>();
@@ -98,7 +98,7 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_methods != null)
+                if (_methods is not null)
                     return _methods;
 
                 return Enumerable.Empty<MagickMethod>();
@@ -117,7 +117,7 @@ namespace FileGenerator.Native
         {
             get
             {
-                if (_properties != null)
+                if (_properties is not null)
                     return _properties;
 
                 return Enumerable.Empty<MagickProperty>();

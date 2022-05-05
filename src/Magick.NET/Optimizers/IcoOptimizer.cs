@@ -185,7 +185,7 @@ namespace ImageMagick.ImageOptimizers
                         var memoryStream = pngHelper.FindBestStreamQuality(image, out var bestQuality);
                         image.Format = MagickFormat.Ico;
 
-                        if (memoryStream != null)
+                        if (memoryStream is not null)
                         {
                             memoryStream.Dispose();
                             image.Quality = bestQuality;
@@ -233,7 +233,7 @@ namespace ImageMagick.ImageOptimizers
                         var memoryStream = pngHelper.FindBestStreamQuality(image, out var bestQuality);
                         image.Format = MagickFormat.Ico;
 
-                        if (memoryStream != null)
+                        if (memoryStream is not null)
                         {
                             memoryStream.Dispose();
                             image.Quality = bestQuality;

@@ -44,11 +44,11 @@ namespace ImageMagick.Formats
                 if (IgnoreExifPoperties.Equals(true))
                     yield return CreateDefine("exif-properties", false);
 
-                if (IgnoreLayers != null)
+                if (IgnoreLayers is not null)
                     yield return CreateDefine("ignore-layers", IgnoreLayers.Value);
 
                 var ignoreTags = CreateDefine("ignore-tags", IgnoreTags);
-                if (ignoreTags != null)
+                if (ignoreTags is not null)
                     yield return ignoreTags;
             }
         }
