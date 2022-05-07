@@ -10,15 +10,18 @@ namespace Magick.NET.Tests
     {
         public class TheConfigureProperty
         {
-            [Fact]
-            public void ShouldBeInitialized()
+            public class TheDelegatesProperty
             {
-                var configurationFiles = ConfigurationFiles.Default;
+                [Fact]
+                public void ShouldBeInitialized()
+                {
+                    var configurationFiles = ConfigurationFiles.Default;
 
-                Assert.NotNull(configurationFiles.Configure);
-                Assert.Equal("configure.xml", configurationFiles.Configure.FileName);
-                Assert.NotNull(configurationFiles.Configure.Data);
-                Assert.Contains("<configuremap>", configurationFiles.Configure.Data);
+                    Assert.NotNull(configurationFiles.Delegates);
+                    Assert.Equal("delegates.xml", configurationFiles.Delegates.FileName);
+                    Assert.NotNull(configurationFiles.Delegates.Data);
+                    Assert.Contains("<delegatemap>", configurationFiles.Delegates.Data);
+                }
             }
         }
     }
