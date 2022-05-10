@@ -512,9 +512,9 @@ namespace ImageMagick
             => _images.Contains(item);
 
         /// <summary>
-        /// Copies the images to an Array, starting at a particular Array index.
+        /// Copies the images to an <see cref="Array"/>, starting at a particular <see cref="Array"/> index.
         /// </summary>
-        /// <param name="array">The one-dimensional Array that is the destination.</param>
+        /// <param name="array">The one-dimensional <see cref="Array"/> that is the destination.</param>
         /// <param name="arrayIndex">The zero-based index in 'destination' at which copying begins.</param>
         public void CopyTo(IMagickImage<QuantumType>[] array, int arrayIndex)
         {
@@ -526,10 +526,11 @@ namespace ImageMagick
             Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, array.Length);
 
             var indexI = 0;
-            var length = Math.Min(array.Length, _images.Count);
-            for (var indexA = arrayIndex; indexA < length; indexA++)
+            var indexA = arrayIndex;
+            var count = Math.Min(array.Length - arrayIndex, _images.Count);
+            while (count-- > 0)
             {
-                array[indexA] = _images[indexI++].Clone();
+                array[indexA++] = _images[indexI++].Clone();
             }
         }
 

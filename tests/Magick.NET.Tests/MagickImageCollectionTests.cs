@@ -22,42 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_CopyTo()
-        {
-            using (var collection = new MagickImageCollection())
-            {
-                collection.Add(new MagickImage(Files.SnakewarePNG));
-                collection.Add(new MagickImage(Files.RoseSparkleGIF));
-
-                MagickImage[] images = new MagickImage[collection.Count];
-                collection.CopyTo(images, 0);
-
-                Assert.Equal(collection[0], images[0]);
-                Assert.NotEqual(collection[0], images[1]);
-
-                collection.CopyTo(images, 1);
-                Assert.Equal(collection[0], images[0]);
-                Assert.Equal(collection[0], images[1]);
-
-                images = new MagickImage[collection.Count + 1];
-                collection.CopyTo(images, 0);
-
-                images = new MagickImage[1];
-                collection.CopyTo(images, 0);
-
-                Assert.Throws<ArgumentNullException>("array", () =>
-                {
-                    collection.CopyTo(null, -1);
-                });
-
-                Assert.Throws<ArgumentOutOfRangeException>(() =>
-                {
-                    collection.CopyTo(images, -1);
-                });
-            }
-        }
-
-        [Fact]
         public void Test_Deconstruct()
         {
             using (var collection = new MagickImageCollection())
