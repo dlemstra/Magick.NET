@@ -22,40 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_Deconstruct()
-        {
-            using (var collection = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    collection.Deconstruct();
-                });
-
-                collection.Add(new MagickImage(MagickColors.Red, 20, 20));
-
-                using (var frames = new MagickImageCollection())
-                {
-                    frames.Add(new MagickImage(MagickColors.Red, 10, 20));
-                    frames.Add(new MagickImage(MagickColors.Purple, 10, 20));
-
-                    collection.Add(frames.AppendHorizontally());
-                }
-
-                Assert.Equal(20, collection[1].Width);
-                Assert.Equal(20, collection[1].Height);
-                Assert.Equal(new MagickGeometry(0, 0, 10, 20), collection[1].Page);
-                ColorAssert.Equal(MagickColors.Red, collection[1], 3, 3);
-
-                collection.Deconstruct();
-
-                Assert.Equal(10, collection[1].Width);
-                Assert.Equal(20, collection[1].Height);
-                Assert.Equal(new MagickGeometry(10, 0, 10, 20), collection[1].Page);
-                ColorAssert.Equal(MagickColors.Purple, collection[1], 3, 3);
-            }
-        }
-
-        [Fact]
         public void Test_Evaluate()
         {
             using (var collection = new MagickImageCollection())
