@@ -291,13 +291,14 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public async Task ReadAsync(string fileName, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
         {
-            Throw.IfNullOrEmpty(nameof(fileName), fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             var bytes = await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
 
             cancellationToken.ThrowIfCancellationRequested();
             Clear();
-            AddImages(bytes, 0, bytes.Length, readSettings, false);
+            AddImages(bytes, readSettings, false, filePath);
         }
 
         /// <summary>
@@ -600,10 +601,11 @@ namespace ImageMagick
             AddImages(result, settings);
         }
 
-        private void AddImages(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping)
+        private void AddImages(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping, string? fileName = null)
         {
             var settings = CreateSettings(readSettings);
             settings.Ping = ping;
+            settings.FileName = fileName;
 
             var result = _nativeInstance.ReadBlob(settings, data, 0, data.Length);
             AddImages(result, settings);

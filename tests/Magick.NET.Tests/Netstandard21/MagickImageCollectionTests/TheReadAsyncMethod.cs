@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
                 {
                     using (var images = new MagickImageCollection())
                     {
-                       await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null));
+                        await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null));
                     }
                 }
 
@@ -107,11 +107,31 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    using (var input = new MagickImageCollection())
+                    using (var images = new MagickImageCollection())
                     {
-                        await input.ReadAsync(Files.CirclePNG, readSettings);
+                        await images.ReadAsync(Files.CirclePNG, readSettings);
 
-                        Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
+                        Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
+                    }
+                }
+
+                [Fact]
+                public async Task ShouldUseTheFilename()
+                {
+                    using (var images = new MagickImageCollection())
+                    {
+                        await images.ReadAsync(Files.ImageMagickICO);
+
+                        Assert.Equal(3, images.Count);
+                        Assert.Equal(64, images[0].Width);
+                        Assert.Equal(64, images[0].Height);
+                        Assert.Equal(MagickFormat.Ico, images[0].Format);
+                        Assert.Equal(32, images[1].Width);
+                        Assert.Equal(32, images[1].Height);
+                        Assert.Equal(MagickFormat.Ico, images[1].Format);
+                        Assert.Equal(16, images[2].Width);
+                        Assert.Equal(16, images[2].Height);
+                        Assert.Equal(MagickFormat.Ico, images[2].Format);
                     }
                 }
             }
