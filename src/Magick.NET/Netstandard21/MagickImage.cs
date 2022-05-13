@@ -325,7 +325,7 @@ namespace ImageMagick
             var bytes = await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
 
             cancellationToken.ThrowIfCancellationRequested();
-            Read(bytes, readSettings, false, fileName);
+            Read(bytes, readSettings, false, filePath);
         }
 
         /// <summary>
