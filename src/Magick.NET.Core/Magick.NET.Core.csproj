@@ -3,8 +3,8 @@
     <TargetFrameworks>netstandard21;netstandard20;net20</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>11.1.0</AssemblyVersion>
-    <FileVersion>11.1.1</FileVersion>
-    <Version>11.1.1</Version>
+    <FileVersion>11.1.2</FileVersion>
+    <Version>11.1.2</Version>
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 
