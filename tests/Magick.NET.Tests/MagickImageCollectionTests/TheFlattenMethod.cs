@@ -59,6 +59,24 @@ namespace Magick.NET.Tests
                     }
                 }
             }
+
+            [Fact]
+            public void ShouldUseSpecifiedPageOffset()
+            {
+                using (var collection = new MagickImageCollection())
+                {
+                    collection.Add(new MagickImage(MagickColors.Brown, 10, 10));
+                    var center = new MagickImage(MagickColors.Fuchsia, 4, 4);
+                    center.Page = new MagickGeometry(3, 3, 4, 4);
+                    collection.Add(center);
+
+                    using (var image = collection.Flatten())
+                    {
+                        ColorAssert.Equal(MagickColors.Brown, image, 0, 0);
+                        ColorAssert.Equal(MagickColors.Fuchsia, image, 5, 5);
+                    }
+                }
+            }
         }
     }
 }
