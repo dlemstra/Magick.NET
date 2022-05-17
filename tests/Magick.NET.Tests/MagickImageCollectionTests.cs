@@ -22,22 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_Index()
-        {
-            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
-            {
-                for (int i = 0; i < collection.Count; i++)
-                {
-                    collection[i].Resize(35, 23);
-                    Assert.Equal(35, collection[i].Width);
-
-                    collection[i] = collection[i];
-                    Assert.Equal(35, collection[i].Width);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Merge()
         {
             using (var collection = new MagickImageCollection())

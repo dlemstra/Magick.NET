@@ -235,7 +235,7 @@ namespace ImageMagick
             set
             {
                 if (value is null)
-                    throw new InvalidOperationException("Not allowed to add null value.");
+                    throw new InvalidOperationException("Not allowed to set null value.");
 
                 if (!ReferenceEquals(value, _images[index]))
                     CheckDuplication(value);
