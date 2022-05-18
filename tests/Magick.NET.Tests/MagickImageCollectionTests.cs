@@ -22,26 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_Merge()
-        {
-            using (var collection = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    collection.Merge();
-                });
-
-                collection.Read(Files.RoseSparkleGIF);
-
-                using (var first = collection.Merge())
-                {
-                    Assert.Equal(collection[0].Width, first.Width);
-                    Assert.Equal(collection[0].Height, first.Height);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Montage()
         {
             using (var collection = new MagickImageCollection())
