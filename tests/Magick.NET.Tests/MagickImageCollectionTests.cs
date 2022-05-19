@@ -22,32 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_Montage()
-        {
-            using (var collection = new MagickImageCollection())
-            {
-                var settings = new MontageSettings();
-                settings.Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200));
-                settings.TileGeometry = new MagickGeometry(string.Format("{0}x", 2));
-
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    collection.Montage(settings);
-                });
-
-                for (int i = 0; i < 9; i++)
-                    collection.Add(Files.Builtin.Logo);
-
-                using (var montageResult = collection.Montage(settings))
-                {
-                    Assert.NotNull(montageResult);
-                    Assert.Equal(400, montageResult.Width);
-                    Assert.Equal(1000, montageResult.Height);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Morph()
         {
             using (var collection = new MagickImageCollection())
