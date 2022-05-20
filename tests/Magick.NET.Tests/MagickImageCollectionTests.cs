@@ -22,30 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_Morph()
-        {
-            using (var collection = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    collection.Morph(10);
-                });
-
-                collection.Add(Files.Builtin.Logo);
-
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    collection.Morph(10);
-                });
-
-                collection.AddRange(Files.Builtin.Wizard);
-
-                collection.Morph(4);
-                Assert.Equal(6, collection.Count);
-            }
-        }
-
-        [Fact]
         public void Test_Mosaic()
         {
             using (var collection = new MagickImageCollection())
