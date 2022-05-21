@@ -22,37 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_Smush()
-        {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    images.SmushHorizontal(5);
-                });
-
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    images.SmushVertical(6);
-                });
-
-                images.AddRange(Files.RoseSparkleGIF);
-
-                using (var image = images.SmushHorizontal(20))
-                {
-                    Assert.Equal((70 * 3) + (20 * 2), image.Width);
-                    Assert.Equal(46, image.Height);
-                }
-
-                using (var image = images.SmushVertical(40))
-                {
-                    Assert.Equal(70, image.Width);
-                    Assert.Equal((46 * 3) + (40 * 2), image.Height);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_ReadSettings()
         {
             var settings = new MagickReadSettings();
