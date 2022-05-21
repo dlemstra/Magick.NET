@@ -22,19 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_Reverse()
-        {
-            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-            {
-                var first = images.First();
-                images.Reverse();
-
-                var last = images.Last();
-                Assert.True(last == first);
-            }
-        }
-
-        [Fact]
         public void Test_ToBase64()
         {
             using (var images = new MagickImageCollection())
