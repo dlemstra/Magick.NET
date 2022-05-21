@@ -26,19 +26,19 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldMergeTheImages()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Read(Files.RoseSparkleGIF);
+                    images.Read(Files.RoseSparkleGIF);
 
-                    using (var pixels = collection[1].GetPixels())
+                    using (var pixels = images[1].GetPixels())
                     {
                         var color = pixels.GetPixel(53, 3).ToColor();
                         Assert.Equal(0, color.A);
                     }
 
-                    collection.Coalesce();
+                    images.Coalesce();
 
-                    using (var pixels = collection[1].GetPixels())
+                    using (var pixels = images[1].GetPixels())
                     {
                         var color = pixels.GetPixel(53, 3).ToColor();
                         Assert.Equal(Quantum.Max, color.A);

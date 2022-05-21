@@ -30,27 +30,27 @@ namespace Magick.NET.Samples
 
         public static void CreateAnimatedGif()
         {
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 // Add first image and set the animation delay to 100ms
-                collection.Add(SampleFiles.SnakewarePng);
-                collection[0].AnimationDelay = 100;
+                images.Add(SampleFiles.SnakewarePng);
+                images[0].AnimationDelay = 100;
 
                 // Add second image, set the animation delay to 100ms and flip the image
-                collection.Add(SampleFiles.SnakewarePng);
-                collection[1].AnimationDelay = 100;
-                collection[1].Flip();
+                images.Add(SampleFiles.SnakewarePng);
+                images[1].AnimationDelay = 100;
+                images[1].Flip();
 
                 // Optionally reduce colors
                 var settings = new QuantizeSettings();
                 settings.Colors = 256;
-                collection.Quantize(settings);
+                images.Quantize(settings);
 
                 // Optionally optimize the images (images should have the same size).
-                collection.Optimize();
+                images.Optimize();
 
                 // Save gif
-                collection.Write(SampleFiles.OutputDirectory + "Snakeware.Animated.gif");
+                images.Write(SampleFiles.OutputDirectory + "Snakeware.Animated.gif");
             }
         }
     }

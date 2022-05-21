@@ -14,11 +14,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     var exception = Assert.Throws<InvalidOperationException>(() =>
                     {
-                        collection[0] = null;
+                        images[0] = null;
                     });
 
                     Assert.Equal("Not allowed to set null value.", exception.Message);
@@ -28,14 +28,14 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenAddingTheSameImage()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Add(new MagickImage(MagickColors.Red, 1, 1));
-                    collection.Add(new MagickImage(MagickColors.Red, 1, 1));
+                    images.Add(new MagickImage(MagickColors.Red, 1, 1));
+                    images.Add(new MagickImage(MagickColors.Red, 1, 1));
 
                     var exception = Assert.Throws<InvalidOperationException>(() =>
                     {
-                        collection[0] = collection[1];
+                        images[0] = images[1];
                     });
 
                     Assert.Equal("Not allowed to add the same image to the collection.", exception.Message);
@@ -45,14 +45,14 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldBeAbleToOverwriteImageWithSameImage()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     var image = new MagickImage(MagickColors.Red, 1, 1);
-                    collection.Add(image);
+                    images.Add(image);
 
-                    collection[0] = collection[0];
+                    images[0] = images[0];
 
-                    Assert.Same(image, collection[0]);
+                    Assert.Same(image, images[0]);
                 }
             }
         }

@@ -796,12 +796,12 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_FlipFlop()
         {
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
-                collection.Add(new MagickImage(MagickColors.DodgerBlue, 10, 10));
-                collection.Add(new MagickImage(MagickColors.Firebrick, 10, 10));
+                images.Add(new MagickImage(MagickColors.DodgerBlue, 10, 10));
+                images.Add(new MagickImage(MagickColors.Firebrick, 10, 10));
 
-                using (var image = collection.AppendVertically())
+                using (var image = images.AppendVertically())
                 {
                     ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 0);
                     ColorAssert.Equal(MagickColors.Firebrick, image, 5, 10);
@@ -812,7 +812,7 @@ namespace Magick.NET.Tests
                     ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 10);
                 }
 
-                using (var image = collection.AppendHorizontally())
+                using (var image = images.AppendHorizontally())
                 {
                     ColorAssert.Equal(MagickColors.DodgerBlue, image, 0, 5);
                     ColorAssert.Equal(MagickColors.Firebrick, image, 10, 5);

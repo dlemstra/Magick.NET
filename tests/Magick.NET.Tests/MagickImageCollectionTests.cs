@@ -24,27 +24,27 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Smush()
         {
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 Assert.Throws<InvalidOperationException>(() =>
                 {
-                    collection.SmushHorizontal(5);
+                    images.SmushHorizontal(5);
                 });
 
                 Assert.Throws<InvalidOperationException>(() =>
                 {
-                    collection.SmushVertical(6);
+                    images.SmushVertical(6);
                 });
 
-                collection.AddRange(Files.RoseSparkleGIF);
+                images.AddRange(Files.RoseSparkleGIF);
 
-                using (var image = collection.SmushHorizontal(20))
+                using (var image = images.SmushHorizontal(20))
                 {
                     Assert.Equal((70 * 3) + (20 * 2), image.Width);
                     Assert.Equal(46, image.Height);
                 }
 
-                using (var image = collection.SmushVertical(40))
+                using (var image = images.SmushVertical(40))
                 {
                     Assert.Equal(70, image.Width);
                     Assert.Equal((46 * 3) + (40 * 2), image.Height);
@@ -84,56 +84,56 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Remove()
         {
-            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
             {
-                var first = collection[0];
-                collection.Remove(first);
+                var first = images[0];
+                images.Remove(first);
 
-                Assert.Equal(2, collection.Count);
-                Assert.Equal(-1, collection.IndexOf(first));
+                Assert.Equal(2, images.Count);
+                Assert.Equal(-1, images.IndexOf(first));
 
-                first = collection[0];
-                collection.RemoveAt(0);
+                first = images[0];
+                images.RemoveAt(0);
 
-                Assert.Single(collection);
-                Assert.Equal(-1, collection.IndexOf(first));
+                Assert.Single(images);
+                Assert.Equal(-1, images.IndexOf(first));
             }
         }
 
         [Fact]
         public void Test_RePage()
         {
-            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
             {
-                collection[0].Page = new MagickGeometry("0x0+10+20");
+                images[0].Page = new MagickGeometry("0x0+10+20");
 
-                Assert.Equal(10, collection[0].Page.X);
-                Assert.Equal(20, collection[0].Page.Y);
+                Assert.Equal(10, images[0].Page.X);
+                Assert.Equal(20, images[0].Page.Y);
 
-                collection[0].Settings.Page = new MagickGeometry("0x0+10+20");
+                images[0].Settings.Page = new MagickGeometry("0x0+10+20");
 
-                Assert.Equal(10, collection[0].Settings.Page.X);
-                Assert.Equal(20, collection[0].Settings.Page.Y);
+                Assert.Equal(10, images[0].Settings.Page.X);
+                Assert.Equal(20, images[0].Settings.Page.Y);
 
-                collection.RePage();
+                images.RePage();
 
-                Assert.Equal(0, collection[0].Page.X);
-                Assert.Equal(0, collection[0].Page.Y);
+                Assert.Equal(0, images[0].Page.X);
+                Assert.Equal(0, images[0].Page.Y);
 
-                Assert.Equal(10, collection[0].Settings.Page.X);
-                Assert.Equal(20, collection[0].Settings.Page.Y);
+                Assert.Equal(10, images[0].Settings.Page.X);
+                Assert.Equal(20, images[0].Settings.Page.Y);
             }
         }
 
         [Fact]
         public void Test_Reverse()
         {
-            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
             {
-                var first = collection.First();
-                collection.Reverse();
+                var first = images.First();
+                images.Reverse();
 
-                var last = collection.Last();
+                var last = images.Last();
                 Assert.True(last == first);
             }
         }
@@ -141,38 +141,38 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_ToBase64()
         {
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
-                Assert.Equal(string.Empty, collection.ToBase64());
+                Assert.Equal(string.Empty, images.ToBase64());
 
-                collection.Read(Files.Builtin.Logo);
-                Assert.Equal(1228800, collection.ToBase64(MagickFormat.Rgb).Length);
+                images.Read(Files.Builtin.Logo);
+                Assert.Equal(1228800, images.ToBase64(MagickFormat.Rgb).Length);
             }
         }
 
         [Fact]
         public void Test_TrimBounds()
         {
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 Assert.Throws<InvalidOperationException>(() =>
                 {
-                    collection.TrimBounds();
+                    images.TrimBounds();
                 });
 
-                collection.Add(Files.Builtin.Logo);
-                collection.Add(Files.Builtin.Wizard);
-                collection.TrimBounds();
+                images.Add(Files.Builtin.Logo);
+                images.Add(Files.Builtin.Wizard);
+                images.TrimBounds();
 
-                Assert.Equal(640, collection[0].Page.Width);
-                Assert.Equal(640, collection[0].Page.Height);
-                Assert.Equal(0, collection[0].Page.X);
-                Assert.Equal(0, collection[0].Page.Y);
+                Assert.Equal(640, images[0].Page.Width);
+                Assert.Equal(640, images[0].Page.Height);
+                Assert.Equal(0, images[0].Page.X);
+                Assert.Equal(0, images[0].Page.Y);
 
-                Assert.Equal(640, collection[1].Page.Width);
-                Assert.Equal(640, collection[1].Page.Height);
-                Assert.Equal(0, collection[0].Page.X);
-                Assert.Equal(0, collection[0].Page.Y);
+                Assert.Equal(640, images[1].Page.Width);
+                Assert.Equal(640, images[1].Page.Height);
+                Assert.Equal(0, images[0].Page.X);
+                Assert.Equal(0, images[0].Page.Y);
             }
         }
 
@@ -182,11 +182,11 @@ namespace Magick.NET.Tests
             var fileSize = new FileInfo(Files.RoseSparkleGIF).Length;
             Assert.Equal(9891, fileSize);
 
-            using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
             {
                 using (MemoryStream memStream = new MemoryStream())
                 {
-                    collection.Write(memStream);
+                    images.Write(memStream);
 
                     Assert.Equal(fileSize, memStream.Length);
                 }
@@ -195,9 +195,9 @@ namespace Magick.NET.Tests
             var tempFile = new FileInfo(Path.GetTempFileName() + ".gif");
             try
             {
-                using (var collection = new MagickImageCollection(Files.RoseSparkleGIF))
+                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
                 {
-                    collection.Write(tempFile);
+                    images.Write(tempFile);
 
                     Assert.Equal(fileSize, tempFile.Length);
                 }

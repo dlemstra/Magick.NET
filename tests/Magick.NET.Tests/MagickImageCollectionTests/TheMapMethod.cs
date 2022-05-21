@@ -33,11 +33,11 @@ namespace Magick.NET.Tests
 
                     using (var remapImage = colors.AppendHorizontally())
                     {
-                        using (var collection = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
                             Assert.Throws<InvalidOperationException>(() =>
                             {
-                                collection.Map(remapImage);
+                                images.Map(remapImage);
                             });
                         }
                     }
@@ -82,25 +82,25 @@ namespace Magick.NET.Tests
 
                     using (var remapImage = colors.AppendHorizontally())
                     {
-                        using (var collection = new MagickImageCollection())
+                        using (var images = new MagickImageCollection())
                         {
-                            collection.Read(Files.RoseSparkleGIF);
+                            images.Read(Files.RoseSparkleGIF);
 
                             var settings = new QuantizeSettings
                             {
                                 DitherMethod = DitherMethod.FloydSteinberg,
                             };
 
-                            collection.Map(remapImage, settings);
+                            images.Map(remapImage, settings);
 
-                            ColorAssert.Equal(MagickColors.Red, collection[0], 60, 17);
-                            ColorAssert.Equal(MagickColors.Green, collection[0], 37, 24);
+                            ColorAssert.Equal(MagickColors.Red, images[0], 60, 17);
+                            ColorAssert.Equal(MagickColors.Green, images[0], 37, 24);
 
-                            ColorAssert.Equal(MagickColors.Red, collection[1], 27, 45);
-                            ColorAssert.Equal(MagickColors.Green, collection[1], 36, 26);
+                            ColorAssert.Equal(MagickColors.Red, images[1], 27, 45);
+                            ColorAssert.Equal(MagickColors.Green, images[1], 36, 26);
 
-                            ColorAssert.Equal(MagickColors.Red, collection[2], 55, 12);
-                            ColorAssert.Equal(MagickColors.Green, collection[2], 17, 21);
+                            ColorAssert.Equal(MagickColors.Red, images[2], 55, 12);
+                            ColorAssert.Equal(MagickColors.Green, images[2], 17, 21);
                         }
                     }
                 }

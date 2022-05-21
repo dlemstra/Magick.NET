@@ -23,14 +23,14 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldMergeTheImages()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Read(Files.RoseSparkleGIF);
+                    images.Read(Files.RoseSparkleGIF);
 
-                    using (var first = collection.Merge())
+                    using (var first = images.Merge())
                     {
-                        Assert.Equal(collection[0].Width, first.Width);
-                        Assert.Equal(collection[0].Height, first.Height);
+                        Assert.Equal(images[0].Width, first.Width);
+                        Assert.Equal(images[0].Height, first.Height);
                     }
                 }
             }

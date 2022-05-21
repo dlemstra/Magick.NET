@@ -22,32 +22,32 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Collection_Read()
         {
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 var settings = new MagickReadSettings();
                 settings.Density = new Density(150);
 
-                collection.Read(Files.RoseSparkleGIF, settings);
+                images.Read(Files.RoseSparkleGIF, settings);
 
-                Assert.Equal(150, collection[0].Density.X);
+                Assert.Equal(150, images[0].Density.X);
 
                 settings = new MagickReadSettings();
                 settings.FrameIndex = 1;
 
-                collection.Read(Files.RoseSparkleGIF, settings);
+                images.Read(Files.RoseSparkleGIF, settings);
 
-                Assert.Single(collection);
+                Assert.Single(images);
 
                 settings = new MagickReadSettings();
                 settings.FrameIndex = 1;
                 settings.FrameCount = 2;
 
-                collection.Read(Files.RoseSparkleGIF, settings);
+                images.Read(Files.RoseSparkleGIF, settings);
 
-                Assert.Equal(2, collection.Count);
+                Assert.Equal(2, images.Count);
 
                 settings = null;
-                collection.Read(Files.RoseSparkleGIF, settings);
+                images.Read(Files.RoseSparkleGIF, settings);
             }
         }
 

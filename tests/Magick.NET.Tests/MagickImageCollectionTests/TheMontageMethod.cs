@@ -37,16 +37,16 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldMontageTheImages()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     for (var i = 0; i < 9; i++)
-                        collection.Add(Files.Builtin.Logo);
+                        images.Add(Files.Builtin.Logo);
 
                     var settings = new MontageSettings();
                     settings.Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200));
                     settings.TileGeometry = new MagickGeometry(string.Format("{0}x", 2));
 
-                    using (var montageResult = collection.Montage(settings))
+                    using (var montageResult = images.Montage(settings))
                     {
                         Assert.NotNull(montageResult);
                         Assert.Equal(400, montageResult.Width);

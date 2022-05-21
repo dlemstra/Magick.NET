@@ -716,31 +716,31 @@ namespace ImageMagick
 
             Throw.IfNull(nameof(settings), settings);
 
-            IntPtr images;
+            IntPtr imagesPtr;
             try
             {
                 AttachImages();
                 if (!string.IsNullOrEmpty(settings.Label))
                     _images[0].Label = settings.Label;
-                images = _nativeInstance.Montage(_images[0], settings);
+                imagesPtr = _nativeInstance.Montage(_images[0], settings);
             }
             finally
             {
                 DetachImages();
             }
 
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
-                collection.AddRange(MagickImage.CreateList(images, GetSettings()));
+                images.AddRange(MagickImage.CreateList(imagesPtr, GetSettings()));
                 if (settings.TransparentColor is not null)
                 {
-                    foreach (var image in collection)
+                    foreach (var image in images)
                     {
                         image.Transparent(settings.TransparentColor);
                     }
                 }
 
-                return collection.Merge();
+                return images.Merge();
             }
         }
 

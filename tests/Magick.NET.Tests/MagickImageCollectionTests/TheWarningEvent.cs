@@ -30,16 +30,16 @@ namespace Magick.NET.Tests
                 var bytes = File.ReadAllBytes(Files.EightBimTIF);
                 bytes[229] = 1;
 
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Warning += warningDelegate;
-                    collection.Read(bytes);
+                    images.Warning += warningDelegate;
+                    images.Read(bytes);
 
                     Assert.NotEqual(0, count);
 
                     var expectedCount = count;
-                    collection.Warning -= warningDelegate;
-                    collection.Read(bytes);
+                    images.Warning -= warningDelegate;
+                    images.Read(bytes);
 
                     Assert.Equal(expectedCount, count);
                 }

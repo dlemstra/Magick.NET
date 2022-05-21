@@ -33,9 +33,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldCorrectlyOptimizeTheImages()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Add(new MagickImage(MagickColors.Red, 11, 11));
+                    images.Add(new MagickImage(MagickColors.Red, 11, 11));
 
                     var image = new MagickImage(MagickColors.Red, 11, 11);
                     using (var pixels = image.GetPixels())
@@ -43,14 +43,14 @@ namespace Magick.NET.Tests
                         pixels.SetPixel(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
                     }
 
-                    collection.Add(image);
-                    collection.Optimize();
+                    images.Add(image);
+                    images.Optimize();
 
-                    Assert.Equal(1, collection[1].Width);
-                    Assert.Equal(1, collection[1].Height);
-                    Assert.Equal(5, collection[1].Page.X);
-                    Assert.Equal(5, collection[1].Page.Y);
-                    ColorAssert.Equal(MagickColors.Lime, collection[1], 0, 0);
+                    Assert.Equal(1, images[1].Width);
+                    Assert.Equal(1, images[1].Height);
+                    Assert.Equal(5, images[1].Page.X);
+                    Assert.Equal(5, images[1].Page.Y);
+                    ColorAssert.Equal(MagickColors.Lime, images[1], 0, 0);
                 }
             }
 

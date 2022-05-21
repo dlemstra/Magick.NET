@@ -65,15 +65,15 @@ using (var images = new MagickImageCollection())
 ## Create a PDF from two images
 
 ```C#
-using (var collection = new MagickImageCollection())
+using (var images = new MagickImageCollection())
 {
     // Add first page
-    collection.Add(new MagickImage("c:\path\to\SnakewarePage1.jpg"));
+    images.Add(new MagickImage("c:\path\to\SnakewarePage1.jpg"));
     // Add second page
-    collection.Add(new MagickImage("c:\path\to\SnakewarePage2.jpg"));
+    images.Add(new MagickImage("c:\path\to\SnakewarePage2.jpg"));
 
     // Create pdf file with two pages
-    collection.Write("c:\path\to\Snakeware.pdf");
+    images.Write("c:\path\to\Snakeware.pdf");
 }
 ```
 
@@ -91,21 +91,21 @@ using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
 ## Read a single page from a PDF
 
 ```C#
-using (var collection = new MagickImageCollection())
+using (var images = new MagickImageCollection())
 {
     var settings = new MagickReadSettings();
     settings.FrameIndex = 0; // First page
     settings.FrameCount = 1; // Number of pages
 
     // Read only the first page of the pdf file
-    collection.Read("c:\path\to\Snakeware.pdf", settings);
+    images.Read("c:\path\to\Snakeware.pdf", settings);
 
     // Clear the collection
-    collection.Clear();
+    images.Clear();
 
     settings.FrameCount = 2; // Number of pages
 
     // Read the first two pages of the pdf file
-    collection.Read("c:\path\to\Snakeware.pdf", settings);
+    images.Read("c:\path\to\Snakeware.pdf", settings);
 }
 ```

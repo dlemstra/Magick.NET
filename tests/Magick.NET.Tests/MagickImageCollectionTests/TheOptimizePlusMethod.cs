@@ -33,12 +33,12 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldRemoveDuplicateImages()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Add(new MagickImage(MagickColors.Red, 11, 11));
+                    images.Add(new MagickImage(MagickColors.Red, 11, 11));
                     /* The second image will not be removed if it is a duplicate so we need to add an extra one. */
-                    collection.Add(new MagickImage(MagickColors.Red, 11, 11));
-                    collection.Add(new MagickImage(MagickColors.Red, 11, 11));
+                    images.Add(new MagickImage(MagickColors.Red, 11, 11));
+                    images.Add(new MagickImage(MagickColors.Red, 11, 11));
 
                     var image = new MagickImage(MagickColors.Red, 11, 11);
                     using (var pixels = image.GetPixels())
@@ -46,22 +46,22 @@ namespace Magick.NET.Tests
                         pixels.SetPixel(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
                     }
 
-                    collection.Add(image);
-                    collection.OptimizePlus();
+                    images.Add(image);
+                    images.OptimizePlus();
 
-                    Assert.Equal(3, collection.Count);
+                    Assert.Equal(3, images.Count);
 
-                    Assert.Equal(1, collection[1].Width);
-                    Assert.Equal(1, collection[1].Height);
-                    Assert.Equal(-1, collection[1].Page.X);
-                    Assert.Equal(-1, collection[1].Page.Y);
-                    ColorAssert.Equal(new MagickColor("#FF000000"), collection[1], 0, 0);
+                    Assert.Equal(1, images[1].Width);
+                    Assert.Equal(1, images[1].Height);
+                    Assert.Equal(-1, images[1].Page.X);
+                    Assert.Equal(-1, images[1].Page.Y);
+                    ColorAssert.Equal(new MagickColor("#FF000000"), images[1], 0, 0);
 
-                    Assert.Equal(1, collection[2].Width);
-                    Assert.Equal(1, collection[2].Height);
-                    Assert.Equal(5, collection[2].Page.X);
-                    Assert.Equal(5, collection[2].Page.Y);
-                    ColorAssert.Equal(MagickColors.Lime, collection[2], 0, 0);
+                    Assert.Equal(1, images[2].Width);
+                    Assert.Equal(1, images[2].Height);
+                    Assert.Equal(5, images[2].Page.X);
+                    Assert.Equal(5, images[2].Page.Y);
+                    ColorAssert.Equal(MagickColors.Lime, images[2], 0, 0);
                 }
             }
         }

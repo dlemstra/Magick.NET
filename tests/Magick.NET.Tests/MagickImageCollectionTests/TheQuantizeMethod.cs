@@ -58,25 +58,25 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReduceTheColors()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Add(Files.FujiFilmFinePixS1ProJPG);
+                    images.Add(Files.FujiFilmFinePixS1ProJPG);
 
                     var settings = new QuantizeSettings
                     {
                         Colors = 3,
                     };
 
-                    collection.Quantize(settings);
+                    images.Quantize(settings);
 
 #if Q8
-                    ColorAssert.Equal(new MagickColor("#2b414f"), collection[0], 120, 140);
-                    ColorAssert.Equal(new MagickColor("#7b929f"), collection[0], 95, 140);
-                    ColorAssert.Equal(new MagickColor("#44739f"), collection[0], 300, 150);
+                    ColorAssert.Equal(new MagickColor("#2b414f"), images[0], 120, 140);
+                    ColorAssert.Equal(new MagickColor("#7b929f"), images[0], 95, 140);
+                    ColorAssert.Equal(new MagickColor("#44739f"), images[0], 300, 150);
 #else
-                    ColorAssert.Equal(new MagickColor("#2af841624f09"), collection[0], 120, 140);
-                    ColorAssert.Equal(new MagickColor("#7b3c92b69f5a"), collection[0], 95, 140);
-                    ColorAssert.Equal(new MagickColor("#44bc73059f70"), collection[0], 300, 150);
+                    ColorAssert.Equal(new MagickColor("#2af841624f09"), images[0], 120, 140);
+                    ColorAssert.Equal(new MagickColor("#7b3c92b69f5a"), images[0], 95, 140);
+                    ColorAssert.Equal(new MagickColor("#44bc73059f70"), images[0], 300, 150);
 #endif
                 }
             }
@@ -84,9 +84,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnErrorInfoWhenMeasureErrorsIsTrue()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Add(Files.FujiFilmFinePixS1ProJPG);
+                    images.Add(Files.FujiFilmFinePixS1ProJPG);
 
                     var settings = new QuantizeSettings
                     {
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
                         MeasureErrors = true,
                     };
 
-                    var errorInfo = collection.Quantize(settings);
+                    var errorInfo = images.Quantize(settings);
                     Assert.NotNull(errorInfo);
 
 #if Q8

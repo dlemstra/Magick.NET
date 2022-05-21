@@ -14,11 +14,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenCollectionIsEmpty()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
                     Assert.Throws<InvalidOperationException>(() =>
                     {
-                        collection.Evaluate(EvaluateOperator.Exponential);
+                        images.Evaluate(EvaluateOperator.Exponential);
                     });
                 }
             }
@@ -26,9 +26,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldEvaluateTheImages()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Add(new MagickImage(MagickColors.Yellow, 40, 10));
+                    images.Add(new MagickImage(MagickColors.Yellow, 40, 10));
 
                     using (var frames = new MagickImageCollection())
                     {
@@ -37,10 +37,10 @@ namespace Magick.NET.Tests
                         frames.Add(new MagickImage(MagickColors.Black, 10, 10));
                         frames.Add(new MagickImage(MagickColors.Yellow, 10, 10));
 
-                        collection.Add(frames.AppendHorizontally());
+                        images.Add(frames.AppendHorizontally());
                     }
 
-                    using (var image = collection.Evaluate(EvaluateOperator.Min))
+                    using (var image = images.Evaluate(EvaluateOperator.Min))
                     {
                         ColorAssert.Equal(MagickColors.Green, image, 0, 0);
                         ColorAssert.Equal(MagickColors.Yellow, image, 10, 0);

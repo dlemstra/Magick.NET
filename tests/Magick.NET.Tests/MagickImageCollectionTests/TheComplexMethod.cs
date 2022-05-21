@@ -32,25 +32,25 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldApplyTheOperatorToTheImages()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Read(Files.RoseSparkleGIF);
+                    images.Read(Files.RoseSparkleGIF);
 
-                    collection.Complex(new ComplexSettings
+                    images.Complex(new ComplexSettings
                     {
                         ComplexOperator = ComplexOperator.Conjugate,
                     });
 
-                    Assert.Equal(2, collection.Count);
+                    Assert.Equal(2, images.Count);
 
 #if Q8
-                    ColorAssert.Equal(new MagickColor("#abb4ba01"), collection[1], 10, 10);
+                    ColorAssert.Equal(new MagickColor("#abb4ba01"), images[1], 10, 10);
 
 #elif Q16
-                    ColorAssert.Equal(new MagickColor("#aaabb3b4b9ba0001"), collection[1], 10, 10);
+                    ColorAssert.Equal(new MagickColor("#aaabb3b4b9ba0001"), images[1], 10, 10);
 #else
-                    collection[1].Clamp();
-                    ColorAssert.Equal(new MagickColor("#0000000000000000"), collection[1], 10, 10);
+                    images[1].Clamp();
+                    ColorAssert.Equal(new MagickColor("#0000000000000000"), images[1], 10, 10);
 #endif
                 }
             }

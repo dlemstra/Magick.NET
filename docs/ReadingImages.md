@@ -87,14 +87,14 @@ using (var collection = new MagickImageCollection("c:\path\to\Snakeware.gif"))
 // Read from stream
 using (var memStream = LoadMemoryStreamImage())
 {
-    using (var collection = new MagickImageCollection(memStream))
+    using (var images = new MagickImageCollection(memStream))
     {
     }
 }
 
 // Read from byte array
 var data = LoadImageBytes();
-using (var collection = new MagickImageCollection(data))
+using (var images = new MagickImageCollection(data))
 {
 }
 
@@ -102,18 +102,18 @@ using (var collection = new MagickImageCollection(data))
 var settings = new MagickReadSettings();
 settings.Density = new Density(144);
 
-using (var collection = new MagickImageCollection("c:\path\to\Snakeware.pdf", settings))
+using (var images = new MagickImageCollection("c:\path\to\Snakeware.pdf", settings))
 {
 }
 
-using (var collection = new MagickImageCollection())
+using (var images = new MagickImageCollection())
 {
-    collection.Read("c:\path\to\Snakeware.jpg");
+    images.Read("c:\path\to\Snakeware.jpg");
     using (var memStream = LoadMemoryStreamImage())
     {
-        collection.Read(memStream);
+        images.Read(memStream);
     }
-    collection.Read(data);
-    collection.Read("c:\path\to\Snakeware.pdf", settings);
+    images.Read(data);
+    images.Read("c:\path\to\Snakeware.pdf", settings);
 }
 ```

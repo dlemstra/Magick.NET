@@ -67,15 +67,15 @@ namespace Magick.NET.Samples
 
         public static void CreatePDFFromTwoImages()
         {
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 // Add first page
-                collection.Add(new MagickImage(SampleFiles.SnakewareJpg));
+                images.Add(new MagickImage(SampleFiles.SnakewareJpg));
                 // Add second page
-                collection.Add(new MagickImage(SampleFiles.SnakewareJpg));
+                images.Add(new MagickImage(SampleFiles.SnakewareJpg));
 
                 // Create pdf file with two pages
-                collection.Write(SampleFiles.OutputDirectory + "Snakeware.pdf");
+                images.Write(SampleFiles.OutputDirectory + "Snakeware.pdf");
             }
         }
 
@@ -91,22 +91,22 @@ namespace Magick.NET.Samples
 
         public static void ReadSinglePageFromPDF()
         {
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
                 var settings = new MagickReadSettings();
                 settings.FrameIndex = 0; // First page
                 settings.FrameCount = 1; // Number of pages
 
                 // Read only the first page of the pdf file
-                collection.Read(SampleFiles.SnakewarePdf, settings);
+                images.Read(SampleFiles.SnakewarePdf, settings);
 
                 // Clear the collection
-                collection.Clear();
+                images.Clear();
 
                 settings.FrameCount = 2; // Number of pages
 
                 // Read the first two pages of the pdf file
-                collection.Read(SampleFiles.SnakewarePdf, settings);
+                images.Read(SampleFiles.SnakewarePdf, settings);
             }
         }
     }

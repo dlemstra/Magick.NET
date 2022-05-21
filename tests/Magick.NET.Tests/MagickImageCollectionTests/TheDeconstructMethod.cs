@@ -26,29 +26,29 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldDeconstructTheImages()
             {
-                using (var collection = new MagickImageCollection())
+                using (var images = new MagickImageCollection())
                 {
-                    collection.Add(new MagickImage(MagickColors.Red, 20, 20));
+                    images.Add(new MagickImage(MagickColors.Red, 20, 20));
 
                     using (var frames = new MagickImageCollection())
                     {
                         frames.Add(new MagickImage(MagickColors.Red, 10, 20));
                         frames.Add(new MagickImage(MagickColors.Purple, 10, 20));
 
-                        collection.Add(frames.AppendHorizontally());
+                        images.Add(frames.AppendHorizontally());
                     }
 
-                    Assert.Equal(20, collection[1].Width);
-                    Assert.Equal(20, collection[1].Height);
-                    Assert.Equal(new MagickGeometry(0, 0, 10, 20), collection[1].Page);
-                    ColorAssert.Equal(MagickColors.Red, collection[1], 3, 3);
+                    Assert.Equal(20, images[1].Width);
+                    Assert.Equal(20, images[1].Height);
+                    Assert.Equal(new MagickGeometry(0, 0, 10, 20), images[1].Page);
+                    ColorAssert.Equal(MagickColors.Red, images[1], 3, 3);
 
-                    collection.Deconstruct();
+                    images.Deconstruct();
 
-                    Assert.Equal(10, collection[1].Width);
-                    Assert.Equal(20, collection[1].Height);
-                    Assert.Equal(new MagickGeometry(10, 0, 10, 20), collection[1].Page);
-                    ColorAssert.Equal(MagickColors.Purple, collection[1], 3, 3);
+                    Assert.Equal(10, images[1].Width);
+                    Assert.Equal(20, images[1].Height);
+                    Assert.Equal(new MagickGeometry(10, 0, 10, 20), images[1].Page);
+                    ColorAssert.Equal(MagickColors.Purple, images[1], 3, 3);
                 }
             }
         }

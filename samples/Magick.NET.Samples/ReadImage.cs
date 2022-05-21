@@ -96,21 +96,21 @@ namespace Magick.NET.Samples
         public static void ReadImageWithMultipleFrames()
         {
             // Read from file
-            using (var collection = new MagickImageCollection(SampleFiles.SnakewareJpg))
+            using (var images = new MagickImageCollection(SampleFiles.SnakewareJpg))
             {
             }
 
             // Read from stream
             using (var memStream = LoadMemoryStreamImage())
             {
-                using (var collection = new MagickImageCollection(memStream))
+                using (var images = new MagickImageCollection(memStream))
                 {
                 }
             }
 
             // Read from byte array
             var data = LoadImageBytes();
-            using (var collection = new MagickImageCollection(data))
+            using (var images = new MagickImageCollection(data))
             {
             }
 
@@ -118,19 +118,19 @@ namespace Magick.NET.Samples
             var settings = new MagickReadSettings();
             settings.Density = new Density(144);
 
-            using (var collection = new MagickImageCollection(SampleFiles.SnakewarePdf, settings))
+            using (var images = new MagickImageCollection(SampleFiles.SnakewarePdf, settings))
             {
             }
 
-            using (var collection = new MagickImageCollection())
+            using (var images = new MagickImageCollection())
             {
-                collection.Read(SampleFiles.SnakewareJpg);
+                images.Read(SampleFiles.SnakewareJpg);
                 using (var memStream = LoadMemoryStreamImage())
                 {
-                    collection.Read(memStream);
+                    images.Read(memStream);
                 }
-                collection.Read(data);
-                collection.Read(SampleFiles.SnakewarePdf, settings);
+                images.Read(data);
+                images.Read(SampleFiles.SnakewarePdf, settings);
             }
         }
     }
