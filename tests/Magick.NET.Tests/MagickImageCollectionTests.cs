@@ -22,18 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_ToBase64()
-        {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Equal(string.Empty, images.ToBase64());
-
-                images.Read(Files.Builtin.Logo);
-                Assert.Equal(1228800, images.ToBase64(MagickFormat.Rgb).Length);
-            }
-        }
-
-        [Fact]
         public void Test_TrimBounds()
         {
             using (var images = new MagickImageCollection())
