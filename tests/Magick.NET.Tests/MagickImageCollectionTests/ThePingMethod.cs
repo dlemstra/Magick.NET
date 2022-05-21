@@ -310,6 +310,26 @@ namespace Magick.NET.Tests
                         Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
                     }
                 }
+
+                [Fact]
+                public void ShouldUseTheReadSettings()
+                {
+                    var settings = new MagickReadSettings
+                    {
+                        FontFamily = "Courier New",
+                        FillColor = MagickColors.Gold,
+                        FontPointsize = 80,
+                        Format = MagickFormat.Text,
+                        TextGravity = Gravity.Center,
+                    };
+
+                    using (var images = new MagickImageCollection())
+                    {
+                        images.Ping(Files.ImageMagickTXT, settings);
+
+                        Assert.Equal(2, images.Count);
+                    }
+                }
             }
 
             public class WithStream

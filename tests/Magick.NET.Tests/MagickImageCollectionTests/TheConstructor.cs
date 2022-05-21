@@ -351,6 +351,25 @@ namespace Magick.NET.Tests
                         Assert.Single(images);
                     }
                 }
+
+                [Fact]
+                public void ShouldUseTheReadSettings()
+                {
+                    var settings = new MagickReadSettings
+                    {
+                        FontFamily = "Courier New",
+                        FillColor = MagickColors.Gold,
+                        FontPointsize = 80,
+                        Format = MagickFormat.Text,
+                        TextGravity = Gravity.Center,
+                    };
+
+                    using (var images = new MagickImageCollection(Files.ImageMagickTXT, settings))
+                    {
+                        Assert.Equal(2, images.Count);
+                        ColorAssert.Equal(MagickColors.Gold, images[0], 348, 648);
+                    }
+                }
             }
 
             public class WithImages

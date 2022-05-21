@@ -22,35 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_ReadSettings()
-        {
-            var settings = new MagickReadSettings();
-            settings.FontFamily = "Courier New";
-            settings.FillColor = MagickColors.Gold;
-            settings.FontPointsize = 80;
-            settings.Format = MagickFormat.Text;
-            settings.TextGravity = Gravity.Center;
-
-            using (var images = new MagickImageCollection(Files.ImageMagickTXT, settings))
-            {
-                Assert.Equal(2, images.Count);
-                ColorAssert.Equal(MagickColors.Gold, images[0], 348, 648);
-            }
-
-            using (var images = new MagickImageCollection())
-            {
-                images.Ping(Files.ImageMagickTXT, settings);
-
-                Assert.Equal(2, images.Count);
-
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    ColorAssert.Equal(MagickColors.Gold, images[0], 348, 648);
-                });
-            }
-        }
-
-        [Fact]
         public void Test_Remove()
         {
             using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
