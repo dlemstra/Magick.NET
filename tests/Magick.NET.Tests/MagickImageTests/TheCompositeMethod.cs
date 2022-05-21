@@ -121,7 +121,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldCopyTheAlphaChannelWithCopyAlpha()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.None,
                         FillColor = MagickColors.White,
@@ -129,7 +129,7 @@ namespace Magick.NET.Tests
                         Font = Files.Fonts.Arial,
                     };
 
-                    using (var image = new MagickImage("label:Test", readSettings))
+                    using (var image = new MagickImage("label:Test", settings))
                     {
                         using (var alpha = image.Clone())
                         {

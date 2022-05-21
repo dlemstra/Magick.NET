@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        images.Read(bytes, readSettings);
+                        images.Read(bytes, settings);
 
                         Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                     }
@@ -448,14 +448,14 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
 
                     using (var input = new MagickImageCollection())
                     {
-                        input.Read(Files.CirclePNG, readSettings);
+                        input.Read(Files.CirclePNG, settings);
 
                         Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
                     }
@@ -533,7 +533,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -542,7 +542,7 @@ namespace Magick.NET.Tests
                     {
                         using (var input = new MagickImageCollection())
                         {
-                            input.Read(stream, readSettings);
+                            input.Read(stream, settings);
 
                             Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
                         }

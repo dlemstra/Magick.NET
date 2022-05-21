@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        images.Ping(bytes, readSettings);
+                        images.Ping(bytes, settings);
 
                         Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                         Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
@@ -282,14 +282,14 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
 
                     using (var images = new MagickImageCollection())
                     {
-                        images.Ping(Files.CirclePNG, readSettings);
+                        images.Ping(Files.CirclePNG, settings);
 
                         Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                         Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
@@ -326,7 +326,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -335,7 +335,7 @@ namespace Magick.NET.Tests
                     {
                         using (var images = new MagickImageCollection())
                         {
-                            images.Ping(stream, readSettings);
+                            images.Ping(stream, settings);
 
                             Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                             Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());

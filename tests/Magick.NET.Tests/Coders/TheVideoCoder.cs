@@ -36,10 +36,10 @@ namespace Magick.NET.Tests
                 IntermediateFormat = IntermediateFormat.Pam,
             };
 
-            var readSettings = new MagickReadSettings();
-            readSettings.SetDefines(videoDefines);
+            var settings = new MagickReadSettings();
+            settings.SetDefines(videoDefines);
 
-            using (var images = new MagickImageCollection(Files.Coders.TestMP4, readSettings))
+            using (var images = new MagickImageCollection(Files.Coders.TestMP4, settings))
             {
                 Assert.Equal(8, images.Count);
             }

@@ -21,12 +21,12 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage())
             {
-                var readSettings = new MagickReadSettings(new TiffReadDefines
+                var settings = new MagickReadSettings(new TiffReadDefines
                 {
                     IgnoreTags = new string[] { "32934" },
                 });
 
-                image.Read(Files.Coders.IgnoreTagTIF, readSettings);
+                image.Read(Files.Coders.IgnoreTagTIF, settings);
             }
         }
 

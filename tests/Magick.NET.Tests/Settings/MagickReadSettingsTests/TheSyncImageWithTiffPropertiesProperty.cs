@@ -13,8 +13,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTrueAsTheDefaultValue()
             {
-                var readSettings = new MagickReadSettings();
-                Assert.True(readSettings.SyncImageWithTiffProperties);
+                var settings = new MagickReadSettings();
+                Assert.True(settings.SyncImageWithTiffProperties);
             }
 
             [Fact]
@@ -25,14 +25,14 @@ namespace Magick.NET.Tests
                     Assert.Equal(300.0, image.Density.X);
                 }
 
-                var readSettings = new MagickReadSettings
+                var settings = new MagickReadSettings
                 {
                     SyncImageWithTiffProperties = false,
                 };
 
                 using (var image = new MagickImage())
                 {
-                    image.Read(Files.VicelandPNG, readSettings);
+                    image.Read(Files.VicelandPNG, settings);
                     Assert.InRange(image.Density.X, 118, 119);
                 }
             }

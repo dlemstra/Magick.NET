@@ -26,14 +26,14 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
 
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (var input = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), readSettings))
+                    using (var input = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), settings))
                     {
                         Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
                     }
@@ -85,14 +85,14 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
 
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                    using (var input = new MagickImageCollection(new Span<byte>(bytes), readSettings))
+                    using (var input = new MagickImageCollection(new Span<byte>(bytes), settings))
                     {
                         Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
                     }

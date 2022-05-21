@@ -61,12 +61,12 @@ namespace Magick.NET.Tests
         [Fact]
         public void Extract_SetToSpecificAreaOfImage_OnlyAreaIsRead()
         {
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 ExtractArea = new MagickGeometry(10, 10, 20, 30),
             };
 
-            using (var image = new MagickImage(Files.Coders.GrimJP2, readSettings))
+            using (var image = new MagickImage(Files.Coders.GrimJP2, settings))
             {
                 Assert.Equal(20, image.Width);
                 Assert.Equal(30, image.Height);

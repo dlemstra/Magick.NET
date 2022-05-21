@@ -362,7 +362,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -371,7 +371,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        image.Read(bytes, readSettings);
+                        image.Read(bytes, settings);
 
                         Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
                     }
@@ -700,14 +700,14 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReadingFile()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
 
                     using (var image = new MagickImage())
                     {
-                        image.Read(Files.CirclePNG, readSettings);
+                        image.Read(Files.CirclePNG, settings);
 
                         Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
                     }
@@ -1015,7 +1015,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReadingStream()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -1024,7 +1024,7 @@ namespace Magick.NET.Tests
                     {
                         using (var image = new MagickImage())
                         {
-                            image.Read(stream, readSettings);
+                            image.Read(stream, settings);
 
                             Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
                         }

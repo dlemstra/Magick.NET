@@ -5074,13 +5074,13 @@ namespace ImageMagick
             Throw.IfTrue(nameof(width), width <= 0, "The width should be positive.");
             Throw.IfTrue(nameof(height), height <= 0, "The height should be positive.");
 
-            var readSettings = new MagickReadSettings(_settings)
+            var settings = new MagickReadSettings(_settings)
             {
                 Width = width,
                 Height = height,
             };
 
-            Read(fileName, readSettings);
+            Read(fileName, settings);
         }
 
         /// <summary>

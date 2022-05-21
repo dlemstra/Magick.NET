@@ -65,12 +65,12 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageCollectionFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.Goldenrod,
                     };
 
-                    using (var image = factory.Create(new ReadOnlySequence<byte>(data), readSettings))
+                    using (var image = factory.Create(new ReadOnlySequence<byte>(data), settings))
                     {
                         Assert.IsType<MagickImageCollection>(image);
                     }
@@ -127,12 +127,12 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageCollectionFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.Goldenrod,
                     };
 
-                    using (var image = factory.Create(new Span<byte>(data), readSettings))
+                    using (var image = factory.Create(new Span<byte>(data), settings))
                     {
                         Assert.IsType<MagickImageCollection>(image);
                     }

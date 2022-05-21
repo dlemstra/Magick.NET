@@ -141,7 +141,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = Encoding.ASCII.GetBytes("%PDF-");
 
-                    using (MemoryStream stream = new MemoryStream(bytes))
+                    using (var stream = new MemoryStream(bytes))
                     {
                         using (var image = new MagickImage())
                         {
@@ -212,7 +212,7 @@ namespace Magick.NET.Tests
                         Format = MagickFormat.Png,
                     };
 
-                    using (MemoryStream stream = new MemoryStream(bytes))
+                    using (var stream = new MemoryStream(bytes))
                     {
                         using (var image = new MagickImage())
                         {
@@ -226,7 +226,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldResetTheFormatAfterReadingStream()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -235,7 +235,7 @@ namespace Magick.NET.Tests
                     {
                         using (var image = new MagickImage())
                         {
-                            await image.ReadAsync(stream, readSettings);
+                            await image.ReadAsync(stream, settings);
 
                             Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
                         }

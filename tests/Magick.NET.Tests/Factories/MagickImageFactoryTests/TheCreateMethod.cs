@@ -225,12 +225,12 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.Goldenrod,
                     };
 
-                    using (var image = factory.Create(data, readSettings))
+                    using (var image = factory.Create(data, settings))
                     {
                         Assert.IsType<MagickImage>(image);
                         Assert.Equal(123, image.Width);

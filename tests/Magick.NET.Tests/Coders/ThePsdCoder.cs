@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldReadTheProfileForAllLayers()
         {
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 Defines = new PsdReadDefines
                 {
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                 },
             };
 
-            using (var images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD, readSettings))
+            using (var images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD, settings))
             {
                 Assert.Equal(4, images.Count);
 

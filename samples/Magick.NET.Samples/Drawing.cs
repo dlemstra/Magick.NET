@@ -39,7 +39,7 @@ namespace Magick.NET.Samples
             // which automatically resizes the text to best
             // fit within the box.
 
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 Font = "Calibri",
                 TextGravity = Gravity.Center,
@@ -50,7 +50,7 @@ namespace Magick.NET.Samples
 
             using (var image = new MagickImage(pathToBackgroundImage))
             {
-                using (var caption = new MagickImage($"caption:{textToWrite}", readSettings))
+                using (var caption = new MagickImage($"caption:{textToWrite}", settings))
                 {
                     // Add the caption layer on top of the background image
                     // at position 590,450

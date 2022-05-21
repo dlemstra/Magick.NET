@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
         public void ShouldAddCorrectLineBreaks1()
         {
             var caption = "caption:Text 2 Verylongtext";
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 FontPointsize = 23,
                 FillColor = MagickColors.Blue,
@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
                 Height = 85,
             };
 
-            using (var image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, settings))
             {
                 ColorAssert.Equal(MagickColors.Blue, image, 55, 20);
             }
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
         public void ShouldAddCorrectLineBreaks2()
         {
             var caption = "caption:tex1_124x40_3a277be1b9da51b7_2d0d8f84dc3ccc36_8";
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 BackgroundColor = MagickColors.Transparent,
                 FontPointsize = 39,
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
                 Width = 450,
             };
 
-            using (var image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, settings))
             {
                 ColorAssert.Equal(MagickColors.Green, image, 158, 55);
                 ColorAssert.Equal(MagickColors.Green, image, 179, 81);
@@ -57,14 +57,14 @@ namespace Magick.NET.Tests
         public void ShouldAddCorrectLineBreaks3()
         {
             var caption = "caption:Dans votre vie, vous mangerez environ 30 000 kilos de nourriture, l’équivalent du poids de 6 éléphants.";
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 TextGravity = Gravity.Center,
                 Width = 465,
                 Height = 101,
             };
 
-            using (var image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, settings))
             {
                 ColorAssert.Equal(MagickColors.Black, image, 415, 27);
                 ColorAssert.Equal(MagickColors.Black, image, 426, 52);
@@ -77,13 +77,13 @@ namespace Magick.NET.Tests
         public void ShouldAddCorrectLineBreaks4()
         {
             var caption = "caption:This does not wrap";
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 FontPointsize = 50,
                 Width = 400,
             };
 
-            using (var image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, settings))
             {
                 ColorAssert.Equal(MagickColors.White, image, 321, 30);
                 ColorAssert.Equal(MagickColors.Black, image, 86, 86);
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
         public void ShouldAddCorrectLineBreaks5()
         {
             var caption = "caption:A";
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 BackgroundColor = MagickColors.Transparent,
                 FontPointsize = 72,
@@ -103,7 +103,7 @@ namespace Magick.NET.Tests
                 Width = 40,
             };
 
-            using (var image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, settings))
             {
                 Assert.Equal(83, image.Height);
 
@@ -116,7 +116,7 @@ namespace Magick.NET.Tests
         public void ShouldAddCorrectLineBreaks6()
         {
             var caption = "caption:AAA";
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 BackgroundColor = MagickColors.Transparent,
                 FontPointsize = 72,
@@ -125,7 +125,7 @@ namespace Magick.NET.Tests
                 Width = 40,
             };
 
-            using (var image = new MagickImage(caption, readSettings))
+            using (var image = new MagickImage(caption, settings))
             {
                 Assert.Equal(249, image.Height);
 

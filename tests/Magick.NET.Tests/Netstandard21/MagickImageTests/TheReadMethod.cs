@@ -139,7 +139,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReadingBytes()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -148,7 +148,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        image.Read(new ReadOnlySequence<byte>(bytes), readSettings);
+                        image.Read(new ReadOnlySequence<byte>(bytes), settings);
 
                         Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
                     }
@@ -263,7 +263,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -272,7 +272,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        image.Read(new Span<byte>(bytes), readSettings);
+                        image.Read(new Span<byte>(bytes), settings);
 
                         Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
                     }

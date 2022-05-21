@@ -30,12 +30,12 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldUseTheFileExtension()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
 
-                    using (var input = new MagickImage(Files.CirclePNG, readSettings))
+                    using (var input = new MagickImage(Files.CirclePNG, settings))
                     {
                         using (var tempFile = new TemporaryFile(".jpg"))
                         {

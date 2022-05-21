@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        images.Ping(new ReadOnlySequence<byte>(bytes), readSettings);
+                        images.Ping(new ReadOnlySequence<byte>(bytes), settings);
 
                         Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                         Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -103,7 +103,7 @@ namespace Magick.NET.Tests
 
                     using (var images = new MagickImageCollection())
                     {
-                        images.Ping(new Span<byte>(bytes), readSettings);
+                        images.Ping(new Span<byte>(bytes), settings);
 
                         Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                         Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());

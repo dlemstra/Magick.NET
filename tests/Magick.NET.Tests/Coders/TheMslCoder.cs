@@ -12,9 +12,9 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldBeDisabled()
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
-                using (StreamWriter writer = new StreamWriter(memStream))
+                using (var writer = new StreamWriter(memStream))
                 {
                     writer.Write(@"
                         <?xml version=""1.0"" encoding=""UTF-8""?>
@@ -28,14 +28,14 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        var readSettings = new MagickReadSettings
+                        var settings = new MagickReadSettings
                         {
                             Format = MagickFormat.Msl,
                         };
 
                         Assert.Throws<MagickPolicyErrorException>(() =>
                         {
-                            image.Read(memStream, readSettings);
+                            image.Read(memStream, settings);
                         });
                     }
                 }

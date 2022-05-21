@@ -13,8 +13,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTrueAsTheDefaultValue()
             {
-                var readSettings = new MagickReadSettings();
-                Assert.True(readSettings.SyncImageWithExifProfile);
+                var settings = new MagickReadSettings();
+                Assert.True(settings.SyncImageWithExifProfile);
             }
 
             [Fact]
@@ -25,14 +25,14 @@ namespace Magick.NET.Tests
                     Assert.Equal(300.0, image.Density.X);
                 }
 
-                var readSettings = new MagickReadSettings
+                var settings = new MagickReadSettings
                 {
                     SyncImageWithExifProfile = false,
                 };
 
                 using (var image = new MagickImage())
                 {
-                    image.Read(Files.EightBimJPG, readSettings);
+                    image.Read(Files.EightBimJPG, settings);
                     Assert.Equal(72.0, image.Density.X);
                 }
             }

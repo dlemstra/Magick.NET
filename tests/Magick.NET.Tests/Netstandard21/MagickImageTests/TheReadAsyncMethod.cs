@@ -186,14 +186,14 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldResetTheFormatAfterReadingFile()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
 
                     using (var image = new MagickImage())
                     {
-                        await image.ReadAsync(Files.CirclePNG, readSettings);
+                        await image.ReadAsync(Files.CirclePNG, settings);
 
                         Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
                     }

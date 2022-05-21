@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldUseTheDensity()
         {
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 FontPointsize = 14,
                 FontFamily = "Calibri",
@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
                 Density = new Density(96, 96, DensityUnit.PixelsPerInch),
             };
 
-            using (var image = new MagickImage($"label:Masai Mara", readSettings))
+            using (var image = new MagickImage($"label:Masai Mara", settings))
             {
                 Assert.Equal(93, image.Width);
                 Assert.Equal(21, image.Height);
@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldCenterSingleCharacter()
         {
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 BackgroundColor = MagickColors.Transparent,
                 FillColor = MagickColors.Red,
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
                 Width = 60,
             };
 
-            using (var image = new MagickImage("label:1", readSettings))
+            using (var image = new MagickImage("label:1", settings))
             {
                 Assert.Equal(119, image.Height);
 
@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldSupportMultipleLines()
         {
-            var readSettings = new MagickReadSettings
+            var settings = new MagickReadSettings
             {
                 BackgroundColor = MagickColors.Transparent,
                 FillColor = MagickColors.Red,
@@ -64,7 +64,7 @@ namespace Magick.NET.Tests
                 Width = 60,
             };
 
-            using (var image = new MagickImage("label:1\n2", readSettings))
+            using (var image = new MagickImage("label:1\n2", settings))
             {
                 Assert.Equal(237, image.Height);
 

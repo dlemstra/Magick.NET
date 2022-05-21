@@ -12,14 +12,14 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldUseInterlineSpacingSetting()
         {
-            var readSettings = new MagickReadSettings()
+            var settings = new MagickReadSettings()
             {
                 TextInterlineSpacing = 20,
             };
 
             using (var imageA = new MagickImage("pango:Test\nTest"))
             {
-                using (var imageB = new MagickImage("pango:Test\nTest", readSettings))
+                using (var imageB = new MagickImage("pango:Test\nTest", settings))
                 {
                     Assert.NotEqual(imageA.Height, imageB.Height);
                 }
@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
                 return;
             }
 
-            var readSettings = new MagickReadSettings()
+            var settings = new MagickReadSettings()
             {
                 AntiAlias = false,
             };
@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
 
             using (var imageA = new MagickImage(pango))
             {
-                using (var imageB = new MagickImage(pango, readSettings))
+                using (var imageB = new MagickImage(pango, settings))
                 {
                     Assert.NotEqual(imageA.Signature, imageB.Signature);
                 }

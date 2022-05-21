@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldResetTheFormatAfterReading()
                 {
-                    var readSettings = new MagickReadSettings
+                    var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
@@ -39,7 +39,7 @@ namespace Magick.NET.Tests
                     {
                         using (var input = new MagickImageCollection())
                         {
-                            await input.ReadAsync(stream, readSettings);
+                            await input.ReadAsync(stream, settings);
 
                             Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
                         }
