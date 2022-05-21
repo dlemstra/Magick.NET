@@ -22,25 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_Remove()
-        {
-            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-            {
-                var first = images[0];
-                images.Remove(first);
-
-                Assert.Equal(2, images.Count);
-                Assert.Equal(-1, images.IndexOf(first));
-
-                first = images[0];
-                images.RemoveAt(0);
-
-                Assert.Single(images);
-                Assert.Equal(-1, images.IndexOf(first));
-            }
-        }
-
-        [Fact]
         public void Test_RePage()
         {
             using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
