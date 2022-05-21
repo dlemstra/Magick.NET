@@ -22,31 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_RePage()
-        {
-            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-            {
-                images[0].Page = new MagickGeometry("0x0+10+20");
-
-                Assert.Equal(10, images[0].Page.X);
-                Assert.Equal(20, images[0].Page.Y);
-
-                images[0].Settings.Page = new MagickGeometry("0x0+10+20");
-
-                Assert.Equal(10, images[0].Settings.Page.X);
-                Assert.Equal(20, images[0].Settings.Page.Y);
-
-                images.RePage();
-
-                Assert.Equal(0, images[0].Page.X);
-                Assert.Equal(0, images[0].Page.Y);
-
-                Assert.Equal(10, images[0].Settings.Page.X);
-                Assert.Equal(20, images[0].Settings.Page.Y);
-            }
-        }
-
-        [Fact]
         public void Test_Reverse()
         {
             using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
