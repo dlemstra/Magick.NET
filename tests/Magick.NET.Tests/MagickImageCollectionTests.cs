@@ -22,27 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageCollectionTests
     {
         [Fact]
-        public void Test_Mosaic()
-        {
-            using (var collection = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    collection.Mosaic();
-                });
-
-                collection.Add(Files.SnakewarePNG);
-                collection.Add(Files.ImageMagickJPG);
-
-                using (var mosaic = collection.Mosaic())
-                {
-                    Assert.Equal(286, mosaic.Width);
-                    Assert.Equal(118, mosaic.Height);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Smush()
         {
             using (var collection = new MagickImageCollection())
