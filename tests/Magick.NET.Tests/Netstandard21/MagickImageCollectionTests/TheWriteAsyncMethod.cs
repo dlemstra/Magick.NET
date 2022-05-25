@@ -141,6 +141,46 @@ namespace Magick.NET.Tests
                         await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.WriteAsync((string)null));
                     }
                 }
+
+                [Fact]
+                public async Task ShouldWriteToMultipleFilesForFormatThatDoesNotSupportMultipleFrames()
+                {
+                    using (var tempDir = new TemporaryDirectory())
+                    {
+                        using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
+                        {
+                            var fileName = Path.Combine(tempDir.FullName, "image.jpg");
+                            await images.WriteAsync(fileName);
+                        }
+
+                        var files = tempDir.GetFileNames();
+
+                        Assert.Equal(3, files.Count);
+                        Assert.Contains("image-0.jpg", files);
+                        Assert.Contains("image-1.jpg", files);
+                        Assert.Contains("image-2.jpg", files);
+                    }
+                }
+
+                [Fact]
+                public async Task ShouldAddCorrectSuffixForFormatThatDoesNotSupportMultipleFrames()
+                {
+                    using (var tempDir = new TemporaryDirectory())
+                    {
+                        using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
+                        {
+                            var fileName = Path.Combine(tempDir.FullName, "image");
+                            await images.WriteAsync(fileName, MagickFormat.Bmp);
+                        }
+
+                        var files = tempDir.GetFileNames();
+
+                        Assert.Equal(3, files.Count);
+                        Assert.Contains("image-0", files);
+                        Assert.Contains("image-1", files);
+                        Assert.Contains("image-2", files);
+                    }
+                }
             }
 
             public class WithFileNameAndMagickFormat

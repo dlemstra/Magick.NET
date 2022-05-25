@@ -399,26 +399,15 @@ namespace ImageMagick
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task WriteAsync(FileInfo file, CancellationToken cancellationToken)
+        public Task WriteAsync(FileInfo file, CancellationToken cancellationToken)
         {
             Throw.IfNull(nameof(file), file);
 
             if (_images.Count == 0)
-                return;
+                return Task.CompletedTask;
 
             var formatInfo = MagickFormatInfo.Create(file);
-
-            try
-            {
-                AttachImages();
-
-                var bytes = formatInfo is not null ? ToByteArray(formatInfo.Format) : ToByteArray();
-                await File.WriteAllBytesAsync(file.FullName, bytes, cancellationToken).ConfigureAwait(false);
-            }
-            finally
-            {
-                DetachImages();
-            }
+            return WriteAsyncInternal(file.FullName, formatInfo?.Format, cancellationToken);
         }
 
         /// <summary>
@@ -467,24 +456,14 @@ namespace ImageMagick
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task WriteAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
+        public Task WriteAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
         {
             Throw.IfNull(nameof(file), file);
 
             if (_images.Count == 0)
-                return;
+                return Task.CompletedTask;
 
-            try
-            {
-                AttachImages();
-
-                var bytes = ToByteArray(format);
-                await File.WriteAllBytesAsync(file.FullName, bytes, cancellationToken).ConfigureAwait(false);
-            }
-            finally
-            {
-                DetachImages();
-            }
+            return WriteAsyncInternal(file.FullName, format, cancellationToken);
         }
 
         /// <summary>
@@ -559,24 +538,41 @@ namespace ImageMagick
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task WriteAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
+        public Task WriteAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
         {
             var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             if (_images.Count == 0)
-                return;
+                return Task.CompletedTask;
 
-            try
+            return WriteAsyncInternal(filePath, format, cancellationToken);
+        }
+
+        private async Task WriteAsyncInternal(string fileName, MagickFormat? format, CancellationToken cancellationToken)
+        {
+            if (_images.Count > 1 && format.HasValue && MagickFormatInfo.Create(format.Value)?.IsMultiFrame == false)
             {
-                AttachImages();
-
-                var bytes = ToByteArray(format);
-                await File.WriteAllBytesAsync(filePath, bytes, cancellationToken).ConfigureAwait(false);
+                var lastDotIndex = fileName.LastIndexOf('.');
+                for (var i = 0; i < _images.Count; i++)
+                {
+                    var newFileName = lastDotIndex == -1 ? fileName + "-" + i : fileName.Substring(0, lastDotIndex) + "-" + i + fileName.Substring(lastDotIndex);
+                    await _images[i].WriteAsync(newFileName, format.Value, cancellationToken).ConfigureAwait(false);
+                }
             }
-            finally
+            else
             {
-                DetachImages();
+                try
+                {
+                    AttachImages();
+
+                    var bytes = format.HasValue ? ToByteArray(format.Value) : ToByteArray();
+                    await File.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
+                }
+                finally
+                {
+                    DetachImages();
+                }
             }
         }
 

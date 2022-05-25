@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Magick.NET.Tests
 {
@@ -26,5 +28,8 @@ namespace Magick.NET.Tests
 
         public void Dispose()
             => Cleanup.DeleteDirectory(_tempDirectory);
+
+        public IReadOnlyCollection<string> GetFileNames()
+            => _tempDirectory.GetFiles().Select(f => f.Name).ToList();
     }
 }
