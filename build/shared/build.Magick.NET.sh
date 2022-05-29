@@ -1,11 +1,16 @@
 #!/bin/bash
 set -e
 
-buildMagickNET() {
-    local quantum=$1
+openmp=$1
 
-    dotnet build tests/Magick.NET.Core.Tests/Magick.NET.Core.Tests.csproj -f net60 -c Test$quantum
-    dotnet build tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f net60 -c Test$quantum
+buildMagickNET() {
+    local config=Test$1
+    if [ "$openmp" == "OpenMP" ]; then
+        config=$config-OpenMP
+    fi
+
+    dotnet build tests/Magick.NET.Core.Tests/Magick.NET.Core.Tests.csproj -f net60 -c $config
+    dotnet build tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f net60 -c $config
 }
 
 buildMagickNET "Q8"
