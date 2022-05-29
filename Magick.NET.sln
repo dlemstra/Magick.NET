@@ -123,15 +123,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{BE60
 		tools\windows\utils.ps1 = tools\windows\utils.ps1
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux", "linux", "{C4C8ACAC-0081-49E7-A20B-06DB39A98EB3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-x64", "linux-x64", "{C4C8ACAC-0081-49E7-A20B-06DB39A98EB3}"
 	ProjectSection(SolutionItems) = preProject
-		build\linux\build.cmd = build\linux\build.cmd
-		build\linux\build.Magick.NET.sh = build\linux\build.Magick.NET.sh
-		build\linux\Dockerfile = build\linux\Dockerfile
-		build\linux\install.dependencies.sh = build\linux\install.dependencies.sh
-		build\linux\install.Magick.Native.sh = build\linux\install.Magick.Native.sh
-		build\linux\run.cmd = build\linux\run.cmd
-		build\linux\test.Magick.NET.sh = build\linux\test.Magick.NET.sh
+		build\linux-x64\build.cmd = build\linux-x64\build.cmd
+		build\linux-x64\Dockerfile = build\linux-x64\Dockerfile
+		build\linux-x64\install.dependencies.sh = build\linux-x64\install.dependencies.sh
+		build\linux-x64\run.cmd = build\linux-x64\run.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileGenerators", "FileGenerators", "{1B3D9B95-355B-47B2-889D-30BF67F28FB0}"
@@ -207,6 +204,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-arm64", "linux-arm64"
 		build\linux-arm64\install.Magick.Native.sh = build\linux-arm64\install.Magick.Native.sh
 		build\linux-arm64\run.cmd = build\linux-arm64\run.cmd
 		build\linux-arm64\test.Magick.NET.sh = build\linux-arm64\test.Magick.NET.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{3318785C-365D-49C9-AEC5-25C014B80698}"
+	ProjectSection(SolutionItems) = preProject
+		build\shared\build.Magick.NET.sh = build\shared\build.Magick.NET.sh
+		build\shared\install.Magick.Native.sh = build\shared\install.Magick.Native.sh
+		build\shared\test.Magick.NET.sh = build\shared\test.Magick.NET.sh
 	EndProjectSection
 EndProject
 Global
@@ -1154,6 +1158,7 @@ Global
 		{5F85869A-E670-4097-AEC0-80D746531315} = {F6E20621-E266-4314-ADE0-A899270F2312}
 		{9CBABB42-7921-4697-AC1D-DABDBAED752B} = {F6E20621-E266-4314-ADE0-A899270F2312}
 		{36D7C362-16CF-4BA6-80B0-F353A54F1262} = {F6E20621-E266-4314-ADE0-A899270F2312}
+		{3318785C-365D-49C9-AEC5-25C014B80698} = {F6E20621-E266-4314-ADE0-A899270F2312}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}

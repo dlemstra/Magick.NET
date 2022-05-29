@@ -23,16 +23,16 @@ jobs:
         fetch-depth: 1
 
     - name: Install dependencies
-      run: build/linux/install.dependencies.sh
+      run: build/linux-x64/install.dependencies.sh
 
     - name: Install Magick.Native
-      run: 'build/linux/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64'
 
     - name: Build
-      run: build/linux/build.Magick.NET.sh
+      run: build/shared/build.Magick.NET.sh
 
     - name: Test
-      run: build/linux/test.Magick.NET.sh
+      run: build/shared/test.Magick.NET.sh
 
   linux_openmp:
     name: 'Linux OpenMP (Q8/Q16/Q16-HDRI)'

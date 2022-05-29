@@ -2,28 +2,28 @@ FROM mcr.microsoft.com/dotnet/sdk:6.0
 
 ARG GITHUB_TOKEN
 
-RUN mkdir /build
+RUN mkdir /magick
 
-COPY build/linux/install.dependencies.sh /build
+WORKDIR /magick
 
-RUN cd /build; ./install.dependencies.sh
+RUN mkdir build && mkdir build/linux-x64
 
-COPY src /build/src
+COPY build/shared build/shared
 
-COPY build/linux/install.Magick.Native.sh /build
+COPY build/linux-x64/install.dependencies.sh build/linux-x64
 
-RUN cd /build; ./install.Magick.Native.sh dlemstra ${GITHUB_TOKEN}
+RUN build/linux-x64/install.dependencies.sh
 
-COPY stylecop.json /build/stylecop.json
+COPY src src
 
-COPY logo /build/logo
+RUN build/shared/install.Magick.Native.sh dlemstra ${GITHUB_TOKEN} linux x64
 
-COPY tests /build/tests
+COPY stylecop.json stylecop.json
 
-COPY build/linux/build.Magick.NET.sh /build
+COPY logo logo
 
-RUN cd /build; ./build.Magick.NET.sh
+COPY tests tests
 
-COPY build/linux/test.Magick.NET.sh /build
+RUN build/shared/build.Magick.NET.sh
 
-RUN cd /build; ./test.Magick.NET.sh
+RUN build/shared/test.Magick.NET.sh
