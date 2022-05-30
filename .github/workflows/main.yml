@@ -57,7 +57,7 @@ jobs:
       run: build/linux-musl-x64/install.dependencies.sh
 
     - name: Install Magick.Native
-      run: 'build/linux-musl-x64/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64'
+      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64'
 
     - name: Build
       run: build/shared/build.Magick.NET.sh
