@@ -174,15 +174,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.SystemWindowsMed
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.SystemWindowsMedia.Tests", "tests\Magick.NET.SystemWindowsMedia.Tests\Magick.NET.SystemWindowsMedia.Tests.csproj", "{2C404C5D-ECE9-45BD-BDB8-9DD31B5BEED3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-musl", "linux-musl", "{5F85869A-E670-4097-AEC0-80D746531315}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-musl-x64", "linux-musl-x64", "{5F85869A-E670-4097-AEC0-80D746531315}"
 	ProjectSection(SolutionItems) = preProject
-		build\linux-musl\build.cmd = build\linux-musl\build.cmd
-		build\linux-musl\build.Magick.NET.sh = build\linux-musl\build.Magick.NET.sh
-		build\linux-musl\Dockerfile = build\linux-musl\Dockerfile
-		build\linux-musl\install.dependencies.sh = build\linux-musl\install.dependencies.sh
-		build\linux-musl\install.Magick.Native.sh = build\linux-musl\install.Magick.Native.sh
-		build\linux-musl\run.cmd = build\linux-musl\run.cmd
-		build\linux-musl\test.Magick.NET.sh = build\linux-musl\test.Magick.NET.sh
+		build\linux-musl-x64\build.cmd = build\linux-musl-x64\build.cmd
+		build\linux-musl-x64\build.openmp.cmd = build\linux-musl-x64\build.openmp.cmd
+		build\linux-musl-x64\Dockerfile = build\linux-musl-x64\Dockerfile
+		build\linux-musl-x64\install.dependencies.sh = build\linux-musl-x64\install.dependencies.sh
+		build\linux-musl-x64\run.cmd = build\linux-musl-x64\run.cmd
+		build\linux-musl-x64\run.openmp.cmd = build\linux-musl-x64\run.openmp.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-arm64", "linux-arm64", "{36D7C362-16CF-4BA6-80B0-F353A54F1262}"

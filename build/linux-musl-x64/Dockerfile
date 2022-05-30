@@ -1,29 +1,31 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine
 
+RUN mkdir /magick
+
+WORKDIR /magick
+
+RUN mkdir build && mkdir build/linux-musl-x64
+
+COPY build/linux-musl-x64/install.dependencies.sh build/linux-musl-x64
+
+RUN build/linux-musl-x64/install.dependencies.sh
+
+COPY src src
+
+COPY build/shared build/shared
+
 ARG GITHUB_TOKEN
 
-RUN mkdir /build
+RUN build/shared/install.Magick.Native.sh dlemstra ${GITHUB_TOKEN} linux-musl x64
 
-COPY build/linux-musl/install.dependencies.sh /build
+COPY stylecop.json stylecop.json
 
-RUN cd /build; ./install.dependencies.sh
+COPY logo logo
 
-COPY src /build/src
+COPY tests tests
 
-COPY build/linux-musl/install.Magick.Native.sh /build
+ARG OpenMP
 
-RUN cd /build; ./install.Magick.Native.sh dlemstra ${GITHUB_TOKEN}
+RUN build/shared/build.Magick.NET.sh $OpenMP
 
-COPY stylecop.json /build/stylecop.json
-
-COPY logo /build/logo
-
-COPY tests /build/tests
-
-COPY build/linux-musl/build.Magick.NET.sh /build
-
-RUN cd /build; ./build.Magick.NET.sh
-
-COPY build/linux-musl/test.Magick.NET.sh /build
-
-RUN cd /build; ./test.Magick.NET.sh
+RUN build/shared/test.Magick.NET.sh $OpenMP
