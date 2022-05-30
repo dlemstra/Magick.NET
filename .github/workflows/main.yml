@@ -41,7 +41,7 @@ jobs:
       run: build/shared/test.Magick.NET.sh OpenMP
 
   linux_musl:
-    name: 'Linux musl (x64)  (Q8/Q16/Q16-HDRI)'
+    name: 'Linux musl (x64) (Q8/Q16/Q16-HDRI)'
     container:
       image: mcr.microsoft.com/dotnet/sdk:6.0-alpine
     runs-on: ubuntu-latest
@@ -107,7 +107,7 @@ jobs:
         fetch-depth: 1
 
     - name: Install dependencies
-      run: build/macos/install.dependencies.sh
+      run: build/osx-64/install.dependencies.sh
 
     - name: Install .NET 6.0
       uses: actions/setup-dotnet@v1
@@ -115,13 +115,13 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Install Magick.Native
-      run: 'build/macos/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" osx x64'
 
     - name: Build
-      run: build/macos/build.Magick.NET.sh
+      run: build/shared/build.Magick.NET.sh
 
     - name: Test
-      run: build/macos/test.Magick.NET.sh
+      run: build/shared/test.Magick.NET.sh
 
   windows:
     name: Windows

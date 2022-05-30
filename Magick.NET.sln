@@ -149,12 +149,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EE5A8EB5
 		src\Magick.Native\build\Debug-Q8-x86.cmd = src\Magick.Native\build\Debug-Q8-x86.cmd
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macos", "macos", "{8BAE93F7-10BB-409F-8823-52D0F766E44D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "osx-x64", "osx-x64", "{8BAE93F7-10BB-409F-8823-52D0F766E44D}"
 	ProjectSection(SolutionItems) = preProject
-		build\macos\build.Magick.NET.sh = build\macos\build.Magick.NET.sh
-		build\macos\install.dependencies.sh = build\macos\install.dependencies.sh
-		build\macos\install.Magick.Native.sh = build\macos\install.Magick.Native.sh
-		build\macos\test.Magick.NET.sh = build\macos\test.Magick.NET.sh
+		build\osx-x64\install.dependencies.sh = build\osx-x64\install.dependencies.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3A8414CC-62A7-4E38-B6AC-75ED9D276971}"
