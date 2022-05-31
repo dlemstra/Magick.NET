@@ -107,7 +107,7 @@ jobs:
         fetch-depth: 1
 
     - name: Install dependencies
-      run: build/osx-64/install.dependencies.sh
+      run: build/osx-x64/install.dependencies.sh
 
     - name: Install .NET 6.0
       uses: actions/setup-dotnet@v1
