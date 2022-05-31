@@ -83,7 +83,7 @@ jobs:
         fetch-depth: 1
 
     - name: Install Magick.Native
-      run: 'build/linux-arm64/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64'
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@master

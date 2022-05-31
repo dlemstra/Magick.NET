@@ -1,29 +1,32 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0-focal-arm64v8
 
+RUN mkdir /magick
+
+WORKDIR /magick
+
+RUN mkdir build && mkdir build/linux-arm64
+
+COPY build/linux-arm64/install.dependencies.sh build/linux-arm64
+
+RUN build/linux-arm64/install.dependencies.sh
+
+COPY src src
+
+COPY build/shared build/shared
+
 ARG GITHUB_TOKEN
 
-RUN mkdir /build
+RUN build/shared/install.Magick.Native.sh dlemstra ${GITHUB_TOKEN} linux arm64
 
-COPY build/linux-arm64/install.dependencies.sh /build
+COPY stylecop.json stylecop.json
 
-RUN cd /build; ./install.dependencies.sh
+COPY logo logo
 
-COPY src /build/src
+COPY tests tests
 
-COPY build/linux-arm64/install.Magick.Native.sh /build
+ARG OpenMP
 
-RUN cd /build; ./install.Magick.Native.sh dlemstra ${GITHUB_TOKEN}
+RUN build/shared/build.Magick.NET.sh $OpenMP
 
-COPY stylecop.json /build/stylecop.json
+RUN build/shared/test.Magick.NET.sh $OpenMP
 
-COPY logo /build/logo
-
-COPY tests /build/tests
-
-COPY build/linux-arm64/build.Magick.NET.sh /build
-
-RUN cd /build; ./build.Magick.NET.sh
-
-COPY build/linux-arm64/test.Magick.NET.sh /build
-
-RUN cd /build; ./test.Magick.NET.sh
