@@ -115,7 +115,7 @@ jobs:
         dotnet-version: 6.0.x
 
     - name: Install Magick.Native
-      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" osx x64'
+      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64'
 
     - name: Build
       run: build/shared/build.Magick.NET.sh
