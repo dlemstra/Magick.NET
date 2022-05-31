@@ -184,10 +184,12 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-arm64", "linux-arm64", "{36D7C362-16CF-4BA6-80B0-F353A54F1262}"
 	ProjectSection(SolutionItems) = preProject
 		build\linux-arm64\build.cmd = build\linux-arm64\build.cmd
+		build\linux-arm64\build.openmp.cmd = build\linux-arm64\build.openmp.cmd
 		build\linux-arm64\Dockerfile = build\linux-arm64\Dockerfile
 		build\linux-arm64\github-actions.sh = build\linux-arm64\github-actions.sh
 		build\linux-arm64\install.dependencies.sh = build\linux-arm64\install.dependencies.sh
 		build\linux-arm64\run.cmd = build\linux-arm64\run.cmd
+		build\linux-arm64\run.openmp.cmd = build\linux-arm64\run.openmp.cmd
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shared", "shared", "{3318785C-365D-49C9-AEC5-25C014B80698}"
