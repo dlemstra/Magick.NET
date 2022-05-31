@@ -21,11 +21,11 @@ function addMagickNetLibraries($xml, $quantumName, $platform) {
     addLibrary $xml "Magick.NET" $quantumName $platform "netstandard21"
 }
 
-function addOpenMPLibrary($xml) {
+function addOpenMPLibrary($xml, $platform) {
     $redistFolder = "$($env:VSINSTALLDIR)VC\Redist\MSVC"
     $redistVersion = (ls -Directory $redistFolder -Filter 14.* | sort -Descending | select -First 1 -Property Name).Name
-    $source = "$redistFolder\$redistVersion\x64\Microsoft.VC143.OpenMP\vcomp140.dll"
-    $target = "runtimes\win-x64\native\vcomp140.dll"
+    $source = "$redistFolder\$redistVersion\$platform\Microsoft.VC143.OpenMP\vcomp140.dll"
+    $target = "runtimes\win-$platform\native\vcomp140.dll"
     addFile $xml $source $target
 }
 
@@ -53,18 +53,20 @@ function addNativeLibraries($xml, $quantumName, $platform) {
 
     addNativeLibrary $xml $platform "win" "$quantumName-$platform.dll"
 
+    if ($platform -eq "x86") {
+        return
+    }
+
     if ($quantumName.EndsWith("-OpenMP")) {
-        if ($platform -eq "x64") {
-            addOpenMPLibrary $xml
-            addNativeLibrary $xml $platform "linux" "$quantumName-$platform.dll.so"
-        }
-    } else {
-        if ($platform -ne "x86") {
-            addNativeLibrary $xml $platform "linux" "$quantumName-$platform.dll.so"
-            if ($platform -eq "x64") {
-                addNativeLibrary $xml $platform "linux-musl" "$quantumName-$platform.dll.so"
-                addNativeLibrary $xml $platform "osx" "$quantumName-$platform.dll.dylib"
-            }
+        addOpenMPLibrary $xml $platform
+    }
+
+    addNativeLibrary $xml $platform "linux" "$quantumName-$platform.dll.so"
+
+    if ($platform -eq "x64") {
+        addNativeLibrary $xml $platform "linux-musl" "$quantumName-$platform.dll.so"
+        if (!$quantumName.EndsWith("-OpenMP")) {
+            addNativeLibrary $xml $platform "osx" "$quantumName-$platform.dll.dylib"
         }
     }
 }
