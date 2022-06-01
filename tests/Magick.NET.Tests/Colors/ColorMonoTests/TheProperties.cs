@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheCorrectValue()
             {
-                var color = new ColorMono(false);
+                var color = ColorMono.White;
 
                 color.IsBlack = true;
                 Assert.True(color.IsBlack);

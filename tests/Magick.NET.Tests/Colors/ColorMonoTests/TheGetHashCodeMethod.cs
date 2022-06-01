@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnDifferentValueWhenChannelChanged()
             {
-                var first = new ColorMono(true);
+                var first = ColorMono.Black;
                 var hashCode = first.GetHashCode();
 
                 first.IsBlack = false;

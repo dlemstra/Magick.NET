@@ -42,6 +42,18 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets a new instance of the <see cref="ColorMono"/> class that is black.
+        /// </summary>
+        public static ColorMono Black
+            => new ColorMono(true);
+
+        /// <summary>
+        /// Gets a new instance of the <see cref="ColorMono"/> class that is black.
+        /// </summary>
+        public static ColorMono White
+            => new ColorMono(false);
+
+        /// <summary>
         /// Gets or sets a value indicating whether the color is black or white.
         /// </summary>
         public bool IsBlack { get; set; }

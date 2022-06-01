@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnFalseWhenOtherIsNull()
             {
-                var color = new ColorMono(true);
+                var color = ColorMono.Black;
 
                 Assert.False(color.Equals(null));
             }
@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnFalseWhenOtherAsObjectIsNull()
             {
-                var color = new ColorMono(true);
+                var color = ColorMono.Black;
 
                 Assert.False(color.Equals((object)null));
             }
@@ -29,8 +29,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTrueWhenOtherIsEqual()
             {
-                var color = new ColorMono(false);
-                var other = new ColorMono(false);
+                var color = ColorMono.White;
+                var other = ColorMono.White;
 
                 Assert.True(color.Equals(other));
             }
@@ -38,8 +38,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTrueWhenOtherAsObjectIsEqual()
             {
-                var color = new ColorMono(false);
-                var other = new ColorMono(false);
+                var color = ColorMono.White;
+                var other = ColorMono.White;
 
                 Assert.True(color.Equals((object)other));
             }
@@ -47,8 +47,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnFalseWhenOtherIsNotEqual()
             {
-                var color = new ColorMono(true);
-                var other = new ColorMono(false);
+                var color = ColorMono.Black;
+                var other = ColorMono.White;
 
                 Assert.False(color.Equals(other));
             }
@@ -56,8 +56,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnFalseWhenOtherAsObjectIsNotEqual()
             {
-                var color = new ColorMono(true);
-                var other = new ColorMono(false);
+                var color = ColorMono.Black;
+                var other = ColorMono.White;
 
                 Assert.False(color.Equals((object)other));
             }

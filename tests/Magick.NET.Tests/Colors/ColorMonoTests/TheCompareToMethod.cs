@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenOtherIsNull()
             {
-                var color = new ColorMono(true);
+                var color = ColorMono.Black;
 
                 Assert.Equal(1, color.CompareTo(null));
             }
@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenOtherIsEqual()
             {
-                var color = new ColorMono(true);
+                var color = ColorMono.Black;
 
                 Assert.Equal(0, color.CompareTo(color));
             }
@@ -29,8 +29,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenOtherIsLower()
             {
-                var color = new ColorMono(false);
-                var other = new ColorMono(true);
+                var color = ColorMono.White;
+                var other = ColorMono.Black;
 
                 Assert.Equal(1, color.CompareTo(other));
             }
@@ -38,8 +38,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenOtherIsHigher()
             {
-                var color = new ColorMono(true);
-                var other = new ColorMono(false);
+                var color = ColorMono.Black;
+                var other = ColorMono.White;
 
                 Assert.Equal(-1, color.CompareTo(other));
             }

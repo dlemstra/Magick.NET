@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
             {
-                var color = new ColorMono(false);
+                var color = ColorMono.White;
 
                 Assert.False(color == null);
                 Assert.True(color != null);
@@ -32,8 +32,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenInstancesAreEqual()
             {
-                var first = new ColorMono(true);
-                var second = new ColorMono(true);
+                var first = ColorMono.Black;
+                var second = ColorMono.Black;
 
                 Assert.True(first == second);
                 Assert.False(first != second);
@@ -46,8 +46,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenInstancesAreNotEqual()
             {
-                var first = new ColorMono(false);
-                var second = new ColorMono(true);
+                var first = ColorMono.White;
+                var second = ColorMono.Black;
 
                 Assert.False(first == second);
                 Assert.True(first != second);

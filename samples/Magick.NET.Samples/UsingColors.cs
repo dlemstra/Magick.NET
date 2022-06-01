@@ -12,7 +12,7 @@ namespace Magick.NET.Samples
             using (var image = new MagickImage(SampleFiles.SnakewarePng))
             {
                 image.TransparentChroma(MagickColors.Black, MagickColors.Blue);
-                image.BackgroundColor = new ColorMono(true).ToMagickColor();
+                image.BackgroundColor = ColorMono.Black.ToMagickColor();
 
                 // Q16 (Blue):
                 image.TransparentChroma(new MagickColor(0, 0, 0), new MagickColor(0, 0, Quantum.Max));
