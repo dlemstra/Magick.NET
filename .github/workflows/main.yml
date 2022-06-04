@@ -110,7 +110,7 @@ jobs:
       run: build/osx-x64/install.dependencies.sh
 
     - name: Install .NET 6.0
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
 
