@@ -1,6 +1,6 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">
-    <NativeDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\win*\native\*-x*.dll" />
+    <NativeDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\win*\native\*.dll" />
     <Content Include="@(NativeDLL)">
       <Link>%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
