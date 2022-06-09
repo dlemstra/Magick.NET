@@ -130,7 +130,7 @@ namespace ImageMagick.Formats
         public double? TargetPsnr { get; set; }
 
         /// <summary>
-        /// Gets or sets the target size (in bytes) to try and reach for the compressed output.  The compressor makes several passes of partial encoding in order to get as close as possible to this target. (webp:target-size).
+        /// Gets or sets the target size (in bytes) to try and reach for the compressed output. The compressor makes several passes of partial encoding in order to get as close as possible to this target. (webp:target-size).
         /// </summary>
         public int? TargetSize { get; set; }
 
