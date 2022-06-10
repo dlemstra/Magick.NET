@@ -18,6 +18,18 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets a new instance of the <see cref="DrawableTextAntialias"/> class that is disabled.
+        /// </summary>
+        public static DrawableTextAntialias Disabled
+            => new DrawableTextAntialias(false);
+
+        /// <summary>
+        /// Gets a new instance of the <see cref="DrawableTextAntialias"/> class that is enabled.
+        /// </summary>
+        public static DrawableTextAntialias Enabled
+            => new DrawableTextAntialias(true);
+
+        /// <summary>
         /// Gets or sets a value indicating whether text antialiasing is enabled or disabled.
         /// </summary>
         public bool IsEnabled { get; set; }

@@ -75,7 +75,6 @@ namespace Magick.NET.Tests
                 image.Draw(new DrawableStrokeWidth(4));
                 image.Draw(new DrawableText(0, 60, "test"));
                 image.Draw(new DrawableTextAlignment(TextAlignment.Center));
-                image.Draw(new DrawableTextAntialias(true));
                 image.Draw(new DrawableTextDecoration(TextDecoration.LineThrough));
                 image.Draw(new DrawableTextDirection(TextDirection.RightToLeft));
                 image.Draw(new DrawableTextEncoding(Encoding.ASCII));
@@ -147,7 +146,6 @@ namespace Magick.NET.Tests
             AssertDraw(new DrawableStrokeWidth(4));
             AssertDraw(new DrawableText(0, 60, "test"));
             AssertDraw(new DrawableTextAlignment(TextAlignment.Center));
-            AssertDraw(new DrawableTextAntialias(true));
             AssertDraw(new DrawableTextDecoration(TextDecoration.LineThrough));
             AssertDraw(new DrawableTextDirection(TextDirection.RightToLeft));
             AssertDraw(new DrawableTextEncoding(Encoding.ASCII));
