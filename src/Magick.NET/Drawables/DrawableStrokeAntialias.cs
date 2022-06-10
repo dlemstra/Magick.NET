@@ -20,6 +20,18 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets a new instance of the <see cref="DrawableStrokeAntialias"/> class that is disabled.
+        /// </summary>
+        public static DrawableStrokeAntialias Disabled
+            => new DrawableStrokeAntialias(false);
+
+        /// <summary>
+        /// Gets a new instance of the <see cref="DrawableStrokeAntialias"/> class that is enabled.
+        /// </summary>
+        public static DrawableStrokeAntialias Enabled
+            => new DrawableStrokeAntialias(true);
+
+        /// <summary>
         /// Gets or sets a value indicating whether stroke antialiasing is enabled or disabled.
         /// </summary>
         public bool IsEnabled { get; set; }

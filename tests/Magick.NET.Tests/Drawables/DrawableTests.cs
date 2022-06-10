@@ -65,7 +65,6 @@ namespace Magick.NET.Tests
                 image.Draw(new DrawableScaling(15, 15));
                 image.Draw(new DrawableSkewX(90));
                 image.Draw(new DrawableSkewY(90));
-                image.Draw(new DrawableStrokeAntialias(true));
                 image.Draw(new DrawableStrokeColor(MagickColors.Purple));
                 image.Draw(new DrawableStrokeDashArray(new double[2] { 10, 20 }));
                 image.Draw(new DrawableStrokeDashOffset(2));
@@ -138,7 +137,6 @@ namespace Magick.NET.Tests
             AssertDraw(new DrawableScaling(15, 15));
             AssertDraw(new DrawableSkewX(90));
             AssertDraw(new DrawableSkewY(90));
-            AssertDraw(new DrawableStrokeAntialias(true));
             AssertDraw(new DrawableStrokeColor(MagickColors.Purple));
             AssertDraw(new DrawableStrokeDashArray(new double[2] { 10, 20 }));
             AssertDraw(new DrawableStrokeDashOffset(2));
