@@ -34,6 +34,11 @@ namespace ImageMagick.Formats
         public string? PixelFormat { get; set; }
 
         /// <summary>
+        /// Gets or sets the video read mode (video:intermediate-format).
+        /// </summary>
+        public VideoReadMode? ReadMode { get; set; }
+
+        /// <summary>
         /// Gets or sets the video sync (video:vsync).
         /// </summary>
         public VideoSync? VideoSync { get; set; }
@@ -50,6 +55,11 @@ namespace ImageMagick.Formats
 
                 if (PixelFormat?.Length > 0)
                     yield return new MagickDefine("video:pixel-format", PixelFormat);
+
+                if (ReadMode == VideoReadMode.ByDuration)
+                    yield return new MagickDefine("video:intermediate-format", "webp");
+                else if (ReadMode == VideoReadMode.ByFrame)
+                    yield return new MagickDefine("video:intermediate-format", "pam");
 
                 if (VideoSync is not null)
                     yield return new MagickDefine("video:vsync", EnumHelper.GetName(VideoSync.Value).ToLowerInvariant());
