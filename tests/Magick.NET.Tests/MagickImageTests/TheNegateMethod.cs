@@ -10,25 +10,25 @@ namespace Magick.NET.Tests
     {
         public class TheNegateMethod
         {
-            public class WithBoolean
+            [Fact]
+            public void ShouldNegateTheImage()
             {
-                [Fact]
-                public void ShouldOnlyNegateGrayscaleWhenSetToTrue()
+                using (var image = new MagickImage("xc:white", 1, 1))
                 {
-                    using (var image = new MagickImage("xc:white", 2, 1))
-                    {
-                        using (var pixels = image.GetPixels())
-                        {
-                            var pixel = pixels.GetPixel(1, 0);
-                            pixel.SetChannel(1, 0);
-                            pixel.SetChannel(2, 0);
-                        }
+                    image.Negate();
 
-                        image.Negate(true);
+                    ColorAssert.Equal(MagickColors.Black, image, 0, 0);
+                }
+            }
 
-                        ColorAssert.Equal(MagickColors.Black, image, 0, 0);
-                        ColorAssert.Equal(MagickColors.Red, image, 1, 0);
-                    }
+            [Fact]
+            public void ShouldNegateTheSpecifedChannels()
+            {
+                using (var image = new MagickImage("xc:white", 1, 1))
+                {
+                    image.Negate(Channels.Red);
+
+                    ColorAssert.Equal(MagickColors.Aqua, image, 0, 0);
                 }
             }
         }

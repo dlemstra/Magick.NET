@@ -4522,6 +4522,21 @@ namespace ImageMagick
             => Negate(false, channels);
 
         /// <summary>
+        /// Negate the grayscale colors in image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void NegateGrayscale()
+            => NegateGrayscale(ImageMagick.Channels.Composite);
+
+        /// <summary>
+        /// Negate the grayscale colors in image for the specified channel.
+        /// </summary>
+        /// <param name="channels">The channel(s) that should be negated.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void NegateGrayscale(Channels channels)
+            => _nativeInstance.Negate(true, channels);
+
+        /// <summary>
         /// Normalize image (increase contrast by normalizing the pixel values to span the full range
         /// of color values).
         /// </summary>

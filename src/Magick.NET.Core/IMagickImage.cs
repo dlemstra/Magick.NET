@@ -2399,6 +2399,19 @@ namespace ImageMagick
         void Negate(Channels channels);
 
         /// <summary>
+        /// Negate the grayscale colors in image.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void NegateGrayscale();
+
+        /// <summary>
+        /// Negate the grayscale colors in image for the specified channel.
+        /// </summary>
+        /// <param name="channels">The channel(s) that should be negated.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void NegateGrayscale(Channels channels);
+
+        /// <summary>
         /// Normalize image (increase contrast by normalizing the pixel values to span the full range
         /// of color values).
         /// </summary>
