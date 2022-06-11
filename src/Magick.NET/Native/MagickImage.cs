@@ -509,7 +509,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr channels, UIntPtr value, out IntPtr exception);
+                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr value, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetColormap(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1076,7 +1076,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr channels, UIntPtr value, out IntPtr exception);
+                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr value, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetColormap(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1643,7 +1643,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr channels, UIntPtr value, out IntPtr exception);
+                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr value, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_SetColormap(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -7750,26 +7750,26 @@ namespace ImageMagick
                     }
                 }
             }
-            public void SetBitDepth(Channels channels, int value)
+            public void SetBitDepth(int value, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value, out exception);
+                NativeMethods.ARM64.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value, out exception);
+                NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetBitDepth(Instance, (UIntPtr)channels, (UIntPtr)value, out exception);
+                NativeMethods.X86.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
             }

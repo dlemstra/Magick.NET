@@ -2376,12 +2376,12 @@
       "throws": true,
       "arguments": [
         {
-          "name": "channels",
-          "type": "Channels"
-        },
-        {
           "name": "value",
           "type": "size_t"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
         }
       ]
     },

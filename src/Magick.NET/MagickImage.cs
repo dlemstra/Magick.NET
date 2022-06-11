@@ -1331,7 +1331,7 @@ namespace ImageMagick
         /// <param name="value">The depth.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void BitDepth(Channels channels, int value)
-            => _nativeInstance.SetBitDepth(channels, value);
+            => _nativeInstance.SetBitDepth(value, channels);
 
         /// <summary>
         /// Set the bit depth (bits allocated to red/green/blue components).
