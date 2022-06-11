@@ -3017,6 +3017,21 @@ namespace ImageMagick
         void SetAttribute(string name, bool flag);
 
         /// <summary>
+        /// Set the bit depth (bits allocated to red/green/blue components).
+        /// </summary>
+        /// <param name="value">The depth.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SetBitDepth(int value);
+
+        /// <summary>
+        /// Set the bit depth (bits allocated to red/green/blue components) of the specified channel.
+        /// </summary>
+        /// <param name="value">The depth.</param>
+        /// <param name="channels">The channel to set the depth for.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void SetBitDepth(int value, Channels channels);
+
+        /// <summary>
         /// Sets the default clipping path.
         /// </summary>
         /// <param name="value">The clipping path.</param>

@@ -1331,7 +1331,7 @@ namespace ImageMagick
         /// <param name="value">The depth.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void BitDepth(Channels channels, int value)
-            => _nativeInstance.SetBitDepth(value, channels);
+            => SetBitDepth(value, channels);
 
         /// <summary>
         /// Set the bit depth (bits allocated to red/green/blue components).
@@ -1339,7 +1339,7 @@ namespace ImageMagick
         /// <param name="value">The depth.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void BitDepth(int value)
-            => BitDepth(ImageMagick.Channels.Composite, value);
+            => SetBitDepth(value, ImageMagick.Channels.Composite);
 
         /// <summary>
         /// Blur image with the default blur factor (0x1).
@@ -5687,6 +5687,23 @@ namespace ImageMagick
 
             _nativeInstance.SetAttribute(name, flag ? "true" : "false");
         }
+
+        /// <summary>
+        /// Set the bit depth (bits allocated to red/green/blue components).
+        /// </summary>
+        /// <param name="value">The depth.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void SetBitDepth(int value)
+            => SetBitDepth(value, ImageMagick.Channels.Composite);
+
+        /// <summary>
+        /// Set the bit depth (bits allocated to red/green/blue components) of the specified channel.
+        /// </summary>
+        /// <param name="value">The depth.</param>
+        /// <param name="channels">The channel to set the depth for.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void SetBitDepth(int value, Channels channels)
+            => _nativeInstance.SetBitDepth(value, channels);
 
         /// <summary>
         /// Sets the default clipping path.
