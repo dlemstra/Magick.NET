@@ -20,15 +20,15 @@ For more information about ImageMagick go to: [http://www.imagemagick.org/](http
 |**.NET Standard 2.1**|windows (x64)|✅|✅|✅|
 ||windows (arm64)|✅|✅|✅|
 ||linux (x64)|✅|✅|✅|
-||linux-arm64 (arm64)|✅|✅|❌|
-||linux-musl (x64)|✅|✅|❌|
+||linux-arm64 (arm64)|✅|✅|✅|
+||linux-musl (x64)|✅|✅|✅|
 ||macOS (x64)|✅|✅|❌|
 ||windows (x86)|✅|✅|❌|
 |**.NET Standard 2.0**|windows (x64)|✅|✅|✅|
 ||windows (arm64)|✅|✅|✅|
 ||linux (x64)|✅|✅|✅|
-||linux-arm64 (arm64)|✅|✅|❌|
-||linux-musl (x64)|✅|✅|❌|
+||linux-arm64 (arm64)|✅|✅|✅|
+||linux-musl (x64)|✅|✅|✅|
 ||macOS (x64)|✅|✅|❌|
 ||windows (x86)|✅|✅|❌|
 |**.NET 2.0**|windows (x64)|✅|❌|✅|
@@ -54,12 +54,12 @@ Magick.NET can be added to a project with one of the following NuGet packages:
 |**linux (x64)**|Q8|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q8-AnyCPU/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-OpenMP-x64/)|
 ||Q16|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-AnyCPU/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-OpenMP-x64/)|
 ||Q16-HDRI|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-AnyCPU/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-x64/)|
-|**linux-arm64 (arm64)**|Q8|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-arm64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q8-AnyCPU/)|❌|
-||Q16|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-arm64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-AnyCPU/)|❌|
-||Q16-HDRI|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-arm64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-AnyCPU/)|❌|
-|**linux-musl (x64)**|Q8|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q8-AnyCPU/)|❌|
-||Q16|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-AnyCPU/)|❌|
-||Q16-HDRI|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-AnyCPU/)|❌|
+|**linux-arm64 (arm64)**|Q8|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-arm64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q8-AnyCPU/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-OpenMP-arm64/)|
+||Q16|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-arm64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-AnyCPU/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-OpenMP-arm64/)|
+||Q16-HDRI|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-arm64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-AnyCPU/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-arm64/)|
+|**linux-musl (x64)**|Q8|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q8-AnyCPU/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-OpenMP-x64/)|
+||Q16|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-AnyCPU/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-OpenMP-x64/)|
+||Q16-HDRI|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-AnyCPU/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-x64/)|
 |**macOS (x64)**|Q8|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q8-AnyCPU/)|❌|
 ||Q16|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-AnyCPU/)|❌|
 ||Q16-HDRI|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x64/)|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-AnyCPU/)|❌|
