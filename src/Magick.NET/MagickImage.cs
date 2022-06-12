@@ -3569,6 +3569,13 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Inverse contrast image (diminish intensity differences in image).
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void InverseContrast()
+            => _nativeInstance.Contrast(false);
+
+        /// <summary>
         /// Floodfill pixels not matching color (within fuzz factor) of target pixel(x,y) with
         /// replacement alpha value using method.
         /// </summary>

@@ -444,21 +444,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Contrast()
-        {
-            using (var first = new MagickImage(Files.Builtin.Wizard))
-            {
-                first.Contrast(true);
-                first.Contrast(false);
-
-                using (var second = new MagickImage(Files.Builtin.Wizard))
-                {
-                    Assert.InRange(first.Compare(second, ErrorMetric.RootMeanSquared), 0.0031, 0.0034);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_ContrastStretch()
         {
             using (var image = new MagickImage(Files.Builtin.Wizard))
