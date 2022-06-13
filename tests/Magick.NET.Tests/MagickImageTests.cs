@@ -23,18 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_BrightnessContrast()
-        {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                ColorAssert.NotEqual(MagickColors.White, image, 340, 295);
-                image.BrightnessContrast(new Percentage(50), new Percentage(50));
-                image.Clamp();
-                ColorAssert.Equal(MagickColors.White, image, 340, 295);
-            }
-        }
-
-        [Fact]
         public void Test_CannyEdge_HoughLine()
         {
             using (var image = new MagickImage(Files.ConnectedComponentsPNG))
