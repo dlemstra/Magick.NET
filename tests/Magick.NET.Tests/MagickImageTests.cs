@@ -47,16 +47,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Charcoal()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Charcoal();
-                ColorAssert.Equal(MagickColors.White, image, 424, 412);
-            }
-        }
-
-        [Fact]
         public void Test_Chop()
         {
             using (var image = new MagickImage(Files.Builtin.Wizard))
