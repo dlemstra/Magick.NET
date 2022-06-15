@@ -47,17 +47,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Chop()
-        {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                image.Chop(new MagickGeometry(new Percentage(50), new Percentage(50)));
-                Assert.Equal(240, image.Width);
-                Assert.Equal(320, image.Height);
-            }
-        }
-
-        [Fact]
         public void Test_Channels()
         {
             PixelChannel[] rgb = new PixelChannel[]
