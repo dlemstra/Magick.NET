@@ -19,10 +19,10 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new PdfWriteDefines
                     {
-                        CreationTime = new DateTime(1990, 1, 2, 3, 4, 5),
+                        CreationTime = new DateTime(1990, 1, 2, 3, 4, 5, DateTimeKind.Utc),
                     });
 
-                    Assert.Equal("631245845", image.Settings.GetDefine(MagickFormat.Pdf, "create-epoch"));
+                    Assert.Equal("631249445", image.Settings.GetDefine(MagickFormat.Pdf, "create-epoch"));
                 }
             }
 
