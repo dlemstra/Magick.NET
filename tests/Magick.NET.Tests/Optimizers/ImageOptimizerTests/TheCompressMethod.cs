@@ -201,7 +201,7 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
-                public void ShouldMakeFileSmallerWhenFileNameIsCompressiblePnggFile()
+                public void ShouldMakeFileSmallerWhenFileNameIsCompressiblePngFile()
                 {
                     var optimizer = new ImageOptimizer();
                     AssertCompress(Files.SnakewarePNG, true, (string fileName) =>
