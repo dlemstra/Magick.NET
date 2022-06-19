@@ -20,6 +20,7 @@ namespace ImageMagick.Defines
         /// <summary>
         /// Gets the format where the defines are for.
         /// </summary>
-        MagickFormat IWriteDefines.Format => Format;
+        MagickFormat IWriteDefines.Format
+            => Format;
     }
 }
