@@ -49,9 +49,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotOptimizeAnimatedPNG()
                 {
-                    PngOptimizer optimizer = new PngOptimizer();
+                    var optimizer = new PngOptimizer();
 
-                    using (TemporaryFile tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
+                    using (var tempFile = new TemporaryFile(Files.Coders.AnimatedPNGexampleBouncingBeachBallPNG))
                     {
                         var result = optimizer.LosslessCompress(tempFile.FileInfo);
                         Assert.False(result);
@@ -96,7 +96,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotReadable()
                 {
-                    using (TestStream stream = new TestStream(false, true, true))
+                    using (var stream = new TestStream(false, true, true))
                     {
                         Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                     }
@@ -105,7 +105,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotWriteable()
                 {
-                    using (TestStream stream = new TestStream(true, false, true))
+                    using (var stream = new TestStream(true, false, true))
                     {
                         Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                     }
@@ -114,7 +114,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotSeekable()
                 {
-                    using (TestStream stream = new TestStream(true, true, false))
+                    using (var stream = new TestStream(true, true, false))
                     {
                         Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                     }
