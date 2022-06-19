@@ -136,6 +136,15 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
+                public void ShouldThrowExceptionWhenFileIsEmpty()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentException>("fileName", () => image.Write(string.Empty));
+                    }
+                }
+
+                [Fact]
                 public void ShouldSyncTheExifProfile()
                 {
                     using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
@@ -180,6 +189,15 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
+                public void ShouldThrowExceptionWhenFileIsEmpty()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        Assert.Throws<ArgumentException>("fileName", () => image.Write(string.Empty, MagickFormat.Bmp));
+                    }
+                }
+
+                [Fact]
                 public void ShouldUseTheSpecifiedFormat()
                 {
                     using (var input = new MagickImage(Files.CirclePNG))
@@ -212,12 +230,22 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
+                public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                {
+                    using (var image = new MagickImage())
+                    {
+                        var defines = new JpegWriteDefines();
+
+                        Assert.Throws<ArgumentException>("fileName", () => image.Write(string.Empty, defines));
+                    }
+                }
+
+                [Fact]
                 public void ShouldThrowExceptionWhenWriteDefinesIsNull()
                 {
                     using (var image = new MagickImage())
                     {
-                        var file = new FileInfo(Files.CirclePNG);
-                        Assert.Throws<ArgumentNullException>("defines", () => image.Write(file, null));
+                        Assert.Throws<ArgumentNullException>("defines", () => image.Write(Files.CirclePNG, null));
                     }
                 }
 
@@ -253,6 +281,29 @@ namespace Magick.NET.Tests
                     using (var image = new MagickImage())
                     {
                         Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null));
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowStreamWithSameLengthAsFile()
+                {
+                    using (var image = new MagickImage(Files.Builtin.Logo))
+                    {
+                        var format = MagickFormat.Bmp;
+
+                        using (var memStream = new MemoryStream())
+                        {
+                            image.Write(memStream, format);
+
+                            memStream.Position = 0;
+
+                            using (var result = new MagickImage(memStream))
+                            {
+                                Assert.Equal(image.Width, result.Width);
+                                Assert.Equal(image.Height, result.Height);
+                                Assert.Equal(format, result.Format);
+                            }
+                        }
                     }
                 }
             }
