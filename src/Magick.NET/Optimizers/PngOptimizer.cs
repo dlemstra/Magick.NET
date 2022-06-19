@@ -98,7 +98,11 @@ namespace ImageMagick.ImageOptimizers
         {
             ImageOptimizerHelper.CheckFormat(image, MagickFormat.Png);
 
-            if (!lossless)
+            if (lossless)
+            {
+                image.RemoveAttribute("date:timestamp");
+            }
+            else
             {
                 image.Strip();
                 image.Settings.SetDefine(MagickFormat.Png, "exclude-chunks", "all");

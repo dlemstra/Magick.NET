@@ -20,10 +20,10 @@ namespace Magick.NET.Tests
                     image.SetArtifact("bar", "foo");
 
                     var names = image.AttributeNames;
-                    Assert.Equal(5, names.Count());
-                    Assert.Equal("date:create,date:modify,foo,jpeg:colorspace,jpeg:sampling-factor", string.Join(",", (from name in names
-                                                                                                                           orderby name
-                                                                                                                           select name).ToArray()));
+                    var allNames = string.Join(",", names);
+
+                    Assert.Equal(6, names.Count());
+                    Assert.Equal("date:create,date:modify,date:timestamp,foo,jpeg:colorspace,jpeg:sampling-factor", allNames);
                 }
             }
         }
