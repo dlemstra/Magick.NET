@@ -84,7 +84,7 @@ namespace ImageMagick.ImageOptimizers
         /// <returns>True when the image could be compressed otherwise false.</returns>
         public bool LosslessCompress(string fileName)
         {
-            string filePath = FileHelper.CheckForBaseDirectory(fileName);
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
             return DoLosslessCompress(new FileInfo(filePath));
@@ -100,8 +100,8 @@ namespace ImageMagick.ImageOptimizers
         {
             ImageOptimizerHelper.CheckStream(stream);
 
-            bool isCompressed = false;
-            long startPosition = stream.Position;
+            var isCompressed = false;
+            var startPosition = stream.Position;
 
             using (var images = new MagickImageCollection(stream))
             {
@@ -129,7 +129,7 @@ namespace ImageMagick.ImageOptimizers
         {
             ImageOptimizerHelper.CheckFormat(image, MagickFormat.Gif);
 
-            bool isCompressed = false;
+            var isCompressed = false;
 
             using (var tempFile = new TemporaryFile())
             {
@@ -157,7 +157,7 @@ namespace ImageMagick.ImageOptimizers
         {
             ImageOptimizerHelper.CheckFormat(image, MagickFormat.Gif);
 
-            bool isCompressed = false;
+            var isCompressed = false;
 
             using (var memStream = new MemoryStream())
             {

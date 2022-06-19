@@ -108,7 +108,7 @@ namespace ImageMagick.ImageOptimizers
 
         private bool DoCompress(FileInfo file, bool lossless)
         {
-            bool isCompressed = false;
+            var isCompressed = false;
 
             using (var image = new MagickImage(file))
             {
