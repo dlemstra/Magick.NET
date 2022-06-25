@@ -31,7 +31,7 @@ function installPackage($version, $target) {
 
     Write-Host "Installing Magick.Native.$version.nupkg"
 
-    $process = Start-Process -FilePath $nugetPath -ArgumentList "install Magick.Native -Version $version -OutputDirectory $target" -PassThru -NoNewWindow
+    $process = Start-Process -FilePath "$nugetPath" -ArgumentList "install Magick.Native -Version $version -OutputDirectory ""$target""" -PassThru -NoNewWindow
     $process.WaitForExit()
 
     Remove-Item $temp -Recurse -ErrorAction Ignore
