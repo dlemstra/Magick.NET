@@ -242,6 +242,29 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Multiplies the value of all non alpha channels in this <see cref="MagickColor"/> with the specified <see cref="Percentage"/>.
+        /// </summary>
+        /// <param name="color">The <see cref="MagickColor"/> to multiply.</param>
+        /// <param name="percentage">The <see cref="Percentage"/> that should be used.</param>
+        /// <returns>The <see cref="MagickColor"/> multiplied with the percentage</returns>
+        public static MagickColor? operator *(MagickColor? color, Percentage percentage)
+        {
+            if (color is null)
+                return null;
+
+            var red = Quantum.Convert(percentage.Multiply((double)color.R));
+            var green = Quantum.Convert(percentage.Multiply((double)color.G));
+            var blue = Quantum.Convert(percentage.Multiply((double)color.B));
+
+            if (!color.IsCmyk)
+                return new MagickColor(red, green, blue, color.A);
+
+            var key = (QuantumType)percentage.Multiply((double)color.K);
+
+            return new MagickColor(red, green, blue, key, color.A);
+        }
+
+        /// <summary>
         /// Creates a new <see cref="MagickColor"/> instance from the specified 8-bit color values (red, green,
         /// and blue). The alpha value is implicitly 255 (fully opaque).
         /// </summary>

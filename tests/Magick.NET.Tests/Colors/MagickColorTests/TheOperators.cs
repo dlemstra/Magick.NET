@@ -10,51 +10,114 @@ namespace Magick.NET.Tests
     {
         public class TheOperators
         {
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
+            public class WithCompare
             {
-                var color = MagickColors.Red;
+                [Fact]
+                public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
+                {
+                    var color = MagickColors.Red;
 
-                Assert.False(color == null);
-                Assert.True(color != null);
-                Assert.False(color < null);
-                Assert.False(color <= null);
-                Assert.True(color > null);
-                Assert.True(color >= null);
-                Assert.False(null == color);
-                Assert.True(null != color);
-                Assert.True(null < color);
-                Assert.True(null <= color);
-                Assert.False(null > color);
-                Assert.False(null >= color);
+                    Assert.False(color == null);
+                    Assert.True(color != null);
+                    Assert.False(color < null);
+                    Assert.False(color <= null);
+                    Assert.True(color > null);
+                    Assert.True(color >= null);
+                    Assert.False(null == color);
+                    Assert.True(null != color);
+                    Assert.True(null < color);
+                    Assert.True(null <= color);
+                    Assert.False(null > color);
+                    Assert.False(null >= color);
+                }
+
+                [Fact]
+                public void ShouldReturnTheCorrectValueWhenInstanceIsSpecified()
+                {
+                    var first = MagickColors.Red;
+                    var second = MagickColors.Green;
+
+                    Assert.False(first == second);
+                    Assert.True(first != second);
+                    Assert.False(first < second);
+                    Assert.False(first <= second);
+                    Assert.True(first > second);
+                    Assert.True(first >= second);
+                }
+
+                [Fact]
+                public void ShouldReturnTheCorrectValueWhenInstanceAreEqual()
+                {
+                    var first = MagickColors.Red;
+                    var second = new MagickColor("red");
+
+                    Assert.True(first == second);
+                    Assert.False(first != second);
+                    Assert.False(first < second);
+                    Assert.True(first <= second);
+                    Assert.False(first > second);
+                    Assert.True(first >= second);
+                }
             }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenInstanceIsSpecified()
+            public class WithPercentage
             {
-                var first = MagickColors.Red;
-                var second = MagickColors.Green;
+                [Fact]
+                public void ShouldReturnNullWhenValueIsNull()
+                {
+                    MagickColor color = null;
+                    var percentage = new Percentage(50);
 
-                Assert.False(first == second);
-                Assert.True(first != second);
-                Assert.False(first < second);
-                Assert.False(first <= second);
-                Assert.True(first > second);
-                Assert.True(first >= second);
-            }
+                    var result = color * percentage;
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenInstanceAreEqual()
-            {
-                var first = MagickColors.Red;
-                var second = new MagickColor("red");
+                    Assert.Null(result);
+                }
 
-                Assert.True(first == second);
-                Assert.False(first != second);
-                Assert.False(first < second);
-                Assert.True(first <= second);
-                Assert.False(first > second);
-                Assert.True(first >= second);
+                [Fact]
+                public void ShouldNotAllowValueAbove100Percent()
+                {
+                    var color = MagickColors.White;
+                    var percentage = new Percentage(150);
+
+                    var result = color * percentage;
+
+                    Assert.NotNull(result);
+                    Assert.Equal(Quantum.Max, result.R);
+                    Assert.Equal(Quantum.Max, result.G);
+                    Assert.Equal(Quantum.Max, result.B);
+                    Assert.Equal(Quantum.Max, result.A);
+                }
+
+                [Fact]
+                public void ShouldMultplyAllNonAlphaChannelsForRgbColor()
+                {
+                    var color = MagickColors.White;
+                    var percentage = new Percentage(50);
+
+                    var result = color * percentage;
+
+                    Assert.NotNull(result);
+                    Assert.Equal(Quantum.Max / 2, result.R);
+                    Assert.Equal(Quantum.Max / 2, result.G);
+                    Assert.Equal(Quantum.Max / 2, result.B);
+                    Assert.Equal(Quantum.Max, result.A);
+                }
+
+                [Fact]
+                public void ShouldMultplyAllNonAlphaChannelsForCmykColor()
+                {
+                    var color = new MagickColor("cmyka(100%,100%,100%,100%)");
+                    var percentage = new Percentage(50);
+
+                    var result = color * percentage;
+
+                    Assert.NotNull(result);
+                    Assert.Equal(Quantum.Max / 2, result.R);
+                    Assert.Equal(Quantum.Max / 2, result.G);
+                    Assert.Equal(Quantum.Max / 2, result.B);
+                    Assert.Equal(Quantum.Max / 2, result.K);
+                    Assert.Equal(Quantum.Max, result.A);
+                }
             }
         }
     }
