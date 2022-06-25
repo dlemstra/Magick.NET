@@ -47,31 +47,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Chromaticity()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                PrimaryInfo info = new PrimaryInfo(0.5, 1.0, 1.5);
-
-                AssertChromaticity(0.15, 0.06, 0, image.ChromaBluePrimary);
-                image.ChromaBluePrimary = info;
-                AssertChromaticity(0.5, 1.0, 1.5, image.ChromaBluePrimary);
-
-                AssertChromaticity(0.3, 0.6, 0, image.ChromaGreenPrimary);
-                image.ChromaGreenPrimary = info;
-                AssertChromaticity(0.5, 1.0, 1.5, image.ChromaGreenPrimary);
-
-                AssertChromaticity(0.64, 0.33, 0, image.ChromaRedPrimary);
-                image.ChromaRedPrimary = info;
-                AssertChromaticity(0.5, 1.0, 1.5, image.ChromaRedPrimary);
-
-                AssertChromaticity(0.3127, 0.329, 0, image.ChromaWhitePoint);
-                image.ChromaWhitePoint = info;
-                AssertChromaticity(0.5, 1.0, 1.5, image.ChromaWhitePoint);
-            }
-        }
-
-        [Fact]
         public void Test_ClassType()
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
