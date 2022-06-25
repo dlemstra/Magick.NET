@@ -140,7 +140,8 @@ namespace ImageMagick
             }
         }
 
-        private MagickColor(NativeMagickColor instance) => Initialize(instance);
+        private MagickColor(NativeMagickColor instance)
+            => Initialize(instance);
 
         /// <summary>
         /// Gets or sets the alpha component value of this color.
