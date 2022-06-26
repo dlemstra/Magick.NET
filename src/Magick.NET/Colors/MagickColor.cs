@@ -246,7 +246,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The <see cref="MagickColor"/> to multiply.</param>
         /// <param name="percentage">The <see cref="Percentage"/> that should be used.</param>
-        /// <returns>The <see cref="MagickColor"/> multiplied with the percentage</returns>
+        /// <returns>The <see cref="MagickColor"/> multiplied with the percentage.</returns>
         public static MagickColor? operator *(MagickColor? color, Percentage percentage)
         {
             if (color is null)
