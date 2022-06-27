@@ -23,30 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_CannyEdge_HoughLine()
-        {
-            using (var image = new MagickImage(Files.ConnectedComponentsPNG))
-            {
-                image.Threshold(new Percentage(50));
-
-                ColorAssert.Equal(MagickColors.Black, image, 150, 365);
-                image.Negate();
-                ColorAssert.Equal(MagickColors.White, image, 150, 365);
-
-                image.CannyEdge();
-                ColorAssert.Equal(MagickColors.Black, image, 150, 365);
-
-                image.Crop(new MagickGeometry(260, 180, 215, 200));
-
-                image.Settings.FillColor = MagickColors.Red;
-                image.Settings.StrokeColor = MagickColors.Red;
-
-                image.HoughLine();
-                ColorAssert.Equal(MagickColors.Red, image, 105, 25);
-            }
-        }
-
-        [Fact]
         public void Test_ClassType()
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
