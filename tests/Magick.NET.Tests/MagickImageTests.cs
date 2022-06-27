@@ -2130,13 +2130,6 @@ namespace Magick.NET.Tests
             }
         }
 
-        private static void AssertChromaticity(double expectedX, double expectedY, double expectedZ, IPrimaryInfo info)
-        {
-            Assert.InRange(info.X, expectedX, expectedX + 0.001);
-            Assert.InRange(info.Y, expectedY, expectedY + 0.001);
-            Assert.InRange(info.Z, expectedZ, expectedZ + 0.001);
-        }
-
         private static void AssertClone(IMagickImage<QuantumType> first, IMagickImage<QuantumType> second)
         {
             Assert.Equal(first, second);
