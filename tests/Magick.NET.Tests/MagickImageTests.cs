@@ -23,21 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_ClassType()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                Assert.Equal(ClassType.Direct, image.ClassType);
-
-                image.ClassType = ClassType.Pseudo;
-                Assert.Equal(ClassType.Pseudo, image.ClassType);
-
-                image.ClassType = ClassType.Direct;
-                Assert.Equal(ClassType.Direct, image.ClassType);
-            }
-        }
-
-        [Fact]
         public void Test_Clone()
         {
             using (var first = new MagickImage(Files.SnakewarePNG))
