@@ -23,23 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Clone()
-        {
-            using (var first = new MagickImage(Files.SnakewarePNG))
-            {
-                using (var second = first.Clone())
-                {
-                    AssertClone(first, second);
-                }
-
-                using (var second = new MagickImage(first))
-                {
-                    AssertClone(first, second);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Clone_Area()
         {
             using (var icon = new MagickImage(Files.MagickNETIconPNG))
@@ -2113,16 +2096,6 @@ namespace Magick.NET.Tests
                 ColorAssert.Equal(MagickColors.White, image, 43, 74);
                 ColorAssert.Equal(MagickColors.White, image, 60, 74);
             }
-        }
-
-        private static void AssertClone(IMagickImage<QuantumType> first, IMagickImage<QuantumType> second)
-        {
-            Assert.Equal(first, second);
-            second.Format = MagickFormat.Jp2;
-            Assert.Equal(MagickFormat.Png, first.Format);
-            Assert.Equal(MagickFormat.Jp2, second.Format);
-            second.Dispose();
-            Assert.Equal(MagickFormat.Png, first.Format);
         }
 
         private static void AssertCloneArea(IMagickImage<QuantumType> area, IMagickImage<QuantumType> part)

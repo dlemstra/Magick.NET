@@ -26,6 +26,7 @@ namespace Magick.NET.Tests
                 {
                     var clone = image.Clone();
 
+                    Assert.Equal(image, clone);
                     Assert.False(ReferenceEquals(image, clone));
                 }
             }
