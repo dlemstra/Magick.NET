@@ -23,57 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Clone_Area()
-        {
-            using (var icon = new MagickImage(Files.MagickNETIconPNG))
-            {
-                using (var area = icon.Clone())
-                {
-                    area.Crop(64, 64, Gravity.Southeast);
-                    area.RePage();
-                    Assert.Equal(64, area.Width);
-                    Assert.Equal(64, area.Height);
-
-                    area.Crop(64, 32, Gravity.North);
-
-                    Assert.Equal(64, area.Width);
-                    Assert.Equal(32, area.Height);
-
-                    using (var part = icon.Clone(new MagickGeometry(64, 64, 64, 32)))
-                    {
-                        AssertCloneArea(area, part);
-                    }
-
-                    using (var part = icon.Clone(64, 64, 64, 32))
-                    {
-                        AssertCloneArea(area, part);
-                    }
-                }
-
-                using (var area = icon.Clone())
-                {
-                    area.Crop(32, 64, Gravity.Northwest);
-
-                    Assert.Equal(32, area.Width);
-                    Assert.Equal(64, area.Height);
-
-                    using (var part = icon.Clone(32, 64))
-                    {
-                        AssertCloneArea(area, part);
-                    }
-                }
-
-                using (var area = icon.Clone(4, 2))
-                {
-                    Assert.Equal(4, area.Width);
-                    Assert.Equal(2, area.Height);
-
-                    Assert.Equal(32, area.ToByteArray(MagickFormat.Rgba).Length);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Clut()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
@@ -2096,14 +2045,6 @@ namespace Magick.NET.Tests
                 ColorAssert.Equal(MagickColors.White, image, 43, 74);
                 ColorAssert.Equal(MagickColors.White, image, 60, 74);
             }
-        }
-
-        private static void AssertCloneArea(IMagickImage<QuantumType> area, IMagickImage<QuantumType> part)
-        {
-            Assert.Equal(area.Width, part.Width);
-            Assert.Equal(area.Height, part.Height);
-
-            Assert.Equal(0.0, area.Compare(part, ErrorMetric.RootMeanSquared));
         }
 
         private IMagickImage<QuantumType> CreatePallete()
