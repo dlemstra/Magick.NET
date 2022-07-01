@@ -273,6 +273,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Sets the directory that contains the Ghostscript file gsdll32.dll / gsdll64.dll.
+        /// This method is only supported on Windows.
         /// </summary>
         /// <param name="path">The path of the Ghostscript directory.</param>
         public static void SetGhostscriptDirectory(string path)
@@ -280,6 +281,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Sets the directory that contains the Ghostscript font files.
+        /// This method is only supported on Windows.
         /// </summary>
         /// <param name="path">The path of the Ghostscript font directory.</param>
         public static void SetGhostscriptFontDirectory(string path)
