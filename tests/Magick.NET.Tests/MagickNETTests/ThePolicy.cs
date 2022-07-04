@@ -11,7 +11,7 @@ namespace Magick.NET.Tests
         public class ThePolicy
         {
             /// <summary>
-            /// The policy is initialized with <see cref="TestCollectionOrderer.ModifyPolicy"/> at the start of all tests.
+            /// The policy is initialized with <see cref="TestInitializer.ModifyPolicy"/> at the start of all tests.
             /// </summary>
             [Fact]
             public void ShouldCauseAnExceptionWhenThePalmCoderIsDisabled()

@@ -42,7 +42,6 @@ namespace Magick.NET.Tests
 
         /// <summary>
         /// Used by <see cref="MagickNETTests.ThePolicy.ShouldCauseAnExceptionWhenThePalmCoderIsDisabled"/>.
-        /// and <see cref="MagickNETTests.ThePolicy.ShouldCauseAnExceptionWhenTheSunModuleIsDisabled"/>.
         /// </summary>
         /// <param name="data">The current policy.</param>
         /// <returns>The new policy.</returns>
