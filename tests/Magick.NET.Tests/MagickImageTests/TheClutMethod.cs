@@ -24,6 +24,7 @@ namespace Magick.NET.Tests
                         using (var image = new MagickImage(Files.Builtin.Logo))
                         {
                             image.Clut(pallete, PixelInterpolateMethod.Catrom);
+
                             ColorAssert.Equal(MagickColors.Green, image, 400, 300);
                         }
                     }
