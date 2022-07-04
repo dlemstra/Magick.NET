@@ -655,21 +655,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_HaldClut()
-        {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                using (var clut = CreatePallete())
-                {
-                    image.HaldClut(clut);
-
-                    ColorAssert.Equal(new MagickColor("#052268042ba5"), image, 228, 276);
-                    ColorAssert.Equal(new MagickColor("#144f623a2801"), image, 295, 270);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_HasClippingPath()
         {
             using (var noPath = new MagickImage(Files.MagickNETIconPNG))
