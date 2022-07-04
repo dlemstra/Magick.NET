@@ -23,19 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Clut()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var clut = CreatePallete())
-                {
-                    image.Clut(clut, PixelInterpolateMethod.Catrom);
-                    ColorAssert.Equal(MagickColors.Green, image, 400, 300);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Colorize()
         {
             using (var image = new MagickImage(Files.Builtin.Wizard))
@@ -2044,18 +2031,6 @@ namespace Magick.NET.Tests
                 image.WhiteThreshold(new Percentage(10));
                 ColorAssert.Equal(MagickColors.White, image, 43, 74);
                 ColorAssert.Equal(MagickColors.White, image, 60, 74);
-            }
-        }
-
-        private IMagickImage<QuantumType> CreatePallete()
-        {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage(MagickColors.Red, 1, 1));
-                images.Add(new MagickImage(MagickColors.Blue, 1, 1));
-                images.Add(new MagickImage(MagickColors.Green, 1, 1));
-
-                return images.AppendHorizontally();
             }
         }
     }
