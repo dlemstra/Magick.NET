@@ -19,54 +19,39 @@ namespace ImageMagick
     public sealed partial class MagickFactory : IMagickFactory<QuantumType>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MagickFactory"/> class.
-        /// </summary>
-        public MagickFactory()
-        {
-            Color = new MagickColorFactory();
-            Drawables = new DrawablesFactory();
-            Geometry = new MagickGeometryFactory();
-            Image = new MagickImageFactory();
-            ImageCollection = new MagickImageCollectionFactory();
-            ImageInfo = new MagickImageInfoFactory();
-            Matrix = new MatrixFactory();
-            Settings = new SettingsFactory();
-        }
-
-        /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickColorFactory{TQuantumType}"/> instances.
         /// </summary>
-        public IMagickColorFactory<QuantumType> Color { get; }
+        public IMagickColorFactory<QuantumType> Color { get; } = new MagickColorFactory();
 
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IDrawables{QuantumType}"/> instances.
         /// </summary>
-        public IDrawablesFactory<QuantumType> Drawables { get; }
+        public IDrawablesFactory<QuantumType> Drawables { get; } = new DrawablesFactory();
 
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickGeometry"/> instances.
         /// </summary>
-        public IMagickGeometryFactory Geometry { get; }
+        public IMagickGeometryFactory Geometry { get; } = new MagickGeometryFactory();
 
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickImage{QuantumType}"/> instances.
         /// </summary>
-        public IMagickImageFactory<QuantumType> Image { get; }
+        public IMagickImageFactory<QuantumType> Image { get; } = new MagickImageFactory();
 
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickImageCollection{QuantumType}"/> instances.
         /// </summary>
-        public IMagickImageCollectionFactory<QuantumType> ImageCollection { get; }
+        public IMagickImageCollectionFactory<QuantumType> ImageCollection { get; } = new MagickImageCollectionFactory();
 
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickImageInfo"/> instances.
         /// </summary>
-        public IMagickImageInfoFactory ImageInfo { get; }
+        public IMagickImageInfoFactory ImageInfo { get; } = new MagickImageInfoFactory();
 
         /// <summary>
         /// Gets a factory that can be used to create various matrix instances.
         /// </summary>
-        public IMatrixFactory Matrix { get; }
+        public IMatrixFactory Matrix { get; } = new MatrixFactory();
 
         /// <summary>
         /// Gets the quantum information.
@@ -75,8 +60,13 @@ namespace ImageMagick
             => ImageMagick.QuantumInfo.Instance;
 
         /// <summary>
+        /// Gets the resource limits.
+        /// </summary>
+        public IResourceLimits ResourceLimits { get; } = new ResourceLimits();
+
+        /// <summary>
         /// Gets a factory that can be used to create various settings.
         /// </summary>
-        public ISettingsFactory<QuantumType> Settings { get; }
+        public ISettingsFactory<QuantumType> Settings { get; } = new SettingsFactory();
     }
 }

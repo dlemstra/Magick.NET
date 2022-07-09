@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using ImageMagick.Configuration;
+
 namespace ImageMagick
 {
     /// <summary>
@@ -22,5 +24,10 @@ namespace ImageMagick
         /// Gets a factory that can be used to create various matrix instances.
         /// </summary>
         IMatrixFactory Matrix { get; }
+
+        /// <summary>
+        /// Gets the resource limits.
+        /// </summary>
+        IResourceLimits ResourceLimits { get; }
     }
 }
