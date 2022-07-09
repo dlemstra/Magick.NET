@@ -31,7 +31,7 @@ namespace ImageMagick
         IMagickImageCollectionFactory<TQuantumType> ImageCollection { get; }
 
         /// <summary>
-        /// Gets the quantum information of this image.
+        /// Gets the quantum information.
         /// </summary>
         IQuantumInfo<TQuantumType> QuantumInfo { get; }
 

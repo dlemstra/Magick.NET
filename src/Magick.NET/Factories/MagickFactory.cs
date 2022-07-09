@@ -69,7 +69,7 @@ namespace ImageMagick
         public IMatrixFactory Matrix { get; }
 
         /// <summary>
-        /// Gets the quantum information of this image.
+        /// Gets the quantum information.
         /// </summary>
         public IQuantumInfo<QuantumType> QuantumInfo
             => ImageMagick.QuantumInfo.Instance;
