@@ -56,6 +56,16 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets or sets the max memory request in bytes. ImageMagick maintains a separate memory pool for large
+        /// resource requests. If the limit is exceeded, the allocation is instead memory-mapped on disk.
+        /// </summary>
+        public static ulong MaxMemoryRequest
+        {
+            get => NativeResourceLimits.MaxMemoryRequest;
+            set => NativeResourceLimits.MaxMemoryRequest = value;
+        }
+
+        /// <summary>
         /// Gets or sets the number of threads used in multithreaded operations.
         /// </summary>
         public static ulong Thread

@@ -34,6 +34,10 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_ListLength_Set(ulong value);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_MaxMemoryRequest_Get();
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_MaxMemoryRequest_Set(ulong value);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern ulong ResourceLimits_Memory_Get();
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Memory_Set(ulong value);
@@ -73,6 +77,10 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_ListLength_Set(ulong value);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_MaxMemoryRequest_Get();
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_MaxMemoryRequest_Set(ulong value);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern ulong ResourceLimits_Memory_Get();
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_Memory_Set(ulong value);
@@ -111,6 +119,10 @@ namespace ImageMagick
                 public static extern ulong ResourceLimits_ListLength_Get();
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void ResourceLimits_ListLength_Set(ulong value);
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern ulong ResourceLimits_MaxMemoryRequest_Get();
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern void ResourceLimits_MaxMemoryRequest_Set(ulong value);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern ulong ResourceLimits_Memory_Get();
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -320,6 +332,53 @@ namespace ImageMagick
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     NativeMethods.X86.ResourceLimits_ListLength_Set(value);
+                    #endif
+                }
+            }
+            public static ulong MaxMemoryRequest
+            {
+                get
+                {
+                    ulong result;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.ResourceLimits_MaxMemoryRequest_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.ResourceLimits_MaxMemoryRequest_Get();
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.ResourceLimits_MaxMemoryRequest_Get();
+                    #endif
+                    return result;
+                }
+                set
+                {
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.ResourceLimits_MaxMemoryRequest_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.ResourceLimits_MaxMemoryRequest_Set(value);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.ResourceLimits_MaxMemoryRequest_Set(value);
                     #endif
                 }
             }

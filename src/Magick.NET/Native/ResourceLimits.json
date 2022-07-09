@@ -18,6 +18,10 @@
       "type": "ulong"
     },
     {
+      "name": "MaxMemoryRequest",
+      "type": "ulong"
+    },
+    {
       "name": "Memory",
       "type": "ulong"
     },
