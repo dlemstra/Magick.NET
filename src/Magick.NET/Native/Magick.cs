@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace ImageMagick
 {
-    public static partial class MagickNET
+    public partial class MagickNET
     {
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         private delegate void LogDelegate(UIntPtr type, IntPtr value);

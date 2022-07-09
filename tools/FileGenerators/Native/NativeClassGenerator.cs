@@ -31,7 +31,7 @@ namespace FileGenerator.Native
             if (!Class.IsStatic && Class.HasInstance && !Class.IsConst && !Class.IsDynamic)
                 baseClass = " : IDisposable";
 
-            WriteLine(Class.Access + (Class.IsStatic ? " static" : string.Empty) + " partial class " + Class.ClassName + baseClass);
+            WriteLine(Class.Access + (Class.IsStatic && Class.Access != "public" ? " static" : string.Empty) + " partial class " + Class.ClassName + baseClass);
             WriteStartColon();
 
             WriteDelegates();

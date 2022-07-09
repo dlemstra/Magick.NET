@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace ImageMagick
 {
-    public static partial class OpenCL
+    public partial class OpenCL
     {
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods

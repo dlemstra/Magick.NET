@@ -19,7 +19,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    public static partial class Quantum
+    public partial class Quantum
     {
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
