@@ -1,0 +1,66 @@
+﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
+// Licensed under the Apache License, Version 2.0.
+
+namespace ImageMagick.Configuration
+{
+    /// <summary>
+    /// Interface that represents the configuration files.
+    /// </summary>
+    public interface IConfigurationFiles
+    {
+        /// <summary>
+        /// Gets the default configuration.
+        /// </summary>
+        IConfigurationFiles Default { get; }
+
+        /// <summary>
+        /// Gets the colors configuration.
+        /// </summary>
+        IConfigurationFile Colors { get; }
+
+        /// <summary>
+        /// Gets the configure configuration.
+        /// </summary>
+        IConfigurationFile Configure { get; }
+
+        /// <summary>
+        /// Gets the delegates configuration.
+        /// </summary>
+        IConfigurationFile Delegates { get; }
+
+        /// <summary>
+        /// Gets the english configuration.
+        /// </summary>
+        IConfigurationFile English { get; }
+
+        /// <summary>
+        /// Gets the locale configuration.
+        /// </summary>
+        IConfigurationFile Locale { get; }
+
+        /// <summary>
+        /// Gets the log configuration.
+        /// </summary>
+        IConfigurationFile Log { get; }
+
+        /// <summary>
+        /// Gets the policy configuration.
+        /// </summary>
+        IConfigurationFile Policy { get; }
+
+        /// <summary>
+        /// Gets the thresholds configuration.
+        /// </summary>
+        IConfigurationFile Thresholds { get; }
+
+        /// <summary>
+        /// Gets the type configuration.
+        /// </summary>
+        IConfigurationFile Type { get; }
+
+        /// <summary>
+        /// Gets the type-ghostscript configuration.
+        /// </summary>
+        IConfigurationFile TypeGhostscript { get; }
+    }
+}

@@ -10,7 +10,7 @@ namespace ImageMagick.Configuration
     /// <summary>
     /// Encapsulates the configuration files of ImageMagick.
     /// </summary>
-    public sealed class ConfigurationFiles
+    public sealed class ConfigurationFiles : IConfigurationFiles
     {
         private ConfigurationFiles()
         {
@@ -31,6 +31,12 @@ namespace ImageMagick.Configuration
         /// </summary>
         public static ConfigurationFiles Default
             => new ConfigurationFiles();
+
+        /// <summary>
+        /// Gets the default configuration.
+        /// </summary>
+        IConfigurationFiles IConfigurationFiles.Default
+            => Default;
 
         /// <summary>
         /// Gets the colors configuration.
