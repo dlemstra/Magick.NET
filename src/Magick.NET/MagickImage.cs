@@ -151,8 +151,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            var magickImage = image as MagickImage;
-            if (magickImage is null)
+            if (image is not MagickImage magickImage)
                 throw new NotSupportedException();
 
             SetSettings(magickImage._settings.Clone());
@@ -1812,8 +1811,7 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNull(nameof(difference), difference);
 
-            var differenceImage = difference as MagickImage;
-            if (differenceImage is null)
+            if (difference is not MagickImage differenceImage)
                 throw new NotSupportedException();
 
             ArtifactsHelper.SetImageArtifacts(this, settings);
