@@ -57,6 +57,11 @@ namespace ImageMagick
         public IMagickImageInfoFactory ImageInfo { get; } = new MagickImageInfoFactory();
 
         /// <summary>
+        /// Gets the MagickNET information.
+        /// </summary>
+        public IMagickNET MagickNET { get; } = new MagickNET();
+
+        /// <summary>
         /// Gets a factory that can be used to create various matrix instances.
         /// </summary>
         public IMatrixFactory Matrix { get; } = new MatrixFactory();

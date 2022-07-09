@@ -26,6 +26,11 @@ namespace ImageMagick
         IMagickImageInfoFactory ImageInfo { get; }
 
         /// <summary>
+        /// Gets the MagickNET information.
+        /// </summary>
+        IMagickNET MagickNET { get; }
+
+        /// <summary>
         /// Gets a factory that can be used to create various matrix instances.
         /// </summary>
         IMatrixFactory Matrix { get; }
