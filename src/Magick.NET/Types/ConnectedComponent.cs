@@ -78,7 +78,8 @@ namespace ImageMagick
         /// Returns the geometry of the area of this connected component.
         /// </summary>
         /// <returns>The geometry of the area of this connected component.</returns>
-        public IMagickGeometry ToGeometry() => new MagickGeometry(X, Y, Width, Height);
+        public IMagickGeometry ToGeometry()
+            => new MagickGeometry(X, Y, Width, Height);
 
         /// <summary>
         /// Returns the geometry of the area of this connected component.
@@ -103,7 +104,7 @@ namespace ImageMagick
             if (list == IntPtr.Zero)
                 return result;
 
-            for (int i = 0; i < length; i++)
+            for (var i = 0; i < length; i++)
             {
                 var instance = NativeConnectedComponent.GetInstance(list, i);
                 if (instance == IntPtr.Zero)
