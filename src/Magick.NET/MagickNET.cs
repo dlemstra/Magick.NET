@@ -14,7 +14,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to initialize Magick.NET.
     /// </summary>
-    public partial class MagickNET
+    public partial class MagickNET : IMagickNET
     {
         private static LogDelegate? _nativeLog;
         private static EventHandler<LogEventArgs>? _log;
@@ -48,6 +48,15 @@ namespace ImageMagick
                     _nativeLog = null;
                 }
             }
+        }
+
+        /// <summary>
+        /// Event that will be raised when something is logged by ImageMagick.
+        /// </summary>
+        event EventHandler<LogEventArgs> IMagickNET.Log
+        {
+            add => Log += value;
+            remove => Log -= value;
         }
 
         /// <summary>
@@ -135,6 +144,12 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the version of ImageMagick.
+        /// </summary>
+        public static string ImageMagickVersion
+            => NativeMagickNET.ImageMagickVersion!;
+
+        /// <summary>
         /// Gets the version of Magick.NET.
         /// </summary>
         public static string Version
@@ -148,10 +163,54 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets the ImageMagick delegate libraries.
+        /// </summary>
+        string IMagickNET.Delegates
+            => Delegates;
+
+        /// <summary>
+        /// Gets the ImageMagick features.
+        /// </summary>
+        string IMagickNET.Features
+            => Features;
+
+        /// <summary>
+        /// Gets the information about the supported formats.
+        /// </summary>
+        IEnumerable<IMagickFormatInfo> IMagickNET.SupportedFormats
+        {
+            get
+            {
+                foreach (var format in SupportedFormats)
+                {
+                    yield return format;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Gets the font families that are known by ImageMagick.
+        /// </summary>
+        IEnumerable<string> IMagickNET.FontFamilies
+            => FontFamilies;
+
+        /// <summary>
+        /// Gets the font names that are known by ImageMagick.
+        /// </summary>
+        IEnumerable<string> IMagickNET.FontNames
+            => FontNames;
+
+        /// <summary>
         /// Gets the version of ImageMagick.
         /// </summary>
-        public static string ImageMagickVersion
-            => NativeMagickNET.ImageMagickVersion!;
+        string IMagickNET.ImageMagickVersion
+            => ImageMagickVersion;
+
+        /// <summary>
+        /// Gets the version of Magick.NET.
+        /// </summary>
+        string IMagickNET.Version
+            => Version;
 
         /// <summary>
         /// Returns the format information of the specified format based on the extension of the file.
@@ -330,6 +389,110 @@ namespace ImageMagick
         /// <param name="seed">The secret key.</param>
         public static void SetRandomSeed(int seed)
             => NativeMagickNET.SetRandomSeed(seed);
+
+        /// <summary>
+        /// Initializes ImageMagick.
+        /// </summary>
+        void IMagickNET.Initialize()
+            => Initialize();
+
+        /// <summary>
+        /// Initializes ImageMagick with the xml files that are located in the specified path.
+        /// </summary>
+        /// <param name="path">The path that contains the ImageMagick xml files.</param>
+        void IMagickNET.Initialize(string path)
+            => Initialize(path);
+
+        /// <summary>
+        /// Initializes ImageMagick with the specified configuration files and returns the path to the
+        /// temporary directory where the xml files were saved.
+        /// </summary>
+        /// <param name="configFiles">The configuration files ot initialize ImageMagick with.</param>
+        /// <returns>The path of the folder that was created and contains the configuration files.</returns>
+        string IMagickNET.Initialize(IConfigurationFiles configFiles)
+            => Initialize(configFiles);
+
+        /// <summary>
+        /// Initializes ImageMagick with the specified configuration files in the specified the path.
+        /// </summary>
+        /// <param name="configFiles">The configuration files ot initialize ImageMagick with.</param>
+        /// <param name="path">The directory to save the configuration files in.</param>
+        void IMagickNET.Initialize(IConfigurationFiles configFiles, string path)
+            => Initialize(configFiles, path);
+
+        /// <summary>
+        /// Resets the pseudo-random number generator secret key.
+        /// </summary>
+        void IMagickNET.ResetRandomSeed()
+            => ResetRandomSeed();
+
+        /// <summary>
+        /// Set the path to the default font file.
+        /// </summary>
+        /// <param name="file">The file to use at the default font file.</param>
+        void IMagickNET.SetDefaultFontFile(FileInfo file)
+            => SetDefaultFontFile(file);
+
+        /// <summary>
+        /// Set the path to the default font file.
+        /// </summary>
+        /// <param name="fileName">The file name to use at the default font file.</param>
+        void IMagickNET.SetDefaultFontFile(string fileName)
+            => SetDefaultFontFile(fileName);
+
+        /// <summary>
+        /// Sets the directory that contains the FontConfig configuration files.
+        /// </summary>
+        /// <param name="path">The path of the FontConfig directory.</param>
+        void IMagickNET.SetFontConfigDirectory(string path)
+            => SetFontConfigDirectory(path);
+
+        /// <summary>
+        /// Sets the directory that contains the Ghostscript file gsdll32.dll / gsdll64.dll.
+        /// This method is only supported on Windows.
+        /// </summary>
+        /// <param name="path">The path of the Ghostscript directory.</param>
+        void IMagickNET.SetGhostscriptDirectory(string path)
+            => SetGhostscriptDirectory(path);
+
+        /// <summary>
+        /// Sets the directory that contains the Ghostscript font files.
+        /// This method is only supported on Windows.
+        /// </summary>
+        /// <param name="path">The path of the Ghostscript font directory.</param>
+        void IMagickNET.SetGhostscriptFontDirectory(string path)
+            => SetGhostscriptDirectory(path);
+
+        /// <summary>
+        /// Set the events that will be written to the log. The log will be written to the Log event
+        /// and the debug window in VisualStudio. To change the log settings you must use a custom
+        /// log.xml file.
+        /// </summary>
+        /// <param name="events">The events that will be logged.</param>
+        void IMagickNET.SetLogEvents(LogEvents events)
+            => SetLogEvents(events);
+
+        /// <summary>
+        /// Sets the directory that contains the Native library. This currently only works on Windows.
+        /// </summary>
+        /// <param name="path">The path of the directory that contains the native library.</param>
+        void IMagickNET.SetNativeLibraryDirectory(string path)
+            => SetNativeLibraryDirectory(path);
+
+        /// <summary>
+        /// Sets the directory that will be used when ImageMagick does not have enough memory for the
+        /// pixel cache.
+        /// </summary>
+        /// <param name="path">The path where temp files will be written.</param>
+        void IMagickNET.SetTempDirectory(string path)
+            => SetTempDirectory(path);
+
+        /// <summary>
+        /// Sets the pseudo-random number generator secret key.
+        /// </summary>
+        /// <param name="seed">The secret key.</param>
+        void IMagickNET.SetRandomSeed(int seed)
+            => SetRandomSeed(seed);
 
         private static void CheckImageMagickFiles(string path)
         {

@@ -9,7 +9,7 @@ using System.Buffers;
 namespace ImageMagick
 {
     /// <content />
-    public static partial class MagickNET
+    public partial class MagickNET
     {
         /// <summary>
         /// Returns the format information. The header of the image in the span of bytes is used to
