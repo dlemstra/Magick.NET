@@ -10,7 +10,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to initialize OpenCL.
     /// </summary>
-    public static partial class OpenCL
+    public partial class OpenCL : IOpenCL
     {
         private static bool? _isEnabled;
 
@@ -44,7 +44,7 @@ namespace ImageMagick
                 if (devices == IntPtr.Zero)
                     return result;
 
-                for (int i = 0; i < (int)length; i++)
+                for (var i = 0; i < (int)length; i++)
                 {
                     var instance = NativeOpenCL.GetDevice(devices, i);
                     var device = OpenCLDevice.CreateInstance(instance);
@@ -57,10 +57,33 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether OpenCL is enabled.
+        /// </summary>
+        bool IOpenCL.IsEnabled
+        {
+            get => IsEnabled;
+            set => IsEnabled = value;
+        }
+
+        /// <summary>
+        /// Gets all the OpenCL devices.
+        /// </summary>
+        /// <returns>A <see cref="IOpenCLDevice"/> iteration.</returns>
+        IEnumerable<IOpenCLDevice> IOpenCL.Devices
+            => Devices;
+
+        /// <summary>
         /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.
         /// </summary>
         /// <param name="path">The path of the OpenCL cache directory.</param>
         public static void SetCacheDirectory(string path)
             => Environment.SetEnv("MAGICK_OPENCL_CACHE_DIR", FileHelper.GetFullPath(path));
+
+        /// <summary>
+        /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.
+        /// </summary>
+        /// <param name="path">The path of the OpenCL cache directory.</param>
+        void IOpenCL.SetCacheDirectory(string path)
+            => SetCacheDirectory(path);
     }
 }
