@@ -2,8 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 
 namespace ImageMagick.Configuration
 {
@@ -31,6 +29,26 @@ namespace ImageMagick.Configuration
         /// </summary>
         public static ConfigurationFiles Default
             => new ConfigurationFiles();
+
+        /// <summary>
+        /// Gets all the configuration files.
+        /// </summary>
+        IEnumerable<IConfigurationFile> IConfigurationFiles.All
+        {
+            get
+            {
+                yield return Colors;
+                yield return Configure;
+                yield return Delegates;
+                yield return English;
+                yield return Locale;
+                yield return Log;
+                yield return Policy;
+                yield return Thresholds;
+                yield return Type;
+                yield return TypeGhostscript;
+            }
+        }
 
         /// <summary>
         /// Gets the default configuration.
@@ -87,38 +105,5 @@ namespace ImageMagick.Configuration
         /// Gets the type-ghostscript configuration.
         /// </summary>
         public IConfigurationFile TypeGhostscript { get; }
-
-        internal IEnumerable<IConfigurationFile> Files
-        {
-            get
-            {
-                yield return Colors;
-                yield return Configure;
-                yield return Delegates;
-                yield return English;
-                yield return Locale;
-                yield return Log;
-                yield return Policy;
-                yield return Thresholds;
-                yield return Type;
-                yield return TypeGhostscript;
-            }
-        }
-
-        internal void WriteInDirectory(string path)
-        {
-            foreach (var configFile in Files)
-            {
-                var outputFile = Path.Combine(path, configFile.FileName);
-                if (File.Exists(outputFile))
-                    continue;
-
-                using (var fileStream = File.Open(outputFile, FileMode.CreateNew))
-                {
-                    var data = Encoding.UTF8.GetBytes(configFile.Data);
-                    fileStream.Write(data, 0, data.Length);
-                }
-            }
-        }
     }
 }

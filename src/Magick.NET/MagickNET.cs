@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Text;
 using ImageMagick.Configuration;
 
 namespace ImageMagick
@@ -13,7 +14,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to initialize Magick.NET.
     /// </summary>
-    public static partial class MagickNET
+    public partial class MagickNET
     {
         private static LogDelegate? _nativeLog;
         private static EventHandler<LogEventArgs>? _log;
@@ -210,7 +211,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="configFiles">The configuration files ot initialize ImageMagick with.</param>
         /// <returns>The path of the folder that was created and contains the configuration files.</returns>
-        public static string Initialize(ConfigurationFiles configFiles)
+        public static string Initialize(IConfigurationFiles configFiles)
         {
             Throw.IfNull(nameof(configFiles), configFiles);
 
@@ -227,7 +228,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="configFiles">The configuration files ot initialize ImageMagick with.</param>
         /// <param name="path">The directory to save the configuration files in.</param>
-        public static void Initialize(ConfigurationFiles configFiles, string path)
+        public static void Initialize(IConfigurationFiles configFiles, string path)
         {
             Throw.IfNull(nameof(configFiles), configFiles);
 
@@ -332,18 +333,29 @@ namespace ImageMagick
 
         private static void CheckImageMagickFiles(string path)
         {
-            foreach (var configurationFile in ConfigurationFiles.Default.Files)
+            foreach (var configurationFile in ((IConfigurationFiles)ConfigurationFiles.Default).All)
             {
                 var fileName = Path.Combine(path, configurationFile.FileName);
                 Throw.IfFalse(nameof(path), File.Exists(fileName), $"Unable to find file: {fileName}");
             }
         }
 
-        private static void InitializeConfiguration(ConfigurationFiles configFiles, string newPath)
+        private static void InitializeConfiguration(IConfigurationFiles configFiles, string path)
         {
-            configFiles.WriteInDirectory(newPath);
+            foreach (var configFile in configFiles.All)
+            {
+                var outputFile = Path.Combine(path, configFile.FileName);
+                if (File.Exists(outputFile))
+                    continue;
 
-            Environment.SetEnv("MAGICK_CONFIGURE_PATH", newPath);
+                using (var fileStream = File.Open(outputFile, FileMode.CreateNew))
+                {
+                    var data = Encoding.UTF8.GetBytes(configFile.Data);
+                    fileStream.Write(data, 0, data.Length);
+                }
+            }
+
+            Environment.SetEnv("MAGICK_CONFIGURE_PATH", path);
         }
 
         private static void OnLog(UIntPtr type, IntPtr text)

@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.Collections.Generic;
+
 namespace ImageMagick.Configuration
 {
     /// <summary>
@@ -8,6 +10,11 @@ namespace ImageMagick.Configuration
     /// </summary>
     public interface IConfigurationFiles
     {
+        /// <summary>
+        /// Gets all the configuration files.
+        /// </summary>
+        IEnumerable<IConfigurationFile> All { get; }
+
         /// <summary>
         /// Gets the default configuration.
         /// </summary>
