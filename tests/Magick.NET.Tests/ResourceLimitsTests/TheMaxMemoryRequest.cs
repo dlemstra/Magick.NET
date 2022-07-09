@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
             public void ShouldReturnTheCorrectValueWhenChanged()
             {
                 var oldMemory = ResourceLimits.MaxMemoryRequest;
-                var newMemory = (ulong)(ResourceLimits.MaxMemoryRequest * 0.9);
+                var newMemory = (ulong)(ResourceLimits.MaxMemoryRequest * 0.8);
 
                 ResourceLimits.MaxMemoryRequest = newMemory;
                 Assert.Equal(newMemory, ResourceLimits.MaxMemoryRequest);
