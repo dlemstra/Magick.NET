@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using ImageMagick.Configuration;
+
 #if Q8
 using QuantumType = System.Byte;
 #elif Q16
@@ -22,6 +24,12 @@ namespace ImageMagick
         /// Gets a factory that can be used to create <see cref="IMagickColorFactory{TQuantumType}"/> instances.
         /// </summary>
         public IMagickColorFactory<QuantumType> Color { get; } = new MagickColorFactory();
+
+        /// <summary>
+        /// Gets the configuration files.
+        /// </summary>
+        public IConfigurationFiles ConfigurationFiles
+            => ImageMagick.Configuration.ConfigurationFiles.Default;
 
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IDrawables{QuantumType}"/> instances.
