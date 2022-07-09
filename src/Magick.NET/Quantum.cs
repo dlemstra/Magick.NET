@@ -18,7 +18,7 @@ namespace ImageMagick
     /// <summary>
     /// Class that can be used to acquire information about the Quantum.
     /// </summary>
-    public static partial class Quantum
+    public partial class Quantum : IQuantum<QuantumType>
     {
         static Quantum()
         {
@@ -35,6 +35,18 @@ namespace ImageMagick
         /// Gets the maximum value of the quantum.
         /// </summary>
         public static QuantumType Max { get; }
+
+        /// <summary>
+        /// Gets the quantum depth.
+        /// </summary>
+        int IQuantum.Depth
+            => Depth;
+
+        /// <summary>
+        /// Gets the maximum value of the quantum.
+        /// </summary>
+        QuantumType IQuantum<QuantumType>.Max
+            => Max;
 
         internal static QuantumType Convert(byte value)
         {
