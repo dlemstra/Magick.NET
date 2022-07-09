@@ -16,7 +16,7 @@ namespace ImageMagick
         {
             Channel = channel;
 
-            NativeChannelMoments nativeInstance = new NativeChannelMoments(instance);
+            var nativeInstance = new NativeChannelMoments(instance);
             Centroid = nativeInstance.Centroid.ToPointD();
             EllipseAngle = nativeInstance.EllipseAngle;
             EllipseAxis = nativeInstance.EllipseAxis.ToPointD();
@@ -79,7 +79,7 @@ namespace ImageMagick
         {
             var huInvariants = new double[8];
 
-            for (int i = 0; i < 8; i++)
+            for (var i = 0; i < 8; i++)
                 huInvariants[i] = nativeInstance.GetHuInvariants(i);
 
             return huInvariants;
