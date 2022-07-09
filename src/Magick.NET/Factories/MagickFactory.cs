@@ -62,6 +62,11 @@ namespace ImageMagick
         public IMatrixFactory Matrix { get; } = new MatrixFactory();
 
         /// <summary>
+        /// Gets the OpenCL information.
+        /// </summary>
+        public IOpenCL OpenCL { get; } = new OpenCL();
+
+        /// <summary>
         /// Gets the quantum information.
         /// </summary>
         public IQuantumInfo<QuantumType> QuantumInfo

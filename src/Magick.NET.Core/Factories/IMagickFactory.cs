@@ -31,6 +31,11 @@ namespace ImageMagick
         IMatrixFactory Matrix { get; }
 
         /// <summary>
+        /// Gets the OpenCL information.
+        /// </summary>
+        IOpenCL OpenCL { get; }
+
+        /// <summary>
         /// Gets the resource limits.
         /// </summary>
         IResourceLimits ResourceLimits { get; }
