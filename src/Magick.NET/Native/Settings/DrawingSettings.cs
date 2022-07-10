@@ -588,7 +588,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.DrawingSettings_Font_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
                 set
                 {
@@ -638,7 +638,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.DrawingSettings_FontFamily_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
                 set
                 {
@@ -1255,7 +1255,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.DrawingSettings_TextEncoding_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
                 set
                 {
@@ -1520,7 +1520,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void SetFillPattern(IMagickImage? value)
+            public void SetFillPattern(IMagickImage value)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -1590,7 +1590,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public void SetStrokePattern(IMagickImage? value)
+            public void SetStrokePattern(IMagickImage value)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -1613,7 +1613,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void SetText(string? value)
+            public void SetText(string value)
             {
                 using (var valueNative = UTF8Marshaler.CreateInstance(value))
                 {

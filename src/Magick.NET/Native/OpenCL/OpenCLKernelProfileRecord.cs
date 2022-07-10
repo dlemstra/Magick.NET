@@ -148,7 +148,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public string? Name
+            public string Name
             {
                 get
                 {

@@ -743,7 +743,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void ClipPath(string? value)
+            public void ClipPath(string value)
             {
                 using (var valueNative = UTF8Marshaler.CreateInstance(value))
                 {
@@ -838,7 +838,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Composite(double x, double y, double width, double height, CompositeOperator compositeOperator, IMagickImage? image)
+            public void Composite(double x, double y, double width, double height, CompositeOperator compositeOperator, IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -861,7 +861,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Density(string? value)
+            public void Density(string value)
             {
                 using (var valueNative = UTF8Marshaler.CreateInstance(value))
                 {
@@ -959,7 +959,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void FillPatternUrl(string? url)
+            public void FillPatternUrl(string url)
             {
                 using (var urlNative = UTF8Marshaler.CreateInstance(url))
                 {
@@ -1008,7 +1008,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Font(string? fontName)
+            public void Font(string fontName)
             {
                 using (var fontNameNative = UTF8Marshaler.CreateInstance(fontName))
                 {
@@ -1034,7 +1034,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void FontFamily(string? family, FontStyleType style, FontWeight weight, FontStretch stretch)
+            public void FontFamily(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
             {
                 using (var familyNative = UTF8Marshaler.CreateInstance(family))
                 {
@@ -1083,7 +1083,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public IntPtr FontTypeMetrics(string? text, bool ignoreNewLines)
+            public IntPtr FontTypeMetrics(string text, bool ignoreNewLines)
             {
                 using (var textNative = UTF8Marshaler.CreateInstance(text))
                 {
@@ -1235,7 +1235,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Text(double x, double y, string? text)
+            public void Text(double x, double y, string text)
             {
                 using (var textNative = UTF8Marshaler.CreateInstance(text))
                 {
@@ -1836,7 +1836,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void PushClipPath(string? clipPath)
+            public void PushClipPath(string clipPath)
             {
                 using (var clipPathNative = UTF8Marshaler.CreateInstance(clipPath))
                 {
@@ -1885,7 +1885,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void PushPattern(string? id, double x, double y, double width, double height)
+            public void PushPattern(string id, double x, double y, double width, double height)
             {
                 using (var idNative = UTF8Marshaler.CreateInstance(id))
                 {
@@ -2239,7 +2239,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void StrokePatternUrl(string? value)
+            public void StrokePatternUrl(string value)
             {
                 using (var valueNative = UTF8Marshaler.CreateInstance(value))
                 {
@@ -2380,7 +2380,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void TextEncoding(string? encoding)
+            public void TextEncoding(string encoding)
             {
                 using (var encodingNative = UTF8Marshaler.CreateInstance(encoding))
                 {

@@ -196,7 +196,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public string? Name
+            public string Name
             {
                 get
                 {
@@ -222,7 +222,7 @@ namespace ImageMagick
                     return UTF8Marshaler.NativeToManaged(result);
                 }
             }
-            public string? Version
+            public string Version
             {
                 get
                 {

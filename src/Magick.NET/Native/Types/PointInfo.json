@@ -3,7 +3,6 @@
   "access": "internal",
   "const": true,
   "nativeConstructor": true,
-  "notNullable": true,
   "properties": [
     {
       "name": "X",

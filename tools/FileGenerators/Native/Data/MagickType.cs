@@ -13,9 +13,20 @@ namespace FileGenerator.Native
 
         public MagickType(string type)
         {
-            _type = !string.IsNullOrEmpty(type) ? type : "void";
-            _isEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET.Core\Enums\" + type + ".cs"));
-            _isEnum = _isEnum || File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Enums\" + type + ".cs"));
+            var typName = type;
+            if (string.IsNullOrEmpty(type))
+            {
+                typName = "void";
+            }
+            else if (typName.EndsWith("?"))
+            {
+                typName = typName.Substring(0, typName.Length - 1);
+                IsNullable = true;
+            }
+
+            _type = typName;
+            _isEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET.Core\Enums\" + typName + ".cs"));
+            _isEnum = _isEnum || File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Enums\" + typName + ".cs"));
         }
 
         public bool HasInstance
@@ -75,6 +86,8 @@ namespace FileGenerator.Native
         public bool IsVoid
             => _type == "void" || _type == "voidInstance";
 
+        public bool IsNullable { get; }
+
         public string ManagedName
             => GetManagedName(_type);
 
@@ -95,9 +108,6 @@ namespace FileGenerator.Native
                 return string.Empty;
             }
         }
-
-        [DataMember(Name = "name")]
-        public string Name { get; set; } = string.Empty;
 
         public string NativeName
             => GetNativeName(_type);

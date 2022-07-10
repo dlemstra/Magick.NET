@@ -101,7 +101,7 @@ namespace ImageMagick
                 NativeMethods.X86.PixelCollection_Dispose(instance);
                 #endif
             }
-            public NativePixelCollection(IMagickImage? image)
+            public NativePixelCollection(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -212,7 +212,7 @@ namespace ImageMagick
                 }
             }
             #endif
-            public IntPtr ToByteArray(int x, int y, int width, int height, string? mapping)
+            public IntPtr ToByteArray(int x, int y, int width, int height, string mapping)
             {
                 using (var mappingNative = UTF8Marshaler.CreateInstance(mapping))
                 {
@@ -249,7 +249,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public IntPtr ToShortArray(int x, int y, int width, int height, string? mapping)
+            public IntPtr ToShortArray(int x, int y, int width, int height, string mapping)
             {
                 using (var mappingNative = UTF8Marshaler.CreateInstance(mapping))
                 {

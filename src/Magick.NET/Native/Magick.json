@@ -51,7 +51,7 @@
     },
     {
       "name": "GetFontName",
-      "type": "string",
+      "type": "string?",
       "arguments": [
         {
           "name": "instance",
@@ -65,7 +65,7 @@
     },
     {
       "name": "GetFontFamily",
-      "type": "string",
+      "type": "string?",
       "arguments": [
         {
           "name": "instance",
@@ -101,7 +101,7 @@
       "arguments": [
         {
           "name": "method",
-          "type": "LogDelegate"
+          "type": "LogDelegate?"
         }
       ]
     },

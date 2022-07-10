@@ -4,11 +4,11 @@
   "properties": [
     {
       "name": "BorderColor",
-      "type": "MagickColor"
+      "type": "MagickColor?"
     },
     {
       "name": "FillColor",
-      "type": "MagickColor"
+      "type": "MagickColor?"
     },
     {
       "name": "FillRule",
@@ -16,11 +16,11 @@
     },
     {
       "name": "Font",
-      "type": "string"
+      "type": "string?"
     },
     {
       "name": "FontFamily",
-      "type": "string"
+      "type": "string?"
     },
     {
       "name": "FontPointsize",
@@ -40,7 +40,7 @@
     },
     {
       "name": "StrokeColor",
-      "type": "MagickColor"
+      "type": "MagickColor?"
     },
     {
       "name": "StrokeDashOffset",
@@ -72,7 +72,7 @@
     },
     {
       "name": "TextEncoding",
-      "type": "string"
+      "type": "string?"
     },
     {
       "name": "TextGravity",
@@ -92,7 +92,7 @@
     },
     {
       "name": "TextUnderColor",
-      "type": "MagickColor"
+      "type": "MagickColor?"
     }
   ],
   "methods": [

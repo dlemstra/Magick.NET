@@ -342,7 +342,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public static MagickRectangle? FromPageSize(string? value)
+            public static MagickRectangle? FromPageSize(string value)
             {
                 using (var valueNative = UTF8Marshaler.CreateInstance(value))
                 {

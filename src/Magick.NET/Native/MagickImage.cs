@@ -2858,7 +2858,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImage_EncodingGeometry_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
             }
             public string? FileName
@@ -2884,7 +2884,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImage_FileName_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
                 set
                 {
@@ -2981,7 +2981,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImage_Format_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
                 set
                 {
@@ -3740,7 +3740,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public string? Signature
+            public string Signature
             {
                 get
                 {
@@ -3899,7 +3899,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void AdaptiveResize(string? geometry)
+            public void AdaptiveResize(string geometry)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -4006,7 +4006,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void AddProfile(string? name, byte[] datum, int length)
+            public void AddProfile(string name, byte[] datum, int length)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -4061,7 +4061,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Annotate(DrawingSettings? settings, string? text, string? boundingArea, Gravity gravity, double degrees)
+            public void Annotate(DrawingSettings settings, string text, string boundingArea, Gravity gravity, double degrees)
             {
                 using (var settingsNative = DrawingSettings.CreateInstance(settings))
                 {
@@ -4093,7 +4093,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void AnnotateGravity(DrawingSettings? settings, string? text, Gravity gravity)
+            public void AnnotateGravity(DrawingSettings settings, string text, Gravity gravity)
             {
                 using (var settingsNative = DrawingSettings.CreateInstance(settings))
                 {
@@ -4243,7 +4243,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void BlackThreshold(string? threshold, Channels channels)
+            public void BlackThreshold(string threshold, Channels channels)
             {
                 using (var thresholdNative = UTF8Marshaler.CreateInstance(threshold))
                 {
@@ -4321,7 +4321,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Border(MagickRectangle? value)
+            public void Border(MagickRectangle value)
             {
                 using (var valueNative = MagickRectangle.CreateInstance(value))
                 {
@@ -4448,7 +4448,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Chop(MagickRectangle? geometry)
+            public void Chop(MagickRectangle geometry)
             {
                 using (var geometryNative = MagickRectangle.CreateInstance(geometry))
                 {
@@ -4569,7 +4569,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void ClipPath(string? pathName, bool inside)
+            public void ClipPath(string pathName, bool inside)
             {
                 using (var pathNameNative = UTF8Marshaler.CreateInstance(pathName))
                 {
@@ -4645,7 +4645,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 return result;
             }
-            public void Clut(IMagickImage? image, PixelInterpolateMethod method, Channels channels)
+            public void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -4668,7 +4668,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void ColorDecisionList(string? fileName)
+            public void ColorDecisionList(string fileName)
             {
                 using (var fileNameNative = UTF8Marshaler.CreateInstance(fileName))
                 {
@@ -4694,7 +4694,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void Colorize(IMagickColor<QuantumType>? color, string? blend)
+            public void Colorize(IMagickColor<QuantumType>? color, string blend)
             {
                 using (var colorNative = MagickColor.CreateInstance(color))
                 {
@@ -4726,7 +4726,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void ColorMatrix(IDoubleMatrix? matrix)
+            public void ColorMatrix(IDoubleMatrix matrix)
             {
                 using (var matrixNative = DoubleMatrix.CreateInstance(matrix))
                 {
@@ -4784,7 +4784,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public IntPtr Compare(IMagickImage? image, ErrorMetric metric, Channels channels, out double distortion)
+            public IntPtr Compare(IMagickImage image, ErrorMetric metric, Channels channels, out double distortion)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -4809,7 +4809,7 @@ namespace ImageMagick
                 CheckException(exception, result);
                 return result;
             }
-            public double CompareDistortion(IMagickImage? image, ErrorMetric metric, Channels channels)
+            public double CompareDistortion(IMagickImage image, ErrorMetric metric, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 double result;
@@ -4834,7 +4834,7 @@ namespace ImageMagick
                 CheckException(exception);
                 return result;
             }
-            public void Composite(IMagickImage? image, int x, int y, CompositeOperator compose, Channels channels)
+            public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -4857,7 +4857,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void CompositeGravity(IMagickImage? image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels)
+            public void CompositeGravity(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -4986,7 +4986,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Convolve(IDoubleMatrix? matrix)
+            public void Convolve(IDoubleMatrix matrix)
             {
                 using (var matrixNative = DoubleMatrix.CreateInstance(matrix))
                 {
@@ -5015,7 +5015,7 @@ namespace ImageMagick
                       Instance = result;
                 }
             }
-            public void CopyPixels(IMagickImage? image, MagickRectangle? geometry, OffsetInfo? offset, Channels channels)
+            public void CopyPixels(IMagickImage image, MagickRectangle geometry, OffsetInfo offset, Channels channels)
             {
                 using (var geometryNative = MagickRectangle.CreateInstance(geometry))
                 {
@@ -5044,7 +5044,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void Crop(string? geometry, Gravity gravity)
+            public void Crop(string geometry, Gravity gravity)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -5073,7 +5073,7 @@ namespace ImageMagick
                       Instance = result;
                 }
             }
-            public IntPtr CropToTiles(string? geometry)
+            public IntPtr CropToTiles(string geometry)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -5124,7 +5124,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Decipher(string? passphrase)
+            public void Decipher(string passphrase)
             {
                 using (var passphraseNative = UTF8Marshaler.CreateInstance(passphrase))
                 {
@@ -5308,7 +5308,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Encipher(string? passphrase)
+            public void Encipher(string passphrase)
             {
                 using (var passphraseNative = UTF8Marshaler.CreateInstance(passphrase))
                 {
@@ -5383,7 +5383,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public bool Equals(IMagickImage? image)
+            public bool Equals(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 bool result;
@@ -5434,7 +5434,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void EvaluateGeometry(Channels channels, MagickRectangle? geometry, EvaluateOperator evaluateOperator, double value)
+            public void EvaluateGeometry(Channels channels, MagickRectangle geometry, EvaluateOperator evaluateOperator, double value)
             {
                 using (var geometryNative = MagickRectangle.CreateInstance(geometry))
                 {
@@ -5483,7 +5483,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Extent(string? geometry, Gravity gravity)
+            public void Extent(string geometry, Gravity gravity)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -5538,7 +5538,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void FloodFill(DrawingSettings? settings, int x, int y, IMagickColor<QuantumType>? target, bool invert)
+            public void FloodFill(DrawingSettings settings, int x, int y, IMagickColor<QuantumType>? target, bool invert)
             {
                 using (var settingsNative = DrawingSettings.CreateInstance(settings))
                 {
@@ -5593,7 +5593,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public IntPtr FontTypeMetrics(DrawingSettings? settings, bool ignoreNewlines)
+            public IntPtr FontTypeMetrics(DrawingSettings settings, bool ignoreNewlines)
             {
                 using (var settingsNative = DrawingSettings.CreateInstance(settings))
                 {
@@ -5630,7 +5630,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public string? FormatExpression(IMagickSettings<QuantumType>? settings, string? expression)
+            public string? FormatExpression(IMagickSettings<QuantumType>? settings, string expression)
             {
                 using (var settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -5661,7 +5661,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void Frame(MagickRectangle? geometry)
+            public void Frame(MagickRectangle geometry)
             {
                 using (var geometryNative = MagickRectangle.CreateInstance(geometry))
                 {
@@ -5690,7 +5690,7 @@ namespace ImageMagick
                       Instance = result;
                 }
             }
-            public void Fx(string? expression, Channels channels)
+            public void Fx(string expression, Channels channels)
             {
                 using (var expressionNative = UTF8Marshaler.CreateInstance(expression))
                 {
@@ -5768,7 +5768,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public string? GetArtifact(string? name)
+            public string? GetArtifact(string name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -5791,10 +5791,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickImage_GetArtifact(Instance, nameNative.Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
             }
-            public string? GetAttribute(string? name)
+            public string? GetAttribute(string name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -5819,7 +5819,7 @@ namespace ImageMagick
                     result = NativeMethods.X86.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
                     #endif
                     CheckException(exception);
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
             }
             public int GetBitDepth(Channels channels)
@@ -5914,7 +5914,7 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_GetNextArtifactName(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.NativeToManagedNullable(result);
             }
             public string? GetNextAttributeName()
             {
@@ -5937,7 +5937,7 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_GetNextAttributeName(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.NativeToManagedNullable(result);
             }
             public string? GetNextProfileName()
             {
@@ -5960,9 +5960,9 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_GetNextProfileName(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.NativeToManagedNullable(result);
             }
-            public StringInfo? GetProfile(string? name)
+            public StringInfo? GetProfile(string name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -6063,7 +6063,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void HaldClut(IMagickImage? image)
+            public void HaldClut(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -6109,7 +6109,7 @@ namespace ImageMagick
                 #endif
                 return result;
             }
-            public bool HasProfile(string? name)
+            public bool HasProfile(string name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -6246,7 +6246,7 @@ namespace ImageMagick
                 CheckException(exception);
                 return result;
             }
-            public void InterpolativeResize(string? geometry, PixelInterpolateMethod method)
+            public void InterpolativeResize(string geometry, PixelInterpolateMethod method)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -6422,7 +6422,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void LiquidRescale(string? geometry, double deltaX, double rigidity)
+            public void LiquidRescale(string geometry, double deltaX, double rigidity)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -6503,7 +6503,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public bool Map(IMagickImage? image, IQuantizeSettings? settings)
+            public bool Map(IMagickImage image, IQuantizeSettings settings)
             {
                 using (var settingsNative = QuantizeSettings.CreateInstance(settings))
                 {
@@ -6617,7 +6617,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Modulate(string? modulate)
+            public void Modulate(string modulate)
             {
                 using (var modulateNative = UTF8Marshaler.CreateInstance(modulate))
                 {
@@ -6677,7 +6677,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Morphology(MorphologyMethod method, string? kernel, Channels channels, int iterations)
+            public void Morphology(MorphologyMethod method, string kernel, Channels channels, int iterations)
             {
                 using (var kernelNative = UTF8Marshaler.CreateInstance(kernel))
                 {
@@ -6833,7 +6833,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void OrderedDither(string? thresholdMap, Channels channels)
+            public void OrderedDither(string thresholdMap, Channels channels)
             {
                 using (var thresholdMapNative = UTF8Marshaler.CreateInstance(thresholdMap))
                 {
@@ -6916,7 +6916,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Polaroid(DrawingSettings? settings, string? caption, double angle, PixelInterpolateMethod method)
+            public void Polaroid(DrawingSettings settings, string caption, double angle, PixelInterpolateMethod method)
             {
                 using (var settingsNative = DrawingSettings.CreateInstance(settings))
                 {
@@ -6971,7 +6971,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Quantize(IQuantizeSettings? settings)
+            public void Quantize(IQuantizeSettings settings)
             {
                 using (var settingsNative = QuantizeSettings.CreateInstance(settings))
                 {
@@ -7190,7 +7190,7 @@ namespace ImageMagick
                       Instance = result;
                 }
             }
-            public void ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)
+            public void ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)
             {
                 using (var settingsNative = MagickSettings.CreateInstance(settings))
                 {
@@ -7245,7 +7245,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public void RemoveArtifact(string? name)
+            public void RemoveArtifact(string name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -7269,7 +7269,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public void RemoveAttribute(string? name)
+            public void RemoveAttribute(string name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -7293,7 +7293,7 @@ namespace ImageMagick
                     #endif
                 }
             }
-            public void RemoveProfile(string? name)
+            public void RemoveProfile(string name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -7406,7 +7406,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Resize(string? geometry)
+            public void Resize(string geometry)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -7513,7 +7513,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Sample(string? geometry)
+            public void Sample(string geometry)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -7542,7 +7542,7 @@ namespace ImageMagick
                       Instance = result;
                 }
             }
-            public void Scale(string? geometry)
+            public void Scale(string geometry)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -7694,7 +7694,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void SetArtifact(string? name, string? value)
+            public void SetArtifact(string name, string value)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -7721,7 +7721,7 @@ namespace ImageMagick
                     }
                 }
             }
-            public void SetAttribute(string? name, string? value)
+            public void SetAttribute(string name, string value)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -7799,7 +7799,7 @@ namespace ImageMagick
                     CheckException(exception);
                 }
             }
-            public bool SetColorMetric(IMagickImage? image)
+            public bool SetColorMetric(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 bool result;
@@ -8166,7 +8166,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Splice(MagickRectangle? geometry)
+            public void Splice(MagickRectangle geometry)
             {
                 using (var geometryNative = MagickRectangle.CreateInstance(geometry))
                 {
@@ -8281,7 +8281,7 @@ namespace ImageMagick
                 RaiseWarning(magickException);
                 return result;
             }
-            public void Stegano(IMagickImage? watermark)
+            public void Stegano(IMagickImage watermark)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -8307,7 +8307,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Stereo(IMagickImage? rightImage)
+            public void Stereo(IMagickImage rightImage)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -8356,7 +8356,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public IntPtr SubImageSearch(IMagickImage? reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric)
+            public IntPtr SubImageSearch(IMagickImage reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric)
             {
                 using (INativeInstance offsetNative = MagickRectangle.CreateInstance())
                 {
@@ -8412,7 +8412,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Texture(IMagickImage? image)
+            public void Texture(IMagickImage image)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
@@ -8458,7 +8458,7 @@ namespace ImageMagick
                 #endif
                 CheckException(exception);
             }
-            public void Thumbnail(string? geometry)
+            public void Thumbnail(string geometry)
             {
                 using (var geometryNative = UTF8Marshaler.CreateInstance(geometry))
                 {
@@ -8487,7 +8487,7 @@ namespace ImageMagick
                       Instance = result;
                 }
             }
-            public void Tint(string? opacity, IMagickColor<QuantumType>? tint)
+            public void Tint(string opacity, IMagickColor<QuantumType>? tint)
             {
                 using (var opacityNative = UTF8Marshaler.CreateInstance(opacity))
                 {
@@ -8804,7 +8804,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void WhiteThreshold(string? threshold, Channels channels)
+            public void WhiteThreshold(string threshold, Channels channels)
             {
                 using (var thresholdNative = UTF8Marshaler.CreateInstance(threshold))
                 {

@@ -377,11 +377,11 @@
         },
         {
           "name": "seeker",
-          "type": "SeekStreamDelegate"
+          "type": "SeekStreamDelegate?"
         },
         {
           "name": "teller",
-          "type": "TellStreamDelegate"
+          "type": "TellStreamDelegate?"
         }
       ]
     },
@@ -436,19 +436,19 @@
         },
         {
           "name": "writer",
-          "type": "ReadWriteStreamDelegate"
+          "type": "ReadWriteStreamDelegate?"
         },
         {
           "name": "seeker",
-          "type": "SeekStreamDelegate"
+          "type": "SeekStreamDelegate?"
         },
         {
           "name": "teller",
-          "type": "TellStreamDelegate"
+          "type": "TellStreamDelegate?"
         },
         {
           "name": "reader",
-          "type": "ReadWriteStreamDelegate"
+          "type": "ReadWriteStreamDelegate?"
         }
       ]
     }

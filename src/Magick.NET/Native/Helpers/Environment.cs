@@ -65,7 +65,7 @@ namespace ImageMagick
                 NativeMethods.X86.Environment_Initialize();
                 #endif
             }
-            public static void SetEnv(string? name, string? value)
+            public static void SetEnv(string name, string value)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {

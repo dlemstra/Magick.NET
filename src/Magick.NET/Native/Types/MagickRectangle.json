@@ -22,7 +22,7 @@
   "methods": [
     {
       "name": "FromPageSize",
-      "type": "MagickRectangle",
+      "type": "MagickRectangle?",
       "static": true,
       "arguments": [
         {

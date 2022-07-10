@@ -101,14 +101,6 @@ namespace FileGenerator.Native
             return result + ");";
         }
 
-        private string GetAction(string action, MagickType type)
-        {
-            if (type.IsString)
-                return "UTF8Marshaler.NativeToManaged(" + action + ");";
-            else
-                return type.ManagedTypeCast + action + ";";
-        }
-
         private void WriteCleanup(string cleanupString)
         {
             WriteLine("var magickException = MagickExceptionHelper.Create(exception);");
@@ -311,7 +303,8 @@ namespace FileGenerator.Native
                 var arguments = GetArgumentsDeclaration(method.Arguments);
                 var isStatic = Class.IsStatic || ((method.IsStatic && !method.Throws) && !method.CreatesInstance);
                 var typeName = GetTypeName(method.ReturnType);
-                WriteLine("public " + (isStatic ? "static " : string.Empty) + typeName + (IsNullable(method.ReturnType) ? "?" : string.Empty) + " " + method.Name + "(" + arguments + ")");
+                var isNullable = method.ReturnType.IsNullable;
+                WriteLine("public " + (isStatic ? "static " : string.Empty) + typeName + (isNullable ? "?" : string.Empty) + " " + method.Name + "(" + arguments + ")");
 
                 WriteStartColon();
 
@@ -372,8 +365,9 @@ namespace FileGenerator.Native
                     Write("static ");
 
                 var typeName = GetTypeName(property.Type);
+                var isNullable = property.Type.IsNullable;
 
-                WriteLine(typeName + (IsNullable(property.Type) ? "?" : string.Empty) + " " + property.Name);
+                WriteLine(typeName + (isNullable ? "?" : string.Empty) + " " + property.Name);
                 WriteStartColon();
 
                 WriteLine("get");
@@ -425,15 +419,28 @@ namespace FileGenerator.Native
                 return;
 
             if (IsDynamic(type))
+            {
                 WriteLine("return " + type.ManagedName + ".CreateInstance(result);");
+            }
             else if (type.IsNativeString)
+            {
                 WriteLine("return UTF8Marshaler.NativeToManagedAndRelinquish(result);");
+            }
             else if (type.IsString)
-                WriteLine("return UTF8Marshaler.NativeToManaged(result);");
+            {
+                if (type.IsNullable)
+                    WriteLine("return UTF8Marshaler.NativeToManagedNullable(result);");
+                else
+                    WriteLine("return UTF8Marshaler.NativeToManaged(result);");
+            }
             else if (type.HasInstance)
+            {
                 WriteLine("return result.Create" + type.ManagedName + "();");
+            }
             else
+            {
                 WriteLine("return " + type.ManagedTypeCast + "result;");
+            }
         }
 
         private void WriteStaticConstructor()

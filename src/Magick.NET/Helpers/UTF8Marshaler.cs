@@ -47,7 +47,16 @@ namespace ImageMagick
             return buffer;
         }
 
-        internal static string? NativeToManaged(IntPtr nativeData)
+        internal static string NativeToManaged(IntPtr nativeData)
+        {
+            var result = NativeToManagedNullable(nativeData);
+            if (result is null)
+                throw new InvalidOperationException("The string value should never be null.");
+
+            return result;
+        }
+
+        internal static string? NativeToManagedNullable(IntPtr nativeData)
         {
             var strbuf = ByteConverter.ToArray(nativeData);
             if (strbuf is null)

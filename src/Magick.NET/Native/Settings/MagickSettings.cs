@@ -678,7 +678,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickSettings_Density_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
                 set
                 {
@@ -822,7 +822,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickSettings_Extract_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
                 set
                 {
@@ -872,7 +872,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickSettings_Format_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
                 set
                 {
@@ -922,7 +922,7 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickSettings_Font_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
                 set
                 {
@@ -1203,7 +1203,7 @@ namespace ImageMagick
                 NativeMethods.X86.MagickSettings_SetNumberScenes(Instance, (UIntPtr)value);
                 #endif
             }
-            public void SetOption(string? key, string? value)
+            public void SetOption(string key, string? value)
             {
                 using (var keyNative = UTF8Marshaler.CreateInstance(key))
                 {

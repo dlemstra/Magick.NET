@@ -53,7 +53,7 @@
       "arguments": [
         {
           "name": "value",
-          "type": "string"
+          "type": "string?"
         }
       ]
     }

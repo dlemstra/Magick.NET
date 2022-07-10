@@ -66,7 +66,7 @@ namespace ImageMagick
                 NativeMethods.X86.PerceptualHash_DisposeList(list);
                 #endif
             }
-            public static IntPtr GetInstance(IMagickImage? image, IntPtr list, PixelChannel channel)
+            public static IntPtr GetInstance(IMagickImage image, IntPtr list, PixelChannel channel)
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU

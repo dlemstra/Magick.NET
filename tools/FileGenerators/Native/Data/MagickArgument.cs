@@ -11,11 +11,6 @@ namespace FileGenerator.Native
         [DataMember(Name = "type")]
         private string _type = string.Empty;
 
-        [DataMember(Name = "const")]
-        public bool IsConst { get; set; }
-
-        public bool IsEnum { get; }
-
         public bool IsHidden { get; set; }
 
         [DataMember(Name = "out")]

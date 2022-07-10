@@ -37,7 +37,7 @@
     },
     {
       "name": "GetColor",
-      "type": "MagickColor",
+      "type": "MagickColor?",
       "static": true,
       "arguments": [
         {

@@ -95,7 +95,7 @@
     },
     {
       "name": "BackgroundColor",
-      "type": "MagickColor"
+      "type": "MagickColor?"
     },
     {
       "name": "BaseHeight",
@@ -113,11 +113,11 @@
     },
     {
       "name": "BorderColor",
-      "type": "MagickColor"
+      "type": "MagickColor?"
     },
     {
       "name": "BoundingBox",
-      "type": "MagickRectangle",
+      "type": "MagickRectangle?",
       "readonly": true,
       "throws": true
     },
@@ -128,19 +128,19 @@
     },
     {
       "name": "ChromaBluePrimary",
-      "type": "PrimaryInfo"
+      "type": "PrimaryInfo?"
     },
     {
       "name": "ChromaGreenPrimary",
-      "type": "PrimaryInfo"
+      "type": "PrimaryInfo?"
     },
     {
       "name": "ChromaRedPrimary",
-      "type": "PrimaryInfo"
+      "type": "PrimaryInfo?"
     },
     {
       "name": "ChromaWhitePoint",
-      "type": "PrimaryInfo"
+      "type": "PrimaryInfo?"
     },
     {
       "name": "ClassType",
@@ -185,12 +185,12 @@
     },
     {
       "name": "EncodingGeometry",
-      "type": "string",
+      "type": "string?",
       "readonly": true
     },
     {
       "name": "FileName",
-      "type": "string"
+      "type": "string?"
     },
     {
       "name": "FilterType",
@@ -198,7 +198,7 @@
     },
     {
       "name": "Format",
-      "type": "string"
+      "type": "string?"
     },
     {
       "name": "Gamma",
@@ -235,7 +235,7 @@
     },
     {
       "name": "MatteColor",
-      "type": "MagickColor"
+      "type": "MagickColor?"
     },
     {
       "name": "MeanErrorPerPixel",
@@ -258,7 +258,7 @@
     },
     {
       "name": "Page",
-      "type": "MagickRectangle"
+      "type": "MagickRectangle?"
     },
     {
       "name": "Quality",
@@ -1290,7 +1290,7 @@
     },
     {
       "name": "FormatExpression",
-      "type": "nativeString",
+      "type": "nativeString?",
       "throws": true,
       "arguments": [
         {
@@ -1364,7 +1364,7 @@
     },
     {
       "name": "GetArtifact",
-      "type": "string",
+      "type": "string?",
       "arguments": [
         {
           "name": "name",
@@ -1374,7 +1374,7 @@
     },
     {
       "name": "GetAttribute",
-      "type": "string",
+      "type": "string?",
       "throws": true,
       "arguments": [
         {
@@ -1396,7 +1396,7 @@
     },
     {
       "name": "GetColormap",
-      "type": "MagickColor",
+      "type": "MagickColor?",
       "arguments": [
         {
           "name": "index",
@@ -1417,19 +1417,19 @@
     },
     {
       "name": "GetNextArtifactName",
-      "type": "string"
+      "type": "string?"
     },
     {
       "name": "GetNextAttributeName",
-      "type": "string"
+      "type": "string?"
     },
     {
       "name": "GetNextProfileName",
-      "type": "string"
+      "type": "string?"
     },
     {
       "name": "GetProfile",
-      "type": "StringInfo",
+      "type": "StringInfo?",
       "throws": true,
       "arguments": [
         {
@@ -2095,7 +2095,7 @@
         },
         {
           "name": "map",
-          "type": "string"
+          "type": "string?"
         },
         {
           "name": "storageType",
@@ -2127,11 +2127,11 @@
         },
         {
           "name": "seeker",
-          "type": "SeekStreamDelegate"
+          "type": "SeekStreamDelegate?"
         },
         {
           "name": "teller",
-          "type": "TellStreamDelegate"
+          "type": "TellStreamDelegate?"
         }
       ]
     },
@@ -2141,7 +2141,7 @@
       "arguments": [
         {
           "name": "region",
-          "type": "MagickRectangle"
+          "type": "MagickRectangle?"
         }
       ]
     },
@@ -2424,7 +2424,7 @@
       "arguments": [
         {
           "name": "method",
-          "type": "ProgressDelegate"
+          "type": "ProgressDelegate?"
         }
       ]
     },
@@ -2434,7 +2434,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "MagickImage?"
         }
       ]
     },
@@ -2444,7 +2444,7 @@
       "arguments": [
         {
           "name": "image",
-          "type": "MagickImage"
+          "type": "MagickImage?"
         }
       ]
     },
@@ -2976,19 +2976,19 @@
         },
         {
           "name": "writer",
-          "type": "ReadWriteStreamDelegate"
+          "type": "ReadWriteStreamDelegate?"
         },
         {
           "name": "seeker",
-          "type": "SeekStreamDelegate"
+          "type": "SeekStreamDelegate?"
         },
         {
           "name": "teller",
-          "type": "TellStreamDelegate"
+          "type": "TellStreamDelegate?"
         },
         {
           "name": "reader",
-          "type": "ReadWriteStreamDelegate"
+          "type": "ReadWriteStreamDelegate?"
         }
       ]
     }

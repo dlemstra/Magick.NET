@@ -833,7 +833,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public string Signature
-            => _nativeInstance.Signature!;
+            => _nativeInstance.Signature;
 
         /// <summary>
         /// Gets the number of colors in the image.
@@ -1458,8 +1458,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Chop(IMagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
-
             _nativeInstance.Chop(MagickRectangle.FromGeometry(geometry, this));
         }
 
@@ -2490,7 +2488,6 @@ namespace ImageMagick
         public void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y, Channels channels)
         {
             Throw.IfNull(nameof(source), source);
-            Throw.IfNull(nameof(geometry), geometry);
 
             _nativeInstance.CopyPixels(source, MagickRectangle.FromGeometry(geometry, this), new OffsetInfo(x, y), channels);
         }
@@ -2830,10 +2827,10 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Evaluate(Channels channels, IMagickGeometry geometry, EvaluateOperator evaluateOperator, double value)
         {
-            Throw.IfNull(nameof(geometry), geometry);
-            Throw.IfTrue(nameof(geometry), geometry.IsPercentage, "Percentage is not supported.");
+            var newGeomtry = MagickRectangle.FromGeometry(geometry, this);
+            Throw.IfNull(nameof(geometry), newGeomtry);
 
-            _nativeInstance.EvaluateGeometry(channels, MagickRectangle.FromGeometry(geometry, this), evaluateOperator, value);
+            _nativeInstance.EvaluateGeometry(channels, newGeomtry, evaluateOperator, value);
         }
 
         /// <summary>
@@ -3125,8 +3122,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Frame(IMagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
-
             _nativeInstance.Frame(MagickRectangle.FromGeometry(geometry, this));
         }
 
@@ -6135,8 +6130,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Splice(IMagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
-
             _nativeInstance.Splice(MagickRectangle.FromGeometry(geometry, this));
         }
 

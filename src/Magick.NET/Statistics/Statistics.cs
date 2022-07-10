@@ -49,7 +49,7 @@ namespace ImageMagick
         /// <returns>The statistics for the specified channel.</returns>
         public IChannelStatistics? GetChannel(PixelChannel channel)
         {
-            _channels.TryGetValue(channel, out ChannelStatistics? channelStatistics);
+            _channels.TryGetValue(channel, out var channelStatistics);
             return channelStatistics;
         }
 

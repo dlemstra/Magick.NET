@@ -39,7 +39,7 @@ namespace ImageMagick.Formats
         private unsafe sealed partial class NativePdfInfo : NativeHelper
         {
             static NativePdfInfo() { Environment.Initialize(); }
-            public int PageCount(string? fileName, string? password)
+            public int PageCount(string fileName, string password)
             {
                 using (var fileNameNative = UTF8Marshaler.CreateInstance(fileName))
                 {

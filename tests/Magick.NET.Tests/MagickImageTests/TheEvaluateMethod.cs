@@ -58,14 +58,14 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenGeometryIsPercentage()
+            public void ShouldThrowExceptionWhenGeometryIsInvalid()
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.Throws<ArgumentException>("geometry", () =>
-                    {
-                        var geometry = new MagickGeometry(new Percentage(100), new Percentage(100));
+                    var geometry = new MagickGeometry(new Percentage(100), new Percentage(100));
 
+                    Assert.Throws<MagickCorruptImageErrorException>(() =>
+                    {
                         image.Evaluate(Channels.Red, geometry, EvaluateOperator.Set, 0.0);
                     });
                 }

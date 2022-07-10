@@ -34,10 +34,9 @@ namespace ImageMagick
         public static MagickRectangle? FromPageSize(string pageSize)
             => NativeMagickRectangle.FromPageSize(pageSize);
 
-        public static MagickRectangle? FromGeometry(IMagickGeometry geometry, MagickImage image)
+        public static MagickRectangle FromGeometry(IMagickGeometry geometry, MagickImage image)
         {
-            if (geometry is null)
-                return null;
+            Throw.IfNull(nameof(geometry), geometry);
 
             var width = geometry.Width;
             var height = geometry.Height;

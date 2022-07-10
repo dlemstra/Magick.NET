@@ -4,11 +4,11 @@
     "arguments": [
       {
         "name": "image",
-        "type": "MagickImage"
+        "type": "MagickImage?"
       },
       {
         "name": "settings",
-        "type": "DrawingSettings"
+        "type": "DrawingSettings?"
       }
     ]
   },

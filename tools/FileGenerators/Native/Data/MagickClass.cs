@@ -110,9 +110,6 @@ namespace FileGenerator.Native
         [DataMember(Name = "namespace")]
         public string Namespace { get; set; } = string.Empty;
 
-        [DataMember(Name = "notNullable")]
-        public bool NotNullable { get; set; }
-
         public IEnumerable<MagickProperty> Properties
         {
             get

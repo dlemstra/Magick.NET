@@ -90,7 +90,7 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickExceptionHelper_Description(exception);
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.NativeToManagedNullable(result);
             }
             public static void Dispose(IntPtr exception)
             {
@@ -134,7 +134,7 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickExceptionHelper_Message(exception);
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.NativeToManagedNullable(result);
             }
             public static IntPtr Related(IntPtr exception, int index)
             {

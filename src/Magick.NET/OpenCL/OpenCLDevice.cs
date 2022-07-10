@@ -58,7 +58,7 @@ namespace ImageMagick
                 if (records == IntPtr.Zero)
                     return result;
 
-                for (int i = 0; i < (int)length; i++)
+                for (var i = 0; i < (int)length; i++)
                 {
                     var instance = NativeOpenCLDevice.GetKernelProfileRecord(records, i);
                     var record = OpenCLKernelProfileRecord.CreateInstance(instance);
@@ -74,7 +74,7 @@ namespace ImageMagick
         /// Gets the name of the device.
         /// </summary>
         public string Name
-            => _instance.Name!;
+            => _instance.Name;
 
         /// <summary>
         /// Gets or sets a value indicating whether kernel profiling is enabled.
@@ -94,7 +94,7 @@ namespace ImageMagick
         /// Gets the OpenCL version supported by the device.
         /// </summary>
         public string Version
-            => _instance.Version!;
+            => _instance.Version;
 
         internal static OpenCLDevice? CreateInstance(IntPtr instance)
         {

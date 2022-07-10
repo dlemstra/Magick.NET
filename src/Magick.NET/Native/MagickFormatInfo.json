@@ -39,7 +39,7 @@
     },
     {
       "name": "MimeType",
-      "type": "string",
+      "type": "string?",
       "readonly": true
     },
     {

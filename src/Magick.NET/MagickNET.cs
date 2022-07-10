@@ -63,13 +63,13 @@ namespace ImageMagick
         /// Gets the ImageMagick delegate libraries.
         /// </summary>
         public static string Delegates
-            => NativeMagickNET.Delegates!;
+            => NativeMagickNET.Delegates;
 
         /// <summary>
         /// Gets the ImageMagick features.
         /// </summary>
         public static string Features
-            => NativeMagickNET.Features!;
+            => NativeMagickNET.Features;
 
         /// <summary>
         /// Gets the information about the supported formats.
@@ -147,7 +147,7 @@ namespace ImageMagick
         /// Gets the version of ImageMagick.
         /// </summary>
         public static string ImageMagickVersion
-            => NativeMagickNET.ImageMagickVersion!;
+            => NativeMagickNET.ImageMagickVersion;
 
         /// <summary>
         /// Gets the version of Magick.NET.

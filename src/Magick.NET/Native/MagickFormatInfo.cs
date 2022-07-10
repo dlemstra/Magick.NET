@@ -148,7 +148,7 @@ namespace ImageMagick
                     return nameof(MagickFormatInfo);
                 }
             }
-            public string? Description
+            public string Description
             {
                 get
                 {
@@ -226,7 +226,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public string? Format
+            public string Format
             {
                 get
                 {
@@ -353,10 +353,10 @@ namespace ImageMagick
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
                     result = NativeMethods.X86.MagickFormatInfo_MimeType_Get(Instance);
                     #endif
-                    return UTF8Marshaler.NativeToManaged(result);
+                    return UTF8Marshaler.NativeToManagedNullable(result);
                 }
             }
-            public string? Module
+            public string Module
             {
                 get
                 {
@@ -463,7 +463,7 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void GetInfoByName(string? name)
+            public void GetInfoByName(string name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {
@@ -552,7 +552,7 @@ namespace ImageMagick
                 }
             }
             #endif
-            public static bool Unregister(string? name)
+            public static bool Unregister(string name)
             {
                 using (var nameNative = UTF8Marshaler.CreateInstance(name))
                 {

@@ -101,7 +101,7 @@ namespace ImageMagick
         private unsafe static class NativeMagickNET
         {
             static NativeMagickNET() { Environment.Initialize(); }
-            public static string? Delegates
+            public static string Delegates
             {
                 get
                 {
@@ -127,7 +127,7 @@ namespace ImageMagick
                     return UTF8Marshaler.NativeToManaged(result);
                 }
             }
-            public static string? Features
+            public static string Features
             {
                 get
                 {
@@ -153,7 +153,7 @@ namespace ImageMagick
                     return UTF8Marshaler.NativeToManaged(result);
                 }
             }
-            public static string? ImageMagickVersion
+            public static string ImageMagickVersion
             {
                 get
                 {
@@ -233,7 +233,7 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.Magick_GetFontName(instance, (UIntPtr)index);
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.NativeToManagedNullable(result);
             }
             public static string? GetFontFamily(IntPtr instance, int index)
             {
@@ -256,7 +256,7 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.Magick_GetFontFamily(instance, (UIntPtr)index);
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.NativeToManagedNullable(result);
             }
             public static void DisposeFonts(IntPtr instance)
             {
@@ -279,7 +279,7 @@ namespace ImageMagick
                 NativeMethods.X86.Magick_DisposeFonts(instance);
                 #endif
             }
-            public static void SetDefaultFontFile(string? fileName)
+            public static void SetDefaultFontFile(string fileName)
             {
                 using (var fileNameNative = UTF8Marshaler.CreateInstance(fileName))
                 {
@@ -326,7 +326,7 @@ namespace ImageMagick
                 NativeMethods.X86.Magick_SetLogDelegate(method);
                 #endif
             }
-            public static void SetLogEvents(string? events)
+            public static void SetLogEvents(string events)
             {
                 using (var eventsNative = UTF8Marshaler.CreateInstance(events))
                 {

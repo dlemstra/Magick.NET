@@ -47,7 +47,7 @@ namespace ImageMagick.ImageOptimizers
         private unsafe sealed partial class NativeJpegOptimizer : NativeHelper
         {
             static NativeJpegOptimizer() { Environment.Initialize(); }
-            public void CompressFile(string? input, string? output, bool progressive, bool lossless, int quality)
+            public void CompressFile(string input, string output, bool progressive, bool lossless, int quality)
             {
                 using (var inputNative = UTF8Marshaler.CreateInstance(input))
                 {
@@ -76,7 +76,7 @@ namespace ImageMagick.ImageOptimizers
                     }
                 }
             }
-            public void CompressStream(ReadWriteStreamDelegate? reader, ReadWriteStreamDelegate? writer, bool progressive, bool lossless, int quality)
+            public void CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, bool progressive, bool lossless, int quality)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU

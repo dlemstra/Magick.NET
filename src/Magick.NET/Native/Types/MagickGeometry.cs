@@ -234,7 +234,7 @@ namespace ImageMagick
                     return result;
                 }
             }
-            public GeometryFlags Initialize(string? value)
+            public GeometryFlags Initialize(string value)
             {
                 using (var valueNative = UTF8Marshaler.CreateInstance(value))
                 {
