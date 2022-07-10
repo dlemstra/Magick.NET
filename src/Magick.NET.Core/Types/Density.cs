@@ -162,17 +162,14 @@ namespace ImageMagick
 
         private static string ToString(double x, double y, DensityUnit units)
         {
-            string result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", x, y);
+            var result = string.Format(CultureInfo.InvariantCulture, "{0}x{1}", x, y);
 
-            switch (units)
+            return units switch
             {
-                case DensityUnit.PixelsPerCentimeter:
-                    return result + " cm";
-                case DensityUnit.PixelsPerInch:
-                    return result + " inch";
-                default:
-                    return result;
-            }
+                DensityUnit.PixelsPerCentimeter => result + " cm",
+                DensityUnit.PixelsPerInch => result + " inch",
+                _ => result,
+            };
         }
 
         private void Initialize(string value)
@@ -195,7 +192,7 @@ namespace ImageMagick
             var xyValues = values[0].Split('x');
             Throw.IfTrue(nameof(value), xyValues.Length > 2, "Invalid density specified.");
 
-            Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out double x), "Invalid density specified.");
+            Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var x), "Invalid density specified.");
 
             double y;
             if (xyValues.Length == 1)

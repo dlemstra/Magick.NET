@@ -23,7 +23,7 @@ namespace ImageMagick
 
         internal DrawingSettings()
         {
-            using (NativeDrawingSettings instance = new NativeDrawingSettings())
+            using (var instance = new NativeDrawingSettings())
             {
                 BorderColor = instance.BorderColor;
                 FillColor = instance.FillColor;
@@ -203,7 +203,7 @@ namespace ImageMagick
                 instance.SetStrokeDashArray(_strokeDashArray, _strokeDashArray.Length);
             if (StrokePattern is not null)
                 instance.SetStrokePattern(StrokePattern);
-            if (!string.IsNullOrEmpty(Text))
+            if (Text is not null && Text.Length > 0)
                 instance.SetText(Text);
 
             return instance;
