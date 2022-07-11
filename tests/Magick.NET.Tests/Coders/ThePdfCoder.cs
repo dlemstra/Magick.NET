@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.IO;
 using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
@@ -35,6 +36,27 @@ namespace Magick.NET.Tests
             for (var i = 0; i < results.Length; ++i)
             {
                 results[i].Wait();
+            }
+        }
+
+        [Fact]
+        public void ShouldWriteTiffImageInCorrectColor()
+        {
+            if (!Ghostscript.IsAvailable)
+                return;
+
+            using (var input = new MagickImage(Files.Coders.PixelTIF))
+            {
+                using (var memorystream = new MemoryStream())
+                {
+                    input.Write(memorystream, MagickFormat.Tiff);
+                    memorystream.Position = 0;
+
+                    using (var output = new MagickImage(memorystream))
+                    {
+                        ColorAssert.Equal(MagickColors.White, output, 0, 0);
+                    }
+                }
             }
         }
     }

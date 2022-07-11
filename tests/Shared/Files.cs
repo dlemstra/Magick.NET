@@ -151,6 +151,9 @@ namespace Magick.NET
             public static string PdfExamplePasswordOriginalPDF
                 => Root + @"Images/Coders/pdf-example-password.original.pdf";
 
+            public static string PixelTIF
+                => Root + @"Images/Coders/Pixel.tif";
+
             public static string PlayerPSD
                 => Root + @"Images/Coders/Player.psd";
 
