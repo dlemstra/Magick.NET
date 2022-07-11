@@ -4,6 +4,7 @@
 using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.IO;
 using ImageMagick;
 using Xunit;
 
@@ -52,6 +53,41 @@ namespace Magick.NET.SystemDrawing.Tests
                         Assert.Equal(100, image.Width);
                         Assert.Equal(50, image.Height);
                         Assert.Equal(MagickFormat.Bmp3, image.Format);
+                    }
+                }
+            }
+
+            [Fact]
+            public void ShouldCreateCorrectImageWithByteArrayFromSystemDrawing()
+            {
+                using (var img = Image.FromFile(Files.Coders.PageTIF))
+                {
+                    byte[] bytes = null;
+                    using (var memStream = new MemoryStream())
+                    {
+                        img.Save(memStream, ImageFormat.Tiff);
+                        bytes = memStream.GetBuffer();
+                    }
+
+                    using (var image = new MagickImage())
+                    {
+                        image.Read(bytes);
+
+                        image.Settings.Compression = CompressionMethod.Group4;
+
+                        using (var memStream = new MemoryStream())
+                        {
+                            image.Write(memStream);
+                            memStream.Position = 0;
+
+                            using (var before = new MagickImage(Files.Coders.PageTIF))
+                            {
+                                using (var after = new MagickImage(memStream))
+                                {
+                                    Assert.Equal(0.0, before.Compare(after, ErrorMetric.RootMeanSquared));
+                                }
+                            }
+                        }
                     }
                 }
             }
