@@ -44,7 +44,7 @@ namespace Magick.NET.Tests
 
                 input.SetProfile(profile);
 
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     input.Format = MagickFormat.Tiff;
                     input.Write(memStream);
