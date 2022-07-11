@@ -2,9 +2,9 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard21;netstandard20;net20</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
-    <AssemblyVersion>11.2.0</AssemblyVersion>
-    <FileVersion>11.2.0</FileVersion>
-    <Version>11.2.0</Version>
+    <AssemblyVersion>11.3.0</AssemblyVersion>
+    <FileVersion>11.3.0</FileVersion>
+    <Version>11.3.0</Version>
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 
