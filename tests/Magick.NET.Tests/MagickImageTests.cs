@@ -23,17 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Colorize()
-        {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                image.Colorize(MagickColors.Purple, new Percentage(50));
-
-                ColorAssert.Equal(new MagickColor("#c0408000c040"), image, 45, 75);
-            }
-        }
-
-        [Fact]
         public void Test_ColorAlpha()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
