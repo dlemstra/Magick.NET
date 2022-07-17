@@ -23,26 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Emboss()
-        {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                image.Emboss(4, 2);
-
-#if Q8
-                ColorAssert.Equal(new MagickColor("#ff5b43"), image, 325, 175);
-                ColorAssert.Equal(new MagickColor("#4344ff"), image, 99, 270);
-#elif Q16
-                ColorAssert.Equal(new MagickColor("#ffff597e4397"), image, 325, 175);
-                ColorAssert.Equal(new MagickColor("#431f43f0ffff"), image, 99, 270);
-#else
-                ColorAssert.Equal(new MagickColor("#ffff59624391"), image, 325, 175);
-                ColorAssert.Equal(new MagickColor("#431843e8ffff"), image, 99, 270);
-#endif
-            }
-        }
-
-        [Fact]
         public void Test_Enhance()
         {
             using (var enhanced = new MagickImage(Files.NoisePNG))
