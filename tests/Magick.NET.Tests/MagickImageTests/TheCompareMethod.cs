@@ -135,7 +135,7 @@ namespace Magick.NET.Tests
                     {
                         using (var diff = new MagickImage())
                         {
-                            double result = image.Compare(other, settings, diff);
+                            var result = image.Compare(other, settings, diff);
 
                             Assert.Equal(0, result);
                         }
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
                     {
                         using (var diff = new MagickImage())
                         {
-                            double result = image.Compare(other, ErrorMetric.RootMeanSquared, diff);
+                            var result = image.Compare(other, ErrorMetric.RootMeanSquared, diff);
 
                             Assert.Equal(0, result);
                         }
@@ -206,7 +206,7 @@ namespace Magick.NET.Tests
 
                         using (var diff = new MagickImage())
                         {
-                            double result = image.Compare(other, settings, diff);
+                            var result = image.Compare(other, settings, diff);
 
                             Assert.InRange(result, 0.36, 0.37);
                             ColorAssert.Equal(MagickColors.Yellow, diff, 150, 50);
@@ -227,7 +227,7 @@ namespace Magick.NET.Tests
                         using (var diff = new MagickImage())
                         {
                             image.ColorFuzz = new Percentage(81);
-                            double result = image.Compare(other, ErrorMetric.Absolute, diff);
+                            var result = image.Compare(other, ErrorMetric.Absolute, diff);
 
                             Assert.Equal(0, result);
                             ColorAssert.Equal(new MagickColor("#fd2ff729f28b"), diff, 0, 0);
