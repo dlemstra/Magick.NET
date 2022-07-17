@@ -114,6 +114,7 @@ namespace Magick.NET.Tests
                     {
                         var errorInfo = image.Compare(other);
 
+                        Assert.NotNull(errorInfo);
                         Assert.Equal(0, errorInfo.MeanErrorPerPixel);
                         Assert.Equal(0, errorInfo.NormalizedMaximumError);
                         Assert.Equal(0, errorInfo.NormalizedMeanError);
