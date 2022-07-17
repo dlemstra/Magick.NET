@@ -23,40 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_ColorType()
-        {
-            using (var image = new MagickImage(Files.WireframeTIF))
-            {
-                Assert.Equal(ColorType.TrueColor, image.ColorType);
-                using (MemoryStream memStream = new MemoryStream())
-                {
-                    image.Write(memStream);
-                    memStream.Position = 0;
-                    using (var result = new MagickImage(memStream))
-                    {
-                        Assert.Equal(ColorType.Grayscale, result.ColorType);
-                    }
-                }
-            }
-
-            using (var image = new MagickImage(Files.WireframeTIF))
-            {
-                Assert.Equal(ColorType.TrueColor, image.ColorType);
-                image.PreserveColorType();
-                using (MemoryStream memStream = new MemoryStream())
-                {
-                    image.Format = MagickFormat.Psd;
-                    image.Write(memStream);
-                    memStream.Position = 0;
-                    using (var result = new MagickImage(memStream))
-                    {
-                        Assert.Equal(ColorType.TrueColor, result.ColorType);
-                    }
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Compare()
         {
             var first = new MagickImage(Files.ImageMagickJPG);
