@@ -23,30 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_CycleColormap()
-        {
-            using (var first = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Equal(256, first.ColormapSize);
-
-                using (var second = first.Clone())
-                {
-                    second.CycleColormap(128);
-                    Assert.NotEqual(first, second);
-
-                    second.CycleColormap(128);
-                    Assert.Equal(first, second);
-
-                    second.CycleColormap(256);
-                    Assert.Equal(first, second);
-
-                    second.CycleColormap(512);
-                    Assert.Equal(first, second);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Density()
         {
             using (var image = new MagickImage(Files.EightBimTIF))
