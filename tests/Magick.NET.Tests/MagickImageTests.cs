@@ -23,18 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Equalize()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                image.Equalize();
-
-                ColorAssert.Equal(MagickColors.White, image, 105, 25);
-                ColorAssert.Equal(new MagickColor("#0000"), image, 105, 60);
-            }
-        }
-
-        [Fact]
         public void Test_FlipFlop()
         {
             using (var images = new MagickImageCollection())
