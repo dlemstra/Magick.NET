@@ -2705,7 +2705,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Edge image (hilight edges in image).
+        /// Edge image (highlight edges in image).
         /// </summary>
         /// <param name="radius">The radius of the pixel neighborhood.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -2713,14 +2713,14 @@ namespace ImageMagick
             => _nativeInstance.Edge(radius);
 
         /// <summary>
-        /// Emboss image (hilight edges with 3D effect) with default value (0x1).
+        /// Emboss image (highlight edges with 3D effect) with default value (0x1).
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Emboss()
             => Emboss(0.0, 1.0);
 
         /// <summary>
-        /// Emboss image (hilight edges with 3D effect).
+        /// Emboss image (highlight edges with 3D effect).
         /// </summary>
         /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
         /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
