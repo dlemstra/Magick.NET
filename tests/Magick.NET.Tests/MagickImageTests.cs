@@ -100,20 +100,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_HasClippingPath()
-        {
-            using (var noPath = new MagickImage(Files.MagickNETIconPNG))
-            {
-                Assert.False(noPath.HasClippingPath);
-            }
-
-            using (var hasPath = new MagickImage(Files.InvitationTIF))
-            {
-                Assert.True(hasPath.HasClippingPath);
-            }
-        }
-
-        [Fact]
         public void Test_Histogram()
         {
             var image = new MagickImage();
