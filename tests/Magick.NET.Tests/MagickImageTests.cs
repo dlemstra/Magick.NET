@@ -23,17 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Density()
-        {
-            using (var image = new MagickImage(Files.EightBimTIF))
-            {
-                Assert.Equal(72, image.Density.X);
-                Assert.Equal(72, image.Density.Y);
-                Assert.Equal(DensityUnit.PixelsPerInch, image.Density.Units);
-            }
-        }
-
-        [Fact]
         public void Test_Despeckle()
         {
             using (var image = new MagickImage(Files.NoisePNG))
