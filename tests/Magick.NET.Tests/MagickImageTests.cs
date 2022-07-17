@@ -23,19 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_ColorMatrix()
-        {
-            using (var image = new MagickImage(Files.Builtin.Rose))
-            {
-                var matrix = new MagickColorMatrix(3, 0, 0, 1, 0, 1, 0, 1, 0, 0);
-
-                image.ColorMatrix(matrix);
-
-                ColorAssert.Equal(MagickColor.FromRgb(58, 31, 255), image, 39, 25);
-            }
-        }
-
-        [Fact]
         public void Test_ColorType()
         {
             using (var image = new MagickImage(Files.WireframeTIF))
