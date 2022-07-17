@@ -23,20 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_ColorAlpha()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                MagickColor purple = new MagickColor("purple");
-
-                image.ColorAlpha(purple);
-
-                ColorAssert.NotEqual(purple, image, 45, 75);
-                ColorAssert.Equal(purple, image, 100, 60);
-            }
-        }
-
-        [Fact]
         public void Test_ColorMap()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
