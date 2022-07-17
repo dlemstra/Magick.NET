@@ -23,30 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_CropToTiles()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                var tiles = image.CropToTiles(48, 48).ToArray();
-                Assert.Equal(140, tiles.Length);
-
-                for (int i = 0; i < tiles.Length; i++)
-                {
-                    var tile = tiles[i];
-
-                    Assert.Equal(48, tile.Height);
-
-                    if (i == 13 || (i - 13) % 14 == 0)
-                        Assert.Equal(16, tile.Width);
-                    else
-                        Assert.Equal(48, tile.Width);
-
-                    tile.Dispose();
-                }
-            }
-        }
-
-        [Fact]
         public void Test_CycleColormap()
         {
             using (var first = new MagickImage(Files.Builtin.Logo))
