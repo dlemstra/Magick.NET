@@ -23,19 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_FormatInfo()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                var info = image.FormatInfo;
-
-                Assert.NotNull(info);
-                Assert.Equal(MagickFormat.Png, info.Format);
-                Assert.Equal("image/png", info.MimeType);
-            }
-        }
-
-        [Fact]
         public void Test_Frame()
         {
             var frameSize = 100;
