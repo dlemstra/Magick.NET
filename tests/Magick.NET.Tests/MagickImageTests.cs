@@ -23,22 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Despeckle()
-        {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                MagickColor color = new MagickColor("#d1d1d1d1d1d1");
-                ColorAssert.NotEqual(color, image, 130, 123);
-
-                image.Despeckle();
-                image.Despeckle();
-                image.Despeckle();
-
-                ColorAssert.Equal(color, image, 130, 123);
-            }
-        }
-
-        [Fact]
         public void Test_DetermineColorType()
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
