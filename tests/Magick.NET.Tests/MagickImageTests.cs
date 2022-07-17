@@ -23,20 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Enhance()
-        {
-            using (var enhanced = new MagickImage(Files.NoisePNG))
-            {
-                enhanced.Enhance();
-
-                using (var original = new MagickImage(Files.NoisePNG))
-                {
-                    Assert.InRange(enhanced.Compare(original, ErrorMetric.RootMeanSquared), 0.0115, 0.0118);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Equalize()
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
