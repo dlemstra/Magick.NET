@@ -3279,7 +3279,7 @@ namespace ImageMagick
         /// Returns the color at colormap position index.
         /// </summary>
         /// <param name="index">The position index.</param>
-        /// <returns>he color at colormap position index.</returns>
+        /// <returns>The color at colormap position index.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickColor<QuantumType>? GetColormap(int index)
             => _nativeInstance.GetColormap(index);

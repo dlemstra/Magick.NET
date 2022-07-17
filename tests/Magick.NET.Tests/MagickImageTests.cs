@@ -23,25 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_ColorMap()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                Assert.Null(image.GetColormap(0));
-            }
-
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
-            {
-                ColorAssert.Equal(new MagickColor("#040d14"), image.GetColormap(0));
-                image.SetColormap(0, MagickColors.Fuchsia);
-                ColorAssert.Equal(MagickColors.Fuchsia, image.GetColormap(0));
-
-                image.SetColormap(65536, MagickColors.Fuchsia);
-                Assert.Null(image.GetColormap(65536));
-            }
-        }
-
-        [Fact]
         public void Test_ColorMatrix()
         {
             using (var image = new MagickImage(Files.Builtin.Rose))
