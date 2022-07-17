@@ -23,18 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Dispose()
-        {
-            var image = new MagickImage();
-            image.Dispose();
-
-            Assert.Throws<ObjectDisposedException>(() =>
-            {
-                image.HasAlpha = true;
-            });
-        }
-
-        [Fact]
         public void Test_Drawable()
         {
             using (var image = new MagickImage(MagickColors.Red, 10, 10))
