@@ -23,18 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_DetermineColorType()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                Assert.Equal(ColorType.TrueColorAlpha, image.ColorType);
-
-                ColorType colorType = image.DetermineColorType();
-                Assert.Equal(ColorType.GrayscaleAlpha, colorType);
-            }
-        }
-
-        [Fact]
         public void Test_Dispose()
         {
             var image = new MagickImage();
