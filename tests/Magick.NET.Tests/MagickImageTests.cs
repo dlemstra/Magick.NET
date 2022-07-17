@@ -23,19 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_ContrastStretch()
-        {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                image.ContrastStretch(new Percentage(50), new Percentage(80));
-                image.Alpha(AlphaOption.Opaque);
-
-                ColorAssert.Equal(MagickColors.Black, image, 160, 300);
-                ColorAssert.Equal(MagickColors.Red, image, 325, 175);
-            }
-        }
-
-        [Fact]
         public void Test_Convolve()
         {
             using (var image = new MagickImage("xc:", 1, 1))
