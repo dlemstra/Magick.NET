@@ -60,13 +60,13 @@ namespace ImageMagick
         public static void IfNegative(string paramName, int value)
         {
             if (value < 0)
-                throw new ArgumentException("Value should be greater than zero.", paramName);
+                throw new ArgumentException("Value should not be negative.", paramName);
         }
 
         public static void IfNegative(string paramName, Percentage value)
         {
             if ((double)value < 0.0)
-                throw new ArgumentException("Value should be greater than zero.", paramName);
+                throw new ArgumentException("Value should not be negative.", paramName);
         }
 
         public static void IfOutOfRange(string paramName, int index, int length)
@@ -83,7 +83,7 @@ namespace ImageMagick
 
         public static void IfOutOfRange(string paramName, Percentage value)
         {
-            double val = (double)value;
+            var val = (double)value;
 
             if (val < 0.0)
                 throw new ArgumentOutOfRangeException(paramName, "Value should be greater than zero.");
