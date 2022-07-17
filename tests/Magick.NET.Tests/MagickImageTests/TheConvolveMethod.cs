@@ -11,7 +11,6 @@ namespace Magick.NET.Tests
     {
         public class TheConvolveMethod
         {
-
             [Fact]
             public void ShouldThrowExceptionWhenMatrixIsNull()
             {

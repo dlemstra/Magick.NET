@@ -11,7 +11,6 @@ namespace Magick.NET.Tests
     {
         public class TheContrastStretchMethod
         {
-
             [Fact]
             public void ShouldThrowExceptionWhenPercentageIsNull()
             {
