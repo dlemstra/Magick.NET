@@ -1297,9 +1297,9 @@ namespace ImageMagick
         /// <summary>
         /// Convolve image. Applies a user-specified convolution to the image.
         /// </summary>
-        /// <param name="convolveMatrix">The convolution matrix.</param>
+        /// <param name="matrix">The convolution matrix.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Convolve(IConvolveMatrix convolveMatrix);
+        void Convolve(IConvolveMatrix matrix);
 
         /// <summary>
         /// Copies pixels from the source image to the destination image.

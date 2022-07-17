@@ -2389,13 +2389,13 @@ namespace ImageMagick
         /// <summary>
         /// Convolve image. Applies a user-specified convolution to the image.
         /// </summary>
-        /// <param name="convolveMatrix">The convolution matrix.</param>
+        /// <param name="matrix">The convolution matrix.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Convolve(IConvolveMatrix convolveMatrix)
+        public void Convolve(IConvolveMatrix matrix)
         {
-            Throw.IfNull(nameof(convolveMatrix), convolveMatrix);
+            Throw.IfNull(nameof(matrix), matrix);
 
-            _nativeInstance.Convolve(convolveMatrix);
+            _nativeInstance.Convolve(matrix);
         }
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    Assert.Throws<ArgumentException>("matrix", () =>
+                    Assert.Throws<ArgumentNullException>("matrix", () =>
                     {
                         image.Convolve(null);
                     });
