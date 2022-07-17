@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var values = pixels.ToArray();
-                        int length = image.Width * image.Height * image.ChannelCount;
+                        var length = image.Width * image.Height * image.ChannelCount;
 
                         Assert.Equal(length, values.Length);
                     }

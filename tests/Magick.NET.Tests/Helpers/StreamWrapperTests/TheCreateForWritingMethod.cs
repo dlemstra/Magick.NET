@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNotWritable()
             {
-                using (TestStream stream = new TestStream(true, false, true))
+                using (var stream = new TestStream(true, false, true))
                 {
                     var exception = Assert.Throws<ArgumentException>("stream", () =>
                     {
@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldOnlySetReaderWhenStreamIsOnlyReadable()
             {
-                using (TestStream stream = new TestStream(false, true, true))
+                using (var stream = new TestStream(false, true, true))
                 {
                     var streamWrapper = StreamWrapper.CreateForWriting(stream);
                 }

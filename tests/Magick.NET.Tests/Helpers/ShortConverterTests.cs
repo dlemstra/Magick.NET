@@ -12,7 +12,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_ToArray()
         {
-            ushort[] value = ShortConverter.ToArray(IntPtr.Zero, 4);
+            var value = ShortConverter.ToArray(IntPtr.Zero, 4);
             Assert.Null(value);
         }
     }

@@ -47,7 +47,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_GetAndSetChannel()
         {
-            QuantumType half = (QuantumType)(Quantum.Max / 2.0);
+            var half = (QuantumType)(Quantum.Max / 2.0);
 
             var first = new Pixel(0, 0, 3);
             first.SetValues(new QuantumType[] { Quantum.Max, 0, half });
@@ -68,7 +68,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_ToColor()
         {
-            QuantumType half = (QuantumType)(Quantum.Max / 2.0);
+            var half = (QuantumType)(Quantum.Max / 2.0);
 
             var pixel = new Pixel(0, 0, 1);
             pixel.SetValues(new QuantumType[] { Quantum.Max });

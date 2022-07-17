@@ -99,7 +99,7 @@ namespace Magick.NET.Tests
                 TestColor("#000080000000", 0, (QuantumType)((Quantum.Max / 2.0) + 0.5), 0, false);
                 TestColor("#FFFf000000000000", Quantum.Max, 0, 0, true);
 
-                float half = Quantum.Max * 0.5f;
+                var half = Quantum.Max * 0.5f;
                 TestColor("gray(50%) ", half, half, half, false, 1);
                 TestColor("rgba(100%, 0%, 0%, 0.0)", Quantum.Max, 0, 0, true);
             }

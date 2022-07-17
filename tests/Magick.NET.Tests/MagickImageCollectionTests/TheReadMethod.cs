@@ -575,7 +575,7 @@ namespace Magick.NET.Tests
                 {
                     var bytes = Encoding.ASCII.GetBytes("%PDF-");
 
-                    using (MemoryStream stream = new MemoryStream(bytes))
+                    using (var stream = new MemoryStream(bytes))
                     {
                         using (var images = new MagickImageCollection())
                         {

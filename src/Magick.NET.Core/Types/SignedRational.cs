@@ -30,7 +30,7 @@ namespace ImageMagick
         /// <param name="bestPrecision">Specifies if the instance should be created with the best precision possible.</param>
         public SignedRational(double value, bool bestPrecision)
         {
-            BigRational rational = new BigRational(value, bestPrecision);
+            var rational = new BigRational(value, bestPrecision);
 
             Numerator = (int)rational.Numerator;
             Denominator = (int)rational.Denominator;

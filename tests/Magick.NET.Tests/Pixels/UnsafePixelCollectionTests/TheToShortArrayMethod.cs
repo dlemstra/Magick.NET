@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(60, 60, 63, 58, "RGBA");
-                        int length = 63 * 58 * 4;
+                        var length = 63 * 58 * 4;
 
                         Assert.Equal(length, values.Length);
                     }
@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(60, 60, 63, 58, PixelMapping.RGBA);
-                        int length = 63 * 58 * 4;
+                        var length = 63 * 58 * 4;
 
                         Assert.Equal(length, values.Length);
                     }
@@ -186,7 +186,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray("RG");
-                        int length = image.Width * image.Height * 2;
+                        var length = image.Width * image.Height * 2;
 
                         Assert.Equal(length, values.Length);
                     }
@@ -201,7 +201,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixelsUnsafe())
                     {
                         var values = pixels.ToShortArray(PixelMapping.RGB);
-                        int length = image.Width * image.Height * 3;
+                        var length = image.Width * image.Height * 3;
 
                         Assert.Equal(length, values.Length);
                     }

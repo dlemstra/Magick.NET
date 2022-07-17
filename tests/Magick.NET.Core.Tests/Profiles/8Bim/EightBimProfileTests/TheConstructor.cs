@@ -40,7 +40,7 @@ namespace Magick.NET.Core.Tests
             private static byte[] ToBytes(params object[] objects)
             {
                 var bytes = new List<byte>();
-                foreach (object obj in objects)
+                foreach (var obj in objects)
                 {
                     if (obj is byte)
                         bytes.Add((byte)obj);

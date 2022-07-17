@@ -16,7 +16,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(MagickColors.Transparent, 100, 100))
             {
-                List<IPath> paths = new List<IPath>();
+                var paths = new List<IPath>();
                 paths.Add(new PathArcAbs(new PathArc(50, 50, 20, 20, 45, true, false)));
                 paths.Add(new PathArcAbs(new PathArc[] { new PathArc(50, 50, 20, 20, 45, true, false) }.ToList()));
                 paths.Add(new PathArcRel(new PathArc(10, 10, 5, 5, 40, false, true)));

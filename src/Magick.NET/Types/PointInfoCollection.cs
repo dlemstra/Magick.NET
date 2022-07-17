@@ -11,7 +11,7 @@ namespace ImageMagick
         public PointInfoCollection(IList<PointD> coordinates)
           : this(coordinates.Count)
         {
-            for (int i = 0; i < coordinates.Count; i++)
+            for (var i = 0; i < coordinates.Count; i++)
             {
                 var point = coordinates[i];
                 _nativeInstance.Set(i, point.X, point.Y);

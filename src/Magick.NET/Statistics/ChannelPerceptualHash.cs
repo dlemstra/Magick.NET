@@ -41,7 +41,7 @@ namespace ImageMagick
         internal ChannelPerceptualHash(PixelChannel channel, IntPtr instance)
           : this(channel)
         {
-            NativeChannelPerceptualHash nativeInstance = new NativeChannelPerceptualHash(instance);
+            var nativeInstance = new NativeChannelPerceptualHash(instance);
             SetSrgbHuPhash(nativeInstance);
             SetHclpHuPhash(nativeInstance);
             SetHash();
@@ -93,7 +93,7 @@ namespace ImageMagick
 
             var ssd = 0.0;
 
-            for (int i = 0; i < 7; i++)
+            for (var i = 0; i < 7; i++)
             {
                 ssd += (_srgbHuPhash[i] - other.SrgbHuPhash(i)) * (_srgbHuPhash[i] - other.SrgbHuPhash(i));
                 ssd += (_hclpHuPhash[i] - other.HclpHuPhash(i)) * (_hclpHuPhash[i] - other.HclpHuPhash(i));
@@ -113,9 +113,9 @@ namespace ImageMagick
         {
             _hash = hash;
 
-            for (int i = 0; i < 14; i++)
+            for (var i = 0; i < 14; i++)
             {
-                if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out int hex))
+                if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var hex))
                     throw new ArgumentException("Invalid hash specified", nameof(hash));
 
                 var value = (ushort)hex / Math.Pow(10.0, hex >> 17);

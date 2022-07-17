@@ -139,7 +139,7 @@ namespace ImageMagick
             if (data is null)
                 return;
 
-            int i = 0;
+            var i = 0;
             while (i < data.Length)
             {
                 if (data[i++] != '8')

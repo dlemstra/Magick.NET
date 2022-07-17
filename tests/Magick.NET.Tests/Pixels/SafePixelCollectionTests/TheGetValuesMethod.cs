@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var values = pixels.GetValues();
-                        int length = 4 * 2 * 3;
+                        var length = 4 * 2 * 3;
 
                         Assert.Equal(length, values.Length);
                     }

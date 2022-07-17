@@ -44,7 +44,7 @@ namespace Magick.NET.Core.Tests
             [Fact]
             public void ShouldChangeTheIndex()
             {
-                EndianReader reader = new EndianReader(new byte[2] { 0, 0 });
+                var reader = new EndianReader(new byte[2] { 0, 0 });
 
                 reader.ReadShort();
 

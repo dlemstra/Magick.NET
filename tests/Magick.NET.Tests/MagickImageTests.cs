@@ -159,12 +159,12 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Frame()
         {
-            int frameSize = 100;
+            var frameSize = 100;
 
             using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                int expectedWidth = frameSize + image.Width + frameSize;
-                int expectedHeight = frameSize + image.Height + frameSize;
+                var expectedWidth = frameSize + image.Width + frameSize;
+                var expectedHeight = frameSize + image.Height + frameSize;
 
                 image.Frame(frameSize, frameSize);
                 Assert.Equal(expectedWidth, image.Width);
@@ -173,8 +173,8 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                int expectedWidth = frameSize + image.Width + frameSize;
-                int expectedHeight = frameSize + image.Height + frameSize;
+                var expectedWidth = frameSize + image.Width + frameSize;
+                var expectedHeight = frameSize + image.Height + frameSize;
 
                 image.Frame(frameSize, frameSize, 6, 6);
                 Assert.Equal(expectedWidth, image.Width);
@@ -210,7 +210,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.InvitationTIF))
             {
-                string clippingPath = image.GetClippingPath();
+                var clippingPath = image.GetClippingPath();
                 Assert.NotNull(clippingPath);
 
                 clippingPath = image.GetClippingPath("#1");
@@ -261,9 +261,9 @@ namespace Magick.NET.Tests
             Assert.NotNull(histogram);
             Assert.Equal(3, histogram.Count);
 
-            MagickColor red = new MagickColor(Quantum.Max, 0, 0);
-            MagickColor alphaRed = new MagickColor(Quantum.Max, 0, 0, 0);
-            MagickColor halfAlphaRed = new MagickColor("#FF000080");
+            var red = new MagickColor(Quantum.Max, 0, 0);
+            var alphaRed = new MagickColor(Quantum.Max, 0, 0, 0);
+            var halfAlphaRed = new MagickColor("#FF000080");
 
             Assert.Equal(3, histogram.Count);
             Assert.Equal(50000, histogram[red]);
@@ -276,7 +276,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_IComparable()
         {
-            MagickImage first = new MagickImage(MagickColors.Red, 10, 5);
+            var first = new MagickImage(MagickColors.Red, 10, 5);
 
             Assert.Equal(0, first.CompareTo(first));
             Assert.Equal(1, first.CompareTo(null));
@@ -289,7 +289,7 @@ namespace Magick.NET.Tests
             Assert.False(null > first);
             Assert.False(null >= first);
 
-            MagickImage second = new MagickImage(MagickColors.Green, 5, 5);
+            var second = new MagickImage(MagickColors.Green, 5, 5);
 
             Assert.Equal(1, first.CompareTo(second));
             Assert.False(first < second);
@@ -365,7 +365,7 @@ namespace Magick.NET.Tests
 
                 image.Interlace = Interlace.Png;
 
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     image.Write(memStream);
                     memStream.Position = 0;
@@ -426,7 +426,7 @@ namespace Magick.NET.Tests
                 image.Scale(100, 100);
 
                 image.LinearStretch((Percentage)1, (Percentage)1);
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     image.Format = MagickFormat.Histogram;
                     image.Write(memStream);
@@ -447,7 +447,7 @@ namespace Magick.NET.Tests
                 }
 
                 image.LinearStretch((Percentage)10, (Percentage)90);
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     image.Format = MagickFormat.Histogram;
                     image.Write(memStream);
@@ -565,7 +565,7 @@ namespace Magick.NET.Tests
 
                 image.Morphology(MorphologyMethod.Convolve, "3: 0.3,0.6,0.3 0.6,1.0,0.6 0.3,0.6,0.3");
 
-                MorphologySettings settings = new MorphologySettings();
+                var settings = new MorphologySettings();
                 settings.Method = MorphologyMethod.Convolve;
                 settings.ConvolveBias = new Percentage(50);
                 settings.Kernel = Kernel.DoG;
@@ -580,7 +580,7 @@ namespace Magick.NET.Tests
 
                 image.Morphology(settings);
 
-                QuantumType half = (QuantumType)((Quantum.Max / 2.0) + 0.5);
+                var half = (QuantumType)((Quantum.Max / 2.0) + 0.5);
                 ColorAssert.Equal(new MagickColor(half, half, half), image, 120, 160);
             }
         }
@@ -722,7 +722,7 @@ namespace Magick.NET.Tests
                 profile = image.GetIptcProfile();
                 Assert.Null(profile);
 
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     image.Write(memStream);
                     memStream.Position = 0;
@@ -757,7 +757,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Quantize()
         {
-            QuantizeSettings settings = new QuantizeSettings();
+            var settings = new QuantizeSettings();
             settings.Colors = 8;
 
             Assert.Equal(DitherMethod.Riemersma, settings.DitherMethod);
@@ -863,7 +863,7 @@ namespace Magick.NET.Tests
             {
                 image.Roll(40, 60);
 
-                MagickColor blue = new MagickColor("#a8dff8");
+                var blue = new MagickColor("#a8dff8");
                 ColorAssert.Equal(blue, image, 66, 103);
                 ColorAssert.Equal(blue, image, 120, 86);
                 ColorAssert.Equal(blue, image, 0, 82);
@@ -939,7 +939,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.CirclePNG))
             {
-                MagickColor color = MagickColor.FromRgba(255, 255, 255, 159);
+                var color = MagickColor.FromRgba(255, 255, 255, 159);
                 ColorAssert.Equal(color, image, image.Width / 2, image.Height / 2);
 
                 image.Scale((Percentage)400);
@@ -1016,7 +1016,7 @@ namespace Magick.NET.Tests
 
                 using (var path = new MagickImage(Files.InvitationTIF))
                 {
-                    string clippingPath = path.GetClippingPath();
+                    var clippingPath = path.GetClippingPath();
 
                     image.SetClippingPath(clippingPath);
 
@@ -1067,8 +1067,8 @@ namespace Magick.NET.Tests
                 image.Settings.FontPointsize = 60;
                 image.Read("label:Magick.NET");
 
-                int width = image.Width;
-                int height = image.Height;
+                var width = image.Width;
+                var height = image.Height;
 
                 image.Shadow(2, 2, 5, new Percentage(50), MagickColors.Red);
 
@@ -1116,7 +1116,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_SparseColors()
         {
-            MagickReadSettings settings = new MagickReadSettings();
+            var settings = new MagickReadSettings();
             settings.Width = 600;
             settings.Height = 60;
 
@@ -1127,7 +1127,7 @@ namespace Magick.NET.Tests
                     image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null);
                 });
 
-                List<SparseColorArg> args = new List<SparseColorArg>();
+                var args = new List<SparseColorArg>();
 
                 Assert.Throws<ArgumentException>("args", () =>
                 {
@@ -1341,7 +1341,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     image.Threshold(new Percentage(80));
                     image.Settings.Compression = CompressionMethod.Group4;
@@ -1367,7 +1367,7 @@ namespace Magick.NET.Tests
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
             {
-                byte[] bytes = image.ToByteArray(MagickFormat.Dds);
+                var bytes = image.ToByteArray(MagickFormat.Dds);
 
                 image.Read(bytes);
                 Assert.Equal(CompressionMethod.DXT5, image.Compression);
@@ -1415,8 +1415,8 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Transparent()
         {
-            MagickColor red = new MagickColor("red");
-            MagickColor transparentRed = new MagickColor("red");
+            var red = new MagickColor("red");
+            var transparentRed = new MagickColor("red");
             transparentRed.A = 0;
 
             using (var image = new MagickImage(Files.RedPNG))

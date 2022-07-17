@@ -10,12 +10,12 @@ namespace ImageMagick
             if (offset + 4 > data.Length)
                 return 0;
 
-            int value = data[offset++] << 24;
+            var value = data[offset++] << 24;
             value |= data[offset++] << 16;
             value |= data[offset++] << 8;
             value |= data[offset++];
 
-            int result = (int)(value & 0xffffffff);
+            var result = (int)(value & 0xffffffff);
             return result < 0 ? 0 : result;
         }
 
@@ -24,7 +24,7 @@ namespace ImageMagick
             if (offset + 2 > data.Length)
                 return 0;
 
-            short result = (short)(data[offset++] << 8);
+            var result = (short)(data[offset++] << 8);
             result = (short)(result | (short)data[offset++]);
             return (short)(result & 0xffff);
         }

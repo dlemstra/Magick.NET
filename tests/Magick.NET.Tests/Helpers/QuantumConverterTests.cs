@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_ToArray()
         {
-            QuantumType[] value = QuantumConverter.ToArray(IntPtr.Zero, 4);
+            var value = QuantumConverter.ToArray(IntPtr.Zero, 4);
             Assert.Null(value);
         }
     }

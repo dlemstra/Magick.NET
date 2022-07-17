@@ -61,7 +61,7 @@ namespace ImageMagick
         /// <returns>The perceptual hash for the specified channel.</returns>
         public IChannelPerceptualHash GetChannel(PixelChannel channel)
         {
-            _channels.TryGetValue(channel, out ChannelPerceptualHash perceptualHash);
+            _channels.TryGetValue(channel, out var perceptualHash);
             return perceptualHash;
         }
 

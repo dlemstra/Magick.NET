@@ -293,7 +293,7 @@ namespace Magick.NET.Tests
 
             Assert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
-                double foo = matrix[x, y];
+                var foo = matrix[x, y];
             });
         }
 

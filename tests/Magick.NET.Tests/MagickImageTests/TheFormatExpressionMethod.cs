@@ -50,7 +50,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldRaiseWarningForInvalidExpression()
             {
-                int count = 0;
+                var count = 0;
                 EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
                 {
                     Assert.NotNull(sender);

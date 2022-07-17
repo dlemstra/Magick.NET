@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
         public void Test_Paths()
         {
             var paths = new Paths();
-            IEnumerator enumerator = ((IEnumerable)paths).GetEnumerator();
+            var enumerator = ((IEnumerable)paths).GetEnumerator();
             Assert.False(enumerator.MoveNext());
         }
     }

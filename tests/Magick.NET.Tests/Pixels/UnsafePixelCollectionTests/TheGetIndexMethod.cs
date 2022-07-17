@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        int index = pixels.GetIndex(PixelChannel.Black);
+                        var index = pixels.GetIndex(PixelChannel.Black);
                         Assert.Equal(-1, index);
                     }
                 }
@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        int index = pixels.GetIndex(PixelChannel.Green);
+                        var index = pixels.GetIndex(PixelChannel.Green);
                         Assert.Equal(1, index);
                     }
                 }

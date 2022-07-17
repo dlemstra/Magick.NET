@@ -79,8 +79,8 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var area = pixels.GetArea(28, 28, 2, 3);
-                        int length = 2 * 3 * 4; // width * height * channelCount
-                        MagickColor color = new MagickColor(area[0], area[1], area[2], area[3]);
+                        var length = 2 * 3 * 4; // width * height * channelCount
+                        var color = new MagickColor(area[0], area[1], area[2], area[3]);
 
                         Assert.Equal(length, area.Length);
                         ColorAssert.Equal(new MagickColor("#ffffff9f"), color);
@@ -111,8 +111,8 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var area = pixels.GetArea(new MagickGeometry(0, 0, 6, 5));
-                        int length = 6 * 5 * 4; // width * height * channelCount
-                        MagickColor color = new MagickColor(area[0], area[1], area[2], area[3]);
+                        var length = 6 * 5 * 4; // width * height * channelCount
+                        var color = new MagickColor(area[0], area[1], area[2], area[3]);
 
                         Assert.Equal(length, area.Length);
                         ColorAssert.Equal(MagickColors.Red, color);

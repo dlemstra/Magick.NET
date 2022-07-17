@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
         {
             Assert.Throws<ArgumentException>("order", () =>
             {
-                double[] values = Enumerable.Repeat(1.0, 7 * 7).ToArray();
+                var values = Enumerable.Repeat(1.0, 7 * 7).ToArray();
 
                 new MagickColorMatrix(7, values);
             });
@@ -276,7 +276,7 @@ namespace Magick.NET.Tests
 
             Assert.Throws<ArgumentOutOfRangeException>(paramName, () =>
             {
-                double foo = matrix[x, y];
+                var foo = matrix[x, y];
             });
         }
 

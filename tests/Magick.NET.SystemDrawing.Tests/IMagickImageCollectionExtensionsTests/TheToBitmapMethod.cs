@@ -19,7 +19,7 @@ namespace Magick.NET.SystemDrawing.Tests
                 {
                     Assert.Equal(3, images.Count);
 
-                    using (Bitmap bitmap = images.ToBitmap())
+                    using (var bitmap = images.ToBitmap())
                     {
                         Assert.NotNull(bitmap);
                         Assert.Equal(3, bitmap.GetFrameCount(FrameDimension.Page));
@@ -37,7 +37,7 @@ namespace Magick.NET.SystemDrawing.Tests
 
                     Assert.Single(images);
 
-                    using (Bitmap bitmap = images.ToBitmap())
+                    using (var bitmap = images.ToBitmap())
                     {
                         Assert.NotNull(bitmap);
                     }

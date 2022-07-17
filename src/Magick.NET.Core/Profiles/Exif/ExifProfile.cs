@@ -142,7 +142,7 @@ namespace ImageMagick
         {
             InitializeValues();
 
-            for (int i = 0; i < _data.Values.Count; i++)
+            for (var i = 0; i < _data.Values.Count; i++)
             {
                 if (_data.Values[i].Tag == tag)
                 {

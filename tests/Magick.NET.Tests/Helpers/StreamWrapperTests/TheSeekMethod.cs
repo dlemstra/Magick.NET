@@ -21,10 +21,10 @@ namespace Magick.NET.Tests
                     {
                         using (var streamWrapper = StreamWrapper.CreateForReading(stream))
                         {
-                            byte[] buffer = new byte[255];
+                            var buffer = new byte[255];
                             fixed (byte* p = buffer)
                             {
-                                long count = streamWrapper.Seek(0, IntPtr.Zero, IntPtr.Zero);
+                                var count = streamWrapper.Seek(0, IntPtr.Zero, IntPtr.Zero);
                                 Assert.Equal(-1, count);
                             }
                         }

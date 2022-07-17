@@ -84,7 +84,7 @@ namespace ImageMagick
             if (_channels.Count != otherChannels.Count)
                 return false;
 
-            foreach (PixelChannel channel in _channels.Keys)
+            foreach (var channel in _channels.Keys)
             {
                 if (!otherChannels.Contains(channel))
                     return false;

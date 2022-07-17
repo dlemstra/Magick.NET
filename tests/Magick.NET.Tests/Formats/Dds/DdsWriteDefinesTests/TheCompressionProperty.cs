@@ -83,7 +83,7 @@ namespace Magick.NET.Tests
 
             private static MagickImage WriteDds(MagickImage input)
             {
-                using (MemoryStream memStream = new MemoryStream())
+                using (var memStream = new MemoryStream())
                 {
                     input.Format = MagickFormat.Dds;
                     input.Write(memStream);

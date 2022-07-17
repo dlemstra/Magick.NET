@@ -37,9 +37,9 @@ namespace ImageMagick
             if (!self.IsCmyk)
                 return Color.FromArgb(bytes[3], bytes[0], bytes[1], bytes[2]);
 
-            byte r = CmykToRgb(bytes, 0);
-            byte g = CmykToRgb(bytes, 1);
-            byte b = CmykToRgb(bytes, 2);
+            var r = CmykToRgb(bytes, 0);
+            var g = CmykToRgb(bytes, 1);
+            var b = CmykToRgb(bytes, 2);
 
             return Color.FromArgb(bytes[4], r, g, b);
         }

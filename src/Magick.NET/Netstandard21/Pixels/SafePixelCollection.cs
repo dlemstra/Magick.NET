@@ -50,8 +50,8 @@ namespace ImageMagick
             Throw.IfEmpty(nameof(values), values);
             Throw.IfFalse(nameof(values), values.Length % Channels == 0, $"Values should have {Channels} channels.");
 
-            int length = values.Length;
-            int max = width * height * Channels;
+            var length = values.Length;
+            var max = width * height * Channels;
             Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
 
             length = (x * y * Channels) + length;

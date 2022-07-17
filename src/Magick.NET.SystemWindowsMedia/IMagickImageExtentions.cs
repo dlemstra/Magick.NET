@@ -36,7 +36,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(self), self);
 
-            IMagickImage<TQuantumType> image = self;
+            var image = self;
 
             var mapping = "RGB";
             var format = MediaPixelFormats.Rgb24;

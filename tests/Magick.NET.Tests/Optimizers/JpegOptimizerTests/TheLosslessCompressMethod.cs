@@ -55,7 +55,7 @@ namespace Magick.NET.Tests
                         Assert.NotNull(image.GetColorProfile());
                     }
 
-                    using (TemporaryFile tempFile = new TemporaryFile(Files.PictureJPG))
+                    using (var tempFile = new TemporaryFile(Files.PictureJPG))
                     {
                         var result = Optimizer.LosslessCompress(tempFile.FileInfo);
 
@@ -80,7 +80,7 @@ namespace Magick.NET.Tests
                         Assert.NotNull(image.GetExifProfile());
                     }
 
-                    using (TemporaryFile tempFile = new TemporaryFile(Files.PictureJPG))
+                    using (var tempFile = new TemporaryFile(Files.PictureJPG))
                     {
                         var result = Optimizer.LosslessCompress(tempFile.FileInfo);
 
@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotReadable()
                 {
-                    using (TestStream stream = new TestStream(false, true, true))
+                    using (var stream = new TestStream(false, true, true))
                     {
                         Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                     }
@@ -142,7 +142,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotWriteable()
                 {
-                    using (TestStream stream = new TestStream(true, false, true))
+                    using (var stream = new TestStream(true, false, true))
                     {
                         Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                     }
@@ -151,7 +151,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotSeekable()
                 {
-                    using (TestStream stream = new TestStream(true, true, false))
+                    using (var stream = new TestStream(true, true, false))
                     {
                         Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                     }

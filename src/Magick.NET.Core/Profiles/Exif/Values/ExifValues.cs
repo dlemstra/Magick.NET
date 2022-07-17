@@ -13,7 +13,7 @@ namespace ImageMagick
 
         public static ExifValue? Create(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
         {
-            bool isArray = numberOfComponents != 1;
+            var isArray = numberOfComponents != 1;
 
             switch (dataType)
             {

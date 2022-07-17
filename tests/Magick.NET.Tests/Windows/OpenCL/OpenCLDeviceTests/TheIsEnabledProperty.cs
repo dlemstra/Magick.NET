@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
         {
             foreach (var device in OpenCL.Devices)
             {
-                bool isEnabled = device.IsEnabled;
+                var isEnabled = device.IsEnabled;
 
                 device.IsEnabled = !isEnabled;
                 Assert.NotEqual(isEnabled, device.IsEnabled);

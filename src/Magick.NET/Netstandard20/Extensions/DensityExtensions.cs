@@ -22,8 +22,8 @@ namespace ImageMagick
             if (self is null)
                 return null;
 
-            int pixelWidth = (int)(width * self.X);
-            int pixelHeight = (int)(height * self.Y);
+            var pixelWidth = (int)(width * self.X);
+            var pixelHeight = (int)(height * self.Y);
 
             return new MagickGeometry(pixelWidth, pixelHeight);
         }

@@ -14,9 +14,9 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Fraction()
         {
-            using (MemoryStream memStream = new MemoryStream())
+            using (var memStream = new MemoryStream())
             {
-                double exposureTime = 1.0 / 1600;
+                var exposureTime = 1.0 / 1600;
 
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                 {
@@ -127,7 +127,7 @@ namespace Magick.NET.Tests
                 {
                     if (value.DataType == ExifDataType.Undefined)
                     {
-                        byte[] data = (byte[])value.GetValue();
+                        var data = (byte[])value.GetValue();
                         Assert.Equal(4, data.Length);
                     }
                 }
@@ -152,7 +152,7 @@ namespace Magick.NET.Tests
 
                 if (value.Tag == ExifTag.GPSLatitude)
                 {
-                    Rational[] pos = (Rational[])value.GetValue();
+                    var pos = (Rational[])value.GetValue();
                     Assert.Equal(54, pos[0].ToDouble());
                     Assert.Equal(59.38, pos[1].ToDouble());
                     Assert.Equal(0, pos[2].ToDouble());

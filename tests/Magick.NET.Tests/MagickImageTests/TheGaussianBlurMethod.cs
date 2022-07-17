@@ -31,7 +31,7 @@ namespace Magick.NET.Tests
                     {
                         blur.Blur(5.5, 10.2);
 
-                        double distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
+                        var distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
 #if Q8
                         Assert.InRange(distortion, 0.00066, 0.00067);
 #elif Q16
@@ -54,7 +54,7 @@ namespace Magick.NET.Tests
                     {
                         blur.GaussianBlur(4.2, 1.0);
 
-                        double distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
+                        var distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
 
                         Assert.Equal(0.0, distortion);
                     }

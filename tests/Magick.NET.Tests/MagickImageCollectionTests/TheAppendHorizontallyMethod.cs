@@ -26,8 +26,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldAppendTheImagesHorizontally()
             {
-                int width = 70;
-                int height = 46;
+                var width = 70;
+                var height = 46;
 
                 using (var images = new MagickImageCollection())
                 {

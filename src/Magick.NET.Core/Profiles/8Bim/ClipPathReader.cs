@@ -38,7 +38,7 @@ namespace ImageMagick
         {
             while (_index < _offset + length)
             {
-                short selector = ByteConverter.ToShort(data, ref _index);
+                var selector = ByteConverter.ToShort(data, ref _index);
                 switch (selector)
                 {
                     case 0:
@@ -71,13 +71,13 @@ namespace ImageMagick
                 return;
             }
 
-            PointD[] point = CreatePoint(data);
+            var point = CreatePoint(data);
 
             if (_inSubpath == false)
             {
                 _path.AppendFormat(CultureInfo.InvariantCulture, "M {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
 
-                for (int k = 0; k < 3; k++)
+                for (var k = 0; k < 3; k++)
                 {
                     _first[k] = point[k];
                     _last[k] = point[k];
@@ -90,7 +90,7 @@ namespace ImageMagick
                 else
                     _path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###}\n", _last[2].X, _last[2].Y, point[0].X, point[0].Y, point[1].X, point[1].Y);
 
-                for (int k = 0; k < 3; k++)
+                for (var k = 0; k < 3; k++)
                     _last[k] = point[k];
             }
 
@@ -113,17 +113,17 @@ namespace ImageMagick
 
         private PointD[] CreatePoint(byte[] data)
         {
-            PointD[] result = new PointD[3];
+            var result = new PointD[3];
 
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
-                uint yy = (uint)ByteConverter.ToUInt(data, ref _index);
-                int y = (int)yy;
+                var yy = (uint)ByteConverter.ToUInt(data, ref _index);
+                var y = (int)yy;
                 if (yy > 2147483647)
                     y = (int)(yy - 4294967295U - 1);
 
-                uint xx = (uint)ByteConverter.ToUInt(data, ref _index);
-                int x = (int)xx;
+                var xx = (uint)ByteConverter.ToUInt(data, ref _index);
+                var x = (int)xx;
                 if (xx > 2147483647)
                     x = (int)(xx - 4294967295U - 1);
 

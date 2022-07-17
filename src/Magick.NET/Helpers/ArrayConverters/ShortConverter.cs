@@ -12,12 +12,12 @@ namespace ImageMagick
             if (nativeData == IntPtr.Zero)
                 return null;
 
-            ushort[] buffer = new ushort[length];
+            var buffer = new ushort[length];
 
             unsafe
             {
-                ushort* walk = (ushort*)nativeData;
-                for (int i = 0; i < length; i++)
+                var walk = (ushort*)nativeData;
+                for (var i = 0; i < length; i++)
                 {
                     buffer[i] = *walk++;
                 }

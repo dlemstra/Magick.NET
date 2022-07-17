@@ -88,7 +88,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(self), self);
 
-            IMagickImage<TQuantumType> image = self;
+            var image = self;
 
             var format = PixelFormat.Format24bppRgb;
 
@@ -108,7 +108,7 @@ namespace ImageMagick
                     var mapping = GetMapping(format);
 
                     var bitmap = new Bitmap(image.Width, image.Height, format);
-                    for (int y = 0; y < image.Height; y++)
+                    for (var y = 0; y < image.Height; y++)
                     {
                         var row = new Rectangle(0, y, image.Width, 1);
                         var data = bitmap.LockBits(row, ImageLockMode.WriteOnly, format);

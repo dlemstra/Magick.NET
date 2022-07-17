@@ -87,11 +87,11 @@ namespace ImageMagick
 
         public unsafe float? ReadFloat()
         {
-            uint? result = ReadLong();
+            var result = ReadLong();
             if (result is null)
                 return null;
 
-            uint value = result.Value;
+            var value = result.Value;
 
             return *(float*)&value;
         }
@@ -105,7 +105,7 @@ namespace ImageMagick
                 return null;
 
             var result = Encoding.UTF8.GetString(_data, (int)Index, (int)length);
-            int nullCharIndex = result.IndexOf('\0');
+            var nullCharIndex = result.IndexOf('\0');
             if (nullCharIndex != -1)
                 result = result.Substring(0, nullCharIndex);
 
@@ -132,7 +132,7 @@ namespace ImageMagick
 
         private unsafe double ReadDoubleMSB()
         {
-            ulong result = (ulong)_data[Index] << 56;
+            var result = (ulong)_data[Index] << 56;
             result |= (ulong)_data[Index + 1] << 48;
             result |= (ulong)_data[Index + 2] << 40;
             result |= (ulong)_data[Index + 3] << 32;
@@ -160,7 +160,7 @@ namespace ImageMagick
 
         private uint ReadLongMSB()
         {
-            uint result = (uint)_data[Index] << 24;
+            var result = (uint)_data[Index] << 24;
             result |= (uint)_data[Index + 1] << 16;
             result |= (uint)_data[Index + 2] << 8;
             result |= _data[Index + 3];
@@ -182,7 +182,7 @@ namespace ImageMagick
 
         private ushort ReadShortMSB()
         {
-            ushort result = (ushort)(_data[Index] << 8);
+            var result = (ushort)(_data[Index] << 8);
             result |= _data[Index + 1];
 
             Index += 2;

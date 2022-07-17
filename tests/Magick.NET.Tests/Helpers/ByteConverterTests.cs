@@ -12,7 +12,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_ToArray()
         {
-            byte[] value = ByteConverter.ToArray(IntPtr.Zero, 4);
+            var value = ByteConverter.ToArray(IntPtr.Zero, 4);
             Assert.Null(value);
         }
     }

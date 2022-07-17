@@ -38,7 +38,7 @@ namespace ImageMagick
         /// <returns>The moments for the specified channel.</returns>
         public IChannelMoments GetChannel(PixelChannel channel)
         {
-            _channels.TryGetValue(channel, out ChannelMoments moments);
+            _channels.TryGetValue(channel, out var moments);
             return moments;
         }
 

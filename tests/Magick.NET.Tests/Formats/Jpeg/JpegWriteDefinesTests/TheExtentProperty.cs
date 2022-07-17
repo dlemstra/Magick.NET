@@ -38,7 +38,7 @@ namespace Magick.NET.Tests
 
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    using (MemoryStream memStream = new MemoryStream())
+                    using (var memStream = new MemoryStream())
                     {
                         image.Settings.SetDefines(defines);
 

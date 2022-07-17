@@ -17,7 +17,7 @@ namespace ImageMagick
                 if (Value is null)
                     return ExifDataType.Short;
 
-                for (int i = 0; i < Value.Length; i++)
+                for (var i = 0; i < Value.Length; i++)
                 {
                     if (Value[i] > ushort.MaxValue)
                         return ExifDataType.Long;

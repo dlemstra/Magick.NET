@@ -37,7 +37,7 @@ namespace Magick.NET.Core.Tests
             [Fact]
             public void ShouldCorrectlyHandleArray()
             {
-                Rational[] latitude = new Rational[] { new Rational(12.3), new Rational(4.56), new Rational(789.0) };
+                var latitude = new Rational[] { new Rational(12.3), new Rational(4.56), new Rational(789.0) };
 
                 var profile = new ExifProfile();
                 profile.SetValue(ExifTag.GPSLatitude, latitude);
@@ -45,7 +45,7 @@ namespace Magick.NET.Core.Tests
                 var value = profile.GetValue(ExifTag.GPSLatitude);
 
                 Assert.NotNull(value);
-                Rational[] values = (Rational[])value.GetValue();
+                var values = (Rational[])value.GetValue();
                 Assert.NotNull(values);
                 Assert.Equal(latitude, values);
             }

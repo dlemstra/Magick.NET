@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var values = pixels.ToShortArray(60, 60, 63, 58, "RGBA");
-                        int length = 63 * 58 * 4;
+                        var length = 63 * 58 * 4;
 
                         Assert.Equal(length, values.Length);
                     }
@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var values = pixels.ToShortArray(60, 60, 63, 58, PixelMapping.RGBA);
-                        int length = 63 * 58 * 4;
+                        var length = 63 * 58 * 4;
 
                         Assert.Equal(length, values.Length);
                     }
@@ -124,7 +124,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), "RG");
-                        int length = 113 * 108 * 2;
+                        var length = 113 * 108 * 2;
 
                         Assert.Equal(length, values.Length);
                     }
@@ -199,7 +199,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var values = pixels.ToShortArray("RG");
-                        int length = image.Width * image.Height * 2;
+                        var length = image.Width * image.Height * 2;
 
                         Assert.Equal(length, values.Length);
                     }
@@ -214,7 +214,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixels())
                     {
                         var values = pixels.ToShortArray(PixelMapping.RGB);
-                        int length = image.Width * image.Height * 3;
+                        var length = image.Width * image.Height * 3;
 
                         Assert.Equal(length, values.Length);
                     }

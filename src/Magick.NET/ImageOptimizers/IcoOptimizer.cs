@@ -123,7 +123,7 @@ namespace ImageMagick.ImageOptimizers
             else
                 max -= min;
 
-            bool fixAlpha = false;
+            var fixAlpha = false;
             foreach (var color in histogram.Keys)
             {
                 if (color.A != 0 && color.A != Quantum.Max)
@@ -149,13 +149,13 @@ namespace ImageMagick.ImageOptimizers
                 var alphaIndex = pixels.GetIndex(PixelChannel.Alpha);
                 var channels = pixels.Channels;
 
-                for (int y = 0; y < image.Height; y++)
+                for (var y = 0; y < image.Height; y++)
                 {
                     var row = pixels.GetArea(0, y, image.Width, 1);
                     if (row is null)
                         continue;
 
-                    for (int i = alphaIndex; i < row.Length; i += channels)
+                    for (var i = alphaIndex; i < row.Length; i += channels)
                     {
                         if (row[i] <= min)
                             row[i] = 0;
@@ -170,7 +170,7 @@ namespace ImageMagick.ImageOptimizers
 
         private bool DoCompress(FileInfo file, bool lossless)
         {
-            bool isCompressed = false;
+            var isCompressed = false;
 
             var settings = new MagickReadSettings() { Format = MagickFormat.Ico };
             using (var images = new MagickImageCollection(file, settings))
@@ -218,7 +218,7 @@ namespace ImageMagick.ImageOptimizers
         {
             ImageOptimizerHelper.CheckStream(stream);
 
-            bool isCompressed = false;
+            var isCompressed = false;
             var startPosition = stream.Position;
 
             using (var images = new MagickImageCollection(stream, new MagickReadSettings() { Format = MagickFormat.Ico }))

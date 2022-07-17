@@ -29,7 +29,7 @@ namespace Magick.NET.Tests
                 Assert.InRange(first.EllipseIntensity, 0.79, 0.80);
 
                 var expected = new double[] { 0.2004, 0.0003, 0.0001, 0.0, 0.0, 0.0, 0.0, 0.0 };
-                for (int i = 0; i < 8; i++)
+                for (var i = 0; i < 8; i++)
                 {
                     Assert.InRange(first.HuInvariants(i), expected[i] - 0.0001, expected[i] + 0.0001);
                 }
