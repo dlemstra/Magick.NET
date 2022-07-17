@@ -71,7 +71,7 @@ namespace ImageMagick
         public static bool operator <(ColorBase? left, ColorBase? right)
         {
             if (left is null)
-                return !(right is null);
+                return right is not null;
 
             return left.CompareTo(right) == -1;
         }
@@ -97,7 +97,7 @@ namespace ImageMagick
         public static bool operator <=(ColorBase? left, ColorBase? right)
         {
             if (left is null)
-                return !(right is null);
+                return right is not null;
 
             return left.CompareTo(right) <= 0;
         }

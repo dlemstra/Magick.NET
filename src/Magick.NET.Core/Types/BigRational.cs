@@ -123,7 +123,7 @@ namespace ImageMagick
 
         public override bool Equals(object obj)
         {
-            if (!(obj is BigRational))
+            if (obj is not BigRational)
                 return false;
 
             return Equals((BigRational)obj);
