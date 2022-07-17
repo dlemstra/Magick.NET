@@ -23,33 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Encipher_Decipher()
-        {
-            using (var original = new MagickImage(Files.SnakewarePNG))
-            {
-                using (var enciphered = original.Clone())
-                {
-                    enciphered.Encipher("All your base are belong to us");
-                    Assert.NotEqual(original, enciphered);
-
-                    using (var deciphered = enciphered.Clone())
-                    {
-                        deciphered.Decipher("What you say!!");
-                        Assert.NotEqual(enciphered, deciphered);
-                        Assert.NotEqual(original, deciphered);
-                    }
-
-                    using (var deciphered = enciphered.Clone())
-                    {
-                        deciphered.Decipher("All your base are belong to us");
-                        Assert.NotEqual(enciphered, deciphered);
-                        Assert.Equal(original, deciphered);
-                    }
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Edge()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
