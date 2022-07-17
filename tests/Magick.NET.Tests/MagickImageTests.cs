@@ -23,22 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Edge()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                ColorAssert.NotEqual(MagickColors.Black, image, 400, 295);
-                ColorAssert.NotEqual(MagickColors.Blue, image, 455, 126);
-
-                image.Edge(2);
-                image.Clamp();
-
-                ColorAssert.Equal(MagickColors.Black, image, 400, 295);
-                ColorAssert.Equal(MagickColors.Blue, image, 455, 126);
-            }
-        }
-
-        [Fact]
         public void Test_Emboss()
         {
             using (var image = new MagickImage(Files.Builtin.Wizard))
