@@ -23,38 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_FlipFlop()
-        {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage(MagickColors.DodgerBlue, 10, 10));
-                images.Add(new MagickImage(MagickColors.Firebrick, 10, 10));
-
-                using (var image = images.AppendVertically())
-                {
-                    ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 0);
-                    ColorAssert.Equal(MagickColors.Firebrick, image, 5, 10);
-
-                    image.Flip();
-
-                    ColorAssert.Equal(MagickColors.Firebrick, image, 5, 0);
-                    ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 10);
-                }
-
-                using (var image = images.AppendHorizontally())
-                {
-                    ColorAssert.Equal(MagickColors.DodgerBlue, image, 0, 5);
-                    ColorAssert.Equal(MagickColors.Firebrick, image, 10, 5);
-
-                    image.Flop();
-
-                    ColorAssert.Equal(MagickColors.Firebrick, image, 0, 5);
-                    ColorAssert.Equal(MagickColors.DodgerBlue, image, 10, 5);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_FormatInfo()
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
