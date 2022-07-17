@@ -126,43 +126,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_IComparable()
-        {
-            var first = new MagickImage(MagickColors.Red, 10, 5);
-
-            Assert.Equal(0, first.CompareTo(first));
-            Assert.Equal(1, first.CompareTo(null));
-            Assert.False(first < null);
-            Assert.False(first <= null);
-            Assert.True(first > null);
-            Assert.True(first >= null);
-            Assert.True(null < first);
-            Assert.True(null <= first);
-            Assert.False(null > first);
-            Assert.False(null >= first);
-
-            var second = new MagickImage(MagickColors.Green, 5, 5);
-
-            Assert.Equal(1, first.CompareTo(second));
-            Assert.False(first < second);
-            Assert.False(first <= second);
-            Assert.True(first > second);
-            Assert.True(first >= second);
-
-            second = new MagickImage(MagickColors.Red, 5, 10);
-
-            Assert.Equal(0, first.CompareTo(second));
-            Assert.False(first == second);
-            Assert.False(first < second);
-            Assert.True(first <= second);
-            Assert.False(first > second);
-            Assert.True(first >= second);
-
-            first.Dispose();
-            second.Dispose();
-        }
-
-        [Fact]
         public void Test_IEquatable()
         {
             var first = new MagickImage(MagickColors.Red, 10, 10);
