@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Drawables()
         {
-            PointD[] coordinates = new PointD[3];
+            var coordinates = new PointD[3];
             coordinates[0] = new PointD(0, 0);
             coordinates[1] = new PointD(50, 50);
             coordinates[2] = new PointD(99, 99);
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Drawables_Draw()
         {
-            PointD[] coordinates = new PointD[3];
+            var coordinates = new PointD[3];
             coordinates[0] = new PointD(0, 0);
             coordinates[1] = new PointD(50, 50);
             coordinates[2] = new PointD(99, 99);
@@ -164,6 +164,13 @@ namespace Magick.NET.Tests
             AssertDraw(new DrawablePopPattern());
             AssertDraw(new DrawableFillPatternUrl("#test"));
             AssertDraw(new DrawableStrokePatternUrl("#test"));
+
+            using (var image = new MagickImage(MagickColors.Red, 10, 10))
+            {
+                var yellow = MagickColors.Yellow;
+                image.Draw(new DrawableFillColor(yellow), new DrawableRectangle(0, 0, 10, 10));
+                ColorAssert.Equal(yellow, image, 5, 5);
+            }
         }
 
         [Fact]

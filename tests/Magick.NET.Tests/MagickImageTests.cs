@@ -23,17 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Drawable()
-        {
-            using (var image = new MagickImage(MagickColors.Red, 10, 10))
-            {
-                MagickColor yellow = MagickColors.Yellow;
-                image.Draw(new DrawableFillColor(yellow), new DrawableRectangle(0, 0, 10, 10));
-                ColorAssert.Equal(yellow, image, 5, 5);
-            }
-        }
-
-        [Fact]
         public void Test_Encipher_Decipher()
         {
             using (var original = new MagickImage(Files.SnakewarePNG))
