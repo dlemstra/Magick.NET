@@ -72,19 +72,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_GetClippingPath()
-        {
-            using (var image = new MagickImage(Files.InvitationTIF))
-            {
-                var clippingPath = image.GetClippingPath();
-                Assert.NotNull(clippingPath);
-
-                clippingPath = image.GetClippingPath("#1");
-                Assert.NotNull(clippingPath);
-            }
-        }
-
-        [Fact]
         public void Test_Grayscale()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
