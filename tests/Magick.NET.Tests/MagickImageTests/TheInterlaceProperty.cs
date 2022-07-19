@@ -9,7 +9,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class TheInterlaceMethod
+        public class TheInterlaceProperty
         {
             [Fact]
             public void ShouldUseNoInterlaceAsTheDefault()
