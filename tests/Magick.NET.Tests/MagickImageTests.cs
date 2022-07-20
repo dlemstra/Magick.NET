@@ -23,40 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Frame()
-        {
-            var frameSize = 100;
-
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                var expectedWidth = frameSize + image.Width + frameSize;
-                var expectedHeight = frameSize + image.Height + frameSize;
-
-                image.Frame(frameSize, frameSize);
-                Assert.Equal(expectedWidth, image.Width);
-                Assert.Equal(expectedHeight, image.Height);
-            }
-
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                var expectedWidth = frameSize + image.Width + frameSize;
-                var expectedHeight = frameSize + image.Height + frameSize;
-
-                image.Frame(frameSize, frameSize, 6, 6);
-                Assert.Equal(expectedWidth, image.Width);
-                Assert.Equal(expectedHeight, image.Height);
-            }
-
-            Assert.Throws<MagickOptionErrorException>(() =>
-            {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    image.Frame(6, 6, frameSize, frameSize);
-                }
-            });
-        }
-
-        [Fact]
         public void Test_GammaCorrect()
         {
             var first = new MagickImage(Files.InvitationTIF);
