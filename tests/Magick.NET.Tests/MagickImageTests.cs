@@ -23,19 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Kuwahara()
-        {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                image.Kuwahara(13.4, 2.5);
-                image.ColorType = ColorType.Bilevel;
-
-                ColorAssert.Equal(MagickColors.White, image, 216, 120);
-                ColorAssert.Equal(MagickColors.Black, image, 39, 138);
-            }
-        }
-
-        [Fact]
         public void Test_LinearStretch()
         {
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
