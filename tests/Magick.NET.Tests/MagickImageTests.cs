@@ -23,23 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Implode()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
-
-                image.Implode(0.5, PixelInterpolateMethod.Blend);
-
-                ColorAssert.Equal(new MagickColor("#a8dff8"), image, 69, 45);
-
-                image.Implode(-0.5, PixelInterpolateMethod.Background);
-
-                ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
-            }
-        }
-
-        [Fact]
         public void Test_Interlace()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
