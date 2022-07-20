@@ -23,21 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Grayscale()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Grayscale(PixelIntensityMethod.Brightness);
-                Assert.Equal(1, image.ChannelCount);
-                Assert.Equal(PixelChannel.Red, image.Channels.First());
-
-                ColorAssert.Equal(MagickColors.White, image, 220, 45);
-                ColorAssert.Equal(new MagickColor("#929292"), image, 386, 379);
-                ColorAssert.Equal(new MagickColor("#f5f5f5"), image, 405, 158);
-            }
-        }
-
-        [Fact]
         public void Test_Histogram()
         {
             var image = new MagickImage();
