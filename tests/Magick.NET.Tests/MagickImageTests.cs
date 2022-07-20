@@ -23,35 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_IEquatable()
-        {
-            var first = new MagickImage(MagickColors.Red, 10, 10);
-
-            Assert.False(first == null);
-            Assert.False(first.Equals(null));
-            Assert.True(first.Equals(first));
-            Assert.True(first.Equals((object)first));
-
-            var second = new MagickImage(MagickColors.Red, 10, 10);
-
-            Assert.True(first == second);
-            Assert.True(first.Equals(second));
-            Assert.True(first.Equals((object)second));
-
-            second = new MagickImage(MagickColors.Green, 10, 10);
-
-            Assert.True(first != second);
-            Assert.False(first.Equals(second));
-
-            first.Dispose();
-            second.Dispose();
-
-            first = null;
-            Assert.True(first == null);
-            Assert.False(first != null);
-        }
-
-        [Fact]
         public void Test_Implode()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
