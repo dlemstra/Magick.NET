@@ -23,27 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Interlace()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                Assert.Equal(Interlace.NoInterlace, image.Interlace);
-
-                image.Interlace = Interlace.Png;
-
-                using (var memStream = new MemoryStream())
-                {
-                    image.Write(memStream);
-                    memStream.Position = 0;
-                    using (var result = new MagickImage(memStream))
-                    {
-                        Assert.Equal(Interlace.Png, result.Interlace);
-                    }
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Kuwahara()
         {
             using (var image = new MagickImage(Files.NoisePNG))
