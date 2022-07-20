@@ -23,21 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_GammaCorrect()
-        {
-            var first = new MagickImage(Files.InvitationTIF);
-            first.GammaCorrect(2.0);
-
-            var second = new MagickImage(Files.InvitationTIF);
-            second.GammaCorrect(2.0, Channels.Red);
-
-            Assert.False(first.Equals(second));
-
-            first.Dispose();
-            second.Dispose();
-        }
-
-        [Fact]
         public void Test_Grayscale()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
