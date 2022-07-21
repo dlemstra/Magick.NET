@@ -23,21 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_LocalContrast()
-        {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                image.LocalContrast(5.0, (Percentage)75);
-                image.Clamp();
-
-                ColorAssert.Equal(MagickColors.Black, image, 81, 28);
-                ColorAssert.Equal(MagickColors.Black, image, 245, 181);
-                ColorAssert.Equal(MagickColors.White, image, 200, 135);
-                ColorAssert.Equal(MagickColors.White, image, 200, 135);
-            }
-        }
-
-        [Fact]
         public void Test_Magnify()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
