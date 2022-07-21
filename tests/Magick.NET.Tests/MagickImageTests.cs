@@ -23,34 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void MeanShift_WithSize1_DoesNotChangeImage()
-        {
-            using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-            {
-                using (var output = input.Clone())
-                {
-                    output.MeanShift(1);
-
-                    Assert.Equal(0.0, output.Compare(input, ErrorMetric.RootMeanSquared));
-                }
-            }
-        }
-
-        [Fact]
-        public void MeanShift_WithSizeLargerThan1_ChangesImage()
-        {
-            using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-            {
-                using (var output = input.Clone())
-                {
-                    output.MeanShift(2, new Percentage(80));
-
-                    Assert.InRange(output.Compare(input, ErrorMetric.RootMeanSquared), 0.019, 0.020);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_MatteColor()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
