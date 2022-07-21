@@ -23,61 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_LinearStretch()
-        {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                image.Scale(100, 100);
-
-                image.LinearStretch((Percentage)1, (Percentage)1);
-                using (var memStream = new MemoryStream())
-                {
-                    image.Format = MagickFormat.Histogram;
-                    image.Write(memStream);
-                    memStream.Position = 0;
-
-                    using (var histogram = new MagickImage(memStream))
-                    {
-#if Q8
-                        ColorAssert.Equal(MagickColors.Red, histogram, 65, 38);
-                        ColorAssert.Equal(MagickColors.Lime, histogram, 135, 0);
-                        ColorAssert.Equal(MagickColors.Blue, histogram, 209, 81);
-#else
-                        ColorAssert.Equal(MagickColors.Red, histogram, 34, 183);
-                        ColorAssert.Equal(MagickColors.Lime, histogram, 122, 193);
-                        ColorAssert.Equal(MagickColors.Blue, histogram, 210, 194);
-#endif
-                    }
-                }
-
-                image.LinearStretch((Percentage)10, (Percentage)90);
-                using (var memStream = new MemoryStream())
-                {
-                    image.Format = MagickFormat.Histogram;
-                    image.Write(memStream);
-                    memStream.Position = 0;
-
-                    using (var histogram = new MagickImage(memStream))
-                    {
-#if Q8
-                        ColorAssert.Equal(MagickColors.Red, histogram, 96, 174);
-                        ColorAssert.Equal(MagickColors.Lime, histogram, 212, 168);
-                        ColorAssert.Equal(MagickColors.Blue, histogram, 194, 190);
-#elif Q16
-                        ColorAssert.Equal(MagickColors.Red, histogram, 221, 183);
-                        ColorAssert.Equal(MagickColors.Lime, histogram, 11, 181);
-                        ColorAssert.Equal(MagickColors.Blue, histogram, 45, 194);
-#else
-                        ColorAssert.Equal(MagickColors.Red, histogram, 221, 183);
-                        ColorAssert.Equal(MagickColors.Lime, histogram, 12, 180);
-                        ColorAssert.Equal(MagickColors.Blue, histogram, 45, 194);
-#endif
-                    }
-                }
-            }
-        }
-
-        [Fact]
         public void Test_LocalContrast()
         {
             using (var image = new MagickImage(Files.NoisePNG))
