@@ -23,17 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Minify()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.Minify();
-                Assert.Equal(64, image.Width);
-                Assert.Equal(64, image.Height);
-            }
-        }
-
-        [Fact]
         public void Test_Morphology()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
