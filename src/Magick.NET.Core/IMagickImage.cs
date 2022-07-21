@@ -2537,6 +2537,14 @@ namespace ImageMagick
         /// Reduces the image to a limited number of colors for a "poster" effect.
         /// </summary>
         /// <param name="levels">Number of color levels allowed in each channel.</param>
+        /// <param name="channels">The channel(s) to posterize.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Posterize(int levels, Channels channels);
+
+        /// <summary>
+        /// Reduces the image to a limited number of colors for a "poster" effect.
+        /// </summary>
+        /// <param name="levels">Number of color levels allowed in each channel.</param>
         /// <param name="method">Dither method to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Posterize(int levels, DitherMethod method);
@@ -2549,14 +2557,6 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to posterize.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Posterize(int levels, DitherMethod method, Channels channels);
-
-        /// <summary>
-        /// Reduces the image to a limited number of colors for a "poster" effect.
-        /// </summary>
-        /// <param name="levels">Number of color levels allowed in each channel.</param>
-        /// <param name="channels">The channel(s) to posterize.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Posterize(int levels, Channels channels);
 
         /// <summary>
         /// Sets an internal option to preserve the color type.
