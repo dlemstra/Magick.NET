@@ -22,16 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_OilPaint()
-        {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                image.OilPaint(2, 5);
-                ColorAssert.Equal(new MagickColor("#6a7e85"), image, 180, 98);
-            }
-        }
-
-        [Fact]
         public void Test_Opaque()
         {
             using (var image = new MagickImage(MagickColors.Red, 10, 10))
