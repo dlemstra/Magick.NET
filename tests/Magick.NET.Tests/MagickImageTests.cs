@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using ImageMagick;
 using Xunit;
 
@@ -22,40 +21,6 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        [Fact]
-        public void Test_Morphology()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Throws<MagickOptionErrorException>(() =>
-                {
-                    image.Morphology(MorphologyMethod.Smooth, "Magick");
-                });
-
-                image.Morphology(MorphologyMethod.Dilate, Kernel.Square, "1");
-
-                image.Morphology(MorphologyMethod.Convolve, "3: 0.3,0.6,0.3 0.6,1.0,0.6 0.3,0.6,0.3");
-
-                var settings = new MorphologySettings();
-                settings.Method = MorphologyMethod.Convolve;
-                settings.ConvolveBias = new Percentage(50);
-                settings.Kernel = Kernel.DoG;
-                settings.KernelArguments = "0x2";
-
-                image.Read(Files.Builtin.Logo);
-
-                Assert.Throws<ArgumentNullException>("settings", () =>
-                {
-                    image.Morphology(null);
-                });
-
-                image.Morphology(settings);
-
-                var half = (QuantumType)((Quantum.Max / 2.0) + 0.5);
-                ColorAssert.Equal(new MagickColor(half, half, half), image, 120, 160);
-            }
-        }
-
         [Fact]
         public void Test_MotionBlur()
         {
