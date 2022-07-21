@@ -13,7 +13,6 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldDoTheInverseOfLevelTheColors()
             {
-
                 using (var first = new MagickImage(Files.MagickNETIconPNG))
                 {
                     first.LevelColors(MagickColors.Fuchsia, MagickColors.Goldenrod, Channels.Blue);
