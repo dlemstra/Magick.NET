@@ -22,24 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Opaque()
-        {
-            using (var image = new MagickImage(MagickColors.Red, 10, 10))
-            {
-                ColorAssert.Equal(MagickColors.Red, image, 0, 0);
-
-                image.Opaque(MagickColors.Red, MagickColors.Yellow);
-                ColorAssert.Equal(MagickColors.Yellow, image, 0, 0);
-
-                image.InverseOpaque(MagickColors.Yellow, MagickColors.Red);
-                ColorAssert.Equal(MagickColors.Yellow, image, 0, 0);
-
-                image.InverseOpaque(MagickColors.Red, MagickColors.Red);
-                ColorAssert.Equal(MagickColors.Red, image, 0, 0);
-            }
-        }
-
-        [Fact]
         public void Test_Perceptible()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
