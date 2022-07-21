@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
-                public void ShouldRemoveTheProfile()
+                public void ShouldRemoveTheSpecifiedColorProfile()
                 {
                     using (var image = new MagickImage(Files.PictureJPG))
                     {
@@ -33,6 +33,21 @@ namespace Magick.NET.Tests
                         image.RemoveProfile(profile);
 
                         profile = image.GetColorProfile();
+                        Assert.Null(profile);
+                    }
+                }
+
+                [Fact]
+                public void ShouldRemoveTheSpecifiedIptcProfile()
+                {
+                    using (var image = new MagickImage(Files.PictureJPG))
+                    {
+                        var profile = image.GetIptcProfile();
+                        Assert.NotNull(profile);
+
+                        image.RemoveProfile(profile);
+
+                        profile = image.GetIptcProfile();
                         Assert.Null(profile);
                     }
                 }

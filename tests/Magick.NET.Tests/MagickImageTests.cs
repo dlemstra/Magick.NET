@@ -22,50 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Posterize()
-        {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                image.Posterize(5);
-
-#if Q8
-                ColorAssert.Equal(new MagickColor("#4080bf"), image, 300, 150);
-                ColorAssert.Equal(new MagickColor("#404080"), image, 495, 270);
-                ColorAssert.Equal(new MagickColor("#404040"), image, 445, 255);
-#else
-                ColorAssert.Equal(new MagickColor("#40008000bfff"), image, 300, 150);
-                ColorAssert.Equal(new MagickColor("#400040008000"), image, 495, 270);
-                ColorAssert.Equal(new MagickColor("#400040004000"), image, 445, 255);
-#endif
-            }
-        }
-
-        [Fact]
-        public void Test_Profile()
-        {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetIptcProfile();
-                Assert.NotNull(profile);
-                image.RemoveProfile(profile.Name);
-                profile = image.GetIptcProfile();
-                Assert.Null(profile);
-
-                using (var memStream = new MemoryStream())
-                {
-                    image.Write(memStream);
-                    memStream.Position = 0;
-
-                    using (var newImage = new MagickImage(memStream))
-                    {
-                        profile = newImage.GetIptcProfile();
-                        Assert.Null(profile);
-                    }
-                }
-            }
-        }
-
-        [Fact]
         public void Test_ProfileNames()
         {
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
