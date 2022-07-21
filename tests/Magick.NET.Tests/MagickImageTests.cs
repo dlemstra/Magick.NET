@@ -22,18 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Perceptible()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Perceptible(Quantum.Max * 0.4);
-
-                ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
-                ColorAssert.Equal(new MagickColor("#666692"), image, 410, 405);
-            }
-        }
-
-        [Fact]
         public void Test_Polaroid()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
