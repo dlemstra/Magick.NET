@@ -23,19 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_MatteColor()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.MatteColor = MagickColors.PaleGoldenrod;
-                image.Frame();
-
-                ColorAssert.Equal(MagickColors.PaleGoldenrod, image, 10, 10);
-                ColorAssert.Equal(MagickColors.PaleGoldenrod, image, 680, 520);
-            }
-        }
-
-        [Fact]
         public void Test_Minify()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
