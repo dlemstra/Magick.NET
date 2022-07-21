@@ -22,33 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Quantize()
-        {
-            var settings = new QuantizeSettings();
-            settings.Colors = 8;
-
-            Assert.Equal(DitherMethod.Riemersma, settings.DitherMethod);
-            settings.DitherMethod = null;
-            Assert.Null(settings.DitherMethod);
-            settings.DitherMethod = DitherMethod.No;
-            Assert.Equal(DitherMethod.No, settings.DitherMethod);
-            settings.MeasureErrors = true;
-            Assert.True(settings.MeasureErrors);
-
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var errorInfo = image.Quantize(settings);
-#if Q8
-                Assert.InRange(errorInfo.MeanErrorPerPixel, 7.066, 7.067);
-#else
-                Assert.InRange(errorInfo.MeanErrorPerPixel, 1827.8, 1827.9);
-#endif
-                Assert.InRange(errorInfo.NormalizedMaximumError, 0.352, 0.354);
-                Assert.InRange(errorInfo.NormalizedMeanError, 0.001, 0.002);
-            }
-        }
-
-        [Fact]
         public void Test_RandomThreshold()
         {
             using (var image = new MagickImage(Files.TestPNG))
