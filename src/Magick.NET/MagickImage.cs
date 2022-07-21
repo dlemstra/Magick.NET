@@ -4744,7 +4744,7 @@ namespace ImageMagick
             => Read(fileName, readSettings, true);
 
         /// <summary>
-        /// Simulates a Polaroid picture.
+        /// Simulates a polaroid picture.
         /// </summary>
         /// <param name="caption">The caption to put on the image.</param>
         /// <param name="angle">The angle of image.</param>
