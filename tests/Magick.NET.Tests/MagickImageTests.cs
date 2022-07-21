@@ -23,17 +23,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Magnify()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.Magnify();
-                Assert.Equal(256, image.Width);
-                Assert.Equal(256, image.Height);
-            }
-        }
-
-        [Fact]
         public void MeanShift_WithSize1_DoesNotChangeImage()
         {
             using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
