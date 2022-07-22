@@ -75,12 +75,6 @@ namespace ImageMagick
         void Initialize(int x, int y, int width, int height);
 
         /// <summary>
-        /// Returns a <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.
-        /// </summary>
-        /// <returns>A <see cref="PointD"/> that represents the position of the current <see cref="IMagickGeometry"/>.</returns>
-        PointD ToPoint();
-
-        /// <summary>
         /// Returns a string that represents the current <see cref="IMagickGeometry"/>.
         /// </summary>
         /// <returns>A string that represents the current <see cref="IMagickGeometry"/>.</returns>
