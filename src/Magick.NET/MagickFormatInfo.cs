@@ -73,7 +73,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="file">The file to check.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo? Create(FileInfo file)
+        public static IMagickFormatInfo? Create(FileInfo file)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -90,7 +90,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="format">The image format.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo? Create(MagickFormat format)
+        public static IMagickFormatInfo? Create(MagickFormat format)
         {
             if (!_all.ContainsKey(format))
                 return null;
@@ -104,7 +104,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="data">The array of bytes to read the image header from.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo? Create(byte[] data)
+        public static IMagickFormatInfo? Create(byte[] data)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -120,7 +120,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="fileName">The name of the file to check.</param>
         /// <returns>The format information.</returns>
-        public static MagickFormatInfo? Create(string fileName)
+        public static IMagickFormatInfo? Create(string fileName)
         {
             var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
