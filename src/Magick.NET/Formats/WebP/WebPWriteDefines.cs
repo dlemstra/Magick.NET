@@ -2,23 +2,14 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.WebP"/> image is written.
     /// </summary>
-    public sealed class WebPWriteDefines : WriteDefinesCreator
+    public sealed class WebPWriteDefines : IWriteDefines
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WebPWriteDefines"/> class.
-        /// </summary>
-        public WebPWriteDefines()
-          : base(MagickFormat.WebP)
-        {
-        }
-
         /// <summary>
         /// Gets or sets the encoding of the alpha plane (webp:alpha-compression).
         /// </summary>
@@ -63,6 +54,12 @@ namespace ImageMagick.Formats
         /// Gets or sets the filter type. (webp:filter-type).
         /// </summary>
         public WebPFilterType? FilterType { get; set; }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.WebP;
 
         /// <summary>
         /// Gets or sets the hint about the image type. (webp:image-hint).
@@ -147,84 +144,84 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (AlphaCompression.HasValue)
-                    yield return CreateDefine("alpha-compression", (int)AlphaCompression.Value);
+                    yield return new MagickDefine(Format, "alpha-compression", (int)AlphaCompression.Value);
 
                 if (AlphaFiltering.HasValue)
-                    yield return CreateDefine("alpha-filtering", (int)AlphaFiltering.Value);
+                    yield return new MagickDefine(Format, "alpha-filtering", (int)AlphaFiltering.Value);
 
                 if (AlphaQuality.HasValue)
-                    yield return CreateDefine("alpha-quality", AlphaQuality.Value);
+                    yield return new MagickDefine(Format, "alpha-quality", AlphaQuality.Value);
 
                 if (AutoFilter.HasValue)
-                    yield return CreateDefine("auto-filter", AutoFilter.Value);
+                    yield return new MagickDefine(Format, "auto-filter", AutoFilter.Value);
 
                 if (EmulateJpegSize.HasValue)
-                    yield return CreateDefine("emulate-jpeg-size", EmulateJpegSize.Value);
+                    yield return new MagickDefine(Format, "emulate-jpeg-size", EmulateJpegSize.Value);
 
                 if (Exact.HasValue)
-                    yield return CreateDefine("exact", Exact.Value);
+                    yield return new MagickDefine(Format, "exact", Exact.Value);
 
                 if (FilterStrength.HasValue)
-                    yield return CreateDefine("filter-strength", FilterStrength.Value);
+                    yield return new MagickDefine(Format, "filter-strength", FilterStrength.Value);
 
                 if (FilterSharpness.HasValue)
-                    yield return CreateDefine("filter-sharpness", FilterSharpness.Value);
+                    yield return new MagickDefine(Format, "filter-sharpness", FilterSharpness.Value);
 
                 if (FilterType.HasValue)
-                    yield return CreateDefine("filter-type", (int)FilterType.Value);
+                    yield return new MagickDefine(Format, "filter-type", (int)FilterType.Value);
 
                 if (ImageHint.HasValue)
-                    yield return CreateDefine("image-hint", ImageHint.Value.ToString().ToLowerInvariant());
+                    yield return new MagickDefine(Format, "image-hint", ImageHint.Value);
 
                 if (Lossless.HasValue)
-                    yield return CreateDefine("lossless", Lossless.Value);
+                    yield return new MagickDefine(Format, "lossless", Lossless.Value);
 
                 if (LowMemory.HasValue)
-                    yield return CreateDefine("low-memory", LowMemory.Value);
+                    yield return new MagickDefine(Format, "low-memory", LowMemory.Value);
 
                 if (Method.HasValue)
-                    yield return CreateDefine("method", Method.Value);
+                    yield return new MagickDefine(Format, "method", Method.Value);
 
                 if (NearLossless.HasValue)
-                    yield return CreateDefine("near-lossless", NearLossless.Value);
+                    yield return new MagickDefine(Format, "near-lossless", NearLossless.Value);
 
                 if (PartitionLimit.HasValue)
-                    yield return CreateDefine("partition-limit", PartitionLimit.Value);
+                    yield return new MagickDefine(Format, "partition-limit", PartitionLimit.Value);
 
                 if (Partitions.HasValue)
-                    yield return CreateDefine("partitions", Partitions.Value);
+                    yield return new MagickDefine(Format, "partitions", Partitions.Value);
 
                 if (Pass.HasValue)
-                    yield return CreateDefine("pass", Pass.Value);
+                    yield return new MagickDefine(Format, "pass", Pass.Value);
 
                 if (Preprocessing.HasValue)
-                    yield return CreateDefine("preprocessing", (int)Preprocessing.Value);
+                    yield return new MagickDefine(Format, "preprocessing", (int)Preprocessing.Value);
 
                 if (Segment.HasValue)
-                    yield return CreateDefine("segment", Segment.Value);
+                    yield return new MagickDefine(Format, "segment", Segment.Value);
 
                 if (ShowCompressed.HasValue)
-                    yield return CreateDefine("show-compressed", ShowCompressed.Value);
+                    yield return new MagickDefine(Format, "show-compressed", ShowCompressed.Value);
 
                 if (SnsStrength.HasValue)
-                    yield return CreateDefine("sns-strength", SnsStrength.Value);
+                    yield return new MagickDefine(Format, "sns-strength", SnsStrength.Value);
 
                 if (TargetPsnr.HasValue)
-                    yield return CreateDefine("target-psnr", TargetPsnr.Value);
+                    yield return new MagickDefine(Format, "target-psnr", TargetPsnr.Value);
 
                 if (TargetSize.HasValue)
-                    yield return CreateDefine("target-size", TargetSize.Value);
+                    yield return new MagickDefine(Format, "target-size", TargetSize.Value);
 
                 if (ThreadLevel.HasValue)
-                    yield return CreateDefine("thread-level", ThreadLevel.Value);
+                    yield return new MagickDefine(Format, "thread-level", ThreadLevel.Value);
 
                 if (UseSharpYuv.HasValue)
-                    yield return CreateDefine("use-sharp-yuv", UseSharpYuv.Value);
+                    yield return new MagickDefine(Format, "use-sharp-yuv", UseSharpYuv.Value);
             }
         }
     }
