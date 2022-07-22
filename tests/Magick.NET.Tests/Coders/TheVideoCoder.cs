@@ -29,11 +29,11 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void ShouldUsePamAsTheIntermediateFormatWhenSpecificied()
+        public void ShouldUsePamAsTheIntermediateFormatWhenReadModeIsByFrame()
         {
             var videoDefines = new VideoReadDefines(MagickFormat.Mp4)
             {
-                IntermediateFormat = IntermediateFormat.Pam,
+                ReadMode = VideoReadMode.ByFrame,
             };
 
             var settings = new MagickReadSettings();

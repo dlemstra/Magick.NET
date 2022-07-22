@@ -24,11 +24,6 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
-        /// Gets or sets the intermediate format (video:intermediate-format).
-        /// </summary>
-        public IntermediateFormat? IntermediateFormat { get; set; }
-
-        /// <summary>
         /// Gets or sets the video pixel format (video:pixel-format).
         /// </summary>
         public string? PixelFormat { get; set; }
@@ -50,9 +45,6 @@ namespace ImageMagick.Formats
         {
             get
             {
-                if (IntermediateFormat is not null)
-                    yield return new MagickDefine("video:intermediate-format", EnumHelper.GetName(IntermediateFormat.Value).ToLowerInvariant());
-
                 if (PixelFormat?.Length > 0)
                     yield return new MagickDefine("video:pixel-format", PixelFormat);
 
