@@ -35,21 +35,6 @@ namespace Magick.NET.Tests
                 ColorAssert.Equal(MagickColors.Blue, image, 120, 90);
             }
         }
-
-        [Fact]
-        public void Test_Roll()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.Roll(40, 60);
-
-                var blue = new MagickColor("#a8dff8");
-                ColorAssert.Equal(blue, image, 66, 103);
-                ColorAssert.Equal(blue, image, 120, 86);
-                ColorAssert.Equal(blue, image, 0, 82);
-            }
-        }
-
         [Fact]
         public void Test_Rotate()
         {
