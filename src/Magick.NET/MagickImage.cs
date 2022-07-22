@@ -2279,15 +2279,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Contrast()
-            => Contrast(true);
-
-        /// <summary>
-        /// Contrast image (enhance intensity differences in image).
-        /// </summary>
-        /// <param name="enhance">Use true to enhance the contrast and false to reduce the contrast.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Contrast(bool enhance)
-            => _nativeInstance.Contrast(enhance);
+            => _nativeInstance.Contrast(true);
 
         /// <summary>
         /// A simple image enhancement technique that attempts to improve the contrast in an image by

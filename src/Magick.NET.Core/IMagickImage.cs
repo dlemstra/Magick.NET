@@ -1217,13 +1217,6 @@ namespace ImageMagick
         void Contrast();
 
         /// <summary>
-        /// Contrast image (enhance intensity differences in image).
-        /// </summary>
-        /// <param name="enhance">Use true to enhance the contrast and false to reduce the contrast.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Contrast(bool enhance);
-
-        /// <summary>
         /// A simple image enhancement technique that attempts to improve the contrast in an image by
         /// 'stretching' the range of intensity values it contains to span a desired range of values.
         /// It differs from the more sophisticated histogram equalization in that it can only apply a
