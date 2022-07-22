@@ -589,37 +589,6 @@ namespace ImageMagick
         void BlueShift(double factor);
 
         /// <summary>
-        /// Calculates the bit depth (bits allocated to red/green/blue components). Use the Depth
-        /// property to get the current value.
-        /// </summary>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>The bit depth (bits allocated to red/green/blue components).</returns>
-        int BitDepth();
-
-        /// <summary>
-        /// Calculates the bit depth (bits allocated to red/green/blue components) of the specified channel.
-        /// </summary>
-        /// <param name="channels">The channel to get the depth for.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>The bit depth (bits allocated to red/green/blue components) of the specified channel.</returns>
-        int BitDepth(Channels channels);
-
-        /// <summary>
-        /// Set the bit depth (bits allocated to red/green/blue components) of the specified channel.
-        /// </summary>
-        /// <param name="channels">The channel to set the depth for.</param>
-        /// <param name="value">The depth.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void BitDepth(Channels channels, int value);
-
-        /// <summary>
-        /// Set the bit depth (bits allocated to red/green/blue components).
-        /// </summary>
-        /// <param name="value">The depth.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void BitDepth(int value);
-
-        /// <summary>
         /// Blur image with the default blur factor (0x1).
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -1454,6 +1423,22 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Despeckle();
+
+        /// <summary>
+        /// Determines the bit depth (bits allocated to red/green/blue components). Use the Depth
+        /// property to get the current value.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>The bit depth (bits allocated to red/green/blue components).</returns>
+        int DetermineBitDepth();
+
+        /// <summary>
+        /// Determines the bit depth (bits allocated to red/green/blue components) of the specified channel.
+        /// </summary>
+        /// <param name="channels">The channel to get the depth for.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>The bit depth (bits allocated to red/green/blue components) of the specified channel.</returns>
+        int DetermineBitDepth(Channels channels);
 
         /// <summary>
         /// Determines the color type of the image. This method can be used to automatically make the

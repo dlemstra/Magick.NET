@@ -8,29 +8,26 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class TheSetBitDepthMethod
+        public class TheDetermineBitDepthMethod
         {
             [Fact]
-            public void ShouldChangeTheBithDepth()
+            public void ShouldCalculateTheBitDepth()
             {
                 using (var image = new MagickImage(Files.RoseSparkleGIF))
                 {
-                    image.SetBitDepth(1);
+                    Assert.Equal(8, image.DetermineBitDepth());
 
+                    image.Threshold((Percentage)50);
                     Assert.Equal(1, image.DetermineBitDepth());
                 }
             }
 
             [Fact]
-            public void ShouldChangeTheBithDepthForTheSpecifiedChannel()
+            public void ShouldCalculateTheBitDepthForTheSpecifiedChannel()
             {
                 using (var image = new MagickImage(Files.RoseSparkleGIF))
                 {
-                    image.SetBitDepth(1, Channels.Red);
-
-                    Assert.Equal(1, image.DetermineBitDepth(Channels.Red));
-                    Assert.Equal(8, image.DetermineBitDepth(Channels.Green));
-                    Assert.Equal(8, image.DetermineBitDepth(Channels.Blue));
+                    Assert.Equal(1, image.DetermineBitDepth(Channels.Alpha));
                 }
             }
         }

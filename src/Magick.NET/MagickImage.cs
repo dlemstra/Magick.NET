@@ -1306,41 +1306,6 @@ namespace ImageMagick
             => _nativeInstance.BlueShift(factor);
 
         /// <summary>
-        /// Calculates the bit depth (bits allocated to red/green/blue components). Use the Depth
-        /// property to get the current value.
-        /// </summary>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>The bit depth (bits allocated to red/green/blue components).</returns>
-        public int BitDepth()
-            => BitDepth(ImageMagick.Channels.Composite);
-
-        /// <summary>
-        /// Calculates the bit depth (bits allocated to red/green/blue components) of the specified channel.
-        /// </summary>
-        /// <param name="channels">The channel to get the depth for.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        /// <returns>The bit depth (bits allocated to red/green/blue components) of the specified channel.</returns>
-        public int BitDepth(Channels channels)
-            => _nativeInstance.GetBitDepth(channels);
-
-        /// <summary>
-        /// Set the bit depth (bits allocated to red/green/blue components) of the specified channel.
-        /// </summary>
-        /// <param name="channels">The channel to set the depth for.</param>
-        /// <param name="value">The depth.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void BitDepth(Channels channels, int value)
-            => SetBitDepth(value, channels);
-
-        /// <summary>
-        /// Set the bit depth (bits allocated to red/green/blue components).
-        /// </summary>
-        /// <param name="value">The depth.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void BitDepth(int value)
-            => SetBitDepth(value, ImageMagick.Channels.Composite);
-
-        /// <summary>
         /// Blur image with the default blur factor (0x1).
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -2623,6 +2588,24 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Despeckle()
             => _nativeInstance.Despeckle();
+
+        /// <summary>
+        /// Determines the bit depth (bits allocated to red/green/blue components). Use the Depth
+        /// property to get the current value.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>The bit depth (bits allocated to red/green/blue components).</returns>
+        public int DetermineBitDepth()
+            => DetermineBitDepth(ImageMagick.Channels.Composite);
+
+        /// <summary>
+        /// Determines the bit depth (bits allocated to red/green/blue components) of the specified channel.
+        /// </summary>
+        /// <param name="channels">The channel to get the depth for.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        /// <returns>The bit depth (bits allocated to red/green/blue components) of the specified channel.</returns>
+        public int DetermineBitDepth(Channels channels)
+            => _nativeInstance.GetBitDepth(channels);
 
         /// <summary>
         /// Determines the color type of the image. This method can be used to automatically make the
