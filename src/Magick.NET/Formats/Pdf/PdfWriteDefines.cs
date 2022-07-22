@@ -10,16 +10,8 @@ namespace ImageMagick.Formats
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Pdf"/> image is written.
     /// </summary>
-    public sealed class PdfWriteDefines : WriteDefinesCreator
+    public sealed class PdfWriteDefines : IWriteDefines
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PdfWriteDefines"/> class.
-        /// </summary>
-        public PdfWriteDefines()
-          : base(MagickFormat.Pdf)
-        {
-        }
-
         /// <summary>
         /// Gets or sets the author of the pdf document (pdf:author).
         /// </summary>
@@ -34,6 +26,12 @@ namespace ImageMagick.Formats
         /// Gets or sets the creator of the pdf document (pdf:creator).
         /// </summary>
         public string? Creator { get; set; }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Pdf;
 
         /// <summary>
         /// Gets or sets the keywords of the pdf document (pdf:keywords).
@@ -63,33 +61,33 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (Author?.Length > 0)
-                    yield return CreateDefine("author", Author);
+                    yield return new MagickDefine(Format, "author", Author);
 
                 if (CreationTime is not null)
-                    yield return CreateDefine("create-epoch", ToUnixTimeSeconds(CreationTime.Value));
+                    yield return new MagickDefine(Format, "create-epoch", ToUnixTimeSeconds(CreationTime.Value));
 
                 if (Creator?.Length > 0)
-                    yield return CreateDefine("creator", Creator);
+                    yield return new MagickDefine(Format, "creator", Creator);
 
                 if (Keywords?.Length > 0)
-                    yield return CreateDefine("keywords", Keywords);
+                    yield return new MagickDefine(Format, "keywords", Keywords);
 
                 if (ModificationTime is not null)
-                    yield return CreateDefine("modify-epoch", ToUnixTimeSeconds(ModificationTime.Value));
+                    yield return new MagickDefine(Format, "modify-epoch", ToUnixTimeSeconds(ModificationTime.Value));
 
                 if (Producer?.Length > 0)
-                    yield return CreateDefine("producer", Producer);
+                    yield return new MagickDefine(Format, "producer", Producer);
 
                 if (Subject?.Length > 0)
-                    yield return CreateDefine("subject", Subject);
+                    yield return new MagickDefine(Format, "subject", Subject);
 
                 if (Title?.Length > 0)
-                    yield return CreateDefine("title", Title);
+                    yield return new MagickDefine(Format, "title", Title);
             }
         }
 
