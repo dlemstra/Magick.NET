@@ -380,13 +380,6 @@ namespace ImageMagick
         IDrawables<TQuantumType> SkewY(double angle);
 
         /// <summary>
-        /// Applies the DrawableStrokeAntialias operation to the <see cref="IDrawables{TQuantumType}" />.
-        /// </summary>
-        /// <param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
-        /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        IDrawables<TQuantumType> StrokeAntialias(bool isEnabled);
-
-        /// <summary>
         /// Applies the DrawableStrokeColor operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="color">The color to use.</param>
@@ -466,13 +459,6 @@ namespace ImageMagick
         IDrawables<TQuantumType> TextAlignment(TextAlignment alignment);
 
         /// <summary>
-        /// Applies the DrawableTextAntialias operation to the <see cref="IDrawables{TQuantumType}" />.
-        /// </summary>
-        /// <param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
-        /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-        IDrawables<TQuantumType> TextAntialias(bool isEnabled);
-
-        /// <summary>
         /// Applies the DrawableTextDecoration operation to the <see cref="IDrawables{TQuantumType}" />.
         /// </summary>
         /// <param name="decoration">The text decoration.</param>
@@ -538,6 +524,30 @@ namespace ImageMagick
         /// <param name="lowerRightY">The lower right Y coordinate.</param>
         /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
         IDrawables<TQuantumType> Viewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY);
+
+        /// <summary>
+        /// Applies the DrawableStrokeAntialias operation to the <see cref="IDrawables{TQuantumType}" />.
+        /// </summary>
+        /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+        IDrawables<TQuantumType> DisableStrokeAntialias();
+
+        /// <summary>
+        /// Applies the DrawableStrokeAntialias operation to the <see cref="IDrawables{TQuantumType}" />.
+        /// </summary>
+        /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+        IDrawables<TQuantumType> EnableStrokeAntialias();
+
+        /// <summary>
+        /// Applies the DrawableTextAntialias operation to the <see cref="IDrawables{TQuantumType}" />.
+        /// </summary>
+        /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+        IDrawables<TQuantumType> DisableTextAntialias();
+
+        /// <summary>
+        /// Applies the DrawableTextAntialias operation to the <see cref="IDrawables{TQuantumType}" />.
+        /// </summary>
+        /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+        IDrawables<TQuantumType> EnableTextAntialias();
 
     }
 }

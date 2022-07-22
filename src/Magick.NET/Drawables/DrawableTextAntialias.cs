@@ -8,11 +8,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class DrawableTextAntialias : IDrawable, IDrawingWand
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableTextAntialias"/> class.
-        /// </summary>
-        /// <param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
-        public DrawableTextAntialias(bool isEnabled)
+        private DrawableTextAntialias(bool isEnabled)
         {
             IsEnabled = isEnabled;
         }

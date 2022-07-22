@@ -55,7 +55,7 @@ namespace FileGenerator.Drawables
             WriteLine("public partial interface IPaths<TQuantumType>");
             WriteStartColon();
 
-            foreach (var path in Types.GetPaths())
+            foreach (var path in Types.GetPathConstructorss())
             {
                 WritePath(path);
             }

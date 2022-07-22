@@ -25,7 +25,6 @@ namespace FileGenerator.Drawables
             var memberName = "M:" + constructor.DeclaringType!.FullName + ".#" + constructor.ToString()!.Substring(6);
             memberName = memberName.Replace("()", string.Empty);
             memberName = memberName.Replace(", ", ",");
-            memberName = memberName.Replace("Boolean", "System.Boolean");
             memberName = memberName.Replace("Double", "System.Double");
             memberName = memberName.Replace("Int32", "System.Int32");
             if (memberName.Contains("`1["))
@@ -47,10 +46,30 @@ namespace FileGenerator.Drawables
             }
         }
 
-        public IEnumerable<ConstructorInfo[]> GetDrawables()
+        public IEnumerable<string> GetCommentLines(PropertyInfo property, string className)
+        {
+            var memberName = "P:" + property.PropertyType!.FullName + "." + property.Name;
+
+            var comment = _comments.XPathSelectElement("/doc/members/member[@name='" + memberName + "']");
+            if (comment is null)
+                throw new NotImplementedException(memberName);
+
+            ModifyComment(comment, property.PropertyType.Name, className);
+
+            foreach (var node in comment.Nodes())
+            {
+                foreach (var line in node.ToString().Split('\n'))
+                    yield return "/// " + line.Trim();
+            }
+        }
+
+        public IEnumerable<ConstructorInfo> GetDrawableConstructors()
             => GetInterfaceConstructors("IDrawable");
 
-        public IEnumerable<ConstructorInfo[]> GetPaths()
+        public IEnumerable<PropertyInfo> GetStaticDrawableConstructors()
+            => GetStaticInterfaceConstructors("IDrawable");
+
+        public IEnumerable<ConstructorInfo> GetPathConstructorss()
             => GetInterfaceConstructors("IPath");
 
         private static void ModifyComment(XElement comment, string typeName, string className)
@@ -78,23 +97,23 @@ namespace FileGenerator.Drawables
                 new XText(" instance.")));
         }
 
-        private IEnumerable<ConstructorInfo[]> GetInterfaceConstructors(string interfaceName)
-        {
-            return from type in GetInterfaceTypes(interfaceName)
-                   let constructors = GetTypeConstructors(type.Name).ToArray()
-                   where constructors.Length > 0
-                   orderby type.Name
-                   select constructors;
-        }
+        private IEnumerable<ConstructorInfo> GetInterfaceConstructors(string interfaceName)
+            => GetInterfaceTypes(interfaceName)
+                .OrderBy(type => type.Name)
+                .SelectMany(type => GetTypeConstructors(type));
 
-        private IEnumerable<ConstructorInfo> GetTypeConstructors(string typeName)
-        {
-            return from type in GetTypes()
-                   where type.Name.Equals(typeName, StringComparison.OrdinalIgnoreCase)
-                   let constructors = type.GetConstructors()
-                   from constructor in constructors
-                   orderby constructor.GetParameters().Count()
-                   select constructor;
-        }
+        private IEnumerable<ConstructorInfo> GetTypeConstructors(Type type)
+            => type.GetConstructors()
+                .OrderBy(constructor => constructor.GetParameters().Count());
+
+        private IEnumerable<PropertyInfo> GetStaticInterfaceConstructors(string interfaceName)
+            => GetInterfaceTypes(interfaceName)
+                .OrderBy(type => type.Name)
+                .SelectMany(type => GetStaticTypeConstructors(type));
+
+        private IEnumerable<PropertyInfo> GetStaticTypeConstructors(Type type)
+            => type.GetProperties()
+                .Where(property => property.GetMethod!.IsStatic && property.PropertyType == type)
+                .OrderBy(method => method.Name);
     }
 }

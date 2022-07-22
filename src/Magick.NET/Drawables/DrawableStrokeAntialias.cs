@@ -10,11 +10,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class DrawableStrokeAntialias : IDrawable, IDrawingWand
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableStrokeAntialias"/> class.
-        /// </summary>
-        /// <param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
-        public DrawableStrokeAntialias(bool isEnabled)
+        private DrawableStrokeAntialias(bool isEnabled)
         {
             IsEnabled = isEnabled;
         }

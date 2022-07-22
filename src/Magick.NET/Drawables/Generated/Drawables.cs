@@ -574,17 +574,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Applies the DrawableStrokeAntialias operation to the <see cref="Drawables" />.
-        /// </summary>
-        /// <param name="isEnabled">True if stroke antialiasing is enabled otherwise false.</param>
-        /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public IDrawables<QuantumType> StrokeAntialias(bool isEnabled)
-        {
-            _drawables.Add(new DrawableStrokeAntialias(isEnabled));
-            return this;
-        }
-
-        /// <summary>
         /// Applies the DrawableStrokeColor operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="color">The color to use.</param>
@@ -708,17 +697,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Applies the DrawableTextAntialias operation to the <see cref="Drawables" />.
-        /// </summary>
-        /// <param name="isEnabled">True if text antialiasing is enabled otherwise false.</param>
-        /// <returns>The <see cref="Drawables" /> instance.</returns>
-        public IDrawables<QuantumType> TextAntialias(bool isEnabled)
-        {
-            _drawables.Add(new DrawableTextAntialias(isEnabled));
-            return this;
-        }
-
-        /// <summary>
         /// Applies the DrawableTextDecoration operation to the <see cref="Drawables" />.
         /// </summary>
         /// <param name="decoration">The text decoration.</param>
@@ -818,6 +796,46 @@ namespace ImageMagick
         public IDrawables<QuantumType> Viewbox(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
         {
             _drawables.Add(new DrawableViewbox(upperLeftX, upperLeftY, lowerRightX, lowerRightY));
+            return this;
+        }
+
+        /// <summary>
+        /// Applies the DrawableStrokeAntialias operation to the <see cref="Drawables" />.
+        /// </summary>
+        /// <returns>The <see cref="Drawables" /> instance.</returns>
+        public IDrawables<QuantumType> DisableStrokeAntialias()
+        {
+            _drawables.Add(DrawableStrokeAntialias.Disabled);
+            return this;
+        }
+
+        /// <summary>
+        /// Applies the DrawableStrokeAntialias operation to the <see cref="Drawables" />.
+        /// </summary>
+        /// <returns>The <see cref="Drawables" /> instance.</returns>
+        public IDrawables<QuantumType> EnableStrokeAntialias()
+        {
+            _drawables.Add(DrawableStrokeAntialias.Enabled);
+            return this;
+        }
+
+        /// <summary>
+        /// Applies the DrawableTextAntialias operation to the <see cref="Drawables" />.
+        /// </summary>
+        /// <returns>The <see cref="Drawables" /> instance.</returns>
+        public IDrawables<QuantumType> DisableTextAntialias()
+        {
+            _drawables.Add(DrawableTextAntialias.Disabled);
+            return this;
+        }
+
+        /// <summary>
+        /// Applies the DrawableTextAntialias operation to the <see cref="Drawables" />.
+        /// </summary>
+        /// <returns>The <see cref="Drawables" /> instance.</returns>
+        public IDrawables<QuantumType> EnableTextAntialias()
+        {
+            _drawables.Add(DrawableTextAntialias.Enabled);
             return this;
         }
 

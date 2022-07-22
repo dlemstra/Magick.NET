@@ -23,13 +23,10 @@ namespace FileGenerator.Drawables
         protected string AssemblyFile { get; }
 
         public IEnumerable<Type> GetInterfaceTypes(string interfaceName)
-        {
-            return from type in _magickNET.GetTypes()
-                   from interfaceType in type.GetInterfaces()
-                   where interfaceType.Name == interfaceName && type.IsPublic && !type.IsInterface && !type.IsAbstract
-                   orderby type.Name
-                   select type;
-        }
+            => _magickNET.GetTypes()
+                .Where(type => type.IsPublic && !type.IsInterface && !type.IsAbstract)
+                .OrderBy(type => type.Name)
+                .Where(type => type.GetInterfaces().Any(interfaceType => interfaceType.Name == interfaceName));
 
         protected IEnumerable<Type> GetTypes()
             => _magickNET.GetTypes();

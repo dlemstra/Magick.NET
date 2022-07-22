@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
                     var drawables = new Drawables()
                         .StrokeDashArray(20.0, 10.0)
                         .StrokeLineCap(LineCap.Round)
-                        .StrokeAntialias(true)
+                        .EnableStrokeAntialias()
                         .StrokeWidth(5.0)
                         .FillColor(MagickColors.Transparent)
                         .StrokeColor(MagickColors.OrangeRed)

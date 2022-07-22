@@ -61,12 +61,14 @@ namespace FileGenerator.Drawables
             WriteLine();
         }
 
-        private void WriteDrawable(ConstructorInfo[] constructors)
+        private void WriteDrawable(PropertyInfo property)
         {
-            foreach (var constructor in constructors)
-            {
-                WriteDrawable(constructor);
-            }
+            var name = property.Name.Replace("led", "le") + property.PropertyType.Name.Substring(8);
+
+            foreach (var commentLine in Types.GetCommentLines(property, "IDrawables{TQuantumType}"))
+                WriteLine(commentLine);
+            WriteLine("IDrawables<TQuantumType> " + name + "();");
+            WriteLine();
         }
 
         private void WriteDrawables()
@@ -76,7 +78,12 @@ namespace FileGenerator.Drawables
             WriteLine("public partial interface IDrawables<TQuantumType>");
             WriteStartColon();
 
-            foreach (var drawable in Types.GetDrawables())
+            foreach (var drawable in Types.GetDrawableConstructors())
+            {
+                WriteDrawable(drawable);
+            }
+
+            foreach (var drawable in Types.GetStaticDrawableConstructors())
             {
                 WriteDrawable(drawable);
             }

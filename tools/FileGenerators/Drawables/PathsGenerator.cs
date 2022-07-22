@@ -61,7 +61,7 @@ namespace FileGenerator.Drawables
             WriteLine("public sealed partial class Paths");
             WriteStartColon();
 
-            foreach (var path in Types.GetPaths())
+            foreach (var path in Types.GetPathConstructorss())
             {
                 WritePath(path);
             }

@@ -68,12 +68,18 @@ namespace FileGenerator.Drawables
             WriteLine();
         }
 
-        private void WriteDrawable(ConstructorInfo[] constructors)
+        private void WriteDrawable(PropertyInfo property)
         {
-            foreach (var constructor in constructors)
-            {
-                WriteDrawable(constructor);
-            }
+            var name = property.Name.Replace("led", "le") + property.PropertyType.Name.Substring(8);
+
+            foreach (var commentLine in Types.GetCommentLines(property, "Drawables"))
+                WriteLine(commentLine);
+            WriteLine("public IDrawables<QuantumType> " + name + "()");
+            WriteStartColon();
+            WriteLine("_drawables.Add(" + property.PropertyType.Name + "." + property.Name + ");");
+            WriteLine("return this;");
+            WriteEndColon();
+            WriteLine();
         }
 
         private void WriteDrawables()
@@ -83,7 +89,12 @@ namespace FileGenerator.Drawables
             WriteLine("public sealed partial class Drawables");
             WriteStartColon();
 
-            foreach (var drawable in Types.GetDrawables())
+            foreach (var drawable in Types.GetDrawableConstructors())
+            {
+                WriteDrawable(drawable);
+            }
+
+            foreach (var drawable in Types.GetStaticDrawableConstructors())
             {
                 WriteDrawable(drawable);
             }
