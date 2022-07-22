@@ -11,7 +11,6 @@ namespace Magick.NET.Tests
     {
         public class TheScaleMethod
         {
-
             [Fact]
             public void ShouldThrowExceptionWhenGeometryIsNull()
             {

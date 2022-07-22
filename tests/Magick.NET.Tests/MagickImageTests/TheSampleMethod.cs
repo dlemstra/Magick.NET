@@ -11,7 +11,6 @@ namespace Magick.NET.Tests
     {
         public class TheSampleMethod
         {
-
             [Fact]
             public void ShouldThrowExceptionWhenGeometryIsNull()
             {
