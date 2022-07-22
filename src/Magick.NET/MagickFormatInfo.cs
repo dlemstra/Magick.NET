@@ -13,7 +13,7 @@ namespace ImageMagick
     /// </summary>
     public sealed partial class MagickFormatInfo : IMagickFormatInfo
     {
-        private static readonly Dictionary<MagickFormat, MagickFormatInfo> _all = LoadFormats();
+        private static readonly Dictionary<MagickFormat, IMagickFormatInfo> _all = LoadFormats();
 
         private MagickFormatInfo()
         {
@@ -64,7 +64,7 @@ namespace ImageMagick
         /// </summary>
         public MagickFormat ModuleFormat { get; private set; }
 
-        internal static IEnumerable<MagickFormatInfo> All
+        internal static IEnumerable<IMagickFormatInfo> All
             => _all.Values;
 
         /// <summary>
@@ -214,9 +214,9 @@ namespace ImageMagick
             return EnumHelper.Parse(format, MagickFormat.Unknown);
         }
 
-        private static Dictionary<MagickFormat, MagickFormatInfo> LoadFormats()
+        private static Dictionary<MagickFormat, IMagickFormatInfo> LoadFormats()
         {
-            var formats = new Dictionary<MagickFormat, MagickFormatInfo>();
+            var formats = new Dictionary<MagickFormat, IMagickFormatInfo>();
 
             var list = IntPtr.Zero;
             var length = (UIntPtr)0;
@@ -249,7 +249,7 @@ namespace ImageMagick
             return formats;
         }
 
-        private static void AddStealthCoders(NativeMagickFormatInfo instance, Dictionary<MagickFormat, MagickFormatInfo> formats)
+        private static void AddStealthCoders(NativeMagickFormatInfo instance, Dictionary<MagickFormat, IMagickFormatInfo> formats)
         {
             var formatInfo = Create(instance, "DIB");
             if (formatInfo is not null)

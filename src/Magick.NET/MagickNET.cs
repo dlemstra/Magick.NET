@@ -74,7 +74,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the information about the supported formats.
         /// </summary>
-        public static IEnumerable<MagickFormatInfo> SupportedFormats
+        public static IEnumerable<IMagickFormatInfo> SupportedFormats
             => MagickFormatInfo.All;
 
         /// <summary>
