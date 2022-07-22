@@ -2,22 +2,26 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Pdf"/> image is read.
     /// </summary>
-    public sealed class PdfReadDefines : ReadDefinesCreator
+    public sealed class PdfReadDefines : IReadDefines
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PdfReadDefines"/> class.
         /// </summary>
         public PdfReadDefines()
-          : base(MagickFormat.Pdf)
         {
         }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Pdf;
 
         /// <summary>
         /// Gets or sets the size where the image should be scaled to fit the page (pdf:fit-page).
@@ -52,27 +56,27 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (FitPage is not null)
-                    yield return CreateDefine("fit-page", FitPage);
+                    yield return new MagickDefine(Format, "fit-page", FitPage);
 
                 if (HideAnnotations == true)
-                    yield return CreateDefine("hide-annotations", HideAnnotations.Value);
+                    yield return new MagickDefine(Format, "hide-annotations", HideAnnotations.Value);
 
                 if (Interpolate == true)
-                    yield return CreateDefine("interpolate", Interpolate.Value);
+                    yield return new MagickDefine(Format, "interpolate", Interpolate.Value);
 
                 if (Password is not null)
                     yield return new MagickDefine("authenticate", Password);
 
                 if (UseCropBox.HasValue)
-                    yield return CreateDefine("use-cropbox", UseCropBox.Value);
+                    yield return new MagickDefine(Format, "use-cropbox", UseCropBox.Value);
 
                 if (UseTrimBox.HasValue)
-                    yield return CreateDefine("use-trimbox", UseTrimBox.Value);
+                    yield return new MagickDefine(Format, "use-trimbox", UseTrimBox.Value);
             }
         }
     }
