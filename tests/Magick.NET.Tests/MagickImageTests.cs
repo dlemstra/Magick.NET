@@ -37,16 +37,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_SetAttenuate()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.SetAttenuate(5.6);
-                Assert.Equal("5.6", image.GetArtifact("attenuate"));
-            }
-        }
-
-        [Fact]
         public void Test_SetClippingPath()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
