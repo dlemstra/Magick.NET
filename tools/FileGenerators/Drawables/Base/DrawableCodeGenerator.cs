@@ -45,7 +45,7 @@ namespace FileGenerator.Drawables
 
         protected void WriteParameterDeclaration(ParameterInfo[] parameters)
         {
-            for (int i = 0; i < parameters.Length; i++)
+            for (var i = 0; i < parameters.Length; i++)
             {
                 Write(GetTypeName(parameters[i].ParameterType));
                 Write(" ");
@@ -58,7 +58,7 @@ namespace FileGenerator.Drawables
 
         protected void WriteParameters(ParameterInfo[] parameters)
         {
-            for (int i = 0; i < parameters.Length; i++)
+            for (var i = 0; i < parameters.Length; i++)
             {
                 Write(parameters[i].Name);
 

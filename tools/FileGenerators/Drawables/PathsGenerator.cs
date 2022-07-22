@@ -33,7 +33,7 @@ namespace FileGenerator.Drawables
             var name = constructor.DeclaringType!.Name.Substring(4);
             var parameters = constructor.GetParameters();
 
-            foreach (string commentLine in Types.GetCommentLines(constructor, "Paths"))
+            foreach (var commentLine in Types.GetCommentLines(constructor, "Paths"))
                 WriteLine(commentLine);
             Write("public IPaths<QuantumType> " + name + "(");
             WriteParameterDeclaration(parameters);

@@ -53,7 +53,7 @@ namespace FileGenerator.Drawables
             var name = constructor.DeclaringType!.Name.Substring(8);
             var parameters = constructor.GetParameters();
 
-            foreach (string commentLine in Types.GetCommentLines(constructor, "IDrawables{TQuantumType}"))
+            foreach (var commentLine in Types.GetCommentLines(constructor, "IDrawables{TQuantumType}"))
                 WriteLine(commentLine);
             Write("IDrawables<TQuantumType> " + name + "(");
             WriteParameterDeclaration(parameters);

@@ -22,7 +22,7 @@ namespace FileGenerator.Drawables
 
         public IEnumerable<string> GetCommentLines(ConstructorInfo constructor, string className)
         {
-            string memberName = "M:" + constructor.DeclaringType!.FullName + ".#" + constructor.ToString()!.Substring(6);
+            var memberName = "M:" + constructor.DeclaringType!.FullName + ".#" + constructor.ToString()!.Substring(6);
             memberName = memberName.Replace("()", string.Empty);
             memberName = memberName.Replace(", ", ",");
             memberName = memberName.Replace("Boolean", "System.Boolean");
@@ -42,7 +42,7 @@ namespace FileGenerator.Drawables
 
             foreach (var node in comment.Nodes())
             {
-                foreach (string line in node.ToString().Split('\n'))
+                foreach (var line in node.ToString().Split('\n'))
                     yield return "/// " + line.Trim();
             }
         }
