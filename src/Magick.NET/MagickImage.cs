@@ -636,7 +636,7 @@ namespace ImageMagick
 
             set
             {
-                _nativeInstance.Format = EnumHelper.GetName(value);
+                _nativeInstance.Format = value.ToString();
                 _settings.Format = value;
             }
         }
@@ -4361,7 +4361,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, Channels channels, int iterations)
         {
-            var newKernel = EnumHelper.GetName(kernel) + ":" + arguments;
+            var newKernel = kernel.ToString().ToLowerInvariant() + ":" + arguments;
 
             Morphology(method, newKernel, channels, iterations);
         }

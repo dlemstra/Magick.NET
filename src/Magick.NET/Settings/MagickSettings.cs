@@ -197,7 +197,7 @@ namespace ImageMagick
             get => EnumHelper.Parse(GetOption("style"), FontStyleType.Undefined);
             set
             {
-                SetOptionAndArtifact("style", EnumHelper.GetName(value));
+                SetOptionAndArtifact("style", value);
                 Drawing.FontStyle = value;
             }
         }
@@ -368,7 +368,7 @@ namespace ImageMagick
             get => Drawing.TextGravity;
             set
             {
-                SetOptionAndArtifact("gravity", EnumHelper.GetName(value));
+                SetOptionAndArtifact("gravity", value);
                 Drawing.TextGravity = value;
             }
         }
@@ -657,7 +657,7 @@ namespace ImageMagick
             if (format == MagickFormat.Unknown)
                 return name;
             else
-                return EnumHelper.GetName(GetModule(format)) + ":" + name;
+                return GetModule(format).ToString().ToLowerInvariant() + ":" + name;
         }
 
         private static MagickFormat GetModule(MagickFormat format)
@@ -739,11 +739,14 @@ namespace ImageMagick
                 MagickFormat.ThreeGp => "3GP",
                 MagickFormat.RadialGradient => "RADIAL-GRADIENT",
                 MagickFormat.SparseColor => "SPARSE-COLOR",
-                _ => EnumHelper.GetName(Format).ToUpperInvariant(),
+                _ => Format.ToString().ToUpperInvariant(),
             };
 
         private void SetOptionAndArtifact(string key, double value)
             => SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
+
+        private void SetOptionAndArtifact(string key, Enum value)
+            => SetOptionAndArtifact(key, value.ToString().ToLowerInvariant());
 
         private void SetOptionAndArtifact(string key, string? value)
         {

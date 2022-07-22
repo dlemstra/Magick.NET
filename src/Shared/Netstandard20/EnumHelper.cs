@@ -12,10 +12,6 @@ namespace ImageMagick
             where TEnum : struct, Enum
             => value.ToString();
 
-        public static string GetName<TEnum>(TEnum value)
-            where TEnum : struct, Enum
-            => Enum.GetName(typeof(TEnum), value);
-
         public static bool HasFlag<TEnum>(TEnum value, TEnum flag)
             where TEnum : struct, Enum
             => value.HasFlag(flag);

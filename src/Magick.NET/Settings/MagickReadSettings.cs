@@ -135,7 +135,7 @@ namespace ImageMagick
             if (define.Format == MagickFormat.Unknown)
                 return define.Name;
 
-            return EnumHelper.GetName(define.Format) + ":" + define.Name;
+            return define.Format.ToString().ToLowerInvariant() + ":" + define.Name;
         }
 
         private string? GetScenes()
