@@ -74,8 +74,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the quantum information.
         /// </summary>
-        public IQuantumInfo<QuantumType> QuantumInfo
-            => ImageMagick.QuantumInfo.Instance;
+        public IQuantum<QuantumType> Quantum { get; } = new Quantum();
 
         /// <summary>
         /// Gets the resource limits.

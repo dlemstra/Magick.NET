@@ -33,7 +33,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the quantum information.
         /// </summary>
-        IQuantumInfo<TQuantumType> QuantumInfo { get; }
+        IQuantum<TQuantumType> Quantum { get; }
 
         /// <summary>
         /// Gets a factory that can be used to create various settings.
