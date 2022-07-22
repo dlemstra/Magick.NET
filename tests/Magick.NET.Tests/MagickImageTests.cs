@@ -37,24 +37,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Sample()
-        {
-        }
-
-        [Fact]
-        public void Test_Scale()
-        {
-            using (var image = new MagickImage(Files.CirclePNG))
-            {
-                var color = MagickColor.FromRgba(255, 255, 255, 159);
-                ColorAssert.Equal(color, image, image.Width / 2, image.Height / 2);
-
-                image.Scale((Percentage)400);
-                ColorAssert.Equal(color, image, image.Width / 2, image.Height / 2);
-            }
-        }
-
-        [Fact]
         public void Test_Segment()
         {
             using (var image = new MagickImage(Files.TestPNG))
