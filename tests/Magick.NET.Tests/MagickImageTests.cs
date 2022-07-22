@@ -22,21 +22,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_RandomThreshold()
-        {
-            using (var image = new MagickImage(Files.TestPNG))
-            {
-                image.RandomThreshold((QuantumType)(Quantum.Max / 4), (QuantumType)(Quantum.Max / 2));
-
-                ColorAssert.Equal(MagickColors.Black, image, 52, 52);
-                ColorAssert.Equal(MagickColors.White, image, 75, 52);
-                ColorAssert.Equal(MagickColors.Red, image, 31, 90);
-                ColorAssert.Equal(MagickColors.Lime, image, 69, 90);
-                ColorAssert.Equal(MagickColors.Blue, image, 120, 90);
-            }
-        }
-
-        [Fact]
         public void Test_SetClippingPath()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
