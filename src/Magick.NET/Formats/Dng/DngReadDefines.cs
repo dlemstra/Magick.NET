@@ -11,13 +11,6 @@ namespace ImageMagick.Formats
     public sealed class DngReadDefines : IReadDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DngReadDefines"/> class.
-        /// </summary>
-        public DngReadDefines()
-        {
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating wether auto brightness should be used (dng:no-auto-bright).
         /// </summary>
         public bool? DisableAutoBrightness { get; set; }

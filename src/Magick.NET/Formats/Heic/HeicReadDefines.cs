@@ -11,13 +11,6 @@ namespace ImageMagick.Formats
     public sealed class HeicReadDefines : IReadDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="HeicReadDefines"/> class.
-        /// </summary>
-        public HeicReadDefines()
-        {
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether the depth image should be read (heic:depth-image).
         /// </summary>
         public bool? DepthImage { get; set; }

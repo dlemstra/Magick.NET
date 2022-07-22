@@ -11,13 +11,6 @@ namespace ImageMagick.Formats
     public sealed class PdfReadDefines : IReadDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PdfReadDefines"/> class.
-        /// </summary>
-        public PdfReadDefines()
-        {
-        }
-
-        /// <summary>
         /// Gets or sets the size where the image should be scaled to fit the page (pdf:fit-page).
         /// </summary>
         public IMagickGeometry? FitPage { get; set; }

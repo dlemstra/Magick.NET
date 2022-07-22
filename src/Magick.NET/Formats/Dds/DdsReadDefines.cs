@@ -11,13 +11,6 @@ namespace ImageMagick.Formats
     public sealed class DdsReadDefines : IReadDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DdsReadDefines"/> class.
-        /// </summary>
-        public DdsReadDefines()
-        {
-        }
-
-        /// <summary>
         /// Gets the format where the defines are for.
         /// </summary>
         public MagickFormat Format

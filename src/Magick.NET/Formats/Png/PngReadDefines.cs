@@ -11,13 +11,6 @@ namespace ImageMagick.Formats
     public sealed class PngReadDefines : IReadDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="PngReadDefines"/> class.
-        /// </summary>
-        public PngReadDefines()
-        {
-        }
-
-        /// <summary>
         /// Gets or sets the total number of sPLT, text, and unknown chunks that can be stored
         /// (png:chunk-cache-max). 0 means unlimited.
         /// </summary>

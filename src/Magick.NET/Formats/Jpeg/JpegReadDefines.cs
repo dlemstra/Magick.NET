@@ -12,13 +12,6 @@ namespace ImageMagick.Formats
     public sealed class JpegReadDefines : IReadDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="JpegReadDefines"/> class.
-        /// </summary>
-        public JpegReadDefines()
-        {
-        }
-
-        /// <summary>
         /// Gets or sets a value indicating whether block smoothing is enabled or disabled (jpeg:block-smoothing).
         /// </summary>
         public bool? BlockSmoothing { get; set; }

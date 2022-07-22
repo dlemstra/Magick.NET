@@ -11,13 +11,6 @@ namespace ImageMagick.Formats
     public sealed class CaptionReadDefines : IReadDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="CaptionReadDefines"/> class.
-        /// </summary>
-        public CaptionReadDefines()
-        {
-        }
-
-        /// <summary>
         /// Gets the format where the defines are for.
         /// </summary>
         public MagickFormat Format

@@ -11,17 +11,10 @@ namespace ImageMagick.Formats
     public sealed class BmpReadDefines : IReadDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BmpReadDefines"/> class.
-        /// </summary>
-        public BmpReadDefines()
-        {
-            Format = MagickFormat.Bmp;
-        }
-
-        /// <summary>
         /// Gets the format where the defines are for.
         /// </summary>
-        public MagickFormat Format { get; }
+        public MagickFormat Format
+            => MagickFormat.Bmp;
 
         /// <summary>
         /// Gets or sets a value indicating whether the file size should be ignored (bmp:ignore-filesize).

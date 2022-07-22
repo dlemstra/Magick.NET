@@ -11,13 +11,6 @@ namespace ImageMagick.Formats
     public sealed class Jp2ReadDefines : IReadDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Jp2ReadDefines"/> class.
-        /// </summary>
-        public Jp2ReadDefines()
-        {
-        }
-
-        /// <summary>
         /// Gets the format where the defines are for.
         /// </summary>
         public MagickFormat Format
