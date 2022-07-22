@@ -2,22 +2,19 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Bmp"/> image is written.
     /// </summary>
-    public sealed class BmpWriteDefines : WriteDefinesCreator
+    public sealed class BmpWriteDefines : IWriteDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BmpWriteDefines"/> class.
+        /// Gets the format where the defines are for.
         /// </summary>
-        public BmpWriteDefines()
-          : base(MagickFormat.Bmp)
-        {
-        }
+        public MagickFormat Format
+            => MagickFormat.Bmp;
 
         /// <summary>
         /// Gets or sets the subtype that will be used (bmp:subtype).
@@ -27,12 +24,12 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (Subtype.HasValue)
-                    yield return CreateDefine("subtype", Subtype.Value);
+                    yield return new MagickDefine(Format, "subtype", Subtype.Value);
             }
         }
     }
