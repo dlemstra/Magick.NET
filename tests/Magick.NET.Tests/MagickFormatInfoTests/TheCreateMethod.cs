@@ -11,16 +11,16 @@ using OperatingSystem = ImageMagick.OperatingSystem;
 
 namespace Magick.NET.Tests
 {
-    public partial class MagickNETTests
+    public partial class MagickFormatInfoTests
     {
-        public partial class TheGetFormatInformationMethod
+        public partial class TheCreateMethod
         {
             public class WithByteArray
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsNull()
                 {
-                    var exception = Assert.Throws<ArgumentNullException>(() => MagickNET.GetFormatInformation((byte[])null));
+                    var exception = Assert.Throws<ArgumentNullException>(() => MagickFormatInfo.Create((byte[])null));
 
                     Assert.Equal("data", exception.ParamName);
                 }
@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenArrayIsEmpty()
                 {
-                    var exception = Assert.Throws<ArgumentException>(() => MagickNET.GetFormatInformation(Array.Empty<byte>()));
+                    var exception = Assert.Throws<ArgumentException>(() => MagickFormatInfo.Create(Array.Empty<byte>()));
 
                     Assert.Equal("data", exception.ParamName);
                 }
@@ -36,7 +36,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnNullWhenFormatCannotBeDetermined()
                 {
-                    var formatInfo = MagickNET.GetFormatInformation(new byte[] { 42 });
+                    var formatInfo = MagickFormatInfo.Create(new byte[] { 42 });
 
                     Assert.Null(formatInfo);
                 }
@@ -45,7 +45,7 @@ namespace Magick.NET.Tests
                 public void ShouldReturnTheCorrectInfoForTheJpgFormat()
                 {
                     var bytes = File.ReadAllBytes(Files.ImageMagickJPG);
-                    var formatInfo = MagickNET.GetFormatInformation(bytes);
+                    var formatInfo = MagickFormatInfo.Create(bytes);
 
                     Assert.NotNull(formatInfo);
                     Assert.Equal(MagickFormat.Jpeg, formatInfo.Format);
@@ -57,7 +57,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    var exception = Assert.Throws<ArgumentNullException>(() => MagickNET.GetFormatInformation((FileInfo)null));
+                    var exception = Assert.Throws<ArgumentNullException>(() => MagickFormatInfo.Create((FileInfo)null));
 
                     Assert.Equal("file", exception.ParamName);
                 }
@@ -66,7 +66,7 @@ namespace Magick.NET.Tests
                 public void ShouldReturnTheCorrectInfoForThePngFormat()
                 {
                     var fileInfo = new FileInfo(Files.MagickNETIconPNG);
-                    var formatInfo = MagickNET.GetFormatInformation(fileInfo);
+                    var formatInfo = MagickFormatInfo.Create(fileInfo);
 
                     Assert.NotNull(formatInfo);
                     Assert.True(formatInfo.CanReadMultithreaded);
@@ -86,7 +86,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileMameIsNull()
                 {
-                    var exception = Assert.Throws<ArgumentNullException>(() => MagickNET.GetFormatInformation((string)null));
+                    var exception = Assert.Throws<ArgumentNullException>(() => MagickFormatInfo.Create((string)null));
 
                     Assert.Equal("fileName", exception.ParamName);
                 }
@@ -94,7 +94,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFilenameIsEmpty()
                 {
-                    var exception = Assert.Throws<ArgumentException>(() => MagickNET.GetFormatInformation(string.Empty));
+                    var exception = Assert.Throws<ArgumentException>(() => MagickFormatInfo.Create(string.Empty));
 
                     Assert.Equal("fileName", exception.ParamName);
                 }
@@ -104,7 +104,7 @@ namespace Magick.NET.Tests
                 {
                     using (var temporaryFile = new TemporaryFile("foo.bar"))
                     {
-                        var formatInfo = MagickNET.GetFormatInformation(temporaryFile.FullName);
+                        var formatInfo = MagickFormatInfo.Create(temporaryFile.FullName);
 
                         Assert.Null(formatInfo);
                     }
@@ -113,7 +113,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnTheCorrectInfoForTheJpgFormat()
                 {
-                    var formatInfo = MagickNET.GetFormatInformation(Files.ImageMagickJPG);
+                    var formatInfo = MagickFormatInfo.Create(Files.ImageMagickJPG);
 
                     Assert.NotNull(formatInfo);
                     Assert.True(formatInfo.CanReadMultithreaded);
@@ -133,7 +133,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnNullForUnknownFormat()
                 {
-                    var formatInfo = MagickNET.GetFormatInformation((MagickFormat)12345);
+                    var formatInfo = MagickFormatInfo.Create((MagickFormat)12345);
 
                     Assert.Null(formatInfo);
                 }
@@ -141,7 +141,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnTheCorrectInfoForTheGradientFormat()
                 {
-                    var formatInfo = MagickNET.GetFormatInformation(MagickFormat.Gradient);
+                    var formatInfo = MagickFormatInfo.Create(MagickFormat.Gradient);
 
                     Assert.NotNull(formatInfo);
                     Assert.Equal(MagickFormat.Gradient, formatInfo.Format);
@@ -157,7 +157,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnTheCorrectInfoForTheJp2Format()
                 {
-                    var formatInfo = MagickNET.GetFormatInformation(MagickFormat.Jp2);
+                    var formatInfo = MagickFormatInfo.Create(MagickFormat.Jp2);
 
                     Assert.NotNull(formatInfo);
                     Assert.Equal(MagickFormat.Jp2, formatInfo.Format);
@@ -173,7 +173,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnTheCorrectInfoForThePangoFormat()
                 {
-                    var formatInfo = MagickNET.GetFormatInformation(MagickFormat.Pango);
+                    var formatInfo = MagickFormatInfo.Create(MagickFormat.Pango);
 
                     Assert.NotNull(formatInfo);
                     Assert.False(formatInfo.CanReadMultithreaded);
@@ -197,7 +197,7 @@ namespace Magick.NET.Tests
                         if (format == MagickFormat.Unknown)
                             continue;
 
-                        var formatInfo = MagickNET.GetFormatInformation(format);
+                        var formatInfo = MagickFormatInfo.Create(format);
                         if (formatInfo is null)
                         {
                             if (ShouldReport(format))
@@ -230,7 +230,7 @@ namespace Magick.NET.Tests
                 }
 
                 /// <summary>
-                /// Disabled with <see cref="TestCollectionOrderer.ModifyPolicy(string)"/>.
+                /// Disabled with <see cref="TestInitializer.ModifyPolicy(string)"/>.
                 /// </summary>
                 private static bool IsDisabledThroughPolicy(MagickFormat format)
                     => format == MagickFormat.Sun || format == MagickFormat.Ras;

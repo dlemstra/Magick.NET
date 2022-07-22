@@ -14,7 +14,7 @@ namespace Magick.NET.Tests
             public void ShouldReturnTrueWhenTheObjectsAreEqual()
             {
                 var first = MagickFormatInfo.Create(MagickFormat.Png);
-                var second = MagickNET.GetFormatInformation(Files.SnakewarePNG);
+                var second = MagickFormatInfo.Create(Files.SnakewarePNG);
 
                 Assert.True(first == second);
                 Assert.True(first.Equals(second));

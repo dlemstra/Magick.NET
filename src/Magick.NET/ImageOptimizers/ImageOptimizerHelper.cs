@@ -35,14 +35,14 @@ namespace ImageMagick
 
         public static IMagickFormatInfo? GetFormatInformation(FileInfo file)
         {
-            var info = MagickNET.GetFormatInformation(file);
+            var info = MagickFormatInfo.Create(file);
             if (info is not null)
                 return info;
 
             try
             {
                 var imageInfo = new MagickImageInfo(file);
-                return MagickNET.GetFormatInformation(imageInfo.Format);
+                return MagickFormatInfo.Create(imageInfo.Format);
             }
             catch
             {
@@ -62,14 +62,14 @@ namespace ImageMagick
 
         public static IMagickFormatInfo? GetFormatInformation(string fileName)
         {
-            var info = MagickNET.GetFormatInformation(fileName);
+            var info = MagickFormatInfo.Create(fileName);
             if (info is not null)
                 return info;
 
             try
             {
                 var imageInfo = new MagickImageInfo(fileName);
-                return MagickNET.GetFormatInformation(imageInfo.Format);
+                return MagickFormatInfo.Create(imageInfo.Format);
             }
             catch
             {
@@ -94,7 +94,7 @@ namespace ImageMagick
             try
             {
                 var info = new MagickImageInfo(stream);
-                return MagickNET.GetFormatInformation(info.Format);
+                return MagickFormatInfo.Create(info.Format);
             }
             catch
             {
@@ -114,7 +114,7 @@ namespace ImageMagick
             stream.Read(buffer, 0, buffer.Length);
 
             if (buffer[0] == 0 && buffer[1] == 0 && buffer[2] == 1 && buffer[3] == 0)
-                return MagickNET.GetFormatInformation(MagickFormat.Ico);
+                return MagickFormatInfo.Create(MagickFormat.Ico);
 
             return null;
         }

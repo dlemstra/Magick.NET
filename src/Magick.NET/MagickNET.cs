@@ -213,39 +213,6 @@ namespace ImageMagick
             => Version;
 
         /// <summary>
-        /// Returns the format information of the specified format based on the extension of the file.
-        /// </summary>
-        /// <param name="file">The file to get the format for.</param>
-        /// <returns>The format information.</returns>
-        public static IMagickFormatInfo? GetFormatInformation(FileInfo file)
-            => MagickFormatInfo.Create(file);
-
-        /// <summary>
-        /// Returns the format information of the specified format.
-        /// </summary>
-        /// <param name="format">The image format.</param>
-        /// <returns>The format information.</returns>
-        public static IMagickFormatInfo? GetFormatInformation(MagickFormat format)
-            => MagickFormatInfo.Create(format);
-
-        /// <summary>
-        /// Returns the format information of the specified format based on the extension of the file.
-        /// </summary>
-        /// <param name="fileName">The name of the file to get the format for.</param>
-        /// <returns>The format information.</returns>
-        public static IMagickFormatInfo? GetFormatInformation(string fileName)
-            => MagickFormatInfo.Create(fileName);
-
-        /// <summary>
-        /// Returns the format information. The header of the image in the array of bytes is used to
-        /// determine the format.
-        /// </summary>
-        /// <param name="data">The array of bytes to read the image header from.</param>
-        /// <returns>The format information.</returns>
-        public static IMagickFormatInfo? GetFormatInformation(byte[] data)
-            => MagickFormatInfo.Create(data);
-
-        /// <summary>
         /// Initializes ImageMagick.
         /// </summary>
         public static void Initialize()

@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldDisableFormat()
             {
-                var formatInfo = MagickNET.GetFormatInformation(MagickFormat.X3f);
+                var formatInfo = MagickFormatInfo.Create(MagickFormat.X3f);
                 Assert.NotNull(formatInfo);
                 Assert.True(formatInfo.Unregister());
 

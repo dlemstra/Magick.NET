@@ -662,7 +662,7 @@ namespace ImageMagick
 
         private static MagickFormat GetModule(MagickFormat format)
         {
-            var formatInfo = MagickNET.GetFormatInformation(format);
+            var formatInfo = MagickFormatInfo.Create(format);
             if (formatInfo is null)
                 return format;
 

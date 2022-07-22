@@ -15,7 +15,7 @@ namespace ImageMagick.ImageOptimizers
         /// Gets the format that the optimizer supports.
         /// </summary>
         public IMagickFormatInfo Format
-            => MagickNET.GetFormatInformation(MagickFormat.Jpeg)!;
+            => MagickFormatInfo.Create(MagickFormat.Jpeg)!;
 
         /// <summary>
         /// Gets or sets a value indicating whether various compression types will be used to find
