@@ -9,15 +9,20 @@ namespace ImageMagick.Formats
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Jpeg"/> image is read.
     /// </summary>
-    public sealed class JpegReadDefines : ReadDefinesCreator
+    public sealed class JpegReadDefines : IReadDefines
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="JpegReadDefines"/> class.
         /// </summary>
         public JpegReadDefines()
-          : base(MagickFormat.Jpeg)
         {
         }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Jpeg;
 
         /// <summary>
         /// Gets or sets a value indicating whether block smoothing is enabled or disabled (jpeg:block-smoothing).
@@ -53,24 +58,24 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (BlockSmoothing.HasValue)
-                    yield return CreateDefine("block-smoothing", BlockSmoothing.Value);
+                    yield return new MagickDefine(Format, "block-smoothing", BlockSmoothing.Value);
 
                 if (Colors.HasValue)
-                    yield return CreateDefine("colors", Colors.Value);
+                    yield return new MagickDefine(Format, "colors", Colors.Value);
 
                 if (DctMethod.HasValue)
-                    yield return CreateDefine("dct-method", DctMethod.Value);
+                    yield return new MagickDefine(Format, "dct-method", DctMethod.Value);
 
                 if (FancyUpsampling.HasValue)
-                    yield return CreateDefine("fancy-upsampling", FancyUpsampling.Value);
+                    yield return new MagickDefine(Format, "fancy-upsampling", FancyUpsampling.Value);
 
                 if (Size is not null)
-                    yield return CreateDefine("size", Size);
+                    yield return new MagickDefine(Format, "size", Size);
 
                 if (SkipProfiles.HasValue)
                 {
