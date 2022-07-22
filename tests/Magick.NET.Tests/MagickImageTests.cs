@@ -37,20 +37,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Resample()
-        {
-            using (var image = new MagickImage("xc:red", 100, 100))
-            {
-                image.Resample(new PointD(300));
-
-                Assert.Equal(300, image.Density.X);
-                Assert.Equal(300, image.Density.Y);
-                Assert.NotEqual(100, image.Width);
-                Assert.NotEqual(100, image.Height);
-            }
-        }
-
-        [Fact]
         public void Test_Roll()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
