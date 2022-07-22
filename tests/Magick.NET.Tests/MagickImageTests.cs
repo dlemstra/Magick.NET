@@ -37,19 +37,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Segment()
-        {
-            using (var image = new MagickImage(Files.TestPNG))
-            {
-                image.Segment();
-
-                ColorAssert.Equal(new MagickColor("#008300"), image, 77, 30);
-                ColorAssert.Equal(new MagickColor("#f9f9f9"), image, 79, 30);
-                ColorAssert.Equal(new MagickColor("#00c2fe"), image, 128, 62);
-            }
-        }
-
-        [Fact]
         public void Test_SelectiveBlur()
         {
             using (var image = new MagickImage(Files.NoisePNG))
