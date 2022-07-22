@@ -20,11 +20,7 @@ namespace ImageMagick
     /// </summary>
     public sealed class ColorMono : ColorBase
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ColorMono"/> class.
-        /// </summary>
-        /// <param name="isBlack">Specifies if the color is black or white.</param>
-        public ColorMono(bool isBlack)
+        private ColorMono(bool isBlack)
           : base(isBlack ? MagickColors.Black : MagickColors.White)
         {
             IsBlack = isBlack;
