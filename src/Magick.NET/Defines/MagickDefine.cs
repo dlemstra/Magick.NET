@@ -74,8 +74,32 @@ namespace ImageMagick
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
+        public MagickDefine(MagickFormat format, string name, int value)
+            : this(format, name, value.ToString(CultureInfo.InvariantCulture))
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickDefine"/> class.
+        /// </summary>
+        /// <param name="format">The format of the define.</param>
+        /// <param name="name">The name of the define.</param>
+        /// <param name="value">The value of the define.</param>
+        /// <returns>A <see cref="MagickDefine"/> instance.</returns>
         public MagickDefine(MagickFormat format, string name, IMagickGeometry value)
             : this(format, name, value?.ToString()!)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickDefine"/> class.
+        /// </summary>
+        /// <param name="format">The format of the define.</param>
+        /// <param name="name">The name of the define.</param>
+        /// <param name="value">The value of the define.</param>
+        /// <returns>A <see cref="MagickDefine"/> instance.</returns>
+        public MagickDefine(MagickFormat format, string name, long value)
+            : this(format, name, value.ToString(CultureInfo.InvariantCulture))
         {
         }
 

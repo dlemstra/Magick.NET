@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
