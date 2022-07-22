@@ -2,23 +2,14 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Dds"/> image is written.
     /// </summary>
-    public sealed class DdsWriteDefines : WriteDefinesCreator
+    public sealed class DdsWriteDefines : IWriteDefines
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DdsWriteDefines"/> class.
-        /// </summary>
-        public DdsWriteDefines()
-          : base(MagickFormat.Dds)
-        {
-        }
-
         /// <summary>
         /// Gets or sets a value indicating whether cluser fit is enabled or disabled (dds:cluster-fit).
         /// </summary>
@@ -34,6 +25,12 @@ namespace ImageMagick.Formats
         /// Gets or sets a value indicating whether the mipmaps should be resized faster but with a lower quality (dds:fast-mipmaps).
         /// </summary>
         public bool? FastMipmaps { get; set; }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Dds;
 
         /// <summary>
         /// Gets or sets the the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
@@ -58,29 +55,29 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (ClusterFit.HasValue)
-                    yield return CreateDefine("cluster-fit", ClusterFit.Value);
+                    yield return new MagickDefine(Format, "cluster-fit", ClusterFit.Value);
 
                 if (Compression.HasValue)
-                    yield return CreateDefine("compression", Compression.Value);
+                    yield return new MagickDefine(Format, "compression", Compression.Value);
 
                 if (FastMipmaps.HasValue)
-                    yield return CreateDefine("fast-mipmaps", FastMipmaps.Value);
+                    yield return new MagickDefine(Format, "fast-mipmaps", FastMipmaps.Value);
 
                 if (MipmapsFromCollection == true)
-                    yield return CreateDefine("mipmaps", "fromlist");
+                    yield return new MagickDefine(Format, "mipmaps", "fromlist");
                 else if (Mipmaps.HasValue)
-                    yield return CreateDefine("mipmaps", Mipmaps.Value);
+                    yield return new MagickDefine(Format, "mipmaps", Mipmaps.Value);
 
                 if (Raw.HasValue)
-                    yield return CreateDefine("raw", Raw.Value);
+                    yield return new MagickDefine(Format, "raw", Raw.Value);
 
                 if (WeightByAlpha.HasValue)
-                    yield return CreateDefine("weight-by-alpha", WeightByAlpha.Value);
+                    yield return new MagickDefine(Format, "weight-by-alpha", WeightByAlpha.Value);
             }
         }
     }
