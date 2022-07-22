@@ -1952,69 +1952,6 @@ namespace ImageMagick
         /// Compose an image onto another at specified offset using the 'In' operator.
         /// </summary>
         /// <param name="image">The image to composite with this image.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset)
-            => Composite(image, offset, CompositeOperator.In);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the 'In' operator.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="channels">The channel(s) to composite.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset, Channels channels)
-            => Composite(image, offset, CompositeOperator.In, channels);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the specified algorithm.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose)
-            => Composite(image, offset, compose, null);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the specified algorithm.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <param name="channels">The channel(s) to composite.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, Channels channels)
-            => Composite(image, offset, compose, null, channels);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the specified algorithm.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <param name="args">The arguments for the algorithm (compose:args).</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string? args)
-            => Composite(image, (int)offset.X, (int)offset.Y, compose, args);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the specified algorithm.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <param name="args">The arguments for the algorithm (compose:args).</param>
-        /// <param name="channels">The channel(s) to composite.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, PointD offset, CompositeOperator compose, string? args, Channels channels)
-            => Composite(image, (int)offset.X, (int)offset.Y, compose, args, channels);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the 'In' operator.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
         /// <param name="gravity">The placement gravity.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Composite(IMagickImage image, Gravity gravity)
@@ -2163,75 +2100,6 @@ namespace ImageMagick
                     _nativeInstance.RemoveArtifact("compose:args");
             }
         }
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the 'In' operator.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="gravity">The placement gravity.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, PointD offset)
-            => Composite(image, gravity, offset, CompositeOperator.In);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the 'In' operator.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="gravity">The placement gravity.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="channels">The channel(s) to composite.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, PointD offset, Channels channels)
-            => Composite(image, gravity, offset, CompositeOperator.In, channels);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the 'In' operator.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="gravity">The placement gravity.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose)
-            => Composite(image, gravity, offset, compose, null);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the 'In' operator.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="gravity">The placement gravity.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <param name="channels">The channel(s) to composite.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, Channels channels)
-            => Composite(image, gravity, offset, compose, null, channels);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the specified algorithm.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="gravity">The placement gravity.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <param name="args">The arguments for the algorithm (compose:args).</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string? args)
-            => Composite(image, gravity, offset, compose, args, ImageMagick.Channels.Default);
-
-        /// <summary>
-        /// Compose an image onto another at specified offset using the specified algorithm.
-        /// </summary>
-        /// <param name="image">The image to composite with this image.</param>
-        /// <param name="gravity">The placement gravity.</param>
-        /// <param name="offset">The offset from origin.</param>
-        /// <param name="compose">The algorithm to use.</param>
-        /// <param name="args">The arguments for the algorithm (compose:args).</param>
-        /// <param name="channels">The channel(s) to composite.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Composite(IMagickImage image, Gravity gravity, PointD offset, CompositeOperator compose, string? args, Channels channels)
-            => Composite(image, gravity, (int)offset.X, (int)offset.Y, compose, args, channels);
 
         /// <summary>
         /// Determines the connected-components of the image.
@@ -2396,29 +2264,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void CopyPixels(IMagickImage source, IMagickGeometry geometry, Channels channels)
             => CopyPixels(source, geometry, 0, 0, channels);
-
-        /// <summary>
-        /// Copies pixels from the source image as defined by the geometry the destination image at
-        /// the specified offset.
-        /// </summary>
-        /// <param name="source">The source image to copy the pixels from.</param>
-        /// <param name="geometry">The geometry to copy.</param>
-        /// <param name="offset">The offset to copy the pixels to.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, PointD offset)
-            => CopyPixels(source, geometry, offset, ImageMagick.Channels.Default);
-
-        /// <summary>
-        /// Copies pixels from the source image as defined by the geometry the destination image at
-        /// the specified offset.
-        /// </summary>
-        /// <param name="source">The source image to copy the pixels from.</param>
-        /// <param name="geometry">The geometry to copy.</param>
-        /// <param name="offset">The offset to start the copy from.</param>
-        /// <param name="channels">The channels to copy.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void CopyPixels(IMagickImage source, IMagickGeometry geometry, PointD offset, Channels channels)
-            => CopyPixels(source, geometry, (int)offset.X, (int)offset.Y, channels);
 
         /// <summary>
         /// Copies pixels from the source image as defined by the geometry the destination image at
@@ -2971,27 +2816,6 @@ namespace ImageMagick
             => FloodFill(color, x, y, target, false);
 
         /// <summary>
-        /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
-        /// of the target pixel. Uses current fuzz setting when determining color match.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        /// <param name="coordinate">The position of the pixel.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void FloodFill(IMagickColor<QuantumType> color, PointD coordinate)
-            => FloodFill(color, (int)coordinate.X, (int)coordinate.Y, false);
-
-        /// <summary>
-        /// Flood-fill color across pixels that match the color of the target pixel and are neighbors
-        /// of the target pixel. Uses current fuzz setting when determining color match.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        /// <param name="coordinate">The position of the pixel.</param>
-        /// <param name="target">The target color.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void FloodFill(IMagickColor<QuantumType> color, PointD coordinate, IMagickColor<QuantumType> target)
-            => FloodFill(color, (int)coordinate.X, (int)coordinate.Y, target, false);
-
-        /// <summary>
         /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
         /// of the target pixel. Uses current fuzz setting when determining color match.
         /// </summary>
@@ -3013,27 +2837,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void FloodFill(IMagickImage<QuantumType> image, int x, int y, IMagickColor<QuantumType> target)
             => FloodFill(image, x, y, target, false);
-
-        /// <summary>
-        /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
-        /// of the target pixel. Uses current fuzz setting when determining color match.
-        /// </summary>
-        /// <param name="image">The image to use.</param>
-        /// <param name="coordinate">The position of the pixel.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void FloodFill(IMagickImage<QuantumType> image, PointD coordinate)
-            => FloodFill(image, (int)coordinate.X, (int)coordinate.Y, false);
-
-        /// <summary>
-        /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
-        /// of the target pixel. Uses current fuzz setting when determining color match.
-        /// </summary>
-        /// <param name="image">The image to use.</param>
-        /// <param name="coordinate">The position of the pixel.</param>
-        /// <param name="target">The target color.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void FloodFill(IMagickImage<QuantumType> image, PointD coordinate, IMagickColor<QuantumType> target)
-            => FloodFill(image, (int)coordinate.X, (int)coordinate.Y, target, false);
 
         /// <summary>
         /// Flop image (reflect each scanline in the horizontal direction).
@@ -3578,27 +3381,6 @@ namespace ImageMagick
             => FloodFill(color, x, y, target, true);
 
         /// <summary>
-        /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
-        /// of the target pixel. Uses current fuzz setting when determining color match.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        /// <param name="coordinate">The position of the pixel.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void InverseFloodFill(IMagickColor<QuantumType> color, PointD coordinate)
-            => FloodFill(color, (int)coordinate.X, (int)coordinate.Y, true);
-
-        /// <summary>
-        /// Flood-fill texture across pixels that do not match the color of the target pixel and are
-        /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        /// <param name="coordinate">The position of the pixel.</param>
-        /// <param name="target">The target color.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void InverseFloodFill(IMagickColor<QuantumType> color, PointD coordinate, IMagickColor<QuantumType> target)
-            => FloodFill(color, (int)coordinate.X, (int)coordinate.Y, target, true);
-
-        /// <summary>
         /// Flood-fill texture across pixels that do not match the color of the target pixel and are
         /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
         /// </summary>
@@ -3620,27 +3402,6 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void InverseFloodFill(IMagickImage<QuantumType> image, int x, int y, IMagickColor<QuantumType> target)
             => FloodFill(image, x, y, target, true);
-
-        /// <summary>
-        /// Flood-fill texture across pixels that do not match the color of the target pixel and are
-        /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
-        /// </summary>
-        /// <param name="image">The image to use.</param>
-        /// <param name="coordinate">The position of the pixel.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void InverseFloodFill(IMagickImage<QuantumType> image, PointD coordinate)
-            => FloodFill(image, (int)coordinate.X, (int)coordinate.Y, true);
-
-        /// <summary>
-        /// Flood-fill texture across pixels that do not match the color of the target pixel and are
-        /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
-        /// </summary>
-        /// <param name="image">The image to use.</param>
-        /// <param name="coordinate">The position of the pixel.</param>
-        /// <param name="target">The target color.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void InverseFloodFill(IMagickImage<QuantumType> image, PointD coordinate, IMagickColor<QuantumType> target)
-            => FloodFill(image, (int)coordinate.X, (int)coordinate.Y, target, true);
 
         /// <summary>
         /// Applies the reversed level operation to just the specific channels specified. It compresses

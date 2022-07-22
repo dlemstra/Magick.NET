@@ -164,7 +164,7 @@ namespace Magick.NET.Tests
                     {
                         var exception = Assert.Throws<MagickOptionErrorException>(() =>
                         {
-                            destination.CopyPixels(source, new MagickGeometry(51, 50), new PointD(0, 0));
+                            destination.CopyPixels(source, new MagickGeometry(51, 50), 0, 0);
                         });
 
                         Assert.Contains("geometry does not contain image", exception.Message);
@@ -181,7 +181,7 @@ namespace Magick.NET.Tests
                     {
                         var exception = Assert.Throws<MagickOptionErrorException>(() =>
                         {
-                            destination.CopyPixels(source, new MagickGeometry(50, 51), new PointD(0, 0));
+                            destination.CopyPixels(source, new MagickGeometry(50, 51), 0, 0);
                         });
 
                         Assert.Contains("geometry does not contain image", exception.Message);
