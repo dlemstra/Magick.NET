@@ -2,23 +2,14 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Tiff"/> image is written.
     /// </summary>
-    public sealed class TiffWriteDefines : WriteDefinesCreator
+    public sealed class TiffWriteDefines : IWriteDefines
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="TiffWriteDefines"/> class.
-        /// </summary>
-        public TiffWriteDefines()
-          : base(MagickFormat.Tiff)
-        {
-        }
-
         /// <summary>
         /// Gets or sets the tiff alpha (tiff:alpha).
         /// </summary>
@@ -33,6 +24,12 @@ namespace ImageMagick.Formats
         /// Gets or sets the endianness of the tiff file (tiff:fill-order).
         /// </summary>
         public Endian? FillOrder { get; set; }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Tiff;
 
         /// <summary>
         /// Gets or sets the prediction scheme with LZW (tiff:predictor).
@@ -62,33 +59,33 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (Alpha.HasValue)
-                    yield return CreateDefine("alpha", Alpha.Value);
+                    yield return new MagickDefine(Format, "alpha", Alpha.Value);
 
                 if (Endian.HasValue && Endian.Value != ImageMagick.Endian.Undefined)
-                    yield return CreateDefine("endian", Endian.Value);
+                    yield return new MagickDefine(Format, "endian", Endian.Value);
 
                 if (FillOrder.HasValue && FillOrder.Value != ImageMagick.Endian.Undefined)
-                    yield return CreateDefine("fill-order", FillOrder.Value);
+                    yield return new MagickDefine(Format, "fill-order", FillOrder.Value);
 
                 if (Predictor.HasValue)
-                    yield return CreateDefine("predictor", Predictor.Value);
+                    yield return new MagickDefine(Format, "predictor", Predictor.Value);
 
                 if (PreserveCompression)
-                    yield return CreateDefine("preserve-compression", PreserveCompression);
+                    yield return new MagickDefine(Format, "preserve-compression", PreserveCompression);
 
                 if (RowsPerStrip.HasValue)
-                    yield return CreateDefine("rows-per-strip", RowsPerStrip.Value);
+                    yield return new MagickDefine(Format, "rows-per-strip", RowsPerStrip.Value);
 
                 if (TileGeometry is not null)
-                    yield return CreateDefine("tile-geometry", TileGeometry);
+                    yield return new MagickDefine(Format, "tile-geometry", TileGeometry);
 
                 if (WriteLayers)
-                    yield return CreateDefine("write-layers", WriteLayers);
+                    yield return new MagickDefine(Format, "write-layers", WriteLayers);
             }
         }
     }
