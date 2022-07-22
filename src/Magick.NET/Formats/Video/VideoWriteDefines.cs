@@ -3,14 +3,13 @@
 
 using System;
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a video image is written.
     /// </summary>
-    public sealed class VideoWriteDefines : WriteDefinesCreator
+    public sealed class VideoWriteDefines : IWriteDefines
     {
         private static readonly List<MagickFormat> AllowedFormats = new List<MagickFormat> { MagickFormat.ThreeGp, MagickFormat.ThreeG2, MagickFormat.APng, MagickFormat.Avi, MagickFormat.Flv, MagickFormat.Mkv, MagickFormat.Mov, MagickFormat.Mpeg, MagickFormat.Mpg, MagickFormat.Mp4, MagickFormat.M2v, MagickFormat.M4v, MagickFormat.WebM, MagickFormat.Wmv };
 
@@ -19,9 +18,14 @@ namespace ImageMagick.Formats
         /// </summary>
         /// <param name="format">The video format.</param>
         public VideoWriteDefines(MagickFormat format)
-          : base(CheckFormat(format))
         {
+            Format = CheckFormat(format);
         }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format { get; }
 
         /// <summary>
         /// Gets or sets the video pixel format (video:pixel-format).
@@ -31,7 +35,7 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
