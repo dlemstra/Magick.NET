@@ -16,7 +16,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenGeometryIsNull()
                 {
-                    using (var image = new MagickImage(Files.MagickNETIconPNG))
+                    using (var image = new MagickImage())
                     {
                         Assert.Throws<ArgumentNullException>("geometry", () => image.Resize(null));
                     }

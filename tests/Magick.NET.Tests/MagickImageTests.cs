@@ -39,12 +39,6 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Sample()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Sample(400, 400);
-                Assert.Equal(400, image.Width);
-                Assert.Equal(300, image.Height);
-            }
         }
 
         [Fact]
