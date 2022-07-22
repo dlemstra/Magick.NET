@@ -2,22 +2,26 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Dng"/> image is read.
     /// </summary>
-    public sealed class DngReadDefines : ReadDefinesCreator
+    public sealed class DngReadDefines : IReadDefines
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DngReadDefines"/> class.
         /// </summary>
         public DngReadDefines()
-          : base(MagickFormat.Dng)
         {
         }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Dng;
 
         /// <summary>
         /// Gets or sets a value indicating wether auto brightness should be used (dng:no-auto-bright).
@@ -52,27 +56,27 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (InterpolationQuality.HasValue)
-                    yield return CreateDefine("interpolation-quality", (int)InterpolationQuality.Value);
+                    yield return new MagickDefine(Format, "interpolation-quality", (int)InterpolationQuality.Value);
 
                 if (DisableAutoBrightness.HasValue)
-                    yield return CreateDefine("no-auto-bright", DisableAutoBrightness.Value);
+                    yield return new MagickDefine(Format, "no-auto-bright", DisableAutoBrightness.Value);
 
                 if (OutputColor.HasValue)
-                    yield return CreateDefine("output-color", (int)OutputColor.Value);
+                    yield return new MagickDefine(Format, "output-color", (int)OutputColor.Value);
 
                 if (ReadThumbnail.HasValue)
-                    yield return CreateDefine("read-thumbnail", ReadThumbnail.Value);
+                    yield return new MagickDefine(Format, "read-thumbnail", ReadThumbnail.Value);
 
                 if (UseCameraWhitebalance.HasValue)
-                    yield return CreateDefine("use-camera-wb", UseCameraWhitebalance.Value);
+                    yield return new MagickDefine(Format, "use-camera-wb", UseCameraWhitebalance.Value);
 
                 if (UseAutoWhitebalance.HasValue)
-                    yield return CreateDefine("use-auto-wb", UseAutoWhitebalance.Value);
+                    yield return new MagickDefine(Format, "use-auto-wb", UseAutoWhitebalance.Value);
             }
         }
     }
