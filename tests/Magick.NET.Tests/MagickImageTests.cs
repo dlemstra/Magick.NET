@@ -35,20 +35,6 @@ namespace Magick.NET.Tests
                 ColorAssert.Equal(MagickColors.Blue, image, 120, 90);
             }
         }
-        [Fact]
-        public void Test_Rotate()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Equal(640, image.Width);
-                Assert.Equal(480, image.Height);
-
-                image.Rotate(90);
-
-                Assert.Equal(480, image.Width);
-                Assert.Equal(640, image.Height);
-            }
-        }
 
         [Fact]
         public void Test_RotationalBlur()
