@@ -8,5 +8,9 @@ namespace ImageMagick
     /// </summary>
     public interface IReadDefines : IDefines
     {
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        MagickFormat Format { get; }
     }
 }

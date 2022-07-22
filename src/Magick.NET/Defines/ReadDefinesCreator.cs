@@ -16,5 +16,11 @@ namespace ImageMagick.Defines
           : base(format)
         {
         }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        MagickFormat IReadDefines.Format
+            => Format;
     }
 }
