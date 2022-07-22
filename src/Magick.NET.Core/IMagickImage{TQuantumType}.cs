@@ -729,7 +729,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <param name="color">The color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void SetColormap(int index, IMagickColor<TQuantumType> color);
+        void SetColormapColor(int index, IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Simulate an image shadow.

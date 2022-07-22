@@ -8,14 +8,14 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class TheSetColormapMethod
+        public class TheSetColormapColorMethod
         {
             [Fact]
             public void ShouldChangeTheColorAtTheSpecifiedIndex()
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
                 {
-                    image.SetColormap(0, MagickColors.Fuchsia);
+                    image.SetColormapColor(0, MagickColors.Fuchsia);
                     ColorAssert.Equal(MagickColors.Fuchsia, image.GetColormapColor(0));
                 }
             }
@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    image.SetColormap(0, MagickColors.Fuchsia);
+                    image.SetColormapColor(0, MagickColors.Fuchsia);
                 }
             }
 
@@ -34,7 +34,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
                 {
-                    image.SetColormap(65536, MagickColors.Fuchsia);
+                    image.SetColormapColor(65536, MagickColors.Fuchsia);
                     Assert.Null(image.GetColormapColor(65536));
                 }
             }

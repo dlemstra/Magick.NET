@@ -5465,7 +5465,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <param name="color">The color.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void SetColormap(int index, IMagickColor<QuantumType> color)
+        public void SetColormapColor(int index, IMagickColor<QuantumType> color)
         {
             Throw.IfNull(nameof(color), color);
 
