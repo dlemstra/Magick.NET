@@ -27,7 +27,7 @@ namespace ImageMagick.Configuration
         /// <summary>
         /// Gets the default configuration.
         /// </summary>
-        public static ConfigurationFiles Default
+        public static IConfigurationFiles Default
             => new ConfigurationFiles();
 
         /// <summary>
