@@ -18,15 +18,15 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
+        /// Gets or sets the size where the image should be scaled to fit the page (pdf:fit-page).
+        /// </summary>
+        public IMagickGeometry? FitPage { get; set; }
+
+        /// <summary>
         /// Gets the format where the defines are for.
         /// </summary>
         public MagickFormat Format
             => MagickFormat.Pdf;
-
-        /// <summary>
-        /// Gets or sets the size where the image should be scaled to fit the page (pdf:fit-page).
-        /// </summary>
-        public IMagickGeometry? FitPage { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether annotations should be hidden (pdf:hide-annotations).

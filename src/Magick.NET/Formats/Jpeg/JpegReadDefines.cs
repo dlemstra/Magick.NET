@@ -19,12 +19,6 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
-        /// Gets the format where the defines are for.
-        /// </summary>
-        public MagickFormat Format
-            => MagickFormat.Jpeg;
-
-        /// <summary>
         /// Gets or sets a value indicating whether block smoothing is enabled or disabled (jpeg:block-smoothing).
         /// </summary>
         public bool? BlockSmoothing { get; set; }
@@ -43,6 +37,12 @@ namespace ImageMagick.Formats
         /// Gets or sets a value indicating whether fancy upsampling is enabled or disabled (jpeg:fancy-upsampling).
         /// </summary>
         public bool? FancyUpsampling { get; set; }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Jpeg;
 
         /// <summary>
         /// Gets or sets the size the scale the image to (jpeg:size). The output image won't be exactly

@@ -18,15 +18,15 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
+        /// Gets or sets a value indicating wether auto brightness should be used (dng:no-auto-bright).
+        /// </summary>
+        public bool? DisableAutoBrightness { get; set; }
+
+        /// <summary>
         /// Gets the format where the defines are for.
         /// </summary>
         public MagickFormat Format
             => MagickFormat.Dng;
-
-        /// <summary>
-        /// Gets or sets a value indicating wether auto brightness should be used (dng:no-auto-bright).
-        /// </summary>
-        public bool? DisableAutoBrightness { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating the interpolation quality (dng:interpolation-quality).

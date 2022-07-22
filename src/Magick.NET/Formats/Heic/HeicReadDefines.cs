@@ -18,15 +18,15 @@ namespace ImageMagick.Formats
         }
 
         /// <summary>
+        /// Gets or sets a value indicating whether the depth image should be read (heic:depth-image).
+        /// </summary>
+        public bool? DepthImage { get; set; }
+
+        /// <summary>
         /// Gets the format where the defines are for.
         /// </summary>
         public MagickFormat Format
             => MagickFormat.Heic;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the depth image should be read (heic:depth-image).
-        /// </summary>
-        public bool? DepthImage { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the orientation should be preserved (heic:preserve-orientation).
