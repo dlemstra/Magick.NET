@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
                         ProgressionOrder = Jp2ProgressionOrder.PCRL,
                     });
 
-                    Assert.Equal("PCRL", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
+                    Assert.Equal("pcrl", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
                 }
             }
         }

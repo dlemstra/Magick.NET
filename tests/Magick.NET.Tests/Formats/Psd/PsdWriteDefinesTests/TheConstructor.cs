@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(new PsdWriteDefines());
 
-                    Assert.Equal("None", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
+                    Assert.Equal("none", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
                 }
             }
         }

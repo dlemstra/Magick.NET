@@ -32,7 +32,7 @@ namespace Magick.NET.Tests
                         AdditionalInfo = PsdAdditionalInfoPart.Selective,
                     });
 
-                    Assert.Equal("Selective", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
+                    Assert.Equal("selective", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
                 }
             }
 

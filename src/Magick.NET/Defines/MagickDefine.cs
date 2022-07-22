@@ -25,6 +25,16 @@ namespace ImageMagick
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickDefine"/> class.
         /// </summary>
+        /// <param name="name">The name of the define.</param>
+        /// <param name="value">The value of the define.</param>
+        public MagickDefine(string name, Enum value)
+            : this(MagickFormat.Unknown, name, value)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickDefine"/> class.
+        /// </summary>
         /// <param name="format">The format of the define.</param>
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
@@ -53,7 +63,7 @@ namespace ImageMagick
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
         public MagickDefine(MagickFormat format, string name, Enum value)
-            : this(format, name, Enum.GetName(value.GetType(), value))
+            : this(format, name, value.ToString().ToLowerInvariant())
         {
         }
 

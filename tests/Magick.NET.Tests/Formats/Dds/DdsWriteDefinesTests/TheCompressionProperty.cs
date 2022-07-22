@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
 
                     image.Settings.SetDefines(defines);
 
-                    Assert.Equal("Dxt1", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+                    Assert.Equal("dxt1", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
                 }
             }
 

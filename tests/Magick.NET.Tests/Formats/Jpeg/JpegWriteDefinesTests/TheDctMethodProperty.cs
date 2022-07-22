@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
                 {
                     image.Settings.SetDefines(defines);
 
-                    Assert.Equal("Fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+                    Assert.Equal("fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
                 }
             }
         }

@@ -58,7 +58,7 @@ namespace ImageMagick.Formats
                     yield return new MagickDefine("video:intermediate-format", "pam");
 
                 if (VideoSync is not null)
-                    yield return new MagickDefine("video:vsync", EnumHelper.GetName(VideoSync.Value).ToLowerInvariant());
+                    yield return new MagickDefine("video:vsync", VideoSync.Value);
             }
         }
 

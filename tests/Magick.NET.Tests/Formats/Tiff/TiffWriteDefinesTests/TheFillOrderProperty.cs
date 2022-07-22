@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
                         FillOrder = Endian.LSB,
                     });
 
-                    Assert.Equal("LSB", input.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
+                    Assert.Equal("lsb", input.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
                 }
             }
 

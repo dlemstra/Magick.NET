@@ -26,7 +26,7 @@ namespace Magick.NET.Tests
                 {
                     image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.Equal("Slow", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+                    Assert.Equal("slow", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
                 }
             }
         }
