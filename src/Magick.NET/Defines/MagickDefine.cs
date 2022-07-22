@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.Globalization;
+
 namespace ImageMagick
 {
     /// <summary>
@@ -27,6 +29,18 @@ namespace ImageMagick
         /// <returns>A <see cref="MagickDefine"/> instance.</returns>
         public MagickDefine(MagickFormat format, string name, bool value)
             : this(format, name, value ? "true" : "false")
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MagickDefine"/> class.
+        /// </summary>
+        /// <param name="format">The format of the define.</param>
+        /// <param name="name">The name of the define.</param>
+        /// <param name="value">The value of the define.</param>
+        /// <returns>A <see cref="MagickDefine"/> instance.</returns>
+        public MagickDefine(MagickFormat format, string name, double value)
+            : this(format, name, value.ToString(CultureInfo.InvariantCulture))
         {
         }
 

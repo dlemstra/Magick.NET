@@ -2,22 +2,26 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Caption"/> image is read.
     /// </summary>
-    public sealed class CaptionReadDefines : ReadDefinesCreator
+    public sealed class CaptionReadDefines : IReadDefines
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="CaptionReadDefines"/> class.
         /// </summary>
         public CaptionReadDefines()
-          : base(MagickFormat.Caption)
         {
         }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Caption;
 
         /// <summary>
         /// Gets or sets a the maximum font pointsize (caption:max-pointsize).
@@ -32,15 +36,15 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (MaxFontPointsize.HasValue)
-                    yield return CreateDefine("max-pointsize", MaxFontPointsize.Value);
+                    yield return new MagickDefine(Format, "max-pointsize", MaxFontPointsize.Value);
 
                 if (StartFontPointsize.HasValue)
-                    yield return CreateDefine("start-pointsize", StartFontPointsize.Value);
+                    yield return new MagickDefine(Format, "start-pointsize", StartFontPointsize.Value);
             }
         }
     }
