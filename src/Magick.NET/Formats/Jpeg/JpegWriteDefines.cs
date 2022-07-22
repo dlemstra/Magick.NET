@@ -3,23 +3,14 @@
 
 using System;
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Jpeg"/> image is written.
     /// </summary>
-    public sealed class JpegWriteDefines : WriteDefinesCreator
+    public sealed class JpegWriteDefines : IWriteDefines
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JpegWriteDefines"/> class.
-        /// </summary>
-        public JpegWriteDefines()
-          : base(MagickFormat.Jpeg)
-        {
-        }
-
         /// <summary>
         /// Gets or sets a value indicating whether arithmetic coding is enabled or disabled (jpeg:arithmetic-coding).
         /// </summary>
@@ -34,6 +25,12 @@ namespace ImageMagick.Formats
         /// Gets or sets the compression quality that does not exceed the specified extent in kilobytes (jpeg:extent).
         /// </summary>
         public int? Extent { get; set; }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Jpeg;
 
         /// <summary>
         /// Gets or sets a value indicating whether optimize coding is enabled or disabled (jpeg:optimize-coding).
@@ -53,27 +50,27 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (ArithmeticCoding.HasValue)
-                    yield return CreateDefine("arithmetic-coding", ArithmeticCoding.Value);
+                    yield return new MagickDefine(Format, "arithmetic-coding", ArithmeticCoding.Value);
 
                 if (DctMethod.HasValue)
-                    yield return CreateDefine("dct-method", DctMethod.Value);
+                    yield return new MagickDefine(Format, "dct-method", DctMethod.Value);
 
                 if (Extent.HasValue)
-                    yield return CreateDefine("extent", Extent.Value + "KB");
+                    yield return new MagickDefine(Format, "extent", Extent.Value + "KB");
 
                 if (OptimizeCoding.HasValue)
-                    yield return CreateDefine("optimize-coding", OptimizeCoding.Value);
+                    yield return new MagickDefine(Format, "optimize-coding", OptimizeCoding.Value);
 
                 if (QuantizationTables is not null && QuantizationTables.Length > 0)
-                    yield return CreateDefine("q-table", QuantizationTables);
+                    yield return new MagickDefine(Format, "q-table", QuantizationTables);
 
                 if (SamplingFactor.HasValue)
-                    yield return CreateDefine("sampling-factor", CreateSamplingFactors(SamplingFactor.Value));
+                    yield return new MagickDefine(Format, "sampling-factor", CreateSamplingFactors(SamplingFactor.Value));
             }
         }
 
