@@ -56,8 +56,6 @@ namespace Magick.NET.Tests
                         image.Write(memStream);
                         memStream.Position = 0;
 
-                        image.Write("i:/test.png");
-
                         using (var histogram = new MagickImage(memStream))
                         {
 #if Q8
