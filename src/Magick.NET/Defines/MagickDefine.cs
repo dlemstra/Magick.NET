@@ -63,7 +63,7 @@ namespace ImageMagick
         /// <param name="name">The name of the define.</param>
         /// <param name="value">The value of the define.</param>
         public MagickDefine(MagickFormat format, string name, Enum value)
-            : this(format, name, value.ToString().ToLowerInvariant())
+            : this(format, name, Enum.GetName(value.GetType(), value).ToLowerInvariant())
         {
         }
 

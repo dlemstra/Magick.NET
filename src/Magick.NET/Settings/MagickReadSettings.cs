@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Globalization;
 
 #if Q8
@@ -135,7 +136,7 @@ namespace ImageMagick
             if (define.Format == MagickFormat.Unknown)
                 return define.Name;
 
-            return define.Format.ToString().ToLowerInvariant() + ":" + define.Name;
+            return Enum.GetName(define.Format.GetType(), define.Format) + ":" + define.Name;
         }
 
         private string? GetScenes()

@@ -171,7 +171,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>True when the format was found and unregistered.</returns>
         public bool Unregister()
-            => NativeMagickFormatInfo.Unregister(Format.ToString().ToLowerInvariant());
+            => NativeMagickFormatInfo.Unregister(Enum.GetName(Format.GetType(), Format));
 
         private static MagickFormatInfo? Create(NativeMagickFormatInfo instance)
         {
