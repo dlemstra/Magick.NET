@@ -4477,24 +4477,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Negate()
-            => Negate(false);
-
-        /// <summary>
-        /// Negate colors in image.
-        /// </summary>
-        /// <param name="onlyGrayscale">Use true to negate only the grayscale colors.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Negate(bool onlyGrayscale)
-            => Negate(onlyGrayscale, ImageMagick.Channels.Composite);
-
-        /// <summary>
-        /// Negate colors in image for the specified channel.
-        /// </summary>
-        /// <param name="onlyGrayscale">Use true to negate only the grayscale colors.</param>
-        /// <param name="channels">The channel(s) that should be negated.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Negate(bool onlyGrayscale, Channels channels)
-            => _nativeInstance.Negate(onlyGrayscale, channels);
+            => Negate(ImageMagick.Channels.Composite);
 
         /// <summary>
         /// Negate colors in image for the specified channel.
@@ -4502,7 +4485,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) that should be negated.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Negate(Channels channels)
-            => Negate(false, channels);
+            => _nativeInstance.Negate(false, channels);
 
         /// <summary>
         /// Negate the grayscale colors in image.
