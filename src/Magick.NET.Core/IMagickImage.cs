@@ -2132,7 +2132,7 @@ namespace ImageMagick
         void LocalContrast(double radius, Percentage strength, Channels channels);
 
         /// <summary>
-        /// Lower image (lighten or darken the edges of an image to give a 3-D lowered effect).
+        /// Lower image (darken the edges of an image to give a 3-D lowered effect).
         /// </summary>
         /// <param name="size">The size of the edges.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -2573,7 +2573,7 @@ namespace ImageMagick
         IMagickErrorInfo? Quantize(IQuantizeSettings settings);
 
         /// <summary>
-        /// Raise image (lighten or darken the edges of an image to give a 3-D raised effect).
+        /// Raise image (lighten the edges of an image to give a 3-D raised effect).
         /// </summary>
         /// <param name="size">The size of the edges.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

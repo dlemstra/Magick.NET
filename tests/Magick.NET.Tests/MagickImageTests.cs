@@ -37,26 +37,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Raise_Lower()
-        {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                image.Raise(30);
-
-                ColorAssert.Equal(new MagickColor("#6ee29508b532"), image, 29, 30);
-                ColorAssert.Equal(new MagickColor("#2f2054867aac"), image, 570, 265);
-            }
-
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                image.Lower(30);
-
-                ColorAssert.Equal(new MagickColor("#2da153c773f1"), image, 29, 30);
-                ColorAssert.Equal(new MagickColor("#706195c7bbed"), image, 570, 265);
-            }
-        }
-
-        [Fact]
         public void Test_RegionMask()
         {
             using (var red = new MagickImage("xc:red", 100, 100))
