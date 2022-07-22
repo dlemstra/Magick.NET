@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace ImageMagick
@@ -98,5 +99,31 @@ namespace ImageMagick
         /// Gets the value of the define.
         /// </summary>
         public string Value { get; }
+
+        /// <summary>
+        /// Create a define with the specified name and value.
+        /// </summary>
+        /// <param name="format">The format of the define.</param>
+        /// <param name="name">The name of the define.</param>
+        /// <param name="value">The value of the define.</param>
+        /// <typeparam name="T">The type of the enumerable.</typeparam>
+        /// <returns>A <see cref="MagickDefine"/> instance.</returns>
+        public static MagickDefine? Create<T>(MagickFormat format, string name, IEnumerable<T>? value)
+        {
+            if (value is null)
+                return null;
+
+            var values = new List<string>();
+            foreach (var val in value)
+            {
+                if (val is not null)
+                    values.Add(val.ToString());
+            }
+
+            if (values.Count == 0)
+                return null;
+
+            return new MagickDefine(format, name, string.Join(",", values.ToArray()));
+        }
     }
 }
