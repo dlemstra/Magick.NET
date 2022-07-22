@@ -24,6 +24,34 @@ namespace Magick.NET.Tests
 #endif
                 }
             }
+
+            [Fact]
+            public void ShouldUseTheSpecifiedThreshold()
+            {
+                using (var image = new MagickImage(Files.Builtin.Wizard))
+                {
+                    using (var original = image.Clone())
+                    {
+                        image.SelectiveBlur(5.0, 2.0, Quantum.Max / 2);
+
+                        Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.044, 0.045);
+                    }
+                }
+            }
+
+            [Fact]
+            public void ShouldUseTheSpecifiedChannels()
+            {
+                using (var image = new MagickImage(Files.Builtin.Wizard))
+                {
+                    using (var original = image.Clone())
+                    {
+                        image.SelectiveBlur(5.0, 2.0, Quantum.Max / 2, Channels.Blue);
+
+                        Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.029, 0.030);
+                    }
+                }
+            }
         }
     }
 }

@@ -37,20 +37,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_SelectiveBlur()
-        {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                image.SelectiveBlur(5.0, 2.0, Quantum.Max / 2);
-
-                using (var original = new MagickImage(Files.NoisePNG))
-                {
-                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.07775, 0.07779);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_SepiaTone()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
