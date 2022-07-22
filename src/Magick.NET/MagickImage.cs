@@ -4849,12 +4849,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void RandomThreshold(Percentage percentageLow, Percentage percentageHigh, Channels channels)
-        {
-            Throw.IfNegative(nameof(percentageLow), percentageLow);
-            Throw.IfNegative(nameof(percentageHigh), percentageHigh);
-
-            RandomThreshold(PercentageHelper.ToQuantumType(percentageLow), PercentageHelper.ToQuantumType(percentageHigh), channels);
-        }
+            => RandomThreshold(PercentageHelper.ToQuantumType(percentageLow), PercentageHelper.ToQuantumType(percentageHigh), channels);
 
         /// <summary>
         /// Changes the value of individual pixels based on the intensity of each pixel compared to a
