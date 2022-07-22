@@ -16,7 +16,7 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
                 {
                     image.SetColormap(0, MagickColors.Fuchsia);
-                    ColorAssert.Equal(MagickColors.Fuchsia, image.GetColormap(0));
+                    ColorAssert.Equal(MagickColors.Fuchsia, image.GetColormapColor(0));
                 }
             }
 
@@ -35,7 +35,7 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
                 {
                     image.SetColormap(65536, MagickColors.Fuchsia);
-                    Assert.Null(image.GetColormap(65536));
+                    Assert.Null(image.GetColormapColor(65536));
                 }
             }
         }

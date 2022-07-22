@@ -3059,7 +3059,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <returns>The color at colormap position index.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickColor<QuantumType>? GetColormap(int index)
+        public IMagickColor<QuantumType>? GetColormapColor(int index)
             => _nativeInstance.GetColormap(index);
 
         /// <summary>

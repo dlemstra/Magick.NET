@@ -8,15 +8,15 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class TheGetColormapMethod
+        public class TheGetColormapColorMethod
         {
             [Fact]
             public void ShouldReturnNullWhenImageHasNoColormap()
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    Assert.Null(image.GetColormap(0));
-                    Assert.Null(image.GetColormap(1));
+                    Assert.Null(image.GetColormapColor(0));
+                    Assert.Null(image.GetColormapColor(1));
                 }
             }
 
@@ -25,7 +25,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
                 {
-                    ColorAssert.Equal(new MagickColor("#040d14"), image.GetColormap(0));
+                    ColorAssert.Equal(new MagickColor("#040d14"), image.GetColormapColor(0));
                 }
             }
         }

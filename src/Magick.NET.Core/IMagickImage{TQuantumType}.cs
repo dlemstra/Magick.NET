@@ -252,7 +252,7 @@ namespace ImageMagick
         /// <param name="index">The position index.</param>
         /// <returns>The color at colormap position index.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        IMagickColor<TQuantumType>? GetColormap(int index);
+        IMagickColor<TQuantumType>? GetColormapColor(int index);
 
         /// <summary>
         /// Returns a pixel collection that can be used to read or modify the pixels of this image.
