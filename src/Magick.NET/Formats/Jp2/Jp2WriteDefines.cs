@@ -2,22 +2,19 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Jp2"/> image is written.
     /// </summary>
-    public sealed class Jp2WriteDefines : WriteDefinesCreator
+    public sealed class Jp2WriteDefines : IWriteDefines
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Jp2WriteDefines"/> class.
+        /// Gets the format where the defines are for.
         /// </summary>
-        public Jp2WriteDefines()
-          : base(MagickFormat.Jp2)
-        {
-        }
+        public MagickFormat Format
+            => MagickFormat.Jp2;
 
         /// <summary>
         /// Gets or sets the number of resolutions to encode (jp2:number-resolutions).
@@ -43,21 +40,21 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (NumberResolutions.HasValue)
-                    yield return CreateDefine("number-resolutions", NumberResolutions.Value);
+                    yield return new MagickDefine(Format, "number-resolutions", NumberResolutions.Value);
 
                 if (ProgressionOrder.HasValue)
-                    yield return CreateDefine("progression-order", ProgressionOrder.Value);
+                    yield return new MagickDefine(Format, "progression-order", ProgressionOrder.Value);
 
-                var quality = CreateDefine("quality", Quality);
+                var quality = MagickDefine.Create(Format, "quality", Quality);
                 if (quality is not null)
                     yield return quality;
 
-                var rate = CreateDefine("rate", Rate);
+                var rate = MagickDefine.Create(Format, "rate", Rate);
                 if (rate is not null)
                     yield return rate;
             }
