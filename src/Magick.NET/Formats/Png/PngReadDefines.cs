@@ -2,20 +2,18 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Png"/> image is read.
     /// </summary>
-    public sealed class PngReadDefines : ReadDefinesCreator
+    public sealed class PngReadDefines : IReadDefines
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PngReadDefines"/> class.
         /// </summary>
         public PngReadDefines()
-          : base(MagickFormat.Png)
         {
         }
 
@@ -30,6 +28,12 @@ namespace ImageMagick.Formats
         /// when decompressed (png:chuck-malloc-max). 0 means unlimited.
         /// </summary>
         public long? ChunkMallocMax { get; set; }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Png;
 
         /// <summary>
         /// Gets or sets a value indicating whether the PNG decoder and encoder examine any ICC profile
@@ -62,21 +66,21 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (ChunkCacheMax.HasValue)
-                    yield return CreateDefine("chunk-cache-max", ChunkCacheMax.Value);
+                    yield return new MagickDefine(Format, "chunk-cache-max", ChunkCacheMax.Value);
 
                 if (ChunkMallocMax.HasValue)
-                    yield return CreateDefine("chunk-malloc-max", ChunkMallocMax.Value);
+                    yield return new MagickDefine(Format, "chunk-malloc-max", ChunkMallocMax.Value);
 
                 if (IgnoreCrc)
-                    yield return CreateDefine("ignore-crc", IgnoreCrc);
+                    yield return new MagickDefine(Format, "ignore-crc", IgnoreCrc);
 
                 if (PreserveiCCP)
-                    yield return CreateDefine("preserve-iCCP", PreserveiCCP);
+                    yield return new MagickDefine(Format, "preserve-iCCP", PreserveiCCP);
 
                 if (SkipProfiles.HasValue)
                 {
@@ -87,7 +91,7 @@ namespace ImageMagick.Formats
                 }
 
                 if (SwapBytes)
-                    yield return CreateDefine("swap-bytes", SwapBytes);
+                    yield return new MagickDefine(Format, "swap-bytes", SwapBytes);
             }
         }
     }
