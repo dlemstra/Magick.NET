@@ -2,23 +2,14 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Collections.Generic;
-using ImageMagick.Defines;
 
 namespace ImageMagick.Formats
 {
     /// <summary>
     /// Class for defines that are used when a <see cref="MagickFormat.Psd"/> image is read.
     /// </summary>
-    public sealed class PsdReadDefines : ReadDefinesCreator
+    public sealed class PsdReadDefines : IReadDefines
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="PsdReadDefines"/> class.
-        /// </summary>
-        public PsdReadDefines()
-          : base(MagickFormat.Psd)
-        {
-        }
-
         /// <summary>
         /// Gets or sets a value indicating whether alpha unblending should be enabled or disabled (psd:alpha-unblend).
         /// </summary>
@@ -27,6 +18,12 @@ namespace ImageMagick.Formats
             get;
             set;
         }
+
+        /// <summary>
+        /// Gets the format where the defines are for.
+        /// </summary>
+        public MagickFormat Format
+            => MagickFormat.Psd;
 
         /// <summary>
         /// Gets or sets a value indicating whether the opacity mask of a layer should be preserved and add it back to
@@ -51,18 +48,18 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Gets the defines that should be set as a define on an image.
         /// </summary>
-        public override IEnumerable<IDefine> Defines
+        public IEnumerable<IDefine> Defines
         {
             get
             {
                 if (AlphaUnblend.Equals(false))
-                    yield return CreateDefine("alpha-unblend", false);
+                    yield return new MagickDefine(Format, "alpha-unblend", false);
 
                 if (PreserveOpacityMask.HasValue)
-                    yield return CreateDefine("preserve-opacity-mask", PreserveOpacityMask.Value);
+                    yield return new MagickDefine(Format, "preserve-opacity-mask", PreserveOpacityMask.Value);
 
                 if (ReplicateProfile.HasValue)
-                    yield return CreateDefine("replicate-profile", ReplicateProfile.Value);
+                    yield return new MagickDefine(Format, "replicate-profile", ReplicateProfile.Value);
             }
         }
     }
