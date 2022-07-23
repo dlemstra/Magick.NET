@@ -9,7 +9,7 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-        public class TheClipMethod
+        public class TheClipOutsideMethod
         {
             [Fact]
             public void ShouldThrowExceptionWhenPathNameIsNull()
@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
                 {
                     Assert.Throws<ArgumentNullException>("pathName", () =>
                     {
-                        image.Clip(null);
+                        image.ClipOutside(null);
                     });
                 }
             }
@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                 {
                     Assert.Throws<ArgumentException>("pathName", () =>
                     {
-                        image.Clip(string.Empty);
+                        image.ClipOutside(string.Empty);
                     });
                 }
             }
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
                 using (var image = new MagickImage(Files.InvitationTIF))
                 {
                     image.Alpha(AlphaOption.Transparent);
-                    image.Clip("Pad A");
+                    image.ClipOutside("Pad A");
                     image.Alpha(AlphaOption.Opaque);
 
                     using (var mask = image.GetWriteMask())
@@ -55,14 +55,14 @@ namespace Magick.NET.Tests
                             var pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
 
                             Assert.Equal(pixelA, pixelB);
-                            Assert.Equal(0, pixelA.R);
-                            Assert.Equal(0, pixelA.G);
-                            Assert.Equal(0, pixelA.B);
+                            Assert.Equal(Quantum.Max, pixelA.R);
+                            Assert.Equal(Quantum.Max, pixelA.G);
+                            Assert.Equal(Quantum.Max, pixelA.B);
 
                             var pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
-                            Assert.Equal(Quantum.Max, pixelC.R);
-                            Assert.Equal(Quantum.Max, pixelC.G);
-                            Assert.Equal(Quantum.Max, pixelC.B);
+                            Assert.Equal(0, pixelC.R);
+                            Assert.Equal(0, pixelC.G);
+                            Assert.Equal(0, pixelC.B);
                         }
                     }
                 }

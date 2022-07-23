@@ -748,21 +748,39 @@ namespace ImageMagick
 
         /// <summary>
         /// Sets the image clip mask based on any clipping path information if it exists. The clipping
-        /// path can be removed with <see cref="RemoveWriteMask"/>.
+        /// path can be removed with <see cref="RemoveWriteMask"/>. This operating takes effect inside
+        /// the clipping path.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         void Clip();
 
         /// <summary>
         /// Sets the image clip mask based on any clipping path information if it exists. The clipping
-        /// path can be removed with <see cref="RemoveWriteMask"/>.
+        /// path can be removed with <see cref="RemoveWriteMask"/>. This operating takes effect inside
+        /// the clipping path.
         /// </summary>
         /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use
         /// clipping path numbered by name.</param>
-        /// <param name="inside">Specifies if operations take effect inside or outside the clipping
-        /// path.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Clip(string pathName, bool inside);
+        void Clip(string pathName);
+
+        /// <summary>
+        /// Sets the image clip mask based on any clipping path information if it exists. The clipping
+        /// path can be removed with <see cref="RemoveWriteMask"/>. This operating takes effect outside
+        /// the clipping path.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ClipOutside();
+
+        /// <summary>
+        /// Sets the image clip mask based on any clipping path information if it exists. The clipping
+        /// path can be removed with <see cref="RemoveWriteMask"/>. This operating takes effect outside
+        /// the clipping path.
+        /// </summary>
+        /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use
+        /// clipping path numbered by name.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ClipOutside(string pathName);
 
         /// <summary>
         /// Apply a color lookup table (CLUT) to the image.

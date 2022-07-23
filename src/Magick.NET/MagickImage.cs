@@ -1495,26 +1495,50 @@ namespace ImageMagick
 
         /// <summary>
         /// Sets the image clip mask based on any clipping path information if it exists. The clipping
-        /// path can be removed with <see cref="RemoveWriteMask"/>.
+        /// path can be removed with <see cref="RemoveWriteMask"/>. This operating takes effect inside
+        /// the clipping path.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Clip()
-            => Clip("#1", true);
+            => Clip("#1");
 
         /// <summary>
         /// Sets the image clip mask based on any clipping path information if it exists. The clipping
-        /// path can be removed with <see cref="RemoveWriteMask"/>.
+        /// path can be removed with <see cref="RemoveWriteMask"/>. This operating takes effect inside
+        /// the clipping path.
         /// </summary>
         /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use
         /// clipping path numbered by name.</param>
-        /// <param name="inside">Specifies if operations take effect inside or outside the clipping
-        /// path.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Clip(string pathName, bool inside)
+        public void Clip(string pathName)
         {
             Throw.IfNullOrEmpty(nameof(pathName), pathName);
 
-            _nativeInstance.ClipPath(pathName, inside);
+            _nativeInstance.ClipPath(pathName, true);
+        }
+
+        /// <summary>
+        /// Sets the image clip mask based on any clipping path information if it exists. The clipping
+        /// path can be removed with <see cref="RemoveWriteMask"/>. This operating takes effect outside
+        /// the clipping path.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ClipOutside()
+            => ClipOutside("#1");
+
+        /// <summary>
+        /// Sets the image clip mask based on any clipping path information if it exists. The clipping
+        /// path can be removed with <see cref="RemoveWriteMask"/>. This operating takes effect outside
+        /// the clipping path.
+        /// </summary>
+        /// <param name="pathName">Name of clipping path resource. If name is preceded by #, use
+        /// clipping path numbered by name.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ClipOutside(string pathName)
+        {
+            Throw.IfNullOrEmpty(nameof(pathName), pathName);
+
+            _nativeInstance.ClipPath(pathName, false);
         }
 
         /// <summary>
