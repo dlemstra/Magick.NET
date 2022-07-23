@@ -1499,7 +1499,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Clip()
-            => _nativeInstance.Clip();
+            => Clip("#1", true);
 
         /// <summary>
         /// Sets the image clip mask based on any clipping path information if it exists. The clipping

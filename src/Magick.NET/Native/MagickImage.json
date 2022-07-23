@@ -711,10 +711,6 @@
       ]
     },
     {
-      "name": "Clip",
-      "throws": true
-    },
-    {
       "name": "ClipPath",
       "throws": true,
       "arguments": [

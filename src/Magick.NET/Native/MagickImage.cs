@@ -263,8 +263,6 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ClampChannel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clip(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
@@ -830,8 +828,6 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ClampChannel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clip(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
@@ -1396,8 +1392,6 @@ namespace ImageMagick
                 public static extern void MagickImage_Clamp(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ClampChannel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clip(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -4543,29 +4537,6 @@ namespace ImageMagick
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 NativeMethods.X86.MagickImage_ClampChannel(Instance, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Clip()
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Clip(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Clip(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Clip(Instance, out exception);
                 #endif
                 CheckException(exception);
             }
