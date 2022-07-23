@@ -134,7 +134,7 @@ namespace Magick.NET.Tests
                         using (var alpha = image.Clone())
                         {
                             alpha.Alpha(AlphaOption.Extract);
-                            alpha.Shade(130, 30);
+                            alpha.ShadeGrayscale(130, 30);
                             alpha.Composite(image, CompositeOperator.CopyAlpha);
 
                             ColorAssert.Equal(new MagickColor("#7fff7fff7fff0000"), alpha, 0, 0);

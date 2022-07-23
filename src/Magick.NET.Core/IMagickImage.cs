@@ -3137,19 +3137,32 @@ namespace ImageMagick
         /// </summary>
         /// <param name="azimuth">The azimuth of the light source direction.</param>
         /// <param name="elevation">The elevation of the light source direction.</param>
-        /// <param name="colorShading">Specify true to shade the intensity of each pixel.</param>
+        /// <param name="channels">The channel(s) that should be shaded.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Shade(double azimuth, double elevation, bool colorShading);
+        void Shade(double azimuth, double elevation, Channels channels);
 
         /// <summary>
-        /// Shade image using distant light source.
+        /// Shade image using distant light source and make it grayscale.
+        /// </summary>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ShadeGrayscale();
+
+        /// <summary>
+        /// Shade image using distant light source and make it grayscale.
         /// </summary>
         /// <param name="azimuth">The azimuth of the light source direction.</param>
         /// <param name="elevation">The elevation of the light source direction.</param>
-        /// <param name="colorShading">Specify true to shade the intensity of each pixel.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ShadeGrayscale(double azimuth, double elevation);
+
+        /// <summary>
+        /// Shade image using distant light source and make it grayscale.
+        /// </summary>
+        /// <param name="azimuth">The azimuth of the light source direction.</param>
+        /// <param name="elevation">The elevation of the light source direction.</param>
         /// <param name="channels">The channel(s) that should be shaded.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Shade(double azimuth, double elevation, bool colorShading, Channels channels);
+        void ShadeGrayscale(double azimuth, double elevation, Channels channels);
 
         /// <summary>
         /// Simulate an image shadow.

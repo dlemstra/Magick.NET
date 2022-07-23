@@ -35,34 +35,6 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void Test_Shade()
-        {
-            using (var image = new MagickImage())
-            {
-                image.Settings.FontPointsize = 90;
-                image.Read("label:Magick.NET");
-
-                image.Shade();
-
-                ColorAssert.Equal(new MagickColor("#7fff7fff7fff"), image, 64, 48);
-                ColorAssert.Equal(MagickColors.Black, image, 118, 48);
-                ColorAssert.Equal(new MagickColor("#7fff7fff7fff"), image, 148, 48);
-            }
-
-            using (var image = new MagickImage())
-            {
-                image.Settings.FontPointsize = 90;
-                image.Read("label:Magick.NET");
-
-                image.Shade(10, 20, false, Channels.Composite);
-
-                ColorAssert.Equal(new MagickColor("#000000000000578e"), image, 64, 48);
-                ColorAssert.Equal(new MagickColor("#0000000000000000"), image, 118, 48);
-                ColorAssert.Equal(new MagickColor("#578e578e578e578e"), image, 148, 48);
-            }
-        }
-
-        [Fact]
         public void Test_Shadow()
         {
             using (var image = new MagickImage())
