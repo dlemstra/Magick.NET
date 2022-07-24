@@ -12,29 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_SetClippingPath()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                Assert.False(image.HasClippingPath);
-
-                using (var path = new MagickImage(Files.InvitationTIF))
-                {
-                    var clippingPath = path.GetClippingPath();
-
-                    image.SetClippingPath(clippingPath);
-
-                    Assert.True(image.HasClippingPath);
-
-                    image.SetClippingPath(clippingPath, "test");
-
-                    Assert.NotNull(image.GetClippingPath("test"));
-                    Assert.Null(image.GetClippingPath("#2"));
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Shadow()
         {
             using (var image = new MagickImage())
