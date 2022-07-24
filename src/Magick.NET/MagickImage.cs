@@ -664,12 +664,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Gets a value indicating whether the image contains a clipping path.
-        /// </summary>
-        public bool HasClippingPath
-            => !string.IsNullOrEmpty(GetClippingPath());
-
-        /// <summary>
         /// Gets or sets a value indicating whether the image supports transparency (alpha channel).
         /// </summary>
         public bool HasAlpha

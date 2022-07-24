@@ -196,11 +196,6 @@ namespace ImageMagick
         GifDisposeMethod GifDisposeMethod { get; set; }
 
         /// <summary>
-        /// Gets a value indicating whether the image contains a clipping path.
-        /// </summary>
-        bool HasClippingPath { get; }
-
-        /// <summary>
         /// Gets or sets a value indicating whether the image supports transparency (alpha channel).
         /// </summary>
         bool HasAlpha { get; set; }

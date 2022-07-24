@@ -15,7 +15,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    Assert.False(image.HasClippingPath);
+                    Assert.Null(image.GetClippingPath());
 
                     using (var path = new MagickImage(Files.InvitationTIF))
                     {
@@ -23,7 +23,7 @@ namespace Magick.NET.Tests
 
                         image.SetClippingPath(clippingPath);
 
-                        Assert.True(image.HasClippingPath);
+                        Assert.NotNull(image.GetClippingPath());
                     }
                 }
             }
@@ -33,7 +33,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.MagickNETIconPNG))
                 {
-                    Assert.False(image.HasClippingPath);
+                    Assert.Null(image.GetClippingPath());
 
                     using (var path = new MagickImage(Files.InvitationTIF))
                     {
