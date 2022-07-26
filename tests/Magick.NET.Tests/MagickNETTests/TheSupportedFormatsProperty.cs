@@ -28,11 +28,11 @@ namespace Magick.NET.Tests
                 var formatsCount = MagickNET.SupportedFormats.Count();
 
                 if (OperatingSystem.IsWindows)
-                    Assert.Equal(265, formatsCount);
+                    Assert.Equal(267, formatsCount);
                 else if (OperatingSystem.IsLinux)
-                    Assert.Equal(262, formatsCount);
+                    Assert.Equal(264, formatsCount);
                 else
-                    Assert.Equal(261, formatsCount);
+                    Assert.Equal(263, formatsCount);
             }
         }
     }

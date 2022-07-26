@@ -84,6 +84,16 @@ namespace ImageMagick
         B,
 
         /// <summary>
+        /// Raw mosaiced samples.
+        /// </summary>
+        Bayer,
+
+        /// <summary>
+        /// Raw mosaiced and alpha samples.
+        /// </summary>
+        Bayera,
+
+        /// <summary>
         /// Raw blue, green, and red samples.
         /// </summary>
         Bgr,
