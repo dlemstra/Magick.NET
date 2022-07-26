@@ -35,8 +35,8 @@ namespace Magick.NET.Tests
                         ColorAssert.Equal(new MagickColor("gray40"), colorRange, 0, 99);
                         ColorAssert.Equal(new MagickColor("#0000b3"), colorRange, 101, 99);
 #else
-                        ColorAssert.Equal(new MagickColor("#662e662e662e"), colorRange, 0, 99);
-                        ColorAssert.Equal(new MagickColor("#00000000b317"), colorRange, 101, 99);
+                        ColorAssert.Equal(new MagickColor("#664d664d664d"), colorRange, 0, 99);
+                        ColorAssert.Equal(new MagickColor("#00000000b3ef"), colorRange, 101, 99);
 #endif
                     }
                 }
