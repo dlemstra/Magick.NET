@@ -2460,7 +2460,7 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         /// <returns>The bit depth (bits allocated to red/green/blue components) of the specified channel.</returns>
         public int DetermineBitDepth(Channels channels)
-            => _nativeInstance.GetBitDepth(channels);
+            => _nativeInstance.DetermineBitDepth(channels);
 
         /// <summary>
         /// Determines the color type of the image. This method can be used to automatically make the
@@ -3078,7 +3078,7 @@ namespace ImageMagick
         /// <returns>The color at colormap position index.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public IMagickColor<QuantumType>? GetColormapColor(int index)
-            => _nativeInstance.GetColormap(index);
+            => _nativeInstance.GetColormapColor(index);
 
         /// <summary>
         /// Retrieve the color profile from the image.
@@ -5487,7 +5487,7 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(color), color);
 
-            _nativeInstance.SetColormap(index, color);
+            _nativeInstance.SetColormapColor(index, color);
         }
 
         /// <summary>

@@ -1069,6 +1069,17 @@
       "throws": true
     },
     {
+      "name": "DetermineBitDepth",
+      "type": "size_t",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "channels",
+          "type": "Channels"
+        }
+      ]
+    },
+    {
       "name": "DetermineColorType",
       "type": "ColorType",
       "throws": true
@@ -1380,18 +1391,7 @@
       ]
     },
     {
-      "name": "GetBitDepth",
-      "type": "size_t",
-      "throws": true,
-      "arguments": [
-        {
-          "name": "channels",
-          "type": "Channels"
-        }
-      ]
-    },
-    {
-      "name": "GetColormap",
+      "name": "GetColormapColor",
       "type": "MagickColor?",
       "arguments": [
         {
@@ -2382,7 +2382,7 @@
       ]
     },
     {
-      "name": "SetColormap",
+      "name": "SetColormapColor",
       "throws": true,
       "arguments": [
         {
