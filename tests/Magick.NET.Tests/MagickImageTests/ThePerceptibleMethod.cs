@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
                     image.Perceptible(Quantum.Max * 0.4, Channels.Green);
 
                     ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
-                    ColorAssert.Equal(new MagickColor("#666692"), image, 410, 405);
+                    ColorAssert.Equal(new MagickColor("#226692"), image, 410, 405);
                 }
             }
 
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
                     image.Perceptible(Quantum.Max * 0.4, Channels.Green);
 
                     ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
-                    ColorAssert.Equal(new MagickColor("#666692"), image, 410, 405);
+                    ColorAssert.Equal(new MagickColor("#226692"), image, 410, 405);
                 }
             }
         }
