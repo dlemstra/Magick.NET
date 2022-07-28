@@ -12,55 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_SparseColors()
-        {
-            var settings = new MagickReadSettings();
-            settings.Width = 600;
-            settings.Height = 60;
-
-            using (var image = new MagickImage("xc:", settings))
-            {
-                Assert.Throws<ArgumentNullException>("args", () =>
-                {
-                    image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null);
-                });
-
-                var args = new List<SparseColorArg>();
-
-                Assert.Throws<ArgumentException>("args", () =>
-                {
-                    image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, args);
-                });
-
-                using (var pixels = image.GetPixels())
-                {
-                    ColorAssert.Equal(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
-                }
-
-                Assert.Throws<ArgumentNullException>("color", () =>
-                {
-                    args.Add(new SparseColorArg(0, 0, null));
-                });
-
-                args.Add(new SparseColorArg(0, 0, MagickColors.SkyBlue));
-                args.Add(new SparseColorArg(-600, 60, MagickColors.SkyBlue));
-                args.Add(new SparseColorArg(600, 60, MagickColors.Black));
-
-                image.SparseColor(SparseColorMethod.Barycentric, args);
-
-                using (var pixels = image.GetPixels())
-                {
-                    ColorAssert.NotEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
-                }
-
-                Assert.Throws<ArgumentException>("channels", () =>
-                {
-                    image.SparseColor(Channels.Black, SparseColorMethod.Barycentric, args);
-                });
-            }
-        }
-
-        [Fact]
         public void Test_Sketch()
         {
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
