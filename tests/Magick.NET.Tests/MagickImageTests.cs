@@ -12,21 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Sketch()
-        {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                image.Resize(400, 400);
-
-                image.Sketch();
-                image.ColorType = ColorType.Bilevel;
-
-                ColorAssert.Equal(MagickColors.White, image, 63, 100);
-                ColorAssert.Equal(MagickColors.White, image, 150, 175);
-            }
-        }
-
-        [Fact]
         public void Test_Solarize()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
