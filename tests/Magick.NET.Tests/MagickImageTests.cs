@@ -12,19 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Solarize()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Solarize();
-
-                ColorAssert.Equal(MagickColors.Black, image, 125, 125);
-                ColorAssert.Equal(new MagickColor("#007f7f"), image, 122, 143);
-                ColorAssert.Equal(new MagickColor("#2e6935"), image, 435, 240);
-            }
-        }
-
-        [Fact]
         public void Test_Splice()
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
