@@ -12,21 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Splice()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                image.BackgroundColor = MagickColors.Fuchsia;
-                image.Splice(new MagickGeometry(105, 50, 10, 20));
-
-                Assert.Equal(296, image.Width);
-                Assert.Equal(87, image.Height);
-                ColorAssert.Equal(MagickColors.Fuchsia, image, 105, 50);
-                ColorAssert.Equal(new MagickColor("#0000"), image, 115, 70);
-            }
-        }
-
-        [Fact]
         public void Test_Spread()
         {
             using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
