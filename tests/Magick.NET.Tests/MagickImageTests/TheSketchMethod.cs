@@ -43,6 +43,8 @@ namespace Magick.NET.Tests
                         Assert.Equal(0.0, distortion);
                     }
                 }
+
+                MagickNET.ResetRandomSeed();
             }
         }
     }
