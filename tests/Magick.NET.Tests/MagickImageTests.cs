@@ -12,20 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Spread()
-        {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                image.Spread(10);
-
-                using (var original = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.120, 0.123);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Statistic()
         {
             using (var image = new MagickImage(Files.NoisePNG))
