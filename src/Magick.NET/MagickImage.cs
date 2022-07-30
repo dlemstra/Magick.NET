@@ -4853,6 +4853,71 @@ namespace ImageMagick
         /// <summary>
         /// Read single image frame.
         /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(FileInfo file)
+            => ReadAsync(file, CancellationToken.None);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(FileInfo file, CancellationToken cancellationToken)
+            => ReadAsync(file, null, cancellationToken);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(FileInfo file, MagickFormat format)
+            => ReadAsync(file, format, CancellationToken.None);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
+            => ReadAsync(file, new MagickReadSettings { Format = format }, cancellationToken);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
+            => ReadAsync(file, readSettings, CancellationToken.None);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(FileInfo file, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            return ReadAsync(file.FullName, readSettings, cancellationToken);
+        }
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -4914,6 +4979,75 @@ namespace ImageMagick
 
             var bytes = await Bytes.CreateAsync(stream, cancellationToken).ConfigureAwait(false);
             Read(bytes.GetData(), readSettings);
+        }
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(string fileName)
+            => ReadAsync(fileName, CancellationToken.None);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(string fileName, CancellationToken cancellationToken)
+            => ReadAsync(fileName, null, cancellationToken);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(string fileName, MagickFormat format)
+            => ReadAsync(fileName, format, CancellationToken.None);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
+            => ReadAsync(fileName, new MagickReadSettings { Format = format }, cancellationToken);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadAsync(string fileName, IMagickReadSettings<QuantumType>? readSettings)
+            => ReadAsync(fileName, readSettings, CancellationToken.None);
+
+        /// <summary>
+        /// Read single image frame.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="readSettings">The settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task ReadAsync(string fileName, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
+        {
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
+
+            var bytes = await FileHelper.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
+
+            cancellationToken.ThrowIfCancellationRequested();
+            Read(bytes, 0, bytes.Length, readSettings, false, filePath);
         }
 
         /// <summary>
@@ -7188,13 +7322,13 @@ namespace ImageMagick
         private void OnWarning(object sender, WarningEventArgs arguments)
             => _warning?.Invoke(this, arguments);
 
-        private void Read(byte[] data, int offset, int length, IMagickReadSettings<QuantumType>? readSettings, bool ping)
+        private void Read(byte[] data, int offset, int length, IMagickReadSettings<QuantumType>? readSettings, bool ping, string? fileName = null)
         {
             var newReadSettings = CreateReadSettings(readSettings);
             SetSettings(newReadSettings);
 
             _settings.Ping = ping;
-            _settings.FileName = null;
+            _settings.FileName = fileName;
 
             _nativeInstance.ReadBlob(Settings, data, offset, length);
 
