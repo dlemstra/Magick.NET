@@ -12,23 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Stereo()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Flop();
-
-                using (var rightImage = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Stereo(rightImage);
-
-                    ColorAssert.Equal(new MagickColor("#2222ffffffff"), image, 250, 375);
-                    ColorAssert.Equal(new MagickColor("#ffff3e3e9292"), image, 380, 375);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Swirl()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
