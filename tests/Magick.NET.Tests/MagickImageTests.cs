@@ -12,19 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Statistic()
-        {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                image.Statistic(StatisticType.Minimum, 10, 1);
-
-                ColorAssert.Equal(MagickColors.Black, image, 42, 119);
-                ColorAssert.Equal(new MagickColor("#eeeeeeeeeeee"), image, 90, 120);
-                ColorAssert.Equal(new MagickColor("#999999999999"), image, 90, 168);
-            }
-        }
-
-        [Fact]
         public void Test_Stereo()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
