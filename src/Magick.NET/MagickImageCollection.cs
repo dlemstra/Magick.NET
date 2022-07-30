@@ -1697,6 +1697,91 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(FileInfo file)
+            => WriteAsync(file, CancellationToken.None);
+
+        /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(FileInfo file, CancellationToken cancellationToken)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            if (_images.Count == 0)
+                return Task.CompletedTask;
+
+            var formatInfo = MagickFormatInfo.Create(file);
+            return WriteAsyncInternal(file.FullName, formatInfo?.Format, cancellationToken);
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(FileInfo file, IWriteDefines defines)
+            => WriteAsync(file, defines, CancellationToken.None);
+
+        /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(FileInfo file, IWriteDefines defines, CancellationToken cancellationToken)
+        {
+            SetDefines(defines);
+            return WriteAsync(file, defines.Format, cancellationToken);
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(FileInfo file, MagickFormat format)
+            => WriteAsync(file, format, CancellationToken.None);
+
+        /// <summary>
+        /// Writes the images to the specified file. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="file">The file to write the image to.</param>
+        /// <param name="format">The format to use.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
+        {
+            Throw.IfNull(nameof(file), file);
+
+            if (_images.Count == 0)
+                return Task.CompletedTask;
+
+            return WriteAsyncInternal(file.FullName, format, cancellationToken);
+        }
+
+        /// <summary>
         /// Writes the imagse to the specified stream. If the output image's file format does not
         /// allow multi-image files multiple files will be written.
         /// </summary>
@@ -1784,6 +1869,89 @@ namespace ImageMagick
             {
                 await WriteAsync(stream, cancellationToken).ConfigureAwait(false);
             }
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(string fileName)
+            => WriteAsync(fileName, CancellationToken.None);
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(string fileName, CancellationToken cancellationToken)
+        {
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
+
+            return WriteAsync(new FileInfo(filePath), cancellationToken);
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(string fileName, IWriteDefines defines)
+            => WriteAsync(fileName, defines, CancellationToken.None);
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="defines">The defines to set.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(string fileName, IWriteDefines defines, CancellationToken cancellationToken)
+        {
+            SetDefines(defines);
+            return WriteAsync(fileName, defines.Format, cancellationToken);
+        }
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(string fileName, MagickFormat format)
+            => WriteAsync(fileName, format, CancellationToken.None);
+
+        /// <summary>
+        /// Writes the images to the specified file name. If the output image's file format does not
+        /// allow multi-image files multiple files will be written.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task WriteAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
+        {
+            var filePath = FileHelper.CheckForBaseDirectory(fileName);
+            Throw.IfNullOrEmpty(nameof(fileName), filePath);
+
+            if (_images.Count == 0)
+                return Task.CompletedTask;
+
+            return WriteAsyncInternal(filePath, format, cancellationToken);
         }
 
         private static MagickSettings CreateSettings(IMagickReadSettings<QuantumType>? readSettings)
@@ -1903,6 +2071,9 @@ namespace ImageMagick
                 Clear();
         }
 
+        private MagickSettings GetSettings()
+            => MagickImage.GetSettings(_images[0]);
+
         private IMagickImage<QuantumType> Merge(LayerMethod layerMethod)
         {
             ThrowIfEmpty();
@@ -1948,9 +2119,6 @@ namespace ImageMagick
             }
         }
 
-        private MagickSettings GetSettings()
-            => MagickImage.GetSettings(_images[0]);
-
         private void ThrowIfEmpty()
         {
             if (_images.Count == 0)
@@ -1961,6 +2129,33 @@ namespace ImageMagick
         {
             if (_images.Count < count)
                 throw new InvalidOperationException("Operation requires at least " + count + " images.");
+        }
+
+        private async Task WriteAsyncInternal(string fileName, MagickFormat? format, CancellationToken cancellationToken)
+        {
+            if (_images.Count > 1 && format.HasValue && MagickFormatInfo.Create(format.Value)?.IsMultiFrame == false)
+            {
+                var lastDotIndex = fileName.LastIndexOf('.');
+                for (var i = 0; i < _images.Count; i++)
+                {
+                    var newFileName = lastDotIndex == -1 ? fileName + "-" + i : fileName.Substring(0, lastDotIndex) + "-" + i + fileName.Substring(lastDotIndex);
+                    await _images[i].WriteAsync(newFileName, format.Value, cancellationToken).ConfigureAwait(false);
+                }
+            }
+            else
+            {
+                try
+                {
+                    AttachImages();
+
+                    var bytes = format.HasValue ? ToByteArray(format.Value) : ToByteArray();
+                    await FileHelper.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
+                }
+                finally
+                {
+                    DetachImages();
+                }
+            }
         }
     }
 }
