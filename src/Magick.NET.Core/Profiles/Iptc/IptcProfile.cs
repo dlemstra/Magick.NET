@@ -56,7 +56,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the values of this iptc profile.
         /// </summary>
-        public IEnumerable<IIptcValue> Values
+        public IReadOnlyCollection<IIptcValue> Values
         {
             get
             {

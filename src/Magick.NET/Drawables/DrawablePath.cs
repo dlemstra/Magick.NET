@@ -29,7 +29,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the paths to use.
         /// </summary>
-        public IEnumerable<IPath> Paths
+        public IReadOnlyCollection<IPath> Paths
             => _paths;
 
         /// <summary>

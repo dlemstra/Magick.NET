@@ -66,7 +66,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the clipping paths this image contains.
         /// </summary>
-        public IEnumerable<IClipPath> ClipPaths
+        public IReadOnlyCollection<IClipPath> ClipPaths
         {
             get
             {
@@ -79,7 +79,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the values of this 8bim profile.
         /// </summary>
-        public IEnumerable<IEightBimValue> Values
+        public IReadOnlyCollection<IEightBimValue> Values
         {
             get
             {

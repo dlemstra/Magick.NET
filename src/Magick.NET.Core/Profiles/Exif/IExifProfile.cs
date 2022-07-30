@@ -18,7 +18,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the tags that where found but contained an invalid value.
         /// </summary>
-        IEnumerable<ExifTag> InvalidTags { get; }
+        IReadOnlyCollection<ExifTag> InvalidTags { get; }
 
         /// <summary>
         /// Gets the length of the thumbnail data in the <see cref="byte"/> array of the profile.
@@ -33,7 +33,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the values of this exif profile.
         /// </summary>
-        IEnumerable<IExifValue> Values { get; }
+        IReadOnlyCollection<IExifValue> Values { get; }
 
         /// <summary>
         /// Returns the value with the specified tag.

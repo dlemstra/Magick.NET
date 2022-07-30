@@ -2127,7 +2127,7 @@ namespace ImageMagick
         /// <param name="connectivity">How many neighbors to visit, choose from 4 or 8.</param>
         /// <returns>The connected-components of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IEnumerable<IConnectedComponent<QuantumType>> ConnectedComponents(int connectivity)
+        public IReadOnlyCollection<IConnectedComponent<QuantumType>> ConnectedComponents(int connectivity)
         {
             var settings = new ConnectedComponentsSettings
             {
@@ -2142,7 +2142,7 @@ namespace ImageMagick
         /// <param name="settings">The settings for this operation.</param>
         /// <returns>The connected-components of the image.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IEnumerable<IConnectedComponent<QuantumType>> ConnectedComponents(IConnectedComponentsSettings settings)
+        public IReadOnlyCollection<IConnectedComponent<QuantumType>> ConnectedComponents(IConnectedComponentsSettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
 
@@ -2364,7 +2364,7 @@ namespace ImageMagick
         /// <param name="width">The width of the tile.</param>
         /// <param name="height">The height of the tile.</param>
         /// <returns>New title of the current image.</returns>
-        public IEnumerable<IMagickImage<QuantumType>> CropToTiles(int width, int height)
+        public IReadOnlyCollection<IMagickImage<QuantumType>> CropToTiles(int width, int height)
             => CropToTiles(new MagickGeometry(width, height));
 
         /// <summary>
@@ -2372,7 +2372,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="geometry">The size of the tile.</param>
         /// <returns>New title of the current image.</returns>
-        public IEnumerable<IMagickImage<QuantumType>> CropToTiles(IMagickGeometry geometry)
+        public IReadOnlyCollection<IMagickImage<QuantumType>> CropToTiles(IMagickGeometry geometry)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
@@ -5624,7 +5624,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>The channels from the image as grayscale images.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IEnumerable<IMagickImage<QuantumType>> Separate()
+        public IReadOnlyCollection<IMagickImage<QuantumType>> Separate()
             => Separate(ImageMagick.Channels.Default);
 
         /// <summary>
@@ -5633,7 +5633,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to separates.</param>
         /// <returns>The channels from the image as grayscale images.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IEnumerable<IMagickImage<QuantumType>> Separate(Channels channels)
+        public IReadOnlyCollection<IMagickImage<QuantumType>> Separate(Channels channels)
         {
             var images = _nativeInstance.Separate(channels);
             return CreateList(images);
@@ -7258,7 +7258,7 @@ namespace ImageMagick
             return new MagickErrorInfo(image._nativeInstance.MeanErrorPerPixel, image._nativeInstance.NormalizedMeanError, image._nativeInstance.NormalizedMaximumError);
         }
 
-        internal static IEnumerable<IMagickImage<QuantumType>> CreateList(IntPtr images, MagickSettings settings)
+        internal static IReadOnlyCollection<IMagickImage<QuantumType>> CreateList(IntPtr images, MagickSettings settings)
         {
             var result = new Collection<IMagickImage<QuantumType>>();
 
@@ -7356,7 +7356,7 @@ namespace ImageMagick
             return new PointD(x, y);
         }
 
-        private IEnumerable<IMagickImage<QuantumType>> CreateList(IntPtr images)
+        private IReadOnlyCollection<IMagickImage<QuantumType>> CreateList(IntPtr images)
             => CreateList(images, _settings.Clone());
 
         private MagickReadSettings CreateReadSettings(IMagickReadSettings<QuantumType>? readSettings)

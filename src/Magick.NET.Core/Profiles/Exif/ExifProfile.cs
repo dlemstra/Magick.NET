@@ -59,7 +59,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the tags that where found but contained an invalid value.
         /// </summary>
-        public IEnumerable<ExifTag> InvalidTags
+        public IReadOnlyCollection<ExifTag> InvalidTags
         {
             get
             {
@@ -95,7 +95,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the values of this exif profile.
         /// </summary>
-        public IEnumerable<IExifValue> Values
+        public IReadOnlyCollection<IExifValue> Values
         {
             get
             {

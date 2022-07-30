@@ -74,13 +74,13 @@ namespace ImageMagick
         /// <summary>
         /// Gets the information about the supported formats.
         /// </summary>
-        public static IEnumerable<IMagickFormatInfo> SupportedFormats
+        public static IReadOnlyCollection<IMagickFormatInfo> SupportedFormats
             => MagickFormatInfo.All;
 
         /// <summary>
         /// Gets the font families that are known by ImageMagick.
         /// </summary>
-        public static IEnumerable<string> FontFamilies
+        public static IReadOnlyCollection<string> FontFamilies
         {
             get
             {
@@ -113,7 +113,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the font names that are known by ImageMagick.
         /// </summary>
-        public static IEnumerable<string> FontNames
+        public static IReadOnlyCollection<string> FontNames
         {
             get
             {
@@ -177,27 +177,19 @@ namespace ImageMagick
         /// <summary>
         /// Gets the information about the supported formats.
         /// </summary>
-        IEnumerable<IMagickFormatInfo> IMagickNET.SupportedFormats
-        {
-            get
-            {
-                foreach (var format in SupportedFormats)
-                {
-                    yield return format;
-                }
-            }
-        }
+        IReadOnlyCollection<IMagickFormatInfo> IMagickNET.SupportedFormats
+            => SupportedFormats;
 
         /// <summary>
         /// Gets the font families that are known by ImageMagick.
         /// </summary>
-        IEnumerable<string> IMagickNET.FontFamilies
+        IReadOnlyCollection<string> IMagickNET.FontFamilies
             => FontFamilies;
 
         /// <summary>
         /// Gets the font names that are known by ImageMagick.
         /// </summary>
-        IEnumerable<string> IMagickNET.FontNames
+        IReadOnlyCollection<string> IMagickNET.FontNames
             => FontNames;
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace ImageMagick
 
         protected List<TCoordinateType> Coordinates { get; }
 
-        public IList<TCoordinateType> ToList()
+        public List<TCoordinateType> ToList()
             => Coordinates;
 
         private static List<TCoordinateType> CheckCoordinates(List<TCoordinateType> coordinates, int minCount)

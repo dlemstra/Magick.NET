@@ -32,7 +32,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the channels.
         /// </summary>
-        public IEnumerable<PixelChannel> Channels
+        public IReadOnlyCollection<PixelChannel> Channels
             => _channels.Keys;
 
         /// <summary>

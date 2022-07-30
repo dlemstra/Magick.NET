@@ -25,7 +25,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the exceptions that are related to this exception.
         /// </summary>
-        public IEnumerable<MagickException> RelatedExceptions
+        public IReadOnlyCollection<MagickException> RelatedExceptions
         {
             get
             {

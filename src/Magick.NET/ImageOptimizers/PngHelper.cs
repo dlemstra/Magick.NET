@@ -110,7 +110,7 @@ namespace ImageMagick.ImageOptimizers
                 image.HasAlpha = false;
         }
 
-        private IEnumerable<int> GetQualityList()
+        private IReadOnlyCollection<int> GetQualityList()
         {
             if (_optimalCompression)
                 return new int[] { 91, 94, 95, 97 };

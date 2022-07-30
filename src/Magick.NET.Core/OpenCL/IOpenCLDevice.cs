@@ -29,7 +29,7 @@ namespace ImageMagick
         /// Gets all the kernel profile records for this devices.
         /// </summary>
         /// <returns>A <see cref="IEnumerable{OpenCLKernelProfileRecord}"/>.</returns>
-        IEnumerable<IOpenCLKernelProfileRecord> KernelProfileRecords { get; }
+        IReadOnlyCollection<IOpenCLKernelProfileRecord> KernelProfileRecords { get; }
 
         /// <summary>
         /// Gets the name of the device.

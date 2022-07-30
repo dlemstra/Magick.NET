@@ -15,7 +15,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the values of this iptc profile.
         /// </summary>
-        IEnumerable<IIptcValue> Values { get; }
+        IReadOnlyCollection<IIptcValue> Values { get; }
 
         /// <summary>
         /// Returns the first occurrence of a iptc value with the specified tag.

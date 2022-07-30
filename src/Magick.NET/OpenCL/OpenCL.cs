@@ -34,7 +34,7 @@ namespace ImageMagick
         /// Gets all the OpenCL devices.
         /// </summary>
         /// <returns>A <see cref="IOpenCLDevice"/> iteration.</returns>
-        public static IEnumerable<IOpenCLDevice> Devices
+        public static IReadOnlyCollection<IOpenCLDevice> Devices
         {
             get
             {
@@ -69,7 +69,7 @@ namespace ImageMagick
         /// Gets all the OpenCL devices.
         /// </summary>
         /// <returns>A <see cref="IOpenCLDevice"/> iteration.</returns>
-        IEnumerable<IOpenCLDevice> IOpenCL.Devices
+        IReadOnlyCollection<IOpenCLDevice> IOpenCL.Devices
             => Devices;
 
         /// <summary>

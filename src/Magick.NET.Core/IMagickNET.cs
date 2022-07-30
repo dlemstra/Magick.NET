@@ -31,17 +31,17 @@ namespace ImageMagick
         /// <summary>
         /// Gets the information about the supported formats.
         /// </summary>
-        IEnumerable<IMagickFormatInfo> SupportedFormats { get; }
+        IReadOnlyCollection<IMagickFormatInfo> SupportedFormats { get; }
 
         /// <summary>
         /// Gets the font families that are known by ImageMagick.
         /// </summary>
-        IEnumerable<string> FontFamilies { get; }
+        IReadOnlyCollection<string> FontFamilies { get; }
 
         /// <summary>
         /// Gets the font names that are known by ImageMagick.
         /// </summary>
-        IEnumerable<string> FontNames { get; }
+        IReadOnlyCollection<string> FontNames { get; }
 
         /// <summary>
         /// Gets the version of ImageMagick.

@@ -13,11 +13,11 @@ namespace ImageMagick
         /// <summary>
         /// Gets the clipping paths this image contains.
         /// </summary>
-        IEnumerable<IClipPath> ClipPaths { get; }
+        IReadOnlyCollection<IClipPath> ClipPaths { get; }
 
         /// <summary>
         /// Gets the values of this 8bim profile.
         /// </summary>
-        IEnumerable<IEightBimValue> Values { get; }
+        IReadOnlyCollection<IEightBimValue> Values { get; }
     }
 }

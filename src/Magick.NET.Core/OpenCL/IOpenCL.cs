@@ -19,7 +19,7 @@ namespace ImageMagick
         /// Gets all the OpenCL devices.
         /// </summary>
         /// <returns>A <see cref="IOpenCLDevice"/> iteration.</returns>
-        IEnumerable<IOpenCLDevice> Devices { get; }
+        IReadOnlyCollection<IOpenCLDevice> Devices { get; }
 
         /// <summary>
         /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.

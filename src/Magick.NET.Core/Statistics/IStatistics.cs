@@ -14,7 +14,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the channels.
         /// </summary>
-        IEnumerable<PixelChannel> Channels { get; }
+        IReadOnlyCollection<PixelChannel> Channels { get; }
 
         /// <summary>
         /// Returns the statistics for the all the channels.

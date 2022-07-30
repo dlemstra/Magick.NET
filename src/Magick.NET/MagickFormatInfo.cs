@@ -64,7 +64,7 @@ namespace ImageMagick
         /// </summary>
         public MagickFormat ModuleFormat { get; private set; }
 
-        internal static IEnumerable<IMagickFormatInfo> All
+        internal static IReadOnlyCollection<IMagickFormatInfo> All
             => _all.Values;
 
         /// <summary>

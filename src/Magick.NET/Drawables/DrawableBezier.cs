@@ -33,7 +33,7 @@ namespace ImageMagick
         /// <summary>
         /// Gets the coordinates.
         /// </summary>
-        public IEnumerable<PointD> Coordinates
+        public IReadOnlyCollection<PointD> Coordinates
             => _coordinates.ToList();
 
         /// <summary>
