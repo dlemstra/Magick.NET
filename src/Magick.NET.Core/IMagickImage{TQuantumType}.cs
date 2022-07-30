@@ -770,6 +770,25 @@ namespace ImageMagick
         /// <summary>
         /// Read single image frame from pixel data.
         /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<TQuantumType>? settings);
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="file">The file to read the image from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<TQuantumType>? settings, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
@@ -785,6 +804,25 @@ namespace ImageMagick
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         Task ReadPixelsAsync(Stream stream, IPixelReadSettings<TQuantumType>? settings, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadPixelsAsync(string fileName, IPixelReadSettings<TQuantumType>? settings);
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadPixelsAsync(string fileName, IPixelReadSettings<TQuantumType>? settings, CancellationToken cancellationToken);
 
         /// <summary>
         /// Separates the channels from the image and returns it as grayscale images.

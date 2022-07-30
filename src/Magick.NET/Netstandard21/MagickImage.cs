@@ -5,9 +5,6 @@
 
 using System;
 using System.Buffers;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -241,60 +238,6 @@ namespace ImageMagick
             _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0);
         }
 #endif
-
-        /// <summary>
-        /// Read single image frame from pixel data.
-        /// </summary>
-        /// <param name="file">The file to read the image from.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<QuantumType>? settings)
-            => ReadPixelsAsync(file, settings, CancellationToken.None);
-
-        /// <summary>
-        /// Read single image frame from pixel data.
-        /// </summary>
-        /// <param name="file">The file to read the image from.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<QuantumType>? settings, CancellationToken cancellationToken)
-        {
-            Throw.IfNull(nameof(file), file);
-
-            return ReadPixelsAsync(file.FullName, settings, cancellationToken);
-        }
-
-        /// <summary>
-        /// Read single image frame from pixel data.
-        /// </summary>
-        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Task ReadPixelsAsync(string fileName, IPixelReadSettings<QuantumType>? settings)
-            => ReadPixelsAsync(fileName, settings, CancellationToken.None);
-
-        /// <summary>
-        /// Read single image frame from pixel data.
-        /// </summary>
-        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-        /// <param name="settings">The pixel settings to use when reading the image.</param>
-        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task ReadPixelsAsync(string fileName, IPixelReadSettings<QuantumType>? settings, CancellationToken cancellationToken)
-        {
-            var filePath = FileHelper.CheckForBaseDirectory(fileName);
-            Throw.IfNullOrEmpty(nameof(fileName), filePath);
-
-            var data = await File.ReadAllBytesAsync(filePath, cancellationToken).ConfigureAwait(false);
-
-            cancellationToken.ThrowIfCancellationRequested();
-            ReadPixels(data, 0, data.Length, settings);
-        }
 
         /// <summary>
         /// Writes the image to the specified file.
