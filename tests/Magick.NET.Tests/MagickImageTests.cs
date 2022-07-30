@@ -12,23 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Swirl()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Alpha(AlphaOption.Deactivate);
-
-                ColorAssert.Equal(MagickColors.Red, image, 287, 74);
-                ColorAssert.NotEqual(MagickColors.White, image, 363, 333);
-
-                image.Swirl(60);
-
-                ColorAssert.NotEqual(MagickColors.Red, image, 287, 74);
-                ColorAssert.Equal(MagickColors.White, image, 363, 333);
-            }
-        }
-
-        [Fact]
         public void Test_SubImageSearch()
         {
             using (var images = new MagickImageCollection())
