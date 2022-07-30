@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>netstandard21;netstandard20;net20</TargetFrameworks>
+    <TargetFrameworks>netstandard21;netstandard20</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>11.3.0</AssemblyVersion>
     <FileVersion>11.3.0</FileVersion>
@@ -14,18 +14,11 @@
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="All" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net20'">
-    <Compile Include="../Shared/Net20/EnumHelper.cs" Link="Net20/Helpers/EnumHelper.cs" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(TargetFramework)' != 'net20'">
-    <Compile Include="../Shared/Netstandard20/EnumHelper.cs" Link="Netstandard20/Helpers/EnumHelper.cs" />
-  </ItemGroup>
-
   <ItemGroup>
     <Compile Include="../Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
     <Compile Include="../Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
     <Compile Include="../Shared/MemberNotNullAttribute.cs" Link="Helpers/MemberNotNullAttribute.cs" />
+    <Compile Include="../Shared/Netstandard20/EnumHelper.cs" Link="Netstandard20/Helpers/EnumHelper.cs" />
     <Compile Include="../Shared/NotNullAttribute.cs" Link="Helpers/NotNullAttribute.cs" />
     <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
     <Compile Include="../Shared/TypeHelper.cs" Link="Helpers/TypeHelper.cs" />
