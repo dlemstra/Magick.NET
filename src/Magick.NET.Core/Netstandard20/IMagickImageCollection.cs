@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-#if NETSTANDARD
-
 using System;
 using System.IO;
 using System.Threading;
@@ -109,5 +107,3 @@ namespace ImageMagick
         Task WriteAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken);
     }
 }
-
-#endif

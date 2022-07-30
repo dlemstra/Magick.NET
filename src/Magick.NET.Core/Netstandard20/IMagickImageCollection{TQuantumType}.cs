@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-#if NETSTANDARD
-
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -34,5 +32,3 @@ namespace ImageMagick
         Task ReadAsync(Stream stream, IMagickReadSettings<TQuantumType>? readSettings, CancellationToken cancellationToken);
     }
 }
-
-#endif

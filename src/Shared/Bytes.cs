@@ -111,7 +111,6 @@ namespace ImageMagick
             if (!IsSupportedLength(memStream.Length))
                 return null;
 
-#if NETSTANDARD
             if (!memStream.TryGetBuffer(out var buffer))
                 return null;
 
@@ -120,16 +119,6 @@ namespace ImageMagick
                 length = (int)memStream.Length;
                 return buffer.Array;
             }
-#else
-            try
-            {
-                length = (int)memStream.Length;
-                return memStream.GetBuffer();
-            }
-            catch (UnauthorizedAccessException)
-            {
-            }
-#endif
 
             return null;
         }
