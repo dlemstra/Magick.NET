@@ -75,10 +75,6 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit,
     $xml.package.metadata.id = $name
     $xml.package.metadata.title = $name
 
-    if (($platform -eq "arm64") -or ($platform -eq "AnyCPU")) {
-        removetargetFramework $xml ".NETFramework2.0"
-    }
-
     addMagickNetLibraries $xml $quantumName $platform
     addNativeLibraries $xml $quantumName $platform
 
