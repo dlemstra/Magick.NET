@@ -93,12 +93,7 @@ namespace ImageMagick.Formats
         private static long ToUnixTimeSeconds(DateTime value)
         {
             var dateTimeOffset = (DateTimeOffset)value.ToUniversalTime();
-#if NET20
-            var epoch = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            return (long)(dateTimeOffset - epoch).TotalSeconds;
-#else
             return dateTimeOffset.ToUnixTimeSeconds();
-#endif
         }
     }
 }
