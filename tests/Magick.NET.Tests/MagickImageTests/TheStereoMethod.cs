@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
                 {
                     Assert.Throws<ArgumentNullException>("rightImage", () =>
                     {
-                        image.Stereo( null);
+                        image.Stereo(null);
                     });
                 }
             }
