@@ -12,21 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Tile()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var checkerboard = new MagickImage(Files.Patterns.Checkerboard))
-                {
-                    image.Opaque(MagickColors.White, MagickColors.Transparent);
-                    image.Tile(checkerboard, CompositeOperator.DstOver);
-
-                    ColorAssert.Equal(new MagickColor("#66"), image, 578, 260);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Tint()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
