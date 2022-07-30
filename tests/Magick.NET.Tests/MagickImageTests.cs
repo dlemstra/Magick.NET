@@ -12,31 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_SubImageSearch()
-        {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage(MagickColors.Green, 2, 2));
-                images.Add(new MagickImage(MagickColors.Red, 2, 2));
-
-                using (var combined = images.AppendHorizontally())
-                {
-                    using (var searchResult = combined.SubImageSearch(new MagickImage(MagickColors.Red, 1, 1), ErrorMetric.RootMeanSquared))
-                    {
-                        Assert.NotNull(searchResult);
-                        Assert.NotNull(searchResult.SimilarityImage);
-                        Assert.NotNull(searchResult.BestMatch);
-                        Assert.Equal(0.0, searchResult.SimilarityMetric);
-                        Assert.Equal(2, searchResult.BestMatch.X);
-                        Assert.Equal(0, searchResult.BestMatch.Y);
-                        Assert.Equal(1, searchResult.BestMatch.Width);
-                        Assert.Equal(1, searchResult.BestMatch.Height);
-                    }
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Texture()
         {
             using (var image = new MagickImage(Files.MagickNETIconPNG))
