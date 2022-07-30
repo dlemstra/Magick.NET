@@ -4,11 +4,8 @@
 using System;
 using System.IO;
 using System.Xml;
-using System.Xml.XPath;
-
-#if !NET20
 using System.Xml.Linq;
-#endif
+using System.Xml.XPath;
 
 namespace ImageMagick
 {
@@ -46,7 +43,6 @@ namespace ImageMagick
             }
         }
 
-#if !NET20
         /// <summary>
         /// Initializes a new instance of the <see cref="XmpProfile"/> class.
         /// </summary>
@@ -66,7 +62,6 @@ namespace ImageMagick
                 }
             }
         }
-#endif
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmpProfile"/> class.
@@ -94,7 +89,6 @@ namespace ImageMagick
         public static XmpProfile FromIXPathNavigable(IXPathNavigable document)
             => new XmpProfile(document);
 
-#if !NET20
         /// <summary>
         /// Creates an instance from the specified IXPathNavigable.
         /// </summary>
@@ -102,7 +96,6 @@ namespace ImageMagick
         /// <returns>A <see cref="XmpProfile"/>.</returns>
         public static XmpProfile FromXDocument(XDocument document)
             => new XmpProfile(document);
-#endif
 
         /// <summary>
         /// Creates a XmlReader that can be used to read the data of the profile.
@@ -135,7 +128,6 @@ namespace ImageMagick
             }
         }
 
-#if !NET20
         /// <summary>
         /// Converts this instance to a XDocument.
         /// </summary>
@@ -147,7 +139,6 @@ namespace ImageMagick
                 return XDocument.Load(reader);
             }
         }
-#endif
 
         private static byte[] CheckTrailingNULL(byte[] data)
         {

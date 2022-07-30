@@ -2,11 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Xml;
-using System.Xml.XPath;
-
-#if !NET20
 using System.Xml.Linq;
-#endif
+using System.Xml.XPath;
 
 namespace ImageMagick
 {
@@ -27,12 +24,10 @@ namespace ImageMagick
         /// <returns>A <see cref="IXPathNavigable"/>.</returns>
         IXPathNavigable ToIXPathNavigable();
 
-#if !NET20
         /// <summary>
         /// Converts this instance to a XDocument.
         /// </summary>
         /// <returns>A <see cref="XDocument"/>.</returns>
         XDocument ToXDocument();
-#endif
     }
 }
