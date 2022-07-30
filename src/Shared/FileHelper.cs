@@ -3,6 +3,8 @@
 
 using System;
 using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ImageMagick
 {
@@ -27,6 +29,20 @@ namespace ImageMagick
             path = Path.GetFullPath(path);
             Throw.IfFalse(nameof(path), Directory.Exists(path), $"Unable to find directory: {path}");
             return path;
+        }
+
+        public static async Task<byte[]> ReadAllBytesAsync(string fileName, CancellationToken cancellationToken)
+        {
+#if NETSTANDARD2_1
+            return await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
+#else
+            using (var fileStream = File.Open(fileName, FileMode.Open))
+            {
+                var bytes = new byte[fileStream.Length];
+                await fileStream.ReadAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
+                return bytes;
+            }
+#endif
         }
     }
 }

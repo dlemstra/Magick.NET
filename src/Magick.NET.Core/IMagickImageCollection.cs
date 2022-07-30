@@ -238,6 +238,42 @@ namespace ImageMagick
         /// <summary>
         /// Read all image frames.
         /// </summary>
+        /// <param name="file">The file to read the frames from.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadAsync(FileInfo file);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="file">The file to read the frames from.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadAsync(FileInfo file, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="file">The file to read the frames from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadAsync(FileInfo file, MagickFormat format);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="file">The file to read the frames from.</param>
+        /// <param name="format">The format to use.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
         /// <param name="stream">The stream to read the image data from.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -270,6 +306,42 @@ namespace ImageMagick
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         Task ReadAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadAsync(string fileName);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadAsync(string fileName, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadAsync(string fileName, MagickFormat format);
+
+        /// <summary>
+        /// Read all image frames.
+        /// </summary>
+        /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+        /// <param name="format">The format to use.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        Task ReadAsync(string fileName, MagickFormat format, CancellationToken cancellationToken);
 
         /// <summary>
         /// Resets the page property of every image in the collection.
