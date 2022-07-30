@@ -21,8 +21,6 @@ function createMagickNetLibraryNuGetPackage($library, $version, $commit, $pfxPas
     } else {
         if ($library -eq "Magick.NET.SystemDrawing") {
             addLibrary $xml $library "" "AnyCPU" "net462"
-        } else {
-            addLibrary $xml $library "" "AnyCPU" "net20"
         }
         addLibrary $xml $library "" "AnyCPU" "netstandard20"
         addLibrary $xml $library "" "AnyCPU" "netstandard21"
