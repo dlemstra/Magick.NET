@@ -71,9 +71,9 @@
   <ItemGroup>
     <Compile Include="../Magick.Native/TrademarkAttribute.cs" Link="TrademarkAttribute.cs" />
     <Compile Include="../Shared/Bytes.cs" Link="Helpers/Bytes.cs" />
+    <Compile Include="../Shared/EnumHelper.cs" Link="Helpers/EnumHelper.cs" />
     <Compile Include="../Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
     <Compile Include="../Shared/MemberNotNullAttribute.cs" Link="Helpers/MemberNotNullAttribute.cs" />
-    <Compile Include="../Shared/Netstandard20/EnumHelper.cs" Link="Helpers/EnumHelper.cs" />
     <Compile Include="../Shared/NotNullAttribute.cs" Link="Helpers/NotNullAttribute.cs" />
     <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
     <Compile Include="../Shared/TypeHelper.cs" Link="Helpers/TypeHelper.cs" />
