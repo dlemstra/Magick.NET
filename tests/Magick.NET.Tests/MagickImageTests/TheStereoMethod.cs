@@ -12,7 +12,7 @@ namespace Magick.NET.Tests
         public class TheStereoMethod
         {
             [Fact]
-            public void ShouldThrowExceptionWhenArgsIsNull()
+            public void ShouldThrowExceptionWhenRightImageIsNull()
             {
                 using (var image = new MagickImage())
                 {
