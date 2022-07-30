@@ -9,6 +9,12 @@ namespace ImageMagick
 {
     internal static partial class XmlHelper
     {
+        public static XmlDocument CreateDocument()
+            => new XmlDocument
+            {
+                XmlResolver = null,
+            };
+
         public static XmlElement CreateElement(XmlNode node, string name)
         {
             var doc = node.GetType() == typeof(XmlDocument) ? (XmlDocument)node : node.OwnerDocument;
@@ -16,6 +22,13 @@ namespace ImageMagick
             node.AppendChild(element);
             return element;
         }
+
+        public static XmlReaderSettings CreateReaderSettings()
+            => new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Ignore,
+                XmlResolver = null,
+            };
 
         public static void SetAttribute<TType>(XmlElement element, string name, TType value)
         {
