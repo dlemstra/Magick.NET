@@ -5045,6 +5045,32 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public Task ReadPixelsAsync(Stream stream, IPixelReadSettings<QuantumType>? settings)
+            => ReadPixelsAsync(stream, settings, CancellationToken.None);
+
+        /// <summary>
+        /// Read single image frame from pixel data.
+        /// </summary>
+        /// <param name="stream">The stream to read the image data from.</param>
+        /// <param name="settings">The pixel settings to use when reading the image.</param>
+        /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public async Task ReadPixelsAsync(Stream stream, IPixelReadSettings<QuantumType>? settings, CancellationToken cancellationToken)
+        {
+            Throw.IfNullOrEmpty(nameof(stream), stream);
+
+            var bytes = await Bytes.CreateAsync(stream, cancellationToken).ConfigureAwait(false);
+            ReadPixels(bytes.GetData(), 0, bytes.Length, settings);
+        }
+
+        /// <summary>
         /// Reduce noise in image using a noise peak elimination filter.
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
