@@ -12,22 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Texture()
-        {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                using (var canvas = new MagickImage(MagickColors.Fuchsia, 300, 300))
-                {
-                    canvas.Texture(image);
-
-                    ColorAssert.Equal(MagickColors.Fuchsia, canvas, 72, 68);
-                    ColorAssert.Equal(new MagickColor("#a8a8dfdff8f8"), canvas, 299, 48);
-                    ColorAssert.Equal(new MagickColor("#a8a8dfdff8f8"), canvas, 160, 299);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Tile()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
