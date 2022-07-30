@@ -334,12 +334,8 @@ namespace ImageMagick
         /// <param name="path">The path of the directory that contains the native library.</param>
         public static void SetNativeLibraryDirectory(string path)
         {
-#if NETSTANDARD
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
-#else
-            NativeWindowsMethods.SetDllDirectory(FileHelper.GetFullPath(path));
-#endif
         }
 
         /// <summary>

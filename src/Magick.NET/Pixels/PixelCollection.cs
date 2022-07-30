@@ -25,10 +25,6 @@ namespace ImageMagick
             _nativeInstance = new NativePixelCollection(image);
         }
 
-#if !NETSTANDARD
-        private delegate TResult Func<T, TResult>(T arg);
-#endif
-
         public int Channels
             => Image.ChannelCount;
 

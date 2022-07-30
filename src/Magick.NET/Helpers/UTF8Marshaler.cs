@@ -39,11 +39,7 @@ namespace ImageMagick
             Marshal.Copy(strbuf, 0, buffer, strbuf.Length);
 
             // write the terminating null
-#if !NETSTANDARD
-            Marshal.WriteByte(new IntPtr(buffer.ToInt64() + strbuf.Length), 0);
-#else
             Marshal.WriteByte(buffer + strbuf.Length, 0);
-#endif
             return buffer;
         }
 

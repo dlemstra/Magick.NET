@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-#if NETSTANDARD
-
 using System.Runtime.InteropServices;
 
 namespace ImageMagick
@@ -18,5 +16,3 @@ namespace ImageMagick
         public static bool IsArm64 { get; } = !IsMacOS && RuntimeInformation.ProcessArchitecture == Architecture.Arm64;
     }
 }
-
-#endif
