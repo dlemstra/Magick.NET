@@ -170,7 +170,7 @@ namespace ImageMagick.ImageOptimizers
                         isCompressed = true;
                         stream.Position = startPosition;
                         bestStream.Position = 0;
-                        StreamHelper.Copy(bestStream, stream);
+                        bestStream.CopyTo(stream);
                         stream.SetLength(startPosition + bestStream.Length);
                     }
 
