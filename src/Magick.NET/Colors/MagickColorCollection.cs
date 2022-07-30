@@ -24,7 +24,7 @@ namespace ImageMagick
                 NativeMagickColorCollection.DisposeList(list);
         }
 
-        public static Dictionary<IMagickColor<QuantumType>, int> ToDictionary(IntPtr list, int length)
+        public static IReadOnlyDictionary<IMagickColor<QuantumType>, int> ToDictionary(IntPtr list, int length)
         {
             var colors = new Dictionary<IMagickColor<QuantumType>, int>();
 

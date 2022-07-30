@@ -3258,7 +3258,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A color histogram.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Dictionary<IMagickColor<QuantumType>, int> Histogram()
+        public IReadOnlyDictionary<IMagickColor<QuantumType>, int> Histogram()
         {
             var histogram = IntPtr.Zero;
             try

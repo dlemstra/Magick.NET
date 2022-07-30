@@ -290,7 +290,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A color histogram.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        Dictionary<IMagickColor<TQuantumType>, int> Histogram();
+        IReadOnlyDictionary<IMagickColor<TQuantumType>, int> Histogram();
 
         /// <summary>
         /// Returns the sum of values (pixel values) in the image.
