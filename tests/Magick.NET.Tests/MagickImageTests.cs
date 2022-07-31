@@ -12,22 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Threshold()
-        {
-        }
-
-        [Fact]
-        public void Test_Thumbnail()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                image.Thumbnail(100, 100);
-                Assert.Equal(100, image.Width);
-                Assert.Equal(23, image.Height);
-            }
-        }
-
-        [Fact]
         public void Test_ToByteArray()
         {
             using (var image = new MagickImage(Files.SnakewarePNG))
