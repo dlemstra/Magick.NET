@@ -944,7 +944,7 @@ namespace ImageMagick
         /// <param name="opacity">An opacity value used for tinting.</param>
         /// <param name="color">A color value used for tinting.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Tint(string opacity, IMagickColor<TQuantumType> color);
+        void Tint(IMagickGeometry opacity, IMagickColor<TQuantumType> color);
 
         /// <summary>
         /// Add alpha channel to image, setting pixels matching color to transparent.

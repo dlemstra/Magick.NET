@@ -3402,15 +3402,6 @@ namespace ImageMagick
         void Tile(IMagickImage image, CompositeOperator compose, string? args);
 
         /// <summary>
-        /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black
-        /// and white and at its maximum for the midtones. The vector weighting function is
-        /// f(x)=(1-(4.0*((x-0.5)*(x-0.5)))).
-        /// </summary>
-        /// <param name="opacity">A color value used for tinting.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void Tint(string opacity);
-
-        /// <summary>
         /// Converts this instance to a base64 <see cref="string"/>.
         /// </summary>
         /// <returns>A base64 <see cref="string"/>.</returns>

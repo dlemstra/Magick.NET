@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
                 {
                     Assert.Throws<ArgumentNullException>("color", () =>
                     {
-                        image.Tint("2x2", null);
+                        image.Tint(new MagickGeometry("2x2"), null);
                     });
                 }
             }
@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
                 {
-                    image.Tint("1x2", MagickColors.Gold);
+                    image.Tint(new MagickGeometry("1x2"), MagickColors.Gold);
                     image.Clamp();
 
                     ColorAssert.Equal(new MagickColor("#dee500000000"), image, 400, 205);
