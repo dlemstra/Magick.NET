@@ -14,16 +14,6 @@ namespace Magick.NET.Tests
         [Fact]
         public void Test_Threshold()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    image.Threshold(new Percentage(80));
-                    image.Settings.Compression = CompressionMethod.Group4;
-                    image.Format = MagickFormat.Pdf;
-                    image.Write(memStream);
-                }
-            }
         }
 
         [Fact]
