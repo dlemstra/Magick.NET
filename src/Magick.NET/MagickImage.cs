@@ -6812,7 +6812,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="thresholdPercentage">The threshold for smoothing.</param>
         public void WaveletDenoise(Percentage thresholdPercentage)
-            => WaveletDenoise(PercentageHelper.ToQuantumType(thresholdPercentage), 0.0);
+            => WaveletDenoise(PercentageHelper.ToQuantumType(thresholdPercentage));
 
         /// <summary>
         /// Removes noise from the image using a wavelet transform.
