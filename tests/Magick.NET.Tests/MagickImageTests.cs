@@ -12,30 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_ToByteArray()
-        {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                var bytes = image.ToByteArray(MagickFormat.Dds);
-
-                image.Read(bytes);
-                Assert.Equal(CompressionMethod.DXT5, image.Compression);
-                Assert.Equal(MagickFormat.Dds, image.Format);
-
-                bytes = image.ToByteArray(MagickFormat.Jpg);
-
-                image.Read(bytes);
-                Assert.Equal(MagickFormat.Jpeg, image.Format);
-
-                bytes = image.ToByteArray(MagickFormat.Dds);
-
-                image.Read(bytes);
-                Assert.Equal(CompressionMethod.DXT1, image.Compression);
-                Assert.Equal(MagickFormat.Dds, image.Format);
-            }
-        }
-
-        [Fact]
         public void Test_ToString()
         {
             using (var image = new MagickImage(Files.Builtin.Wizard))
