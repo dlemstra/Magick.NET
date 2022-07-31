@@ -12,20 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Tint()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Settings.FillColor = MagickColors.Gold;
-                image.Tint("1x2");
-                image.Clamp();
-
-                ColorAssert.Equal(new MagickColor("#dee500000000"), image, 400, 205);
-                ColorAssert.Equal(MagickColors.Black, image, 400, 380);
-            }
-        }
-
-        [Fact]
         public void Test_Threshold()
         {
             using (var image = new MagickImage(Files.ImageMagickJPG))
