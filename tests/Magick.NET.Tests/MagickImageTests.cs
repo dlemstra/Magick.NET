@@ -12,18 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_TotalColors()
-        {
-            using (var image = new MagickImage())
-            {
-                Assert.Equal(0, image.TotalColors);
-
-                image.Read(Files.Builtin.Logo);
-                Assert.NotEqual(0, image.TotalColors);
-            }
-        }
-
-        [Fact]
         public void Test_Transparent()
         {
             var red = new MagickColor("red");
