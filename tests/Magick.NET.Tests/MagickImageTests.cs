@@ -12,34 +12,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Transparent()
-        {
-            var red = new MagickColor("red");
-            var transparentRed = new MagickColor("red");
-            transparentRed.A = 0;
-
-            using (var image = new MagickImage(Files.RedPNG))
-            {
-                ColorAssert.Equal(red, image, 0, 0);
-
-                image.Transparent(red);
-
-                ColorAssert.Equal(transparentRed, image, 0, 0);
-                ColorAssert.NotEqual(transparentRed, image, image.Width - 1, 0);
-            }
-
-            using (var image = new MagickImage(Files.RedPNG))
-            {
-                ColorAssert.Equal(red, image, 0, 0);
-
-                image.InverseTransparent(red);
-
-                ColorAssert.NotEqual(transparentRed, image, 0, 0);
-                ColorAssert.Equal(transparentRed, image, image.Width - 1, 0);
-            }
-        }
-
-        [Fact]
         public void Test_TransparentChroma()
         {
             using (var image = new MagickImage(Files.TestPNG))
