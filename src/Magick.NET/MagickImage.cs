@@ -1797,15 +1797,18 @@ namespace ImageMagick
             if (difference is not MagickImage differenceImage)
                 throw new NotSupportedException();
 
-            ArtifactsHelper.SetImageArtifacts(this, settings);
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                temporaryDefines.SetArtifact("compare:highlight-color", settings.HighlightColor);
+                temporaryDefines.SetArtifact("compare:lowlight-color", settings.LowlightColor);
+                temporaryDefines.SetArtifact("compare:masklight-color", settings.MasklightColor);
 
-            var result = _nativeInstance.Compare(image, settings.Metric, channels, out var distortion);
-            if (result != IntPtr.Zero)
-                differenceImage._nativeInstance.Instance = result;
+                var result = _nativeInstance.Compare(image, settings.Metric, channels, out var distortion);
+                if (result != IntPtr.Zero)
+                    differenceImage._nativeInstance.Instance = result;
 
-            ArtifactsHelper.RemoveImageArtifacts(this, settings);
-
-            return distortion;
+                return distortion;
+            }
         }
 
         /// <summary>
@@ -1954,17 +1957,11 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            if (args is not null)
-                _nativeInstance.SetArtifact("compose:args", args);
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                temporaryDefines.SetArtifact("compose:args", args);
 
-            try
-            {
                 _nativeInstance.Composite(image, x, y, compose, channels);
-            }
-            finally
-            {
-                if (args is not null)
-                    _nativeInstance.RemoveArtifact("compose:args");
             }
         }
 
@@ -2146,18 +2143,29 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(settings), settings);
 
-            ArtifactsHelper.SetImageArtifacts(this, settings);
-
             var objects = IntPtr.Zero;
 
             try
             {
-                _nativeInstance.ConnectedComponents(settings.Connectivity, out objects);
+                using (var temporaryDefines = new TemporaryDefines(this))
+                {
+                    temporaryDefines.SetArtifact("connected-components:angle-threshold", settings.AngleThreshold);
+                    temporaryDefines.SetArtifact("connected-components:area-threshold", settings.AreaThreshold);
+                    temporaryDefines.SetArtifact("connected-components:circularity-threshold", settings.CircularityThreshold);
+                    temporaryDefines.SetArtifact("connected-components:diameter-threshold", settings.DiameterThreshold);
+                    temporaryDefines.SetArtifact("connected-components:eccentricity-threshold", settings.EccentricityThreshold);
+                    temporaryDefines.SetArtifact("connected-components:major-axis-threshold", settings.MajorAxisThreshold);
+                    temporaryDefines.SetArtifact("connected-components:mean-color", settings.MeanColor);
+                    temporaryDefines.SetArtifact("connected-components:minor-axis-threshold", settings.MinorAxisThreshold);
+                    temporaryDefines.SetArtifact("connected-components:perimeter-threshold", settings.PerimeterThreshold);
+
+                    _nativeInstance.ConnectedComponents(settings.Connectivity, out objects);
+                }
+
                 return ConnectedComponent.Create(objects, ColormapSize);
             }
             finally
             {
-                ArtifactsHelper.RemoveImageArtifacts(this, settings);
                 ConnectedComponent.DisposeList(objects);
             }
         }
@@ -2426,11 +2434,12 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNegative(nameof(settings), settings.Threshold);
 
-            ArtifactsHelper.SetImageArtifacts(this, settings);
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                temporaryDefines.SetArtifact("deskew:auto-crop", settings.AutoCrop);
 
-            _nativeInstance.Deskew(PercentageHelper.ToQuantum(settings.Threshold));
-
-            ArtifactsHelper.RemoveImageArtifacts(this, settings);
+                _nativeInstance.Deskew(PercentageHelper.ToQuantum(settings.Threshold));
+            }
 
             var artifact = GetArtifact("deskew:angle");
             if (!double.TryParse(artifact, NumberStyles.Any, CultureInfo.InvariantCulture, out var result))
@@ -2506,11 +2515,13 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNullOrEmpty(nameof(arguments), arguments);
 
-            ArtifactsHelper.SetImageArtifacts(this, settings);
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                temporaryDefines.SetArtifact("distort:scale", settings.Scale);
+                temporaryDefines.SetArtifact("distort:viewport", settings.Viewport);
 
-            _nativeInstance.Distort(method, settings.Bestfit, arguments, arguments.Length);
-
-            ArtifactsHelper.RemoveImageArtifacts(this, settings);
+                _nativeInstance.Distort(method, settings.Bestfit, arguments, arguments.Length);
+            }
         }
 
         /// <summary>
@@ -3625,11 +3636,12 @@ namespace ImageMagick
             Throw.IfNegative(nameof(settings), settings.NumberColors);
             Throw.IfNegative(nameof(settings), settings.MaxIterations);
 
-            ArtifactsHelper.SetImageArtifacts(this, settings);
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                temporaryDefines.SetArtifact("kmeans:seed-colors", settings.SeedColors);
 
-            _nativeInstance.Kmeans(settings.NumberColors, settings.MaxIterations, settings.Tolerance);
-
-            ArtifactsHelper.RemoveImageArtifacts(this, settings);
+                _nativeInstance.Kmeans(settings.NumberColors, settings.MaxIterations, settings.Tolerance);
+            }
         }
 
         /// <summary>
@@ -4206,15 +4218,16 @@ namespace ImageMagick
         public void Morphology(IMorphologySettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                temporaryDefines.SetArtifact("convolve:bias", settings.ConvolveBias);
+                temporaryDefines.SetArtifact("convolve:scale", settings.ConvolveScale);
 
-            ArtifactsHelper.SetImageArtifacts(this, settings);
-
-            if (settings.UserKernel is not null && settings.UserKernel.Length > 0)
-                Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
-            else
-                Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
-
-            ArtifactsHelper.RemoveImageArtifacts(this, settings);
+                if (settings.UserKernel is not null && settings.UserKernel.Length > 0)
+                    Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
+                else
+                    Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
+            }
         }
 
         /// <summary>
@@ -5810,13 +5823,13 @@ namespace ImageMagick
             if (datum is null || datum.Length == 0)
                 return;
 
-            if (mode == ColorTransformMode.Quantum)
-                SetArtifact("profile:highres-transform", false);
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                if (mode == ColorTransformMode.Quantum)
+                    temporaryDefines.SetArtifact("profile:highres-transform", false);
 
-            _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
-
-            if (mode == ColorTransformMode.Quantum)
-                RemoveArtifact("profile:highres-transform");
+                _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
+            }
         }
 
         /// <summary>
@@ -6687,9 +6700,11 @@ namespace ImageMagick
                 }
             }
 
-            SetArtifact("trim:edges", string.Join(",", artifact.ToArray()));
-            Trim();
-            RemoveArtifact("trim:edges");
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                temporaryDefines.SetArtifact("trim:edges", string.Join(",", artifact.ToArray()));
+                Trim();
+            }
         }
 
         /// <summary>
@@ -6700,9 +6715,11 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Trim(Percentage percentBackground)
         {
-            SetArtifact("trim:percent-background", percentBackground.ToInt32().ToString(CultureInfo.InvariantCulture));
-            Trim();
-            RemoveArtifact("trim:percent-background");
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                temporaryDefines.SetArtifact("trim:percent-background", percentBackground.ToInt32().ToString(CultureInfo.InvariantCulture));
+                Trim();
+            }
         }
 
         /// <summary>
@@ -6834,9 +6851,11 @@ namespace ImageMagick
         /// <param name="vibrance">The vibrance.</param>
         public void WhiteBalance(Percentage vibrance)
         {
-            SetArtifact("white-balance:vibrance", vibrance.ToString());
-            WhiteBalance();
-            RemoveArtifact("white-balance:vibrance");
+            using (var temporaryDefines = new TemporaryDefines(this))
+            {
+                temporaryDefines.SetArtifact("white-balance:vibrance", vibrance.ToString());
+                WhiteBalance();
+            }
         }
 
         /// <summary>

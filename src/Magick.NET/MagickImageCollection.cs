@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -490,7 +491,10 @@ namespace ImageMagick
             try
             {
                 AttachImages();
-                ArtifactsHelper.SetImageArtifacts(_images[0], complexSettings);
+
+                if (complexSettings.SignalToNoiseRatio is not null)
+                    _images[0].SetArtifact("complex:snr", complexSettings.SignalToNoiseRatio.Value.ToString(CultureInfo.InvariantCulture));
+
                 images = _nativeInstance.Complex(_images[0], complexSettings.ComplexOperator);
             }
             finally
@@ -500,9 +504,12 @@ namespace ImageMagick
 
             Clear();
             foreach (var image in MagickImage.CreateList(images, settings))
-                Add(image);
+            {
+                if (complexSettings.SignalToNoiseRatio is not null)
+                    image.RemoveArtifact("complex:snr");
 
-            ArtifactsHelper.RemoveImageArtifacts(_images[0], complexSettings);
+                Add(image);
+            }
         }
 
         /// <summary>
