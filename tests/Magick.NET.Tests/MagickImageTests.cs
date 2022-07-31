@@ -11,23 +11,6 @@ namespace Magick.NET.Tests
 {
     public partial class MagickImageTests
     {
-
-        [Fact]
-        public void Test_Transverse()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Transverse();
-
-                Assert.Equal(480, image.Width);
-                Assert.Equal(640, image.Height);
-
-                ColorAssert.Equal(MagickColors.Red, image, 330, 508);
-                ColorAssert.Equal(new MagickColor("#f5f5eeee3636"), image, 288, 474);
-                ColorAssert.Equal(new MagickColor("#cdcd20202727"), image, 30, 123);
-            }
-        }
-
         [Fact]
         public void Test_UniqueColors()
         {
