@@ -6377,7 +6377,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="percentage">The percentage.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Thumbnail(Percentage percentage) => Thumbnail(percentage, percentage);
+        public void Thumbnail(Percentage percentage)
+            => Thumbnail(percentage, percentage);
 
         /// <summary>
         /// Resize image to thumbnail size.
