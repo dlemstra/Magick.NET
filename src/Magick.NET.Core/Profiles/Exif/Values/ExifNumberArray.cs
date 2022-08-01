@@ -19,7 +19,7 @@ namespace ImageMagick
 
                 for (var i = 0; i < Value.Length; i++)
                 {
-                    if (Value[i] > ushort.MaxValue)
+                    if (Value[i] > (Number)ushort.MaxValue)
                         return ExifDataType.Long;
                 }
 

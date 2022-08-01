@@ -39,33 +39,33 @@ namespace Magick.NET.Core.Tests
             }
 
             [Fact]
-            public void ShouldBeAbleToImplicitCastFromInt()
+            public void ShouldBeAbleToCastFromInt()
             {
-                Number number = 10;
+                var number = (Number)10;
 
                 Assert.Equal(10U, (uint)number);
             }
 
             [Fact]
-            public void ShouldBeAbleToImplicitCastFromUInt()
+            public void ShouldBeAbleToCastFromUInt()
             {
-                Number number = 10U;
+                var number = (Number)10U;
 
                 Assert.Equal(10, (ushort)number);
             }
 
             [Fact]
-            public void ShouldBeAbleToImplicitCastFromShort()
+            public void ShouldBeAbleToCastFromShort()
             {
-                Number number = (short)10;
+                var number = (Number)(short)10;
 
                 Assert.Equal(10U, (uint)number);
             }
 
             [Fact]
-            public void ShouldBeAbleToImplicitCastFromUShort()
+            public void ShouldBeAbleToCastFromUShort()
             {
-                Number number = (ushort)10U;
+                var number = (Number)(ushort)10U;
 
                 Assert.Equal(10, (ushort)number);
             }

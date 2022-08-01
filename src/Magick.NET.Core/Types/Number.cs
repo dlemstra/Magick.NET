@@ -23,28 +23,28 @@ namespace ImageMagick
         /// Converts the specified <see cref="int"/> to an instance of this type.
         /// </summary>
         /// <param name="value">The value.</param>
-        public static implicit operator Number(int value)
+        public static explicit operator Number(int value)
             => new Number((uint)value);
 
         /// <summary>
         /// Converts the specified <see cref="uint"/> to an instance of this type.
         /// </summary>
         /// <param name="value">The value.</param>
-        public static implicit operator Number(uint value)
+        public static explicit operator Number(uint value)
             => new Number(value);
 
         /// <summary>
         /// Converts the specified <see cref="short"/> to an instance of this type.
         /// </summary>
         /// <param name="value">The value.</param>
-        public static implicit operator Number(short value)
+        public static explicit operator Number(short value)
             => new Number((uint)value);
 
         /// <summary>
         /// Converts the specified <see cref="ushort"/> to an instance of this type.
         /// </summary>
         /// <param name="value">The value.</param>
-        public static implicit operator Number(ushort value)
+        public static explicit operator Number(ushort value)
             => new Number(value);
 
         /// <summary>

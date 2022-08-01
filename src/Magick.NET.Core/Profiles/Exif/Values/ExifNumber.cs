@@ -16,7 +16,7 @@ namespace ImageMagick
         {
             get
             {
-                if (Value > ushort.MaxValue)
+                if (Value > (Number)ushort.MaxValue)
                     return ExifDataType.Long;
 
                 return ExifDataType.Short;
@@ -34,16 +34,16 @@ namespace ImageMagick
             switch (value)
             {
                 case int intValue:
-                    Value = intValue;
+                    Value = (Number)intValue;
                     return true;
                 case uint uintValue:
-                    Value = uintValue;
+                    Value = (Number)uintValue;
                     return true;
                 case short shortValue:
-                    Value = shortValue;
+                    Value = (Number)shortValue;
                     return true;
                 case ushort ushortValue:
-                    Value = ushortValue;
+                    Value = (Number)ushortValue;
                     return true;
                 default:
                     return false;
