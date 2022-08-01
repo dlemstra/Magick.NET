@@ -70,7 +70,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorRGB"/> instance.</returns>
-        public static implicit operator ColorRGB?(MagickColor color)
+        public static explicit operator ColorRGB?(MagickColor color)
             => FromMagickColor(color);
 
         /// <summary>

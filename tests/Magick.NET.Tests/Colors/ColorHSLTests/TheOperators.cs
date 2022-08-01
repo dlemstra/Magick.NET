@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
             {
-                ColorHSL actual = new MagickColor("#BFFFDFFF9FFFFFFF");
+                var actual = (ColorHSL)new MagickColor("#BFFFDFFF9FFFFFFF");
                 Assert.InRange(actual.Hue, 0.24, 0.26);
                 Assert.InRange(actual.Saturation, 0.49, 0.51);
                 Assert.InRange(actual.Lightness, 0.74, 0.76);

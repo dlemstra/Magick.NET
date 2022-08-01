@@ -60,7 +60,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorHSV"/> instance.</returns>
-        public static implicit operator ColorHSV?(MagickColor color)
+        public static explicit operator ColorHSV?(MagickColor color)
             => FromMagickColor(color);
 
         /// <summary>

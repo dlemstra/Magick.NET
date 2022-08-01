@@ -145,7 +145,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorCMYK"/> instance.</returns>
-        public static implicit operator ColorCMYK?(MagickColor color)
+        public static explicit operator ColorCMYK?(MagickColor color)
             => FromMagickColor(color);
 
         /// <summary>

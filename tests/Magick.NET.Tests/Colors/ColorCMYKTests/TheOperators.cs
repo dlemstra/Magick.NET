@@ -61,7 +61,7 @@ namespace Magick.NET.Tests
             public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
             {
                 var expected = new ColorCMYK(Quantum.Max, 0, 0, 0);
-                ColorCMYK actual = new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
+                var actual = (ColorCMYK)new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
                 Assert.Equal(expected, actual);
             }
         }

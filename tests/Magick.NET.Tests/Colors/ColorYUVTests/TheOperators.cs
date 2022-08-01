@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
             {
-                ColorYUV actual = new MagickColor("#BFFFDFFF9FFFFFFF");
+                var actual = (ColorYUV)new MagickColor("#BFFFDFFF9FFFFFFF");
                 Assert.InRange(actual.Y, 0.80, 0.81);
                 Assert.InRange(actual.U, 0.40, 0.41);
                 Assert.InRange(actual.V, 0.44, 0.45);

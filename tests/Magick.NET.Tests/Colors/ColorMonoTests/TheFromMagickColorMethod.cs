@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
                 var color = MagickColors.Black;
                 var grayColor = ColorMono.FromMagickColor(color);
 
-                Assert.Equal(grayColor, color);
+                Assert.Equal(grayColor, (ColorMono)color);
             }
         }
     }

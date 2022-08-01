@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
             {
-                ColorMono actual = MagickColors.White;
+                var actual = (ColorMono)MagickColors.White;
                 Assert.False(actual.IsBlack);
             }
         }

@@ -60,7 +60,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="color">The color to use.</param>
         /// <returns>A <see cref="ColorYUV"/> instance.</returns>
-        public static implicit operator ColorYUV?(MagickColor color)
+        public static explicit operator ColorYUV?(MagickColor color)
             => FromMagickColor(color);
 
         /// <summary>

@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
             {
-                ColorGray actual = new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
+                var actual = (ColorGray)new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
                 Assert.InRange(actual.Shade, 0.20, 0.22);
             }
         }
