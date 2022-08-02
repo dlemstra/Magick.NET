@@ -31,11 +31,6 @@ For more information about ImageMagick go to: [http://www.imagemagick.org/](http
 ||linux-musl (x64)|✅|✅|✅|
 ||macOS (x64)|✅|✅|❌|
 ||windows (x86)|✅|✅|❌|
-|**.NET 2.0**|windows (x64)|✅|❌|✅|
-||windows (arm64)|❌|❌|❌|
-||linux (x64)|❌|❌|❌|
-||macOS (x64)|❌|❌|❌|
-||windows (x86)|✅|❌|❌|
 
 More information about Linux and macOS can be found [here](docs/CrossPlatform.md).
 
