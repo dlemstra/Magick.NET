@@ -10,7 +10,7 @@ namespace ImageMagick
 {
     /// <content />
     public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQuantumType>>, IDisposable
-        where TQuantumType : struct
+        where TQuantumType : struct, IConvertible
     {
         /// <summary>
         /// Changes the values of the specified pixels.

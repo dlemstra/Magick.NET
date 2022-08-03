@@ -14,7 +14,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public partial interface IMagickImage<TQuantumType> : IMagickImage, IEquatable<IMagickImage<TQuantumType>>, IComparable<IMagickImage<TQuantumType>>
-        where TQuantumType : struct
+        where TQuantumType : struct, IConvertible
     {
         /// <summary>
         /// Gets or sets the background color of the image.

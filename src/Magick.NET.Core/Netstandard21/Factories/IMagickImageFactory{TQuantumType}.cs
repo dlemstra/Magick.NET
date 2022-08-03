@@ -10,7 +10,7 @@ namespace ImageMagick
 {
     /// <content />
     public partial interface IMagickImageFactory<TQuantumType>
-        where TQuantumType : struct
+        where TQuantumType : struct, IConvertible
     {
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.

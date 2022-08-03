@@ -14,7 +14,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public partial interface IMagickImageCollection<TQuantumType> : IMagickImageCollection, IList<IMagickImage<TQuantumType>>
-        where TQuantumType : struct
+        where TQuantumType : struct, IConvertible
     {
         /// <summary>
         /// Adds the image(s) from the specified byte array to the collection.

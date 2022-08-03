@@ -10,7 +10,7 @@ namespace ImageMagick
 {
     /// <content/>
     public partial interface IMagickImage<TQuantumType> : IMagickImage, IEquatable<IMagickImage<TQuantumType>>, IComparable<IMagickImage<TQuantumType>>
-        where TQuantumType : struct
+        where TQuantumType : struct, IConvertible
     {
         /// <summary>
         /// Reads only metadata and not the pixel data.

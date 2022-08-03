@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -12,7 +13,7 @@ namespace ImageMagick
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     [SuppressMessage("Naming", "CA1710", Justification = "No need to use Collection suffix.")]
     public partial interface IDrawables<TQuantumType> : IEnumerable<IDrawable>
-        where TQuantumType : struct
+        where TQuantumType : struct, IConvertible
     {
         /// <summary>
         /// Draw on the specified image.

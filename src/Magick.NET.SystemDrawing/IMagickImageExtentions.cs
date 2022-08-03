@@ -22,7 +22,7 @@ namespace ImageMagick
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static void Read<TQuantumType>(this IMagickImage<TQuantumType> self, Bitmap bitmap)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
         {
             Throw.IfNull(nameof(self), self);
             Throw.IfNull(nameof(bitmap), bitmap);
@@ -46,7 +46,7 @@ namespace ImageMagick
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
         public static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
             => ToBitmap(self, false);
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace ImageMagick
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
         public static Bitmap ToBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
             => ToBitmap(self, true);
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace ImageMagick
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
         public static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, ImageFormat imageFormat)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
             => ToBitmap(self, imageFormat, false);
 
         /// <summary>
@@ -80,11 +80,11 @@ namespace ImageMagick
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
         public static Bitmap ToBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self, ImageFormat imageFormat)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
             => ToBitmap(self, imageFormat, true);
 
         private static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, bool useDensity)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
         {
             Throw.IfNull(nameof(self), self);
 
@@ -133,7 +133,7 @@ namespace ImageMagick
         }
 
         private static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, ImageFormat imageFormat, bool useDensity)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
         {
             Throw.IfNull(nameof(self), self);
             Throw.IfNull(nameof(imageFormat), imageFormat);
@@ -152,7 +152,7 @@ namespace ImageMagick
         }
 
         private static void SetBitmapDensity<TQuantumType>(IMagickImage<TQuantumType> image, Bitmap bitmap, bool useDpi)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
         {
             if (useDpi)
             {

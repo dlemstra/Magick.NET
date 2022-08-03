@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Windows.Media.Imaging;
 using MediaPixelFormats = System.Windows.Media.PixelFormats;
 
@@ -18,7 +19,7 @@ namespace ImageMagick
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="BitmapSource"/>.</returns>
         public static BitmapSource ToBitmapSource<TQuantumType>(this IMagickImage<TQuantumType> self)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
             => ToBitmapSource(self, false);
 
         /// <summary>
@@ -28,11 +29,11 @@ namespace ImageMagick
         /// <typeparam name="TQuantumType">The quantum type.</typeparam>
         /// <returns>A <see cref="BitmapSource"/>.</returns>
         public static BitmapSource ToBitmapSourceWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
             => ToBitmapSource(self, true);
 
         private static BitmapSource ToBitmapSource<TQuantumType>(this IMagickImage<TQuantumType> self, bool useDensity)
-            where TQuantumType : struct
+            where TQuantumType : struct, IConvertible
         {
             Throw.IfNull(nameof(self), self);
 

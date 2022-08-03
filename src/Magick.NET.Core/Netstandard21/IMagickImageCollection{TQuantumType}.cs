@@ -11,7 +11,7 @@ namespace ImageMagick
 {
     /// <content/>
     public partial interface IMagickImageCollection<TQuantumType> : IMagickImageCollection, IList<IMagickImage<TQuantumType>>
-        where TQuantumType : struct
+        where TQuantumType : struct, IConvertible
     {
         /// <summary>
         /// Read only metadata and not the pixel data from all image frames.
