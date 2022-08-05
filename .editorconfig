@@ -1,12 +1,12 @@
 root = true
 
-[*.{cmd,cs,md,nuspec,ps1,sh,yml}]
+[*.{cmd,cs,md,nuspec,ps1,sh,targets,yml}]
 
 indent_style = space
 insert_final_newline = true
 trim_trailing_whitespace = true
 
-[*.{csproj,nuspec,props,yml}]
+[*.{csproj,nuspec,props,targets,yml}]
 
 indent_size = 2
 tab_width = 2
