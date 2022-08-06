@@ -13,6 +13,13 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup Condition="'$(MagickCopyNativeLinux)' == 'true'">
+    <NativeLinuxArm64DLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\linux-x64\native\*.so" />
+    <Content Include="@(NativeLinuxArm64DLL)">
+      <Link>%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup Condition="'$(MagickCopyNativeLinuxMusl)' == 'true'">
     <NativeLinuxMuslDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\linux-musl-x64\native\*.so" />
     <Content Include="@(NativeLinuxMuslDLL)">
