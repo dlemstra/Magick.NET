@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using ImageMagick;
 using Xunit;
 

@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using ImageMagick;
-using System;
 using System.IO;
 
 namespace Magick.NET.Samples

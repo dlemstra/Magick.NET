@@ -3,7 +3,6 @@
 
 using System;
 using ImageMagick;
-using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests
