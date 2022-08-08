@@ -5991,6 +5991,14 @@ namespace ImageMagick
         /// <summary>
         /// Shave pixels from image edges.
         /// </summary>
+        /// <param name="size">The size of to shave of the image.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Shave(int size)
+            => Shave(size, size);
+
+        /// <summary>
+        /// Shave pixels from image edges.
+        /// </summary>
         /// <param name="leftRight">The number of pixels to shave left and right.</param>
         /// <param name="topBottom">The number of pixels to shave top and bottom.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

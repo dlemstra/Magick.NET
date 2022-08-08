@@ -11,6 +11,18 @@ namespace Magick.NET.Tests
         public class TheShaveMethod
         {
             [Fact]
+            public void ShouldShaveSizeFromEdges()
+            {
+                using (var image = new MagickImage(Files.Builtin.Logo))
+                {
+                    image.Shave(10);
+
+                    Assert.Equal(620, image.Width);
+                    Assert.Equal(460, image.Height);
+                }
+            }
+
+            [Fact]
             public void ShouldShavePixelsFromEdges()
             {
                 using (var image = new MagickImage(Files.Builtin.Logo))
