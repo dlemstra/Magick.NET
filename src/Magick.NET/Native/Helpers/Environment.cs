@@ -20,6 +20,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_Initialize();
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr Environment_GetEnv(IntPtr name);
+                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_SetEnv(IntPtr name, IntPtr value);
             }
             #endif
@@ -29,6 +31,8 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_Initialize();
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr Environment_GetEnv(IntPtr name);
+                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_SetEnv(IntPtr name, IntPtr value);
             }
             #endif
@@ -37,6 +41,8 @@ namespace ImageMagick
             {
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_Initialize();
+                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+                public static extern IntPtr Environment_GetEnv(IntPtr name);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern void Environment_SetEnv(IntPtr name, IntPtr value);
             }
@@ -64,6 +70,32 @@ namespace ImageMagick
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 NativeMethods.X86.Environment_Initialize();
                 #endif
+            }
+            public static string GetEnv(string name)
+            {
+                using (var nameNative = UTF8Marshaler.CreateInstance(name))
+                {
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (OperatingSystem.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.Environment_GetEnv(nameNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (OperatingSystem.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.Environment_GetEnv(nameNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.Environment_GetEnv(nameNative.Instance);
+                    #endif
+                    return UTF8Marshaler.NativeToManaged(result);
+                }
             }
             public static void SetEnv(string name, string value)
             {

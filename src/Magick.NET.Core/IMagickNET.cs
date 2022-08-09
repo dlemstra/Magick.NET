@@ -54,6 +54,13 @@ namespace ImageMagick
         string Version { get; }
 
         /// <summary>
+        /// Gets the environment variable with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the environment variable.</param>
+        /// <returns>The environment variable with the specified name.</returns>
+        string GetEnvironmentVariable(string name);
+
+        /// <summary>
         /// Initializes ImageMagick.
         /// </summary>
         void Initialize();
@@ -95,6 +102,13 @@ namespace ImageMagick
         /// </summary>
         /// <param name="fileName">The file name to use at the default font file.</param>
         void SetDefaultFontFile(string fileName);
+
+        /// <summary>
+        /// Set the environment variable with the specified name to the specified value.
+        /// </summary>
+        /// <param name="name">The name of the environment variable.</param>
+        /// <param name="value">The value of the environment variable.</param>
+        void SetEnvironmentVariable(string name, string value);
 
         /// <summary>
         /// Sets the directory that contains the FontConfig configuration files.

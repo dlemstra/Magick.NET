@@ -23,6 +23,9 @@ namespace ImageMagick
             }
         }
 
+        public static string GetEnv(string name)
+            => NativeEnvironment.GetEnv(name);
+
         public static void SetEnv(string name, string value)
             => NativeEnvironment.SetEnv(name, value);
     }

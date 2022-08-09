@@ -6,6 +6,16 @@
       "name": "Initialize"
     },
     {
+      "name": "GetEnv",
+      "type": "string",
+      "arguments": [
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
       "name": "SetEnv",
       "arguments": [
         {

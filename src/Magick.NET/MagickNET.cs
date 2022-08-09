@@ -205,6 +205,17 @@ namespace ImageMagick
             => Version;
 
         /// <summary>
+        /// Gets the environment variable with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the environment variable.</param>
+        /// <returns>The environment variable with the specified name.</returns>
+        public static string GetEnvironmentVariable(string name)
+        {
+            Throw.IfNullOrEmpty(nameof(name), name);
+            return Environment.GetEnv(name);
+        }
+
+        /// <summary>
         /// Initializes ImageMagick.
         /// </summary>
         public static void Initialize()
@@ -284,6 +295,17 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Set the environment variable with the specified name to the specified value.
+        /// </summary>
+        /// <param name="name">The name of the environment variable.</param>
+        /// <param name="value">The value of the environment variable.</param>
+        public static void SetEnvironmentVariable(string name, string value)
+        {
+            Throw.IfNullOrEmpty(nameof(name), name);
+            Environment.SetEnv(name, value);
+        }
+
+        /// <summary>
         /// Sets the directory that contains the FontConfig configuration files.
         /// </summary>
         /// <param name="path">The path of the FontConfig directory.</param>
@@ -346,6 +368,14 @@ namespace ImageMagick
             => NativeMagickNET.SetRandomSeed(seed);
 
         /// <summary>
+        /// Gets the environment variable with the specified name.
+        /// </summary>
+        /// <param name="name">The name of the environment variable.</param>
+        /// <returns>The environment variable with the specified name.</returns>
+        string IMagickNET.GetEnvironmentVariable(string name)
+            => GetEnvironmentVariable(name);
+
+        /// <summary>
         /// Initializes ImageMagick.
         /// </summary>
         void IMagickNET.Initialize()
@@ -394,6 +424,14 @@ namespace ImageMagick
         /// <param name="fileName">The file name to use at the default font file.</param>
         void IMagickNET.SetDefaultFontFile(string fileName)
             => SetDefaultFontFile(fileName);
+
+        /// <summary>
+        /// Set the environment variable with the specified name to the specified value.
+        /// </summary>
+        /// <param name="name">The name of the environment variable.</param>
+        /// <param name="value">The value of the environment variable.</param>
+        void IMagickNET.SetEnvironmentVariable(string name, string value)
+            => SetEnvironmentVariable(name, value);
 
         /// <summary>
         /// Sets the directory that contains the FontConfig configuration files.
