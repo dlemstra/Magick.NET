@@ -6,6 +6,9 @@ namespace FileGenerator.MagickColors
     internal sealed class Program
     {
         internal static void Main()
-            => MagickColorsGenerator.Generate();
+        {
+            MagickColorsGenerator.Generate();
+            IMagickColorsGenerator.Generate();
+        }
     }
 }

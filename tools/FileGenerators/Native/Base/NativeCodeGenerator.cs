@@ -230,11 +230,10 @@ namespace FileGenerator.Native
             WriteLine("using System;");
             WriteLine("using System.Security;");
             WriteLine("using System.Runtime.InteropServices;");
+            WriteLine();
 
             if (UsesQuantumType())
                 WriteQuantumType();
-            else
-                WriteLine();
         }
 
         private bool UsesQuantumType()

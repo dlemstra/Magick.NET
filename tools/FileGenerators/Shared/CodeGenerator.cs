@@ -85,7 +85,6 @@ namespace FileGenerator
 
         protected void WriteQuantumType()
         {
-            _writer.WriteLine();
             _writer.WriteLine("#if Q8");
             _writer.WriteLine("using QuantumType = System.Byte;");
             _writer.WriteLine("#elif Q16");

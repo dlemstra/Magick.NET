@@ -25,6 +25,7 @@ namespace FileGenerator.Drawables
         {
             WriteLine("using System.Collections.Generic;");
             WriteLine("using System.Text;");
+            WriteLine();
             WriteQuantumType();
         }
 

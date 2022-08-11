@@ -8,10 +8,8 @@ using System.Reflection;
 
 namespace FileGenerator.MagickColors
 {
-    internal sealed class MagickColorsGenerator : CodeGenerator
+    internal sealed class MagickColorsGenerator : ColorsGenerator
     {
-        private readonly Type _type = typeof(Color);
-
         public static void Generate()
         {
             var generator = new MagickColorsGenerator();
@@ -22,31 +20,25 @@ namespace FileGenerator.MagickColors
             generator.CloseWriter();
         }
 
+        protected override void WriteUsing()
+            => WriteQuantumType();
+
         private string GetArguments(Color color)
             => $"{color.R}, {color.G}, {color.B}, {color.A}";
 
-        private string GetComment(Color color)
-            => $"Gets a system-defined color that has an RGBA value of #{color.R:X2}{color.G:X2}{color.B:X2}{color.A:X2}.";
-
-        private void WriteColor(PropertyInfo property)
+        private void WriteColor(MagickColor color)
         {
-            if (property.PropertyType != _type)
-                return;
-
-            WriteColor(property.Name, property);
-        }
-
-        private void WriteColor(string name, PropertyInfo property)
-        {
-            var color = (Color)property.GetValue(null, null)!;
-
-            if (color.A == 0)
-                color = Color.FromArgb(0, 0, 0, 0);
-
-            WriteComment(GetComment(color));
-            WriteLine("public static MagickColor " + name);
+            WriteComment(color.Comment);
+            WriteLine("public static MagickColor " + color.Name);
             Indent++;
-            WriteLine("=> MagickColor.FromRgba(" + GetArguments(color) + ");");
+            WriteLine("=> MagickColor.FromRgba(" + GetArguments(color.Color) + ");");
+            Indent--;
+            WriteLine();
+
+            WriteComment(color.Comment);
+            WriteLine("IMagickColor<QuantumType> IMagickColors<QuantumType>." + color.Name);
+            Indent++;
+            WriteLine("=> " + color.Name + ";");
             Indent--;
             WriteLine();
         }
@@ -55,23 +47,13 @@ namespace FileGenerator.MagickColors
         {
             WriteComment("Class that contains the same colors as System.Drawing.Colors.");
             WriteLine("[System.CodeDom.Compiler.GeneratedCode(\"Magick.NET.FileGenerator\", \"\")]");
-            WriteLine("public static class MagickColors");
+            WriteLine("public class MagickColors : IMagickColors<QuantumType>");
             WriteStartColon();
 
-            var properties = _type.GetProperties(BindingFlags.Public | BindingFlags.Static);
-
-            WriteColor("None", properties.First(p => p.Name == "Transparent"));
-            foreach (var property in properties)
-                WriteColor(property);
+            foreach (var color in GetColors())
+                WriteColor(color);
 
             WriteEndColon();
-        }
-
-        private void WriteComment(string comment)
-        {
-            WriteLine("/// <summary>");
-            WriteLine("/// " + comment);
-            WriteLine("/// </summary>");
         }
     }
 }

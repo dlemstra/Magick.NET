@@ -25,6 +25,7 @@ namespace FileGenerator.Drawables
         protected override void WriteUsing()
         {
             WriteLine("using System.Collections.Generic;");
+            WriteLine();
             WriteQuantumType();
         }
 
