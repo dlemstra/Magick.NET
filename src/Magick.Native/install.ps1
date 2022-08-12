@@ -66,10 +66,10 @@ function copyToTestProject($source, $target, $quantum, $platform, $libraryPlatfo
     Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net462\$fileName"
 
     if ($platform -ne "AnyCPU") {
-        [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net60")
-        Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net60\$fileName"
-        [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net60-windows")
-        Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net60-windows\$fileName"
+        [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net6")
+        Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net6\$fileName"
+        [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net6-windows")
+        Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net6-windows\$fileName"
     }
 }
 
