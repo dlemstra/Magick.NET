@@ -26,10 +26,15 @@ namespace ImageMagick
         public IMagickColorFactory<QuantumType> Color { get; } = new MagickColorFactory();
 
         /// <summary>
+        /// Gets a factory that can be used to create color instances by name.
+        /// </summary>
+        public IMagickColors<QuantumType> Colors { get; } = new MagickColors();
+
+        /// <summary>
         /// Gets the configuration files.
         /// </summary>
         public IConfigurationFiles ConfigurationFiles
-            => ImageMagick.Configuration.ConfigurationFiles.Default;
+            => Configuration.ConfigurationFiles.Default;
 
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IDrawables{QuantumType}"/> instances.
