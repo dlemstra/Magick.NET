@@ -10,7 +10,7 @@ namespace ImageMagick
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public interface IMagickFactory<TQuantumType> : IMagickFactory
-        where TQuantumType : struct, IConvertible 
+        where TQuantumType : struct, IConvertible
     {
         /// <summary>
         /// Gets a factory that can be used to create <see cref="IMagickColorFactory{TQuantumType}"/> instances.
