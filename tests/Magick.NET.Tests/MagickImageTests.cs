@@ -9,24 +9,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_UnsharpMask()
-        {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                image.UnsharpMask(7.0, 3.0);
-
-                using (var original = new MagickImage(Files.NoisePNG))
-                {
-#if Q8 || Q16
-                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.06476, 0.06478);
-#else
-                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.10234, 0.10235);
-#endif
-                }
-            }
-        }
-
-        [Fact]
         public void Test_Vignette()
         {
             using (var image = new MagickImage(Files.Builtin.Logo))
