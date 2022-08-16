@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public void ShouldUseThecorrectDefaultValues()
+            public void ShouldUseTheCorrectDefaultValues()
             {
                 using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
