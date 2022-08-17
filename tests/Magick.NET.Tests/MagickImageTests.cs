@@ -9,19 +9,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Vignette()
-        {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.BackgroundColor = MagickColors.Aqua;
-                image.Vignette();
-
-                ColorAssert.Equal(new MagickColor("#6480ffffffff"), image, 292, 0);
-                ColorAssert.Equal(new MagickColor("#91acffffffff"), image, 358, 479);
-            }
-        }
-
-        [Fact]
         public void Test_VirtualPixelMethod()
         {
             using (var image = new MagickImage())
