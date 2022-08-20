@@ -4,13 +4,11 @@
 #if NETSTANDARD2_1
 
 using System;
-using System.Collections.Generic;
 
 namespace ImageMagick
 {
     /// <content />
-    public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQuantumType>>, IDisposable
-        where TQuantumType : struct, IConvertible
+    public partial interface IPixelCollection<TQuantumType>
     {
         /// <summary>
         /// Changes the values of the specified pixels.

@@ -9,8 +9,7 @@ using System.Buffers;
 namespace ImageMagick
 {
     /// <content/>
-    public partial interface IMagickImage<TQuantumType> : IMagickImage, IEquatable<IMagickImage<TQuantumType>>, IComparable<IMagickImage<TQuantumType>>
-        where TQuantumType : struct, IConvertible
+    public partial interface IMagickImage<TQuantumType>
     {
         /// <summary>
         /// Reads only metadata and not the pixel data.

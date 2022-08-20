@@ -9,7 +9,7 @@ using System.Buffers;
 namespace ImageMagick
 {
     /// <content/>
-    public partial interface IMagickImageCollection : IDisposable
+    public partial interface IMagickImageCollection
     {
         /// <summary>
         /// Read only metadata and not the pixel data from all image frames.

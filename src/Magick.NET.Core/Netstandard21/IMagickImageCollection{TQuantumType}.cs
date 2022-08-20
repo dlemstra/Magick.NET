@@ -10,8 +10,7 @@ using System.Collections.Generic;
 namespace ImageMagick
 {
     /// <content/>
-    public partial interface IMagickImageCollection<TQuantumType> : IMagickImageCollection, IList<IMagickImage<TQuantumType>>
-        where TQuantumType : struct, IConvertible
+    public partial interface IMagickImageCollection<TQuantumType>
     {
         /// <summary>
         /// Read only metadata and not the pixel data from all image frames.
