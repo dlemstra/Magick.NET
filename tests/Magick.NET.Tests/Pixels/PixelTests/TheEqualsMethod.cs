@@ -10,84 +10,98 @@ namespace Magick.NET.Tests
     {
         public class TheEqualsMethod
         {
-            [Fact]
-            public void ShouldReturnFalseWhenInstanceIsNull()
+            public class WithObject
             {
-                var pixel = new Pixel(0, 0, 3);
+                [Fact]
+                public void ShouldReturnFalseWhenValueIsNull()
+                {
+                    var pixel = new Pixel(0, 0, 3);
 
-                Assert.False(pixel.Equals((object)null));
+                    Assert.False(pixel.Equals((object)null));
+                }
+
+                [Fact]
+                public void ShouldReturnTrueWhenValueIsTheSame()
+                {
+                    var pixel = new Pixel(0, 0, 3);
+
+                    Assert.True(pixel.Equals((object)pixel));
+                }
+
+                [Fact]
+                public void ShouldReturnTrueWhenValueIsEqual()
+                {
+                    var first = new Pixel(0, 0, 3);
+                    first.SetChannel(0, 100);
+                    first.SetChannel(1, 150);
+                    first.SetChannel(2, 200);
+
+                    var second = new Pixel(0, 0, 3);
+                    second.SetChannel(0, 100);
+                    second.SetChannel(1, 150);
+                    second.SetChannel(2, 200);
+
+                    Assert.True(first.Equals((object)second));
+                }
+
+                [Fact]
+                public void ShouldReturnFalseWhenValueIsNotEqual()
+                {
+                    var first = new Pixel(0, 0, 1);
+                    first.SetChannel(0, 100);
+
+                    var second = new Pixel(0, 0, 1);
+                    second.SetChannel(0, 50);
+
+                    Assert.False(first.Equals((object)second));
+                }
             }
 
-            [Fact]
-            public void ShouldReturnTrueWhenInstanceIsTheSame()
+            public class WithPixel
             {
-                var pixel = new Pixel(0, 0, 3);
+                [Fact]
+                public void ShouldReturnFalseWhenValueIsNull()
+                {
+                    var pixel = new Pixel(0, 0, 3);
 
-                Assert.True(pixel.Equals(pixel));
-            }
+                    Assert.False(pixel.Equals((Pixel)null));
+                }
 
-            [Fact]
-            public void ShouldReturnTrueWhenObjectIsTheSame()
-            {
-                var pixel = new Pixel(0, 0, 3);
+                [Fact]
+                public void ShouldReturnTrueWhenValueIsTheSame()
+                {
+                    var pixel = new Pixel(0, 0, 3);
 
-                Assert.True(pixel.Equals((object)pixel));
-            }
+                    Assert.True(pixel.Equals(pixel));
+                }
 
-            [Fact]
-            public void ShouldReturnTrueWhenInstanceIsEqual()
-            {
-                var first = new Pixel(0, 0, 3);
-                first.SetChannel(0, 100);
-                first.SetChannel(1, 150);
-                first.SetChannel(2, 200);
+                [Fact]
+                public void ShouldReturnTrueWhenValueIsEqual()
+                {
+                    var first = new Pixel(0, 0, 3);
+                    first.SetChannel(0, 100);
+                    first.SetChannel(1, 150);
+                    first.SetChannel(2, 200);
 
-                var second = new Pixel(0, 0, 3);
-                second.SetChannel(0, 100);
-                second.SetChannel(1, 150);
-                second.SetChannel(2, 200);
+                    var second = new Pixel(0, 0, 3);
+                    second.SetChannel(0, 100);
+                    second.SetChannel(1, 150);
+                    second.SetChannel(2, 200);
 
-                Assert.True(first.Equals(second));
-            }
+                    Assert.True(first.Equals(second));
+                }
 
-            [Fact]
-            public void ShouldReturnTrueWhenObjectIsEqual()
-            {
-                var first = new Pixel(0, 0, 3);
-                first.SetChannel(0, 100);
-                first.SetChannel(1, 150);
-                first.SetChannel(2, 200);
+                [Fact]
+                public void ShouldReturnFalseWhenValueIsNotEqual()
+                {
+                    var first = new Pixel(0, 0, 1);
+                    first.SetChannel(0, 100);
 
-                var second = new Pixel(0, 0, 3);
-                second.SetChannel(0, 100);
-                second.SetChannel(1, 150);
-                second.SetChannel(2, 200);
+                    var second = new Pixel(0, 0, 1);
+                    second.SetChannel(0, 50);
 
-                Assert.True(first.Equals((object)second));
-            }
-
-            [Fact]
-            public void ShouldReturnFalseWhenInstanceIsNotEqual()
-            {
-                var first = new Pixel(0, 0, 1);
-                first.SetChannel(0, 100);
-
-                var second = new Pixel(0, 0, 1);
-                second.SetChannel(0, 50);
-
-                Assert.False(first.Equals(second));
-            }
-
-            [Fact]
-            public void ShouldReturnFalseWhenObjectIsNotEqual()
-            {
-                var first = new Pixel(0, 0, 1);
-                first.SetChannel(0, 100);
-
-                var second = new Pixel(0, 0, 1);
-                second.SetChannel(0, 50);
-
-                Assert.False(first.Equals((object)second));
+                    Assert.False(first.Equals(second));
+                }
             }
         }
     }
