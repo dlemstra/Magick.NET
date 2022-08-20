@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = new UnsafePixelCollection(image))
                     {
-                        var pixel = Pixel.Create(pixels, 0, 0, Array.Empty<byte>());
+                        var pixel = Pixel.Create(pixels, 0, 0, Array.Empty<QuantumType>());
 
                         Assert.Null(pixel.ToColor());
                     }
