@@ -223,9 +223,7 @@ namespace ImageMagick
             => new Pixel(collection, x, y, value);
 
         private static void CheckChannels(int channels)
-        {
-            Throw.IfTrue(nameof(channels), channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
-        }
+            => Throw.IfTrue(nameof(channels), channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
 
         private QuantumType[] GetValueWithoutIndexChannel()
         {
