@@ -21,11 +21,7 @@ namespace Magick.NET.Tests
                     using (var pixels = image.GetPixelsUnsafe())
                     {
                         var color = pixels.GetPixel(0, 0).ToColor();
-#if Q8
                         Assert.Equal("cmyka(128,23,250,156,1.0)", color.ToString());
-#else
-                        Assert.Equal("cmyka(32896,5911,64250,40092,1.0)", color.ToString());
-#endif
                     }
                 }
             }
