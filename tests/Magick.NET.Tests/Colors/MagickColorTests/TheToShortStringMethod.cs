@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
             public void ShouldReturnTheCorrectStringForCmykColor()
             {
                 var color = new MagickColor(0, Quantum.Max, 0, 0, Quantum.Max);
-                Assert.Equal("cmyk(0," + Quantum.Max + ",0,0)", color.ToShortString());
+                Assert.Equal("cmyk(0,255,0,0)", color.ToShortString());
             }
         }
     }

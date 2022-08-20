@@ -461,7 +461,15 @@ namespace ImageMagick
                 return ToString();
 
             if (IsCmyk)
-                return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})", R, G, B, K);
+            {
+                var r = Quantum.ScaleToByte(R);
+                var g = Quantum.ScaleToByte(G);
+                var b = Quantum.ScaleToByte(B);
+                var k = Quantum.ScaleToByte(K);
+
+                return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})", r, g, b, k);
+            }
+
 #if Q8
             return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B);
 #elif Q16 || Q16HDRI
