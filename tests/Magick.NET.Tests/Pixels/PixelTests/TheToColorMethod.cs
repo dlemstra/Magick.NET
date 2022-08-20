@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -20,6 +21,20 @@ namespace Magick.NET.Tests
     {
         public class TheToColorMethod
         {
+            [Fact]
+            public void ShouldReturnNullWhenImageHasNoChannels()
+            {
+                using (var image = new MagickImage())
+                {
+                    using (var pixels = new UnsafePixelCollection(image))
+                    {
+                        var pixel = Pixel.Create(pixels, 0, 0, Array.Empty<byte>());
+
+                        Assert.Null(pixel.ToColor());
+                    }
+                }
+            }
+
             [Fact]
             public void ShouldReturnTheCorrectValueForOneChannel()
             {

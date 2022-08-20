@@ -97,12 +97,32 @@ namespace ImageMagick
         /// <param name="obj">The object to compare pixel color with.</param>
         /// <returns>True when the specified object is equal to the current pixel.</returns>
         public override bool Equals(object? obj)
-            => Equals(obj as Pixel);
+        {
+            if (obj is Pixel other)
+                return Equals(other);
+
+            return Equals(obj as MagickColor);
+        }
+
+        /// <summary>
+        /// Determines whether the specified color is equal to the current pixel.
+        /// </summary>
+        /// <param name="other">The color to compare this pixel with.</param>
+        /// <returns>True when the specified color is equal to the current pixel.</returns>
+        public bool Equals(IMagickColor<QuantumType>? other)
+        {
+            var color = ToColor();
+
+            if (color is null)
+                return other is null;
+
+            return color.Equals(other);
+        }
 
         /// <summary>
         /// Determines whether the specified pixel is equal to the current pixel.
         /// </summary>
-        /// <param name="other">The pixel to compare this color with.</param>
+        /// <param name="other">The pixel to compare this pixel with.</param>
         /// <returns>True when the specified pixel is equal to the current pixel.</returns>
         public bool Equals(IPixel<QuantumType>? other)
         {

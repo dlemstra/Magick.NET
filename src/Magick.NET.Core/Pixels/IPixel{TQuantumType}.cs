@@ -9,7 +9,7 @@ namespace ImageMagick
     /// Class that can be used to access an individual pixel of an image.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IPixel<TQuantumType> : IEquatable<IPixel<TQuantumType>?>
+    public interface IPixel<TQuantumType> : IEquatable<IPixel<TQuantumType>?>, IEquatable<IMagickColor<TQuantumType>?>
         where TQuantumType : struct, IConvertible
     {
         /// <summary>
