@@ -265,12 +265,7 @@ namespace ImageMagick
         /// <param name="obj">The object to compare this <see cref="MagickGeometry"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="MagickGeometry"/>.</returns>
         public override bool Equals(object? obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            return Equals(obj as IMagickGeometry);
-        }
+            => Equals(obj as IMagickGeometry);
 
         /// <summary>
         /// Determines whether the specified <see cref="IMagickGeometry"/> is equal to the current <see cref="MagickGeometry"/>.

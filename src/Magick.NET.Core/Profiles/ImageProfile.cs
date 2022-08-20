@@ -78,12 +78,7 @@ namespace ImageMagick
         /// <param name="obj">The object to compare this <see cref="ImageProfile"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="ImageProfile"/>.</returns>
         public override bool Equals(object? obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            return Equals(obj as IImageProfile);
-        }
+            => Equals(obj as IImageProfile);
 
         /// <summary>
         /// Determines whether the specified image compare is equal to the current <see cref="ImageProfile"/>.

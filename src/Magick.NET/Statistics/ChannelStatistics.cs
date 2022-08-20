@@ -106,12 +106,7 @@ namespace ImageMagick
         /// <param name="obj">The object to compare this <see cref="ChannelStatistics"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="ChannelStatistics"/>.</returns>
         public override bool Equals(object? obj)
-        {
-            if (obj is null)
-                return false;
-
-            return Equals(obj as IChannelStatistics);
-        }
+            => Equals(obj as IChannelStatistics);
 
         /// <summary>
         /// Determines whether the specified <see cref="IChannelStatistics"/> is equal to the current <see cref="ChannelStatistics"/>.

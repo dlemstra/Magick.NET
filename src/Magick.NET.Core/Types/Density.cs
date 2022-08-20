@@ -97,16 +97,8 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="Density"/> with.</param>
         /// <returns>True when the specified object is equal to the <see cref="Density"/>.</returns>
-        public override bool Equals(object obj)
-        {
-            if (obj is null)
-                return false;
-
-            if (obj.GetType() != typeof(Density))
-                return false;
-
-            return Equals((Density)obj);
-        }
+        public override bool Equals(object? obj)
+            => Equals(obj as Density);
 
         /// <summary>
         /// Determines whether the specified <see cref="Density"/> is equal to the current <see cref="Density"/>.

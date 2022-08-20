@@ -97,12 +97,7 @@ namespace ImageMagick
         /// <param name="obj">The object to compare pixel color with.</param>
         /// <returns>True when the specified object is equal to the current pixel.</returns>
         public override bool Equals(object? obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            return Equals(obj as Pixel);
-        }
+            => Equals(obj as Pixel);
 
         /// <summary>
         /// Determines whether the specified pixel is equal to the current pixel.

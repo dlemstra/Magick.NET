@@ -48,12 +48,7 @@ namespace ImageMagick
         /// <param name="obj">The object to compare this exif tag with.</param>
         /// <returns>True when the specified object is equal to the current exif tag.</returns>
         public override bool Equals(object? obj)
-        {
-            if (obj is ExifTag value)
-                return Equals(value);
-
-            return false;
-        }
+            => Equals(obj as ExifTag);
 
         /// <summary>
         /// Determines whether the specified the exif tag is equal to the exif tag.

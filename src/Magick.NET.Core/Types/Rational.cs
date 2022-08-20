@@ -117,10 +117,10 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The <see cref="object"/> to compare this <see cref="Rational"/> with.</param>
         /// <returns>True when the specified <see cref="object"/> is equal to this <see cref="Rational"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (obj is Rational)
-                return Equals((Rational)obj);
+            if (obj is Rational other)
+                return Equals(other);
 
             return false;
         }

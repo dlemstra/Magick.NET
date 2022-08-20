@@ -132,19 +132,19 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="Percentage"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="Percentage"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is null)
                 return false;
 
-            if (obj.GetType() == typeof(Percentage))
-                return Equals((Percentage)obj);
+            if (obj is Percentage percentage)
+                return Equals(percentage);
 
-            if (obj.GetType() == typeof(double))
-                return _value.Equals(obj);
+            if (obj is double doubleObj)
+                return _value.Equals(doubleObj);
 
-            if (obj.GetType() == typeof(int))
-                return ((int)_value).Equals((int)obj);
+            if (obj is int intObj)
+                return intObj.Equals((int)_value);
 
             return false;
         }

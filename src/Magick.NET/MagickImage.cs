@@ -2611,12 +2611,7 @@ namespace ImageMagick
         /// <param name="obj">The object to compare this <see cref="MagickImage"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="MagickImage"/>.</returns>
         public override bool Equals(object? obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            return Equals(obj as MagickImage);
-        }
+            => Equals(obj as MagickImage);
 
         /// <summary>
         /// Determines whether the specified <see cref="IMagickImage{TQuantumType}"/> is equal to the current <see cref="MagickImage"/>.

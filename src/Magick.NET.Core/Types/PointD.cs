@@ -75,15 +75,12 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="PointD"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="PointD"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (obj is null)
+            if (obj is not PointD other)
                 return false;
 
-            if (obj.GetType() != typeof(PointD))
-                return false;
-
-            return Equals((PointD)obj);
+            return Equals(other);
         }
 
         /// <summary>

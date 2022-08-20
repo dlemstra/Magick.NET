@@ -122,15 +122,12 @@ namespace ImageMagick
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="Number"/> with.</param>
         /// <returns>True when the specified object is equal to the current <see cref="Number"/>.</returns>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (obj is null)
+            if (obj is not Number other)
                 return false;
 
-            if (obj.GetType() == typeof(Number))
-                return Equals((Number)obj);
-
-            return false;
+            return Equals(other);
         }
 
         /// <summary>

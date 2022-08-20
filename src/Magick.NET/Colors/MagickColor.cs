@@ -344,12 +344,7 @@ namespace ImageMagick
         /// <param name="obj">The object to compare this color with.</param>
         /// <returns>True when the specified object is equal to the current color.</returns>
         public override bool Equals(object? obj)
-        {
-            if (ReferenceEquals(this, obj))
-                return true;
-
-            return Equals(obj as IMagickColor<QuantumType>);
-        }
+            => Equals(obj as IMagickColor<QuantumType>);
 
         /// <summary>
         /// Determines whether the specified color is equal to the current color.

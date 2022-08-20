@@ -59,12 +59,7 @@ namespace ImageMagick
         /// <param name="obj">The object to compare this <see cref="Statistics"/> with.</param>
         /// <returns>Truw when the specified object is equal to the current <see cref="Statistics"/>.</returns>
         public override bool Equals(object? obj)
-        {
-            if (obj is null)
-                return false;
-
-            return Equals(obj as IStatistics);
-        }
+            => Equals(obj as IStatistics);
 
         /// <summary>
         /// Determines whether the specified image statistics is equal to the current <see cref="Statistics"/>.

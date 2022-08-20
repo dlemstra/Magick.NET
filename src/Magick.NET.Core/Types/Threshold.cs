@@ -65,13 +65,10 @@ namespace ImageMagick
         /// <returns>True when the specified object is equal to the current <see cref="Threshold"/>.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is null)
+            if (obj is not Threshold other)
                 return false;
 
-            if (obj.GetType() != typeof(Threshold))
-                return false;
-
-            return Equals((Threshold)obj);
+            return Equals(other);
         }
 
         /// <summary>
