@@ -9,7 +9,7 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulation of the ImageMagick ImageStatistics object.
     /// </summary>
-    public interface IStatistics : IEquatable<IStatistics>
+    public interface IStatistics : IEquatable<IStatistics?>
     {
         /// <summary>
         /// Gets the channels.

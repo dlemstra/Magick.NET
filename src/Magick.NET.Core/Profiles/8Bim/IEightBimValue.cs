@@ -9,7 +9,7 @@ namespace ImageMagick
     /// <summary>
     /// A value of the 8bim profile.
     /// </summary>
-    public interface IEightBimValue : IEquatable<IEightBimValue>
+    public interface IEightBimValue : IEquatable<IEightBimValue?>
     {
         /// <summary>
         /// Gets the ID of the 8bim value.

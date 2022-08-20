@@ -5,7 +5,7 @@ using System;
 
 namespace ImageMagick
 {
-    internal abstract class ExifValue : IExifValue, IEquatable<ExifTag>
+    internal abstract class ExifValue : IExifValue, IEquatable<ExifTag?>
     {
         public ExifValue(ExifTag tag)
             => Tag = tag;

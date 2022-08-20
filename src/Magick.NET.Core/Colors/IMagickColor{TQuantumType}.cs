@@ -9,7 +9,7 @@ namespace ImageMagick
     /// Interface that represents a color.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IMagickColor<TQuantumType> : IEquatable<IMagickColor<TQuantumType>>, IComparable<IMagickColor<TQuantumType>>
+    public interface IMagickColor<TQuantumType> : IEquatable<IMagickColor<TQuantumType>?>, IComparable<IMagickColor<TQuantumType>?>
         where TQuantumType : struct, IConvertible
     {
         /// <summary>

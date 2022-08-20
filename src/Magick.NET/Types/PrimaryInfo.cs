@@ -48,7 +48,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The <see cref="IPrimaryInfo"/> to compare this <see cref="PrimaryInfo"/> with.</param>
         /// <returns>True when the specified <see cref="IPrimaryInfo"/> is equal to the current <see cref="PrimaryInfo"/>.</returns>
-        public bool Equals(IPrimaryInfo other)
+        public bool Equals(IPrimaryInfo? other)
         {
             if (other is null)
                 return false;

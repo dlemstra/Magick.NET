@@ -9,7 +9,7 @@ namespace ImageMagick
     /// <summary>
     /// Represents the density of an image.
     /// </summary>
-    public sealed class Density : IEquatable<Density>
+    public sealed class Density : IEquatable<Density?>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Density"/> class with the density set to inches.
@@ -113,7 +113,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The <see cref="Density"/> to compare this <see cref="Density"/> with.</param>
         /// <returns>True when the specified <see cref="Density"/> is equal to the current <see cref="Density"/>.</returns>
-        public bool Equals(Density other)
+        public bool Equals(Density? other)
         {
             if (other is null)
                 return false;

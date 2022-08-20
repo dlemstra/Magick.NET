@@ -18,7 +18,7 @@ namespace ImageMagick
     /// <summary>
     /// Base class for colors.
     /// </summary>
-    public abstract class ColorBase : IEquatable<ColorBase>, IComparable<ColorBase>
+    public abstract class ColorBase : IEquatable<ColorBase?>, IComparable<ColorBase?>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ColorBase"/> class.

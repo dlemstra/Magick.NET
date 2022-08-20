@@ -8,7 +8,7 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulation of the ImageMagick geometry object.
     /// </summary>
-    public interface IMagickGeometry : IEquatable<IMagickGeometry>, IComparable<IMagickGeometry>
+    public interface IMagickGeometry : IEquatable<IMagickGeometry?>, IComparable<IMagickGeometry?>
     {
         /// <summary>
         /// Gets a value indicating whether the value is an aspect ratio.

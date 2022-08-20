@@ -8,7 +8,7 @@ namespace ImageMagick
     /// <summary>
     /// A value of the iptc profile.
     /// </summary>
-    public interface IIptcValue : IEquatable<IIptcValue>
+    public interface IIptcValue : IEquatable<IIptcValue?>
     {
         /// <summary>
         /// Gets the tag of the iptc value.

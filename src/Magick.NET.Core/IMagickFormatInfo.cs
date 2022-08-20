@@ -8,7 +8,7 @@ namespace ImageMagick
     /// <summary>
     /// Interface that contains information about an image format.
     /// </summary>
-    public interface IMagickFormatInfo : IEquatable<IMagickFormatInfo>
+    public interface IMagickFormatInfo : IEquatable<IMagickFormatInfo?>
     {
         /// <summary>
         /// Gets a value indicating whether the format can be read multithreaded.

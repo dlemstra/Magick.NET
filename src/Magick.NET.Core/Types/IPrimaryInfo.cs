@@ -8,7 +8,7 @@ namespace ImageMagick
     /// <summary>
     /// PrimaryInfo information.
     /// </summary>
-    public interface IPrimaryInfo : IEquatable<IPrimaryInfo>
+    public interface IPrimaryInfo : IEquatable<IPrimaryInfo?>
     {
         /// <summary>
         /// Gets the X value.

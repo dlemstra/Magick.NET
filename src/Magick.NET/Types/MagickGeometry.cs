@@ -245,7 +245,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="other">The object to compare this geometry with.</param>
         /// <returns>A signed number indicating the relative values of this instance and value.</returns>
-        public int CompareTo(IMagickGeometry other)
+        public int CompareTo(IMagickGeometry? other)
         {
             if (other is null)
                 return 1;
