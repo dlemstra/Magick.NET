@@ -478,7 +478,14 @@ namespace ImageMagick
         public override string ToString()
         {
             if (IsCmyk)
-                return string.Format(CultureInfo.InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})", R, G, B, K, (double)A / Quantum.Max);
+            {
+                var r = Quantum.ScaleToByte(R);
+                var g = Quantum.ScaleToByte(G);
+                var b = Quantum.ScaleToByte(B);
+                var k = Quantum.ScaleToByte(K);
+
+                return string.Format(CultureInfo.InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})", r, g, b, k, (double)A / Quantum.Max);
+            }
 #if Q8
             return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
 #elif Q16 || Q16HDRI

@@ -4,6 +4,16 @@
 using ImageMagick;
 using Xunit;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace Magick.NET.Tests
 {
     public partial class MagickColorTests
@@ -24,17 +34,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnTheCorrectStringForCmykColor()
             {
-#if Q8
-                var color = new MagickColor(0, Quantum.Max, 0, 0, (System.Byte)(Quantum.Max / 3));
-#elif Q16
-                var color = new MagickColor(0, Quantum.Max, 0, 0, (System.UInt16)(Quantum.Max / 3));
-#else
-                var color = new MagickColor(0, Quantum.Max, 0, 0, (System.Single)(Quantum.Max / 3));
-#endif
-                Assert.Equal("cmyka(0," + Quantum.Max + ",0,0,0.3333)", color.ToString());
+                var color = new MagickColor(0, Quantum.Max, 0, 0, (QuantumType)(Quantum.Max / 3));
+                Assert.Equal("cmyka(0,255,0,0,0.3333)", color.ToString());
 
                 color = new MagickColor(0, Quantum.Max, 0, 0, Quantum.Max);
-                Assert.Equal("cmyka(0," + Quantum.Max + ",0,0,1.0)", color.ToString());
+                Assert.Equal("cmyka(0,255,0,0,1.0)", color.ToString());
             }
         }
     }
