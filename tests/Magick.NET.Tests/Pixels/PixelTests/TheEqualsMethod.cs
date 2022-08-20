@@ -178,14 +178,13 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnTheCorrectValueForFourCmykChannels()
                 {
-                    var half = (QuantumType)(Quantum.Max / 2.0);
-
-                    using (var image = new MagickImage(new MagickColor($"cmyk(0, {half}, {Quantum.Max}, {Quantum.Max})"), 1, 1))
+                    using (var image = new MagickImage(new MagickColor("cmyk(0, 127.499, 255, 255)"), 1, 1))
                     {
                         using (var pixels = image.GetPixelsUnsafe())
                         {
                             var pixel = pixels.GetPixel(0, 0);
 
+                            var half = (QuantumType)(Quantum.Max / 2.0);
                             var color = new ColorCMYK(0, half, Quantum.Max, Quantum.Max);
                             Assert.True(pixel.Equals(color.ToMagickColor()));
                         }
