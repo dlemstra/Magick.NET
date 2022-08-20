@@ -17,7 +17,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal sealed partial class UnsafePixelCollection : PixelCollection, IUnsafePixelCollection<QuantumType>
+    internal sealed partial class UnsafePixelCollection
     {
         public override void SetArea(IMagickGeometry geometry, ReadOnlySpan<QuantumType> values)
         {

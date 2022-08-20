@@ -4,8 +4,6 @@
 #if NETSTANDARD2_1
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -19,7 +17,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick
 {
-    internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
+    internal abstract partial class PixelCollection
     {
         public virtual void SetArea(int x, int y, int width, int height, ReadOnlySpan<QuantumType> values)
             => SetAreaUnchecked(x, y, width, height, values);

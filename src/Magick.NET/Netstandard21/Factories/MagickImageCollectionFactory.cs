@@ -19,7 +19,7 @@ using QuantumType = System.Single;
 namespace ImageMagick
 {
     /// <content />
-    public sealed partial class MagickImageCollectionFactory : IMagickImageCollectionFactory<QuantumType>
+    public sealed partial class MagickImageCollectionFactory
     {
         /// <summary>
         /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.

@@ -10,7 +10,7 @@ using System.Collections.Generic;
 namespace ImageMagick
 {
     /// <content />
-    public sealed partial class MagickImageInfo : IMagickImageInfo
+    public sealed partial class MagickImageInfo
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
