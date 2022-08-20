@@ -191,7 +191,8 @@ namespace ImageMagick
         /// Converts the value of this instance to a hexadecimal string.
         /// </summary>
         /// <returns>The <see cref="string"/>.</returns>
-        public override string ToString() => ToMagickColor().ToString();
+        public override string ToString()
+            => ToMagickColor().ToString();
 
         /// <summary>
         /// Updates the color value from an inherited class.
