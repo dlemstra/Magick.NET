@@ -52,16 +52,23 @@ namespace ImageMagick
             return result;
         }
 
-        internal static string? NativeToManagedNullable(IntPtr nativeData)
+        internal static unsafe string? NativeToManagedNullable(IntPtr nativeData)
         {
-            var strbuf = ByteConverter.ToArray(nativeData);
-            if (strbuf is null)
+            if (nativeData == IntPtr.Zero)
                 return null;
 
-            if (strbuf.Length == 0)
+            var bytes = (byte*)nativeData;
+            var length = 0;
+            var walk = bytes;
+
+            // find the end of the string
+            while (*(walk++) != 0)
+                length++;
+
+            if (length == 0)
                 return string.Empty;
 
-            return Encoding.UTF8.GetString(strbuf, 0, strbuf.Length);
+            return Encoding.UTF8.GetString(bytes, length);
         }
 
         internal static string? NativeToManagedAndRelinquish(IntPtr nativeData)
