@@ -12,8 +12,6 @@
       <Link>%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup Condition="'$(MagickCopyNativeLinux)' == 'true'">
     <NativeLinuxArm64DLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\linux-arm64\native\*.so" />
     <Content Include="@(NativeLinuxArm64DLL)">
       <Link>%(FileName)%(Extension)</Link>
