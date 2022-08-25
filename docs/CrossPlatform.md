@@ -30,6 +30,20 @@ Running Magick.NET with .NET Core on Linux requires adding the library as a pack
   </ItemGroup>
 ```
 
+### Native library is not copied to the bin folder
+
+On some of the platforms it appears that the binaries are not copied to the output folder. This can be forced
+by adding one of the following properties your `.csproj` file:
+
+```xml
+  <PropertyGroup>
+    <MagickCopyNativeWindows>true<MagickCopyNativeWindows>
+    <MagickCopyNativeLinux>true<MagickCopyNativeLinux>
+    <MagickCopyNativeLinuxMusl>true<MagickCopyNativeLinuxMusl>
+    <MagickCopyNativeMacOS>true<MagickCopyNativeMacOS>
+  </PropertyGroup>
+```
+
 ### Mono
 
 Getting Magick.NET working on Mono sometimes requires an extra step. The Magick.NET.Native library is not always automatically copied
