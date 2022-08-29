@@ -2603,7 +2603,15 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Equalize()
-            => _nativeInstance.Equalize(ImageMagick.Channels.Default);
+            => Equalize(ImageMagick.Channels.Default);
+
+        /// <summary>
+        /// Applies a histogram equalization to the image.
+        /// </summary>
+        /// <param name="channels">The channel(s) to apply the operator on.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Equalize(Channels channels)
+            => _nativeInstance.Equalize(channels);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="MagickImage"/>.

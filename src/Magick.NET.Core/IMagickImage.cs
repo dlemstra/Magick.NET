@@ -1390,6 +1390,13 @@ namespace ImageMagick
         void Equalize();
 
         /// <summary>
+        /// Applies a histogram equalization to the image.
+        /// </summary>
+        /// <param name="channels">The channel(s) to apply the operator on.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void Equalize(Channels channels);
+
+        /// <summary>
         /// Apply an arithmetic or bitwise operator to the image pixel quantums.
         /// </summary>
         /// <param name="channels">The channel(s) to apply the operator on.</param>
