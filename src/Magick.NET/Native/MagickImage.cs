@@ -325,7 +325,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Enhance(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Equalize(IntPtr Instance, out IntPtr exception);
+                public static extern void MagickImage_Equalize(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
@@ -890,7 +890,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Enhance(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Equalize(IntPtr Instance, out IntPtr exception);
+                public static extern void MagickImage_Equalize(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
@@ -1455,7 +1455,7 @@ namespace ImageMagick
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickImage_Enhance(IntPtr Instance, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Equalize(IntPtr Instance, out IntPtr exception);
+                public static extern void MagickImage_Equalize(IntPtr Instance, UIntPtr channels, out IntPtr exception);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
                 public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
@@ -5356,26 +5356,26 @@ namespace ImageMagick
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Equalize()
+            public void Equalize(Channels channels)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (OperatingSystem.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Equalize(Instance, out exception);
+                NativeMethods.ARM64.MagickImage_Equalize(Instance, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (OperatingSystem.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Equalize(Instance, out exception);
+                NativeMethods.X64.MagickImage_Equalize(Instance, (UIntPtr)channels, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Equalize(Instance, out exception);
+                NativeMethods.X86.MagickImage_Equalize(Instance, (UIntPtr)channels, out exception);
                 #endif
                 CheckException(exception);
             }

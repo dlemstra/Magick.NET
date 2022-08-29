@@ -2603,7 +2603,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Equalize()
-            => _nativeInstance.Equalize();
+            => _nativeInstance.Equalize(ImageMagick.Channels.Default);
 
         /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="MagickImage"/>.

@@ -1150,7 +1150,13 @@
     },
     {
       "name": "Equalize",
-      "throws": true
+      "throws": true,
+      "arguments": [
+        {
+          "name": "channels",
+          "type": "Channels"
+        }
+      ]
     },
     {
       "name": "Equals",
