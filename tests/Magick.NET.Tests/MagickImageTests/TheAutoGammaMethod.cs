@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public void ShouldUseTheCorrectDefaultChannel()
+            public void ShouldUseTheCorrectDefaultChannels()
             {
                 using (var imageA = new MagickImage(Files.MagickNETIconPNG))
                 {
