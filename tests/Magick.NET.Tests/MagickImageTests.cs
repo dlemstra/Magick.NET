@@ -9,17 +9,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_VirtualPixelMethod()
-        {
-            using (var image = new MagickImage())
-            {
-                Assert.Equal(VirtualPixelMethod.Undefined, image.VirtualPixelMethod);
-                image.VirtualPixelMethod = VirtualPixelMethod.Random;
-                Assert.Equal(VirtualPixelMethod.Random, image.VirtualPixelMethod);
-            }
-        }
-
-        [Fact]
         public void Test_Wave()
         {
             using (var image = new MagickImage(Files.TestPNG))
