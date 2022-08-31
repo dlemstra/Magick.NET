@@ -37,10 +37,10 @@ by adding one of the following properties your `.csproj` file:
 
 ```xml
   <PropertyGroup>
-    <MagickCopyNativeWindows>true<MagickCopyNativeWindows>
-    <MagickCopyNativeLinux>true<MagickCopyNativeLinux>
-    <MagickCopyNativeLinuxMusl>true<MagickCopyNativeLinuxMusl>
-    <MagickCopyNativeMacOS>true<MagickCopyNativeMacOS>
+    <MagickCopyNativeWindows>true</MagickCopyNativeWindows>
+    <MagickCopyNativeLinux>true</MagickCopyNativeLinux>
+    <MagickCopyNativeLinuxMusl>true</MagickCopyNativeLinuxMusl>
+    <MagickCopyNativeMacOS>true</MagickCopyNativeMacOS>
   </PropertyGroup>
 ```
 
