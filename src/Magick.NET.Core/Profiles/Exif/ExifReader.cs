@@ -47,7 +47,8 @@ namespace ImageMagick
 
         private void Read()
         {
-            if (_reader.ReadString(4) == "Exif")
+            // Exif
+            if (_reader.ReadLong() == 0x45786966)
             {
                 if (_reader.ReadShort() != 0)
                     return;
@@ -55,7 +56,8 @@ namespace ImageMagick
                 _startIndex = 6;
             }
 
-            _reader.IsLittleEndian = _reader.ReadString(2) == "II";
+            // II
+            _reader.IsLittleEndian = _reader.ReadShort() == 0x4949;
 
             if (ReadShort() != 0x002A)
                 return;
