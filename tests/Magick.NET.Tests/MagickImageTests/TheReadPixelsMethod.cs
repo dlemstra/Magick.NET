@@ -331,7 +331,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
+                        var exception = Assert.Throws<ArgumentNullException>("settings", () =>
                         {
                             image.ReadPixels(new QuantumType[] { 215 }, settings);
                         });
