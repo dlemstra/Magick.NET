@@ -66,7 +66,8 @@ namespace ImageMagick
             AddValues(_data.Values, ifdOffset);
 
             var thumbnailOffset = ReadLong();
-            ReadThumbnail(thumbnailOffset);
+            if (thumbnailOffset != 0)
+                ReadThumbnail(thumbnailOffset);
 
             if (_exifOffset != 0)
                 AddValues(_data.Values, _exifOffset);
