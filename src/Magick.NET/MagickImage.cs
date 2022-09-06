@@ -5095,7 +5095,7 @@ namespace ImageMagick
             Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
             Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
             Throw.IfNull(nameof(settings), settings);
-            Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
+            Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
             Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
 
             var newReadSettings = CreateReadSettings(settings.ReadSettings);
@@ -5137,7 +5137,7 @@ namespace ImageMagick
             Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
             Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of items should not exceed the length of the array.");
             Throw.IfNull(nameof(settings), settings);
-            Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
+            Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
             Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
 
             var newReadSettings = CreateReadSettings(settings.ReadSettings);
@@ -7635,7 +7635,7 @@ namespace ImageMagick
 
         private unsafe sealed partial class NativeMagickImage : NativeInstance
         {
-            public void ReadPixels(int width, int height, string? map, StorageType storageType, byte[] data, int offsetInBytes)
+            public void ReadPixels(int width, int height, string map, StorageType storageType, byte[] data, int offsetInBytes)
             {
                 fixed (byte* dataFixed = data)
                 {
@@ -7644,7 +7644,7 @@ namespace ImageMagick
             }
 
 #if !Q8
-            public void ReadPixels(int width, int height, string? map, StorageType storageType, QuantumType[] data, int offsetInBytes)
+            public void ReadPixels(int width, int height, string map, StorageType storageType, QuantumType[] data, int offsetInBytes)
             {
                 fixed (QuantumType* dataFixed = data)
                 {

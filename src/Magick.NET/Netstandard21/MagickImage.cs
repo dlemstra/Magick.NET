@@ -201,7 +201,7 @@ namespace ImageMagick
         {
             Throw.IfEmpty(nameof(data), data);
             Throw.IfNull(nameof(settings), settings);
-            Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
+            Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
             Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
 
             var newReadSettings = CreateReadSettings(settings.ReadSettings);
@@ -225,7 +225,7 @@ namespace ImageMagick
         {
             Throw.IfEmpty(nameof(data), data);
             Throw.IfNull(nameof(settings), settings);
-            Throw.IfTrue(nameof(settings), string.IsNullOrEmpty(settings.Mapping), "Pixel storage mapping should be defined.");
+            Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
             Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
 
             var newReadSettings = CreateReadSettings(settings.ReadSettings);
@@ -321,7 +321,7 @@ namespace ImageMagick
 
         private unsafe sealed partial class NativeMagickImage : NativeInstance
         {
-            public void ReadPixels(int width, int height, string? map, StorageType storageType, ReadOnlySpan<byte> data, int offsetInBytes)
+            public void ReadPixels(int width, int height, string map, StorageType storageType, ReadOnlySpan<byte> data, int offsetInBytes)
             {
                 fixed (byte* dataFixed = data)
                 {
@@ -330,7 +330,7 @@ namespace ImageMagick
             }
 
 #if !Q8
-            public void ReadPixels(int width, int height, string? map, StorageType storageType, ReadOnlySpan<QuantumType> data, int offsetInBytes)
+            public void ReadPixels(int width, int height, string map, StorageType storageType, ReadOnlySpan<QuantumType> data, int offsetInBytes)
             {
                 fixed (QuantumType* dataFixed = data)
                 {
