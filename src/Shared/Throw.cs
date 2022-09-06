@@ -42,11 +42,11 @@ namespace ImageMagick
         }
 
         public static void IfNullOrEmpty(string paramName, [NotNull] string? value)
-            => IfNullOrEmpty(paramName, value, "Value cannot be empty.");
+            => IfNullOrEmpty(paramName, value, "Value cannot be null or empty.");
 
         public static void IfNullOrEmpty(string paramName, [NotNull] string? value, string message)
         {
-            IfNull(paramName, value);
+            IfNull(paramName, value, message);
 
             if (value.Length == 0)
                 throw new ArgumentException(message, paramName);

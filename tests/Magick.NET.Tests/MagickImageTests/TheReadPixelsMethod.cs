@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
+                        var exception = Assert.Throws<ArgumentNullException>("settings", () =>
                         {
                             image.ReadPixels(new byte[] { 215 }, settings);
                         });
@@ -618,7 +618,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
+                        var exception = Assert.Throws<ArgumentNullException>("settings", () =>
                         {
                             image.ReadPixels(Files.CirclePNG, settings);
                         });

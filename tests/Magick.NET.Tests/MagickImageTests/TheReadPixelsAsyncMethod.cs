@@ -96,7 +96,7 @@ namespace Magick.NET.Tests
 
                     using (var image = new MagickImage())
                     {
-                        var exception = await Assert.ThrowsAsync<ArgumentException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
+                        var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
 
                         Assert.Contains("mapping", exception.Message);
                     }
