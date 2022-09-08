@@ -135,6 +135,24 @@ namespace Magick.NET.Tests
             }
         }
 
+        [Fact]
+        public void ShouldReadImageWithAlphaCorrectly()
+        {
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
+            {
+                using (var stream = new MemoryStream())
+                {
+                    image.Write(stream, MagickFormat.Tiff);
+
+                    stream.Position = 0;
+
+                    image.Read(stream);
+
+                    ColorAssert.Equal(new MagickColor("#a8dff8ff"), image, 55, 70);
+                }
+            }
+        }
+
         private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
         {
             var value = profile.GetValue(tag);
