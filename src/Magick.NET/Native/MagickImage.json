@@ -2097,7 +2097,7 @@
         },
         {
           "name": "map",
-          "type": "string?"
+          "type": "string"
         },
         {
           "name": "storageType",

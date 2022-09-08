@@ -7132,7 +7132,7 @@ namespace ImageMagick
                       Instance = result;
                 }
             }
-            public void ReadPixels(int width, int height, string? map, StorageType storageType, void* data, int offsetInBytes)
+            public void ReadPixels(int width, int height, string map, StorageType storageType, void* data, int offsetInBytes)
             {
                 using (var mapNative = UTF8Marshaler.CreateInstance(map))
                 {
