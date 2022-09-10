@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.0-48 beta (2022-09-01) ] copyright:
+[ ImageMagick 7.1.0-48 beta (2022-09-10) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -3311,7 +3311,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 2.8.1 (2021-05-04) ] copyright:
+[ harfbuzz 5.1.0 (2022-07-31) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -3319,14 +3319,14 @@ files names COPYING in subdirectories where applicable.
 
 Copyright © 2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020  Google, Inc.
 Copyright © 2018,2019,2020  Ebrahim Byagowi
-Copyright © 2019,2020  Facebook, Inc. 
+Copyright © 2019,2020  Facebook, Inc.
 Copyright © 2012  Mozilla Foundation
 Copyright © 2011  Codethink Limited
 Copyright © 2008,2010  Nokia Corporation and/or its subsidiary(-ies)
 Copyright © 2009  Keith Stribley
 Copyright © 2009  Martin Hosken and SIL International
 Copyright © 2007  Chris Wilson
-Copyright © 2006  Behdad Esfahbod
+Copyright © 2005,2006,2020,2021  Behdad Esfahbod
 Copyright © 2005  David Turner
 Copyright © 2004,2007,2008,2009,2010  Red Hat, Inc.
 Copyright © 1998-2004  David Turner and Werner Lemberg
@@ -5280,12 +5280,12 @@ be appreciated.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ raqm 0.7.1 (2020-11-22) ] copyright:
+[ raqm 0.9.0 (2022-01-30) ] copyright:
 
 The MIT License (MIT)
 
 Copyright © 2015 Information Technology Authority (ITA) <foss@ita.gov.om>
-Copyright © 2016 Khaled Hosny <khaledhosny@eglug.org>
+Copyright © 2016-2022 Khaled Hosny <khaled@aliftype.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
