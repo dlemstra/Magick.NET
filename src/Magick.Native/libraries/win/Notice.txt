@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.0-48 beta (2022-09-10) ] copyright:
+[ ImageMagick 7.1.0-48 (2022-09-11) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
