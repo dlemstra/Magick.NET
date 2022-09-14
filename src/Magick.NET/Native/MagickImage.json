@@ -1540,6 +1540,44 @@
       ]
     },
     {
+      "name": "ImportPixels",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "x",
+          "type": "size_t"
+        },
+        {
+          "name": "y",
+          "type": "size_t"
+        },
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        },
+        {
+          "name": "map",
+          "type": "string"
+        },
+        {
+          "name": "storageType",
+          "type": "StorageType"
+        },
+        {
+          "name": "data",
+          "type": "void*"
+        },
+        {
+          "name": "offsetInBytes",
+          "type": "size_t"
+        }
+      ]
+    },
+    {
       "name": "Integral",
       "type": "Instance",
       "throws": true
