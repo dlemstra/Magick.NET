@@ -49,9 +49,7 @@ namespace ImageMagick
         }
 
         internal PixelReadSettings()
-        {
-            ReadSettings = new MagickReadSettings();
-        }
+            => ReadSettings = new MagickReadSettings();
 
         /// <summary>
         /// Gets or sets the mapping of the pixels (e.g. RGB/RGBA/ARGB).
