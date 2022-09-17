@@ -49,7 +49,7 @@ namespace ImageMagick
         /// <param name="data">The span of bytes to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(ReadOnlySpan<byte> data, IPixelReadSettings<TQuantumType>? settings);
+        void ReadPixels(ReadOnlySpan<byte> data, IPixelReadSettings<TQuantumType> settings);
 
 #if !Q8
         /// <summary>
@@ -58,7 +58,7 @@ namespace ImageMagick
         /// <param name="data">The span of quantum to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        void ReadPixels(ReadOnlySpan<TQuantumType> data, IPixelReadSettings<TQuantumType>? settings);
+        void ReadPixels(ReadOnlySpan<TQuantumType> data, IPixelReadSettings<TQuantumType> settings);
 #endif
     }
 }

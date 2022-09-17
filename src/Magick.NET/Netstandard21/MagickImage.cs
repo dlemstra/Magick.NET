@@ -197,7 +197,7 @@ namespace ImageMagick
         /// <param name="data">The span of bytes to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(ReadOnlySpan<byte> data, IPixelReadSettings<QuantumType>? settings)
+        public void ReadPixels(ReadOnlySpan<byte> data, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfEmpty(nameof(data), data);
             Throw.IfNull(nameof(settings), settings);
@@ -221,7 +221,7 @@ namespace ImageMagick
         /// <param name="data">The span of quantum to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(ReadOnlySpan<QuantumType> data, IPixelReadSettings<QuantumType>? settings)
+        public void ReadPixels(ReadOnlySpan<QuantumType> data, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfEmpty(nameof(data), data);
             Throw.IfNull(nameof(settings), settings);

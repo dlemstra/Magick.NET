@@ -5072,7 +5072,7 @@ namespace ImageMagick
         /// <param name="data">The byte array to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(byte[] data, IPixelReadSettings<QuantumType>? settings)
+        public void ReadPixels(byte[] data, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -5087,7 +5087,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of bytes to read.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(byte[] data, int offset, int count, IPixelReadSettings<QuantumType>? settings)
+        public void ReadPixels(byte[] data, int offset, int count, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
             Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
@@ -5114,7 +5114,7 @@ namespace ImageMagick
         /// <param name="data">The quantum array to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(QuantumType[] data, IPixelReadSettings<QuantumType>? settings)
+        public void ReadPixels(QuantumType[] data, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
 
@@ -5129,7 +5129,7 @@ namespace ImageMagick
         /// <param name="count">The maximum number of items to read.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(QuantumType[] data, int offset, int count, IPixelReadSettings<QuantumType>? settings)
+        public void ReadPixels(QuantumType[] data, int offset, int count, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNullOrEmpty(nameof(data), data);
             Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
@@ -5158,7 +5158,7 @@ namespace ImageMagick
         /// <param name="file">The file to read the image from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(FileInfo file, IPixelReadSettings<QuantumType>? settings)
+        public void ReadPixels(FileInfo file, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -5171,7 +5171,7 @@ namespace ImageMagick
         /// <param name="stream">The stream to read the image data from.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(Stream stream, IPixelReadSettings<QuantumType>? settings)
+        public void ReadPixels(Stream stream, IPixelReadSettings<QuantumType> settings)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
@@ -5185,7 +5185,7 @@ namespace ImageMagick
         /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void ReadPixels(string fileName, IPixelReadSettings<QuantumType>? settings)
+        public void ReadPixels(string fileName, IPixelReadSettings<QuantumType> settings)
         {
             var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
@@ -5201,7 +5201,7 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<QuantumType>? settings)
+        public Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<QuantumType> settings)
             => ReadPixelsAsync(file, settings, CancellationToken.None);
 
         /// <summary>
@@ -5212,7 +5212,7 @@ namespace ImageMagick
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<QuantumType>? settings, CancellationToken cancellationToken)
+        public Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<QuantumType> settings, CancellationToken cancellationToken)
         {
             Throw.IfNull(nameof(file), file);
 
@@ -5226,7 +5226,7 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Task ReadPixelsAsync(Stream stream, IPixelReadSettings<QuantumType>? settings)
+        public Task ReadPixelsAsync(Stream stream, IPixelReadSettings<QuantumType> settings)
             => ReadPixelsAsync(stream, settings, CancellationToken.None);
 
         /// <summary>
@@ -5237,7 +5237,7 @@ namespace ImageMagick
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task ReadPixelsAsync(Stream stream, IPixelReadSettings<QuantumType>? settings, CancellationToken cancellationToken)
+        public async Task ReadPixelsAsync(Stream stream, IPixelReadSettings<QuantumType> settings, CancellationToken cancellationToken)
         {
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
@@ -5252,7 +5252,7 @@ namespace ImageMagick
         /// <param name="settings">The pixel settings to use when reading the image.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Task ReadPixelsAsync(string fileName, IPixelReadSettings<QuantumType>? settings)
+        public Task ReadPixelsAsync(string fileName, IPixelReadSettings<QuantumType> settings)
             => ReadPixelsAsync(fileName, settings, CancellationToken.None);
 
         /// <summary>
@@ -5263,7 +5263,7 @@ namespace ImageMagick
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public async Task ReadPixelsAsync(string fileName, IPixelReadSettings<QuantumType>? settings, CancellationToken cancellationToken)
+        public async Task ReadPixelsAsync(string fileName, IPixelReadSettings<QuantumType> settings, CancellationToken cancellationToken)
         {
             var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
