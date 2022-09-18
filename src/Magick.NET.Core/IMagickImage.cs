@@ -1739,6 +1739,23 @@ namespace ImageMagick
         void Implode(double amount, PixelInterpolateMethod method);
 
         /// <summary>
+        /// Import pixels from the specified byte array.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ImportPixels(byte[] data, IPixelImportSettings settings);
+
+        /// <summary>
+        /// Import pixels from the specified byte array.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ImportPixels(byte[] data, int offset, IPixelImportSettings settings);
+
+        /// <summary>
         /// Resize image to specified size using the specified interpolation method.
         /// </summary>
         /// <param name="width">The new width.</param>

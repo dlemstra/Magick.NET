@@ -3313,6 +3313,42 @@ namespace ImageMagick
             => _nativeInstance.Implode(amount, method);
 
         /// <summary>
+        /// Import pixels from the specified byte array into the current image.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ImportPixels(byte[] data, IPixelImportSettings settings)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+
+            ImportPixels(data, 0, settings);
+        }
+
+        /// <summary>
+        /// Import pixels from the specified byte array into the current image.
+        /// </summary>
+        /// <param name="data">The byte array to read the image data from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ImportPixels(byte[] data, int offset, IPixelImportSettings settings)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+            Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
+            Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
+            Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+
+            var count = data.Length;
+            var expectedLength = offset + GetExpectedByteLength(settings);
+            Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+
+            _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
+        }
+
+        /// <summary>
         /// Returns the sum of values (pixel values) in the image.
         /// </summary>
         /// <returns>The sum of values (pixel values) in the image.</returns>
@@ -7327,11 +7363,17 @@ namespace ImageMagick
         }
 
         internal void SetNext(IMagickImage? image)
-            => _nativeInstance.SetNext(MagickImage.GetInstance(image));
+            => _nativeInstance.SetNext(GetInstance(image));
 
         private static int GetExpectedByteLength(IPixelReadSettings<QuantumType> settings)
         {
             var length = GetExpectedLength(settings);
+            return ToByteCount(settings.StorageType, length);
+        }
+
+        private static int GetExpectedByteLength(IPixelImportSettings settings)
+        {
+            var length = settings.Width * settings.Height * settings.Mapping!.Length;
             return ToByteCount(settings.StorageType, length);
         }
 
@@ -7635,6 +7677,14 @@ namespace ImageMagick
 
         private unsafe sealed partial class NativeMagickImage : NativeInstance
         {
+            public void ImportPixels(int x, int y, int width, int height, string map, StorageType storageType, byte[] data, int offsetInBytes)
+            {
+                fixed (byte* dataFixed = data)
+                {
+                    ImportPixels(x, y, width, height, map, storageType, dataFixed, offsetInBytes);
+                }
+            }
+
             public void ReadPixels(int width, int height, string map, StorageType storageType, byte[] data, int offsetInBytes)
             {
                 fixed (byte* dataFixed = data)
