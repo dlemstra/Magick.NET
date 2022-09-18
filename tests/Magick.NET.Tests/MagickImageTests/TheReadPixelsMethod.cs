@@ -240,6 +240,21 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
+                public void ShouldThrowExceptionWhenOffsetExceedsArrayLength()
+                {
+                    var settings = new PixelReadSettings();
+
+                    using (var image = new MagickImage())
+                    {
+                        var exception = Assert.Throws<ArgumentException>("offset", () =>
+                        {
+                            image.ReadPixels(new byte[] { 215 }, 1, 1, settings);
+                        });
+                        Assert.Contains("The offset should not exceed the length of the array.", exception.Message);
+                    }
+                }
+
+                [Fact]
                 public void ShouldThrowExceptionWhenCountIsNegative()
                 {
                     var settings = new PixelReadSettings();
