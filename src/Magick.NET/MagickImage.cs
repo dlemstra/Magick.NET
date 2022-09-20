@@ -1477,7 +1477,7 @@ namespace ImageMagick
         /// </summary>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Clamp()
-            => _nativeInstance.Clamp();
+            => Clamp(ImageMagick.Channels.All);
 
         /// <summary>
         /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
@@ -1487,7 +1487,7 @@ namespace ImageMagick
         /// <param name="channels">The channel(s) to clamp.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Clamp(Channels channels)
-            => _nativeInstance.ClampChannel(channels);
+            => _nativeInstance.Clamp(channels);
 
         /// <summary>
         /// Sets the image clip mask based on any clipping path information if it exists. The clipping

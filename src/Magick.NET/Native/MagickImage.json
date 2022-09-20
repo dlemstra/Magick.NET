@@ -698,10 +698,6 @@
     },
     {
       "name": "Clamp",
-      "throws": true
-    },
-    {
-      "name": "ClampChannel",
       "throws": true,
       "arguments": [
         {
