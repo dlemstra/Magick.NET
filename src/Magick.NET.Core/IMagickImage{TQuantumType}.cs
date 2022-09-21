@@ -292,6 +292,25 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         IReadOnlyDictionary<IMagickColor<TQuantumType>, int> Histogram();
 
+#if !Q8
+        /// <summary>
+        /// Import pixels from the specified quantum array into the current image.
+        /// </summary>
+        /// <param name="data">The quantum array to read the pixels from.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ImportPixels(TQuantumType[] data, IPixelImportSettings settings);
+
+        /// <summary>
+        /// Import pixels from the specified quantum array into the current image.
+        /// </summary>
+        /// <param name="data">The quantum array to read the pixels from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ImportPixels(TQuantumType[] data, int offset, IPixelImportSettings settings);
+#endif
+
         /// <summary>
         /// Returns the sum of values (pixel values) in the image.
         /// </summary>

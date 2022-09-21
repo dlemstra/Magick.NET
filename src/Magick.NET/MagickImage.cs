@@ -3348,6 +3348,44 @@ namespace ImageMagick
             _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
         }
 
+#if !Q8
+        /// <summary>
+        /// Import pixels from the specified quantum array into the current image.
+        /// </summary>
+        /// <param name="data">The quantum array to read the pixels from.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ImportPixels(QuantumType[] data, IPixelImportSettings settings)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+
+            ImportPixels(data, 0, settings);
+        }
+
+        /// <summary>
+        /// Import pixels from the specified quantum array into the current image.
+        /// </summary>
+        /// <param name="data">The quantum array to read the pixels from.</param>
+        /// <param name="offset">The offset at which to begin reading data.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ImportPixels(QuantumType[] data, int offset, IPixelImportSettings settings)
+        {
+            Throw.IfNullOrEmpty(nameof(data), data);
+            Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
+            Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
+            Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
+
+            var count = data.Length;
+            var expectedLength = offset + GetExpectedLength(settings);
+            Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+
+            _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
+        }
+#endif
+
         /// <summary>
         /// Returns the sum of values (pixel values) in the image.
         /// </summary>
@@ -7373,9 +7411,12 @@ namespace ImageMagick
 
         private static int GetExpectedByteLength(IPixelImportSettings settings)
         {
-            var length = settings.Width * settings.Height * settings.Mapping!.Length;
+            var length = GetExpectedLength(settings);
             return ToByteCount(settings.StorageType, length);
         }
+
+        private static int GetExpectedLength(IPixelImportSettings settings)
+            => settings.Width * settings.Height * settings.Mapping!.Length;
 
         private static int GetExpectedLength(IPixelReadSettings<QuantumType> settings)
         {
@@ -7684,6 +7725,16 @@ namespace ImageMagick
                     ImportPixels(x, y, width, height, map, storageType, dataFixed, offsetInBytes);
                 }
             }
+
+#if !Q8
+            public void ImportPixels(int x, int y, int width, int height, string map, StorageType storageType, QuantumType[] data, int offsetInBytes)
+            {
+                fixed (QuantumType* dataFixed = data)
+                {
+                    ImportPixels(x, y, width, height, map, storageType, dataFixed, offsetInBytes);
+                }
+            }
+#endif
 
             public void ReadPixels(int width, int height, string map, StorageType storageType, byte[] data, int offsetInBytes)
             {
