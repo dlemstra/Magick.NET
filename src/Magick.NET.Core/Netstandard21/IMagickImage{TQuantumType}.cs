@@ -12,6 +12,24 @@ namespace ImageMagick
     public partial interface IMagickImage<TQuantumType>
     {
         /// <summary>
+        /// Import pixels from the specified byte array into the current image.
+        /// </summary>
+        /// <param name="data">The quantum array to read the pixels from.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ImportPixels(ReadOnlySpan<byte> data, IPixelImportSettings settings);
+
+#if !Q8
+        /// <summary>
+        /// Import pixels from the specified quantum array into the current image.
+        /// </summary>
+        /// <param name="data">The quantum array to read the pixels from.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        void ImportPixels(ReadOnlySpan<TQuantumType> data, IPixelImportSettings settings);
+#endif
+
+        /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
         /// <param name="data">The sequence of bytes to read the information from.</param>

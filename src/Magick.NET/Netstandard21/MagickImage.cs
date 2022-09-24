@@ -90,6 +90,48 @@ namespace ImageMagick
             => ReadPixels(data, settings);
 
         /// <summary>
+        /// Import pixels from the specified byte array into the current image.
+        /// </summary>
+        /// <param name="data">The quantum array to read the pixels from.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ImportPixels(ReadOnlySpan<byte> data, IPixelImportSettings settings)
+        {
+            Throw.IfEmpty(nameof(data), data);
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
+            Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+
+            var count = data.Length;
+            var expectedLength = GetExpectedByteLength(settings);
+            Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+
+            _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0);
+        }
+
+#if !Q8
+        /// <summary>
+        /// Import pixels from the specified quantum array into the current image.
+        /// </summary>
+        /// <param name="data">The quantum array to read the pixels from.</param>
+        /// <param name="settings">The import settings to use when importing the pixels.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void ImportPixels(ReadOnlySpan<QuantumType> data, IPixelImportSettings settings)
+        {
+            Throw.IfEmpty(nameof(data), data);
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
+            Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
+
+            var count = data.Length;
+            var expectedLength = GetExpectedLength(settings);
+            Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+
+            _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0);
+        }
+#endif
+
+        /// <summary>
         /// Reads only metadata and not the pixel data.
         /// </summary>
         /// <param name="data">The sequence of bytes to read the information from.</param>
@@ -321,6 +363,14 @@ namespace ImageMagick
 
         private unsafe sealed partial class NativeMagickImage : NativeInstance
         {
+            public void ImportPixels(int x, int y, int width, int height, string map, StorageType storageType, ReadOnlySpan<byte> data, int offsetInBytes)
+            {
+                fixed (byte* dataFixed = data)
+                {
+                    ImportPixels(x, y, width, height, map, storageType, dataFixed, offsetInBytes);
+                }
+            }
+
             public void ReadPixels(int width, int height, string map, StorageType storageType, ReadOnlySpan<byte> data, int offsetInBytes)
             {
                 fixed (byte* dataFixed = data)
@@ -330,6 +380,14 @@ namespace ImageMagick
             }
 
 #if !Q8
+            public void ImportPixels(int x, int y, int width, int height, string map, StorageType storageType, ReadOnlySpan<QuantumType> data, int offsetInBytes)
+            {
+                fixed (QuantumType* dataFixed = data)
+                {
+                    ImportPixels(x, y, width, height, map, storageType, dataFixed, offsetInBytes);
+                }
+            }
+
             public void ReadPixels(int width, int height, string map, StorageType storageType, ReadOnlySpan<QuantumType> data, int offsetInBytes)
             {
                 fixed (QuantumType* dataFixed = data)
