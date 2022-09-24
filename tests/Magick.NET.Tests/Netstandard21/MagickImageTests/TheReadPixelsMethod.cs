@@ -187,6 +187,44 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
+                public void ShouldThrowExceptionWhenMappingIsEmpty()
+                {
+                    var settings = new PixelReadSettings
+                    {
+                        StorageType = StorageType.Quantum,
+                        Mapping = string.Empty,
+                    };
+
+                    using (var image = new MagickImage())
+                    {
+                        var exception = Assert.Throws<ArgumentException>("settings", () =>
+                        {
+                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
+                        });
+                        Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
+                    }
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenStorageTypeIsNotQuantum()
+                {
+                    var settings = new PixelReadSettings
+                    {
+                        StorageType = StorageType.Char,
+                        Mapping = "R",
+                    };
+
+                    using (var image = new MagickImage())
+                    {
+                        var exception = Assert.Throws<ArgumentException>("settings", () =>
+                        {
+                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
+                        });
+                        Assert.Contains("Storage type should be Quantum.", exception.Message);
+                    }
+                }
+
+                [Fact]
                 public void ShouldReadSpan()
                 {
                     var data = new QuantumType[]
