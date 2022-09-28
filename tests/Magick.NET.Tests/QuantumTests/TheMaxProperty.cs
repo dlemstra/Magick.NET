@@ -14,11 +14,11 @@ namespace Magick.NET.Tests
             public void ShouldHaveTheCorrectValue()
             {
 #if Q8
-                Assert.Equal(Quantum.Max, byte.MaxValue);
+                Assert.Equal(byte.MaxValue, Quantum.Max);
 #elif Q16
-                Assert.Equal(Quantum.Max, ushort.MaxValue);
+                Assert.Equal(ushort.MaxValue, Quantum.Max);
 #else
-                Assert.Equal(Quantum.Max, (float)ushort.MaxValue);
+                Assert.Equal((float)ushort.MaxValue, Quantum.Max,);
 #endif
             }
         }
