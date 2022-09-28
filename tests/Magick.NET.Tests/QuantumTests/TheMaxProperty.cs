@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
 #elif Q16
                 Assert.Equal(ushort.MaxValue, Quantum.Max);
 #else
-                Assert.Equal((float)ushort.MaxValue, Quantum.Max,);
+                Assert.Equal((float)ushort.MaxValue, Quantum.Max);
 #endif
             }
         }
