@@ -63,8 +63,7 @@ namespace Magick.NET.Tests
 
                     var exception = Assert.Throws<MagickDelegateErrorException>(() => PdfInfo.Create(Files.CirclePNG));
 
-                    Assert.Single(exception.RelatedExceptions);
-                    Assert.Contains("Error: /syntaxerror in pdfopen", exception.RelatedExceptions.First().Message);
+                    Assert.Contains("Unable to determine the page count.", exception.Message);
                 }
             }
         }
