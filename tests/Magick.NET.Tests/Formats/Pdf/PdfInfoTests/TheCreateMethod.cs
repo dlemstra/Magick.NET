@@ -61,9 +61,28 @@ namespace Magick.NET.Tests
                     if (!Ghostscript.IsAvailable)
                         return;
 
-                    var exception = Assert.Throws<MagickDelegateErrorException>(() => PdfInfo.Create(Files.CirclePNG));
+                    MagickErrorException exception = null;
 
-                    Assert.Contains("Unable to determine the page count.", exception.Message);
+                    try
+                    {
+                        PdfInfo.Create(Files.CirclePNG);
+                    }
+                    catch (MagickErrorException ex)
+                    {
+                        exception = ex;
+                    }
+
+                    Assert.NotNull(exception);
+
+                    if (exception is MagickDelegateErrorException delegateErrorException)
+                    {
+                        Assert.Single(exception.RelatedExceptions);
+                        Assert.Contains("Error: /syntaxerror in pdfopen", exception.RelatedExceptions.First().Message);
+                    }
+                    else
+                    {
+                        Assert.Contains("Unable to determine the page count.", exception.Message);
+                    }
                 }
             }
         }

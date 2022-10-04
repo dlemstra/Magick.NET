@@ -65,7 +65,7 @@ namespace ImageMagick.Formats
             var nativePdfInfo = new NativePdfInfo();
             var pageCount = nativePdfInfo.PageCount(filePath, password);
             if (pageCount == 0)
-                throw new MagickDelegateErrorException("Unable to determine the page count.");
+                throw new MagickErrorException("Unable to determine the page count.");
 
             return new PdfInfo(pageCount);
         }
