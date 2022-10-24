@@ -31,5 +31,10 @@
       <Link>%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <NativeMacOSArm64DLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\osx-arm64\native\*.dylib" />
+    <Content Include="@(NativeMacOSArm64DLL)">
+      <Link>%(FileName)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

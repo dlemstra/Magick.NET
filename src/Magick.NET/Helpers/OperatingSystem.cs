@@ -10,7 +10,7 @@ namespace ImageMagick
     {
         public static bool Is64Bit { get; } = IntPtr.Size == 8;
 
-        public static bool IsArm64 { get; } = !IsMacOS && RuntimeInformation.ProcessArchitecture == Architecture.Arm64;
+        public static bool IsArm64 { get; } = RuntimeInformation.ProcessArchitecture == Architecture.Arm64;
 
         public static bool IsLinux { get; } = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
