@@ -360,29 +360,29 @@ namespace Magick.NET.Tests
                         Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null));
                     }
                 }
+            }
 
-                public class WithFileInfoAndMagickFormat
+            public class WithFileInfoAndMagickFormat
+            {
+                [Fact]
+                public void ShouldThrowExceptionWhenFileInfoIsNull()
                 {
-                    [Fact]
-                    public void ShouldThrowExceptionWhenFileInfoIsNull()
+                    using (var images = new MagickImageCollection())
                     {
-                        using (var images = new MagickImageCollection())
-                        {
-                            Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null, MagickFormat.Png));
-                        }
+                        Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null, MagickFormat.Png));
                     }
+                }
 
-                    [Fact]
-                    public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                [Fact]
+                public void ShouldNotThrowExceptionWhenSettingsIsNull()
+                {
+                    var file = new FileInfo(Files.SnakewarePNG);
+
+                    using (var images = new MagickImageCollection())
                     {
-                        var file = new FileInfo(Files.SnakewarePNG);
+                        images.Read(file, null);
 
-                        using (var images = new MagickImageCollection())
-                        {
-                            images.Read(file, null);
-
-                            Assert.Single(images);
-                        }
+                        Assert.Single(images);
                     }
                 }
             }
