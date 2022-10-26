@@ -58,7 +58,7 @@ https://ghostscript.com/releases/gsdnld.html. If you don't want to install Ghost
 MagickNET.SetGhostscriptDirectory(@"C:\MyProgram\Ghostscript");
 ```
 
-_Be aware that you need a [license](https://www.ghostscript.com/doc/current/Commprod.htm) if you want to use Ghostscript commercially._
+_Be aware that you need a [license](https://ghostscript.com/licensing/) if you want to use Ghostscript commercially._
 
 ## Initialization
 
