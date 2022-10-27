@@ -182,6 +182,7 @@ jobs:
       uses: dlemstra/code-sign-action@v1
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
+        password: '${{ secrets.IMAGEMAGICK_CERTIFICATE_PASSWORD }}'
         folder: src/Magick.NET/bin
         recursive: true
 
@@ -197,6 +198,7 @@ jobs:
       uses: dlemstra/code-sign-action@v1
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
+        password: '${{ secrets.IMAGEMAGICK_CERTIFICATE_PASSWORD }}'
         folder: publish/output
 
     - name: Upload library
