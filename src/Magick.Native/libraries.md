@@ -1,5 +1,5 @@
 # Libraries
-Magick.Native [82aee6a74546e70432f9d01025ef0ad7230e5f2c](https://github.com/dlemstra/Magick.Native/commit/82aee6a74546e70432f9d01025ef0ad7230e5f2c) is build with the following libraries:
+Magick.Native [5f944a0a20c740049cfe21d7e6f2d0221ba867dc](https://github.com/dlemstra/Magick.Native/commit/5f944a0a20c740049cfe21d7e6f2d0221ba867dc) is build with the following libraries:
 
 - aom 3.1.3 (2021-10-05)
 - brotli 1.0.9 (2020-08-27)
