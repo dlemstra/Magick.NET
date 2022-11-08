@@ -13,6 +13,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://github.com/dlemstra/Magick.NET/tree/main/docs before installing to help you decide the best version.</description>
     <summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
+    <readme>docs\Readme.md</readme>
     <releaseNotes>https://github.com/dlemstra/Magick.NET/releases/tag/12.2.1</releaseNotes>
     <copyright>Copyright 2013-2022 Dirk Lemstra</copyright>
     <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
@@ -24,5 +25,6 @@
   <files>
     <file src="..\logo\Magick.NET.icon.png" target="Magick.NET.icon.png" />
     <file src="..\src\Magick.NET\Copyright.txt" target="Copyright.txt" />
+    <file src="Readme.md" target="docs\Readme.md" />
   </files>
 </package>
