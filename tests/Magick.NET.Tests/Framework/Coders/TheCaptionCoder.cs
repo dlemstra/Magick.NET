@@ -44,10 +44,10 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, settings))
             {
-                ColorAssert.Equal(MagickColors.Green, image, 158, 55);
-                ColorAssert.Equal(MagickColors.Green, image, 179, 81);
-                ColorAssert.Equal(MagickColors.Red, image, 443, 25);
-                ColorAssert.Equal(MagickColors.Red, image, 392, 55);
+                ColorAssert.Equal(MagickColors.Green, image, 155, 57);
+                ColorAssert.Equal(MagickColors.Green, image, 178, 80);
+                ColorAssert.Equal(MagickColors.Red, image, 441, 26);
+                ColorAssert.Equal(MagickColors.Red, image, 395, 55);
                 ColorAssert.Equal(MagickColors.Red, image, 231, 116);
                 ColorAssert.Equal(new MagickColor("#0000"), image, 170, 93);
             }
