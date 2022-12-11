@@ -28,5 +28,45 @@ namespace Magick.NET.Tests
                 }
             }
         }
+
+        [Fact]
+        public void ShouldSupportReadingAndWritingImageProfiles()
+        {
+            if (OperatingSystem.IsMacOS)
+            {
+                // There is no jpeg-xl support on macOS.
+                return;
+            }
+
+            using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
+            {
+                input.Scale(1, 1);
+
+                var inputXmpProfile = input.GetXmpProfile();
+                Assert.NotNull(inputXmpProfile);
+
+                var inputExifProfile = input.GetExifProfile();
+                Assert.NotNull(inputExifProfile);
+
+                using (var memStream = new MemoryStream())
+                {
+                    input.Write(memStream, MagickFormat.Jxl);
+                    memStream.Position = 0;
+
+                    using (var output = new MagickImage(memStream))
+                    {
+                        var outputXmpProfile = input.GetXmpProfile();
+                        Assert.NotNull(outputXmpProfile);
+
+                        Assert.Equal(inputXmpProfile.GetData(), outputXmpProfile.GetData());
+
+                        var outputExifProfile = input.GetExifProfile();
+                        Assert.NotNull(outputExifProfile);
+
+                        Assert.Equal(inputExifProfile.GetData(), outputExifProfile.GetData());
+                    }
+                }
+            }
+        }
     }
 }
