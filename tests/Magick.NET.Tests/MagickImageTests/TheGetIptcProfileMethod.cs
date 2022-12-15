@@ -19,6 +19,16 @@ namespace Magick.NET.Tests
                     Assert.NotNull(profile);
                 }
             }
+
+            [Fact]
+            public void ShouldReturnNullWhenProfileEmpty()
+            {
+                using (var image = new MagickImage(Files.PictureJPG))
+                {
+                    var profile = image.GetIptcProfile();
+                    Assert.Null(profile);
+                }
+            }
         }
     }
 }

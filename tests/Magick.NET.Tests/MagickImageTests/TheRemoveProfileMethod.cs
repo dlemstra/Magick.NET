@@ -40,7 +40,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldRemoveTheSpecifiedIptcProfile()
                 {
-                    using (var image = new MagickImage(Files.PictureJPG))
+                    using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
                     {
                         var profile = image.GetIptcProfile();
                         Assert.NotNull(profile);
