@@ -9,20 +9,6 @@ namespace Magick.NET.Tests
     public partial class MagickImageTests
     {
         [Fact]
-        public void Test_Wave()
-        {
-            using (var image = new MagickImage(Files.TestPNG))
-            {
-                image.Wave();
-
-                using (var original = new MagickImage(Files.TestPNG))
-                {
-                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.62619, 0.62623);
-                }
-            }
-        }
-
-        [Fact]
         public void Test_WaveletDenoise()
         {
             using (var image = new MagickImage(Files.NoisePNG))
