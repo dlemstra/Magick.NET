@@ -4,7 +4,7 @@ body:
 - type: input
   attributes:
     label: Magick.NET version
-    description: The Magick.NET version and name of the NuGet package
+    description: The version and name of the NuGet package
   validations:
     required: true
 - type: input
