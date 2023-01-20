@@ -42,9 +42,11 @@ namespace Magick.NET.Tests
                     for (var i = 0; i < 9; i++)
                         images.Add(Files.Builtin.Logo);
 
-                    var settings = new MontageSettings();
-                    settings.Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200));
-                    settings.TileGeometry = new MagickGeometry(string.Format("{0}x", 2));
+                    var settings = new MontageSettings
+                    {
+                        Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200)),
+                        TileGeometry = new MagickGeometry(string.Format("{0}x", 2)),
+                    };
 
                     using (var montageResult = images.Montage(settings))
                     {
