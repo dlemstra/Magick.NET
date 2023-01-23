@@ -44,8 +44,8 @@ namespace Magick.NET.Tests
 
                     var settings = new MontageSettings
                     {
-                        Geometry = new MagickGeometry(string.Format("{0}x{1}", 200, 200)),
-                        TileGeometry = new MagickGeometry(string.Format("{0}x", 2)),
+                        Geometry = new MagickGeometry("200x200"),
+                        TileGeometry = new MagickGeometry("2x"),
                     };
 
                     using (var montageResult = images.Montage(settings))
