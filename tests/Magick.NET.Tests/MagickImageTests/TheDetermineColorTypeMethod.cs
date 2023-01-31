@@ -13,12 +13,12 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldDetermineTheColorTypeOfTheImage()
             {
-                using (var image = new MagickImage(Files.SnakewarePNG))
+                using (var image = new MagickImage(Files.WireframeTIF))
                 {
-                    Assert.Equal(ColorType.TrueColorAlpha, image.ColorType);
+                    Assert.Equal(ColorType.TrueColor, image.ColorType);
 
                     var colorType = image.DetermineColorType();
-                    Assert.Equal(ColorType.GrayscaleAlpha, colorType);
+                    Assert.Equal(ColorType.Grayscale, colorType);
                 }
             }
         }
