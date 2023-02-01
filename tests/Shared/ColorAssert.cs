@@ -43,7 +43,7 @@ namespace Magick.NET
         {
             using (var pixels = image.GetPixelsUnsafe())
             {
-                Equal(expected, pixels.GetPixel(x, y), $" at position {x}x{y}");
+                Equal(expected, pixels.GetPixel(x, y), $"at position {x}x{y}");
             }
         }
 
@@ -60,7 +60,7 @@ namespace Magick.NET
         {
             using (var collection = image.GetPixelsUnsafe())
             {
-                NotEqual(notExpected, collection.GetPixel(x, y), $" at position {x}x{y}");
+                NotEqual(notExpected, collection.GetPixel(x, y), $"at position {x}x{y}");
             }
         }
 
