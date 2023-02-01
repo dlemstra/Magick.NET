@@ -47,6 +47,23 @@ namespace Magick.NET.Tests
                     Assert.Equal(7, image.Height);
                 }
             }
+
+            [Fact]
+            public void ShouldUseTheSpecifiedPercentage()
+            {
+                using (var image = new MagickImage("xc:red", 10, 20))
+                {
+                    image.BorderColor = MagickColors.Green;
+                    image.Border(new Percentage(10));
+
+                    Assert.Equal(12, image.Width);
+                    Assert.Equal(24, image.Height);
+                    ColorAssert.Equal(MagickColors.Green, image, 1, 1);
+                    ColorAssert.Equal(MagickColors.Red, image, 1, 2);
+                    ColorAssert.Equal(MagickColors.Red, image, 10, 21);
+                    ColorAssert.Equal(MagickColors.Green, image, 10, 22);
+                }
+            }
         }
     }
 }

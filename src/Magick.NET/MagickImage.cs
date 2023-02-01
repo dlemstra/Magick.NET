@@ -1356,6 +1356,14 @@ namespace ImageMagick
         }
 
         /// <summary>
+        /// Border image (add border to image).
+        /// </summary>
+        /// <param name="percentage">The size of the border.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Border(Percentage percentage)
+            => Border(Width * percentage, Height * percentage);
+
+        /// <summary>
         /// Changes the brightness and/or contrast of an image. It converts the brightness and
         /// contrast parameters into slope and intercept and calls a polynomical function to apply
         /// to the image.
