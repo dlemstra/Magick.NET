@@ -19,7 +19,7 @@ namespace ImageMagick
         private bool _inSubpath = false;
         private int _knotCount = 0;
 
-        public ClipPathReader(int width, int height, int offset)
+        private ClipPathReader(int width, int height, int offset)
         {
             _width = width;
             _height = height;
