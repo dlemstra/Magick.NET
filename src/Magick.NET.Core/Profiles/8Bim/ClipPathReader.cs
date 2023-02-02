@@ -133,11 +133,6 @@ namespace ImageMagick
             return result;
         }
 
-        private void Reset(int offset)
-        {
-            _index = offset;
-        }
-
         private void SetKnotCount(byte[] data)
         {
             if (_knotCount != 0)
