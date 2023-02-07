@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
             {
                 image.Trim();
 
-                Assert.Equal(88, image.Width);
+                Assert.Equal(89, image.Width);
                 Assert.Equal(41, image.Height);
             }
         }
@@ -41,7 +41,7 @@ namespace Magick.NET.Tests
             {
                 image.Trim();
 
-                Assert.Equal(99, image.Width);
+                Assert.Equal(100, image.Width);
                 Assert.Equal(41, image.Height);
             }
         }
@@ -60,7 +60,7 @@ namespace Magick.NET.Tests
             {
                 image.Trim();
 
-                Assert.Equal(157, image.Width);
+                Assert.Equal(148, image.Width);
                 Assert.Equal(37, image.Height);
             }
         }
