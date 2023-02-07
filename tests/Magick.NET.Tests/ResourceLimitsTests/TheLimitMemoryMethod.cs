@@ -43,13 +43,16 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetMemoryAndAreaToTheCorrectValues()
             {
+                var distance = 16384UL;
                 var area = ResourceLimits.Area;
                 var memory = ResourceLimits.Memory;
 
+                Assert.InRange(area, (memory * 4) - distance, (memory * 4) + distance);
+
                 ResourceLimits.LimitMemory((Percentage)100);
 
-                Assert.InRange(ResourceLimits.Area, (area * 2) - 8192, (area * 2) + 8192);
-                Assert.InRange(ResourceLimits.Memory, (memory * 2) - 8192, (memory * 2) + 8192);
+                Assert.InRange(ResourceLimits.Area, (area * 2) - distance, (area * 2) + distance);
+                Assert.InRange(ResourceLimits.Memory, (memory * 2) - distance, (memory * 2) + distance);
 
                 ResourceLimits.Area = area;
                 ResourceLimits.Memory = memory;

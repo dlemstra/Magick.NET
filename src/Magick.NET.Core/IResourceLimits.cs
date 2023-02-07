@@ -58,7 +58,7 @@ namespace ImageMagick
 
         /// <summary>
         /// Set the maximum percentage of memory that can be used for image data. This also changes
-        /// the <see cref="Area"/> limit to twice the number of bytes.
+        /// the <see cref="Area"/> limit to four times the number of bytes.
         /// </summary>
         /// <param name="percentage">The percentage to use.</param>
         void LimitMemory(Percentage percentage);
