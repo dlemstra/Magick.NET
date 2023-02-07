@@ -432,16 +432,18 @@ namespace ImageMagick
         {
             get
             {
-                if (_nativeInstance.HasChannel(PixelChannel.Red))
-                    yield return PixelChannel.Red;
-                if (_nativeInstance.HasChannel(PixelChannel.Green))
-                    yield return PixelChannel.Green;
-                if (_nativeInstance.HasChannel(PixelChannel.Blue))
-                    yield return PixelChannel.Blue;
-                if (_nativeInstance.HasChannel(PixelChannel.Black))
-                    yield return PixelChannel.Black;
-                if (_nativeInstance.HasChannel(PixelChannel.Alpha))
-                    yield return PixelChannel.Alpha;
+                foreach (var channel in new[]
+                {
+                    PixelChannel.Red,
+                    PixelChannel.Green,
+                    PixelChannel.Blue,
+                    PixelChannel.Black,
+                    PixelChannel.Alpha,
+                })
+                {
+                    if (_nativeInstance.HasChannel(channel))
+                        yield return channel;
+                }
             }
         }
 
