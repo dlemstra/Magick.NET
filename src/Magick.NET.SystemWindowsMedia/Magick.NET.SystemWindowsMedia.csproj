@@ -3,8 +3,8 @@
     <TargetFrameworks>netcoreapp3.1;net462</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>6.1.0</AssemblyVersion>
-    <FileVersion>6.1.3</FileVersion>
-    <Version>6.1.3</Version>
+    <FileVersion>6.1.4</FileVersion>
+    <Version>6.1.4</Version>
     <Configurations>Debug;Test;Release</Configurations>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
