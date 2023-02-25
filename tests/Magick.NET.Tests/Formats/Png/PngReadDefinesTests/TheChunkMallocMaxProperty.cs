@@ -36,15 +36,15 @@ namespace Magick.NET.Tests
                     },
                 };
 
-                var exception = Assert.Throws<MagickCoderErrorException>(() =>
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    var exception = Assert.Throws<MagickCoderErrorException>(() =>
                     {
                         image.Read(Files.SnakewarePNG, settings);
-                    }
-                });
+                    });
 
-                Assert.Contains("IHDR: chunk data is too large", exception.Message);
+                    Assert.Contains("IHDR: chunk data is too large", exception.Message);
+                }
             }
         }
     }
