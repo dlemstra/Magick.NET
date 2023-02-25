@@ -13,9 +13,21 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldIgnoreTheSpecifiedTags()
         {
+            var tag = "32934";
+
             using (var image = new MagickImage())
             {
-                image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", "32934");
+                var exception = Assert.Throws<MagickCoderErrorException>(() =>
+                {
+                    image.Read(Files.Coders.IgnoreTagTIF);
+                });
+
+                Assert.Contains(tag, exception.Message);
+            }
+
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", tag);
                 image.Read(Files.Coders.IgnoreTagTIF);
             }
 
@@ -23,7 +35,7 @@ namespace Magick.NET.Tests
             {
                 var settings = new MagickReadSettings(new TiffReadDefines
                 {
-                    IgnoreTags = new string[] { "32934" },
+                    IgnoreTags = new string[] { tag },
                 });
 
                 image.Read(Files.Coders.IgnoreTagTIF, settings);
