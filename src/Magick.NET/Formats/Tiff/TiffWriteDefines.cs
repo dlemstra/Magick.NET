@@ -32,6 +32,11 @@ namespace ImageMagick.Formats
             => MagickFormat.Tiff;
 
         /// <summary>
+        /// Gets or sets the jpeg tables mode (tiff:jpeg-tables-mode).
+        /// </summary>
+        public TiffJpegTablesMode? JpegTablesMode { get; set; }
+
+        /// <summary>
         /// Gets or sets the prediction scheme with LZW (tiff:predictor).
         /// </summary>
         public int? Predictor { get; set; }
@@ -71,6 +76,9 @@ namespace ImageMagick.Formats
 
                 if (FillOrder.HasValue && FillOrder.Value != ImageMagick.Endian.Undefined)
                     yield return new MagickDefine(Format, "fill-order", FillOrder.Value);
+
+                if (JpegTablesMode.HasValue)
+                    yield return new MagickDefine(Format, "jpeg-tables-mode", (int)JpegTablesMode.Value);
 
                 if (Predictor.HasValue)
                     yield return new MagickDefine(Format, "predictor", Predictor.Value);
