@@ -22,8 +22,8 @@ namespace Magick.NET.Tests
                         using (var deciphered = enciphered.Clone())
                         {
                             deciphered.Decipher("What you say!!");
-                            Assert.NotEqual(enciphered, deciphered);
-                            Assert.NotEqual(original, deciphered);
+                            Assert.NotEqual(0.0, enciphered.Compare(deciphered, ErrorMetric.RootMeanSquared));
+                            Assert.NotEqual(0.0, original.Compare(deciphered, ErrorMetric.RootMeanSquared));
                         }
                     }
                 }
@@ -41,8 +41,8 @@ namespace Magick.NET.Tests
                         using (var deciphered = enciphered.Clone())
                         {
                             deciphered.Decipher("All your base are belong to us");
-                            Assert.NotEqual(enciphered, deciphered);
-                            Assert.Equal(original, deciphered);
+                            Assert.NotEqual(0.0, enciphered.Compare(deciphered, ErrorMetric.RootMeanSquared));
+                            Assert.Equal(0.0, original.Compare(deciphered, ErrorMetric.RootMeanSquared));
                         }
                     }
                 }

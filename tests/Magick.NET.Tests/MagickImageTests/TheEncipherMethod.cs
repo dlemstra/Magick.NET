@@ -18,7 +18,7 @@ namespace Magick.NET.Tests
                     using (var enciphered = original.Clone())
                     {
                         enciphered.Encipher("All your base are belong to us");
-                        Assert.NotEqual(original, enciphered);
+                        Assert.NotEqual(0.0, enciphered.Compare(original, ErrorMetric.RootMeanSquared));
                     }
                 }
             }

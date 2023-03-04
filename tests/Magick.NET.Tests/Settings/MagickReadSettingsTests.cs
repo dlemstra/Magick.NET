@@ -114,25 +114,25 @@ namespace Magick.NET.Tests
                 var settings = new MagickReadSettings();
 
                 imageA.Read(Files.RoseSparkleGIF, settings);
-                Assert.Equal(image, imageA);
+                Assert.Equal(0.0, image.Compare(imageA, ErrorMetric.RootMeanSquared));
 
                 settings = new MagickReadSettings();
                 settings.FrameIndex = 1;
 
                 imageA.Read(Files.RoseSparkleGIF, settings);
-                Assert.False(image.Equals(imageA));
+                Assert.NotEqual(0.0, image.Compare(imageA, ErrorMetric.RootMeanSquared));
 
                 imageB.Read(Files.RoseSparkleGIF + "[1]");
-                Assert.True(imageA.Equals(imageB));
+                Assert.Equal(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
 
                 settings = new MagickReadSettings();
                 settings.FrameIndex = 2;
 
                 imageA.Read(Files.RoseSparkleGIF, settings);
-                Assert.False(image.Equals(imageA));
+                Assert.NotEqual(0.0, image.Compare(imageA, ErrorMetric.RootMeanSquared));
 
                 imageB.Read(Files.RoseSparkleGIF + "[2]");
-                Assert.True(imageA.Equals(imageB));
+                Assert.Equal(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
 
                 Assert.Throws<MagickOptionErrorException>(() =>
                 {

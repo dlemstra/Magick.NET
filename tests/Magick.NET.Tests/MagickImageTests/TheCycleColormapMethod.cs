@@ -31,10 +31,10 @@ namespace Magick.NET.Tests
                     using (var second = first.Clone())
                     {
                         second.CycleColormap(-128);
-                        Assert.NotEqual(first, second);
+                        Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
 
                         second.CycleColormap(-128);
-                        Assert.Equal(first, second);
+                        Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
                     }
                 }
             }
@@ -49,16 +49,16 @@ namespace Magick.NET.Tests
                     using (var second = first.Clone())
                     {
                         second.CycleColormap(128);
-                        Assert.NotEqual(first, second);
+                        Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
 
                         second.CycleColormap(128);
-                        Assert.Equal(first, second);
+                        Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
 
                         second.CycleColormap(256);
-                        Assert.Equal(first, second);
+                        Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
 
                         second.CycleColormap(512);
-                        Assert.Equal(first, second);
+                        Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
                     }
                 }
             }
