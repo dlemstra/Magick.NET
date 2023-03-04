@@ -3096,21 +3096,6 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Serves as a hash of this type.
-        /// </summary>
-        /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode()
-        {
-            var hashCode = Width.GetHashCode() ^ Height.GetHashCode();
-            var signature = Signature;
-
-            if (signature is not null)
-                hashCode ^= signature.GetHashCode();
-
-            return hashCode;
-        }
-
-        /// <summary>
         /// Retrieve the iptc profile from the image.
         /// </summary>
         /// <returns>The iptc profile from the image.</returns>
