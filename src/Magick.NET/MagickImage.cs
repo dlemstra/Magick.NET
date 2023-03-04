@@ -855,22 +855,6 @@ namespace ImageMagick
             => _nativeInstance.Width;
 
         /// <summary>
-        /// Determines whether the specified <see cref="MagickImage"/> instances are considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right">The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator ==(MagickImage? left, MagickImage? right)
-            => Equals(left, right);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="MagickImage"/> instances are not considered equal.
-        /// </summary>
-        /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>
-        /// <param name="right">The second <see cref="MagickImage"/> to compare.</param>
-        public static bool operator !=(MagickImage? left, MagickImage? right)
-            => !Equals(left, right);
-
-        /// <summary>
         /// Determines whether the first <see cref="MagickImage"/> is more than the second <see cref="MagickImage"/>.
         /// </summary>
         /// <param name="left">The first <see cref="MagickImage"/> to compare.</param>

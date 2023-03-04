@@ -15,14 +15,10 @@ namespace Magick.NET.Tests
             {
                 var image = new MagickImage(MagickColors.Red, 1, 1);
 
-                Assert.False(image == null);
-                Assert.True(image != null);
                 Assert.False(image < null);
                 Assert.False(image <= null);
                 Assert.True(image > null);
                 Assert.True(image >= null);
-                Assert.False(null == image);
-                Assert.True(null != image);
                 Assert.True(null < image);
                 Assert.True(null <= image);
                 Assert.False(null > image);
@@ -35,8 +31,6 @@ namespace Magick.NET.Tests
                 var first = new MagickImage(MagickColors.Red, 2, 1);
                 var second = new MagickImage(MagickColors.Red, 1, 1);
 
-                Assert.False(first == second);
-                Assert.True(first != second);
                 Assert.False(first < second);
                 Assert.False(first <= second);
                 Assert.True(first > second);
@@ -49,8 +43,6 @@ namespace Magick.NET.Tests
                 var first = new MagickImage(MagickColors.Red, 1, 2);
                 var second = new MagickImage(MagickColors.Red, 2, 1);
 
-                Assert.False(first == second);
-                Assert.True(first != second);
                 Assert.False(first < second);
                 Assert.True(first <= second);
                 Assert.False(first > second);
@@ -63,8 +55,6 @@ namespace Magick.NET.Tests
                 var first = new MagickImage(MagickColors.Red, 1, 1);
                 var second = new MagickImage(MagickColors.Red, 1, 1);
 
-                Assert.True(first == second);
-                Assert.False(first != second);
                 Assert.False(first < second);
                 Assert.True(first <= second);
                 Assert.False(first > second);
