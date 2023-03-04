@@ -2624,30 +2624,6 @@ namespace ImageMagick
             => _nativeInstance.Equalize(channels);
 
         /// <summary>
-        /// Determines whether the specified object is equal to the current <see cref="MagickImage"/>.
-        /// </summary>
-        /// <param name="obj">The object to compare this <see cref="MagickImage"/> with.</param>
-        /// <returns>True when the specified object is equal to the current <see cref="MagickImage"/>.</returns>
-        public override bool Equals(object? obj)
-            => Equals(obj as MagickImage);
-
-        /// <summary>
-        /// Determines whether the specified <see cref="IMagickImage{TQuantumType}"/> is equal to the current <see cref="MagickImage"/>.
-        /// </summary>
-        /// <param name="other">The <see cref="IMagickImage{TQuantumType}"/> to compare this <see cref="MagickImage"/> with.</param>
-        /// <returns>True when the specified <see cref="IMagickImage{TQuantumType}"/> is equal to the current <see cref="MagickImage"/>.</returns>
-        public bool Equals(IMagickImage<QuantumType>? other)
-        {
-            if (other is null)
-                return false;
-
-            if (Width != other.Width || Height != other.Height)
-                return false;
-
-            return _nativeInstance.Equals(other);
-        }
-
-        /// <summary>
         /// Apply an arithmetic or bitwise operator to the image pixel quantums.
         /// </summary>
         /// <param name="channels">The channel(s) to apply the operator on.</param>

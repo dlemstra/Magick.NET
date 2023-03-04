@@ -13,7 +13,7 @@ namespace ImageMagick
     /// Interface that represents an ImageMagick image.
     /// </summary>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public partial interface IMagickImage<TQuantumType> : IMagickImage, IEquatable<IMagickImage<TQuantumType>?>, IComparable<IMagickImage<TQuantumType>?>
+    public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<IMagickImage<TQuantumType>?>
         where TQuantumType : struct, IConvertible
     {
         /// <summary>
