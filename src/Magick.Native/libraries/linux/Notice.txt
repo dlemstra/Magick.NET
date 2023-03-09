@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-0 (2023-03-08) ] copyright:
+[ ImageMagick 7.1.1-1 (2023-03-09) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
