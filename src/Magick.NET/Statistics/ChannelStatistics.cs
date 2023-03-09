@@ -5,10 +5,7 @@ using System;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Encapsulation of the ImageMagick ImageChannelStatistics object.
-    /// </summary>
-    public sealed partial class ChannelStatistics : IChannelStatistics
+    internal sealed partial class ChannelStatistics : IChannelStatistics
     {
         private ChannelStatistics(PixelChannel channel, IntPtr instance)
         {
@@ -25,49 +22,22 @@ namespace ImageMagick
             StandardDeviation = nativeInstance.StandardDeviation;
         }
 
-        /// <summary>
-        /// Gets the channel.
-        /// </summary>
         public PixelChannel Channel { get; }
 
-        /// <summary>
-        /// Gets the depth of the channel.
-        /// </summary>
         public int Depth { get; }
 
-        /// <summary>
-        /// Gets the entropy.
-        /// </summary>
         public double Entropy { get; }
 
-        /// <summary>
-        /// Gets the kurtosis.
-        /// </summary>
         public double Kurtosis { get; }
 
-        /// <summary>
-        /// Gets the maximum value observed.
-        /// </summary>
         public double Maximum { get; }
 
-        /// <summary>
-        /// Gets the average (mean) value observed.
-        /// </summary>
         public double Mean { get; }
 
-        /// <summary>
-        /// Gets the minimum value observed.
-        /// </summary>
         public double Minimum { get; }
 
-        /// <summary>
-        /// Gets the skewness.
-        /// </summary>
         public double Skewness { get; }
 
-        /// <summary>
-        /// Gets the standard deviation, sqrt(variance).
-        /// </summary>
         public double StandardDeviation { get; }
 
         internal static ChannelStatistics? Create(PixelChannel channel, IntPtr instance)

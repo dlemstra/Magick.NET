@@ -6,14 +6,11 @@ using System.Collections.Generic;
 
 namespace ImageMagick
 {
-    /// <summary>
-    /// Encapsulation of the ImageMagick ImageStatistics object.
-    /// </summary>
-    public sealed partial class Statistics : IStatistics
+    internal sealed partial class Statistics : IStatistics
     {
         private readonly Dictionary<PixelChannel, ChannelStatistics> _channels;
 
-        internal Statistics(MagickImage image, IntPtr list, Channels channels)
+        public Statistics(MagickImage image, IntPtr list, Channels channels)
         {
             _channels = new Dictionary<PixelChannel, ChannelStatistics>();
 
@@ -29,24 +26,12 @@ namespace ImageMagick
             AddChannel(list, PixelChannel.Composite);
         }
 
-        /// <summary>
-        /// Gets the channels.
-        /// </summary>
         public IReadOnlyCollection<PixelChannel> Channels
             => _channels.Keys;
 
-        /// <summary>
-        /// Returns the statistics for the all the channels.
-        /// </summary>
-        /// <returns>The statistics for the all the channels.</returns>
         public IChannelStatistics Composite()
             => GetChannel(PixelChannel.Composite)!;
 
-        /// <summary>
-        /// Returns the statistics for the specified channel.
-        /// </summary>
-        /// <param name="channel">The channel to get the statistics for.</param>
-        /// <returns>The statistics for the specified channel.</returns>
         public IChannelStatistics? GetChannel(PixelChannel channel)
         {
             _channels.TryGetValue(channel, out var channelStatistics);

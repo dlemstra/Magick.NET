@@ -1,5 +1,6 @@
 ﻿{
   "dynamic": "NativeToManaged",
+  "access": "internal",
   "instance": false,
   "methods": [
     {

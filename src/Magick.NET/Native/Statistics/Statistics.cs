@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace ImageMagick
 {
-    public partial class Statistics
+    internal partial class Statistics
     {
         [SuppressUnmanagedCodeSecurity]
         private static unsafe class NativeMethods
