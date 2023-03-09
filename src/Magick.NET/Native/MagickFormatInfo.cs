@@ -29,13 +29,13 @@ namespace ImageMagick
                 public static extern IntPtr MagickFormatInfo_Format_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickFormatInfo_IsMultiFrame_Get(IntPtr instance);
+                public static extern bool MagickFormatInfo_SupportsMultipleFrames_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickFormatInfo_IsReadable_Get(IntPtr instance);
+                public static extern bool MagickFormatInfo_SupportsReading_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickFormatInfo_IsWritable_Get(IntPtr instance);
+                public static extern bool MagickFormatInfo_SupportsWriting_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickFormatInfo_MimeType_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -70,13 +70,13 @@ namespace ImageMagick
                 public static extern IntPtr MagickFormatInfo_Format_Get(IntPtr instance);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickFormatInfo_IsMultiFrame_Get(IntPtr instance);
+                public static extern bool MagickFormatInfo_SupportsMultipleFrames_Get(IntPtr instance);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickFormatInfo_IsReadable_Get(IntPtr instance);
+                public static extern bool MagickFormatInfo_SupportsReading_Get(IntPtr instance);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickFormatInfo_IsWritable_Get(IntPtr instance);
+                public static extern bool MagickFormatInfo_SupportsWriting_Get(IntPtr instance);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickFormatInfo_MimeType_Get(IntPtr instance);
                 [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -111,13 +111,13 @@ namespace ImageMagick
                 public static extern IntPtr MagickFormatInfo_Format_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickFormatInfo_IsMultiFrame_Get(IntPtr instance);
+                public static extern bool MagickFormatInfo_SupportsMultipleFrames_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickFormatInfo_IsReadable_Get(IntPtr instance);
+                public static extern bool MagickFormatInfo_SupportsReading_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickFormatInfo_IsWritable_Get(IntPtr instance);
+                public static extern bool MagickFormatInfo_SupportsWriting_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
                 public static extern IntPtr MagickFormatInfo_MimeType_Get(IntPtr instance);
                 [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -252,7 +252,7 @@ namespace ImageMagick
                     return UTF8Marshaler.NativeToManaged(result);
                 }
             }
-            public bool IsMultiFrame
+            public bool SupportsMultipleFrames
             {
                 get
                 {
@@ -261,24 +261,24 @@ namespace ImageMagick
                     if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickFormatInfo_IsMultiFrame_Get(Instance);
+                    result = NativeMethods.ARM64.MagickFormatInfo_SupportsMultipleFrames_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickFormatInfo_IsMultiFrame_Get(Instance);
+                    result = NativeMethods.X64.MagickFormatInfo_SupportsMultipleFrames_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickFormatInfo_IsMultiFrame_Get(Instance);
+                    result = NativeMethods.X86.MagickFormatInfo_SupportsMultipleFrames_Get(Instance);
                     #endif
                     return result;
                 }
             }
-            public bool IsReadable
+            public bool SupportsReading
             {
                 get
                 {
@@ -287,24 +287,24 @@ namespace ImageMagick
                     if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickFormatInfo_IsReadable_Get(Instance);
+                    result = NativeMethods.ARM64.MagickFormatInfo_SupportsReading_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickFormatInfo_IsReadable_Get(Instance);
+                    result = NativeMethods.X64.MagickFormatInfo_SupportsReading_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickFormatInfo_IsReadable_Get(Instance);
+                    result = NativeMethods.X86.MagickFormatInfo_SupportsReading_Get(Instance);
                     #endif
                     return result;
                 }
             }
-            public bool IsWritable
+            public bool SupportsWriting
             {
                 get
                 {
@@ -313,19 +313,19 @@ namespace ImageMagick
                     if (OperatingSystem.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickFormatInfo_IsWritable_Get(Instance);
+                    result = NativeMethods.ARM64.MagickFormatInfo_SupportsWriting_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else if (OperatingSystem.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickFormatInfo_IsWritable_Get(Instance);
+                    result = NativeMethods.X64.MagickFormatInfo_SupportsWriting_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickFormatInfo_IsWritable_Get(Instance);
+                    result = NativeMethods.X86.MagickFormatInfo_SupportsWriting_Get(Instance);
                     #endif
                     return result;
                 }

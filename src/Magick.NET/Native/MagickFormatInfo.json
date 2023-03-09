@@ -23,17 +23,17 @@
       "readonly": true
     },
     {
-      "name": "IsMultiFrame",
+      "name": "SupportsMultipleFrames",
       "type": "bool",
       "readonly": true
     },
     {
-      "name": "IsReadable",
+      "name": "SupportsReading",
       "type": "bool",
       "readonly": true
     },
     {
-      "name": "IsWritable",
+      "name": "SupportsWriting",
       "type": "bool",
       "readonly": true
     },

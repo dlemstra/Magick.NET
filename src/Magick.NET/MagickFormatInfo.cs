@@ -184,9 +184,9 @@ namespace ImageMagick
                 Description = instance.Description,
                 CanReadMultithreaded = instance.CanReadMultithreaded,
                 CanWriteMultithreaded = instance.CanWriteMultithreaded,
-                IsMultiFrame = instance.IsMultiFrame,
-                IsReadable = instance.IsReadable,
-                IsWritable = instance.IsWritable,
+                IsMultiFrame = instance.SupportsMultipleFrames,
+                IsReadable = instance.SupportsReading,
+                IsWritable = instance.SupportsWriting,
                 MimeType = instance.MimeType,
                 ModuleFormat = GetFormat(instance.Module),
             };
