@@ -53,62 +53,6 @@ namespace ImageMagick
             return channelStatistics;
         }
 
-        /// <summary>
-        /// Determines whether the specified object is equal to the current <see cref="Statistics"/>.
-        /// </summary>
-        /// <param name="obj">The object to compare this <see cref="Statistics"/> with.</param>
-        /// <returns>Truw when the specified object is equal to the current <see cref="Statistics"/>.</returns>
-        public override bool Equals(object? obj)
-            => Equals(obj as IStatistics);
-
-        /// <summary>
-        /// Determines whether the specified image statistics is equal to the current <see cref="Statistics"/>.
-        /// </summary>
-        /// <param name="other">The image statistics to compare this <see cref="Statistics"/> with.</param>
-        /// <returns>True when the specified image statistics is equal to the current <see cref="Statistics"/>.</returns>
-        public bool Equals(IStatistics? other)
-        {
-            if (other is null)
-                return false;
-
-            if (ReferenceEquals(this, other))
-                return true;
-
-            var otherChannels = new List<PixelChannel>(other.Channels);
-
-            if (_channels.Count != otherChannels.Count)
-                return false;
-
-            foreach (var channel in _channels.Keys)
-            {
-                if (!otherChannels.Contains(channel))
-                    return false;
-
-                var otherChannel = other.GetChannel(channel);
-
-                if (!_channels[channel].Equals(otherChannel))
-                    return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Serves as a hash of this type.
-        /// </summary>
-        /// <returns>A hash code for the current instance.</returns>
-        public override int GetHashCode()
-        {
-            var hashCode = _channels.GetHashCode();
-
-            foreach (var channel in _channels.Keys)
-            {
-                hashCode ^= _channels[channel].GetHashCode();
-            }
-
-            return hashCode;
-        }
-
         internal static void DisposeList(IntPtr list)
         {
             if (list != IntPtr.Zero)

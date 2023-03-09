@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Collections.Generic;
 
 namespace ImageMagick
@@ -9,7 +8,7 @@ namespace ImageMagick
     /// <summary>
     /// Encapsulation of the ImageMagick ImageStatistics object.
     /// </summary>
-    public interface IStatistics : IEquatable<IStatistics?>
+    public interface IStatistics
     {
         /// <summary>
         /// Gets the channels.
