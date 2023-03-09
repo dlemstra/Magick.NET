@@ -15,54 +15,63 @@ namespace ImageMagick
     {
         private static readonly Dictionary<MagickFormat, IMagickFormatInfo> _all = LoadFormats();
 
-        private MagickFormatInfo()
+        private MagickFormatInfo(NativeMagickFormatInfo instance)
         {
+            Format = GetFormat(instance.Format);
+            Description = instance.Description;
+            CanReadMultithreaded = instance.CanReadMultithreaded;
+            CanWriteMultithreaded = instance.CanWriteMultithreaded;
+            SupportsMultipleFrames = instance.SupportsMultipleFrames;
+            IsReadable = instance.SupportsReading;
+            IsWritable = instance.SupportsWriting;
+            MimeType = instance.MimeType;
+            ModuleFormat = GetFormat(instance.Module);
         }
 
         /// <summary>
         /// Gets a value indicating whether the format can be read multithreaded.
         /// </summary>
-        public bool CanReadMultithreaded { get; private set; }
+        public bool CanReadMultithreaded { get; }
 
         /// <summary>
         /// Gets a value indicating whether the format can be written multithreaded.
         /// </summary>
-        public bool CanWriteMultithreaded { get; private set; }
+        public bool CanWriteMultithreaded { get; }
 
         /// <summary>
         /// Gets the description of the format.
         /// </summary>
-        public string? Description { get; private set; }
+        public string? Description { get; }
 
         /// <summary>
         /// Gets the format.
         /// </summary>
-        public MagickFormat Format { get; private set; }
+        public MagickFormat Format { get; }
 
         /// <summary>
         /// Gets a value indicating whether the format is readable.
         /// </summary>
-        public bool IsReadable { get; private set; }
+        public bool IsReadable { get; }
 
         /// <summary>
         /// Gets a value indicating whether the format is writable.
         /// </summary>
-        public bool IsWritable { get; private set; }
+        public bool IsWritable { get; }
 
         /// <summary>
         /// Gets the mime type.
         /// </summary>
-        public string? MimeType { get; private set; }
+        public string? MimeType { get; }
 
         /// <summary>
         /// Gets the module.
         /// </summary>
-        public MagickFormat ModuleFormat { get; private set; }
+        public MagickFormat ModuleFormat { get; }
 
         /// <summary>
         /// Gets a value indicating whether the format supports multiple frames.
         /// </summary>
-        public bool SupportsMultipleFrames { get; private set; }
+        public bool SupportsMultipleFrames { get; }
 
         internal static IReadOnlyCollection<IMagickFormatInfo> All
             => _all.Values;
@@ -178,18 +187,7 @@ namespace ImageMagick
             if (!instance.HasInstance)
                 return null;
 
-            return new MagickFormatInfo
-            {
-                Format = GetFormat(instance.Format),
-                Description = instance.Description,
-                CanReadMultithreaded = instance.CanReadMultithreaded,
-                CanWriteMultithreaded = instance.CanWriteMultithreaded,
-                SupportsMultipleFrames = instance.SupportsMultipleFrames,
-                IsReadable = instance.SupportsReading,
-                IsWritable = instance.SupportsWriting,
-                MimeType = instance.MimeType,
-                ModuleFormat = GetFormat(instance.Module),
-            };
+            return new MagickFormatInfo(instance);
         }
 
         private static MagickFormatInfo? Create(NativeMagickFormatInfo instance, string name)
