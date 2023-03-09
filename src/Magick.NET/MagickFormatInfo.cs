@@ -40,11 +40,6 @@ namespace ImageMagick
         public MagickFormat Format { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether the format supports multiple frames.
-        /// </summary>
-        public bool IsMultiFrame { get; private set; }
-
-        /// <summary>
         /// Gets a value indicating whether the format is readable.
         /// </summary>
         public bool IsReadable { get; private set; }
@@ -63,6 +58,11 @@ namespace ImageMagick
         /// Gets the module.
         /// </summary>
         public MagickFormat ModuleFormat { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether the format supports multiple frames.
+        /// </summary>
+        public bool SupportsMultipleFrames { get; private set; }
 
         internal static IReadOnlyCollection<IMagickFormatInfo> All
             => _all.Values;
@@ -164,7 +164,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A string that represents the current format.</returns>
         public override string ToString()
-            => string.Format(CultureInfo.InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description, IsReadable ? "+" : "-", IsWritable ? "+" : "-", IsMultiFrame ? "+" : "-");
+            => string.Format(CultureInfo.InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description, IsReadable ? "+" : "-", IsWritable ? "+" : "-", SupportsMultipleFrames ? "+" : "-");
 
         /// <summary>
         /// Unregisters this format.
@@ -184,7 +184,7 @@ namespace ImageMagick
                 Description = instance.Description,
                 CanReadMultithreaded = instance.CanReadMultithreaded,
                 CanWriteMultithreaded = instance.CanWriteMultithreaded,
-                IsMultiFrame = instance.SupportsMultipleFrames,
+                SupportsMultipleFrames = instance.SupportsMultipleFrames,
                 IsReadable = instance.SupportsReading,
                 IsWritable = instance.SupportsWriting,
                 MimeType = instance.MimeType,

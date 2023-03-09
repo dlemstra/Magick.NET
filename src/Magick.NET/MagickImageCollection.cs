@@ -2140,7 +2140,7 @@ namespace ImageMagick
 
         private async Task WriteAsyncInternal(string fileName, MagickFormat? format, CancellationToken cancellationToken)
         {
-            if (_images.Count > 1 && format.HasValue && MagickFormatInfo.Create(format.Value)?.IsMultiFrame == false)
+            if (_images.Count > 1 && format.HasValue && MagickFormatInfo.Create(format.Value)?.SupportsMultipleFrames == false)
             {
                 var lastDotIndex = fileName.LastIndexOf('.');
                 for (var i = 0; i < _images.Count; i++)

@@ -31,11 +31,6 @@ namespace ImageMagick
         MagickFormat Format { get; }
 
         /// <summary>
-        /// Gets a value indicating whether the format supports multiple frames.
-        /// </summary>
-        bool IsMultiFrame { get; }
-
-        /// <summary>
         /// Gets a value indicating whether the format is readable.
         /// </summary>
         bool IsReadable { get; }
@@ -54,6 +49,11 @@ namespace ImageMagick
         /// Gets the module.
         /// </summary>
         MagickFormat ModuleFormat { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the format supports multiple frames.
+        /// </summary>
+        bool SupportsMultipleFrames { get; }
 
         /// <summary>
         /// Returns a string that represents the current format.

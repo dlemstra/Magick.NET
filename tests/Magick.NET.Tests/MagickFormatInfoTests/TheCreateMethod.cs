@@ -73,7 +73,7 @@ namespace Magick.NET.Tests
                     Assert.True(formatInfo.CanWriteMultithreaded);
                     Assert.Equal("Portable Network Graphics", formatInfo.Description);
                     Assert.Equal(MagickFormat.Png, formatInfo.Format);
-                    Assert.False(formatInfo.IsMultiFrame);
+                    Assert.False(formatInfo.SupportsMultipleFrames);
                     Assert.True(formatInfo.IsReadable);
                     Assert.True(formatInfo.IsWritable);
                     Assert.Equal("image/png", formatInfo.MimeType);
@@ -120,7 +120,7 @@ namespace Magick.NET.Tests
                     Assert.True(formatInfo.CanWriteMultithreaded);
                     Assert.Equal("Joint Photographic Experts Group JFIF format", formatInfo.Description);
                     Assert.Equal(MagickFormat.Jpg, formatInfo.Format);
-                    Assert.False(formatInfo.IsMultiFrame);
+                    Assert.False(formatInfo.SupportsMultipleFrames);
                     Assert.True(formatInfo.IsReadable);
                     Assert.True(formatInfo.IsWritable);
                     Assert.Equal("image/jpeg", formatInfo.MimeType);
@@ -148,7 +148,7 @@ namespace Magick.NET.Tests
                     Assert.True(formatInfo.CanReadMultithreaded);
                     Assert.True(formatInfo.CanWriteMultithreaded);
                     Assert.Equal("Gradual linear passing from one shade to another", formatInfo.Description);
-                    Assert.False(formatInfo.IsMultiFrame);
+                    Assert.False(formatInfo.SupportsMultipleFrames);
                     Assert.True(formatInfo.IsReadable);
                     Assert.False(formatInfo.IsWritable);
                     Assert.Null(formatInfo.MimeType);
@@ -164,7 +164,7 @@ namespace Magick.NET.Tests
                     Assert.True(formatInfo.CanReadMultithreaded);
                     Assert.True(formatInfo.CanWriteMultithreaded);
                     Assert.Equal("JPEG-2000 File Format Syntax", formatInfo.Description);
-                    Assert.False(formatInfo.IsMultiFrame);
+                    Assert.False(formatInfo.SupportsMultipleFrames);
                     Assert.True(formatInfo.IsReadable);
                     Assert.True(formatInfo.IsWritable);
                     Assert.Equal("image/jp2", formatInfo.MimeType);
@@ -180,7 +180,7 @@ namespace Magick.NET.Tests
                     Assert.False(formatInfo.CanWriteMultithreaded);
                     Assert.Equal("Pango Markup Language", formatInfo.Description);
                     Assert.Equal(MagickFormat.Pango, formatInfo.Format);
-                    Assert.False(formatInfo.IsMultiFrame);
+                    Assert.False(formatInfo.SupportsMultipleFrames);
                     Assert.True(formatInfo.IsReadable);
                     Assert.False(formatInfo.IsWritable);
                     Assert.Null(formatInfo.MimeType);
