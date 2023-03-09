@@ -142,5 +142,10 @@ namespace ImageMagick
         /// BC7.
         /// </summary>
         BC7,
+
+        /// <summary>
+        /// BC5.
+        /// </summary>
+        BC5,
     }
 }
