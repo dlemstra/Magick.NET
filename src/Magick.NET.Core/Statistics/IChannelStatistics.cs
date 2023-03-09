@@ -1,14 +1,12 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-
 namespace ImageMagick
 {
     /// <summary>
     /// Encapsulation of the ImageMagick ImageChannelStatistics object.
     /// </summary>
-    public interface IChannelStatistics : IEquatable<IChannelStatistics?>
+    public interface IChannelStatistics
     {
         /// <summary>
         /// Gets the channel.
