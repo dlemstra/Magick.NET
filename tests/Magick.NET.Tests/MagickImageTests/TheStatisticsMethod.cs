@@ -75,7 +75,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))
                 {
-                    var statistics = image.Statistics(Channels.None);
+                    var statistics = image.Statistics(Channels.Undefined);
 
                     Assert.NotNull(statistics);
 

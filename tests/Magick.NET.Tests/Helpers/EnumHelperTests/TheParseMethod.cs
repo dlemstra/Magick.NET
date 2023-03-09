@@ -49,7 +49,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnTheCorrectValue()
                 {
-                    var result = EnumHelper.Parse("Green", Channels.None);
+                    var result = EnumHelper.Parse("Green", Channels.Undefined);
                     Assert.Equal(Channels.Green, result);
                 }
 
@@ -70,8 +70,8 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnTheDefaultValueWhenValueIsNotInEnum()
                 {
-                    var result = EnumHelper.Parse("Purple", Channels.None);
-                    Assert.Equal(Channels.None, result);
+                    var result = EnumHelper.Parse("Purple", Channels.Undefined);
+                    Assert.Equal(Channels.Undefined, result);
                 }
             }
         }
