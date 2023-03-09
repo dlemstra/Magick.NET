@@ -23,11 +23,6 @@ namespace ImageMagick
             Minimum = nativeInstance.Minimum;
             Skewness = nativeInstance.Skewness;
             StandardDeviation = nativeInstance.StandardDeviation;
-            Sum = nativeInstance.Sum;
-            SumCubed = nativeInstance.SumCubed;
-            SumFourthPower = nativeInstance.SumFourthPower;
-            SumSquared = nativeInstance.SumSquared;
-            Variance = nativeInstance.Variance;
         }
 
         /// <summary>
@@ -76,31 +71,6 @@ namespace ImageMagick
         public double StandardDeviation { get; }
 
         /// <summary>
-        /// Gets the sum.
-        /// </summary>
-        public double Sum { get; }
-
-        /// <summary>
-        /// Gets the sum cubed.
-        /// </summary>
-        public double SumCubed { get; }
-
-        /// <summary>
-        /// Gets the sum fourth power.
-        /// </summary>
-        public double SumFourthPower { get; }
-
-        /// <summary>
-        /// Gets the sum squared.
-        /// </summary>
-        public double SumSquared { get; }
-
-        /// <summary>
-        /// Gets the variance.
-        /// </summary>
-        public double Variance { get; }
-
-        /// <summary>
         /// Determines whether the specified object is equal to the current <see cref="ChannelStatistics"/>.
         /// </summary>
         /// <param name="obj">The object to compare this <see cref="ChannelStatistics"/> with.</param>
@@ -129,12 +99,7 @@ namespace ImageMagick
               Mean.Equals(other.Mean) &&
               Minimum.Equals(other.Minimum) &&
               Skewness.Equals(other.Skewness) &&
-              StandardDeviation.Equals(other.StandardDeviation) &&
-              Sum.Equals(other.Sum) &&
-              SumCubed.Equals(other.SumCubed) &&
-              SumFourthPower.Equals(other.SumFourthPower) &&
-              SumSquared.Equals(other.SumSquared) &&
-              Variance.Equals(other.Variance);
+              StandardDeviation.Equals(other.StandardDeviation);
         }
 
         /// <summary>
@@ -151,12 +116,7 @@ namespace ImageMagick
               Mean.GetHashCode() ^
               Minimum.GetHashCode() ^
               Skewness.GetHashCode() ^
-              StandardDeviation.GetHashCode() ^
-              Sum.GetHashCode() ^
-              SumCubed.GetHashCode() ^
-              SumFourthPower.GetHashCode() ^
-              SumSquared.GetHashCode() ^
-              Variance.GetHashCode();
+              StandardDeviation.GetHashCode();
         }
 
         internal static ChannelStatistics? Create(PixelChannel channel, IntPtr instance)

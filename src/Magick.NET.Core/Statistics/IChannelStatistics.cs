@@ -54,30 +54,5 @@ namespace ImageMagick
         /// Gets the standard deviation, sqrt(variance).
         /// </summary>
         double StandardDeviation { get; }
-
-        /// <summary>
-        /// Gets the sum.
-        /// </summary>
-        double Sum { get; }
-
-        /// <summary>
-        /// Gets the sum cubed.
-        /// </summary>
-        double SumCubed { get; }
-
-        /// <summary>
-        /// Gets the sum fourth power.
-        /// </summary>
-        double SumFourthPower { get; }
-
-        /// <summary>
-        /// Gets the sum squared.
-        /// </summary>
-        double SumSquared { get; }
-
-        /// <summary>
-        /// Gets the variance.
-        /// </summary>
-        double Variance { get; }
     }
 }
