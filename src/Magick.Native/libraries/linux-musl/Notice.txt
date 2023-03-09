@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.0-61 (2023-02-05) ] copyright:
+[ ImageMagick 7.1.1-0 (2023-03-08) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -122,7 +122,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ aom 3.1.3 (2021-10-05) ] copyright:
+[ aom 3.6.0 (2022-02-07) ] copyright:
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -225,7 +225,7 @@ bzip2/libbzip2 version 1.0.8 of 13 July 2019
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ cairo 1.16.0 (2018-10-19) ] copyright:
+[ cairo 1.17.8 (2023-01-30) ] copyright:
 
 
                   GNU LESSER GENERAL PUBLIC LICENSE
@@ -1226,7 +1226,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ de265 1.0.8 (2020-11-02) ] copyright:
+[ de265 1.0.11 (2023-02-01) ] copyright:
 
 * The library `libde265` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT license.
@@ -2102,7 +2102,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ exr 3.1.3 (2021-10-28) ] copyright:
+[ exr 3.1.5 (2022-04-12) ] copyright:
 
 Copyright (c) 2006-2019 OpenEXR a Series of LF Projects, LLC. All rights reserved.
 
@@ -2133,9 +2133,9 @@ OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ffi 3.4.2 (2021-06-29) ] copyright:
+[ ffi 3.4.4 (2022-10-23) ] copyright:
 
-libffi - Copyright (c) 1996-2021  Anthony Green, Red Hat, Inc and others.
+libffi - Copyright (c) 1996-2022  Anthony Green, Red Hat, Inc and others.
 See source files for details.
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -2192,7 +2192,7 @@ PERFORMANCE OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ freetype 2.12.1 (2022-05-01) ] copyright:
+[ freetype 2.13.0 (2023-02-09) ] copyright:
 
                     The FreeType Project LICENSE
                     ----------------------------
@@ -2366,7 +2366,7 @@ Legal Terms
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ fribidi 1.0.10 (2020-07-05) ] copyright:
+[ fribidi 1.0.12 (2022-04-19) ] copyright:
 
 		  GNU LESSER GENERAL PUBLIC LICENSE
 		       Version 2.1, February 1999
@@ -3382,25 +3382,29 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 5.1.0 (2022-07-31) ] copyright:
+[ harfbuzz 7.1.0 (2023-03-03) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
 files names COPYING in subdirectories where applicable.
 
-Copyright © 2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020  Google, Inc.
-Copyright © 2018,2019,2020  Ebrahim Byagowi
+Copyright © 2010-2022  Google, Inc.
+Copyright © 2015-2020  Ebrahim Byagowi
 Copyright © 2019,2020  Facebook, Inc.
-Copyright © 2012  Mozilla Foundation
+Copyright © 2012,2015  Mozilla Foundation
 Copyright © 2011  Codethink Limited
 Copyright © 2008,2010  Nokia Corporation and/or its subsidiary(-ies)
 Copyright © 2009  Keith Stribley
-Copyright © 2009  Martin Hosken and SIL International
+Copyright © 2011  Martin Hosken and SIL International
 Copyright © 2007  Chris Wilson
-Copyright © 2005,2006,2020,2021  Behdad Esfahbod
-Copyright © 2005  David Turner
-Copyright © 2004,2007,2008,2009,2010  Red Hat, Inc.
-Copyright © 1998-2004  David Turner and Werner Lemberg
+Copyright © 2005,2006,2020,2021,2022,2023  Behdad Esfahbod
+Copyright © 2004,2007,2008,2009,2010,2013,2021,2022,2023  Red Hat, Inc.
+Copyright © 1998-2005  David Turner and Werner Lemberg
+Copyright © 2016  Igalia S.L.
+Copyright © 2022  Matthias Clasen
+Copyright © 2018,2021  Khaled Hosny
+Copyright © 2018,2019,2020  Adobe, Inc
+Copyright © 2013-2015  Alexei Podtelezhnikov
 
 For full copyright notices consult the individual files in the package.
 
@@ -3425,7 +3429,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.14.2 (2023-01-06) ] copyright:
+[ heif 1.15.1 (2023-02-16) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -4301,7 +4305,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ highway 1.0.1 (2022-08-24) ] copyright:
+[ highway 1.0.3 (2023-01-19) ] copyright:
 
                                  Apache License
                            Version 2.0, January 2004
@@ -4506,7 +4510,7 @@ SOFTWARE.
    limitations under the License.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-turbo 2.1.1 (2021-08-10) ] copyright:
+[ jpeg-turbo 2.1.91 (2023-02-08) ] copyright:
 
 libjpeg-turbo Licenses
 ======================
@@ -4601,7 +4605,7 @@ best of our understanding.
 The Modified (3-clause) BSD License
 ===================================
 
-Copyright (C)2009-2021 D. R. Commander.  All Rights Reserved.<br>
+Copyright (C)2009-2023 D. R. Commander.  All Rights Reserved.<br>
 Copyright (C)2015 Viktor Szathmáry.  All Rights Reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -4643,7 +4647,7 @@ that were granted to the IJG for code derived from their software.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-xl 0.8.0 (2023-01-19) ] copyright:
+[ jpeg-xl 0.8.1 (2023-02-03) ] copyright:
 
 Copyright (c) the JPEG XL Project Authors.
 All rights reserved.
@@ -4675,7 +4679,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lcms 2.13,1 (2022-02-03) ] copyright:
+[ lcms 2.15.0 (2023-03-01) ] copyright:
 
 Little CMS
 Copyright (c) 1998-2020 Marti Maria Saguer
@@ -4871,7 +4875,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lzma 5.2.5 (2020-03-17) ] copyright:
+[ lzma 5.4.0 (2022-12-29) ] copyright:
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
@@ -5909,7 +5913,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ pixman 0.40.0 (2020-04-19) ] copyright:
+[ pixman 0.42.2 (2022-11-02) ] copyright:
 
 The following is the MIT license, agreed upon by most contributors.
 Copyright holders of new code should use this license statement where
@@ -5956,7 +5960,7 @@ possible. They may also add themselves to the list below.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ png 1.6.38 (2022-09-14) ] copyright:
+[ png 1.6.39 (2022-11-20) ] copyright:
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
@@ -6095,7 +6099,7 @@ be appreciated.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ raqm 0.9.0 (2022-01-30) ] copyright:
+[ raqm 0.10.0 (2023-01-11) ] copyright:
 
 The MIT License (MIT)
 
@@ -6499,10 +6503,12 @@ Public License instead of this License.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ tiff 4.3.0 (2020-04-20) ] copyright:
+[ tiff 4.5.0 (2022-12-13) ] copyright:
 
-Copyright (c) 1988-1997 Sam Leffler
-Copyright (c) 1991-1997 Silicon Graphics, Inc.
+# LibTIFF license
+
+Copyright © 1988-1997 Sam Leffler\
+Copyright © 1991-1997 Silicon Graphics, Inc.
 
 Permission to use, copy, modify, distribute, and sell this software and 
 its documentation for any purpose is hereby granted without fee, provided
@@ -6560,7 +6566,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.9.10 (2019-10-30) ] copyright:
+[ xml 2.10.3 (2022-10-14) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files hash.c,
 list.c and the trio files, which are covered by a similar licence but
@@ -6588,11 +6594,11 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ zip 1.7.3 (2020-07-15) ] copyright:
+[ zip 1.9.2 (2022-06-28) ] copyright:
 
 Copyright (C) 1999-2020 Dieter Baron and Thomas Klausner
 
-The authors can be contacted at <libzip@nih.at>
+The authors can be contacted at <info@libzip.org>
 
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions
@@ -6624,9 +6630,11 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ zlib 1.2.12 (2022-03-27) ] copyright:
+[ zlib 1.2.13 (2022-10-14) ] copyright:
 
- (C) 1995-2017 Jean-loup Gailly and Mark Adler
+Copyright notice:
+
+ (C) 1995-2022 Jean-loup Gailly and Mark Adler
 
   This software is provided 'as-is', without any express or implied
   warranty.  In no event will the authors be held liable for any damages
@@ -6646,15 +6654,6 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
   Jean-loup Gailly        Mark Adler
   jloup@gzip.org          madler@alumni.caltech.edu
-
-If you use the zlib library in a product, we would appreciate *not* receiving
-lengthy legal documents to sign.  The sources are provided for free but without
-warranty of any kind.  The library has been entirely written by Jean-loup
-Gailly and Mark Adler; it does not include third-party code.
-
-If you redistribute modified sources, we would appreciate that you include in
-the file ChangeLog history information documenting your changes.  Please read
-the FAQ for more information on the distribution of modified source versions.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
