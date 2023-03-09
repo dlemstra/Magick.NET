@@ -31,11 +31,6 @@ namespace ImageMagick
         MagickFormat Format { get; }
 
         /// <summary>
-        /// Gets a value indicating whether the format is readable.
-        /// </summary>
-        bool IsReadable { get; }
-
-        /// <summary>
         /// Gets a value indicating whether the format is writable.
         /// </summary>
         bool IsWritable { get; }
@@ -54,6 +49,11 @@ namespace ImageMagick
         /// Gets a value indicating whether the format supports multiple frames.
         /// </summary>
         bool SupportsMultipleFrames { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the format can be read.
+        /// </summary>
+        bool SupportsReading { get; }
 
         /// <summary>
         /// Returns a string that represents the current format.

@@ -22,7 +22,7 @@ namespace ImageMagick
             CanReadMultithreaded = instance.CanReadMultithreaded;
             CanWriteMultithreaded = instance.CanWriteMultithreaded;
             SupportsMultipleFrames = instance.SupportsMultipleFrames;
-            IsReadable = instance.SupportsReading;
+            SupportsReading = instance.SupportsReading;
             IsWritable = instance.SupportsWriting;
             MimeType = instance.MimeType;
             ModuleFormat = GetFormat(instance.Module);
@@ -49,11 +49,6 @@ namespace ImageMagick
         public MagickFormat Format { get; }
 
         /// <summary>
-        /// Gets a value indicating whether the format is readable.
-        /// </summary>
-        public bool IsReadable { get; }
-
-        /// <summary>
         /// Gets a value indicating whether the format is writable.
         /// </summary>
         public bool IsWritable { get; }
@@ -72,6 +67,11 @@ namespace ImageMagick
         /// Gets a value indicating whether the format supports multiple frames.
         /// </summary>
         public bool SupportsMultipleFrames { get; }
+
+        /// <summary>
+        /// Gets a value indicating whether the format can be read.
+        /// </summary>
+        public bool SupportsReading { get; }
 
         internal static IReadOnlyCollection<IMagickFormatInfo> All
             => _all.Values;
@@ -173,7 +173,7 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A string that represents the current format.</returns>
         public override string ToString()
-            => string.Format(CultureInfo.InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description, IsReadable ? "+" : "-", IsWritable ? "+" : "-", SupportsMultipleFrames ? "+" : "-");
+            => string.Format(CultureInfo.InvariantCulture, "{0}: {1} ({2}R{3}W{4}M)", Format, Description, SupportsReading ? "+" : "-", IsWritable ? "+" : "-", SupportsMultipleFrames ? "+" : "-");
 
         /// <summary>
         /// Unregisters this format.
