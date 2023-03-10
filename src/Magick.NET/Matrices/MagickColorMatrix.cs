@@ -30,8 +30,6 @@ namespace ImageMagick
         }
 
         private static void CheckOrder(int order)
-        {
-            Throw.IfTrue(nameof(order), order > 6, "Invalid order specified, range 1-6.");
-        }
+            => Throw.IfTrue(nameof(order), order > 6, "Invalid order specified, range 1-6.");
     }
 }
