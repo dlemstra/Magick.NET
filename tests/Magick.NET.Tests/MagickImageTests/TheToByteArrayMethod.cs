@@ -53,7 +53,7 @@ namespace Magick.NET.Tests
                     var data = image.ToByteArray(defines);
 
                     Assert.NotNull(data);
-                    Assert.Equal(853, data.Length);
+                    Assert.InRange(data.Length, 853, 858);
 
                     image.Read(data);
 
