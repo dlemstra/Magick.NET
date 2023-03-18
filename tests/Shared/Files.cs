@@ -187,6 +187,9 @@ namespace Magick.NET
             public static string CourierNew
                 => Root + @"Fonts/cour.ttf";
 
+            public static string GloockRegular
+                => Root + @"Fonts/Gloock-Regular.ttf";
+
             public static string KaushanScript
                 => Root + @"Fonts/KaushanScript-Regular.ttf";
 

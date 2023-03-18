@@ -64,5 +64,26 @@ namespace Magick.NET.Tests
                 Assert.Equal(37, image.Height);
             }
         }
+
+        [Fact]
+        public void ShouldJoinFontLigatures()
+        {
+            var settings = new MagickReadSettings
+            {
+                Font = Files.Fonts.GloockRegular,
+                FontPointsize = 200,
+            };
+
+            using (var image = new MagickImage("label:find fly", settings))
+            {
+                image.Trim();
+
+                Assert.Equal(635, image.Width);
+                Assert.Equal(204, image.Height);
+
+                ColorAssert.Equal(MagickColors.Black, image, 50, 58);
+                ColorAssert.Equal(MagickColors.Black, image, 475, 3);
+            }
+        }
     }
 }
