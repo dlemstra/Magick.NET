@@ -1,5 +1,5 @@
 # Libraries
-Magick.Native [ca3d97e39c99cdb3a23d7036b2f1fe00f50d3b6d](https://github.com/dlemstra/Magick.Native/commit/ca3d97e39c99cdb3a23d7036b2f1fe00f50d3b6d) is build with the following libraries:
+Magick.Native [c19f41dd1655e9a50eeb5f5f5b2714d39bc9326f](https://github.com/dlemstra/Magick.Native/commit/c19f41dd1655e9a50eeb5f5f5b2714d39bc9326f) is build with the following libraries:
 
 - aom 3.6.0 (2022-02-07)
 - brotli 1.0.9 (2020-08-27)
@@ -7,7 +7,7 @@ Magick.Native [ca3d97e39c99cdb3a23d7036b2f1fe00f50d3b6d](https://github.com/dlem
 - cairo 1.17.8 (2023-01-30)
 - croco 0.6.13 (2019-04-06)
 - de265 1.0.11 (2023-02-01)
-- exr 3.1.5 (2022-04-12)
+- exr 3.1.6 (2023-03-09)
 - ffi 3.4.4 (2022-10-23)
 - freetype 2.13.0 (2023-02-09)
 - fribidi 1.0.12 (2022-04-19)
@@ -15,13 +15,13 @@ Magick.Native [ca3d97e39c99cdb3a23d7036b2f1fe00f50d3b6d](https://github.com/dlem
 - harfbuzz 7.1.0 (2023-03-03)
 - heif 1.15.1 (2023-02-16)
 - highway 1.0.3 (2023-01-19)
-- ImageMagick 7.1.1-3 (2023-03-11)
+- ImageMagick 7.1.1-4 beta (2023-03-15)
 - jasper 4.0.0 (2022-11-05)
 - jpeg-turbo 2.1.91 (2023-02-08)
 - jpeg-xl 0.8.1 (2023-02-03)
 - lcms 2.15.0 (2023-03-01)
 - lqr 0.4.2 (2012-12-04)
-- lzma 5.4.0 (2022-12-29)
+- lzma 5.4.1 (2023-03-11)
 - openjpeg 2.5.0 (2022-05-13)
 - pango 1.45.3 (2020-06-22)
 - pixman 0.42.2 (2022-11-02)
