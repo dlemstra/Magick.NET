@@ -29,12 +29,6 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldUseTextAntiAliasSetting()
         {
-            if (OperatingSystem.IsMacOS)
-            {
-                // This fails on MacOS for an unkown reason.
-                return;
-            }
-
             var settings = new MagickReadSettings()
             {
                 AntiAlias = false,

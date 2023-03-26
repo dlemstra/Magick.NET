@@ -12,12 +12,6 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldWriteCorrectOutputImage()
         {
-            if (OperatingSystem.IsMacOS)
-            {
-                // There is no jpeg-xl support on macOS.
-                return;
-            }
-
             using (var image = new MagickImage(Files.Builtin.Logo))
             {
                 using (var memoryStream = new MemoryStream())
@@ -32,12 +26,6 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldSupportReadingAndWritingImageProfiles()
         {
-            if (OperatingSystem.IsMacOS)
-            {
-                // There is no jpeg-xl support on macOS.
-                return;
-            }
-
             using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
             {
                 input.Scale(1, 1);
