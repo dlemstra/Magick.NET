@@ -24,6 +24,9 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, settings))
             {
+                Assert.Equal(180, image.Width);
+                Assert.Equal(85, image.Height);
+
                 ColorAssert.Equal(MagickColors.Blue, image, 55, 20);
             }
         }
@@ -44,6 +47,9 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, settings))
             {
+                Assert.Equal(450, image.Width);
+                Assert.Equal(138, image.Height);
+
                 ColorAssert.Equal(MagickColors.Green, image, 155, 57);
                 ColorAssert.Equal(MagickColors.Green, image, 178, 80);
                 ColorAssert.Equal(MagickColors.Red, image, 441, 26);
@@ -66,6 +72,9 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, settings))
             {
+                Assert.Equal(465, image.Width);
+                Assert.Equal(101, image.Height);
+
                 ColorAssert.Equal(MagickColors.Black, image, 415, 27);
                 ColorAssert.Equal(MagickColors.Black, image, 426, 52);
                 ColorAssert.Equal(MagickColors.Black, image, 317, 82);
@@ -85,6 +94,9 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, settings))
             {
+                Assert.Equal(400, image.Width);
+                Assert.Equal(116, image.Height);
+
                 ColorAssert.Equal(MagickColors.White, image, 321, 30);
                 ColorAssert.Equal(MagickColors.Black, image, 86, 86);
             }
@@ -105,6 +117,7 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, settings))
             {
+                Assert.Equal(40, image.Width);
                 Assert.Equal(83, image.Height);
 
                 ColorAssert.Equal(MagickColors.Black, image, 39, 46);
@@ -127,6 +140,7 @@ namespace Magick.NET.Tests
 
             using (var image = new MagickImage(caption, settings))
             {
+                Assert.Equal(40, image.Width);
                 Assert.Equal(249, image.Height);
 
                 ColorAssert.Equal(MagickColors.Black, image, 39, 47);
