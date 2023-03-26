@@ -34,7 +34,7 @@ namespace ImageMagick.Configuration
 
         private string UpdateDelegatesXml(string data)
         {
-            if (OperatingSystem.IsWindows || FileName != "delegates.xml")
+            if (Runtime.IsWindows || FileName != "delegates.xml")
                 return data;
 
             data = data.Replace("@PSDelegate@", "gs");

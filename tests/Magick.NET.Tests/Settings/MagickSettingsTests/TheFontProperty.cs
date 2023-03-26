@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheFontWhenReadingImage()
             {
-                if (OperatingSystem.IsMacOS)
+                if (Runtime.IsMacOS)
                     return;
 
                 using (var image = new MagickImage())

@@ -12,7 +12,7 @@ namespace Magick.NET.Tests
         {
             get
             {
-                if (OperatingSystem.IsWindows)
+                if (Runtime.IsWindows)
                     return true;
 
                 return File.Exists("/usr/bin/gs");
@@ -21,7 +21,7 @@ namespace Magick.NET.Tests
 
         public static void Initialize()
         {
-            if (OperatingSystem.IsWindows)
+            if (Runtime.IsWindows)
                 MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs10.00.0\bin");
         }
     }

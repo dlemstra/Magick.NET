@@ -4,7 +4,6 @@
 using System;
 using ImageMagick;
 using Xunit;
-using OperatingSystem = ImageMagick.OperatingSystem;
 
 namespace Magick.NET.Tests
 {
@@ -43,7 +42,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit)
+                        if (Runtime.Is64Bit)
                         {
                             Assert.Throws<MagickImageErrorException>(() =>
                             {
@@ -83,7 +82,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit)
+                        if (Runtime.Is64Bit)
                         {
                             Assert.Throws<MagickImageErrorException>(() =>
                             {
@@ -181,7 +180,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit)
+                        if (Runtime.Is64Bit)
                         {
                             pixels.GetArea(x, y, width, height);
                         }

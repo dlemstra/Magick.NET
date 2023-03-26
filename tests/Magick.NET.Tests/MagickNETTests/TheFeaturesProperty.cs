@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
 #if Q16HDRI
                 expected += "HDRI ";
 #endif
-                if (OperatingSystem.IsWindows)
+                if (Runtime.IsWindows)
                     expected += "OpenCL ";
 #if OPENMP
                 if (OperatingSystem.IsWindows)

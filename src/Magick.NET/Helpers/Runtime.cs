@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace ImageMagick
 {
-    internal static partial class OperatingSystem
+    internal static partial class Runtime
     {
         public static bool Is64Bit { get; } = IntPtr.Size == 8;
 

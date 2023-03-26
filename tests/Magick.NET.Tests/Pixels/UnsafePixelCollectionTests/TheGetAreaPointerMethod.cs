@@ -4,7 +4,6 @@
 using System;
 using ImageMagick;
 using Xunit;
-using OperatingSystem = ImageMagick.OperatingSystem;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -53,7 +52,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit)
+                        if (Runtime.Is64Bit)
                         {
                             Assert.Throws<MagickImageErrorException>(() =>
                             {
@@ -93,7 +92,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit)
+                        if (Runtime.Is64Bit)
                         {
                             Assert.Throws<MagickImageErrorException>(() =>
                             {
@@ -194,7 +193,7 @@ namespace Magick.NET.Tests
                 {
                     using (var pixels = image.GetPixelsUnsafe())
                     {
-                        if (OperatingSystem.Is64Bit)
+                        if (Runtime.Is64Bit)
                         {
                             pixels.GetAreaPointer(x, y, width, height);
                         }

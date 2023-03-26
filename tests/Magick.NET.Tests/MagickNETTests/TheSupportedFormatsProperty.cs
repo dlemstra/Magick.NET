@@ -27,7 +27,7 @@ namespace Magick.NET.Tests
             {
                 var formatsCount = MagickNET.SupportedFormats.Count();
 
-                if (OperatingSystem.IsWindows)
+                if (Runtime.IsWindows)
                     Assert.Equal(267, formatsCount);
                 else
                     Assert.Equal(264, formatsCount);

@@ -7,7 +7,6 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 using Xunit.Sdk;
-using OperatingSystem = ImageMagick.OperatingSystem;
 
 namespace Magick.NET.Tests
 {
@@ -214,13 +213,13 @@ namespace Magick.NET.Tests
                     if (IsDisabledThroughPolicy(format))
                         return false;
 
-                    if (!OperatingSystem.IsWindows)
+                    if (!Runtime.IsWindows)
                     {
                         if (format == MagickFormat.Clipboard || format == MagickFormat.Emf || format == MagickFormat.Wmf)
                             return false;
                     }
 
-                    if (OperatingSystem.IsMacOS)
+                    if (Runtime.IsMacOS)
                     {
                         if (format == MagickFormat.Jxl)
                             return false;

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldHaveTheCorrectValue()
             {
-                if (OperatingSystem.Is64Bit)
+                if (Runtime.Is64Bit)
                 {
                     Assert.Equal(1844674407370955161U / sizeof(QuantumType), ResourceLimits.Height);
                 }

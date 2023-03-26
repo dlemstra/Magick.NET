@@ -32,12 +32,6 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldApplyTheOperatorToTheImages()
             {
-                // We are getting different results on Linux ARM64
-                if (ImageMagick.OperatingSystem.IsArm64 && ImageMagick.OperatingSystem.IsLinux)
-                {
-                    return;
-                }
-
                 using (var images = new MagickImageCollection())
                 {
                     images.Read(Files.RoseSparkleGIF);
