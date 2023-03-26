@@ -34,7 +34,11 @@ namespace Magick.NET.Tests
                 {
                     var base64 = image.ToBase64(MagickFormat.Jpeg);
                     Assert.NotNull(base64);
-                    Assert.Equal(1140, base64.Length);
+
+                    if (Runtime.IsLinux && Runtime.IsArm64)
+                        Assert.Equal(1144, base64.Length);
+                    else
+                        Assert.Equal(1140, base64.Length);
 
                     var bytes = Convert.FromBase64String(base64);
                     Assert.NotNull(bytes);
