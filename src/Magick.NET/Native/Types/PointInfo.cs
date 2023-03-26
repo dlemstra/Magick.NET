@@ -62,13 +62,13 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.PointInfo_X_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.PointInfo_X_Get(Instance);
@@ -88,13 +88,13 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.PointInfo_Y_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.PointInfo_Y_Get(Instance);

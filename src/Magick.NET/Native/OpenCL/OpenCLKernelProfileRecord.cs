@@ -76,13 +76,13 @@ namespace ImageMagick
                 {
                     long result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Count_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLKernelProfileRecord_Count_Get(Instance);
@@ -102,13 +102,13 @@ namespace ImageMagick
                 {
                     long result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
@@ -128,13 +128,13 @@ namespace ImageMagick
                 {
                     long result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
@@ -154,13 +154,13 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Name_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLKernelProfileRecord_Name_Get(Instance);
@@ -180,13 +180,13 @@ namespace ImageMagick
                 {
                     long result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);

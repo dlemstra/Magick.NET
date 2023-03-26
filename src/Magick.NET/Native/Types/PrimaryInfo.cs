@@ -84,13 +84,13 @@ namespace ImageMagick
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.PrimaryInfo_Dispose(instance);
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.PrimaryInfo_Dispose(instance);
@@ -105,13 +105,13 @@ namespace ImageMagick
             public NativePrimaryInfo()
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.ARM64.PrimaryInfo_Create();
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.X64.PrimaryInfo_Create();
@@ -142,13 +142,13 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.PrimaryInfo_X_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.PrimaryInfo_X_Get(Instance);
@@ -164,13 +164,13 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.PrimaryInfo_X_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.PrimaryInfo_X_Set(Instance, value);
@@ -189,13 +189,13 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.PrimaryInfo_Y_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.PrimaryInfo_Y_Get(Instance);
@@ -211,13 +211,13 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.PrimaryInfo_Y_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.PrimaryInfo_Y_Set(Instance, value);
@@ -236,13 +236,13 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.PrimaryInfo_Z_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.PrimaryInfo_Z_Get(Instance);
@@ -258,13 +258,13 @@ namespace ImageMagick
                 set
                 {
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     NativeMethods.ARM64.PrimaryInfo_Z_Set(Instance, value);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     NativeMethods.X64.PrimaryInfo_Z_Set(Instance, value);

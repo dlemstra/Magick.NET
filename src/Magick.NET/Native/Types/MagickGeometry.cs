@@ -78,13 +78,13 @@ namespace ImageMagick
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickGeometry_Dispose(instance);
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.MagickGeometry_Dispose(instance);
@@ -99,13 +99,13 @@ namespace ImageMagick
             public NativeMagickGeometry()
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.ARM64.MagickGeometry_Create();
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.X64.MagickGeometry_Create();
@@ -136,13 +136,13 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.MagickGeometry_X_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickGeometry_X_Get(Instance);
@@ -162,13 +162,13 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.MagickGeometry_Y_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickGeometry_Y_Get(Instance);
@@ -188,13 +188,13 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.MagickGeometry_Width_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickGeometry_Width_Get(Instance);
@@ -214,13 +214,13 @@ namespace ImageMagick
                 {
                     double result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.MagickGeometry_Height_Get(Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickGeometry_Height_Get(Instance);
@@ -240,13 +240,13 @@ namespace ImageMagick
                 {
                     UIntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.MagickGeometry_Initialize(Instance, valueNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.MagickGeometry_Initialize(Instance, valueNative.Instance);

@@ -78,13 +78,13 @@ namespace ImageMagick
             protected override void Dispose(IntPtr instance)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.QuantizeSettings_Dispose(instance);
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.QuantizeSettings_Dispose(instance);
@@ -99,13 +99,13 @@ namespace ImageMagick
             public NativeQuantizeSettings()
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.ARM64.QuantizeSettings_Create();
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.X64.QuantizeSettings_Create();
@@ -129,13 +129,13 @@ namespace ImageMagick
             public void SetColors(int value)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
@@ -150,13 +150,13 @@ namespace ImageMagick
             public void SetColorSpace(ColorSpace value)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
@@ -171,13 +171,13 @@ namespace ImageMagick
             public void SetDitherMethod(DitherMethod value)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
@@ -192,13 +192,13 @@ namespace ImageMagick
             public void SetMeasureErrors(bool value)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.QuantizeSettings_SetMeasureErrors(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.QuantizeSettings_SetMeasureErrors(Instance, value);
@@ -213,13 +213,13 @@ namespace ImageMagick
             public void SetTreeDepth(int value)
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);

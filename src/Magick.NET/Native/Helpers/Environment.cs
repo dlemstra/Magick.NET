@@ -53,13 +53,13 @@ namespace ImageMagick
             public static void Initialize()
             {
                 #if PLATFORM_AnyCPU
-                if (OperatingSystem.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.Environment_Initialize();
                 #endif
                 #if PLATFORM_AnyCPU
-                else if (OperatingSystem.Is64Bit)
+                else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.Environment_Initialize();
@@ -77,13 +77,13 @@ namespace ImageMagick
                 {
                     IntPtr result;
                     #if PLATFORM_AnyCPU
-                    if (OperatingSystem.IsArm64)
+                    if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
                     result = NativeMethods.ARM64.Environment_GetEnv(nameNative.Instance);
                     #endif
                     #if PLATFORM_AnyCPU
-                    else if (OperatingSystem.Is64Bit)
+                    else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
                     result = NativeMethods.X64.Environment_GetEnv(nameNative.Instance);
@@ -104,13 +104,13 @@ namespace ImageMagick
                     using (var valueNative = UTF8Marshaler.CreateInstance(value))
                     {
                         #if PLATFORM_AnyCPU
-                        if (OperatingSystem.IsArm64)
+                        if (Runtime.IsArm64)
                         #endif
                         #if PLATFORM_arm64 || PLATFORM_AnyCPU
                         NativeMethods.ARM64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
                         #endif
                         #if PLATFORM_AnyCPU
-                        else if (OperatingSystem.Is64Bit)
+                        else if (Runtime.Is64Bit)
                         #endif
                         #if PLATFORM_x64 || PLATFORM_AnyCPU
                         NativeMethods.X64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);

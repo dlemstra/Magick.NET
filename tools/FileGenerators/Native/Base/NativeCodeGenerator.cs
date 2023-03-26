@@ -195,7 +195,7 @@ namespace FileGenerator.Native
         protected void WriteNativeIfContent(string action)
         {
             WriteLine("#if PLATFORM_AnyCPU");
-            WriteLine("if (OperatingSystem.IsArm64)");
+            WriteLine("if (Runtime.IsArm64)");
             WriteLine("#endif");
 
             WriteLine("#if PLATFORM_arm64 || PLATFORM_AnyCPU");
@@ -203,7 +203,7 @@ namespace FileGenerator.Native
             WriteLine("#endif");
 
             WriteLine("#if PLATFORM_AnyCPU");
-            WriteLine("else if (OperatingSystem.Is64Bit)");
+            WriteLine("else if (Runtime.Is64Bit)");
             WriteLine("#endif");
 
             WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
