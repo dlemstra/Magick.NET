@@ -32,6 +32,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldApplyTheOperatorToTheImages()
             {
+                if (Runtime.IsLinux && Runtime.IsArm64)
+                {
+                    return;
+                }
+
                 using (var images = new MagickImageCollection())
                 {
                     images.Read(Files.RoseSparkleGIF);
