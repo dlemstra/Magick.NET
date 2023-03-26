@@ -32,7 +32,10 @@ namespace Magick.NET.Tests
                     var data = image.ToByteArray();
 
                     Assert.NotNull(data);
-                    Assert.InRange(data.Length, 18830, 18831);
+                    if (Runtime.IsLinux && Runtime.IsArm64)
+                        Assert.Equal(18831, data.Length);
+                    else
+                        Assert.Equal(18830, data.Length);
 
                     image.Read(data);
 
@@ -53,7 +56,10 @@ namespace Magick.NET.Tests
                     var data = image.ToByteArray(defines);
 
                     Assert.NotNull(data);
-                    Assert.InRange(data.Length, 853, 858);
+                    if (Runtime.IsLinux && Runtime.IsArm64)
+                        Assert.Equal(858, data.Length);
+                    else
+                        Assert.Equal(853, data.Length);
 
                     image.Read(data);
 
@@ -69,7 +75,10 @@ namespace Magick.NET.Tests
                     var data = image.ToByteArray(MagickFormat.Jpeg);
 
                     Assert.NotNull(data);
-                    Assert.InRange(data.Length, 60301, 60304);
+                    if (Runtime.IsLinux && Runtime.IsArm64)
+                        Assert.Equal(60301, data.Length);
+                    else
+                        Assert.Equal(60304, data.Length);
 
                     image.Read(data);
 
