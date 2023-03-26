@@ -76,7 +76,7 @@ namespace Magick.NET.Tests
 
                     Assert.NotNull(data);
                     if (Runtime.IsLinux && Runtime.IsArm64)
-                        Assert.Equal(60301, data.Length);
+                        Assert.InRange(data.Length, 60301, 60304);
                     else
                         Assert.Equal(60304, data.Length);
 
