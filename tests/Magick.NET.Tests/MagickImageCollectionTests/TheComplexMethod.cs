@@ -32,10 +32,8 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldApplyTheOperatorToTheImages()
             {
-                if (Runtime.IsLinux && Runtime.IsArm64)
-                {
+                if (TestRuntime.HasFlakyLinuxArm64Result)
                     return;
-                }
 
                 using (var images = new MagickImageCollection())
                 {
