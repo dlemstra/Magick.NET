@@ -34,7 +34,6 @@ namespace Magick.NET.Tests
                 {
                     var base64 = image.ToBase64(MagickFormat.Jpeg);
                     Assert.NotNull(base64);
-
                     if (Runtime.IsLinux && Runtime.IsArm64)
                         Assert.InRange(base64.Length, 1140, 1144);
                     else
@@ -42,7 +41,10 @@ namespace Magick.NET.Tests
 
                     var bytes = Convert.FromBase64String(base64);
                     Assert.NotNull(bytes);
-                    Assert.Equal(853, bytes.Length);
+                    if (Runtime.IsLinux && Runtime.IsArm64)
+                        Assert.InRange(bytes.Length, 853, 858);
+                    else
+                        Assert.Equal(853, bytes.Length);
                 }
             }
 
