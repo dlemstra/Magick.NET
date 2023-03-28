@@ -96,7 +96,7 @@ jobs:
       with:
         platforms: arm64
 
-    - name: Build and Test
+    - name: Test
       run: |
         export path=$(pwd)
         docker run -v $path:/Magick.NET mcr.microsoft.com/dotnet/sdk:6.0-focal-arm64v8 /Magick.NET/build/linux-arm64/github-actions.sh
