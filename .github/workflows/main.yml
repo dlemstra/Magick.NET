@@ -10,7 +10,7 @@ name: main
 jobs:
 
   linux:
-    name: 'Linux (x64) (Q8/Q16/Q16-HDRI)'
+    name: 'Linux (Q8/Q16/Q16-HDRI, x64)'
     container:
       image: mcr.microsoft.com/dotnet/sdk:6.0
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
       run: build/shared/test.Magick.NET.sh OpenMP
 
   linux_musl:
-    name: 'Linux musl (x64) (Q8/Q16/Q16-HDRI)'
+    name: 'Linux musl (Q8/Q16/Q16-HDRI, x64)'
     container:
       image: mcr.microsoft.com/dotnet/sdk:6.0-alpine
     runs-on: ubuntu-latest
@@ -72,7 +72,7 @@ jobs:
       run: build/shared/test.Magick.NET.sh OpenMP
 
   linux_arm64:
-    name: 'Linux arm64 (Q8/Q16/Q16-HDRI)'
+    name: 'Linux (Q8/Q16/Q16-HDRI, arm64)'
     runs-on: ubuntu-latest
 
     steps:
