@@ -32,7 +32,8 @@ namespace ImageMagick.Formats
         public DngOutputColor? OutputColor { get; set; }
 
         /// <summary>
-        /// Gets or sets a value indicating wether the embedded thumbnail should be read (dng:read-thumbnail).
+        /// Gets or sets a value indicating wether the embedded thumbnail should be read (dng:read-thumbnail). This profile can be
+        /// read by calling <see cref="IMagickImage.GetProfile(string)"/> with dng:thumbnail as the name of the profile.
         /// </summary>
         public bool? ReadThumbnail { get; set; }
 
