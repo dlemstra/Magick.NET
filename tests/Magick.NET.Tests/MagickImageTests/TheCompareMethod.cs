@@ -3,7 +3,7 @@
 
 using System;
 using ImageMagick;
-using NSubstitute;
+using Moq;
 using Xunit;
 
 #if Q8
@@ -96,7 +96,7 @@ namespace Magick.NET.Tests
             {
                 using (var image = new MagickImage())
                 {
-                    var diff = Substitute.For<IMagickImage<QuantumType>>();
+                    var diff = Mock.Of<IMagickImage<QuantumType>>();
 
                     Assert.Throws<NotSupportedException>(() =>
                     {
