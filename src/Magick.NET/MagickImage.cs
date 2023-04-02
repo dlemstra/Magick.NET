@@ -411,11 +411,11 @@ namespace ImageMagick
                 if (boundingBox is null)
                     throw new MagickErrorException("Unable to allocate rectangle");
 
-                var rectangle = MagickGeometry.FromRectangle(boundingBox);
-                if (rectangle.Width == 0 || rectangle.Height == 0)
+                var geometry = MagickGeometry.FromRectangle(boundingBox);
+                if (geometry.Width == 0 || geometry.Height == 0)
                     return null;
 
-                return rectangle;
+                return geometry;
             }
         }
 
