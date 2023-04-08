@@ -63,7 +63,7 @@ namespace Magick.NET.Tests
                 {
                     using (var input = new MagickImage(Files.CirclePNG))
                     {
-                        using (var tempfile = new TemporaryFile("foobar"))
+                        using (var tempfile = new TemporaryFile("foobar.jpg"))
                         {
                             input.Write(tempfile.FileInfo, MagickFormat.Tiff);
                             Assert.Equal(MagickFormat.Png, input.Format);
