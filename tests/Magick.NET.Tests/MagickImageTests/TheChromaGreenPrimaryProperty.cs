@@ -11,15 +11,6 @@ namespace Magick.NET.Tests
         public class TheChromaGreenPrimaryProperty
         {
             [Fact]
-            public void ShouldAllowNullValue()
-            {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.ChromaGreenPrimary = null;
-                }
-            }
-
-            [Fact]
             public void ShouldHaveTheCorrectDefaultValues()
             {
                 using (var image = new MagickImage(Files.SnakewarePNG))

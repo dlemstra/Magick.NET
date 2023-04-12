@@ -84,22 +84,22 @@ namespace ImageMagick
         /// <summary>
         /// Gets or sets the chromaticity blue primary point.
         /// </summary>
-        IPrimaryInfo? ChromaBluePrimary { get; set; }
+        IPrimaryInfo ChromaBluePrimary { get; set; }
 
         /// <summary>
         /// Gets or sets the chromaticity green primary point.
         /// </summary>
-        IPrimaryInfo? ChromaGreenPrimary { get; set; }
+        IPrimaryInfo ChromaGreenPrimary { get; set; }
 
         /// <summary>
         /// Gets or sets the chromaticity red primary point.
         /// </summary>
-        IPrimaryInfo? ChromaRedPrimary { get; set; }
+        IPrimaryInfo ChromaRedPrimary { get; set; }
 
         /// <summary>
         /// Gets or sets the chromaticity white primary point.
         /// </summary>
-        IPrimaryInfo? ChromaWhitePoint { get; set; }
+        IPrimaryInfo ChromaWhitePoint { get; set; }
 
         /// <summary>
         /// Gets or sets the image class (DirectClass or PseudoClass)
