@@ -94,6 +94,7 @@ namespace ImageMagick
 
                 case ExifTagValue.ImageWidth: return new ExifNumber(ExifTag.ImageWidth);
                 case ExifTagValue.ImageLength: return new ExifNumber(ExifTag.ImageLength);
+                case ExifTagValue.RowsPerStrip: return new ExifNumber(ExifTag.RowsPerStrip);
                 case ExifTagValue.TileWidth: return new ExifNumber(ExifTag.TileWidth);
                 case ExifTagValue.TileLength: return new ExifNumber(ExifTag.TileLength);
                 case ExifTagValue.BadFaxLines: return new ExifNumber(ExifTag.BadFaxLines);
@@ -300,7 +301,7 @@ namespace ImageMagick
                 case ExifTagValue.ImageSourceData: return new ExifByteArray(ExifTag.ImageSourceData, ExifDataType.Undefined);
                 case ExifTagValue.GPSProcessingMethod: return new ExifByteArray(ExifTag.GPSProcessingMethod, ExifDataType.Undefined);
                 case ExifTagValue.GPSAreaInformation: return new ExifByteArray(ExifTag.GPSAreaInformation, ExifDataType.Undefined);
-
+                case ExifTagValue.Unknown:
                 default: return null;
             }
         }
