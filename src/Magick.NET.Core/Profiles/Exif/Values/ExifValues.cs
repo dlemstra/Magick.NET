@@ -95,6 +95,7 @@ namespace ImageMagick
                 case ExifTagValue.ImageWidth: return new ExifNumber(ExifTag.ImageWidth);
                 case ExifTagValue.ImageLength: return new ExifNumber(ExifTag.ImageLength);
                 case ExifTagValue.RowsPerStrip: return new ExifNumber(ExifTag.RowsPerStrip);
+                case ExifTagValue.StripByteCounts: return new ExifNumber(ExifTag.StripByteCounts);
                 case ExifTagValue.TileWidth: return new ExifNumber(ExifTag.TileWidth);
                 case ExifTagValue.TileLength: return new ExifNumber(ExifTag.TileLength);
                 case ExifTagValue.BadFaxLines: return new ExifNumber(ExifTag.BadFaxLines);

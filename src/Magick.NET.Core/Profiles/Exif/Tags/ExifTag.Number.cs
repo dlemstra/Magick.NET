@@ -22,6 +22,11 @@ namespace ImageMagick
         public static ExifTag<Number> RowsPerStrip { get; } = new ExifTag<Number>(ExifTagValue.RowsPerStrip);
 
         /// <summary>
+        /// Gets the StripByteCounts exif tag.
+        /// </summary>
+        public static ExifTag<Number> StripByteCounts { get; } = new ExifTag<Number>(ExifTagValue.StripByteCounts);
+
+        /// <summary>
         /// Gets the TileWidth exif tag.
         /// </summary>
         public static ExifTag<Number> TileWidth { get; } = new ExifTag<Number>(ExifTagValue.TileWidth);
