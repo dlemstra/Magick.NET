@@ -78,6 +78,7 @@ namespace ImageMagick
                 case ExifTagValue.ISOSpeedLatitudezzz: return new ExifLong(ExifTag.ISOSpeedLatitudezzz);
                 case ExifTagValue.FaxRecvParams: return new ExifLong(ExifTag.FaxRecvParams);
                 case ExifTagValue.FaxRecvTime: return new ExifLong(ExifTag.FaxRecvTime);
+                case ExifTagValue.ImageNumber: return new ExifLong(ExifTag.ImageNumber);
 
                 case ExifTagValue.FreeOffsets: return new ExifLongArray(ExifTag.FreeOffsets);
                 case ExifTagValue.FreeByteCounts: return new ExifLongArray(ExifTag.FreeByteCounts);
