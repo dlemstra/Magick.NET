@@ -6433,7 +6433,7 @@ namespace ImageMagick
             => _nativeInstance.Threshold(PercentageHelper.ToQuantum(percentage), channels);
 
         /// <summary>
-        /// Resize image to thumbnail size.
+        /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
         /// <para />
         /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
         /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
@@ -6448,7 +6448,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Resize image to thumbnail size.
+        /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
         /// </summary>
         /// <param name="geometry">The geometry to use.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -6460,7 +6460,7 @@ namespace ImageMagick
         }
 
         /// <summary>
-        /// Resize image to thumbnail size.
+        /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
         /// </summary>
         /// <param name="percentage">The percentage.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -6468,7 +6468,7 @@ namespace ImageMagick
             => Thumbnail(percentage, percentage);
 
         /// <summary>
-        /// Resize image to thumbnail size.
+        /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
         /// </summary>
         /// <param name="percentageWidth">The percentage of the width.</param>
         /// <param name="percentageHeight">The percentage of the height.</param>
