@@ -460,7 +460,6 @@ namespace ImageMagick
                     throw new MagickErrorException("Unable to allocate primary info");
 
                 return primaryInfo;
-
             }
             set => _nativeInstance.ChromaBluePrimary = value;
         }
@@ -478,7 +477,6 @@ namespace ImageMagick
                     throw new MagickErrorException("Unable to allocate primary info");
 
                 return primaryInfo;
-
             }
             set => _nativeInstance.ChromaGreenPrimary = value;
         }
@@ -496,7 +494,6 @@ namespace ImageMagick
                     throw new MagickErrorException("Unable to allocate primary info");
 
                 return primaryInfo;
-
             }
             set => _nativeInstance.ChromaRedPrimary = value;
         }
@@ -514,7 +511,6 @@ namespace ImageMagick
                     throw new MagickErrorException("Unable to allocate primary info");
 
                 return primaryInfo;
-
             }
             set => _nativeInstance.ChromaWhitePoint = value;
         }
