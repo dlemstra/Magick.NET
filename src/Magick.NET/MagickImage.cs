@@ -452,7 +452,16 @@ namespace ImageMagick
         /// </summary>
         public IPrimaryInfo ChromaBluePrimary
         {
-            get => _nativeInstance.ChromaBluePrimary ?? new PrimaryInfo(0, 0, 0);
+            get
+            {
+                var primaryInfo = _nativeInstance.ChromaBluePrimary;
+
+                if (primaryInfo is null)
+                    throw new MagickErrorException("Unable to allocate primary info");
+
+                return primaryInfo;
+
+            }
             set => _nativeInstance.ChromaBluePrimary = value;
         }
 
@@ -461,7 +470,16 @@ namespace ImageMagick
         /// </summary>
         public IPrimaryInfo ChromaGreenPrimary
         {
-            get => _nativeInstance.ChromaGreenPrimary ?? new PrimaryInfo(0, 0, 0);
+            get
+            {
+                var primaryInfo = _nativeInstance.ChromaGreenPrimary;
+
+                if (primaryInfo is null)
+                    throw new MagickErrorException("Unable to allocate primary info");
+
+                return primaryInfo;
+
+            }
             set => _nativeInstance.ChromaGreenPrimary = value;
         }
 
@@ -470,7 +488,16 @@ namespace ImageMagick
         /// </summary>
         public IPrimaryInfo ChromaRedPrimary
         {
-            get => _nativeInstance.ChromaRedPrimary ?? new PrimaryInfo(0, 0, 0);
+            get
+            {
+                var primaryInfo = _nativeInstance.ChromaRedPrimary;
+
+                if (primaryInfo is null)
+                    throw new MagickErrorException("Unable to allocate primary info");
+
+                return primaryInfo;
+
+            }
             set => _nativeInstance.ChromaRedPrimary = value;
         }
 
@@ -479,7 +506,16 @@ namespace ImageMagick
         /// </summary>
         public IPrimaryInfo ChromaWhitePoint
         {
-            get => _nativeInstance.ChromaWhitePoint ?? new PrimaryInfo(0, 0, 0);
+            get
+            {
+                var primaryInfo = _nativeInstance.ChromaWhitePoint;
+
+                if (primaryInfo is null)
+                    throw new MagickErrorException("Unable to allocate primary info");
+
+                return primaryInfo;
+
+            }
             set => _nativeInstance.ChromaWhitePoint = value;
         }
 
