@@ -1,7 +1,10 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
+using System.Globalization;
 using System.IO;
+using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
 using Xunit.Sdk;
@@ -138,6 +141,66 @@ namespace Magick.NET.Tests
                     ColorAssert.Equal(MagickColors.Black, image, 305, 248);
                 }
             }
+        }
+
+        [Fact]
+        public void ShouldNotWriteJpegAndPngProperties()
+        {
+            using var input = new MagickImage(Files.Builtin.Logo);
+            input.SetAttribute("foo", "bar");
+            input.SetAttribute("jpeg:foo", "bar");
+            input.SetAttribute("png:foo", "bar");
+
+            using var memoryStream = new MemoryStream();
+            input.Write(memoryStream, MagickFormat.Png);
+            memoryStream.Position = 0;
+
+            using var output = new MagickImage(memoryStream);
+            Assert.Equal("bar", output.GetAttribute("foo"));
+            Assert.Null(output.GetAttribute("jpeg:foo"));
+            Assert.Null(output.GetAttribute("png:foo"));
+        }
+
+        [Fact]
+        public void ShouldWriteDateProperties()
+        {
+            var dateCreate = "2023-04-15T09:25:37+00:00";
+            var dateModify = "2023-04-15T09:25:42+00:00";
+
+            using var input = new MagickImage(Files.DatePNG);
+            Assert.Equal(dateCreate, input.GetAttribute("date:create"));
+            Assert.Equal(dateModify, input.GetAttribute("date:modify"));
+
+            using var memoryStream = new MemoryStream();
+            input.Write(memoryStream, MagickFormat.Png);
+            memoryStream.Position = 0;
+
+            using var output = new MagickImage(memoryStream);
+            dateCreate = output.GetAttribute("date:create");
+            dateModify = output.GetAttribute("date:modify");
+            Assert.Equal(dateCreate, dateModify);
+            Assert.True(DateTime.TryParseExact(dateCreate, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.None, out _));
+        }
+
+        [Fact]
+        public async Task ShouldNotWriteDatePropertiesWhenDateShouldBeExcluded()
+        {
+            using var temporaryFile = new TemporaryFile(new byte[] { 0 });
+
+            // The date:create property will use the creation time of the file if the property is not there, we are waiting
+            // for a second to make sure there is a difference in the timestamp.
+            await Task.Delay(1000);
+
+            using var input = new MagickImage(Files.DatePNG);
+            input.Settings.SetDefine("png:exclude-chunks", "date");
+            input.Write(temporaryFile.FullName);
+
+            using var output = new MagickImage(temporaryFile.FullName);
+            var dateCreate = output.GetAttribute("date:create");
+            var dateModify = output.GetAttribute("date:modify");
+            Assert.NotEqual(dateCreate, dateModify);
+            Assert.True(DateTime.TryParseExact(dateCreate, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.None, out _));
+            Assert.True(DateTime.TryParseExact(dateModify, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.None, out _));
         }
 
         private void HandleWarning(object sender, WarningEventArgs e)

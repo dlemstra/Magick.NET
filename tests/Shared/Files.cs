@@ -20,6 +20,9 @@ namespace Magick.NET
         public static string ConnectedComponentsPNG
             => Root + @"Images/ConnectedComponents.png";
 
+        public static string DatePNG
+            => Root + @"Images/Date.png";
+
         public static string EightBimJPG
             => Root + @"Images/8Bim.jpg";
 
