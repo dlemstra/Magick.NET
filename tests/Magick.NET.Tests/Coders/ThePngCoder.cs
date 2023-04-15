@@ -16,131 +16,114 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldThrowExceptionAndNotChangeTheOriginalImageWhenTheImageIsCorrupt()
         {
-            using (var image = new MagickImage(MagickColors.Purple, 4, 2))
-            {
-                Assert.Throws<MagickCoderErrorException>(() =>
-                {
-                    image.Read(Files.CorruptPNG);
-                });
+            using var image = new MagickImage(MagickColors.Purple, 4, 2);
 
-                Assert.Equal(4, image.Width);
-                Assert.Equal(2, image.Height);
-            }
+            Assert.Throws<MagickCoderErrorException>(() =>
+            {
+                image.Read(Files.CorruptPNG);
+            });
+
+            Assert.Equal(4, image.Width);
+            Assert.Equal(2, image.Height);
         }
 
         [Fact]
         public void ShouldBeAbleToReadPngWithLargeIDAT()
         {
-            using (var image = new MagickImage(Files.VicelandPNG))
-            {
-                Assert.Equal(200, image.Width);
-                Assert.Equal(28, image.Height);
-            }
+            using var image = new MagickImage(Files.VicelandPNG);
+
+            Assert.Equal(200, image.Width);
+            Assert.Equal(28, image.Height);
         }
 
         [Fact]
         public void ShouldNotRaiseWarningForValidModificationDateThatBecomes24Hours()
         {
-            using (var image = new MagickImage("logo:"))
-            {
-                image.Warning += HandleWarning;
-                image.SetAttribute("date:modify", "2017-09-10T20:35:00+03:30");
+            using var image = new MagickImage("logo:");
+            image.Warning += HandleWarning;
+            image.SetAttribute("date:modify", "2017-09-10T20:35:00+03:30");
 
-                image.ToByteArray(MagickFormat.Png);
-            }
+            image.ToByteArray(MagickFormat.Png);
         }
 
         [Fact]
         public void ShouldNotRaiseWarningForValidModificationDateThatBecomes60Minutes()
         {
-            using (var image = new MagickImage("logo:"))
-            {
-                image.Warning += HandleWarning;
-                image.SetAttribute("date:modify", "2017-09-10T15:30:00+03:30");
+            using var image = new MagickImage("logo:");
+            image.Warning += HandleWarning;
+            image.SetAttribute("date:modify", "2017-09-10T15:30:00+03:30");
 
-                image.ToByteArray(MagickFormat.Png);
-            }
+            image.ToByteArray(MagickFormat.Png);
         }
 
         [Fact]
         public void ShouldReadTheExifChunk()
         {
-            using (var input = new MagickImage(MagickColors.YellowGreen, 1, 1))
-            {
-                IExifProfile exifProfile = new ExifProfile();
-                exifProfile.SetValue(ExifTag.ImageUniqueID, "Have a nice day");
+            using var input = new MagickImage(MagickColors.YellowGreen, 1, 1);
 
-                input.SetProfile(exifProfile);
+            IExifProfile exifProfile = new ExifProfile();
+            exifProfile.SetValue(ExifTag.ImageUniqueID, "Have a nice day");
 
-                using (var memoryStream = new MemoryStream())
-                {
-                    input.Write(memoryStream, MagickFormat.Png);
+            input.SetProfile(exifProfile);
 
-                    memoryStream.Position = 0;
+            using var memoryStream = new MemoryStream();
 
-                    using (var output = new MagickImage(memoryStream))
-                    {
-                        exifProfile = output.GetExifProfile();
+            input.Write(memoryStream, MagickFormat.Png);
+            memoryStream.Position = 0;
 
-                        Assert.NotNull(exifProfile);
+            using var output = new MagickImage(memoryStream);
+            exifProfile = output.GetExifProfile();
 
-                        var value = exifProfile.GetValue(ExifTag.ImageUniqueID);
-                        Assert.Equal("Have a nice day", value.ToString());
-                    }
-                }
-            }
+            Assert.NotNull(exifProfile);
+
+            var value = exifProfile.GetValue(ExifTag.ImageUniqueID);
+            Assert.Equal("Have a nice day", value.ToString());
         }
 
         [Fact]
         public void ShouldSetTheAnimationProperties()
         {
-            using (var images = new MagickImageCollection(Files.Coders.TestMNG))
-            {
-                Assert.Equal(8, images.Count);
+            using var images = new MagickImageCollection(Files.Coders.TestMNG);
+            Assert.Equal(8, images.Count);
 
-                foreach (var image in images)
-                {
-                    Assert.Equal(20, image.AnimationDelay);
-                    Assert.Equal(100, image.AnimationTicksPerSecond);
-                }
+            foreach (var image in images)
+            {
+                Assert.Equal(20, image.AnimationDelay);
+                Assert.Equal(100, image.AnimationTicksPerSecond);
             }
         }
 
         [Fact]
         public void ShouldWritePng00Correctly()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var stream = new MemoryStream();
+            image.Write(stream, MagickFormat.Png);
+
+            stream.Position = 0;
+
+            image.Read(stream);
+
+            var setting = new QuantizeSettings
             {
-                using (var stream = new MemoryStream())
-                {
-                    image.Write(stream, MagickFormat.Png);
+                ColorSpace = ColorSpace.Gray,
+                DitherMethod = DitherMethod.Riemersma,
+                Colors = 2,
+            };
 
-                    stream.Position = 0;
+            image.Quantize(setting);
 
-                    image.Read(stream);
+            image.Warning += HandleWarning;
 
-                    var setting = new QuantizeSettings
-                    {
-                        ColorSpace = ColorSpace.Gray,
-                        DitherMethod = DitherMethod.Riemersma,
-                        Colors = 2,
-                    };
+            image.Write(stream, MagickFormat.Png00);
 
-                    image.Quantize(setting);
+            stream.Position = 0;
 
-                    image.Warning += HandleWarning;
+            image.Read(stream);
 
-                    image.Write(stream, MagickFormat.Png00);
-
-                    stream.Position = 0;
-
-                    image.Read(stream);
-
-                    Assert.Equal(ColorType.Palette, image.ColorType);
-                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
-                    ColorAssert.Equal(MagickColors.Black, image, 305, 248);
-                }
-            }
+            Assert.Equal(ColorType.Palette, image.ColorType);
+            ColorAssert.Equal(MagickColors.White, image, 0, 0);
+            ColorAssert.Equal(MagickColors.Black, image, 305, 248);
         }
 
         [Fact]
