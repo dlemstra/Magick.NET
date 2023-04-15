@@ -11,15 +11,22 @@ namespace ImageMagick
         private readonly FileInfo _tempFile;
 
         public TemporaryFile()
-        {
-            _tempFile = new FileInfo(Path.GetTempFileName());
-        }
+            => _tempFile = new FileInfo(Path.GetTempFileName());
 
         public long Length
-            => _tempFile.Length;
+        {
+            get
+            {
+                _tempFile.Refresh();
+                return _tempFile.Length;
+            }
+        }
 
-        public static implicit operator FileInfo(TemporaryFile file)
-            => file._tempFile;
+        public string FullName
+            => _tempFile.FullName;
+
+        public void CopyTo(TemporaryFile temporaryFile)
+            => CopyTo(temporaryFile._tempFile);
 
         public void CopyTo(FileInfo file)
         {

@@ -137,12 +137,10 @@ namespace ImageMagick.ImageOptimizers
         public bool LosslessCompress(Stream stream)
             => DoCompress(stream, true, 0);
 
-        private static void DoNativeCompress(FileInfo file, FileInfo output, bool progressive, bool lossless, int quality)
+        private static void DoNativeCompress(string filename, string outputFilename, bool progressive, bool lossless, int quality)
         {
             var nativeJpegOptimizer = new NativeJpegOptimizer();
-            nativeJpegOptimizer.CompressFile(file.FullName, output.FullName, progressive, lossless, quality);
-
-            output.Refresh();
+            nativeJpegOptimizer.CompressFile(filename, outputFilename, progressive, lossless, quality);
         }
 
         private static void DoNativeCompress(Stream input, Stream output, bool progressive, bool lossless, int quality)
@@ -164,13 +162,13 @@ namespace ImageMagick.ImageOptimizers
         {
             using (var tempFile = new TemporaryFile())
             {
-                DoNativeCompress(file, tempFile, Progressive, lossless, quality);
+                DoNativeCompress(file.FullName, tempFile.FullName, Progressive, lossless, quality);
 
                 if (OptimalCompression)
                 {
                     using (var tempFileOptimal = new TemporaryFile())
                     {
-                        DoNativeCompress(file, tempFileOptimal, !Progressive, lossless, quality);
+                        DoNativeCompress(file.FullName, tempFileOptimal.FullName, !Progressive, lossless, quality);
 
                         if (tempFileOptimal.Length < tempFile.Length)
                             tempFileOptimal.CopyTo(tempFile);

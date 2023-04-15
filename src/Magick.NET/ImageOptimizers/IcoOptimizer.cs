@@ -200,13 +200,12 @@ namespace ImageMagick.ImageOptimizers
 
                 using (var tempFile = new TemporaryFile())
                 {
-                    images.Write(tempFile);
+                    images.Write(tempFile.FullName);
 
                     if (tempFile.Length < file.Length)
                     {
                         isCompressed = true;
                         tempFile.CopyTo(file);
-                        file.Refresh();
                     }
                 }
             }

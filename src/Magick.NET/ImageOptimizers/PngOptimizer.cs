@@ -134,7 +134,6 @@ namespace ImageMagick.ImageOptimizers
                     {
                         isCompressed = true;
                         bestFile.CopyTo(file);
-                        file.Refresh();
                     }
                 }
                 finally

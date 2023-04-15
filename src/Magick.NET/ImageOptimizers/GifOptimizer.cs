@@ -134,13 +134,12 @@ namespace ImageMagick.ImageOptimizers
             using (var tempFile = new TemporaryFile())
             {
                 LosslessCompress(image);
-                image.Write(tempFile);
+                image.Write(tempFile.FullName);
 
                 if (tempFile.Length < file.Length)
                 {
                     isCompressed = true;
                     tempFile.CopyTo(file);
-                    file.Refresh();
                 }
             }
 

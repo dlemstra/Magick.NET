@@ -42,7 +42,7 @@ namespace ImageMagick.ImageOptimizers
                     tempFile = new TemporaryFile();
 
                     image.Quality = quality;
-                    image.Write(tempFile);
+                    image.Write(tempFile.FullName);
 
                     if (bestFile is null || bestFile.Length > tempFile.Length)
                     {
