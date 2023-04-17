@@ -75,10 +75,11 @@ namespace Magick.NET.Tests
                 Assert.Equal(465, image.Width);
                 Assert.Equal(101, image.Height);
 
-                ColorAssert.Equal(MagickColors.Black, image, 415, 27);
+                ColorAssert.Equal(MagickColors.Black, image, 416, 27);
+                ColorAssert.Equal(MagickColors.Black, image, 256, 49);
+                ColorAssert.Equal(MagickColors.White, image, 267, 49);
                 ColorAssert.Equal(MagickColors.Black, image, 426, 52);
-                ColorAssert.Equal(MagickColors.Black, image, 317, 82);
-                ColorAssert.Equal(MagickColors.White, image, 250, 52);
+                ColorAssert.Equal(MagickColors.Black, image, 316, 86);
             }
         }
 
