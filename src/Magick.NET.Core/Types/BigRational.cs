@@ -48,7 +48,7 @@ namespace ImageMagick
             Denominator = 1;
 
             var val = Math.Abs(value);
-            var df = Numerator / (double)Denominator;
+            var df = 1.0;
             var epsilon = bestPrecision ? double.Epsilon : .000001;
 
             while (Math.Abs(df - val) > epsilon)
