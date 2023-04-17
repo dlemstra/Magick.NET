@@ -186,6 +186,70 @@ namespace Magick.NET.Tests
             Assert.True(DateTime.TryParseExact(dateModify, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.None, out _));
         }
 
+        [Fact]
+        public void ShouldIgnoreTiffAndExifPropertiesWhenWritingPHYsChunk()
+        {
+            using var input = new MagickImage(MagickColors.Purple, 1, 1);
+
+            // The png coder always writes in PixelsPerCentimeter.
+            input.Density = new Density(40, 50, DensityUnit.PixelsPerCentimeter);
+            input.SetAttribute("exif:ResolutionUnit", "3");
+            input.SetAttribute("exif:XResolution", "60/1");
+            input.SetAttribute("exif:YResolution", "70/1");
+            input.SetAttribute("tiff:ResolutionUnit", "1");
+            input.SetAttribute("tiff:XResolution", "80/1");
+            input.SetAttribute("tiff:YResolution", "90/1");
+
+            using var memoryStream = new MemoryStream();
+            input.Write(memoryStream, MagickFormat.Png);
+            memoryStream.Position = 0;
+
+            using var output = new MagickImage(memoryStream);
+            Assert.Equal(DensityUnit.PixelsPerCentimeter, output.Density.Units);
+            Assert.Equal(40, output.Density.X);
+            Assert.Equal(50, output.Density.Y);
+        }
+
+        [Fact]
+        public void ShouldUseExifPropertiesWhenIgnoringPHYsChunk()
+        {
+            using var input = new MagickImage(MagickColors.Purple, 1, 1);
+            input.Density = new Density(40, 50, DensityUnit.PixelsPerCentimeter);
+            input.SetAttribute("exif:ResolutionUnit", "2");
+            input.SetAttribute("exif:XResolution", "60/1");
+            input.SetAttribute("exif:YResolution", "70/1");
+
+            using var memoryStream = new MemoryStream();
+            input.Settings.SetDefine("png:exclude-chunks", "pHYs");
+            input.Write(memoryStream, MagickFormat.Png);
+            memoryStream.Position = 0;
+
+            using var output = new MagickImage(memoryStream);
+            Assert.Equal(DensityUnit.PixelsPerInch, output.Density.Units);
+            Assert.Equal(60, output.Density.X);
+            Assert.Equal(70, output.Density.Y);
+        }
+
+        [Fact]
+        public void ShouldUseTiffPropertiesWhenIgnoringPHYsChunk()
+        {
+            using var input = new MagickImage(MagickColors.Purple, 1, 1);
+            input.Density = new Density(40, 50, DensityUnit.PixelsPerCentimeter);
+            input.SetAttribute("tiff:ResolutionUnit", "1");
+            input.SetAttribute("tiff:XResolution", "80/1");
+            input.SetAttribute("tiff:YResolution", "90/1");
+
+            using var memoryStream = new MemoryStream();
+            input.Settings.SetDefine("png:exclude-chunks", "pHYs");
+            input.Write(memoryStream, MagickFormat.Png);
+            memoryStream.Position = 0;
+
+            using var output = new MagickImage(memoryStream);
+            Assert.Equal(DensityUnit.Undefined, output.Density.Units);
+            Assert.Equal(80, output.Density.X);
+            Assert.Equal(90, output.Density.Y);
+        }
+
         private void HandleWarning(object sender, WarningEventArgs e)
             => throw new XunitException("Warning was raised: " + e.Message);
     }
