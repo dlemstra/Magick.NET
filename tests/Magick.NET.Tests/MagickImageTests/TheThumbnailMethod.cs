@@ -68,6 +68,19 @@ namespace Magick.NET.Tests
                     Assert.Equal(240, image.Height);
                 }
             }
+
+            [Fact]
+            public void ShouldResizeTheImageToTheCorrectDimensions()
+            {
+                using (var image = new MagickImage(Files.SnakewarePNG))
+                {
+                    var geometry = new MagickGeometry("1x1+0+0>");
+
+                    image.Thumbnail(geometry);
+                    Assert.Equal(1, image.Width);
+                    Assert.Equal(1, image.Height);
+                }
+            }
         }
     }
 }
