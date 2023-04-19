@@ -58,9 +58,7 @@ namespace ImageMagick
         /// </summary>
         /// <param name="value">Density specifications in the form: &lt;x&gt;x&lt;y&gt;[inch/cm] (where x, y are numbers).</param>
         public Density(string value)
-        {
-            Initialize(value);
-        }
+            => Initialize(value);
 
         /// <summary>
         /// Gets the units.
@@ -124,18 +122,17 @@ namespace ImageMagick
         /// </summary>
         /// <returns>A hash code for the current instance.</returns>
         public override int GetHashCode()
-        {
-            return
+            =>
               X.GetHashCode() ^
               Y.GetHashCode() ^
               Units.GetHashCode();
-        }
 
         /// <summary>
         /// Returns a string that represents the current <see cref="Density"/>.
         /// </summary>
         /// <returns>A string that represents the current <see cref="Density"/>.</returns>
-        public override string ToString() => ToString(Units);
+        public override string ToString()
+            => ToString(Units);
 
         /// <summary>
         /// Returns a string that represents the current <see cref="Density"/>.
