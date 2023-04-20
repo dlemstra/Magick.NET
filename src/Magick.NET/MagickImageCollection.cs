@@ -1679,7 +1679,7 @@ namespace ImageMagick
         public void Write(string fileName, IWriteDefines defines)
         {
             SetDefines(defines);
-            Write(fileName);
+            Write(fileName, defines.Format);
         }
 
         /// <summary>
