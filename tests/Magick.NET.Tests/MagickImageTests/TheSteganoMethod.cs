@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
                 image.Stegano(message);
 
                 using var tempFile = new TemporaryFile(".png");
-                tempFile.Write(image);
+                image.Write(tempFile.File);
 
                 var settings = new MagickReadSettings
                 {

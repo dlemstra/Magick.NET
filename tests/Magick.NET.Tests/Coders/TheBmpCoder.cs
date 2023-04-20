@@ -13,7 +13,7 @@ namespace Magick.NET.Tests
         {
             using var tempFile = new TemporaryFile(Files.MagickNETIconPNG);
             using var input = new MagickImage(tempFile.File);
-            tempFile.Write(input, MagickFormat.Bmp3);
+            input.Write(tempFile.File, MagickFormat.Bmp3);
 
             var settings = new MagickReadSettings
             {

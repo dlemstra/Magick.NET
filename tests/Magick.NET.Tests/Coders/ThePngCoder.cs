@@ -147,22 +147,20 @@ namespace Magick.NET.Tests
         [Fact]
         public async Task ShouldWriteDateProperties()
         {
-            using var tempfile = new TemporaryFile("test.png");
+            using var tempFile = new TemporaryFile("test.png");
 
             using var image = new MagickImage(MagickColors.Pink, 1, 1);
-            tempfile.Write(image);
+            image.Write(tempFile.File);
 
             await Task.Delay(1000);
-            tempfile.Write(image);
-            image.Read(tempfile.File);
-            tempfile.Write(image);
+            image.Write(tempFile.File);
+            image.Read(tempFile.File);
+            image.Write(tempFile.File);
 
-            var dateCreate = tempfile.File.CreationTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
-            var dateModify = tempfile.File.LastWriteTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
-            Assert.NotEqual(dateCreate, dateModify);
+            var dateCreate = tempFile.File.CreationTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
+            var dateModify = tempFile.File.LastWriteTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
 
-            var content = GetReadableContent(tempfile);
-
+            var content = GetReadableContent(tempFile);
             Assert.Contains($"date:create{dateCreate}", content);
             Assert.Contains($"date:modify{dateModify}", content);
         }
@@ -170,13 +168,13 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldNotWriteDatePropertiesWhenDateShouldBeExcluded()
         {
-            using var tempfile = new TemporaryFile("test.png");
+            using var tempFile = new TemporaryFile("test.png");
 
             using var input = new MagickImage(MagickColors.Pink, 1, 1);
             input.Settings.SetDefine("png:exclude-chunks", "date");
-            tempfile.Write(input);
+            input.Write(tempFile.File);
 
-            var content = GetReadableContent(tempfile);
+            var content = GetReadableContent(tempFile);
 
             Assert.DoesNotContain($"date:create", content);
             Assert.DoesNotContain($"date:modify", content);

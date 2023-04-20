@@ -40,24 +40,6 @@ namespace Magick.NET.Tests
         public void Dispose()
             => Cleanup.DeleteFile(_file);
 
-        public void Write(MagickImage image)
-        {
-            image.Write(_file.FullName);
-            _file.Refresh();
-        }
-
-        public void Write(MagickImage image, MagickFormat format)
-        {
-            image.Write(_file.FullName, format);
-            _file.Refresh();
-        }
-
-        public void Write(MagickImageCollection images)
-        {
-            images.Write(_file.FullName);
-            _file.Refresh();
-        }
-
         private FileInfo CreateEmptyFile(string fileName)
         {
             var file = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));

@@ -20,7 +20,7 @@ namespace Magick.NET.Tests
             images[0].AnimationIterations = 1;
 
             using var tempFile = new TemporaryFile("output.gif");
-            tempFile.Write(images);
+            images.Write(tempFile.File);
 
             images.Read(tempFile.File);
             Assert.Equal(1, images[0].AnimationIterations);
