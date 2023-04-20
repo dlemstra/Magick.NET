@@ -20,19 +20,17 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings();
 
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadPixelsAsync((FileInfo)null, settings));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadPixelsAsync((FileInfo)null, settings));
                 }
 
                 [Fact]
                 public async Task ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(new FileInfo(Files.CirclePNG), null));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(new FileInfo(Files.CirclePNG), null));
                 }
 
                 [Fact]
@@ -42,17 +40,13 @@ namespace Magick.NET.Tests
 
                     var bytes = BitConverter.GetBytes(1.0F);
 
-                    using (var temporyFile = new TemporaryFile(bytes))
-                    {
-                        using (var image = new MagickImage())
-                        {
-                            await image.ReadPixelsAsync(temporyFile.FileInfo, settings);
+                    using var tempFile = new TemporaryFile(bytes);
+                    using var image = new MagickImage();
+                    await image.ReadPixelsAsync(tempFile.File, settings);
 
-                            Assert.Equal(1, image.Width);
-                            Assert.Equal(1, image.Height);
-                            ColorAssert.Equal(MagickColors.White, image, 0, 0);
-                        }
-                    }
+                    Assert.Equal(1, image.Width);
+                    Assert.Equal(1, image.Height);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
                 }
             }
 
@@ -62,31 +56,26 @@ namespace Magick.NET.Tests
                 public async Task ShouldThrowExceptionWhenFileNameIsNull()
                 {
                     var settings = new PixelReadSettings();
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadPixelsAsync((string)null, settings));
-                    }
+                    await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadPixelsAsync((string)null, settings));
                 }
 
                 [Fact]
                 public async Task ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
                     var settings = new PixelReadSettings();
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentException>("fileName", () => image.ReadPixelsAsync(string.Empty, settings));
-                    }
+                    await Assert.ThrowsAsync<ArgumentException>("fileName", () => image.ReadPixelsAsync(string.Empty, settings));
                 }
 
                 [Fact]
                 public async Task ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, null));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, null));
                 }
 
                 [Fact]
@@ -94,12 +83,10 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
+                    using var image = new MagickImage();
 
-                        Assert.Contains("mapping", exception.Message);
-                    }
+                    var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
+                    Assert.Contains("mapping", exception.Message);
                 }
 
                 [Fact]
@@ -107,12 +94,10 @@ namespace Magick.NET.Tests
                 {
                     var settings = new PixelReadSettings(1, 1, StorageType.Char, string.Empty);
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = await Assert.ThrowsAsync<ArgumentException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
+                    using var image = new MagickImage();
 
-                        Assert.Contains("mapping", exception.Message);
-                    }
+                    var exception = await Assert.ThrowsAsync<ArgumentException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
+                    Assert.Contains("mapping", exception.Message);
                 }
 
                 [Fact]
@@ -121,12 +106,11 @@ namespace Magick.NET.Tests
                     var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                     settings.ReadSettings.Width = null;
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
+                    using var image = new MagickImage();
 
-                        Assert.Contains("Width", exception.Message);
-                    }
+                    var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
+
+                    Assert.Contains("Width", exception.Message);
                 }
 
                 [Fact]
@@ -135,33 +119,25 @@ namespace Magick.NET.Tests
                     var settings = new PixelReadSettings(1, 1, StorageType.Char, "RGBA");
                     settings.ReadSettings.Height = null;
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
+                    using var image = new MagickImage();
 
-                        Assert.Contains("Height", exception.Message);
-                    }
+                    var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
+                    Assert.Contains("Height", exception.Message);
                 }
 
                 [Fact]
                 public async Task ShouldReadFileName()
                 {
                     var settings = new PixelReadSettings(1, 1, StorageType.Short, "R");
-
                     var bytes = BitConverter.GetBytes(ushort.MaxValue);
 
-                    using (var temporyFile = new TemporaryFile(bytes))
-                    {
-                        var fileName = temporyFile.FullName;
-                        using (var image = new MagickImage())
-                        {
-                            await image.ReadPixelsAsync(fileName, settings);
+                    using var temporyFile = new TemporaryFile(bytes);
+                    using var image = new MagickImage();
+                    await image.ReadPixelsAsync(temporyFile.File.FullName, settings);
 
-                            Assert.Equal(1, image.Width);
-                            Assert.Equal(1, image.Height);
-                            ColorAssert.Equal(MagickColors.White, image, 0, 0);
-                        }
-                    }
+                    Assert.Equal(1, image.Width);
+                    Assert.Equal(1, image.Height);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
                 }
             }
 
@@ -171,51 +147,41 @@ namespace Magick.NET.Tests
                 public async Task ShouldThrowExceptionWhenStreamIsNull()
                 {
                     var settings = new PixelReadSettings();
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadPixelsAsync((Stream)null, settings));
-                    }
+                    await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadPixelsAsync((Stream)null, settings));
                 }
 
                 [Fact]
                 public async Task ShouldThrowExceptionWhenStreamIsEmpty()
                 {
                     var settings = new PixelReadSettings();
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentException>("stream", () => image.ReadPixelsAsync(new MemoryStream(), settings));
-                    }
+                    await Assert.ThrowsAsync<ArgumentException>("stream", () => image.ReadPixelsAsync(new MemoryStream(), settings));
                 }
 
                 [Fact]
                 public async Task ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(new MemoryStream(new byte[] { 215 }), null));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(new MemoryStream(new byte[] { 215 }), null));
                 }
 
                 [Fact]
                 public async Task ShouldReadStream()
                 {
                     var settings = new PixelReadSettings(1, 1, StorageType.Int64, "R");
-
                     var bytes = BitConverter.GetBytes(ulong.MaxValue);
 
-                    using (var memoryStream = new MemoryStream(bytes))
-                    {
-                        using (var image = new MagickImage())
-                        {
-                            await image.ReadPixelsAsync(memoryStream, settings);
+                    using var memoryStream = new MemoryStream(bytes);
+                    using var image = new MagickImage();
+                    await image.ReadPixelsAsync(memoryStream, settings);
 
-                            Assert.Equal(1, image.Width);
-                            Assert.Equal(1, image.Height);
-                            ColorAssert.Equal(MagickColors.White, image, 0, 0);
-                        }
-                    }
+                    Assert.Equal(1, image.Width);
+                    Assert.Equal(1, image.Height);
+                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
                 }
             }
         }

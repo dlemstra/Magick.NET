@@ -14,39 +14,31 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenWatermarkIsNull()
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Throws<ArgumentNullException>("watermark", () => image.Stegano(null));
-                }
+                using var image = new MagickImage();
+
+                Assert.Throws<ArgumentNullException>("watermark", () => image.Stegano(null));
             }
 
             [Fact]
             public void ShouldAddDigitalWatermark()
             {
-                using (var message = new MagickImage("label:Magick.NET is the best!", 200, 20))
+                using var message = new MagickImage("label:Magick.NET is the best!", 200, 20);
+
+                using var image = new MagickImage(Files.Builtin.Wizard);
+                image.Stegano(message);
+
+                using var tempFile = new TemporaryFile(".png");
+                tempFile.Write(image);
+
+                var settings = new MagickReadSettings
                 {
-                    using (var image = new MagickImage(Files.Builtin.Wizard))
-                    {
-                        image.Stegano(message);
+                    Format = MagickFormat.Stegano,
+                    Width = 200,
+                    Height = 20,
+                };
+                using var hiddenMessage = new MagickImage(tempFile.File, settings);
 
-                        using (var temporaryFile = new TemporaryFile(".png"))
-                        {
-                            image.Write(temporaryFile.FullName);
-
-                            var settings = new MagickReadSettings
-                            {
-                                Format = MagickFormat.Stegano,
-                                Width = 200,
-                                Height = 20,
-                            };
-
-                            using (var hiddenMessage = new MagickImage(temporaryFile.FullName, settings))
-                            {
-                                Assert.InRange(message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared), 0, 0.001);
-                            }
-                        }
-                    }
-                }
+                Assert.InRange(message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared), 0, 0.001);
             }
         }
     }

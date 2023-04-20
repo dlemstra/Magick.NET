@@ -3,55 +3,77 @@
 
 using System;
 using System.IO;
+using ImageMagick;
 
 namespace Magick.NET.Tests
 {
     public class TemporaryFile : IDisposable
     {
+        private readonly FileInfo _file;
+
         public TemporaryFile(byte[] data)
         {
-            FileInfo = new FileInfo(Path.GetTempFileName());
-            File.WriteAllBytes(FileInfo.FullName, data);
+            _file = new FileInfo(Path.GetTempFileName());
+            System.IO.File.WriteAllBytes(_file.FullName, data);
         }
 
         public TemporaryFile(string fileName)
         {
-            if (File.Exists(fileName))
-                CreateFromFile(fileName);
+            if (System.IO.File.Exists(fileName))
+                _file = CreateFromFile(fileName);
             else
-                CreateEmptyFile(fileName);
+                _file = CreateEmptyFile(fileName);
         }
-
-        public FileInfo FileInfo { get; private set; }
-
-        public string FullName
-            => FileInfo.FullName;
 
         public long Length
         {
             get
             {
-                FileInfo.Refresh();
-                return FileInfo.Length;
+                _file.Refresh();
+                return _file.Length;
             }
         }
+
+        public FileInfo File
+            => _file;
 
         public void Dispose()
-            => Cleanup.DeleteFile(FileInfo);
+            => Cleanup.DeleteFile(_file);
 
-        private void CreateEmptyFile(string fileName)
+        public void Write(MagickImage image)
         {
-            FileInfo = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
-            using (var fileStream = FileInfo.OpenWrite())
-            {
-            }
+            image.Write(_file.FullName);
+            _file.Refresh();
         }
 
-        private void CreateFromFile(string fileName)
+        public void Write(MagickImage image, MagickFormat format)
         {
-            FileInfo = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + Path.GetFileName(fileName)));
-            FileHelper.Copy(fileName, FileInfo.FullName);
-            FileInfo.Refresh();
+            image.Write(_file.FullName, format);
+            _file.Refresh();
+        }
+
+        public void Write(MagickImageCollection images)
+        {
+            images.Write(_file.FullName);
+            _file.Refresh();
+        }
+
+        private FileInfo CreateEmptyFile(string fileName)
+        {
+            var file = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
+            file.Create().Dispose();
+            file.Refresh();
+
+            return file;
+        }
+
+        private FileInfo CreateFromFile(string fileName)
+        {
+            var file = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + Path.GetFileName(fileName)));
+            FileHelper.Copy(fileName, file.FullName);
+            file.Refresh();
+
+            return file;
         }
     }
 }

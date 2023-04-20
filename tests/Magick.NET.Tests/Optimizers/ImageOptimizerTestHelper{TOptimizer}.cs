@@ -14,20 +14,9 @@ namespace Magick.NET.Tests
 
         protected long AssertCompressSmaller(string fileName)
         {
-            var lengthA = AssertCompress(fileName, true, (FileInfo file) =>
-            {
-                return Optimizer.Compress(file);
-            });
-
-            var lengthB = AssertCompress(fileName, true, (string file) =>
-            {
-                return Optimizer.Compress(file);
-            });
-
-            var lengthC = AssertCompress(fileName, true, (Stream stream) =>
-            {
-                return Optimizer.Compress(stream);
-            });
+            var lengthA = AssertCompressSmaller(fileName, (FileInfo file) => Optimizer.Compress(file));
+            var lengthB = AssertCompressSmaller(fileName, (string file) => Optimizer.Compress(file));
+            var lengthC = AssertCompressSmaller(fileName, (Stream stream) => Optimizer.Compress(stream));
 
             Assert.InRange(lengthA, lengthB - 1, lengthB + 1);
             Assert.InRange(lengthB, lengthC - 1, lengthC + 1);
@@ -36,20 +25,9 @@ namespace Magick.NET.Tests
 
         protected void AssertCompressNotSmaller(string fileName)
         {
-            var lengthA = AssertCompress(fileName, false, (FileInfo file) =>
-            {
-                return Optimizer.Compress(file);
-            });
-
-            var lengthB = AssertCompress(fileName, false, (string file) =>
-            {
-                return Optimizer.Compress(file);
-            });
-
-            var lengthC = AssertCompress(fileName, false, (Stream stream) =>
-            {
-                return Optimizer.Compress(stream);
-            });
+            var lengthA = AssertCompressNotSmaller(fileName, (FileInfo file) => Optimizer.Compress(file));
+            var lengthB = AssertCompressNotSmaller(fileName, (string file) => Optimizer.Compress(file));
+            var lengthC = AssertCompressNotSmaller(fileName, (Stream stream) => Optimizer.Compress(stream));
 
             Assert.Equal(lengthA, lengthB);
             Assert.Equal(lengthB, lengthC);
@@ -57,47 +35,33 @@ namespace Magick.NET.Tests
 
         protected void AssertCompressTwice(string fileName)
         {
-            using (var tempFile = new TemporaryFile(fileName))
-            {
-                var compressed1 = Optimizer.Compress(tempFile.FileInfo);
+            using var tempFile = new TemporaryFile(fileName);
 
-                var after1 = tempFile.Length;
+            var compressed1 = Optimizer.Compress(tempFile.File);
 
-                var compressed2 = Optimizer.Compress(tempFile.FileInfo);
+            var after1 = tempFile.Length;
 
-                var after2 = tempFile.Length;
+            var compressed2 = Optimizer.Compress(tempFile.File);
 
-                Assert.InRange(after1, after2 - 1, after2 + 1);
-                Assert.True(compressed1);
-                Assert.False(compressed2);
-            }
+            var after2 = tempFile.Length;
+
+            Assert.InRange(after1, after2 - 1, after2 + 1);
+            Assert.True(compressed1);
+            Assert.False(compressed2);
         }
 
         protected void AssertCompressInvalidFileFormat(string fileName)
         {
             AssertInvalidFileFormat(fileName, (FileInfo file) => Optimizer.Compress(file));
-
             AssertInvalidFileFormat(fileName, (string file) => Optimizer.Compress(file));
-
             AssertInvalidFileFormat(fileName, (Stream stream) => Optimizer.Compress(stream));
         }
 
         protected long AssertLosslessCompressSmaller(string fileName)
         {
-            var lengthA = AssertCompress(fileName, true, (FileInfo file) =>
-            {
-                return Optimizer.LosslessCompress(file);
-            });
-
-            var lengthB = AssertCompress(fileName, true, (string file) =>
-            {
-                return Optimizer.LosslessCompress(file);
-            });
-
-            var lengthC = AssertCompress(fileName, true, (Stream stream) =>
-            {
-                return Optimizer.LosslessCompress(stream);
-            });
+            var lengthA = AssertCompressSmaller(fileName, (FileInfo file) => Optimizer.LosslessCompress(file));
+            var lengthB = AssertCompressSmaller(fileName, (string file) => Optimizer.LosslessCompress(file));
+            var lengthC = AssertCompressSmaller(fileName, (Stream stream) => Optimizer.LosslessCompress(stream));
 
             Assert.InRange(lengthA, lengthB - 1, lengthB + 1);
             Assert.InRange(lengthB, lengthC - 1, lengthC + 1);
@@ -106,20 +70,9 @@ namespace Magick.NET.Tests
 
         protected void AssertLosslessCompressNotSmaller(string fileName)
         {
-            var lengthA = AssertCompress(fileName, false, (FileInfo file) =>
-            {
-                return Optimizer.LosslessCompress(file);
-            });
-
-            var lengthB = AssertCompress(fileName, false, (string file) =>
-            {
-                return Optimizer.LosslessCompress(file);
-            });
-
-            var lengthC = AssertCompress(fileName, false, (Stream stream) =>
-            {
-                return Optimizer.LosslessCompress(stream);
-            });
+            var lengthA = AssertCompressNotSmaller(fileName, (FileInfo file) => Optimizer.LosslessCompress(file));
+            var lengthB = AssertCompressNotSmaller(fileName, (string file) => Optimizer.LosslessCompress(file));
+            var lengthC = AssertCompressNotSmaller(fileName, (Stream stream) => Optimizer.LosslessCompress(stream));
 
             Assert.Equal(lengthA, lengthB);
             Assert.Equal(lengthB, lengthC);
@@ -127,28 +80,25 @@ namespace Magick.NET.Tests
 
         protected void AssertLosslessCompressTwice(string fileName)
         {
-            using (var tempFile = new TemporaryFile(fileName))
-            {
-                var compressed1 = Optimizer.LosslessCompress(tempFile.FileInfo);
+            using var tempFile = new TemporaryFile(fileName);
 
-                var after1 = tempFile.Length;
+            var compressed1 = Optimizer.LosslessCompress(tempFile.File);
 
-                var compressed2 = Optimizer.LosslessCompress(tempFile.FileInfo);
+            var after1 = tempFile.Length;
 
-                var after2 = tempFile.Length;
+            var compressed2 = Optimizer.LosslessCompress(tempFile.File);
 
-                Assert.InRange(after1, after2 - 1, after2 + 1);
-                Assert.True(compressed1);
-                Assert.False(compressed2);
-            }
+            var after2 = tempFile.Length;
+
+            Assert.InRange(after1, after2 - 1, after2 + 1);
+            Assert.True(compressed1);
+            Assert.False(compressed2);
         }
 
         protected void AssertLosslessCompressInvalidFileFormat(string fileName)
         {
             AssertInvalidFileFormat(fileName, (FileInfo file) => Optimizer.LosslessCompress(file));
-
             AssertInvalidFileFormat(fileName, (string file) => Optimizer.LosslessCompress(file));
-
             AssertInvalidFileFormat(fileName, (Stream stream) => Optimizer.LosslessCompress(stream));
         }
     }

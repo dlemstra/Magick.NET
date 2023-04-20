@@ -13,12 +13,10 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldNotThrowExceptionWhenCalledTwice()
             {
-                using (var stream = new TestStream(true, true, true))
-                {
-                    var streamWrapper = StreamWrapper.CreateForReading(stream);
-                    streamWrapper.Dispose();
-                    streamWrapper.Dispose();
-                }
+                using var stream = TestStream.ThatCanOnlyRead();
+                var streamWrapper = StreamWrapper.CreateForReading(stream);
+                streamWrapper.Dispose();
+                streamWrapper.Dispose();
             }
         }
     }

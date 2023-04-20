@@ -29,11 +29,10 @@ namespace Magick.NET.Tests
                     var factory = new MagickImageFactory();
                     var file = new FileInfo(Files.ImageMagickJPG);
 
-                    using (var image = await factory.CreateAsync(file))
-                    {
-                        Assert.IsType<MagickImage>(image);
-                        Assert.Equal(123, image.Width);
-                    }
+                    using var image = await factory.CreateAsync(file);
+
+                    Assert.IsType<MagickImage>(image);
+                    Assert.Equal(123, image.Width);
                 }
             }
 
@@ -53,10 +52,9 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    using (var image = await factory.CreateAsync(new FileInfo(Files.CirclePNG), (MagickReadSettings)null))
-                    {
-                        Assert.IsType<MagickImage>(image);
-                    }
+                    using var image = await factory.CreateAsync(new FileInfo(Files.CirclePNG), (MagickReadSettings)null);
+
+                    Assert.IsType<MagickImage>(image);
                 }
             }
 
@@ -97,14 +95,11 @@ namespace Magick.NET.Tests
 
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                    using (var temporaryFile = new TemporaryFile(data))
-                    {
-                        using (var image = await factory.CreateAsync(temporaryFile.FileInfo, settings))
-                        {
-                            Assert.IsType<MagickImage>(image);
-                            Assert.Equal(2, image.Width);
-                        }
-                    }
+                    using var tempFile = new TemporaryFile(data);
+                    using var image = await factory.CreateAsync(tempFile.File, settings);
+
+                    Assert.IsType<MagickImage>(image);
+                    Assert.Equal(2, image.Width);
                 }
             }
 
@@ -131,11 +126,10 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    using (var image = await factory.CreateAsync(Files.ImageMagickJPG))
-                    {
-                        Assert.IsType<MagickImage>(image);
-                        Assert.Equal(123, image.Width);
-                    }
+                    using var image = await factory.CreateAsync(Files.ImageMagickJPG);
+
+                    Assert.IsType<MagickImage>(image);
+                    Assert.Equal(123, image.Width);
                 }
             }
 
@@ -164,10 +158,9 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    using (var image = await factory.CreateAsync(Files.CirclePNG, (MagickReadSettings)null))
-                    {
-                        Assert.IsType<MagickImage>(image);
-                    }
+                    using var image = await factory.CreateAsync(Files.CirclePNG, (MagickReadSettings)null);
+
+                    Assert.IsType<MagickImage>(image);
                 }
             }
 
@@ -218,14 +211,11 @@ namespace Magick.NET.Tests
 
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                    using (var temporaryFile = new TemporaryFile(data))
-                    {
-                        using (var image = await factory.CreateAsync(temporaryFile.FullName, settings))
-                        {
-                            Assert.IsType<MagickImage>(image);
-                            Assert.Equal(2, image.Width);
-                        }
-                    }
+                    using var temporaryFile = new TemporaryFile(data);
+                    using var image = await factory.CreateAsync(temporaryFile.File.FullName, settings);
+
+                    Assert.IsType<MagickImage>(image);
+                    Assert.Equal(2, image.Width);
                 }
             }
 
@@ -252,14 +242,11 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    using (var stream = File.OpenRead(Files.ImageMagickJPG))
-                    {
-                        using (var image = await factory.CreateAsync(stream))
-                        {
-                            Assert.IsType<MagickImage>(image);
-                            Assert.Equal(123, image.Width);
-                        }
-                    }
+                    using var stream = File.OpenRead(Files.ImageMagickJPG);
+                    using var image = await factory.CreateAsync(stream);
+
+                    Assert.IsType<MagickImage>(image);
+                    Assert.Equal(123, image.Width);
                 }
             }
 
@@ -288,13 +275,10 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    using (var fileStream = File.OpenRead(Files.CirclePNG))
-                    {
-                        using (var image = await factory.CreateAsync(fileStream, (MagickReadSettings)null))
-                        {
-                            Assert.IsType<MagickImage>(image);
-                        }
-                    }
+                    using var fileStream = File.OpenRead(Files.CirclePNG);
+                    using var image = await factory.CreateAsync(fileStream, (MagickReadSettings)null);
+
+                    Assert.IsType<MagickImage>(image);
                 }
             }
 
@@ -323,10 +307,9 @@ namespace Magick.NET.Tests
                 {
                     var factory = new MagickImageFactory();
 
-                    using (var fileStream = File.OpenRead(Files.CirclePNG))
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("settings", () => factory.CreateAsync(fileStream, (PixelReadSettings)null));
-                    }
+                    using var fileStream = File.OpenRead(Files.CirclePNG);
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("settings", () => factory.CreateAsync(fileStream, (PixelReadSettings)null));
                 }
 
                 [Fact]
@@ -347,14 +330,11 @@ namespace Magick.NET.Tests
 
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                    using (var stream = new MemoryStream(data))
-                    {
-                        using (var image = await factory.CreateAsync(stream, settings))
-                        {
-                            Assert.IsType<MagickImage>(image);
-                            Assert.Equal(2, image.Width);
-                        }
-                    }
+                    using var stream = new MemoryStream(data);
+                    using var image = await factory.CreateAsync(stream, settings);
+
+                    Assert.IsType<MagickImage>(image);
+                    Assert.Equal(2, image.Width);
                 }
             }
         }

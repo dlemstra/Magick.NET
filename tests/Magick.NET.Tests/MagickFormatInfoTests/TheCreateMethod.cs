@@ -101,12 +101,11 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldReturnNullForUnknownExtension()
                 {
-                    using (var temporaryFile = new TemporaryFile("foo.bar"))
-                    {
-                        var formatInfo = MagickFormatInfo.Create(temporaryFile.FullName);
+                    using var tempFile = new TemporaryFile("foo.bar");
 
-                        Assert.Null(formatInfo);
-                    }
+                    var formatInfo = MagickFormatInfo.Create(tempFile.File.FullName);
+
+                    Assert.Null(formatInfo);
                 }
 
                 [Fact]

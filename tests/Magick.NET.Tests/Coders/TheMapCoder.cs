@@ -14,9 +14,9 @@ namespace Magick.NET.Tests
             using var image = new MagickImage(Files.Builtin.Logo);
             using var file = new TemporaryFile("test.map");
 
-            image.Write(file.FullName, MagickFormat.Map);
+            file.Write(image, MagickFormat.Map);
+            image.Read(file.File.FullName, image.Width, image.Height);
 
-            image.Read(file.FullName, image.Width, image.Height);
             Assert.Equal(MagickFormat.Map, image.Format);
         }
 
@@ -26,9 +26,9 @@ namespace Magick.NET.Tests
             using var image = new MagickImage(Files.Builtin.Logo);
             using var file = new TemporaryFile("test");
 
-            image.Write(file.FullName, MagickFormat.Map);
+            file.Write(image, MagickFormat.Map);
 
-            Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read(file.FullName, image.Width, image.Height));
+            Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read(file.File.FullName, image.Width, image.Height));
         }
     }
 }

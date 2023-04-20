@@ -18,10 +18,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null));
-                    }
+                    using var images = new MagickImageCollection();
+
+                    Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null));
                 }
 
                 [Fact]
@@ -31,19 +30,13 @@ namespace Magick.NET.Tests
                     {
                         Format = MagickFormat.Png,
                     };
+                    using var input = new MagickImageCollection(Files.CirclePNG, settings);
+                    using var tempFile = new TemporaryFile(".jpg");
+                    input.Write(tempFile.File);
 
-                    using (var input = new MagickImageCollection(Files.CirclePNG, settings))
-                    {
-                        using (var tempFile = new TemporaryFile(".jpg"))
-                        {
-                            input.Write(tempFile.FileInfo);
+                    using var output = new MagickImageCollection(tempFile.File);
 
-                            using (var output = new MagickImageCollection(tempFile.FileInfo))
-                            {
-                                Assert.Equal(MagickFormat.Jpeg, output[0].Format);
-                            }
-                        }
-                    }
+                    Assert.Equal(MagickFormat.Jpeg, output[0].Format);
                 }
             }
 
@@ -52,29 +45,24 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null, MagickFormat.Bmp));
-                    }
+                    using var images = new MagickImageCollection();
+
+                    Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null, MagickFormat.Bmp));
                 }
 
                 [Fact]
                 public void ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
-                    {
-                        using (var tempfile = new TemporaryFile("foobar"))
-                        {
-                            input.Write(tempfile.FileInfo, MagickFormat.Tiff);
-                            Assert.Equal(MagickFormat.Png, input[0].Format);
+                    using var input = new MagickImageCollection(Files.CirclePNG);
+                    using var tempFile = new TemporaryFile("foobar");
+                    input.Write(tempFile.File, MagickFormat.Tif);
 
-                            using (var output = new MagickImageCollection(tempfile.FileInfo))
-                            {
-                                Assert.Single(output);
-                                Assert.Equal(MagickFormat.Tiff, output[0].Format);
-                            }
-                        }
-                    }
+                    Assert.Equal(MagickFormat.Png, input[0].Format);
+
+                    using var output = new MagickImageCollection(tempFile.File);
+
+                    Assert.Single(output);
+                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
                 }
             }
 
@@ -83,49 +71,39 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        var defines = new TiffWriteDefines();
+                    var defines = new TiffWriteDefines();
+                    using var images = new MagickImageCollection();
 
-                        Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null, defines));
-                    }
+                    Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null, defines));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenDefinesIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        var file = new FileInfo(Files.CirclePNG);
+                    var file = new FileInfo(Files.CirclePNG);
+                    using var images = new MagickImageCollection();
 
-                        Assert.Throws<ArgumentNullException>("defines", () => images.Write(file, null));
-                    }
+                    Assert.Throws<ArgumentNullException>("defines", () => images.Write(file, null));
                 }
 
                 [Fact]
                 public void ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
+                    var defines = new TiffWriteDefines()
                     {
-                        using (var tempfile = new TemporaryFile("foobar"))
-                        {
-                            var defines = new TiffWriteDefines()
-                            {
-                                Endian = Endian.MSB,
-                            };
+                        Endian = Endian.MSB,
+                    };
+                    using var input = new MagickImageCollection(Files.CirclePNG);
+                    using var tempfile = new TemporaryFile("foobar");
+                    input.Write(tempfile.File, defines);
 
-                            input.Write(tempfile.FileInfo, MagickFormat.Tiff);
-                            Assert.Equal(MagickFormat.Png, input[0].Format);
+                    Assert.Equal(MagickFormat.Png, input[0].Format);
 
-                            using (var output = new MagickImageCollection())
-                            {
-                                output.Read(tempfile.FileInfo);
+                    using var output = new MagickImageCollection();
+                    output.Read(tempfile.File);
 
-                                Assert.Single(output);
-                                Assert.Equal(MagickFormat.Tiff, output[0].Format);
-                            }
-                        }
-                    }
+                    Assert.Single(output);
+                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
                 }
             }
 
@@ -134,10 +112,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null));
-                    }
+                    using var images = new MagickImageCollection();
+
+                    Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null));
                 }
             }
 
@@ -146,29 +123,24 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null, MagickFormat.Bmp));
-                    }
+                    using var images = new MagickImageCollection();
+
+                    Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null, MagickFormat.Bmp));
                 }
 
                 [Fact]
                 public void ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
-                    {
-                        using (var tempfile = new TemporaryFile("foobar"))
-                        {
-                            input.Write(tempfile.FullName, MagickFormat.Tiff);
-                            Assert.Equal(MagickFormat.Png, input[0].Format);
+                    using var input = new MagickImageCollection(Files.CirclePNG);
+                    using var tempfile = new TemporaryFile("foobar");
+                    input.Write(tempfile.File.FullName, MagickFormat.Tiff);
 
-                            using (var output = new MagickImageCollection(tempfile.FullName))
-                            {
-                                Assert.Single(output);
-                                Assert.Equal(MagickFormat.Tiff, output[0].Format);
-                            }
-                        }
-                    }
+                    Assert.Equal(MagickFormat.Png, input[0].Format);
+
+                    using var output = new MagickImageCollection(tempfile.File.FullName);
+
+                    Assert.Single(output);
+                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
                 }
             }
 
@@ -177,47 +149,38 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        var defines = new TiffWriteDefines();
+                    var defines = new TiffWriteDefines();
+                    using var images = new MagickImageCollection();
 
-                        Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null, defines));
-                    }
+                    Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null, defines));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenDefinesIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<ArgumentNullException>("defines", () => images.Write(Files.CirclePNG, null));
-                    }
+                    using var images = new MagickImageCollection();
+
+                    Assert.Throws<ArgumentNullException>("defines", () => images.Write(Files.CirclePNG, null));
                 }
 
                 [Fact]
                 public void ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
+                    using var input = new MagickImageCollection(Files.CirclePNG);
+                    using var tempfile = new TemporaryFile("foobar");
+                    var defines = new TiffWriteDefines()
                     {
-                        using (var tempfile = new TemporaryFile("foobar"))
-                        {
-                            var defines = new TiffWriteDefines()
-                            {
-                                Endian = Endian.MSB,
-                            };
+                        Endian = Endian.MSB,
+                    };
+                    input.Write(tempfile.File.FullName, defines);
 
-                            input.Write(tempfile.FullName, MagickFormat.Tiff);
-                            Assert.Equal(MagickFormat.Png, input[0].Format);
+                    Assert.Equal(MagickFormat.Png, input[0].Format);
 
-                            using (var output = new MagickImageCollection())
-                            {
-                                output.Read(tempfile.FullName);
+                    using var output = new MagickImageCollection();
+                    output.Read(tempfile.File.FullName);
 
-                                Assert.Single(output);
-                                Assert.Equal(MagickFormat.Tiff, output[0].Format);
-                            }
-                        }
-                    }
+                    Assert.Single(output);
+                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
                 }
             }
 
@@ -226,10 +189,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null));
-                    }
+                    using var images = new MagickImageCollection();
+
+                    Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null));
                 }
             }
 
@@ -238,45 +200,35 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null, MagickFormat.Bmp));
-                    }
+                    using var images = new MagickImageCollection();
+
+                    Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null, MagickFormat.Bmp));
                 }
 
                 [Fact]
                 public void ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
-                    {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            using (var stream = new NonSeekableStream(memoryStream))
-                            {
-                                input.Write(stream, MagickFormat.Tiff);
-                                Assert.Equal(MagickFormat.Png, input[0].Format);
+                    using var input = new MagickImageCollection(Files.CirclePNG);
+                    using var memoryStream = new MemoryStream();
+                    using var stream = new NonSeekableStream(memoryStream);
+                    input.Write(stream, MagickFormat.Tiff);
+                    memoryStream.Position = 0;
 
-                                memoryStream.Position = 0;
-                                using (var output = new MagickImageCollection(stream))
-                                {
-                                    Assert.Single(output);
-                                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
-                                }
-                            }
-                        }
-                    }
+                    Assert.Equal(MagickFormat.Png, input[0].Format);
+
+                    using var output = new MagickImageCollection(stream);
+
+                    Assert.Single(output);
+                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFormatIsNotWritable()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
-                    {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            Assert.Throws<MagickMissingDelegateErrorException>(() => input.Write(memoryStream, MagickFormat.Xc));
-                        }
-                    }
+                    using var memoryStream = new MemoryStream();
+                    using var input = new MagickImageCollection(Files.CirclePNG);
+
+                    Assert.Throws<MagickMissingDelegateErrorException>(() => input.Write(memoryStream, MagickFormat.Xc));
                 }
             }
 
@@ -285,51 +237,40 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        var defines = new TiffWriteDefines();
+                    var defines = new TiffWriteDefines();
+                    using var images = new MagickImageCollection();
 
-                        Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null, defines));
-                    }
+                    Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null, defines));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenDefinesIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        using (var stream = new MemoryStream())
-                        {
-                            Assert.Throws<ArgumentNullException>("defines", () => images.Write(stream, null));
-                        }
-                    }
+                    using var images = new MagickImageCollection();
+                    using var stream = new MemoryStream();
+
+                    Assert.Throws<ArgumentNullException>("defines", () => images.Write(stream, null));
                 }
 
                 [Fact]
                 public void ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
+                    using var input = new MagickImageCollection(Files.CirclePNG);
+                    using var stream = new MemoryStream();
+                    var defines = new TiffWriteDefines()
                     {
-                        using (var stream = new MemoryStream())
-                        {
-                            var defines = new TiffWriteDefines()
-                            {
-                                Endian = Endian.MSB,
-                            };
+                        Endian = Endian.MSB,
+                    };
+                    input.Write(stream, defines);
+                    stream.Position = 0;
 
-                            input.Write(stream, MagickFormat.Tiff);
-                            Assert.Equal(MagickFormat.Png, input[0].Format);
+                    Assert.Equal(MagickFormat.Png, input[0].Format);
 
-                            using (var output = new MagickImageCollection())
-                            {
-                                stream.Position = 0;
-                                output.Read(stream);
+                    using var output = new MagickImageCollection();
+                    output.Read(stream);
 
-                                Assert.Single(output);
-                                Assert.Equal(MagickFormat.Tiff, output[0].Format);
-                            }
-                        }
-                    }
+                    Assert.Single(output);
+                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
                 }
             }
         }

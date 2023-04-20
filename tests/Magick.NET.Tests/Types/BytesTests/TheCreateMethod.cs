@@ -14,80 +14,62 @@ namespace Magick.NET.Tests
         {
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("stream", () => Bytes.Create(null));
-            }
+                => Assert.Throws<ArgumentNullException>("stream", () => Bytes.Create(null));
 
             [Fact]
             public void ShouldThrowExceptionWhenStreamPositionIsNotZero()
             {
-                using (var memStream = new MemoryStream(new byte[] { 42 }))
-                {
-                    memStream.Position = 10;
+                using var memStream = new MemoryStream(new byte[] { 42 });
+                memStream.Position = 10;
 
-                    Assert.Throws<ArgumentException>("stream", () => Bytes.Create(memStream));
-                }
+                Assert.Throws<ArgumentException>("stream", () => Bytes.Create(memStream));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsEmpty()
             {
-                using (var memStream = new MemoryStream())
-                {
-                    Assert.Throws<ArgumentException>("stream", () => Bytes.Create(memStream));
-                }
+                using var memStream = new MemoryStream();
+
+                Assert.Throws<ArgumentException>("stream", () => Bytes.Create(memStream));
             }
 
             [Fact]
             public void ShouldSetPropertiesWhenStreamIsEmptyAndAllowEmptyStreamIsSet()
             {
-                using (var memStream = new MemoryStream())
-                {
-                    var bytes = Bytes.Create(memStream, allowEmptyStream: true);
+                using var memStream = new MemoryStream();
+                var bytes = Bytes.Create(memStream, allowEmptyStream: true);
 
-                    Assert.Equal(0, bytes.Length);
-                    Assert.NotNull(bytes.GetData());
-                    Assert.Empty(bytes.GetData());
-                }
+                Assert.Equal(0, bytes.Length);
+                Assert.NotNull(bytes.GetData());
+                Assert.Empty(bytes.GetData());
             }
 
             [Fact]
             public void ShouldSetPropertiesWhenStreamIsFileStream()
             {
-                using (var fileStream = File.OpenRead(Files.ImageMagickJPG))
-                {
-                    var bytes = Bytes.Create(fileStream);
+                using var fileStream = File.OpenRead(Files.ImageMagickJPG);
+                var bytes = Bytes.Create(fileStream);
 
-                    Assert.Equal(18749, bytes.Length);
-                    Assert.NotNull(bytes.GetData());
-                    Assert.Equal(18749, bytes.GetData().Length);
-                }
+                Assert.Equal(18749, bytes.Length);
+                Assert.NotNull(bytes.GetData());
+                Assert.Equal(18749, bytes.GetData().Length);
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenStreamCannotRead()
             {
-                using (var stream = new TestStream(false, true, true))
-                {
-                    Assert.Throws<ArgumentException>("stream", () =>
-                    {
-                        Bytes.Create(stream);
-                    });
-                }
+                using var stream = TestStream.ThatCannotRead();
+
+                Assert.Throws<ArgumentException>("stream", () => Bytes.Create(stream));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsTooLong()
             {
-                using (var stream = new TestStream(true, true, true))
-                {
-                    stream.SetLength(long.MaxValue);
+                using var stream = TestStream.ThatCannotWrite();
+                stream.SetLength(long.MaxValue);
 
-                    Assert.Throws<ArgumentException>("length", () =>
-                    {
-                        Bytes.Create(stream);
-                    });
-                }
+                Assert.Throws<ArgumentException>("length", () => Bytes.Create(stream));
             }
         }
     }

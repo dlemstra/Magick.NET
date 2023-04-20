@@ -16,21 +16,16 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldCauseAnExceptionWhenThePalmCoderIsDisabled()
             {
-                using (var tempFile = new TemporaryFile("test.palm"))
+                using var tempFile = new TemporaryFile("test.palm");
+                using (var fs = tempFile.File.OpenWrite())
                 {
-                    using (var fs = tempFile.FileInfo.OpenWrite())
-                    {
-                        var bytes = new byte[4] { 0, 0, 0, 0 };
-                        fs.Write(bytes, 0, bytes.Length);
-                    }
-
-                    Assert.Throws<MagickPolicyErrorException>(() =>
-                    {
-                        using (var image = new MagickImage(tempFile.FileInfo))
-                        {
-                        }
-                    });
+                    var bytes = new byte[4] { 0, 0, 0, 0 };
+                    fs.Write(bytes, 0, bytes.Length);
                 }
+
+                using var image = new MagickImage();
+
+                Assert.Throws<MagickPolicyErrorException>(() => image.Read(tempFile.File));
             }
         }
     }

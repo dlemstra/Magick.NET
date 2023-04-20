@@ -18,31 +18,25 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenFileIsNull()
                 {
                     var optimizer = new ImageOptimizer();
-                    Assert.Throws<ArgumentNullException>("file", () =>
-                    {
-                        optimizer.LosslessCompress((FileInfo)null);
-                    });
+
+                    Assert.Throws<ArgumentNullException>("file", () => optimizer.LosslessCompress((FileInfo)null));
                 }
 
                 [Fact]
                 public void ShouldReturnFalseWhenFileIsEmpty()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (var file = new TemporaryFile("empty"))
-                    {
-                        var result = optimizer.LosslessCompress(file.FileInfo);
-                        Assert.False(result);
-                    }
+                    using var tempFile = new TemporaryFile("empty");
+                    var result = optimizer.LosslessCompress(tempFile.File);
+
+                    Assert.False(result);
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsUnsupportedFormat()
                 {
                     var optimizer = new ImageOptimizer();
-                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
-                    {
-                        optimizer.LosslessCompress(new FileInfo(Files.InvitationTIF));
-                    });
+                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() => optimizer.LosslessCompress(new FileInfo(Files.InvitationTIF)));
 
                     Assert.Contains("Invalid format", exception.Message);
                 }
@@ -52,6 +46,7 @@ namespace Magick.NET.Tests
                 {
                     var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
                     var compressionSuccess = optimizer.LosslessCompress(new FileInfo(Files.InvitationTIF));
+
                     Assert.False(compressionSuccess);
                 }
 
@@ -59,80 +54,64 @@ namespace Magick.NET.Tests
                 public void ShouldMakeFileSmallerWhenFileIsCompressibleJpgFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.ImageMagickJPG, true, (FileInfo file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressSmaller(Files.ImageMagickJPG, (FileInfo file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenFileIsCompressiblePngFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.SnakewarePNG, true, (FileInfo file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressSmaller(Files.SnakewarePNG, (FileInfo file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenFileIsCompressibleIcoFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.WandICO, true, (FileInfo file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressSmaller(Files.WandICO, (FileInfo file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenFileIsCompressibleGifFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.FujiFilmFinePixS1ProGIF, true, (FileInfo file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF, (FileInfo file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenFileIsUnCompressibleJpgFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.LetterJPG, false, (FileInfo file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressNotSmaller(Files.LetterJPG, (FileInfo file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenFileIsUnCompressiblePngFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.MagickNETIconPNG, false, (FileInfo file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressNotSmaller(Files.MagickNETIconPNG, (FileInfo file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenFileIsUnCompressibleIcoFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.ImageMagickICO, false, (FileInfo file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressNotSmaller(Files.ImageMagickICO, (FileInfo file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenFileIsUnCompressibleGifFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.RoseSparkleGIF, false, (FileInfo file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressNotSmaller(Files.RoseSparkleGIF, (FileInfo file) => optimizer.LosslessCompress(file));
                 }
             }
 
@@ -142,31 +121,24 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenFileNameIsNull()
                 {
                     var optimizer = new ImageOptimizer();
-                    Assert.Throws<ArgumentNullException>("fileName", () =>
-                    {
-                        optimizer.LosslessCompress((string)null);
-                    });
+
+                    Assert.Throws<ArgumentNullException>("fileName", () => optimizer.LosslessCompress((string)null));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
                 {
                     var optimizer = new ImageOptimizer();
-                    Assert.Throws<ArgumentException>("fileName", () =>
-                    {
-                        optimizer.LosslessCompress(string.Empty);
-                    });
+
+                    Assert.Throws<ArgumentException>("fileName", () => optimizer.LosslessCompress(string.Empty));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsInvalid()
                 {
                     var optimizer = new ImageOptimizer();
-                    var exception = Assert.Throws<MagickBlobErrorException>(() =>
-                    {
-                        optimizer.LosslessCompress(Files.Missing);
-                    });
 
+                    var exception = Assert.Throws<MagickBlobErrorException>(() => optimizer.LosslessCompress(Files.Missing));
                     Assert.Contains("error/blob.c/OpenBlob", exception.Message);
                 }
 
@@ -174,11 +146,8 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenFileIsUnsupportedFormat()
                 {
                     var optimizer = new ImageOptimizer();
-                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
-                    {
-                        optimizer.Compress(Files.InvitationTIF);
-                    });
 
+                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() => optimizer.Compress(Files.InvitationTIF));
                     Assert.Contains("Invalid format", exception.Message);
                 }
 
@@ -187,6 +156,7 @@ namespace Magick.NET.Tests
                 {
                     var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
                     var compressionSuccess = optimizer.LosslessCompress(Files.InvitationTIF);
+
                     Assert.False(compressionSuccess);
                 }
 
@@ -194,80 +164,64 @@ namespace Magick.NET.Tests
                 public void ShouldMakeFileSmallerWhenFileNameIsCompressibleJpgFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.ImageMagickJPG, true, (string file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressSmaller(Files.ImageMagickJPG, (string file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenFileNameIsCompressiblePngFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.SnakewarePNG, true, (string file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressSmaller(Files.SnakewarePNG, (string file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenFileNameIsCompressibleIcoFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.WandICO, true, (string file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressSmaller(Files.WandICO, (string file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenFileNameIsCompressibleGifFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.FujiFilmFinePixS1ProGIF, true, (string file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF, (string file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenFileNameIsUncompressibleJpgFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.LetterJPG, false, (string file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressNotSmaller(Files.LetterJPG, (string file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenFileNameIsUncompressiblePngFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.MagickNETIconPNG, false, (string file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressNotSmaller(Files.MagickNETIconPNG, (string file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenFileNameIsUncompressibleIcoFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.ImageMagickICO, false, (string file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressNotSmaller(Files.ImageMagickICO, (string file) => optimizer.LosslessCompress(file));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenFileNameIsUncompressibleGifFile()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.RoseSparkleGIF, false, (string file) =>
-                    {
-                        return optimizer.LosslessCompress(file);
-                    });
+
+                    AssertCompressNotSmaller(Files.RoseSparkleGIF, (string file) => optimizer.LosslessCompress(file));
                 }
             }
 
@@ -277,155 +231,120 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenStreamIsNull()
                 {
                     var optimizer = new ImageOptimizer();
-                    Assert.Throws<ArgumentNullException>("stream", () =>
-                    {
-                        optimizer.LosslessCompress((Stream)null);
-                    });
+
+                    Assert.Throws<ArgumentNullException>("stream", () => optimizer.LosslessCompress((Stream)null));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamCannotRead()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (var stream = new TestStream(false, true, true))
-                    {
-                        Assert.Throws<ArgumentException>("stream", () =>
-                        {
-                            optimizer.LosslessCompress(stream);
-                        });
-                    }
+                    using var stream = TestStream.ThatCannotRead();
+
+                    Assert.Throws<ArgumentException>("stream", () => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamCannotWrite()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (var stream = new TestStream(true, false, true))
-                    {
-                        Assert.Throws<ArgumentException>("stream", () =>
-                        {
-                            optimizer.LosslessCompress(stream);
-                        });
-                    }
+                    using var stream = TestStream.ThatCannotWrite();
+
+                    Assert.Throws<ArgumentException>("stream", () => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamCannotSeek()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (var stream = new TestStream(true, true, false))
-                    {
-                        Assert.Throws<ArgumentException>("stream", () =>
-                        {
-                            optimizer.LosslessCompress(stream);
-                        });
-                    }
+                    using var stream = TestStream.ThatCannotSeek();
+
+                    Assert.Throws<ArgumentException>("stream", () => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsUnsupportedFormat()
                 {
                     var optimizer = new ImageOptimizer();
-                    using (var fileStream = OpenStream(Files.InvitationTIF))
-                    {
-                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
-                        {
-                            optimizer.Compress(fileStream);
-                        });
+                    using var fileStream = OpenStream(Files.InvitationTIF);
 
-                        Assert.Contains("Invalid format", exception.Message);
-                    }
+                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() => optimizer.Compress(fileStream));
+                    Assert.Contains("Invalid format", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldNotThrowExceptionWhenIgnoringUnsupportedStream()
                 {
                     var optimizer = new ImageOptimizer { IgnoreUnsupportedFormats = true };
-                    using (var fileStream = OpenStream(Files.InvitationTIF))
-                    {
-                        var compressionSuccess = optimizer.LosslessCompress(fileStream);
-                        Assert.False(compressionSuccess);
-                    }
+                    using var fileStream = OpenStream(Files.InvitationTIF);
+
+                    var compressionSuccess = optimizer.LosslessCompress(fileStream);
+
+                    Assert.False(compressionSuccess);
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenStreamIsCompressibleJpgStrea()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.ImageMagickJPG, true, (Stream stream) =>
-                    {
-                        return optimizer.LosslessCompress(stream);
-                    });
+
+                    AssertCompressSmaller(Files.ImageMagickJPG, (Stream stream) => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenStreamIsCompressiblePngStream()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.SnakewarePNG, true, (Stream stream) =>
-                    {
-                        return optimizer.LosslessCompress(stream);
-                    });
+
+                    AssertCompressSmaller(Files.SnakewarePNG, (Stream stream) => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenStreamIsCompressibleIcoStream()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.WandICO, true, (Stream stream) =>
-                    {
-                        return optimizer.LosslessCompress(stream);
-                    });
+
+                    AssertCompressSmaller(Files.WandICO, (Stream stream) => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldMakeFileSmallerWhenStreamIsCompressibleGifStream()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.FujiFilmFinePixS1ProGIF, true, (Stream stream) =>
-                    {
-                        return optimizer.LosslessCompress(stream);
-                    });
+
+                    AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF, (Stream stream) => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenStreamIsCompressibleJpgStream()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.LetterJPG, false, (Stream stream) =>
-                    {
-                        return optimizer.LosslessCompress(stream);
-                    });
+
+                    AssertCompressNotSmaller(Files.LetterJPG, (Stream stream) => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenStreamIsCompressiblePngStream()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.MagickNETIconPNG, false, (Stream stream) =>
-                    {
-                        return optimizer.LosslessCompress(stream);
-                    });
+
+                    AssertCompressNotSmaller(Files.MagickNETIconPNG, (Stream stream) => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenStreamIsCompressibleIcoStream()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.ImageMagickICO, false, (Stream stream) =>
-                    {
-                        return optimizer.LosslessCompress(stream);
-                    });
+
+                    AssertCompressNotSmaller(Files.ImageMagickICO, (Stream stream) => optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldNotMakeFileSmallerWhenStreamIsCompressibleGifStream()
                 {
                     var optimizer = new ImageOptimizer();
-                    AssertCompress(Files.RoseSparkleGIF, false, (Stream stream) =>
-                    {
-                        return optimizer.LosslessCompress(stream);
-                    });
+
+                    AssertCompressNotSmaller(Files.RoseSparkleGIF, (Stream stream) => optimizer.LosslessCompress(stream));
                 }
             }
         }

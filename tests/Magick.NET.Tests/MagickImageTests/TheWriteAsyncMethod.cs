@@ -19,10 +19,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.WriteAsync((FileInfo)null));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.WriteAsync((FileInfo)null));
                 }
 
                 [Fact]
@@ -32,19 +31,14 @@ namespace Magick.NET.Tests
                     {
                         Format = MagickFormat.Png,
                     };
+                    using var input = new MagickImage(Files.CirclePNG, settings);
 
-                    using (var input = new MagickImage(Files.CirclePNG, settings))
-                    {
-                        using (var tempFile = new TemporaryFile(".jpg"))
-                        {
-                            await input.WriteAsync(tempFile.FileInfo);
+                    using var tempFile = new TemporaryFile(".jpg");
+                    await input.WriteAsync(tempFile.File);
 
-                            using (var output = new MagickImage(tempFile.FileInfo))
-                            {
-                                Assert.Equal(MagickFormat.Jpeg, output.Format);
-                            }
-                        }
-                    }
+                    using var output = new MagickImage(tempFile.File);
+
+                    Assert.Equal(MagickFormat.Jpeg, output.Format);
                 }
             }
 
@@ -53,28 +47,24 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.WriteAsync((FileInfo)null, MagickFormat.Bmp));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.WriteAsync((FileInfo)null, MagickFormat.Bmp));
                 }
 
                 [Fact]
                 public async Task ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImage(Files.CirclePNG))
-                    {
-                        using (var tempfile = new TemporaryFile("foobar"))
-                        {
-                            await input.WriteAsync(tempfile.FileInfo, MagickFormat.Tiff);
-                            Assert.Equal(MagickFormat.Png, input.Format);
+                    using var input = new MagickImage(Files.CirclePNG);
 
-                            using (var output = new MagickImage(tempfile.FileInfo))
-                            {
-                                Assert.Equal(MagickFormat.Tiff, output.Format);
-                            }
-                        }
-                    }
+                    using var tempfile = new TemporaryFile("foobar");
+                    await input.WriteAsync(tempfile.File, MagickFormat.Tiff);
+
+                    Assert.Equal(MagickFormat.Png, input.Format);
+
+                    using var output = new MagickImage(tempfile.File);
+
+                    Assert.Equal(MagickFormat.Tiff, output.Format);
                 }
             }
 
@@ -83,47 +73,39 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var defines = new JpegWriteDefines();
+                    var defines = new JpegWriteDefines();
+                    using var image = new MagickImage();
 
-                        await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.WriteAsync((FileInfo)null, defines));
-                    }
+                    await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.WriteAsync((FileInfo)null, defines));
                 }
 
                 [Fact]
                 public async Task ShouldThrowExceptionWhenWriteDefinesIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var file = new FileInfo(Files.CirclePNG);
-                        await Assert.ThrowsAsync<ArgumentNullException>("defines", () => image.WriteAsync(file, null));
-                    }
+                    var file = new FileInfo(Files.CirclePNG);
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("defines", () => image.WriteAsync(file, null));
                 }
 
                 [Fact]
                 public async Task ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImage(Files.CirclePNG))
+                    var defines = new JpegWriteDefines
                     {
-                        using (var tempfile = new TemporaryFile("foobar"))
-                        {
-                            var defines = new JpegWriteDefines
-                            {
-                                DctMethod = JpegDctMethod.Fast,
-                            };
+                        DctMethod = JpegDctMethod.Fast,
+                    };
+                    using var input = new MagickImage(Files.CirclePNG);
 
-                            await input.WriteAsync(tempfile.FileInfo, defines);
-                            Assert.Equal(MagickFormat.Png, input.Format);
+                    using var tempfile = new TemporaryFile("foobar");
+                    await input.WriteAsync(tempfile.File, defines);
 
-                            using (var output = new MagickImage())
-                            {
-                                await output.ReadAsync(tempfile.FileInfo);
+                    Assert.Equal(MagickFormat.Png, input.Format);
 
-                                Assert.Equal(MagickFormat.Jpeg, output.Format);
-                            }
-                        }
-                    }
+                    using var output = new MagickImage();
+                    await output.ReadAsync(tempfile.File);
+
+                    Assert.Equal(MagickFormat.Jpeg, output.Format);
                 }
             }
 
@@ -132,42 +114,37 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.WriteAsync((string)null));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.WriteAsync((string)null));
                 }
 
                 [Fact]
                 public async Task ShouldSyncTheExifProfile()
                 {
-                    using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-                    {
-                        Assert.Equal(OrientationType.TopLeft, input.Orientation);
+                    using var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
 
-                        input.Orientation = OrientationType.RightTop;
+                    Assert.Equal(OrientationType.TopLeft, input.Orientation);
 
-                        using (var memStream = new MemoryStream())
-                        {
-                            await input.WriteAsync(memStream);
+                    input.Orientation = OrientationType.RightTop;
 
-                            using (var output = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-                            {
-                                memStream.Position = 0;
-                                await output.ReadAsync(memStream);
+                    using var memStream = new MemoryStream();
+                    await input.WriteAsync(memStream);
+                    memStream.Position = 0;
 
-                                Assert.Equal(OrientationType.RightTop, output.Orientation);
+                    using var output = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
+                    await output.ReadAsync(memStream);
 
-                                var profile = output.GetExifProfile();
+                    Assert.Equal(OrientationType.RightTop, output.Orientation);
 
-                                Assert.NotNull(profile);
-                                var exifValue = profile.GetValue(ExifTag.Orientation);
+                    var profile = output.GetExifProfile();
 
-                                Assert.NotNull(exifValue);
-                                Assert.Equal((ushort)6, exifValue.Value);
-                            }
-                        }
-                    }
+                    Assert.NotNull(profile);
+
+                    var exifValue = profile.GetValue(ExifTag.Orientation);
+
+                    Assert.NotNull(exifValue);
+                    Assert.Equal((ushort)6, exifValue.Value);
                 }
             }
 
@@ -176,28 +153,24 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldThrowExceptionWhenFileIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.WriteAsync((string)null, MagickFormat.Bmp));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.WriteAsync((string)null, MagickFormat.Bmp));
                 }
 
                 [Fact]
                 public async Task ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImage(Files.CirclePNG))
-                    {
-                        using (var tempfile = new TemporaryFile("foobar"))
-                        {
-                            await input.WriteAsync(tempfile.FullName, MagickFormat.Tiff);
-                            Assert.Equal(MagickFormat.Png, input.Format);
+                    using var input = new MagickImage(Files.CirclePNG);
 
-                            using (var output = new MagickImage(tempfile.FullName))
-                            {
-                                Assert.Equal(MagickFormat.Tiff, output.Format);
-                            }
-                        }
-                    }
+                    using var tempfile = new TemporaryFile("foobar");
+                    await input.WriteAsync(tempfile.File.FullName, MagickFormat.Tiff);
+
+                    Assert.Equal(MagickFormat.Png, input.Format);
+
+                    using var output = new MagickImage(tempfile.File.FullName);
+
+                    Assert.Equal(MagickFormat.Tiff, output.Format);
                 }
             }
 
@@ -206,47 +179,40 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldThrowExceptionWhenFileNameIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var defines = new JpegWriteDefines();
+                    var defines = new JpegWriteDefines();
+                    using var image = new MagickImage();
 
-                        await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.WriteAsync((string)null, defines));
-                    }
+                    await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.WriteAsync((string)null, defines));
                 }
 
                 [Fact]
                 public async Task ShouldThrowExceptionWhenWriteDefinesIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var file = new FileInfo(Files.CirclePNG);
-                        await Assert.ThrowsAsync<ArgumentNullException>("defines", () => image.WriteAsync(file, null));
-                    }
+                    var file = new FileInfo(Files.CirclePNG);
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("defines", () => image.WriteAsync(file, null));
                 }
 
                 [Fact]
                 public async Task ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImage(Files.CirclePNG))
+                    var defines = new JpegWriteDefines
                     {
-                        using (var tempfile = new TemporaryFile("foobar"))
-                        {
-                            var defines = new JpegWriteDefines
-                            {
-                                DctMethod = JpegDctMethod.Fast,
-                            };
+                        DctMethod = JpegDctMethod.Fast,
+                    };
 
-                            await input.WriteAsync(tempfile.FullName, defines);
-                            Assert.Equal(MagickFormat.Png, input.Format);
+                    using var input = new MagickImage(Files.CirclePNG);
 
-                            using (var output = new MagickImage())
-                            {
-                                await output.ReadAsync(tempfile.FullName);
+                    using var tempfile = new TemporaryFile("foobar");
+                    await input.WriteAsync(tempfile.File.FullName, defines);
 
-                                Assert.Equal(MagickFormat.Jpeg, output.Format);
-                            }
-                        }
-                    }
+                    Assert.Equal(MagickFormat.Png, input.Format);
+
+                    using var output = new MagickImage();
+                    await output.ReadAsync(tempfile.File.FullName);
+
+                    Assert.Equal(MagickFormat.Jpeg, output.Format);
                 }
             }
 
@@ -255,10 +221,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.WriteAsync((Stream)null));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.WriteAsync((Stream)null));
                 }
             }
 
@@ -267,32 +232,26 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.WriteAsync((Stream)null, MagickFormat.Bmp));
-                    }
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.WriteAsync((Stream)null, MagickFormat.Bmp));
                 }
 
                 [Fact]
                 public async Task ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImage(Files.CirclePNG))
-                    {
-                        using (var memoryStream = new MemoryStream())
-                        {
-                            using (var stream = new NonSeekableStream(memoryStream))
-                            {
-                                await input.WriteAsync(stream, MagickFormat.Tiff);
-                                Assert.Equal(MagickFormat.Png, input.Format);
+                    using var input = new MagickImage(Files.CirclePNG);
 
-                                memoryStream.Position = 0;
-                                using (var output = new MagickImage(stream))
-                                {
-                                    Assert.Equal(MagickFormat.Tiff, output.Format);
-                                }
-                            }
-                        }
-                    }
+                    using var memoryStream = new MemoryStream();
+                    using var stream = new NonSeekableStream(memoryStream);
+                    await input.WriteAsync(stream, MagickFormat.Tiff);
+
+                    Assert.Equal(MagickFormat.Png, input.Format);
+
+                    memoryStream.Position = 0;
+                    using var output = new MagickImage(stream);
+
+                    Assert.Equal(MagickFormat.Tiff, output.Format);
                 }
             }
 
@@ -301,50 +260,40 @@ namespace Magick.NET.Tests
                 [Fact]
                 public async Task ShouldThrowExceptionWhenStreamIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var defines = new JpegWriteDefines();
+                    var defines = new JpegWriteDefines();
+                    using var image = new MagickImage();
 
-                        await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.WriteAsync((Stream)null, defines));
-                    }
+                    await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.WriteAsync((Stream)null, defines));
                 }
 
                 [Fact]
                 public async Task ShouldThrowExceptionWhenWriteDefinesIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        using (var stream = new MemoryStream())
-                        {
-                            await Assert.ThrowsAsync<ArgumentNullException>("defines", () => image.WriteAsync(stream, null));
-                        }
-                    }
+                    using var stream = new MemoryStream();
+                    using var image = new MagickImage();
+
+                    await Assert.ThrowsAsync<ArgumentNullException>("defines", () => image.WriteAsync(stream, null));
                 }
 
                 [Fact]
                 public async Task ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImage(Files.CirclePNG))
+                    var defines = new JpegWriteDefines
                     {
-                        using (var stream = new MemoryStream())
-                        {
-                            var defines = new JpegWriteDefines
-                            {
-                                DctMethod = JpegDctMethod.Fast,
-                            };
+                        DctMethod = JpegDctMethod.Fast,
+                    };
 
-                            await input.WriteAsync(stream, defines);
-                            Assert.Equal(MagickFormat.Png, input.Format);
+                    using var input = new MagickImage(Files.CirclePNG);
+                    using var stream = new MemoryStream();
+                    await input.WriteAsync(stream, defines);
 
-                            stream.Position = 0;
-                            using (var output = new MagickImage())
-                            {
-                                await output.ReadAsync(stream);
+                    Assert.Equal(MagickFormat.Png, input.Format);
 
-                                Assert.Equal(MagickFormat.Jpeg, output.Format);
-                            }
-                        }
-                    }
+                    stream.Position = 0;
+                    using var output = new MagickImage();
+                    await output.ReadAsync(stream);
+
+                    Assert.Equal(MagickFormat.Jpeg, output.Format);
                 }
             }
         }

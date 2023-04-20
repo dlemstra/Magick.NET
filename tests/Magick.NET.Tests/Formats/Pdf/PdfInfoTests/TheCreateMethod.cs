@@ -25,10 +25,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenPasswordIsNull()
                 {
-                    using (var file = new TemporaryFile("foo.pdf"))
-                    {
-                        Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(file.FileInfo, null));
-                    }
+                    using var tempFile = new TemporaryFile("foo.pdf");
+
+                    Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(tempFile.File, null));
                 }
             }
 
@@ -49,10 +48,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenPasswordIsNull()
                 {
-                    using (var file = new TemporaryFile("foo.pdf"))
-                    {
-                        Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(file.FullName, null));
-                    }
+                    using var tempFile = new TemporaryFile("foo.pdf");
+
+                    Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(tempFile.File.FullName, null));
                 }
 
                 [Fact]

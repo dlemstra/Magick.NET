@@ -21,52 +21,37 @@ namespace Magick.NET.Tests
 
             [Fact]
             public void ShouldTryToCompress()
-            {
-                AssertCompressNotSmaller(Files.RoseSparkleGIF);
-            }
+                => AssertCompressNotSmaller(Files.RoseSparkleGIF);
 
             [Fact]
             public void ShouldBeAbleToCompressFileTwoTimes()
-            {
-                AssertCompressTwice(Files.FujiFilmFinePixS1ProGIF);
-            }
+                => AssertCompressTwice(Files.FujiFilmFinePixS1ProGIF);
 
             [Fact]
             public void ShouldThrowExceptionWhenFileFormatIsInvalid()
-            {
-                AssertCompressInvalidFileFormat(Files.ImageMagickJPG);
-            }
+                => AssertCompressInvalidFileFormat(Files.ImageMagickJPG);
 
             public class WithFileInfo : TheCompressMethod
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null));
-                }
+                    => Assert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null));
             }
 
             public class WithFileName : TheCompressMethod
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null));
-                }
+                    => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null));
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("fileName", () => Optimizer.Compress(string.Empty));
-                }
+                    => Assert.Throws<ArgumentException>("fileName", () => Optimizer.Compress(string.Empty));
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsInvalid()
                 {
-                    var exception = Assert.Throws<MagickBlobErrorException>(() =>
-                    {
-                        Optimizer.Compress(Files.Missing);
-                    });
+                    var exception = Assert.Throws<MagickBlobErrorException>(() => Optimizer.Compress(Files.Missing));
 
                     Assert.Contains("error/blob.c/OpenBlob", exception.Message);
                 }
@@ -76,35 +61,30 @@ namespace Magick.NET.Tests
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null));
-                }
+                    => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null));
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotReadable()
                 {
-                    using (var stream = new TestStream(false, true, true))
-                    {
-                        Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
-                    }
+                    using var stream = TestStream.ThatCannotRead();
+
+                    Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotWriteable()
                 {
-                    using (var stream = new TestStream(true, false, true))
-                    {
-                        Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
-                    }
+                    using var stream = TestStream.ThatCannotWrite();
+
+                    Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotSeekable()
                 {
-                    using (var stream = new TestStream(true, true, false))
-                    {
-                        Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
-                    }
+                    using var stream = TestStream.ThatCannotSeek();
+
+                    Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
                 }
             }
         }

@@ -21,78 +21,58 @@ namespace Magick.NET.Tests
 
             [Fact]
             public void ShouldTryToCompressLossLess()
-            {
-                AssertLosslessCompressNotSmaller(Files.LetterJPG);
-            }
+                => AssertLosslessCompressNotSmaller(Files.LetterJPG);
 
             [Fact]
             public void ShouldBeAbleToCompressFileTwoTimes()
-            {
-                AssertLosslessCompressTwice(Files.ImageMagickJPG);
-            }
+                => AssertLosslessCompressTwice(Files.ImageMagickJPG);
 
             [Fact]
             public void ShouldThrowExceptionWhenFileFormatIsInvalid()
-            {
-                AssertLosslessCompressInvalidFileFormat(Files.CirclePNG);
-            }
+                => AssertLosslessCompressInvalidFileFormat(Files.CirclePNG);
 
             public class WithFileInfo : TheLosslessCompressMethod
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("file", () => Optimizer.LosslessCompress((FileInfo)null));
-                }
+                    => Assert.Throws<ArgumentNullException>("file", () => Optimizer.LosslessCompress((FileInfo)null));
 
                 [Fact]
                 public void ShouldPreserveTheColorProfile()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        image.Ping(Files.PictureJPG);
+                    using var input = new MagickImage();
+                    input.Ping(Files.PictureJPG);
 
-                        Assert.NotNull(image.GetColorProfile());
-                    }
+                    Assert.NotNull(input.GetColorProfile());
 
-                    using (var tempFile = new TemporaryFile(Files.PictureJPG))
-                    {
-                        var result = Optimizer.LosslessCompress(tempFile.FileInfo);
+                    using var tempFile = new TemporaryFile(Files.PictureJPG);
+                    var result = Optimizer.LosslessCompress(tempFile.File);
 
-                        Assert.True(result);
+                    Assert.True(result);
 
-                        using (var image = new MagickImage())
-                        {
-                            image.Ping(tempFile.FileInfo);
+                    using var output = new MagickImage();
+                    input.Ping(tempFile.File);
 
-                            Assert.NotNull(image.GetColorProfile());
-                        }
-                    }
+                    Assert.NotNull(input.GetColorProfile());
                 }
 
                 [Fact]
                 public void ShouldPreserveTheExifProfile()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        image.Ping(Files.PictureJPG);
+                    using var input = new MagickImage();
+                    input.Ping(Files.PictureJPG);
 
-                        Assert.NotNull(image.GetExifProfile());
-                    }
+                    Assert.NotNull(input.GetExifProfile());
 
-                    using (var tempFile = new TemporaryFile(Files.PictureJPG))
-                    {
-                        var result = Optimizer.LosslessCompress(tempFile.FileInfo);
+                    using var tempFile = new TemporaryFile(Files.PictureJPG);
+                    var result = Optimizer.LosslessCompress(tempFile.File);
 
-                        Assert.True(result);
+                    Assert.True(result);
 
-                        using (var image = new MagickImage())
-                        {
-                            image.Ping(tempFile.FileInfo);
+                    using var image = new MagickImage();
+                    input.Ping(tempFile.File);
 
-                            Assert.NotNull(image.GetExifProfile());
-                        }
-                    }
+                    Assert.NotNull(input.GetExifProfile());
                 }
             }
 
@@ -100,24 +80,16 @@ namespace Magick.NET.Tests
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.LosslessCompress((string)null));
-                }
+                    => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.LosslessCompress((string)null));
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("fileName", () => Optimizer.LosslessCompress(string.Empty));
-                }
+                    => Assert.Throws<ArgumentException>("fileName", () => Optimizer.LosslessCompress(string.Empty));
 
                 [Fact]
                 public void ShouldThrowExceptionWhenFileNameIsInvalid()
                 {
-                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() =>
-                    {
-                        Optimizer.LosslessCompress(Files.Missing);
-                    });
-
+                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() => Optimizer.LosslessCompress(Files.Missing));
                     Assert.Contains("Input file read error", exception.Message);
                 }
             }
@@ -126,35 +98,30 @@ namespace Magick.NET.Tests
             {
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("stream", () => Optimizer.LosslessCompress((Stream)null));
-                }
+                    => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.LosslessCompress((Stream)null));
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotReadable()
                 {
-                    using (var stream = new TestStream(false, true, true))
-                    {
-                        Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
-                    }
+                    using var stream = TestStream.ThatCannotRead();
+
+                    Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotWriteable()
                 {
-                    using (var stream = new TestStream(true, false, true))
-                    {
-                        Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
-                    }
+                    using var stream = TestStream.ThatCannotWrite();
+
+                    Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStreamIsNotSeekable()
                 {
-                    using (var stream = new TestStream(true, true, false))
-                    {
-                        Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
-                    }
+                    using var stream = TestStream.ThatCannotSeek();
+
+                    Assert.Throws<ArgumentException>("stream", () => Optimizer.LosslessCompress(stream));
                 }
             }
         }

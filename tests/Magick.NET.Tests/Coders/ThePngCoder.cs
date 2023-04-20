@@ -149,16 +149,16 @@ namespace Magick.NET.Tests
         {
             using var tempfile = new TemporaryFile("test.png");
 
-            using var input = new MagickImage(MagickColors.Pink, 1, 1);
-            input.Write(tempfile.FullName);
+            using var image = new MagickImage(MagickColors.Pink, 1, 1);
+            tempfile.Write(image);
 
             await Task.Delay(1000);
-            input.Write(tempfile.FullName);
-            input.Read(tempfile.FullName);
-            input.Write(tempfile.FullName);
+            tempfile.Write(image);
+            image.Read(tempfile.File);
+            tempfile.Write(image);
 
-            var dateCreate = tempfile.FileInfo.CreationTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
-            var dateModify = tempfile.FileInfo.LastWriteTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
+            var dateCreate = tempfile.File.CreationTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
+            var dateModify = tempfile.File.LastWriteTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
             Assert.NotEqual(dateCreate, dateModify);
 
             var content = GetReadableContent(tempfile);
@@ -174,7 +174,7 @@ namespace Magick.NET.Tests
 
             using var input = new MagickImage(MagickColors.Pink, 1, 1);
             input.Settings.SetDefine("png:exclude-chunks", "date");
-            input.Write(tempfile.FullName);
+            tempfile.Write(input);
 
             var content = GetReadableContent(tempfile);
 
@@ -247,7 +247,7 @@ namespace Magick.NET.Tests
         }
 
         private static string GetReadableContent(TemporaryFile tempfile)
-            => Encoding.ASCII.GetString(File.ReadAllBytes(tempfile.FullName).Where(b => !char.IsControl((char)b)).ToArray());
+            => Encoding.ASCII.GetString(File.ReadAllBytes(tempfile.File.FullName).Where(b => !char.IsControl((char)b)).ToArray());
 
         private void HandleWarning(object sender, WarningEventArgs e)
             => throw new XunitException("Warning was raised: " + e.Message);
