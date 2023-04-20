@@ -21,9 +21,7 @@ namespace ImageMagick
         private readonly List<MagickFormatData> _images = new();
 
         public TemporaryMagickFormat(MagickImage image, MagickFormat format)
-        {
-            AddImage(image, format);
-        }
+            => AddImage(image, format);
 
         public TemporaryMagickFormat(MagickImageCollection images, MagickFormat format)
         {
