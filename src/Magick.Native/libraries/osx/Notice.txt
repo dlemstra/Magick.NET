@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-7 (2023-04-16) ] copyright:
+[ ImageMagick 7.1.1-8 beta (2023-04-18) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -6099,12 +6099,12 @@ be appreciated.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ raqm 0.10.0 (2023-01-11) ] copyright:
+[ raqm 0.10.1 (2023-04-12) ] copyright:
 
 The MIT License (MIT)
 
 Copyright © 2015 Information Technology Authority (ITA) <foss@ita.gov.om>
-Copyright © 2016-2022 Khaled Hosny <khaled@aliftype.com>
+Copyright © 2016-2023 Khaled Hosny <khaled@aliftype.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -6566,7 +6566,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.10.3 (2022-10-14) ] copyright:
+[ xml 2.10.4 (2023-04-11) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files hash.c,
 list.c and the trio files, which are covered by a similar licence but
