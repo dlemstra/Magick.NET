@@ -1,9 +1,9 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-using System.Globalization;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
@@ -145,45 +145,41 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public void ShouldWriteDateProperties()
+        public async Task ShouldWriteDateProperties()
         {
-            var dateCreate = "2023-04-15T09:25:37+00:00";
-            var dateModify = "2023-04-15T09:25:42+00:00";
+            using var tempfile = new TemporaryFile("test.png");
 
-            using var input = new MagickImage(Files.DatePNG);
-            Assert.Equal(dateCreate, input.GetAttribute("date:create"));
-            Assert.Equal(dateModify, input.GetAttribute("date:modify"));
+            using var input = new MagickImage(MagickColors.Pink, 1, 1);
+            input.Write(tempfile.FullName);
 
-            using var memoryStream = new MemoryStream();
-            input.Write(memoryStream, MagickFormat.Png);
-            memoryStream.Position = 0;
+            await Task.Delay(1000);
+            input.Write(tempfile.FullName);
+            input.Read(tempfile.FullName);
+            input.Write(tempfile.FullName);
 
-            using var output = new MagickImage(memoryStream);
-            dateCreate = output.GetAttribute("date:create");
-            dateModify = output.GetAttribute("date:modify");
-            Assert.Equal(dateCreate, dateModify);
-            Assert.True(DateTime.TryParseExact(dateCreate, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.None, out _));
+            var dateCreate = tempfile.FileInfo.CreationTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
+            var dateModify = tempfile.FileInfo.LastWriteTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
+            Assert.NotEqual(dateCreate, dateModify);
+
+            var content = GetReadableContent(tempfile);
+
+            Assert.Contains($"date:create{dateCreate}", content);
+            Assert.Contains($"date:modify{dateModify}", content);
         }
 
         [Fact]
-        public async Task ShouldNotWriteDatePropertiesWhenDateShouldBeExcluded()
+        public void ShouldNotWriteDatePropertiesWhenDateShouldBeExcluded()
         {
-            using var temporaryFile = new TemporaryFile(new byte[] { 0 });
+            using var tempfile = new TemporaryFile("test.png");
 
-            // The date:create property will use the creation time of the file if the property is not there, we are waiting
-            // for a second to make sure there is a difference in the timestamp.
-            await Task.Delay(1000);
-
-            using var input = new MagickImage(Files.DatePNG);
+            using var input = new MagickImage(MagickColors.Pink, 1, 1);
             input.Settings.SetDefine("png:exclude-chunks", "date");
-            input.Write(temporaryFile.FullName);
+            input.Write(tempfile.FullName);
 
-            using var output = new MagickImage(temporaryFile.FullName);
-            var dateCreate = output.GetAttribute("date:create");
-            var dateModify = output.GetAttribute("date:modify");
-            Assert.NotEqual(dateCreate, dateModify);
-            Assert.True(DateTime.TryParseExact(dateCreate, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.None, out _));
-            Assert.True(DateTime.TryParseExact(dateModify, "yyyy-MM-ddTHH:mm:ssK", CultureInfo.InvariantCulture, DateTimeStyles.None, out _));
+            var content = GetReadableContent(tempfile);
+
+            Assert.DoesNotContain($"date:create", content);
+            Assert.DoesNotContain($"date:modify", content);
         }
 
         [Fact]
@@ -249,6 +245,9 @@ namespace Magick.NET.Tests
             Assert.Equal(80, output.Density.X);
             Assert.Equal(90, output.Density.Y);
         }
+
+        private static string GetReadableContent(TemporaryFile tempfile)
+            => Encoding.ASCII.GetString(File.ReadAllBytes(tempfile.FullName).Where(b => !char.IsControl((char)b)).ToArray());
 
         private void HandleWarning(object sender, WarningEventArgs e)
             => throw new XunitException("Warning was raised: " + e.Message);
