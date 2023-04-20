@@ -6588,10 +6588,8 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public byte[] ToByteArray(MagickFormat format)
         {
-            using (_ = new TemporaryMagickFormat(this, format))
-            {
-                return ToByteArray();
-            }
+            using var tempFormat = new TemporaryMagickFormat(this, format);
+            return ToByteArray();
         }
 
         /// <summary>
@@ -6984,10 +6982,8 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(FileInfo file, MagickFormat format)
         {
-            using (_ = new TemporaryMagickFormat(this, format))
-            {
-                Write(file);
-            }
+            using var tempFormat = new TemporaryMagickFormat(this, format);
+            Write(file);
         }
 
         /// <summary>
@@ -7041,10 +7037,8 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(Stream stream, MagickFormat format)
         {
-            using (_ = new TemporaryMagickFormat(this, format))
-            {
-                Write(stream);
-            }
+            using var tempFormat = new TemporaryMagickFormat(this, format);
+            Write(stream);
         }
 
         /// <summary>
@@ -7082,10 +7076,8 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(string fileName, MagickFormat format)
         {
-            using (_ = new TemporaryMagickFormat(this, format))
-            {
-                Write(fileName);
-            }
+            using var tempFormat = new TemporaryMagickFormat(this, format);
+            Write(fileName);
         }
 
         /// <summary>
@@ -7231,10 +7223,8 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public async Task WriteAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken)
         {
-            using (_ = new TemporaryMagickFormat(this, format))
-            {
-                await WriteAsync(stream, cancellationToken).ConfigureAwait(false);
-            }
+            using var tempFormat = new TemporaryMagickFormat(this, format);
+            await WriteAsync(stream, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
