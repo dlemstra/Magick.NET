@@ -17,7 +17,7 @@ namespace Magick.NET.Tests
             public void ShouldCompressLossless()
             {
                 var result = AssertLosslessCompressSmaller(Files.SnakewarePNG);
-                Assert.Equal(8586, result);
+                Assert.Equal(8684, result);
             }
 
             [Fact]

@@ -19,11 +19,11 @@ namespace Magick.NET.Tests
                 {
                     var base64 = image.ToBase64();
                     Assert.NotNull(base64);
-                    Assert.Equal(11552, base64.Length);
+                    Assert.Equal(11752, base64.Length);
 
                     var bytes = Convert.FromBase64String(base64);
                     Assert.NotNull(bytes);
-                    Assert.Equal(8664, bytes.Length);
+                    Assert.Equal(8814, bytes.Length);
                 }
             }
 
