@@ -11,31 +11,24 @@ namespace Magick.NET.Tests
         [Fact]
         public void CanBeReadFromFileWithMapExtensions()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var file = new TemporaryFile("test.map"))
-                {
-                    image.Write(file.FullName, MagickFormat.Map);
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var file = new TemporaryFile("test.map");
 
-                    image.Read(file.FullName, image.Width, image.Height);
+            image.Write(file.FullName, MagickFormat.Map);
 
-                    Assert.Equal(MagickFormat.Map, image.Format);
-                }
-            }
+            image.Read(file.FullName, image.Width, image.Height);
+            Assert.Equal(MagickFormat.Map, image.Format);
         }
 
         [Fact]
         public void CannotBeReadFromFileWithoutMapExtensions()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var file = new TemporaryFile("test"))
-                {
-                    image.Write(file.FullName, MagickFormat.Map);
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var file = new TemporaryFile("test");
 
-                    Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read(file.FullName, image.Width, image.Height));
-                }
-            }
+            image.Write(file.FullName, MagickFormat.Map);
+
+            Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read(file.FullName, image.Width, image.Height));
         }
     }
 }
