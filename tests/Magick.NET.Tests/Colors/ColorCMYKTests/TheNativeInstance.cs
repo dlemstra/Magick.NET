@@ -13,17 +13,11 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldHaveTheCorrectColorspace()
             {
-                using (var image = new MagickImage(MagickColors.Black, 1, 1))
-                {
-                    image.ColorSpace = ColorSpace.CMYK;
-                    image.Opaque(MagickColors.Black, new MagickColor("cmyk(128,23,250,156)"));
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                image.ColorSpace = ColorSpace.CMYK;
+                image.Opaque(MagickColors.Black, new MagickColor("cmyk(128,23,250,156)"));
 
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var color = pixels.GetPixel(0, 0).ToColor();
-                        Assert.Equal("cmyka(128,23,250,156,1.0)", color.ToString());
-                    }
-                }
+                ColorAssert.Equal(new MagickColor("cmyka(128,23,250,156,1.0)"), image, 0, 0);
             }
         }
     }
