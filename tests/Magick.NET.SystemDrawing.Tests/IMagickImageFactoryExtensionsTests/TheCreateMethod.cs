@@ -22,16 +22,13 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldCreateImageFromBitmap()
             {
-                using (var bitmap = new Bitmap(Files.SnakewarePNG))
-                {
-                    var factory = new MagickImageFactory();
-                    using (var image = factory.Create(bitmap))
-                    {
-                        Assert.Equal(286, image.Width);
-                        Assert.Equal(67, image.Height);
-                        Assert.Equal(MagickFormat.Png, image.Format);
-                    }
-                }
+                var factory = new MagickImageFactory();
+                using var bitmap = new Bitmap(Files.SnakewarePNG);
+                using var image = factory.Create(bitmap);
+
+                Assert.Equal(286, image.Width);
+                Assert.Equal(67, image.Height);
+                Assert.Equal(MagickFormat.Png, image.Format);
             }
         }
     }

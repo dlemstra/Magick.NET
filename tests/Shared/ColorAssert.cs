@@ -41,10 +41,8 @@ namespace Magick.NET
 
         public static void Equal(IMagickColor<QuantumType> expected, IMagickImage<QuantumType> image, int x, int y)
         {
-            using (var pixels = image.GetPixelsUnsafe())
-            {
-                Equal(expected, pixels.GetPixel(x, y), $"at position {x}x{y}");
-            }
+            using var pixels = image.GetPixelsUnsafe();
+            Equal(expected, pixels.GetPixel(x, y), $"at position {x}x{y}");
         }
 
         public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType> actual)
@@ -58,10 +56,8 @@ namespace Magick.NET
 
         public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickImage<QuantumType> image, int x, int y)
         {
-            using (var collection = image.GetPixelsUnsafe())
-            {
-                NotEqual(notExpected, collection.GetPixel(x, y), $"at position {x}x{y}");
-            }
+            using var collection = image.GetPixelsUnsafe();
+            NotEqual(notExpected, collection.GetPixel(x, y), $"at position {x}x{y}");
         }
 
         public static void Transparent(float alpha)

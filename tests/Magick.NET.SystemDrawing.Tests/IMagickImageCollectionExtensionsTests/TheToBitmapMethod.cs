@@ -14,33 +14,25 @@ namespace Magick.NET.SystemDrawing.Tests
             [Fact]
             public void ShouldReturnBitmap()
             {
-                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-                {
-                    Assert.Equal(3, images.Count);
+                using var images = new MagickImageCollection(Files.RoseSparkleGIF);
+                Assert.Equal(3, images.Count);
 
-                    using (var bitmap = images.ToBitmap())
-                    {
-                        Assert.NotNull(bitmap);
-                        Assert.Equal(3, bitmap.GetFrameCount(FrameDimension.Page));
-                    }
-                }
+                using var bitmap = images.ToBitmap();
+                Assert.NotNull(bitmap);
+                Assert.Equal(3, bitmap.GetFrameCount(FrameDimension.Page));
             }
 
             [Fact]
             public void ShouldUseOptimizationForSingleImage()
             {
-                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-                {
-                    images.RemoveAt(0);
-                    images.RemoveAt(0);
+                using var images = new MagickImageCollection(Files.RoseSparkleGIF);
+                images.RemoveAt(0);
+                images.RemoveAt(0);
 
-                    Assert.Single(images);
+                Assert.Single(images);
 
-                    using (var bitmap = images.ToBitmap())
-                    {
-                        Assert.NotNull(bitmap);
-                    }
-                }
+                using var bitmap = images.ToBitmap();
+                Assert.NotNull(bitmap);
             }
         }
     }
