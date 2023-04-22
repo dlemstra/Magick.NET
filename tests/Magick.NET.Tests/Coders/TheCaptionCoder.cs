@@ -18,13 +18,11 @@ namespace Magick.NET.Tests
                 Width = 160,
             };
 
-            using (var image = new MagickImage("caption:Нуорунен в Карелии", settings))
-            {
-                image.Trim();
+            using var image = new MagickImage("caption:Нуорунен в Карелии", settings);
+            image.Trim();
 
-                Assert.Equal(88, image.Width);
-                Assert.Equal(41, image.Height);
-            }
+            Assert.Equal(88, image.Width);
+            Assert.Equal(41, image.Height);
         }
 
         [Fact]
@@ -37,13 +35,11 @@ namespace Magick.NET.Tests
                 Width = 160,
             };
 
-            using (var image = new MagickImage("caption:Нуорунен в Карелии", settings))
-            {
-                image.Trim();
+            using var image = new MagickImage("caption:Нуорунен в Карелии", settings);
+            image.Trim();
 
-                Assert.Equal(99, image.Width);
-                Assert.Equal(41, image.Height);
-            }
+            Assert.Equal(99, image.Width);
+            Assert.Equal(41, image.Height);
         }
 
         [Fact]
@@ -56,13 +52,11 @@ namespace Magick.NET.Tests
                 Width = 160,
             };
 
-            using (var image = new MagickImage("caption:НуоруненвКарелии", settings))
-            {
-                image.Trim();
+            using var image = new MagickImage("caption:НуоруненвКарелии", settings);
+            image.Trim();
 
-                Assert.Equal(157, image.Width);
-                Assert.Equal(37, image.Height);
-            }
+            Assert.Equal(157, image.Width);
+            Assert.Equal(37, image.Height);
         }
 
         [Fact]
@@ -74,16 +68,14 @@ namespace Magick.NET.Tests
                 FontPointsize = 200,
             };
 
-            using (var image = new MagickImage("label:find fly", settings))
-            {
-                image.Trim();
+            using var image = new MagickImage("label:find fly", settings);
+            image.Trim();
 
-                Assert.Equal(635, image.Width);
-                Assert.Equal(204, image.Height);
+            Assert.Equal(635, image.Width);
+            Assert.Equal(204, image.Height);
 
-                ColorAssert.Equal(MagickColors.Black, image, 50, 58);
-                ColorAssert.Equal(MagickColors.Black, image, 475, 3);
-            }
+            ColorAssert.Equal(MagickColors.Black, image, 50, 58);
+            ColorAssert.Equal(MagickColors.Black, image, 475, 3);
         }
     }
 }

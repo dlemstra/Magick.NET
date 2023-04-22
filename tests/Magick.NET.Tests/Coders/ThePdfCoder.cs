@@ -22,14 +22,12 @@ namespace Magick.NET.Tests
             {
                 results[i] = Task.Run(() =>
                 {
-                    using (var image = new MagickImage())
-                    {
-                        image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+                    using var image = new MagickImage();
+                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
 
-                        Assert.Equal(765, image.Width);
-                        Assert.Equal(361, image.Height);
-                        Assert.Equal(MagickFormat.Ai, image.Format);
-                    }
+                    Assert.Equal(765, image.Width);
+                    Assert.Equal(361, image.Height);
+                    Assert.Equal(MagickFormat.Ai, image.Format);
                 });
             }
 
@@ -45,19 +43,14 @@ namespace Magick.NET.Tests
             if (!Ghostscript.IsAvailable)
                 return;
 
-            using (var input = new MagickImage(Files.Coders.PixelTIF))
-            {
-                using (var memorystream = new MemoryStream())
-                {
-                    input.Write(memorystream, MagickFormat.Tiff);
-                    memorystream.Position = 0;
+            using var input = new MagickImage(Files.Coders.PixelTIF);
+            using var memorystream = new MemoryStream();
+            input.Write(memorystream, MagickFormat.Tiff);
+            memorystream.Position = 0;
 
-                    using (var output = new MagickImage(memorystream))
-                    {
-                        ColorAssert.Equal(MagickColors.White, output, 0, 0);
-                    }
-                }
-            }
+            using var output = new MagickImage(memorystream);
+
+            ColorAssert.Equal(MagickColors.White, output, 0, 0);
         }
     }
 }

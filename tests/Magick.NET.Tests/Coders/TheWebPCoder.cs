@@ -24,19 +24,17 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldReadAndWriteTheXmpProfile()
         {
-            using (var input = new MagickImage(Files.Builtin.Logo))
-            {
-                input.SetProfile(new XmpProfile(_xmpData));
+            using var input = new MagickImage(Files.Builtin.Logo);
+            input.SetProfile(new XmpProfile(_xmpData));
 
-                var data = input.ToByteArray(MagickFormat.WebP);
+            var data = input.ToByteArray(MagickFormat.WebP);
+            using var output = new MagickImage(data);
 
-                using (var output = new MagickImage(data))
-                {
-                    var profile = output.GetXmpProfile();
+            var profile = output.GetXmpProfile();
 
-                    Assert.NotNull(profile);
+            Assert.NotNull(profile);
 
-                    var expectedProfile = @"
+            var expectedProfile = @"
 <x:xmpmeta xmlns:x=""adobe:ns:meta/"" x:xmptk=""XMPTk 2.8"">
     <rdf:RDF xmlns:rdf=""http://www.w3.org/1999/02/22-rdf-syntax-ns#"">
          <rdf:Description rdf:about='uuid:9de4a6be-3c42-11db-b201-a36d0bcc6e1f' xmlns:tiff='http://ns.adobe.com/tiff/1.0/'>
@@ -47,31 +45,27 @@ namespace Magick.NET.Tests
          </rdf:Description>
     </rdf:RDF>
 </x:xmpmeta>";
-                    Assert.Equal(expectedProfile, Encoding.UTF8.GetString(output.GetXmpProfile().ToByteArray()));
-                }
-            }
+            Assert.Equal(expectedProfile, Encoding.UTF8.GetString(output.GetXmpProfile().ToByteArray()));
         }
 
         [Fact]
         public void ShouldUseTheUpdateXmpProfile()
         {
-            using (var input = new MagickImage(Files.Builtin.Logo))
-            {
-                input.SetProfile(new XmpProfile(_xmpData));
+            using var input = new MagickImage(Files.Builtin.Logo);
+            input.SetProfile(new XmpProfile(_xmpData));
 
-                input.Density = new Density(1234.5678, 5, DensityUnit.PixelsPerCentimeter);
-                input.Orientation = OrientationType.LeftBotom;
+            input.Density = new Density(1234.5678, 5, DensityUnit.PixelsPerCentimeter);
+            input.Orientation = OrientationType.LeftBotom;
 
-                var data = input.ToByteArray(MagickFormat.WebP);
+            var data = input.ToByteArray(MagickFormat.WebP);
+            using var output = new MagickImage(data);
 
-                using (var output = new MagickImage(data))
-                {
-                    Assert.Equal(1234.5678, output.Density.X);
-                    Assert.Equal(5, output.Density.Y);
-                    Assert.Equal(DensityUnit.PixelsPerCentimeter, output.Density.Units);
-                    Assert.Equal(OrientationType.LeftBotom, output.Orientation);
+            Assert.Equal(1234.5678, output.Density.X);
+            Assert.Equal(5, output.Density.Y);
+            Assert.Equal(DensityUnit.PixelsPerCentimeter, output.Density.Units);
+            Assert.Equal(OrientationType.LeftBotom, output.Orientation);
 
-                    var expectedProfile = @"
+            var expectedProfile = @"
 <x:xmpmeta xmlns:x=""adobe:ns:meta/"" x:xmptk=""XMPTk 2.8"">
     <rdf:RDF xmlns:rdf=""http://www.w3.org/1999/02/22-rdf-syntax-ns#"">
          <rdf:Description rdf:about='uuid:9de4a6be-3c42-11db-b201-a36d0bcc6e1f' xmlns:tiff='http://ns.adobe.com/tiff/1.0/'>
@@ -82,9 +76,7 @@ namespace Magick.NET.Tests
          </rdf:Description>
     </rdf:RDF>
 </x:xmpmeta>";
-                    Assert.Equal(expectedProfile, Encoding.UTF8.GetString(output.GetXmpProfile().ToByteArray()));
-                }
-            }
+            Assert.Equal(expectedProfile, Encoding.UTF8.GetString(output.GetXmpProfile().ToByteArray()));
         }
     }
 }

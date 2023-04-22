@@ -12,41 +12,28 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldEncodeAndDecodeAlphaChannel()
         {
-            using (var input = new MagickImage(Files.TestPNG))
-            {
-                input.Resize(new Percentage(15));
+            using var input = new MagickImage(Files.TestPNG);
+            input.Resize(new Percentage(15));
 
-                using (var stream = new MemoryStream())
-                {
-                    input.Write(stream, MagickFormat.Avif);
+            using var stream = new MemoryStream();
+            input.Write(stream, MagickFormat.Avif);
 
-                    stream.Position = 0;
+            stream.Position = 0;
 
-                    using (var output = new MagickImage(stream))
-                    {
-                        Assert.True(output.HasAlpha);
-                        Assert.Equal(MagickFormat.Avif, output.Format);
-                        Assert.Equal(input.Width, output.Width);
-                        Assert.Equal(input.Height, output.Height);
-                    }
-                }
-            }
+            using var output = new MagickImage(stream);
+            Assert.True(output.HasAlpha);
+            Assert.Equal(MagickFormat.Avif, output.Format);
+            Assert.Equal(input.Width, output.Width);
+            Assert.Equal(input.Height, output.Height);
         }
 
         [Fact]
         public void ShouldIgnoreEmptyExifProfile()
         {
-            using (var image = new MagickImage())
-            {
-                try
-                {
-                    image.Read(Files.Coders.EmptyExifAVIF);
-                }
-                catch (MagickCorruptImageErrorException exception)
-                {
-                    Assert.Contains("Invalid clean-aperture specification", exception.Message);
-                }
-            }
+            using var image = new MagickImage();
+
+            var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(Files.Coders.EmptyExifAVIF));
+            Assert.Contains("Invalid clean-aperture specification", exception.Message);
         }
     }
 }

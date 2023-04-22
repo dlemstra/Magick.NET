@@ -37,55 +37,52 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldUseWidthFromReadSettings()
         {
-            using (var image = new MagickImage())
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
-                {
-                    Width = 100,
-                };
+                Width = 100,
+            };
 
-                image.Read(Files.Logos.MagickNETSVG, settings);
+            using var image = new MagickImage();
+            image.Read(Files.Logos.MagickNETSVG, settings);
 
-                Assert.Equal(100, image.Width);
-                Assert.Equal(48, image.Height);
-            }
+            Assert.Equal(100, image.Width);
+            Assert.Equal(48, image.Height);
         }
 
         [Fact]
         public void ShouldUseHeightFromReadSettings()
         {
-            using (var image = new MagickImage())
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
-                {
-                    Height = 200,
-                };
+                Height = 200,
+            };
 
-                image.Read(Files.Logos.MagickNETSVG, settings);
-            }
+            using var image = new MagickImage();
+            image.Read(Files.Logos.MagickNETSVG, settings);
+
+            Assert.Equal(416, image.Width);
+            Assert.Equal(200, image.Height);
         }
 
         [Fact]
         public void ShouldUseWidthAndHeightFromReadSettings()
         {
-            using (var image = new MagickImage())
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
-                {
-                    Width = 300,
-                    Height = 300,
-                };
+                Width = 300,
+                Height = 300,
+            };
 
-                image.Read(Files.Logos.MagickNETSVG, settings);
+            using var image = new MagickImage();
+            image.Read(Files.Logos.MagickNETSVG, settings);
 
-                Assert.Equal(300, image.Width);
-                Assert.Equal(144, image.Height);
+            Assert.Equal(300, image.Width);
+            Assert.Equal(144, image.Height);
 
-                image.Ping(Files.Logos.MagickNETSVG, settings);
+            image.Ping(Files.Logos.MagickNETSVG, settings);
 
-                Assert.Equal(300, image.Width);
-                Assert.Equal(144, image.Height);
-            }
+            Assert.Equal(300, image.Width);
+            Assert.Equal(144, image.Height);
         }
 
         [Fact]
@@ -103,21 +100,21 @@ namespace Magick.NET.Tests
 </g>
 </svg>";
             var bytes = Encoding.ASCII.GetBytes(svg);
-            using (var image = new MagickImage(bytes))
-            {
-                Assert.Equal(220, image.Width);
-                Assert.Equal(80, image.Height);
+            using var image = new MagickImage(bytes);
 
-                /* This currently fails on macOS
-                ColorAssert.Equal(MagickColors.White, image, 118, 6);
-                ColorAssert.Equal(MagickColors.Black, image, 120, 6);
-                ColorAssert.Equal(MagickColors.Black, image, 141, 6);
-                ColorAssert.Equal(MagickColors.White, image, 145, 6);
-                ColorAssert.Equal(MagickColors.White, image, 114, 43);
-                ColorAssert.Equal(MagickColors.Black, image, 116, 43);
-                ColorAssert.Equal(MagickColors.Black, image, 135, 43);
-                */
-            }
+            Assert.Equal(220, image.Width);
+            Assert.Equal(80, image.Height);
+
+            if (Runtime.IsMacOS)
+                return;
+
+            ColorAssert.Equal(MagickColors.White, image, 118, 6);
+            ColorAssert.Equal(MagickColors.Black, image, 120, 6);
+            ColorAssert.Equal(MagickColors.Black, image, 141, 6);
+            ColorAssert.Equal(MagickColors.White, image, 145, 6);
+            ColorAssert.Equal(MagickColors.White, image, 114, 43);
+            ColorAssert.Equal(MagickColors.Black, image, 116, 43);
+            ColorAssert.Equal(MagickColors.Black, image, 135, 43);
         }
 
         [Fact]
@@ -138,10 +135,8 @@ namespace Magick.NET.Tests
 
         private static string LoadImage(byte[] bytes)
         {
-            using (var image = new MagickImage(bytes))
-            {
-                return image.Signature;
-            }
+            using var image = new MagickImage(bytes);
+            return image.Signature;
         }
     }
 }

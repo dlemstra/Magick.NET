@@ -12,20 +12,19 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldUseWebPAsTheDefaultIntermediateFormat()
         {
-            using (var images = new MagickImageCollection(Files.Coders.TestMP4))
-            {
-                Assert.Equal(2, images.Count);
+            using var images = new MagickImageCollection(Files.Coders.TestMP4);
 
-                Assert.Equal(20, images[0].AnimationDelay);
-                Assert.Equal(2, images[0].Width);
-                Assert.Equal(2, images[0].Height);
-                ColorAssert.Equal(MagickColors.Black, images[0], 0, 0);
+            Assert.Equal(2, images.Count);
 
-                Assert.Equal(12, images[1].AnimationDelay);
-                Assert.Equal(2, images[1].Width);
-                Assert.Equal(2, images[1].Height);
-                ColorAssert.Equal(MagickColors.White, images[1], 0, 0);
-            }
+            Assert.Equal(20, images[0].AnimationDelay);
+            Assert.Equal(2, images[0].Width);
+            Assert.Equal(2, images[0].Height);
+            ColorAssert.Equal(MagickColors.Black, images[0], 0, 0);
+
+            Assert.Equal(12, images[1].AnimationDelay);
+            Assert.Equal(2, images[1].Width);
+            Assert.Equal(2, images[1].Height);
+            ColorAssert.Equal(MagickColors.White, images[1], 0, 0);
         }
 
         [Fact]
@@ -38,11 +37,9 @@ namespace Magick.NET.Tests
 
             var settings = new MagickReadSettings();
             settings.SetDefines(videoDefines);
+            using var images = new MagickImageCollection(Files.Coders.TestMP4, settings);
 
-            using (var images = new MagickImageCollection(Files.Coders.TestMP4, settings))
-            {
-                Assert.Equal(8, images.Count);
-            }
+            Assert.Equal(8, images.Count);
         }
     }
 }

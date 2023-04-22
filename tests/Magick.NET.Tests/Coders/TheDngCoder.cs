@@ -12,37 +12,33 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldReadTheThumbnail()
         {
-            using (var image = new MagickImage())
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Defines = new DngReadDefines
                 {
-                    Defines = new DngReadDefines
-                    {
-                        ReadThumbnail = true,
-                    },
-                };
+                    ReadThumbnail = true,
+                },
+            };
 
-                image.Ping(Files.Coders.RawKodakDC50KDC, settings);
+            using var image = new MagickImage();
+            image.Ping(Files.Coders.RawKodakDC50KDC, settings);
 
-                var profile = image.GetProfile("dng:thumbnail");
-                Assert.NotNull(profile);
+            var profile = image.GetProfile("dng:thumbnail");
+            Assert.NotNull(profile);
 
-                var data = profile.GetData();
-                Assert.NotNull(data);
-                Assert.Equal(18432, data.Length);
-            }
+            var data = profile.GetData();
+            Assert.NotNull(data);
+            Assert.Equal(18432, data.Length);
         }
 
         [Fact]
         public void ShouldNotReadTheThumbnailByDefault()
         {
-            using (var image = new MagickImage())
-            {
-                image.Ping(Files.Coders.RawKodakDC50KDC);
+            using var image = new MagickImage();
+            image.Ping(Files.Coders.RawKodakDC50KDC);
 
-                var profile = image.GetProfile("dng:thumbnail");
-                Assert.Null(profile);
-            }
+            var profile = image.GetProfile("dng:thumbnail");
+            Assert.Null(profile);
         }
     }
 }

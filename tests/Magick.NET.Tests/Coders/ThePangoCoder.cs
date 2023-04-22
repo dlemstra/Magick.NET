@@ -17,13 +17,10 @@ namespace Magick.NET.Tests
                 TextInterlineSpacing = 20,
             };
 
-            using (var imageA = new MagickImage("pango:Test\nTest"))
-            {
-                using (var imageB = new MagickImage("pango:Test\nTest", settings))
-                {
-                    Assert.NotEqual(imageA.Height, imageB.Height);
-                }
-            }
+            using var imageA = new MagickImage("pango:Test\nTest");
+            using var imageB = new MagickImage("pango:Test\nTest", settings);
+
+            Assert.NotEqual(imageA.Height, imageB.Height);
         }
 
         [Fact]
@@ -36,13 +33,10 @@ namespace Magick.NET.Tests
 
             var pango = @"pango:<span font_family=""Arial"">1</span>";
 
-            using (var imageA = new MagickImage(pango))
-            {
-                using (var imageB = new MagickImage(pango, settings))
-                {
-                    Assert.NotEqual(imageA.Signature, imageB.Signature);
-                }
-            }
+            using var imageA = new MagickImage(pango);
+            using var imageB = new MagickImage(pango, settings);
+
+            Assert.NotEqual(imageA.Signature, imageB.Signature);
         }
 
         [Fact]
@@ -50,10 +44,8 @@ namespace Magick.NET.Tests
         {
             string LoadImage()
             {
-                using (var image = new MagickImage("pango:1"))
-                {
-                    return image.Signature;
-                }
+                using var image = new MagickImage("pango:1");
+                return image.Signature;
             }
 
             var signature = LoadImage();
@@ -67,9 +59,7 @@ namespace Magick.NET.Tests
         public void CanReadFromLargePangoFile()
         {
             var fileName = "pango:<span font=\"Arial\">" + new string('*', 4500) + "</span>";
-            using (var image = new MagickImage(fileName))
-            {
-            }
+            using var image = new MagickImage(fileName);
         }
     }
 }

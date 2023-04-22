@@ -12,49 +12,39 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldWriteCorrectOutputImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    image.Write(memoryStream, MagickFormat.Jxl);
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var memoryStream = new MemoryStream();
+            image.Write(memoryStream, MagickFormat.Jxl);
 
-                    Assert.InRange(memoryStream.Length, 20000, 40000);
-                }
-            }
+            Assert.InRange(memoryStream.Length, 20000, 40000);
         }
 
         [Fact]
         public void ShouldSupportReadingAndWritingImageProfiles()
         {
-            using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-            {
-                input.Scale(1, 1);
+            using var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
+            input.Scale(1, 1);
 
-                var inputXmpProfile = input.GetXmpProfile();
-                Assert.NotNull(inputXmpProfile);
+            var inputXmpProfile = input.GetXmpProfile();
+            Assert.NotNull(inputXmpProfile);
 
-                var inputExifProfile = input.GetExifProfile();
-                Assert.NotNull(inputExifProfile);
+            var inputExifProfile = input.GetExifProfile();
+            Assert.NotNull(inputExifProfile);
 
-                using (var memStream = new MemoryStream())
-                {
-                    input.Write(memStream, MagickFormat.Jxl);
-                    memStream.Position = 0;
+            using var memStream = new MemoryStream();
+            input.Write(memStream, MagickFormat.Jxl);
+            memStream.Position = 0;
 
-                    using (var output = new MagickImage(memStream))
-                    {
-                        var outputXmpProfile = input.GetXmpProfile();
-                        Assert.NotNull(outputXmpProfile);
+            using var output = new MagickImage(memStream);
+            var outputXmpProfile = input.GetXmpProfile();
 
-                        Assert.Equal(inputXmpProfile.GetData(), outputXmpProfile.GetData());
+            Assert.NotNull(outputXmpProfile);
+            Assert.Equal(inputXmpProfile.GetData(), outputXmpProfile.GetData());
 
-                        var outputExifProfile = input.GetExifProfile();
-                        Assert.NotNull(outputExifProfile);
+            var outputExifProfile = input.GetExifProfile();
 
-                        Assert.Equal(inputExifProfile.GetData(), outputExifProfile.GetData());
-                    }
-                }
-            }
+            Assert.NotNull(outputExifProfile);
+            Assert.Equal(inputExifProfile.GetData(), outputExifProfile.GetData());
         }
     }
 }

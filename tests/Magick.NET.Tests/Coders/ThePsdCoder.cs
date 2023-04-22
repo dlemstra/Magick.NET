@@ -13,12 +13,10 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldReadTheCorrectColors()
         {
-            using (var image = new MagickImage(Files.Coders.PlayerPSD))
-            {
-                ColorAssert.Equal(MagickColors.White, image, 0, 0);
+            using var image = new MagickImage(Files.Coders.PlayerPSD);
 
-                ColorAssert.Equal(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
-            }
+            ColorAssert.Equal(MagickColors.White, image, 0, 0);
+            ColorAssert.Equal(MagickColor.FromRgb(15, 43, 255), image, 8, 6);
         }
 
         [Fact]
@@ -32,70 +30,57 @@ namespace Magick.NET.Tests
                 },
             };
 
-            using (var images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD, settings))
-            {
-                Assert.Equal(4, images.Count);
+            using var images = new MagickImageCollection(Files.Coders.LayerStylesSamplePSD, settings);
 
-                foreach (var image in images)
-                {
-                    Assert.NotNull(image.Get8BimProfile());
-                }
+            Assert.Equal(4, images.Count);
+
+            foreach (var image in images)
+            {
+                Assert.NotNull(image.Get8BimProfile());
             }
         }
 
         [Fact]
         public void ShouldCorrectlyWriteGrayscaleImage()
         {
-            using (var input = new MagickImage(Files.Builtin.Wizard))
+            using var input = new MagickImage(Files.Builtin.Wizard);
+            input.Quantize(new QuantizeSettings
             {
-                input.Quantize(new QuantizeSettings
-                {
-                    Colors = 10,
-                    ColorSpace = ColorSpace.Gray,
-                });
+                Colors = 10,
+                ColorSpace = ColorSpace.Gray,
+            });
 
-                using (var memoryStream = new MemoryStream())
-                {
-                    input.Write(memoryStream, MagickFormat.Psd);
+            using var memoryStream = new MemoryStream();
+            input.Write(memoryStream, MagickFormat.Psd);
+            memoryStream.Position = 0;
 
-                    memoryStream.Position = 0;
-                    using (var output = new MagickImage(memoryStream))
-                    {
-                        var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
+            using var output = new MagickImage(memoryStream);
+            var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 
-                        Assert.InRange(distortion, 0.000, 0.0014);
-                    }
-                }
-            }
+            Assert.InRange(distortion, 0.000, 0.0014);
         }
 
         [Fact]
         public void ShouldCorrectlyWriteGrayscaleAlphaImage()
         {
-            using (var input = new MagickImage(Files.Builtin.Wizard))
+            using var input = new MagickImage(Files.Builtin.Wizard);
+            input.Quantize(new QuantizeSettings
             {
-                input.Quantize(new QuantizeSettings
-                {
-                    Colors = 10,
-                    ColorSpace = ColorSpace.Gray,
-                });
+                Colors = 10,
+                ColorSpace = ColorSpace.Gray,
+            });
 
-                input.Alpha(AlphaOption.Opaque);
+            input.Alpha(AlphaOption.Opaque);
 
-                using (var memoryStream = new MemoryStream())
-                {
-                    input.Settings.Compression = CompressionMethod.RLE;
-                    input.Write(memoryStream, MagickFormat.Psd);
+            using var memoryStream = new MemoryStream();
+            input.Settings.Compression = CompressionMethod.RLE;
+            input.Write(memoryStream, MagickFormat.Psd);
+            memoryStream.Position = 0;
 
-                    memoryStream.Position = 0;
-                    using (var output = new MagickImage(memoryStream))
-                    {
-                        var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
+            using var output = new MagickImage(memoryStream);
+            var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 
-                        Assert.InRange(distortion, 0.000, 0.001);
-                    }
-                }
-            }
+            Assert.InRange(distortion, 0.000, 0.001);
         }
     }
 }

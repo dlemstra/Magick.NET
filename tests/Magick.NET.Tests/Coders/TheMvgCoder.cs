@@ -12,40 +12,28 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldBeDisabled()
         {
-            using (var memStream = new MemoryStream())
+            using var memStream = new MemoryStream();
+            using var writer = new StreamWriter(memStream);
+            writer.Write(@"push graphic-context
+                viewbox 0 0 640 480
+                image over 0,0 0,0 ""label:Magick.NET""
+                pop graphic-context");
+
+            writer.Flush();
+            memStream.Position = 0;
+
+            using var image = new MagickImage();
+
+            Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read(memStream));
+
+            memStream.Position = 0;
+
+            var settings = new MagickReadSettings
             {
-                using (var writer = new StreamWriter(memStream))
-                {
-                    writer.Write(@"push graphic-context
-                      viewbox 0 0 640 480
-                      image over 0,0 0,0 ""label:Magick.NET""
-                      pop graphic-context");
+                Format = MagickFormat.Mvg,
+            };
 
-                    writer.Flush();
-
-                    memStream.Position = 0;
-
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<MagickMissingDelegateErrorException>(() =>
-                        {
-                            image.Read(memStream);
-                        });
-
-                        memStream.Position = 0;
-
-                        Assert.Throws<MagickPolicyErrorException>(() =>
-                        {
-                            var settings = new MagickReadSettings
-                            {
-                                Format = MagickFormat.Mvg,
-                            };
-
-                            image.Read(memStream, settings);
-                        });
-                    }
-                }
-            }
+            Assert.Throws<MagickPolicyErrorException>(() => image.Read(memStream, settings));
         }
     }
 }

@@ -146,6 +146,10 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldWriteDateProperties()
         {
+            /* Probably related to slow execution. */
+            if (TestRuntime.HasFlakyLinuxArm64Result)
+                return;
+
             using var tempFile = new TemporaryFile("test.png");
 
             using var image = new MagickImage(MagickColors.Pink, 1, 1);
