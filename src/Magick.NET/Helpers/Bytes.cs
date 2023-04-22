@@ -21,9 +21,12 @@ namespace ImageMagick
 
         private static async Task<(byte[] Bytes, int Length)> GetDataAsync(Stream stream, CancellationToken cancellationToken)
         {
+            int length;
+            byte[] bytes;
+
             if (stream is MemoryStream memStream)
             {
-                var bytes = GetDataFromMemoryStream(memStream, out var length);
+                bytes = GetDataFromMemoryStream(memStream, out length);
                 return (bytes, length);
             }
 
@@ -32,20 +35,18 @@ namespace ImageMagick
             if (stream.CanSeek)
                 return await GetDataWithSeekableStreamAsync(stream, cancellationToken).ConfigureAwait(false);
 
+            int count;
             var buffer = new byte[BufferSize];
-            using (var tempStream = new MemoryStream())
+            using var tempStream = new MemoryStream();
+            while ((count = await stream.ReadAsync(buffer, 0, BufferSize, cancellationToken).ConfigureAwait(false)) != 0)
             {
-                int count;
-                while ((count = await stream.ReadAsync(buffer, 0, BufferSize, cancellationToken).ConfigureAwait(false)) != 0)
-                {
-                    CheckLength(tempStream.Length + count);
+                CheckLength(tempStream.Length + count);
 
-                    tempStream.Write(buffer, 0, count);
-                }
-
-                var bytes = GetDataFromMemoryStream(tempStream, out var length);
-                return (bytes, length);
+                tempStream.Write(buffer, 0, count);
             }
+
+            bytes = GetDataFromMemoryStream(tempStream, out length);
+            return (bytes, length);
         }
 
         private static async Task<(byte[] Bytes, int Length)> GetDataWithSeekableStreamAsync(Stream stream, CancellationToken cancellationToken)

@@ -19,17 +19,13 @@ namespace ImageMagick.Configuration
 
         private string LoadData()
         {
-            using (var stream = TypeHelper.GetManifestResourceStream(typeof(ConfigurationFile), "ImageMagick.Resources.Xml", FileName))
-            {
-                using (var reader = new StreamReader(stream))
-                {
-                    var data = reader.ReadToEnd();
+            using var stream = TypeHelper.GetManifestResourceStream(typeof(ConfigurationFile), "ImageMagick.Resources.Xml", FileName);
+            using var reader = new StreamReader(stream);
+            var data = reader.ReadToEnd();
 
-                    data = UpdateDelegatesXml(data);
+            data = UpdateDelegatesXml(data);
 
-                    return data;
-                }
-            }
+            return data;
         }
 
         private string UpdateDelegatesXml(string data)

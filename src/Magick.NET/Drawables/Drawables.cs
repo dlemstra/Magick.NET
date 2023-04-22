@@ -72,15 +72,11 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public ITypeMetric? FontTypeMetrics(string text, bool ignoreNewlines)
         {
-            using (var image = new MagickImage(MagickColors.Transparent, 1, 1))
-            {
-                using (var wand = new DrawingWand(image))
-                {
-                    wand.Draw(this);
+            using var image = new MagickImage(MagickColors.Transparent, 1, 1);
+            using var wand = new DrawingWand(image);
+            wand.Draw(this);
 
-                    return wand.FontTypeMetrics(text, ignoreNewlines);
-                }
-            }
+            return wand.FontTypeMetrics(text, ignoreNewlines);
         }
 
         /// <summary>

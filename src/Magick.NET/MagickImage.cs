@@ -1651,11 +1651,9 @@ namespace ImageMagick
             if (!HasAlpha)
                 return;
 
-            using (var canvas = new MagickImage(color, Width, Height))
-            {
-                canvas.Composite(this, 0, 0, CompositeOperator.SrcOver);
-                SetInstance(new NativeMagickImage(canvas._nativeInstance.Clone()));
-            }
+            using var canvas = new MagickImage(color, Width, Height);
+            canvas.Composite(this, 0, 0, CompositeOperator.SrcOver);
+            SetInstance(new NativeMagickImage(canvas._nativeInstance.Clone()));
         }
 
         /// <summary>
@@ -1823,18 +1821,16 @@ namespace ImageMagick
             if (difference is not MagickImage differenceImage)
                 throw new NotSupportedException();
 
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                temporaryDefines.SetArtifact("compare:highlight-color", settings.HighlightColor);
-                temporaryDefines.SetArtifact("compare:lowlight-color", settings.LowlightColor);
-                temporaryDefines.SetArtifact("compare:masklight-color", settings.MasklightColor);
+            using var temporaryDefines = new TemporaryDefines(this);
+            temporaryDefines.SetArtifact("compare:highlight-color", settings.HighlightColor);
+            temporaryDefines.SetArtifact("compare:lowlight-color", settings.LowlightColor);
+            temporaryDefines.SetArtifact("compare:masklight-color", settings.MasklightColor);
 
-                var result = _nativeInstance.Compare(image, settings.Metric, channels, out var distortion);
-                if (result != IntPtr.Zero)
-                    differenceImage._nativeInstance.Instance = result;
+            var result = _nativeInstance.Compare(image, settings.Metric, channels, out var distortion);
+            if (result != IntPtr.Zero)
+                differenceImage._nativeInstance.Instance = result;
 
-                return distortion;
-            }
+            return distortion;
         }
 
         /// <summary>
@@ -1983,12 +1979,10 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(image), image);
 
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                temporaryDefines.SetArtifact("compose:args", args);
+            using var temporaryDefines = new TemporaryDefines(this);
+            temporaryDefines.SetArtifact("compose:args", args);
 
-                _nativeInstance.Composite(image, x, y, compose, channels);
-            }
+            _nativeInstance.Composite(image, x, y, compose, channels);
         }
 
         /// <summary>
@@ -2173,20 +2167,18 @@ namespace ImageMagick
 
             try
             {
-                using (var temporaryDefines = new TemporaryDefines(this))
-                {
-                    temporaryDefines.SetArtifact("connected-components:angle-threshold", settings.AngleThreshold);
-                    temporaryDefines.SetArtifact("connected-components:area-threshold", settings.AreaThreshold);
-                    temporaryDefines.SetArtifact("connected-components:circularity-threshold", settings.CircularityThreshold);
-                    temporaryDefines.SetArtifact("connected-components:diameter-threshold", settings.DiameterThreshold);
-                    temporaryDefines.SetArtifact("connected-components:eccentricity-threshold", settings.EccentricityThreshold);
-                    temporaryDefines.SetArtifact("connected-components:major-axis-threshold", settings.MajorAxisThreshold);
-                    temporaryDefines.SetArtifact("connected-components:mean-color", settings.MeanColor);
-                    temporaryDefines.SetArtifact("connected-components:minor-axis-threshold", settings.MinorAxisThreshold);
-                    temporaryDefines.SetArtifact("connected-components:perimeter-threshold", settings.PerimeterThreshold);
+                using var temporaryDefines = new TemporaryDefines(this);
+                temporaryDefines.SetArtifact("connected-components:angle-threshold", settings.AngleThreshold);
+                temporaryDefines.SetArtifact("connected-components:area-threshold", settings.AreaThreshold);
+                temporaryDefines.SetArtifact("connected-components:circularity-threshold", settings.CircularityThreshold);
+                temporaryDefines.SetArtifact("connected-components:diameter-threshold", settings.DiameterThreshold);
+                temporaryDefines.SetArtifact("connected-components:eccentricity-threshold", settings.EccentricityThreshold);
+                temporaryDefines.SetArtifact("connected-components:major-axis-threshold", settings.MajorAxisThreshold);
+                temporaryDefines.SetArtifact("connected-components:mean-color", settings.MeanColor);
+                temporaryDefines.SetArtifact("connected-components:minor-axis-threshold", settings.MinorAxisThreshold);
+                temporaryDefines.SetArtifact("connected-components:perimeter-threshold", settings.PerimeterThreshold);
 
-                    _nativeInstance.ConnectedComponents(settings.Connectivity, out objects);
-                }
+                _nativeInstance.ConnectedComponents(settings.Connectivity, out objects);
 
                 return ConnectedComponent.Create(objects, ColormapSize);
             }
@@ -2253,15 +2245,13 @@ namespace ImageMagick
         public IEnumerable<PointD> ConvexHull()
         {
             var result = _nativeInstance.ConvexHull(out var length);
-            using (var coordinates = new PointInfoCollection(result, (int)length))
+            using var coordinates = new PointInfoCollection(result, (int)length);
+            for (var i = 0; i < coordinates.Count; i++)
             {
-                for (var i = 0; i < coordinates.Count; i++)
-                {
-                    var x = coordinates.GetX(i);
-                    var y = coordinates.GetY(i);
+                var x = coordinates.GetX(i);
+                var y = coordinates.GetY(i);
 
-                    yield return new PointD(x, y);
-                }
+                yield return new PointD(x, y);
             }
         }
 
@@ -2460,12 +2450,10 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNegative(nameof(settings), settings.Threshold);
 
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                temporaryDefines.SetArtifact("deskew:auto-crop", settings.AutoCrop);
+            using var temporaryDefines = new TemporaryDefines(this);
+            temporaryDefines.SetArtifact("deskew:auto-crop", settings.AutoCrop);
 
-                _nativeInstance.Deskew(PercentageHelper.ToQuantum(settings.Threshold));
-            }
+            _nativeInstance.Deskew(PercentageHelper.ToQuantum(settings.Threshold));
 
             var artifact = GetArtifact("deskew:angle");
             if (!double.TryParse(artifact, NumberStyles.Any, CultureInfo.InvariantCulture, out var result))
@@ -2541,13 +2529,11 @@ namespace ImageMagick
             Throw.IfNull(nameof(settings), settings);
             Throw.IfNullOrEmpty(nameof(arguments), arguments);
 
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                temporaryDefines.SetArtifact("distort:scale", settings.Scale);
-                temporaryDefines.SetArtifact("distort:viewport", settings.Viewport);
+            using var temporaryDefines = new TemporaryDefines(this);
+            temporaryDefines.SetArtifact("distort:scale", settings.Scale);
+            temporaryDefines.SetArtifact("distort:viewport", settings.Viewport);
 
-                _nativeInstance.Distort(method, settings.Bestfit, arguments, arguments.Length);
-            }
+            _nativeInstance.Distort(method, settings.Bestfit, arguments, arguments.Length);
         }
 
         /// <summary>
@@ -2575,10 +2561,8 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(drawables), drawables);
 
-            using (var wand = new DrawingWand(this))
-            {
-                wand.Draw(drawables);
-            }
+            using var wand = new DrawingWand(this);
+            wand.Draw(drawables);
         }
 
         /// <summary>
@@ -3700,12 +3684,10 @@ namespace ImageMagick
             Throw.IfNegative(nameof(settings), settings.NumberColors);
             Throw.IfNegative(nameof(settings), settings.MaxIterations);
 
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                temporaryDefines.SetArtifact("kmeans:seed-colors", settings.SeedColors);
+            using var temporaryDefines = new TemporaryDefines(this);
+            temporaryDefines.SetArtifact("kmeans:seed-colors", settings.SeedColors);
 
-                _nativeInstance.Kmeans(settings.NumberColors, settings.MaxIterations, settings.Tolerance);
-            }
+            _nativeInstance.Kmeans(settings.NumberColors, settings.MaxIterations, settings.Tolerance);
         }
 
         /// <summary>
@@ -3996,16 +3978,12 @@ namespace ImageMagick
             if (colorList.Count == 0)
                 throw new ArgumentException("Value cannot be empty.", nameof(colors));
 
-            using (var images = new MagickImageCollection())
-            {
-                foreach (var color in colorList)
-                    images.Add(new MagickImage(color, 1, 1));
+            using var images = new MagickImageCollection();
+            foreach (var color in colorList)
+                images.Add(new MagickImage(color, 1, 1));
 
-                using (var image = images.AppendHorizontally())
-                {
-                    return Map(image, settings);
-                }
-            }
+            using var image = images.AppendHorizontally();
+            return Map(image, settings);
         }
 
         /// <summary>
@@ -4099,15 +4077,13 @@ namespace ImageMagick
         public IEnumerable<PointD> MinimumBoundingBox()
         {
             var result = _nativeInstance.MinimumBoundingBox(out var length);
-            using (var coordinates = new PointInfoCollection(result, (int)length))
+            using var coordinates = new PointInfoCollection(result, (int)length);
+            for (var i = 0; i < coordinates.Count; i++)
             {
-                for (var i = 0; i < coordinates.Count; i++)
-                {
-                    var x = coordinates.GetX(i);
-                    var y = coordinates.GetY(i);
+                var x = coordinates.GetX(i);
+                var y = coordinates.GetY(i);
 
-                    yield return new PointD(x, y);
-                }
+                yield return new PointD(x, y);
             }
         }
 
@@ -4282,16 +4258,15 @@ namespace ImageMagick
         public void Morphology(IMorphologySettings settings)
         {
             Throw.IfNull(nameof(settings), settings);
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                temporaryDefines.SetArtifact("convolve:bias", settings.ConvolveBias);
-                temporaryDefines.SetArtifact("convolve:scale", settings.ConvolveScale);
 
-                if (settings.UserKernel is not null && settings.UserKernel.Length > 0)
-                    Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
-                else
-                    Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
-            }
+            using var temporaryDefines = new TemporaryDefines(this);
+            temporaryDefines.SetArtifact("convolve:bias", settings.ConvolveBias);
+            temporaryDefines.SetArtifact("convolve:scale", settings.ConvolveScale);
+
+            if (settings.UserKernel is not null && settings.UserKernel.Length > 0)
+                Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
+            else
+                Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
         }
 
         /// <summary>
@@ -5887,13 +5862,11 @@ namespace ImageMagick
             if (datum is null || datum.Length == 0)
                 return;
 
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                if (mode == ColorTransformMode.Quantum)
-                    temporaryDefines.SetArtifact("profile:highres-transform", false);
+            using var temporaryDefines = new TemporaryDefines(this);
+            if (mode == ColorTransformMode.Quantum)
+                temporaryDefines.SetArtifact("profile:highres-transform", false);
 
-                _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
-            }
+            _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
         }
 
         /// <summary>
@@ -6561,11 +6534,9 @@ namespace ImageMagick
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray()
         {
-            using (var stream = new MemoryStream())
-            {
-                Write(stream);
-                return stream.ToArray();
-            }
+            using var stream = new MemoryStream();
+            Write(stream);
+            return stream.ToArray();
         }
 
         /// <summary>
@@ -6768,11 +6739,9 @@ namespace ImageMagick
                 }
             }
 
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                temporaryDefines.SetArtifact("trim:edges", string.Join(",", artifact.ToArray()));
-                Trim();
-            }
+            using var temporaryDefines = new TemporaryDefines(this);
+            temporaryDefines.SetArtifact("trim:edges", string.Join(",", artifact.ToArray()));
+            Trim();
         }
 
         /// <summary>
@@ -6783,11 +6752,9 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Trim(Percentage percentBackground)
         {
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                temporaryDefines.SetArtifact("trim:percent-background", percentBackground.ToInt32().ToString(CultureInfo.InvariantCulture));
-                Trim();
-            }
+            using var temporaryDefines = new TemporaryDefines(this);
+            temporaryDefines.SetArtifact("trim:percent-background", percentBackground.ToInt32().ToString(CultureInfo.InvariantCulture));
+            Trim();
         }
 
         /// <summary>
@@ -6919,11 +6886,9 @@ namespace ImageMagick
         /// <param name="vibrance">The vibrance.</param>
         public void WhiteBalance(Percentage vibrance)
         {
-            using (var temporaryDefines = new TemporaryDefines(this))
-            {
-                temporaryDefines.SetArtifact("white-balance:vibrance", vibrance.ToString());
-                WhiteBalance();
-            }
+            using var temporaryDefines = new TemporaryDefines(this);
+            temporaryDefines.SetArtifact("white-balance:vibrance", vibrance.ToString());
+            WhiteBalance();
         }
 
         /// <summary>
@@ -6997,24 +6962,22 @@ namespace ImageMagick
 
             _settings.FileName = null;
 
-            using (var wrapper = StreamWrapper.CreateForWriting(stream))
+            using var wrapper = StreamWrapper.CreateForWriting(stream);
+            var writer = new ReadWriteStreamDelegate(wrapper.Write);
+            ReadWriteStreamDelegate? reader = null;
+            SeekStreamDelegate? seeker = null;
+            TellStreamDelegate? teller = null;
+
+            if (stream.CanSeek)
             {
-                var writer = new ReadWriteStreamDelegate(wrapper.Write);
-                ReadWriteStreamDelegate? reader = null;
-                SeekStreamDelegate? seeker = null;
-                TellStreamDelegate? teller = null;
-
-                if (stream.CanSeek)
-                {
-                    seeker = new SeekStreamDelegate(wrapper.Seek);
-                    teller = new TellStreamDelegate(wrapper.Tell);
-                }
-
-                if (stream.CanRead)
-                    reader = new ReadWriteStreamDelegate(wrapper.Read);
-
-                _nativeInstance.WriteStream(_settings, writer, seeker, teller, reader);
+                seeker = new SeekStreamDelegate(wrapper.Seek);
+                teller = new TellStreamDelegate(wrapper.Tell);
             }
+
+            if (stream.CanRead)
+                reader = new ReadWriteStreamDelegate(wrapper.Read);
+
+            _nativeInstance.WriteStream(_settings, writer, seeker, teller, reader);
         }
 
         /// <summary>
@@ -7477,12 +7440,11 @@ namespace ImageMagick
         private void FloodFill(QuantumType alpha, int x, int y, bool invert)
         {
             IMagickColor<QuantumType>? target;
-            using (var pixels = GetPixelsUnsafe())
-            {
-                target = pixels.GetPixel(x, y).ToColor();
-                if (target is not null)
-                    target.A = alpha;
-            }
+            using var pixels = GetPixelsUnsafe();
+            target = pixels.GetPixel(x, y).ToColor();
+
+            if (target is not null)
+                target.A = alpha;
 
             _nativeInstance.FloodFill(_settings.Drawing, x, y, target, invert);
         }
@@ -7492,10 +7454,8 @@ namespace ImageMagick
             Throw.IfNull(nameof(color), color);
 
             IMagickColor<QuantumType>? target;
-            using (var pixels = GetPixelsUnsafe())
-            {
-                target = pixels.GetPixel(x, y).ToColor();
-            }
+            using var pixels = GetPixelsUnsafe();
+            target = pixels.GetPixel(x, y).ToColor();
 
             if (target is not null)
                 FloodFill(color, x, y, target, invert);
@@ -7508,17 +7468,15 @@ namespace ImageMagick
 
             var settings = _settings.Drawing;
 
-            using (var fillPattern = settings.FillPattern)
-            {
-                var fillColor = settings.FillColor;
-                settings.FillColor = color;
-                settings.FillPattern = null;
+            using var fillPattern = settings.FillPattern;
+            var fillColor = settings.FillColor;
 
-                _nativeInstance.FloodFill(settings, x, y, target, invert);
+            settings.FillColor = color;
+            settings.FillPattern = null;
+            _nativeInstance.FloodFill(settings, x, y, target, invert);
 
-                settings.FillColor = fillColor;
-                settings.FillPattern = fillPattern;
-            }
+            settings.FillColor = fillColor;
+            settings.FillPattern = fillPattern;
         }
 
         private void FloodFill(IMagickImage<QuantumType> image, int x, int y, bool invert)
@@ -7526,10 +7484,8 @@ namespace ImageMagick
             Throw.IfNull(nameof(image), image);
 
             IMagickColor<QuantumType>? target;
-            using (var pixels = GetPixelsUnsafe())
-            {
-                target = pixels.GetPixel(x, y).ToColor();
-            }
+            using var pixels = GetPixelsUnsafe();
+            target = pixels.GetPixel(x, y).ToColor();
 
             if (target is not null)
                 FloodFill(image, x, y, target, invert);
@@ -7542,17 +7498,15 @@ namespace ImageMagick
 
             var settings = _settings.Drawing;
 
-            using (var fillPattern = settings.FillPattern)
-            {
-                var fillColor = settings.FillColor;
-                settings.FillColor = null;
-                settings.FillPattern = image;
+            using var fillPattern = settings.FillPattern;
+            var fillColor = settings.FillColor;
 
-                _nativeInstance.FloodFill(settings, x, y, target, invert);
+            settings.FillColor = null;
+            settings.FillPattern = image;
+            _nativeInstance.FloodFill(settings, x, y, target, invert);
 
-                settings.FillColor = fillColor;
-                settings.FillPattern = fillPattern;
-            }
+            settings.FillColor = fillColor;
+            settings.FillPattern = fillPattern;
         }
 
         private void LevelColors(IMagickColor<QuantumType> blackColor, IMagickColor<QuantumType> whiteColor, bool invert)
@@ -7635,20 +7589,18 @@ namespace ImageMagick
             _settings.Ping = ping;
             _settings.FileName = null;
 
-            using (var wrapper = StreamWrapper.CreateForReading(stream))
+            using var wrapper = StreamWrapper.CreateForReading(stream);
+            var reader = new ReadWriteStreamDelegate(wrapper.Read);
+            SeekStreamDelegate? seeker = null;
+            TellStreamDelegate? teller = null;
+
+            if (stream.CanSeek)
             {
-                var reader = new ReadWriteStreamDelegate(wrapper.Read);
-                SeekStreamDelegate? seeker = null;
-                TellStreamDelegate? teller = null;
-
-                if (stream.CanSeek)
-                {
-                    seeker = new SeekStreamDelegate(wrapper.Seek);
-                    teller = new TellStreamDelegate(wrapper.Tell);
-                }
-
-                _nativeInstance.ReadStream(Settings, reader, seeker, teller);
+                seeker = new SeekStreamDelegate(wrapper.Seek);
+                teller = new TellStreamDelegate(wrapper.Tell);
             }
+
+            _nativeInstance.ReadStream(Settings, reader, seeker, teller);
 
             ResetSettings();
         }

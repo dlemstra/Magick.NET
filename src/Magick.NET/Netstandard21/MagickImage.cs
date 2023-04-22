@@ -318,10 +318,8 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Write(IBufferWriter<byte> bufferWriter, MagickFormat format)
         {
-            using (_ = new TemporaryMagickFormat(this, format))
-            {
-                Write(bufferWriter);
-            }
+            using var tempFormat = new TemporaryMagickFormat(this, format);
+            Write(bufferWriter);
         }
 
         private void Read(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType>? readSettings, bool ping)

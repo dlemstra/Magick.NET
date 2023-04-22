@@ -79,15 +79,13 @@ namespace ImageMagick
         {
             Throw.IfNullOrEmpty(nameof(value), value);
 
-            using (var instance = new NativeMagickGeometry())
-            {
-                var flags = instance.Initialize(value);
+            using var instance = new NativeMagickGeometry();
+            var flags = instance.Initialize(value);
 
-                if (!EnumHelper.HasFlag(flags, GeometryFlags.AspectRatio))
-                    Initialize(instance, flags);
-                else
-                    InitializeFromAspectRation(instance, value);
-            }
+            if (!EnumHelper.HasFlag(flags, GeometryFlags.AspectRatio))
+                Initialize(instance, flags);
+            else
+                InitializeFromAspectRation(instance, value);
         }
 
         private MagickGeometry(NativeMagickGeometry instance)

@@ -30,26 +30,23 @@ namespace ImageMagick
 
         internal MagickSettings()
         {
-            using (var instance = new NativeMagickSettings())
-            {
-                AntiAlias = instance.AntiAlias;
-                BackgroundColor = instance.BackgroundColor;
-                ColorSpace = instance.ColorSpace;
-                ColorType = instance.ColorType;
-                Compression = instance.Compression;
-                Debug = instance.Debug;
-                Density = CreateDensity(instance.Density);
-                Depth = instance.Depth;
-                Endian = instance.Endian;
-                Extract = MagickGeometry.FromString(instance.Extract);
-                _font = instance.Font;
-                _fontPointsize = instance.FontPointsize;
-                Format = EnumHelper.Parse(instance.Format, MagickFormat.Unknown);
-                Interlace = instance.Interlace;
-                Monochrome = instance.Monochrome;
-                Verbose = instance.Verbose;
-            }
-
+            using var instance = new NativeMagickSettings();
+            AntiAlias = instance.AntiAlias;
+            BackgroundColor = instance.BackgroundColor;
+            ColorSpace = instance.ColorSpace;
+            ColorType = instance.ColorType;
+            Compression = instance.Compression;
+            Debug = instance.Debug;
+            Density = CreateDensity(instance.Density);
+            Depth = instance.Depth;
+            Endian = instance.Endian;
+            Extract = MagickGeometry.FromString(instance.Extract);
+            _font = instance.Font;
+            _fontPointsize = instance.FontPointsize;
+            Format = EnumHelper.Parse(instance.Format, MagickFormat.Unknown);
+            Interlace = instance.Interlace;
+            Monochrome = instance.Monochrome;
+            Verbose = instance.Verbose;
             Drawing = new DrawingSettings();
         }
 

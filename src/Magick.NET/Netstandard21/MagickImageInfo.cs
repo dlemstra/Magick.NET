@@ -40,15 +40,13 @@ namespace ImageMagick
         {
             var result = new List<MagickImageInfo>();
 
-            using (var images = new MagickImageCollection())
+            using var images = new MagickImageCollection();
+            images.Ping(data);
+            foreach (var image in images)
             {
-                images.Ping(data);
-                foreach (var image in images)
-                {
-                    var info = new MagickImageInfo();
-                    info.Initialize(image);
-                    result.Add(info);
-                }
+                var info = new MagickImageInfo();
+                info.Initialize(image);
+                result.Add(info);
             }
 
             return result;
@@ -64,15 +62,13 @@ namespace ImageMagick
         {
             var result = new List<MagickImageInfo>();
 
-            using (var images = new MagickImageCollection())
+            using var images = new MagickImageCollection();
+            images.Ping(data);
+            foreach (var image in images)
             {
-                images.Ping(data);
-                foreach (var image in images)
-                {
-                    var info = new MagickImageInfo();
-                    info.Initialize(image);
-                    result.Add(info);
-                }
+                var info = new MagickImageInfo();
+                info.Initialize(image);
+                result.Add(info);
             }
 
             return result;
@@ -85,11 +81,9 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(ReadOnlySequence<byte> data)
         {
-            using (var image = new MagickImage())
-            {
-                image.Ping(data);
-                Initialize(image);
-            }
+            using var image = new MagickImage();
+            image.Ping(data);
+            Initialize(image);
         }
 
         /// <summary>
@@ -99,11 +93,9 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(ReadOnlySpan<byte> data)
         {
-            using (var image = new MagickImage())
-            {
-                image.Ping(data);
-                Initialize(image);
-            }
+            using var image = new MagickImage();
+            image.Ping(data);
+            Initialize(image);
         }
     }
 }

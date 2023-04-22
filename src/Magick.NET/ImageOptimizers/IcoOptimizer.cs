@@ -144,71 +144,61 @@ namespace ImageMagick.ImageOptimizers
 
         private static void FixAlpha(IMagickImage<QuantumType> image, QuantumType min, QuantumType max)
         {
-            using (var pixels = image.GetPixelsUnsafe())
+            using var pixels = image.GetPixelsUnsafe();
+            var alphaIndex = pixels.GetIndex(PixelChannel.Alpha);
+            var channels = pixels.Channels;
+
+            for (var y = 0; y < image.Height; y++)
             {
-                var alphaIndex = pixels.GetIndex(PixelChannel.Alpha);
-                var channels = pixels.Channels;
+                var row = pixels.GetArea(0, y, image.Width, 1);
+                if (row is null)
+                    continue;
 
-                for (var y = 0; y < image.Height; y++)
+                for (var i = alphaIndex; i < row.Length; i += channels)
                 {
-                    var row = pixels.GetArea(0, y, image.Width, 1);
-                    if (row is null)
-                        continue;
-
-                    for (var i = alphaIndex; i < row.Length; i += channels)
-                    {
-                        if (row[i] <= min)
-                            row[i] = 0;
-                        else if (row[i] >= max)
-                            row[i] = Quantum.Max;
-                    }
-
-                    pixels.SetArea(0, y, image.Width, 1, row);
+                    if (row[i] <= min)
+                        row[i] = 0;
+                    else if (row[i] >= max)
+                        row[i] = Quantum.Max;
                 }
+
+                pixels.SetArea(0, y, image.Width, 1, row);
             }
         }
 
         private bool DoCompress(FileInfo file, bool lossless)
         {
-            var isCompressed = false;
-
             var settings = new MagickReadSettings() { Format = MagickFormat.Ico };
-            using (var images = new MagickImageCollection(file, settings))
+            using var images = new MagickImageCollection(file, settings);
+            foreach (var image in images)
             {
-                foreach (var image in images)
+                if (image.Width > 255)
                 {
-                    if (image.Width > 255)
-                    {
-                        image.Format = MagickFormat.Png;
+                    image.Format = MagickFormat.Png;
 
-                        var pngHelper = new PngHelper(this);
-                        var memoryStream = pngHelper.FindBestStreamQuality(image, out var bestQuality);
-                        image.Format = MagickFormat.Ico;
+                    var pngHelper = new PngHelper(this);
+                    var memoryStream = pngHelper.FindBestStreamQuality(image, out var bestQuality);
+                    image.Format = MagickFormat.Ico;
 
-                        if (memoryStream is not null)
-                        {
-                            memoryStream.Dispose();
-                            image.Quality = bestQuality;
-                        }
-                    }
-                    else
+                    if (memoryStream is not null)
                     {
-                        if (CanUseColormap(image, lossless))
-                            image.ClassType = ClassType.Pseudo;
+                        memoryStream.Dispose();
+                        image.Quality = bestQuality;
                     }
                 }
-
-                using (var tempFile = new TemporaryFile())
+                else
                 {
-                    images.Write(tempFile.FullName);
-
-                    if (tempFile.Length < file.Length)
-                    {
-                        isCompressed = true;
-                        tempFile.CopyTo(file);
-                    }
+                    if (CanUseColormap(image, lossless))
+                        image.ClassType = ClassType.Pseudo;
                 }
             }
+
+            using var tempFile = new TemporaryFile();
+            images.Write(tempFile.FullName);
+
+            var isCompressed = tempFile.Length < file.Length;
+            if (isCompressed)
+                tempFile.CopyTo(file);
 
             return isCompressed;
         }
@@ -217,50 +207,45 @@ namespace ImageMagick.ImageOptimizers
         {
             ImageOptimizerHelper.CheckStream(stream);
 
-            var isCompressed = false;
             var startPosition = stream.Position;
 
-            using (var images = new MagickImageCollection(stream, new MagickReadSettings() { Format = MagickFormat.Ico }))
+            using var images = new MagickImageCollection(stream, new MagickReadSettings() { Format = MagickFormat.Ico });
+            foreach (var image in images)
             {
-                foreach (var image in images)
+                if (image.Width > 255)
                 {
-                    if (image.Width > 255)
-                    {
-                        image.Format = MagickFormat.Png;
+                    image.Format = MagickFormat.Png;
 
-                        var pngHelper = new PngHelper(this);
-                        var memoryStream = pngHelper.FindBestStreamQuality(image, out var bestQuality);
-                        image.Format = MagickFormat.Ico;
+                    var pngHelper = new PngHelper(this);
+                    var memoryStream = pngHelper.FindBestStreamQuality(image, out var bestQuality);
+                    image.Format = MagickFormat.Ico;
 
-                        if (memoryStream is not null)
-                        {
-                            memoryStream.Dispose();
-                            image.Quality = bestQuality;
-                        }
-                    }
-                    else
+                    if (memoryStream is not null)
                     {
-                        if (CanUseColormap(image, lossless))
-                            image.ClassType = ClassType.Pseudo;
+                        memoryStream.Dispose();
+                        image.Quality = bestQuality;
                     }
                 }
-
-                using (var output = new MemoryStream())
+                else
                 {
-                    images.Write(output);
-
-                    if (output.Length < (stream.Length - startPosition))
-                    {
-                        isCompressed = true;
-                        stream.Position = startPosition;
-                        output.Position = 0;
-                        output.CopyTo(stream);
-                        stream.SetLength(startPosition + output.Length);
-                    }
-
-                    stream.Position = startPosition;
+                    if (CanUseColormap(image, lossless))
+                        image.ClassType = ClassType.Pseudo;
                 }
             }
+
+            using var output = new MemoryStream();
+            images.Write(output);
+
+            var isCompressed = output.Length < (stream.Length - startPosition);
+            if (isCompressed)
+            {
+                stream.Position = startPosition;
+                output.Position = 0;
+                output.CopyTo(stream);
+                stream.SetLength(startPosition + output.Length);
+            }
+
+            stream.Position = startPosition;
 
             return isCompressed;
         }

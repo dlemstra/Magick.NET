@@ -112,35 +112,30 @@ namespace ImageMagick.ImageOptimizers
 
         private bool DoCompress(FileInfo file, bool lossless)
         {
-            var isCompressed = false;
-
-            using (var image = new MagickImage(file))
+            using var image = new MagickImage(file);
+            if (image.GetAttribute("png:acTL") is not null)
             {
-                if (image.GetAttribute("png:acTL") is not null)
+                return false;
+            }
+
+            StartCompression(image, lossless);
+
+            var isCompressed = false;
+            TemporaryFile? bestFile = null;
+            try
+            {
+                var pngHelper = new PngHelper(this);
+                bestFile = pngHelper.FindBestFileQuality(image, out _);
+
+                if (bestFile is not null && bestFile.Length < file.Length)
                 {
-                    return false;
+                    isCompressed = true;
+                    bestFile.CopyTo(file);
                 }
-
-                StartCompression(image, lossless);
-
-                TemporaryFile? bestFile = null;
-
-                try
-                {
-                    var pngHelper = new PngHelper(this);
-                    bestFile = pngHelper.FindBestFileQuality(image, out _);
-
-                    if (bestFile is not null && bestFile.Length < file.Length)
-                    {
-                        isCompressed = true;
-                        bestFile.CopyTo(file);
-                    }
-                }
-                finally
-                {
-                    if (bestFile is not null)
-                        bestFile.Dispose();
-                }
+            }
+            finally
+            {
+                bestFile?.Dispose();
             }
 
             return isCompressed;
@@ -150,36 +145,32 @@ namespace ImageMagick.ImageOptimizers
         {
             ImageOptimizerHelper.CheckStream(stream);
 
-            var isCompressed = false;
             var startPosition = stream.Position;
 
-            using (var image = new MagickImage(stream))
+            using var image = new MagickImage(stream);
+            StartCompression(image, lossless);
+
+            var isCompressed = false;
+            MemoryStream? bestStream = null;
+            try
             {
-                StartCompression(image, lossless);
+                var pngHelper = new PngHelper(this);
+                bestStream = pngHelper.FindBestStreamQuality(image, out _);
 
-                MemoryStream? bestStream = null;
-
-                try
+                if (bestStream is not null && bestStream.Length < (stream.Length - startPosition))
                 {
-                    var pngHelper = new PngHelper(this);
-                    bestStream = pngHelper.FindBestStreamQuality(image, out _);
-
-                    if (bestStream is not null && bestStream.Length < (stream.Length - startPosition))
-                    {
-                        isCompressed = true;
-                        stream.Position = startPosition;
-                        bestStream.Position = 0;
-                        bestStream.CopyTo(stream);
-                        stream.SetLength(startPosition + bestStream.Length);
-                    }
-
+                    isCompressed = true;
                     stream.Position = startPosition;
+                    bestStream.Position = 0;
+                    bestStream.CopyTo(stream);
+                    stream.SetLength(startPosition + bestStream.Length);
                 }
-                finally
-                {
-                    if (bestStream is not null)
-                        bestStream.Dispose();
-                }
+
+                stream.Position = startPosition;
+            }
+            finally
+            {
+                bestStream?.Dispose();
             }
 
             return isCompressed;

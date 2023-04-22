@@ -133,11 +133,9 @@ namespace ImageMagick
                 return;
             }
 
-            using (var instance = new NativeMagickColor())
-            {
-                Throw.IfFalse(nameof(color), instance.Initialize(color), "Invalid color specified");
-                Initialize(instance);
-            }
+            using var instance = new NativeMagickColor();
+            Throw.IfFalse(nameof(color), instance.Initialize(color), "Invalid color specified");
+            Initialize(instance);
         }
 
         private MagickColor(NativeMagickColor instance)
@@ -382,10 +380,8 @@ namespace ImageMagick
             if (ReferenceEquals(this, other))
                 return true;
 
-            using (var instance = CreateNativeInstance(this))
-            {
-                return instance.FuzzyEquals(other, PercentageHelper.ToQuantumType(fuzz));
-            }
+            using var instance = CreateNativeInstance(this);
+            return instance.FuzzyEquals(other, PercentageHelper.ToQuantumType(fuzz));
         }
 
         /// <summary>
@@ -525,11 +521,9 @@ namespace ImageMagick
             if (instance == IntPtr.Zero)
                 return null;
 
-            using (var nativeInstance = new NativeMagickColor(instance))
-            {
-                count = (int)nativeInstance.Count;
-                return new MagickColor(nativeInstance);
-            }
+            using var nativeInstance = new NativeMagickColor(instance);
+            count = (int)nativeInstance.Count;
+            return new MagickColor(nativeInstance);
         }
 
         private static NativeMagickColor CreateNativeInstance(IMagickColor<QuantumType> instance)

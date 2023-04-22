@@ -504,11 +504,9 @@ namespace ImageMagick
                 if (File.Exists(outputFile))
                     continue;
 
-                using (var fileStream = File.Open(outputFile, FileMode.CreateNew))
-                {
-                    var data = Encoding.UTF8.GetBytes(configFile.Data);
-                    fileStream.Write(data, 0, data.Length);
-                }
+                using var fileStream = File.Open(outputFile, FileMode.CreateNew);
+                var data = Encoding.UTF8.GetBytes(configFile.Data);
+                fileStream.Write(data, 0, data.Length);
             }
 
             Environment.SetEnv("MAGICK_CONFIGURE_PATH", path);

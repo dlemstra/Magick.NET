@@ -23,32 +23,30 @@ namespace ImageMagick
 
         internal DrawingSettings()
         {
-            using (var instance = new NativeDrawingSettings())
-            {
-                BorderColor = instance.BorderColor;
-                FillColor = instance.FillColor;
-                FillRule = instance.FillRule;
-                Font = instance.Font;
-                FontFamily = instance.FontFamily;
-                FontPointsize = instance.FontPointsize;
-                FontStyle = instance.FontStyle;
-                FontWeight = instance.FontWeight;
-                StrokeAntiAlias = instance.StrokeAntiAlias;
-                StrokeColor = instance.StrokeColor;
-                StrokeDashOffset = instance.StrokeDashOffset;
-                StrokeLineCap = instance.StrokeLineCap;
-                StrokeLineJoin = instance.StrokeLineJoin;
-                StrokeMiterLimit = instance.StrokeMiterLimit;
-                StrokeWidth = instance.StrokeWidth;
-                TextAntiAlias = instance.TextAntiAlias;
-                TextDirection = instance.TextDirection;
-                TextEncoding = GetTextEncoding(instance);
-                TextGravity = instance.TextGravity;
-                TextInterlineSpacing = instance.TextInterlineSpacing;
-                TextInterwordSpacing = instance.TextInterwordSpacing;
-                TextKerning = instance.TextKerning;
-                TextUnderColor = instance.TextUnderColor;
-            }
+            using var instance = new NativeDrawingSettings();
+            BorderColor = instance.BorderColor;
+            FillColor = instance.FillColor;
+            FillRule = instance.FillRule;
+            Font = instance.Font;
+            FontFamily = instance.FontFamily;
+            FontPointsize = instance.FontPointsize;
+            FontStyle = instance.FontStyle;
+            FontWeight = instance.FontWeight;
+            StrokeAntiAlias = instance.StrokeAntiAlias;
+            StrokeColor = instance.StrokeColor;
+            StrokeDashOffset = instance.StrokeDashOffset;
+            StrokeLineCap = instance.StrokeLineCap;
+            StrokeLineJoin = instance.StrokeLineJoin;
+            StrokeMiterLimit = instance.StrokeMiterLimit;
+            StrokeWidth = instance.StrokeWidth;
+            TextAntiAlias = instance.TextAntiAlias;
+            TextDirection = instance.TextDirection;
+            TextEncoding = GetTextEncoding(instance);
+            TextGravity = instance.TextGravity;
+            TextInterlineSpacing = instance.TextInterlineSpacing;
+            TextInterwordSpacing = instance.TextInterwordSpacing;
+            TextKerning = instance.TextKerning;
+            TextUnderColor = instance.TextUnderColor;
         }
 
         public IDrawableAffine? Affine { get; set; }

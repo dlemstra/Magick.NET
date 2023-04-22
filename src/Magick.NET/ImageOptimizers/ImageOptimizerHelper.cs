@@ -47,10 +47,8 @@ namespace ImageMagick
             {
                 try
                 {
-                    using (var stream = file.OpenRead())
-                    {
-                        return GetFormatInformationFromHeader(stream);
-                    }
+                    using var stream = file.OpenRead();
+                    return GetFormatInformationFromHeader(stream);
                 }
                 catch
                 {
@@ -74,10 +72,8 @@ namespace ImageMagick
             {
                 try
                 {
-                    using (var stream = File.OpenRead(fileName))
-                    {
-                        return GetFormatInformationFromHeader(stream);
-                    }
+                    using var stream = File.OpenRead(fileName);
+                    return GetFormatInformationFromHeader(stream);
                 }
                 catch
                 {

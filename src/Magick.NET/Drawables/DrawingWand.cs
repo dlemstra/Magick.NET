@@ -45,10 +45,8 @@ namespace ImageMagick
 
         public void Bezier(IList<PointD> coordinates)
         {
-            using (var pointInfo = new PointInfoCollection(coordinates))
-            {
-                _nativeInstance.Bezier(pointInfo, pointInfo.Count);
-            }
+            using var pointInfo = new PointInfoCollection(coordinates);
+            _nativeInstance.Bezier(pointInfo, pointInfo.Count);
         }
 
         public void BorderColor(IMagickColor<QuantumType> color)
@@ -201,18 +199,14 @@ namespace ImageMagick
 
         public void Polygon(IList<PointD> coordinates)
         {
-            using (var pointInfo = new PointInfoCollection(coordinates))
-            {
-                _nativeInstance.Polygon(pointInfo, pointInfo.Count);
-            }
+            using var pointInfo = new PointInfoCollection(coordinates);
+            _nativeInstance.Polygon(pointInfo, pointInfo.Count);
         }
 
         public void Polyline(IList<PointD> coordinates)
         {
-            using (var pointInfo = new PointInfoCollection(coordinates))
-            {
-                _nativeInstance.Polyline(pointInfo, pointInfo.Count);
-            }
+            using var pointInfo = new PointInfoCollection(coordinates);
+            _nativeInstance.Polyline(pointInfo, pointInfo.Count);
         }
 
         public void PopClipPath()

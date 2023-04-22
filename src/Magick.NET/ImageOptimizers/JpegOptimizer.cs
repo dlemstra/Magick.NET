@@ -145,42 +145,34 @@ namespace ImageMagick.ImageOptimizers
 
         private static void DoNativeCompress(Stream input, Stream output, bool progressive, bool lossless, int quality)
         {
-            using (var readWrapper = StreamWrapper.CreateForReading(input))
-            {
-                using (var writeWrapper = StreamWrapper.CreateForWriting(output))
-                {
-                    var reader = new ReadWriteStreamDelegate(readWrapper.Read);
-                    var writer = new ReadWriteStreamDelegate(writeWrapper.Write);
+            using var readWrapper = StreamWrapper.CreateForReading(input);
+            using var writeWrapper = StreamWrapper.CreateForWriting(output);
+            var reader = new ReadWriteStreamDelegate(readWrapper.Read);
+            var writer = new ReadWriteStreamDelegate(writeWrapper.Write);
 
-                    var nativeJpegOptimizer = new NativeJpegOptimizer();
-                    nativeJpegOptimizer.CompressStream(reader, writer, progressive, lossless, quality);
-                }
-            }
+            var nativeJpegOptimizer = new NativeJpegOptimizer();
+            nativeJpegOptimizer.CompressStream(reader, writer, progressive, lossless, quality);
         }
 
         private bool DoCompress(FileInfo file, bool lossless, int quality)
         {
-            using (var tempFile = new TemporaryFile())
+            using var tempFile = new TemporaryFile();
+            DoNativeCompress(file.FullName, tempFile.FullName, Progressive, lossless, quality);
+
+            if (OptimalCompression)
             {
-                DoNativeCompress(file.FullName, tempFile.FullName, Progressive, lossless, quality);
+                using var tempFileOptimal = new TemporaryFile();
+                DoNativeCompress(file.FullName, tempFileOptimal.FullName, !Progressive, lossless, quality);
 
-                if (OptimalCompression)
-                {
-                    using (var tempFileOptimal = new TemporaryFile())
-                    {
-                        DoNativeCompress(file.FullName, tempFileOptimal.FullName, !Progressive, lossless, quality);
-
-                        if (tempFileOptimal.Length < tempFile.Length)
-                            tempFileOptimal.CopyTo(tempFile);
-                    }
-                }
-
-                if (tempFile.Length >= file.Length)
-                    return false;
-
-                tempFile.CopyTo(file);
-                return true;
+                if (tempFileOptimal.Length < tempFile.Length)
+                    tempFileOptimal.CopyTo(tempFile);
             }
+
+            if (tempFile.Length >= file.Length)
+                return false;
+
+            tempFile.CopyTo(file);
+            return true;
         }
 
         private bool DoCompress(Stream stream, bool lossless, int quality)

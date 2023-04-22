@@ -128,15 +128,13 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data)
         {
-            using (var images = new MagickImageCollection())
+            using var images = new MagickImageCollection();
+            images.Ping(data);
+            foreach (var image in images)
             {
-                images.Ping(data);
-                foreach (var image in images)
-                {
-                    var info = new MagickImageInfo();
-                    info.Initialize(image);
-                    yield return info;
-                }
+                var info = new MagickImageInfo();
+                info.Initialize(image);
+                yield return info;
             }
         }
 
@@ -150,15 +148,13 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, int offset, int count)
         {
-            using (var images = new MagickImageCollection())
+            using var images = new MagickImageCollection();
+            images.Ping(data, offset, count);
+            foreach (var image in images)
             {
-                images.Ping(data, offset, count);
-                foreach (var image in images)
-                {
-                    var info = new MagickImageInfo();
-                    info.Initialize(image);
-                    yield return info;
-                }
+                var info = new MagickImageInfo();
+                info.Initialize(image);
+                yield return info;
             }
         }
 
@@ -183,15 +179,13 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(Stream stream)
         {
-            using (var images = new MagickImageCollection())
+            using var images = new MagickImageCollection();
+            images.Ping(stream);
+            foreach (var image in images)
             {
-                images.Ping(stream);
-                foreach (var image in images)
-                {
-                    var info = new MagickImageInfo();
-                    info.Initialize(image);
-                    yield return info;
-                }
+                var info = new MagickImageInfo();
+                info.Initialize(image);
+                yield return info;
             }
         }
 
@@ -203,15 +197,13 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public static IEnumerable<IMagickImageInfo> ReadCollection(string fileName)
         {
-            using (var images = new MagickImageCollection())
+            using var images = new MagickImageCollection();
+            images.Ping(fileName);
+            foreach (var image in images)
             {
-                images.Ping(fileName);
-                foreach (var image in images)
-                {
-                    var info = new MagickImageInfo();
-                    info.Initialize(image);
-                    yield return info;
-                }
+                var info = new MagickImageInfo();
+                info.Initialize(image);
+                yield return info;
             }
         }
 
@@ -222,11 +214,9 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(byte[] data)
         {
-            using (var image = new MagickImage())
-            {
-                image.Ping(data);
-                Initialize(image);
-            }
+            using var image = new MagickImage();
+            image.Ping(data);
+            Initialize(image);
         }
 
         /// <summary>
@@ -238,11 +228,9 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(byte[] data, int offset, int count)
         {
-            using (var image = new MagickImage())
-            {
-                image.Ping(data, offset, count);
-                Initialize(image);
-            }
+            using var image = new MagickImage();
+            image.Ping(data, offset, count);
+            Initialize(image);
         }
 
         /// <summary>
@@ -252,11 +240,9 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(FileInfo file)
         {
-            using (var image = new MagickImage())
-            {
-                image.Ping(file);
-                Initialize(image);
-            }
+            using var image = new MagickImage();
+            image.Ping(file);
+            Initialize(image);
         }
 
         /// <summary>
@@ -266,11 +252,9 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(Stream stream)
         {
-            using (var image = new MagickImage())
-            {
-                image.Ping(stream);
-                Initialize(image);
-            }
+            using var image = new MagickImage();
+            image.Ping(stream);
+            Initialize(image);
         }
 
         /// <summary>
@@ -280,11 +264,9 @@ namespace ImageMagick
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Read(string fileName)
         {
-            using (var image = new MagickImage())
-            {
-                image.Ping(fileName);
-                Initialize(image);
-            }
+            using var image = new MagickImage();
+            image.Ping(fileName);
+            Initialize(image);
         }
 
         private void Initialize(IMagickImage<QuantumType> image)

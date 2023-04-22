@@ -738,19 +738,17 @@ namespace ImageMagick
                 DetachImages();
             }
 
-            using (var images = new MagickImageCollection())
+            using var images = new MagickImageCollection();
+            images.AddRange(MagickImage.CreateList(imagesPtr, GetSettings()));
+            if (settings.TransparentColor is not null)
             {
-                images.AddRange(MagickImage.CreateList(imagesPtr, GetSettings()));
-                if (settings.TransparentColor is not null)
+                foreach (var image in images)
                 {
-                    foreach (var image in images)
-                    {
-                        image.Transparent(settings.TransparentColor);
-                    }
+                    image.Transparent(settings.TransparentColor);
                 }
-
-                return images.Merge();
             }
+
+            return images.Merge();
         }
 
         /// <summary>
@@ -1457,11 +1455,9 @@ namespace ImageMagick
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray()
         {
-            using (var memStream = new MemoryStream())
-            {
-                Write(memStream);
-                return memStream.ToArray();
-            }
+            using var memStream = new MemoryStream();
+            Write(memStream);
+            return memStream.ToArray();
         }
 
         /// <summary>
@@ -1590,24 +1586,22 @@ namespace ImageMagick
             {
                 AttachImages();
 
-                using (var wrapper = StreamWrapper.CreateForWriting(stream))
+                using var wrapper = StreamWrapper.CreateForWriting(stream);
+                var writer = new ReadWriteStreamDelegate(wrapper.Write);
+                ReadWriteStreamDelegate? reader = null;
+                SeekStreamDelegate? seeker = null;
+                TellStreamDelegate? teller = null;
+
+                if (stream.CanSeek)
                 {
-                    var writer = new ReadWriteStreamDelegate(wrapper.Write);
-                    ReadWriteStreamDelegate? reader = null;
-                    SeekStreamDelegate? seeker = null;
-                    TellStreamDelegate? teller = null;
-
-                    if (stream.CanSeek)
-                    {
-                        seeker = new SeekStreamDelegate(wrapper.Seek);
-                        teller = new TellStreamDelegate(wrapper.Tell);
-                    }
-
-                    if (stream.CanRead)
-                        reader = new ReadWriteStreamDelegate(wrapper.Read);
-
-                    _nativeInstance.WriteStream(_images[0], settings, writer, seeker, teller, reader);
+                    seeker = new SeekStreamDelegate(wrapper.Seek);
+                    teller = new TellStreamDelegate(wrapper.Tell);
                 }
+
+                if (stream.CanRead)
+                    reader = new ReadWriteStreamDelegate(wrapper.Read);
+
+                _nativeInstance.WriteStream(_images[0], settings, writer, seeker, teller, reader);
             }
             finally
             {
@@ -2005,21 +1999,19 @@ namespace ImageMagick
             settings.Ping = ping;
             settings.FileName = null;
 
-            using (var wrapper = StreamWrapper.CreateForReading(stream))
+            using var wrapper = StreamWrapper.CreateForReading(stream);
+            var reader = new ReadWriteStreamDelegate(wrapper.Read);
+            SeekStreamDelegate? seeker = null;
+            TellStreamDelegate? teller = null;
+
+            if (stream.CanSeek)
             {
-                var reader = new ReadWriteStreamDelegate(wrapper.Read);
-                SeekStreamDelegate? seeker = null;
-                TellStreamDelegate? teller = null;
-
-                if (stream.CanSeek)
-                {
-                    seeker = new SeekStreamDelegate(wrapper.Seek);
-                    teller = new TellStreamDelegate(wrapper.Tell);
-                }
-
-                var result = _nativeInstance.ReadStream(settings, reader, seeker, teller);
-                AddImages(result, settings);
+                seeker = new SeekStreamDelegate(wrapper.Seek);
+                teller = new TellStreamDelegate(wrapper.Tell);
             }
+
+            var result = _nativeInstance.ReadStream(settings, reader, seeker, teller);
+            AddImages(result, settings);
         }
 
         private void AddImages(IntPtr result, MagickSettings settings)
