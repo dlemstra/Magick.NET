@@ -168,17 +168,12 @@ namespace ImageMagick
         }
 
         private static string GetMapping(PixelFormat format)
-        {
-            switch (format)
+            => format switch
             {
-                case PixelFormat.Format24bppRgb:
-                    return "BGR";
-                case PixelFormat.Format32bppArgb:
-                    return "BGRA";
-                default:
-                    throw new NotImplementedException(format.ToString());
-            }
-        }
+                PixelFormat.Format24bppRgb => "BGR",
+                PixelFormat.Format32bppArgb => "BGRA",
+                _ => throw new NotImplementedException(format.ToString()),
+            };
 
         private static bool IsSupportedImageFormat(ImageFormat format)
             => format.Guid.Equals(ImageFormat.Bmp.Guid) ||
