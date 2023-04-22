@@ -212,11 +212,8 @@ namespace Magick.NET.Tests
                     if (IsDisabledThroughPolicy(format))
                         return false;
 
-                    if (!Runtime.IsWindows)
-                    {
-                        if (format == MagickFormat.Clipboard || format == MagickFormat.Emf || format == MagickFormat.Wmf)
-                            return false;
-                    }
+                    if ((format == MagickFormat.Clipboard || format == MagickFormat.Emf || format == MagickFormat.Wmf) && !Runtime.IsWindows)
+                        return false;
 
                     return true;
                 }
