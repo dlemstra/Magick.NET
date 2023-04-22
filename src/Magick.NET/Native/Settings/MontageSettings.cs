@@ -192,51 +192,47 @@ namespace ImageMagick
             }
             public void SetBackgroundColor(IMagickColor<QuantumType>? value)
             {
-                using (var valueNative = MagickColor.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetBackgroundColor(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetBackgroundColor(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetBackgroundColor(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = MagickColor.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetBackgroundColor(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetBackgroundColor(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetBackgroundColor(Instance, valueNative.Instance);
+                #endif
             }
             public void SetBorderColor(IMagickColor<QuantumType>? value)
             {
-                using (var valueNative = MagickColor.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetBorderColor(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetBorderColor(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetBorderColor(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = MagickColor.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetBorderColor(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetBorderColor(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetBorderColor(Instance, valueNative.Instance);
+                #endif
             }
             public void SetBorderWidth(int value)
             {
@@ -261,51 +257,47 @@ namespace ImageMagick
             }
             public void SetFillColor(IMagickColor<QuantumType>? value)
             {
-                using (var valueNative = MagickColor.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetFillColor(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetFillColor(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetFillColor(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = MagickColor.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetFillColor(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetFillColor(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetFillColor(Instance, valueNative.Instance);
+                #endif
             }
             public void SetFont(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetFont(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetFont(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetFont(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetFont(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetFont(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetFont(Instance, valueNative.Instance);
+                #endif
             }
             public void SetFontPointsize(double value)
             {
@@ -330,51 +322,47 @@ namespace ImageMagick
             }
             public void SetFrameGeometry(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetFrameGeometry(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetFrameGeometry(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetFrameGeometry(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetFrameGeometry(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetFrameGeometry(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetFrameGeometry(Instance, valueNative.Instance);
+                #endif
             }
             public void SetGeometry(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetGeometry(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetGeometry(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetGeometry(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetGeometry(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetGeometry(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetGeometry(Instance, valueNative.Instance);
+                #endif
             }
             public void SetGravity(Gravity value)
             {
@@ -420,99 +408,91 @@ namespace ImageMagick
             }
             public void SetStrokeColor(IMagickColor<QuantumType>? value)
             {
-                using (var valueNative = MagickColor.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetStrokeColor(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetStrokeColor(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetStrokeColor(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = MagickColor.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetStrokeColor(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetStrokeColor(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetStrokeColor(Instance, valueNative.Instance);
+                #endif
             }
             public void SetTextureFileName(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetTextureFileName(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetTextureFileName(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetTextureFileName(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetTextureFileName(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetTextureFileName(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetTextureFileName(Instance, valueNative.Instance);
+                #endif
             }
             public void SetTileGeometry(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetTileGeometry(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetTileGeometry(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetTileGeometry(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetTileGeometry(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetTileGeometry(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetTileGeometry(Instance, valueNative.Instance);
+                #endif
             }
             public void SetTitle(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MontageSettings_SetTitle(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MontageSettings_SetTitle(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MontageSettings_SetTitle(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MontageSettings_SetTitle(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MontageSettings_SetTitle(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MontageSettings_SetTitle(Instance, valueNative.Instance);
+                #endif
             }
         }
         internal static INativeInstance CreateInstance(IMontageSettings<QuantumType>? instance)

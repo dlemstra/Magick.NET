@@ -288,10 +288,8 @@ namespace ImageMagick
         {
             if (instance == IntPtr.Zero)
                 return null;
-            using (NativePrimaryInfo nativeInstance = new NativePrimaryInfo(instance))
-            {
-                return new PrimaryInfo(nativeInstance);
-            }
+            using NativePrimaryInfo nativeInstance = new NativePrimaryInfo(instance);
+            return new PrimaryInfo(nativeInstance);
         }
     }
 }

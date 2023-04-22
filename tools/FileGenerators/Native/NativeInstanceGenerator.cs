@@ -155,14 +155,14 @@ namespace FileGenerator.Native
         {
             foreach (var argument in arguments)
             {
-                if (NeedsCreate(argument.Type) || argument.Type.IsFixed)
+                if (argument.Type.IsFixed)
                     WriteEndColon();
             }
         }
 
         private void WriteHelpingVariableEnd(MagickProperty property)
         {
-            if (NeedsCreate(property.Type) || property.Type.IsFixed)
+            if (property.Type.IsFixed)
                 WriteEndColon();
         }
 
@@ -191,10 +191,8 @@ namespace FileGenerator.Native
                 WriteLine("internal static " + name + "? CreateInstance(IntPtr instance)");
                 WriteStartColon();
                 WriteIf("instance == IntPtr.Zero", "return null;");
-                WriteLine("using (Native" + Class.Name + " nativeInstance = new Native" + Class.Name + "(instance))");
-                WriteStartColon();
+                WriteLine("using Native" + Class.Name + " nativeInstance = new Native" + Class.Name + "(instance);");
                 WriteLine("return new " + Class.Name + "(nativeInstance);");
-                WriteEndColon();
                 WriteEndColon();
             }
         }
@@ -235,26 +233,24 @@ namespace FileGenerator.Native
             if (type.IsFixed)
             {
                 WriteLine("fixed (" + type.FixedName + " " + name + "Fixed = " + name + ")");
+                WriteStartColon();
             }
             else
             {
-                Write("using (var " + name + "Native = ");
+                Write("using var " + name + "Native = ");
 
                 if (type.IsString)
                     Write("UTF8Marshaler");
                 else
                     Write(type.ManagedName);
 
-                WriteLine(".CreateInstance(" + name + "))");
+                WriteLine(".CreateInstance(" + name + ");");
             }
-
-            WriteStartColon();
         }
 
         private void WriteCreateStartOut(string name, MagickType type)
         {
-            WriteLine("using (INativeInstance " + name + "Native = " + type.ManagedName + ".CreateInstance())");
-            WriteStartColon();
+            WriteLine("using INativeInstance " + name + "Native = " + type.ManagedName + ".CreateInstance();");
             WriteLine("IntPtr " + name + "NativeOut = " + name + "Native.Instance;");
         }
 

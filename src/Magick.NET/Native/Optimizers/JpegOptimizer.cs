@@ -49,32 +49,28 @@ namespace ImageMagick.ImageOptimizers
             static NativeJpegOptimizer() { Environment.Initialize(); }
             public void CompressFile(string input, string output, bool progressive, bool lossless, int quality)
             {
-                using (var inputNative = UTF8Marshaler.CreateInstance(input))
-                {
-                    using (var outputNative = UTF8Marshaler.CreateInstance(output))
-                    {
-                        IntPtr exception = IntPtr.Zero;
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
-                        #endif
-                        CheckException(exception);
-                    }
-                }
+                using var inputNative = UTF8Marshaler.CreateInstance(input);
+                using var outputNative = UTF8Marshaler.CreateInstance(output);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
+                #endif
+                CheckException(exception);
             }
             public void CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, bool progressive, bool lossless, int quality)
             {

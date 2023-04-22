@@ -236,39 +236,35 @@ namespace ImageMagick
             }
             public GeometryFlags Initialize(string value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickGeometry_Initialize(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickGeometry_Initialize(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickGeometry_Initialize(Instance, valueNative.Instance);
-                    #endif
-                    return (GeometryFlags)result;
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickGeometry_Initialize(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickGeometry_Initialize(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickGeometry_Initialize(Instance, valueNative.Instance);
+                #endif
+                return (GeometryFlags)result;
             }
         }
         internal static MagickGeometry? CreateInstance(IntPtr instance)
         {
             if (instance == IntPtr.Zero)
                 return null;
-            using (NativeMagickGeometry nativeInstance = new NativeMagickGeometry(instance))
-            {
-                return new MagickGeometry(nativeInstance);
-            }
+            using NativeMagickGeometry nativeInstance = new NativeMagickGeometry(instance);
+            return new MagickGeometry(nativeInstance);
         }
     }
 }

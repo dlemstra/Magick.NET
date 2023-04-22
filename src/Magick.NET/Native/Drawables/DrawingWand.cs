@@ -571,29 +571,27 @@ namespace ImageMagick
             }
             public NativeDrawingWand(IMagickImage? image, DrawingSettings? settings)
             {
-                using (var settingsNative = DrawingSettings.CreateInstance(settings))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    Instance = NativeMethods.ARM64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    Instance = NativeMethods.X64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    Instance = NativeMethods.X86.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
-                    #endif
-                    if (Instance == IntPtr.Zero)
-                        throw new InvalidOperationException();
-                }
+                using var settingsNative = DrawingSettings.CreateInstance(settings);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                Instance = NativeMethods.ARM64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                Instance = NativeMethods.X64.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                Instance = NativeMethods.X86.DrawingWand_Create(MagickImage.GetInstance(image), settingsNative.Instance);
+                #endif
+                if (Instance == IntPtr.Zero)
+                    throw new InvalidOperationException();
             }
             protected override string TypeName
             {
@@ -696,29 +694,27 @@ namespace ImageMagick
             }
             public void BorderColor(IMagickColor<QuantumType>? value)
             {
-                using (var valueNative = MagickColor.CreateInstance(value))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_BorderColor(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_BorderColor(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_BorderColor(Instance, valueNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var valueNative = MagickColor.CreateInstance(value);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_BorderColor(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_BorderColor(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_BorderColor(Instance, valueNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void Circle(double originX, double originY, double perimeterX, double perimeterY)
             {
@@ -745,29 +741,27 @@ namespace ImageMagick
             }
             public void ClipPath(string value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_ClipPath(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_ClipPath(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_ClipPath(Instance, valueNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_ClipPath(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_ClipPath(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_ClipPath(Instance, valueNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void ClipRule(FillRule value)
             {
@@ -863,29 +857,27 @@ namespace ImageMagick
             }
             public void Density(string value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_Density(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_Density(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_Density(Instance, valueNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Density(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_Density(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_Density(Instance, valueNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void Ellipse(double originX, double originY, double radiusX, double radiusY, double startDegrees, double endDegrees)
             {
@@ -912,29 +904,27 @@ namespace ImageMagick
             }
             public void FillColor(IMagickColor<QuantumType>? value)
             {
-                using (var valueNative = MagickColor.CreateInstance(value))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_FillColor(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_FillColor(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_FillColor(Instance, valueNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var valueNative = MagickColor.CreateInstance(value);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_FillColor(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_FillColor(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_FillColor(Instance, valueNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void FillOpacity(double value)
             {
@@ -961,29 +951,27 @@ namespace ImageMagick
             }
             public void FillPatternUrl(string url)
             {
-                using (var urlNative = UTF8Marshaler.CreateInstance(url))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_FillPatternUrl(Instance, urlNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_FillPatternUrl(Instance, urlNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_FillPatternUrl(Instance, urlNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var urlNative = UTF8Marshaler.CreateInstance(url);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_FillPatternUrl(Instance, urlNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_FillPatternUrl(Instance, urlNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_FillPatternUrl(Instance, urlNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void FillRule(FillRule value)
             {
@@ -1010,55 +998,51 @@ namespace ImageMagick
             }
             public void Font(string fontName)
             {
-                using (var fontNameNative = UTF8Marshaler.CreateInstance(fontName))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var fontNameNative = UTF8Marshaler.CreateInstance(fontName);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_Font(Instance, fontNameNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void FontFamily(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
             {
-                using (var familyNative = UTF8Marshaler.CreateInstance(family))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var familyNative = UTF8Marshaler.CreateInstance(family);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_FontFamily(Instance, familyNative.Instance, (UIntPtr)style, (UIntPtr)weight, (UIntPtr)stretch, out exception);
+                #endif
+                CheckException(exception);
             }
             public void FontPointSize(double value)
             {
@@ -1085,40 +1069,38 @@ namespace ImageMagick
             }
             public IntPtr FontTypeMetrics(string text, bool ignoreNewLines)
             {
-                using (var textNative = UTF8Marshaler.CreateInstance(text))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
-                    #endif
-                    var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException is null)
-                        return result;
-                    if (magickException is MagickErrorException)
-                    {
-                        if (result != IntPtr.Zero)
-                            ImageMagick.TypeMetric.Dispose(result);
-                        throw magickException;
-                    }
-                    RaiseWarning(magickException);
+                using var textNative = UTF8Marshaler.CreateInstance(text);
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.DrawingWand_FontTypeMetrics(Instance, textNative.Instance, ignoreNewLines, out exception);
+                #endif
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException is null)
                     return result;
+                if (magickException is MagickErrorException)
+                {
+                    if (result != IntPtr.Zero)
+                        ImageMagick.TypeMetric.Dispose(result);
+                    throw magickException;
                 }
+                RaiseWarning(magickException);
+                return result;
             }
             public void Gravity(Gravity value)
             {
@@ -1237,29 +1219,27 @@ namespace ImageMagick
             }
             public void Text(double x, double y, string text)
             {
-                using (var textNative = UTF8Marshaler.CreateInstance(text))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_Text(Instance, x, y, textNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_Text(Instance, x, y, textNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_Text(Instance, x, y, textNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var textNative = UTF8Marshaler.CreateInstance(text);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_Text(Instance, x, y, textNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_Text(Instance, x, y, textNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_Text(Instance, x, y, textNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void PathClose()
             {
@@ -1838,29 +1818,27 @@ namespace ImageMagick
             }
             public void PushClipPath(string clipPath)
             {
-                using (var clipPathNative = UTF8Marshaler.CreateInstance(clipPath))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_PushClipPath(Instance, clipPathNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_PushClipPath(Instance, clipPathNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_PushClipPath(Instance, clipPathNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var clipPathNative = UTF8Marshaler.CreateInstance(clipPath);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PushClipPath(Instance, clipPathNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_PushClipPath(Instance, clipPathNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_PushClipPath(Instance, clipPathNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void PushGraphicContext()
             {
@@ -1887,29 +1865,27 @@ namespace ImageMagick
             }
             public void PushPattern(string id, double x, double y, double width, double height)
             {
-                using (var idNative = UTF8Marshaler.CreateInstance(id))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_PushPattern(Instance, idNative.Instance, x, y, width, height, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_PushPattern(Instance, idNative.Instance, x, y, width, height, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_PushPattern(Instance, idNative.Instance, x, y, width, height, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var idNative = UTF8Marshaler.CreateInstance(id);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_PushPattern(Instance, idNative.Instance, x, y, width, height, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_PushPattern(Instance, idNative.Instance, x, y, width, height, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_PushPattern(Instance, idNative.Instance, x, y, width, height, out exception);
+                #endif
+                CheckException(exception);
             }
             public void Rectangle(double upperLeftX, double upperLeftY, double lowerRightX, double lowerRightY)
             {
@@ -2074,29 +2050,27 @@ namespace ImageMagick
             }
             public void StrokeColor(IMagickColor<QuantumType>? value)
             {
-                using (var valueNative = MagickColor.CreateInstance(value))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_StrokeColor(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_StrokeColor(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_StrokeColor(Instance, valueNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var valueNative = MagickColor.CreateInstance(value);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_StrokeColor(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_StrokeColor(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_StrokeColor(Instance, valueNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void StrokeDashArray(double[] dash, int length)
             {
@@ -2241,29 +2215,27 @@ namespace ImageMagick
             }
             public void StrokePatternUrl(string value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_StrokePatternUrl(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_StrokePatternUrl(Instance, valueNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_StrokePatternUrl(Instance, valueNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_StrokePatternUrl(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_StrokePatternUrl(Instance, valueNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_StrokePatternUrl(Instance, valueNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void StrokeWidth(double value)
             {
@@ -2382,29 +2354,27 @@ namespace ImageMagick
             }
             public void TextEncoding(string encoding)
             {
-                using (var encodingNative = UTF8Marshaler.CreateInstance(encoding))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_TextEncoding(Instance, encodingNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_TextEncoding(Instance, encodingNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_TextEncoding(Instance, encodingNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var encodingNative = UTF8Marshaler.CreateInstance(encoding);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_TextEncoding(Instance, encodingNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_TextEncoding(Instance, encodingNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_TextEncoding(Instance, encodingNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void TextInterlineSpacing(double value)
             {
@@ -2477,29 +2447,27 @@ namespace ImageMagick
             }
             public void TextUnderColor(IMagickColor<QuantumType>? color)
             {
-                using (var colorNative = MagickColor.CreateInstance(color))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingWand_TextUnderColor(Instance, colorNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingWand_TextUnderColor(Instance, colorNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingWand_TextUnderColor(Instance, colorNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var colorNative = MagickColor.CreateInstance(color);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingWand_TextUnderColor(Instance, colorNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingWand_TextUnderColor(Instance, colorNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingWand_TextUnderColor(Instance, colorNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void Translation(double x, double y)
             {

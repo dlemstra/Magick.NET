@@ -445,27 +445,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = MagickColor.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.DrawingSettings_BorderColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_BorderColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.DrawingSettings_BorderColor_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = MagickColor.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingSettings_BorderColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_BorderColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.DrawingSettings_BorderColor_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public IMagickColor<QuantumType>? FillColor
@@ -495,27 +493,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = MagickColor.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = MagickColor.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.DrawingSettings_FillColor_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public FillRule FillRule
@@ -592,27 +588,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.DrawingSettings_Font_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_Font_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.DrawingSettings_Font_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = UTF8Marshaler.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingSettings_Font_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_Font_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.DrawingSettings_Font_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public string? FontFamily
@@ -642,27 +636,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.DrawingSettings_FontFamily_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_FontFamily_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.DrawingSettings_FontFamily_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = UTF8Marshaler.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingSettings_FontFamily_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_FontFamily_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.DrawingSettings_FontFamily_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public double FontPointsize
@@ -880,27 +872,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = MagickColor.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.DrawingSettings_StrokeColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_StrokeColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.DrawingSettings_StrokeColor_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = MagickColor.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingSettings_StrokeColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_StrokeColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.DrawingSettings_StrokeColor_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public double StrokeDashOffset
@@ -1259,27 +1249,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.DrawingSettings_TextEncoding_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_TextEncoding_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.DrawingSettings_TextEncoding_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = UTF8Marshaler.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingSettings_TextEncoding_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_TextEncoding_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.DrawingSettings_TextEncoding_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public Gravity TextGravity
@@ -1497,27 +1485,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = MagickColor.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = MagickColor.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.DrawingSettings_TextUnderColor_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public void SetFillPattern(IMagickImage value)
@@ -1615,27 +1601,25 @@ namespace ImageMagick
             }
             public void SetText(string value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.DrawingSettings_SetText(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.DrawingSettings_SetText(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.DrawingSettings_SetText(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.DrawingSettings_SetText(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.DrawingSettings_SetText(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.DrawingSettings_SetText(Instance, valueNative.Instance);
+                #endif
             }
         }
         internal static INativeInstance CreateInstance(DrawingSettings? instance)

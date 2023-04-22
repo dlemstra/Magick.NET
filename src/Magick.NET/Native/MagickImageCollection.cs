@@ -408,29 +408,27 @@ namespace ImageMagick
             }
             public void Map(IMagickImage image, IQuantizeSettings settings, IMagickImage remapImage)
             {
-                using (var settingsNative = QuantizeSettings.CreateInstance(settings))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImageCollection_Map(MagickImage.GetInstance(image), settingsNative.Instance, MagickImage.GetInstance(remapImage), out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImageCollection_Map(MagickImage.GetInstance(image), settingsNative.Instance, MagickImage.GetInstance(remapImage), out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImageCollection_Map(MagickImage.GetInstance(image), settingsNative.Instance, MagickImage.GetInstance(remapImage), out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var settingsNative = QuantizeSettings.CreateInstance(settings);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImageCollection_Map(MagickImage.GetInstance(image), settingsNative.Instance, MagickImage.GetInstance(remapImage), out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImageCollection_Map(MagickImage.GetInstance(image), settingsNative.Instance, MagickImage.GetInstance(remapImage), out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImageCollection_Map(MagickImage.GetInstance(image), settingsNative.Instance, MagickImage.GetInstance(remapImage), out exception);
+                #endif
+                CheckException(exception);
             }
             public IntPtr Merge(IMagickImage image, LayerMethod method)
             {
@@ -468,40 +466,38 @@ namespace ImageMagick
             }
             public IntPtr Montage(IMagickImage image, IMontageSettings<QuantumType>? settings)
             {
-                using (var settingsNative = MontageSettings.CreateInstance(settings))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImageCollection_Montage(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImageCollection_Montage(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImageCollection_Montage(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-                    #endif
-                    var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException is null)
-                        return result;
-                    if (magickException is MagickErrorException)
-                    {
-                        if (result != IntPtr.Zero)
-                            Dispose(result);
-                        throw magickException;
-                    }
-                    RaiseWarning(magickException);
+                using var settingsNative = MontageSettings.CreateInstance(settings);
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImageCollection_Montage(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImageCollection_Montage(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImageCollection_Montage(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                #endif
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException is null)
                     return result;
+                if (magickException is MagickErrorException)
+                {
+                    if (result != IntPtr.Zero)
+                        Dispose(result);
+                    throw magickException;
                 }
+                RaiseWarning(magickException);
+                return result;
             }
             public IntPtr Morph(IMagickImage image, int frames)
             {
@@ -667,185 +663,175 @@ namespace ImageMagick
             }
             public void Quantize(IMagickImage image, IQuantizeSettings settings)
             {
-                using (var settingsNative = QuantizeSettings.CreateInstance(settings))
+                using var settingsNative = QuantizeSettings.CreateInstance(settings);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImageCollection_Quantize(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImageCollection_Quantize(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImageCollection_Quantize(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                #endif
+                CheckException(exception);
+            }
+            public IntPtr ReadBlob(IMagickSettings<QuantumType>? settings, byte[] data, int offset, int length)
+            {
+                using var settingsNative = MagickSettings.CreateInstance(settings);
+                fixed (byte* dataFixed = data)
                 {
                     IntPtr exception = IntPtr.Zero;
+                    IntPtr result;
                     #if PLATFORM_AnyCPU
                     if (Runtime.IsArm64)
                     #endif
                     #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImageCollection_Quantize(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                    result = NativeMethods.ARM64.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else if (Runtime.Is64Bit)
                     #endif
                     #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImageCollection_Quantize(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                    result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                     #endif
                     #if PLATFORM_AnyCPU
                     else
                     #endif
                     #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImageCollection_Quantize(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                    result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                     #endif
-                    CheckException(exception);
-                }
-            }
-            public IntPtr ReadBlob(IMagickSettings<QuantumType>? settings, byte[] data, int offset, int length)
-            {
-                using (var settingsNative = MagickSettings.CreateInstance(settings))
-                {
-                    fixed (byte* dataFixed = data)
-                    {
-                        IntPtr exception = IntPtr.Zero;
-                        IntPtr result;
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        result = NativeMethods.ARM64.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                        #endif
-                        var magickException = MagickExceptionHelper.Create(exception);
-                        if (magickException is null)
-                            return result;
-                        if (magickException is MagickErrorException)
-                        {
-                            if (result != IntPtr.Zero)
-                                Dispose(result);
-                            throw magickException;
-                        }
-                        RaiseWarning(magickException);
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException is null)
                         return result;
+                    if (magickException is MagickErrorException)
+                    {
+                        if (result != IntPtr.Zero)
+                            Dispose(result);
+                        throw magickException;
                     }
+                    RaiseWarning(magickException);
+                    return result;
                 }
             }
             #if NETSTANDARD2_1
             public IntPtr ReadBlob(IMagickSettings<QuantumType>? settings, ReadOnlySpan<byte> data, int offset, int length)
             {
-                using (var settingsNative = MagickSettings.CreateInstance(settings))
+                using var settingsNative = MagickSettings.CreateInstance(settings);
+                fixed (byte* dataFixed = data)
                 {
-                    fixed (byte* dataFixed = data)
-                    {
-                        IntPtr exception = IntPtr.Zero;
-                        IntPtr result;
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        result = NativeMethods.ARM64.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                        #endif
-                        var magickException = MagickExceptionHelper.Create(exception);
-                        if (magickException is null)
-                            return result;
-                        if (magickException is MagickErrorException)
-                        {
-                            if (result != IntPtr.Zero)
-                                Dispose(result);
-                            throw magickException;
-                        }
-                        RaiseWarning(magickException);
+                    IntPtr exception = IntPtr.Zero;
+                    IntPtr result;
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    result = NativeMethods.ARM64.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    result = NativeMethods.X64.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    result = NativeMethods.X86.MagickImageCollection_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                    #endif
+                    var magickException = MagickExceptionHelper.Create(exception);
+                    if (magickException is null)
                         return result;
+                    if (magickException is MagickErrorException)
+                    {
+                        if (result != IntPtr.Zero)
+                            Dispose(result);
+                        throw magickException;
                     }
+                    RaiseWarning(magickException);
+                    return result;
                 }
             }
             #endif
             public IntPtr ReadFile(IMagickSettings<QuantumType>? settings)
             {
-                using (var settingsNative = MagickSettings.CreateInstance(settings))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
-                    #endif
-                    var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException is null)
-                        return result;
-                    if (magickException is MagickErrorException)
-                    {
-                        if (result != IntPtr.Zero)
-                            Dispose(result);
-                        throw magickException;
-                    }
-                    RaiseWarning(magickException);
+                using var settingsNative = MagickSettings.CreateInstance(settings);
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImageCollection_ReadFile(settingsNative.Instance, out exception);
+                #endif
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException is null)
                     return result;
+                if (magickException is MagickErrorException)
+                {
+                    if (result != IntPtr.Zero)
+                        Dispose(result);
+                    throw magickException;
                 }
+                RaiseWarning(magickException);
+                return result;
             }
             public IntPtr ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)
             {
-                using (var settingsNative = MagickSettings.CreateInstance(settings))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
-                    #endif
-                    var magickException = MagickExceptionHelper.Create(exception);
-                    if (magickException is null)
-                        return result;
-                    if (magickException is MagickErrorException)
-                    {
-                        if (result != IntPtr.Zero)
-                            Dispose(result);
-                        throw magickException;
-                    }
-                    RaiseWarning(magickException);
+                using var settingsNative = MagickSettings.CreateInstance(settings);
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+                #endif
+                var magickException = MagickExceptionHelper.Create(exception);
+                if (magickException is null)
                     return result;
+                if (magickException is MagickErrorException)
+                {
+                    if (result != IntPtr.Zero)
+                        Dispose(result);
+                    throw magickException;
                 }
+                RaiseWarning(magickException);
+                return result;
             }
             public IntPtr Smush(IMagickImage image, int offset, bool stack)
             {
@@ -883,55 +869,51 @@ namespace ImageMagick
             }
             public void WriteFile(IMagickImage image, IMagickSettings<QuantumType>? settings)
             {
-                using (var settingsNative = MagickSettings.CreateInstance(settings))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var settingsNative = MagickSettings.CreateInstance(settings);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImageCollection_WriteFile(MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+                #endif
+                CheckException(exception);
             }
             public void WriteStream(IMagickImage image, IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader)
             {
-                using (var settingsNative = MagickSettings.CreateInstance(settings))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, out exception);
-                    #endif
-                    CheckException(exception);
-                }
+                using var settingsNative = MagickSettings.CreateInstance(settings);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, out exception);
+                #endif
+                CheckException(exception);
             }
         }
     }

@@ -281,29 +281,27 @@ namespace ImageMagick
             }
             public static void SetDefaultFontFile(string fileName)
             {
-                using (var fileNameNative = UTF8Marshaler.CreateInstance(fileName))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.Magick_SetDefaultFontFile(fileNameNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.Magick_SetDefaultFontFile(fileNameNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.Magick_SetDefaultFontFile(fileNameNative.Instance, out exception);
-                    #endif
-                    MagickExceptionHelper.Check(exception);
-                }
+                using var fileNameNative = UTF8Marshaler.CreateInstance(fileName);
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.Magick_SetDefaultFontFile(fileNameNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.Magick_SetDefaultFontFile(fileNameNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.Magick_SetDefaultFontFile(fileNameNative.Instance, out exception);
+                #endif
+                MagickExceptionHelper.Check(exception);
             }
             public static void SetLogDelegate(LogDelegate? method)
             {
@@ -328,27 +326,25 @@ namespace ImageMagick
             }
             public static void SetLogEvents(string events)
             {
-                using (var eventsNative = UTF8Marshaler.CreateInstance(events))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.Magick_SetLogEvents(eventsNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.Magick_SetLogEvents(eventsNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.Magick_SetLogEvents(eventsNative.Instance);
-                    #endif
-                }
+                using var eventsNative = UTF8Marshaler.CreateInstance(events);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.Magick_SetLogEvents(eventsNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.Magick_SetLogEvents(eventsNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.Magick_SetLogEvents(eventsNative.Instance);
+                #endif
             }
             public static void SetRandomSeed(long value)
             {

@@ -465,32 +465,30 @@ namespace ImageMagick
             }
             public void GetInfoByName(string name)
             {
-                using (var nameNative = UTF8Marshaler.CreateInstance(name))
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    if (result != IntPtr.Zero)
-                      Instance = result;
-                }
+                using var nameNative = UTF8Marshaler.CreateInstance(name);
+                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickFormatInfo_GetInfoByName(nameNative.Instance, out exception);
+                #endif
+                CheckException(exception);
+                if (result != IntPtr.Zero)
+                  Instance = result;
             }
             public void GetInfoWithBlob(byte[] data, int length)
             {
@@ -554,29 +552,27 @@ namespace ImageMagick
             #endif
             public static bool Unregister(string name)
             {
-                using (var nameNative = UTF8Marshaler.CreateInstance(name))
-                {
-                    bool result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickFormatInfo_Unregister(nameNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickFormatInfo_Unregister(nameNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickFormatInfo_Unregister(nameNative.Instance);
-                    #endif
-                    return result;
-                }
+                using var nameNative = UTF8Marshaler.CreateInstance(name);
+                bool result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickFormatInfo_Unregister(nameNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickFormatInfo_Unregister(nameNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickFormatInfo_Unregister(nameNative.Instance);
+                #endif
+                return result;
             }
         }
     }

@@ -24,23 +24,21 @@ namespace FileGenerator.Native
 
         private MagickClass CreateClass(FileInfo file)
         {
-            using (var stream = file.OpenRead())
+            using var stream = file.OpenRead();
+            stream.Position = Encoding.UTF8.GetPreamble().Length;
+
+            var magickClass = (MagickClass?)_serializer.ReadObject(stream);
+            if (magickClass is null || file.Directory is null)
+                throw new InvalidOperationException();
+
+            magickClass.Name = file.Name.Replace(".json", string.Empty);
+            magickClass.FileName = file.Directory.FullName + "\\" + magickClass.Name + ".cs";
+            if (string.IsNullOrEmpty(magickClass.ClassName))
             {
-                stream.Position = Encoding.UTF8.GetPreamble().Length;
-
-                var magickClass = (MagickClass?)_serializer.ReadObject(stream);
-                if (magickClass is null || file.Directory is null)
-                    throw new InvalidOperationException();
-
-                magickClass.Name = file.Name.Replace(".json", string.Empty);
-                magickClass.FileName = file.Directory.FullName + "\\" + magickClass.Name + ".cs";
-                if (string.IsNullOrEmpty(magickClass.ClassName))
-                {
-                    magickClass.ClassName = magickClass.Name;
-                }
-
-                return magickClass;
+                magickClass.ClassName = magickClass.Name;
             }
+
+            return magickClass;
         }
 
         private void CreateClasses()

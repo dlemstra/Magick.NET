@@ -304,10 +304,8 @@ namespace ImageMagick
         {
             if (instance == IntPtr.Zero)
                 return null;
-            using (NativeTypeMetric nativeInstance = new NativeTypeMetric(instance))
-            {
-                return new TypeMetric(nativeInstance);
-            }
+            using NativeTypeMetric nativeInstance = new NativeTypeMetric(instance);
+            return new TypeMetric(nativeInstance);
         }
     }
 }

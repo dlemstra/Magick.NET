@@ -444,27 +444,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = MagickColor.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = MagickColor.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_BackgroundColor_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public ColorSpace ColorSpace
@@ -682,27 +680,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.MagickSettings_Density_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.MagickSettings_Density_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.MagickSettings_Density_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = UTF8Marshaler.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Density_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_Density_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_Density_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public int Depth
@@ -826,27 +822,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.MagickSettings_Extract_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.MagickSettings_Extract_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.MagickSettings_Extract_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = UTF8Marshaler.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Extract_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_Extract_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_Extract_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public string? Format
@@ -876,27 +870,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.MagickSettings_Format_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.MagickSettings_Format_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.MagickSettings_Format_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = UTF8Marshaler.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Format_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_Format_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_Format_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public string? Font
@@ -926,27 +918,25 @@ namespace ImageMagick
                 }
                 set
                 {
-                    using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.MagickSettings_Font_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.MagickSettings_Font_Set(Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.MagickSettings_Font_Set(Instance, valueNative.Instance);
-                        #endif
-                    }
+                    using var valueNative = UTF8Marshaler.CreateInstance(value);
+                    #if PLATFORM_AnyCPU
+                    if (Runtime.IsArm64)
+                    #endif
+                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                    NativeMethods.ARM64.MagickSettings_Font_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else if (Runtime.Is64Bit)
+                    #endif
+                    #if PLATFORM_x64 || PLATFORM_AnyCPU
+                    NativeMethods.X64.MagickSettings_Font_Set(Instance, valueNative.Instance);
+                    #endif
+                    #if PLATFORM_AnyCPU
+                    else
+                    #endif
+                    #if PLATFORM_x86 || PLATFORM_AnyCPU
+                    NativeMethods.X86.MagickSettings_Font_Set(Instance, valueNative.Instance);
+                    #endif
                 }
             }
             public double FontPointsize
@@ -1160,27 +1150,25 @@ namespace ImageMagick
             }
             public void SetFileName(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickSettings_SetFileName(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickSettings_SetFileName(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickSettings_SetFileName(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetFileName(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetFileName(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetFileName(Instance, valueNative.Instance);
+                #endif
             }
             public void SetNumberScenes(int value)
             {
@@ -1205,54 +1193,48 @@ namespace ImageMagick
             }
             public void SetOption(string key, string? value)
             {
-                using (var keyNative = UTF8Marshaler.CreateInstance(key))
-                {
-                    using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                    {
-                        #if PLATFORM_AnyCPU
-                        if (Runtime.IsArm64)
-                        #endif
-                        #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                        NativeMethods.ARM64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else if (Runtime.Is64Bit)
-                        #endif
-                        #if PLATFORM_x64 || PLATFORM_AnyCPU
-                        NativeMethods.X64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
-                        #endif
-                        #if PLATFORM_AnyCPU
-                        else
-                        #endif
-                        #if PLATFORM_x86 || PLATFORM_AnyCPU
-                        NativeMethods.X86.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
-                        #endif
-                    }
-                }
+                using var keyNative = UTF8Marshaler.CreateInstance(key);
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetOption(Instance, keyNative.Instance, valueNative.Instance);
+                #endif
             }
             public void SetPage(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickSettings_SetPage(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickSettings_SetPage(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickSettings_SetPage(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetPage(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetPage(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetPage(Instance, valueNative.Instance);
+                #endif
             }
             public void SetPing(bool value)
             {
@@ -1298,27 +1280,25 @@ namespace ImageMagick
             }
             public void SetScenes(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickSettings_SetScenes(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickSettings_SetScenes(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickSettings_SetScenes(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetScenes(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetScenes(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetScenes(Instance, valueNative.Instance);
+                #endif
             }
             public void SetScene(int value)
             {
@@ -1343,27 +1323,25 @@ namespace ImageMagick
             }
             public void SetSize(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickSettings_SetSize(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickSettings_SetSize(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickSettings_SetSize(Instance, valueNative.Instance);
-                    #endif
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickSettings_SetSize(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickSettings_SetSize(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickSettings_SetSize(Instance, valueNative.Instance);
+                #endif
             }
         }
         internal static INativeInstance CreateInstance(IMagickSettings<QuantumType>? instance)

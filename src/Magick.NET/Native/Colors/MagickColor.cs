@@ -519,55 +519,51 @@ namespace ImageMagick
             }
             public bool FuzzyEquals(IMagickColor<QuantumType>? other, QuantumType fuzz)
             {
-                using (var otherNative = MagickColor.CreateInstance(other))
-                {
-                    bool result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
-                    #endif
-                    return result;
-                }
+                using var otherNative = MagickColor.CreateInstance(other);
+                bool result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+                #endif
+                return result;
             }
             public bool Initialize(string? value)
             {
-                using (var valueNative = UTF8Marshaler.CreateInstance(value))
-                {
-                    bool result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickColor_Initialize(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickColor_Initialize(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickColor_Initialize(Instance, valueNative.Instance);
-                    #endif
-                    return result;
-                }
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                bool result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickColor_Initialize(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickColor_Initialize(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickColor_Initialize(Instance, valueNative.Instance);
+                #endif
+                return result;
             }
         }
         internal static INativeInstance CreateInstance(IMagickColor<QuantumType>? instance)
@@ -580,10 +576,8 @@ namespace ImageMagick
         {
             if (instance == IntPtr.Zero)
                 return null;
-            using (NativeMagickColor nativeInstance = new NativeMagickColor(instance))
-            {
-                return new MagickColor(nativeInstance);
-            }
+            using NativeMagickColor nativeInstance = new NativeMagickColor(instance);
+            return new MagickColor(nativeInstance);
         }
     }
 }
