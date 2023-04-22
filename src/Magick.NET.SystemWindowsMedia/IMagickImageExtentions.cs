@@ -67,12 +67,10 @@ namespace ImageMagick
                 var step = format.BitsPerPixel / 8;
                 var stride = image.Width * step;
 
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    var bytes = pixels.ToByteArray(mapping);
-                    var dpi = GetDefaultDensity(image, useDensity ? DensityUnit.PixelsPerInch : DensityUnit.Undefined);
-                    return BitmapSource.Create(image.Width, image.Height, dpi.X, dpi.Y, format, null, bytes, stride);
-                }
+                using var pixels = image.GetPixelsUnsafe();
+                var bytes = pixels.ToByteArray(mapping);
+                var dpi = GetDefaultDensity(image, useDensity ? DensityUnit.PixelsPerInch : DensityUnit.Undefined);
+                return BitmapSource.Create(image.Width, image.Height, dpi.X, dpi.Y, format, null, bytes, stride);
             }
             finally
             {
