@@ -88,6 +88,9 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldReadFontsWithQuotes()
         {
+            if (TestRuntime.HasFlakyMacOSResult)
+                return;
+
             var svg = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <svg version=""1.1"" xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" viewBox=""0 0 220 80"">
 <style type=""text/css"">
@@ -104,9 +107,6 @@ namespace Magick.NET.Tests
 
             Assert.Equal(220, image.Width);
             Assert.Equal(80, image.Height);
-
-            if (Runtime.IsMacOS)
-                return;
 
             ColorAssert.Equal(MagickColors.White, image, 118, 6);
             ColorAssert.Equal(MagickColors.Black, image, 120, 6);

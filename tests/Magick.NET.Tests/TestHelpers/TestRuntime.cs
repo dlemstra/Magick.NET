@@ -9,5 +9,8 @@ namespace Magick.NET.Tests
     {
         public static bool HasFlakyLinuxArm64Result
             => Runtime.IsLinux && Runtime.IsArm64;
+
+        public static bool HasFlakyMacOSResult
+            => Runtime.IsMacOS;
     }
 }

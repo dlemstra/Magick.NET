@@ -13,21 +13,20 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheFontWhenReadingImage()
             {
-                if (Runtime.IsMacOS)
+                if (TestRuntime.HasFlakyMacOSResult)
                     return;
 
-                using (var image = new MagickImage())
-                {
-                    Assert.Null(image.Settings.Font);
+                using var image = new MagickImage();
 
-                    image.Settings.Font = "Courier New";
-                    image.Settings.FontPointsize = 40;
-                    image.Read("pango:Test");
+                Assert.Null(image.Settings.Font);
 
-                    Assert.Equal(128, image.Width);
-                    Assert.Contains(image.Height, new[] { 58, 62 });
-                    ColorAssert.Equal(MagickColors.Black, image, 26, 22);
-                }
+                image.Settings.Font = "Courier New";
+                image.Settings.FontPointsize = 40;
+                image.Read("pango:Test");
+
+                Assert.Equal(128, image.Width);
+                Assert.Contains(image.Height, new[] { 58, 62 });
+                ColorAssert.Equal(MagickColors.Black, image, 26, 22);
             }
         }
     }
