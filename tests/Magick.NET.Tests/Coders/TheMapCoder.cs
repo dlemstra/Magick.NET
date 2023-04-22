@@ -14,9 +14,51 @@ namespace Magick.NET.Tests
             using var image = new MagickImage(Files.Builtin.Logo);
             using var tempFile = new TemporaryFile("test.map");
             image.Write(tempFile.File, MagickFormat.Map);
-            image.Read(tempFile.File, image.Width, image.Height);
+
+            var settings = new MagickReadSettings
+            {
+                Width = image.Width,
+                Height = image.Height,
+                Depth = 8,
+            };
+            image.Read(tempFile.File, settings);
 
             Assert.Equal(MagickFormat.Map, image.Format);
+        }
+
+        [Theory]
+        [InlineData(null, null)]
+        [InlineData(null, 1)]
+        [InlineData(1, null)]
+        public void ShouldThrowExceptionWhenDimensionsNotSpecified(int? width, int? height)
+        {
+            var settings = new MagickReadSettings
+            {
+                Width = width,
+                Height = height,
+            };
+
+            using var tempFile = new TemporaryFile("test.map");
+            using var image = new MagickImage();
+
+            var exception = Assert.Throws<MagickOptionErrorException>(() => image.Read(tempFile.File, settings));
+            Assert.Contains("must specify image size", exception.Message);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenDepthNotSpecified()
+        {
+            var settings = new MagickReadSettings
+            {
+                Width = 1,
+                Height = 1,
+            };
+
+            using var tempFile = new TemporaryFile("test.map");
+            using var image = new MagickImage();
+
+            var exception = Assert.Throws<MagickOptionErrorException>(() => image.Read(tempFile.File, settings));
+            Assert.Contains("must specify image depth", exception.Message);
         }
 
         [Fact]
