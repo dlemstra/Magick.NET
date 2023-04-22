@@ -145,16 +145,11 @@ namespace Magick.NET.Tests
         }
 
         [Fact]
-        public async Task ShouldWriteDateProperties()
+        public void ShouldWriteDateProperties()
         {
             using var tempFile = new TemporaryFile("test.png");
 
             using var image = new MagickImage(MagickColors.Pink, 1, 1);
-            image.Write(tempFile.File);
-
-            await Task.Delay(1000);
-            image.Write(tempFile.File);
-            image.Read(tempFile.File);
             image.Write(tempFile.File);
 
             var dateCreate = tempFile.File.CreationTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
