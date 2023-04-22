@@ -218,12 +218,6 @@ namespace Magick.NET.Tests
                             return false;
                     }
 
-                    if (Runtime.IsMacOS)
-                    {
-                        if (format == MagickFormat.Jxl)
-                            return false;
-                    }
-
                     return true;
                 }
 
