@@ -27,16 +27,14 @@ namespace ImageMagick
             Throw.IfNull(nameof(self), self);
             Throw.IfNull(nameof(bitmap), bitmap);
 
-            using (var memStream = new MemoryStream())
-            {
-                if (IsSupportedImageFormat(bitmap.RawFormat))
-                    bitmap.Save(memStream, bitmap.RawFormat);
-                else
-                    bitmap.Save(memStream, ImageFormat.Bmp);
+            using var memStream = new MemoryStream();
+            if (IsSupportedImageFormat(bitmap.RawFormat))
+                bitmap.Save(memStream, bitmap.RawFormat);
+            else
+                bitmap.Save(memStream, ImageFormat.Bmp);
 
-                memStream.Position = 0;
-                self.Read(memStream);
-            }
+            memStream.Position = 0;
+            self.Read(memStream);
         }
 
         /// <summary>
@@ -103,27 +101,25 @@ namespace ImageMagick
                 if (image.HasAlpha)
                     format = PixelFormat.Format32bppArgb;
 
-                using (var pixels = image.GetPixelsUnsafe())
+                using var pixels = image.GetPixelsUnsafe();
+                var mapping = GetMapping(format);
+
+                var bitmap = new Bitmap(image.Width, image.Height, format);
+                for (var y = 0; y < image.Height; y++)
                 {
-                    var mapping = GetMapping(format);
+                    var row = new Rectangle(0, y, image.Width, 1);
+                    var data = bitmap.LockBits(row, ImageLockMode.WriteOnly, format);
+                    var destination = data.Scan0;
 
-                    var bitmap = new Bitmap(image.Width, image.Height, format);
-                    for (var y = 0; y < image.Height; y++)
-                    {
-                        var row = new Rectangle(0, y, image.Width, 1);
-                        var data = bitmap.LockBits(row, ImageLockMode.WriteOnly, format);
-                        var destination = data.Scan0;
+                    var bytes = pixels.ToByteArray(0, y, image.Width, 1, mapping);
+                    if (bytes is not null)
+                        Marshal.Copy(bytes, 0, destination, bytes.Length);
 
-                        var bytes = pixels.ToByteArray(0, y, image.Width, 1, mapping);
-                        if (bytes is not null)
-                            Marshal.Copy(bytes, 0, destination, bytes.Length);
-
-                        bitmap.UnlockBits(data);
-                    }
-
-                    SetBitmapDensity(self, bitmap, useDensity);
-                    return bitmap;
+                    bitmap.UnlockBits(data);
                 }
+
+                SetBitmapDensity(self, bitmap, useDensity);
+                return bitmap;
             }
             finally
             {
