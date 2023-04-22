@@ -152,12 +152,13 @@ namespace ImageMagick
 
         private static ColorProfile Load(string resourcePath, string resourceName)
         {
-            lock (_SyncRoot)
+            if (!_profiles.ContainsKey(resourceName))
             {
-                if (!_profiles.ContainsKey(resourceName))
+                lock (_SyncRoot)
                 {
-                    using (var stream = TypeHelper.GetManifestResourceStream(typeof(ColorProfile), resourcePath, resourceName))
+                    if (!_profiles.ContainsKey(resourceName))
                     {
+                        using var stream = TypeHelper.GetManifestResourceStream(typeof(ColorProfile), resourcePath, resourceName);
                         _profiles[resourceName] = new ColorProfile(stream);
                     }
                 }

@@ -32,15 +32,11 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(document), document);
 
-            using (var memStream = new MemoryStream())
-            {
-                using (var writer = XmlWriter.Create(memStream))
-                {
-                    document.CreateNavigator().WriteSubtree(writer);
-                    writer.Flush();
-                    SetData(memStream.ToArray());
-                }
-            }
+            using var memStream = new MemoryStream();
+            using var writer = XmlWriter.Create(memStream);
+            document.CreateNavigator().WriteSubtree(writer);
+            writer.Flush();
+            SetData(memStream.ToArray());
         }
 
         /// <summary>
@@ -52,15 +48,11 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(document), document);
 
-            using (var memStream = new MemoryStream())
-            {
-                using (var writer = XmlWriter.Create(memStream))
-                {
-                    document.WriteTo(writer);
-                    writer.Flush();
-                    SetData(memStream.ToArray());
-                }
-            }
+            using var memStream = new MemoryStream();
+            using var writer = XmlWriter.Create(memStream);
+            document.WriteTo(writer);
+            writer.Flush();
+            SetData(memStream.ToArray());
         }
 
         /// <summary>
@@ -120,12 +112,10 @@ namespace ImageMagick
         /// <returns>A <see cref="IXPathNavigable"/>.</returns>
         public IXPathNavigable ToIXPathNavigable()
         {
-            using (var reader = CreateReader())
-            {
-                var result = XmlHelper.CreateDocument();
-                result.Load(reader);
-                return result.CreateNavigator();
-            }
+            using var reader = CreateReader();
+            var result = XmlHelper.CreateDocument();
+            result.Load(reader);
+            return result.CreateNavigator();
         }
 
         /// <summary>
@@ -134,10 +124,8 @@ namespace ImageMagick
         /// <returns>A <see cref="XDocument"/>.</returns>
         public XDocument ToXDocument()
         {
-            using (var reader = CreateReader())
-            {
-                return XDocument.Load(reader);
-            }
+            using var reader = CreateReader();
+            return XDocument.Load(reader);
         }
 
         private static byte[] CheckTrailingNULL(byte[] data)

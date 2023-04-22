@@ -36,12 +36,10 @@ namespace ImageMagick
 #if NETSTANDARD2_1
             return await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
 #else
-            using (var fileStream = File.OpenRead(fileName))
-            {
-                var bytes = new byte[fileStream.Length];
-                await fileStream.ReadAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
-                return bytes;
-            }
+            using var fileStream = File.OpenRead(fileName);
+            var bytes = new byte[fileStream.Length];
+            await fileStream.ReadAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
+            return bytes;
 #endif
         }
 
@@ -50,10 +48,8 @@ namespace ImageMagick
 #if NETSTANDARD2_1
             await File.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
 #else
-            using (var fileStream = File.Open(fileName, FileMode.Create, FileAccess.Write))
-            {
-                await fileStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
-            }
+            using var fileStream = File.Open(fileName, FileMode.Create, FileAccess.Write);
+            await fileStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
 #endif
         }
     }

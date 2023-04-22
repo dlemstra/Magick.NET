@@ -59,19 +59,17 @@ namespace ImageMagick
             if (stream.CanSeek)
                 return GetDataWithSeekableStream(stream, out length);
 
+            int count;
             var buffer = new byte[BufferSize];
-            using (var tempStream = new MemoryStream())
+            using var tempStream = new MemoryStream();
+            while ((count = stream.Read(buffer, 0, BufferSize)) != 0)
             {
-                int count;
-                while ((count = stream.Read(buffer, 0, BufferSize)) != 0)
-                {
-                    CheckLength(tempStream.Length + count);
+                CheckLength(tempStream.Length + count);
 
-                    tempStream.Write(buffer, 0, count);
-                }
-
-                return GetDataFromMemoryStream(tempStream, out length);
+                tempStream.Write(buffer, 0, count);
             }
+
+            return GetDataFromMemoryStream(tempStream, out length);
         }
 
         private static byte[] GetDataWithSeekableStream(Stream stream, out int length)

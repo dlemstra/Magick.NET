@@ -28,79 +28,77 @@ namespace ImageMagick
             if (ifdValues.Count == 0 && exifValues.Count == 0 && gpsValues.Count == 0)
                 return null;
 
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            stream.WriteByte((byte)'E');
+            stream.WriteByte((byte)'x');
+            stream.WriteByte((byte)'i');
+            stream.WriteByte((byte)'f');
+            stream.WriteByte(0x00);
+            stream.WriteByte(0x00);
+
+            if (BitConverter.IsLittleEndian)
             {
-                stream.WriteByte((byte)'E');
-                stream.WriteByte((byte)'x');
-                stream.WriteByte((byte)'i');
-                stream.WriteByte((byte)'f');
+                stream.WriteByte((byte)'I');
+                stream.WriteByte((byte)'I');
+                stream.WriteByte(0x2A);
                 stream.WriteByte(0x00);
-                stream.WriteByte(0x00);
-
-                if (BitConverter.IsLittleEndian)
-                {
-                    stream.WriteByte((byte)'I');
-                    stream.WriteByte((byte)'I');
-                    stream.WriteByte(0x2A);
-                    stream.WriteByte(0x00);
-                }
-                else
-                {
-                    stream.WriteByte((byte)'M');
-                    stream.WriteByte((byte)'M');
-                    stream.WriteByte(0x00);
-                    stream.WriteByte(0x2A);
-                }
-
-                ushort countDelta = 0;
-                if (exifValues.Count > 0)
-                    countDelta++;
-                if (gpsValues.Count > 0)
-                    countDelta++;
-
-                var ifdOffset = stream.Position + 4;
-                WritePosition(ifdOffset, stream);
-
-                WriteHeaders(ifdValues, stream, countDelta);
-
-                var exifValuesOffset = 0L;
-                if (exifValues.Count > 0)
-                {
-                    WriteHeader(ExifValues.Create(ExifTag.SubIFDOffset)!, stream);
-                    exifValuesOffset = GetOffsetPositionAndSkipData(stream);
-                }
-
-                var gpsValuesOffset = 0L;
-                if (gpsValues.Count > 0)
-                {
-                    WriteHeader(ExifValues.Create(ExifTag.GPSIFDOffset)!, stream);
-                    gpsValuesOffset = GetOffsetPositionAndSkipData(stream);
-                }
-
-                var thumbnailOffset = BitConverter.GetBytes(0L);
-                Write(thumbnailOffset, stream);
-
-                WriteValues(ifdValues, stream);
-
-                var endOfLink = BitConverter.GetBytes(0L);
-                if (exifValues.Count > 0)
-                {
-                    WriteCurrentOffset(exifValuesOffset, stream);
-                    WriteHeaders(exifValues, stream);
-                    Write(endOfLink, stream);
-                    WriteValues(exifValues, stream);
-                }
-
-                if (gpsValues.Count > 0)
-                {
-                    WriteCurrentOffset(gpsValuesOffset, stream);
-                    WriteHeaders(gpsValues, stream);
-                    Write(endOfLink, stream);
-                    WriteValues(gpsValues, stream);
-                }
-
-                return stream.ToArray();
             }
+            else
+            {
+                stream.WriteByte((byte)'M');
+                stream.WriteByte((byte)'M');
+                stream.WriteByte(0x00);
+                stream.WriteByte(0x2A);
+            }
+
+            ushort countDelta = 0;
+            if (exifValues.Count > 0)
+                countDelta++;
+            if (gpsValues.Count > 0)
+                countDelta++;
+
+            var ifdOffset = stream.Position + 4;
+            WritePosition(ifdOffset, stream);
+
+            WriteHeaders(ifdValues, stream, countDelta);
+
+            var exifValuesOffset = 0L;
+            if (exifValues.Count > 0)
+            {
+                WriteHeader(ExifValues.Create(ExifTag.SubIFDOffset)!, stream);
+                exifValuesOffset = GetOffsetPositionAndSkipData(stream);
+            }
+
+            var gpsValuesOffset = 0L;
+            if (gpsValues.Count > 0)
+            {
+                WriteHeader(ExifValues.Create(ExifTag.GPSIFDOffset)!, stream);
+                gpsValuesOffset = GetOffsetPositionAndSkipData(stream);
+            }
+
+            var thumbnailOffset = BitConverter.GetBytes(0L);
+            Write(thumbnailOffset, stream);
+
+            WriteValues(ifdValues, stream);
+
+            var endOfLink = BitConverter.GetBytes(0L);
+            if (exifValues.Count > 0)
+            {
+                WriteCurrentOffset(exifValuesOffset, stream);
+                WriteHeaders(exifValues, stream);
+                Write(endOfLink, stream);
+                WriteValues(exifValues, stream);
+            }
+
+            if (gpsValues.Count > 0)
+            {
+                WriteCurrentOffset(gpsValuesOffset, stream);
+                WriteHeaders(gpsValues, stream);
+                Write(endOfLink, stream);
+                WriteValues(gpsValues, stream);
+            }
+
+            return stream.ToArray();
         }
 
         private static void Write(byte[] bytes, Stream stream)
