@@ -569,7 +569,7 @@ namespace ImageMagick
                 NativeMethods.X86.DrawingWand_Dispose(instance);
                 #endif
             }
-            public NativeDrawingWand(IMagickImage? image, DrawingSettings? settings)
+            public NativeDrawingWand(IMagickImage image, DrawingSettings settings)
             {
                 using var settingsNative = DrawingSettings.CreateInstance(settings);
                 #if PLATFORM_AnyCPU
