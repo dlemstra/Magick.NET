@@ -13,27 +13,19 @@ namespace Magick.NET.Core.Tests
         {
             [Fact]
             public void ShouldThrowExceptionWhenValueIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("value", () => { new Density(null); });
-            }
+                => Assert.Throws<ArgumentNullException>("value", () => new Density(null));
 
             [Fact]
             public void ShouldThrowExceptionWhenValueIsEmpty()
-            {
-                Assert.Throws<ArgumentException>("value", () => { new Density(string.Empty); });
-            }
+                => Assert.Throws<ArgumentException>("value", () => new Density(string.Empty));
 
             [Fact]
             public void ShouldThrowExceptionWhenValueIsInvalid()
             {
                 Assert.Throws<ArgumentException>("value", () => { new Density("1.0x"); });
-
                 Assert.Throws<ArgumentException>("value", () => { new Density("x1.0"); });
-
                 Assert.Throws<ArgumentException>("value", () => { new Density("ax1.0"); });
-
                 Assert.Throws<ArgumentException>("value", () => { new Density("1.0xb"); });
-
                 Assert.Throws<ArgumentException>("value", () => { new Density("1.0x6 magick"); });
             }
 
