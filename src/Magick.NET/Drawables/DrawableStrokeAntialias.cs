@@ -11,9 +11,7 @@ namespace ImageMagick
     public sealed class DrawableStrokeAntialias : IDrawable, IDrawingWand
     {
         private DrawableStrokeAntialias(bool isEnabled)
-        {
-            IsEnabled = isEnabled;
-        }
+            => IsEnabled = isEnabled;
 
         /// <summary>
         /// Gets a new instance of the <see cref="DrawableStrokeAntialias"/> class that is disabled.

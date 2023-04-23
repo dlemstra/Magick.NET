@@ -15,11 +15,9 @@ namespace Magick.NET.Tests
             {
                 IDrawingWand drawableTextAntialias = DrawableTextAntialias.Enabled;
 
-                using (var image = new MagickImage())
-                {
-                    var wand = new DrawingWand(image);
-                    drawableTextAntialias.Draw(wand);
-                }
+                using var image = new MagickImage();
+                var wand = new DrawingWand(image);
+                drawableTextAntialias.Draw(wand);
             }
         }
     }

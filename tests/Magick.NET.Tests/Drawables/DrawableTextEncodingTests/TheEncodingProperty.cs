@@ -15,10 +15,8 @@ namespace Magick.NET.Tests
                 var encoding = new DrawableTextEncoding(Encoding.UTF8);
                 encoding.Encoding = null;
 
-                using (var image = new MagickImage(MagickColors.Firebrick, 10, 10))
-                {
-                    image.Draw(encoding);
-                }
+                using var image = new MagickImage(MagickColors.Firebrick, 10, 10);
+                image.Draw(encoding);
             }
         }
     }

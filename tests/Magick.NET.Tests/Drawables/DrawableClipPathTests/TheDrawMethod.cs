@@ -13,29 +13,27 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldSetTheClipMask()
             {
-                using (var image = new MagickImage(MagickColors.Thistle, 100, 100))
-                {
-                    SetClipMask(image, 20, 20, 80, 80);
+                using var image = new MagickImage(MagickColors.Thistle, 100, 100);
+                SetClipMask(image, 20, 20, 80, 80);
 
-                    new Drawables()
-                        .StrokeColor(MagickColors.Red)
-                        .FillColor(MagickColors.Green)
-                        .Rectangle(0, 0, 99, 99)
-                        .Draw(image);
+                new Drawables()
+                    .StrokeColor(MagickColors.Red)
+                    .FillColor(MagickColors.Green)
+                    .Rectangle(0, 0, 99, 99)
+                    .Draw(image);
 
-                    SetClipMask(image, 40, 40, 60, 60);
+                SetClipMask(image, 40, 40, 60, 60);
 
-                    new Drawables()
-                        .StrokeColor(MagickColors.Red)
-                        .StrokeWidth(10)
-                        .Line(0, 0, 99, 99)
-                        .Draw(image);
+                new Drawables()
+                    .StrokeColor(MagickColors.Red)
+                    .StrokeWidth(10)
+                    .Line(0, 0, 99, 99)
+                    .Draw(image);
 
-                    ColorAssert.Equal(MagickColors.Thistle, image, 0, 0);
-                    ColorAssert.Equal(MagickColors.Green, image, 20, 20);
-                    ColorAssert.Equal(MagickColors.Green, image, 80, 80);
-                    ColorAssert.Equal(MagickColors.Red, image, 50, 50);
-                }
+                ColorAssert.Equal(MagickColors.Thistle, image, 0, 0);
+                ColorAssert.Equal(MagickColors.Green, image, 20, 20);
+                ColorAssert.Equal(MagickColors.Green, image, 80, 80);
+                ColorAssert.Equal(MagickColors.Red, image, 50, 50);
             }
 
             private void SetClipMask(MagickImage image, int x0, int y0, int x1, int y1)

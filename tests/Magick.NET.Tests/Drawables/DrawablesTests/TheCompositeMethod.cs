@@ -34,19 +34,15 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldCopyPixelsOfTheImage()
                 {
-                    using (var image = new MagickImage(MagickColors.Green, 3, 1))
-                    {
-                        using (var inner = new MagickImage(MagickColors.Purple, 2, 2))
-                        {
-                            new Drawables()
-                                .Composite(new MagickGeometry(1, 0, 1, 1), inner)
-                                .Draw(image);
-                        }
+                    using var image = new MagickImage(MagickColors.Green, 3, 1);
+                    using var inner = new MagickImage(MagickColors.Purple, 2, 2);
+                    new Drawables()
+                        .Composite(new MagickGeometry(1, 0, 1, 1), inner)
+                        .Draw(image);
 
-                        ColorAssert.Equal(MagickColors.Green, image, 0, 0);
-                        ColorAssert.Equal(MagickColors.Purple, image, 1, 0);
-                        ColorAssert.Equal(MagickColors.Green, image, 2, 0);
-                    }
+                    ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Purple, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.Green, image, 2, 0);
                 }
             }
 
@@ -73,19 +69,15 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldUseTheCompositeOperator()
                 {
-                    using (var image = new MagickImage(MagickColors.Green, 3, 1))
-                    {
-                        using (var inner = new MagickImage(MagickColors.Purple, 2, 2))
-                        {
-                            new Drawables()
-                                .Composite(new MagickGeometry(1, 0, 1, 1), CompositeOperator.Plus, inner)
-                                .Draw(image);
-                        }
+                    using var image = new MagickImage(MagickColors.Green, 3, 1);
+                    using var inner = new MagickImage(MagickColors.Purple, 2, 2);
+                    new Drawables()
+                        .Composite(new MagickGeometry(1, 0, 1, 1), CompositeOperator.Plus, inner)
+                        .Draw(image);
 
-                        ColorAssert.Equal(MagickColors.Green, image, 0, 0);
-                        ColorAssert.Equal(MagickColors.Gray, image, 1, 0);
-                        ColorAssert.Equal(MagickColors.Green, image, 2, 0);
-                    }
+                    ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Gray, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.Green, image, 2, 0);
                 }
             }
 
@@ -103,19 +95,15 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldCopyPixelsOfTheImage()
                 {
-                    using (var image = new MagickImage(MagickColors.Green, 3, 1))
-                    {
-                        using (var inner = new MagickImage(MagickColors.Purple, 2, 2))
-                        {
-                            new Drawables()
-                                .Composite(1, 0, inner)
-                                .Draw(image);
-                        }
+                    using var image = new MagickImage(MagickColors.Green, 3, 1);
+                    using var inner = new MagickImage(MagickColors.Purple, 2, 2);
+                    new Drawables()
+                        .Composite(1, 0, inner)
+                        .Draw(image);
 
-                        ColorAssert.Equal(MagickColors.Green, image, 0, 0);
-                        ColorAssert.Equal(MagickColors.Purple, image, 1, 0);
-                        ColorAssert.Equal(MagickColors.Purple, image, 2, 0);
-                    }
+                    ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Purple, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.Purple, image, 2, 0);
                 }
             }
 
@@ -133,19 +121,15 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldUseTheCompositeOperator()
                 {
-                    using (var image = new MagickImage(MagickColors.Green, 3, 1))
-                    {
-                        using (var inner = new MagickImage(MagickColors.Purple, 2, 2))
-                        {
-                            new Drawables()
-                                .Composite(1, 0, CompositeOperator.Plus, inner)
-                                .Draw(image);
-                        }
+                    using var image = new MagickImage(MagickColors.Green, 3, 1);
+                    using var inner = new MagickImage(MagickColors.Purple, 2, 2);
+                    new Drawables()
+                        .Composite(1, 0, CompositeOperator.Plus, inner)
+                        .Draw(image);
 
-                        ColorAssert.Equal(MagickColors.Green, image, 0, 0);
-                        ColorAssert.Equal(MagickColors.Gray, image, 1, 0);
-                        ColorAssert.Equal(MagickColors.Gray, image, 2, 0);
-                    }
+                    ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Gray, image, 1, 0);
+                    ColorAssert.Equal(MagickColors.Gray, image, 2, 0);
                 }
             }
         }
