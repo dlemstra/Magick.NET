@@ -2,10 +2,13 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Xml;
 using ImageMagick;
 using ImageMagick.Configuration;
+
+#if NETCOREAPP
+using System.Runtime.CompilerServices;
+#endif
 
 namespace Magick.NET.Tests
 {
