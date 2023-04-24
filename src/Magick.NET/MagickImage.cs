@@ -7287,16 +7287,13 @@ namespace ImageMagick
         }
 
         internal static IMagickErrorInfo CreateErrorInfo(MagickImage image)
-        {
-            return new MagickErrorInfo(image._nativeInstance.MeanErrorPerPixel, image._nativeInstance.NormalizedMeanError, image._nativeInstance.NormalizedMaximumError);
-        }
+            => new MagickErrorInfo(image._nativeInstance.MeanErrorPerPixel, image._nativeInstance.NormalizedMeanError, image._nativeInstance.NormalizedMaximumError);
 
         internal static IReadOnlyCollection<IMagickImage<QuantumType>> CreateList(IntPtr images, MagickSettings settings)
         {
             var result = new Collection<IMagickImage<QuantumType>>();
 
             var image = images;
-
             while (image != IntPtr.Zero)
             {
                 var next = NativeMagickImage.GetNext(image);
