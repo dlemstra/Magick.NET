@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -146,21 +147,21 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldWriteDateProperties()
         {
-            /* Probably related to slow execution. */
-            if (TestRuntime.HasFlakyLinuxArm64Result)
-                return;
-
             using var tempFile = new TemporaryFile("test.png");
 
             using var image = new MagickImage(MagickColors.Pink, 1, 1);
             image.Write(tempFile.File);
 
-            var dateCreate = tempFile.File.CreationTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
-            var dateModify = tempFile.File.LastWriteTimeUtc.ToString("yyyy-MM-ddTHH:mm:ssK").Replace("Z", "+00:00");
-
             var content = GetReadableContent(tempFile);
-            Assert.Contains($"date:create{dateCreate}", content);
-            Assert.Contains($"date:modify{dateModify}", content);
+
+            var dateCreate = GetTimestamp(content, "date:create");
+            Assert.InRange((DateTime.Now - dateCreate).TotalSeconds, 0, 5);
+
+            var dateModify = GetTimestamp(content, "date:modify");
+            Assert.InRange((DateTime.Now - dateModify).TotalSeconds, 0, 5);
+
+            var dateTimestamp = GetTimestamp(content, "date:timestamp");
+            Assert.InRange((DateTime.Now - dateTimestamp).TotalSeconds, 0, 5);
         }
 
         [Fact]
@@ -176,6 +177,7 @@ namespace Magick.NET.Tests
 
             Assert.DoesNotContain($"date:create", content);
             Assert.DoesNotContain($"date:modify", content);
+            Assert.DoesNotContain($"date:timestamp", content);
         }
 
         [Fact]
@@ -244,6 +246,15 @@ namespace Magick.NET.Tests
 
         private static string GetReadableContent(TemporaryFile tempfile)
             => Encoding.ASCII.GetString(File.ReadAllBytes(tempfile.File.FullName).Where(b => !char.IsControl((char)b)).ToArray());
+
+        private DateTime GetTimestamp(string content, string name)
+        {
+            var offset = content.IndexOf(name);
+
+            Assert.NotEqual(-1, offset);
+
+            return DateTime.Parse(content.Substring(offset + name.Length, 25));
+        }
 
         private void HandleWarning(object sender, WarningEventArgs e)
             => throw new XunitException("Warning was raised: " + e.Message);
