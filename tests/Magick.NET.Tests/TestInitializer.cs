@@ -23,6 +23,7 @@ namespace Magick.NET.Tests
         public static bool Initialize()
         {
             Ghostscript.Initialize();
+            FontConfig.Initialize();
 
             var configFiles = ConfigurationFiles.Default;
             configFiles.Policy.Data = ModifyPolicy(configFiles.Policy.Data);
