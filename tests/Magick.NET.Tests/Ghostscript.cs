@@ -22,7 +22,7 @@ namespace Magick.NET.Tests
         public static void Initialize()
         {
             if (Runtime.IsWindows)
-                MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs10.00.0\bin");
+                MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs10.01.1\bin");
         }
     }
 }
