@@ -21,8 +21,15 @@ namespace Magick.NET.Tests
 
         public static void Initialize()
         {
-            if (Runtime.IsWindows)
-                MagickNET.SetGhostscriptDirectory(@"C:\Program Files (x86)\gs\gs10.01.1\bin");
+            if (!Runtime.IsWindows)
+                return;
+
+            foreach (var version in new[] { "10.01.1", "10.00.1" })
+            {
+                var directory = @$"C:\Program Files (x86)\gs\gs${version}\bin";
+                if (Directory.Exists(directory))
+                    MagickNET.SetGhostscriptDirectory(directory);
+            }
         }
     }
 }
