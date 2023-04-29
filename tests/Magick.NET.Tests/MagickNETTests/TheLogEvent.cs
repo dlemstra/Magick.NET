@@ -25,54 +25,51 @@ namespace Magick.NET.Tests
 
             private void ShouldNotCallLogDelegeteWhenLogEventsAreNotSet()
             {
-                using (var image = new MagickImage(Files.SnakewarePNG))
+                var count = 0;
+                void LogDelegate(object sender, LogEventArgs arguments)
                 {
-                    var count = 0;
-                    void LogDelegate(object sender, LogEventArgs arguments)
-                    {
-                        count++;
-                    }
-
-                    MagickNET.Log += LogDelegate;
-
-                    image.Flip();
-
-                    MagickNET.Log -= LogDelegate;
-
-                    Assert.Equal(0, count);
+                    count++;
                 }
+
+                MagickNET.Log += LogDelegate;
+
+                using var image = new MagickImage(Files.SnakewarePNG);
+                image.Flip();
+
+                MagickNET.Log -= LogDelegate;
+
+                Assert.Equal(0, count);
             }
 
             private void ShouldCallLogDelegateWhenLogEventsAreSet()
             {
-                using (var image = new MagickImage(Files.SnakewarePNG))
+                var count = 0;
+                void LogDelegate(object sender, LogEventArgs arguments)
                 {
-                    var count = 0;
-                    void LogDelegate(object sender, LogEventArgs arguments)
-                    {
-                        Assert.Null(sender);
-                        Assert.NotNull(arguments);
-                        Assert.NotEqual(LogEvents.None, arguments.EventType);
-                        Assert.NotNull(arguments.Message);
-                        Assert.NotEqual(0, arguments.Message.Length);
+                    Assert.Null(sender);
+                    Assert.NotNull(arguments);
+                    Assert.NotEqual(LogEvents.None, arguments.EventType);
+                    Assert.NotNull(arguments.Message);
+                    Assert.NotEqual(0, arguments.Message.Length);
 
-                        count++;
-                    }
-
-                    MagickNET.Log += LogDelegate;
-
-                    MagickNET.SetLogEvents(LogEvents.Detailed);
-
-                    image.Flip();
-
-                    MagickNET.Log -= LogDelegate;
-
-                    Assert.NotEqual(0, count);
-                    count = 0;
-
-                    image.Flip();
-                    Assert.Equal(0, count);
+                    count++;
                 }
+
+                MagickNET.Log += LogDelegate;
+
+                MagickNET.SetLogEvents(LogEvents.Detailed);
+
+                using var image = new MagickImage(Files.SnakewarePNG);
+                image.Flip();
+
+                MagickNET.Log -= LogDelegate;
+
+                Assert.NotEqual(0, count);
+                count = 0;
+
+                image.Flip();
+
+                Assert.Equal(0, count);
             }
 
             private void ShouldLogTraceEventsWhenLogEventsIsSetToAll()
@@ -88,9 +85,7 @@ namespace Magick.NET.Tests
 
                 MagickNET.Log += LogDelegate;
 
-                using (var image = new MagickImage(Files.SnakewarePNG))
-                {
-                }
+                using var image = new MagickImage(Files.SnakewarePNG);
 
                 MagickNET.Log -= LogDelegate;
 
@@ -99,23 +94,22 @@ namespace Magick.NET.Tests
 
             private void ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved()
             {
-                using (var image = new MagickImage(Files.SnakewarePNG))
+                var count = 0;
+                void LogDelegate(object sender, LogEventArgs arguments)
                 {
-                    var count = 0;
-                    void LogDelegate(object sender, LogEventArgs arguments)
-                    {
-                        count++;
-                    }
-
-                    MagickNET.Log += LogDelegate;
-
-                    MagickNET.SetLogEvents(LogEvents.Detailed);
-
-                    MagickNET.Log -= LogDelegate;
-
-                    image.Flip();
-                    Assert.Equal(0, count);
+                    count++;
                 }
+
+                MagickNET.Log += LogDelegate;
+
+                MagickNET.SetLogEvents(LogEvents.Detailed);
+
+                MagickNET.Log -= LogDelegate;
+
+                using var image = new MagickImage(Files.SnakewarePNG);
+                image.Flip();
+
+                Assert.Equal(0, count);
             }
         }
     }
