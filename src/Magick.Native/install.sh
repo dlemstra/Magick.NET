@@ -15,6 +15,11 @@ installPackage() {
     cd ..
 }
 
+cleanupPackage() {
+    rm -Rf foo
+    rm -Rf temp
+}
+
 copyToTestProject() {
     local runtime=$1
     local platform=$2
@@ -43,7 +48,6 @@ copyToTestProjects() {
     copyToTestProject $runtime $platform "Q16-HDRI" "-OpenMP"
 }
 
-if [ ! -d "temp" ]; then
-    installPackage
-    copyToTestProjects $1 $2
-fi
+installPackage
+copyToTestProjects $1 $2
+cleanupPackage
