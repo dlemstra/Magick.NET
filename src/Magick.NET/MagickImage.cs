@@ -9,6 +9,9 @@ using System.Globalization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using CommunityToolkit.HighPerformance;
+using CommunityToolkit.HighPerformance.Buffers;
+using ImageMagick.Extensions;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -6534,9 +6537,8 @@ namespace ImageMagick
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray()
         {
-            using var stream = new MemoryStream();
-            Write(stream);
-            return stream.ToArray();
+            using var bufferWriter = ToArrayPoolBufferWriter();
+            return bufferWriter.WrittenSpan.ToArray();
         }
 
         /// <summary>
@@ -6690,59 +6692,38 @@ namespace ImageMagick
         /// </summary>
         /// <param name="edges">The edges that need to be trimmed.</param>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public void Trim(params Gravity[] edges)
+        public void Trim(ReadOnlySpan<Gravity> edges)
         {
-            static IEnumerable<string> GravityToEdge(Gravity[] edges)
+            var artifact = string.Empty;
+
+            if (!edges.IsEmpty)
             {
+                using var bufferWriter = new ArrayPoolBufferWriter<string>(initialCapacity: edges.Length);
+
                 foreach (var edge in edges)
                 {
-                    switch (edge)
-                    {
-                        case Gravity.North:
-                            yield return "north";
-                            break;
-                        case Gravity.Northeast:
-                            yield return "north";
-                            yield return "east";
-                            break;
-                        case Gravity.Northwest:
-                            yield return "north";
-                            yield return "west";
-                            break;
-                        case Gravity.East:
-                            yield return "east";
-                            break;
-                        case Gravity.West:
-                            yield return "west";
-                            break;
-                        case Gravity.South:
-                            yield return "south";
-                            break;
-                        case Gravity.Southeast:
-                            yield return "south";
-                            yield return "east";
-                            break;
-                        case Gravity.Southwest:
-                            yield return "south";
-                            yield return "west";
-                            break;
-                    }
-                }
-            }
+                    var innerEdges = edge.ToEdge();
+                    var innerEdgesCount = innerEdges.Length;
 
-            var artifact = new List<string>();
-            foreach (var edge in GravityToEdge(edges))
-            {
-                if (!artifact.Contains(edge))
-                {
-                    artifact.Add(edge);
+                    var buffer = bufferWriter.GetSpan(innerEdgesCount);
+                    innerEdges.Span.CopyTo(buffer);
+                    bufferWriter.Advance(innerEdgesCount);
                 }
+
+                artifact = string.Join(",", bufferWriter.DangerousGetArray());
             }
 
             using var temporaryDefines = new TemporaryDefines(this);
-            temporaryDefines.SetArtifact("trim:edges", string.Join(",", artifact.ToArray()));
+            temporaryDefines.SetArtifact("trim:edges", artifact);
             Trim();
         }
+
+        /// <summary>
+        /// Trim the specified edges that are the background color from the image.
+        /// </summary>
+        /// <param name="edges">The edges that need to be trimmed.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Trim(params Gravity[] edges) => Trim(edges.AsSpan());
 
         /// <summary>
         /// Trim edges that are the background color from the image. The property <see cref="BoundingBox"/> can be used to the
@@ -7064,8 +7045,14 @@ namespace ImageMagick
             Throw.IfNull(nameof(file), file);
 
             var format = EnumHelper.ParseMagickFormatFromExtension(file);
-            var bytes = format != MagickFormat.Unknown ? ToByteArray(format) : ToByteArray();
-            return FileHelper.WriteAllBytesAsync(file.FullName, bytes, cancellationToken);
+
+            if (format != MagickFormat.Unknown)
+            {
+                return WriteAsync(file, format, cancellationToken);
+            }
+
+            var bufferWriter = ToArrayPoolBufferWriter();
+            return FileHelper.WriteAllBytesAsync(file.FullName, bufferWriter.WrittenMemory, cancellationToken); ;
         }
 
         /// <summary>
@@ -7114,8 +7101,9 @@ namespace ImageMagick
         {
             Throw.IfNull(nameof(file), file);
 
-            var bytes = ToByteArray(format);
-            return FileHelper.WriteAllBytesAsync(file.FullName, bytes, cancellationToken);
+            using var tempFormat = new TemporaryMagickFormat(this, format);
+            using var bufferWriter = ToArrayPoolBufferWriter();
+            return FileHelper.WriteAllBytesAsync(file.FullName, bufferWriter.WrittenMemory, cancellationToken);
         }
 
         /// <summary>
@@ -7134,12 +7122,12 @@ namespace ImageMagick
         /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public Task WriteAsync(Stream stream, CancellationToken cancellationToken)
+        public async Task WriteAsync(Stream stream, CancellationToken cancellationToken)
         {
-            Throw.IfNull(nameof(stream), stream);
+            Throw.IfNull(nameof(stream), cancellationToken);
 
-            var bytes = ToByteArray();
-            return stream.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
+            var bufferWriter = ToArrayPoolBufferWriter();
+            await stream.WriteAsync(bufferWriter.WrittenMemory, cancellationToken).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -7261,8 +7249,9 @@ namespace ImageMagick
             var filePath = FileHelper.CheckForBaseDirectory(fileName);
             Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-            var bytes = ToByteArray(format);
-            return FileHelper.WriteAllBytesAsync(filePath, bytes, cancellationToken);
+            using var tempFormat = new TemporaryMagickFormat(this, format);
+            var bufferWriter = ToArrayPoolBufferWriter();
+            return FileHelper.WriteAllBytesAsync(filePath, bufferWriter.WrittenMemory, cancellationToken);
         }
 
         internal static IMagickImage<QuantumType>? Clone(IMagickImage<QuantumType>? image)
@@ -7337,6 +7326,14 @@ namespace ImageMagick
 
         internal void SetNext(IMagickImage? image)
             => _nativeInstance.SetNext(GetInstance(image));
+
+        private ArrayPoolBufferWriter<byte> ToArrayPoolBufferWriter()
+        {
+            var bufferWriter = new ArrayPoolBufferWriter<byte>();
+            using var stream = bufferWriter.AsStream();
+            Write(stream);
+            return bufferWriter;
+        }
 
         private static int GetExpectedByteLength(IPixelReadSettings<QuantumType> settings)
         {

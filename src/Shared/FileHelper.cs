@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using CommunityToolkit.HighPerformance;
 using System;
 using System.IO;
 using System.Threading;
@@ -43,14 +44,12 @@ namespace ImageMagick
 #endif
         }
 
-        internal static async Task WriteAllBytesAsync(string fileName, byte[] bytes, CancellationToken cancellationToken)
+        internal static Task WriteAllBytesAsync(string fileName, byte[] bytes, CancellationToken cancellationToken) => WriteAllBytesAsync(fileName, bytes.AsMemory(), cancellationToken);
+
+        internal static async Task WriteAllBytesAsync(string fileName, ReadOnlyMemory<byte> bytes, CancellationToken cancellationToken)
         {
-#if NETSTANDARD2_1
-            await File.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
-#else
             using var fileStream = File.Open(fileName, FileMode.Create, FileAccess.Write);
-            await fileStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
-#endif
+            await fileStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
         }
     }
 }

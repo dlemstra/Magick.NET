@@ -48,6 +48,7 @@
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="All" />
+    <PackageReference Include="System.Collections.Immutable" Version="7.0.0" />
   </ItemGroup>
 
   <PropertyGroup Condition="'$(Platform)' == 'x86'">
@@ -56,7 +57,7 @@
 
   <PropertyGroup Condition="'$(Platform)' == 'x64'">
     <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup> 
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Platform)' == 'arm64'">
     <PlatformTarget>ARM64</PlatformTarget>
