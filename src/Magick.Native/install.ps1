@@ -55,6 +55,18 @@ function copyToSamplesProjects($source, $target) {
     copyToSamplesProject $source $target "Q16-HDRI" "arm64"
 }
 
+function copyToTestProjectFolder($source, $target, $quantum, $platform, $configuration, $filename) {
+    [void](New-Item -ItemType directory -Force -Path "$target\$configuration$quantum\$platform\net462")
+    Copy-Item "$source\$fileName" "$target\$configuration$quantum\$platform\net462\$fileName"
+
+    if ($platform -ne "AnyCPU") {
+        [void](New-Item -ItemType directory -Force -Path "$target\$configuration$quantum\$platform\net6")
+        Copy-Item "$source\$fileName" "$target\$configuration$quantum\$platform\net6\$fileName"
+        [void](New-Item -ItemType directory -Force -Path "$target\$configuration$quantum\$platform\net6-windows")
+        Copy-Item "$source\$fileName" "$target\$configuration$quantum\$platform\net6-windows\$fileName"
+    }
+}
+
 function copyToTestProject($source, $target, $quantum, $platform, $libraryPlatform = "") {
     if ($libraryPlatform -eq "") {
         $libraryPlatform = $platform
@@ -62,15 +74,8 @@ function copyToTestProject($source, $target, $quantum, $platform, $libraryPlatfo
 
     $fileName = "Magick.Native-$quantum-$libraryPlatform.dll"
 
-    [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net462")
-    Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net462\$fileName"
-
-    if ($platform -ne "AnyCPU") {
-        [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net6")
-        Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net6\$fileName"
-        [void](New-Item -ItemType directory -Force -Path "$target\Test$quantum\$platform\net6-windows")
-        Copy-Item "$source\$fileName" "$target\Test$quantum\$platform\net6-windows\$fileName"
-    }
+    copyToTestProjectFolder $source $target $quantum $platform "Test" $fileName
+    copyToTestProjectFolder $source $target $quantum $platform "Debug" $fileName
 }
 
 function copyToTestProjects($source, $target) {
