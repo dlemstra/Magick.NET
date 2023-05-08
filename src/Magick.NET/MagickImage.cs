@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -6534,9 +6535,17 @@ namespace ImageMagick
         /// <returns>A <see cref="byte"/> array.</returns>
         public byte[] ToByteArray()
         {
-            using var stream = new MemoryStream();
-            Write(stream);
-            return stream.ToArray();
+            _settings.FileName = null;
+
+            using var wrapper = new ByteArrayWrapper();
+            var writer = new ReadWriteStreamDelegate(wrapper.Write);
+            var seeker = new SeekStreamDelegate(wrapper.Seek);
+            var teller = new TellStreamDelegate(wrapper.Tell);
+            var reader = new ReadWriteStreamDelegate(wrapper.Read);
+
+            _nativeInstance.WriteStream(_settings, writer, seeker, teller, reader);
+
+            return wrapper.GetBytes();
         }
 
         /// <summary>
