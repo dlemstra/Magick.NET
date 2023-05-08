@@ -77,7 +77,7 @@ namespace ImageMagick
                 return _offset;
 
             if (newOffset < 0)
-                newOffset = -1;
+                return -1;
             else if (newOffset > _bytes.Length)
                 ResizeBytes(newOffset);
 
@@ -95,9 +95,6 @@ namespace ImageMagick
                 return 0;
 
             if (data == IntPtr.Zero)
-                return 0;
-
-            if (_offset == -1)
                 return 0;
 
             var source = (byte*)data.ToPointer();

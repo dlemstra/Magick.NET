@@ -55,16 +55,25 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public unsafe void ShouldReturnMinusOneForInvalidOffset()
+            public void ShouldReturnMinusOneForInvalidOffset()
             {
                 using var wrapper = new ByteArrayWrapper();
-                var result = wrapper.Seek(-1, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+                var result = wrapper.Seek(-10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
                 Assert.Equal(-1, result);
             }
 
             [Fact]
-            public unsafe void ShouldReturnMinusOneForInvalidWhence()
+            public void ShouldNotChangeOffsetWhenValueIsInvalid()
+            {
+                using var wrapper = new ByteArrayWrapper();
+                wrapper.Seek(-10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+
+                Assert.Equal(0, wrapper.Tell(IntPtr.Zero));
+            }
+
+            [Fact]
+            public void ShouldReturnMinusOneForInvalidWhence()
             {
                 using var wrapper = new ByteArrayWrapper();
                 var result = wrapper.Seek(0, (IntPtr)3, IntPtr.Zero);
