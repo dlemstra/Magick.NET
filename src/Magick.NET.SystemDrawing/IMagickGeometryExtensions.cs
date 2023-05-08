@@ -3,32 +3,31 @@
 
 using System.Drawing;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Extension methods for the <see cref="IMagickGeometry"/> interface.
+/// </summary>
+public static class IMagickGeometryExtensions
 {
     /// <summary>
-    /// Extension methods for the <see cref="IMagickGeometry"/> interface.
+    /// Sets the values of this class using the specified <see cref="Rectangle"/>.
     /// </summary>
-    public static class IMagickGeometryExtensions
+    /// /// <param name="self">The geometry.</param>
+    /// <param name="rectangle">The <see cref="Rectangle"/> to convert.</param>
+    public static void SetFromRectangle(this IMagickGeometry self, Rectangle rectangle)
+        => self?.Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+
+    /// <summary>
+    /// Converts the value of this instance to an equivalent <see cref="Rectangle"/>.
+    /// </summary>
+    /// <param name="self">The geometry.</param>
+    /// <returns>A <see cref="Color"/> instance.</returns>
+    public static Rectangle ToRectangle(this IMagickGeometry self)
     {
-        /// <summary>
-        /// Sets the values of this class using the specified <see cref="Rectangle"/>.
-        /// </summary>
-        /// /// <param name="self">The geometry.</param>
-        /// <param name="rectangle">The <see cref="Rectangle"/> to convert.</param>
-        public static void SetFromRectangle(this IMagickGeometry self, Rectangle rectangle)
-            => self?.Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+        if (self is null)
+            return default;
 
-        /// <summary>
-        /// Converts the value of this instance to an equivalent <see cref="Rectangle"/>.
-        /// </summary>
-        /// <param name="self">The geometry.</param>
-        /// <returns>A <see cref="Color"/> instance.</returns>
-        public static Rectangle ToRectangle(this IMagickGeometry self)
-        {
-            if (self is null)
-                return default;
-
-            return new Rectangle(self.X, self.Y, self.Width, self.Height);
-        }
+        return new Rectangle(self.X, self.Y, self.Width, self.Height);
     }
 }
