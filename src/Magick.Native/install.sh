@@ -48,6 +48,7 @@ copyToTestProjects() {
     copyToTestProject $runtime $platform "Q16-HDRI" "-OpenMP"
 }
 
+cleanupPackage
 installPackage
 copyToTestProjects $1 $2
 cleanupPackage
