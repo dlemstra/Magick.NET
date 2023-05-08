@@ -48,6 +48,8 @@ namespace Magick.NET.Tests
 
                     var count = wrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
                     Assert.Equal(5, count);
+
+                    Assert.Equal(10, wrapper.Tell(IntPtr.Zero));
                 }
             }
         }

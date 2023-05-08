@@ -54,6 +54,7 @@ namespace ImageMagick
                 fixed (byte* source = _buffer)
                 {
                     NativeMemory.Copy(source + _offset, destination, length);
+                    _offset += length;
                 }
             }
 
