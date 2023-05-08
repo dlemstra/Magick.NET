@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             public void ShouldNotThrowExceptionWhenStreamIsOnlyReadable()
             {
                 using var stream = TestStream.ThatCanOnlyRead();
-                StreamWrapper.CreateForReading(stream);
+                using var wrapper = StreamWrapper.CreateForReading(stream);
             }
         }
     }

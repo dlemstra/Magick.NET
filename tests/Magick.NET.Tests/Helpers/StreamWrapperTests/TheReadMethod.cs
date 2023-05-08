@@ -15,67 +15,53 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldReturnZeroWhenBufferIsNull()
             {
-                using (var stream = new MemoryStream())
-                {
-                    using (var streamWrapper = StreamWrapper.CreateForReading(stream))
-                    {
-                        var count = streamWrapper.Read(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
-                        Assert.Equal(0, count);
-                    }
-                }
+                using var stream = new MemoryStream();
+                using var wrapper = StreamWrapper.CreateForReading(stream);
+
+                var count = wrapper.Read(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
+                Assert.Equal(0, count);
             }
 
             [Fact]
             public unsafe void ShouldReturnZeroWhenNothingShouldBeRead()
             {
-                using (var stream = new MemoryStream())
+                using var stream = new MemoryStream();
+                using var wrapper = StreamWrapper.CreateForReading(stream);
+
+                var buffer = new byte[255];
+                fixed (byte* p = buffer)
                 {
-                    using (var streamWrapper = StreamWrapper.CreateForReading(stream))
-                    {
-                        var buffer = new byte[255];
-                        fixed (byte* p = buffer)
-                        {
-                            var count = streamWrapper.Read((IntPtr)p, UIntPtr.Zero, IntPtr.Zero);
-                            Assert.Equal(0, count);
-                        }
-                    }
+                    var count = wrapper.Read((IntPtr)p, UIntPtr.Zero, IntPtr.Zero);
+                    Assert.Equal(0, count);
                 }
             }
 
             [Fact]
             public unsafe void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringReading()
             {
-                using (var memStream = new MemoryStream())
+                using var memStream = new MemoryStream();
+                using var stream = new ReadExceptionStream(memStream);
+                using var streamWrapper = StreamWrapper.CreateForReading(stream);
+
+                var buffer = new byte[10];
+                fixed (byte* p = buffer)
                 {
-                    using (var stream = new ReadExceptionStream(memStream))
-                    {
-                        using (var streamWrapper = StreamWrapper.CreateForReading(stream))
-                        {
-                            var buffer = new byte[10];
-                            fixed (byte* p = buffer)
-                            {
-                                var count = streamWrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
-                                Assert.Equal(-1, count);
-                            }
-                        }
-                    }
+                    var count = streamWrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
+                    Assert.Equal(-1, count);
                 }
             }
 
             [Fact]
             public unsafe void ShouldReturnTheNumberOfBytesThatCouldBeRead()
             {
-                using (var stream = new MemoryStream(new byte[5]))
+                using var stream = new MemoryStream(new byte[5]);
+                using var streamWrapper = StreamWrapper.CreateForReading(stream);
+
+                var buffer = new byte[10];
+                fixed (byte* p = buffer)
                 {
-                    using (var streamWrapper = StreamWrapper.CreateForReading(stream))
-                    {
-                        var buffer = new byte[10];
-                        fixed (byte* p = buffer)
-                        {
-                            var count = streamWrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
-                            Assert.Equal(5, count);
-                        }
-                    }
+                    var count = streamWrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
+                    Assert.Equal(5, count);
                 }
             }
         }

@@ -24,7 +24,7 @@ namespace Magick.NET.Tests
             public void ShouldOnlySetReaderWhenStreamIsNotReadable()
             {
                 using var stream = TestStream.ThatCannotRead();
-                var streamWrapper = StreamWrapper.CreateForWriting(stream);
+                using var wrapper = StreamWrapper.CreateForWriting(stream);
             }
         }
     }
