@@ -6,51 +6,50 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal static partial class FileHelper
 {
-    internal static partial class FileHelper
+    public static string CheckForBaseDirectory(string fileName)
     {
-        public static string CheckForBaseDirectory(string fileName)
-        {
-            if (string.IsNullOrEmpty(fileName))
-                return fileName;
+        if (string.IsNullOrEmpty(fileName))
+            return fileName;
 
-            if (fileName.Length < 2 || fileName[0] != '~')
-                return fileName;
+        if (fileName.Length < 2 || fileName[0] != '~')
+            return fileName;
 
-            return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
-        }
+        return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
+    }
 
-        public static string GetFullPath(string path)
-        {
-            Throw.IfNullOrEmpty(nameof(path), path);
+    public static string GetFullPath(string path)
+    {
+        Throw.IfNullOrEmpty(nameof(path), path);
 
-            path = CheckForBaseDirectory(path);
-            path = Path.GetFullPath(path);
-            Throw.IfFalse(nameof(path), Directory.Exists(path), $"Unable to find directory: {path}");
-            return path;
-        }
+        path = CheckForBaseDirectory(path);
+        path = Path.GetFullPath(path);
+        Throw.IfFalse(nameof(path), Directory.Exists(path), $"Unable to find directory: {path}");
+        return path;
+    }
 
-        public static async Task<byte[]> ReadAllBytesAsync(string fileName, CancellationToken cancellationToken)
-        {
+    public static async Task<byte[]> ReadAllBytesAsync(string fileName, CancellationToken cancellationToken)
+    {
 #if NETSTANDARD2_1
-            return await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
+        return await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
 #else
-            using var fileStream = File.OpenRead(fileName);
-            var bytes = new byte[fileStream.Length];
-            await fileStream.ReadAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
-            return bytes;
+        using var fileStream = File.OpenRead(fileName);
+        var bytes = new byte[fileStream.Length];
+        await fileStream.ReadAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
+        return bytes;
 #endif
-        }
+    }
 
-        internal static async Task WriteAllBytesAsync(string fileName, byte[] bytes, CancellationToken cancellationToken)
-        {
+    internal static async Task WriteAllBytesAsync(string fileName, byte[] bytes, CancellationToken cancellationToken)
+    {
 #if NETSTANDARD2_1
-            await File.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
+        await File.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
 #else
-            using var fileStream = File.Open(fileName, FileMode.Create, FileAccess.Write);
-            await fileStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
+        using var fileStream = File.Open(fileName, FileMode.Create, FileAccess.Write);
+        await fileStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
 #endif
-        }
     }
 }
