@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
@@ -44,6 +42,9 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldLimitTheDimensions()
             {
+                if (!Ghostscript.IsAvailable)
+                    return;
+
                 var settings = new MagickReadSettings
                 {
                     Defines = new PdfReadDefines
@@ -63,5 +64,3 @@ namespace Magick.NET.Tests
         }
     }
 }
-
-#endif

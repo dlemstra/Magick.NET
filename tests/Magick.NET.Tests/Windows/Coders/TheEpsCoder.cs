@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-#if WINDOWS_BUILD
-
 using ImageMagick;
 using Xunit;
 
@@ -13,6 +11,9 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldReadTwoImages()
         {
+            if (!Ghostscript.IsAvailable)
+                return;
+
             using (var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
             {
                 Assert.Equal(2, images.Count);
@@ -30,6 +31,9 @@ namespace Magick.NET.Tests
         [Fact]
         public void ShouldReadClipPathsInTiffPreview()
         {
+            if (!Ghostscript.IsAvailable)
+                return;
+
             using (var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
             {
                 var profile = images[1].Get8BimProfile();
@@ -39,5 +43,3 @@ namespace Magick.NET.Tests
         }
     }
 }
-
-#endif
