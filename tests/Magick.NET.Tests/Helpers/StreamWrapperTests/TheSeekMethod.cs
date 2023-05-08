@@ -69,6 +69,16 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
+            public unsafe void ShouldReturnMinusOneForInvalidOffset()
+            {
+                using var memStream = new MemoryStream();
+                using var wrapper = StreamWrapper.CreateForReading(memStream);
+                var result = wrapper.Seek(-1, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+
+                Assert.Equal(-1, result);
+            }
+
+            [Fact]
             public unsafe void ShouldReturnMinusOneForInvalidWhence()
             {
                 using var memStream = new MemoryStream();
