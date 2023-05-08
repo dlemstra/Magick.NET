@@ -48,8 +48,8 @@ namespace Magick.NET.Tests
                 using var memStream = new MemoryStream();
                 memStream.Position = 42;
 
-                using var wrappper = StreamWrapper.CreateForReading(memStream);
-                var result = wrappper.Seek(10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+                using var wrapper = StreamWrapper.CreateForReading(memStream);
+                var result = wrapper.Seek(10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
                 Assert.Equal(10, result);
                 Assert.Equal(52, memStream.Position);
