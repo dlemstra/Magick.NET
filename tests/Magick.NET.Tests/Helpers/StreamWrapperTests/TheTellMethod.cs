@@ -30,7 +30,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public unsafe void ShouldNotAddThePositionOfTheStream()
+            public void ShouldNotAddThePositionOfTheStream()
             {
                 using var memStream = new MemoryStream();
                 memStream.Position = 42;
@@ -42,7 +42,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public unsafe void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringTelling()
+            public void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringTelling()
             {
                 using var memStream = new MemoryStream();
                 using var stream = new TellExceptionStream(memStream);

@@ -28,7 +28,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public unsafe void ShouldUseStartPositionOfStreamAsBegin()
+            public void ShouldUseStartPositionOfStreamAsBegin()
             {
                 using var memStream = new MemoryStream();
                 memStream.Position = 42;
@@ -43,7 +43,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public unsafe void ShouldUseStartPositionAsOffset()
+            public void ShouldUseStartPositionAsOffset()
             {
                 using var memStream = new MemoryStream();
                 memStream.Position = 42;
@@ -56,7 +56,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public unsafe void ShouldRemoveStartPositionFromEndOffset()
+            public void ShouldRemoveStartPositionFromEndOffset()
             {
                 using var memStream = new MemoryStream(new byte[64]);
                 memStream.Position = 42;
@@ -69,7 +69,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public unsafe void ShouldReturnMinusOneForInvalidOffset()
+            public void ShouldReturnMinusOneForInvalidOffset()
             {
                 using var memStream = new MemoryStream();
                 using var wrapper = StreamWrapper.CreateForReading(memStream);
@@ -79,7 +79,7 @@ namespace Magick.NET.Tests
             }
 
             [Fact]
-            public unsafe void ShouldReturnMinusOneForInvalidWhence()
+            public void ShouldReturnMinusOneForInvalidWhence()
             {
                 using var memStream = new MemoryStream();
                 using var wrapper = StreamWrapper.CreateForReading(memStream);
