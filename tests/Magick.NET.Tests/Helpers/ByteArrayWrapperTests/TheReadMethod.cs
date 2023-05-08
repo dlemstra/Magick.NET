@@ -39,17 +39,33 @@ namespace Magick.NET.Tests
             {
                 using var wrapper = new ByteArrayWrapper();
 
-                var buffer = new byte[10];
+                var buffer = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
                 fixed (byte* p = buffer)
                 {
-                    wrapper.Write((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
+                    wrapper.Write((IntPtr)p, (UIntPtr)buffer.Length, IntPtr.Zero);
 
-                    wrapper.Seek(-5, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+                    wrapper.Seek(0, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+
+                    wrapper.Write((IntPtr)p, (UIntPtr)buffer.Length, IntPtr.Zero);
+                }
+
+                buffer = new byte[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
+                fixed (byte* p = buffer)
+                {
+                    wrapper.Seek(0, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
+
+                    wrapper.Write((IntPtr)p, (UIntPtr)buffer.Length, IntPtr.Zero);
+
+                    wrapper.Seek(5, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
                     var count = wrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
                     Assert.Equal(5, count);
-
-                    Assert.Equal(10, wrapper.Tell(IntPtr.Zero));
+                    Assert.Equal(20, wrapper.Tell(IntPtr.Zero));
+                    Assert.Equal(5, buffer[0]);
+                    Assert.Equal(6, buffer[1]);
+                    Assert.Equal(7, buffer[2]);
+                    Assert.Equal(8, buffer[3]);
+                    Assert.Equal(9, buffer[4]);
                 }
             }
         }

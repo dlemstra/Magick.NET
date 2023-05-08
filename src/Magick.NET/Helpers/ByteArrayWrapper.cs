@@ -51,7 +51,7 @@ namespace ImageMagick
             if (length != 0)
             {
                 var destination = (byte*)data.ToPointer();
-                fixed (byte* source = _buffer)
+                fixed (byte* source = _bytes)
                 {
                     NativeMemory.Copy(source + _offset, destination, length);
                     _offset += length;
