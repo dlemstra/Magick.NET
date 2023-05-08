@@ -69,34 +69,20 @@ namespace Magick.NET.Tests
             image.Write(stream, MagickFormat.Ptif);
         }
 
-        [Fact]
-        public void ShouldBeAbleToUseGroup4Compression()
+        [Theory]
+        [InlineData(CompressionMethod.Fax)]
+        [InlineData(CompressionMethod.Group4)]
+        [InlineData(CompressionMethod.JPEG)]
+        public void ShouldBeAbleToUseTheSpecifiedCompression(CompressionMethod compression)
         {
             using var input = new MagickImage(Files.Builtin.Logo);
-            input.Settings.Compression = CompressionMethod.Group4;
+            input.Settings.Compression = compression;
 
-            using var stream = new MemoryStream();
-            input.Write(stream, MagickFormat.Tiff);
-            stream.Position = 0;
+            var bytes = input.ToByteArray(MagickFormat.Tiff);
 
-            using var output = new MagickImage(stream);
+            using var output = new MagickImage(bytes);
 
-            Assert.Equal(CompressionMethod.Group4, output.Compression);
-        }
-
-        [Fact]
-        public void ShouldBeAbleToUseFaxCompression()
-        {
-            using var input = new MagickImage(Files.Builtin.Logo);
-            input.Settings.Compression = CompressionMethod.Fax;
-
-            using var stream = new MemoryStream();
-            input.Write(stream, MagickFormat.Tiff);
-            stream.Position = 0;
-
-            using var output = new MagickImage(stream);
-
-            Assert.Equal(CompressionMethod.Fax, output.Compression);
+            Assert.Equal(compression, output.Compression);
         }
 
         [Fact]
