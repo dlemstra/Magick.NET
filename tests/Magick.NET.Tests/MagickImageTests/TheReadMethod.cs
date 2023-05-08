@@ -549,6 +549,21 @@ namespace Magick.NET.Tests
                     Assert.Contains("~", exception.Message);
                     Assert.Contains("error/blob.c/OpenBlob", exception.Message);
                 }
+
+                [Fact]
+                public void ShouldReadAIFromNonSeekableStream()
+                {
+                    if (!Ghostscript.IsAvailable)
+                        return;
+
+                    using (var stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI))
+                    {
+                        using (var image = new MagickImage())
+                        {
+                            image.Read(stream);
+                        }
+                    }
+                }
             }
 
             public class WithFileNameAndMagickFormat

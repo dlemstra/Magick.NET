@@ -52,5 +52,19 @@ namespace Magick.NET.Tests
 
             ColorAssert.Equal(MagickColors.White, output, 0, 0);
         }
+
+        [Fact]
+        public void ShouldReturnTheCorrectFormatForAiFile()
+        {
+            if (!Ghostscript.IsAvailable)
+                return;
+
+            using (var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
+            {
+                Assert.Equal(765, image.Width);
+                Assert.Equal(361, image.Height);
+                Assert.Equal(MagickFormat.Ai, image.Format);
+            }
+        }
     }
 }
