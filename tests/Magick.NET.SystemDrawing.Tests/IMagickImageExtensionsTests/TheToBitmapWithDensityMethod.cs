@@ -7,160 +7,159 @@ using System.Drawing.Imaging;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.SystemDrawing.Tests
+namespace Magick.NET.SystemDrawing.Tests;
+
+public partial class IMagickImageExtensionsTests
 {
-    public partial class IMagickImageExtensionsTests
+    public class TheToBitmapWithDensityMethod
     {
-        public class TheToBitmapWithDensityMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenImageFormatIsExif()
+            => AssertUnsupportedImageFormat(ImageFormat.Exif);
+
+        [Fact]
+        public void ShouldThrowExceptionWhenImageFormatIsEmf()
+            => AssertUnsupportedImageFormat(ImageFormat.Emf);
+
+        [Fact]
+        public void ShouldThrowExceptionWhenImageFormatIsWmf()
+            => AssertUnsupportedImageFormat(ImageFormat.Wmf);
+
+        [Fact]
+        public void ShouldReturnBitmapWhenFormatIsBmp()
+            => AssertSupportedImageFormat(ImageFormat.Bmp);
+
+        [Fact]
+        public void ShouldReturnBitmapWhenFormatIsGif()
+            => AssertSupportedImageFormat(ImageFormat.Gif);
+
+        [Fact]
+        public void ShouldReturnBitmapWhenFormatIsIcon()
+            => AssertSupportedImageFormat(ImageFormat.Icon);
+
+        [Fact]
+        public void ShouldReturnBitmapWhenFormatIsJpeg()
+            => AssertSupportedImageFormat(ImageFormat.Jpeg);
+
+        [Fact]
+        public void ShouldReturnBitmapWhenFormatIsPng()
+            => AssertSupportedImageFormat(ImageFormat.Png);
+
+        [Fact]
+        public void ShouldReturnBitmapWhenFormatIsTiff()
+            => AssertSupportedImageFormat(ImageFormat.Tiff);
+
+        [Fact]
+        public void ShouldChangeTheColorSpaceToSrgb()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenImageFormatIsExif()
-                => AssertUnsupportedImageFormat(ImageFormat.Exif);
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
+            image.ColorSpace = ColorSpace.YCbCr;
 
-            [Fact]
-            public void ShouldThrowExceptionWhenImageFormatIsEmf()
-                => AssertUnsupportedImageFormat(ImageFormat.Emf);
+            using var bitmap = image.ToBitmapWithDensity();
+            ColorAssert.Equal(MagickColors.Red, ToMagickColor(bitmap.GetPixel(0, 0)));
 
-            [Fact]
-            public void ShouldThrowExceptionWhenImageFormatIsWmf()
-                => AssertUnsupportedImageFormat(ImageFormat.Wmf);
+            Assert.Equal(ColorSpace.YCbCr, image.ColorSpace);
+        }
 
-            [Fact]
-            public void ShouldReturnBitmapWhenFormatIsBmp()
-                => AssertSupportedImageFormat(ImageFormat.Bmp);
+        [Fact]
+        public void ShouldBeAbleToConvertGrayImage()
+        {
+            using var image = new MagickImage(MagickColors.Magenta, 5, 1);
+            image.Extent(5, 2, MagickColors.Honeydew);
 
-            [Fact]
-            public void ShouldReturnBitmapWhenFormatIsGif()
-                => AssertSupportedImageFormat(ImageFormat.Gif);
+            image.ColorType = ColorType.Bilevel;
+            image.ClassType = ClassType.Direct;
 
-            [Fact]
-            public void ShouldReturnBitmapWhenFormatIsIcon()
-                => AssertSupportedImageFormat(ImageFormat.Icon);
+            Assert.Equal(ColorSpace.Gray, image.ColorSpace);
 
-            [Fact]
-            public void ShouldReturnBitmapWhenFormatIsJpeg()
-                => AssertSupportedImageFormat(ImageFormat.Jpeg);
+            using var bitmap = image.ToBitmapWithDensity();
+            for (var i = 0; i < image.Width; i++)
+                ColorAssert.Equal(MagickColors.Black, ToMagickColor(bitmap.GetPixel(i, 0)));
 
-            [Fact]
-            public void ShouldReturnBitmapWhenFormatIsPng()
-                => AssertSupportedImageFormat(ImageFormat.Png);
+            for (var i = 0; i < image.Width; i++)
+                ColorAssert.Equal(MagickColors.White, ToMagickColor(bitmap.GetPixel(i, 1)));
+        }
 
-            [Fact]
-            public void ShouldReturnBitmapWhenFormatIsTiff()
-                => AssertSupportedImageFormat(ImageFormat.Tiff);
+        [Fact]
+        public void ShouldBeAbleToConvertRgbImage()
+        {
+            using var image = new MagickImage(MagickColors.Magenta, 5, 1);
+            using var bitmap = image.ToBitmapWithDensity();
+            for (var i = 0; i < image.Width; i++)
+                ColorAssert.Equal(MagickColors.Magenta, ToMagickColor(bitmap.GetPixel(i, 0)));
+        }
 
-            [Fact]
-            public void ShouldChangeTheColorSpaceToSrgb()
-            {
-                using var image = new MagickImage(MagickColors.Red, 1, 1);
-                image.ColorSpace = ColorSpace.YCbCr;
+        [Fact]
+        public void ShouldBeAbleToConvertRgbaImage()
+        {
+            using var image = new MagickImage(MagickColors.Magenta, 5, 1);
+            image.Alpha(AlphaOption.On);
 
-                using var bitmap = image.ToBitmapWithDensity();
-                ColorAssert.Equal(MagickColors.Red, ToMagickColor(bitmap.GetPixel(0, 0)));
+            var color = MagickColors.Magenta;
+            color.A = Quantum.Max;
 
-                Assert.Equal(ColorSpace.YCbCr, image.ColorSpace);
-            }
+            using var bitmap = image.ToBitmapWithDensity();
+            for (var i = 0; i < image.Width; i++)
+                ColorAssert.Equal(color, ToMagickColor(bitmap.GetPixel(i, 0)));
+        }
 
-            [Fact]
-            public void ShouldBeAbleToConvertGrayImage()
-            {
-                using var image = new MagickImage(MagickColors.Magenta, 5, 1);
-                image.Extent(5, 2, MagickColors.Honeydew);
+        [Fact]
+        public void ShouldSetTheDensityOfTheBitmap()
+        {
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
+            image.Density = new Density(300, 200);
 
-                image.ColorType = ColorType.Bilevel;
-                image.ClassType = ClassType.Direct;
+            using var bitmap = image.ToBitmapWithDensity();
+            Assert.Equal(300, (int)bitmap.HorizontalResolution);
+            Assert.Equal(200, (int)bitmap.VerticalResolution);
+        }
 
-                Assert.Equal(ColorSpace.Gray, image.ColorSpace);
+        [Fact]
+        public void ShouldThrowExceptionWhenImageFormatIsNull()
+        {
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
 
-                using var bitmap = image.ToBitmapWithDensity();
-                for (var i = 0; i < image.Width; i++)
-                    ColorAssert.Equal(MagickColors.Black, ToMagickColor(bitmap.GetPixel(i, 0)));
+            Assert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmapWithDensity(null));
+        }
 
-                for (var i = 0; i < image.Width; i++)
-                    ColorAssert.Equal(MagickColors.White, ToMagickColor(bitmap.GetPixel(i, 1)));
-            }
+        [Fact]
+        public void ShouldSetTheDensityOfTheBitmapWhenFormatIsUsed()
+        {
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
+            image.Density = new Density(300, 200);
 
-            [Fact]
-            public void ShouldBeAbleToConvertRgbImage()
-            {
-                using var image = new MagickImage(MagickColors.Magenta, 5, 1);
-                using var bitmap = image.ToBitmapWithDensity();
-                for (var i = 0; i < image.Width; i++)
-                    ColorAssert.Equal(MagickColors.Magenta, ToMagickColor(bitmap.GetPixel(i, 0)));
-            }
+            using var bitmap = image.ToBitmapWithDensity(ImageFormat.Jpeg);
+            Assert.Equal(300, (int)bitmap.HorizontalResolution);
+            Assert.Equal(200, (int)bitmap.VerticalResolution);
+        }
 
-            [Fact]
-            public void ShouldBeAbleToConvertRgbaImage()
-            {
-                using var image = new MagickImage(MagickColors.Magenta, 5, 1);
-                image.Alpha(AlphaOption.On);
+        private void AssertUnsupportedImageFormat(ImageFormat imageFormat)
+        {
+            using var image = new MagickImage(MagickColors.Red, 10, 10);
 
-                var color = MagickColors.Magenta;
-                color.A = Quantum.Max;
+            Assert.Throws<NotSupportedException>(() => image.ToBitmapWithDensity(imageFormat));
+        }
 
-                using var bitmap = image.ToBitmapWithDensity();
-                for (var i = 0; i < image.Width; i++)
-                    ColorAssert.Equal(color, ToMagickColor(bitmap.GetPixel(i, 0)));
-            }
+        private void AssertSupportedImageFormat(ImageFormat imageFormat)
+        {
+            using var image = new MagickImage(MagickColors.Red, 10, 10);
+            using var bitmap = image.ToBitmapWithDensity(imageFormat);
+            Assert.Equal(imageFormat, bitmap.RawFormat);
 
-            [Fact]
-            public void ShouldSetTheDensityOfTheBitmap()
-            {
-                using var image = new MagickImage(MagickColors.Red, 1, 1);
-                image.Density = new Density(300, 200);
+            // Cannot test JPEG due to rounding issues.
+            if (imageFormat == ImageFormat.Jpeg)
+                return;
 
-                using var bitmap = image.ToBitmapWithDensity();
-                Assert.Equal(300, (int)bitmap.HorizontalResolution);
-                Assert.Equal(200, (int)bitmap.VerticalResolution);
-            }
+            ColorAssert.Equal(MagickColors.Red, ToMagickColor(bitmap.GetPixel(0, 0)));
+            ColorAssert.Equal(MagickColors.Red, ToMagickColor(bitmap.GetPixel(5, 5)));
+            ColorAssert.Equal(MagickColors.Red, ToMagickColor(bitmap.GetPixel(9, 9)));
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenImageFormatIsNull()
-            {
-                using var image = new MagickImage(MagickColors.Red, 1, 1);
-
-                Assert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmapWithDensity(null));
-            }
-
-            [Fact]
-            public void ShouldSetTheDensityOfTheBitmapWhenFormatIsUsed()
-            {
-                using var image = new MagickImage(MagickColors.Red, 1, 1);
-                image.Density = new Density(300, 200);
-
-                using var bitmap = image.ToBitmapWithDensity(ImageFormat.Jpeg);
-                Assert.Equal(300, (int)bitmap.HorizontalResolution);
-                Assert.Equal(200, (int)bitmap.VerticalResolution);
-            }
-
-            private void AssertUnsupportedImageFormat(ImageFormat imageFormat)
-            {
-                using var image = new MagickImage(MagickColors.Red, 10, 10);
-
-                Assert.Throws<NotSupportedException>(() => image.ToBitmapWithDensity(imageFormat));
-            }
-
-            private void AssertSupportedImageFormat(ImageFormat imageFormat)
-            {
-                using var image = new MagickImage(MagickColors.Red, 10, 10);
-                using var bitmap = image.ToBitmapWithDensity(imageFormat);
-                Assert.Equal(imageFormat, bitmap.RawFormat);
-
-                // Cannot test JPEG due to rounding issues.
-                if (imageFormat == ImageFormat.Jpeg)
-                    return;
-
-                ColorAssert.Equal(MagickColors.Red, ToMagickColor(bitmap.GetPixel(0, 0)));
-                ColorAssert.Equal(MagickColors.Red, ToMagickColor(bitmap.GetPixel(5, 5)));
-                ColorAssert.Equal(MagickColors.Red, ToMagickColor(bitmap.GetPixel(9, 9)));
-            }
-
-            private MagickColor ToMagickColor(Color color)
-            {
-                var result = new MagickColor();
-                result.SetFromColor(color);
-                return result;
-            }
+        private MagickColor ToMagickColor(Color color)
+        {
+            var result = new MagickColor();
+            result.SetFromColor(color);
+            return result;
         }
     }
 }

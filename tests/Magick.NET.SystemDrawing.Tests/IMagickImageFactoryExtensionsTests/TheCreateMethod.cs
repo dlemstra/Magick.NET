@@ -6,30 +6,29 @@ using System.Drawing;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.SystemDrawing.Tests
+namespace Magick.NET.SystemDrawing.Tests;
+
+public partial class MagickImageFactoryTests
 {
-    public partial class MagickImageFactoryTests
+    public partial class TheCreateMethod
     {
-        public partial class TheCreateMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenBitmapIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenBitmapIsNull()
-            {
-                var factory = new MagickImageFactory();
-                Assert.Throws<ArgumentNullException>("bitmap", () => factory.Create((Bitmap)null));
-            }
+            var factory = new MagickImageFactory();
+            Assert.Throws<ArgumentNullException>("bitmap", () => factory.Create((Bitmap)null));
+        }
 
-            [Fact]
-            public void ShouldCreateImageFromBitmap()
-            {
-                var factory = new MagickImageFactory();
-                using var bitmap = new Bitmap(Files.SnakewarePNG);
-                using var image = factory.Create(bitmap);
+        [Fact]
+        public void ShouldCreateImageFromBitmap()
+        {
+            var factory = new MagickImageFactory();
+            using var bitmap = new Bitmap(Files.SnakewarePNG);
+            using var image = factory.Create(bitmap);
 
-                Assert.Equal(286, image.Width);
-                Assert.Equal(67, image.Height);
-                Assert.Equal(MagickFormat.Png, image.Format);
-            }
+            Assert.Equal(286, image.Width);
+            Assert.Equal(67, image.Height);
+            Assert.Equal(MagickFormat.Png, image.Format);
         }
     }
 }
