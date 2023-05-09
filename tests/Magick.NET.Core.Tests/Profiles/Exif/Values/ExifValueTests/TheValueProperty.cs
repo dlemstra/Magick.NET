@@ -4,46 +4,45 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class ExifValueTests
 {
-    public partial class ExifValueTests
+    public class TheValueProperty
     {
-        public class TheValueProperty
+        [Fact]
+        public void ShouldReturnFalseWhenValueIsInvalidDataType1()
         {
-            [Fact]
-            public void ShouldReturnFalseWhenValueIsInvalidDataType1()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.Software, "Magick.NET");
+            var profile = new ExifProfile();
+            profile.SetValue(ExifTag.Software, "Magick.NET");
 
-                IExifValue value = profile.GetValue(ExifTag.Software);
+            IExifValue value = profile.GetValue(ExifTag.Software);
 
-                Assert.False(value.SetValue(10.5));
-            }
+            Assert.False(value.SetValue(10.5));
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenValueIsInvalidDataType2()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ShutterSpeedValue, new SignedRational(75.55));
+        [Fact]
+        public void ShouldReturnFalseWhenValueIsInvalidDataType2()
+        {
+            var profile = new ExifProfile();
+            profile.SetValue(ExifTag.ShutterSpeedValue, new SignedRational(75.55));
 
-                IExifValue value = profile.GetValue(ExifTag.ShutterSpeedValue);
+            IExifValue value = profile.GetValue(ExifTag.ShutterSpeedValue);
 
-                Assert.False(value.SetValue(75));
-            }
+            Assert.False(value.SetValue(75));
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenValueIsInvalidDataType3()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.XResolution, new Rational(150.0));
+        [Fact]
+        public void ShouldReturnFalseWhenValueIsInvalidDataType3()
+        {
+            var profile = new ExifProfile();
+            profile.SetValue(ExifTag.XResolution, new Rational(150.0));
 
-                IExifValue value = profile.GetValue(ExifTag.XResolution);
-                Assert.NotNull(value);
-                Assert.Equal("150", value.ToString());
+            IExifValue value = profile.GetValue(ExifTag.XResolution);
+            Assert.NotNull(value);
+            Assert.Equal("150", value.ToString());
 
-                Assert.False(value.SetValue("Magick.NET"));
-            }
+            Assert.False(value.SetValue("Magick.NET"));
         }
     }
 }

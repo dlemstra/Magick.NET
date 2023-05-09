@@ -4,45 +4,44 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class RationalTests
 {
-    public partial class RationalTests
+    public class TheToStringMethod
     {
-        public class TheToStringMethod
+        [Fact]
+        public void ShouldReturnPositiveInfinityWhenValueIsNan()
         {
-            [Fact]
-            public void ShouldReturnPositiveInfinityWhenValueIsNan()
-            {
-                var rational = new Rational(double.NaN);
-                Assert.Equal("Indeterminate", rational.ToString());
-            }
+            var rational = new Rational(double.NaN);
+            Assert.Equal("Indeterminate", rational.ToString());
+        }
 
-            [Fact]
-            public void ShouldReturnPositiveInfinityWhenValueIsPositiveInfinity()
-            {
-                var rational = new Rational(double.PositiveInfinity);
-                Assert.Equal("PositiveInfinity", rational.ToString());
-            }
+        [Fact]
+        public void ShouldReturnPositiveInfinityWhenValueIsPositiveInfinity()
+        {
+            var rational = new Rational(double.PositiveInfinity);
+            Assert.Equal("PositiveInfinity", rational.ToString());
+        }
 
-            [Fact]
-            public void ShouldReturnPositiveInfinityWhenValueIsNegativeInfinity()
-            {
-                var rational = new Rational(double.NegativeInfinity);
-                Assert.Equal("PositiveInfinity", rational.ToString());
-            }
+        [Fact]
+        public void ShouldReturnPositiveInfinityWhenValueIsNegativeInfinity()
+        {
+            var rational = new Rational(double.NegativeInfinity);
+            Assert.Equal("PositiveInfinity", rational.ToString());
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValue()
-            {
-                var rational = new Rational(0, 1);
-                Assert.Equal("0", rational.ToString());
+        [Fact]
+        public void ShouldReturnTheCorrectValue()
+        {
+            var rational = new Rational(0, 1);
+            Assert.Equal("0", rational.ToString());
 
-                rational = new Rational(2, 1);
-                Assert.Equal("2", rational.ToString());
+            rational = new Rational(2, 1);
+            Assert.Equal("2", rational.ToString());
 
-                rational = new Rational(1, 2);
-                Assert.Equal("1/2", rational.ToString());
-            }
+            rational = new Rational(1, 2);
+            Assert.Equal("1/2", rational.ToString());
         }
     }
 }

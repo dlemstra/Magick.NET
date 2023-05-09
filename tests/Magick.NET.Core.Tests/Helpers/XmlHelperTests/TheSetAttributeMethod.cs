@@ -5,38 +5,37 @@ using System.Xml;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class XmlHelperTests
 {
-    public partial class XmlHelperTests
+    public class TheSetAttributeMethod
     {
-        public class TheSetAttributeMethod
+        [Fact]
+        public void ShouldAddAttribute()
         {
-            [Fact]
-            public void ShouldAddAttribute()
-            {
-                var doc = new XmlDocument();
-                var element = doc.CreateElement("test");
+            var doc = new XmlDocument();
+            var element = doc.CreateElement("test");
 
-                XmlHelper.SetAttribute(element, "attr", "val");
+            XmlHelper.SetAttribute(element, "attr", "val");
 
-                var attribute = element.Attributes["attr"];
-                Assert.NotNull(attribute);
-                Assert.Equal("val", attribute.Value);
-            }
+            var attribute = element.Attributes["attr"];
+            Assert.NotNull(attribute);
+            Assert.Equal("val", attribute.Value);
+        }
 
-            [Fact]
-            public void ShouldChangeValueOfAttribute()
-            {
-                var doc = new XmlDocument();
-                var element = doc.CreateElement("test");
+        [Fact]
+        public void ShouldChangeValueOfAttribute()
+        {
+            var doc = new XmlDocument();
+            var element = doc.CreateElement("test");
 
-                var attribute = doc.CreateAttribute("attr");
-                element.Attributes.Append(attribute);
+            var attribute = doc.CreateAttribute("attr");
+            element.Attributes.Append(attribute);
 
-                XmlHelper.SetAttribute(element, "attr", 42);
+            XmlHelper.SetAttribute(element, "attr", 42);
 
-                Assert.Equal("42", attribute.Value);
-            }
+            Assert.Equal("42", attribute.Value);
         }
     }
 }

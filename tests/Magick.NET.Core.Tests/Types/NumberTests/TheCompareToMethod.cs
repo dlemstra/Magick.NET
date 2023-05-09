@@ -4,37 +4,36 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class NumberTests
 {
-    public partial class NumberTests
+    public class TheCompareToMethod
     {
-        public class TheCompareToMethod
+        [Fact]
+        public void ShouldReturnZeroWhenInstancesAreTheSame()
         {
-            [Fact]
-            public void ShouldReturnZeroWhenInstancesAreTheSame()
-            {
-                var first = new Number(10);
+            var first = new Number(10);
 
-                Assert.Equal(0, first.CompareTo(first));
-            }
+            Assert.Equal(0, first.CompareTo(first));
+        }
 
-            [Fact]
-            public void ShouldReturnZeroWhenInstancesAreEqual()
-            {
-                var first = new Number(10);
-                var second = new Number(10);
+        [Fact]
+        public void ShouldReturnZeroWhenInstancesAreEqual()
+        {
+            var first = new Number(10);
+            var second = new Number(10);
 
-                Assert.Equal(0, first.CompareTo(second));
-            }
+            Assert.Equal(0, first.CompareTo(second));
+        }
 
-            [Fact]
-            public void ShouldReturnOneWhenInstancesAreNotEqual()
-            {
-                var first = new Number(10);
-                var second = new Number(5);
+        [Fact]
+        public void ShouldReturnOneWhenInstancesAreNotEqual()
+        {
+            var first = new Number(10);
+            var second = new Number(5);
 
-                Assert.Equal(1, first.CompareTo(second));
-            }
+            Assert.Equal(1, first.CompareTo(second));
         }
     }
 }

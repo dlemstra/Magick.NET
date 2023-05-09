@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class EndianReaderTests
 {
-    public partial class EndianReaderTests
+    public class TheSeekMetod
     {
-        public class TheSeekMetod
+        [Fact]
+        public void ShouldReturnFalseWhenIndexIsTooHigh()
         {
-            [Fact]
-            public void ShouldReturnFalseWhenIndexIsTooHigh()
-            {
-                var reader = new EndianReader(new byte[] { 0 });
+            var reader = new EndianReader(new byte[] { 0 });
 
-                var result = reader.Seek(1);
-                Assert.False(result);
-            }
+            var result = reader.Seek(1);
+            Assert.False(result);
+        }
 
-            [Fact]
-            public void ShouldChangeTheIndex()
-            {
-                var reader = new EndianReader(new byte[] { 0, 0, 0 });
+        [Fact]
+        public void ShouldChangeTheIndex()
+        {
+            var reader = new EndianReader(new byte[] { 0, 0, 0 });
 
-                reader.Seek(2);
-                Assert.Equal(2U, reader.Index);
-            }
+            reader.Seek(2);
+            Assert.Equal(2U, reader.Index);
         }
     }
 }

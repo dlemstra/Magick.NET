@@ -4,27 +4,26 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
-{
-    public partial class ColorProfileTests
-    {
-        public class TheEmbeddedResources
-        {
-            public void ShouldHaveTheCorrectValue()
-            {
-                TestEmbeddedResource(ColorProfile.AdobeRGB1998);
-                TestEmbeddedResource(ColorProfile.AppleRGB);
-                TestEmbeddedResource(ColorProfile.CoatedFOGRA39);
-                TestEmbeddedResource(ColorProfile.ColorMatchRGB);
-                TestEmbeddedResource(ColorProfile.SRGB);
-                TestEmbeddedResource(ColorProfile.USWebCoatedSWOP);
-            }
+namespace Magick.NET.Core.Tests;
 
-            private static void TestEmbeddedResource(ColorProfile profile)
-            {
-                Assert.NotNull(profile);
-                Assert.Equal("icc", profile.Name);
-            }
+public partial class ColorProfileTests
+{
+    public class TheEmbeddedResources
+    {
+        public void ShouldHaveTheCorrectValue()
+        {
+            TestEmbeddedResource(ColorProfile.AdobeRGB1998);
+            TestEmbeddedResource(ColorProfile.AppleRGB);
+            TestEmbeddedResource(ColorProfile.CoatedFOGRA39);
+            TestEmbeddedResource(ColorProfile.ColorMatchRGB);
+            TestEmbeddedResource(ColorProfile.SRGB);
+            TestEmbeddedResource(ColorProfile.USWebCoatedSWOP);
+        }
+
+        private static void TestEmbeddedResource(ColorProfile profile)
+        {
+            Assert.NotNull(profile);
+            Assert.Equal("icc", profile.Name);
         }
     }
 }

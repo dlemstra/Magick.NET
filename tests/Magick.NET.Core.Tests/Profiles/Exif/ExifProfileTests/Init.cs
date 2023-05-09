@@ -4,14 +4,13 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class ExifProfileTests
 {
-    public partial class ExifProfileTests
+    private static void TestValue(IExifValue value, string expected)
     {
-        private static void TestValue(IExifValue value, string expected)
-        {
-            Assert.NotNull(value);
-            Assert.Equal(expected, value.GetValue());
-        }
+        Assert.NotNull(value);
+        Assert.Equal(expected, value.GetValue());
     }
 }

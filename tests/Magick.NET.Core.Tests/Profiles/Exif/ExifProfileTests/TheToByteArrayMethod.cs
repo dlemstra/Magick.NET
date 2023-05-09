@@ -4,49 +4,48 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class ExifProfileTests
 {
-    public partial class ExifProfileTests
+    public class TheToByteArrayMethod
     {
-        public class TheToByteArrayMethod
+        [Fact]
+        public void ShouldReturnEmptyArrayWhenEmpty()
         {
-            [Fact]
-            public void ShouldReturnEmptyArrayWhenEmpty()
-            {
-                var profile = new ExifProfile();
+            var profile = new ExifProfile();
 
-                var bytes = profile.ToByteArray();
-                Assert.Empty(bytes);
-            }
+            var bytes = profile.ToByteArray();
+            Assert.Empty(bytes);
+        }
 
-            [Fact]
-            public void ShouldReturnEmptyArrayWhenAllValuesAreInvalid()
-            {
-                var bytes = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 42, 1, 4, 0, 1, 0, 0, 0, 42, 0, 0, 0, 26, 0, 0, 0, 0, 0 };
+        [Fact]
+        public void ShouldReturnEmptyArrayWhenAllValuesAreInvalid()
+        {
+            var bytes = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 42, 1, 4, 0, 1, 0, 0, 0, 42, 0, 0, 0, 26, 0, 0, 0, 0, 0 };
 
-                var profile = new ExifProfile(bytes);
+            var profile = new ExifProfile(bytes);
 
-                var unkownTag = new ExifTag<uint>((ExifTagValue)298);
-                var value = profile.GetValue<uint>(unkownTag);
-                Assert.Equal(42U, value.GetValue());
-                Assert.Equal("42", value.ToString());
+            var unkownTag = new ExifTag<uint>((ExifTagValue)298);
+            var value = profile.GetValue<uint>(unkownTag);
+            Assert.Equal(42U, value.GetValue());
+            Assert.Equal("42", value.ToString());
 
-                bytes = profile.ToByteArray();
-                Assert.Empty(bytes);
-            }
+            bytes = profile.ToByteArray();
+            Assert.Empty(bytes);
+        }
 
-            [Fact]
-            public void ShouldExcludeEmptyStrings()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.ImageDescription, string.Empty);
+        [Fact]
+        public void ShouldExcludeEmptyStrings()
+        {
+            var profile = new ExifProfile();
+            profile.SetValue(ExifTag.ImageDescription, string.Empty);
 
-                var data = profile.ToByteArray();
+            var data = profile.ToByteArray();
 
-                var result = ExifReader.Read(data);
+            var result = ExifReader.Read(data);
 
-                Assert.Empty(result.Values);
-            }
+            Assert.Empty(result.Values);
         }
     }
 }

@@ -4,42 +4,41 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class EndianReaderTests
 {
-    public partial class EndianReaderTests
+    public class TheReadByteMethod : EndianReaderTests
     {
-        public class TheReadByteMethod : EndianReaderTests
+        [Fact]
+        public void ShouldReturnNullWhenBufferIsNotLongEnough()
         {
-            [Fact]
-            public void ShouldReturnNullWhenBufferIsNotLongEnough()
-            {
-                var reader = new EndianReader(new byte[1] { 0 });
+            var reader = new EndianReader(new byte[1] { 0 });
 
-                var result = reader.ReadByte();
-                result = reader.ReadByte();
+            var result = reader.ReadByte();
+            result = reader.ReadByte();
 
-                Assert.Null(result);
-            }
+            Assert.Null(result);
+        }
 
-            [Fact]
-            public void ShouldReadByte()
-            {
-                var reader = new EndianReader(new byte[1] { 42 });
+        [Fact]
+        public void ShouldReadByte()
+        {
+            var reader = new EndianReader(new byte[1] { 42 });
 
-                var result = reader.ReadByte();
+            var result = reader.ReadByte();
 
-                Assert.Equal((byte)42, result);
-            }
+            Assert.Equal((byte)42, result);
+        }
 
-            [Fact]
-            public void ShouldChangeTheIndex()
-            {
-                var reader = new EndianReader(new byte[1] { 0 });
+        [Fact]
+        public void ShouldChangeTheIndex()
+        {
+            var reader = new EndianReader(new byte[1] { 0 });
 
-                reader.ReadByte();
+            reader.ReadByte();
 
-                Assert.Equal(1U, reader.Index);
-            }
+            Assert.Equal(1U, reader.Index);
         }
     }
 }

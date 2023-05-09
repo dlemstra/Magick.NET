@@ -4,52 +4,51 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class EndianReaderTests
 {
-    public partial class EndianReaderTests
+    public class TheReadLongMethod : EndianReaderTests
     {
-        public class TheReadLongMethod : EndianReaderTests
+        [Fact]
+        public void ShouldReturnNullWhenBufferIsNotLongEnough()
         {
-            [Fact]
-            public void ShouldReturnNullWhenBufferIsNotLongEnough()
-            {
-                var reader = new EndianReader(new byte[1] { 0 });
+            var reader = new EndianReader(new byte[1] { 0 });
 
-                var result = reader.ReadLong();
+            var result = reader.ReadLong();
 
-                Assert.Null(result);
-            }
+            Assert.Null(result);
+        }
 
-            [Fact]
-            public void ShouldReadLongBigEndian()
-            {
-                var reader = new EndianReader(new byte[4] { 4, 197, 149, 223 });
+        [Fact]
+        public void ShouldReadLongBigEndian()
+        {
+            var reader = new EndianReader(new byte[4] { 4, 197, 149, 223 });
 
-                var result = reader.ReadLong();
+            var result = reader.ReadLong();
 
-                Assert.Equal(80057823U, result);
-            }
+            Assert.Equal(80057823U, result);
+        }
 
-            [Fact]
-            public void ShouldReadLongLittleEndian()
-            {
-                var reader = new EndianReader(new byte[4] { 223, 149, 197, 4 });
-                reader.IsLittleEndian = true;
+        [Fact]
+        public void ShouldReadLongLittleEndian()
+        {
+            var reader = new EndianReader(new byte[4] { 223, 149, 197, 4 });
+            reader.IsLittleEndian = true;
 
-                var result = reader.ReadLong();
+            var result = reader.ReadLong();
 
-                Assert.Equal(80057823U, result);
-            }
+            Assert.Equal(80057823U, result);
+        }
 
-            [Fact]
-            public void ShouldChangeTheIndex()
-            {
-                var reader = new EndianReader(new byte[4] { 0, 0, 0, 0 });
+        [Fact]
+        public void ShouldChangeTheIndex()
+        {
+            var reader = new EndianReader(new byte[4] { 0, 0, 0, 0 });
 
-                reader.ReadLong();
+            reader.ReadLong();
 
-                Assert.Equal(4U, reader.Index);
-            }
+            Assert.Equal(4U, reader.Index);
         }
     }
 }

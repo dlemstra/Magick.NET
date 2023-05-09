@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class ColorProfileTests
 {
-    public partial class ColorProfileTests
+    public class TheManufacturerProperty
     {
-        public class TheManufacturerProperty
+        [Fact]
+        public void ShouldReturnTheCorrectValue()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectValue()
-            {
-                Assert.Null(ColorProfile.AdobeRGB1998.Manufacturer);
-                Assert.Null(ColorProfile.AppleRGB.Manufacturer);
-                Assert.Null(ColorProfile.CoatedFOGRA39.Manufacturer);
-                Assert.Null(ColorProfile.ColorMatchRGB.Manufacturer);
-                Assert.Equal("IEC http://www.iec.ch", ColorProfile.SRGB.Manufacturer);
-                Assert.Null(ColorProfile.USWebCoatedSWOP.Manufacturer);
-            }
+            Assert.Null(ColorProfile.AdobeRGB1998.Manufacturer);
+            Assert.Null(ColorProfile.AppleRGB.Manufacturer);
+            Assert.Null(ColorProfile.CoatedFOGRA39.Manufacturer);
+            Assert.Null(ColorProfile.ColorMatchRGB.Manufacturer);
+            Assert.Equal("IEC http://www.iec.ch", ColorProfile.SRGB.Manufacturer);
+            Assert.Null(ColorProfile.USWebCoatedSWOP.Manufacturer);
         }
     }
 }

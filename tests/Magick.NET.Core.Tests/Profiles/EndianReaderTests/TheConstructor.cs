@@ -5,29 +5,28 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
-{
-    public partial class EndianReaderTests
-    {
-        public class TheConstructor : EndianReaderTests
-        {
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("data", () =>
-                {
-                    new EndianReader(null);
-                });
-            }
+namespace Magick.NET.Core.Tests;
 
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayIsEmpty()
+public partial class EndianReaderTests
+{
+    public class TheConstructor : EndianReaderTests
+    {
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayIsNull()
+        {
+            Assert.Throws<ArgumentNullException>("data", () =>
             {
-                Assert.Throws<ArgumentException>("data", () =>
-                {
-                    new EndianReader(Array.Empty<byte>());
-                });
-            }
+                new EndianReader(null);
+            });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayIsEmpty()
+        {
+            Assert.Throws<ArgumentException>("data", () =>
+            {
+                new EndianReader(Array.Empty<byte>());
+            });
         }
     }
 }

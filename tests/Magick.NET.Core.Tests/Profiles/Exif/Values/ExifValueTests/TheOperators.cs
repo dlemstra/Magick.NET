@@ -4,42 +4,41 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class ExifValueTests
 {
-    public partial class ExifValueTests
+    public class TheOperators
     {
-        public class TheOperators
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
-            {
-                var value = new ExifLong(ExifTag.SubIFDOffset);
+            var value = new ExifLong(ExifTag.SubIFDOffset);
 
-                Assert.False(value == null);
-                Assert.True(value != null);
-                Assert.False(null == value);
-                Assert.True(null != value);
-            }
+            Assert.False(value == null);
+            Assert.True(value != null);
+            Assert.False(null == value);
+            Assert.True(null != value);
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenValuesAreEqual()
-            {
-                var first = new ExifLong(ExifTag.SubIFDOffset);
-                var second = ExifTag.SubIFDOffset;
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenValuesAreEqual()
+        {
+            var first = new ExifLong(ExifTag.SubIFDOffset);
+            var second = ExifTag.SubIFDOffset;
 
-                Assert.True(first == second);
-                Assert.False(first != second);
-            }
+            Assert.True(first == second);
+            Assert.False(first != second);
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenValuesAreNotEqual()
-            {
-                var first = new ExifLong(ExifTag.SubIFDOffset);
-                var second = ExifTag.CodingMethods;
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenValuesAreNotEqual()
+        {
+            var first = new ExifLong(ExifTag.SubIFDOffset);
+            var second = ExifTag.CodingMethods;
 
-                Assert.False(first == second);
-                Assert.True(first != second);
-            }
+            Assert.False(first == second);
+            Assert.True(first != second);
         }
     }
 }

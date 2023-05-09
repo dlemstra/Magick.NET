@@ -5,37 +5,36 @@ using System.Text;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
+namespace Magick.NET.Core.Tests;
+
+public partial class IptcProfileTests
 {
-    public partial class IptcProfileTests
+    public class TheRemoveValueMethod
     {
-        public class TheRemoveValueMethod
+        [Fact]
+        public void ShouldRemoveAllValues()
         {
-            [Fact]
-            public void ShouldRemoveAllValues()
-            {
-                var profile = new IptcProfile();
-                profile.SetValue(IptcTag.Byline, "test");
-                profile.SetValue(IptcTag.Byline, "test2");
+            var profile = new IptcProfile();
+            profile.SetValue(IptcTag.Byline, "test");
+            profile.SetValue(IptcTag.Byline, "test2");
 
-                var result = profile.RemoveValue(IptcTag.Byline);
+            var result = profile.RemoveValue(IptcTag.Byline);
 
-                Assert.True(result);
-                Assert.Empty(profile.Values);
-            }
+            Assert.True(result);
+            Assert.Empty(profile.Values);
+        }
 
-            [Fact]
-            public void ShouldOnlyRemoveTheValueWithTheSpecifiedValue()
-            {
-                var profile = new IptcProfile();
-                profile.SetValue(IptcTag.Byline, "test");
-                profile.SetValue(IptcTag.Byline, "test2");
+        [Fact]
+        public void ShouldOnlyRemoveTheValueWithTheSpecifiedValue()
+        {
+            var profile = new IptcProfile();
+            profile.SetValue(IptcTag.Byline, "test");
+            profile.SetValue(IptcTag.Byline, "test2");
 
-                var result = profile.RemoveValue(IptcTag.Byline, "test2");
+            var result = profile.RemoveValue(IptcTag.Byline, "test2");
 
-                Assert.True(result);
-                Assert.Contains(new IptcValue(IptcTag.Byline, Encoding.UTF8.GetBytes("test")), profile.Values);
-            }
+            Assert.True(result);
+            Assert.Contains(new IptcValue(IptcTag.Byline, Encoding.UTF8.GetBytes("test")), profile.Values);
         }
     }
 }

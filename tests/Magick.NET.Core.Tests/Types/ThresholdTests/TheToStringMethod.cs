@@ -4,25 +4,24 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Core.Tests
-{
-    public partial class ThresholdTests
-    {
-        public class TheToStringMethod
-        {
-            [Fact]
-            public void ShouldReturnSingleValueWhenOnlyMimimumIsSet()
-            {
-                var point = new Threshold(1.2);
-                Assert.Equal("1.2", point.ToString());
-            }
+namespace Magick.NET.Core.Tests;
 
-            [Fact]
-            public void ShouldReturnValueWithMinimumAndMaximum()
-            {
-                var point = new Threshold(1.2, 3.4);
-                Assert.Equal("1.2-3.4", point.ToString());
-            }
+public partial class ThresholdTests
+{
+    public class TheToStringMethod
+    {
+        [Fact]
+        public void ShouldReturnSingleValueWhenOnlyMimimumIsSet()
+        {
+            var point = new Threshold(1.2);
+            Assert.Equal("1.2", point.ToString());
+        }
+
+        [Fact]
+        public void ShouldReturnValueWithMinimumAndMaximum()
+        {
+            var point = new Threshold(1.2, 3.4);
+            Assert.Equal("1.2-3.4", point.ToString());
         }
     }
 }
