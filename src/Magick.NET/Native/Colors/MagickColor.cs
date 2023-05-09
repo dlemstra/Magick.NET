@@ -17,567 +17,566 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+public partial class MagickColor
 {
-    public partial class MagickColor
+    [SuppressUnmanagedCodeSecurity]
+    private static unsafe class NativeMethods
     {
-        [SuppressUnmanagedCodeSecurity]
-        private static unsafe class NativeMethods
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
+        public static class X64
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            public static class X64
-            {
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickColor_Create();
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern ulong MagickColor_Count_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Red_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Red_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Green_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Green_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Blue_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Blue_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Alpha_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Alpha_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Black_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Black_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickColor_IsCMYK_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_IsCMYK_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickColor_FuzzyEquals(IntPtr Instance, IntPtr other, QuantumType fuzz);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickColor_Initialize(IntPtr Instance, IntPtr value);
-            }
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickColor_Create();
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern ulong MagickColor_Count_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Red_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Red_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Green_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Green_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Blue_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Blue_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Alpha_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Alpha_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Black_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Black_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickColor_IsCMYK_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_IsCMYK_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickColor_FuzzyEquals(IntPtr Instance, IntPtr other, QuantumType fuzz);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickColor_Initialize(IntPtr Instance, IntPtr value);
+        }
+        #endif
+        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+        public static class ARM64
+        {
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickColor_Create();
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern ulong MagickColor_Count_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Red_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Red_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Green_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Green_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Blue_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Blue_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Alpha_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Alpha_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Black_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Black_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickColor_IsCMYK_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_IsCMYK_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickColor_FuzzyEquals(IntPtr Instance, IntPtr other, QuantumType fuzz);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickColor_Initialize(IntPtr Instance, IntPtr value);
+        }
+        #endif
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
+        public static class X86
+        {
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickColor_Create();
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern ulong MagickColor_Count_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Red_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Red_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Green_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Green_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Blue_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Blue_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Alpha_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Alpha_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern QuantumType MagickColor_Black_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_Black_Set(IntPtr instance, QuantumType value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickColor_IsCMYK_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickColor_IsCMYK_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickColor_FuzzyEquals(IntPtr Instance, IntPtr other, QuantumType fuzz);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickColor_Initialize(IntPtr Instance, IntPtr value);
+        }
+        #endif
+    }
+    private unsafe sealed partial class NativeMagickColor : NativeInstance
+    {
+        static NativeMagickColor() { Environment.Initialize(); }
+        protected override void Dispose(IntPtr instance)
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            public static class ARM64
-            {
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickColor_Create();
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern ulong MagickColor_Count_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Red_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Red_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Green_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Green_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Blue_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Blue_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Alpha_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Alpha_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Black_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Black_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickColor_IsCMYK_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_IsCMYK_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickColor_FuzzyEquals(IntPtr Instance, IntPtr other, QuantumType fuzz);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickColor_Initialize(IntPtr Instance, IntPtr value);
-            }
+            NativeMethods.ARM64.MagickColor_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickColor_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            public static class X86
-            {
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickColor_Create();
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern ulong MagickColor_Count_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Red_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Red_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Green_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Green_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Blue_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Blue_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Alpha_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Alpha_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern QuantumType MagickColor_Black_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_Black_Set(IntPtr instance, QuantumType value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickColor_IsCMYK_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickColor_IsCMYK_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickColor_FuzzyEquals(IntPtr Instance, IntPtr other, QuantumType fuzz);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickColor_Initialize(IntPtr Instance, IntPtr value);
-            }
+            NativeMethods.X86.MagickColor_Dispose(instance);
             #endif
         }
-        private unsafe sealed partial class NativeMagickColor : NativeInstance
+        public NativeMagickColor()
         {
-            static NativeMagickColor() { Environment.Initialize(); }
-            protected override void Dispose(IntPtr instance)
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.ARM64.MagickColor_Create();
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.X64.MagickColor_Create();
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            Instance = NativeMethods.X86.MagickColor_Create();
+            #endif
+            if (Instance == IntPtr.Zero)
+                throw new InvalidOperationException();
+        }
+        public NativeMagickColor(IntPtr instance)
+        {
+            Instance = instance;
+        }
+        protected override string TypeName
+        {
+            get
             {
+                return nameof(MagickColor);
+            }
+        }
+        public ulong Count
+        {
+            get
+            {
+                ulong result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickColor_Dispose(instance);
+                result = NativeMethods.ARM64.MagickColor_Count_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickColor_Dispose(instance);
+                result = NativeMethods.X64.MagickColor_Count_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickColor_Dispose(instance);
+                result = NativeMethods.X86.MagickColor_Count_Get(Instance);
                 #endif
+                return result;
             }
-            public NativeMagickColor()
+        }
+        public QuantumType Red
+        {
+            get
             {
+                QuantumType result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.ARM64.MagickColor_Create();
+                result = NativeMethods.ARM64.MagickColor_Red_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X64.MagickColor_Create();
+                result = NativeMethods.X64.MagickColor_Red_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X86.MagickColor_Create();
+                result = NativeMethods.X86.MagickColor_Red_Get(Instance);
                 #endif
-                if (Instance == IntPtr.Zero)
-                    throw new InvalidOperationException();
+                return result;
             }
-            public NativeMagickColor(IntPtr instance)
+            set
             {
-                Instance = instance;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickColor_Red_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickColor_Red_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickColor_Red_Set(Instance, value);
+                #endif
             }
-            protected override string TypeName
+        }
+        public QuantumType Green
+        {
+            get
             {
-                get
-                {
-                    return nameof(MagickColor);
-                }
+                QuantumType result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickColor_Green_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickColor_Green_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickColor_Green_Get(Instance);
+                #endif
+                return result;
             }
-            public ulong Count
+            set
             {
-                get
-                {
-                    ulong result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickColor_Count_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickColor_Count_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickColor_Count_Get(Instance);
-                    #endif
-                    return result;
-                }
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickColor_Green_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickColor_Green_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickColor_Green_Set(Instance, value);
+                #endif
             }
-            public QuantumType Red
+        }
+        public QuantumType Blue
+        {
+            get
             {
-                get
-                {
-                    QuantumType result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickColor_Red_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickColor_Red_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickColor_Red_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickColor_Red_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickColor_Red_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickColor_Red_Set(Instance, value);
-                    #endif
-                }
+                QuantumType result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickColor_Blue_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickColor_Blue_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickColor_Blue_Get(Instance);
+                #endif
+                return result;
             }
-            public QuantumType Green
+            set
             {
-                get
-                {
-                    QuantumType result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickColor_Green_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickColor_Green_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickColor_Green_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickColor_Green_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickColor_Green_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickColor_Green_Set(Instance, value);
-                    #endif
-                }
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickColor_Blue_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickColor_Blue_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickColor_Blue_Set(Instance, value);
+                #endif
             }
-            public QuantumType Blue
+        }
+        public QuantumType Alpha
+        {
+            get
             {
-                get
-                {
-                    QuantumType result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickColor_Blue_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickColor_Blue_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickColor_Blue_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickColor_Blue_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickColor_Blue_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickColor_Blue_Set(Instance, value);
-                    #endif
-                }
+                QuantumType result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickColor_Alpha_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickColor_Alpha_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickColor_Alpha_Get(Instance);
+                #endif
+                return result;
             }
-            public QuantumType Alpha
+            set
             {
-                get
-                {
-                    QuantumType result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickColor_Alpha_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickColor_Alpha_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickColor_Alpha_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickColor_Alpha_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickColor_Alpha_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickColor_Alpha_Set(Instance, value);
-                    #endif
-                }
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickColor_Alpha_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickColor_Alpha_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickColor_Alpha_Set(Instance, value);
+                #endif
             }
-            public QuantumType Black
+        }
+        public QuantumType Black
+        {
+            get
             {
-                get
-                {
-                    QuantumType result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickColor_Black_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickColor_Black_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickColor_Black_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickColor_Black_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickColor_Black_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickColor_Black_Set(Instance, value);
-                    #endif
-                }
+                QuantumType result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickColor_Black_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickColor_Black_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickColor_Black_Get(Instance);
+                #endif
+                return result;
             }
-            public bool IsCMYK
+            set
             {
-                get
-                {
-                    bool result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickColor_IsCMYK_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickColor_IsCMYK_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickColor_IsCMYK_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickColor_IsCMYK_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickColor_IsCMYK_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickColor_IsCMYK_Set(Instance, value);
-                    #endif
-                }
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickColor_Black_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickColor_Black_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickColor_Black_Set(Instance, value);
+                #endif
             }
-            public bool FuzzyEquals(IMagickColor<QuantumType>? other, QuantumType fuzz)
+        }
+        public bool IsCMYK
+        {
+            get
             {
-                using var otherNative = MagickColor.CreateInstance(other);
                 bool result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+                result = NativeMethods.ARM64.MagickColor_IsCMYK_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+                result = NativeMethods.X64.MagickColor_IsCMYK_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+                result = NativeMethods.X86.MagickColor_IsCMYK_Get(Instance);
                 #endif
                 return result;
             }
-            public bool Initialize(string? value)
+            set
             {
-                using var valueNative = UTF8Marshaler.CreateInstance(value);
-                bool result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickColor_Initialize(Instance, valueNative.Instance);
+                NativeMethods.ARM64.MagickColor_IsCMYK_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickColor_Initialize(Instance, valueNative.Instance);
+                NativeMethods.X64.MagickColor_IsCMYK_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickColor_Initialize(Instance, valueNative.Instance);
+                NativeMethods.X86.MagickColor_IsCMYK_Set(Instance, value);
                 #endif
-                return result;
             }
         }
-        internal static INativeInstance CreateInstance(IMagickColor<QuantumType>? instance)
+        public bool FuzzyEquals(IMagickColor<QuantumType>? other, QuantumType fuzz)
         {
-            if (instance is null)
-                return NativeInstance.Zero;
-            return MagickColor.CreateNativeInstance(instance);
+            using var otherNative = MagickColor.CreateInstance(other);
+            bool result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickColor_FuzzyEquals(Instance, otherNative.Instance, fuzz);
+            #endif
+            return result;
         }
-        internal static IMagickColor<QuantumType>? CreateInstance(IntPtr instance)
+        public bool Initialize(string? value)
         {
-            if (instance == IntPtr.Zero)
-                return null;
-            using NativeMagickColor nativeInstance = new NativeMagickColor(instance);
-            return new MagickColor(nativeInstance);
+            using var valueNative = UTF8Marshaler.CreateInstance(value);
+            bool result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickColor_Initialize(Instance, valueNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickColor_Initialize(Instance, valueNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickColor_Initialize(Instance, valueNative.Instance);
+            #endif
+            return result;
         }
+    }
+    internal static INativeInstance CreateInstance(IMagickColor<QuantumType>? instance)
+    {
+        if (instance is null)
+            return NativeInstance.Zero;
+        return MagickColor.CreateNativeInstance(instance);
+    }
+    internal static IMagickColor<QuantumType>? CreateInstance(IntPtr instance)
+    {
+        if (instance == IntPtr.Zero)
+            return null;
+        using NativeMagickColor nativeInstance = new NativeMagickColor(instance);
+        return new MagickColor(nativeInstance);
     }
 }

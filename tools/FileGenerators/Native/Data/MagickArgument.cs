@@ -3,35 +3,34 @@
 
 using System.Runtime.Serialization;
 
-namespace FileGenerator.Native
+namespace FileGenerator.Native;
+
+[DataContract]
+internal sealed class MagickArgument
 {
-    [DataContract]
-    internal sealed class MagickArgument
-    {
-        [DataMember(Name = "type")]
-        private string _type = string.Empty;
+    [DataMember(Name = "type")]
+    private string _type = string.Empty;
 
-        public bool IsHidden { get; set; }
+    public bool IsHidden { get; set; }
 
-        [DataMember(Name = "out")]
-        public bool IsOut { get; set; }
+    [DataMember(Name = "out")]
+    public bool IsOut { get; set; }
 
-        [DataMember(Name = "name")]
-        public string Name { get; set; } = string.Empty;
+    [DataMember(Name = "name")]
+    public string Name { get; set; } = string.Empty;
 
-        public MagickType Type { get; private set; } = default!;
+    public MagickType Type { get; private set; } = default!;
 
-        public static MagickArgument CreateException()
-            => new MagickArgument()
-            {
-                Name = "exception",
-                IsHidden = true,
-                IsOut = true,
-                Type = new MagickType("Instance"),
-            };
+    public static MagickArgument CreateException()
+        => new MagickArgument()
+        {
+            Name = "exception",
+            IsHidden = true,
+            IsOut = true,
+            Type = new MagickType("Instance"),
+        };
 
-        [OnDeserialized]
-        private void Deserializated(StreamingContext context)
-            => Type = new MagickType(_type);
-    }
+    [OnDeserialized]
+    private void Deserializated(StreamingContext context)
+        => Type = new MagickType(_type);
 }

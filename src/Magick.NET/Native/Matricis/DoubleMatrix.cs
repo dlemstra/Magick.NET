@@ -7,104 +7,103 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+public partial class DoubleMatrix
 {
-    public partial class DoubleMatrix
+    [SuppressUnmanagedCodeSecurity]
+    private static unsafe class NativeMethods
     {
-        [SuppressUnmanagedCodeSecurity]
-        private static unsafe class NativeMethods
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
+        public static class X64
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            public static class X64
-            {
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void DoubleMatrix_Dispose(IntPtr instance);
-            }
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void DoubleMatrix_Dispose(IntPtr instance);
+        }
+        #endif
+        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+        public static class ARM64
+        {
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void DoubleMatrix_Dispose(IntPtr instance);
+        }
+        #endif
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
+        public static class X86
+        {
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void DoubleMatrix_Dispose(IntPtr instance);
+        }
+        #endif
+    }
+    private unsafe sealed partial class NativeDoubleMatrix : NativeInstance
+    {
+        static NativeDoubleMatrix() { Environment.Initialize(); }
+        protected override void Dispose(IntPtr instance)
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            public static class ARM64
-            {
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void DoubleMatrix_Dispose(IntPtr instance);
-            }
+            NativeMethods.ARM64.DoubleMatrix_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.DoubleMatrix_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            public static class X86
-            {
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr DoubleMatrix_Create(double* values, UIntPtr order);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void DoubleMatrix_Dispose(IntPtr instance);
-            }
+            NativeMethods.X86.DoubleMatrix_Dispose(instance);
             #endif
         }
-        private unsafe sealed partial class NativeDoubleMatrix : NativeInstance
+        public NativeDoubleMatrix(double[] values, int order)
         {
-            static NativeDoubleMatrix() { Environment.Initialize(); }
-            protected override void Dispose(IntPtr instance)
+            fixed (double* valuesFixed = values)
             {
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.DoubleMatrix_Dispose(instance);
+                Instance = NativeMethods.ARM64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.DoubleMatrix_Dispose(instance);
+                Instance = NativeMethods.X64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.DoubleMatrix_Dispose(instance);
+                Instance = NativeMethods.X86.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
                 #endif
-            }
-            public NativeDoubleMatrix(double[] values, int order)
-            {
-                fixed (double* valuesFixed = values)
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    Instance = NativeMethods.ARM64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    Instance = NativeMethods.X64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    Instance = NativeMethods.X86.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
-                    #endif
-                    if (Instance == IntPtr.Zero)
-                        throw new InvalidOperationException();
-                }
-            }
-            protected override string TypeName
-            {
-                get
-                {
-                    return nameof(DoubleMatrix);
-                }
+                if (Instance == IntPtr.Zero)
+                    throw new InvalidOperationException();
             }
         }
-        internal static INativeInstance CreateInstance(IDoubleMatrix? instance)
+        protected override string TypeName
         {
-            if (instance is null)
-                return NativeInstance.Zero;
-            return DoubleMatrix.CreateNativeInstance(instance);
+            get
+            {
+                return nameof(DoubleMatrix);
+            }
         }
+    }
+    internal static INativeInstance CreateInstance(IDoubleMatrix? instance)
+    {
+        if (instance is null)
+            return NativeInstance.Zero;
+        return DoubleMatrix.CreateNativeInstance(instance);
     }
 }

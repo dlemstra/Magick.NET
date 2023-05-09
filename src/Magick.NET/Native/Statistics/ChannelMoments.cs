@@ -7,232 +7,231 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+public partial class ChannelMoments
 {
-    public partial class ChannelMoments
+    [SuppressUnmanagedCodeSecurity]
+    private static unsafe class NativeMethods
     {
-        [SuppressUnmanagedCodeSecurity]
-        private static unsafe class NativeMethods
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
+        public static class X64
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            public static class X64
-            {
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_EllipseAngle_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr ChannelMoments_EllipseAxis_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_EllipseEccentricity_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_EllipseIntensity_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_GetHuInvariants(IntPtr Instance, UIntPtr index);
-            }
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            public static class ARM64
-            {
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_EllipseAngle_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr ChannelMoments_EllipseAxis_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_EllipseEccentricity_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_EllipseIntensity_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_GetHuInvariants(IntPtr Instance, UIntPtr index);
-            }
-            #endif
-            #if PLATFORM_x86 || PLATFORM_AnyCPU
-            public static class X86
-            {
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_EllipseAngle_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr ChannelMoments_EllipseAxis_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_EllipseEccentricity_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_EllipseIntensity_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double ChannelMoments_GetHuInvariants(IntPtr Instance, UIntPtr index);
-            }
-            #endif
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_EllipseAngle_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ChannelMoments_EllipseAxis_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_EllipseEccentricity_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_EllipseIntensity_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_GetHuInvariants(IntPtr Instance, UIntPtr index);
         }
-        private unsafe sealed partial class NativeChannelMoments : ConstNativeInstance
+        #endif
+        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+        public static class ARM64
         {
-            static NativeChannelMoments() { Environment.Initialize(); }
-            public NativeChannelMoments(IntPtr instance)
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_EllipseAngle_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ChannelMoments_EllipseAxis_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_EllipseEccentricity_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_EllipseIntensity_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_GetHuInvariants(IntPtr Instance, UIntPtr index);
+        }
+        #endif
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
+        public static class X86
+        {
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ChannelMoments_Centroid_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_EllipseAngle_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr ChannelMoments_EllipseAxis_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_EllipseEccentricity_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_EllipseIntensity_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelMoments_GetHuInvariants(IntPtr Instance, UIntPtr index);
+        }
+        #endif
+    }
+    private unsafe sealed partial class NativeChannelMoments : ConstNativeInstance
+    {
+        static NativeChannelMoments() { Environment.Initialize(); }
+        public NativeChannelMoments(IntPtr instance)
+        {
+            Instance = instance;
+        }
+        protected override string TypeName
+        {
+            get
             {
-                Instance = instance;
+                return nameof(ChannelMoments);
             }
-            protected override string TypeName
+        }
+        public PointInfo Centroid
+        {
+            get
             {
-                get
-                {
-                    return nameof(ChannelMoments);
-                }
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelMoments_Centroid_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.ChannelMoments_Centroid_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.ChannelMoments_Centroid_Get(Instance);
+                #endif
+                return PointInfo.CreateInstance(result);
             }
-            public PointInfo Centroid
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.ChannelMoments_Centroid_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.ChannelMoments_Centroid_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.ChannelMoments_Centroid_Get(Instance);
-                    #endif
-                    return PointInfo.CreateInstance(result);
-                }
-            }
-            public double EllipseAngle
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.ChannelMoments_EllipseAngle_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.ChannelMoments_EllipseAngle_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.ChannelMoments_EllipseAngle_Get(Instance);
-                    #endif
-                    return result;
-                }
-            }
-            public PointInfo EllipseAxis
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.ChannelMoments_EllipseAxis_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.ChannelMoments_EllipseAxis_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.ChannelMoments_EllipseAxis_Get(Instance);
-                    #endif
-                    return PointInfo.CreateInstance(result);
-                }
-            }
-            public double EllipseEccentricity
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.ChannelMoments_EllipseEccentricity_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.ChannelMoments_EllipseEccentricity_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.ChannelMoments_EllipseEccentricity_Get(Instance);
-                    #endif
-                    return result;
-                }
-            }
-            public double EllipseIntensity
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.ChannelMoments_EllipseIntensity_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.ChannelMoments_EllipseIntensity_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.ChannelMoments_EllipseIntensity_Get(Instance);
-                    #endif
-                    return result;
-                }
-            }
-            public double GetHuInvariants(int index)
+        }
+        public double EllipseAngle
+        {
+            get
             {
                 double result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+                result = NativeMethods.ARM64.ChannelMoments_EllipseAngle_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+                result = NativeMethods.X64.ChannelMoments_EllipseAngle_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+                result = NativeMethods.X86.ChannelMoments_EllipseAngle_Get(Instance);
                 #endif
                 return result;
             }
+        }
+        public PointInfo EllipseAxis
+        {
+            get
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelMoments_EllipseAxis_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.ChannelMoments_EllipseAxis_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.ChannelMoments_EllipseAxis_Get(Instance);
+                #endif
+                return PointInfo.CreateInstance(result);
+            }
+        }
+        public double EllipseEccentricity
+        {
+            get
+            {
+                double result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelMoments_EllipseEccentricity_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.ChannelMoments_EllipseEccentricity_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.ChannelMoments_EllipseEccentricity_Get(Instance);
+                #endif
+                return result;
+            }
+        }
+        public double EllipseIntensity
+        {
+            get
+            {
+                double result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelMoments_EllipseIntensity_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.ChannelMoments_EllipseIntensity_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.ChannelMoments_EllipseIntensity_Get(Instance);
+                #endif
+                return result;
+            }
+        }
+        public double GetHuInvariants(int index)
+        {
+            double result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+            #endif
+            return result;
         }
     }
 }

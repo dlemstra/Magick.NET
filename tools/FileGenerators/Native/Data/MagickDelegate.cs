@@ -4,39 +4,38 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace FileGenerator.Native
-{
-    [DataContract]
-    internal sealed class MagickDelegate
-    {
-        [DataMember(Name = "arguments")]
-        private List<MagickArgument> _arguments = new List<MagickArgument>();
+namespace FileGenerator.Native;
 
-        public IEnumerable<MagickArgument> Arguments
+[DataContract]
+internal sealed class MagickDelegate
+{
+    [DataMember(Name = "arguments")]
+    private List<MagickArgument> _arguments = new List<MagickArgument>();
+
+    public IEnumerable<MagickArgument> Arguments
+    {
+        get
         {
-            get
+            if (_arguments is not null)
             {
-                if (_arguments is not null)
+                foreach (var argument in _arguments)
                 {
-                    foreach (var argument in _arguments)
-                    {
-                        yield return argument;
-                    }
+                    yield return argument;
                 }
             }
         }
+    }
 
-        [DataMember(Name = "name")]
-        public string Name { get; set; } = string.Empty;
+    [DataMember(Name = "name")]
+    public string Name { get; set; } = string.Empty;
 
-        [DataMember(Name = "type")]
-        public string Type { get; set; } = string.Empty;
+    [DataMember(Name = "type")]
+    public string Type { get; set; } = string.Empty;
 
-        [OnDeserialized]
-        private void Deserialized(StreamingContext context)
-        {
-            if (string.IsNullOrEmpty(Type))
-                Type = "void";
-        }
+    [OnDeserialized]
+    private void Deserialized(StreamingContext context)
+    {
+        if (string.IsNullOrEmpty(Type))
+            Type = "void";
     }
 }

@@ -7,59 +7,58 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal static partial class MagickMemory
 {
-    internal static partial class MagickMemory
+    [SuppressUnmanagedCodeSecurity]
+    private static unsafe class NativeMethods
     {
-        [SuppressUnmanagedCodeSecurity]
-        private static unsafe class NativeMethods
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
+        public static class X64
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            public static class X64
-            {
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickMemory_Relinquish(IntPtr value);
-            }
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickMemory_Relinquish(IntPtr value);
+        }
+        #endif
+        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+        public static class ARM64
+        {
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickMemory_Relinquish(IntPtr value);
+        }
+        #endif
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
+        public static class X86
+        {
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickMemory_Relinquish(IntPtr value);
+        }
+        #endif
+    }
+    private unsafe static class NativeMagickMemory
+    {
+        static NativeMagickMemory() { Environment.Initialize(); }
+        public static void Relinquish(IntPtr value)
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            public static class ARM64
-            {
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickMemory_Relinquish(IntPtr value);
-            }
+            NativeMethods.ARM64.MagickMemory_Relinquish(value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickMemory_Relinquish(value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            public static class X86
-            {
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickMemory_Relinquish(IntPtr value);
-            }
+            NativeMethods.X86.MagickMemory_Relinquish(value);
             #endif
-        }
-        private unsafe static class NativeMagickMemory
-        {
-            static NativeMagickMemory() { Environment.Initialize(); }
-            public static void Relinquish(IntPtr value)
-            {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickMemory_Relinquish(value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickMemory_Relinquish(value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickMemory_Relinquish(value);
-                #endif
-            }
         }
     }
 }

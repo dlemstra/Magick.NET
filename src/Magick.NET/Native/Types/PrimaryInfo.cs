@@ -7,289 +7,288 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+public partial class PrimaryInfo
 {
-    public partial class PrimaryInfo
+    [SuppressUnmanagedCodeSecurity]
+    private static unsafe class NativeMethods
     {
-        [SuppressUnmanagedCodeSecurity]
-        private static unsafe class NativeMethods
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
+        public static class X64
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            public static class X64
-            {
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr PrimaryInfo_Create();
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double PrimaryInfo_X_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_X_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double PrimaryInfo_Y_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_Y_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double PrimaryInfo_Z_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_Z_Set(IntPtr instance, double value);
-            }
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr PrimaryInfo_Create();
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double PrimaryInfo_X_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_X_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double PrimaryInfo_Y_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_Y_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double PrimaryInfo_Z_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_Z_Set(IntPtr instance, double value);
+        }
+        #endif
+        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+        public static class ARM64
+        {
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr PrimaryInfo_Create();
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double PrimaryInfo_X_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_X_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double PrimaryInfo_Y_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_Y_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double PrimaryInfo_Z_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_Z_Set(IntPtr instance, double value);
+        }
+        #endif
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
+        public static class X86
+        {
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr PrimaryInfo_Create();
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double PrimaryInfo_X_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_X_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double PrimaryInfo_Y_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_Y_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double PrimaryInfo_Z_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void PrimaryInfo_Z_Set(IntPtr instance, double value);
+        }
+        #endif
+    }
+    private unsafe sealed partial class NativePrimaryInfo : NativeInstance
+    {
+        static NativePrimaryInfo() { Environment.Initialize(); }
+        protected override void Dispose(IntPtr instance)
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            public static class ARM64
-            {
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr PrimaryInfo_Create();
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double PrimaryInfo_X_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_X_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double PrimaryInfo_Y_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_Y_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double PrimaryInfo_Z_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_Z_Set(IntPtr instance, double value);
-            }
+            NativeMethods.ARM64.PrimaryInfo_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.PrimaryInfo_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            public static class X86
-            {
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr PrimaryInfo_Create();
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double PrimaryInfo_X_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_X_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double PrimaryInfo_Y_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_Y_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double PrimaryInfo_Z_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void PrimaryInfo_Z_Set(IntPtr instance, double value);
-            }
+            NativeMethods.X86.PrimaryInfo_Dispose(instance);
             #endif
         }
-        private unsafe sealed partial class NativePrimaryInfo : NativeInstance
+        public NativePrimaryInfo()
         {
-            static NativePrimaryInfo() { Environment.Initialize(); }
-            protected override void Dispose(IntPtr instance)
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.ARM64.PrimaryInfo_Create();
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.X64.PrimaryInfo_Create();
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            Instance = NativeMethods.X86.PrimaryInfo_Create();
+            #endif
+            if (Instance == IntPtr.Zero)
+                throw new InvalidOperationException();
+        }
+        public NativePrimaryInfo(IntPtr instance)
+        {
+            Instance = instance;
+        }
+        protected override string TypeName
+        {
+            get
             {
+                return nameof(PrimaryInfo);
+            }
+        }
+        public double X
+        {
+            get
+            {
+                double result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.PrimaryInfo_Dispose(instance);
+                result = NativeMethods.ARM64.PrimaryInfo_X_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.PrimaryInfo_Dispose(instance);
+                result = NativeMethods.X64.PrimaryInfo_X_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.PrimaryInfo_Dispose(instance);
+                result = NativeMethods.X86.PrimaryInfo_X_Get(Instance);
                 #endif
+                return result;
             }
-            public NativePrimaryInfo()
+            set
             {
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.ARM64.PrimaryInfo_Create();
+                NativeMethods.ARM64.PrimaryInfo_X_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X64.PrimaryInfo_Create();
+                NativeMethods.X64.PrimaryInfo_X_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X86.PrimaryInfo_Create();
+                NativeMethods.X86.PrimaryInfo_X_Set(Instance, value);
                 #endif
-                if (Instance == IntPtr.Zero)
-                    throw new InvalidOperationException();
-            }
-            public NativePrimaryInfo(IntPtr instance)
-            {
-                Instance = instance;
-            }
-            protected override string TypeName
-            {
-                get
-                {
-                    return nameof(PrimaryInfo);
-                }
-            }
-            public double X
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.PrimaryInfo_X_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.PrimaryInfo_X_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.PrimaryInfo_X_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.PrimaryInfo_X_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.PrimaryInfo_X_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.PrimaryInfo_X_Set(Instance, value);
-                    #endif
-                }
-            }
-            public double Y
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.PrimaryInfo_Y_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.PrimaryInfo_Y_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.PrimaryInfo_Y_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.PrimaryInfo_Y_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.PrimaryInfo_Y_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.PrimaryInfo_Y_Set(Instance, value);
-                    #endif
-                }
-            }
-            public double Z
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.PrimaryInfo_Z_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.PrimaryInfo_Z_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.PrimaryInfo_Z_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.PrimaryInfo_Z_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.PrimaryInfo_Z_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.PrimaryInfo_Z_Set(Instance, value);
-                    #endif
-                }
             }
         }
-        internal static INativeInstance CreateInstance(IPrimaryInfo? instance)
+        public double Y
         {
-            if (instance is null)
-                return NativeInstance.Zero;
-            return PrimaryInfo.CreateNativeInstance(instance);
+            get
+            {
+                double result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.PrimaryInfo_Y_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.PrimaryInfo_Y_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.PrimaryInfo_Y_Get(Instance);
+                #endif
+                return result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.PrimaryInfo_Y_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.PrimaryInfo_Y_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.PrimaryInfo_Y_Set(Instance, value);
+                #endif
+            }
         }
-        internal static IPrimaryInfo? CreateInstance(IntPtr instance)
+        public double Z
         {
-            if (instance == IntPtr.Zero)
-                return null;
-            using NativePrimaryInfo nativeInstance = new NativePrimaryInfo(instance);
-            return new PrimaryInfo(nativeInstance);
+            get
+            {
+                double result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.PrimaryInfo_Z_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.PrimaryInfo_Z_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.PrimaryInfo_Z_Get(Instance);
+                #endif
+                return result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.PrimaryInfo_Z_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.PrimaryInfo_Z_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.PrimaryInfo_Z_Set(Instance, value);
+                #endif
+            }
         }
+    }
+    internal static INativeInstance CreateInstance(IPrimaryInfo? instance)
+    {
+        if (instance is null)
+            return NativeInstance.Zero;
+        return PrimaryInfo.CreateNativeInstance(instance);
+    }
+    internal static IPrimaryInfo? CreateInstance(IntPtr instance)
+    {
+        if (instance == IntPtr.Zero)
+            return null;
+        using NativePrimaryInfo nativeInstance = new NativePrimaryInfo(instance);
+        return new PrimaryInfo(nativeInstance);
     }
 }

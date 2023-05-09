@@ -17,4514 +17,2118 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+public partial class MagickImage : IDisposable
 {
-    public partial class MagickImage : IDisposable
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate bool ProgressDelegate(IntPtr origin, long offset, ulong extent, IntPtr userData);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate long ReadWriteStreamDelegate(IntPtr data, UIntPtr length, IntPtr user_data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate long SeekStreamDelegate(long offset, IntPtr whence, IntPtr user_data);
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    private delegate long TellStreamDelegate(IntPtr user_data);
+    [SuppressUnmanagedCodeSecurity]
+    private static unsafe class NativeMethods
     {
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate bool ProgressDelegate(IntPtr origin, long offset, ulong extent, IntPtr userData);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate long ReadWriteStreamDelegate(IntPtr data, UIntPtr length, IntPtr user_data);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate long SeekStreamDelegate(long offset, IntPtr whence, IntPtr user_data);
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        private delegate long TellStreamDelegate(IntPtr user_data);
-        [SuppressUnmanagedCodeSecurity]
-        private static unsafe class NativeMethods
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
+        public static class X64
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            public static class X64
-            {
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_AnimationDelay_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnimationDelay_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_AnimationIterations_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BackgroundColor_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_BaseHeight_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_BaseWidth_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_BlackPointCompensation_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BlackPointCompensation_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BorderColor_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BorderColor_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaBluePrimary_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaBluePrimary_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaGreenPrimary_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaGreenPrimary_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaRedPrimary_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaRedPrimary_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaWhitePoint_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaWhitePoint_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ClassType_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ClassType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_ColorFuzz_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorFuzz_Set(IntPtr instance, double value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ColormapSize_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColormapSize_Set(IntPtr instance, IntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ColorSpace_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorSpace_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ColorType_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Compose_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Compose_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Compression_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Compression_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Depth_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Depth_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Endian_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Endian_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_EncodingGeometry_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FileName_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_FileName_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_FilterType_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_FilterType_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Format_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Format_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_Gamma_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_GifDisposeMethod_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_GifDisposeMethod_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Height_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_HasAlpha_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Interlace_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Interlace_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Interpolate_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Interpolate_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_IsOpaque_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MatteColor_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_MatteColor_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_NormalizedMaximumError_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_NormalizedMeanError_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Orientation_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Orientation_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Page_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Page_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Quality_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Quality_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_RenderingIntent_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RenderingIntent_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ResolutionUnits_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResolutionUnits_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_ResolutionX_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResolutionX_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_ResolutionY_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResolutionY_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Signature_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_TotalColors_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_VirtualPixelMethod_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_VirtualPixelMethod_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Width_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveBlur(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveResize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveSharpen(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Annotate(IntPtr Instance, IntPtr settings, IntPtr text, IntPtr boundingArea, UIntPtr gravity, double degrees, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnnotateGravity(IntPtr Instance, IntPtr settings, IntPtr text, UIntPtr gravity, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AutoGamma(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AutoLevel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AutoOrient(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BilateralBlur(IntPtr Instance, UIntPtr width, UIntPtr height, double intensitySigma, double spatialSigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BlueShift(IntPtr Instance, double factor, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Blur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Border(IntPtr Instance, IntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BrightnessContrast(IntPtr Instance, double brightness, double contrast, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CannyEdge(IntPtr Instance, double radius, double sigma, double lower, double upper, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clamp(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CloneArea(IntPtr Instance, UIntPtr width, UIntPtr height, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clut(IntPtr Instance, IntPtr image, UIntPtr method, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorDecisionList(IntPtr Instance, IntPtr fileName, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Colorize(IntPtr Instance, IntPtr color, IntPtr blend, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorThreshold(IntPtr Instance, IntPtr startColor, IntPtr stopColor, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Compare(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out double distortion, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_CompareDistortion(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Composite(IntPtr Instance, IntPtr image, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_CompositeGravity(IntPtr Instance, IntPtr image, UIntPtr gravity, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ConnectedComponents(IntPtr Instance, UIntPtr connectivity, out IntPtr objects, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Contrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool enhance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ConvexHull(IntPtr Instance, out UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Convolve(IntPtr Instance, IntPtr matrix, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_CycleColormap(IntPtr Instance, IntPtr amount, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Decipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Deskew(IntPtr Instance, double threshold, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Despeckle(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_DetermineBitDepth(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_DetermineColorType(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double* arguments, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Edge(IntPtr Instance, double radius, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Emboss(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Encipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Enhance(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Equalize(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double* values, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateGeometry(IntPtr Instance, UIntPtr channels, IntPtr geometry, UIntPtr evaluateOperator, double value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_FloodFill(IntPtr Instance, IntPtr settings, IntPtr x, IntPtr y, IntPtr target, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewlines, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Frame(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Fx(IntPtr Instance, IntPtr expression, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_GammaCorrect(IntPtr Instance, double gamma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GaussianBlur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetArtifact(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetAttribute(IntPtr Instance, IntPtr name, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetColormapColor(IntPtr Instance, UIntPtr index);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNext(IntPtr image);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNextArtifactName(IntPtr Instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNextAttributeName(IntPtr Instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNextProfileName(IntPtr Instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetProfile(IntPtr Instance, IntPtr name, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetReadMask(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetWriteMask(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Grayscale(IntPtr Instance, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_HaldClut(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_HasChannel(IntPtr Instance, UIntPtr channel);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_HasProfile(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Histogram(IntPtr Instance, out UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_HoughLine(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr threshold, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ImportPixels(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Integral(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, IntPtr geometry, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, double deltaX, double rigidity, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_LocalContrast(IntPtr Instance, double radius, double strength, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Magnify(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_Map(IntPtr Instance, IntPtr image, IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MeanShift(IntPtr Instance, UIntPtr width, UIntPtr height, double colorDistance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Minify(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Moments(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Modulate(IntPtr Instance, IntPtr modulate, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Negate(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool onlyGrayscale, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Normalize(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_OilPaint(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Opaque(IntPtr Instance, IntPtr target, IntPtr fill, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_OrderedDither(IntPtr Instance, IntPtr thresholdMap, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Perceptible(IntPtr Instance, double epsilon, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_PerceptualHash(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Polaroid(IntPtr Instance, IntPtr settings, IntPtr caption, double angle, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Posterize(IntPtr Instance, UIntPtr levels, UIntPtr method, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Quantize(IntPtr Instance, IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RaiseOrLower(IntPtr Instance, UIntPtr size, [MarshalAs(UnmanagedType.Bool)] bool raise, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RemoveAttribute(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RemoveProfile(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResetArtifactIterator(IntPtr Instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResetAttributeIterator(IntPtr Instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResetProfileIterator(IntPtr Instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Resample(IntPtr Instance, double resolutionX, double resolutionY, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Resize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Roll(IntPtr Instance, IntPtr x, IntPtr y, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Rotate(IntPtr Instance, double degrees, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_RotationalBlur(IntPtr Instance, double angle, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Sample(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Scale(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Segment(IntPtr Instance, UIntPtr colorSpace, double clusterThreshold, double smoothingThreshold, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SelectiveBlur(IntPtr Instance, double radius, double sigma, double threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Separate(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SepiaTone(IntPtr Instance, double threshold, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetAlpha(IntPtr Instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetArtifact(IntPtr Instance, IntPtr name, IntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr value, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetColormapColor(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_SetColorMetric(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetNext(IntPtr Instance, IntPtr image);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate? method);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetWriteMask(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shadow(IntPtr Instance, IntPtr x, IntPtr y, double sigma, double alphaPercentage, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Sharpen(IntPtr Instance, double radius, double sigma, UIntPtr channel, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shave(IntPtr Instance, UIntPtr leftRight, UIntPtr topBottom, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shear(IntPtr Instance, double xAngle, double yAngle, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Sketch(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Solarize(IntPtr Instance, double factor, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SortPixels(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Splice(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Spread(IntPtr Instance, UIntPtr method, double radius, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Statistic(IntPtr Instance, UIntPtr type, UIntPtr width, UIntPtr height, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Statistics(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Stegano(IntPtr Instance, IntPtr watermark, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Stereo(IntPtr Instance, IntPtr rightImage, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Strip(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SubImageSearch(IntPtr Instance, IntPtr reference, UIntPtr metric, double similarityThreshold, IntPtr offset, out double similarityMetric, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Swirl(IntPtr Instance, UIntPtr method, double degrees, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Texture(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Thumbnail(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Tint(IntPtr Instance, IntPtr opacity, IntPtr tint, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Transparent(IntPtr Instance, IntPtr color, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_TransparentChroma(IntPtr Instance, IntPtr colorLow, IntPtr colorHigh, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Transpose(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Transverse(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Trim(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_UniqueColors(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_UnsharpMask(IntPtr Instance, double radius, double sigma, double amount, double threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Vignette(IntPtr Instance, double radius, double sigma, IntPtr x, IntPtr y, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WhiteBalance(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, double softness, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, out IntPtr exception);
-            }
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_AnimationDelay_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnimationDelay_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_AnimationIterations_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BackgroundColor_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_BaseHeight_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_BaseWidth_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_BlackPointCompensation_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BlackPointCompensation_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BorderColor_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BorderColor_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaBluePrimary_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaBluePrimary_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaGreenPrimary_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaGreenPrimary_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaRedPrimary_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaRedPrimary_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaWhitePoint_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaWhitePoint_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ClassType_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ClassType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_ColorFuzz_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorFuzz_Set(IntPtr instance, double value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ColormapSize_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColormapSize_Set(IntPtr instance, IntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ColorSpace_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorSpace_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ColorType_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Compose_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Compose_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Compression_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Compression_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Depth_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Depth_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Endian_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Endian_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_EncodingGeometry_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_FileName_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_FileName_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_FilterType_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_FilterType_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Format_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Format_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_Gamma_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_GifDisposeMethod_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_GifDisposeMethod_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Height_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_HasAlpha_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Interlace_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Interlace_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Interpolate_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Interpolate_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_IsOpaque_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MatteColor_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_MatteColor_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_NormalizedMaximumError_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_NormalizedMeanError_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Orientation_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Orientation_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Page_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Page_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Quality_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Quality_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_RenderingIntent_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RenderingIntent_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ResolutionUnits_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResolutionUnits_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_ResolutionX_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResolutionX_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_ResolutionY_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResolutionY_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Signature_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_TotalColors_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_VirtualPixelMethod_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_VirtualPixelMethod_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Width_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveBlur(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveResize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveSharpen(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Annotate(IntPtr Instance, IntPtr settings, IntPtr text, IntPtr boundingArea, UIntPtr gravity, double degrees, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnnotateGravity(IntPtr Instance, IntPtr settings, IntPtr text, UIntPtr gravity, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AutoGamma(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AutoLevel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AutoOrient(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BilateralBlur(IntPtr Instance, UIntPtr width, UIntPtr height, double intensitySigma, double spatialSigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BlueShift(IntPtr Instance, double factor, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Blur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Border(IntPtr Instance, IntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BrightnessContrast(IntPtr Instance, double brightness, double contrast, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_CannyEdge(IntPtr Instance, double radius, double sigma, double lower, double upper, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Clamp(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_CloneArea(IntPtr Instance, UIntPtr width, UIntPtr height, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Clut(IntPtr Instance, IntPtr image, UIntPtr method, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorDecisionList(IntPtr Instance, IntPtr fileName, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Colorize(IntPtr Instance, IntPtr color, IntPtr blend, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorThreshold(IntPtr Instance, IntPtr startColor, IntPtr stopColor, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Compare(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out double distortion, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_CompareDistortion(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Composite(IntPtr Instance, IntPtr image, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_CompositeGravity(IntPtr Instance, IntPtr image, UIntPtr gravity, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ConnectedComponents(IntPtr Instance, UIntPtr connectivity, out IntPtr objects, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Contrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool enhance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ConvexHull(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Convolve(IntPtr Instance, IntPtr matrix, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_CycleColormap(IntPtr Instance, IntPtr amount, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Decipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Deskew(IntPtr Instance, double threshold, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Despeckle(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_DetermineBitDepth(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_DetermineColorType(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double* arguments, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Edge(IntPtr Instance, double radius, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Emboss(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Encipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Enhance(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Equalize(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double* values, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_EvaluateGeometry(IntPtr Instance, UIntPtr channels, IntPtr geometry, UIntPtr evaluateOperator, double value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_FloodFill(IntPtr Instance, IntPtr settings, IntPtr x, IntPtr y, IntPtr target, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewlines, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Frame(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Fx(IntPtr Instance, IntPtr expression, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_GammaCorrect(IntPtr Instance, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GaussianBlur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetArtifact(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetAttribute(IntPtr Instance, IntPtr name, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetColormapColor(IntPtr Instance, UIntPtr index);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNext(IntPtr image);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNextArtifactName(IntPtr Instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNextAttributeName(IntPtr Instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNextProfileName(IntPtr Instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetProfile(IntPtr Instance, IntPtr name, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetReadMask(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetWriteMask(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Grayscale(IntPtr Instance, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_HaldClut(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_HasChannel(IntPtr Instance, UIntPtr channel);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_HasProfile(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Histogram(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_HoughLine(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr threshold, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ImportPixels(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Integral(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, IntPtr geometry, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, double deltaX, double rigidity, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_LocalContrast(IntPtr Instance, double radius, double strength, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Magnify(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_Map(IntPtr Instance, IntPtr image, IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MeanShift(IntPtr Instance, UIntPtr width, UIntPtr height, double colorDistance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Minify(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Moments(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Modulate(IntPtr Instance, IntPtr modulate, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Negate(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool onlyGrayscale, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Normalize(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_OilPaint(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Opaque(IntPtr Instance, IntPtr target, IntPtr fill, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_OrderedDither(IntPtr Instance, IntPtr thresholdMap, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Perceptible(IntPtr Instance, double epsilon, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_PerceptualHash(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Polaroid(IntPtr Instance, IntPtr settings, IntPtr caption, double angle, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Posterize(IntPtr Instance, UIntPtr levels, UIntPtr method, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Quantize(IntPtr Instance, IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RaiseOrLower(IntPtr Instance, UIntPtr size, [MarshalAs(UnmanagedType.Bool)] bool raise, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RemoveAttribute(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RemoveProfile(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResetArtifactIterator(IntPtr Instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResetAttributeIterator(IntPtr Instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResetProfileIterator(IntPtr Instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Resample(IntPtr Instance, double resolutionX, double resolutionY, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Resize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Roll(IntPtr Instance, IntPtr x, IntPtr y, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Rotate(IntPtr Instance, double degrees, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_RotationalBlur(IntPtr Instance, double angle, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Sample(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Scale(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Segment(IntPtr Instance, UIntPtr colorSpace, double clusterThreshold, double smoothingThreshold, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SelectiveBlur(IntPtr Instance, double radius, double sigma, double threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Separate(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SepiaTone(IntPtr Instance, double threshold, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetAlpha(IntPtr Instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetArtifact(IntPtr Instance, IntPtr name, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr value, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetColormapColor(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_SetColorMetric(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetNext(IntPtr Instance, IntPtr image);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate? method);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetWriteMask(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shadow(IntPtr Instance, IntPtr x, IntPtr y, double sigma, double alphaPercentage, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Sharpen(IntPtr Instance, double radius, double sigma, UIntPtr channel, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shave(IntPtr Instance, UIntPtr leftRight, UIntPtr topBottom, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shear(IntPtr Instance, double xAngle, double yAngle, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Sketch(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Solarize(IntPtr Instance, double factor, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SortPixels(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Splice(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Spread(IntPtr Instance, UIntPtr method, double radius, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Statistic(IntPtr Instance, UIntPtr type, UIntPtr width, UIntPtr height, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Statistics(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Stegano(IntPtr Instance, IntPtr watermark, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Stereo(IntPtr Instance, IntPtr rightImage, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Strip(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SubImageSearch(IntPtr Instance, IntPtr reference, UIntPtr metric, double similarityThreshold, IntPtr offset, out double similarityMetric, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Swirl(IntPtr Instance, UIntPtr method, double degrees, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Texture(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Thumbnail(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Tint(IntPtr Instance, IntPtr opacity, IntPtr tint, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Transparent(IntPtr Instance, IntPtr color, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_TransparentChroma(IntPtr Instance, IntPtr colorLow, IntPtr colorHigh, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Transpose(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Transverse(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Trim(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_UniqueColors(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_UnsharpMask(IntPtr Instance, double radius, double sigma, double amount, double threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Vignette(IntPtr Instance, double radius, double sigma, IntPtr x, IntPtr y, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WhiteBalance(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, double softness, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, out IntPtr exception);
+        }
+        #endif
+        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+        public static class ARM64
+        {
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_AnimationDelay_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnimationDelay_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_AnimationIterations_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BackgroundColor_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_BaseHeight_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_BaseWidth_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_BlackPointCompensation_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BlackPointCompensation_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BorderColor_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BorderColor_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaBluePrimary_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaBluePrimary_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaGreenPrimary_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaGreenPrimary_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaRedPrimary_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaRedPrimary_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaWhitePoint_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaWhitePoint_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ClassType_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ClassType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_ColorFuzz_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorFuzz_Set(IntPtr instance, double value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ColormapSize_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColormapSize_Set(IntPtr instance, IntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ColorSpace_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorSpace_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ColorType_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Compose_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Compose_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Compression_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Compression_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Depth_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Depth_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Endian_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Endian_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_EncodingGeometry_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_FileName_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_FileName_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_FilterType_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_FilterType_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Format_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Format_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_Gamma_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_GifDisposeMethod_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_GifDisposeMethod_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Height_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_HasAlpha_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Interlace_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Interlace_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Interpolate_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Interpolate_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_IsOpaque_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MatteColor_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_MatteColor_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_NormalizedMaximumError_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_NormalizedMeanError_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Orientation_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Orientation_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Page_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Page_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Quality_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Quality_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_RenderingIntent_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RenderingIntent_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ResolutionUnits_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResolutionUnits_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_ResolutionX_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResolutionX_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_ResolutionY_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResolutionY_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Signature_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_TotalColors_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_VirtualPixelMethod_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_VirtualPixelMethod_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Width_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveBlur(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveResize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveSharpen(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Annotate(IntPtr Instance, IntPtr settings, IntPtr text, IntPtr boundingArea, UIntPtr gravity, double degrees, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnnotateGravity(IntPtr Instance, IntPtr settings, IntPtr text, UIntPtr gravity, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AutoGamma(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AutoLevel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AutoOrient(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BilateralBlur(IntPtr Instance, UIntPtr width, UIntPtr height, double intensitySigma, double spatialSigma, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BlueShift(IntPtr Instance, double factor, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Blur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Border(IntPtr Instance, IntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BrightnessContrast(IntPtr Instance, double brightness, double contrast, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_CannyEdge(IntPtr Instance, double radius, double sigma, double lower, double upper, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Clamp(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_CloneArea(IntPtr Instance, UIntPtr width, UIntPtr height, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Clut(IntPtr Instance, IntPtr image, UIntPtr method, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorDecisionList(IntPtr Instance, IntPtr fileName, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Colorize(IntPtr Instance, IntPtr color, IntPtr blend, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorThreshold(IntPtr Instance, IntPtr startColor, IntPtr stopColor, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Compare(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out double distortion, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_CompareDistortion(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Composite(IntPtr Instance, IntPtr image, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_CompositeGravity(IntPtr Instance, IntPtr image, UIntPtr gravity, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ConnectedComponents(IntPtr Instance, UIntPtr connectivity, out IntPtr objects, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Contrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool enhance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ConvexHull(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Convolve(IntPtr Instance, IntPtr matrix, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_CycleColormap(IntPtr Instance, IntPtr amount, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Decipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Deskew(IntPtr Instance, double threshold, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Despeckle(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_DetermineBitDepth(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_DetermineColorType(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double* arguments, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Edge(IntPtr Instance, double radius, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Emboss(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Encipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Enhance(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Equalize(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double* values, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_EvaluateGeometry(IntPtr Instance, UIntPtr channels, IntPtr geometry, UIntPtr evaluateOperator, double value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_FloodFill(IntPtr Instance, IntPtr settings, IntPtr x, IntPtr y, IntPtr target, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewlines, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Frame(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Fx(IntPtr Instance, IntPtr expression, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_GammaCorrect(IntPtr Instance, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GaussianBlur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetArtifact(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetAttribute(IntPtr Instance, IntPtr name, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetColormapColor(IntPtr Instance, UIntPtr index);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNext(IntPtr image);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNextArtifactName(IntPtr Instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNextAttributeName(IntPtr Instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNextProfileName(IntPtr Instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetProfile(IntPtr Instance, IntPtr name, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetReadMask(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetWriteMask(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Grayscale(IntPtr Instance, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_HaldClut(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_HasChannel(IntPtr Instance, UIntPtr channel);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_HasProfile(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Histogram(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_HoughLine(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr threshold, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ImportPixels(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Integral(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, IntPtr geometry, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, double deltaX, double rigidity, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_LocalContrast(IntPtr Instance, double radius, double strength, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Magnify(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_Map(IntPtr Instance, IntPtr image, IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MeanShift(IntPtr Instance, UIntPtr width, UIntPtr height, double colorDistance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Minify(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Moments(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Modulate(IntPtr Instance, IntPtr modulate, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Negate(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool onlyGrayscale, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Normalize(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_OilPaint(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Opaque(IntPtr Instance, IntPtr target, IntPtr fill, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_OrderedDither(IntPtr Instance, IntPtr thresholdMap, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Perceptible(IntPtr Instance, double epsilon, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_PerceptualHash(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Polaroid(IntPtr Instance, IntPtr settings, IntPtr caption, double angle, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Posterize(IntPtr Instance, UIntPtr levels, UIntPtr method, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Quantize(IntPtr Instance, IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RaiseOrLower(IntPtr Instance, UIntPtr size, [MarshalAs(UnmanagedType.Bool)] bool raise, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RemoveAttribute(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RemoveProfile(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResetArtifactIterator(IntPtr Instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResetAttributeIterator(IntPtr Instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResetProfileIterator(IntPtr Instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Resample(IntPtr Instance, double resolutionX, double resolutionY, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Resize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Roll(IntPtr Instance, IntPtr x, IntPtr y, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Rotate(IntPtr Instance, double degrees, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_RotationalBlur(IntPtr Instance, double angle, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Sample(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Scale(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Segment(IntPtr Instance, UIntPtr colorSpace, double clusterThreshold, double smoothingThreshold, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SelectiveBlur(IntPtr Instance, double radius, double sigma, double threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Separate(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SepiaTone(IntPtr Instance, double threshold, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetAlpha(IntPtr Instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetArtifact(IntPtr Instance, IntPtr name, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr value, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetColormapColor(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_SetColorMetric(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetNext(IntPtr Instance, IntPtr image);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate? method);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetWriteMask(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shadow(IntPtr Instance, IntPtr x, IntPtr y, double sigma, double alphaPercentage, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Sharpen(IntPtr Instance, double radius, double sigma, UIntPtr channel, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shave(IntPtr Instance, UIntPtr leftRight, UIntPtr topBottom, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shear(IntPtr Instance, double xAngle, double yAngle, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Sketch(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Solarize(IntPtr Instance, double factor, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SortPixels(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Splice(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Spread(IntPtr Instance, UIntPtr method, double radius, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Statistic(IntPtr Instance, UIntPtr type, UIntPtr width, UIntPtr height, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Statistics(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Stegano(IntPtr Instance, IntPtr watermark, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Stereo(IntPtr Instance, IntPtr rightImage, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Strip(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SubImageSearch(IntPtr Instance, IntPtr reference, UIntPtr metric, double similarityThreshold, IntPtr offset, out double similarityMetric, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Swirl(IntPtr Instance, UIntPtr method, double degrees, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Texture(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Thumbnail(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Tint(IntPtr Instance, IntPtr opacity, IntPtr tint, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Transparent(IntPtr Instance, IntPtr color, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_TransparentChroma(IntPtr Instance, IntPtr colorLow, IntPtr colorHigh, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Transpose(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Transverse(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Trim(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_UniqueColors(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_UnsharpMask(IntPtr Instance, double radius, double sigma, double amount, double threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Vignette(IntPtr Instance, double radius, double sigma, IntPtr x, IntPtr y, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WhiteBalance(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, double softness, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, out IntPtr exception);
+        }
+        #endif
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
+        public static class X86
+        {
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_AnimationDelay_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnimationDelay_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_AnimationIterations_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BackgroundColor_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_BaseHeight_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_BaseWidth_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_BlackPointCompensation_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BlackPointCompensation_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BorderColor_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BorderColor_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaBluePrimary_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaBluePrimary_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaGreenPrimary_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaGreenPrimary_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaRedPrimary_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaRedPrimary_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ChromaWhitePoint_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ChromaWhitePoint_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ClassType_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ClassType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_ColorFuzz_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorFuzz_Set(IntPtr instance, double value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ColormapSize_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColormapSize_Set(IntPtr instance, IntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ColorSpace_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorSpace_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ColorType_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Compose_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Compose_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Compression_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Compression_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Depth_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Depth_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Endian_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Endian_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_EncodingGeometry_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_FileName_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_FileName_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_FilterType_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_FilterType_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Format_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Format_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_Gamma_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_GifDisposeMethod_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_GifDisposeMethod_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Height_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_HasAlpha_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Interlace_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Interlace_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Interpolate_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Interpolate_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_IsOpaque_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MatteColor_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_MatteColor_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_NormalizedMaximumError_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_NormalizedMeanError_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Orientation_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Orientation_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Page_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Page_Set(IntPtr instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Quality_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Quality_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_RenderingIntent_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RenderingIntent_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ResolutionUnits_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResolutionUnits_Set(IntPtr instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_ResolutionX_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResolutionX_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_ResolutionY_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResolutionY_Set(IntPtr instance, double value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Signature_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_TotalColors_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_VirtualPixelMethod_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_VirtualPixelMethod_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_Width_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveBlur(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveResize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveSharpen(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Annotate(IntPtr Instance, IntPtr settings, IntPtr text, IntPtr boundingArea, UIntPtr gravity, double degrees, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AnnotateGravity(IntPtr Instance, IntPtr settings, IntPtr text, UIntPtr gravity, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AutoGamma(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AutoLevel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_AutoOrient(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BilateralBlur(IntPtr Instance, UIntPtr width, UIntPtr height, double intensitySigma, double spatialSigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_BlueShift(IntPtr Instance, double factor, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Blur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Border(IntPtr Instance, IntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_BrightnessContrast(IntPtr Instance, double brightness, double contrast, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_CannyEdge(IntPtr Instance, double radius, double sigma, double lower, double upper, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Clamp(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_CloneArea(IntPtr Instance, UIntPtr width, UIntPtr height, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Clut(IntPtr Instance, IntPtr image, UIntPtr method, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorDecisionList(IntPtr Instance, IntPtr fileName, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Colorize(IntPtr Instance, IntPtr color, IntPtr blend, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ColorThreshold(IntPtr Instance, IntPtr startColor, IntPtr stopColor, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Compare(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out double distortion, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double MagickImage_CompareDistortion(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Composite(IntPtr Instance, IntPtr image, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_CompositeGravity(IntPtr Instance, IntPtr image, UIntPtr gravity, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ConnectedComponents(IntPtr Instance, UIntPtr connectivity, out IntPtr objects, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Contrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool enhance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ConvexHull(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Convolve(IntPtr Instance, IntPtr matrix, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_CycleColormap(IntPtr Instance, IntPtr amount, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Decipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Deskew(IntPtr Instance, double threshold, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Despeckle(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_DetermineBitDepth(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_DetermineColorType(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double* arguments, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Edge(IntPtr Instance, double radius, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Emboss(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Encipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Enhance(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Equalize(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double* values, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_EvaluateGeometry(IntPtr Instance, UIntPtr channels, IntPtr geometry, UIntPtr evaluateOperator, double value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_FloodFill(IntPtr Instance, IntPtr settings, IntPtr x, IntPtr y, IntPtr target, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewlines, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Frame(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Fx(IntPtr Instance, IntPtr expression, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_GammaCorrect(IntPtr Instance, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GaussianBlur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetArtifact(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetAttribute(IntPtr Instance, IntPtr name, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetColormapColor(IntPtr Instance, UIntPtr index);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNext(IntPtr image);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNextArtifactName(IntPtr Instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNextAttributeName(IntPtr Instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetNextProfileName(IntPtr Instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetProfile(IntPtr Instance, IntPtr name, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetReadMask(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_GetWriteMask(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Grayscale(IntPtr Instance, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_HaldClut(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_HasChannel(IntPtr Instance, UIntPtr channel);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_HasProfile(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Histogram(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_HoughLine(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr threshold, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ImportPixels(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Integral(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, IntPtr geometry, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, double deltaX, double rigidity, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_LocalContrast(IntPtr Instance, double radius, double strength, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Magnify(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_Map(IntPtr Instance, IntPtr image, IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MeanShift(IntPtr Instance, UIntPtr width, UIntPtr height, double colorDistance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Minify(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Moments(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Modulate(IntPtr Instance, IntPtr modulate, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Negate(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool onlyGrayscale, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Normalize(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_OilPaint(IntPtr Instance, double radius, double sigma, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Opaque(IntPtr Instance, IntPtr target, IntPtr fill, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_OrderedDither(IntPtr Instance, IntPtr thresholdMap, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Perceptible(IntPtr Instance, double epsilon, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_PerceptualHash(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Polaroid(IntPtr Instance, IntPtr settings, IntPtr caption, double angle, UIntPtr method, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Posterize(IntPtr Instance, UIntPtr levels, UIntPtr method, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Quantize(IntPtr Instance, IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RaiseOrLower(IntPtr Instance, UIntPtr size, [MarshalAs(UnmanagedType.Bool)] bool raise, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RemoveAttribute(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_RemoveProfile(IntPtr Instance, IntPtr name);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResetArtifactIterator(IntPtr Instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResetAttributeIterator(IntPtr Instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_ResetProfileIterator(IntPtr Instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Resample(IntPtr Instance, double resolutionX, double resolutionY, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Resize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Roll(IntPtr Instance, IntPtr x, IntPtr y, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Rotate(IntPtr Instance, double degrees, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_RotationalBlur(IntPtr Instance, double angle, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Sample(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Scale(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Segment(IntPtr Instance, UIntPtr colorSpace, double clusterThreshold, double smoothingThreshold, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SelectiveBlur(IntPtr Instance, double radius, double sigma, double threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Separate(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SepiaTone(IntPtr Instance, double threshold, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetAlpha(IntPtr Instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetArtifact(IntPtr Instance, IntPtr name, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr value, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetColormapColor(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            [return: MarshalAs(UnmanagedType.Bool)]
+            public static extern bool MagickImage_SetColorMetric(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetNext(IntPtr Instance, IntPtr image);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate? method);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetWriteMask(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shadow(IntPtr Instance, IntPtr x, IntPtr y, double sigma, double alphaPercentage, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Sharpen(IntPtr Instance, double radius, double sigma, UIntPtr channel, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shave(IntPtr Instance, UIntPtr leftRight, UIntPtr topBottom, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Shear(IntPtr Instance, double xAngle, double yAngle, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Sketch(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Solarize(IntPtr Instance, double factor, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SortPixels(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Splice(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Spread(IntPtr Instance, UIntPtr method, double radius, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Statistic(IntPtr Instance, UIntPtr type, UIntPtr width, UIntPtr height, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Statistics(IntPtr Instance, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Stegano(IntPtr Instance, IntPtr watermark, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Stereo(IntPtr Instance, IntPtr rightImage, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Strip(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_SubImageSearch(IntPtr Instance, IntPtr reference, UIntPtr metric, double similarityThreshold, IntPtr offset, out double similarityMetric, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Swirl(IntPtr Instance, UIntPtr method, double degrees, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Texture(IntPtr Instance, IntPtr image, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Thumbnail(IntPtr Instance, IntPtr geometry, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Tint(IntPtr Instance, IntPtr opacity, IntPtr tint, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_Transparent(IntPtr Instance, IntPtr color, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_TransparentChroma(IntPtr Instance, IntPtr colorLow, IntPtr colorHigh, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Transpose(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Transverse(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Trim(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_UniqueColors(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_UnsharpMask(IntPtr Instance, double radius, double sigma, double amount, double threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Vignette(IntPtr Instance, double radius, double sigma, IntPtr x, IntPtr y, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WhiteBalance(IntPtr Instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, double softness, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, out IntPtr exception);
+        }
+        #endif
+    }
+    private NativeMagickImage _nativeInstance;
+    private unsafe sealed partial class NativeMagickImage : NativeInstance
+    {
+        static NativeMagickImage() { Environment.Initialize(); }
+        protected override void Dispose(IntPtr instance)
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            public static class ARM64
-            {
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_AnimationDelay_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnimationDelay_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_AnimationIterations_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BackgroundColor_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_BaseHeight_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_BaseWidth_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_BlackPointCompensation_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BlackPointCompensation_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BorderColor_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BorderColor_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaBluePrimary_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaBluePrimary_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaGreenPrimary_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaGreenPrimary_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaRedPrimary_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaRedPrimary_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaWhitePoint_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaWhitePoint_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ClassType_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ClassType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_ColorFuzz_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorFuzz_Set(IntPtr instance, double value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ColormapSize_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColormapSize_Set(IntPtr instance, IntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ColorSpace_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorSpace_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ColorType_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Compose_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Compose_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Compression_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Compression_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Depth_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Depth_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Endian_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Endian_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_EncodingGeometry_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FileName_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_FileName_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_FilterType_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_FilterType_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Format_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Format_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_Gamma_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_GifDisposeMethod_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_GifDisposeMethod_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Height_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_HasAlpha_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Interlace_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Interlace_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Interpolate_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Interpolate_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_IsOpaque_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MatteColor_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_MatteColor_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_NormalizedMaximumError_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_NormalizedMeanError_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Orientation_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Orientation_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Page_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Page_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Quality_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Quality_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_RenderingIntent_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RenderingIntent_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ResolutionUnits_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResolutionUnits_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_ResolutionX_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResolutionX_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_ResolutionY_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResolutionY_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Signature_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_TotalColors_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_VirtualPixelMethod_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_VirtualPixelMethod_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Width_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveBlur(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveResize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveSharpen(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Annotate(IntPtr Instance, IntPtr settings, IntPtr text, IntPtr boundingArea, UIntPtr gravity, double degrees, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnnotateGravity(IntPtr Instance, IntPtr settings, IntPtr text, UIntPtr gravity, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AutoGamma(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AutoLevel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AutoOrient(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BilateralBlur(IntPtr Instance, UIntPtr width, UIntPtr height, double intensitySigma, double spatialSigma, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BlueShift(IntPtr Instance, double factor, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Blur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Border(IntPtr Instance, IntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BrightnessContrast(IntPtr Instance, double brightness, double contrast, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CannyEdge(IntPtr Instance, double radius, double sigma, double lower, double upper, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clamp(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CloneArea(IntPtr Instance, UIntPtr width, UIntPtr height, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clut(IntPtr Instance, IntPtr image, UIntPtr method, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorDecisionList(IntPtr Instance, IntPtr fileName, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Colorize(IntPtr Instance, IntPtr color, IntPtr blend, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorThreshold(IntPtr Instance, IntPtr startColor, IntPtr stopColor, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Compare(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out double distortion, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_CompareDistortion(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Composite(IntPtr Instance, IntPtr image, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_CompositeGravity(IntPtr Instance, IntPtr image, UIntPtr gravity, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ConnectedComponents(IntPtr Instance, UIntPtr connectivity, out IntPtr objects, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Contrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool enhance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ConvexHull(IntPtr Instance, out UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Convolve(IntPtr Instance, IntPtr matrix, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_CycleColormap(IntPtr Instance, IntPtr amount, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Decipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Deskew(IntPtr Instance, double threshold, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Despeckle(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_DetermineBitDepth(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_DetermineColorType(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double* arguments, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Edge(IntPtr Instance, double radius, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Emboss(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Encipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Enhance(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Equalize(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double* values, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateGeometry(IntPtr Instance, UIntPtr channels, IntPtr geometry, UIntPtr evaluateOperator, double value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_FloodFill(IntPtr Instance, IntPtr settings, IntPtr x, IntPtr y, IntPtr target, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewlines, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Frame(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Fx(IntPtr Instance, IntPtr expression, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_GammaCorrect(IntPtr Instance, double gamma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GaussianBlur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetArtifact(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetAttribute(IntPtr Instance, IntPtr name, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetColormapColor(IntPtr Instance, UIntPtr index);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNext(IntPtr image);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNextArtifactName(IntPtr Instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNextAttributeName(IntPtr Instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNextProfileName(IntPtr Instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetProfile(IntPtr Instance, IntPtr name, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetReadMask(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetWriteMask(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Grayscale(IntPtr Instance, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_HaldClut(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_HasChannel(IntPtr Instance, UIntPtr channel);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_HasProfile(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Histogram(IntPtr Instance, out UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_HoughLine(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr threshold, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ImportPixels(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Integral(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, IntPtr geometry, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, double deltaX, double rigidity, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_LocalContrast(IntPtr Instance, double radius, double strength, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Magnify(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_Map(IntPtr Instance, IntPtr image, IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MeanShift(IntPtr Instance, UIntPtr width, UIntPtr height, double colorDistance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Minify(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Moments(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Modulate(IntPtr Instance, IntPtr modulate, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Negate(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool onlyGrayscale, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Normalize(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_OilPaint(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Opaque(IntPtr Instance, IntPtr target, IntPtr fill, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_OrderedDither(IntPtr Instance, IntPtr thresholdMap, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Perceptible(IntPtr Instance, double epsilon, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_PerceptualHash(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Polaroid(IntPtr Instance, IntPtr settings, IntPtr caption, double angle, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Posterize(IntPtr Instance, UIntPtr levels, UIntPtr method, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Quantize(IntPtr Instance, IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RaiseOrLower(IntPtr Instance, UIntPtr size, [MarshalAs(UnmanagedType.Bool)] bool raise, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RemoveAttribute(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RemoveProfile(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResetArtifactIterator(IntPtr Instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResetAttributeIterator(IntPtr Instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResetProfileIterator(IntPtr Instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Resample(IntPtr Instance, double resolutionX, double resolutionY, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Resize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Roll(IntPtr Instance, IntPtr x, IntPtr y, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Rotate(IntPtr Instance, double degrees, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_RotationalBlur(IntPtr Instance, double angle, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Sample(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Scale(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Segment(IntPtr Instance, UIntPtr colorSpace, double clusterThreshold, double smoothingThreshold, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SelectiveBlur(IntPtr Instance, double radius, double sigma, double threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Separate(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SepiaTone(IntPtr Instance, double threshold, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetAlpha(IntPtr Instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetArtifact(IntPtr Instance, IntPtr name, IntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr value, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetColormapColor(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_SetColorMetric(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetNext(IntPtr Instance, IntPtr image);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate? method);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetWriteMask(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shadow(IntPtr Instance, IntPtr x, IntPtr y, double sigma, double alphaPercentage, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Sharpen(IntPtr Instance, double radius, double sigma, UIntPtr channel, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shave(IntPtr Instance, UIntPtr leftRight, UIntPtr topBottom, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shear(IntPtr Instance, double xAngle, double yAngle, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Sketch(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Solarize(IntPtr Instance, double factor, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SortPixels(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Splice(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Spread(IntPtr Instance, UIntPtr method, double radius, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Statistic(IntPtr Instance, UIntPtr type, UIntPtr width, UIntPtr height, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Statistics(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Stegano(IntPtr Instance, IntPtr watermark, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Stereo(IntPtr Instance, IntPtr rightImage, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Strip(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SubImageSearch(IntPtr Instance, IntPtr reference, UIntPtr metric, double similarityThreshold, IntPtr offset, out double similarityMetric, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Swirl(IntPtr Instance, UIntPtr method, double degrees, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Texture(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Thumbnail(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Tint(IntPtr Instance, IntPtr opacity, IntPtr tint, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Transparent(IntPtr Instance, IntPtr color, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_TransparentChroma(IntPtr Instance, IntPtr colorLow, IntPtr colorHigh, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Transpose(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Transverse(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Trim(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_UniqueColors(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_UnsharpMask(IntPtr Instance, double radius, double sigma, double amount, double threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Vignette(IntPtr Instance, double radius, double sigma, IntPtr x, IntPtr y, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WhiteBalance(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, double softness, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, out IntPtr exception);
-            }
+            NativeMethods.ARM64.MagickImage_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            public static class X86
-            {
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Create(IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_AnimationDelay_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnimationDelay_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_AnimationIterations_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BackgroundColor_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_BaseHeight_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_BaseWidth_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_BlackPointCompensation_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BlackPointCompensation_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BorderColor_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BorderColor_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BoundingBox_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaBluePrimary_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaBluePrimary_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaGreenPrimary_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaGreenPrimary_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaRedPrimary_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaRedPrimary_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ChromaWhitePoint_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ChromaWhitePoint_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ClassType_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ClassType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_ColorFuzz_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorFuzz_Set(IntPtr instance, double value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ColormapSize_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColormapSize_Set(IntPtr instance, IntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ColorSpace_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorSpace_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ColorType_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorType_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Compose_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Compose_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Compression_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Compression_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Depth_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Depth_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Endian_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Endian_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_EncodingGeometry_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FileName_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_FileName_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_FilterType_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_FilterType_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Format_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Format_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_Gamma_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_GifDisposeMethod_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_GifDisposeMethod_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Height_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_HasAlpha_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_HasAlpha_Set(IntPtr instance, [MarshalAs(UnmanagedType.Bool)] bool value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Interlace_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Interlace_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Interpolate_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Interpolate_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_IsOpaque_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MatteColor_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_MatteColor_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_NormalizedMaximumError_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_NormalizedMeanError_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Orientation_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Orientation_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Page_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Page_Set(IntPtr instance, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Quality_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Quality_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_RenderingIntent_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RenderingIntent_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ResolutionUnits_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResolutionUnits_Set(IntPtr instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_ResolutionX_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResolutionX_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_ResolutionY_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResolutionY_Set(IntPtr instance, double value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Signature_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_TotalColors_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_VirtualPixelMethod_Get(IntPtr instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_VirtualPixelMethod_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_Width_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveBlur(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveResize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveSharpen(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AdaptiveThreshold(IntPtr Instance, UIntPtr width, UIntPtr height, double bias, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Annotate(IntPtr Instance, IntPtr settings, IntPtr text, IntPtr boundingArea, UIntPtr gravity, double degrees, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AnnotateGravity(IntPtr Instance, IntPtr settings, IntPtr text, UIntPtr gravity, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AutoGamma(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AutoLevel(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_AutoOrient(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_AutoThreshold(IntPtr Instance, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BilateralBlur(IntPtr Instance, UIntPtr width, UIntPtr height, double intensitySigma, double spatialSigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BlackThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_BlueShift(IntPtr Instance, double factor, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Blur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Border(IntPtr Instance, IntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_BrightnessContrast(IntPtr Instance, double brightness, double contrast, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CannyEdge(IntPtr Instance, double radius, double sigma, double lower, double upper, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Chop(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clahe(IntPtr Instance, UIntPtr xTiles, UIntPtr yTiles, UIntPtr numberBins, double clipLimit, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clamp(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ClipPath(IntPtr Instance, IntPtr pathName, [MarshalAs(UnmanagedType.Bool)] bool inside, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Clone(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CloneArea(IntPtr Instance, UIntPtr width, UIntPtr height, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Clut(IntPtr Instance, IntPtr image, UIntPtr method, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorDecisionList(IntPtr Instance, IntPtr fileName, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Colorize(IntPtr Instance, IntPtr color, IntPtr blend, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ColorMatrix(IntPtr Instance, IntPtr matrix, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ColorThreshold(IntPtr Instance, IntPtr startColor, IntPtr stopColor, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Compare(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out double distortion, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern double MagickImage_CompareDistortion(IntPtr Instance, IntPtr image, UIntPtr metric, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Composite(IntPtr Instance, IntPtr image, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_CompositeGravity(IntPtr Instance, IntPtr image, UIntPtr gravity, IntPtr x, IntPtr y, UIntPtr compose, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ConnectedComponents(IntPtr Instance, UIntPtr connectivity, out IntPtr objects, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Contrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool enhance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ContrastStretch(IntPtr Instance, double blackPoint, double whitePoint, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ConvexHull(IntPtr Instance, out UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Convolve(IntPtr Instance, IntPtr matrix, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_CopyPixels(IntPtr Instance, IntPtr image, IntPtr geometry, IntPtr offset, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Crop(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_CropToTiles(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_CycleColormap(IntPtr Instance, IntPtr amount, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Decipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Deskew(IntPtr Instance, double threshold, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Despeckle(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_DetermineBitDepth(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern UIntPtr MagickImage_DetermineColorType(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Distort(IntPtr Instance, UIntPtr method, [MarshalAs(UnmanagedType.Bool)] bool bestfit, double* arguments, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Edge(IntPtr Instance, double radius, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Emboss(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Encipher(IntPtr Instance, IntPtr passphrase, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Enhance(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Equalize(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_Equals(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateFunction(IntPtr Instance, UIntPtr channels, UIntPtr evaluateFunction, double* values, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateGeometry(IntPtr Instance, UIntPtr channels, IntPtr geometry, UIntPtr evaluateOperator, double value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_EvaluateOperator(IntPtr Instance, UIntPtr channels, UIntPtr evaluateOperator, double value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Extent(IntPtr Instance, IntPtr geometry, UIntPtr gravity, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Flip(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_FloodFill(IntPtr Instance, IntPtr settings, IntPtr x, IntPtr y, IntPtr target, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Flop(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FontTypeMetrics(IntPtr Instance, IntPtr settings, [MarshalAs(UnmanagedType.Bool)] bool ignoreNewlines, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_FormatExpression(IntPtr Instance, IntPtr settings, IntPtr expression, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Frame(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Fx(IntPtr Instance, IntPtr expression, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_GammaCorrect(IntPtr Instance, double gamma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GaussianBlur(IntPtr Instance, double radius, double sigma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetArtifact(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetAttribute(IntPtr Instance, IntPtr name, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetColormapColor(IntPtr Instance, UIntPtr index);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNext(IntPtr image);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNextArtifactName(IntPtr Instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNextAttributeName(IntPtr Instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetNextProfileName(IntPtr Instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetProfile(IntPtr Instance, IntPtr name, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetReadMask(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_GetWriteMask(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Grayscale(IntPtr Instance, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_HaldClut(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_HasChannel(IntPtr Instance, UIntPtr channel);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_HasProfile(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Histogram(IntPtr Instance, out UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_HoughLine(IntPtr Instance, UIntPtr width, UIntPtr height, UIntPtr threshold, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ImportPixels(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Integral(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, IntPtr geometry, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_LiquidRescale(IntPtr Instance, IntPtr geometry, double deltaX, double rigidity, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_LocalContrast(IntPtr Instance, double radius, double strength, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Magnify(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_Map(IntPtr Instance, IntPtr image, IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MeanShift(IntPtr Instance, UIntPtr width, UIntPtr height, double colorDistance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Minify(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Moments(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Modulate(IntPtr Instance, IntPtr modulate, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Negate(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool onlyGrayscale, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Normalize(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_OilPaint(IntPtr Instance, double radius, double sigma, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Opaque(IntPtr Instance, IntPtr target, IntPtr fill, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_OrderedDither(IntPtr Instance, IntPtr thresholdMap, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Perceptible(IntPtr Instance, double epsilon, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_PerceptualHash(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Polaroid(IntPtr Instance, IntPtr settings, IntPtr caption, double angle, UIntPtr method, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Posterize(IntPtr Instance, UIntPtr levels, UIntPtr method, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Quantize(IntPtr Instance, IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RaiseOrLower(IntPtr Instance, UIntPtr size, [MarshalAs(UnmanagedType.Bool)] bool raise, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RandomThreshold(IntPtr Instance, double low, double high, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RangeThreshold(IntPtr Instance, double low_black, double low_white, double high_white, double high_black, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadBlob(IntPtr settings, byte* data, UIntPtr offset, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadFile(IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadPixels(UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RegionMask(IntPtr Instance, IntPtr region, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RemoveArtifact(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RemoveAttribute(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_RemoveProfile(IntPtr Instance, IntPtr name);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResetArtifactIterator(IntPtr Instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResetAttributeIterator(IntPtr Instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_ResetProfileIterator(IntPtr Instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Resample(IntPtr Instance, double resolutionX, double resolutionY, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Resize(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Roll(IntPtr Instance, IntPtr x, IntPtr y, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Rotate(IntPtr Instance, double degrees, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_RotationalBlur(IntPtr Instance, double angle, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Sample(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Scale(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Segment(IntPtr Instance, UIntPtr colorSpace, double clusterThreshold, double smoothingThreshold, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SelectiveBlur(IntPtr Instance, double radius, double sigma, double threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Separate(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SepiaTone(IntPtr Instance, double threshold, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetAlpha(IntPtr Instance, UIntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetArtifact(IntPtr Instance, IntPtr name, IntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetAttribute(IntPtr Instance, IntPtr name, IntPtr value, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetBitDepth(IntPtr Instance, UIntPtr value, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetColormapColor(IntPtr Instance, UIntPtr index, IntPtr color, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                [return: MarshalAs(UnmanagedType.Bool)]
-                public static extern bool MagickImage_SetColorMetric(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetNext(IntPtr Instance, IntPtr image);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate? method);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetReadMask(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SetWriteMask(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shade(IntPtr Instance, double azimuth, double elevation, [MarshalAs(UnmanagedType.Bool)] bool colorShading, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shadow(IntPtr Instance, IntPtr x, IntPtr y, double sigma, double alphaPercentage, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Sharpen(IntPtr Instance, double radius, double sigma, UIntPtr channel, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shave(IntPtr Instance, UIntPtr leftRight, UIntPtr topBottom, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Shear(IntPtr Instance, double xAngle, double yAngle, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SigmoidalContrast(IntPtr Instance, [MarshalAs(UnmanagedType.Bool)] bool sharpen, double contrast, double midpoint, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SparseColor(IntPtr Instance, UIntPtr channel, UIntPtr method, double* values, UIntPtr length, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Sketch(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Solarize(IntPtr Instance, double factor, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_SortPixels(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Splice(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Spread(IntPtr Instance, UIntPtr method, double radius, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Statistic(IntPtr Instance, UIntPtr type, UIntPtr width, UIntPtr height, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Statistics(IntPtr Instance, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Stegano(IntPtr Instance, IntPtr watermark, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Stereo(IntPtr Instance, IntPtr rightImage, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Strip(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_SubImageSearch(IntPtr Instance, IntPtr reference, UIntPtr metric, double similarityThreshold, IntPtr offset, out double similarityMetric, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Swirl(IntPtr Instance, UIntPtr method, double degrees, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Texture(IntPtr Instance, IntPtr image, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Threshold(IntPtr Instance, double threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Thumbnail(IntPtr Instance, IntPtr geometry, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Tint(IntPtr Instance, IntPtr opacity, IntPtr tint, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_Transparent(IntPtr Instance, IntPtr color, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_TransparentChroma(IntPtr Instance, IntPtr colorLow, IntPtr colorHigh, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Transpose(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Transverse(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Trim(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_UniqueColors(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_UnsharpMask(IntPtr Instance, double radius, double sigma, double amount, double threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Vignette(IntPtr Instance, double radius, double sigma, IntPtr x, IntPtr y, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_Wave(IntPtr Instance, UIntPtr method, double amplitude, double length, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WhiteBalance(IntPtr Instance, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr MagickImage_WaveletDenoise(IntPtr Instance, double threshold, double softness, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WhiteThreshold(IntPtr Instance, IntPtr threshold, UIntPtr channels, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WriteFile(IntPtr Instance, IntPtr settings, out IntPtr exception);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void MagickImage_WriteStream(IntPtr Instance, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, out IntPtr exception);
-            }
+            NativeMethods.X86.MagickImage_Dispose(instance);
             #endif
         }
-        private NativeMagickImage _nativeInstance;
-        private unsafe sealed partial class NativeMagickImage : NativeInstance
+        public NativeMagickImage(IMagickSettings<QuantumType>? settings)
         {
-            static NativeMagickImage() { Environment.Initialize(); }
-            protected override void Dispose(IntPtr instance)
-            {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Dispose(instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Dispose(instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Dispose(instance);
-                #endif
-            }
-            public NativeMagickImage(IMagickSettings<QuantumType>? settings)
-            {
-                using var settingsNative = MagickSettings.CreateInstance(settings);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.ARM64.MagickImage_Create(settingsNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X64.MagickImage_Create(settingsNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X86.MagickImage_Create(settingsNative.Instance, out exception);
-                #endif
-                CheckException(exception, Instance);
-                if (Instance == IntPtr.Zero)
-                    throw new InvalidOperationException();
-            }
-            public NativeMagickImage(IntPtr instance)
-            {
-                Instance = instance;
-            }
-            protected override string TypeName
-            {
-                get
-                {
-                    return nameof(MagickImage);
-                }
-            }
-            public int AnimationDelay
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_AnimationDelay_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_AnimationDelay_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_AnimationDelay_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public int AnimationIterations
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_AnimationIterations_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_AnimationIterations_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_AnimationIterations_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public int AnimationTicksPerSecond
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_AnimationTicksPerSecond_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_AnimationTicksPerSecond_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public IMagickColor<QuantumType>? BackgroundColor
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_BackgroundColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_BackgroundColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_BackgroundColor_Get(Instance);
-                    #endif
-                    return MagickColor.CreateInstance(result);
-                }
-                set
-                {
-                    using var valueNative = MagickColor.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public int BaseHeight
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_BaseHeight_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_BaseHeight_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_BaseHeight_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-            }
-            public int BaseWidth
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_BaseWidth_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_BaseWidth_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_BaseWidth_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-            }
-            public bool BlackPointCompensation
-            {
-                get
-                {
-                    bool result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_BlackPointCompensation_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_BlackPointCompensation_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_BlackPointCompensation_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_BlackPointCompensation_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_BlackPointCompensation_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_BlackPointCompensation_Set(Instance, value);
-                    #endif
-                }
-            }
-            public IMagickColor<QuantumType>? BorderColor
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_BorderColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_BorderColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_BorderColor_Get(Instance);
-                    #endif
-                    return MagickColor.CreateInstance(result);
-                }
-                set
-                {
-                    using var valueNative = MagickColor.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public MagickRectangle? BoundingBox
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_BoundingBox_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_BoundingBox_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_BoundingBox_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return MagickRectangle.CreateInstance(result);
-                }
-            }
-            public int ChannelCount
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ChannelCount_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ChannelCount_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ChannelCount_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-            }
-            public IPrimaryInfo? ChromaBluePrimary
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ChromaBluePrimary_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ChromaBluePrimary_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ChromaBluePrimary_Get(Instance);
-                    #endif
-                    return PrimaryInfo.CreateInstance(result);
-                }
-                set
-                {
-                    using var valueNative = PrimaryInfo.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public IPrimaryInfo? ChromaGreenPrimary
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ChromaGreenPrimary_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ChromaGreenPrimary_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ChromaGreenPrimary_Get(Instance);
-                    #endif
-                    return PrimaryInfo.CreateInstance(result);
-                }
-                set
-                {
-                    using var valueNative = PrimaryInfo.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public IPrimaryInfo? ChromaRedPrimary
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ChromaRedPrimary_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ChromaRedPrimary_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ChromaRedPrimary_Get(Instance);
-                    #endif
-                    return PrimaryInfo.CreateInstance(result);
-                }
-                set
-                {
-                    using var valueNative = PrimaryInfo.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public IPrimaryInfo? ChromaWhitePoint
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ChromaWhitePoint_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ChromaWhitePoint_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ChromaWhitePoint_Get(Instance);
-                    #endif
-                    return PrimaryInfo.CreateInstance(result);
-                }
-                set
-                {
-                    using var valueNative = PrimaryInfo.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public ClassType ClassType
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ClassType_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ClassType_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ClassType_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return (ClassType)result;
-                }
-                set
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    CheckException(exception);
-                }
-            }
-            public double ColorFuzz
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ColorFuzz_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ColorFuzz_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ColorFuzz_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return result;
-                }
-                set
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ColorFuzz_Set(Instance, value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ColorFuzz_Set(Instance, value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ColorFuzz_Set(Instance, value, out exception);
-                    #endif
-                    CheckException(exception);
-                }
-            }
-            public int ColormapSize
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ColormapSize_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ColormapSize_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ColormapSize_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return (int)result;
-                }
-                set
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
-                    #endif
-                    CheckException(exception);
-                }
-            }
-            public ColorSpace ColorSpace
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ColorSpace_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ColorSpace_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ColorSpace_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return (ColorSpace)result;
-                }
-                set
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    CheckException(exception);
-                }
-            }
-            public ColorType ColorType
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ColorType_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ColorType_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ColorType_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return (ColorType)result;
-                }
-                set
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    CheckException(exception);
-                }
-            }
-            public CompositeOperator Compose
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Compose_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Compose_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Compose_Get(Instance);
-                    #endif
-                    return (CompositeOperator)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Compose_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Compose_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Compose_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public CompressionMethod Compression
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Compression_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Compression_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Compression_Get(Instance);
-                    #endif
-                    return (CompressionMethod)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Compression_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Compression_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Compression_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public int Depth
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Depth_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Depth_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Depth_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Depth_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Depth_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Depth_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public Endian Endian
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Endian_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Endian_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Endian_Get(Instance);
-                    #endif
-                    return (Endian)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Endian_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Endian_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Endian_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public string? EncodingGeometry
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_EncodingGeometry_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_EncodingGeometry_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_EncodingGeometry_Get(Instance);
-                    #endif
-                    return UTF8Marshaler.NativeToManagedNullable(result);
-                }
-            }
-            public string? FileName
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_FileName_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_FileName_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_FileName_Get(Instance);
-                    #endif
-                    return UTF8Marshaler.NativeToManagedNullable(result);
-                }
-                set
-                {
-                    using var valueNative = UTF8Marshaler.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_FileName_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_FileName_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_FileName_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public FilterType FilterType
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_FilterType_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_FilterType_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_FilterType_Get(Instance);
-                    #endif
-                    return (FilterType)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public string? Format
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Format_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Format_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Format_Get(Instance);
-                    #endif
-                    return UTF8Marshaler.NativeToManagedNullable(result);
-                }
-                set
-                {
-                    using var valueNative = UTF8Marshaler.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Format_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Format_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Format_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public double Gamma
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Gamma_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Gamma_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Gamma_Get(Instance);
-                    #endif
-                    return result;
-                }
-            }
-            public GifDisposeMethod GifDisposeMethod
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_GifDisposeMethod_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_GifDisposeMethod_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_GifDisposeMethod_Get(Instance);
-                    #endif
-                    return (GifDisposeMethod)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public int Height
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Height_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Height_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Height_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-            }
-            public bool HasAlpha
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    bool result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_HasAlpha_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_HasAlpha_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_HasAlpha_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return result;
-                }
-                set
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_HasAlpha_Set(Instance, value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_HasAlpha_Set(Instance, value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_HasAlpha_Set(Instance, value, out exception);
-                    #endif
-                    CheckException(exception);
-                }
-            }
-            public Interlace Interlace
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Interlace_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Interlace_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Interlace_Get(Instance);
-                    #endif
-                    return (Interlace)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public PixelInterpolateMethod Interpolate
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Interpolate_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Interpolate_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Interpolate_Get(Instance);
-                    #endif
-                    return (PixelInterpolateMethod)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public bool IsOpaque
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    bool result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_IsOpaque_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_IsOpaque_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_IsOpaque_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return result;
-                }
-            }
-            public IMagickColor<QuantumType>? MatteColor
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_MatteColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_MatteColor_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_MatteColor_Get(Instance);
-                    #endif
-                    return MagickColor.CreateInstance(result);
-                }
-                set
-                {
-                    using var valueNative = MagickColor.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public double MeanErrorPerPixel
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_MeanErrorPerPixel_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_MeanErrorPerPixel_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_MeanErrorPerPixel_Get(Instance);
-                    #endif
-                    return result;
-                }
-            }
-            public double NormalizedMaximumError
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_NormalizedMaximumError_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_NormalizedMaximumError_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_NormalizedMaximumError_Get(Instance);
-                    #endif
-                    return result;
-                }
-            }
-            public double NormalizedMeanError
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_NormalizedMeanError_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_NormalizedMeanError_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_NormalizedMeanError_Get(Instance);
-                    #endif
-                    return result;
-                }
-            }
-            public OrientationType Orientation
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Orientation_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Orientation_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Orientation_Get(Instance);
-                    #endif
-                    return (OrientationType)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public MagickRectangle? Page
-            {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Page_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Page_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Page_Get(Instance);
-                    #endif
-                    return MagickRectangle.CreateInstance(result);
-                }
-                set
-                {
-                    using var valueNative = MagickRectangle.CreateInstance(value);
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Page_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Page_Set(Instance, valueNative.Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Page_Set(Instance, valueNative.Instance);
-                    #endif
-                }
-            }
-            public int Quality
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Quality_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Quality_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Quality_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_Quality_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_Quality_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_Quality_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public RenderingIntent RenderingIntent
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_RenderingIntent_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_RenderingIntent_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_RenderingIntent_Get(Instance);
-                    #endif
-                    return (RenderingIntent)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public DensityUnit ResolutionUnits
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ResolutionUnits_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ResolutionUnits_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ResolutionUnits_Get(Instance);
-                    #endif
-                    return (DensityUnit)result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
-                    #endif
-                }
-            }
-            public double ResolutionX
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ResolutionX_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ResolutionX_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ResolutionX_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ResolutionX_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ResolutionX_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ResolutionX_Set(Instance, value);
-                    #endif
-                }
-            }
-            public double ResolutionY
-            {
-                get
-                {
-                    double result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ResolutionY_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ResolutionY_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ResolutionY_Get(Instance);
-                    #endif
-                    return result;
-                }
-                set
-                {
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_ResolutionY_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_ResolutionY_Set(Instance, value);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_ResolutionY_Set(Instance, value);
-                    #endif
-                }
-            }
-            public string Signature
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Signature_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Signature_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Signature_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return UTF8Marshaler.NativeToManaged(result);
-                }
-            }
-            public int TotalColors
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_TotalColors_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_TotalColors_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_TotalColors_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return (int)result;
-                }
-            }
-            public VirtualPixelMethod VirtualPixelMethod
-            {
-                get
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
-                    #endif
-                    CheckException(exception);
-                    return (VirtualPixelMethod)result;
-                }
-                set
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
-                    #endif
-                    CheckException(exception);
-                }
-            }
-            public int Width
-            {
-                get
-                {
-                    UIntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Width_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Width_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Width_Get(Instance);
-                    #endif
-                    return (int)result;
-                }
-            }
-            public void AdaptiveBlur(double radius, double sigma)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void AdaptiveResize(string geometry)
-            {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void AdaptiveSharpen(double radius, double sigma, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void AdaptiveThreshold(int width, int height, double bias, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void AddNoise(NoiseType noiseType, double attenuate, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void AddProfile(string name, byte[] datum, int length)
-            {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                fixed (byte* datumFixed = datum)
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
-                    #endif
-                    CheckException(exception);
-                }
-            }
-            public void AffineTransform(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Annotate(DrawingSettings settings, string text, string boundingArea, Gravity gravity, double degrees)
-            {
-                using var settingsNative = DrawingSettings.CreateInstance(settings);
-                using var textNative = UTF8Marshaler.CreateInstance(text);
-                using var boundingAreaNative = UTF8Marshaler.CreateInstance(boundingArea);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void AnnotateGravity(DrawingSettings settings, string text, Gravity gravity)
-            {
-                using var settingsNative = DrawingSettings.CreateInstance(settings);
-                using var textNative = UTF8Marshaler.CreateInstance(text);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void AutoGamma(Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void AutoLevel(Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void AutoOrient()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_AutoOrient(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AutoOrient(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_AutoOrient(Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void AutoThreshold(AutoThresholdMethod method)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void BilateralBlur(int width, int height, double intensitySigma, double spatialSigma)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void BlackThreshold(string threshold, Channels channels)
-            {
-                using var thresholdNative = UTF8Marshaler.CreateInstance(threshold);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void BlueShift(double factor)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_BlueShift(Instance, factor, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_BlueShift(Instance, factor, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_BlueShift(Instance, factor, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Blur(double radius, double sigma, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Border(MagickRectangle value)
-            {
-                using var valueNative = MagickRectangle.CreateInstance(value);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Border(Instance, valueNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Border(Instance, valueNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Border(Instance, valueNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void BrightnessContrast(double brightness, double contrast, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void CannyEdge(double radius, double sigma, double lower, double upper)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public int ChannelOffset(PixelChannel channel)
+            using var settingsNative = MagickSettings.CreateInstance(settings);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.ARM64.MagickImage_Create(settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.X64.MagickImage_Create(settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            Instance = NativeMethods.X86.MagickImage_Create(settingsNative.Instance, out exception);
+            #endif
+            CheckException(exception, Instance);
+            if (Instance == IntPtr.Zero)
+                throw new InvalidOperationException();
+        }
+        public NativeMagickImage(IntPtr instance)
+        {
+            Instance = instance;
+        }
+        protected override string TypeName
+        {
+            get
+            {
+                return nameof(MagickImage);
+            }
+        }
+        public int AnimationDelay
+        {
+            get
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+                result = NativeMethods.ARM64.MagickImage_AnimationDelay_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+                result = NativeMethods.X64.MagickImage_AnimationDelay_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+                result = NativeMethods.X86.MagickImage_AnimationDelay_Get(Instance);
                 #endif
                 return (int)result;
             }
-            public void Charcoal(double radius, double sigma)
+            set
             {
-                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public int AnimationIterations
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_AnimationIterations_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_AnimationIterations_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_AnimationIterations_Get(Instance);
+                #endif
+                return (int)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public int AnimationTicksPerSecond
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_AnimationTicksPerSecond_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_AnimationTicksPerSecond_Get(Instance);
+                #endif
+                return (int)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public IMagickColor<QuantumType>? BackgroundColor
+        {
+            get
+            {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+                result = NativeMethods.ARM64.MagickImage_BackgroundColor_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+                result = NativeMethods.X64.MagickImage_BackgroundColor_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+                result = NativeMethods.X86.MagickImage_BackgroundColor_Get(Instance);
                 #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
+                return MagickColor.CreateInstance(result);
             }
-            public void Chop(MagickRectangle geometry)
+            set
             {
-                using var geometryNative = MagickRectangle.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
+                using var valueNative = MagickColor.CreateInstance(value);
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+                NativeMethods.ARM64.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+                NativeMethods.X64.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+                NativeMethods.X86.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
                 #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
             }
-            public void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit)
+        }
+        public int BaseHeight
+        {
+            get
             {
-                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+                result = NativeMethods.ARM64.MagickImage_BaseHeight_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+                result = NativeMethods.X64.MagickImage_BaseHeight_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+                result = NativeMethods.X86.MagickImage_BaseHeight_Get(Instance);
                 #endif
-                CheckException(exception);
+                return (int)result;
             }
-            public void Clamp(Channels channels)
+        }
+        public int BaseWidth
+        {
+            get
             {
-                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Clamp(Instance, (UIntPtr)channels, out exception);
+                result = NativeMethods.ARM64.MagickImage_BaseWidth_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Clamp(Instance, (UIntPtr)channels, out exception);
+                result = NativeMethods.X64.MagickImage_BaseWidth_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Clamp(Instance, (UIntPtr)channels, out exception);
+                result = NativeMethods.X86.MagickImage_BaseWidth_Get(Instance);
                 #endif
-                CheckException(exception);
+                return (int)result;
             }
-            public void ClipPath(string pathName, bool inside)
+        }
+        public bool BlackPointCompensation
+        {
+            get
             {
-                using var pathNameNative = UTF8Marshaler.CreateInstance(pathName);
-                IntPtr exception = IntPtr.Zero;
+                bool result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+                result = NativeMethods.ARM64.MagickImage_BlackPointCompensation_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+                result = NativeMethods.X64.MagickImage_BlackPointCompensation_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+                result = NativeMethods.X86.MagickImage_BlackPointCompensation_Get(Instance);
                 #endif
-                CheckException(exception);
-            }
-            public IntPtr Clone()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Clone(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Clone(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Clone(Instance, out exception);
-                #endif
-                CheckException(exception, result);
                 return result;
             }
-            public IntPtr CloneArea(int width, int height)
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_BlackPointCompensation_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_BlackPointCompensation_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_BlackPointCompensation_Set(Instance, value);
+                #endif
+            }
+        }
+        public IMagickColor<QuantumType>? BorderColor
+        {
+            get
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_BorderColor_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_BorderColor_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_BorderColor_Get(Instance);
+                #endif
+                return MagickColor.CreateInstance(result);
+            }
+            set
+            {
+                using var valueNative = MagickColor.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
+                #endif
+            }
+        }
+        public MagickRectangle? BoundingBox
+        {
+            get
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -4532,176 +2136,296 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+                result = NativeMethods.ARM64.MagickImage_BoundingBox_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+                result = NativeMethods.X64.MagickImage_BoundingBox_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+                result = NativeMethods.X86.MagickImage_BoundingBox_Get(Instance, out exception);
                 #endif
-                CheckException(exception, result);
-                return result;
+                CheckException(exception);
+                return MagickRectangle.CreateInstance(result);
             }
-            public void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels)
+        }
+        public int ChannelCount
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_ChannelCount_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChannelCount_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ChannelCount_Get(Instance);
+                #endif
+                return (int)result;
+            }
+        }
+        public IPrimaryInfo? ChromaBluePrimary
+        {
+            get
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_ChromaBluePrimary_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChromaBluePrimary_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ChromaBluePrimary_Get(Instance);
+                #endif
+                return PrimaryInfo.CreateInstance(result);
+            }
+            set
+            {
+                using var valueNative = PrimaryInfo.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+                #endif
+            }
+        }
+        public IPrimaryInfo? ChromaGreenPrimary
+        {
+            get
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_ChromaGreenPrimary_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChromaGreenPrimary_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ChromaGreenPrimary_Get(Instance);
+                #endif
+                return PrimaryInfo.CreateInstance(result);
+            }
+            set
+            {
+                using var valueNative = PrimaryInfo.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+                #endif
+            }
+        }
+        public IPrimaryInfo? ChromaRedPrimary
+        {
+            get
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_ChromaRedPrimary_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChromaRedPrimary_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ChromaRedPrimary_Get(Instance);
+                #endif
+                return PrimaryInfo.CreateInstance(result);
+            }
+            set
+            {
+                using var valueNative = PrimaryInfo.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+                #endif
+            }
+        }
+        public IPrimaryInfo? ChromaWhitePoint
+        {
+            get
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_ChromaWhitePoint_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChromaWhitePoint_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ChromaWhitePoint_Get(Instance);
+                #endif
+                return PrimaryInfo.CreateInstance(result);
+            }
+            set
+            {
+                using var valueNative = PrimaryInfo.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+                #endif
+            }
+        }
+        public ClassType ClassType
+        {
+            get
+            {
+                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_ClassType_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ClassType_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ClassType_Get(Instance, out exception);
+                #endif
+                CheckException(exception);
+                return (ClassType)result;
+            }
+            set
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+                NativeMethods.ARM64.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+                NativeMethods.X64.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+                NativeMethods.X86.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 CheckException(exception);
             }
-            public void ColorDecisionList(string fileName)
-            {
-                using var fileNameNative = UTF8Marshaler.CreateInstance(fileName);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Colorize(IMagickColor<QuantumType>? color, string blend)
-            {
-                using var colorNative = MagickColor.CreateInstance(color);
-                using var blendNative = UTF8Marshaler.CreateInstance(blend);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void ColorMatrix(IDoubleMatrix matrix)
-            {
-                using var matrixNative = DoubleMatrix.CreateInstance(matrix);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void ColorThreshold(IMagickColor<QuantumType>? startColor, IMagickColor<QuantumType>? stopColor)
-            {
-                using var startColorNative = MagickColor.CreateInstance(startColor);
-                using var stopColorNative = MagickColor.CreateInstance(stopColor);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public IntPtr Compare(IMagickImage image, ErrorMetric metric, Channels channels, out double distortion)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
-                #endif
-                CheckException(exception, result);
-                return result;
-            }
-            public double CompareDistortion(IMagickImage image, ErrorMetric metric, Channels channels)
+        }
+        public double ColorFuzz
+        {
+            get
             {
                 IntPtr exception = IntPtr.Zero;
                 double result;
@@ -4709,70 +2433,50 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+                result = NativeMethods.ARM64.MagickImage_ColorFuzz_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+                result = NativeMethods.X64.MagickImage_ColorFuzz_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+                result = NativeMethods.X86.MagickImage_ColorFuzz_Get(Instance, out exception);
                 #endif
                 CheckException(exception);
                 return result;
             }
-            public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, Channels channels)
+            set
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+                NativeMethods.ARM64.MagickImage_ColorFuzz_Set(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+                NativeMethods.X64.MagickImage_ColorFuzz_Set(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+                NativeMethods.X86.MagickImage_ColorFuzz_Set(Instance, value, out exception);
                 #endif
                 CheckException(exception);
             }
-            public void CompositeGravity(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void ConnectedComponents(int connectivity, out IntPtr objects)
+        }
+        public int ColormapSize
+        {
+            get
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -4780,334 +2484,50 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+                result = NativeMethods.ARM64.MagickImage_ColormapSize_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+                result = NativeMethods.X64.MagickImage_ColormapSize_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Contrast(bool enhance)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Contrast(Instance, enhance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Contrast(Instance, enhance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Contrast(Instance, enhance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void ContrastStretch(double blackPoint, double whitePoint, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public IntPtr ConvexHull(out UIntPtr length)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ConvexHull(Instance, out length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ConvexHull(Instance, out length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ConvexHull(Instance, out length, out exception);
-                #endif
-                var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException is null)
-                    return result;
-                if (magickException is MagickErrorException)
-                {
-                    if (result != IntPtr.Zero)
-                        ImageMagick.PointInfoCollection.DisposeList(result);
-                    throw magickException;
-                }
-                RaiseWarning(magickException);
-                return result;
-            }
-            public void Convolve(IDoubleMatrix matrix)
-            {
-                using var matrixNative = DoubleMatrix.CreateInstance(matrix);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void CopyPixels(IMagickImage image, MagickRectangle geometry, OffsetInfo offset, Channels channels)
-            {
-                using var geometryNative = MagickRectangle.CreateInstance(geometry);
-                using var offsetNative = OffsetInfo.CreateInstance(offset);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Crop(string geometry, Gravity gravity)
-            {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public IntPtr CropToTiles(string geometry)
-            {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-                return result;
-            }
-            public void CycleColormap(int amount)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Decipher(string passphrase)
-            {
-                using var passphraseNative = UTF8Marshaler.CreateInstance(passphrase);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Deskew(double threshold)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Deskew(Instance, threshold, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Deskew(Instance, threshold, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Deskew(Instance, threshold, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Despeckle()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Despeckle(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Despeckle(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Despeckle(Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public int DetermineBitDepth(Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                UIntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_DetermineBitDepth(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_DetermineBitDepth(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_DetermineBitDepth(Instance, (UIntPtr)channels, out exception);
+                result = NativeMethods.X86.MagickImage_ColormapSize_Get(Instance, out exception);
                 #endif
                 CheckException(exception);
                 return (int)result;
             }
-            public ColorType DetermineColorType()
+            set
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
+                #endif
+                CheckException(exception);
+            }
+        }
+        public ColorSpace ColorSpace
+        {
+            get
             {
                 IntPtr exception = IntPtr.Zero;
                 UIntPtr result;
@@ -5115,178 +2535,557 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_DetermineColorType(Instance, out exception);
+                result = NativeMethods.ARM64.MagickImage_ColorSpace_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_DetermineColorType(Instance, out exception);
+                result = NativeMethods.X64.MagickImage_ColorSpace_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_DetermineColorType(Instance, out exception);
+                result = NativeMethods.X86.MagickImage_ColorSpace_Get(Instance, out exception);
+                #endif
+                CheckException(exception);
+                return (ColorSpace)result;
+            }
+            set
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                CheckException(exception);
+            }
+        }
+        public ColorType ColorType
+        {
+            get
+            {
+                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_ColorType_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ColorType_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ColorType_Get(Instance, out exception);
                 #endif
                 CheckException(exception);
                 return (ColorType)result;
             }
-            public void Distort(DistortMethod method, bool bestfit, double[] arguments, int length)
+            set
             {
-                fixed (double* argumentsFixed = arguments)
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    if (result != IntPtr.Zero)
-                      Instance = result;
-                }
-            }
-            public void Edge(double radius)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Edge(Instance, radius, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Edge(Instance, radius, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Edge(Instance, radius, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Emboss(double radius, double sigma)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Emboss(Instance, radius, sigma, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Emboss(Instance, radius, sigma, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Emboss(Instance, radius, sigma, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Encipher(string passphrase)
-            {
-                using var passphraseNative = UTF8Marshaler.CreateInstance(passphrase);
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+                NativeMethods.ARM64.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+                NativeMethods.X64.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+                NativeMethods.X86.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 CheckException(exception);
             }
-            public void Enhance()
+        }
+        public CompositeOperator Compose
+        {
+            get
             {
-                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Compose_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Compose_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Compose_Get(Instance);
+                #endif
+                return (CompositeOperator)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Compose_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Compose_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Compose_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public CompressionMethod Compression
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Compression_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Compression_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Compression_Get(Instance);
+                #endif
+                return (CompressionMethod)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Compression_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Compression_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Compression_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public int Depth
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Depth_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Depth_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Depth_Get(Instance);
+                #endif
+                return (int)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Depth_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Depth_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Depth_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public Endian Endian
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Endian_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Endian_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Endian_Get(Instance);
+                #endif
+                return (Endian)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Endian_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Endian_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Endian_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public string? EncodingGeometry
+        {
+            get
+            {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Enhance(Instance, out exception);
+                result = NativeMethods.ARM64.MagickImage_EncodingGeometry_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Enhance(Instance, out exception);
+                result = NativeMethods.X64.MagickImage_EncodingGeometry_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Enhance(Instance, out exception);
+                result = NativeMethods.X86.MagickImage_EncodingGeometry_Get(Instance);
                 #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
+                return UTF8Marshaler.NativeToManagedNullable(result);
             }
-            public void Equalize(Channels channels)
+        }
+        public string? FileName
+        {
+            get
             {
-                IntPtr exception = IntPtr.Zero;
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Equalize(Instance, (UIntPtr)channels, out exception);
+                result = NativeMethods.ARM64.MagickImage_FileName_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Equalize(Instance, (UIntPtr)channels, out exception);
+                result = NativeMethods.X64.MagickImage_FileName_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Equalize(Instance, (UIntPtr)channels, out exception);
+                result = NativeMethods.X86.MagickImage_FileName_Get(Instance);
                 #endif
-                CheckException(exception);
+                return UTF8Marshaler.NativeToManagedNullable(result);
             }
-            public bool Equals(IMagickImage image)
+            set
+            {
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_FileName_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_FileName_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_FileName_Set(Instance, valueNative.Instance);
+                #endif
+            }
+        }
+        public FilterType FilterType
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_FilterType_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_FilterType_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_FilterType_Get(Instance);
+                #endif
+                return (FilterType)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public string? Format
+        {
+            get
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Format_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Format_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Format_Get(Instance);
+                #endif
+                return UTF8Marshaler.NativeToManagedNullable(result);
+            }
+            set
+            {
+                using var valueNative = UTF8Marshaler.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Format_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Format_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Format_Set(Instance, valueNative.Instance);
+                #endif
+            }
+        }
+        public double Gamma
+        {
+            get
+            {
+                double result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Gamma_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Gamma_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Gamma_Get(Instance);
+                #endif
+                return result;
+            }
+        }
+        public GifDisposeMethod GifDisposeMethod
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_GifDisposeMethod_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_GifDisposeMethod_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_GifDisposeMethod_Get(Instance);
+                #endif
+                return (GifDisposeMethod)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public int Height
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Height_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Height_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Height_Get(Instance);
+                #endif
+                return (int)result;
+            }
+        }
+        public bool HasAlpha
+        {
+            get
             {
                 IntPtr exception = IntPtr.Zero;
                 bool result;
@@ -5294,885 +3093,628 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+                result = NativeMethods.ARM64.MagickImage_HasAlpha_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+                result = NativeMethods.X64.MagickImage_HasAlpha_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+                result = NativeMethods.X86.MagickImage_HasAlpha_Get(Instance, out exception);
                 #endif
                 CheckException(exception);
                 return result;
             }
-            public void EvaluateFunction(Channels channels, EvaluateFunction evaluateFunction, double[] values, int length)
+            set
             {
-                fixed (double* valuesFixed = values)
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    NativeMethods.ARM64.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    NativeMethods.X64.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    NativeMethods.X86.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
-                    #endif
-                    CheckException(exception);
-                }
-            }
-            public void EvaluateGeometry(Channels channels, MagickRectangle geometry, EvaluateOperator evaluateOperator, double value)
-            {
-                using var geometryNative = MagickRectangle.CreateInstance(geometry);
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+                NativeMethods.ARM64.MagickImage_HasAlpha_Set(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+                NativeMethods.X64.MagickImage_HasAlpha_Set(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+                NativeMethods.X86.MagickImage_HasAlpha_Set(Instance, value, out exception);
                 #endif
                 CheckException(exception);
             }
-            public void EvaluateOperator(Channels channels, EvaluateOperator evaluateOperator, double value)
+        }
+        public Interlace Interlace
+        {
+            get
             {
-                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+                result = NativeMethods.ARM64.MagickImage_Interlace_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+                result = NativeMethods.X64.MagickImage_Interlace_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+                result = NativeMethods.X86.MagickImage_Interlace_Get(Instance);
+                #endif
+                return (Interlace)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public PixelInterpolateMethod Interpolate
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Interpolate_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Interpolate_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Interpolate_Get(Instance);
+                #endif
+                return (PixelInterpolateMethod)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public bool IsOpaque
+        {
+            get
+            {
+                IntPtr exception = IntPtr.Zero;
+                bool result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_IsOpaque_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_IsOpaque_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_IsOpaque_Get(Instance, out exception);
                 #endif
                 CheckException(exception);
-            }
-            public void Extent(string geometry, Gravity gravity)
-            {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Flip()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Flip(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Flip(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Flip(Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void FloodFill(DrawingSettings settings, int x, int y, IMagickColor<QuantumType>? target, bool invert)
-            {
-                using var settingsNative = DrawingSettings.CreateInstance(settings);
-                using var targetNative = MagickColor.CreateInstance(target);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Flop()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Flop(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Flop(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Flop(Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public IntPtr FontTypeMetrics(DrawingSettings settings, bool ignoreNewlines)
-            {
-                using var settingsNative = DrawingSettings.CreateInstance(settings);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
-                #endif
-                var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException is null)
-                    return result;
-                if (magickException is MagickErrorException)
-                {
-                    if (result != IntPtr.Zero)
-                        ImageMagick.TypeMetric.Dispose(result);
-                    throw magickException;
-                }
-                RaiseWarning(magickException);
                 return result;
             }
-            public string? FormatExpression(IMagickSettings<QuantumType>? settings, string expression)
-            {
-                using var settingsNative = MagickSettings.CreateInstance(settings);
-                using var expressionNative = UTF8Marshaler.CreateInstance(expression);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-                return UTF8Marshaler.NativeToManagedAndRelinquish(result);
-            }
-            public void Frame(MagickRectangle geometry)
-            {
-                using var geometryNative = MagickRectangle.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Fx(string expression, Channels channels)
-            {
-                using var expressionNative = UTF8Marshaler.CreateInstance(expression);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void GammaCorrect(double gamma, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void GaussianBlur(double radius, double sigma, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public string? GetArtifact(string name)
-            {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetArtifact(Instance, nameNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetArtifact(Instance, nameNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetArtifact(Instance, nameNative.Instance);
-                #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
-            }
-            public string? GetAttribute(string name)
-            {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-                return UTF8Marshaler.NativeToManagedNullable(result);
-            }
-            public IMagickColor<QuantumType>? GetColormapColor(int index)
+        }
+        public IMagickColor<QuantumType>? MatteColor
+        {
+            get
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetColormapColor(Instance, (UIntPtr)index);
+                result = NativeMethods.ARM64.MagickImage_MatteColor_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetColormapColor(Instance, (UIntPtr)index);
+                result = NativeMethods.X64.MagickImage_MatteColor_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetColormapColor(Instance, (UIntPtr)index);
+                result = NativeMethods.X86.MagickImage_MatteColor_Get(Instance);
                 #endif
                 return MagickColor.CreateInstance(result);
             }
-            public static IntPtr GetNext(IntPtr image)
+            set
             {
-                IntPtr result;
+                using var valueNative = MagickColor.CreateInstance(value);
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetNext(image);
+                NativeMethods.ARM64.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetNext(image);
+                NativeMethods.X64.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetNext(image);
+                NativeMethods.X86.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
+                #endif
+            }
+        }
+        public double MeanErrorPerPixel
+        {
+            get
+            {
+                double result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_MeanErrorPerPixel_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_MeanErrorPerPixel_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_MeanErrorPerPixel_Get(Instance);
                 #endif
                 return result;
             }
-            public string? GetNextArtifactName()
+        }
+        public double NormalizedMaximumError
+        {
+            get
             {
-                IntPtr result;
+                double result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetNextArtifactName(Instance);
+                result = NativeMethods.ARM64.MagickImage_NormalizedMaximumError_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetNextArtifactName(Instance);
+                result = NativeMethods.X64.MagickImage_NormalizedMaximumError_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetNextArtifactName(Instance);
-                #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
-            }
-            public string? GetNextAttributeName()
-            {
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetNextAttributeName(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetNextAttributeName(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetNextAttributeName(Instance);
-                #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
-            }
-            public string? GetNextProfileName()
-            {
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetNextProfileName(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetNextProfileName(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetNextProfileName(Instance);
-                #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
-            }
-            public StringInfo? GetProfile(string name)
-            {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-                return StringInfo.CreateInstance(result);
-            }
-            public IntPtr GetReadMask()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetReadMask(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetReadMask(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetReadMask(Instance, out exception);
-                #endif
-                CheckException(exception);
-                return result;
-            }
-            public IntPtr GetWriteMask()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_GetWriteMask(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GetWriteMask(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_GetWriteMask(Instance, out exception);
-                #endif
-                CheckException(exception);
-                return result;
-            }
-            public void Grayscale(PixelIntensityMethod method)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void HaldClut(IMagickImage image)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                CheckException(exception);
-            }
-            public bool HasChannel(PixelChannel channel)
-            {
-                bool result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+                result = NativeMethods.X86.MagickImage_NormalizedMaximumError_Get(Instance);
                 #endif
                 return result;
             }
-            public bool HasProfile(string name)
+        }
+        public double NormalizedMeanError
+        {
+            get
             {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                bool result;
+                double result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_HasProfile(Instance, nameNative.Instance);
+                result = NativeMethods.ARM64.MagickImage_NormalizedMeanError_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_HasProfile(Instance, nameNative.Instance);
+                result = NativeMethods.X64.MagickImage_NormalizedMeanError_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_HasProfile(Instance, nameNative.Instance);
+                result = NativeMethods.X86.MagickImage_NormalizedMeanError_Get(Instance);
                 #endif
                 return result;
             }
-            public IntPtr Histogram(out UIntPtr length)
+        }
+        public OrientationType Orientation
+        {
+            get
             {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Histogram(Instance, out length, out exception);
+                result = NativeMethods.ARM64.MagickImage_Orientation_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Histogram(Instance, out length, out exception);
+                result = NativeMethods.X64.MagickImage_Orientation_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Histogram(Instance, out length, out exception);
+                result = NativeMethods.X86.MagickImage_Orientation_Get(Instance);
                 #endif
-                var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException is null)
-                    return result;
-                if (magickException is MagickErrorException)
-                {
-                    if (result != IntPtr.Zero)
-                        ImageMagick.MagickColorCollection.DisposeList(result);
-                    throw magickException;
-                }
-                RaiseWarning(magickException);
+                return (OrientationType)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public MagickRectangle? Page
+        {
+            get
+            {
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Page_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Page_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Page_Get(Instance);
+                #endif
+                return MagickRectangle.CreateInstance(result);
+            }
+            set
+            {
+                using var valueNative = MagickRectangle.CreateInstance(value);
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Page_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Page_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Page_Set(Instance, valueNative.Instance);
+                #endif
+            }
+        }
+        public int Quality
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_Quality_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Quality_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_Quality_Get(Instance);
+                #endif
+                return (int)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_Quality_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Quality_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_Quality_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public RenderingIntent RenderingIntent
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_RenderingIntent_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_RenderingIntent_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_RenderingIntent_Get(Instance);
+                #endif
+                return (RenderingIntent)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public DensityUnit ResolutionUnits
+        {
+            get
+            {
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_ResolutionUnits_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ResolutionUnits_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ResolutionUnits_Get(Instance);
+                #endif
+                return (DensityUnit)result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
+                #endif
+            }
+        }
+        public double ResolutionX
+        {
+            get
+            {
+                double result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_ResolutionX_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ResolutionX_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_ResolutionX_Get(Instance);
+                #endif
                 return result;
             }
-            public void HoughLine(int width, int height, int threshold)
+            set
             {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+                NativeMethods.ARM64.MagickImage_ResolutionX_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+                NativeMethods.X64.MagickImage_ResolutionX_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+                NativeMethods.X86.MagickImage_ResolutionX_Set(Instance, value);
                 #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
             }
-            public void Implode(double amount, PixelInterpolateMethod method)
+        }
+        public double ResolutionY
+        {
+            get
             {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
+                double result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+                result = NativeMethods.ARM64.MagickImage_ResolutionY_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+                result = NativeMethods.X64.MagickImage_ResolutionY_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+                result = NativeMethods.X86.MagickImage_ResolutionY_Get(Instance);
                 #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void ImportPixels(int x, int y, int width, int height, string map, StorageType storageType, void* data, int offsetInBytes)
-            {
-                using var mapNative = UTF8Marshaler.CreateInstance(map);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ImportPixels(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ImportPixels(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ImportPixels(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public IntPtr Integral()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Integral(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Integral(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Integral(Instance, out exception);
-                #endif
-                CheckException(exception);
                 return result;
             }
-            public void InterpolativeResize(string geometry, PixelInterpolateMethod method)
+            set
             {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_InterpolativeResize(Instance, geometryNative.Instance, (UIntPtr)method, out exception);
+                NativeMethods.ARM64.MagickImage_ResolutionY_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_InterpolativeResize(Instance, geometryNative.Instance, (UIntPtr)method, out exception);
+                NativeMethods.X64.MagickImage_ResolutionY_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_InterpolativeResize(Instance, geometryNative.Instance, (UIntPtr)method, out exception);
+                NativeMethods.X86.MagickImage_ResolutionY_Set(Instance, value);
                 #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
             }
-            public void Kmeans(int numberColors, int maxIterations, double tolerance)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Kuwahara(double radius, double sigma)
+        }
+        public string Signature
+        {
+            get
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -6180,1298 +3722,1419 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+                result = NativeMethods.ARM64.MagickImage_Signature_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+                result = NativeMethods.X64.MagickImage_Signature_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+                result = NativeMethods.X86.MagickImage_Signature_Get(Instance, out exception);
                 #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
+                CheckException(exception);
+                return UTF8Marshaler.NativeToManaged(result);
             }
-            public void Level(double blackPoint, double whitePoint, double gamma, Channels channels)
+        }
+        public int TotalColors
+        {
+            get
+            {
+                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_TotalColors_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_TotalColors_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_TotalColors_Get(Instance, out exception);
+                #endif
+                CheckException(exception);
+                return (int)result;
+            }
+        }
+        public VirtualPixelMethod VirtualPixelMethod
+        {
+            get
+            {
+                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
+                #endif
+                CheckException(exception);
+                return (VirtualPixelMethod)result;
+            }
+            set
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
+                NativeMethods.ARM64.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
+                NativeMethods.X64.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
+                NativeMethods.X86.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 CheckException(exception);
             }
-            public void LevelColors(IMagickColor<QuantumType>? blackColor, IMagickColor<QuantumType>? whiteColor, Channels channels, bool invert)
+        }
+        public int Width
+        {
+            get
             {
-                using var blackColorNative = MagickColor.CreateInstance(blackColor);
-                using var whiteColorNative = MagickColor.CreateInstance(whiteColor);
-                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+                result = NativeMethods.ARM64.MagickImage_Width_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+                result = NativeMethods.X64.MagickImage_Width_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+                result = NativeMethods.X86.MagickImage_Width_Get(Instance);
                 #endif
-                CheckException(exception);
+                return (int)result;
             }
-            public void Levelize(double blackPoint, double whitePoint, double gamma, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void LinearStretch(double blackPoint, double whitePoint)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void LiquidRescale(string geometry, double deltaX, double rigidity)
-            {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void LocalContrast(double radius, double strength, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_LocalContrast(Instance, radius, strength, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_LocalContrast(Instance, radius, strength, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_LocalContrast(Instance, radius, strength, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Magnify()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Magnify(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Magnify(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Magnify(Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public bool Map(IMagickImage image, IQuantizeSettings settings)
-            {
-                using var settingsNative = QuantizeSettings.CreateInstance(settings);
-                IntPtr exception = IntPtr.Zero;
-                bool result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-                return result;
-            }
-            public void MeanShift(int width, int height, double colorDistance)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Minify()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Minify(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Minify(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Minify(Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public IntPtr Moments()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Moments(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Moments(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Moments(Instance, out exception);
-                #endif
-                var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException is null)
-                    return result;
-                if (magickException is MagickErrorException)
-                {
-                    if (result != IntPtr.Zero)
-                        ImageMagick.Moments.DisposeList(result);
-                    throw magickException;
-                }
-                RaiseWarning(magickException);
-                return result;
-            }
-            public void Modulate(string modulate)
-            {
-                using var modulateNative = UTF8Marshaler.CreateInstance(modulate);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public IntPtr MinimumBoundingBox(out UIntPtr length)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
-                #endif
-                var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException is null)
-                    return result;
-                if (magickException is MagickErrorException)
-                {
-                    if (result != IntPtr.Zero)
-                        ImageMagick.PointInfoCollection.DisposeList(result);
-                    throw magickException;
-                }
-                RaiseWarning(magickException);
-                return result;
-            }
-            public void Morphology(MorphologyMethod method, string kernel, Channels channels, int iterations)
-            {
-                using var kernelNative = UTF8Marshaler.CreateInstance(kernel);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void MotionBlur(double radius, double sigma, double angle)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Negate(bool onlyGrayscale, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Normalize()
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Normalize(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Normalize(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Normalize(Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void OilPaint(double radius, double sigma)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_OilPaint(Instance, radius, sigma, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_OilPaint(Instance, radius, sigma, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_OilPaint(Instance, radius, sigma, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Opaque(IMagickColor<QuantumType>? target, IMagickColor<QuantumType>? fill, bool invert)
-            {
-                using var targetNative = MagickColor.CreateInstance(target);
-                using var fillNative = MagickColor.CreateInstance(fill);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void OrderedDither(string thresholdMap, Channels channels)
-            {
-                using var thresholdMapNative = UTF8Marshaler.CreateInstance(thresholdMap);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Perceptible(double epsilon, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public IntPtr PerceptualHash()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_PerceptualHash(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_PerceptualHash(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_PerceptualHash(Instance, out exception);
-                #endif
-                var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException is null)
-                    return result;
-                if (magickException is MagickErrorException)
-                {
-                    if (result != IntPtr.Zero)
-                        ImageMagick.PerceptualHash.DisposeList(result);
-                    throw magickException;
-                }
-                RaiseWarning(magickException);
-                return result;
-            }
-            public void Polaroid(DrawingSettings settings, string caption, double angle, PixelInterpolateMethod method)
-            {
-                using var settingsNative = DrawingSettings.CreateInstance(settings);
-                using var captionNative = UTF8Marshaler.CreateInstance(caption);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Posterize(int levels, DitherMethod method, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Quantize(IQuantizeSettings settings)
-            {
-                using var settingsNative = QuantizeSettings.CreateInstance(settings);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void RaiseOrLower(int size, bool raise)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void RandomThreshold(double low, double high, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void RangeThreshold(double low_black, double low_white, double high_white, double high_black)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void ReadBlob(IMagickSettings<QuantumType>? settings, byte[] data, int offset, int length)
-            {
-                using var settingsNative = MagickSettings.CreateInstance(settings);
-                fixed (byte* dataFixed = data)
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    if (result != IntPtr.Zero)
-                      Instance = result;
-                }
-            }
-            #if NETSTANDARD2_1
-            public void ReadBlob(IMagickSettings<QuantumType>? settings, ReadOnlySpan<byte> data, int offset, int length)
-            {
-                using var settingsNative = MagickSettings.CreateInstance(settings);
-                fixed (byte* dataFixed = data)
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    if (result != IntPtr.Zero)
-                      Instance = result;
-                }
-            }
+        }
+        public void AdaptiveBlur(double radius, double sigma)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
             #endif
-            public void ReadFile(IMagickSettings<QuantumType>? settings)
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void AdaptiveResize(string geometry)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void AdaptiveSharpen(double radius, double sigma, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void AdaptiveThreshold(int width, int height, double bias, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void AddNoise(NoiseType noiseType, double attenuate, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void AddProfile(string name, byte[] datum, int length)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            fixed (byte* datumFixed = datum)
             {
-                using var settingsNative = MagickSettings.CreateInstance(settings);
                 IntPtr exception = IntPtr.Zero;
-                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ReadFile(settingsNative.Instance, out exception);
+                NativeMethods.ARM64.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ReadFile(settingsNative.Instance, out exception);
+                NativeMethods.X64.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ReadFile(settingsNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void ReadPixels(int width, int height, string map, StorageType storageType, void* data, int offsetInBytes)
-            {
-                using var mapNative = UTF8Marshaler.CreateInstance(map);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)
-            {
-                using var settingsNative = MagickSettings.CreateInstance(settings);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void RegionMask(MagickRectangle? region)
-            {
-                using var regionNative = MagickRectangle.CreateInstance(region);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+                NativeMethods.X86.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception);
             }
-            public void RemoveArtifact(string name)
-            {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
-                #endif
-            }
-            public void RemoveAttribute(string name)
-            {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
-                #endif
-            }
-            public void RemoveProfile(string name)
-            {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_RemoveProfile(Instance, nameNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_RemoveProfile(Instance, nameNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_RemoveProfile(Instance, nameNative.Instance);
-                #endif
-            }
-            public void ResetArtifactIterator()
-            {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ResetArtifactIterator(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ResetArtifactIterator(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ResetArtifactIterator(Instance);
-                #endif
-            }
-            public void ResetAttributeIterator()
-            {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ResetAttributeIterator(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ResetAttributeIterator(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ResetAttributeIterator(Instance);
-                #endif
-            }
-            public void ResetProfileIterator()
-            {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ResetProfileIterator(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ResetProfileIterator(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ResetProfileIterator(Instance);
-                #endif
-            }
-            public void Resample(double resolutionX, double resolutionY)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Resize(string geometry)
-            {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Roll(int x, int y)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Rotate(double degrees)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Rotate(Instance, degrees, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Rotate(Instance, degrees, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Rotate(Instance, degrees, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void RotationalBlur(double angle, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Sample(string geometry)
-            {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Scale(string geometry)
-            {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Segment(ColorSpace colorSpace, double clusterThreshold, double smoothingThreshold)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void SelectiveBlur(double radius, double sigma, double threshold, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public IntPtr Separate(Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
+        }
+        public void AffineTransform(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Annotate(DrawingSettings settings, string text, string boundingArea, Gravity gravity, double degrees)
+        {
+            using var settingsNative = DrawingSettings.CreateInstance(settings);
+            using var textNative = UTF8Marshaler.CreateInstance(text);
+            using var boundingAreaNative = UTF8Marshaler.CreateInstance(boundingArea);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void AnnotateGravity(DrawingSettings settings, string text, Gravity gravity)
+        {
+            using var settingsNative = DrawingSettings.CreateInstance(settings);
+            using var textNative = UTF8Marshaler.CreateInstance(text);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void AutoGamma(Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_AutoGamma(Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void AutoLevel(Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_AutoLevel(Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void AutoOrient()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_AutoOrient(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AutoOrient(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_AutoOrient(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void AutoThreshold(AutoThresholdMethod method)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void BilateralBlur(int width, int height, double intensitySigma, double spatialSigma)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void BlackThreshold(string threshold, Channels channels)
+        {
+            using var thresholdNative = UTF8Marshaler.CreateInstance(threshold);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void BlueShift(double factor)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_BlueShift(Instance, factor, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_BlueShift(Instance, factor, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_BlueShift(Instance, factor, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Blur(double radius, double sigma, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Blur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Border(MagickRectangle value)
+        {
+            using var valueNative = MagickRectangle.CreateInstance(value);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Border(Instance, valueNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Border(Instance, valueNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Border(Instance, valueNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void BrightnessContrast(double brightness, double contrast, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_BrightnessContrast(Instance, brightness, contrast, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void CannyEdge(double radius, double sigma, double lower, double upper)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public int ChannelOffset(PixelChannel channel)
+        {
+            UIntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+            #endif
+            return (int)result;
+        }
+        public void Charcoal(double radius, double sigma)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Chop(MagickRectangle geometry)
+        {
+            using var geometryNative = MagickRectangle.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Clamp(Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Clamp(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Clamp(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Clamp(Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void ClipPath(string pathName, bool inside)
+        {
+            using var pathNameNative = UTF8Marshaler.CreateInstance(pathName);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public IntPtr Clone()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Clone(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Clone(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Clone(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            return result;
+        }
+        public IntPtr CloneArea(int width, int height)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            CheckException(exception, result);
+            return result;
+        }
+        public void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void ColorDecisionList(string fileName)
+        {
+            using var fileNameNative = UTF8Marshaler.CreateInstance(fileName);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Colorize(IMagickColor<QuantumType>? color, string blend)
+        {
+            using var colorNative = MagickColor.CreateInstance(color);
+            using var blendNative = UTF8Marshaler.CreateInstance(blend);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void ColorMatrix(IDoubleMatrix matrix)
+        {
+            using var matrixNative = DoubleMatrix.CreateInstance(matrix);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void ColorThreshold(IMagickColor<QuantumType>? startColor, IMagickColor<QuantumType>? stopColor)
+        {
+            using var startColorNative = MagickColor.CreateInstance(startColor);
+            using var stopColorNative = MagickColor.CreateInstance(stopColor);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public IntPtr Compare(IMagickImage image, ErrorMetric metric, Channels channels, out double distortion)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out distortion, out exception);
+            #endif
+            CheckException(exception, result);
+            return result;
+        }
+        public double CompareDistortion(IMagickImage image, ErrorMetric metric, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            double result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+            return result;
+        }
+        public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void CompositeGravity(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void ConnectedComponents(int connectivity, out IntPtr objects)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Contrast(bool enhance)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Contrast(Instance, enhance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Contrast(Instance, enhance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Contrast(Instance, enhance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void ContrastStretch(double blackPoint, double whitePoint, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public IntPtr ConvexHull(out UIntPtr length)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_ConvexHull(Instance, out length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ConvexHull(Instance, out length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_ConvexHull(Instance, out length, out exception);
+            #endif
+            var magickException = MagickExceptionHelper.Create(exception);
+            if (magickException is null)
                 return result;
+            if (magickException is MagickErrorException)
+            {
+                if (result != IntPtr.Zero)
+                    ImageMagick.PointInfoCollection.DisposeList(result);
+                throw magickException;
             }
-            public void SepiaTone(double threshold)
+            RaiseWarning(magickException);
+            return result;
+        }
+        public void Convolve(IDoubleMatrix matrix)
+        {
+            using var matrixNative = DoubleMatrix.CreateInstance(matrix);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void CopyPixels(IMagickImage image, MagickRectangle geometry, OffsetInfo offset, Channels channels)
+        {
+            using var geometryNative = MagickRectangle.CreateInstance(geometry);
+            using var offsetNative = OffsetInfo.CreateInstance(offset);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Crop(string geometry, Gravity gravity)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public IntPtr CropToTiles(string geometry)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+            return result;
+        }
+        public void CycleColormap(int amount)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Decipher(string passphrase)
+        {
+            using var passphraseNative = UTF8Marshaler.CreateInstance(passphrase);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Deskew(double threshold)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Deskew(Instance, threshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Deskew(Instance, threshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Deskew(Instance, threshold, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Despeckle()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Despeckle(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Despeckle(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Despeckle(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public int DetermineBitDepth(Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            UIntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_DetermineBitDepth(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_DetermineBitDepth(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_DetermineBitDepth(Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+            return (int)result;
+        }
+        public ColorType DetermineColorType()
+        {
+            IntPtr exception = IntPtr.Zero;
+            UIntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_DetermineColorType(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_DetermineColorType(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_DetermineColorType(Instance, out exception);
+            #endif
+            CheckException(exception);
+            return (ColorType)result;
+        }
+        public void Distort(DistortMethod method, bool bestfit, double[] arguments, int length)
+        {
+            fixed (double* argumentsFixed = arguments)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -7479,1005 +5142,1784 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_SepiaTone(Instance, threshold, out exception);
+                result = NativeMethods.ARM64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_SepiaTone(Instance, threshold, out exception);
+                result = NativeMethods.X64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_SepiaTone(Instance, threshold, out exception);
+                result = NativeMethods.X86.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception, result);
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void SetAlpha(AlphaOption value)
+        }
+        public void Edge(double radius)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Edge(Instance, radius, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Edge(Instance, radius, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Edge(Instance, radius, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Emboss(double radius, double sigma)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Emboss(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Emboss(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Emboss(Instance, radius, sigma, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Encipher(string passphrase)
+        {
+            using var passphraseNative = UTF8Marshaler.CreateInstance(passphrase);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Enhance()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Enhance(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Enhance(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Enhance(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Equalize(Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Equalize(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Equalize(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Equalize(Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public bool Equals(IMagickImage image)
+        {
+            IntPtr exception = IntPtr.Zero;
+            bool result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            CheckException(exception);
+            return result;
+        }
+        public void EvaluateFunction(Channels channels, EvaluateFunction evaluateFunction, double[] values, int length)
+        {
+            fixed (double* valuesFixed = values)
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+                NativeMethods.ARM64.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+                NativeMethods.X64.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+                NativeMethods.X86.MagickImage_EvaluateFunction(Instance, (UIntPtr)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception);
             }
-            public void SetArtifact(string name, string value)
-            {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                using var valueNative = UTF8Marshaler.CreateInstance(value);
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
-                #endif
-            }
-            public void SetAttribute(string name, string value)
-            {
-                using var nameNative = UTF8Marshaler.CreateInstance(name);
-                using var valueNative = UTF8Marshaler.CreateInstance(value);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void SetBitDepth(int value, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void SetColormapColor(int index, IMagickColor<QuantumType>? color)
-            {
-                using var colorNative = MagickColor.CreateInstance(color);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetColormapColor(Instance, (UIntPtr)index, colorNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetColormapColor(Instance, (UIntPtr)index, colorNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetColormapColor(Instance, (UIntPtr)index, colorNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public bool SetColorMetric(IMagickImage image)
-            {
-                IntPtr exception = IntPtr.Zero;
-                bool result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                CheckException(exception);
+        }
+        public void EvaluateGeometry(Channels channels, MagickRectangle geometry, EvaluateOperator evaluateOperator, double value)
+        {
+            using var geometryNative = MagickRectangle.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_EvaluateGeometry(Instance, (UIntPtr)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void EvaluateOperator(Channels channels, EvaluateOperator evaluateOperator, double value)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_EvaluateOperator(Instance, (UIntPtr)channels, (UIntPtr)evaluateOperator, value, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Extent(string geometry, Gravity gravity)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Flip()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Flip(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Flip(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Flip(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void FloodFill(DrawingSettings settings, int x, int y, IMagickColor<QuantumType>? target, bool invert)
+        {
+            using var settingsNative = DrawingSettings.CreateInstance(settings);
+            using var targetNative = MagickColor.CreateInstance(target);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Flop()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Flop(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Flop(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Flop(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public IntPtr FontTypeMetrics(DrawingSettings settings, bool ignoreNewlines)
+        {
+            using var settingsNative = DrawingSettings.CreateInstance(settings);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
+            #endif
+            var magickException = MagickExceptionHelper.Create(exception);
+            if (magickException is null)
                 return result;
-            }
-            public void SetNext(IntPtr image)
+            if (magickException is MagickErrorException)
             {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetNext(Instance, image);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetNext(Instance, image);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetNext(Instance, image);
-                #endif
-            }
-            public void SetProgressDelegate(ProgressDelegate? method)
-            {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetProgressDelegate(Instance, method);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetProgressDelegate(Instance, method);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetProgressDelegate(Instance, method);
-                #endif
-            }
-            public void SetReadMask(IMagickImage? image)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void SetWriteMask(IMagickImage? image)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Shade(double azimuth, double elevation, bool colorShading, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception, result);
                 if (result != IntPtr.Zero)
-                  Instance = result;
+                    ImageMagick.TypeMetric.Dispose(result);
+                throw magickException;
             }
-            public void Shadow(int x, int y, double sigma, double alphaPercentage)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Sharpen(double radius, double sigma, Channels channel)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Shave(int leftRight, int topBottom)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Shear(double xAngle, double yAngle)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void SigmoidalContrast(bool sharpen, double contrast, double midpoint, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void SparseColor(Channels channel, SparseColorMethod method, double[] values, int length)
-            {
-                fixed (double* valuesFixed = values)
-                {
-                    IntPtr exception = IntPtr.Zero;
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
-                    #endif
-                    CheckException(exception, result);
-                    if (result != IntPtr.Zero)
-                      Instance = result;
-                }
-            }
-            public void Sketch(double radius, double sigma, double angle)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Solarize(double factor)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Solarize(Instance, factor, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Solarize(Instance, factor, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Solarize(Instance, factor, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void SortPixels()
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_SortPixels(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SortPixels(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_SortPixels(Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Splice(MagickRectangle geometry)
-            {
-                using var geometryNative = MagickRectangle.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Spread(PixelInterpolateMethod method, double radius)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Statistic(StatisticType type, int width, int height)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public IntPtr Statistics(Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Statistics(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Statistics(Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Statistics(Instance, (UIntPtr)channels, out exception);
-                #endif
-                var magickException = MagickExceptionHelper.Create(exception);
-                if (magickException is null)
-                    return result;
-                if (magickException is MagickErrorException)
-                {
-                    if (result != IntPtr.Zero)
-                        ImageMagick.Statistics.DisposeList(result);
-                    throw magickException;
-                }
-                RaiseWarning(magickException);
+            RaiseWarning(magickException);
+            return result;
+        }
+        public string? FormatExpression(IMagickSettings<QuantumType>? settings, string expression)
+        {
+            using var settingsNative = MagickSettings.CreateInstance(settings);
+            using var expressionNative = UTF8Marshaler.CreateInstance(expression);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+            return UTF8Marshaler.NativeToManagedAndRelinquish(result);
+        }
+        public void Frame(MagickRectangle geometry)
+        {
+            using var geometryNative = MagickRectangle.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Fx(string expression, Channels channels)
+        {
+            using var expressionNative = UTF8Marshaler.CreateInstance(expression);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Fx(Instance, expressionNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void GammaCorrect(double gamma, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_GammaCorrect(Instance, gamma, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void GaussianBlur(double radius, double sigma, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GaussianBlur(Instance, radius, sigma, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public string? GetArtifact(string name)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetArtifact(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetArtifact(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetArtifact(Instance, nameNative.Instance);
+            #endif
+            return UTF8Marshaler.NativeToManagedNullable(result);
+        }
+        public string? GetAttribute(string name)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+            return UTF8Marshaler.NativeToManagedNullable(result);
+        }
+        public IMagickColor<QuantumType>? GetColormapColor(int index)
+        {
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetColormapColor(Instance, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetColormapColor(Instance, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetColormapColor(Instance, (UIntPtr)index);
+            #endif
+            return MagickColor.CreateInstance(result);
+        }
+        public static IntPtr GetNext(IntPtr image)
+        {
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetNext(image);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetNext(image);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetNext(image);
+            #endif
+            return result;
+        }
+        public string? GetNextArtifactName()
+        {
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetNextArtifactName(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetNextArtifactName(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetNextArtifactName(Instance);
+            #endif
+            return UTF8Marshaler.NativeToManagedNullable(result);
+        }
+        public string? GetNextAttributeName()
+        {
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetNextAttributeName(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetNextAttributeName(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetNextAttributeName(Instance);
+            #endif
+            return UTF8Marshaler.NativeToManagedNullable(result);
+        }
+        public string? GetNextProfileName()
+        {
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetNextProfileName(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetNextProfileName(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetNextProfileName(Instance);
+            #endif
+            return UTF8Marshaler.NativeToManagedNullable(result);
+        }
+        public StringInfo? GetProfile(string name)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+            return StringInfo.CreateInstance(result);
+        }
+        public IntPtr GetReadMask()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetReadMask(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetReadMask(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetReadMask(Instance, out exception);
+            #endif
+            CheckException(exception);
+            return result;
+        }
+        public IntPtr GetWriteMask()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_GetWriteMask(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetWriteMask(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_GetWriteMask(Instance, out exception);
+            #endif
+            CheckException(exception);
+            return result;
+        }
+        public void Grayscale(PixelIntensityMethod method)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void HaldClut(IMagickImage image)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            CheckException(exception);
+        }
+        public bool HasChannel(PixelChannel channel)
+        {
+            bool result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+            #endif
+            return result;
+        }
+        public bool HasProfile(string name)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            bool result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_HasProfile(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_HasProfile(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_HasProfile(Instance, nameNative.Instance);
+            #endif
+            return result;
+        }
+        public IntPtr Histogram(out UIntPtr length)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Histogram(Instance, out length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Histogram(Instance, out length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Histogram(Instance, out length, out exception);
+            #endif
+            var magickException = MagickExceptionHelper.Create(exception);
+            if (magickException is null)
                 return result;
-            }
-            public void Stegano(IMagickImage watermark)
+            if (magickException is MagickErrorException)
             {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
-                #endif
-                CheckException(exception, result);
                 if (result != IntPtr.Zero)
-                  Instance = result;
+                    ImageMagick.MagickColorCollection.DisposeList(result);
+                throw magickException;
             }
-            public void Stereo(IMagickImage rightImage)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Strip()
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Strip(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Strip(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Strip(Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public IntPtr SubImageSearch(IMagickImage reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric)
-            {
-                using INativeInstance offsetNative = MagickRectangle.CreateInstance();
-                IntPtr offsetNativeOut = offsetNative.Instance;
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
-                #endif
-                offset = MagickRectangle.CreateInstance(offsetNative);
-                CheckException(exception, result);
+            RaiseWarning(magickException);
+            return result;
+        }
+        public void HoughLine(int width, int height, int threshold)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Implode(double amount, PixelInterpolateMethod method)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void ImportPixels(int x, int y, int width, int height, string map, StorageType storageType, void* data, int offsetInBytes)
+        {
+            using var mapNative = UTF8Marshaler.CreateInstance(map);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_ImportPixels(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ImportPixels(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_ImportPixels(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public IntPtr Integral()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Integral(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Integral(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Integral(Instance, out exception);
+            #endif
+            CheckException(exception);
+            return result;
+        }
+        public void InterpolativeResize(string geometry, PixelInterpolateMethod method)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_InterpolativeResize(Instance, geometryNative.Instance, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_InterpolativeResize(Instance, geometryNative.Instance, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_InterpolativeResize(Instance, geometryNative.Instance, (UIntPtr)method, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Kmeans(int numberColors, int maxIterations, double tolerance)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Kuwahara(double radius, double sigma)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Level(double blackPoint, double whitePoint, double gamma, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void LevelColors(IMagickColor<QuantumType>? blackColor, IMagickColor<QuantumType>? whiteColor, Channels channels, bool invert)
+        {
+            using var blackColorNative = MagickColor.CreateInstance(blackColor);
+            using var whiteColorNative = MagickColor.CreateInstance(whiteColor);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (UIntPtr)channels, invert, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Levelize(double blackPoint, double whitePoint, double gamma, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void LinearStretch(double blackPoint, double whitePoint)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void LiquidRescale(string geometry, double deltaX, double rigidity)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void LocalContrast(double radius, double strength, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_LocalContrast(Instance, radius, strength, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_LocalContrast(Instance, radius, strength, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_LocalContrast(Instance, radius, strength, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Magnify()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Magnify(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Magnify(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Magnify(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public bool Map(IMagickImage image, IQuantizeSettings settings)
+        {
+            using var settingsNative = QuantizeSettings.CreateInstance(settings);
+            IntPtr exception = IntPtr.Zero;
+            bool result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+            return result;
+        }
+        public void MeanShift(int width, int height, double colorDistance)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Minify()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Minify(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Minify(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Minify(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public IntPtr Moments()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Moments(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Moments(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Moments(Instance, out exception);
+            #endif
+            var magickException = MagickExceptionHelper.Create(exception);
+            if (magickException is null)
                 return result;
-            }
-            public void Swirl(PixelInterpolateMethod method, double degrees)
+            if (magickException is MagickErrorException)
             {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
-                #endif
-                CheckException(exception, result);
                 if (result != IntPtr.Zero)
-                  Instance = result;
+                    ImageMagick.Moments.DisposeList(result);
+                throw magickException;
             }
-            public void Texture(IMagickImage image)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Threshold(double threshold, Channels channels)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Threshold(Instance, threshold, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Threshold(Instance, threshold, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Threshold(Instance, threshold, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Thumbnail(string geometry)
-            {
-                using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Tint(string opacity, IMagickColor<QuantumType>? tint)
-            {
-                using var opacityNative = UTF8Marshaler.CreateInstance(opacity);
-                using var tintNative = MagickColor.CreateInstance(tint);
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Transparent(IMagickColor<QuantumType>? color, bool invert)
-            {
-                using var colorNative = MagickColor.CreateInstance(color);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void TransparentChroma(IMagickColor<QuantumType>? colorLow, IMagickColor<QuantumType>? colorHigh, bool invert)
-            {
-                using var colorLowNative = MagickColor.CreateInstance(colorLow);
-                using var colorHighNative = MagickColor.CreateInstance(colorHigh);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void Transpose()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Transpose(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Transpose(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Transpose(Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Transverse()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Transverse(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Transverse(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Transverse(Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public void Trim()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Trim(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Trim(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Trim(Instance, out exception);
-                #endif
-                CheckException(exception, result);
-                if (result != IntPtr.Zero)
-                  Instance = result;
-            }
-            public IntPtr UniqueColors()
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_UniqueColors(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_UniqueColors(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_UniqueColors(Instance, out exception);
-                #endif
-                CheckException(exception, result);
+            RaiseWarning(magickException);
+            return result;
+        }
+        public void Modulate(string modulate)
+        {
+            using var modulateNative = UTF8Marshaler.CreateInstance(modulate);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public IntPtr MinimumBoundingBox(out UIntPtr length)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
+            #endif
+            var magickException = MagickExceptionHelper.Create(exception);
+            if (magickException is null)
                 return result;
+            if (magickException is MagickErrorException)
+            {
+                if (result != IntPtr.Zero)
+                    ImageMagick.PointInfoCollection.DisposeList(result);
+                throw magickException;
             }
-            public void UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels)
+            RaiseWarning(magickException);
+            return result;
+        }
+        public void Morphology(MorphologyMethod method, string kernel, Channels channels, int iterations)
+        {
+            using var kernelNative = UTF8Marshaler.CreateInstance(kernel);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void MotionBlur(double radius, double sigma, double angle)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Negate(bool onlyGrayscale, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Negate(Instance, onlyGrayscale, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Normalize()
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Normalize(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Normalize(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Normalize(Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void OilPaint(double radius, double sigma)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_OilPaint(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_OilPaint(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_OilPaint(Instance, radius, sigma, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Opaque(IMagickColor<QuantumType>? target, IMagickColor<QuantumType>? fill, bool invert)
+        {
+            using var targetNative = MagickColor.CreateInstance(target);
+            using var fillNative = MagickColor.CreateInstance(fill);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void OrderedDither(string thresholdMap, Channels channels)
+        {
+            using var thresholdMapNative = UTF8Marshaler.CreateInstance(thresholdMap);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Perceptible(double epsilon, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Perceptible(Instance, epsilon, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public IntPtr PerceptualHash()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_PerceptualHash(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_PerceptualHash(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_PerceptualHash(Instance, out exception);
+            #endif
+            var magickException = MagickExceptionHelper.Create(exception);
+            if (magickException is null)
+                return result;
+            if (magickException is MagickErrorException)
+            {
+                if (result != IntPtr.Zero)
+                    ImageMagick.PerceptualHash.DisposeList(result);
+                throw magickException;
+            }
+            RaiseWarning(magickException);
+            return result;
+        }
+        public void Polaroid(DrawingSettings settings, string caption, double angle, PixelInterpolateMethod method)
+        {
+            using var settingsNative = DrawingSettings.CreateInstance(settings);
+            using var captionNative = UTF8Marshaler.CreateInstance(caption);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Posterize(int levels, DitherMethod method, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Quantize(IQuantizeSettings settings)
+        {
+            using var settingsNative = QuantizeSettings.CreateInstance(settings);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void RaiseOrLower(int size, bool raise)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void RandomThreshold(double low, double high, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_RandomThreshold(Instance, low, high, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void RangeThreshold(double low_black, double low_white, double high_white, double high_black)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void ReadBlob(IMagickSettings<QuantumType>? settings, byte[] data, int offset, int length)
+        {
+            using var settingsNative = MagickSettings.CreateInstance(settings);
+            fixed (byte* dataFixed = data)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -8485,25 +6927,30 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+                result = NativeMethods.ARM64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+                result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+                result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception, result);
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Vignette(double radius, double sigma, int x, int y)
+        }
+        #if NETSTANDARD2_1
+        public void ReadBlob(IMagickSettings<QuantumType>? settings, ReadOnlySpan<byte> data, int offset, int length)
+        {
+            using var settingsNative = MagickSettings.CreateInstance(settings);
+            fixed (byte* dataFixed = data)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -8511,25 +6958,932 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+                result = NativeMethods.ARM64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+                result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+                result = NativeMethods.X86.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception, result);
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void Wave(PixelInterpolateMethod method, double amplitude, double length)
+        }
+        #endif
+        public void ReadFile(IMagickSettings<QuantumType>? settings)
+        {
+            using var settingsNative = MagickSettings.CreateInstance(settings);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_ReadFile(settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ReadFile(settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_ReadFile(settingsNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void ReadPixels(int width, int height, string map, StorageType storageType, void* data, int offsetInBytes)
+        {
+            using var mapNative = UTF8Marshaler.CreateInstance(map);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)
+        {
+            using var settingsNative = MagickSettings.CreateInstance(settings);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void RegionMask(MagickRectangle? region)
+        {
+            using var regionNative = MagickRectangle.CreateInstance(region);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void RemoveArtifact(string name)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
+            #endif
+        }
+        public void RemoveAttribute(string name)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
+            #endif
+        }
+        public void RemoveProfile(string name)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_RemoveProfile(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RemoveProfile(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_RemoveProfile(Instance, nameNative.Instance);
+            #endif
+        }
+        public void ResetArtifactIterator()
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_ResetArtifactIterator(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ResetArtifactIterator(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_ResetArtifactIterator(Instance);
+            #endif
+        }
+        public void ResetAttributeIterator()
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_ResetAttributeIterator(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ResetAttributeIterator(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_ResetAttributeIterator(Instance);
+            #endif
+        }
+        public void ResetProfileIterator()
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_ResetProfileIterator(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ResetProfileIterator(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_ResetProfileIterator(Instance);
+            #endif
+        }
+        public void Resample(double resolutionX, double resolutionY)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Resize(string geometry)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Roll(int x, int y)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Rotate(double degrees)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Rotate(Instance, degrees, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Rotate(Instance, degrees, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Rotate(Instance, degrees, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void RotationalBlur(double angle, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_RotationalBlur(Instance, angle, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Sample(string geometry)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Scale(string geometry)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Segment(ColorSpace colorSpace, double clusterThreshold, double smoothingThreshold)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void SelectiveBlur(double radius, double sigma, double threshold, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public IntPtr Separate(Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Separate(Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            return result;
+        }
+        public void SepiaTone(double threshold)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_SepiaTone(Instance, threshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_SepiaTone(Instance, threshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_SepiaTone(Instance, threshold, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void SetAlpha(AlphaOption value)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void SetArtifact(string name, string value)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            using var valueNative = UTF8Marshaler.CreateInstance(value);
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
+            #endif
+        }
+        public void SetAttribute(string name, string value)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            using var valueNative = UTF8Marshaler.CreateInstance(value);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void SetBitDepth(int value, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void SetColormapColor(int index, IMagickColor<QuantumType>? color)
+        {
+            using var colorNative = MagickColor.CreateInstance(color);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SetColormapColor(Instance, (UIntPtr)index, colorNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetColormapColor(Instance, (UIntPtr)index, colorNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SetColormapColor(Instance, (UIntPtr)index, colorNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public bool SetColorMetric(IMagickImage image)
+        {
+            IntPtr exception = IntPtr.Zero;
+            bool result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            CheckException(exception);
+            return result;
+        }
+        public void SetNext(IntPtr image)
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SetNext(Instance, image);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetNext(Instance, image);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SetNext(Instance, image);
+            #endif
+        }
+        public void SetProgressDelegate(ProgressDelegate? method)
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SetProgressDelegate(Instance, method);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetProgressDelegate(Instance, method);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SetProgressDelegate(Instance, method);
+            #endif
+        }
+        public void SetReadMask(IMagickImage? image)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void SetWriteMask(IMagickImage? image)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Shade(double azimuth, double elevation, bool colorShading, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Shadow(int x, int y, double sigma, double alphaPercentage)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Sharpen(double radius, double sigma, Channels channel)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Sharpen(Instance, radius, sigma, (UIntPtr)channel, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Shave(int leftRight, int topBottom)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Shear(double xAngle, double yAngle)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void SigmoidalContrast(bool sharpen, double contrast, double midpoint, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void SparseColor(Channels channel, SparseColorMethod method, double[] values, int length)
+        {
+            fixed (double* valuesFixed = values)
             {
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
@@ -8537,145 +7891,790 @@ namespace ImageMagick
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+                result = NativeMethods.ARM64.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+                result = NativeMethods.X64.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+                result = NativeMethods.X86.MagickImage_SparseColor(Instance, (UIntPtr)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 CheckException(exception, result);
                 if (result != IntPtr.Zero)
                   Instance = result;
             }
-            public void WhiteBalance()
+        }
+        public void Sketch(double radius, double sigma, double angle)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Solarize(double factor)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Solarize(Instance, factor, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Solarize(Instance, factor, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Solarize(Instance, factor, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void SortPixels()
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_SortPixels(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SortPixels(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_SortPixels(Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Splice(MagickRectangle geometry)
+        {
+            using var geometryNative = MagickRectangle.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Spread(PixelInterpolateMethod method, double radius)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Statistic(StatisticType type, int width, int height)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public IntPtr Statistics(Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Statistics(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Statistics(Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Statistics(Instance, (UIntPtr)channels, out exception);
+            #endif
+            var magickException = MagickExceptionHelper.Create(exception);
+            if (magickException is null)
+                return result;
+            if (magickException is MagickErrorException)
             {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_WhiteBalance(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_WhiteBalance(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_WhiteBalance(Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void WaveletDenoise(double threshold, double softness)
-            {
-                IntPtr exception = IntPtr.Zero;
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
-                #endif
-                CheckException(exception, result);
                 if (result != IntPtr.Zero)
-                  Instance = result;
+                    ImageMagick.Statistics.DisposeList(result);
+                throw magickException;
             }
-            public void WhiteThreshold(string threshold, Channels channels)
-            {
-                using var thresholdNative = UTF8Marshaler.CreateInstance(threshold);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void WriteFile(IMagickSettings<QuantumType>? settings)
-            {
-                using var settingsNative = MagickSettings.CreateInstance(settings);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
-                #endif
-                CheckException(exception);
-            }
-            public void WriteStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader)
-            {
-                using var settingsNative = MagickSettings.CreateInstance(settings);
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, reader, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, reader, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, reader, out exception);
-                #endif
-                CheckException(exception);
-            }
+            RaiseWarning(magickException);
+            return result;
+        }
+        public void Stegano(IMagickImage watermark)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Stereo(IMagickImage rightImage)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Strip()
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Strip(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Strip(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Strip(Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public IntPtr SubImageSearch(IMagickImage reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric)
+        {
+            using INativeInstance offsetNative = MagickRectangle.CreateInstance();
+            IntPtr offsetNativeOut = offsetNative.Instance;
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+            #endif
+            offset = MagickRectangle.CreateInstance(offsetNative);
+            CheckException(exception, result);
+            return result;
+        }
+        public void Swirl(PixelInterpolateMethod method, double degrees)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Texture(IMagickImage image)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Threshold(double threshold, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Threshold(Instance, threshold, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Threshold(Instance, threshold, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Threshold(Instance, threshold, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Thumbnail(string geometry)
+        {
+            using var geometryNative = UTF8Marshaler.CreateInstance(geometry);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Tint(string opacity, IMagickColor<QuantumType>? tint)
+        {
+            using var opacityNative = UTF8Marshaler.CreateInstance(opacity);
+            using var tintNative = MagickColor.CreateInstance(tint);
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Transparent(IMagickColor<QuantumType>? color, bool invert)
+        {
+            using var colorNative = MagickColor.CreateInstance(color);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void TransparentChroma(IMagickColor<QuantumType>? colorLow, IMagickColor<QuantumType>? colorHigh, bool invert)
+        {
+            using var colorLowNative = MagickColor.CreateInstance(colorLow);
+            using var colorHighNative = MagickColor.CreateInstance(colorHigh);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void Transpose()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Transpose(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Transpose(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Transpose(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Transverse()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Transverse(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Transverse(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Transverse(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Trim()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Trim(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Trim(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Trim(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public IntPtr UniqueColors()
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_UniqueColors(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_UniqueColors(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_UniqueColors(Instance, out exception);
+            #endif
+            CheckException(exception, result);
+            return result;
+        }
+        public void UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Vignette(double radius, double sigma, int x, int y)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void Wave(PixelInterpolateMethod method, double amplitude, double length)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void WhiteBalance()
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_WhiteBalance(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_WhiteBalance(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_WhiteBalance(Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void WaveletDenoise(double threshold, double softness)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
+            #endif
+            CheckException(exception, result);
+            if (result != IntPtr.Zero)
+              Instance = result;
+        }
+        public void WhiteThreshold(string threshold, Channels channels)
+        {
+            using var thresholdNative = UTF8Marshaler.CreateInstance(threshold);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (UIntPtr)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void WriteFile(IMagickSettings<QuantumType>? settings)
+        {
+            using var settingsNative = MagickSettings.CreateInstance(settings);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
+            #endif
+            CheckException(exception);
+        }
+        public void WriteStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader)
+        {
+            using var settingsNative = MagickSettings.CreateInstance(settings);
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, reader, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, reader, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, reader, out exception);
+            #endif
+            CheckException(exception);
         }
     }
 }

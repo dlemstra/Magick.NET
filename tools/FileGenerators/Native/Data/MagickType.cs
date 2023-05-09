@@ -2,170 +2,166 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.IO;
-using System.Runtime.Serialization;
 
-namespace FileGenerator.Native
+namespace FileGenerator.Native;
+
+internal sealed class MagickType
 {
-    internal sealed class MagickType
+    private string _type = string.Empty;
+    private bool _isEnum;
+
+    public MagickType(string type)
     {
-        private string _type = string.Empty;
-        private bool _isEnum;
-
-        public MagickType(string type)
+        var typName = type;
+        if (string.IsNullOrEmpty(type))
         {
-            var typName = type;
-            if (string.IsNullOrEmpty(type))
+            typName = "void";
+        }
+        else if (typName.EndsWith("?"))
+        {
+            typName = typName.Substring(0, typName.Length - 1);
+            IsNullable = true;
+        }
+
+        _type = typName;
+        _isEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET.Core\Enums\" + typName + ".cs"));
+        _isEnum = _isEnum || File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Enums\" + typName + ".cs"));
+    }
+
+    public bool HasInstance
+    {
+        get
+        {
+            if (IsDelegate)
+                return false;
+
+            return _type switch
             {
-                typName = "void";
-            }
-            else if (typName.EndsWith("?"))
-            {
-                typName = typName.Substring(0, typName.Length - 1);
-                IsNullable = true;
-            }
-
-            _type = typName;
-            _isEnum = File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET.Core\Enums\" + typName + ".cs"));
-            _isEnum = _isEnum || File.Exists(PathHelper.GetFullPath(@"\src\Magick.NET\Enums\" + typName + ".cs"));
+                "byte" or
+                "byte[]" or
+                "bool" or
+                "double" or
+                "double[]" or
+                "Instance" or
+                "long" or
+                "QuantumType" or
+                "QuantumType[]" or
+                "size_t" or
+                "ssize_t" or
+                "string" or
+                "ulong" or
+                "void*" => false,
+                _ => !_isEnum,
+            };
         }
+    }
 
-        public bool HasInstance
+    public bool IsFixed
+        => _type.EndsWith("[]") || IsSpan;
+
+    public bool IsSpan
+        => _type.StartsWith("ReadOnlySpan<");
+
+    public bool IsBool
+        => ManagedName == "bool";
+
+    public bool IsDelegate
+        => _type.EndsWith("Delegate");
+
+    public bool IsInstance
+        => _type == "Instance";
+
+    public bool IsNativeString
+        => _type == "nativeString";
+
+    public bool IsQuantumType
+        => _type == "QuantumType" || _type == "QuantumType[]";
+
+    public bool IsString
+        => _type == "string";
+
+    public bool IsVoid
+        => _type == "void" || _type == "voidInstance";
+
+    public bool IsNullable { get; }
+
+    public string ManagedName
+        => GetManagedName(_type);
+
+    public string FixedName
+        => ManagedName
+            .Replace("[]", string.Empty)
+            .Replace("ReadOnlySpan<", string.Empty)
+            .Replace(">", string.Empty)
+            + "*";
+
+    public string ManagedTypeCast
+    {
+        get
         {
-            get
-            {
-                if (IsDelegate)
-                    return false;
+            if (NeedsTypeCast)
+                return "(" + ManagedName + ")";
 
-                switch (_type)
-                {
-                    case "byte":
-                    case "byte[]":
-                    case "bool":
-                    case "double":
-                    case "double[]":
-                    case "Instance":
-                    case "long":
-                    case "QuantumType":
-                    case "QuantumType[]":
-                    case "size_t":
-                    case "ssize_t":
-                    case "string":
-                    case "ulong":
-                    case "void*":
-                        return false;
-                    default:
-                        return !_isEnum;
-                }
-            }
+            return string.Empty;
         }
+    }
 
-        public bool IsFixed
-            => _type.EndsWith("[]") || IsSpan;
+    public string NativeName
+        => GetNativeName(_type);
 
-        public bool IsSpan
-            => _type.StartsWith("ReadOnlySpan<");
-
-        public bool IsBool
-            => ManagedName == "bool";
-
-        public bool IsDelegate
-            => _type.EndsWith("Delegate");
-
-        public bool IsInstance
-            => _type == "Instance";
-
-        public bool IsNativeString
-            => _type == "nativeString";
-
-        public bool IsQuantumType
-            => _type == "QuantumType" || _type == "QuantumType[]";
-
-        public bool IsString
-            => _type == "string";
-
-        public bool IsVoid
-            => _type == "void" || _type == "voidInstance";
-
-        public bool IsNullable { get; }
-
-        public string ManagedName
-            => GetManagedName(_type);
-
-        public string FixedName
-            => ManagedName
-                .Replace("[]", string.Empty)
-                .Replace("ReadOnlySpan<", string.Empty)
-                .Replace(">", string.Empty)
-                + "*";
-
-        public string ManagedTypeCast
+    public string NativeTypeCast
+    {
+        get
         {
-            get
-            {
-                if (NeedsTypeCast)
-                    return "(" + ManagedName + ")";
+            if (NeedsTypeCast)
+                return "(" + NativeName + ")";
 
-                return string.Empty;
-            }
+            return string.Empty;
         }
+    }
 
-        public string NativeName
-            => GetNativeName(_type);
-
-        public string NativeTypeCast
+    private bool NeedsTypeCast
+    {
+        get
         {
-            get
-            {
-                if (NeedsTypeCast)
-                    return "(" + NativeName + ")";
+            if (_type == "Instance" || HasInstance || IsString)
+                return false;
 
-                return string.Empty;
-            }
+            return _type != NativeName || _type != ManagedName;
         }
+    }
 
-        private bool NeedsTypeCast
-        {
-            get
-            {
-                if (_type == "Instance" || HasInstance || IsString)
-                    return false;
+    public string GetNativeName(string type)
+    {
+        if (_type == "void")
+            return "void";
 
-                return _type != NativeName || _type != ManagedName;
-            }
-        }
+        if (_type == "nativeString" || _type == "string")
+            return "IntPtr";
 
-        public string GetNativeName(string type)
-        {
-            if (_type == "void")
-                return "void";
+        if (_isEnum || _type == "size_t")
+            return "UIntPtr";
 
-            if (_type == "nativeString" || _type == "string")
-                return "IntPtr";
+        if (_type == "ssize_t" || _type == "Instance" || _type == "voidInstance" || HasInstance)
+            return "IntPtr";
 
-            if (_isEnum || _type == "size_t")
-                return "UIntPtr";
+        return type;
+    }
 
-            if (_type == "ssize_t" || _type == "Instance" || _type == "voidInstance" || HasInstance)
-                return "IntPtr";
+    public string GetManagedName(string type)
+    {
+        if (type == "size_t" || type == "ssize_t")
+            return "int";
 
-            return type;
-        }
+        if (_type == "voidInstance")
+            return "void";
 
-        public string GetManagedName(string type)
-        {
-            if (type == "size_t" || type == "ssize_t")
-                return "int";
+        if (_type == "Instance")
+            return "IntPtr";
 
-            if (_type == "voidInstance")
-                return "void";
+        if (_type == "nativeString")
+            return "string";
 
-            if (_type == "Instance")
-                return "IntPtr";
-
-            if (_type == "nativeString")
-                return "string";
-
-            return type;
-        }
+        return type;
     }
 }

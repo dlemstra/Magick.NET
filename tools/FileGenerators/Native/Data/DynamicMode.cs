@@ -3,17 +3,16 @@
 
 using System;
 
-namespace FileGenerator.Native
+namespace FileGenerator.Native;
+
+[Flags]
+public enum DynamicMode
 {
-    [Flags]
-    public enum DynamicMode
-    {
-        None = 0,
+    None = 0,
 
-        NativeToManaged = 1,
+    NativeToManaged = 1,
 
-        ManagedToNative = 2,
+    ManagedToNative = 2,
 
-        Both = 3,
-    }
+    Both = 3,
 }

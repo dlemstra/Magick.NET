@@ -7,155 +7,154 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal partial class OffsetInfo
 {
-    internal partial class OffsetInfo
+    [SuppressUnmanagedCodeSecurity]
+    private static unsafe class NativeMethods
     {
-        [SuppressUnmanagedCodeSecurity]
-        private static unsafe class NativeMethods
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
+        public static class X64
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            public static class X64
-            {
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr OffsetInfo_Create();
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void OffsetInfo_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void OffsetInfo_SetX(IntPtr Instance, UIntPtr value);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void OffsetInfo_SetY(IntPtr Instance, UIntPtr value);
-            }
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr OffsetInfo_Create();
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void OffsetInfo_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void OffsetInfo_SetX(IntPtr Instance, UIntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void OffsetInfo_SetY(IntPtr Instance, UIntPtr value);
+        }
+        #endif
+        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+        public static class ARM64
+        {
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr OffsetInfo_Create();
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void OffsetInfo_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void OffsetInfo_SetX(IntPtr Instance, UIntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void OffsetInfo_SetY(IntPtr Instance, UIntPtr value);
+        }
+        #endif
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
+        public static class X86
+        {
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr OffsetInfo_Create();
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void OffsetInfo_Dispose(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void OffsetInfo_SetX(IntPtr Instance, UIntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void OffsetInfo_SetY(IntPtr Instance, UIntPtr value);
+        }
+        #endif
+    }
+    private unsafe sealed partial class NativeOffsetInfo : NativeInstance
+    {
+        static NativeOffsetInfo() { Environment.Initialize(); }
+        protected override void Dispose(IntPtr instance)
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            public static class ARM64
-            {
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr OffsetInfo_Create();
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void OffsetInfo_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void OffsetInfo_SetX(IntPtr Instance, UIntPtr value);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void OffsetInfo_SetY(IntPtr Instance, UIntPtr value);
-            }
+            NativeMethods.ARM64.OffsetInfo_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.OffsetInfo_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            public static class X86
-            {
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr OffsetInfo_Create();
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void OffsetInfo_Dispose(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void OffsetInfo_SetX(IntPtr Instance, UIntPtr value);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern void OffsetInfo_SetY(IntPtr Instance, UIntPtr value);
-            }
+            NativeMethods.X86.OffsetInfo_Dispose(instance);
             #endif
         }
-        private unsafe sealed partial class NativeOffsetInfo : NativeInstance
+        public NativeOffsetInfo()
         {
-            static NativeOffsetInfo() { Environment.Initialize(); }
-            protected override void Dispose(IntPtr instance)
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.ARM64.OffsetInfo_Create();
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.X64.OffsetInfo_Create();
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            Instance = NativeMethods.X86.OffsetInfo_Create();
+            #endif
+            if (Instance == IntPtr.Zero)
+                throw new InvalidOperationException();
+        }
+        protected override string TypeName
+        {
+            get
             {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.OffsetInfo_Dispose(instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.OffsetInfo_Dispose(instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.OffsetInfo_Dispose(instance);
-                #endif
-            }
-            public NativeOffsetInfo()
-            {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.ARM64.OffsetInfo_Create();
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X64.OffsetInfo_Create();
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                Instance = NativeMethods.X86.OffsetInfo_Create();
-                #endif
-                if (Instance == IntPtr.Zero)
-                    throw new InvalidOperationException();
-            }
-            protected override string TypeName
-            {
-                get
-                {
-                    return nameof(OffsetInfo);
-                }
-            }
-            public void SetX(int value)
-            {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.OffsetInfo_SetX(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.OffsetInfo_SetX(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.OffsetInfo_SetX(Instance, (UIntPtr)value);
-                #endif
-            }
-            public void SetY(int value)
-            {
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.OffsetInfo_SetY(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.OffsetInfo_SetY(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.OffsetInfo_SetY(Instance, (UIntPtr)value);
-                #endif
+                return nameof(OffsetInfo);
             }
         }
-        internal static INativeInstance CreateInstance(OffsetInfo? instance)
+        public void SetX(int value)
         {
-            if (instance is null)
-                return NativeInstance.Zero;
-            return instance.CreateNativeInstance();
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.OffsetInfo_SetX(Instance, (UIntPtr)value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.OffsetInfo_SetX(Instance, (UIntPtr)value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.OffsetInfo_SetX(Instance, (UIntPtr)value);
+            #endif
         }
+        public void SetY(int value)
+        {
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.OffsetInfo_SetY(Instance, (UIntPtr)value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.OffsetInfo_SetY(Instance, (UIntPtr)value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.OffsetInfo_SetY(Instance, (UIntPtr)value);
+            #endif
+        }
+    }
+    internal static INativeInstance CreateInstance(OffsetInfo? instance)
+    {
+        if (instance is null)
+            return NativeInstance.Zero;
+        return instance.CreateNativeInstance();
     }
 }

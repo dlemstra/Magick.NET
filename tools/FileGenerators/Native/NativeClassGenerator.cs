@@ -48,7 +48,6 @@ namespace FileGenerator.Native
             generator.Write();
 
             WriteEndColon();
-            WriteEnd();
 
             CloseWriter();
         }

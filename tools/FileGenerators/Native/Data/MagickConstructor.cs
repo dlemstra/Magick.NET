@@ -4,32 +4,31 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace FileGenerator.Native
+namespace FileGenerator.Native;
+
+[DataContract]
+internal sealed class MagickConstructor
 {
-    [DataContract]
-    internal sealed class MagickConstructor
+    [DataMember(Name = "arguments")]
+    private List<MagickArgument> _arguments = new List<MagickArgument>();
+
+    [DataMember(Name = "throws")]
+    public bool Throws { get; set; }
+
+    public IEnumerable<MagickArgument> Arguments
     {
-        [DataMember(Name = "arguments")]
-        private List<MagickArgument> _arguments = new List<MagickArgument>();
-
-        [DataMember(Name = "throws")]
-        public bool Throws { get; set; }
-
-        public IEnumerable<MagickArgument> Arguments
+        get
         {
-            get
+            if (_arguments is null)
+                yield break;
+
+            foreach (var argument in _arguments)
             {
-                if (_arguments is null)
-                    yield break;
-
-                foreach (var argument in _arguments)
-                {
-                    yield return argument;
-                }
-
-                if (Throws)
-                    yield return MagickArgument.CreateException();
+                yield return argument;
             }
+
+            if (Throws)
+                yield return MagickArgument.CreateException();
         }
     }
 }

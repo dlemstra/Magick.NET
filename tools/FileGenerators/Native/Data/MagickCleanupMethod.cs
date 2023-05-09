@@ -4,27 +4,26 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace FileGenerator.Native
+namespace FileGenerator.Native;
+
+[DataContract]
+internal sealed class MagickCleanupMethod
 {
-    [DataContract]
-    internal sealed class MagickCleanupMethod
+    [DataMember(Name = "arguments")]
+    private List<string> _arguments = new List<string>();
+
+    [DataMember(Name = "name")]
+    public string Name { get; set; } = string.Empty;
+
+    public IEnumerable<string> Arguments
     {
-        [DataMember(Name = "arguments")]
-        private List<string> _arguments = new List<string>();
-
-        [DataMember(Name = "name")]
-        public string Name { get; set; } = string.Empty;
-
-        public IEnumerable<string> Arguments
+        get
         {
-            get
+            if (_arguments is not null)
             {
-                if (_arguments is not null)
+                foreach (var argument in _arguments)
                 {
-                    foreach (var argument in _arguments)
-                    {
-                        yield return argument;
-                    }
+                    yield return argument;
                 }
             }
         }

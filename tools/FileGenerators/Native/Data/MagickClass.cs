@@ -6,127 +6,126 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace FileGenerator.Native
+namespace FileGenerator.Native;
+
+[DataContract]
+internal sealed class MagickClass
 {
-    [DataContract]
-    internal sealed class MagickClass
+    [DataMember(Name = "constructor")]
+    private MagickConstructor? _constructor = new MagickConstructor();
+
+    [DataMember(Name = "delegates")]
+    private List<MagickDelegate>? _delegates = new List<MagickDelegate>();
+
+    [DataMember(Name = "methods")]
+    private List<MagickMethod>? _methods = new List<MagickMethod>();
+
+    [DataMember(Name = "properties")]
+    private List<MagickProperty>? _properties = new List<MagickProperty>();
+
+    [DataMember(Name = "dynamic")]
+    private string _dynamic = string.Empty;
+
+    [DataMember(Name = "nativeConstructor")]
+    private bool _hasNativeConstructor = false;
+
+    [DataMember(Name = "access")]
+    public string Access { get; set; } = string.Empty;
+
+    [DataMember(Name = "className")]
+    public string ClassName { get; set; } = string.Empty;
+
+    public MagickConstructor Constructor
     {
-        [DataMember(Name = "constructor")]
-        private MagickConstructor? _constructor = new MagickConstructor();
-
-        [DataMember(Name = "delegates")]
-        private List<MagickDelegate>? _delegates = new List<MagickDelegate>();
-
-        [DataMember(Name = "methods")]
-        private List<MagickMethod>? _methods = new List<MagickMethod>();
-
-        [DataMember(Name = "properties")]
-        private List<MagickProperty>? _properties = new List<MagickProperty>();
-
-        [DataMember(Name = "dynamic")]
-        private string _dynamic = string.Empty;
-
-        [DataMember(Name = "nativeConstructor")]
-        private bool _hasNativeConstructor = false;
-
-        [DataMember(Name = "access")]
-        public string Access { get; set; } = string.Empty;
-
-        [DataMember(Name = "className")]
-        public string ClassName { get; set; } = string.Empty;
-
-        public MagickConstructor Constructor
+        get
         {
-            get
-            {
-                if (_constructor is null)
-                    _constructor = new MagickConstructor();
+            if (_constructor is null)
+                _constructor = new MagickConstructor();
 
-                return _constructor;
-            }
+            return _constructor;
         }
+    }
 
-        public IEnumerable<MagickDelegate> Delegates
+    public IEnumerable<MagickDelegate> Delegates
+    {
+        get
         {
-            get
-            {
-                if (_delegates is not null)
-                    return _delegates;
+            if (_delegates is not null)
+                return _delegates;
 
-                return Enumerable.Empty<MagickDelegate>();
-            }
+            return Enumerable.Empty<MagickDelegate>();
         }
+    }
 
-        public DynamicMode DynamicMode
+    public DynamicMode DynamicMode
+    {
+        get
         {
-            get
-            {
-                if (string.IsNullOrEmpty(_dynamic))
-                    return DynamicMode.None;
+            if (string.IsNullOrEmpty(_dynamic))
+                return DynamicMode.None;
 
-                return (DynamicMode)Enum.Parse(typeof(DynamicMode), _dynamic);
-            }
+            return (DynamicMode)Enum.Parse(typeof(DynamicMode), _dynamic);
         }
+    }
 
-        public string FileName { get; set; } = string.Empty;
+    public string FileName { get; set; } = string.Empty;
 
-        [DataMember(Name = "instance")]
-        public bool HasInstance { get; set; }
+    [DataMember(Name = "instance")]
+    public bool HasInstance { get; set; }
 
-        [DataMember(Name = "interface")]
-        public bool HasInterface { get; set; }
+    [DataMember(Name = "interface")]
+    public bool HasInterface { get; set; }
 
-        [DataMember(Name = "noConstructor")]
-        public bool HasNoConstructor { get; set; }
+    [DataMember(Name = "noConstructor")]
+    public bool HasNoConstructor { get; set; }
 
-        public bool HasNativeConstructor
-            => _hasNativeConstructor || (!IsConst && (IsDynamic && DynamicMode.HasFlag(DynamicMode.NativeToManaged)));
+    public bool HasNativeConstructor
+        => _hasNativeConstructor || (!IsConst && (IsDynamic && DynamicMode.HasFlag(DynamicMode.NativeToManaged)));
 
-        [DataMember(Name = "const")]
-        public bool IsConst { get; set; }
+    [DataMember(Name = "const")]
+    public bool IsConst { get; set; }
 
-        public bool IsDynamic
-            => DynamicMode != DynamicMode.None;
+    public bool IsDynamic
+        => DynamicMode != DynamicMode.None;
 
-        [DataMember(Name = "quantumType")]
-        public bool IsQuantumType { get; set; }
+    [DataMember(Name = "quantumType")]
+    public bool IsQuantumType { get; set; }
 
-        [DataMember(Name = "static")]
-        public bool IsStatic { get; set; }
+    [DataMember(Name = "static")]
+    public bool IsStatic { get; set; }
 
-        public IEnumerable<MagickMethod> Methods
+    public IEnumerable<MagickMethod> Methods
+    {
+        get
         {
-            get
-            {
-                if (_methods is not null)
-                    return _methods;
+            if (_methods is not null)
+                return _methods;
 
-                return Enumerable.Empty<MagickMethod>();
-            }
+            return Enumerable.Empty<MagickMethod>();
         }
+    }
 
-        public string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
-        [DataMember(Name = "namespace")]
-        public string Namespace { get; set; } = string.Empty;
+    [DataMember(Name = "namespace")]
+    public string Namespace { get; set; } = string.Empty;
 
-        public IEnumerable<MagickProperty> Properties
+    public IEnumerable<MagickProperty> Properties
+    {
+        get
         {
-            get
-            {
-                if (_properties is not null)
-                    return _properties;
+            if (_properties is not null)
+                return _properties;
 
-                return Enumerable.Empty<MagickProperty>();
-            }
+            return Enumerable.Empty<MagickProperty>();
         }
+    }
 
-        [OnDeserializing]
-        private void BeforeDeserialization(StreamingContext context)
-        {
-            Access = "public";
-            HasInstance = true;
-            Namespace = "ImageMagick";
-        }
+    [OnDeserializing]
+    private void BeforeDeserialization(StreamingContext context)
+    {
+        Access = "public";
+        HasInstance = true;
+        Namespace = "ImageMagick";
     }
 }

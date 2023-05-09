@@ -7,53 +7,52 @@ using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace FileGenerator.Native
+namespace FileGenerator.Native;
+
+internal sealed class NativeGenerator
 {
-    internal sealed class NativeGenerator
+    private readonly DataContractJsonSerializer _serializer;
+
+    public NativeGenerator()
+        => _serializer = new DataContractJsonSerializer(typeof(MagickClass));
+
+    public static void Create()
     {
-        private readonly DataContractJsonSerializer _serializer;
+        var nativeMethodsGenerator = new NativeGenerator();
+        nativeMethodsGenerator.CreateClasses();
+    }
 
-        public NativeGenerator()
-            => _serializer = new DataContractJsonSerializer(typeof(MagickClass));
+    private MagickClass CreateClass(FileInfo file)
+    {
+        using var stream = file.OpenRead();
+        stream.Position = Encoding.UTF8.GetPreamble().Length;
 
-        public static void Create()
+        var magickClass = (MagickClass?)_serializer.ReadObject(stream);
+        if (magickClass is null || file.Directory is null)
+            throw new InvalidOperationException();
+
+        magickClass.Name = file.Name.Replace(".json", string.Empty);
+        magickClass.FileName = file.Directory.FullName + "\\" + magickClass.Name + ".cs";
+        if (string.IsNullOrEmpty(magickClass.ClassName))
         {
-            var nativeMethodsGenerator = new NativeGenerator();
-            nativeMethodsGenerator.CreateClasses();
+            magickClass.ClassName = magickClass.Name;
         }
 
-        private MagickClass CreateClass(FileInfo file)
-        {
-            using var stream = file.OpenRead();
-            stream.Position = Encoding.UTF8.GetPreamble().Length;
+        return magickClass;
+    }
 
-            var magickClass = (MagickClass?)_serializer.ReadObject(stream);
-            if (magickClass is null || file.Directory is null)
-                throw new InvalidOperationException();
+    private void CreateClasses()
+    {
+        var directory = new DirectoryInfo(PathHelper.GetFullPath(@"\src\Magick.NET\Native"));
 
-            magickClass.Name = file.Name.Replace(".json", string.Empty);
-            magickClass.FileName = file.Directory.FullName + "\\" + magickClass.Name + ".cs";
-            if (string.IsNullOrEmpty(magickClass.ClassName))
-            {
-                magickClass.ClassName = magickClass.Name;
-            }
+        var classes = CreateClasses(directory.GetFiles("*.json", SearchOption.AllDirectories));
 
-            return magickClass;
-        }
+        NativeClassGenerator.Create(classes);
+    }
 
-        private void CreateClasses()
-        {
-            var directory = new DirectoryInfo(PathHelper.GetFullPath(@"\src\Magick.NET\Native"));
-
-            var classes = CreateClasses(directory.GetFiles("*.json", SearchOption.AllDirectories));
-
-            NativeClassGenerator.Create(classes);
-        }
-
-        private IEnumerable<MagickClass> CreateClasses(IEnumerable<FileInfo> files)
-        {
-            foreach (var file in files)
-                yield return CreateClass(file);
-        }
+    private IEnumerable<MagickClass> CreateClasses(IEnumerable<FileInfo> files)
+    {
+        foreach (var file in files)
+            yield return CreateClass(file);
     }
 }

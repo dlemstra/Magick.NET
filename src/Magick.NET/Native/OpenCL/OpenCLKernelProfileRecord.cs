@@ -7,198 +7,197 @@ using System;
 using System.Security;
 using System.Runtime.InteropServices;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+public partial class OpenCLKernelProfileRecord
 {
-    public partial class OpenCLKernelProfileRecord
+    [SuppressUnmanagedCodeSecurity]
+    private static unsafe class NativeMethods
     {
-        [SuppressUnmanagedCodeSecurity]
-        private static unsafe class NativeMethods
+        #if PLATFORM_x64 || PLATFORM_AnyCPU
+        public static class X64
         {
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            public static class X64
-            {
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_Count_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_MaximumDuration_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_MinimumDuration_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr OpenCLKernelProfileRecord_Name_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_TotalDuration_Get(IntPtr instance);
-            }
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            public static class ARM64
-            {
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_Count_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_MaximumDuration_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_MinimumDuration_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr OpenCLKernelProfileRecord_Name_Get(IntPtr instance);
-                [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_TotalDuration_Get(IntPtr instance);
-            }
-            #endif
-            #if PLATFORM_x86 || PLATFORM_AnyCPU
-            public static class X86
-            {
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_Count_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_MaximumDuration_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_MinimumDuration_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern IntPtr OpenCLKernelProfileRecord_Name_Get(IntPtr instance);
-                [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-                public static extern long OpenCLKernelProfileRecord_TotalDuration_Get(IntPtr instance);
-            }
-            #endif
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_Count_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_MaximumDuration_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_MinimumDuration_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr OpenCLKernelProfileRecord_Name_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_TotalDuration_Get(IntPtr instance);
         }
-        private unsafe sealed partial class NativeOpenCLKernelProfileRecord : ConstNativeInstance
+        #endif
+        #if PLATFORM_arm64 || PLATFORM_AnyCPU
+        public static class ARM64
         {
-            static NativeOpenCLKernelProfileRecord() { Environment.Initialize(); }
-            protected override string TypeName
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_Count_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_MaximumDuration_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_MinimumDuration_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr OpenCLKernelProfileRecord_Name_Get(IntPtr instance);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_TotalDuration_Get(IntPtr instance);
+        }
+        #endif
+        #if PLATFORM_x86 || PLATFORM_AnyCPU
+        public static class X86
+        {
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_Count_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_MaximumDuration_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_MinimumDuration_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr OpenCLKernelProfileRecord_Name_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern long OpenCLKernelProfileRecord_TotalDuration_Get(IntPtr instance);
+        }
+        #endif
+    }
+    private unsafe sealed partial class NativeOpenCLKernelProfileRecord : ConstNativeInstance
+    {
+        static NativeOpenCLKernelProfileRecord() { Environment.Initialize(); }
+        protected override string TypeName
+        {
+            get
             {
-                get
-                {
-                    return nameof(OpenCLKernelProfileRecord);
-                }
+                return nameof(OpenCLKernelProfileRecord);
             }
-            public long Count
+        }
+        public long Count
+        {
+            get
             {
-                get
-                {
-                    long result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Count_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.OpenCLKernelProfileRecord_Count_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.OpenCLKernelProfileRecord_Count_Get(Instance);
-                    #endif
-                    return result;
-                }
+                long result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Count_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.OpenCLKernelProfileRecord_Count_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.OpenCLKernelProfileRecord_Count_Get(Instance);
+                #endif
+                return result;
             }
-            public long MaximumDuration
+        }
+        public long MaximumDuration
+        {
+            get
             {
-                get
-                {
-                    long result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
-                    #endif
-                    return result;
-                }
+                long result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
+                #endif
+                return result;
             }
-            public long MinimumDuration
+        }
+        public long MinimumDuration
+        {
+            get
             {
-                get
-                {
-                    long result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
-                    #endif
-                    return result;
-                }
+                long result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
+                #endif
+                return result;
             }
-            public string Name
+        }
+        public string Name
+        {
+            get
             {
-                get
-                {
-                    IntPtr result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Name_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.OpenCLKernelProfileRecord_Name_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.OpenCLKernelProfileRecord_Name_Get(Instance);
-                    #endif
-                    return UTF8Marshaler.NativeToManaged(result);
-                }
+                IntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Name_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.OpenCLKernelProfileRecord_Name_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.OpenCLKernelProfileRecord_Name_Get(Instance);
+                #endif
+                return UTF8Marshaler.NativeToManaged(result);
             }
-            public long TotalDuration
+        }
+        public long TotalDuration
+        {
+            get
             {
-                get
-                {
-                    long result;
-                    #if PLATFORM_AnyCPU
-                    if (Runtime.IsArm64)
-                    #endif
-                    #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                    result = NativeMethods.ARM64.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else if (Runtime.Is64Bit)
-                    #endif
-                    #if PLATFORM_x64 || PLATFORM_AnyCPU
-                    result = NativeMethods.X64.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
-                    #endif
-                    #if PLATFORM_AnyCPU
-                    else
-                    #endif
-                    #if PLATFORM_x86 || PLATFORM_AnyCPU
-                    result = NativeMethods.X86.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
-                    #endif
-                    return result;
-                }
+                long result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
+                #endif
+                return result;
             }
         }
     }
