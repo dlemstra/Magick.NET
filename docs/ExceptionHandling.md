@@ -6,9 +6,7 @@
 try
 {
     // Read invalid jpg file
-    using (var image = new MagickImage("c:\path\to\InvalidFile.jpg"))
-    {
-    }
+    using var image = new MagickImage(SampleFiles.InvalidFileJpg);
 }
 // Catch any MagickException
 catch (MagickException exception)
@@ -20,9 +18,7 @@ catch (MagickException exception)
 try
 {
     // Read corrupt jpg file
-    using (var image = new MagickImage("c:\path\to\CorruptImage.jpg"))
-    {
-    }
+    using var image = new MagickImage(SampleFiles.CorruptImageJpg);
 }
 // Catch only MagickCorruptImageErrorException
 catch (MagickCorruptImageErrorException exception)
@@ -35,11 +31,11 @@ catch (MagickCorruptImageErrorException exception)
 ## Obtain warning that occurred during reading
 
 ```C#
-using (var image = new MagickImage())
-{
-    // Attach event handler to warning event
-    image.Warning += MagickImage_Warning;
-    // Read file that will raise a warning.
-    image.Read("c:\path\to\FileWithWarning.jpg");
-}
+using var image = new MagickImage();
+
+// Attach event handler to warning event
+image.Warning += MagickImage_Warning;
+
+// Read file that will raise a warning.
+image.Read(SampleFiles.FileWithWarningJpg);
 ```

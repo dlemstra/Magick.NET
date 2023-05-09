@@ -4,36 +4,33 @@
 using System;
 using ImageMagick;
 
-namespace Magick.NET.Samples
+namespace Magick.NET.Samples;
+
+public static class DetailedDebugInformationSamples
 {
-    public static class DetailedDebugInformationSamples
+    private static void WriteLogMessage(string message)
+        => Console.WriteLine(message);
+
+    public static void MagickNET_Log(object sender, LogEventArgs arguments)
     {
-        private static void WriteLogMessage(string message)
-        {
-            Console.WriteLine(message);
-        }
+        // Write log message
+        WriteLogMessage(arguments.Message);
+    }
 
-        public static void MagickNET_Log(object sender, LogEventArgs arguments)
-        {
-            // Write log message
-            WriteLogMessage(arguments.Message);
-        }
+    public static void ReadImage()
+    {
+        // Log all events
+        MagickNET.SetLogEvents(LogEvents.All);
 
-        public static void ReadImage()
-        {
-            // Log all events
-            MagickNET.SetLogEvents(LogEvents.All);
-            // Set the log handler (all threads use the same handler)
-            MagickNET.Log += MagickNET_Log;
+        // Set the log handler (all threads use the same handler)
+        MagickNET.Log += MagickNET_Log;
 
-            using (var image = new MagickImage())
-            {
-                // Trace logging checks if this is set to true.
-                image.Settings.Debug = true;
+        using var image = new MagickImage();
 
-                // Reading the image will send all log events to the log handler
-                image.Read(SampleFiles.SnakewarePng);
-            }
-        }
+        // Trace logging checks if this is set to true.
+        image.Settings.Debug = true;
+
+        // Reading the image will send all log events to the log handler
+        image.Read(SampleFiles.SnakewarePng);
     }
 }

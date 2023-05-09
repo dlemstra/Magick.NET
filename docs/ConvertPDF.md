@@ -12,100 +12,99 @@ you will get a better performance if you keep the platforms the same.
 ## Convert PDF to multiple images
 
 ```C#
-var settings = new MagickReadSettings();
 // Settings the density to 300 dpi will create an image with a better quality
-settings.Density = new Density(300, 300);
-
-using (var images = new MagickImageCollection())
+var settings = new MagickReadSettings
 {
-    // Add all the pages of the pdf file to the collection
-    images.Read("c:\path\to\Snakeware.pdf", settings);
+    Density = new Density(300, 300)
+};
 
-    var page = 1;
-    foreach (var image in images)
-    {
-        // Write page to file that contains the page number
-        image.Write("c:\path\to\Snakeware.Page" + page + ".png");
-        // Writing to a specific format works the same as for a single image
-        image.Format = MagickFormat.Ptif;
-        image.Write("c:\path\to\Snakeware.Page" + page + ".tif");
-        page++;
-    }
+using var images = new MagickImageCollection();
+
+// Add all the pages of the pdf file to the collection
+images.Read(SampleFiles.SnakewarePdf, settings);
+
+var page = 1;
+foreach (var image in images)
+{
+    // Write page to file that contains the page number
+    image.Write("Snakeware.Page" + page + ".png");
+    // Writing to a specific format works the same as for a single image
+    image.Format = MagickFormat.Ptif;
+    image.Write("Snakeware.Page" + page + ".tif");
+    page++;
 }
 ```
 
 ## Convert PDF to one image
 
 ```C#
-var settings = new MagickReadSettings();
 // Settings the density to 300 dpi will create an image with a better quality
-settings.Density = new Density(300);
-
-using (var images = new MagickImageCollection())
+var settings = new MagickReadSettings
 {
-    // Add all the pages of the pdf file to the collection
-    images.Read("c:\path\to\Snakeware.pdf", settings);
+    Density = new Density(300)
+};
 
-    // Create new image that appends all the pages horizontally
-    using (var horizontal = images.AppendHorizontally())
-    {
-        // Save result as a png
-        horizontal.Write("c:\path\to\Snakeware.horizontal.png");
-    }
+using var images = new MagickImageCollection();
 
-    // Create new image that appends all the pages vertically
-    using (var vertical = images.AppendVertically())
-    {
-        // Save result as a png
-        vertical.Write("c:\path\to\Snakeware.vertical.png");
-    }
-}
+// Add all the pages of the pdf file to the collection
+images.Read(SampleFiles.SnakewarePdf, settings);
+
+// Create new image that appends all the pages horizontally
+using var horizontal = images.AppendHorizontally();
+
+// Save result as a png
+horizontal.Write("Snakeware.horizontal.png");
+
+// Create new image that appends all the pages vertically
+using var vertical = images.AppendVertically();
+
+// Save result as a png
+vertical.Write("Snakeware.vertical.png");
 ```
 
 ## Create a PDF from two images
 
 ```C#
-using (var images = new MagickImageCollection())
-{
-    // Add first page
-    images.Add(new MagickImage("c:\path\to\SnakewarePage1.jpg"));
-    // Add second page
-    images.Add(new MagickImage("c:\path\to\SnakewarePage2.jpg"));
+using var images = new MagickImageCollection();
 
-    // Create pdf file with two pages
-    images.Write("c:\path\to\Snakeware.pdf");
-}
+// Add first page
+images.Add(new MagickImage(SampleFiles.SnakewareJpg));
+// Add second page
+images.Add(new MagickImage(SampleFiles.SnakewareJpg));
+
+// Create pdf file with two pages
+images.Write("Snakeware.pdf");
 ```
 
 ## Create a PDF from a single image
 
 ```C#
 // Read image from file
-using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
-{
-    // Create pdf file with a single page
-    image.Write("c:\path\to\Snakeware.pdf");
-}
+using var image = new MagickImage(SampleFiles.SnakewareJpg);
+
+// Create pdf file with a single page
+image.Write("Snakeware.pdf");
 ```
 
 ## Read a single page from a PDF
 
 ```C#
-using (var images = new MagickImageCollection())
+var settings = new MagickReadSettings
 {
-    var settings = new MagickReadSettings();
-    settings.FrameIndex = 0; // First page
-    settings.FrameCount = 1; // Number of pages
+    FrameIndex = 0, // First page
+    FrameCount = 1, // Number of pages
+};
 
-    // Read only the first page of the pdf file
-    images.Read("c:\path\to\Snakeware.pdf", settings);
+using var images = new MagickImageCollection();
 
-    // Clear the collection
-    images.Clear();
+// Read only the first page of the pdf file
+images.Read(SampleFiles.SnakewarePdf, settings);
 
-    settings.FrameCount = 2; // Number of pages
+// Clear the collection
+images.Clear();
 
-    // Read the first two pages of the pdf file
-    images.Read("c:\path\to\Snakeware.pdf", settings);
-}
+settings.FrameCount = 2; // Number of pages
+
+// Read the first two pages of the pdf file
+images.Read(SampleFiles.SnakewarePdf, settings);
 ```

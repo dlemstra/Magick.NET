@@ -3,13 +3,12 @@
 
 using System;
 
-namespace Magick.NET.Samples
+namespace Magick.NET.Samples;
+
+class Program
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.Read();
-        }
+        Console.Read();
     }
 }

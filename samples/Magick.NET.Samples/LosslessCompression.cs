@@ -5,22 +5,21 @@ using System;
 using System.IO;
 using ImageMagick;
 
-namespace Magick.NET.Samples
+namespace Magick.NET.Samples;
+
+public static class LosslessCompressionSamples
 {
-    public static class LosslessCompressionSamples
+    public static void MakeGooglePageSpeedInsightsHappy()
     {
-        public static void MakeGooglePageSpeedInsightsHappy()
-        {
-            var snakewareLogo = new FileInfo(SampleFiles.OutputDirectory + "OptimizeTest.jpg");
-            File.Copy(SampleFiles.SnakewareJpg, snakewareLogo.FullName, true);
+        var snakewareLogo = new FileInfo(SampleFiles.OutputDirectory + "OptimizeTest.jpg");
+        File.Copy(SampleFiles.SnakewareJpg, snakewareLogo.FullName, true);
 
-            Console.WriteLine("Bytes before: " + snakewareLogo.Length);
+        Console.WriteLine("Bytes before: " + snakewareLogo.Length);
 
-            var optimizer = new ImageOptimizer();
-            optimizer.LosslessCompress(snakewareLogo);
+        var optimizer = new ImageOptimizer();
+        optimizer.LosslessCompress(snakewareLogo);
 
-            snakewareLogo.Refresh();
-            Console.WriteLine("Bytes after:  " + snakewareLogo.Length);
-        }
+        snakewareLogo.Refresh();
+        Console.WriteLine("Bytes after:  " + snakewareLogo.Length);
     }
 }

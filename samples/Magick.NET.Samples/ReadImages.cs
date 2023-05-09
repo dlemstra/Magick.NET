@@ -5,133 +5,96 @@ using System;
 using System.IO;
 using ImageMagick;
 
-namespace Magick.NET.Samples
+namespace Magick.NET.Samples;
+
+public static class ReadImageSamples
 {
-    public static class ReadImageSamples
+    private static MemoryStream LoadMemoryStreamImage()
+        => new MemoryStream(LoadImageBytes());
+
+    private static byte[] LoadImageBytes()
+        => File.ReadAllBytes(SampleFiles.SnakewarePng);
+
+    public static void ReadImage()
     {
-        private static MemoryStream LoadMemoryStreamImage()
-        {
-            return new MemoryStream(LoadImageBytes());
-        }
+        // Read from file.
+        using var imageFromFile = new MagickImage(SampleFiles.SnakewareJpg);
 
-        private static byte[] LoadImageBytes()
-        {
-            return File.ReadAllBytes(SampleFiles.SnakewarePng);
-        }
+        // Read from stream.
+        using var memStream = LoadMemoryStreamImage();
+        using var imageFromStream = new MagickImage(memStream);
 
-        public static void ReadImage()
-        {
-            // Read from file.
-            using (var image = new MagickImage(SampleFiles.SnakewareJpg))
-            {
-            }
+        // Read from byte array.
+        var data = LoadImageBytes();
+        using var imageFromBytes = new MagickImage(data);
 
-            // Read from stream.
-            using (var memStream = LoadMemoryStreamImage())
-            {
-                using (var image = new MagickImage(memStream))
-                {
-                }
-            }
+        // Read image that has no predefined dimensions.
+        var settings = new MagickReadSettings();
+        settings.Width = 800;
+        settings.Height = 600;
+        using var yellow = new MagickImage("xc:yellow", settings);
 
-            // Read from byte array.
-            var data = LoadImageBytes();
-            using (var image = new MagickImage(data))
-            {
-            }
+        using var image = new MagickImage();
+        image.Read(SampleFiles.SnakewareJpg);
+        image.Read(data);
+        image.Read("xc:yellow", settings);
 
-            // Read image that has no predefined dimensions.
-            var settings = new MagickReadSettings();
-            settings.Width = 800;
-            settings.Height = 600;
-            using (var image = new MagickImage("xc:yellow", settings))
-            {
-            }
+        using var stream = LoadMemoryStreamImage();
+        image.Read(stream);
+    }
 
-            using (var image = new MagickImage())
-            {
-                image.Read(SampleFiles.SnakewareJpg);
-                image.Read(data);
-                image.Read("xc:yellow", settings);
+    public static void ReadBasicImageInformation()
+    {
+        // Read from file
+        var info = new MagickImageInfo(SampleFiles.SnakewarePng);
 
-                using (var memStream = LoadMemoryStreamImage())
-                {
-                    image.Read(memStream);
-                }
-            }
-        }
+        // Read from stream
+        using var memStream = LoadMemoryStreamImage();
+        info = new MagickImageInfo(memStream);
 
-        public static void ReadBasicImageInformation()
-        {
-            // Read from file
-            var info = new MagickImageInfo(SampleFiles.SnakewarePng);
+        // Read from byte array
+        var data = LoadImageBytes();
+        info = new MagickImageInfo(data);
 
-            // Read from stream
-            using (var memStream = LoadMemoryStreamImage())
-            {
-                info = new MagickImageInfo(memStream);
-            }
+        info = new MagickImageInfo();
+        info.Read(SampleFiles.SnakewarePng);
+        using var stream = LoadMemoryStreamImage();
+        info.Read(stream);
+        info.Read(data);
 
-            // Read from byte array
-            var data = LoadImageBytes();
-            info = new MagickImageInfo(data);
+        Console.WriteLine(info.Width);
+        Console.WriteLine(info.Height);
+        Console.WriteLine(info.ColorSpace);
+        Console.WriteLine(info.Format);
+        Console.WriteLine(info.Density.X);
+        Console.WriteLine(info.Density.Y);
+        Console.WriteLine(info.Density.Units);
+    }
 
-            info = new MagickImageInfo();
-            info.Read(SampleFiles.SnakewarePng);
-            using (var memStream = LoadMemoryStreamImage())
-            {
-                info.Read(memStream);
-            }
-            info.Read(data);
+    public static void ReadImageWithMultipleFrames()
+    {
+        // Read from file
+        using var imagesFromFile = new MagickImageCollection(SampleFiles.SnakewareJpg);
 
-            Console.WriteLine(info.Width);
-            Console.WriteLine(info.Height);
-            Console.WriteLine(info.ColorSpace);
-            Console.WriteLine(info.Format);
-            Console.WriteLine(info.Density.X);
-            Console.WriteLine(info.Density.Y);
-            Console.WriteLine(info.Density.Units);
-        }
+        // Read from stream
+        using var memStream = LoadMemoryStreamImage();
+        using var imagesromStream = new MagickImageCollection(memStream);
 
-        public static void ReadImageWithMultipleFrames()
-        {
-            // Read from file
-            using (var images = new MagickImageCollection(SampleFiles.SnakewareJpg))
-            {
-            }
+        // Read from byte array
+        var data = LoadImageBytes();
+        using var imagesFromByteArray = new MagickImageCollection(data);
 
-            // Read from stream
-            using (var memStream = LoadMemoryStreamImage())
-            {
-                using (var images = new MagickImageCollection(memStream))
-                {
-                }
-            }
+        // Read pdf with custom density.
+        var settings = new MagickReadSettings();
+        settings.Density = new Density(144);
 
-            // Read from byte array
-            var data = LoadImageBytes();
-            using (var images = new MagickImageCollection(data))
-            {
-            }
+        using var pdf = new MagickImageCollection(SampleFiles.SnakewarePdf, settings);
 
-            // Read pdf with custom density.
-            var settings = new MagickReadSettings();
-            settings.Density = new Density(144);
-
-            using (var images = new MagickImageCollection(SampleFiles.SnakewarePdf, settings))
-            {
-            }
-
-            using (var images = new MagickImageCollection())
-            {
-                images.Read(SampleFiles.SnakewareJpg);
-                using (var memStream = LoadMemoryStreamImage())
-                {
-                    images.Read(memStream);
-                }
-                images.Read(data);
-                images.Read(SampleFiles.SnakewarePdf, settings);
-            }
-        }
+        using var images = new MagickImageCollection();
+        images.Read(SampleFiles.SnakewareJpg);
+        using var stream = LoadMemoryStreamImage();
+        images.Read(stream);
+        images.Read(data);
+        images.Read(SampleFiles.SnakewarePdf, settings);
     }
 }

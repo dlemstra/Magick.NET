@@ -4,78 +4,73 @@
 
 ```C#
 // Read first frame of gif image
-using (var image = new MagickImage("c:\path\to\Snakeware.gif"))
-{
-    // Save frame as jpg
-    image.Write("c:\path\to\Snakeware.jpg");
-}
+using var image = new MagickImage(SampleFiles.SnakewareGif);
 
-// Write to stream
+// Save frame as jpg
+image.Write("Snakeware.jpg");
+
 var settings = new MagickReadSettings();
 // Tells the xc: reader the image to create should be 800x600
 settings.Width = 800;
 settings.Height = 600;
 
-using (var memStream = new MemoryStream())
-{
-    // Create image that is completely purple and 800x600
-    using (var image = new MagickImage("xc:purple", settings))
-    {
-        // Sets the output format to png
-        image.Format = MagickFormat.Png;
+using var memStream = new MemoryStream();
 
-        // Write the image to the memorystream
-        image.Write(memStream);
-    }
+// Create image that is completely purple and 800x600
+using (var purple = new MagickImage("xc:purple", settings))
+{
+    // Sets the output format to png
+    purple.Format = MagickFormat.Png;
+
+    // Write the image to the memorystream
+    purple.Write(memStream);
 }
 
 // Read image from file
-using (var image = new MagickImage("c:\path\to\Snakeware.png"))
-{
-    // Sets the output format to jpeg
-    image.Format = MagickFormat.Jpeg;
+using var snakeware = new MagickImage(SampleFiles.SnakewarePng);
 
-    // Create byte array that contains a jpeg file
-    byte[] data = image.ToByteArray();
-}
+// Sets the output format to jpeg
+snakeware.Format = MagickFormat.Jpeg;
+
+// Create byte array that contains a jpeg file
+var data = snakeware.ToByteArray();
 ```
 
 ## Convert CMYK to RGB
 
 ```C#
 // Uses sRGB.icm, eps/pdf produce better result when you set this before loading.
-var settings = new MagickReadSettings();
-settings.ColorSpace = ColorSpace.sRGB;
-
-// Create empty image 
-using (var image = new MagickImage())
+var settings = new MagickReadSettings
 {
-    // Reads the eps image, the specified settings tell Ghostscript to create an sRGB image
-    image.Read("c:\path\to\Snakeware.eps", settings);
+    ColorSpace = ColorSpace.sRGB
+};
 
-    // Save image as tiff
-    image.Write("c:\path\to\Snakeware.tiff");
-}
+// Create empty image
+using var eps = new MagickImage();
+
+// Reads the eps image, the specified settings tell Ghostscript to create an sRGB image
+eps.Read(SampleFiles.SnakewareEps, settings);
+
+// Save image as tiff
+eps.Write("Snakeware.tiff");
 
 // Read image from file
-using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
-{
-    // Will use the CMYK profile if the image does not contain a color profile.
-    // The second profile will transform the colorspace from CMYK to RGB
-    image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.SRGB);
+using var png = new MagickImage(SampleFiles.SnakewareJpg);
 
-    // Save image as png
-    image.Write("c:\path\to\Snakeware.png");
-}
+// Will use the CMYK profile if the image does not contain a color profile.
+// The second profile will transform the colorspace from CMYK to RGB
+png.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.SRGB);
 
-// Use custom color profile
-using (var image = new MagickImage("c:\path\to\Snakeware.jpg"))
-{
-    // Will use the CMYK profile if your image does not contain a color profile.
-    // The second profile will transform the colorspace from your custom icc profile
-    image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, new ColorProfile("YourProfile.icc"));
+// Save image as png
+png.Write("Snakeware.png");
 
-    // Save image as tiff
-    image.Write("c:\path\to\Snakeware.tiff");
-}
+// Read image from file
+using var tiff = new MagickImage(SampleFiles.SnakewareJpg);
+
+// Will use the CMYK profile if your image does not contain a color profile.
+// The second profile will transform the colorspace from your custom icc profile
+tiff.TransformColorSpace(ColorProfile.USWebCoatedSWOP, new ColorProfile(SampleFiles.YourProfileIcc));
+
+// Save image as tiff
+tiff.Write("Snakeware.tiff");
 ```
