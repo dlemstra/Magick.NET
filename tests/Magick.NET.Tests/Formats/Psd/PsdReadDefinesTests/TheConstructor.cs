@@ -14,14 +14,12 @@ public partial class PsdReadDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefine()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new PsdReadDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PsdReadDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "preserve-opacity-mask"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "replicate-profile"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "preserve-opacity-mask"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "replicate-profile"));
         }
     }
 }

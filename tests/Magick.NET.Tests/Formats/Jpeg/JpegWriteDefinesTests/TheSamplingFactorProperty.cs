@@ -31,21 +31,15 @@ public partial class JpegWriteDefinesTests
                 SamplingFactor = JpegSamplingFactor.Ratio420,
             };
 
-            using (var input = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var memoryStream = new MemoryStream())
-                {
-                    input.Write(memoryStream, defines);
+            using var input = new MagickImage(Files.Builtin.Logo);
+            using var memoryStream = new MemoryStream();
+            input.Write(memoryStream, defines);
+            memoryStream.Position = 0;
 
-                    memoryStream.Position = 0;
-                    using (var output = new MagickImage(memoryStream))
-                    {
-                        output.Read(memoryStream);
+            using var output = new MagickImage(memoryStream);
+            output.Read(memoryStream);
 
-                        Assert.Equal("2x2,1x1,1x1", output.GetAttribute("jpeg:sampling-factor"));
-                    }
-                }
-            }
+            Assert.Equal("2x2,1x1,1x1", output.GetAttribute("jpeg:sampling-factor"));
         }
 
         private static void AssertSetDefine(string expected, JpegSamplingFactor samplingFactor)
@@ -55,12 +49,10 @@ public partial class JpegWriteDefinesTests
                 SamplingFactor = samplingFactor,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal(expected, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
-            }
+            Assert.Equal(expected, image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
         }
     }
 }

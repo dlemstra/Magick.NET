@@ -14,16 +14,14 @@ public partial class PngReadDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefine()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new PngReadDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PngReadDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
-                Assert.Null(image.Settings.GetDefine("profile:skip"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "preserve-iCCP"));
+            Assert.Null(image.Settings.GetDefine("profile:skip"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
         }
     }
 }

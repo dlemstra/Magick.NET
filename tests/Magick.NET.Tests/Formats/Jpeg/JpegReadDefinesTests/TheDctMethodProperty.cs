@@ -22,12 +22,10 @@ public partial class JpegReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.ImageMagickJPG, settings);
+            using var image = new MagickImage();
+            image.Read(Files.ImageMagickJPG, settings);
 
-                Assert.Equal("slow", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
-            }
+            Assert.Equal("slow", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
         }
     }
 }

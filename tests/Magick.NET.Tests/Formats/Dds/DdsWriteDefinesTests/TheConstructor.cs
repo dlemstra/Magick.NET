@@ -14,17 +14,15 @@ public partial class DdsWriteDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefines()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new DdsWriteDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new DdsWriteDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "compression"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "raw"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "cluster-fit"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "raw"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
         }
     }
 }

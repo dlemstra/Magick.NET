@@ -19,12 +19,10 @@ public partial class JpegWriteDefinesTests
                 OptimizeCoding = false,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
         }
     }
 }

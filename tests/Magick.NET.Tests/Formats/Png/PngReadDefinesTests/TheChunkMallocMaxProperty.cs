@@ -14,20 +14,26 @@ public partial class PngReadDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PngReadDefines
             {
-                image.Settings.SetDefines(new PngReadDefines
-                {
-                    ChunkMallocMax = 20,
-                });
+                ChunkMallocMax = 20,
+            });
 
-                Assert.Equal("20", image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
-            }
+            Assert.Equal("20", image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
         }
 
         [Fact]
         public void ShouldLimitTheChunkSize()
         {
+            using var image = new MagickImage();
+            var message = string.Empty;
+
+            image.Warning += (object sender, WarningEventArgs e) =>
+            {
+                message = e.Message;
+            };
+
             var settings = new MagickReadSettings
             {
                 Defines = new PngReadDefines
@@ -35,20 +41,9 @@ public partial class PngReadDefinesTests
                     ChunkMallocMax = 2,
                 },
             };
+            image.Read(Files.SnakewarePNG, settings);
 
-            using (var image = new MagickImage())
-            {
-                var message = string.Empty;
-
-                image.Warning += (object sender, WarningEventArgs e) =>
-                {
-                    message = e.Message;
-                };
-
-                image.Read(Files.SnakewarePNG, settings);
-
-                Assert.Contains("IHDR: chunk data is too large", message);
-            }
+            Assert.Contains("IHDR: chunk data is too large", message);
         }
     }
 }

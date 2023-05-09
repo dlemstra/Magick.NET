@@ -20,12 +20,10 @@ public partial class TiffWriteDefinesTests
 {
     private static IMagickImage<QuantumType> WriteTiff(IMagickImage<QuantumType> image)
     {
-        using (var memStream = new MemoryStream())
-        {
-            image.Format = MagickFormat.Tiff;
-            image.Write(memStream);
-            memStream.Position = 0;
-            return new MagickImage(memStream);
-        }
+        using var memStream = new MemoryStream();
+        image.Format = MagickFormat.Tiff;
+        image.Write(memStream);
+        memStream.Position = 0;
+        return new MagickImage(memStream);
     }
 }

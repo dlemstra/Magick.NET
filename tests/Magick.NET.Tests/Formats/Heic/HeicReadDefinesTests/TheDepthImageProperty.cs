@@ -14,29 +14,25 @@ public partial class HeicReadDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new HeicReadDefines
             {
-                image.Settings.SetDefines(new HeicReadDefines
-                {
-                    DepthImage = true,
-                });
+                DepthImage = true,
+            });
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenSetToFalse()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new HeicReadDefines
             {
-                image.Settings.SetDefines(new HeicReadDefines
-                {
-                    DepthImage = false,
-                });
+                DepthImage = false,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
         }
     }
 }

@@ -19,12 +19,10 @@ public partial class PngReadDefinesTests
                 IgnoreCrc = true,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Png, "ignore-crc"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Png, "ignore-crc"));
         }
 
         [Fact]
@@ -35,12 +33,10 @@ public partial class PngReadDefinesTests
                 IgnoreCrc = false,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "ignore-crc"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "ignore-crc"));
         }
     }
 }

@@ -19,12 +19,10 @@ public partial class BmpReadDefinesTests
                 IgnoreFileSize = true,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
         }
 
         [Fact]
@@ -35,12 +33,10 @@ public partial class BmpReadDefinesTests
                 IgnoreFileSize = false,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
         }
     }
 }

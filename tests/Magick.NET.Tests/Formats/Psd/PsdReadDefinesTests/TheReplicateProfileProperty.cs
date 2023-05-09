@@ -19,12 +19,10 @@ public partial class PsdReadDefinesTests
                 ReplicateProfile = false,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Psd, "replicate-profile"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Psd, "replicate-profile"));
         }
     }
 }

@@ -19,76 +19,74 @@ public class DrawableTests
         coordinates[1] = new PointD(50, 50);
         coordinates[2] = new PointD(99, 99);
 
-        using (var image = new MagickImage(MagickColors.Transparent, 100, 100))
-        {
-            image.Draw(new DrawableAffine(0, 0, 1, 1, 2, 2));
-            image.Draw(new DrawableAlpha(0, 0, PaintMethod.Floodfill));
-            image.Draw(new DrawableArc(0, 0, 10, 10, 45, 90));
+        using var image = new MagickImage(MagickColors.Transparent, 100, 100);
 
-            var bezier = new DrawableBezier(coordinates.ToList());
-            Assert.Equal(3, bezier.Coordinates.Count());
-            image.Draw(bezier);
+        image.Draw(new DrawableAffine(0, 0, 1, 1, 2, 2));
+        image.Draw(new DrawableAlpha(0, 0, PaintMethod.Floodfill));
+        image.Draw(new DrawableArc(0, 0, 10, 10, 45, 90));
 
-            image.Draw(new DrawableBorderColor(MagickColors.Fuchsia));
-            image.Draw(new DrawableCircle(0, 0, 50, 50));
-            image.Draw(new DrawableClipPath("foo"));
-            image.Draw(new DrawableClipRule(FillRule.Nonzero));
-            image.Draw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
-            image.Draw(new DrawableColor(0, 0, PaintMethod.Floodfill));
+        var bezier = new DrawableBezier(coordinates.ToList());
+        Assert.Equal(3, bezier.Coordinates.Count());
+        image.Draw(bezier);
 
-            using (var compositeImage = new MagickImage(new MagickColor("red"), 50, 50))
-            {
-                image.Draw(new DrawableComposite(0, 0, compositeImage));
-                image.Draw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
-                image.Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), compositeImage));
-                image.Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), CompositeOperator.Over, compositeImage));
-            }
+        image.Draw(new DrawableBorderColor(MagickColors.Fuchsia));
+        image.Draw(new DrawableCircle(0, 0, 50, 50));
+        image.Draw(new DrawableClipPath("foo"));
+        image.Draw(new DrawableClipRule(FillRule.Nonzero));
+        image.Draw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
+        image.Draw(new DrawableColor(0, 0, PaintMethod.Floodfill));
 
-            image.Draw(new DrawableDensity(97));
-            image.Draw(new DrawableEllipse(10, 10, 4, 4, 0, 360));
-            image.Draw(new DrawableFillColor(MagickColors.Red));
-            image.Draw(new DrawableFillOpacity(new Percentage(50)));
-            image.Draw(new DrawableFillRule(FillRule.EvenOdd));
-            image.Draw(new DrawableFont("Arial.ttf"));
-            image.Draw(new DrawableFont("Arial"));
-            image.Draw(new DrawableGravity(Gravity.Center));
-            image.Draw(new DrawableLine(20, 20, 40, 40));
-            image.Draw(new DrawablePoint(60, 60));
-            image.Draw(new DrawableFontPointSize(5));
-            image.Draw(new DrawablePolygon(coordinates));
-            image.Draw(new DrawablePolygon(coordinates.ToList()));
-            image.Draw(new DrawablePolyline(coordinates));
-            image.Draw(new DrawablePolyline(coordinates.ToList()));
-            image.Draw(new DrawableRectangle(30, 30, 70, 70));
-            image.Draw(new DrawableRotation(180));
-            image.Draw(new DrawableRoundRectangle(30, 30, 50, 50, 70, 70));
-            image.Draw(new DrawableScaling(15, 15));
-            image.Draw(new DrawableSkewX(90));
-            image.Draw(new DrawableSkewY(90));
-            image.Draw(new DrawableStrokeColor(MagickColors.Purple));
-            image.Draw(new DrawableStrokeDashArray(new double[2] { 10, 20 }));
-            image.Draw(new DrawableStrokeDashOffset(2));
-            image.Draw(new DrawableStrokeLineCap(LineCap.Square));
-            image.Draw(new DrawableStrokeLineJoin(LineJoin.Bevel));
-            image.Draw(new DrawableStrokeMiterLimit(5));
-            image.Draw(new DrawableStrokeOpacity(new Percentage(80)));
-            image.Draw(new DrawableStrokeWidth(4));
-            image.Draw(new DrawableText(0, 60, "test"));
-            image.Draw(new DrawableTextAlignment(TextAlignment.Center));
-            image.Draw(new DrawableTextDecoration(TextDecoration.LineThrough));
-            image.Draw(new DrawableTextDirection(TextDirection.RightToLeft));
-            image.Draw(new DrawableTextEncoding(Encoding.ASCII));
-            image.Draw(new DrawableTextInterlineSpacing(4));
-            image.Draw(new DrawableTextInterwordSpacing(6));
-            image.Draw(new DrawableTextKerning(2));
-            image.Draw(new DrawableTextUnderColor(MagickColors.Yellow));
-            image.Draw(new DrawableTranslation(65, 65));
-            image.Draw(new DrawableViewbox(0, 0, 100, 100));
+        using var compositeImage = new MagickImage(new MagickColor("red"), 50, 50);
 
-            image.Draw(new DrawablePushClipPath("#1"), new DrawablePopClipPath());
-            image.Draw(new DrawablePushGraphicContext(), new DrawablePopGraphicContext());
-            image.Draw(new DrawablePushPattern("test", 30, 30, 10, 10), new DrawablePopPattern(), new DrawableFillPatternUrl("#test"), new DrawableStrokePatternUrl("#test"));
-        }
+        image.Draw(new DrawableComposite(0, 0, compositeImage));
+        image.Draw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
+        image.Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), compositeImage));
+        image.Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), CompositeOperator.Over, compositeImage));
+
+        image.Draw(new DrawableDensity(97));
+        image.Draw(new DrawableEllipse(10, 10, 4, 4, 0, 360));
+        image.Draw(new DrawableFillColor(MagickColors.Red));
+        image.Draw(new DrawableFillOpacity(new Percentage(50)));
+        image.Draw(new DrawableFillRule(FillRule.EvenOdd));
+        image.Draw(new DrawableFont("Arial.ttf"));
+        image.Draw(new DrawableFont("Arial"));
+        image.Draw(new DrawableGravity(Gravity.Center));
+        image.Draw(new DrawableLine(20, 20, 40, 40));
+        image.Draw(new DrawablePoint(60, 60));
+        image.Draw(new DrawableFontPointSize(5));
+        image.Draw(new DrawablePolygon(coordinates));
+        image.Draw(new DrawablePolygon(coordinates.ToList()));
+        image.Draw(new DrawablePolyline(coordinates));
+        image.Draw(new DrawablePolyline(coordinates.ToList()));
+        image.Draw(new DrawableRectangle(30, 30, 70, 70));
+        image.Draw(new DrawableRotation(180));
+        image.Draw(new DrawableRoundRectangle(30, 30, 50, 50, 70, 70));
+        image.Draw(new DrawableScaling(15, 15));
+        image.Draw(new DrawableSkewX(90));
+        image.Draw(new DrawableSkewY(90));
+        image.Draw(new DrawableStrokeColor(MagickColors.Purple));
+        image.Draw(new DrawableStrokeDashArray(new double[2] { 10, 20 }));
+        image.Draw(new DrawableStrokeDashOffset(2));
+        image.Draw(new DrawableStrokeLineCap(LineCap.Square));
+        image.Draw(new DrawableStrokeLineJoin(LineJoin.Bevel));
+        image.Draw(new DrawableStrokeMiterLimit(5));
+        image.Draw(new DrawableStrokeOpacity(new Percentage(80)));
+        image.Draw(new DrawableStrokeWidth(4));
+        image.Draw(new DrawableText(0, 60, "test"));
+        image.Draw(new DrawableTextAlignment(TextAlignment.Center));
+        image.Draw(new DrawableTextDecoration(TextDecoration.LineThrough));
+        image.Draw(new DrawableTextDirection(TextDirection.RightToLeft));
+        image.Draw(new DrawableTextEncoding(Encoding.ASCII));
+        image.Draw(new DrawableTextInterlineSpacing(4));
+        image.Draw(new DrawableTextInterwordSpacing(6));
+        image.Draw(new DrawableTextKerning(2));
+        image.Draw(new DrawableTextUnderColor(MagickColors.Yellow));
+        image.Draw(new DrawableTranslation(65, 65));
+        image.Draw(new DrawableViewbox(0, 0, 100, 100));
+
+        image.Draw(new DrawablePushClipPath("#1"), new DrawablePopClipPath());
+        image.Draw(new DrawablePushGraphicContext(), new DrawablePopGraphicContext());
+        image.Draw(new DrawablePushPattern("test", 30, 30, 10, 10), new DrawablePopPattern(), new DrawableFillPatternUrl("#test"), new DrawableStrokePatternUrl("#test"));
     }
 
     [Fact]
@@ -110,13 +108,12 @@ public class DrawableTests
         AssertDraw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
         AssertDraw(new DrawableColor(0, 0, PaintMethod.Floodfill));
 
-        using (var compositeImage = new MagickImage(new MagickColor("red"), 50, 50))
-        {
-            AssertDraw(new DrawableComposite(0, 0, compositeImage));
-            AssertDraw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
-            AssertDraw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), compositeImage));
-            AssertDraw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), CompositeOperator.Over, compositeImage));
-        }
+        using var compositeImage = new MagickImage(new MagickColor("red"), 50, 50);
+
+        AssertDraw(new DrawableComposite(0, 0, compositeImage));
+        AssertDraw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
+        AssertDraw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), compositeImage));
+        AssertDraw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), CompositeOperator.Over, compositeImage));
 
         AssertDraw(new DrawableDensity(97));
         AssertDraw(new DrawableEllipse(10, 10, 4, 4, 0, 360));
@@ -165,12 +162,11 @@ public class DrawableTests
         AssertDraw(new DrawableFillPatternUrl("#test"));
         AssertDraw(new DrawableStrokePatternUrl("#test"));
 
-        using (var image = new MagickImage(MagickColors.Red, 10, 10))
-        {
-            var yellow = MagickColors.Yellow;
-            image.Draw(new DrawableFillColor(yellow), new DrawableRectangle(0, 0, 10, 10));
-            ColorAssert.Equal(yellow, image, 5, 5);
-        }
+        using var image = new MagickImage(MagickColors.Red, 10, 10);
+
+        var yellow = MagickColors.Yellow;
+        image.Draw(new DrawableFillColor(yellow), new DrawableRectangle(0, 0, 10, 10));
+        ColorAssert.Equal(yellow, image, 5, 5);
     }
 
     [Fact]
@@ -228,10 +224,8 @@ public class DrawableTests
 
         Assert.Throws<MagickDrawErrorException>(() =>
         {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                image.Draw(new DrawableFillPatternUrl("#fail"));
-            }
+            using var image = new MagickImage(Files.Builtin.Wizard);
+            image.Draw(new DrawableFillPatternUrl("#fail"));
         });
 
         Assert.Throws<ArgumentException>("coordinates", () =>

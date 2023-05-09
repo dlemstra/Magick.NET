@@ -19,12 +19,10 @@ public partial class DngReadDefinesTests
                 UseAutoWhitebalance = true,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "use-auto-wb"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "use-auto-wb"));
         }
     }
 }

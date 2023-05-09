@@ -19,12 +19,10 @@ public partial class JpegWriteDefinesTests
                 DctMethod = JpegDctMethod.Fast,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
-            }
+            Assert.Equal("fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
         }
     }
 }

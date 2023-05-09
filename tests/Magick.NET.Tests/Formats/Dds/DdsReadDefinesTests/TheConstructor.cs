@@ -14,12 +14,10 @@ public partial class DdsReadDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefines()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new DdsReadDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new DdsReadDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
         }
     }
 }

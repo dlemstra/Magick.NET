@@ -14,15 +14,13 @@ public partial class JxlWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new JxlWriteDefines
             {
-                image.Settings.SetDefines(new JxlWriteDefines
-                {
-                    Effort = 2,
-                });
+                Effort = 2,
+            });
 
-                Assert.Equal("2", image.Settings.GetDefine(MagickFormat.Jxl, "effort"));
-            }
+            Assert.Equal("2", image.Settings.GetDefine(MagickFormat.Jxl, "effort"));
         }
     }
 }

@@ -13,19 +13,17 @@ public partial class IExifProfileExtensionsTests
         [Fact]
         public void ShouldCreateImage()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetExifProfile();
-                Assert.NotNull(profile);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
 
-                using (var thumbnail = profile.CreateThumbnail())
-                {
-                    Assert.NotNull(thumbnail);
-                    Assert.Equal(128, thumbnail.Width);
-                    Assert.Equal(85, thumbnail.Height);
-                    Assert.Equal(MagickFormat.Jpeg, thumbnail.Format);
-                }
-            }
+            var profile = image.GetExifProfile();
+            Assert.NotNull(profile);
+
+            using var thumbnail = profile.CreateThumbnail();
+
+            Assert.NotNull(thumbnail);
+            Assert.Equal(128, thumbnail.Width);
+            Assert.Equal(85, thumbnail.Height);
+            Assert.Equal(MagickFormat.Jpeg, thumbnail.Format);
         }
     }
 }

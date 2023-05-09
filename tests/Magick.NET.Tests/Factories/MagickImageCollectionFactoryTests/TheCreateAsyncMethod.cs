@@ -29,10 +29,8 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var file = new FileInfo(Files.ImageMagickJPG);
 
-                using (var images = await factory.CreateAsync(file))
-                {
-                    Assert.IsType<MagickImageCollection>(images);
-                }
+                using var images = await factory.CreateAsync(file);
+                Assert.IsType<MagickImageCollection>(images);
             }
         }
 
@@ -52,10 +50,8 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                using (var images = await factory.CreateAsync(new FileInfo(Files.CirclePNG), null))
-                {
-                    Assert.IsType<MagickImageCollection>(images);
-                }
+                using var images = await factory.CreateAsync(new FileInfo(Files.CirclePNG), null);
+                Assert.IsType<MagickImageCollection>(images);
             }
         }
 
@@ -82,10 +78,8 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                using (var images = await factory.CreateAsync(Files.ImageMagickJPG))
-                {
-                    Assert.IsType<MagickImageCollection>(images);
-                }
+                using var images = await factory.CreateAsync(Files.ImageMagickJPG);
+                Assert.IsType<MagickImageCollection>(images);
             }
         }
 
@@ -114,10 +108,8 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                using (var images = await factory.CreateAsync(Files.CirclePNG, null))
-                {
-                    Assert.IsType<MagickImageCollection>(images);
-                }
+                using var images = await factory.CreateAsync(Files.CirclePNG, null);
+                Assert.IsType<MagickImageCollection>(images);
             }
         }
 
@@ -144,13 +136,9 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                using (var stream = File.OpenRead(Files.ImageMagickJPG))
-                {
-                    using (var images = await factory.CreateAsync(stream))
-                    {
-                        Assert.IsType<MagickImageCollection>(images);
-                    }
-                }
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var images = await factory.CreateAsync(stream);
+                Assert.IsType<MagickImageCollection>(images);
             }
         }
 
@@ -179,13 +167,9 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                using (var fileStream = File.OpenRead(Files.CirclePNG))
-                {
-                    using (var images = await factory.CreateAsync(fileStream, null))
-                    {
-                        Assert.IsType<MagickImageCollection>(images);
-                    }
-                }
+                using var fileStream = File.OpenRead(Files.CirclePNG);
+                using var images = await factory.CreateAsync(fileStream, null);
+                Assert.IsType<MagickImageCollection>(images);
             }
         }
     }

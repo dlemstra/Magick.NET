@@ -14,15 +14,13 @@ public partial class TiffReadDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new TiffReadDefines
             {
-                image.Settings.SetDefines(new TiffReadDefines
-                {
-                    IgnoreLayers = true,
-                });
+                IgnoreLayers = true,
+            });
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Tiff, "ignore-layers"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Tiff, "ignore-layers"));
         }
     }
 }

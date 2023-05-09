@@ -19,12 +19,10 @@ public partial class PngReadDefinesTests
                 SwapBytes = true,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
         }
 
         [Fact]
@@ -35,12 +33,10 @@ public partial class PngReadDefinesTests
                 SwapBytes = false,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
         }
     }
 }

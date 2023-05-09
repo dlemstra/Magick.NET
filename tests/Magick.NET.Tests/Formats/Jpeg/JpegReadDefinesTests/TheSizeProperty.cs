@@ -22,12 +22,10 @@ public partial class JpegReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.ImageMagickJPG, settings);
+            using var image = new MagickImage();
+            image.Read(Files.ImageMagickJPG, settings);
 
-                Assert.Equal("61x59", image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
-            }
+            Assert.Equal("61x59", image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
         }
 
         [Fact]
@@ -41,13 +39,11 @@ public partial class JpegReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.ImageMagickJPG, settings);
+            using var image = new MagickImage();
+            image.Read(Files.ImageMagickJPG, settings);
 
-                Assert.Equal(62, image.Width);
-                Assert.Equal(59, image.Height);
-            }
+            Assert.Equal(62, image.Width);
+            Assert.Equal(59, image.Height);
         }
     }
 }

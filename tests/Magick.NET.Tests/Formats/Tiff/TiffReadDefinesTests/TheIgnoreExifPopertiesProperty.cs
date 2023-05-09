@@ -14,29 +14,25 @@ public partial class TiffReadDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new TiffReadDefines
             {
-                image.Settings.SetDefines(new TiffReadDefines
-                {
-                    IgnoreExifPoperties = true,
-                });
+                IgnoreExifPoperties = true,
+            });
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenTheValueIsFalse()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new TiffReadDefines
             {
-                image.Settings.SetDefines(new TiffReadDefines
-                {
-                    IgnoreExifPoperties = false,
-                });
+                IgnoreExifPoperties = false,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
         }
 
         [Fact]
@@ -50,14 +46,12 @@ public partial class TiffReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.InvitationTIF);
-                Assert.NotNull(image.GetAttribute("exif:PixelXDimension"));
+            using var image = new MagickImage();
+            image.Read(Files.InvitationTIF);
+            Assert.NotNull(image.GetAttribute("exif:PixelXDimension"));
 
-                image.Read(Files.InvitationTIF, settings);
-                Assert.Null(image.GetAttribute("exif:PixelXDimension"));
-            }
+            image.Read(Files.InvitationTIF, settings);
+            Assert.Null(image.GetAttribute("exif:PixelXDimension"));
         }
     }
 }

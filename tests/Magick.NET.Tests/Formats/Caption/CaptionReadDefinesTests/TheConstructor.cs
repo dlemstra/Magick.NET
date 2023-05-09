@@ -14,13 +14,11 @@ public partial class CaptionReadDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefines()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new CaptionReadDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new CaptionReadDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
         }
     }
 }

@@ -14,18 +14,17 @@ public partial class TheEpsCoder
         if (!Ghostscript.IsAvailable)
             return;
 
-        using (var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
-        {
-            Assert.Equal(2, images.Count);
+        using var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS);
 
-            Assert.Equal(447, images[0].Width);
-            Assert.Equal(420, images[0].Height);
-            Assert.Equal(MagickFormat.Ept, images[0].Format);
+        Assert.Equal(2, images.Count);
 
-            Assert.Equal(447, images[1].Width);
-            Assert.Equal(420, images[1].Height);
-            Assert.Equal(MagickFormat.Tiff, images[1].Format);
-        }
+        Assert.Equal(447, images[0].Width);
+        Assert.Equal(420, images[0].Height);
+        Assert.Equal(MagickFormat.Ept, images[0].Format);
+
+        Assert.Equal(447, images[1].Width);
+        Assert.Equal(420, images[1].Height);
+        Assert.Equal(MagickFormat.Tiff, images[1].Format);
     }
 
     [Fact]
@@ -34,11 +33,10 @@ public partial class TheEpsCoder
         if (!Ghostscript.IsAvailable)
             return;
 
-        using (var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS))
-        {
-            var profile = images[1].Get8BimProfile();
+        using var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS);
 
-            Assert.Single(profile.ClipPaths);
-        }
+        var profile = images[1].Get8BimProfile();
+
+        Assert.Single(profile.ClipPaths);
     }
 }

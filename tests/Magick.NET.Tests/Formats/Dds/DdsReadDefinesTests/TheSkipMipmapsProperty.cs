@@ -22,13 +22,11 @@ public partial class DdsReadDefinesTests
                 },
             };
 
-            using (var images = new MagickImageCollection())
-            {
-                images.Read(Files.Coders.TestDDS, settings);
+            using var images = new MagickImageCollection();
+            images.Read(Files.Coders.TestDDS, settings);
 
-                Assert.Equal(5, images.Count);
-                Assert.Equal("false", images[0].Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
-            }
+            Assert.Equal(5, images.Count);
+            Assert.Equal("false", images[0].Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
         }
 
         [Fact]
@@ -42,12 +40,10 @@ public partial class DdsReadDefinesTests
                 },
             };
 
-            using (var images = new MagickImageCollection())
-            {
-                images.Read(Files.Coders.TestDDS, settings);
+            using var images = new MagickImageCollection();
+            images.Read(Files.Coders.TestDDS, settings);
 
-                Assert.Single(images);
-            }
+            Assert.Single(images);
         }
     }
 }

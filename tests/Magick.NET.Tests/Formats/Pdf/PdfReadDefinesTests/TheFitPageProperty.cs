@@ -14,29 +14,25 @@ public partial class PdfReadDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenValueIsSet()
         {
-            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+            using var image = new MagickImage(MagickColors.Magenta, 1, 1);
+            image.Settings.SetDefines(new PdfReadDefines
             {
-                image.Settings.SetDefines(new PdfReadDefines
-                {
-                    FitPage = new MagickGeometry(1, 2, 3, 4),
-                });
+                FitPage = new MagickGeometry(1, 2, 3, 4),
+            });
 
-                Assert.Equal("3x4+1+2", image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
-            }
+            Assert.Equal("3x4+1+2", image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenValueIsNotSet()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PdfReadDefines
             {
-                image.Settings.SetDefines(new PdfReadDefines
-                {
-                    FitPage = null,
-                });
+                FitPage = null,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
         }
 
         [Fact]
@@ -53,13 +49,11 @@ public partial class PdfReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+            using var image = new MagickImage();
+            image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
 
-                Assert.True(image.Width <= 50);
-                Assert.True(image.Height <= 40);
-            }
+            Assert.True(image.Width <= 50);
+            Assert.True(image.Height <= 40);
         }
     }
 }

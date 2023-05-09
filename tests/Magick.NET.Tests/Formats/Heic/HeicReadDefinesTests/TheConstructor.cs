@@ -14,13 +14,11 @@ public partial class HeicReadDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefines()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new HeicReadDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new HeicReadDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
         }
     }
 }

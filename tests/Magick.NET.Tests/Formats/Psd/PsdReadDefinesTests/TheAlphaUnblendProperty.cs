@@ -19,26 +19,22 @@ public partial class PsdReadDefinesTests
                 AlphaUnblend = false,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenTheValueIsTrue()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PsdReadDefines
             {
-                image.Settings.SetDefines(new PsdReadDefines
-                {
-                    AlphaUnblend = true,
-                });
+                AlphaUnblend = true,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
         }
     }
 }

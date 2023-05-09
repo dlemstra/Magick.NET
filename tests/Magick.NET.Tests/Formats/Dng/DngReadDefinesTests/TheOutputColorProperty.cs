@@ -19,12 +19,10 @@ public partial class DngReadDefinesTests
                 OutputColor = DngOutputColor.KodakProPhotoRGB,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Dng, "output-color"));
-            }
+            Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Dng, "output-color"));
         }
     }
 }

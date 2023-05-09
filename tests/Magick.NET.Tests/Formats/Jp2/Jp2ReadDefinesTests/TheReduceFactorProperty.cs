@@ -22,12 +22,10 @@ public partial class Jp2ReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.Coders.GrimJP2, settings);
+            using var image = new MagickImage();
+            image.Read(Files.Coders.GrimJP2, settings);
 
-                Assert.Equal("2", image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
-            }
+            Assert.Equal("2", image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
         }
     }
 }

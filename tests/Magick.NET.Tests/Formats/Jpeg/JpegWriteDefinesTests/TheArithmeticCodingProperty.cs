@@ -20,12 +20,10 @@ public partial class JpegWriteDefinesTests
                 ArithmeticCoding = false,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
         }
 
         [Fact]
@@ -36,22 +34,16 @@ public partial class JpegWriteDefinesTests
                 ArithmeticCoding = true,
             };
 
-            using (var input = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    input.Write(memStream, defines);
+            using var input = new MagickImage(Files.Builtin.Logo);
+            using var memStream = new MemoryStream();
+            input.Write(memStream, defines);
 
-                    Assert.Equal("true", input.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
+            Assert.Equal("true", input.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
 
-                    memStream.Position = 0;
-                    using (var output = new MagickImage(memStream))
-                    {
-                        var arithmeticCoding = output.GetAttribute("jpeg:arithmetic-coding");
-                        Assert.Equal("true", arithmeticCoding);
-                    }
-                }
-            }
+            memStream.Position = 0;
+            using var output = new MagickImage(memStream);
+            var arithmeticCoding = output.GetAttribute("jpeg:arithmetic-coding");
+            Assert.Equal("true", arithmeticCoding);
         }
     }
 }

@@ -14,12 +14,10 @@ public partial class JxlWriteDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefine()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new JxlWriteDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new JxlWriteDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jxl, "effort"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jxl, "effort"));
         }
     }
 }

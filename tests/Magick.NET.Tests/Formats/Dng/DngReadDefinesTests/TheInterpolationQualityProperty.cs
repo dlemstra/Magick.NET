@@ -19,12 +19,10 @@ public partial class DngReadDefinesTests
                 InterpolationQuality = DngInterpolation.ModifiedAhd,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("12", image.Settings.GetDefine(MagickFormat.Dng, "interpolation-quality"));
-            }
+            Assert.Equal("12", image.Settings.GetDefine(MagickFormat.Dng, "interpolation-quality"));
         }
     }
 }

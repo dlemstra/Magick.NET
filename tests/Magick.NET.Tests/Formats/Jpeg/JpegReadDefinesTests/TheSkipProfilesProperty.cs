@@ -22,12 +22,10 @@ public partial class JpegReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.ImageMagickJPG, settings);
+            using var image = new MagickImage();
+            image.Read(Files.ImageMagickJPG, settings);
 
-                Assert.Equal("App", image.Settings.GetDefine("profile:skip"));
-            }
+            Assert.Equal("App", image.Settings.GetDefine("profile:skip"));
         }
 
         [Fact]
@@ -41,12 +39,10 @@ public partial class JpegReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.ImageMagickJPG, settings);
+            using var image = new MagickImage();
+            image.Read(Files.ImageMagickJPG, settings);
 
-                Assert.Equal("64", image.Settings.GetDefine("profile:skip"));
-            }
+            Assert.Equal("64", image.Settings.GetDefine("profile:skip"));
         }
 
         [Fact]
@@ -60,15 +56,13 @@ public partial class JpegReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.FujiFilmFinePixS1ProJPG);
-                Assert.NotNull(image.GetIptcProfile());
+            using var image = new MagickImage();
+            image.Read(Files.FujiFilmFinePixS1ProJPG);
+            Assert.NotNull(image.GetIptcProfile());
 
-                image.Read(Files.FujiFilmFinePixS1ProJPG, settings);
-                Assert.Null(image.GetIptcProfile());
-                Assert.Equal("Icc, Iptc", image.Settings.GetDefine("profile:skip"));
-            }
+            image.Read(Files.FujiFilmFinePixS1ProJPG, settings);
+            Assert.Null(image.GetIptcProfile());
+            Assert.Equal("Icc, Iptc", image.Settings.GetDefine("profile:skip"));
         }
     }
 }

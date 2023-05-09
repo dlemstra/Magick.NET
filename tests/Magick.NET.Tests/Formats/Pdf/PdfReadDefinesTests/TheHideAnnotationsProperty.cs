@@ -14,43 +14,37 @@ public partial class PdfReadDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenValueIsTrue()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PdfReadDefines
             {
-                image.Settings.SetDefines(new PdfReadDefines
-                {
-                    HideAnnotations = true,
-                });
+                HideAnnotations = true,
+            });
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenValueIsFalse()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PdfReadDefines
             {
-                image.Settings.SetDefines(new PdfReadDefines
-                {
-                    HideAnnotations = false,
-                });
+                HideAnnotations = false,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenValueIsNotSet()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PdfReadDefines
             {
-                image.Settings.SetDefines(new PdfReadDefines
-                {
-                    HideAnnotations = null,
-                });
+                HideAnnotations = null,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
         }
     }
 }

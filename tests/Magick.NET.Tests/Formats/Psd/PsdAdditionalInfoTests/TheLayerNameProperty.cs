@@ -14,18 +14,16 @@ public partial class PsdAdditionalInfoTests
         [Fact]
         public void ShouldReturnNullWhenImageHasNoPsdAdditionalInfo()
         {
-            using (var images = new MagickImageCollection(Files.Coders.WizardPSD))
-            {
-                var info = PsdAdditionalInfo.FromImage(images[1]);
+            using var images = new MagickImageCollection(Files.Coders.WizardPSD);
+            var info = PsdAdditionalInfo.FromImage(images[1]);
 
-                Assert.NotNull(info);
-                Assert.Equal("Волшебник-2", info.LayerName);
+            Assert.NotNull(info);
+            Assert.Equal("Волшебник-2", info.LayerName);
 
-                info = PsdAdditionalInfo.FromImage(images[2]);
+            info = PsdAdditionalInfo.FromImage(images[2]);
 
-                Assert.NotNull(info);
-                Assert.Equal("Wizard-1", info.LayerName);
-            }
+            Assert.NotNull(info);
+            Assert.Equal("Wizard-1", info.LayerName);
         }
     }
 }

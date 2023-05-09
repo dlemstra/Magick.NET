@@ -19,12 +19,10 @@ public partial class PsdReadDefinesTests
                 PreserveOpacityMask = true,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Psd, "preserve-opacity-mask"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Psd, "preserve-opacity-mask"));
         }
     }
 }

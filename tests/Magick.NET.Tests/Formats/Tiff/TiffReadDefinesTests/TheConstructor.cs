@@ -14,14 +14,12 @@ public partial class TiffReadDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefine()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new TiffReadDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new TiffReadDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-layers"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-layers"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
         }
     }
 }

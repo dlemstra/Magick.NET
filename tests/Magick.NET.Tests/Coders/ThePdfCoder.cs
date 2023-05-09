@@ -59,11 +59,10 @@ public partial class ThePdfCoder
         if (!Ghostscript.IsAvailable)
             return;
 
-        using (var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI))
-        {
-            Assert.Equal(765, image.Width);
-            Assert.Equal(361, image.Height);
-            Assert.Equal(MagickFormat.Ai, image.Format);
-        }
+        using var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI);
+
+        Assert.Equal(765, image.Width);
+        Assert.Equal(361, image.Height);
+        Assert.Equal(MagickFormat.Ai, image.Format);
     }
 }

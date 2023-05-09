@@ -19,12 +19,10 @@ public partial class DngReadDefinesTests
                 DisableAutoBrightness = true,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "no-auto-bright"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "no-auto-bright"));
         }
     }
 }

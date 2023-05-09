@@ -16,29 +16,25 @@ public partial class PdfReadDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenValueIsSet()
         {
-            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+            using var image = new MagickImage(MagickColors.Magenta, 1, 1);
+            image.Settings.SetDefines(new PdfReadDefines
             {
-                image.Settings.SetDefines(new PdfReadDefines
-                {
-                    Password = "test",
-                });
+                Password = "test",
+            });
 
-                Assert.Equal("test", image.Settings.GetDefine("authenticate"));
-            }
+            Assert.Equal("test", image.Settings.GetDefine("authenticate"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenValueIsNotSet()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PdfReadDefines
             {
-                image.Settings.SetDefines(new PdfReadDefines
-                {
-                    Password = null,
-                });
+                Password = null,
+            });
 
-                Assert.Null(image.Settings.GetDefine("authenticate"));
-            }
+            Assert.Null(image.Settings.GetDefine("authenticate"));
         }
 
         [Fact]
@@ -55,10 +51,8 @@ public partial class PdfReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
-            }
+            using var image = new MagickImage();
+            image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
         }
 
         [Fact]
@@ -75,26 +69,24 @@ public partial class PdfReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            try
             {
-                try
-                {
-                    image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
-                }
-                catch (MagickDelegateErrorException exception)
-                {
-                    var message = exception.Message;
-
-                    var relatedException = exception.RelatedExceptions.FirstOrDefault();
-                    if (relatedException is not null)
-                        message += relatedException.Message;
-
-                    Assert.Contains("This file requires a password for access.", message);
-                    return;
-                }
-
-                throw new XunitException("Exception should be thrown.");
+                image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
             }
+            catch (MagickDelegateErrorException exception)
+            {
+                var message = exception.Message;
+
+                var relatedException = exception.RelatedExceptions.FirstOrDefault();
+                if (relatedException is not null)
+                    message += relatedException.Message;
+
+                Assert.Contains("This file requires a password for access.", message);
+                return;
+            }
+
+            throw new XunitException("Exception should be thrown.");
         }
     }
 }

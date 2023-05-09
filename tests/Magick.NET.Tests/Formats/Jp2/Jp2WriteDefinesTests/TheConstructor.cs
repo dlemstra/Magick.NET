@@ -14,15 +14,13 @@ public partial class Jp2WriteDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefines()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new Jp2WriteDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new Jp2WriteDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "rate"));
         }
     }
 }

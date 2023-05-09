@@ -14,29 +14,25 @@ public partial class PngReadDefinesTests
         [Fact]
         public void ShouldNotSetDefineWhenValueIsInvalid()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PngReadDefines
             {
-                image.Settings.SetDefines(new PngReadDefines
-                {
-                    SkipProfiles = (PngProfileTypes)64,
-                });
+                SkipProfiles = (PngProfileTypes)64,
+            });
 
-                Assert.Equal("64", image.Settings.GetDefine("profile:skip"));
-            }
+            Assert.Equal("64", image.Settings.GetDefine("profile:skip"));
         }
 
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PngReadDefines
             {
-                image.Settings.SetDefines(new PngReadDefines
-                {
-                    SkipProfiles = PngProfileTypes.Icc | PngProfileTypes.Iptc,
-                });
+                SkipProfiles = PngProfileTypes.Icc | PngProfileTypes.Iptc,
+            });
 
-                Assert.Equal("Icc, Iptc", image.Settings.GetDefine("profile:skip"));
-            }
+            Assert.Equal("Icc, Iptc", image.Settings.GetDefine("profile:skip"));
         }
 
         [Fact]
@@ -50,16 +46,14 @@ public partial class PngReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.FujiFilmFinePixS1ProPNG);
-                Assert.NotNull(image.GetExifProfile());
-                Assert.NotNull(image.GetXmpProfile());
+            using var image = new MagickImage();
+            image.Read(Files.FujiFilmFinePixS1ProPNG);
+            Assert.NotNull(image.GetExifProfile());
+            Assert.NotNull(image.GetXmpProfile());
 
-                image.Read(Files.FujiFilmFinePixS1ProPNG, settings);
-                Assert.Null(image.GetExifProfile());
-                Assert.Null(image.GetXmpProfile());
-            }
+            image.Read(Files.FujiFilmFinePixS1ProPNG, settings);
+            Assert.Null(image.GetExifProfile());
+            Assert.Null(image.GetXmpProfile());
         }
     }
 }

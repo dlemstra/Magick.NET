@@ -14,21 +14,25 @@ public partial class PngReadDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PngReadDefines
             {
-                image.Settings.SetDefines(new PngReadDefines
-                {
-                    ChunkCacheMax = 10,
-                });
+                ChunkCacheMax = 10,
+            });
 
-                Assert.Equal("10", image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
-            }
+            Assert.Equal("10", image.Settings.GetDefine(MagickFormat.Png, "chunk-cache-max"));
         }
 
         [Fact]
         public void ShouldLimitTheNumberOfChunks()
         {
             var warning = string.Empty;
+
+            using var image = new MagickImage();
+            image.Warning += (object sender, WarningEventArgs e) =>
+            {
+                warning = e.Message;
+            };
 
             var settings = new MagickReadSettings
             {
@@ -37,15 +41,7 @@ public partial class PngReadDefinesTests
                     ChunkCacheMax = 2,
                 },
             };
-
-            using (var image = new MagickImage())
-            {
-                image.Warning += (object sender, WarningEventArgs e) =>
-                {
-                    warning = e.Message;
-                };
-                image.Read(Files.SnakewarePNG, settings);
-            }
+            image.Read(Files.SnakewarePNG, settings);
 
             Assert.Contains("tEXt: no space in chunk cache", warning);
         }

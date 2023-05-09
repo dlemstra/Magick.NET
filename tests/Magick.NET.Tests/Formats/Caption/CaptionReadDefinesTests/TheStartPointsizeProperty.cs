@@ -19,12 +19,10 @@ public partial class CaptionReadDefinesTests
                 StartFontPointsize = 42,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
-            }
+            Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
         }
     }
 }

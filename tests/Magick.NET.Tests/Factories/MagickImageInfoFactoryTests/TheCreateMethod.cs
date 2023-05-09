@@ -172,13 +172,11 @@ public partial class MagickImageInfoFactoryTests
             {
                 var factory = new MagickImageInfoFactory();
 
-                using (var stream = File.OpenRead(Files.ImageMagickJPG))
-                {
-                    var info = factory.Create(stream);
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                var info = factory.Create(stream);
 
-                    Assert.IsType<MagickImageInfo>(info);
-                    Assert.Equal(123, info.Width);
-                }
+                Assert.IsType<MagickImageInfo>(info);
+                Assert.Equal(123, info.Width);
             }
         }
     }

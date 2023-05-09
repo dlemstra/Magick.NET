@@ -22,12 +22,10 @@ public partial class JpegReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.ImageMagickJPG, settings);
+            using var image = new MagickImage();
+            image.Read(Files.ImageMagickJPG, settings);
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
         }
     }
 }

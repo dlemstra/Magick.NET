@@ -14,29 +14,25 @@ public partial class Jp2WriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new Jp2WriteDefines
             {
-                image.Settings.SetDefines(new Jp2WriteDefines
-                {
-                    Quality = new float[] { 4, 2 },
-                });
+                Quality = new float[] { 4, 2 },
+            });
 
-                Assert.Equal("4,2", image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
-            }
+            Assert.Equal("4,2", image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenTheCollectionIsEmpty()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new Jp2WriteDefines
             {
-                image.Settings.SetDefines(new Jp2WriteDefines
-                {
-                    Quality = System.Array.Empty<float>(),
-                });
+                Quality = System.Array.Empty<float>(),
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "quality"));
         }
     }
 }

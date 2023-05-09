@@ -14,39 +14,39 @@ public class PathTests
     [Fact]
     public void Test_Paths()
     {
-        using (var image = new MagickImage(MagickColors.Transparent, 100, 100))
+        var paths = new List<IPath>
         {
-            var paths = new List<IPath>();
-            paths.Add(new PathArcAbs(new PathArc(50, 50, 20, 20, 45, true, false)));
-            paths.Add(new PathArcAbs(new PathArc[] { new PathArc(50, 50, 20, 20, 45, true, false) }.ToList()));
-            paths.Add(new PathArcRel(new PathArc(10, 10, 5, 5, 40, false, true)));
-            paths.Add(new PathArcRel(new PathArc[] { new PathArc(10, 10, 5, 5, 40, false, true) }.ToList()));
-            paths.Add(new PathClose());
-            paths.Add(new PathCurveToAbs(80, 80, 10, 10, 60, 60));
-            paths.Add(new PathCurveToRel(30, 30, 60, 60, 90, 90));
-            paths.Add(new PathLineToAbs(new PointD(70, 70)));
-            paths.Add(new PathLineToAbs(new PointD[] { new PointD(70, 70) }.ToList()));
-            paths.Add(new PathLineToHorizontalAbs(20));
-            paths.Add(new PathLineToHorizontalRel(90));
-            paths.Add(new PathLineToRel(new PointD(0, 0)));
-            paths.Add(new PathLineToRel(new PointD[] { new PointD(0, 0) }.ToList()));
-            paths.Add(new PathLineToVerticalAbs(70));
-            paths.Add(new PathLineToVerticalRel(30));
-            paths.Add(new PathMoveToAbs(new PointD(50, 50)));
-            paths.Add(new PathMoveToAbs(new PointD(50, 50)));
-            paths.Add(new PathMoveToRel(new PointD(20, 20)));
-            paths.Add(new PathMoveToRel(20, 20));
-            paths.Add(new PathQuadraticCurveToAbs(70, 70, 30, 30));
-            paths.Add(new PathQuadraticCurveToRel(10, 10, 40, 40));
-            paths.Add(new PathSmoothCurveToAbs(0, 0, 30, 30));
-            paths.Add(new PathSmoothCurveToAbs(new PointD(0, 0), new PointD(30, 30)));
-            paths.Add(new PathSmoothCurveToRel(60, 60, 10, 10));
-            paths.Add(new PathSmoothCurveToRel(new PointD(60, 60), new PointD(10, 10)));
-            paths.Add(new PathSmoothQuadraticCurveToAbs(50, 50));
-            paths.Add(new PathSmoothQuadraticCurveToRel(80, 80));
+            new PathArcAbs(new PathArc(50, 50, 20, 20, 45, true, false)),
+            new PathArcAbs(new PathArc[] { new PathArc(50, 50, 20, 20, 45, true, false) }.ToList()),
+            new PathArcRel(new PathArc(10, 10, 5, 5, 40, false, true)),
+            new PathArcRel(new PathArc[] { new PathArc(10, 10, 5, 5, 40, false, true) }.ToList()),
+            new PathClose(),
+            new PathCurveToAbs(80, 80, 10, 10, 60, 60),
+            new PathCurveToRel(30, 30, 60, 60, 90, 90),
+            new PathLineToAbs(new PointD(70, 70)),
+            new PathLineToAbs(new PointD[] { new PointD(70, 70) }.ToList()),
+            new PathLineToHorizontalAbs(20),
+            new PathLineToHorizontalRel(90),
+            new PathLineToRel(new PointD(0, 0)),
+            new PathLineToRel(new PointD[] { new PointD(0, 0) }.ToList()),
+            new PathLineToVerticalAbs(70),
+            new PathLineToVerticalRel(30),
+            new PathMoveToAbs(new PointD(50, 50)),
+            new PathMoveToAbs(new PointD(50, 50)),
+            new PathMoveToRel(new PointD(20, 20)),
+            new PathMoveToRel(20, 20),
+            new PathQuadraticCurveToAbs(70, 70, 30, 30),
+            new PathQuadraticCurveToRel(10, 10, 40, 40),
+            new PathSmoothCurveToAbs(0, 0, 30, 30),
+            new PathSmoothCurveToAbs(new PointD(0, 0), new PointD(30, 30)),
+            new PathSmoothCurveToRel(60, 60, 10, 10),
+            new PathSmoothCurveToRel(new PointD(60, 60), new PointD(10, 10)),
+            new PathSmoothQuadraticCurveToAbs(50, 50),
+            new PathSmoothQuadraticCurveToRel(80, 80),
+        };
 
-            image.Draw(new DrawablePath(paths));
-        }
+        using var image = new MagickImage(MagickColors.Transparent, 100, 100);
+        image.Draw(new DrawablePath(paths));
     }
 
     [Fact]

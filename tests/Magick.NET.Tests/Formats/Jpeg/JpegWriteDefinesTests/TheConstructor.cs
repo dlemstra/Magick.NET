@@ -14,18 +14,16 @@ public partial class JpegWriteDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefine()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new JpegWriteDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new JpegWriteDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
         }
 
         [Fact]

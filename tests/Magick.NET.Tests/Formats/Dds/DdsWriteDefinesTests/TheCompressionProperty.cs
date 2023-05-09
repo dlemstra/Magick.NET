@@ -15,82 +15,69 @@ public partial class DdsWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            var defines = new DdsWriteDefines
             {
-                var defines = new DdsWriteDefines
-                {
-                    Compression = DdsCompression.Dxt1,
-                };
+                Compression = DdsCompression.Dxt1,
+            };
 
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("dxt1", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
-            }
+            Assert.Equal("dxt1", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
         }
 
         [Fact]
         public void ShouldUseNoCompressionWhenSetToNone()
         {
-            using (var input = new MagickImage(Files.Builtin.Logo))
+            using var input = new MagickImage(Files.Builtin.Logo);
+            input.Settings.SetDefines(new DdsWriteDefines
             {
-                input.Settings.SetDefines(new DdsWriteDefines
-                {
-                    Compression = DdsCompression.None,
-                });
+                Compression = DdsCompression.None,
+            });
 
-                using (var output = WriteDds(input))
-                {
-                    Assert.Equal(CompressionMethod.NoCompression, output.Compression);
-                }
-            }
+            using var output = WriteDds(input);
+
+            Assert.Equal(CompressionMethod.NoCompression, output.Compression);
         }
 
         [Fact]
         public void ShouldUseDxt1CompressionWhenSetToDxt1()
         {
-            using (var input = new MagickImage(Files.Builtin.Logo))
+            using var input = new MagickImage(Files.Builtin.Logo);
+            input.Settings.SetDefines(new DdsWriteDefines
             {
-                input.Settings.SetDefines(new DdsWriteDefines
-                {
-                    Compression = DdsCompression.Dxt1,
-                });
+                Compression = DdsCompression.Dxt1,
+            });
 
-                using (var output = WriteDds(input))
-                {
-                    Assert.Equal(CompressionMethod.DXT1, output.Compression);
-                }
-            }
+            using var output = WriteDds(input);
+
+            Assert.Equal(CompressionMethod.DXT1, output.Compression);
         }
 
         [Fact]
         public void ShouldUseDxt1CompressionWhenSetToDxt1AndImageHasAlphaChannel()
         {
-            using (var input = new MagickImage(Files.Builtin.Logo))
+            using var input = new MagickImage(Files.Builtin.Logo);
+            input.Alpha(AlphaOption.Set);
+
+            input.Settings.SetDefines(new DdsWriteDefines
             {
-                input.Alpha(AlphaOption.Set);
+                Compression = DdsCompression.Dxt1,
+            });
 
-                input.Settings.SetDefines(new DdsWriteDefines
-                {
-                    Compression = DdsCompression.Dxt1,
-                });
+            using var output = WriteDds(input);
 
-                using (var output = WriteDds(input))
-                {
-                    Assert.Equal(CompressionMethod.DXT1, output.Compression);
-                }
-            }
+            Assert.Equal(CompressionMethod.DXT1, output.Compression);
         }
 
         private static MagickImage WriteDds(MagickImage input)
         {
-            using (var memStream = new MemoryStream())
-            {
-                input.Format = MagickFormat.Dds;
-                input.Write(memStream);
-                memStream.Position = 0;
+            using var memStream = new MemoryStream();
+            input.Format = MagickFormat.Dds;
+            input.Write(memStream);
+            memStream.Position = 0;
 
-                return new MagickImage(memStream);
-            }
+            return new MagickImage(memStream);
         }
     }
 }

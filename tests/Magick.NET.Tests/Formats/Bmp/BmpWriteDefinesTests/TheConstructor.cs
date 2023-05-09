@@ -14,12 +14,10 @@ public partial class BmpWriteDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefines()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new BmpWriteDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new BmpWriteDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "subtype"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "subtype"));
         }
     }
 }

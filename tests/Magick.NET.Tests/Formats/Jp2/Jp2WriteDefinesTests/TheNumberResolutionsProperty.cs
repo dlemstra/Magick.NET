@@ -14,15 +14,13 @@ public partial class Jp2WriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new Jp2WriteDefines
             {
-                image.Settings.SetDefines(new Jp2WriteDefines
-                {
-                    NumberResolutions = 4,
-                });
+                NumberResolutions = 4,
+            });
 
-                Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
-            }
+            Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Jp2, "number-resolutions"));
         }
     }
 }

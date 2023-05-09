@@ -14,20 +14,16 @@ public partial class TiffWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var input = new MagickImage(Files.Builtin.Logo))
+            using var input = new MagickImage(Files.Builtin.Logo);
+            input.Settings.SetDefines(new TiffWriteDefines
             {
-                input.Settings.SetDefines(new TiffWriteDefines
-                {
-                    Alpha = TiffAlpha.Associated,
-                });
+                Alpha = TiffAlpha.Associated,
+            });
 
-                input.Alpha(AlphaOption.Set);
+            input.Alpha(AlphaOption.Set);
 
-                using (var output = WriteTiff(input))
-                {
-                    Assert.Equal("associated", output.GetAttribute("tiff:alpha"));
-                }
-            }
+            using var output = WriteTiff(input);
+            Assert.Equal("associated", output.GetAttribute("tiff:alpha"));
         }
     }
 }

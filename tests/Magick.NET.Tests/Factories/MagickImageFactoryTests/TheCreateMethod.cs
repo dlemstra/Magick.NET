@@ -17,11 +17,9 @@ public partial class MagickImageFactoryTests
         {
             var factory = new MagickImageFactory();
 
-            using (var image = factory.Create())
-            {
-                Assert.IsType<MagickImage>(image);
-                Assert.Equal(0, image.Width);
-            }
+            using var image = factory.Create();
+            Assert.IsType<MagickImage>(image);
+            Assert.Equal(0, image.Width);
         }
 
         public class WithByteArray
@@ -48,11 +46,9 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var data = File.ReadAllBytes(Files.ImageMagickJPG);
 
-                using (var image = factory.Create(data))
-                {
-                    Assert.IsType<MagickImage>(image);
-                    Assert.Equal(123, image.Width);
-                }
+                using var image = factory.Create(data);
+                Assert.IsType<MagickImage>(image);
+                Assert.Equal(123, image.Width);
             }
         }
 
@@ -104,11 +100,9 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var data = File.ReadAllBytes(Files.ImageMagickJPG);
 
-                using (var image = factory.Create(data, 0, data.Length))
-                {
-                    Assert.IsType<MagickImage>(image);
-                    Assert.Equal(123, image.Width);
-                }
+                using var image = factory.Create(data, 0, data.Length);
+                Assert.IsType<MagickImage>(image);
+                Assert.Equal(123, image.Width);
             }
         }
 
@@ -165,9 +159,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                using (var image = factory.Create(bytes, 0, bytes.Length, null))
-                {
-                }
+                using var image = factory.Create(bytes, 0, bytes.Length, null);
             }
 
             [Fact]
@@ -180,12 +172,10 @@ public partial class MagickImageFactoryTests
                 };
                 var data = File.ReadAllBytes(Files.ImageMagickJPG);
 
-                using (var image = factory.Create(data, 0, data.Length, settings))
-                {
-                    Assert.IsType<MagickImage>(image);
-                    Assert.Equal(123, image.Width);
-                    Assert.Equal(MagickColors.Purple, image.BackgroundColor);
-                }
+                using var image = factory.Create(data, 0, data.Length, settings);
+                Assert.IsType<MagickImage>(image);
+                Assert.Equal(123, image.Width);
+                Assert.Equal(MagickColors.Purple, image.BackgroundColor);
             }
         }
 
@@ -215,9 +205,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
 
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
-                using (var image = factory.Create(bytes, null))
-                {
-                }
+                using var image = factory.Create(bytes, null);
             }
 
             [Fact]
@@ -230,12 +218,10 @@ public partial class MagickImageFactoryTests
                     BackgroundColor = MagickColors.Goldenrod,
                 };
 
-                using (var image = factory.Create(data, settings))
-                {
-                    Assert.IsType<MagickImage>(image);
-                    Assert.Equal(123, image.Width);
-                    Assert.Equal(MagickColors.Goldenrod, image.Settings.BackgroundColor);
-                }
+                using var image = factory.Create(data, settings);
+                Assert.IsType<MagickImage>(image);
+                Assert.Equal(123, image.Width);
+                Assert.Equal(MagickColors.Goldenrod, image.Settings.BackgroundColor);
             }
         }
 
@@ -287,11 +273,9 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var color = MagickColors.Goldenrod;
 
-                using (var image = factory.Create(color, 10, 5))
-                {
-                    Assert.IsType<MagickImage>(image);
-                    Assert.Equal(10, image.Width);
-                }
+                using var image = factory.Create(color, 10, 5);
+                Assert.IsType<MagickImage>(image);
+                Assert.Equal(10, image.Width);
             }
         }
 
@@ -311,11 +295,9 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var file = new FileInfo(Files.ImageMagickJPG);
 
-                using (var image = factory.Create(file))
-                {
-                    Assert.IsType<MagickImage>(image);
-                    Assert.Equal(123, image.Width);
-                }
+                using var image = factory.Create(file);
+                Assert.IsType<MagickImage>(image);
+                Assert.Equal(123, image.Width);
             }
         }
 
@@ -335,10 +317,8 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                using (var image = factory.Create(new FileInfo(Files.CirclePNG), null))
-                {
-                    Assert.IsType<MagickImage>(image);
-                }
+                using var image = factory.Create(new FileInfo(Files.CirclePNG), null);
+                Assert.IsType<MagickImage>(image);
             }
         }
 
@@ -389,12 +369,10 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                using (var image = factory.Create("xc:red", 20, 30))
-                {
-                    Assert.Equal(20, image.Width);
-                    Assert.Equal(30, image.Height);
-                    ColorAssert.Equal(MagickColors.Red, image, 10, 10);
-                }
+                using var image = factory.Create("xc:red", 20, 30);
+                Assert.Equal(20, image.Width);
+                Assert.Equal(30, image.Height);
+                ColorAssert.Equal(MagickColors.Red, image, 10, 10);
             }
         }
 
@@ -421,11 +399,9 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                using (var image = factory.Create(Files.ImageMagickJPG))
-                {
-                    Assert.IsType<MagickImage>(image);
-                    Assert.Equal(123, image.Width);
-                }
+                using var image = factory.Create(Files.ImageMagickJPG);
+                Assert.IsType<MagickImage>(image);
+                Assert.Equal(123, image.Width);
             }
         }
 
@@ -454,10 +430,8 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                using (var image = factory.Create(Files.CirclePNG, null))
-                {
-                    Assert.IsType<MagickImage>(image);
-                }
+                using var image = factory.Create(Files.CirclePNG, null);
+                Assert.IsType<MagickImage>(image);
             }
         }
 
@@ -484,14 +458,10 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                using (var stream = File.OpenRead(Files.ImageMagickJPG))
-                {
-                    using (var image = factory.Create(stream))
-                    {
-                        Assert.IsType<MagickImage>(image);
-                        Assert.Equal(123, image.Width);
-                    }
-                }
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var image = factory.Create(stream);
+                Assert.IsType<MagickImage>(image);
+                Assert.Equal(123, image.Width);
             }
         }
 
@@ -520,13 +490,9 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                using (var fileStream = File.OpenRead(Files.CirclePNG))
-                {
-                    using (var image = factory.Create(fileStream, null))
-                    {
-                        Assert.IsType<MagickImage>(image);
-                    }
-                }
+                using var fileStream = File.OpenRead(Files.CirclePNG);
+                using var image = factory.Create(fileStream, null);
+                Assert.IsType<MagickImage>(image);
             }
         }
     }

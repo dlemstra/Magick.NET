@@ -22,12 +22,10 @@ public partial class JpegReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.ImageMagickJPG, settings);
+            using var image = new MagickImage();
+            image.Read(Files.ImageMagickJPG, settings);
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
         }
     }
 }

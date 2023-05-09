@@ -14,29 +14,25 @@ public partial class PdfWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenValueIsSet()
         {
-            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+            using var image = new MagickImage(MagickColors.Magenta, 1, 1);
+            image.Settings.SetDefines(new PdfWriteDefines
             {
-                image.Settings.SetDefines(new PdfWriteDefines
-                {
-                    Producer = "magick",
-                });
+                Producer = "magick",
+            });
 
-                Assert.Equal("magick", image.Settings.GetDefine(MagickFormat.Pdf, "producer"));
-            }
+            Assert.Equal("magick", image.Settings.GetDefine(MagickFormat.Pdf, "producer"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenValueIsNotSet()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PdfWriteDefines
             {
-                image.Settings.SetDefines(new PdfWriteDefines
-                {
-                    Producer = null,
-                });
+                Producer = null,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "producer"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "producer"));
         }
     }
 }

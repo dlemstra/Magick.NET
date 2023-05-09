@@ -20,12 +20,10 @@ public partial class JpegWriteDefinesTests
                 Extent = 5,
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("5KB", image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
-            }
+            Assert.Equal("5KB", image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
         }
 
         [Fact]
@@ -36,17 +34,13 @@ public partial class JpegWriteDefinesTests
                 Extent = 10,
             };
 
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    image.Settings.SetDefines(defines);
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var memStream = new MemoryStream();
+            image.Settings.SetDefines(defines);
 
-                    image.Format = MagickFormat.Jpeg;
-                    image.Write(memStream);
-                    Assert.True(memStream.Length < 10000);
-                }
-            }
+            image.Format = MagickFormat.Jpeg;
+            image.Write(memStream);
+            Assert.True(memStream.Length < 10000);
         }
     }
 }

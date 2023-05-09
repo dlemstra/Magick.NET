@@ -21,12 +21,10 @@ public partial class PsdAdditionalInfoTests
         [Fact]
         public void ShouldReturnNullWhenImageHasNoPsdAdditionalInfo()
         {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                var info = PsdAdditionalInfo.FromImage(image);
+            using var image = new MagickImage(Files.SnakewarePNG);
+            var info = PsdAdditionalInfo.FromImage(image);
 
-                Assert.Null(info);
-            }
+            Assert.Null(info);
         }
     }
 }

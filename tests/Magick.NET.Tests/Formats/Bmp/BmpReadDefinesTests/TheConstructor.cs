@@ -14,12 +14,10 @@ public partial class BmpReadDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefines()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new BmpReadDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new BmpReadDefines());
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
         }
     }
 }

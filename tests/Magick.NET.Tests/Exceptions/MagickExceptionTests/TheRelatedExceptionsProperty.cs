@@ -14,20 +14,19 @@ public partial class MagickExceptionTests
         [Fact]
         public void ShouldBeSetWhenReadingImageRaisedRelatedExceptions()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+
+            var exception = Assert.Throws<MagickCoderErrorException>(() =>
             {
-                var exception = Assert.Throws<MagickCoderErrorException>(() =>
-                {
-                    image.Read(Files.Coders.IgnoreTagTIF);
-                });
+                image.Read(Files.Coders.IgnoreTagTIF);
+            });
 
-                var relatedExceptions = exception.RelatedExceptions.ToArray();
-                Assert.Single(relatedExceptions);
+            var relatedExceptions = exception.RelatedExceptions.ToArray();
+            Assert.Single(relatedExceptions);
 
-                var warning = relatedExceptions[0] as MagickCoderWarningException;
-                Assert.NotNull(warning);
-                Assert.Empty(warning.RelatedExceptions);
-            }
+            var warning = relatedExceptions[0] as MagickCoderWarningException;
+            Assert.NotNull(warning);
+            Assert.Empty(warning.RelatedExceptions);
         }
     }
 }

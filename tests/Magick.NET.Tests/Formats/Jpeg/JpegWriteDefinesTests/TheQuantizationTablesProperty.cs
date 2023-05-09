@@ -19,12 +19,10 @@ public partial class JpegWriteDefinesTests
                 QuantizationTables = @"C:\path\to\file.xml",
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal(@"C:\path\to\file.xml", image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
-            }
+            Assert.Equal(@"C:\path\to\file.xml", image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
         }
     }
 }

@@ -24,12 +24,10 @@ public partial class CaptionReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage())
-            {
-                image.Read("caption:123", settings);
+            using var image = new MagickImage();
+            image.Read("caption:123", settings);
 
-                Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
-            }
+            Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
         }
 
         [Fact]
@@ -45,10 +43,8 @@ public partial class CaptionReadDefinesTests
                 },
             };
 
-            using (var image = new MagickImage("caption:testing 1 2 3", settings))
-            {
-                ColorAssert.Equal(MagickColors.White, image, 32, 64);
-            }
+            using var image = new MagickImage("caption:testing 1 2 3", settings);
+            ColorAssert.Equal(MagickColors.White, image, 32, 64);
         }
     }
 }

@@ -15,29 +15,25 @@ public partial class PdfWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenValueIsSet()
         {
-            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+            using var image = new MagickImage(MagickColors.Magenta, 1, 1);
+            image.Settings.SetDefines(new PdfWriteDefines
             {
-                image.Settings.SetDefines(new PdfWriteDefines
-                {
-                    CreationTime = new DateTime(1990, 1, 2, 3, 4, 5, DateTimeKind.Utc),
-                });
+                CreationTime = new DateTime(1990, 1, 2, 3, 4, 5, DateTimeKind.Utc),
+            });
 
-                Assert.Equal("631249445", image.Settings.GetDefine(MagickFormat.Pdf, "create-epoch"));
-            }
+            Assert.Equal("631249445", image.Settings.GetDefine(MagickFormat.Pdf, "create-epoch"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenValueIsNotSet()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PdfWriteDefines
             {
-                image.Settings.SetDefines(new PdfWriteDefines
-                {
-                    CreationTime = null,
-                });
+                CreationTime = null,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "create-epoch"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "create-epoch"));
         }
     }
 }

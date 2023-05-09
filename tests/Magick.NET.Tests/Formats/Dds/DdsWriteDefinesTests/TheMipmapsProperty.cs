@@ -14,17 +14,15 @@ public partial class DdsWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            var defines = new DdsWriteDefines
             {
-                var defines = new DdsWriteDefines
-                {
-                    Mipmaps = 2,
-                };
+                Mipmaps = 2,
+            };
 
-                image.Settings.SetDefines(defines);
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
 
-                Assert.Equal("2", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
-            }
+            Assert.Equal("2", image.Settings.GetDefine(MagickFormat.Dds, "mipmaps"));
         }
     }
 }

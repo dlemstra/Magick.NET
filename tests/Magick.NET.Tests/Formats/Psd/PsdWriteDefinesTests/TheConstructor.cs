@@ -14,12 +14,10 @@ public partial class PsdWriteDefinesTests
         [Fact]
         public void ShouldSetAdditionalInfoToNullWhenNotSpecified()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new PsdWriteDefines());
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new PsdWriteDefines());
 
-                Assert.Equal("none", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
-            }
+            Assert.Equal("none", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
         }
     }
 }

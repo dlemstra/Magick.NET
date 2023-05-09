@@ -14,15 +14,13 @@ public partial class Jp2WriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new Jp2WriteDefines
             {
-                image.Settings.SetDefines(new Jp2WriteDefines
-                {
-                    ProgressionOrder = Jp2ProgressionOrder.PCRL,
-                });
+                ProgressionOrder = Jp2ProgressionOrder.PCRL,
+            });
 
-                Assert.Equal("pcrl", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
-            }
+            Assert.Equal("pcrl", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
         }
     }
 }
