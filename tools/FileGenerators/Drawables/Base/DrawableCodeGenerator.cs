@@ -32,7 +32,9 @@ internal abstract class DrawableCodeGenerator : CodeGenerator
         {
             "Boolean" => name + "bool",
             "Int32" => name + "int",
-            "Double" or "Double[]" or "String" => name + type.Name.ToLowerInvariant(),
+            "Double" or
+            "Double[]" or
+            "String" => name + type.Name.ToLowerInvariant(),
             _ => name + type.Name,
         };
     }
