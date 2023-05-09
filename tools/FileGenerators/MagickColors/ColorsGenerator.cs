@@ -7,32 +7,31 @@ using System.Drawing;
 using System.Linq;
 using System.Reflection;
 
-namespace FileGenerator.MagickColors
+namespace FileGenerator.MagickColors;
+
+internal abstract class ColorsGenerator : CodeGenerator
 {
-    internal abstract class ColorsGenerator : CodeGenerator
+    private readonly Type _type = typeof(Color);
+
+    protected IReadOnlyCollection<MagickColor> GetColors()
     {
-        private readonly Type _type = typeof(Color);
+        var properties = _type
+            .GetProperties(BindingFlags.Public | BindingFlags.Static)
+            .Where(property => property.PropertyType == _type);
 
-        protected IReadOnlyCollection<MagickColor> GetColors()
-        {
-            var properties = _type
-                .GetProperties(BindingFlags.Public | BindingFlags.Static)
-                .Where(property => property.PropertyType == _type);
+        var colors = properties
+            .Select(property => new MagickColor(property))
+            .ToList();
 
-            var colors = properties
-                .Select(property => new MagickColor(property))
-                .ToList();
+        colors.Insert(0, new MagickColor("None", properties.First(p => p.Name == "Transparent")));
 
-            colors.Insert(0, new MagickColor("None", properties.First(p => p.Name == "Transparent")));
+        return colors;
+    }
 
-            return colors;
-        }
-
-        protected void WriteComment(string comment)
-        {
-            WriteLine("/// <summary>");
-            WriteLine("/// " + comment);
-            WriteLine("/// </summary>");
-        }
+    protected void WriteComment(string comment)
+    {
+        WriteLine("/// <summary>");
+        WriteLine("/// " + comment);
+        WriteLine("/// </summary>");
     }
 }
