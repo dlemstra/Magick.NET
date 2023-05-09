@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ImageMagick;
+
 [System.CodeDom.Compiler.GeneratedCode("Magick.NET.FileGenerator", "")]
 public partial interface IDrawables<TQuantumType>
 {

@@ -6,6 +6,7 @@
 using System.Collections.Generic;
 
 namespace ImageMagick;
+
 [System.CodeDom.Compiler.GeneratedCode("Magick.NET.FileGenerator", "")]
 public partial interface IPaths<TQuantumType>
 {

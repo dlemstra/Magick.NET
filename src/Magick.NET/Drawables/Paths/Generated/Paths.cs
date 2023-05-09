@@ -16,6 +16,7 @@ using QuantumType = System.Single;
 #endif
 
 namespace ImageMagick;
+
 [System.CodeDom.Compiler.GeneratedCode("Magick.NET.FileGenerator", "")]
 public sealed partial class Paths
 {
