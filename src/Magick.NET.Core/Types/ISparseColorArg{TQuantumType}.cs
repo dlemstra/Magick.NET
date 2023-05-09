@@ -3,28 +3,27 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Represents an argument for the SparseColor method.
+/// </summary>
+/// <typeparam name="TQuantumType">The quantum type.</typeparam>
+public interface ISparseColorArg<TQuantumType>
+    where TQuantumType : struct, IConvertible
 {
     /// <summary>
-    /// Represents an argument for the SparseColor method.
+    /// Gets or sets the X position.
     /// </summary>
-    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface ISparseColorArg<TQuantumType>
-        where TQuantumType : struct, IConvertible
-    {
-        /// <summary>
-        /// Gets or sets the X position.
-        /// </summary>
-        double X { get; set; }
+    double X { get; set; }
 
-        /// <summary>
-        /// Gets or sets the Y position.
-        /// </summary>
-        double Y { get; set; }
+    /// <summary>
+    /// Gets or sets the Y position.
+    /// </summary>
+    double Y { get; set; }
 
-        /// <summary>
-        /// Gets or sets the color.
-        /// </summary>
-        IMagickColor<TQuantumType> Color { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the color.
+    /// </summary>
+    IMagickColor<TQuantumType> Color { get; set; }
 }

@@ -3,21 +3,20 @@
 
 using System.Xml.XPath;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// A value of the exif profile.
+/// </summary>
+public interface IClipPath
 {
     /// <summary>
-    /// A value of the exif profile.
+    /// Gets the name of the clipping path.
     /// </summary>
-    public interface IClipPath
-    {
-        /// <summary>
-        /// Gets the name of the clipping path.
-        /// </summary>
-        string Name { get; }
+    string Name { get; }
 
-        /// <summary>
-        /// Gets the path of the clipping path.
-        /// </summary>
-        IXPathNavigable Path { get; }
-    }
+    /// <summary>
+    /// Gets the path of the clipping path.
+    /// </summary>
+    IXPathNavigable Path { get; }
 }

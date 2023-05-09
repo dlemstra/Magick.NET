@@ -1,36 +1,35 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies the type of rendering intent.
+/// </summary>
+public enum RenderingIntent
 {
     /// <summary>
-    /// Specifies the type of rendering intent.
+    /// Undefined.
     /// </summary>
-    public enum RenderingIntent
-    {
-        /// <summary>
-        /// Undefined.
-        /// </summary>
-        Undefined,
+    Undefined,
 
-        /// <summary>
-        /// Saturation.
-        /// </summary>
-        Saturation,
+    /// <summary>
+    /// Saturation.
+    /// </summary>
+    Saturation,
 
-        /// <summary>
-        /// Perceptual.
-        /// </summary>
-        Perceptual,
+    /// <summary>
+    /// Perceptual.
+    /// </summary>
+    Perceptual,
 
-        /// <summary>
-        /// Absolute.
-        /// </summary>
-        Absolute,
+    /// <summary>
+    /// Absolute.
+    /// </summary>
+    Absolute,
 
-        /// <summary>
-        /// Relative.
-        /// </summary>
-        Relative,
-    }
+    /// <summary>
+    /// Relative.
+    /// </summary>
+    Relative,
 }

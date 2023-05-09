@@ -1,31 +1,30 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Class that contains setting for the kmeans operation.
+/// </summary>
+public interface IKmeansSettings
 {
     /// <summary>
-    /// Class that contains setting for the kmeans operation.
+    /// Gets or sets the seed clusters from color list (e.g. red;green;blue).
     /// </summary>
-    public interface IKmeansSettings
-    {
-        /// <summary>
-        /// Gets or sets the seed clusters from color list (e.g. red;green;blue).
-        /// </summary>
-        string? SeedColors { get; set; }
+    string? SeedColors { get; set; }
 
-        /// <summary>
-        /// Gets or sets the number of colors to use as seeds.
-        /// </summary>
-        int NumberColors { get; set; }
+    /// <summary>
+    /// Gets or sets the number of colors to use as seeds.
+    /// </summary>
+    int NumberColors { get; set; }
 
-        /// <summary>
-        /// Gets or sets the maximum number of iterations while converging.
-        /// </summary>
-        int MaxIterations { get; set; }
+    /// <summary>
+    /// Gets or sets the maximum number of iterations while converging.
+    /// </summary>
+    int MaxIterations { get; set; }
 
-        /// <summary>
-        /// Gets or sets the maximum tolerance.
-        /// </summary>
-        double Tolerance { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the maximum tolerance.
+    /// </summary>
+    double Tolerance { get; set; }
 }

@@ -1,51 +1,50 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies a kind of complex operator.
+/// </summary>
+public enum ComplexOperator
 {
     /// <summary>
-    /// Specifies a kind of complex operator.
+    /// Undefined.
     /// </summary>
-    public enum ComplexOperator
-    {
-        /// <summary>
-        /// Undefined.
-        /// </summary>
-        Undefined,
+    Undefined,
 
-        /// <summary>
-        /// Add.
-        /// </summary>
-        Add,
+    /// <summary>
+    /// Add.
+    /// </summary>
+    Add,
 
-        /// <summary>
-        /// Conjugate.
-        /// </summary>
-        Conjugate,
+    /// <summary>
+    /// Conjugate.
+    /// </summary>
+    Conjugate,
 
-        /// <summary>
-        /// Divide.
-        /// </summary>
-        Divide,
+    /// <summary>
+    /// Divide.
+    /// </summary>
+    Divide,
 
-        /// <summary>
-        /// MagnitudePhase.
-        /// </summary>
-        MagnitudePhase,
+    /// <summary>
+    /// MagnitudePhase.
+    /// </summary>
+    MagnitudePhase,
 
-        /// <summary>
-        /// Multiply.
-        /// </summary>
-        Multiply,
+    /// <summary>
+    /// Multiply.
+    /// </summary>
+    Multiply,
 
-        /// <summary>
-        /// RealImaginary.
-        /// </summary>
-        RealImaginary,
+    /// <summary>
+    /// RealImaginary.
+    /// </summary>
+    RealImaginary,
 
-        /// <summary>
-        /// Subtract.
-        /// </summary>
-        Subtract,
-    }
+    /// <summary>
+    /// Subtract.
+    /// </summary>
+    Subtract,
 }

@@ -3,34 +3,33 @@
 
 using System.Globalization;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class ExifSignedShort : ExifValue<short>
 {
-    internal sealed class ExifSignedShort : ExifValue<short>
+    public ExifSignedShort(ExifTagValue tag)
+        : base(tag, default)
     {
-        public ExifSignedShort(ExifTagValue tag)
-            : base(tag, default)
+    }
+
+    public override ExifDataType DataType
+        => ExifDataType.SignedShort;
+
+    protected override string StringValue
+        => Value.ToString(CultureInfo.InvariantCulture);
+
+    public override bool SetValue(object value)
+    {
+        if (base.SetValue(value))
+            return true;
+
+        switch (value)
         {
-        }
-
-        public override ExifDataType DataType
-            => ExifDataType.SignedShort;
-
-        protected override string StringValue
-            => Value.ToString(CultureInfo.InvariantCulture);
-
-        public override bool SetValue(object value)
-        {
-            if (base.SetValue(value))
+            case int intValue:
+                Value = (short)intValue;
                 return true;
-
-            switch (value)
-            {
-                case int intValue:
-                    Value = (short)intValue;
-                    return true;
-                default:
-                    return false;
-            }
+            default:
+                return false;
         }
     }
 }

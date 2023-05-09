@@ -3,16 +3,15 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Interface for an object that specifies defines for an image.
+/// </summary>
+public interface IDefines
 {
     /// <summary>
-    /// Interface for an object that specifies defines for an image.
+    /// Gets the defines that should be set as a define on an image.
     /// </summary>
-    public interface IDefines
-    {
-        /// <summary>
-        /// Gets the defines that should be set as a define on an image.
-        /// </summary>
-        IEnumerable<IDefine> Defines { get; }
-    }
+    IEnumerable<IDefine> Defines { get; }
 }

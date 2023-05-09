@@ -1,66 +1,65 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies the pixel channels.
+/// </summary>
+public enum PixelChannel
 {
     /// <summary>
-    /// Specifies the pixel channels.
+    /// Red.
     /// </summary>
-    public enum PixelChannel
-    {
-        /// <summary>
-        /// Red.
-        /// </summary>
-        Red = 0,
+    Red = 0,
 
-        /// <summary>
-        /// Cyan.
-        /// </summary>
-        Cyan = Red,
+    /// <summary>
+    /// Cyan.
+    /// </summary>
+    Cyan = Red,
 
-        /// <summary>
-        /// Gray.
-        /// </summary>
-        Gray = Red,
+    /// <summary>
+    /// Gray.
+    /// </summary>
+    Gray = Red,
 
-        /// <summary>
-        /// Green.
-        /// </summary>
-        Green = 1,
+    /// <summary>
+    /// Green.
+    /// </summary>
+    Green = 1,
 
-        /// <summary>
-        /// Magenta.
-        /// </summary>
-        Magenta = Green,
+    /// <summary>
+    /// Magenta.
+    /// </summary>
+    Magenta = Green,
 
-        /// <summary>
-        /// Blue.
-        /// </summary>
-        Blue = 2,
+    /// <summary>
+    /// Blue.
+    /// </summary>
+    Blue = 2,
 
-        /// <summary>
-        /// Yellow.
-        /// </summary>
-        Yellow = Blue,
+    /// <summary>
+    /// Yellow.
+    /// </summary>
+    Yellow = Blue,
 
-        /// <summary>
-        /// Black.
-        /// </summary>
-        Black = 3,
+    /// <summary>
+    /// Black.
+    /// </summary>
+    Black = 3,
 
-        /// <summary>
-        /// Alpha.
-        /// </summary>
-        Alpha = 4,
+    /// <summary>
+    /// Alpha.
+    /// </summary>
+    Alpha = 4,
 
-        /// <summary>
-        /// Index.
-        /// </summary>
-        Index = 5,
+    /// <summary>
+    /// Index.
+    /// </summary>
+    Index = 5,
 
-        /// <summary>
-        /// Composite.
-        /// </summary>
-        Composite = 64,
-    }
+    /// <summary>
+    /// Composite.
+    /// </summary>
+    Composite = 64,
 }

@@ -1,26 +1,25 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies the image class type.
+/// </summary>
+public enum ClassType
 {
     /// <summary>
-    /// Specifies the image class type.
+    /// Undefined.
     /// </summary>
-    public enum ClassType
-    {
-        /// <summary>
-        /// Undefined.
-        /// </summary>
-        Undefined,
+    Undefined,
 
-        /// <summary>
-        /// Direct.
-        /// </summary>
-        Direct,
+    /// <summary>
+    /// Direct.
+    /// </summary>
+    Direct,
 
-        /// <summary>
-        /// Pseudo.
-        /// </summary>
-        Pseudo,
-    }
+    /// <summary>
+    /// Pseudo.
+    /// </summary>
+    Pseudo,
 }

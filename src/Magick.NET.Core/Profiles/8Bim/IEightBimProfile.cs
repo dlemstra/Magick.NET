@@ -3,21 +3,20 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Interface that describes an 8bim profile.
+/// </summary>
+public interface IEightBimProfile : IImageProfile
 {
     /// <summary>
-    /// Interface that describes an 8bim profile.
+    /// Gets the clipping paths this image contains.
     /// </summary>
-    public interface IEightBimProfile : IImageProfile
-    {
-        /// <summary>
-        /// Gets the clipping paths this image contains.
-        /// </summary>
-        IReadOnlyCollection<IClipPath> ClipPaths { get; }
+    IReadOnlyCollection<IClipPath> ClipPaths { get; }
 
-        /// <summary>
-        /// Gets the values of this 8bim profile.
-        /// </summary>
-        IReadOnlyCollection<IEightBimValue> Values { get; }
-    }
+    /// <summary>
+    /// Gets the values of this 8bim profile.
+    /// </summary>
+    IReadOnlyCollection<IEightBimValue> Values { get; }
 }

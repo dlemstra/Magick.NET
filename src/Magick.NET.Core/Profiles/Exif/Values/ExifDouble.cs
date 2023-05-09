@@ -3,39 +3,38 @@
 
 using System.Globalization;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class ExifDouble : ExifValue<double>
 {
-    internal sealed class ExifDouble : ExifValue<double>
+    public ExifDouble(ExifTag<double> tag)
+        : base(tag, default)
     {
-        public ExifDouble(ExifTag<double> tag)
-            : base(tag, default)
+    }
+
+    public ExifDouble(ExifTagValue tag)
+        : base(tag, default)
+    {
+    }
+
+    public override ExifDataType DataType
+        => ExifDataType.Double;
+
+    protected override string StringValue
+        => Value.ToString(CultureInfo.InvariantCulture);
+
+    public override bool SetValue(object value)
+    {
+        if (base.SetValue(value))
+            return true;
+
+        switch (value)
         {
-        }
-
-        public ExifDouble(ExifTagValue tag)
-            : base(tag, default)
-        {
-        }
-
-        public override ExifDataType DataType
-            => ExifDataType.Double;
-
-        protected override string StringValue
-            => Value.ToString(CultureInfo.InvariantCulture);
-
-        public override bool SetValue(object value)
-        {
-            if (base.SetValue(value))
+            case int intValue:
+                Value = intValue;
                 return true;
-
-            switch (value)
-            {
-                case int intValue:
-                    Value = intValue;
-                    return true;
-                default:
-                    return false;
-            }
+            default:
+                return false;
         }
     }
 }

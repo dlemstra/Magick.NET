@@ -5,29 +5,28 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Class that contains an XMP profile.
+/// </summary>
+public interface IXmpProfile : IImageProfile
 {
     /// <summary>
-    /// Class that contains an XMP profile.
+    /// Creates a XmlReader that can be used to read the data of the profile.
     /// </summary>
-    public interface IXmpProfile : IImageProfile
-    {
-        /// <summary>
-        /// Creates a XmlReader that can be used to read the data of the profile.
-        /// </summary>
-        /// <returns>A <see cref="XmlReader"/>.</returns>
-        XmlReader? CreateReader();
+    /// <returns>A <see cref="XmlReader"/>.</returns>
+    XmlReader? CreateReader();
 
-        /// <summary>
-        /// Converts this instance to an IXPathNavigable.
-        /// </summary>
-        /// <returns>A <see cref="IXPathNavigable"/>.</returns>
-        IXPathNavigable ToIXPathNavigable();
+    /// <summary>
+    /// Converts this instance to an IXPathNavigable.
+    /// </summary>
+    /// <returns>A <see cref="IXPathNavigable"/>.</returns>
+    IXPathNavigable ToIXPathNavigable();
 
-        /// <summary>
-        /// Converts this instance to a XDocument.
-        /// </summary>
-        /// <returns>A <see cref="XDocument"/>.</returns>
-        XDocument ToXDocument();
-    }
+    /// <summary>
+    /// Converts this instance to a XDocument.
+    /// </summary>
+    /// <returns>A <see cref="XDocument"/>.</returns>
+    XDocument ToXDocument();
 }

@@ -1,51 +1,50 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies the pixel storage types.
+/// </summary>
+public enum StorageType
 {
     /// <summary>
-    /// Specifies the pixel storage types.
+    /// Undefined.
     /// </summary>
-    public enum StorageType
-    {
-        /// <summary>
-        /// Undefined.
-        /// </summary>
-        Undefined,
+    Undefined,
 
-        /// <summary>
-        /// Char.
-        /// </summary>
-        Char,
+    /// <summary>
+    /// Char.
+    /// </summary>
+    Char,
 
-        /// <summary>
-        /// Double.
-        /// </summary>
-        Double,
+    /// <summary>
+    /// Double.
+    /// </summary>
+    Double,
 
-        /// <summary>
-        /// Float.
-        /// </summary>
-        Float,
+    /// <summary>
+    /// Float.
+    /// </summary>
+    Float,
 
-        /// <summary>
-        /// Int32.
-        /// </summary>
-        Int32,
+    /// <summary>
+    /// Int32.
+    /// </summary>
+    Int32,
 
-        /// <summary>
-        /// Int64.
-        /// </summary>
-        Int64,
+    /// <summary>
+    /// Int64.
+    /// </summary>
+    Int64,
 
-        /// <summary>
-        /// Quantum.
-        /// </summary>
-        Quantum,
+    /// <summary>
+    /// Quantum.
+    /// </summary>
+    Quantum,
 
-        /// <summary>
-        /// Short.
-        /// </summary>
-        Short,
-    }
+    /// <summary>
+    /// Short.
+    /// </summary>
+    Short,
 }

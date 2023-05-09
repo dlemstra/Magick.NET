@@ -1,31 +1,30 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies line cap.
+/// </summary>
+public enum LineCap
 {
     /// <summary>
-    /// Specifies line cap.
+    /// Undefined.
     /// </summary>
-    public enum LineCap
-    {
-        /// <summary>
-        /// Undefined.
-        /// </summary>
-        Undefined,
+    Undefined,
 
-        /// <summary>
-        /// Butt.
-        /// </summary>
-        Butt,
+    /// <summary>
+    /// Butt.
+    /// </summary>
+    Butt,
 
-        /// <summary>
-        /// Round.
-        /// </summary>
-        Round,
+    /// <summary>
+    /// Round.
+    /// </summary>
+    Round,
 
-        /// <summary>
-        /// Square.
-        /// </summary>
-        Square,
-    }
+    /// <summary>
+    /// Square.
+    /// </summary>
+    Square,
 }

@@ -3,18 +3,17 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Interface that represents the quantum information of ImageMagick.
+/// </summary>
+/// <typeparam name="TQuantumType">The quantum type.</typeparam>
+public interface IQuantum<TQuantumType> : IQuantum
+    where TQuantumType : struct, IConvertible
 {
     /// <summary>
-    /// Interface that represents the quantum information of ImageMagick.
+    /// Gets the maximum value of the quantum.
     /// </summary>
-    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IQuantum<TQuantumType> : IQuantum
-        where TQuantumType : struct, IConvertible
-    {
-        /// <summary>
-        /// Gets the maximum value of the quantum.
-        /// </summary>
-        TQuantumType Max { get; }
-    }
+    TQuantumType Max { get; }
 }

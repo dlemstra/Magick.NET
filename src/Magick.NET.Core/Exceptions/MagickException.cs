@@ -4,43 +4,42 @@
 using System;
 using System.Collections.Generic;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Encapsulation of the ImageMagick exception object.
+/// </summary>
+public abstract class MagickException : Exception
 {
+    private List<MagickException>? _relatedExceptions;
+
     /// <summary>
-    /// Encapsulation of the ImageMagick exception object.
+    /// Initializes a new instance of the <see cref="MagickException"/> class.
     /// </summary>
-    public abstract class MagickException : Exception
+    /// <param name="message">The error message that explains the reason for the exception.</param>
+    public MagickException(string message)
+      : base(message)
     {
-        private List<MagickException>? _relatedExceptions;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickException"/> class.
-        /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        public MagickException(string message)
-          : base(message)
-        {
-        }
-
-        /// <summary>
-        /// Gets the exceptions that are related to this exception.
-        /// </summary>
-        public IReadOnlyCollection<MagickException> RelatedExceptions
-        {
-            get
-            {
-                if (_relatedExceptions is null)
-                    return new MagickException[0];
-
-                return _relatedExceptions;
-            }
-        }
-
-        /// <summary>
-        /// Sets the related exceptions of this exception.
-        /// </summary>
-        /// <param name="relatedExceptions">The related exceptions.</param>
-        public void SetRelatedException(List<MagickException> relatedExceptions)
-            => _relatedExceptions = relatedExceptions;
     }
+
+    /// <summary>
+    /// Gets the exceptions that are related to this exception.
+    /// </summary>
+    public IReadOnlyCollection<MagickException> RelatedExceptions
+    {
+        get
+        {
+            if (_relatedExceptions is null)
+                return new MagickException[0];
+
+            return _relatedExceptions;
+        }
+    }
+
+    /// <summary>
+    /// Sets the related exceptions of this exception.
+    /// </summary>
+    /// <param name="relatedExceptions">The related exceptions.</param>
+    public void SetRelatedException(List<MagickException> relatedExceptions)
+        => _relatedExceptions = relatedExceptions;
 }

@@ -1,61 +1,60 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Pixel intensity methods.
+/// </summary>
+public enum PixelIntensityMethod
 {
     /// <summary>
-    /// Pixel intensity methods.
+    /// Undefined.
     /// </summary>
-    public enum PixelIntensityMethod
-    {
-        /// <summary>
-        /// Undefined.
-        /// </summary>
-        Undefined,
+    Undefined,
 
-        /// <summary>
-        /// Average.
-        /// </summary>
-        Average,
+    /// <summary>
+    /// Average.
+    /// </summary>
+    Average,
 
-        /// <summary>
-        /// Brightness.
-        /// </summary>
-        Brightness,
+    /// <summary>
+    /// Brightness.
+    /// </summary>
+    Brightness,
 
-        /// <summary>
-        /// Lightness.
-        /// </summary>
-        Lightness,
+    /// <summary>
+    /// Lightness.
+    /// </summary>
+    Lightness,
 
-        /// <summary>
-        /// MS.
-        /// </summary>
-        MS,
+    /// <summary>
+    /// MS.
+    /// </summary>
+    MS,
 
-        /// <summary>
-        /// Rec601Luma.
-        /// </summary>
-        Rec601Luma,
+    /// <summary>
+    /// Rec601Luma.
+    /// </summary>
+    Rec601Luma,
 
-        /// <summary>
-        /// Rec601Luminance.
-        /// </summary>
-        Rec601Luminance,
+    /// <summary>
+    /// Rec601Luminance.
+    /// </summary>
+    Rec601Luminance,
 
-        /// <summary>
-        /// Rec709Luma.
-        /// </summary>
-        Rec709Luma,
+    /// <summary>
+    /// Rec709Luma.
+    /// </summary>
+    Rec709Luma,
 
-        /// <summary>
-        /// Rec709Luminance.
-        /// </summary>
-        Rec709Luminance,
+    /// <summary>
+    /// Rec709Luminance.
+    /// </summary>
+    Rec709Luminance,
 
-        /// <summary>
-        /// RMS.
-        /// </summary>
-        RMS,
-    }
+    /// <summary>
+    /// RMS.
+    /// </summary>
+    RMS,
 }

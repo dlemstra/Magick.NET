@@ -3,19 +3,18 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+[AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
+internal sealed class ExifTagDescriptionAttribute : Attribute
 {
-    [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-    internal sealed class ExifTagDescriptionAttribute : Attribute
+    public ExifTagDescriptionAttribute(object value, string description)
     {
-        public ExifTagDescriptionAttribute(object value, string description)
-        {
-            Value = value;
-            Description = description;
-        }
-
-        public object Value { get; }
-
-        public string Description { get; }
+        Value = value;
+        Description = description;
     }
+
+    public object Value { get; }
+
+    public string Description { get; }
 }

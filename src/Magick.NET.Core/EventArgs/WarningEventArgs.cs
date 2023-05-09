@@ -3,30 +3,29 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Arguments for the Warning event.
+/// </summary>
+public sealed class WarningEventArgs : EventArgs
 {
     /// <summary>
-    /// Arguments for the Warning event.
+    /// Initializes a new instance of the <see cref="WarningEventArgs"/> class.
     /// </summary>
-    public sealed class WarningEventArgs : EventArgs
+    /// <param name="exception">The MagickWarningException that was thrown.</param>
+    public WarningEventArgs(MagickWarningException exception)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="WarningEventArgs"/> class.
-        /// </summary>
-        /// <param name="exception">The MagickWarningException that was thrown.</param>
-        public WarningEventArgs(MagickWarningException exception)
-        {
-            Exception = exception;
-        }
-
-        /// <summary>
-        /// Gets the message of the exception.
-        /// </summary>
-        public string Message => Exception.Message;
-
-        /// <summary>
-        /// Gets the MagickWarningException that was thrown.
-        /// </summary>
-        public MagickWarningException Exception { get; }
+        Exception = exception;
     }
+
+    /// <summary>
+    /// Gets the message of the exception.
+    /// </summary>
+    public string Message => Exception.Message;
+
+    /// <summary>
+    /// Gets the MagickWarningException that was thrown.
+    /// </summary>
+    public MagickWarningException Exception { get; }
 }

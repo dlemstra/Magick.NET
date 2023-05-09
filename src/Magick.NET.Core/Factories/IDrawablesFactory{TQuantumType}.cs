@@ -3,19 +3,18 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Class that can be used to create <see cref="IMagickColor{TQuantumType}"/> instances.
+/// </summary>
+/// <typeparam name="TQuantumType">The quantum type.</typeparam>
+public interface IDrawablesFactory<TQuantumType>
+    where TQuantumType : struct, IConvertible
 {
     /// <summary>
-    /// Class that can be used to create <see cref="IMagickColor{TQuantumType}"/> instances.
+    /// Initializes a new instance that implements <see cref="IDrawables{TQuantumType}"/>.
     /// </summary>
-    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IDrawablesFactory<TQuantumType>
-        where TQuantumType : struct, IConvertible
-    {
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IDrawables{TQuantumType}"/>.
-        /// </summary>
-        /// <returns>A new <see cref="IDrawables{TQuantumType}"/> instance.</returns>
-        IDrawables<TQuantumType> Create();
-    }
+    /// <returns>A new <see cref="IDrawables{TQuantumType}"/> instance.</returns>
+    IDrawables<TQuantumType> Create();
 }

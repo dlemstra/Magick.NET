@@ -3,29 +3,28 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Result for a sub image search operation.
+/// </summary>
+/// <typeparam name="TQuantumType">The quantum type.</typeparam>
+public interface IMagickSearchResult<TQuantumType> : IDisposable
+    where TQuantumType : struct, IConvertible
 {
     /// <summary>
-    /// Result for a sub image search operation.
+    /// Gets the offset for the best match.
     /// </summary>
-    /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-    public interface IMagickSearchResult<TQuantumType> : IDisposable
-        where TQuantumType : struct, IConvertible
-    {
-        /// <summary>
-        /// Gets the offset for the best match.
-        /// </summary>
-        IMagickGeometry BestMatch { get; }
+    IMagickGeometry BestMatch { get; }
 
-        /// <summary>
-        /// Gets the a similarity image such that an exact match location is completely white and if none of
-        /// the pixels match, black, otherwise some gray level in-between.
-        /// </summary>
-        IMagickImage<TQuantumType> SimilarityImage { get; }
+    /// <summary>
+    /// Gets the a similarity image such that an exact match location is completely white and if none of
+    /// the pixels match, black, otherwise some gray level in-between.
+    /// </summary>
+    IMagickImage<TQuantumType> SimilarityImage { get; }
 
-        /// <summary>
-        /// Gets the similarity metric.
-        /// </summary>
-        double SimilarityMetric { get; }
-    }
+    /// <summary>
+    /// Gets the similarity metric.
+    /// </summary>
+    double SimilarityMetric { get; }
 }

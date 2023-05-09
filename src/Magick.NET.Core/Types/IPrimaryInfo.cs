@@ -3,26 +3,25 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// PrimaryInfo information.
+/// </summary>
+public interface IPrimaryInfo : IEquatable<IPrimaryInfo?>
 {
     /// <summary>
-    /// PrimaryInfo information.
+    /// Gets the X value.
     /// </summary>
-    public interface IPrimaryInfo : IEquatable<IPrimaryInfo?>
-    {
-        /// <summary>
-        /// Gets the X value.
-        /// </summary>
-        double X { get; }
+    double X { get; }
 
-        /// <summary>
-        /// Gets the Y value.
-        /// </summary>
-        double Y { get; }
+    /// <summary>
+    /// Gets the Y value.
+    /// </summary>
+    double Y { get; }
 
-        /// <summary>
-        /// Gets the Z value.
-        /// </summary>
-        double Z { get; }
-    }
+    /// <summary>
+    /// Gets the Z value.
+    /// </summary>
+    double Z { get; }
 }

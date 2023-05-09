@@ -4,145 +4,144 @@
 using System.Globalization;
 using System.Text;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class ClipPathReader
 {
-    internal sealed class ClipPathReader
+    private readonly int _height;
+    private readonly int _width;
+    private readonly int _offset;
+    private readonly PointD[] _first = new PointD[3];
+    private readonly PointD[] _last = new PointD[3];
+    private readonly StringBuilder _path = new StringBuilder();
+
+    private int _index;
+    private bool _inSubpath = false;
+    private int _knotCount = 0;
+
+    private ClipPathReader(int width, int height, int offset)
     {
-        private readonly int _height;
-        private readonly int _width;
-        private readonly int _offset;
-        private readonly PointD[] _first = new PointD[3];
-        private readonly PointD[] _last = new PointD[3];
-        private readonly StringBuilder _path = new StringBuilder();
+        _width = width;
+        _height = height;
+        _offset = offset;
 
-        private int _index;
-        private bool _inSubpath = false;
-        private int _knotCount = 0;
+        _index = _offset;
+    }
 
-        private ClipPathReader(int width, int height, int offset)
+    public static string Read(int width, int height, byte[] data, int offset, int length)
+    {
+        var reader = new ClipPathReader(width, height, offset);
+        return reader.Read(data, length);
+    }
+
+    private string Read(byte[] data, int length)
+    {
+        while (_index < _offset + length)
         {
-            _width = width;
-            _height = height;
-            _offset = offset;
-
-            _index = _offset;
+            var selector = ByteConverter.ToShort(data, ref _index);
+            switch (selector)
+            {
+                case 0:
+                case 3:
+                    SetKnotCount(data);
+                    break;
+                case 1:
+                case 2:
+                case 4:
+                case 5:
+                    AddPath(data);
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                default:
+                    _index += 24;
+                    break;
+            }
         }
 
-        public static string Read(int width, int height, byte[] data, int offset, int length)
+        return _path.ToString();
+    }
+
+    private void AddPath(byte[] data)
+    {
+        if (_knotCount == 0)
         {
-            var reader = new ClipPathReader(width, height, offset);
-            return reader.Read(data, length);
+            _index += 24;
+            return;
         }
 
-        private string Read(byte[] data, int length)
-        {
-            while (_index < _offset + length)
-            {
-                var selector = ByteConverter.ToShort(data, ref _index);
-                switch (selector)
-                {
-                    case 0:
-                    case 3:
-                        SetKnotCount(data);
-                        break;
-                    case 1:
-                    case 2:
-                    case 4:
-                    case 5:
-                        AddPath(data);
-                        break;
-                    case 6:
-                    case 7:
-                    case 8:
-                    default:
-                        _index += 24;
-                        break;
-                }
-            }
+        var point = CreatePoint(data);
 
-            return _path.ToString();
+        if (_inSubpath == false)
+        {
+            _path.AppendFormat(CultureInfo.InvariantCulture, "M {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
+
+            for (var k = 0; k < 3; k++)
+            {
+                _first[k] = point[k];
+                _last[k] = point[k];
+            }
         }
-
-        private void AddPath(byte[] data)
+        else
         {
-            if (_knotCount == 0)
-            {
-                _index += 24;
-                return;
-            }
-
-            var point = CreatePoint(data);
-
-            if (_inSubpath == false)
-            {
-                _path.AppendFormat(CultureInfo.InvariantCulture, "M {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
-
-                for (var k = 0; k < 3; k++)
-                {
-                    _first[k] = point[k];
-                    _last[k] = point[k];
-                }
-            }
+            if ((_last[1].X == _last[2].X) && (_last[1].Y == _last[2].Y) && (point[0].X == point[1].X) && (point[0].Y == point[1].Y))
+                _path.AppendFormat(CultureInfo.InvariantCulture, "L {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
             else
-            {
-                if ((_last[1].X == _last[2].X) && (_last[1].Y == _last[2].Y) && (point[0].X == point[1].X) && (point[0].Y == point[1].Y))
-                    _path.AppendFormat(CultureInfo.InvariantCulture, "L {0:0.###} {1:0.###}\n", point[1].X, point[1].Y);
-                else
-                    _path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###}\n", _last[2].X, _last[2].Y, point[0].X, point[0].Y, point[1].X, point[1].Y);
+                _path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###}\n", _last[2].X, _last[2].Y, point[0].X, point[0].Y, point[1].X, point[1].Y);
 
-                for (var k = 0; k < 3; k++)
-                    _last[k] = point[k];
-            }
-
-            _inSubpath = true;
-            _knotCount--;
-            if (_knotCount == 0)
-            {
-                ClosePath();
-                _inSubpath = false;
-            }
+            for (var k = 0; k < 3; k++)
+                _last[k] = point[k];
         }
 
-        private void ClosePath()
+        _inSubpath = true;
+        _knotCount--;
+        if (_knotCount == 0)
         {
-            if ((_last[1].X == _last[2].X) && (_last[1].Y == _last[2].Y) && (_first[0].X == _first[1].X) && (_first[0].Y == _first[1].Y))
-                _path.AppendFormat(CultureInfo.InvariantCulture, "L {0:0.###} {1:0.###} Z\n", _first[1].X, _first[1].Y);
-            else
-                _path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###} Z\n", _last[2].X, _last[2].Y, _first[0].X, _first[0].Y, _first[1].X, _first[1].Y);
+            ClosePath();
+            _inSubpath = false;
         }
+    }
 
-        private PointD[] CreatePoint(byte[] data)
+    private void ClosePath()
+    {
+        if ((_last[1].X == _last[2].X) && (_last[1].Y == _last[2].Y) && (_first[0].X == _first[1].X) && (_first[0].Y == _first[1].Y))
+            _path.AppendFormat(CultureInfo.InvariantCulture, "L {0:0.###} {1:0.###} Z\n", _first[1].X, _first[1].Y);
+        else
+            _path.AppendFormat(CultureInfo.InvariantCulture, "C {0:0.###} {1:0.###} {2:0.###} {3:0.###} {4:0.###} {5:0.###} Z\n", _last[2].X, _last[2].Y, _first[0].X, _first[0].Y, _first[1].X, _first[1].Y);
+    }
+
+    private PointD[] CreatePoint(byte[] data)
+    {
+        var result = new PointD[3];
+
+        for (var i = 0; i < 3; i++)
         {
-            var result = new PointD[3];
+            var yy = (uint)ByteConverter.ToUInt(data, ref _index);
+            var y = (int)yy;
+            if (yy > 2147483647)
+                y = (int)(yy - 4294967295U - 1);
 
-            for (var i = 0; i < 3; i++)
-            {
-                var yy = (uint)ByteConverter.ToUInt(data, ref _index);
-                var y = (int)yy;
-                if (yy > 2147483647)
-                    y = (int)(yy - 4294967295U - 1);
+            var xx = (uint)ByteConverter.ToUInt(data, ref _index);
+            var x = (int)xx;
+            if (xx > 2147483647)
+                x = (int)(xx - 4294967295U - 1);
 
-                var xx = (uint)ByteConverter.ToUInt(data, ref _index);
-                var x = (int)xx;
-                if (xx > 2147483647)
-                    x = (int)(xx - 4294967295U - 1);
-
-                result[i] = new PointD((double)x * _width / 4096 / 4096, (double)y * _height / 4096 / 4096);
-            }
-
-            return result;
+            result[i] = new PointD((double)x * _width / 4096 / 4096, (double)y * _height / 4096 / 4096);
         }
 
-        private void SetKnotCount(byte[] data)
+        return result;
+    }
+
+    private void SetKnotCount(byte[] data)
+    {
+        if (_knotCount != 0)
         {
-            if (_knotCount != 0)
-            {
-                _index += 24;
-                return;
-            }
-
-            _knotCount = ByteConverter.ToShort(data, ref _index);
-            _index += 22;
+            _index += 24;
+            return;
         }
+
+        _knotCount = ByteConverter.ToShort(data, ref _index);
+        _index += 22;
     }
 }

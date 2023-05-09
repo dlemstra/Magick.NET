@@ -1,51 +1,50 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies the interlace types.
+/// </summary>
+public enum Interlace
 {
     /// <summary>
-    /// Specifies the interlace types.
+    /// Undefined.
     /// </summary>
-    public enum Interlace
-    {
-        /// <summary>
-        /// Undefined.
-        /// </summary>
-        Undefined,
+    Undefined,
 
-        /// <summary>
-        /// NoInterlace.
-        /// </summary>
-        NoInterlace,
+    /// <summary>
+    /// NoInterlace.
+    /// </summary>
+    NoInterlace,
 
-        /// <summary>
-        /// Line.
-        /// </summary>
-        Line,
+    /// <summary>
+    /// Line.
+    /// </summary>
+    Line,
 
-        /// <summary>
-        /// Plane.
-        /// </summary>
-        Plane,
+    /// <summary>
+    /// Plane.
+    /// </summary>
+    Plane,
 
-        /// <summary>
-        /// Partition.
-        /// </summary>
-        Partition,
+    /// <summary>
+    /// Partition.
+    /// </summary>
+    Partition,
 
-        /// <summary>
-        /// Gif.
-        /// </summary>
-        Gif,
+    /// <summary>
+    /// Gif.
+    /// </summary>
+    Gif,
 
-        /// <summary>
-        /// Jpeg.
-        /// </summary>
-        Jpeg,
+    /// <summary>
+    /// Jpeg.
+    /// </summary>
+    Jpeg,
 
-        /// <summary>
-        /// Png.
-        /// </summary>
-        Png,
-    }
+    /// <summary>
+    /// Png.
+    /// </summary>
+    Png,
 }

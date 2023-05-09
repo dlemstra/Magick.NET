@@ -1,41 +1,40 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies the paint method.
+/// </summary>
+public enum PaintMethod
 {
     /// <summary>
-    /// Specifies the paint method.
+    /// Undefined.
     /// </summary>
-    public enum PaintMethod
-    {
-        /// <summary>
-        /// Undefined.
-        /// </summary>
-        Undefined,
+    Undefined,
 
-        /// <summary>
-        /// Select the target pixel.
-        /// </summary>
-        Point,
+    /// <summary>
+    /// Select the target pixel.
+    /// </summary>
+    Point,
 
-        /// <summary>
-        /// Select any pixel that matches the target pixel.
-        /// </summary>
-        Replace,
+    /// <summary>
+    /// Select any pixel that matches the target pixel.
+    /// </summary>
+    Replace,
 
-        /// <summary>
-        /// Select the target pixel and matching neighbors.
-        /// </summary>
-        Floodfill,
+    /// <summary>
+    /// Select the target pixel and matching neighbors.
+    /// </summary>
+    Floodfill,
 
-        /// <summary>
-        /// Select the target pixel and neighbors not matching border color.
-        /// </summary>
-        FillToBorder,
+    /// <summary>
+    /// Select the target pixel and neighbors not matching border color.
+    /// </summary>
+    FillToBorder,
 
-        /// <summary>
-        /// Select all pixels.
-        /// </summary>
-        Reset,
-    }
+    /// <summary>
+    /// Select all pixels.
+    /// </summary>
+    Reset,
 }

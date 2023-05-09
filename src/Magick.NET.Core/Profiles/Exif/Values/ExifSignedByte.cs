@@ -3,33 +3,32 @@
 
 using System.Globalization;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class ExifSignedByte : ExifValue<sbyte>
 {
-    internal sealed class ExifSignedByte : ExifValue<sbyte>
+    public ExifSignedByte(ExifTagValue tag)
+        : base(tag, default)
     {
-        public ExifSignedByte(ExifTagValue tag)
-            : base(tag, default)
+    }
+
+    public override ExifDataType DataType => ExifDataType.SignedByte;
+
+    protected override string StringValue
+        => Value.ToString("X2", CultureInfo.InvariantCulture);
+
+    public override bool SetValue(object value)
+    {
+        if (base.SetValue(value))
+            return true;
+
+        switch (value)
         {
-        }
-
-        public override ExifDataType DataType => ExifDataType.SignedByte;
-
-        protected override string StringValue
-            => Value.ToString("X2", CultureInfo.InvariantCulture);
-
-        public override bool SetValue(object value)
-        {
-            if (base.SetValue(value))
+            case int intValue:
+                Value = (sbyte)intValue;
                 return true;
-
-            switch (value)
-            {
-                case int intValue:
-                    Value = (sbyte)intValue;
-                    return true;
-                default:
-                    return false;
-            }
+            default:
+                return false;
         }
     }
 }

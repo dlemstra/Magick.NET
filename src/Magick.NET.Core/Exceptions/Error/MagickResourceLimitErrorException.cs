@@ -1,20 +1,19 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Encapsulation of the ImageMagick ResourceLimitError exception.
+/// </summary>
+public sealed class MagickResourceLimitErrorException : MagickErrorException
 {
     /// <summary>
-    /// Encapsulation of the ImageMagick ResourceLimitError exception.
+    /// Initializes a new instance of the <see cref="MagickResourceLimitErrorException"/> class.
     /// </summary>
-    public sealed class MagickResourceLimitErrorException : MagickErrorException
+    /// <param name="message">The error message that explains the reason for the exception.</param>
+    public MagickResourceLimitErrorException(string message)
+      : base(message)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MagickResourceLimitErrorException"/> class.
-        /// </summary>
-        /// <param name="message">The error message that explains the reason for the exception.</param>
-        public MagickResourceLimitErrorException(string message)
-          : base(message)
-        {
-        }
     }
 }

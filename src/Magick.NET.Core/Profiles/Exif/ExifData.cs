@@ -3,16 +3,15 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class ExifData
 {
-    internal sealed class ExifData
-    {
-        public uint ThumbnailLength { get; set; }
+    public uint ThumbnailLength { get; set; }
 
-        public uint ThumbnailOffset { get; set; }
+    public uint ThumbnailOffset { get; set; }
 
-        public List<ExifTag> InvalidTags { get; } = new List<ExifTag>();
+    public List<ExifTag> InvalidTags { get; } = new List<ExifTag>();
 
-        public List<IExifValue> Values { get; } = new List<IExifValue>();
-    }
+    public List<IExifValue> Values { get; } = new List<IExifValue>();
 }

@@ -3,46 +3,45 @@
 
 using ImageMagick.Configuration;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Class that can be used to create various instances.
+/// </summary>
+public interface IMagickFactory
 {
     /// <summary>
-    /// Class that can be used to create various instances.
+    /// Gets the configuration files.
     /// </summary>
-    public interface IMagickFactory
-    {
-        /// <summary>
-        /// Gets the configuration files.
-        /// </summary>
-        IConfigurationFiles ConfigurationFiles { get; }
+    IConfigurationFiles ConfigurationFiles { get; }
 
-        /// <summary>
-        /// Gets a factory that can be used to create <see cref="IMagickGeometry"/> instances.
-        /// </summary>
-        IMagickGeometryFactory Geometry { get; }
+    /// <summary>
+    /// Gets a factory that can be used to create <see cref="IMagickGeometry"/> instances.
+    /// </summary>
+    IMagickGeometryFactory Geometry { get; }
 
-        /// <summary>
-        /// Gets a factory that can be used to create <see cref="IMagickImageInfo"/> instances.
-        /// </summary>
-        IMagickImageInfoFactory ImageInfo { get; }
+    /// <summary>
+    /// Gets a factory that can be used to create <see cref="IMagickImageInfo"/> instances.
+    /// </summary>
+    IMagickImageInfoFactory ImageInfo { get; }
 
-        /// <summary>
-        /// Gets the MagickNET information.
-        /// </summary>
-        IMagickNET MagickNET { get; }
+    /// <summary>
+    /// Gets the MagickNET information.
+    /// </summary>
+    IMagickNET MagickNET { get; }
 
-        /// <summary>
-        /// Gets a factory that can be used to create various matrix instances.
-        /// </summary>
-        IMatrixFactory Matrix { get; }
+    /// <summary>
+    /// Gets a factory that can be used to create various matrix instances.
+    /// </summary>
+    IMatrixFactory Matrix { get; }
 
-        /// <summary>
-        /// Gets the OpenCL information.
-        /// </summary>
-        IOpenCL OpenCL { get; }
+    /// <summary>
+    /// Gets the OpenCL information.
+    /// </summary>
+    IOpenCL OpenCL { get; }
 
-        /// <summary>
-        /// Gets the resource limits.
-        /// </summary>
-        IResourceLimits ResourceLimits { get; }
-    }
+    /// <summary>
+    /// Gets the resource limits.
+    /// </summary>
+    IResourceLimits ResourceLimits { get; }
 }

@@ -3,19 +3,18 @@
 
 using System.Globalization;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class ExifSignedLong : ExifValue<int>
 {
-    internal sealed class ExifSignedLong : ExifValue<int>
+    public ExifSignedLong(ExifTagValue tag)
+        : base(tag, default)
     {
-        public ExifSignedLong(ExifTagValue tag)
-            : base(tag, default)
-        {
-        }
-
-        public override ExifDataType DataType
-            => ExifDataType.SignedLong;
-
-        protected override string StringValue
-            => Value.ToString(CultureInfo.InvariantCulture);
     }
+
+    public override ExifDataType DataType
+        => ExifDataType.SignedLong;
+
+    protected override string StringValue
+        => Value.ToString(CultureInfo.InvariantCulture);
 }

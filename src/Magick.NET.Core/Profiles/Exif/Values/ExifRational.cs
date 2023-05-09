@@ -3,24 +3,23 @@
 
 using System.Globalization;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class ExifRational : ExifValue<Rational>
 {
-    internal sealed class ExifRational : ExifValue<Rational>
+    public ExifRational(ExifTag<Rational> tag)
+        : base(tag, default)
     {
-        public ExifRational(ExifTag<Rational> tag)
-            : base(tag, default)
-        {
-        }
-
-        public ExifRational(ExifTagValue tag)
-            : base(tag, default)
-        {
-        }
-
-        public override ExifDataType DataType
-            => ExifDataType.Rational;
-
-        protected override string StringValue
-            => Value.ToString(CultureInfo.InvariantCulture);
     }
+
+    public ExifRational(ExifTagValue tag)
+        : base(tag, default)
+    {
+    }
+
+    public override ExifDataType DataType
+        => ExifDataType.Rational;
+
+    protected override string StringValue
+        => Value.ToString(CultureInfo.InvariantCulture);
 }

@@ -1,36 +1,35 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies the evaluate functions.
+/// </summary>
+public enum EvaluateFunction
 {
     /// <summary>
-    /// Specifies the evaluate functions.
+    /// Undefined.
     /// </summary>
-    public enum EvaluateFunction
-    {
-        /// <summary>
-        /// Undefined.
-        /// </summary>
-        Undefined,
+    Undefined,
 
-        /// <summary>
-        /// Arcsin.
-        /// </summary>
-        Arcsin,
+    /// <summary>
+    /// Arcsin.
+    /// </summary>
+    Arcsin,
 
-        /// <summary>
-        /// Arctan.
-        /// </summary>
-        Arctan,
+    /// <summary>
+    /// Arctan.
+    /// </summary>
+    Arctan,
 
-        /// <summary>
-        /// Polynomial.
-        /// </summary>
-        Polynomial,
+    /// <summary>
+    /// Polynomial.
+    /// </summary>
+    Polynomial,
 
-        /// <summary>
-        /// Sinusoid.
-        /// </summary>
-        Sinusoid,
-    }
+    /// <summary>
+    /// Sinusoid.
+    /// </summary>
+    Sinusoid,
 }

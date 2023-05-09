@@ -3,68 +3,67 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Interface that contains information about an image format.
+/// </summary>
+public interface IMagickFormatInfo : IEquatable<IMagickFormatInfo?>
 {
     /// <summary>
-    /// Interface that contains information about an image format.
+    /// Gets a value indicating whether the format can be read multithreaded.
     /// </summary>
-    public interface IMagickFormatInfo : IEquatable<IMagickFormatInfo?>
-    {
-        /// <summary>
-        /// Gets a value indicating whether the format can be read multithreaded.
-        /// </summary>
-        bool CanReadMultithreaded { get; }
+    bool CanReadMultithreaded { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether the format can be written multithreaded.
-        /// </summary>
-        bool CanWriteMultithreaded { get; }
+    /// <summary>
+    /// Gets a value indicating whether the format can be written multithreaded.
+    /// </summary>
+    bool CanWriteMultithreaded { get; }
 
-        /// <summary>
-        /// Gets the description of the format.
-        /// </summary>
-        string? Description { get; }
+    /// <summary>
+    /// Gets the description of the format.
+    /// </summary>
+    string? Description { get; }
 
-        /// <summary>
-        /// Gets the format.
-        /// </summary>
-        MagickFormat Format { get; }
+    /// <summary>
+    /// Gets the format.
+    /// </summary>
+    MagickFormat Format { get; }
 
-        /// <summary>
-        /// Gets the mime type.
-        /// </summary>
-        string? MimeType { get; }
+    /// <summary>
+    /// Gets the mime type.
+    /// </summary>
+    string? MimeType { get; }
 
-        /// <summary>
-        /// Gets the module.
-        /// </summary>
-        MagickFormat ModuleFormat { get; }
+    /// <summary>
+    /// Gets the module.
+    /// </summary>
+    MagickFormat ModuleFormat { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether the format supports multiple frames.
-        /// </summary>
-        bool SupportsMultipleFrames { get; }
+    /// <summary>
+    /// Gets a value indicating whether the format supports multiple frames.
+    /// </summary>
+    bool SupportsMultipleFrames { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether the format can be read.
-        /// </summary>
-        bool SupportsReading { get; }
+    /// <summary>
+    /// Gets a value indicating whether the format can be read.
+    /// </summary>
+    bool SupportsReading { get; }
 
-        /// <summary>
-        /// Gets a value indicating whether the format can be written.
-        /// </summary>
-        bool SupportsWriting { get; }
+    /// <summary>
+    /// Gets a value indicating whether the format can be written.
+    /// </summary>
+    bool SupportsWriting { get; }
 
-        /// <summary>
-        /// Returns a string that represents the current format.
-        /// </summary>
-        /// <returns>A string that represents the current format.</returns>
-        string ToString();
+    /// <summary>
+    /// Returns a string that represents the current format.
+    /// </summary>
+    /// <returns>A string that represents the current format.</returns>
+    string ToString();
 
-        /// <summary>
-        /// Unregisters this format.
-        /// </summary>
-        /// <returns>True when the format was found and unregistered.</returns>
-        bool Unregister();
-    }
+    /// <summary>
+    /// Unregisters this format.
+    /// </summary>
+    /// <returns>True when the format was found and unregistered.</returns>
+    bool Unregister();
 }
