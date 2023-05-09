@@ -11,34 +11,33 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Sets the border color to be used for drawing bordered objects.
+/// </summary>
+public sealed partial class DrawableBorderColor : IDrawable, IDrawingWand
 {
     /// <summary>
-    /// Sets the border color to be used for drawing bordered objects.
+    /// Initializes a new instance of the <see cref="DrawableBorderColor"/> class.
     /// </summary>
-    public sealed partial class DrawableBorderColor : IDrawable, IDrawingWand
+    /// <param name="color">The color of the border.</param>
+    public DrawableBorderColor(IMagickColor<QuantumType> color)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableBorderColor"/> class.
-        /// </summary>
-        /// <param name="color">The color of the border.</param>
-        public DrawableBorderColor(IMagickColor<QuantumType> color)
-        {
-            Throw.IfNull(nameof(color), color);
+        Throw.IfNull(nameof(color), color);
 
-            Color = color;
-        }
-
-        /// <summary>
-        /// Gets or sets the color to use.
-        /// </summary>
-        public IMagickColor<QuantumType> Color { get; set; }
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-            => wand?.BorderColor(Color);
+        Color = color;
     }
+
+    /// <summary>
+    /// Gets or sets the color to use.
+    /// </summary>
+    public IMagickColor<QuantumType> Color { get; set; }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.BorderColor(Color);
 }

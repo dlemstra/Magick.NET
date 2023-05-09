@@ -3,75 +3,74 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick.Formats
+namespace ImageMagick.Formats;
+
+/// <summary>
+/// Class for defines that are used when a <see cref="MagickFormat.Dng"/> image is read.
+/// </summary>
+public sealed class DngReadDefines : IReadDefines
 {
     /// <summary>
-    /// Class for defines that are used when a <see cref="MagickFormat.Dng"/> image is read.
+    /// Gets or sets a value indicating wether auto brightness should be used (dng:no-auto-bright).
     /// </summary>
-    public sealed class DngReadDefines : IReadDefines
+    public bool? DisableAutoBrightness { get; set; }
+
+    /// <summary>
+    /// Gets the format where the defines are for.
+    /// </summary>
+    public MagickFormat Format
+        => MagickFormat.Dng;
+
+    /// <summary>
+    /// Gets or sets a value indicating the interpolation quality (dng:interpolation-quality).
+    /// </summary>
+    public DngInterpolation? InterpolationQuality { get; set; }
+
+    /// <summary>
+    /// Gets or sets the output color (dng:output-color).
+    /// </summary>
+    public DngOutputColor? OutputColor { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating wether the embedded thumbnail should be read (dng:read-thumbnail). This profile can be
+    /// read by calling <see cref="IMagickImage.GetProfile(string)"/> with dng:thumbnail as the name of the profile.
+    /// </summary>
+    public bool? ReadThumbnail { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating wether auto whitebalance should be used (dng:use-auto-wb).
+    /// </summary>
+    public bool? UseAutoWhitebalance { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating wether the whitebalance of the camera should be used (dng:use-camera-wb).
+    /// </summary>
+    public bool? UseCameraWhitebalance { get; set; }
+
+    /// <summary>
+    /// Gets the defines that should be set as a define on an image.
+    /// </summary>
+    public IEnumerable<IDefine> Defines
     {
-        /// <summary>
-        /// Gets or sets a value indicating wether auto brightness should be used (dng:no-auto-bright).
-        /// </summary>
-        public bool? DisableAutoBrightness { get; set; }
-
-        /// <summary>
-        /// Gets the format where the defines are for.
-        /// </summary>
-        public MagickFormat Format
-            => MagickFormat.Dng;
-
-        /// <summary>
-        /// Gets or sets a value indicating the interpolation quality (dng:interpolation-quality).
-        /// </summary>
-        public DngInterpolation? InterpolationQuality { get; set; }
-
-        /// <summary>
-        /// Gets or sets the output color (dng:output-color).
-        /// </summary>
-        public DngOutputColor? OutputColor { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating wether the embedded thumbnail should be read (dng:read-thumbnail). This profile can be
-        /// read by calling <see cref="IMagickImage.GetProfile(string)"/> with dng:thumbnail as the name of the profile.
-        /// </summary>
-        public bool? ReadThumbnail { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating wether auto whitebalance should be used (dng:use-auto-wb).
-        /// </summary>
-        public bool? UseAutoWhitebalance { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating wether the whitebalance of the camera should be used (dng:use-camera-wb).
-        /// </summary>
-        public bool? UseCameraWhitebalance { get; set; }
-
-        /// <summary>
-        /// Gets the defines that should be set as a define on an image.
-        /// </summary>
-        public IEnumerable<IDefine> Defines
+        get
         {
-            get
-            {
-                if (InterpolationQuality.HasValue)
-                    yield return new MagickDefine(Format, "interpolation-quality", (int)InterpolationQuality.Value);
+            if (InterpolationQuality.HasValue)
+                yield return new MagickDefine(Format, "interpolation-quality", (int)InterpolationQuality.Value);
 
-                if (DisableAutoBrightness.HasValue)
-                    yield return new MagickDefine(Format, "no-auto-bright", DisableAutoBrightness.Value);
+            if (DisableAutoBrightness.HasValue)
+                yield return new MagickDefine(Format, "no-auto-bright", DisableAutoBrightness.Value);
 
-                if (OutputColor.HasValue)
-                    yield return new MagickDefine(Format, "output-color", (int)OutputColor.Value);
+            if (OutputColor.HasValue)
+                yield return new MagickDefine(Format, "output-color", (int)OutputColor.Value);
 
-                if (ReadThumbnail.HasValue)
-                    yield return new MagickDefine(Format, "read-thumbnail", ReadThumbnail.Value);
+            if (ReadThumbnail.HasValue)
+                yield return new MagickDefine(Format, "read-thumbnail", ReadThumbnail.Value);
 
-                if (UseCameraWhitebalance.HasValue)
-                    yield return new MagickDefine(Format, "use-camera-wb", UseCameraWhitebalance.Value);
+            if (UseCameraWhitebalance.HasValue)
+                yield return new MagickDefine(Format, "use-camera-wb", UseCameraWhitebalance.Value);
 
-                if (UseAutoWhitebalance.HasValue)
-                    yield return new MagickDefine(Format, "use-auto-wb", UseAutoWhitebalance.Value);
-            }
+            if (UseAutoWhitebalance.HasValue)
+                yield return new MagickDefine(Format, "use-auto-wb", UseAutoWhitebalance.Value);
         }
     }
 }

@@ -1,26 +1,25 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick.Formats
+namespace ImageMagick.Formats;
+
+/// <summary>
+/// Specifies the DCT method.
+/// </summary>
+public enum JpegDctMethod
 {
     /// <summary>
-    /// Specifies the DCT method.
+    /// Fast.
     /// </summary>
-    public enum JpegDctMethod
-    {
-        /// <summary>
-        /// Fast.
-        /// </summary>
-        Fast,
+    Fast,
 
-        /// <summary>
-        /// Float.
-        /// </summary>
-        Float,
+    /// <summary>
+    /// Float.
+    /// </summary>
+    Float,
 
-        /// <summary>
-        /// Slow.
-        /// </summary>
-        Slow,
-    }
+    /// <summary>
+    /// Slow.
+    /// </summary>
+    Slow,
 }

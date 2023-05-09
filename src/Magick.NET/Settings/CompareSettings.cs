@@ -11,31 +11,30 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Class that contains setting for the compare operations.
+/// </summary>
+public sealed class CompareSettings : ICompareSettings<QuantumType>
 {
     /// <summary>
-    /// Class that contains setting for the compare operations.
+    /// Gets or sets the error metric to use.
     /// </summary>
-    public sealed class CompareSettings : ICompareSettings<QuantumType>
-    {
-        /// <summary>
-        /// Gets or sets the error metric to use.
-        /// </summary>
-        public ErrorMetric Metric { get; set; }
+    public ErrorMetric Metric { get; set; }
 
-        /// <summary>
-        /// Gets or sets the color that emphasize pixel differences.
-        /// </summary>
-        public IMagickColor<QuantumType>? HighlightColor { get; set; }
+    /// <summary>
+    /// Gets or sets the color that emphasize pixel differences.
+    /// </summary>
+    public IMagickColor<QuantumType>? HighlightColor { get; set; }
 
-        /// <summary>
-        /// Gets or sets the color that de-emphasize pixel differences.
-        /// </summary>
-        public IMagickColor<QuantumType>? LowlightColor { get; set; }
+    /// <summary>
+    /// Gets or sets the color that de-emphasize pixel differences.
+    /// </summary>
+    public IMagickColor<QuantumType>? LowlightColor { get; set; }
 
-        /// <summary>
-        /// Gets or sets the color of pixels that are inside the read mask.
-        /// </summary>
-        public IMagickColor<QuantumType>? MasklightColor { get; set; }
-    }
+    /// <summary>
+    /// Gets or sets the color of pixels that are inside the read mask.
+    /// </summary>
+    public IMagickColor<QuantumType>? MasklightColor { get; set; }
 }

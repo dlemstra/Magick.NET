@@ -6,56 +6,55 @@
 using System;
 using System.Buffers;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal unsafe sealed class BufferWriterWrapper
 {
-    internal unsafe sealed class BufferWriterWrapper
+    private const int BufferSize = 8192;
+
+    private readonly IBufferWriter<byte> _bufferWriter;
+
+    public BufferWriterWrapper(IBufferWriter<byte> writer)
     {
-        private const int BufferSize = 8192;
+        _bufferWriter = writer;
+    }
 
-        private readonly IBufferWriter<byte> _bufferWriter;
+    public long Write(IntPtr data, UIntPtr count, IntPtr user_data)
+    {
+        var total = (long)count;
+        if (total == 0)
+            return 0;
 
-        public BufferWriterWrapper(IBufferWriter<byte> writer)
+        if (data == IntPtr.Zero)
+            return 0;
+
+        var source = (byte*)data.ToPointer();
+
+        while (total > 0)
         {
-            _bufferWriter = writer;
-        }
+            var length = (int)Math.Min(total, BufferSize);
 
-        public long Write(IntPtr data, UIntPtr count, IntPtr user_data)
-        {
-            var total = (long)count;
-            if (total == 0)
-                return 0;
-
-            if (data == IntPtr.Zero)
-                return 0;
-
-            var source = (byte*)data.ToPointer();
-
-            while (total > 0)
+            try
             {
-                var length = (int)Math.Min(total, BufferSize);
+                var span = _bufferWriter.GetSpan(length);
 
-                try
+                fixed (byte* destination = span)
                 {
-                    var span = _bufferWriter.GetSpan(length);
-
-                    fixed (byte* destination = span)
-                    {
-                        Buffer.MemoryCopy(source, destination, length, length);
-                    }
-
-                    _bufferWriter.Advance(length);
-                }
-                catch
-                {
-                    return -1;
+                    Buffer.MemoryCopy(source, destination, length, length);
                 }
 
-                source += length;
-                total -= length;
+                _bufferWriter.Advance(length);
+            }
+            catch
+            {
+                return -1;
             }
 
-            return (long)count;
+            source += length;
+            total -= length;
         }
+
+        return (long)count;
     }
 }
 

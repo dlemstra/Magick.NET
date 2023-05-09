@@ -3,27 +3,26 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal static class ShortConverter
 {
-    internal static class ShortConverter
+    public static ushort[]? ToArray(IntPtr nativeData, int length)
     {
-        public static ushort[]? ToArray(IntPtr nativeData, int length)
+        if (nativeData == IntPtr.Zero)
+            return null;
+
+        var buffer = new ushort[length];
+
+        unsafe
         {
-            if (nativeData == IntPtr.Zero)
-                return null;
-
-            var buffer = new ushort[length];
-
-            unsafe
+            var walk = (ushort*)nativeData;
+            for (var i = 0; i < length; i++)
             {
-                var walk = (ushort*)nativeData;
-                for (var i = 0; i < length; i++)
-                {
-                    buffer[i] = *walk++;
-                }
+                buffer[i] = *walk++;
             }
-
-            return buffer;
         }
+
+        return buffer;
     }
 }

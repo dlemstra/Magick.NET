@@ -6,31 +6,30 @@
 using System;
 using System.Buffers;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Class that can be used to create <see cref="IMagickImageInfo"/> instances.
+/// </summary>
+public sealed partial class MagickImageInfoFactory
 {
     /// <summary>
-    /// Class that can be used to create <see cref="IMagickImageInfo"/> instances.
+    /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
     /// </summary>
-    public sealed partial class MagickImageInfoFactory
-    {
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
-        /// </summary>
-        /// <param name="data">The sequence of bytes to read the information from.</param>
-        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo Create(ReadOnlySequence<byte> data)
-            => new MagickImageInfo(data);
+    /// <param name="data">The sequence of bytes to read the information from.</param>
+    /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickImageInfo Create(ReadOnlySequence<byte> data)
+        => new MagickImageInfo(data);
 
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
-        /// </summary>
-        /// <param name="data">The span of bytes to read the information from.</param>
-        /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageInfo Create(ReadOnlySpan<byte> data)
-            => new MagickImageInfo(data);
-    }
+    /// <summary>
+    /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.
+    /// </summary>
+    /// <param name="data">The span of bytes to read the information from.</param>
+    /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickImageInfo Create(ReadOnlySpan<byte> data)
+        => new MagickImageInfo(data);
 }
 
 #endif

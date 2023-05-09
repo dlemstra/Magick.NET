@@ -3,16 +3,15 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Interface for a native instance.
+/// </summary>
+internal interface INativeInstance : IDisposable
 {
     /// <summary>
-    /// Interface for a native instance.
+    /// Gets a pointer to the native instance.
     /// </summary>
-    internal interface INativeInstance : IDisposable
-    {
-        /// <summary>
-        /// Gets a pointer to the native instance.
-        /// </summary>
-        IntPtr Instance { get; }
-    }
+    IntPtr Instance { get; }
 }

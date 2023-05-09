@@ -11,34 +11,33 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies the color of a background rectangle to place under text annotations.
+/// </summary>
+public sealed partial class DrawableTextUnderColor : IDrawable, IDrawingWand
 {
     /// <summary>
-    /// Specifies the color of a background rectangle to place under text annotations.
+    /// Initializes a new instance of the <see cref="DrawableTextUnderColor"/> class.
     /// </summary>
-    public sealed partial class DrawableTextUnderColor : IDrawable, IDrawingWand
+    /// <param name="color">The color to use.</param>
+    public DrawableTextUnderColor(IMagickColor<QuantumType> color)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableTextUnderColor"/> class.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        public DrawableTextUnderColor(IMagickColor<QuantumType> color)
-        {
-            Throw.IfNull(nameof(color), color);
+        Throw.IfNull(nameof(color), color);
 
-            Color = color;
-        }
-
-        /// <summary>
-        /// Gets or sets the color to use.
-        /// </summary>
-        public IMagickColor<QuantumType> Color { get; set; }
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-            => wand?.TextUnderColor(Color);
+        Color = color;
     }
+
+    /// <summary>
+    /// Gets or sets the color to use.
+    /// </summary>
+    public IMagickColor<QuantumType> Color { get; set; }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.TextUnderColor(Color);
 }

@@ -11,17 +11,16 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal static class PercentageHelper
 {
-    internal static class PercentageHelper
-    {
-        public static Percentage FromQuantum(double value)
-            => new Percentage((value / Quantum.Max) * 100);
+    public static Percentage FromQuantum(double value)
+        => new Percentage((value / Quantum.Max) * 100);
 
-        public static double ToQuantum(Percentage percentage)
-            => Quantum.Max * (percentage.ToDouble() / 100);
+    public static double ToQuantum(Percentage percentage)
+        => Quantum.Max * (percentage.ToDouble() / 100);
 
-        public static QuantumType ToQuantumType(Percentage self)
-            => (QuantumType)(Quantum.Max * (self.ToDouble() / 100));
-    }
+    public static QuantumType ToQuantumType(Percentage self)
+        => (QuantumType)(Quantum.Max * (self.ToDouble() / 100));
 }

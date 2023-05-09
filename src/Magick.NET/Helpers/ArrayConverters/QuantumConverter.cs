@@ -14,36 +14,35 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
-{
-    internal static class QuantumConverter
-    {
-        public static QuantumType[]? ToArray(IntPtr nativeData, int length)
-        {
-            if (nativeData == IntPtr.Zero)
-                return null;
+namespace ImageMagick;
 
-            var result = new QuantumType[length];
-            unsafe
-            {
+internal static class QuantumConverter
+{
+    public static QuantumType[]? ToArray(IntPtr nativeData, int length)
+    {
+        if (nativeData == IntPtr.Zero)
+            return null;
+
+        var result = new QuantumType[length];
+        unsafe
+        {
 #if Q8
-                var source = (byte*)nativeData;
-                fixed (byte* destination = result)
+            var source = (byte*)nativeData;
+            fixed (byte* destination = result)
 #elif Q16
-                var source = (ushort*)nativeData;
-                fixed (ushort* destination = result)
+            var source = (ushort*)nativeData;
+            fixed (ushort* destination = result)
 #elif Q16HDRI
-                var source = (float*)nativeData;
-                fixed (float* destination = result)
+            var source = (float*)nativeData;
+            fixed (float* destination = result)
 #else
 #error Not implemented!
 #endif
-                {
-                    NativeMemory.Copy(source, destination, length);
-                }
+            {
+                NativeMemory.Copy(source, destination, length);
             }
-
-            return result;
         }
+
+        return result;
     }
 }

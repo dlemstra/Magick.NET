@@ -11,34 +11,33 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Sets the fill color to be used for drawing filled objects.
+/// </summary>
+public sealed partial class DrawableFillColor : IDrawable, IDrawingWand
 {
     /// <summary>
-    /// Sets the fill color to be used for drawing filled objects.
+    /// Initializes a new instance of the <see cref="DrawableFillColor"/> class.
     /// </summary>
-    public sealed partial class DrawableFillColor : IDrawable, IDrawingWand
+    /// <param name="color">The color to use.</param>
+    public DrawableFillColor(IMagickColor<QuantumType> color)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableFillColor"/> class.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        public DrawableFillColor(IMagickColor<QuantumType> color)
-        {
-            Throw.IfNull(nameof(color), color);
+        Throw.IfNull(nameof(color), color);
 
-            Color = color;
-        }
-
-        /// <summary>
-        /// Gets or sets the color to use.
-        /// </summary>
-        public IMagickColor<QuantumType> Color { get; set; }
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-            => wand?.FillColor(Color);
+        Color = color;
     }
+
+    /// <summary>
+    /// Gets or sets the color to use.
+    /// </summary>
+    public IMagickColor<QuantumType> Color { get; set; }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.FillColor(Color);
 }

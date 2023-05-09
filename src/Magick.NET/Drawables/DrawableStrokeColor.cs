@@ -11,34 +11,33 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Sets the color used for stroking object outlines.
+/// </summary>
+public sealed partial class DrawableStrokeColor : IDrawable, IDrawingWand
 {
     /// <summary>
-    /// Sets the color used for stroking object outlines.
+    /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.
     /// </summary>
-    public sealed partial class DrawableStrokeColor : IDrawable, IDrawingWand
+    /// <param name="color">The color to use.</param>
+    public DrawableStrokeColor(IMagickColor<QuantumType> color)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        public DrawableStrokeColor(IMagickColor<QuantumType> color)
-        {
-            Throw.IfNull(nameof(color), color);
+        Throw.IfNull(nameof(color), color);
 
-            Color = color;
-        }
-
-        /// <summary>
-        /// Gets or sets the color to use.
-        /// </summary>
-        public IMagickColor<QuantumType> Color { get; set; }
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-            => wand?.StrokeColor(Color);
+        Color = color;
     }
+
+    /// <summary>
+    /// Gets or sets the color to use.
+    /// </summary>
+    public IMagickColor<QuantumType> Color { get; set; }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.StrokeColor(Color);
 }

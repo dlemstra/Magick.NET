@@ -14,108 +14,107 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick.ImageOptimizers
+namespace ImageMagick.ImageOptimizers;
+
+internal sealed class PngHelper
 {
-    internal sealed class PngHelper
+    private readonly bool _optimalCompression;
+
+    public PngHelper(IImageOptimizer optimizer)
     {
-        private readonly bool _optimalCompression;
+        _optimalCompression = optimizer.OptimalCompression;
+    }
 
-        public PngHelper(IImageOptimizer optimizer)
+    public TemporaryFile? FindBestFileQuality(IMagickImage<QuantumType> image, out int bestQuality)
+    {
+        bestQuality = 0;
+
+        CheckTransparency(image);
+
+        TemporaryFile? bestFile = null;
+
+        foreach (var quality in GetQualityList())
         {
-            _optimalCompression = optimizer.OptimalCompression;
-        }
+            TemporaryFile? tempFile = null;
 
-        public TemporaryFile? FindBestFileQuality(IMagickImage<QuantumType> image, out int bestQuality)
-        {
-            bestQuality = 0;
-
-            CheckTransparency(image);
-
-            TemporaryFile? bestFile = null;
-
-            foreach (var quality in GetQualityList())
+            try
             {
-                TemporaryFile? tempFile = null;
+                tempFile = new TemporaryFile();
 
-                try
+                image.Quality = quality;
+                image.Write(tempFile.FullName);
+
+                if (bestFile is null || bestFile.Length > tempFile.Length)
                 {
-                    tempFile = new TemporaryFile();
+                    if (bestFile is not null)
+                        bestFile.Dispose();
 
-                    image.Quality = quality;
-                    image.Write(tempFile.FullName);
-
-                    if (bestFile is null || bestFile.Length > tempFile.Length)
-                    {
-                        if (bestFile is not null)
-                            bestFile.Dispose();
-
-                        bestFile = tempFile;
-                        bestQuality = quality;
-                        tempFile = null;
-                    }
-                }
-                finally
-                {
-                    if (tempFile is not null)
-                        tempFile.Dispose();
+                    bestFile = tempFile;
+                    bestQuality = quality;
+                    tempFile = null;
                 }
             }
-
-            return bestFile;
+            finally
+            {
+                if (tempFile is not null)
+                    tempFile.Dispose();
+            }
         }
 
-        public MemoryStream? FindBestStreamQuality(IMagickImage<QuantumType> image, out int bestQuality)
+        return bestFile;
+    }
+
+    public MemoryStream? FindBestStreamQuality(IMagickImage<QuantumType> image, out int bestQuality)
+    {
+        bestQuality = 0;
+
+        CheckTransparency(image);
+
+        MemoryStream? bestStream = null;
+
+        foreach (var quality in GetQualityList())
         {
-            bestQuality = 0;
+            var memStream = new MemoryStream();
 
-            CheckTransparency(image);
-
-            MemoryStream? bestStream = null;
-
-            foreach (var quality in GetQualityList())
+            try
             {
-                var memStream = new MemoryStream();
+                image.Quality = quality;
+                image.Write(memStream);
 
-                try
+                if (bestStream is null || memStream.Length < bestStream.Length)
                 {
-                    image.Quality = quality;
-                    image.Write(memStream);
+                    if (bestStream is not null)
+                        bestStream.Dispose();
 
-                    if (bestStream is null || memStream.Length < bestStream.Length)
-                    {
-                        if (bestStream is not null)
-                            bestStream.Dispose();
-
-                        bestStream = memStream;
-                        bestQuality = quality;
-                        memStream = null;
-                    }
-                }
-                finally
-                {
-                    if (memStream is not null)
-                        memStream.Dispose();
+                    bestStream = memStream;
+                    bestQuality = quality;
+                    memStream = null;
                 }
             }
-
-            return bestStream;
+            finally
+            {
+                if (memStream is not null)
+                    memStream.Dispose();
+            }
         }
 
-        private static void CheckTransparency(IMagickImage<QuantumType> image)
-        {
-            if (!image.HasAlpha)
-                return;
+        return bestStream;
+    }
 
-            if (image.IsOpaque)
-                image.HasAlpha = false;
-        }
+    private static void CheckTransparency(IMagickImage<QuantumType> image)
+    {
+        if (!image.HasAlpha)
+            return;
 
-        private IReadOnlyCollection<int> GetQualityList()
-        {
-            if (_optimalCompression)
-                return new int[] { 91, 94, 95, 97 };
-            else
-                return new int[] { 90 };
-        }
+        if (image.IsOpaque)
+            image.HasAlpha = false;
+    }
+
+    private IReadOnlyCollection<int> GetQualityList()
+    {
+        if (_optimalCompression)
+            return new int[] { 91, 94, 95, 97 };
+        else
+            return new int[] { 90 };
     }
 }

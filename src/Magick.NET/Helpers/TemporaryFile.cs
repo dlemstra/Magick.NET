@@ -4,40 +4,39 @@
 using System;
 using System.IO;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class TemporaryFile : IDisposable
 {
-    internal sealed class TemporaryFile : IDisposable
+    private readonly FileInfo _tempFile;
+
+    public TemporaryFile()
+        => _tempFile = new FileInfo(Path.GetTempFileName());
+
+    public long Length
     {
-        private readonly FileInfo _tempFile;
-
-        public TemporaryFile()
-            => _tempFile = new FileInfo(Path.GetTempFileName());
-
-        public long Length
+        get
         {
-            get
-            {
-                _tempFile.Refresh();
-                return _tempFile.Length;
-            }
+            _tempFile.Refresh();
+            return _tempFile.Length;
         }
+    }
 
-        public string FullName
-            => _tempFile.FullName;
+    public string FullName
+        => _tempFile.FullName;
 
-        public void CopyTo(TemporaryFile temporaryFile)
-            => CopyTo(temporaryFile._tempFile);
+    public void CopyTo(TemporaryFile temporaryFile)
+        => CopyTo(temporaryFile._tempFile);
 
-        public void CopyTo(FileInfo file)
-        {
-            _tempFile.CopyTo(file.FullName, true);
-            file.Refresh();
-        }
+    public void CopyTo(FileInfo file)
+    {
+        _tempFile.CopyTo(file.FullName, true);
+        file.Refresh();
+    }
 
-        public void Dispose()
-        {
-            if (_tempFile.Exists)
-                _tempFile.Delete();
-        }
+    public void Dispose()
+    {
+        if (_tempFile.Exists)
+            _tempFile.Delete();
     }
 }

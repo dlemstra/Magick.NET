@@ -3,51 +3,50 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick.Formats
+namespace ImageMagick.Formats;
+
+/// <summary>
+/// Class for defines that are used when a <see cref="MagickFormat.Tiff"/> image is read.
+/// </summary>
+public sealed class TiffReadDefines : IReadDefines
 {
     /// <summary>
-    /// Class for defines that are used when a <see cref="MagickFormat.Tiff"/> image is read.
+    /// Gets the format where the defines are for.
     /// </summary>
-    public sealed class TiffReadDefines : IReadDefines
+    public MagickFormat Format
+        => MagickFormat.Tiff;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the exif profile should be ignored (tiff:exif-properties).
+    /// </summary>
+    public bool? IgnoreExifPoperties { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the layers should be ignored (tiff:ignore-layers).
+    /// </summary>
+    public bool? IgnoreLayers { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tiff tags that should be ignored (tiff:ignore-tags).
+    /// </summary>
+    public IEnumerable<string>? IgnoreTags { get; set; }
+
+    /// <summary>
+    /// Gets the defines that should be set as a define on an image.
+    /// </summary>
+    public IEnumerable<IDefine> Defines
     {
-        /// <summary>
-        /// Gets the format where the defines are for.
-        /// </summary>
-        public MagickFormat Format
-            => MagickFormat.Tiff;
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the exif profile should be ignored (tiff:exif-properties).
-        /// </summary>
-        public bool? IgnoreExifPoperties { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether the layers should be ignored (tiff:ignore-layers).
-        /// </summary>
-        public bool? IgnoreLayers { get; set; }
-
-        /// <summary>
-        /// Gets or sets the tiff tags that should be ignored (tiff:ignore-tags).
-        /// </summary>
-        public IEnumerable<string>? IgnoreTags { get; set; }
-
-        /// <summary>
-        /// Gets the defines that should be set as a define on an image.
-        /// </summary>
-        public IEnumerable<IDefine> Defines
+        get
         {
-            get
-            {
-                if (IgnoreExifPoperties.Equals(true))
-                    yield return new MagickDefine(Format, "exif-properties", false);
+            if (IgnoreExifPoperties.Equals(true))
+                yield return new MagickDefine(Format, "exif-properties", false);
 
-                if (IgnoreLayers is not null)
-                    yield return new MagickDefine(Format, "ignore-layers", IgnoreLayers.Value);
+            if (IgnoreLayers is not null)
+                yield return new MagickDefine(Format, "ignore-layers", IgnoreLayers.Value);
 
-                var ignoreTags = MagickDefine.Create(Format, "ignore-tags", IgnoreTags);
-                if (ignoreTags is not null)
-                    yield return ignoreTags;
-            }
+            var ignoreTags = MagickDefine.Create(Format, "ignore-tags", IgnoreTags);
+            if (ignoreTags is not null)
+                yield return ignoreTags;
         }
     }
 }

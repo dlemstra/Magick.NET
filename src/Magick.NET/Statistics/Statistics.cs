@@ -4,53 +4,52 @@
 using System;
 using System.Collections.Generic;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed partial class Statistics : IStatistics
 {
-    internal sealed partial class Statistics : IStatistics
+    private readonly Dictionary<PixelChannel, ChannelStatistics> _channels;
+
+    public Statistics(MagickImage image, IntPtr list, Channels channels)
     {
-        private readonly Dictionary<PixelChannel, ChannelStatistics> _channels;
+        _channels = new Dictionary<PixelChannel, ChannelStatistics>();
 
-        public Statistics(MagickImage image, IntPtr list, Channels channels)
+        if (list == IntPtr.Zero)
+            return;
+
+        foreach (var channel in image.Channels)
         {
-            _channels = new Dictionary<PixelChannel, ChannelStatistics>();
-
-            if (list == IntPtr.Zero)
-                return;
-
-            foreach (var channel in image.Channels)
-            {
-                if ((((int)channels >> (int)channel) & 0x01) != 0)
-                    AddChannel(list, channel);
-            }
-
-            AddChannel(list, PixelChannel.Composite);
+            if ((((int)channels >> (int)channel) & 0x01) != 0)
+                AddChannel(list, channel);
         }
 
-        public IReadOnlyCollection<PixelChannel> Channels
-            => _channels.Keys;
+        AddChannel(list, PixelChannel.Composite);
+    }
 
-        public IChannelStatistics Composite()
-            => GetChannel(PixelChannel.Composite)!;
+    public IReadOnlyCollection<PixelChannel> Channels
+        => _channels.Keys;
 
-        public IChannelStatistics? GetChannel(PixelChannel channel)
-        {
-            _channels.TryGetValue(channel, out var channelStatistics);
-            return channelStatistics;
-        }
+    public IChannelStatistics Composite()
+        => GetChannel(PixelChannel.Composite)!;
 
-        internal static void DisposeList(IntPtr list)
-        {
-            if (list != IntPtr.Zero)
-                NativeStatistics.DisposeList(list);
-        }
+    public IChannelStatistics? GetChannel(PixelChannel channel)
+    {
+        _channels.TryGetValue(channel, out var channelStatistics);
+        return channelStatistics;
+    }
 
-        private void AddChannel(IntPtr list, PixelChannel channel)
-        {
-            var instance = NativeStatistics.GetInstance(list, channel);
+    internal static void DisposeList(IntPtr list)
+    {
+        if (list != IntPtr.Zero)
+            NativeStatistics.DisposeList(list);
+    }
 
-            var result = ChannelStatistics.Create(channel, instance);
-            if (result is not null)
-                _channels.Add(result.Channel, result);
-        }
+    private void AddChannel(IntPtr list, PixelChannel channel)
+    {
+        var instance = NativeStatistics.GetInstance(list, channel);
+
+        var result = ChannelStatistics.Create(channel, instance);
+        if (result is not null)
+            _channels.Add(result.Channel, result);
     }
 }

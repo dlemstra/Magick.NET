@@ -11,18 +11,17 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Class that can be used to create <see cref="IMagickColor{QuantumType}"/> instances.
+/// </summary>
+public sealed class DrawablesFactory : IDrawablesFactory<QuantumType>
 {
     /// <summary>
-    /// Class that can be used to create <see cref="IMagickColor{QuantumType}"/> instances.
+    /// Initializes a new instance that implements <see cref="IDrawables{QuantumType}"/>.
     /// </summary>
-    public sealed class DrawablesFactory : IDrawablesFactory<QuantumType>
-    {
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IDrawables{QuantumType}"/>.
-        /// </summary>
-        /// <returns>A new <see cref="IDrawables{QuantumType}"/> instance.</returns>
-        public IDrawables<QuantumType> Create()
-             => new Drawables();
-    }
+    /// <returns>A new <see cref="IDrawables{QuantumType}"/> instance.</returns>
+    public IDrawables<QuantumType> Create()
+         => new Drawables();
 }

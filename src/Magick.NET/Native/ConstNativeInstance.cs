@@ -3,27 +3,26 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal abstract class ConstNativeInstance : NativeHelper
 {
-    internal abstract class ConstNativeInstance : NativeHelper
+    private IntPtr _instance = IntPtr.Zero;
+
+    public IntPtr Instance
     {
-        private IntPtr _instance = IntPtr.Zero;
-
-        public IntPtr Instance
+        get
         {
-            get
-            {
-                if (_instance == IntPtr.Zero)
-                    throw new ObjectDisposedException(TypeName);
+            if (_instance == IntPtr.Zero)
+                throw new ObjectDisposedException(TypeName);
 
-                return _instance;
-            }
-
-            set => _instance = value;
+            return _instance;
         }
 
-        public bool HasInstance => _instance != IntPtr.Zero;
-
-        protected abstract string TypeName { get; }
+        set => _instance = value;
     }
+
+    public bool HasInstance => _instance != IntPtr.Zero;
+
+    protected abstract string TypeName { get; }
 }

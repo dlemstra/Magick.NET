@@ -14,55 +14,54 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class TemporaryMagickFormat : IDisposable
 {
-    internal sealed class TemporaryMagickFormat : IDisposable
+    private readonly List<MagickFormatData> _images = new();
+
+    public TemporaryMagickFormat(MagickImage image, MagickFormat format)
+        => AddImage(image, format);
+
+    public TemporaryMagickFormat(MagickImageCollection images, MagickFormat format)
     {
-        private readonly List<MagickFormatData> _images = new();
-
-        public TemporaryMagickFormat(MagickImage image, MagickFormat format)
-            => AddImage(image, format);
-
-        public TemporaryMagickFormat(MagickImageCollection images, MagickFormat format)
+        foreach (var image in images)
         {
-            foreach (var image in images)
-            {
-                AddImage(image, format);
-            }
+            AddImage(image, format);
+        }
+    }
+
+    public void Dispose()
+    {
+        foreach (var image in _images)
+        {
+            image.RestoreOriginalFormat();
+        }
+    }
+
+    private void AddImage(IMagickImage<QuantumType> image, MagickFormat format)
+    {
+        _images.Add(new MagickFormatData(image));
+        image.Format = format;
+    }
+
+    private sealed class MagickFormatData
+    {
+        private readonly IMagickImage<QuantumType> _image;
+        private readonly MagickFormat _originalImageFormat;
+        private readonly MagickFormat _originalSettingsFormat;
+
+        public MagickFormatData(IMagickImage<QuantumType> image)
+        {
+            _image = image;
+            _originalImageFormat = image.Format;
+            _originalSettingsFormat = image.Settings.Format;
         }
 
-        public void Dispose()
+        public void RestoreOriginalFormat()
         {
-            foreach (var image in _images)
-            {
-                image.RestoreOriginalFormat();
-            }
-        }
-
-        private void AddImage(IMagickImage<QuantumType> image, MagickFormat format)
-        {
-            _images.Add(new MagickFormatData(image));
-            image.Format = format;
-        }
-
-        private sealed class MagickFormatData
-        {
-            private readonly IMagickImage<QuantumType> _image;
-            private readonly MagickFormat _originalImageFormat;
-            private readonly MagickFormat _originalSettingsFormat;
-
-            public MagickFormatData(IMagickImage<QuantumType> image)
-            {
-                _image = image;
-                _originalImageFormat = image.Format;
-                _originalSettingsFormat = image.Settings.Format;
-            }
-
-            public void RestoreOriginalFormat()
-            {
-                _image.Format = _originalImageFormat;
-                _image.Settings.Format = _originalSettingsFormat;
-            }
+            _image.Format = _originalImageFormat;
+            _image.Settings.Format = _originalSettingsFormat;
         }
     }
 }

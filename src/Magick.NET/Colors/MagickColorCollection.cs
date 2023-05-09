@@ -14,35 +14,34 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal static partial class MagickColorCollection
 {
-    internal static partial class MagickColorCollection
+    public static void DisposeList(IntPtr list)
     {
-        public static void DisposeList(IntPtr list)
-        {
-            if (list != IntPtr.Zero)
-                NativeMagickColorCollection.DisposeList(list);
-        }
+        if (list != IntPtr.Zero)
+            NativeMagickColorCollection.DisposeList(list);
+    }
 
-        public static IReadOnlyDictionary<IMagickColor<QuantumType>, int> ToDictionary(IntPtr list, int length)
-        {
-            var colors = new Dictionary<IMagickColor<QuantumType>, int>();
+    public static IReadOnlyDictionary<IMagickColor<QuantumType>, int> ToDictionary(IntPtr list, int length)
+    {
+        var colors = new Dictionary<IMagickColor<QuantumType>, int>();
 
-            if (list == IntPtr.Zero)
-                return colors;
-
-            for (var i = 0; i < length; i++)
-            {
-                var instance = NativeMagickColorCollection.GetInstance(list, i);
-
-                var color = MagickColor.CreateInstance(instance, out var count);
-                if (color is null)
-                    continue;
-
-                colors[color] = count;
-            }
-
+        if (list == IntPtr.Zero)
             return colors;
+
+        for (var i = 0; i < length; i++)
+        {
+            var instance = NativeMagickColorCollection.GetInstance(list, i);
+
+            var color = MagickColor.CreateInstance(instance, out var count);
+            if (color is null)
+                continue;
+
+            colors[color] = count;
         }
+
+        return colors;
     }
 }

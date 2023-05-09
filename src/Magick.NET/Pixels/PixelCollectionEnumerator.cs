@@ -15,75 +15,74 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class PixelCollectionEnumerator : IEnumerator<IPixel<QuantumType>>
 {
-    internal sealed class PixelCollectionEnumerator : IEnumerator<IPixel<QuantumType>>
+    private readonly PixelCollection _collection;
+    private readonly int _height;
+    private readonly int _width;
+
+    private QuantumType[]? _row;
+    private int _x;
+    private int _y;
+
+    public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
     {
-        private readonly PixelCollection _collection;
-        private readonly int _height;
-        private readonly int _width;
+        _collection = collection;
+        _width = width;
+        _height = height;
+        Reset();
+    }
 
-        private QuantumType[]? _row;
-        private int _x;
-        private int _y;
+    object? IEnumerator.Current
+        => Current;
 
-        public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
+    public IPixel<QuantumType> Current
+    {
+        get
         {
-            _collection = collection;
-            _width = width;
-            _height = height;
-            Reset();
+            if (_x == -1 || _row is null)
+                throw new InvalidOperationException();
+
+            var pixel = new QuantumType[_collection.Channels];
+            Array.Copy(_row, _x * _collection.Channels, pixel, 0, _collection.Channels);
+
+            return Pixel.Create(_collection, _x, _y, pixel);
         }
+    }
 
-        object? IEnumerator.Current
-            => Current;
+    public void Dispose()
+    {
+    }
 
-        public IPixel<QuantumType> Current
+    public bool MoveNext()
+    {
+        if (++_x == _width)
         {
-            get
-            {
-                if (_x == -1 || _row is null)
-                    throw new InvalidOperationException();
-
-                var pixel = new QuantumType[_collection.Channels];
-                Array.Copy(_row, _x * _collection.Channels, pixel, 0, _collection.Channels);
-
-                return Pixel.Create(_collection, _x, _y, pixel);
-            }
-        }
-
-        public void Dispose()
-        {
-        }
-
-        public bool MoveNext()
-        {
-            if (++_x == _width)
-            {
-                _x = 0;
-                _y++;
-                SetRow();
-            }
-
-            if (_y < _height)
-                return true;
-
-            _x = _width - 1;
-            _y = _height - 1;
-            return false;
-        }
-
-        public void Reset()
-        {
-            _x = -1;
-            _y = 0;
+            _x = 0;
+            _y++;
             SetRow();
         }
 
-        private void SetRow()
-        {
-            if (_y < _height)
-                _row = _collection.GetAreaUnchecked(0, _y, _width, 1);
-        }
+        if (_y < _height)
+            return true;
+
+        _x = _width - 1;
+        _y = _height - 1;
+        return false;
+    }
+
+    public void Reset()
+    {
+        _x = -1;
+        _y = 0;
+        SetRow();
+    }
+
+    private void SetRow()
+    {
+        if (_y < _height)
+            _row = _collection.GetAreaUnchecked(0, _y, _width, 1);
     }
 }

@@ -5,57 +5,56 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class TemporaryDefines : IDisposable
 {
-    internal sealed class TemporaryDefines : IDisposable
+    private readonly MagickImage _image;
+    private readonly List<string> _names = new();
+
+    public TemporaryDefines(MagickImage image)
     {
-        private readonly MagickImage _image;
-        private readonly List<string> _names = new();
+        _image = image;
+    }
 
-        public TemporaryDefines(MagickImage image)
+    public void Dispose()
+    {
+        foreach (var name in _names)
         {
-            _image = image;
+            _image.RemoveArtifact(name);
         }
+    }
 
-        public void Dispose()
-        {
-            foreach (var name in _names)
-            {
-                _image.RemoveArtifact(name);
-            }
-        }
+    public void SetArtifact(string name, string? value)
+    {
+        if (value is null || value.Length < 1)
+            return;
 
-        public void SetArtifact(string name, string? value)
-        {
-            if (value is null || value.Length < 1)
-                return;
+        _names.Add(name);
+        _image.SetArtifact(name, value);
+    }
 
-            _names.Add(name);
-            _image.SetArtifact(name, value);
-        }
+    public void SetArtifact(string name, bool value)
+    {
+        _names.Add(name);
+        _image.SetArtifact(name, value);
+    }
 
-        public void SetArtifact(string name, bool value)
-        {
-            _names.Add(name);
-            _image.SetArtifact(name, value);
-        }
+    public void SetArtifact(string name, double? value)
+    {
+        if (value is null)
+            return;
 
-        public void SetArtifact(string name, double? value)
-        {
-            if (value is null)
-                return;
+        _names.Add(name);
+        _image.SetArtifact(name, value.Value.ToString(CultureInfo.InvariantCulture));
+    }
 
-            _names.Add(name);
-            _image.SetArtifact(name, value.Value.ToString(CultureInfo.InvariantCulture));
-        }
+    public void SetArtifact<TValue>(string name, TValue? value)
+    {
+        if (value is null)
+            return;
 
-        public void SetArtifact<TValue>(string name, TValue? value)
-        {
-            if (value is null)
-                return;
-
-            _names.Add(name);
-            _image.SetArtifact(name, value.ToString());
-        }
+        _names.Add(name);
+        _image.SetArtifact(name, value.ToString());
     }
 }

@@ -16,49 +16,48 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <content />
+public sealed partial class MagickImageCollectionFactory
 {
-    /// <content />
-    public sealed partial class MagickImageCollectionFactory
-    {
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
-        /// </summary>
-        /// <param name="data">The sequence of bytes to read the image data from.</param>
-        /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection<QuantumType> Create(ReadOnlySequence<byte> data)
-             => new MagickImageCollection(data);
+    /// <summary>
+    /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
+    /// </summary>
+    /// <param name="data">The sequence of bytes to read the image data from.</param>
+    /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickImageCollection<QuantumType> Create(ReadOnlySequence<byte> data)
+         => new MagickImageCollection(data);
 
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
-        /// </summary>
-        /// <param name="data">The sequence of bytes to read the image data from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection<QuantumType> Create(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType> readSettings)
-             => new MagickImageCollection(data, readSettings);
+    /// <summary>
+    /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
+    /// </summary>
+    /// <param name="data">The sequence of bytes to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickImageCollection<QuantumType> Create(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType> readSettings)
+         => new MagickImageCollection(data, readSettings);
 
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
-        /// </summary>
-        /// <param name="data">The span of bytes to read the image data from.</param>
-        /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection<QuantumType> Create(ReadOnlySpan<byte> data)
-             => new MagickImageCollection(data);
+    /// <summary>
+    /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
+    /// </summary>
+    /// <param name="data">The span of bytes to read the image data from.</param>
+    /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickImageCollection<QuantumType> Create(ReadOnlySpan<byte> data)
+         => new MagickImageCollection(data);
 
-        /// <summary>
-        /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
-        /// </summary>
-        /// <param name="data">The span of bytes to read the image data from.</param>
-        /// <param name="readSettings">The settings to use when reading the image.</param>
-        /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-        public IMagickImageCollection<QuantumType> Create(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType> readSettings)
-             => new MagickImageCollection(data, readSettings);
-    }
+    /// <summary>
+    /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
+    /// </summary>
+    /// <param name="data">The span of bytes to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickImageCollection<QuantumType> Create(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType> readSettings)
+         => new MagickImageCollection(data, readSettings);
 }
 
 #endif

@@ -11,82 +11,81 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+///  Class that represents a gray color.
+/// </summary>
+public sealed class ColorGray : ColorBase
 {
+    private double _shade;
+
     /// <summary>
-    ///  Class that represents a gray color.
+    /// Initializes a new instance of the <see cref="ColorGray"/> class.
     /// </summary>
-    public sealed class ColorGray : ColorBase
+    /// <param name="shade">Value between 0.0 - 1.0.</param>
+    public ColorGray(double shade)
+      : base(new MagickColor(0, 0, 0))
     {
-        private double _shade;
+        Throw.IfTrue(nameof(shade), shade < 0.0 || shade > 1.0, "Invalid shade specified");
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ColorGray"/> class.
-        /// </summary>
-        /// <param name="shade">Value between 0.0 - 1.0.</param>
-        public ColorGray(double shade)
-          : base(new MagickColor(0, 0, 0))
+        _shade = shade;
+    }
+
+    private ColorGray(IMagickColor<QuantumType> color)
+      : base(color)
+    {
+        _shade =
+            (0.212656 * Quantum.ScaleToDouble(color.R)) +
+            (0.715158 * Quantum.ScaleToDouble(color.G)) +
+            (0.072186 * Quantum.ScaleToDouble(color.B));
+    }
+
+    /// <summary>
+    /// Gets or sets the shade of this color (value between 0.0 - 1.0).
+    /// </summary>
+    public double Shade
+    {
+        get => _shade;
+
+        set
         {
-            Throw.IfTrue(nameof(shade), shade < 0.0 || shade > 1.0, "Invalid shade specified");
+            if (value < 0.0 || value > 1.0)
+                return;
 
-            _shade = shade;
+            _shade = value;
         }
+    }
 
-        private ColorGray(IMagickColor<QuantumType> color)
-          : base(color)
-        {
-            _shade =
-                (0.212656 * Quantum.ScaleToDouble(color.R)) +
-                (0.715158 * Quantum.ScaleToDouble(color.G)) +
-                (0.072186 * Quantum.ScaleToDouble(color.B));
-        }
+    /// <summary>
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+    /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorGray"/> instance.</returns>
+    public static explicit operator ColorGray?(MagickColor color)
+        => FromMagickColor(color);
 
-        /// <summary>
-        /// Gets or sets the shade of this color (value between 0.0 - 1.0).
-        /// </summary>
-        public double Shade
-        {
-            get => _shade;
+    /// <summary>
+    /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
+    /// </summary>
+    /// <param name="color">The color to use.</param>
+    /// <returns>A <see cref="ColorGray"/> instance.</returns>
+    public static ColorGray? FromMagickColor(MagickColor color)
+    {
+        if (color is null)
+            return null;
 
-            set
-            {
-                if (value < 0.0 || value > 1.0)
-                    return;
+        return new ColorGray(color);
+    }
 
-                _shade = value;
-            }
-        }
-
-        /// <summary>
-        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        /// <returns>A <see cref="ColorGray"/> instance.</returns>
-        public static explicit operator ColorGray?(MagickColor color)
-            => FromMagickColor(color);
-
-        /// <summary>
-        /// Converts the specified <see cref="MagickColor"/> to an instance of this type.
-        /// </summary>
-        /// <param name="color">The color to use.</param>
-        /// <returns>A <see cref="ColorGray"/> instance.</returns>
-        public static ColorGray? FromMagickColor(MagickColor color)
-        {
-            if (color is null)
-                return null;
-
-            return new ColorGray(color);
-        }
-
-        /// <summary>
-        /// Updates the color value in an inherited class.
-        /// </summary>
-        protected override void UpdateColor()
-        {
-            var gray = Quantum.ScaleToQuantum(_shade);
-            Color.R = gray;
-            Color.G = gray;
-            Color.B = gray;
-        }
+    /// <summary>
+    /// Updates the color value in an inherited class.
+    /// </summary>
+    protected override void UpdateColor()
+    {
+        var gray = Quantum.ScaleToQuantum(_shade);
+        Color.R = gray;
+        Color.G = gray;
+        Color.B = gray;
     }
 }

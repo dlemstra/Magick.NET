@@ -4,18 +4,17 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace ImageMagick
-{
-    internal static class ByteConverter
-    {
-        public static byte[]? ToArray(IntPtr nativeData, int length)
-        {
-            if (nativeData == IntPtr.Zero)
-                return null;
+namespace ImageMagick;
 
-            var buffer = new byte[length];
-            Marshal.Copy(nativeData, buffer, 0, length);
-            return buffer;
-        }
+internal static class ByteConverter
+{
+    public static byte[]? ToArray(IntPtr nativeData, int length)
+    {
+        if (nativeData == IntPtr.Zero)
+            return null;
+
+        var buffer = new byte[length];
+        Marshal.Copy(nativeData, buffer, 0, length);
+        return buffer;
     }
 }

@@ -3,39 +3,38 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Draws a polyline using the current stroke, stroke width, and fill color or texture, using the
+/// specified array of coordinates.
+/// </summary>
+public sealed class DrawablePolyline : IDrawable, IDrawingWand
 {
+    private readonly PointDCoordinates _coordinates;
+
     /// <summary>
-    /// Draws a polyline using the current stroke, stroke width, and fill color or texture, using the
-    /// specified array of coordinates.
+    /// Initializes a new instance of the <see cref="DrawablePolyline"/> class.
     /// </summary>
-    public sealed class DrawablePolyline : IDrawable, IDrawingWand
+    /// <param name="coordinates">The coordinates.</param>
+    public DrawablePolyline(params PointD[] coordinates)
     {
-        private readonly PointDCoordinates _coordinates;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawablePolyline"/> class.
-        /// </summary>
-        /// <param name="coordinates">The coordinates.</param>
-        public DrawablePolyline(params PointD[] coordinates)
-        {
-            _coordinates = new PointDCoordinates(coordinates, 3);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawablePolyline"/> class.
-        /// </summary>
-        /// <param name="coordinates">The coordinates.</param>
-        public DrawablePolyline(IEnumerable<PointD> coordinates)
-        {
-            _coordinates = new PointDCoordinates(coordinates, 3);
-        }
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-            => wand?.Polyline(_coordinates.ToList());
+        _coordinates = new PointDCoordinates(coordinates, 3);
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DrawablePolyline"/> class.
+    /// </summary>
+    /// <param name="coordinates">The coordinates.</param>
+    public DrawablePolyline(IEnumerable<PointD> coordinates)
+    {
+        _coordinates = new PointDCoordinates(coordinates, 3);
+    }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.Polyline(_coordinates.ToList());
 }

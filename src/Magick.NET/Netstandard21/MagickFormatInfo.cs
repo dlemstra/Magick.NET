@@ -6,36 +6,35 @@
 using System;
 using System.Buffers;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <content/>
+public sealed partial class MagickFormatInfo
 {
-    /// <content/>
-    public sealed partial class MagickFormatInfo
+    /// <summary>
+    /// Returns the format information. The header of the image in the span of bytes is used to
+    /// determine the format.
+    /// </summary>
+    /// <param name="data">The span of bytes to read the image header from.</param>
+    /// <returns>The format information.</returns>
+    public static MagickFormatInfo? Create(ReadOnlySpan<byte> data)
     {
-        /// <summary>
-        /// Returns the format information. The header of the image in the span of bytes is used to
-        /// determine the format.
-        /// </summary>
-        /// <param name="data">The span of bytes to read the image header from.</param>
-        /// <returns>The format information.</returns>
-        public static MagickFormatInfo? Create(ReadOnlySpan<byte> data)
-        {
-            Throw.IfEmpty(nameof(data), data);
+        Throw.IfEmpty(nameof(data), data);
 
-            var instance = new NativeMagickFormatInfo();
-            instance.GetInfoWithBlob(data, data.Length);
+        var instance = new NativeMagickFormatInfo();
+        instance.GetInfoWithBlob(data, data.Length);
 
-            return Create(instance);
-        }
-
-        /// <summary>
-        /// Returns the format information. The header of the image in the sequence of bytes is used to
-        /// determine the format.
-        /// </summary>
-        /// <param name="data">The sequence of bytes to read the image header from.</param>
-        /// <returns>The format information.</returns>
-        public static MagickFormatInfo? Create(ReadOnlySequence<byte> data)
-            => Create(data.FirstSpan);
+        return Create(instance);
     }
+
+    /// <summary>
+    /// Returns the format information. The header of the image in the sequence of bytes is used to
+    /// determine the format.
+    /// </summary>
+    /// <param name="data">The sequence of bytes to read the image header from.</param>
+    /// <returns>The format information.</returns>
+    public static MagickFormatInfo? Create(ReadOnlySequence<byte> data)
+        => Create(data.FirstSpan);
 }
 
 #endif

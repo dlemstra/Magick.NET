@@ -7,21 +7,20 @@ using System;
 using System.Buffers;
 using System.Diagnostics.CodeAnalysis;
 
-namespace ImageMagick
-{
-    internal static partial class Throw
-    {
-        public static void IfEmpty<T>(string paramName, [NotNull] ReadOnlySequence<T> value)
-        {
-            if (value.IsEmpty)
-                throw new ArgumentException("Value cannot be empty.", paramName);
-        }
+namespace ImageMagick;
 
-        public static void IfEmpty<T>(string paramName, [NotNull] ReadOnlySpan<T> value)
-        {
-            if (value.IsEmpty)
-                throw new ArgumentException("Value cannot be empty.", paramName);
-        }
+internal static partial class Throw
+{
+    public static void IfEmpty<T>(string paramName, [NotNull] ReadOnlySequence<T> value)
+    {
+        if (value.IsEmpty)
+            throw new ArgumentException("Value cannot be empty.", paramName);
+    }
+
+    public static void IfEmpty<T>(string paramName, [NotNull] ReadOnlySpan<T> value)
+    {
+        if (value.IsEmpty)
+            throw new ArgumentException("Value cannot be empty.", paramName);
     }
 }
 

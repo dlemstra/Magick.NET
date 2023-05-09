@@ -3,33 +3,32 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick.Formats
+namespace ImageMagick.Formats;
+
+/// <summary>
+/// Class for defines that are used when a <see cref="MagickFormat.Psd"/> image is written.
+/// </summary>
+public sealed class PsdWriteDefines : IWriteDefines
 {
     /// <summary>
-    /// Class for defines that are used when a <see cref="MagickFormat.Psd"/> image is written.
+    /// Gets or sets which additional info should be written to the output file.
     /// </summary>
-    public sealed class PsdWriteDefines : IWriteDefines
+    public PsdAdditionalInfoPart AdditionalInfo { get; set; }
+
+    /// <summary>
+    /// Gets the format where the defines are for.
+    /// </summary>
+    public MagickFormat Format
+        => MagickFormat.Psd;
+
+    /// <summary>
+    /// Gets the defines that should be set as a define on an image.
+    /// </summary>
+    public IEnumerable<IDefine> Defines
     {
-        /// <summary>
-        /// Gets or sets which additional info should be written to the output file.
-        /// </summary>
-        public PsdAdditionalInfoPart AdditionalInfo { get; set; }
-
-        /// <summary>
-        /// Gets the format where the defines are for.
-        /// </summary>
-        public MagickFormat Format
-            => MagickFormat.Psd;
-
-        /// <summary>
-        /// Gets the defines that should be set as a define on an image.
-        /// </summary>
-        public IEnumerable<IDefine> Defines
+        get
         {
-            get
-            {
-                yield return new MagickDefine(Format, "additional-info", AdditionalInfo);
-            }
+            yield return new MagickDefine(Format, "additional-info", AdditionalInfo);
         }
     }
 }

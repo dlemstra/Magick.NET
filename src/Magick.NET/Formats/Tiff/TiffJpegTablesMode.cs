@@ -3,27 +3,26 @@
 
 using System;
 
-namespace ImageMagick.Formats
+namespace ImageMagick.Formats;
+
+/// <summary>
+/// Specifies jpeg tables mode that will be used when using jpeg compression in a tiff image.
+/// </summary>
+[Flags]
+public enum TiffJpegTablesMode
 {
     /// <summary>
-    /// Specifies jpeg tables mode that will be used when using jpeg compression in a tiff image.
+    /// Unspecified.
     /// </summary>
-    [Flags]
-    public enum TiffJpegTablesMode
-    {
-        /// <summary>
-        /// Unspecified.
-        /// </summary>
-        None = 0,
+    None = 0,
 
-        /// <summary>
-        /// Include quantization tables.
-        /// </summary>
-        Quant = 1,
+    /// <summary>
+    /// Include quantization tables.
+    /// </summary>
+    Quant = 1,
 
-        /// <summary>
-        /// Include Huffman tables.
-        /// </summary>
-        Huff = 2,
-    }
+    /// <summary>
+    /// Include Huffman tables.
+    /// </summary>
+    Huff = 2,
 }

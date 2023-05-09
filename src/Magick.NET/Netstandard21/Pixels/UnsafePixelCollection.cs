@@ -15,15 +15,14 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed partial class UnsafePixelCollection
 {
-    internal sealed partial class UnsafePixelCollection
+    public override void SetArea(IMagickGeometry geometry, ReadOnlySpan<QuantumType> values)
     {
-        public override void SetArea(IMagickGeometry geometry, ReadOnlySpan<QuantumType> values)
-        {
-            if (geometry is not null)
-                base.SetArea(geometry, values);
-        }
+        if (geometry is not null)
+            base.SetArea(geometry, values);
     }
 }
 

@@ -1,25 +1,24 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Terminates a clip path definition.
+/// </summary>
+public sealed class DrawablePopClipPath : IDrawable, IDrawingWand
 {
     /// <summary>
-    /// Terminates a clip path definition.
+    /// Initializes a new instance of the <see cref="DrawablePopClipPath"/> class.
     /// </summary>
-    public sealed class DrawablePopClipPath : IDrawable, IDrawingWand
+    public DrawablePopClipPath()
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawablePopClipPath"/> class.
-        /// </summary>
-        public DrawablePopClipPath()
-        {
-        }
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-            => wand?.PopClipPath();
     }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.PopClipPath();
 }

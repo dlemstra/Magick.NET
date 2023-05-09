@@ -15,49 +15,48 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed partial class SafePixelCollection
 {
-    internal sealed partial class SafePixelCollection
+    public override void SetArea(int x, int y, int width, int height, ReadOnlySpan<QuantumType> values)
     {
-        public override void SetArea(int x, int y, int width, int height, ReadOnlySpan<QuantumType> values)
-        {
-            CheckValues(x, y, width, height, values);
-            base.SetArea(x, y, width, height, values);
-        }
+        CheckValues(x, y, width, height, values);
+        base.SetArea(x, y, width, height, values);
+    }
 
-        public override void SetArea(IMagickGeometry geometry, ReadOnlySpan<QuantumType> values)
-        {
-            Throw.IfNull(nameof(geometry), geometry);
+    public override void SetArea(IMagickGeometry geometry, ReadOnlySpan<QuantumType> values)
+    {
+        Throw.IfNull(nameof(geometry), geometry);
 
-            base.SetArea(geometry, values);
-        }
+        base.SetArea(geometry, values);
+    }
 
-        public override void SetPixels(ReadOnlySpan<QuantumType> values)
-        {
-            CheckValues(values);
-            base.SetPixels(values);
-        }
+    public override void SetPixels(ReadOnlySpan<QuantumType> values)
+    {
+        CheckValues(values);
+        base.SetPixels(values);
+    }
 
-        private void CheckValues<T>(ReadOnlySpan<T> values)
-            => CheckValues(0, 0, values);
+    private void CheckValues<T>(ReadOnlySpan<T> values)
+        => CheckValues(0, 0, values);
 
-        private void CheckValues<T>(int x, int y, ReadOnlySpan<T> values)
-            => CheckValues(x, y, Image.Width, Image.Height, values);
+    private void CheckValues<T>(int x, int y, ReadOnlySpan<T> values)
+        => CheckValues(x, y, Image.Width, Image.Height, values);
 
-        private void CheckValues<T>(int x, int y, int width, int height, ReadOnlySpan<T> values)
-        {
-            CheckIndex(x, y);
-            Throw.IfEmpty(nameof(values), values);
-            Throw.IfFalse(nameof(values), values.Length % Channels == 0, $"Values should have {Channels} channels.");
+    private void CheckValues<T>(int x, int y, int width, int height, ReadOnlySpan<T> values)
+    {
+        CheckIndex(x, y);
+        Throw.IfEmpty(nameof(values), values);
+        Throw.IfFalse(nameof(values), values.Length % Channels == 0, $"Values should have {Channels} channels.");
 
-            var length = values.Length;
-            var max = width * height * Channels;
-            Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
+        var length = values.Length;
+        var max = width * height * Channels;
+        Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
 
-            length = (x * y * Channels) + length;
-            max = Image.Width * Image.Height * Channels;
-            Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
-        }
+        length = (x * y * Channels) + length;
+        max = Image.Width * Image.Height * Channels;
+        Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
     }
 }
 

@@ -3,38 +3,37 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal abstract class NativeHelper
 {
-    internal abstract class NativeHelper
+    private EventHandler<WarningEventArgs>? _warningEvent;
+
+    public event EventHandler<WarningEventArgs> Warning
     {
-        private EventHandler<WarningEventArgs>? _warningEvent;
-
-        public event EventHandler<WarningEventArgs> Warning
+        add
         {
-            add
-            {
-                _warningEvent += value;
-            }
-
-            remove
-            {
-                _warningEvent -= value;
-            }
+            _warningEvent += value;
         }
 
-        protected void CheckException(IntPtr exception)
+        remove
         {
-            var magickException = MagickExceptionHelper.Check(exception);
-            RaiseWarning(magickException);
+            _warningEvent -= value;
         }
+    }
 
-        protected void RaiseWarning(MagickException? exception)
-        {
-            if (_warningEvent is null)
-                return;
+    protected void CheckException(IntPtr exception)
+    {
+        var magickException = MagickExceptionHelper.Check(exception);
+        RaiseWarning(magickException);
+    }
 
-            if (exception is MagickWarningException warning)
-                _warningEvent.Invoke(this, new WarningEventArgs(warning));
-        }
+    protected void RaiseWarning(MagickException? exception)
+    {
+        if (_warningEvent is null)
+            return;
+
+        if (exception is MagickWarningException warning)
+            _warningEvent.Invoke(this, new WarningEventArgs(warning));
     }
 }

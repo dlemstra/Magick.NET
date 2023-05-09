@@ -13,36 +13,35 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Extension methods for the <see cref="IExifProfile"/> interface.
+/// </summary>
+public static class IExifProfileExtensions
 {
     /// <summary>
-    /// Extension methods for the <see cref="IExifProfile"/> interface.
+    /// Returns the thumbnail in the exif profile when available.
     /// </summary>
-    public static class IExifProfileExtensions
+    /// <param name="self">The exif profile.</param>
+    /// <returns>The thumbnail in the exif profile when available.</returns>
+    public static IMagickImage<QuantumType>? CreateThumbnail(this IExifProfile self)
     {
-        /// <summary>
-        /// Returns the thumbnail in the exif profile when available.
-        /// </summary>
-        /// <param name="self">The exif profile.</param>
-        /// <returns>The thumbnail in the exif profile when available.</returns>
-        public static IMagickImage<QuantumType>? CreateThumbnail(this IExifProfile self)
-        {
-            Throw.IfNull(nameof(self), self);
+        Throw.IfNull(nameof(self), self);
 
-            var thumbnailLength = self.ThumbnailLength;
-            var thumbnailOffset = self.ThumbnailOffset;
+        var thumbnailLength = self.ThumbnailLength;
+        var thumbnailOffset = self.ThumbnailOffset;
 
-            if (thumbnailLength == 0 || thumbnailOffset == 0)
-                return null;
+        if (thumbnailLength == 0 || thumbnailOffset == 0)
+            return null;
 
-            var data = self.GetData();
+        var data = self.GetData();
 
-            if (data is null || data.Length < (thumbnailOffset + thumbnailLength))
-                return null;
+        if (data is null || data.Length < (thumbnailOffset + thumbnailLength))
+            return null;
 
-            var result = new byte[thumbnailLength];
-            Array.Copy(data, thumbnailOffset, result, 0, thumbnailLength);
-            return new MagickImage(result);
-        }
+        var result = new byte[thumbnailLength];
+        Array.Copy(data, thumbnailOffset, result, 0, thumbnailLength);
+        return new MagickImage(result);
     }
 }

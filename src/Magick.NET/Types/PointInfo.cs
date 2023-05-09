@@ -3,25 +3,24 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal partial class PointInfo
 {
-    internal partial class PointInfo
+    private PointInfo(IntPtr instance)
     {
-        private PointInfo(IntPtr instance)
-        {
-            var nativeInstance = new NativePointInfo(instance);
-            X = nativeInstance.X;
-            Y = nativeInstance.Y;
-        }
-
-        public double X { get; }
-
-        public double Y { get; }
-
-        public static PointInfo CreateInstance(IntPtr instance)
-            => new PointInfo(instance);
-
-        public PointD ToPointD()
-            => new PointD(X, Y);
+        var nativeInstance = new NativePointInfo(instance);
+        X = nativeInstance.X;
+        Y = nativeInstance.Y;
     }
+
+    public double X { get; }
+
+    public double Y { get; }
+
+    public static PointInfo CreateInstance(IntPtr instance)
+        => new PointInfo(instance);
+
+    public PointD ToPointD()
+        => new PointD(X, Y);
 }

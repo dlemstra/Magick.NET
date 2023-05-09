@@ -3,29 +3,28 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal partial class StringInfo
 {
-    internal partial class StringInfo
+    public StringInfo(byte[] datum)
     {
-        public StringInfo(byte[] datum)
-        {
-            Datum = datum;
-        }
+        Datum = datum;
+    }
 
-        public byte[] Datum { get; }
+    public byte[] Datum { get; }
 
-        public static StringInfo? CreateInstance(IntPtr instance)
-        {
-            if (instance == IntPtr.Zero)
-                return null;
+    public static StringInfo? CreateInstance(IntPtr instance)
+    {
+        if (instance == IntPtr.Zero)
+            return null;
 
-            var native = new NativeStringInfo(instance);
+        var native = new NativeStringInfo(instance);
 
-            var datum = ByteConverter.ToArray(native.Datum, native.Length);
-            if (datum is null)
-                return null;
+        var datum = ByteConverter.ToArray(native.Datum, native.Length);
+        if (datum is null)
+            return null;
 
-            return new StringInfo(datum);
-        }
+        return new StringInfo(datum);
     }
 }

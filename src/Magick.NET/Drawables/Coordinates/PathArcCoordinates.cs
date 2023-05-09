@@ -3,13 +3,12 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal class PathArcCoordinates : DrawableCoordinates<PathArc>
 {
-    internal class PathArcCoordinates : DrawableCoordinates<PathArc>
+    public PathArcCoordinates(IEnumerable<PathArc> coordinates)
+      : base(coordinates, 0)
     {
-        public PathArcCoordinates(IEnumerable<PathArc> coordinates)
-          : base(coordinates, 0)
-        {
-        }
     }
 }

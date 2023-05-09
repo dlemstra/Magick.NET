@@ -1,32 +1,31 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Sets the spacing between characters in text.
+/// </summary>
+public sealed class DrawableTextKerning : IDrawable, IDrawingWand
 {
     /// <summary>
-    /// Sets the spacing between characters in text.
+    /// Initializes a new instance of the <see cref="DrawableTextKerning"/> class.
     /// </summary>
-    public sealed class DrawableTextKerning : IDrawable, IDrawingWand
+    /// <param name="kerning">Kerning to use.</param>
+    public DrawableTextKerning(double kerning)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableTextKerning"/> class.
-        /// </summary>
-        /// <param name="kerning">Kerning to use.</param>
-        public DrawableTextKerning(double kerning)
-        {
-            Kerning = kerning;
-        }
-
-        /// <summary>
-        /// Gets or sets the text kerning to use.
-        /// </summary>
-        public double Kerning { get; set; }
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-            => wand?.TextKerning(Kerning);
+        Kerning = kerning;
     }
+
+    /// <summary>
+    /// Gets or sets the text kerning to use.
+    /// </summary>
+    public double Kerning { get; set; }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.TextKerning(Kerning);
 }

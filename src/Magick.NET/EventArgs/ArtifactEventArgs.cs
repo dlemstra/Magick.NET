@@ -3,18 +3,17 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal sealed class ArtifactEventArgs : EventArgs
 {
-    internal sealed class ArtifactEventArgs : EventArgs
+    internal ArtifactEventArgs(string key, string? value)
     {
-        internal ArtifactEventArgs(string key, string? value)
-        {
-            Key = key;
-            Value = value;
-        }
-
-        public string Key { get; }
-
-        public string? Value { get; }
+        Key = key;
+        Value = value;
     }
+
+    public string Key { get; }
+
+    public string? Value { get; }
 }

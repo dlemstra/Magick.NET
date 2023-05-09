@@ -1,32 +1,31 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Specifies the alpha of stroked object outlines.
+/// </summary>
+public sealed class DrawableStrokeOpacity : IDrawable, IDrawingWand
 {
     /// <summary>
-    /// Specifies the alpha of stroked object outlines.
+    /// Initializes a new instance of the <see cref="DrawableStrokeOpacity"/> class.
     /// </summary>
-    public sealed class DrawableStrokeOpacity : IDrawable, IDrawingWand
+    /// <param name="opacity">The opacity.</param>
+    public DrawableStrokeOpacity(Percentage opacity)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableStrokeOpacity"/> class.
-        /// </summary>
-        /// <param name="opacity">The opacity.</param>
-        public DrawableStrokeOpacity(Percentage opacity)
-        {
-            Opacity = opacity;
-        }
-
-        /// <summary>
-        /// Gets or sets the opacity.
-        /// </summary>
-        public Percentage Opacity { get; set; }
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-            => wand?.StrokeOpacity((double)Opacity / 100);
+        Opacity = opacity;
     }
+
+    /// <summary>
+    /// Gets or sets the opacity.
+    /// </summary>
+    public Percentage Opacity { get; set; }
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.StrokeOpacity((double)Opacity / 100);
 }

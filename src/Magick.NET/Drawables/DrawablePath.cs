@@ -3,48 +3,47 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Draws a set of paths.
+/// </summary>
+public sealed class DrawablePath : IDrawable, IDrawingWand
 {
+    private readonly List<IPath> _paths;
+
     /// <summary>
-    /// Draws a set of paths.
+    /// Initializes a new instance of the <see cref="DrawablePath"/> class.
     /// </summary>
-    public sealed class DrawablePath : IDrawable, IDrawingWand
+    /// <param name="paths">The paths to use.</param>
+    public DrawablePath(params IPath[] paths)
+        => _paths = new List<IPath>(paths);
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DrawablePath"/> class.
+    /// </summary>
+    /// <param name="paths">The paths to use.</param>
+    public DrawablePath(IEnumerable<IPath> paths)
+        => _paths = new List<IPath>(paths);
+
+    /// <summary>
+    /// Gets the paths to use.
+    /// </summary>
+    public IReadOnlyCollection<IPath> Paths
+        => _paths;
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
     {
-        private readonly List<IPath> _paths;
+        if (wand is null)
+            return;
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawablePath"/> class.
-        /// </summary>
-        /// <param name="paths">The paths to use.</param>
-        public DrawablePath(params IPath[] paths)
-            => _paths = new List<IPath>(paths);
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawablePath"/> class.
-        /// </summary>
-        /// <param name="paths">The paths to use.</param>
-        public DrawablePath(IEnumerable<IPath> paths)
-            => _paths = new List<IPath>(paths);
-
-        /// <summary>
-        /// Gets the paths to use.
-        /// </summary>
-        public IReadOnlyCollection<IPath> Paths
-            => _paths;
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-        {
-            if (wand is null)
-                return;
-
-            wand.PathStart();
-            foreach (var path in _paths)
-                ((IDrawingWand)path).Draw(wand);
-            wand.PathFinish();
-        }
+        wand.PathStart();
+        foreach (var path in _paths)
+            ((IDrawingWand)path).Draw(wand);
+        wand.PathFinish();
     }
 }

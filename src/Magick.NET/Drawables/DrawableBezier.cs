@@ -3,44 +3,43 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+/// <summary>
+/// Draws a bezier curve through a set of points on the image.
+/// </summary>
+public sealed class DrawableBezier : IDrawable, IDrawingWand
 {
+    private readonly PointDCoordinates _coordinates;
+
     /// <summary>
-    /// Draws a bezier curve through a set of points on the image.
+    /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
     /// </summary>
-    public sealed class DrawableBezier : IDrawable, IDrawingWand
+    /// <param name="coordinates">The coordinates.</param>
+    public DrawableBezier(params PointD[] coordinates)
     {
-        private readonly PointDCoordinates _coordinates;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
-        /// </summary>
-        /// <param name="coordinates">The coordinates.</param>
-        public DrawableBezier(params PointD[] coordinates)
-        {
-            _coordinates = new PointDCoordinates(coordinates, 3);
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
-        /// </summary>
-        /// <param name="coordinates">The coordinates.</param>
-        public DrawableBezier(IEnumerable<PointD> coordinates)
-        {
-            _coordinates = new PointDCoordinates(coordinates, 3);
-        }
-
-        /// <summary>
-        /// Gets the coordinates.
-        /// </summary>
-        public IReadOnlyCollection<PointD> Coordinates
-            => _coordinates.ToList();
-
-        /// <summary>
-        /// Draws this instance with the drawing wand.
-        /// </summary>
-        /// <param name="wand">The want to draw on.</param>
-        void IDrawingWand.Draw(DrawingWand wand)
-            => wand?.Bezier(_coordinates.ToList());
+        _coordinates = new PointDCoordinates(coordinates, 3);
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DrawableBezier"/> class.
+    /// </summary>
+    /// <param name="coordinates">The coordinates.</param>
+    public DrawableBezier(IEnumerable<PointD> coordinates)
+    {
+        _coordinates = new PointDCoordinates(coordinates, 3);
+    }
+
+    /// <summary>
+    /// Gets the coordinates.
+    /// </summary>
+    public IReadOnlyCollection<PointD> Coordinates
+        => _coordinates.ToList();
+
+    /// <summary>
+    /// Draws this instance with the drawing wand.
+    /// </summary>
+    /// <param name="wand">The want to draw on.</param>
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.Bezier(_coordinates.ToList());
 }
