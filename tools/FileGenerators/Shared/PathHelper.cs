@@ -4,11 +4,10 @@
 using System;
 using System.IO;
 
-namespace FileGenerator
+namespace FileGenerator;
+
+public static class PathHelper
 {
-    public static class PathHelper
-    {
-        public static string GetFullPath(string path)
-            => Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\..\..\" + path);
-    }
+    public static string GetFullPath(string path)
+        => Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + @"..\..\..\..\..\..\..\" + path);
 }

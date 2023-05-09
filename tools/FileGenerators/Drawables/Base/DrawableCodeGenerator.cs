@@ -5,75 +5,68 @@ using System;
 using System.Linq;
 using System.Reflection;
 
-namespace FileGenerator.Drawables
+namespace FileGenerator.Drawables;
+
+internal abstract class DrawableCodeGenerator : CodeGenerator
 {
-    internal abstract class DrawableCodeGenerator : CodeGenerator
+    private readonly bool _isInterface;
+
+    protected DrawableCodeGenerator(bool isInterface)
     {
-        private readonly bool _isInterface;
+        Types = new DrawableTypes();
+        _isInterface = isInterface;
+    }
 
-        protected DrawableCodeGenerator(bool isInterface)
+    protected DrawableTypes Types { get; private set; }
+
+    protected string GetTypeName(Type type)
+    {
+        var name = string.Empty;
+        if (type.IsArray)
+            name += "params ";
+
+        if (type.IsGenericType)
+            return name + type.Name.Replace("`1", string.Empty) + "<" + GetArgumentTypeName(type) + ">";
+
+        return type.Name switch
         {
-            Types = new DrawableTypes();
-            _isInterface = isInterface;
-        }
+            "Boolean" => name + "bool",
+            "Int32" => name + "int",
+            "Double" or "Double[]" or "String" => name + type.Name.ToLowerInvariant(),
+            _ => name + type.Name,
+        };
+    }
 
-        protected DrawableTypes Types { get; private set; }
-
-        protected string GetTypeName(Type type)
+    protected void WriteParameterDeclaration(ParameterInfo[] parameters)
+    {
+        for (var i = 0; i < parameters.Length; i++)
         {
-            var name = string.Empty;
-            if (type.IsArray)
-                name += "params ";
+            Write(GetTypeName(parameters[i].ParameterType));
+            Write(" ");
+            Write(parameters[i].Name);
 
-            if (type.IsGenericType)
-                return name + type.Name.Replace("`1", string.Empty) + "<" + GetArgumentTypeName(type) + ">";
-
-            switch (type.Name)
-            {
-                case "Boolean":
-                    return name + "bool";
-                case "Int32":
-                    return name + "int";
-                case "Double":
-                case "Double[]":
-                case "String":
-                    return name + type.Name.ToLowerInvariant();
-                default:
-                    return name + type.Name;
-            }
+            if (i != parameters.Length - 1)
+                Write(", ");
         }
+    }
 
-        protected void WriteParameterDeclaration(ParameterInfo[] parameters)
+    protected void WriteParameters(ParameterInfo[] parameters)
+    {
+        for (var i = 0; i < parameters.Length; i++)
         {
-            for (var i = 0; i < parameters.Length; i++)
-            {
-                Write(GetTypeName(parameters[i].ParameterType));
-                Write(" ");
-                Write(parameters[i].Name);
+            Write(parameters[i].Name);
 
-                if (i != parameters.Length - 1)
-                    Write(", ");
-            }
+            if (i != parameters.Length - 1)
+                Write(", ");
         }
+    }
 
-        protected void WriteParameters(ParameterInfo[] parameters)
-        {
-            for (var i = 0; i < parameters.Length; i++)
-            {
-                Write(parameters[i].Name);
+    private string GetArgumentTypeName(Type type)
+    {
+        var name = type.GetGenericArguments().First().Name;
+        if (name == "UInt16")
+            name = _isInterface ? "TQuantumType" : "QuantumType";
 
-                if (i != parameters.Length - 1)
-                    Write(", ");
-            }
-        }
-
-        private string GetArgumentTypeName(Type type)
-        {
-            var name = type.GetGenericArguments().First().Name;
-            if (name == "UInt16")
-                name = _isInterface ? "TQuantumType" : "QuantumType";
-
-            return name;
-        }
+        return name;
     }
 }

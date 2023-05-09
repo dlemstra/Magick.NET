@@ -3,64 +3,62 @@
 
 using System.Reflection;
 
-namespace FileGenerator.Drawables
+namespace FileGenerator.Drawables;
+
+internal sealed class IPathsGenerator : DrawableCodeGenerator
 {
-    internal sealed class IPathsGenerator : DrawableCodeGenerator
+    private IPathsGenerator()
+        : base(true)
     {
-        private IPathsGenerator()
-            : base(true)
+    }
+
+    public static void Generate()
+    {
+        var generator = new IPathsGenerator();
+        generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET.Core\Drawables\Paths\Generated\IPaths{TQuantumType}.cs"));
+        generator.WriteStart("ImageMagick");
+        generator.WritePaths();
+        generator.CloseWriter();
+    }
+
+    protected override void WriteUsing()
+    {
+        WriteLine("using System.Collections.Generic;");
+        WriteLine();
+    }
+
+    private void WritePath(ConstructorInfo constructor)
+    {
+        var name = constructor.DeclaringType!.Name.Substring(4);
+        var parameters = constructor.GetParameters();
+
+        foreach (var commentLine in Types.GetCommentLines(constructor, "IPaths{TQuantumType}"))
+            WriteLine(commentLine);
+        Write("IPaths<TQuantumType> " + name + "(");
+        WriteParameterDeclaration(parameters);
+        WriteLine(");");
+        WriteLine();
+    }
+
+    private void WritePath(ConstructorInfo[] constructors)
+    {
+        foreach (var constructor in constructors)
         {
+            WritePath(constructor);
+        }
+    }
+
+    private void WritePaths()
+    {
+        WriteLine(@"[System.CodeDom.Compiler.GeneratedCode(""Magick.NET.FileGenerator"", """")]");
+        WriteLine("public partial interface IPaths<TQuantumType>");
+        WriteStartColon();
+
+        foreach (var path in Types.GetPathConstructorss())
+        {
+            WritePath(path);
         }
 
-        public static void Generate()
-        {
-            var generator = new IPathsGenerator();
-            generator.CreateWriter(PathHelper.GetFullPath(@"src\Magick.NET.Core\Drawables\Paths\Generated\IPaths{TQuantumType}.cs"));
-            generator.WriteStart("ImageMagick");
-            generator.WritePaths();
-            generator.WriteEnd();
-            generator.CloseWriter();
-        }
-
-        protected override void WriteUsing()
-        {
-            WriteLine("using System.Collections.Generic;");
-            WriteLine();
-        }
-
-        private void WritePath(ConstructorInfo constructor)
-        {
-            var name = constructor.DeclaringType!.Name.Substring(4);
-            var parameters = constructor.GetParameters();
-
-            foreach (var commentLine in Types.GetCommentLines(constructor, "IPaths{TQuantumType}"))
-                WriteLine(commentLine);
-            Write("IPaths<TQuantumType> " + name + "(");
-            WriteParameterDeclaration(parameters);
-            WriteLine(");");
-            WriteLine();
-        }
-
-        private void WritePath(ConstructorInfo[] constructors)
-        {
-            foreach (var constructor in constructors)
-            {
-                WritePath(constructor);
-            }
-        }
-
-        private void WritePaths()
-        {
-            WriteLine(@"[System.CodeDom.Compiler.GeneratedCode(""Magick.NET.FileGenerator"", """")]");
-            WriteLine("public partial interface IPaths<TQuantumType>");
-            WriteStartColon();
-
-            foreach (var path in Types.GetPathConstructorss())
-            {
-                WritePath(path);
-            }
-
-            WriteEndColon();
-        }
+        WriteEndColon();
     }
 }
