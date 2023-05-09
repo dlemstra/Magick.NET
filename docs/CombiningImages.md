@@ -14,11 +14,10 @@ var second = new MagickImage(SampleFiles.SnakewarePng);
 images.Add(second);
 
 // Create a mosaic from both images
-using (var result = images.Mosaic())
-{
-    // Save the result
-    result.Write("Mosaic.png");
-}
+using var result = images.Mosaic();
+
+// Save the result
+result.Write("Mosaic.png");
 ```
 
 ## Create animated gif

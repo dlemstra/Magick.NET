@@ -7,7 +7,7 @@
 using var image = new MagickImage(SampleFiles.SnakewareGif);
 
 // Save frame as jpg
-image.Write("Snakeware.jpg");
+image.Write(SampleFiles.OutputDirectory + "Snakeware.jpg");
 
 var settings = new MagickReadSettings();
 // Tells the xc: reader the image to create should be 800x600
@@ -17,14 +17,13 @@ settings.Height = 600;
 using var memStream = new MemoryStream();
 
 // Create image that is completely purple and 800x600
-using (var purple = new MagickImage("xc:purple", settings))
-{
-    // Sets the output format to png
-    purple.Format = MagickFormat.Png;
+using var purple = new MagickImage("xc:purple", settings);
 
-    // Write the image to the memorystream
-    purple.Write(memStream);
-}
+// Sets the output format to png
+purple.Format = MagickFormat.Png;
+
+// Write the image to the memorystream
+purple.Write(memStream);
 
 // Read image from file
 using var snakeware = new MagickImage(SampleFiles.SnakewarePng);

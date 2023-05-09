@@ -24,14 +24,13 @@ public static class ConvertImageSamples
         using var memStream = new MemoryStream();
 
         // Create image that is completely purple and 800x600
-        using (var purple = new MagickImage("xc:purple", settings))
-        {
-            // Sets the output format to png
-            purple.Format = MagickFormat.Png;
+        using var purple = new MagickImage("xc:purple", settings);
 
-            // Write the image to the memorystream
-            purple.Write(memStream);
-        }
+        // Sets the output format to png
+        purple.Format = MagickFormat.Png;
+
+        // Write the image to the memorystream
+        purple.Write(memStream);
 
         // Read image from file
         using var snakeware = new MagickImage(SampleFiles.SnakewarePng);

@@ -20,11 +20,10 @@ public static class CombiningImagesSamples
         images.Add(second);
 
         // Create a mosaic from both images
-        using (var result = images.Mosaic())
-        {
-            // Save the result
-            result.Write(SampleFiles.OutputDirectory + "Mosaic.png");
-        }
+        using var result = images.Mosaic();
+
+        // Save the result
+        result.Write(SampleFiles.OutputDirectory + "Mosaic.png");
     }
 
     public static void CreateAnimatedGif()
