@@ -4,32 +4,31 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ExifProfileTests
 {
-    public partial class ExifProfileTests
+    public class TheRemoveValueMethod
     {
-        public class TheRemoveValueMethod
+        [Fact]
+        public void ShouldRemoveValueAndReturnTrue()
         {
-            [Fact]
-            public void ShouldRemoveValueAndReturnTrue()
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetExifProfile();
+                var profile = image.GetExifProfile();
 
-                    Assert.True(profile.RemoveValue(ExifTag.FNumber));
-                }
+                Assert.True(profile.RemoveValue(ExifTag.FNumber));
             }
+        }
 
-            [Fact]
-            public void ShouldRemoveFalseWhenProfileDoesNotContainTag()
+        [Fact]
+        public void ShouldRemoveFalseWhenProfileDoesNotContainTag()
+        {
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetExifProfile();
+                var profile = image.GetExifProfile();
 
-                    Assert.False(profile.RemoveValue(ExifTag.Acceleration));
-                }
+                Assert.False(profile.RemoveValue(ExifTag.Acceleration));
             }
         }
     }

@@ -4,27 +4,26 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class TheJp2Coder
 {
-    public class TheJp2Coder
+    [Fact]
+    public void ShouldReadTheImageWithCorrectDimensions()
     {
-        [Fact]
-        public void ShouldReadTheImageWithCorrectDimensions()
-        {
-            using var image = new MagickImage(Files.Coders.GrimJP2);
+        using var image = new MagickImage(Files.Coders.GrimJP2);
 
-            Assert.Equal(2155, image.Width);
-            Assert.Equal(2687, image.Height);
+        Assert.Equal(2155, image.Width);
+        Assert.Equal(2687, image.Height);
 
-            using var first = new MagickImage(Files.Coders.GrimJP2 + "[0]");
+        using var first = new MagickImage(Files.Coders.GrimJP2 + "[0]");
 
-            Assert.Equal(2155, first.Width);
-            Assert.Equal(2687, first.Height);
+        Assert.Equal(2155, first.Width);
+        Assert.Equal(2687, first.Height);
 
-            using var second = new MagickImage(Files.Coders.GrimJP2 + "[1]");
+        using var second = new MagickImage(Files.Coders.GrimJP2 + "[1]");
 
-            Assert.Equal(256, second.Width);
-            Assert.Equal(256, second.Height);
-        }
+        Assert.Equal(256, second.Width);
+        Assert.Equal(256, second.Height);
     }
 }

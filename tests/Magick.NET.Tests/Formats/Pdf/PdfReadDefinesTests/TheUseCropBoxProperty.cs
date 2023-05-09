@@ -5,52 +5,51 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PdfReadDefinesTests
 {
-    public partial class PdfReadDefinesTests
+    public class TheUseCropBoxProperty
     {
-        public class TheUseCropBoxProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenValueIsTrue()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenValueIsTrue()
+            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        UseCropBox = true,
-                    });
+                    UseCropBox = true,
+                });
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheDefineWhenValueIsFalse()
+        [Fact]
+        public void ShouldSetTheDefineWhenValueIsFalse()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        UseCropBox = false,
-                    });
+                    UseCropBox = false,
+                });
 
-                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
-                }
+                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        UseCropBox = null,
-                    });
+                    UseCropBox = null,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
             }
         }
     }

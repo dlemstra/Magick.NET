@@ -3,17 +3,16 @@
 
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PngOptimizerTests
 {
-    public partial class PngOptimizerTests
+    public class TheOptimalCompressionProperty : PngOptimizerTests
     {
-        public class TheOptimalCompressionProperty : PngOptimizerTests
+        [Fact]
+        public void ShouldReturnFalse()
         {
-            [Fact]
-            public void ShouldReturnFalse()
-            {
-                Assert.False(Optimizer.OptimalCompression);
-            }
+            Assert.False(Optimizer.OptimalCompression);
         }
     }
 }

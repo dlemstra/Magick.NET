@@ -4,33 +4,32 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheRemoveReadMaskMethod
     {
-        public class TheRemoveReadMaskMethod
+        [Fact]
+        public void ShouldRemoveReadMask()
         {
-            [Fact]
-            public void ShouldRemoveReadMask()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                using (var readMask = new MagickImage(MagickColors.Black, image.Width, image.Height))
                 {
-                    using (var readMask = new MagickImage(MagickColors.Black, image.Width, image.Height))
-                    {
-                        image.SetReadMask(readMask);
-                    }
+                    image.SetReadMask(readMask);
+                }
 
-                    using (var readMask = image.GetReadMask())
-                    {
-                        Assert.NotNull(readMask);
-                    }
+                using (var readMask = image.GetReadMask())
+                {
+                    Assert.NotNull(readMask);
+                }
 
-                    image.RemoveReadMask();
+                image.RemoveReadMask();
 
-                    using (var readMask = image.GetReadMask())
-                    {
-                        Assert.Null(readMask);
-                    }
+                using (var readMask = image.GetReadMask())
+                {
+                    Assert.Null(readMask);
                 }
             }
         }

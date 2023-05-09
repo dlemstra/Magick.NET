@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSignatureProperty
     {
-        public class TheSignatureProperty
+        [Fact]
+        public void ShouldReturnImageSignature()
         {
-            [Fact]
-            public void ShouldReturnImageSignature()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Equal(0, image.Width);
-                    Assert.Equal(0, image.Height);
-                    Assert.Equal("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", image.Signature);
-                }
+                Assert.Equal(0, image.Width);
+                Assert.Equal(0, image.Height);
+                Assert.Equal("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", image.Signature);
             }
         }
     }

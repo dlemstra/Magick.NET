@@ -5,65 +5,64 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class ThePolynomialMethod
     {
-        public class ThePolynomialMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                Assert.Throws<InvalidOperationException>(() =>
                 {
-                    Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        var terms = new double[] { 0.30, 1, 0.59, 1, 0.11, 1 };
-                        images.Polynomial(terms);
-                    });
-                }
+                    var terms = new double[] { 0.30, 1, 0.59, 1, 0.11, 1 };
+                    images.Polynomial(terms);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenTermsIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenTermsIsNull()
+        {
+            using (var images = new MagickImageCollection(Files.Builtin.Logo))
             {
-                using (var images = new MagickImageCollection(Files.Builtin.Logo))
+                Assert.Throws<ArgumentNullException>("terms", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("terms", () =>
-                    {
-                        images.Polynomial(null);
-                    });
-                }
+                    images.Polynomial(null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenTermsIsEmpty()
+        [Fact]
+        public void ShouldThrowExceptionWhenTermsIsEmpty()
+        {
+            using (var images = new MagickImageCollection(Files.Builtin.Logo))
             {
-                using (var images = new MagickImageCollection(Files.Builtin.Logo))
+                Assert.Throws<ArgumentException>("terms", () =>
                 {
-                    Assert.Throws<ArgumentException>("terms", () =>
-                    {
-                        images.Polynomial(Array.Empty<double>());
-                    });
-                }
+                    images.Polynomial(Array.Empty<double>());
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldCreateImage()
+        [Fact]
+        public void ShouldCreateImage()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                var channels = image.Separate();
+
+                using (var images = new MagickImageCollection(channels))
                 {
-                    var channels = image.Separate();
+                    var terms = new double[] { 0.30, 1, 0.59, 1, 0.11, 1 };
 
-                    using (var images = new MagickImageCollection(channels))
+                    using (var polynomial = images.Polynomial(terms))
                     {
-                        var terms = new double[] { 0.30, 1, 0.59, 1, 0.11, 1 };
-
-                        using (var polynomial = images.Polynomial(terms))
-                        {
-                            var distortion = polynomial.Compare(image, ErrorMetric.RootMeanSquared);
-                            Assert.InRange(distortion, 0.086, 0.087);
-                        }
+                        var distortion = polynomial.Compare(image, ErrorMetric.RootMeanSquared);
+                        Assert.InRange(distortion, 0.086, 0.087);
                     }
                 }
             }

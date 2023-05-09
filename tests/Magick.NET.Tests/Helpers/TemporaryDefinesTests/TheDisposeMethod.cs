@@ -4,27 +4,26 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TemporaryDefinesTests
 {
-    public partial class TemporaryDefinesTests
+    public class TheDisposeMethod
     {
-        public class TheDisposeMethod
+        [Fact]
+        public void ShouldRemoveArtifactsThatWereSet()
         {
-            [Fact]
-            public void ShouldRemoveArtifactsThatWereSet()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.SetArtifact("foo", "bar");
+
+                using (var temporaryDefines = new TemporaryDefines(image))
                 {
-                    image.SetArtifact("foo", "bar");
-
-                    using (var temporaryDefines = new TemporaryDefines(image))
-                    {
-                        temporaryDefines.SetArtifact("bar", "foo");
-                    }
-
-                    Assert.Null(image.GetArtifact("bar"));
-                    Assert.Equal("bar", image.GetArtifact("foo"));
+                    temporaryDefines.SetArtifact("bar", "foo");
                 }
+
+                Assert.Null(image.GetArtifact("bar"));
+                Assert.Equal("bar", image.GetArtifact("foo"));
             }
         }
     }

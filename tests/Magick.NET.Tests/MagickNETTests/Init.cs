@@ -4,22 +4,21 @@
 using System.IO;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    private static void AssertConfigFiles(string path)
     {
-        private static void AssertConfigFiles(string path)
-        {
-            Assert.True(File.Exists(Path.Combine(path, "colors.xml")));
-            Assert.True(File.Exists(Path.Combine(path, "configure.xml")));
-            Assert.True(File.Exists(Path.Combine(path, "delegates.xml")));
-            Assert.True(File.Exists(Path.Combine(path, "english.xml")));
-            Assert.True(File.Exists(Path.Combine(path, "locale.xml")));
-            Assert.True(File.Exists(Path.Combine(path, "log.xml")));
-            Assert.True(File.Exists(Path.Combine(path, "policy.xml")));
-            Assert.True(File.Exists(Path.Combine(path, "thresholds.xml")));
-            Assert.True(File.Exists(Path.Combine(path, "type.xml")));
-            Assert.True(File.Exists(Path.Combine(path, "type-ghostscript.xml")));
-        }
+        Assert.True(File.Exists(Path.Combine(path, "colors.xml")));
+        Assert.True(File.Exists(Path.Combine(path, "configure.xml")));
+        Assert.True(File.Exists(Path.Combine(path, "delegates.xml")));
+        Assert.True(File.Exists(Path.Combine(path, "english.xml")));
+        Assert.True(File.Exists(Path.Combine(path, "locale.xml")));
+        Assert.True(File.Exists(Path.Combine(path, "log.xml")));
+        Assert.True(File.Exists(Path.Combine(path, "policy.xml")));
+        Assert.True(File.Exists(Path.Combine(path, "thresholds.xml")));
+        Assert.True(File.Exists(Path.Combine(path, "type.xml")));
+        Assert.True(File.Exists(Path.Combine(path, "type-ghostscript.xml")));
     }
 }

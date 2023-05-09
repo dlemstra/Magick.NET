@@ -15,114 +15,113 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickColorFactoryTests
 {
-    public partial class MagickColorFactoryTests
+    public class TheCreateMethod
     {
-        public class TheCreateMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenColorIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenColorIsNull()
+            var factory = new MagickColorFactory();
+
+            Assert.Throws<ArgumentNullException>("color", () =>
             {
-                var factory = new MagickColorFactory();
+                factory.Create((string)null);
+            });
+        }
 
-                Assert.Throws<ArgumentNullException>("color", () =>
-                {
-                    factory.Create((string)null);
-                });
-            }
+        [Fact]
+        public void ShouldThrowExceptionWhenColorIsEmpty()
+        {
+            var factory = new MagickColorFactory();
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorIsEmpty()
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                var factory = new MagickColorFactory();
+                factory.Create(string.Empty);
+            });
+        }
 
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    factory.Create(string.Empty);
-                });
-            }
+        [Fact]
+        public void ShouldThrowExceptionWhenColorDoesNotStartWithHash()
+        {
+            var factory = new MagickColorFactory();
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorDoesNotStartWithHash()
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                var factory = new MagickColorFactory();
+                factory.Create("FFFFFF");
+            });
+        }
 
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    factory.Create("FFFFFF");
-                });
-            }
+        [Fact]
+        public void ShouldThrowExceptionWhenColorHasInvalidLength()
+        {
+            var factory = new MagickColorFactory();
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorHasInvalidLength()
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                var factory = new MagickColorFactory();
+                factory.Create("#FFFFF");
+            });
+        }
 
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    factory.Create("#FFFFF");
-                });
-            }
+        [Fact]
+        public void ShouldThrowExceptionWhenColorHasInvalidHexValue()
+        {
+            var factory = new MagickColorFactory();
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorHasInvalidHexValue()
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                var factory = new MagickColorFactory();
+                factory.Create("#FGF");
+            });
 
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    factory.Create("#FGF");
-                });
-
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    factory.Create("#GGFFFF");
-                });
-
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    factory.Create("#FFFG000000000000");
-                });
-            }
-
-            [Fact]
-            public void ShouldInitializeTheInstanceCorrectly()
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                TestColor("#FF", Quantum.Max, Quantum.Max, Quantum.Max, false);
-                TestColor("#F00", Quantum.Max, 0, 0, false);
-                TestColor("#0F00", 0, Quantum.Max, 0, true);
-                TestColor("#0000FF", 0, 0, Quantum.Max, false);
-                TestColor("#FF00FF00", Quantum.Max, 0, Quantum.Max, true);
+                factory.Create("#GGFFFF");
+            });
 
-                TestColor("#0000FFFF0000", 0, Quantum.Max, 0, false);
-                TestColor("#000080000000", 0, (QuantumType)((Quantum.Max / 2.0) + 0.5), 0, false);
-                TestColor("#FFFf000000000000", Quantum.Max, 0, 0, true);
-
-                var half = Quantum.Max * 0.5f;
-                TestColor("gray(50%) ", half, half, half, false, 1);
-                TestColor("rgba(100%, 0%, 0%, 0.0)", Quantum.Max, 0, 0, true);
-            }
-
-            private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent)
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                TestColor(hexValue, red, green, blue, isTransparent, 0.01);
-            }
+                factory.Create("#FFFG000000000000");
+            });
+        }
 
-            private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent, double delta)
-            {
-                var factory = new MagickColorFactory();
-                var color = factory.Create(hexValue);
+        [Fact]
+        public void ShouldInitializeTheInstanceCorrectly()
+        {
+            TestColor("#FF", Quantum.Max, Quantum.Max, Quantum.Max, false);
+            TestColor("#F00", Quantum.Max, 0, 0, false);
+            TestColor("#0F00", 0, Quantum.Max, 0, true);
+            TestColor("#0000FF", 0, 0, Quantum.Max, false);
+            TestColor("#FF00FF00", Quantum.Max, 0, Quantum.Max, true);
 
-                Assert.InRange(color.R, red - delta, red + delta);
-                Assert.InRange(color.G, green - delta, green + delta);
-                Assert.InRange(color.B, blue - delta, blue + delta);
+            TestColor("#0000FFFF0000", 0, Quantum.Max, 0, false);
+            TestColor("#000080000000", 0, (QuantumType)((Quantum.Max / 2.0) + 0.5), 0, false);
+            TestColor("#FFFf000000000000", Quantum.Max, 0, 0, true);
 
-                if (isTransparent)
-                    ColorAssert.Transparent(color.A);
-                else
-                    ColorAssert.NotTransparent(color.A);
-            }
+            var half = Quantum.Max * 0.5f;
+            TestColor("gray(50%) ", half, half, half, false, 1);
+            TestColor("rgba(100%, 0%, 0%, 0.0)", Quantum.Max, 0, 0, true);
+        }
+
+        private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent)
+        {
+            TestColor(hexValue, red, green, blue, isTransparent, 0.01);
+        }
+
+        private void TestColor(string hexValue, double red, double green, double blue, bool isTransparent, double delta)
+        {
+            var factory = new MagickColorFactory();
+            var color = factory.Create(hexValue);
+
+            Assert.InRange(color.R, red - delta, red + delta);
+            Assert.InRange(color.G, green - delta, green + delta);
+            Assert.InRange(color.B, blue - delta, blue + delta);
+
+            if (isTransparent)
+                ColorAssert.Transparent(color.A);
+            else
+                ColorAssert.NotTransparent(color.A);
         }
     }
 }

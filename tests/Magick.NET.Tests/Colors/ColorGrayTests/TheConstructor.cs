@@ -5,29 +5,28 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class ColorGrayTests
-    {
-        public class TheConstructor
-        {
-            [Fact]
-            public void ShouldThrowExceptionWhenShadeIsTooLow()
-            {
-                Assert.Throws<ArgumentException>("shade", () =>
-                {
-                    new ColorGray(-0.99);
-                });
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldThrowExceptionWhenShadeIsTooHigh()
+public partial class ColorGrayTests
+{
+    public class TheConstructor
+    {
+        [Fact]
+        public void ShouldThrowExceptionWhenShadeIsTooLow()
+        {
+            Assert.Throws<ArgumentException>("shade", () =>
             {
-                Assert.Throws<ArgumentException>("shade", () =>
-                {
-                    new ColorGray(1.01);
-                });
-            }
+                new ColorGray(-0.99);
+            });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenShadeIsTooHigh()
+        {
+            Assert.Throws<ArgumentException>("shade", () =>
+            {
+                new ColorGray(1.01);
+            });
         }
     }
 }

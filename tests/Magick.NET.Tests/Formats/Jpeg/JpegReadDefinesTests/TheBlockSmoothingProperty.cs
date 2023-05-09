@@ -5,29 +5,28 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class JpegReadDefinesTests
 {
-    public partial class JpegReadDefinesTests
+    public class TheBlockSmoothingProperty
     {
-        public class TheBlockSmoothingProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Defines = new JpegReadDefines
                 {
-                    Defines = new JpegReadDefines
-                    {
-                        BlockSmoothing = true,
-                    },
-                };
+                    BlockSmoothing = true,
+                },
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Read(Files.ImageMagickJPG, settings);
+            using (var image = new MagickImage())
+            {
+                image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jpeg, "block-smoothing"));
             }
         }
     }

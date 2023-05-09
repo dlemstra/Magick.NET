@@ -4,30 +4,29 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheFlipMethod
     {
-        public class TheFlipMethod
+        [Fact]
+        public void ShouldFlipTheImageVertically()
         {
-            [Fact]
-            public void ShouldFlipTheImageVertically()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                images.Add(new MagickImage(MagickColors.DodgerBlue, 10, 10));
+                images.Add(new MagickImage(MagickColors.Firebrick, 10, 10));
+
+                using (var image = images.AppendVertically())
                 {
-                    images.Add(new MagickImage(MagickColors.DodgerBlue, 10, 10));
-                    images.Add(new MagickImage(MagickColors.Firebrick, 10, 10));
+                    ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 0);
+                    ColorAssert.Equal(MagickColors.Firebrick, image, 5, 10);
 
-                    using (var image = images.AppendVertically())
-                    {
-                        ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 0);
-                        ColorAssert.Equal(MagickColors.Firebrick, image, 5, 10);
+                    image.Flip();
 
-                        image.Flip();
-
-                        ColorAssert.Equal(MagickColors.Firebrick, image, 5, 0);
-                        ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 10);
-                    }
+                    ColorAssert.Equal(MagickColors.Firebrick, image, 5, 0);
+                    ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 10);
                 }
             }
         }

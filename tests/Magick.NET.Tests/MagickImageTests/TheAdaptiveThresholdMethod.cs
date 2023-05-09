@@ -4,51 +4,50 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheAdaptiveThresholdMethod
     {
-        public class TheAdaptiveThresholdMethod
+        [Fact]
+        public void ShouldThresholdTheImage()
         {
-            [Fact]
-            public void ShouldThresholdTheImage()
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
+                image.AdaptiveThreshold(10, 10);
+                ColorAssert.Equal(MagickColors.White, image, 50, 75);
+            }
+        }
+
+        [Fact]
+        public void ShouldUseTheCorrectDefaultValueForBias()
+        {
+            using (var imageA = new MagickImage(Files.MagickNETIconPNG))
+            {
+                using (var imageB = imageA.Clone())
                 {
-                    image.AdaptiveThreshold(10, 10);
-                    ColorAssert.Equal(MagickColors.White, image, 50, 75);
+                    imageA.AdaptiveThreshold(10, 10);
+                    imageB.AdaptiveThreshold(10, 10, 0.0);
+
+                    var distortion = imageA.Compare(imageB, ErrorMetric.RootMeanSquared);
+                    Assert.Equal(0.0, distortion);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheCorrectDefaultValueForBias()
+        [Fact]
+        public void ShouldUseTheCorrectDefaultValueForBiasWithChannels()
+        {
+            using (var imageA = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var imageA = new MagickImage(Files.MagickNETIconPNG))
+                using (var imageB = imageA.Clone())
                 {
-                    using (var imageB = imageA.Clone())
-                    {
-                        imageA.AdaptiveThreshold(10, 10);
-                        imageB.AdaptiveThreshold(10, 10, 0.0);
+                    imageA.AdaptiveThreshold(10, 10, Channels.Red);
+                    imageB.AdaptiveThreshold(10, 10, 0.0, Channels.Red);
 
-                        var distortion = imageA.Compare(imageB, ErrorMetric.RootMeanSquared);
-                        Assert.Equal(0.0, distortion);
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldUseTheCorrectDefaultValueForBiasWithChannels()
-            {
-                using (var imageA = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    using (var imageB = imageA.Clone())
-                    {
-                        imageA.AdaptiveThreshold(10, 10, Channels.Red);
-                        imageB.AdaptiveThreshold(10, 10, 0.0, Channels.Red);
-
-                        var distortion = imageA.Compare(imageB, ErrorMetric.RootMeanSquared);
-                        Assert.Equal(0.0, distortion);
-                    }
+                    var distortion = imageA.Compare(imageB, ErrorMetric.RootMeanSquared);
+                    Assert.Equal(0.0, distortion);
                 }
             }
         }

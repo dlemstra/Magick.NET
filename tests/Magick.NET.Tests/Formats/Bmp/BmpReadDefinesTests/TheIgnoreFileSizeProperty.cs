@@ -5,42 +5,41 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class BmpReadDefinesTests
 {
-    public partial class BmpReadDefinesTests
+    public class TheIgnoreFileSizeProperty
     {
-        public class TheIgnoreFileSizeProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenSetToTrue()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenSetToTrue()
+            var defines = new BmpReadDefines
             {
-                var defines = new BmpReadDefines
-                {
-                    IgnoreFileSize = true,
-                };
+                IgnoreFileSize = true,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenSetToFalse()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenSetToFalse()
+        {
+            var defines = new BmpReadDefines
             {
-                var defines = new BmpReadDefines
-                {
-                    IgnoreFileSize = false,
-                };
+                IgnoreFileSize = false,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
             }
         }
     }

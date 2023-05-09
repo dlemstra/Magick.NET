@@ -5,26 +5,25 @@ using System.Xml;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class XmpProfileTests
-    {
-        public class TheCreateReaderMethod
-        {
-            [Fact]
-            public void ShouldCreateAnXmlReader()
-            {
-                using (var image = new MagickImage(Files.InvitationTIF))
-                {
-                    var profile = image.GetXmpProfile();
-                    Assert.NotNull(profile);
+namespace Magick.NET.Tests;
 
-                    using (var reader = profile.CreateReader())
-                    {
-                        var doc = new XmlDocument();
-                        doc.Load(reader);
-                        Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", doc.CreateNavigator().OuterXml);
-                    }
+public partial class XmpProfileTests
+{
+    public class TheCreateReaderMethod
+    {
+        [Fact]
+        public void ShouldCreateAnXmlReader()
+        {
+            using (var image = new MagickImage(Files.InvitationTIF))
+            {
+                var profile = image.GetXmpProfile();
+                Assert.NotNull(profile);
+
+                using (var reader = profile.CreateReader())
+                {
+                    var doc = new XmlDocument();
+                    doc.Load(reader);
+                    Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", doc.CreateNavigator().OuterXml);
                 }
             }
         }

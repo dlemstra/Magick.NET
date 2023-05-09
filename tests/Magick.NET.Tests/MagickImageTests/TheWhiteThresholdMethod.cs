@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheWhiteThresholdMethod
     {
-        public class TheWhiteThresholdMethod
+        [Fact]
+        public void ShouldMakePixelsAboveThresholdWhite()
         {
-            [Fact]
-            public void ShouldMakePixelsAboveThresholdWhite()
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    image.WhiteThreshold(new Percentage(10));
-                    ColorAssert.Equal(MagickColors.White, image, 43, 74);
-                    ColorAssert.Equal(MagickColors.White, image, 60, 74);
-                }
+                image.WhiteThreshold(new Percentage(10));
+                ColorAssert.Equal(MagickColors.White, image, 43, 74);
+                ColorAssert.Equal(MagickColors.White, image, 60, 74);
             }
         }
     }

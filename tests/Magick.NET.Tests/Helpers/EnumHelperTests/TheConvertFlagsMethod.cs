@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class EnumHelperTests
 {
-    public partial class EnumHelperTests
+    public class TheConvertFlagsMethod
     {
-        public class TheConvertFlagsMethod
+        [Fact]
+        public void ShouldReturnTheNamesOfTheFlags()
         {
-            [Fact]
-            public void ShouldReturnTheNamesOfTheFlags()
-            {
-                var blueRed = Channels.Blue | Channels.Red;
+            var blueRed = Channels.Blue | Channels.Red;
 
-                var result = EnumHelper.ConvertFlags(blueRed);
+            var result = EnumHelper.ConvertFlags(blueRed);
 
-                Assert.Equal("Cyan, Blue", result);
-            }
+            Assert.Equal("Cyan, Blue", result);
         }
     }
 }

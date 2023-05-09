@@ -5,38 +5,37 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class HeicReadDefinesTests
 {
-    public partial class HeicReadDefinesTests
+    public class ThePreserveOrientationProperty
     {
-        public class ThePreserveOrientationProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new HeicReadDefines
                 {
-                    image.Settings.SetDefines(new HeicReadDefines
-                    {
-                        PreserveOrientation = true,
-                    });
+                    PreserveOrientation = true,
+                });
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenSetToFalse()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenSetToFalse()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new HeicReadDefines
                 {
-                    image.Settings.SetDefines(new HeicReadDefines
-                    {
-                        PreserveOrientation = false,
-                    });
+                    PreserveOrientation = false,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
             }
         }
     }

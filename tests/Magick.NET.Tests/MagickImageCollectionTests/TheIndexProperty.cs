@@ -5,55 +5,54 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheIndexProperty
     {
-        public class TheIndexProperty
+        [Fact]
+        public void ShouldThrowExceptionWhenValueIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenValueIsNull()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                var exception = Assert.Throws<InvalidOperationException>(() =>
                 {
-                    var exception = Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        images[0] = null;
-                    });
+                    images[0] = null;
+                });
 
-                    Assert.Equal("Not allowed to set null value.", exception.Message);
-                }
+                Assert.Equal("Not allowed to set null value.", exception.Message);
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenAddingTheSameImage()
+        [Fact]
+        public void ShouldThrowExceptionWhenAddingTheSameImage()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                images.Add(new MagickImage(MagickColors.Red, 1, 1));
+                images.Add(new MagickImage(MagickColors.Red, 1, 1));
+
+                var exception = Assert.Throws<InvalidOperationException>(() =>
                 {
-                    images.Add(new MagickImage(MagickColors.Red, 1, 1));
-                    images.Add(new MagickImage(MagickColors.Red, 1, 1));
+                    images[0] = images[1];
+                });
 
-                    var exception = Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        images[0] = images[1];
-                    });
-
-                    Assert.Equal("Not allowed to add the same image to the collection.", exception.Message);
-                }
+                Assert.Equal("Not allowed to add the same image to the collection.", exception.Message);
             }
+        }
 
-            [Fact]
-            public void ShouldBeAbleToOverwriteImageWithSameImage()
+        [Fact]
+        public void ShouldBeAbleToOverwriteImageWithSameImage()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    var image = new MagickImage(MagickColors.Red, 1, 1);
-                    images.Add(image);
+                var image = new MagickImage(MagickColors.Red, 1, 1);
+                images.Add(image);
 
-                    images[0] = images[0];
+                images[0] = images[0];
 
-                    Assert.Same(image, images[0]);
-                }
+                Assert.Same(image, images[0]);
             }
         }
     }

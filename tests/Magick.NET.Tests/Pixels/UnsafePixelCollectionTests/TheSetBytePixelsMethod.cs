@@ -4,61 +4,60 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class UnsafePixelCollectionTests
 {
-    public partial class UnsafePixelCollectionTests
+    public class TheSetBytePixelsMethod
     {
-        public class TheSetBytePixelsMethod
+        [Fact]
+        public void ShouldNotThrowExceptionWhenArrayIsNull()
         {
-            [Fact]
-            public void ShouldNotThrowExceptionWhenArrayIsNull()
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        pixels.SetBytePixels(null);
-                    }
+                    pixels.SetBytePixels(null);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenArrayHasInvalidSize()
+        [Fact]
+        public void ShouldNotThrowExceptionWhenArrayHasInvalidSize()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        pixels.SetBytePixels(new byte[] { 0, 0, 0, 0 });
-                    }
+                    pixels.SetBytePixels(new byte[] { 0, 0, 0, 0 });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenArrayIsTooLong()
+        [Fact]
+        public void ShouldNotThrowExceptionWhenArrayIsTooLong()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = new byte[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetBytePixels(values);
-                    }
+                    var values = new byte[(image.Width * image.Height * image.ChannelCount) + 1];
+                    pixels.SetBytePixels(values);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
+        [Fact]
+        public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = new byte[image.Width * image.Height * image.ChannelCount];
-                        pixels.SetBytePixels(values);
+                    var values = new byte[image.Width * image.Height * image.ChannelCount];
+                    pixels.SetBytePixels(values);
 
-                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                    }
+                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
             }
         }

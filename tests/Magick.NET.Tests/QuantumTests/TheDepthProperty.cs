@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class QuantumTests
 {
-    public partial class QuantumTests
+    public class TheDepthProperty
     {
-        public class TheDepthProperty
+        [Fact]
+        public void ShouldHaveTheCorrectValue()
         {
-            [Fact]
-            public void ShouldHaveTheCorrectValue()
-            {
 #if Q8
-                Assert.Equal(8, Quantum.Depth);
+            Assert.Equal(8, Quantum.Depth);
 #else
-                Assert.Equal(16, Quantum.Depth);
+            Assert.Equal(16, Quantum.Depth);
 #endif
-            }
         }
     }
 }

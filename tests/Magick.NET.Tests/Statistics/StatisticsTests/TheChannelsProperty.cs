@@ -5,28 +5,27 @@ using System.Linq;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class StatisticsTests
 {
-    public partial class StatisticsTests
+    public class TheChannelsProperty
     {
-        public class TheChannelsProperty
+        [Fact]
+        public void ShouldReturnTheCorrectChannels()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectChannels()
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    var statistics = image.Statistics();
+                var statistics = image.Statistics();
 
-                    var channels = statistics.Channels.ToList();
+                var channels = statistics.Channels.ToList();
 
-                    Assert.Equal(5, channels.Count);
-                    Assert.Contains(PixelChannel.Red, channels);
-                    Assert.Contains(PixelChannel.Green, channels);
-                    Assert.Contains(PixelChannel.Blue, channels);
-                    Assert.Contains(PixelChannel.Alpha, channels);
-                    Assert.Contains(PixelChannel.Composite, channels);
-                }
+                Assert.Equal(5, channels.Count);
+                Assert.Contains(PixelChannel.Red, channels);
+                Assert.Contains(PixelChannel.Green, channels);
+                Assert.Contains(PixelChannel.Blue, channels);
+                Assert.Contains(PixelChannel.Alpha, channels);
+                Assert.Contains(PixelChannel.Composite, channels);
             }
         }
     }

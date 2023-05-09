@@ -14,50 +14,49 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickColorTests
 {
-    public partial class MagickColorTests
+    public class TheFuzzyEqualsMethod
     {
-        public class TheFuzzyEqualsMethod
+        [Fact]
+        public void ShouldReturnFalseWhenValueIsNull()
         {
-            [Fact]
-            public void ShouldReturnFalseWhenValueIsNull()
-            {
-                var first = MagickColors.White;
+            var first = MagickColors.White;
 
-                Assert.False(first.FuzzyEquals(null, (Percentage)0));
-            }
+            Assert.False(first.FuzzyEquals(null, (Percentage)0));
+        }
 
-            [Fact]
-            public void ShouldReturnTrueWhenValuesAreSame()
-            {
-                var first = MagickColors.White;
+        [Fact]
+        public void ShouldReturnTrueWhenValuesAreSame()
+        {
+            var first = MagickColors.White;
 
-                Assert.True(first.FuzzyEquals(first, (Percentage)0));
-            }
+            Assert.True(first.FuzzyEquals(first, (Percentage)0));
+        }
 
-            [Fact]
-            public void ShouldReturnTrueWhenValuesAreEqual()
-            {
-                var first = MagickColors.White;
-                var second = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
+        [Fact]
+        public void ShouldReturnTrueWhenValuesAreEqual()
+        {
+            var first = MagickColors.White;
+            var second = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
 
-                Assert.True(first.FuzzyEquals(second, (Percentage)0));
-            }
+            Assert.True(first.FuzzyEquals(second, (Percentage)0));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValue()
-            {
-                var first = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
+        [Fact]
+        public void ShouldReturnTheCorrectValue()
+        {
+            var first = new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
 
-                var half = (QuantumType)(Quantum.Max / 2.0);
-                var second = new MagickColor(Quantum.Max, half, Quantum.Max);
+            var half = (QuantumType)(Quantum.Max / 2.0);
+            var second = new MagickColor(Quantum.Max, half, Quantum.Max);
 
-                Assert.False(first.FuzzyEquals(second, (Percentage)0));
-                Assert.False(first.FuzzyEquals(second, (Percentage)10));
-                Assert.False(first.FuzzyEquals(second, (Percentage)20));
-                Assert.True(first.FuzzyEquals(second, (Percentage)30));
-            }
+            Assert.False(first.FuzzyEquals(second, (Percentage)0));
+            Assert.False(first.FuzzyEquals(second, (Percentage)10));
+            Assert.False(first.FuzzyEquals(second, (Percentage)20));
+            Assert.True(first.FuzzyEquals(second, (Percentage)30));
         }
     }
 }

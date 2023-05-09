@@ -5,26 +5,25 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class JpegWriteDefinesTests
 {
-    public partial class JpegWriteDefinesTests
+    public class TheDctMethodProperty
     {
-        public class TheDctMethodProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var defines = new JpegWriteDefines
             {
-                var defines = new JpegWriteDefines
-                {
-                    DctMethod = JpegDctMethod.Fast,
-                };
+                DctMethod = JpegDctMethod.Fast,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
-                }
+                Assert.Equal("fast", image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
             }
         }
     }

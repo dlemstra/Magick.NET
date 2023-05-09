@@ -5,38 +5,37 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class VideoReadDefinesTests
 {
-    public partial class VideoReadDefinesTests
+    public class TheVideoSyncProperty
     {
-        public class TheVideoSyncProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenValueIsSet()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenValueIsSet()
+            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
                 {
-                    image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
-                    {
-                        VideoSync = VideoSync.PassThrough,
-                    });
+                    VideoSync = VideoSync.PassThrough,
+                });
 
-                    Assert.Equal("passthrough", image.Settings.GetDefine("video:vsync"));
-                }
+                Assert.Equal("passthrough", image.Settings.GetDefine("video:vsync"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
                 {
-                    image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
-                    {
-                        VideoSync = null,
-                    });
+                    VideoSync = null,
+                });
 
-                    Assert.Null(image.Settings.GetDefine("video:vsync"));
-                }
+                Assert.Null(image.Settings.GetDefine("video:vsync"));
             }
         }
     }

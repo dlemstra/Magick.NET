@@ -4,39 +4,38 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheGammaCorrectMethod
-        {
-            [Fact]
-            public void ShouldGammaCorrectTheImage()
-            {
-                using (var original = new MagickImage(Files.InvitationTIF))
-                {
-                    using (var image = original.Clone())
-                    {
-                        image.GammaCorrect(2.0);
+namespace Magick.NET.Tests;
 
-                        var difference = image.Compare(original, ErrorMetric.RootMeanSquared);
-                        Assert.InRange(difference, 0.07, 0.071);
-                    }
+public partial class MagickImageTests
+{
+    public class TheGammaCorrectMethod
+    {
+        [Fact]
+        public void ShouldGammaCorrectTheImage()
+        {
+            using (var original = new MagickImage(Files.InvitationTIF))
+            {
+                using (var image = original.Clone())
+                {
+                    image.GammaCorrect(2.0);
+
+                    var difference = image.Compare(original, ErrorMetric.RootMeanSquared);
+                    Assert.InRange(difference, 0.07, 0.071);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldGammaCorrectTheSpecifiedChannel()
+        [Fact]
+        public void ShouldGammaCorrectTheSpecifiedChannel()
+        {
+            using (var original = new MagickImage(Files.InvitationTIF))
             {
-                using (var original = new MagickImage(Files.InvitationTIF))
+                using (var image = original.Clone())
                 {
-                    using (var image = original.Clone())
-                    {
-                        image.GammaCorrect(2.0, Channels.Red);
+                    image.GammaCorrect(2.0, Channels.Red);
 
-                        var difference = image.Compare(original, ErrorMetric.RootMeanSquared);
-                        Assert.InRange(difference, 0.0360, 0.0362);
-                    }
+                    var difference = image.Compare(original, ErrorMetric.RootMeanSquared);
+                    Assert.InRange(difference, 0.0360, 0.0362);
                 }
             }
         }

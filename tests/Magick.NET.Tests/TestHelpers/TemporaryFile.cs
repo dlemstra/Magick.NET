@@ -5,57 +5,56 @@ using System;
 using System.IO;
 using ImageMagick;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class TemporaryFile : IDisposable
 {
-    public class TemporaryFile : IDisposable
+    private readonly FileInfo _file;
+
+    public TemporaryFile(byte[] data)
     {
-        private readonly FileInfo _file;
+        _file = new FileInfo(Path.GetTempFileName());
+        System.IO.File.WriteAllBytes(_file.FullName, data);
+    }
 
-        public TemporaryFile(byte[] data)
+    public TemporaryFile(string fileName)
+    {
+        if (System.IO.File.Exists(fileName))
+            _file = CreateFromFile(fileName);
+        else
+            _file = CreateEmptyFile(fileName);
+    }
+
+    public long Length
+    {
+        get
         {
-            _file = new FileInfo(Path.GetTempFileName());
-            System.IO.File.WriteAllBytes(_file.FullName, data);
+            _file.Refresh();
+            return _file.Length;
         }
+    }
 
-        public TemporaryFile(string fileName)
-        {
-            if (System.IO.File.Exists(fileName))
-                _file = CreateFromFile(fileName);
-            else
-                _file = CreateEmptyFile(fileName);
-        }
+    public FileInfo File
+        => _file;
 
-        public long Length
-        {
-            get
-            {
-                _file.Refresh();
-                return _file.Length;
-            }
-        }
+    public void Dispose()
+        => Cleanup.DeleteFile(_file);
 
-        public FileInfo File
-            => _file;
+    private FileInfo CreateEmptyFile(string fileName)
+    {
+        var file = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
+        file.Create().Dispose();
+        file.Refresh();
 
-        public void Dispose()
-            => Cleanup.DeleteFile(_file);
+        return file;
+    }
 
-        private FileInfo CreateEmptyFile(string fileName)
-        {
-            var file = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + fileName));
-            file.Create().Dispose();
-            file.Refresh();
+    private FileInfo CreateFromFile(string fileName)
+    {
+        var file = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + Path.GetFileName(fileName)));
+        FileHelper.Copy(fileName, file.FullName);
+        file.Refresh();
 
-            return file;
-        }
-
-        private FileInfo CreateFromFile(string fileName)
-        {
-            var file = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString() + Path.GetFileName(fileName)));
-            FileHelper.Copy(fileName, file.FullName);
-            file.Refresh();
-
-            return file;
-        }
+        return file;
     }
 }

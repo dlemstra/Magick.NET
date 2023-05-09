@@ -6,44 +6,43 @@ using System.Linq;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ExifProfileTests
 {
-    public partial class ExifProfileTests
+    public class TheSetValueMethod
     {
-        public class TheSetValueMethod
+        [Fact]
+        public void ShouldUpdateTheDataInTheProfile()
         {
-            [Fact]
-            public void ShouldUpdateTheDataInTheProfile()
+            using (var memStream = new MemoryStream())
             {
-                using (var memStream = new MemoryStream())
+                using (var image = new MagickImage(Files.ImageMagickJPG))
                 {
-                    using (var image = new MagickImage(Files.ImageMagickJPG))
-                    {
-                        var profile = image.GetExifProfile();
-                        Assert.Null(profile);
+                    var profile = image.GetExifProfile();
+                    Assert.Null(profile);
 
-                        profile = new ExifProfile();
-                        profile.SetValue(ExifTag.Copyright, "Dirk Lemstra");
+                    profile = new ExifProfile();
+                    profile.SetValue(ExifTag.Copyright, "Dirk Lemstra");
 
-                        image.SetProfile(profile);
+                    image.SetProfile(profile);
 
-                        profile = image.GetExifProfile();
-                        Assert.NotNull(profile);
+                    profile = image.GetExifProfile();
+                    Assert.NotNull(profile);
 
-                        image.Write(memStream);
-                    }
+                    image.Write(memStream);
+                }
 
-                    memStream.Position = 0;
-                    using (var image = new MagickImage(memStream))
-                    {
-                        var profile = image.GetExifProfile();
+                memStream.Position = 0;
+                using (var image = new MagickImage(memStream))
+                {
+                    var profile = image.GetExifProfile();
 
-                        Assert.NotNull(profile);
-                        Assert.Single(profile.Values);
+                    Assert.NotNull(profile);
+                    Assert.Single(profile.Values);
 
-                        var value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Copyright);
-                        TestValue(value, "Dirk Lemstra");
-                    }
+                    var value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Copyright);
+                    TestValue(value, "Dirk Lemstra");
                 }
             }
         }

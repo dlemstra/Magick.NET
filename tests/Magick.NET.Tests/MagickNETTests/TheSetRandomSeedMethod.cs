@@ -4,48 +4,47 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    [Collection(nameof(RunTestsSeparately))]
+    public class TheSetRandomSeedMethod
     {
-        [Collection(nameof(RunTestsSeparately))]
-        public class TheSetRandomSeedMethod
+        [Fact]
+        public void ShouldPassOrderedTests()
         {
-            [Fact]
-            public void ShouldPassOrderedTests()
+            ShouldMakeDifferentPlasmaImageWhenNotSet();
+
+            ShouldMakeDuplicatePlasmaImagesWhenSet();
+
+            ShouldMakeDifferentPlasmaImageWhenNotSet();
+        }
+
+        private void ShouldMakeDuplicatePlasmaImagesWhenSet()
+        {
+            using (var first = new MagickImage("plasma:red", 10, 10))
             {
-                ShouldMakeDifferentPlasmaImageWhenNotSet();
-
-                ShouldMakeDuplicatePlasmaImagesWhenSet();
-
-                ShouldMakeDifferentPlasmaImageWhenNotSet();
-            }
-
-            private void ShouldMakeDuplicatePlasmaImagesWhenSet()
-            {
-                using (var first = new MagickImage("plasma:red", 10, 10))
+                using (var second = new MagickImage("plasma:red", 10, 10))
                 {
-                    using (var second = new MagickImage("plasma:red", 10, 10))
-                    {
-                        Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-                    }
+                    Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+                }
+            }
+        }
+
+        private void ShouldMakeDifferentPlasmaImageWhenNotSet()
+        {
+            MagickNET.SetRandomSeed(42);
+
+            using (var first = new MagickImage("plasma:red", 10, 10))
+            {
+                using (var second = new MagickImage("plasma:red", 10, 10))
+                {
+                    Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
                 }
             }
 
-            private void ShouldMakeDifferentPlasmaImageWhenNotSet()
-            {
-                MagickNET.SetRandomSeed(42);
-
-                using (var first = new MagickImage("plasma:red", 10, 10))
-                {
-                    using (var second = new MagickImage("plasma:red", 10, 10))
-                    {
-                        Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-                    }
-                }
-
-                MagickNET.ResetRandomSeed();
-            }
+            MagickNET.ResetRandomSeed();
         }
     }
 }

@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheIsDisposedProperty
     {
-        public class TheIsDisposedProperty
+        [Fact]
+        public void ShouldReturnFalseWhenTheImageIsNotDisposed()
         {
-            [Fact]
-            public void ShouldReturnFalseWhenTheImageIsNotDisposed()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.False(image.IsDisposed);
-                }
+                Assert.False(image.IsDisposed);
             }
+        }
 
-            [Fact]
-            public void ShouldReturnTrueWhenTheImageIsDisposed()
-            {
-                var image = new MagickImage();
-                image.Dispose();
+        [Fact]
+        public void ShouldReturnTrueWhenTheImageIsDisposed()
+        {
+            var image = new MagickImage();
+            image.Dispose();
 
-                Assert.True(image.IsDisposed);
-            }
+            Assert.True(image.IsDisposed);
         }
     }
 }

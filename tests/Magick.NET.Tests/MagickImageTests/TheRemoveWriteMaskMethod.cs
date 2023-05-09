@@ -4,33 +4,32 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheRemoveWriteMaskMethod
     {
-        public class TheRemoveWriteMaskMethod
+        [Fact]
+        public void ShouldRemoveWriteMask()
         {
-            [Fact]
-            public void ShouldRemoveWriteMask()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                using (var writeMask = new MagickImage(MagickColors.Black, image.Width, image.Height))
                 {
-                    using (var writeMask = new MagickImage(MagickColors.Black, image.Width, image.Height))
-                    {
-                        image.SetWriteMask(writeMask);
-                    }
+                    image.SetWriteMask(writeMask);
+                }
 
-                    using (var writeMask = image.GetWriteMask())
-                    {
-                        Assert.NotNull(writeMask);
-                    }
+                using (var writeMask = image.GetWriteMask())
+                {
+                    Assert.NotNull(writeMask);
+                }
 
-                    image.RemoveWriteMask();
+                image.RemoveWriteMask();
 
-                    using (var writeMask = image.GetWriteMask())
-                    {
-                        Assert.Null(writeMask);
-                    }
+                using (var writeMask = image.GetWriteMask())
+                {
+                    Assert.Null(writeMask);
                 }
             }
         }

@@ -4,32 +4,31 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorHSVTests
 {
-    public partial class ColorHSVTests
+    public class TheProperties
     {
-        public class TheProperties
+        [Fact]
+        public void ShouldSetTheCorrectValue()
         {
-            [Fact]
-            public void ShouldSetTheCorrectValue()
-            {
-                var color = new ColorHSV(0, 0, 0);
+            var color = new ColorHSV(0, 0, 0);
 
-                color.Hue = 1;
-                Assert.Equal(1, color.Hue);
-                Assert.Equal(0, color.Saturation);
-                Assert.Equal(0, color.Value);
+            color.Hue = 1;
+            Assert.Equal(1, color.Hue);
+            Assert.Equal(0, color.Saturation);
+            Assert.Equal(0, color.Value);
 
-                color.Saturation = 2;
-                Assert.Equal(1, color.Hue);
-                Assert.Equal(2, color.Saturation);
-                Assert.Equal(0, color.Value);
+            color.Saturation = 2;
+            Assert.Equal(1, color.Hue);
+            Assert.Equal(2, color.Saturation);
+            Assert.Equal(0, color.Value);
 
-                color.Value = 3;
-                Assert.Equal(1, color.Hue);
-                Assert.Equal(2, color.Saturation);
-                Assert.Equal(3, color.Value);
-            }
+            color.Value = 3;
+            Assert.Equal(1, color.Hue);
+            Assert.Equal(2, color.Saturation);
+            Assert.Equal(3, color.Value);
         }
     }
 }

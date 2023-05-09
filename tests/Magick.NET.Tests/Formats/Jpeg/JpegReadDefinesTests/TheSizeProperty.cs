@@ -5,49 +5,48 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class JpegReadDefinesTests
 {
-    public partial class JpegReadDefinesTests
+    public class TheSizeProperty
     {
-        public class TheSizeProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Defines = new JpegReadDefines
                 {
-                    Defines = new JpegReadDefines
-                    {
-                        Size = new MagickGeometry(61, 59),
-                    },
-                };
+                    Size = new MagickGeometry(61, 59),
+                },
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Read(Files.ImageMagickJPG, settings);
+            using (var image = new MagickImage())
+            {
+                image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.Equal("61x59", image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
-                }
+                Assert.Equal("61x59", image.Settings.GetDefine(MagickFormat.Jpeg, "size"));
             }
+        }
 
-            [Fact]
-            public void ShouldReduceTheSize()
+        [Fact]
+        public void ShouldReduceTheSize()
+        {
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Defines = new JpegReadDefines
                 {
-                    Defines = new JpegReadDefines
-                    {
-                        Size = new MagickGeometry(61, 59),
-                    },
-                };
+                    Size = new MagickGeometry(61, 59),
+                },
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Read(Files.ImageMagickJPG, settings);
+            using (var image = new MagickImage())
+            {
+                image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.Equal(62, image.Width);
-                    Assert.Equal(59, image.Height);
-                }
+                Assert.Equal(62, image.Width);
+                Assert.Equal(59, image.Height);
             }
         }
     }

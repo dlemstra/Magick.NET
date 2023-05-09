@@ -5,81 +5,80 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSparseColorMethod
     {
-        public class TheSparseColorMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenArgsIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenArgsIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("args", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("args", () =>
-                    {
-                        image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null);
-                    });
-                }
+                    image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenArgsIsEmpty()
+        [Fact]
+        public void ShouldThrowExceptionWhenArgsIsEmpty()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentException>("args", () =>
                 {
-                    Assert.Throws<ArgumentException>("args", () =>
-                    {
-                        image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, new SparseColorArg[] { });
-                    });
-                }
+                    image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, new SparseColorArg[] { });
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenInvalidChannelsAreSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenInvalidChannelsAreSpecified()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                var args = new[] { new SparseColorArg(0, 0, MagickColors.SkyBlue) };
+
+                var exception = Assert.Throws<ArgumentException>("channels", () =>
                 {
-                    var args = new[] { new SparseColorArg(0, 0, MagickColors.SkyBlue) };
+                    image.SparseColor(Channels.Black, SparseColorMethod.Barycentric, args);
+                });
 
-                    var exception = Assert.Throws<ArgumentException>("channels", () =>
-                    {
-                        image.SparseColor(Channels.Black, SparseColorMethod.Barycentric, args);
-                    });
-
-                    Assert.Contains("Invalid channels specified.", exception.Message);
-                }
+                Assert.Contains("Invalid channels specified.", exception.Message);
             }
+        }
 
-            [Fact]
-            public void ShouldInterpolateTheColorsAtTheSpecifiedCoordinates()
+        [Fact]
+        public void ShouldInterpolateTheColorsAtTheSpecifiedCoordinates()
+        {
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Width = 600,
+                Height = 60,
+            };
+
+            using (var image = new MagickImage("xc:", settings))
+            {
+                using (var pixels = image.GetPixels())
                 {
-                    Width = 600,
-                    Height = 60,
+                    ColorAssert.Equal(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
+                }
+
+                var args = new[]
+                {
+                    new SparseColorArg(0, 0, MagickColors.SkyBlue),
+                    new SparseColorArg(-600, 60, MagickColors.SkyBlue),
+                    new SparseColorArg(600, 60, MagickColors.Black),
                 };
 
-                using (var image = new MagickImage("xc:", settings))
+                image.SparseColor(SparseColorMethod.Barycentric, args);
+
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
-                    {
-                        ColorAssert.Equal(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
-                    }
-
-                    var args = new[]
-                    {
-                        new SparseColorArg(0, 0, MagickColors.SkyBlue),
-                        new SparseColorArg(-600, 60, MagickColors.SkyBlue),
-                        new SparseColorArg(600, 60, MagickColors.Black),
-                    };
-
-                    image.SparseColor(SparseColorMethod.Barycentric, args);
-
-                    using (var pixels = image.GetPixels())
-                    {
-                        ColorAssert.NotEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
-                    }
+                    ColorAssert.NotEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
                 }
             }
         }

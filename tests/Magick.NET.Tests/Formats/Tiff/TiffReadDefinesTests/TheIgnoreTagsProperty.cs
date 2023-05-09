@@ -5,38 +5,37 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TiffReadDefinesTests
 {
-    public partial class TiffReadDefinesTests
+    public class TheIgnoreTagsProperty
     {
-        public class TheIgnoreTagsProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new TiffReadDefines
                 {
-                    image.Settings.SetDefines(new TiffReadDefines
-                    {
-                        IgnoreTags = new[] { "1234" },
-                    });
+                    IgnoreTags = new[] { "1234" },
+                });
 
-                    Assert.Equal("1234", image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
-                }
+                Assert.Equal("1234", image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenTheValueIsEmpty()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenTheValueIsEmpty()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new TiffReadDefines
                 {
-                    image.Settings.SetDefines(new TiffReadDefines
-                    {
-                        IgnoreTags = System.Array.Empty<string>(),
-                    });
+                    IgnoreTags = System.Array.Empty<string>(),
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "alpha-unblend"));
             }
         }
     }

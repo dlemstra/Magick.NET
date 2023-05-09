@@ -4,25 +4,24 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ExifProfileTests
 {
-    public partial class ExifProfileTests
+    public class TheRemoveThumbnailMethod
     {
-        public class TheRemoveThumbnailMethod
+        [Fact]
+        public void ShouldRemoveTheThumbnail()
         {
-            [Fact]
-            public void ShouldRemoveTheThumbnail()
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetExifProfile();
-                    Assert.NotNull(profile);
+                var profile = image.GetExifProfile();
+                Assert.NotNull(profile);
 
-                    profile.RemoveThumbnail();
+                profile.RemoveThumbnail();
 
-                    Assert.Equal(0, profile.ThumbnailLength);
-                    Assert.Equal(0, profile.ThumbnailOffset);
-                }
+                Assert.Equal(0, profile.ThumbnailLength);
+                Assert.Equal(0, profile.ThumbnailOffset);
             }
         }
     }

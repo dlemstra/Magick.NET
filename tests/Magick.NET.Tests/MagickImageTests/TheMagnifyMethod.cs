@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheMagnifyMethod
     {
-        public class TheMagnifyMethod
+        [Fact]
+        public void ShouldMagnifyTheImage()
         {
-            [Fact]
-            public void ShouldMagnifyTheImage()
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    image.Magnify();
-                    Assert.Equal(256, image.Width);
-                    Assert.Equal(256, image.Height);
-                }
+                image.Magnify();
+                Assert.Equal(256, image.Width);
+                Assert.Equal(256, image.Height);
             }
         }
     }

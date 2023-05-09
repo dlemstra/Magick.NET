@@ -3,25 +3,24 @@
 
 using System.IO;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+internal static class FileHelper
 {
-    internal static class FileHelper
+    public static void Copy(string sourceFileName, string destFileName)
     {
-        public static void Copy(string sourceFileName, string destFileName)
+        var bytes = File.ReadAllBytes(sourceFileName);
+
+        using (var output = File.Open(destFileName, FileMode.Create, FileAccess.Write))
         {
-            var bytes = File.ReadAllBytes(sourceFileName);
-
-            using (var output = File.Open(destFileName, FileMode.Create, FileAccess.Write))
-            {
-                output.Write(bytes, 0, bytes.Length);
-            }
+            output.Write(bytes, 0, bytes.Length);
         }
+    }
 
-        public static MemoryStream OpenRead(string fileName)
-        {
-            var bytes = File.ReadAllBytes(fileName);
+    public static MemoryStream OpenRead(string fileName)
+    {
+        var bytes = File.ReadAllBytes(fileName);
 
-            return new MemoryStream(bytes);
-        }
+        return new MemoryStream(bytes);
     }
 }

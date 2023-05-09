@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class ColorMonoTests
-    {
-        public class TheGetHashCodeMethod
-        {
-            [Fact]
-            public void ShouldReturnDifferentValueWhenChannelChanged()
-            {
-                var first = ColorMono.Black;
-                var hashCode = first.GetHashCode();
+namespace Magick.NET.Tests;
 
-                first.IsBlack = false;
-                Assert.NotEqual(hashCode, first.GetHashCode());
-            }
+public partial class ColorMonoTests
+{
+    public class TheGetHashCodeMethod
+    {
+        [Fact]
+        public void ShouldReturnDifferentValueWhenChannelChanged()
+        {
+            var first = ColorMono.Black;
+            var hashCode = first.GetHashCode();
+
+            first.IsBlack = false;
+            Assert.NotEqual(hashCode, first.GetHashCode());
         }
     }
 }

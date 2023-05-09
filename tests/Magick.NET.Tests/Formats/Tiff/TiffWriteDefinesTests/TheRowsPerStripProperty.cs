@@ -5,24 +5,23 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class TiffWriteDefinesTests
-    {
-        public class TheRowsPerStripProperty : TiffWriteDefinesTests
-        {
-            [Fact]
-            public void ShouldSetTheDefine()
-            {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Settings.SetDefines(new TiffWriteDefines
-                    {
-                        RowsPerStrip = 42,
-                    });
+namespace Magick.NET.Tests;
 
-                    Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
-                }
+public partial class TiffWriteDefinesTests
+{
+    public class TheRowsPerStripProperty : TiffWriteDefinesTests
+    {
+        [Fact]
+        public void ShouldSetTheDefine()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Settings.SetDefines(new TiffWriteDefines
+                {
+                    RowsPerStrip = 42,
+                });
+
+                Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
             }
         }
     }

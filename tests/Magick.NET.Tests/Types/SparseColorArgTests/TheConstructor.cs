@@ -5,22 +5,21 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SparseColorArgTests
 {
-    public partial class SparseColorArgTests
+    public partial class TheConstructor
     {
-        public partial class TheConstructor
+        [Fact]
+        public void ShouldThrowExceptionWhenColorIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenColorIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("color", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("color", () =>
-                    {
-                        new SparseColorArg(0, 0, null);
-                    });
-                }
+                    new SparseColorArg(0, 0, null);
+                });
             }
         }
     }

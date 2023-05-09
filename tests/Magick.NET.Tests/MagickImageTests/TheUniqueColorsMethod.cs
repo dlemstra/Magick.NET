@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheUniqueColorsMethod
     {
-        public class TheUniqueColorsMethod
+        [Fact]
+        public void ShouldReturnTheUniqueColorsAsAnImage()
         {
-            [Fact]
-            public void ShouldReturnTheUniqueColorsAsAnImage()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                using (var uniqueColors = image.UniqueColors())
                 {
-                    using (var uniqueColors = image.UniqueColors())
-                    {
-                        Assert.Equal(1, uniqueColors.Height);
-                        Assert.Equal(256, uniqueColors.Width);
-                    }
+                    Assert.Equal(1, uniqueColors.Height);
+                    Assert.Equal(256, uniqueColors.Width);
                 }
             }
         }

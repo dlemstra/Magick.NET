@@ -5,26 +5,25 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class JpegWriteDefinesTests
 {
-    public partial class JpegWriteDefinesTests
+    public class TheOptimizeCodingProperty
     {
-        public class TheOptimizeCodingProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var defines = new JpegWriteDefines
             {
-                var defines = new JpegWriteDefines
-                {
-                    OptimizeCoding = false,
-                };
+                OptimizeCoding = false,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-                }
+                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
             }
         }
     }

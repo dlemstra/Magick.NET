@@ -4,23 +4,22 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class QuantumTests
 {
-    public partial class QuantumTests
+    public class TheMaxProperty
     {
-        public class TheMaxProperty
+        [Fact]
+        public void ShouldHaveTheCorrectValue()
         {
-            [Fact]
-            public void ShouldHaveTheCorrectValue()
-            {
 #if Q8
-                Assert.Equal(byte.MaxValue, Quantum.Max);
+            Assert.Equal(byte.MaxValue, Quantum.Max);
 #elif Q16
-                Assert.Equal(ushort.MaxValue, Quantum.Max);
+            Assert.Equal(ushort.MaxValue, Quantum.Max);
 #else
-                Assert.Equal((float)ushort.MaxValue, Quantum.Max);
+            Assert.Equal((float)ushort.MaxValue, Quantum.Max);
 #endif
-            }
         }
     }
 }

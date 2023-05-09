@@ -4,129 +4,128 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TemporaryDefinesTests
 {
-    public partial class TemporaryDefinesTests
+    public class TheSetArtifactMethod
     {
-        public class TheSetArtifactMethod
+        [Fact]
+        public void ShouldSetArtificatWhenValueIsNotNull()
         {
-            [Fact]
-            public void ShouldSetArtificatWhenValueIsNotNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                using (var temporaryDefines = new TemporaryDefines(image))
                 {
-                    using (var temporaryDefines = new TemporaryDefines(image))
-                    {
-                        temporaryDefines.SetArtifact("foo", "bar");
+                    temporaryDefines.SetArtifact("foo", "bar");
 
-                        Assert.Equal("bar", image.GetArtifact("foo"));
-                    }
+                    Assert.Equal("bar", image.GetArtifact("foo"));
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetArtificatWhenValueIsNull()
+        [Fact]
+        public void ShouldNotSetArtificatWhenValueIsNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                using (var temporaryDefines = new TemporaryDefines(image))
                 {
-                    using (var temporaryDefines = new TemporaryDefines(image))
-                    {
-                        temporaryDefines.SetArtifact("foo", (string)null);
+                    temporaryDefines.SetArtifact("foo", (string)null);
 
-                        Assert.Null(image.GetArtifact("foo"));
-                    }
+                    Assert.Null(image.GetArtifact("foo"));
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetArtificatWhenValueIsEmpty()
+        [Fact]
+        public void ShouldNotSetArtificatWhenValueIsEmpty()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                using (var temporaryDefines = new TemporaryDefines(image))
                 {
-                    using (var temporaryDefines = new TemporaryDefines(image))
-                    {
-                        temporaryDefines.SetArtifact("foo", string.Empty);
+                    temporaryDefines.SetArtifact("foo", string.Empty);
 
-                        Assert.Null(image.GetArtifact("foo"));
-                    }
+                    Assert.Null(image.GetArtifact("foo"));
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheBooleanValue()
+        [Fact]
+        public void ShouldSetTheBooleanValue()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                using (var temporaryDefines = new TemporaryDefines(image))
                 {
-                    using (var temporaryDefines = new TemporaryDefines(image))
-                    {
-                        temporaryDefines.SetArtifact("foo", true);
+                    temporaryDefines.SetArtifact("foo", true);
 
-                        Assert.Equal("true", image.GetArtifact("foo"));
-                    }
+                    Assert.Equal("true", image.GetArtifact("foo"));
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheNullableValueWhenValueIsNull()
+        [Fact]
+        public void ShouldNotSetTheNullableValueWhenValueIsNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Channels? channels = null;
+
+                using (var temporaryDefines = new TemporaryDefines(image))
                 {
-                    Channels? channels = null;
+                    temporaryDefines.SetArtifact("foo", channels);
 
-                    using (var temporaryDefines = new TemporaryDefines(image))
-                    {
-                        temporaryDefines.SetArtifact("foo", channels);
-
-                        Assert.Null(image.GetArtifact("foo"));
-                    }
+                    Assert.Null(image.GetArtifact("foo"));
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheNullableValue()
+        [Fact]
+        public void ShouldSetTheNullableValue()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Channels? channels = Channels.Index;
+
+                using (var temporaryDefines = new TemporaryDefines(image))
                 {
-                    Channels? channels = Channels.Index;
+                    temporaryDefines.SetArtifact("foo", channels);
 
-                    using (var temporaryDefines = new TemporaryDefines(image))
-                    {
-                        temporaryDefines.SetArtifact("foo", channels);
-
-                        Assert.Equal("Index", image.GetArtifact("foo"));
-                    }
+                    Assert.Equal("Index", image.GetArtifact("foo"));
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheValueWhenDoubleIsNull()
+        [Fact]
+        public void ShouldNotSetTheValueWhenDoubleIsNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                double? value = null;
+
+                using (var temporaryDefines = new TemporaryDefines(image))
                 {
-                    double? value = null;
+                    temporaryDefines.SetArtifact("foo", value);
 
-                    using (var temporaryDefines = new TemporaryDefines(image))
-                    {
-                        temporaryDefines.SetArtifact("foo", value);
-
-                        Assert.Null(image.GetArtifact("foo"));
-                    }
+                    Assert.Null(image.GetArtifact("foo"));
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheDoubleValue()
+        [Fact]
+        public void ShouldSetTheDoubleValue()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                double? value = 1.25;
+
+                using (var temporaryDefines = new TemporaryDefines(image))
                 {
-                    double? value = 1.25;
+                    temporaryDefines.SetArtifact("foo", value);
 
-                    using (var temporaryDefines = new TemporaryDefines(image))
-                    {
-                        temporaryDefines.SetArtifact("foo", value);
-
-                        Assert.Equal("1.25", image.GetArtifact("foo"));
-                    }
+                    Assert.Equal("1.25", image.GetArtifact("foo"));
                 }
             }
         }

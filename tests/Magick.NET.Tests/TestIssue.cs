@@ -5,13 +5,12 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class TestIssue
 {
-    public class TestIssue
+    [Fact]
+    public void RunTest()
     {
-        [Fact]
-        public void RunTest()
-        {
-        }
     }
 }

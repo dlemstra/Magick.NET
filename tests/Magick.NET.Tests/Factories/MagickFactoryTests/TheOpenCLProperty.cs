@@ -4,30 +4,29 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickFactoryTests
 {
-    public partial class MagickFactoryTests
+    public class TheOpenCLProperty
     {
-        public class TheOpenCLProperty
+        [Fact]
+        public void ShouldReturnInstance()
         {
-            [Fact]
-            public void ShouldReturnInstance()
-            {
-                var factory = new MagickFactory();
+            var factory = new MagickFactory();
 
-                Assert.NotNull(factory.OpenCL);
-                Assert.IsType<OpenCL>(factory.OpenCL);
-            }
+            Assert.NotNull(factory.OpenCL);
+            Assert.IsType<OpenCL>(factory.OpenCL);
+        }
 
-            [Fact]
-            public void ShouldReturnTheSameInstance()
-            {
-                var factory = new MagickFactory();
+        [Fact]
+        public void ShouldReturnTheSameInstance()
+        {
+            var factory = new MagickFactory();
 
-                var first = factory.OpenCL;
-                var second = factory.OpenCL;
-                Assert.Same(first, second);
-            }
+            var first = factory.OpenCL;
+            var second = factory.OpenCL;
+            Assert.Same(first, second);
         }
     }
 }

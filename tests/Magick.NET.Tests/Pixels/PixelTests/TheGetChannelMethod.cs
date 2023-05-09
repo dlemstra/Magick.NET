@@ -14,24 +14,23 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PixelTests
 {
-    public partial class PixelTests
+    public class TheGetChannelMethod
     {
-        public class TheGetChannelMethod
+        [Fact]
+        public void ShouldReturnTheCorrectValueForTheSpecifiedChannel()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectValueForTheSpecifiedChannel()
-            {
-                var half = (QuantumType)(Quantum.Max / 2.0);
+            var half = (QuantumType)(Quantum.Max / 2.0);
 
-                var pixel = new Pixel(0, 0, 3);
-                pixel.SetValues(new QuantumType[] { Quantum.Max, 0, half });
+            var pixel = new Pixel(0, 0, 3);
+            pixel.SetValues(new QuantumType[] { Quantum.Max, 0, half });
 
-                Assert.Equal(Quantum.Max, pixel.GetChannel(0));
-                Assert.Equal(0, pixel.GetChannel(1));
-                Assert.Equal(half, pixel.GetChannel(2));
-            }
+            Assert.Equal(Quantum.Max, pixel.GetChannel(0));
+            Assert.Equal(0, pixel.GetChannel(1));
+            Assert.Equal(half, pixel.GetChannel(2));
         }
     }
 }

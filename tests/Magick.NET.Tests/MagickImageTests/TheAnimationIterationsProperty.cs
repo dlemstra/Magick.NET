@@ -4,42 +4,41 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheAnimationIterationsProperty
     {
-        public class TheAnimationIterationsProperty
+        [Fact]
+        public void ShouldChangeTheAnimationDelay()
         {
-            [Fact]
-            public void ShouldChangeTheAnimationDelay()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.AnimationIterations = 60;
-                    Assert.Equal(60, image.AnimationIterations);
-                }
+                image.AnimationIterations = 60;
+                Assert.Equal(60, image.AnimationIterations);
             }
+        }
 
-            [Fact]
-            public void ShouldNotAllowNegativeValue()
+        [Fact]
+        public void ShouldNotAllowNegativeValue()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.AnimationIterations = 60;
-                    image.AnimationIterations = -1;
-                    Assert.Equal(60, image.AnimationIterations);
-                }
+                image.AnimationIterations = 60;
+                image.AnimationIterations = -1;
+                Assert.Equal(60, image.AnimationIterations);
             }
+        }
 
-            [Fact]
-            public void ShouldAllowZeroValue()
+        [Fact]
+        public void ShouldAllowZeroValue()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.AnimationIterations = 60;
-                    image.AnimationIterations = 0;
-                    Assert.Equal(0, image.AnimationIterations);
-                }
+                image.AnimationIterations = 60;
+                image.AnimationIterations = 0;
+                Assert.Equal(0, image.AnimationIterations);
             }
         }
     }

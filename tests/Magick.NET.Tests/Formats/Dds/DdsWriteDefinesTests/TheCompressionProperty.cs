@@ -6,91 +6,90 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class DdsWriteDefinesTests
 {
-    public partial class DdsWriteDefinesTests
+    public class TheCompressionProperty
     {
-        public class TheCompressionProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                var defines = new DdsWriteDefines
                 {
-                    var defines = new DdsWriteDefines
-                    {
-                        Compression = DdsCompression.Dxt1,
-                    };
+                    Compression = DdsCompression.Dxt1,
+                };
 
-                    image.Settings.SetDefines(defines);
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("dxt1", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+                Assert.Equal("dxt1", image.Settings.GetDefine(MagickFormat.Dds, "compression"));
+            }
+        }
+
+        [Fact]
+        public void ShouldUseNoCompressionWhenSetToNone()
+        {
+            using (var input = new MagickImage(Files.Builtin.Logo))
+            {
+                input.Settings.SetDefines(new DdsWriteDefines
+                {
+                    Compression = DdsCompression.None,
+                });
+
+                using (var output = WriteDds(input))
+                {
+                    Assert.Equal(CompressionMethod.NoCompression, output.Compression);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldUseNoCompressionWhenSetToNone()
+        [Fact]
+        public void ShouldUseDxt1CompressionWhenSetToDxt1()
+        {
+            using (var input = new MagickImage(Files.Builtin.Logo))
             {
-                using (var input = new MagickImage(Files.Builtin.Logo))
+                input.Settings.SetDefines(new DdsWriteDefines
                 {
-                    input.Settings.SetDefines(new DdsWriteDefines
-                    {
-                        Compression = DdsCompression.None,
-                    });
+                    Compression = DdsCompression.Dxt1,
+                });
 
-                    using (var output = WriteDds(input))
-                    {
-                        Assert.Equal(CompressionMethod.NoCompression, output.Compression);
-                    }
+                using (var output = WriteDds(input))
+                {
+                    Assert.Equal(CompressionMethod.DXT1, output.Compression);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldUseDxt1CompressionWhenSetToDxt1()
+        [Fact]
+        public void ShouldUseDxt1CompressionWhenSetToDxt1AndImageHasAlphaChannel()
+        {
+            using (var input = new MagickImage(Files.Builtin.Logo))
             {
-                using (var input = new MagickImage(Files.Builtin.Logo))
-                {
-                    input.Settings.SetDefines(new DdsWriteDefines
-                    {
-                        Compression = DdsCompression.Dxt1,
-                    });
+                input.Alpha(AlphaOption.Set);
 
-                    using (var output = WriteDds(input))
-                    {
-                        Assert.Equal(CompressionMethod.DXT1, output.Compression);
-                    }
+                input.Settings.SetDefines(new DdsWriteDefines
+                {
+                    Compression = DdsCompression.Dxt1,
+                });
+
+                using (var output = WriteDds(input))
+                {
+                    Assert.Equal(CompressionMethod.DXT1, output.Compression);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldUseDxt1CompressionWhenSetToDxt1AndImageHasAlphaChannel()
+        private static MagickImage WriteDds(MagickImage input)
+        {
+            using (var memStream = new MemoryStream())
             {
-                using (var input = new MagickImage(Files.Builtin.Logo))
-                {
-                    input.Alpha(AlphaOption.Set);
+                input.Format = MagickFormat.Dds;
+                input.Write(memStream);
+                memStream.Position = 0;
 
-                    input.Settings.SetDefines(new DdsWriteDefines
-                    {
-                        Compression = DdsCompression.Dxt1,
-                    });
-
-                    using (var output = WriteDds(input))
-                    {
-                        Assert.Equal(CompressionMethod.DXT1, output.Compression);
-                    }
-                }
-            }
-
-            private static MagickImage WriteDds(MagickImage input)
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    input.Format = MagickFormat.Dds;
-                    input.Write(memStream);
-                    memStream.Position = 0;
-
-                    return new MagickImage(memStream);
-                }
+                return new MagickImage(memStream);
             }
         }
     }

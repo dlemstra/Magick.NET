@@ -4,28 +4,27 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ResourceLimitsTests
 {
-    public partial class ResourceLimitsTests
+    [Collection(nameof(RunTestsSeparately))]
+    public class TheListLengthProperty
     {
-        [Collection(nameof(RunTestsSeparately))]
-        public class TheListLengthProperty
+        [Fact]
+        public void ShouldHaveTheCorrectValue()
         {
-            [Fact]
-            public void ShouldHaveTheCorrectValue()
-            {
-                Assert.Equal((ulong)long.MaxValue, ResourceLimits.ListLength);
-            }
+            Assert.Equal((ulong)long.MaxValue, ResourceLimits.ListLength);
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenChanged()
-            {
-                var listLength = ResourceLimits.ListLength;
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenChanged()
+        {
+            var listLength = ResourceLimits.ListLength;
 
-                ResourceLimits.ListLength = 32U;
-                Assert.Equal(32U, ResourceLimits.ListLength);
-                ResourceLimits.ListLength = listLength;
-            }
+            ResourceLimits.ListLength = 32U;
+            Assert.Equal(32U, ResourceLimits.ListLength);
+            ResourceLimits.ListLength = listLength;
         }
     }
 }

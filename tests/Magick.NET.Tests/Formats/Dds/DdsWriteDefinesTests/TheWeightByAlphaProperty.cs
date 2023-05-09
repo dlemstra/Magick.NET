@@ -5,26 +5,25 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class DdsWriteDefinesTests
 {
-    public partial class DdsWriteDefinesTests
+    public class TheWeightByAlphaProperty
     {
-        public class TheWeightByAlphaProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                var defines = new DdsWriteDefines
                 {
-                    var defines = new DdsWriteDefines
-                    {
-                        WeightByAlpha = false,
-                    };
+                    WeightByAlpha = false,
+                };
 
-                    image.Settings.SetDefines(defines);
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
-                }
+                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Dds, "weight-by-alpha"));
             }
         }
     }

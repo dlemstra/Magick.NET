@@ -5,25 +5,24 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class ThePcxCoder
 {
-    public class ThePcxCoder
+    [Fact]
+    public void ShouldBeAbleToWriteOneBitImages()
     {
-        [Fact]
-        public void ShouldBeAbleToWriteOneBitImages()
-        {
-            using var input = new MagickImage(MagickColors.Purple, 1, 1);
-            input.ColorType = ColorType.Bilevel;
-            Assert.Equal(ClassType.Pseudo, input.ClassType);
+        using var input = new MagickImage(MagickColors.Purple, 1, 1);
+        input.ColorType = ColorType.Bilevel;
+        Assert.Equal(ClassType.Pseudo, input.ClassType);
 
-            using var memoryStream = new MemoryStream();
-            input.Write(memoryStream, MagickFormat.Pcx);
-            memoryStream.Position = 0;
+        using var memoryStream = new MemoryStream();
+        input.Write(memoryStream, MagickFormat.Pcx);
+        memoryStream.Position = 0;
 
-            using var output = new MagickImage(memoryStream);
+        using var output = new MagickImage(memoryStream);
 
-            Assert.Equal(1, output.Depth);
-            Assert.Equal(ClassType.Pseudo, output.ClassType);
-        }
+        Assert.Equal(1, output.Depth);
+        Assert.Equal(ClassType.Pseudo, output.ClassType);
     }
 }

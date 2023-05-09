@@ -4,63 +4,62 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorGrayTests
 {
-    public partial class ColorGrayTests
+    public class TheEqualsMethod
     {
-        public class TheEqualsMethod
+        [Fact]
+        public void ShouldReturnFalseWhenOtherIsNull()
         {
-            [Fact]
-            public void ShouldReturnFalseWhenOtherIsNull()
-            {
-                var color = new ColorGray(1);
+            var color = new ColorGray(1);
 
-                Assert.False(color.Equals(null));
-            }
+            Assert.False(color.Equals(null));
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenOtherAsObjectIsNull()
-            {
-                var color = new ColorGray(1);
+        [Fact]
+        public void ShouldReturnFalseWhenOtherAsObjectIsNull()
+        {
+            var color = new ColorGray(1);
 
-                Assert.False(color.Equals((object)null));
-            }
+            Assert.False(color.Equals((object)null));
+        }
 
-            [Fact]
-            public void ShouldReturnTrueWhenOtherIsEqual()
-            {
-                var color = new ColorGray(1);
-                var other = new ColorGray(1);
+        [Fact]
+        public void ShouldReturnTrueWhenOtherIsEqual()
+        {
+            var color = new ColorGray(1);
+            var other = new ColorGray(1);
 
-                Assert.True(color.Equals(other));
-            }
+            Assert.True(color.Equals(other));
+        }
 
-            [Fact]
-            public void ShouldReturnTrueWhenOtherAsObjectIsEqual()
-            {
-                var color = new ColorGray(1);
-                var other = new ColorGray(1);
+        [Fact]
+        public void ShouldReturnTrueWhenOtherAsObjectIsEqual()
+        {
+            var color = new ColorGray(1);
+            var other = new ColorGray(1);
 
-                Assert.True(color.Equals((object)other));
-            }
+            Assert.True(color.Equals((object)other));
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenOtherIsNotEqual()
-            {
-                var color = new ColorGray(1);
-                var other = new ColorGray(0.5);
+        [Fact]
+        public void ShouldReturnFalseWhenOtherIsNotEqual()
+        {
+            var color = new ColorGray(1);
+            var other = new ColorGray(0.5);
 
-                Assert.False(color.Equals(other));
-            }
+            Assert.False(color.Equals(other));
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenOtherAsObjectIsNotEqual()
-            {
-                var color = new ColorGray(1);
-                var other = new ColorGray(0.5);
+        [Fact]
+        public void ShouldReturnFalseWhenOtherAsObjectIsNotEqual()
+        {
+            var color = new ColorGray(1);
+            var other = new ColorGray(0.5);
 
-                Assert.False(color.Equals((object)other));
-            }
+            Assert.False(color.Equals((object)other));
         }
     }
 }

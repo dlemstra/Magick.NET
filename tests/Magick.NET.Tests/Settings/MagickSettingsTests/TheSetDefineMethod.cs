@@ -4,54 +4,53 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickSettingsTests
 {
-    public partial class MagickSettingsTests
+    public class TheSetDefineMethod
     {
-        public class TheSetDefineMethod
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefine(MagickFormat.Jpeg, "optimize-coding", "test");
+                image.Settings.SetDefine(MagickFormat.Jpeg, "optimize-coding", "test");
 
-                    Assert.Equal("test", image.Settings.GetDefine(MagickFormat.Jpg, "optimize-coding"));
-                    Assert.Equal("test", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-                }
+                Assert.Equal("test", image.Settings.GetDefine(MagickFormat.Jpg, "optimize-coding"));
+                Assert.Equal("test", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
             }
+        }
 
-            [Fact]
-            public void ShouldChangeTheBooleanToString()
+        [Fact]
+        public void ShouldChangeTheBooleanToString()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefine(MagickFormat.Jpeg, "optimize-coding", true);
+                image.Settings.SetDefine(MagickFormat.Jpeg, "optimize-coding", true);
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
             }
+        }
 
-            [Fact]
-            public void ShouldChangeTheIntToString()
+        [Fact]
+        public void ShouldChangeTheIntToString()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefine(MagickFormat.Jpeg, "optimize-coding", 42);
+                image.Settings.SetDefine(MagickFormat.Jpeg, "optimize-coding", 42);
 
-                    Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-                }
+                Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheSpecifiedName()
+        [Fact]
+        public void ShouldUseTheSpecifiedName()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefine("profile:skip", "ICC");
-                    Assert.Equal("ICC", image.Settings.GetDefine("profile:skip"));
-                }
+                image.Settings.SetDefine("profile:skip", "ICC");
+                Assert.Equal("ICC", image.Settings.GetDefine("profile:skip"));
             }
         }
     }

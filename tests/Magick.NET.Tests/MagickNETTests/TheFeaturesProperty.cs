@@ -4,33 +4,32 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    public class TheFeaturesProperty
     {
-        public class TheFeaturesProperty
+        [Fact]
+        public void ContainsExpectedFeatures()
         {
-            [Fact]
-            public void ContainsExpectedFeatures()
-            {
-                var expected = "Cipher ";
+            var expected = "Cipher ";
 #if Q16HDRI
-                expected += "HDRI ";
+            expected += "HDRI ";
 #endif
-                if (Runtime.IsWindows)
-                    expected += "OpenCL ";
+            if (Runtime.IsWindows)
+                expected += "OpenCL ";
 #if OPENMP
-                if (Runtime.IsWindows)
-                    expected += "OpenMP(2.0) ";
-                else
-                    expected += "OpenMP(4.5) ";
+            if (Runtime.IsWindows)
+                expected += "OpenMP(2.0) ";
+            else
+                expected += "OpenMP(4.5) ";
 #endif
 #if DEBUG_TEST
-                expected = "Debug " + expected;
+            expected = "Debug " + expected;
 #endif
 
-                Assert.Equal(expected, MagickNET.Features);
-            }
+            Assert.Equal(expected, MagickNET.Features);
         }
     }
 }

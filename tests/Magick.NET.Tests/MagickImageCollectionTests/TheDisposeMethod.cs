@@ -4,26 +4,25 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheDisposeMethod
     {
-        public class TheDisposeMethod
+        [Fact]
+        public void ShouldRemoveAndDisposeTheImages()
         {
-            [Fact]
-            public void ShouldRemoveAndDisposeTheImages()
+            var image = new MagickImage(MagickColors.Red, 10, 10);
+
+            var collection = new MagickImageCollection
             {
-                var image = new MagickImage(MagickColors.Red, 10, 10);
+                image,
+            };
+            collection.Dispose();
 
-                var collection = new MagickImageCollection
-                {
-                    image,
-                };
-                collection.Dispose();
-
-                Assert.Empty(collection);
-                Assert.True(image.IsDisposed);
-            }
+            Assert.Empty(collection);
+            Assert.True(image.IsDisposed);
         }
     }
 }

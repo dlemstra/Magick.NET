@@ -14,48 +14,47 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorRGBTests
 {
-    public partial class ColorRGBTests
+    public class TheFuzzyEqualsMethod
     {
-        public class TheFuzzyEqualsMethod
+        [Fact]
+        public void ShouldReturnFalseWhenOtherIsNull()
         {
-            [Fact]
-            public void ShouldReturnFalseWhenOtherIsNull()
-            {
-                var color = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
+            var color = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
 
-                Assert.False(color.FuzzyEquals(null, (Percentage)0));
-            }
+            Assert.False(color.FuzzyEquals(null, (Percentage)0));
+        }
 
-            [Fact]
-            public void ShouldReturnTrueWhenOtherIsSame()
-            {
-                var color = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
+        [Fact]
+        public void ShouldReturnTrueWhenOtherIsSame()
+        {
+            var color = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
 
-                Assert.True(color.FuzzyEquals(color, (Percentage)0));
-            }
+            Assert.True(color.FuzzyEquals(color, (Percentage)0));
+        }
 
-            [Fact]
-            public void ShouldReturnTrueWhenOtherIsEqual()
-            {
-                var first = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
-                var second = (ColorRGB)new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
+        [Fact]
+        public void ShouldReturnTrueWhenOtherIsEqual()
+        {
+            var first = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
+            var second = (ColorRGB)new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
 
-                Assert.True(first.FuzzyEquals(second, (Percentage)0));
-            }
+            Assert.True(first.FuzzyEquals(second, (Percentage)0));
+        }
 
-            [Fact]
-            public void ShouldUseThePercentage()
-            {
-                var first = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
-                var second = new ColorRGB(Quantum.Max, (QuantumType)(Quantum.Max / 2.0), Quantum.Max);
+        [Fact]
+        public void ShouldUseThePercentage()
+        {
+            var first = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
+            var second = new ColorRGB(Quantum.Max, (QuantumType)(Quantum.Max / 2.0), Quantum.Max);
 
-                Assert.False(first.FuzzyEquals(second, (Percentage)0));
-                Assert.False(first.FuzzyEquals(second, (Percentage)10));
-                Assert.False(first.FuzzyEquals(second, (Percentage)20));
-                Assert.True(first.FuzzyEquals(second, (Percentage)30));
-            }
+            Assert.False(first.FuzzyEquals(second, (Percentage)0));
+            Assert.False(first.FuzzyEquals(second, (Percentage)10));
+            Assert.False(first.FuzzyEquals(second, (Percentage)20));
+            Assert.True(first.FuzzyEquals(second, (Percentage)30));
         }
     }
 }

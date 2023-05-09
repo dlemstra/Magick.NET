@@ -5,32 +5,31 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class BytesTests
 {
-    public partial class BytesTests
+    public class TheFromStreamMethod
     {
-        public class TheFromStreamMethod
+        [Fact]
+        public void ShouldReturnNullWhenStreamIsFileStream()
         {
-            [Fact]
-            public void ShouldReturnNullWhenStreamIsFileStream()
+            using (var fileStream = File.OpenRead(Files.ImageMagickJPG))
             {
-                using (var fileStream = File.OpenRead(Files.ImageMagickJPG))
-                {
-                    var bytes = Bytes.FromStreamBuffer(fileStream);
+                var bytes = Bytes.FromStreamBuffer(fileStream);
 
-                    Assert.Null(bytes);
-                }
+                Assert.Null(bytes);
             }
+        }
 
-            [Fact]
-            public void ShouldReturnObjectWhenStreamIsMemoryStream()
+        [Fact]
+        public void ShouldReturnObjectWhenStreamIsMemoryStream()
+        {
+            using (var memStream = new MemoryStream())
             {
-                using (var memStream = new MemoryStream())
-                {
-                    var bytes = Bytes.FromStreamBuffer(memStream);
+                var bytes = Bytes.FromStreamBuffer(memStream);
 
-                    Assert.NotNull(bytes);
-                }
+                Assert.NotNull(bytes);
             }
         }
     }

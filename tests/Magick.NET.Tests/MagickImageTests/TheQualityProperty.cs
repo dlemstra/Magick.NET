@@ -4,41 +4,40 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheQualityProperty
     {
-        public class TheQualityProperty
+        [Fact]
+        public void ShouldNotAllowValueBelowOne()
         {
-            [Fact]
-            public void ShouldNotAllowValueBelowOne()
+            var image = new MagickImage
             {
-                var image = new MagickImage
-                {
-                    Quality = 0,
-                };
+                Quality = 0,
+            };
 
-                Assert.Equal(1, image.Quality);
-            }
+            Assert.Equal(1, image.Quality);
+        }
 
-            [Fact]
-            public void ShouldNotAllowValueAbove100()
+        [Fact]
+        public void ShouldNotAllowValueAbove100()
+        {
+            var image = new MagickImage
             {
-                var image = new MagickImage
-                {
-                    Quality = 101,
-                };
+                Quality = 101,
+            };
 
-                Assert.Equal(100, image.Quality);
-            }
+            Assert.Equal(100, image.Quality);
+        }
 
-            [Fact]
-            public void ShouldSetTheBackgroundColorWhenReadingImage()
+        [Fact]
+        public void ShouldSetTheBackgroundColorWhenReadingImage()
+        {
+            using (var image = new MagickImage(Files.CMYKJPG))
             {
-                using (var image = new MagickImage(Files.CMYKJPG))
-                {
-                    Assert.Equal(91, image.Quality);
-                }
+                Assert.Equal(91, image.Quality);
             }
         }
     }

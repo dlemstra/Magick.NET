@@ -14,19 +14,18 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TiffWriteDefinesTests
 {
-    public partial class TiffWriteDefinesTests
+    private static IMagickImage<QuantumType> WriteTiff(IMagickImage<QuantumType> image)
     {
-        private static IMagickImage<QuantumType> WriteTiff(IMagickImage<QuantumType> image)
+        using (var memStream = new MemoryStream())
         {
-            using (var memStream = new MemoryStream())
-            {
-                image.Format = MagickFormat.Tiff;
-                image.Write(memStream);
-                memStream.Position = 0;
-                return new MagickImage(memStream);
-            }
+            image.Format = MagickFormat.Tiff;
+            image.Write(memStream);
+            memStream.Position = 0;
+            return new MagickImage(memStream);
         }
     }
 }

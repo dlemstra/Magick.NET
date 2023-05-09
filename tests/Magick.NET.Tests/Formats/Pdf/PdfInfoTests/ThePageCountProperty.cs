@@ -4,31 +4,30 @@
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PdfInfoTests
 {
-    public partial class PdfInfoTests
+    public class ThePageCountProperty
     {
-        public class ThePageCountProperty
+        [Fact]
+        public void ShouldReturnTheNumberOfPages()
         {
-            [Fact]
-            public void ShouldReturnTheNumberOfPages()
-            {
-                if (!Ghostscript.IsAvailable)
-                    return;
+            if (!Ghostscript.IsAvailable)
+                return;
 
-                var pdfInfo = PdfInfo.Create(Files.Coders.SamplePDF);
-                Assert.Equal(2, pdfInfo.PageCount);
-            }
+            var pdfInfo = PdfInfo.Create(Files.Coders.SamplePDF);
+            Assert.Equal(2, pdfInfo.PageCount);
+        }
 
-            [Fact]
-            public void ShouldReturnTheNumberOfPagesForPasswordProtectedFile()
-            {
-                if (!Ghostscript.IsAvailable)
-                    return;
+        [Fact]
+        public void ShouldReturnTheNumberOfPagesForPasswordProtectedFile()
+        {
+            if (!Ghostscript.IsAvailable)
+                return;
 
-                var pdfInfo = PdfInfo.Create(Files.Coders.PdfExamplePasswordOriginalPDF, "test");
-                Assert.Equal(4, pdfInfo.PageCount);
-            }
+            var pdfInfo = PdfInfo.Create(Files.Coders.PdfExamplePasswordOriginalPDF, "test");
+            Assert.Equal(4, pdfInfo.PageCount);
         }
     }
 }

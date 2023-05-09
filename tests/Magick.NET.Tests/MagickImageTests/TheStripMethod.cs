@@ -4,44 +4,43 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheStripMethod
     {
-        public class TheStripMethod
+        [Fact]
+        public void ShouldRemovePropertiesFromImage()
         {
-            [Fact]
-            public void ShouldRemovePropertiesFromImage()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Comment = "FooBar";
+                image.Comment = "FooBar";
 
-                    Assert.NotNull(image.Comment);
-                    Assert.NotNull(image.GetAttribute("date:create"));
-                    Assert.NotNull(image.GetAttribute("date:modify"));
-                    Assert.NotNull(image.GetAttribute("date:timestamp"));
+                Assert.NotNull(image.Comment);
+                Assert.NotNull(image.GetAttribute("date:create"));
+                Assert.NotNull(image.GetAttribute("date:modify"));
+                Assert.NotNull(image.GetAttribute("date:timestamp"));
 
-                    image.Strip();
+                image.Strip();
 
-                    Assert.Null(image.Comment);
-                    Assert.Null(image.GetAttribute("date:create"));
-                    Assert.Null(image.GetAttribute("date:modify"));
-                    Assert.Null(image.GetAttribute("date:timestamp"));
-                }
+                Assert.Null(image.Comment);
+                Assert.Null(image.GetAttribute("date:create"));
+                Assert.Null(image.GetAttribute("date:modify"));
+                Assert.Null(image.GetAttribute("date:timestamp"));
             }
+        }
 
-            [Fact]
-            public void ShouldRemoveProfilesFromImage()
+        [Fact]
+        public void ShouldRemoveProfilesFromImage()
+        {
+            using (var image = new MagickImage(Files.PictureJPG))
             {
-                using (var image = new MagickImage(Files.PictureJPG))
-                {
-                    Assert.NotNull(image.GetColorProfile());
+                Assert.NotNull(image.GetColorProfile());
 
-                    image.Strip();
+                image.Strip();
 
-                    Assert.Null(image.GetColorProfile());
-                }
+                Assert.Null(image.GetColorProfile());
             }
         }
     }

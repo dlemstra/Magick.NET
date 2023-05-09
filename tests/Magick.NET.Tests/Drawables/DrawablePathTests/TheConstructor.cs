@@ -4,18 +4,17 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class DrawablePathTests
 {
-    public partial class DrawablePathTests
+    public class TheConstructor
     {
-        public class TheConstructor
+        [Fact]
+        public void ShouldSetPathsToEmptyCollection()
         {
-            [Fact]
-            public void ShouldSetPathsToEmptyCollection()
-            {
-                var path = new DrawablePath();
-                Assert.Empty(path.Paths);
-            }
+            var path = new DrawablePath();
+            Assert.Empty(path.Paths);
         }
     }
 }

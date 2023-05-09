@@ -4,19 +4,18 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickSettingsTests
 {
-    public partial class MagickSettingsTests
+    public class TheTextDirectionProperty
     {
-        public class TheTextDirectionProperty
+        [Fact]
+        public void ShouldDefaultToUndefined()
         {
-            [Fact]
-            public void ShouldDefaultToUndefined()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Equal(TextDirection.Undefined, image.Settings.TextDirection);
-                }
+                Assert.Equal(TextDirection.Undefined, image.Settings.TextDirection);
             }
         }
     }

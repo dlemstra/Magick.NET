@@ -5,29 +5,28 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickNETTests
-    {
-        public class TheSetGhostscriptFontDirectoryMethod
-        {
-            [Fact]
-            public void ShouldThrowExceptionWhenPathIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("path", () =>
-                {
-                    MagickNET.SetGhostscriptFontDirectory(null);
-                });
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldThrowExceptionWhenPathIsInvalid()
+public partial class MagickNETTests
+{
+    public class TheSetGhostscriptFontDirectoryMethod
+    {
+        [Fact]
+        public void ShouldThrowExceptionWhenPathIsNull()
+        {
+            Assert.Throws<ArgumentNullException>("path", () =>
             {
-                Assert.Throws<ArgumentException>("path", () =>
-                {
-                    MagickNET.SetGhostscriptFontDirectory("Invalid");
-                });
-            }
+                MagickNET.SetGhostscriptFontDirectory(null);
+            });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenPathIsInvalid()
+        {
+            Assert.Throws<ArgumentException>("path", () =>
+            {
+                MagickNET.SetGhostscriptFontDirectory("Invalid");
+            });
         }
     }
 }

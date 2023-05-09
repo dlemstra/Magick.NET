@@ -4,45 +4,44 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorRGBTests
 {
-    public partial class ColorRGBTests
+    public class TheCompareToMethod
     {
-        public class TheCompareToMethod
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsNull()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsNull()
-            {
-                var color = new ColorRGB(1, 2, 3);
+            var color = new ColorRGB(1, 2, 3);
 
-                Assert.Equal(1, color.CompareTo(null));
-            }
+            Assert.Equal(1, color.CompareTo(null));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsEqual()
-            {
-                var color = new ColorRGB(1, 2, 3);
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsEqual()
+        {
+            var color = new ColorRGB(1, 2, 3);
 
-                Assert.Equal(0, color.CompareTo(color));
-            }
+            Assert.Equal(0, color.CompareTo(color));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsLower()
-            {
-                var color = new ColorRGB(Quantum.Max, 2, 3);
-                var other = new ColorRGB(1, 2, 3);
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsLower()
+        {
+            var color = new ColorRGB(Quantum.Max, 2, 3);
+            var other = new ColorRGB(1, 2, 3);
 
-                Assert.Equal(1, color.CompareTo(other));
-            }
+            Assert.Equal(1, color.CompareTo(other));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsHigher()
-            {
-                var color = new ColorRGB(1, 2, 3);
-                var other = new ColorRGB(Quantum.Max, 2, 3);
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsHigher()
+        {
+            var color = new ColorRGB(1, 2, 3);
+            var other = new ColorRGB(Quantum.Max, 2, 3);
 
-                Assert.Equal(-1, color.CompareTo(other));
-            }
+            Assert.Equal(-1, color.CompareTo(other));
         }
     }
 }

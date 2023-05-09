@@ -5,36 +5,35 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheColorAlphaMethod
     {
-        public class TheColorAlphaMethod
+        [Fact]
+        public void ShouldSetTheAlphaChannelToTheSpecifiedColor()
         {
-            [Fact]
-            public void ShouldSetTheAlphaChannelToTheSpecifiedColor()
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    var purple = new MagickColor("purple");
+                var purple = new MagickColor("purple");
 
-                    image.ColorAlpha(purple);
+                image.ColorAlpha(purple);
 
-                    ColorAssert.NotEqual(purple, image, 45, 75);
-                    ColorAssert.Equal(purple, image, 100, 60);
-                }
+                ColorAssert.NotEqual(purple, image, 45, 75);
+                ColorAssert.Equal(purple, image, 100, 60);
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenColorIsNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("color", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("color", () =>
-                    {
-                        image.ColorAlpha(null);
-                    });
-                }
+                    image.ColorAlpha(null);
+                });
             }
         }
     }

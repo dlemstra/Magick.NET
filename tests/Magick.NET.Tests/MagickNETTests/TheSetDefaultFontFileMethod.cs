@@ -6,38 +6,37 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    public class TheSetDefaultFontFileMethod
     {
-        public class TheSetDefaultFontFileMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenFileIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenFileIsNull()
+            Assert.Throws<ArgumentNullException>("file", () =>
             {
-                Assert.Throws<ArgumentNullException>("file", () =>
-                {
-                    MagickNET.SetDefaultFontFile((FileInfo)null);
-                });
-            }
+                MagickNET.SetDefaultFontFile((FileInfo)null);
+            });
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenFileNameIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenFileNameIsNull()
+        {
+            Assert.Throws<ArgumentNullException>("fileName", () =>
             {
-                Assert.Throws<ArgumentNullException>("fileName", () =>
-                {
-                    MagickNET.SetDefaultFontFile((string)null);
-                });
-            }
+                MagickNET.SetDefaultFontFile((string)null);
+            });
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenFileNameIsEmpty()
+        [Fact]
+        public void ShouldThrowExceptionWhenFileNameIsEmpty()
+        {
+            Assert.Throws<ArgumentException>("fileName", () =>
             {
-                Assert.Throws<ArgumentException>("fileName", () =>
-                {
-                    MagickNET.SetDefaultFontFile(string.Empty);
-                });
-            }
+                MagickNET.SetDefaultFontFile(string.Empty);
+            });
         }
     }
 }

@@ -5,27 +5,26 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class StreamWrapperTests
 {
-    public partial class StreamWrapperTests
+    public class TheCreateForReadingMethod
     {
-        public class TheCreateForReadingMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenStreamIsNotReadable()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenStreamIsNotReadable()
-            {
-                using var stream = TestStream.ThatCannotRead();
+            using var stream = TestStream.ThatCannotRead();
 
-                var exception = Assert.Throws<ArgumentException>("stream", () => StreamWrapper.CreateForReading(stream));
-                Assert.Contains("readable", exception.Message);
-            }
+            var exception = Assert.Throws<ArgumentException>("stream", () => StreamWrapper.CreateForReading(stream));
+            Assert.Contains("readable", exception.Message);
+        }
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenStreamIsOnlyReadable()
-            {
-                using var stream = TestStream.ThatCanOnlyRead();
-                using var wrapper = StreamWrapper.CreateForReading(stream);
-            }
+        [Fact]
+        public void ShouldNotThrowExceptionWhenStreamIsOnlyReadable()
+        {
+            using var stream = TestStream.ThatCanOnlyRead();
+            using var wrapper = StreamWrapper.CreateForReading(stream);
         }
     }
 }

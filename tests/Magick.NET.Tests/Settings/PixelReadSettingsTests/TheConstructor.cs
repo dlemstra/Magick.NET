@@ -4,43 +4,42 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PixelReadSettingsTests
 {
-    public partial class PixelReadSettingsTests
+    public class TheConstructor
     {
-        public class TheConstructor
+        [Fact]
+        public void ShouldSetTheReadSettings()
         {
-            [Fact]
-            public void ShouldSetTheReadSettings()
-            {
-                var settings = new PixelReadSettings();
+            var settings = new PixelReadSettings();
 
-                Assert.NotNull(settings.ReadSettings);
-            }
+            Assert.NotNull(settings.ReadSettings);
+        }
 
-            [Fact]
-            public void ShouldSetTheMappingCorrectly()
-            {
-                var settings = new PixelReadSettings(1, 2, StorageType.Int64, PixelMapping.CMYK);
+        [Fact]
+        public void ShouldSetTheMappingCorrectly()
+        {
+            var settings = new PixelReadSettings(1, 2, StorageType.Int64, PixelMapping.CMYK);
 
-                Assert.NotNull(settings.ReadSettings);
-                Assert.Equal(1, settings.ReadSettings.Width);
-                Assert.Equal(2, settings.ReadSettings.Height);
-                Assert.Equal(StorageType.Int64, settings.StorageType);
-                Assert.Equal("CMYK", settings.Mapping);
-            }
+            Assert.NotNull(settings.ReadSettings);
+            Assert.Equal(1, settings.ReadSettings.Width);
+            Assert.Equal(2, settings.ReadSettings.Height);
+            Assert.Equal(StorageType.Int64, settings.StorageType);
+            Assert.Equal("CMYK", settings.Mapping);
+        }
 
-            [Fact]
-            public void ShouldSetTheProperties()
-            {
-                var settings = new PixelReadSettings(3, 4, StorageType.Quantum, "CMY");
+        [Fact]
+        public void ShouldSetTheProperties()
+        {
+            var settings = new PixelReadSettings(3, 4, StorageType.Quantum, "CMY");
 
-                Assert.NotNull(settings.ReadSettings);
-                Assert.Equal(3, settings.ReadSettings.Width);
-                Assert.Equal(4, settings.ReadSettings.Height);
-                Assert.Equal(StorageType.Quantum, settings.StorageType);
-                Assert.Equal("CMY", settings.Mapping);
-            }
+            Assert.NotNull(settings.ReadSettings);
+            Assert.Equal(3, settings.ReadSettings.Width);
+            Assert.Equal(4, settings.ReadSettings.Height);
+            Assert.Equal(StorageType.Quantum, settings.StorageType);
+            Assert.Equal("CMY", settings.Mapping);
         }
     }
 }

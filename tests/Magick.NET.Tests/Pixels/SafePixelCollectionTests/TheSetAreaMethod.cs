@@ -15,100 +15,99 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SafePixelCollectionTests
 {
-    public partial class SafePixelCollectionTests
+    public partial class TheSetAreaMethod
     {
-        public partial class TheSetAreaMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayIsNull()
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentNullException>("values", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("values", () =>
-                        {
-                            pixels.SetArea(10, 10, 1000, 1000, null);
-                        });
-                    }
+                        pixels.SetArea(10, 10, 1000, 1000, null);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayHasInvalidSize()
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayHasInvalidSize()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentException>("values", () =>
                     {
-                        Assert.Throws<ArgumentException>("values", () =>
-                        {
-                            pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
-                        });
-                    }
+                        pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayHasTooManyValues()
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayHasTooManyValues()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentException>("values", () =>
                     {
-                        Assert.Throws<ArgumentException>("values", () =>
-                        {
-                            var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                            pixels.SetArea(10, 10, 113, 108, values);
-                        });
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixels())
-                    {
-                        var values = new QuantumType[113 * 108 * image.ChannelCount];
+                        var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                         pixels.SetArea(10, 10, 113, 108, values);
-
-                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                    }
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
+        [Fact]
+        public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
-                    {
-                        Assert.Throws<ArgumentNullException>("geometry", () =>
-                        {
-                            pixels.SetArea(null, new QuantumType[] { 0 });
-                        });
-                    }
+                    var values = new QuantumType[113 * 108 * image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
+
+                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentNullException>("geometry", () =>
                     {
-                        var values = new QuantumType[113 * 108 * image.ChannelCount];
-                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
+                        pixels.SetArea(null, new QuantumType[] { 0 });
+                    });
+                }
+            }
+        }
 
-                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                    }
+        [Fact]
+        public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (var pixels = image.GetPixels())
+                {
+                    var values = new QuantumType[113 * 108 * image.ChannelCount];
+                    pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
+
+                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
             }
         }

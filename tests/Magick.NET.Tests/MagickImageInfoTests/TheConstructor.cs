@@ -6,102 +6,101 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageInfoTests
 {
-    public partial class MagickImageInfoTests
+    public partial class TheConstructor
     {
-        public partial class TheConstructor
+        public class WithByteArray
         {
-            public class WithByteArray
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsNull()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo((byte[])null));
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImageInfo(Array.Empty<byte>()));
-                }
+                Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo((byte[])null));
             }
 
-            public class WithByteArrayAndOffset
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenArrayIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo(null, 0, 0));
-                }
+                Assert.Throws<ArgumentException>("data", () => new MagickImageInfo(Array.Empty<byte>()));
+            }
+        }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenArrayIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImageInfo(Array.Empty<byte>(), 0, 0));
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenOffsetIsNegative()
-                {
-                    Assert.Throws<ArgumentException>("offset", () => new MagickImageInfo(new byte[] { 215 }, -1, 0));
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenCountIsZero()
-                {
-                    Assert.Throws<ArgumentException>("count", () => new MagickImageInfo(new byte[] { 215 }, 0, 0));
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenCountIsNegative()
-                {
-                    Assert.Throws<ArgumentException>("count", () => new MagickImageInfo(new byte[] { 215 }, 0, -1));
-                }
+        public class WithByteArrayAndOffset
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenArrayIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo(null, 0, 0));
             }
 
-            public class WithFileInfo
+            [Fact]
+            public void ShouldThrowExceptionWhenArrayIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenFileIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("file", () => new MagickImageInfo((FileInfo)null));
-                }
+                Assert.Throws<ArgumentException>("data", () => new MagickImageInfo(Array.Empty<byte>(), 0, 0));
             }
 
-            public class WithFileName
+            [Fact]
+            public void ShouldThrowExceptionWhenOffsetIsNegative()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("fileName", () => new MagickImageInfo((string)null));
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("fileName", () => new MagickImageInfo(string.Empty));
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsInvalid()
-                {
-                    var exception = Assert.Throws<MagickBlobErrorException>(() =>
-                    {
-                        new MagickImageInfo(Files.Missing);
-                    });
-
-                    Assert.Contains("error/blob.c/OpenBlob", exception.Message);
-                }
+                Assert.Throws<ArgumentException>("offset", () => new MagickImageInfo(new byte[] { 215 }, -1, 0));
             }
 
-            public class WithStream
+            [Fact]
+            public void ShouldThrowExceptionWhenCountIsZero()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNull()
+                Assert.Throws<ArgumentException>("count", () => new MagickImageInfo(new byte[] { 215 }, 0, 0));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenCountIsNegative()
+            {
+                Assert.Throws<ArgumentException>("count", () => new MagickImageInfo(new byte[] { 215 }, 0, -1));
+            }
+        }
+
+        public class WithFileInfo
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenFileIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("file", () => new MagickImageInfo((FileInfo)null));
+            }
+        }
+
+        public class WithFileName
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("fileName", () => new MagickImageInfo((string)null));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsEmpty()
+            {
+                Assert.Throws<ArgumentException>("fileName", () => new MagickImageInfo(string.Empty));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsInvalid()
+            {
+                var exception = Assert.Throws<MagickBlobErrorException>(() =>
                 {
-                    Assert.Throws<ArgumentNullException>("stream", () => new MagickImageInfo((Stream)null));
-                }
+                    new MagickImageInfo(Files.Missing);
+                });
+
+                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+            }
+        }
+
+        public class WithStream
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenStreamIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("stream", () => new MagickImageInfo((Stream)null));
             }
         }
     }

@@ -6,51 +6,50 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class StreamWrapperTests
 {
-    public partial class StreamWrapperTests
+    public class TheTellMethod
     {
-        public class TheTellMethod
+        [Fact]
+        public unsafe void ShouldReturnThePositionOfTheWrapper()
         {
-            [Fact]
-            public unsafe void ShouldReturnThePositionOfTheWrapper()
+            using var memStream = new MemoryStream();
+            using var wrapper = StreamWrapper.CreateForReading(memStream);
+
+            var buffer = new byte[42];
+            fixed (byte* p = buffer)
             {
-                using var memStream = new MemoryStream();
-                using var wrapper = StreamWrapper.CreateForReading(memStream);
-
-                var buffer = new byte[42];
-                fixed (byte* p = buffer)
-                {
-                    wrapper.Write((IntPtr)p, (UIntPtr)42, IntPtr.Zero);
-                }
-
-                var position = wrapper.Tell(IntPtr.Zero);
-
-                Assert.Equal(42, position);
+                wrapper.Write((IntPtr)p, (UIntPtr)42, IntPtr.Zero);
             }
 
-            [Fact]
-            public void ShouldNotAddThePositionOfTheStream()
-            {
-                using var memStream = new MemoryStream();
-                memStream.Position = 42;
+            var position = wrapper.Tell(IntPtr.Zero);
 
-                using var wrapper = StreamWrapper.CreateForReading(memStream);
-                var position = wrapper.Tell(IntPtr.Zero);
+            Assert.Equal(42, position);
+        }
 
-                Assert.Equal(0, position);
-            }
+        [Fact]
+        public void ShouldNotAddThePositionOfTheStream()
+        {
+            using var memStream = new MemoryStream();
+            memStream.Position = 42;
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringTelling()
-            {
-                using var memStream = new MemoryStream();
-                using var stream = new TellExceptionStream(memStream);
-                using var wrapper = StreamWrapper.CreateForReading(stream);
+            using var wrapper = StreamWrapper.CreateForReading(memStream);
+            var position = wrapper.Tell(IntPtr.Zero);
 
-                var position = wrapper.Tell(IntPtr.Zero);
-                Assert.Equal(-1, position);
-            }
+            Assert.Equal(0, position);
+        }
+
+        [Fact]
+        public void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringTelling()
+        {
+            using var memStream = new MemoryStream();
+            using var stream = new TellExceptionStream(memStream);
+            using var wrapper = StreamWrapper.CreateForReading(stream);
+
+            var position = wrapper.Tell(IntPtr.Zero);
+            Assert.Equal(-1, position);
         }
     }
 }

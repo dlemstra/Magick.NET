@@ -4,30 +4,29 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheGetClippingPathMethod
-        {
-            [Fact]
-            public void ShouldReturnTheFirstClippingPath()
-            {
-                using (var image = new MagickImage(Files.InvitationTIF))
-                {
-                    var clippingPath = image.GetClippingPath();
-                    Assert.NotNull(clippingPath);
-                }
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldReturnTheSpecifiedClippingPath()
+public partial class MagickImageTests
+{
+    public class TheGetClippingPathMethod
+    {
+        [Fact]
+        public void ShouldReturnTheFirstClippingPath()
+        {
+            using (var image = new MagickImage(Files.InvitationTIF))
             {
-                using (var image = new MagickImage(Files.InvitationTIF))
-                {
-                    var clippingPath = image.GetClippingPath("#1");
-                    Assert.NotNull(clippingPath);
-                }
+                var clippingPath = image.GetClippingPath();
+                Assert.NotNull(clippingPath);
+            }
+        }
+
+        [Fact]
+        public void ShouldReturnTheSpecifiedClippingPath()
+        {
+            using (var image = new MagickImage(Files.InvitationTIF))
+            {
+                var clippingPath = image.GetClippingPath("#1");
+                Assert.NotNull(clippingPath);
             }
         }
     }

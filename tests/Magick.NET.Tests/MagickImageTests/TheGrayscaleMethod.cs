@@ -5,45 +5,44 @@ using System.Linq;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheGrayscaleMethod
     {
-        public class TheGrayscaleMethod
+        [Fact]
+        public void ShouldUseTheDefaultPixelIntensityMethod()
         {
-            [Fact]
-            public void ShouldUseTheDefaultPixelIntensityMethod()
+            using (var imageA = new MagickImage(MagickColors.Purple, 1, 1))
             {
-                using (var imageA = new MagickImage(MagickColors.Purple, 1, 1))
+                imageA.Grayscale();
+                Assert.Equal(1, imageA.ChannelCount);
+                Assert.Equal(PixelChannel.Red, imageA.Channels.First());
+
+                using (var imageB = new MagickImage(MagickColors.Purple, 1, 1))
                 {
-                    imageA.Grayscale();
-                    Assert.Equal(1, imageA.ChannelCount);
-                    Assert.Equal(PixelChannel.Red, imageA.Channels.First());
+                    imageB.Grayscale(PixelIntensityMethod.Brightness);
+                    Assert.Equal(1, imageB.ChannelCount);
+                    Assert.Equal(PixelChannel.Red, imageB.Channels.First());
 
-                    using (var imageB = new MagickImage(MagickColors.Purple, 1, 1))
-                    {
-                        imageB.Grayscale(PixelIntensityMethod.Brightness);
-                        Assert.Equal(1, imageB.ChannelCount);
-                        Assert.Equal(PixelChannel.Red, imageB.Channels.First());
-
-                        Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
-                    }
+                    Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotRoundWhenHdriEnabled()
+        [Fact]
+        public void ShouldNotRoundWhenHdriEnabled()
+        {
+            using (var image = new MagickImage(MagickColors.Black, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Black, 1, 1))
+                image.Grayscale(PixelIntensityMethod.Average);
+
+                using (var pixels = image.GetPixels())
                 {
-                    image.Grayscale(PixelIntensityMethod.Average);
+                    var pixel = pixels.GetValue(0, 0);
 
-                    using (var pixels = image.GetPixels())
-                    {
-                        var pixel = pixels.GetValue(0, 0);
-
-                        Assert.Equal(0, pixel[0]);
-                    }
+                    Assert.Equal(0, pixel[0]);
                 }
             }
         }

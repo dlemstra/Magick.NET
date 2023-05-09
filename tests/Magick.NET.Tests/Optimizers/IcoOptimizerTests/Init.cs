@@ -3,9 +3,8 @@
 
 using ImageMagick.ImageOptimizers;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class IcoOptimizerTests : ImageOptimizerTestHelper<IcoOptimizer>
 {
-    public partial class IcoOptimizerTests : ImageOptimizerTestHelper<IcoOptimizer>
-    {
-    }
 }

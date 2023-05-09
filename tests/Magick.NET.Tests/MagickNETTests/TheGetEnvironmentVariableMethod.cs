@@ -5,29 +5,28 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickNETTests
-    {
-        public class TheGetEnvironmentVariableMethod
-        {
-            [Fact]
-            public void ShouldThrowExceptionWhenNameIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("name", () =>
-                {
-                    MagickNET.GetEnvironmentVariable(null);
-                });
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldThrowExceptionWhenNameIsEmpty()
+public partial class MagickNETTests
+{
+    public class TheGetEnvironmentVariableMethod
+    {
+        [Fact]
+        public void ShouldThrowExceptionWhenNameIsNull()
+        {
+            Assert.Throws<ArgumentNullException>("name", () =>
             {
-                Assert.Throws<ArgumentException>("name", () =>
-                {
-                    MagickNET.GetEnvironmentVariable(string.Empty);
-                });
-            }
+                MagickNET.GetEnvironmentVariable(null);
+            });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenNameIsEmpty()
+        {
+            Assert.Throws<ArgumentException>("name", () =>
+            {
+                MagickNET.GetEnvironmentVariable(string.Empty);
+            });
         }
     }
 }

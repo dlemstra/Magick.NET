@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SettingsFactoryTests
 {
-    public partial class SettingsFactoryTests
+    public class TheCreateQuantizeSettingsMethod
     {
-        public class TheCreateQuantizeSettingsMethod
+        [Fact]
+        public void ShouldCreateInstance()
         {
-            [Fact]
-            public void ShouldCreateInstance()
-            {
-                var factory = new SettingsFactory();
+            var factory = new SettingsFactory();
 
-                var settings = factory.CreateQuantizeSettings();
+            var settings = factory.CreateQuantizeSettings();
 
-                Assert.NotNull(settings);
-                Assert.IsType<QuantizeSettings>(settings);
-            }
+            Assert.NotNull(settings);
+            Assert.IsType<QuantizeSettings>(settings);
         }
     }
 }

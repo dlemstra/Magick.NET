@@ -6,28 +6,27 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class VideoWriteDefinesTests
 {
-    public partial class VideoWriteDefinesTests
+    public class TheConstructor
     {
-        public class TheConstructor
+        [Fact]
+        public void ShouldNotSetAnyDefine()
         {
-            [Fact]
-            public void ShouldNotSetAnyDefine()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(new VideoWriteDefines(MagickFormat.Mp4));
+                image.Settings.SetDefines(new VideoWriteDefines(MagickFormat.Mp4));
 
-                    Assert.Null(image.Settings.GetDefine("video:pixel-format"));
-                }
+                Assert.Null(image.Settings.GetDefine("video:pixel-format"));
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenFormatIsInvalid()
-            {
-                Assert.Throws<ArgumentException>("format", () => new VideoWriteDefines(MagickFormat.Png));
-            }
+        [Fact]
+        public void ShouldThrowExceptionWhenFormatIsInvalid()
+        {
+            Assert.Throws<ArgumentException>("format", () => new VideoWriteDefines(MagickFormat.Png));
         }
     }
 }

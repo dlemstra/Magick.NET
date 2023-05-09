@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SettingsFactoryTests
 {
-    public partial class SettingsFactoryTests
+    public class TheCreateMorphologySettingsMethod
     {
-        public class TheCreateMorphologySettingsMethod
+        [Fact]
+        public void ShouldCreateInstance()
         {
-            [Fact]
-            public void ShouldCreateInstance()
-            {
-                var factory = new SettingsFactory();
+            var factory = new SettingsFactory();
 
-                var settings = factory.CreateMorphologySettings();
+            var settings = factory.CreateMorphologySettings();
 
-                Assert.NotNull(settings);
-                Assert.IsType<MorphologySettings>(settings);
-            }
+            Assert.NotNull(settings);
+            Assert.IsType<MorphologySettings>(settings);
         }
     }
 }

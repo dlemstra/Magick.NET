@@ -5,35 +5,34 @@ using System.Linq;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class EightBimValueTests
 {
-    public class EightBimValueTests
+    [Fact]
+    public void Test_IEquatable()
     {
-        [Fact]
-        public void Test_IEquatable()
-        {
-            var first = Get8BimValue();
-            var second = Get8BimValue();
+        var first = Get8BimValue();
+        var second = Get8BimValue();
 
-            Assert.True(first.Equals(second));
-            Assert.True(first.Equals((object)second));
-        }
+        Assert.True(first.Equals(second));
+        Assert.True(first.Equals((object)second));
+    }
 
-        [Fact]
-        public void Test_ToByteArray()
-        {
-            var value = Get8BimValue();
-            var bytes = value.ToByteArray();
-            Assert.Equal(273, bytes.Length);
-        }
+    [Fact]
+    public void Test_ToByteArray()
+    {
+        var value = Get8BimValue();
+        var bytes = value.ToByteArray();
+        Assert.Equal(273, bytes.Length);
+    }
 
-        private static IEightBimValue Get8BimValue()
+    private static IEightBimValue Get8BimValue()
+    {
+        using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.Get8BimProfile();
-                return profile.Values.First();
-            }
+            var profile = image.Get8BimProfile();
+            return profile.Values.First();
         }
     }
 }

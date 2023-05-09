@@ -4,30 +4,29 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheColormapSizeProperty
     {
-        public class TheColormapSizeProperty
+        [Fact]
+        public void ShouldReturnTheSizeOfTheColormap()
         {
-            [Fact]
-            public void ShouldReturnTheSizeOfTheColormap()
+            using (var first = new MagickImage(Files.Builtin.Logo))
             {
-                using (var first = new MagickImage(Files.Builtin.Logo))
-                {
-                    Assert.Equal(256, first.ColormapSize);
-                }
+                Assert.Equal(256, first.ColormapSize);
             }
+        }
 
-            [Fact]
-            public void ShouldChangeTheSizeOfTheColormap()
+        [Fact]
+        public void ShouldChangeTheSizeOfTheColormap()
+        {
+            using (var first = new MagickImage(Files.Builtin.Logo))
             {
-                using (var first = new MagickImage(Files.Builtin.Logo))
-                {
-                    first.ColormapSize = 128;
+                first.ColormapSize = 128;
 
-                    Assert.Equal(128, first.ColormapSize);
-                }
+                Assert.Equal(128, first.ColormapSize);
             }
         }
     }

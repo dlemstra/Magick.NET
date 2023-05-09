@@ -6,20 +6,19 @@ using ImageMagick;
 using Xunit;
 using Xunit.Sdk;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    public class TheFontNamesProperty
     {
-        public class TheFontNamesProperty
+        [Fact]
+        public void ContainsArial()
         {
-            [Fact]
-            public void ContainsArial()
-            {
-                var fontNames = MagickNET.FontNames.ToArray();
-                var fontName = fontNames.FirstOrDefault(f => f == "Arial");
-                if (fontName is null)
-                    throw new XunitException($"Unable to find Arial in font families: {string.Join(",", fontNames)}");
-            }
+            var fontNames = MagickNET.FontNames.ToArray();
+            var fontName = fontNames.FirstOrDefault(f => f == "Arial");
+            if (fontName is null)
+                throw new XunitException($"Unable to find Arial in font families: {string.Join(",", fontNames)}");
         }
     }
 }

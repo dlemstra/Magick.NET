@@ -4,60 +4,59 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class ThePerceptibleMethod
     {
-        public class ThePerceptibleMethod
+        [Fact]
+        public void ShouldChangeTheImage()
         {
-            [Fact]
-            public void ShouldChangeTheImage()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Perceptible(Quantum.Max * 0.4);
+                image.Perceptible(Quantum.Max * 0.4);
 
-                    ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
-                    ColorAssert.Equal(new MagickColor("#666692"), image, 410, 405);
-                }
+                ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
+                ColorAssert.Equal(new MagickColor("#666692"), image, 410, 405);
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheCorrectDefaultChannels()
+        [Fact]
+        public void ShouldUseTheCorrectDefaultChannels()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Perceptible(Quantum.Max * 0.4, Channels.Composite);
+                image.Perceptible(Quantum.Max * 0.4, Channels.Composite);
 
-                    ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
-                    ColorAssert.Equal(new MagickColor("#666692"), image, 410, 405);
-                }
+                ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
+                ColorAssert.Equal(new MagickColor("#666692"), image, 410, 405);
             }
+        }
 
-            [Fact]
-            public void ShouldChangeTheSpecifiedChannels()
+        [Fact]
+        public void ShouldChangeTheSpecifiedChannels()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Perceptible(Quantum.Max * 0.4, Channels.Green);
+                image.Perceptible(Quantum.Max * 0.4, Channels.Green);
 
-                    ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
-                    ColorAssert.Equal(new MagickColor("#226692"), image, 410, 405);
-                }
+                ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
+                ColorAssert.Equal(new MagickColor("#226692"), image, 410, 405);
             }
+        }
 
-            [Fact]
-            public void ShouldChangeTheSpecifiedChannelsWithTrueColorAlphaImage()
+        [Fact]
+        public void ShouldChangeTheSpecifiedChannelsWithTrueColorAlphaImage()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.ColorType = ColorType.TrueColorAlpha;
+                image.ColorType = ColorType.TrueColorAlpha;
 
-                    image.Perceptible(Quantum.Max * 0.4, Channels.Green);
+                image.Perceptible(Quantum.Max * 0.4, Channels.Green);
 
-                    ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
-                    ColorAssert.Equal(new MagickColor("#226692"), image, 410, 405);
-                }
+                ColorAssert.Equal(new MagickColor("#f79868"), image, 300, 210);
+                ColorAssert.Equal(new MagickColor("#226692"), image, 410, 405);
             }
         }
     }

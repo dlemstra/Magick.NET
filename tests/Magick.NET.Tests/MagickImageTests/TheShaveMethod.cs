@@ -4,34 +4,33 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheShaveMethod
     {
-        public class TheShaveMethod
+        [Fact]
+        public void ShouldShaveSizeFromEdges()
         {
-            [Fact]
-            public void ShouldShaveSizeFromEdges()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Shave(10);
+                image.Shave(10);
 
-                    Assert.Equal(620, image.Width);
-                    Assert.Equal(460, image.Height);
-                }
+                Assert.Equal(620, image.Width);
+                Assert.Equal(460, image.Height);
             }
+        }
 
-            [Fact]
-            public void ShouldShavePixelsFromEdges()
+        [Fact]
+        public void ShouldShavePixelsFromEdges()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Shave(20, 40);
+                image.Shave(20, 40);
 
-                    Assert.Equal(600, image.Width);
-                    Assert.Equal(400, image.Height);
-                }
+                Assert.Equal(600, image.Width);
+                Assert.Equal(400, image.Height);
             }
         }
     }

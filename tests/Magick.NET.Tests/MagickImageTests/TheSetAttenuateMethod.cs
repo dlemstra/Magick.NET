@@ -4,20 +4,19 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSetAttenuateMethod
     {
-        public class TheSetAttenuateMethod
+        [Fact]
+        public void ShouldSetImageArtifact()
         {
-            [Fact]
-            public void ShouldSetImageArtifact()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.SetAttenuate(5.6);
-                    Assert.Equal("5.6", image.GetArtifact("attenuate"));
-                }
+                image.SetAttenuate(5.6);
+                Assert.Equal("5.6", image.GetArtifact("attenuate"));
             }
         }
     }

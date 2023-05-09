@@ -5,205 +5,204 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class UnsafePixelCollectionTests
 {
-    public partial class UnsafePixelCollectionTests
+    public class TheToShortArrayMethod
     {
-        public class TheToShortArrayMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenXTooLow()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenXTooLow()
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
+                    if (Runtime.Is64Bit)
                     {
-                        if (Runtime.Is64Bit)
+                        pixels.ToShortArray(-1, 0, 1, 1, "RGB");
+                    }
+                    else
+                    {
+                        Assert.Throws<OverflowException>(() =>
                         {
                             pixels.ToShortArray(-1, 0, 1, 1, "RGB");
-                        }
-                        else
-                        {
-                            Assert.Throws<OverflowException>(() =>
-                            {
-                                pixels.ToShortArray(-1, 0, 1, 1, "RGB");
-                            });
-                        }
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldReturnPixelsWhenAreaIsCorrect()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.ToShortArray(60, 60, 63, 58, "RGBA");
-                        var length = 63 * 58 * 4;
-
-                        Assert.Equal(length, values.Length);
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldReturnPixelsWhenAreaIsCorrectAndMappingIsEnum()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.ToShortArray(60, 60, 63, 58, PixelMapping.RGBA);
-                        var length = 63 * 58 * 4;
-
-                        Assert.Equal(length, values.Length);
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldReturnNullWhenGeometryIsNull()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.ToShortArray(null, "RGB");
-                        Assert.Null(values);
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldReturnNullWhenGeometryIsSpecifiedAndMappingIsNull()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), null);
-                        Assert.Null(values);
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenGeometryIsSpecifiedAndMappingIsEmpty()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        Assert.Throws<MagickResourceLimitErrorException>(() =>
-                        {
-                            var values = pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), string.Empty);
                         });
                     }
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnArrayWhenGeometryIsCorrect()
+        [Fact]
+        public void ShouldReturnPixelsWhenAreaIsCorrect()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), "RG");
-                        var length = 113 * 108 * 2;
+                    var values = pixels.ToShortArray(60, 60, 63, 58, "RGBA");
+                    var length = 63 * 58 * 4;
 
-                        Assert.Equal(length, values.Length);
-                    }
+                    Assert.Equal(length, values.Length);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnArrayWhenGeometryIsCorrectAndMappingIsEnum()
+        [Fact]
+        public void ShouldReturnPixelsWhenAreaIsCorrectAndMappingIsEnum()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RGB);
-                        var length = 113 * 108 * 3;
+                    var values = pixels.ToShortArray(60, 60, 63, 58, PixelMapping.RGBA);
+                    var length = 63 * 58 * 4;
 
-                        Assert.Equal(length, values.Length);
-                    }
+                    Assert.Equal(length, values.Length);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnNullWhenMappingIsNull()
+        [Fact]
+        public void ShouldReturnNullWhenGeometryIsNull()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.ToShortArray(null);
-                        Assert.Null(values);
-                    }
+                    var values = pixels.ToShortArray(null, "RGB");
+                    Assert.Null(values);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenMappingIsEmpty()
+        [Fact]
+        public void ShouldReturnNullWhenGeometryIsSpecifiedAndMappingIsNull()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        Assert.Throws<MagickResourceLimitErrorException>(() =>
-                        {
-                            pixels.ToShortArray(string.Empty);
-                        });
-                    }
+                    var values = pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), null);
+                    Assert.Null(values);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenMappingIsInvalid()
+        [Fact]
+        public void ShouldThrowExceptionWhenGeometryIsSpecifiedAndMappingIsEmpty()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
+                    Assert.Throws<MagickResourceLimitErrorException>(() =>
                     {
-                        Assert.Throws<MagickOptionErrorException>(() =>
-                        {
-                            pixels.ToShortArray("FOO");
-                        });
-                    }
+                        var values = pixels.ToShortArray(new MagickGeometry(1, 2, 3, 4), string.Empty);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnArrayWhenTwoChannelsAreSupplied()
+        [Fact]
+        public void ShouldReturnArrayWhenGeometryIsCorrect()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.ToShortArray("RG");
-                        var length = image.Width * image.Height * 2;
+                    var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), "RG");
+                    var length = 113 * 108 * 2;
 
-                        Assert.Equal(length, values.Length);
-                    }
+                    Assert.Equal(length, values.Length);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAsPixelMappingEnum()
+        [Fact]
+        public void ShouldReturnArrayWhenGeometryIsCorrectAndMappingIsEnum()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.ToShortArray(PixelMapping.RGB);
-                        var length = image.Width * image.Height * 3;
+                    var values = pixels.ToShortArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RGB);
+                    var length = 113 * 108 * 3;
 
-                        Assert.Equal(length, values.Length);
-                    }
+                    Assert.Equal(length, values.Length);
+                }
+            }
+        }
+
+        [Fact]
+        public void ShouldReturnNullWhenMappingIsNull()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (var pixels = image.GetPixelsUnsafe())
+                {
+                    var values = pixels.ToShortArray(null);
+                    Assert.Null(values);
+                }
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenMappingIsEmpty()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (var pixels = image.GetPixelsUnsafe())
+                {
+                    Assert.Throws<MagickResourceLimitErrorException>(() =>
+                    {
+                        pixels.ToShortArray(string.Empty);
+                    });
+                }
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenMappingIsInvalid()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (var pixels = image.GetPixelsUnsafe())
+                {
+                    Assert.Throws<MagickOptionErrorException>(() =>
+                    {
+                        pixels.ToShortArray("FOO");
+                    });
+                }
+            }
+        }
+
+        [Fact]
+        public void ShouldReturnArrayWhenTwoChannelsAreSupplied()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (var pixels = image.GetPixelsUnsafe())
+                {
+                    var values = pixels.ToShortArray("RG");
+                    var length = image.Width * image.Height * 2;
+
+                    Assert.Equal(length, values.Length);
+                }
+            }
+        }
+
+        [Fact]
+        public void ShouldReturnArrayWhenTwoChannelsAreSuppliedAsPixelMappingEnum()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (var pixels = image.GetPixelsUnsafe())
+                {
+                    var values = pixels.ToShortArray(PixelMapping.RGB);
+                    var length = image.Width * image.Height * 3;
+
+                    Assert.Equal(length, values.Length);
                 }
             }
         }

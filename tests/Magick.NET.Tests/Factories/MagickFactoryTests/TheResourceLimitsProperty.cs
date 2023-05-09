@@ -4,30 +4,29 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickFactoryTests
 {
-    public partial class MagickFactoryTests
+    public class TheResourceLimitsProperty
     {
-        public class TheResourceLimitsProperty
+        [Fact]
+        public void ShouldReturnInstance()
         {
-            [Fact]
-            public void ShouldReturnInstance()
-            {
-                var factory = new MagickFactory();
+            var factory = new MagickFactory();
 
-                Assert.NotNull(factory.ResourceLimits);
-                Assert.IsType<ResourceLimits>(factory.ResourceLimits);
-            }
+            Assert.NotNull(factory.ResourceLimits);
+            Assert.IsType<ResourceLimits>(factory.ResourceLimits);
+        }
 
-            [Fact]
-            public void ShouldReturnTheSameInstance()
-            {
-                var factory = new MagickFactory();
+        [Fact]
+        public void ShouldReturnTheSameInstance()
+        {
+            var factory = new MagickFactory();
 
-                var first = factory.ResourceLimits;
-                var second = factory.ResourceLimits;
-                Assert.Same(first, second);
-            }
+            var first = factory.ResourceLimits;
+            var second = factory.ResourceLimits;
+            Assert.Same(first, second);
         }
     }
 }

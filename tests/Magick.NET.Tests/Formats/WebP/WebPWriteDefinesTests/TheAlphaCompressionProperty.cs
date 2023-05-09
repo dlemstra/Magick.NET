@@ -5,24 +5,23 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class WebPWriteDefinesTests
-    {
-        public class TheAlphaCompressionProperty : WebPWriteDefinesTests
-        {
-            [Fact]
-            public void ShouldSetTheDefine()
-            {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Settings.SetDefines(new WebPWriteDefines
-                    {
-                        AlphaCompression = WebPAlphaCompression.Compressed,
-                    });
+namespace Magick.NET.Tests;
 
-                    Assert.Equal("1", image.Settings.GetDefine(MagickFormat.WebP, "alpha-compression"));
-                }
+public partial class WebPWriteDefinesTests
+{
+    public class TheAlphaCompressionProperty : WebPWriteDefinesTests
+    {
+        [Fact]
+        public void ShouldSetTheDefine()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Settings.SetDefines(new WebPWriteDefines
+                {
+                    AlphaCompression = WebPAlphaCompression.Compressed,
+                });
+
+                Assert.Equal("1", image.Settings.GetDefine(MagickFormat.WebP, "alpha-compression"));
             }
         }
     }

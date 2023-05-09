@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheWaveMethod
     {
-        public class TheWaveMethod
+        [Fact]
+        public void ShouldAddWaveEffectToImage()
         {
-            [Fact]
-            public void ShouldAddWaveEffectToImage()
+            using (var image = new MagickImage(Files.TestPNG))
             {
-                using (var image = new MagickImage(Files.TestPNG))
+                using (var original = image.Clone())
                 {
-                    using (var original = image.Clone())
-                    {
-                        image.Wave();
-                        Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.62619, 0.62623);
-                    }
+                    image.Wave();
+                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.62619, 0.62623);
                 }
             }
         }

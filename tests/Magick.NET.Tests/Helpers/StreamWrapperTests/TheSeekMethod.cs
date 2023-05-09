@@ -6,87 +6,86 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class StreamWrapperTests
 {
-    public partial class StreamWrapperTests
+    public class TheSeekMethod
     {
-        public class TheSeekMethod
+        [Fact]
+        public unsafe void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringSeeking()
         {
-            [Fact]
-            public unsafe void ShouldNotThrowExceptionWhenWhenStreamThrowsExceptionDuringSeeking()
+            using var memStream = new MemoryStream();
+            using var stream = new SeekExceptionStream(memStream);
+            using var wrapper = StreamWrapper.CreateForReading(stream);
+
+            var buffer = new byte[255];
+            fixed (byte* p = buffer)
             {
-                using var memStream = new MemoryStream();
-                using var stream = new SeekExceptionStream(memStream);
-                using var wrapper = StreamWrapper.CreateForReading(stream);
-
-                var buffer = new byte[255];
-                fixed (byte* p = buffer)
-                {
-                    var count = wrapper.Seek(0, IntPtr.Zero, IntPtr.Zero);
-                    Assert.Equal(-1, count);
-                }
+                var count = wrapper.Seek(0, IntPtr.Zero, IntPtr.Zero);
+                Assert.Equal(-1, count);
             }
+        }
 
-            [Fact]
-            public void ShouldUseStartPositionOfStreamAsBegin()
-            {
-                using var memStream = new MemoryStream();
-                memStream.Position = 42;
+        [Fact]
+        public void ShouldUseStartPositionOfStreamAsBegin()
+        {
+            using var memStream = new MemoryStream();
+            memStream.Position = 42;
 
-                using var wrapper = StreamWrapper.CreateForReading(memStream);
-                memStream.Position = 0;
+            using var wrapper = StreamWrapper.CreateForReading(memStream);
+            memStream.Position = 0;
 
-                var result = wrapper.Seek(0, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
+            var result = wrapper.Seek(0, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
 
-                Assert.Equal(0, result);
-                Assert.Equal(42, memStream.Position);
-            }
+            Assert.Equal(0, result);
+            Assert.Equal(42, memStream.Position);
+        }
 
-            [Fact]
-            public void ShouldUseStartPositionAsOffset()
-            {
-                using var memStream = new MemoryStream();
-                memStream.Position = 42;
+        [Fact]
+        public void ShouldUseStartPositionAsOffset()
+        {
+            using var memStream = new MemoryStream();
+            memStream.Position = 42;
 
-                using var wrapper = StreamWrapper.CreateForReading(memStream);
-                var result = wrapper.Seek(10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+            using var wrapper = StreamWrapper.CreateForReading(memStream);
+            var result = wrapper.Seek(10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
-                Assert.Equal(10, result);
-                Assert.Equal(52, memStream.Position);
-            }
+            Assert.Equal(10, result);
+            Assert.Equal(52, memStream.Position);
+        }
 
-            [Fact]
-            public void ShouldRemoveStartPositionFromEndOffset()
-            {
-                using var memStream = new MemoryStream(new byte[64]);
-                memStream.Position = 42;
+        [Fact]
+        public void ShouldRemoveStartPositionFromEndOffset()
+        {
+            using var memStream = new MemoryStream(new byte[64]);
+            memStream.Position = 42;
 
-                using var wrapper = StreamWrapper.CreateForReading(memStream);
-                var result = wrapper.Seek(0, (IntPtr)SeekOrigin.End, IntPtr.Zero);
+            using var wrapper = StreamWrapper.CreateForReading(memStream);
+            var result = wrapper.Seek(0, (IntPtr)SeekOrigin.End, IntPtr.Zero);
 
-                Assert.Equal(22, result);
-                Assert.Equal(64, memStream.Position);
-            }
+            Assert.Equal(22, result);
+            Assert.Equal(64, memStream.Position);
+        }
 
-            [Fact]
-            public void ShouldReturnMinusOneForInvalidOffset()
-            {
-                using var memStream = new MemoryStream();
-                using var wrapper = StreamWrapper.CreateForReading(memStream);
-                var result = wrapper.Seek(-1, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+        [Fact]
+        public void ShouldReturnMinusOneForInvalidOffset()
+        {
+            using var memStream = new MemoryStream();
+            using var wrapper = StreamWrapper.CreateForReading(memStream);
+            var result = wrapper.Seek(-1, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
-                Assert.Equal(-1, result);
-            }
+            Assert.Equal(-1, result);
+        }
 
-            [Fact]
-            public void ShouldReturnMinusOneForInvalidWhence()
-            {
-                using var memStream = new MemoryStream();
-                using var wrapper = StreamWrapper.CreateForReading(memStream);
-                var result = wrapper.Seek(0, (IntPtr)3, IntPtr.Zero);
+        [Fact]
+        public void ShouldReturnMinusOneForInvalidWhence()
+        {
+            using var memStream = new MemoryStream();
+            using var wrapper = StreamWrapper.CreateForReading(memStream);
+            var result = wrapper.Seek(0, (IntPtr)3, IntPtr.Zero);
 
-                Assert.Equal(-1, result);
-            }
+            Assert.Equal(-1, result);
         }
     }
 }

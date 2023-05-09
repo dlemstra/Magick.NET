@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheClutMethod
     {
-        public class TheClutMethod
+        [Fact]
+        public void ShouldApplyTheSpecifiedColorTable()
         {
-            [Fact]
-            public void ShouldApplyTheSpecifiedColorTable()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                images.Add(new MagickImage(MagickColors.Red, 1, 1));
+                images.Add(new MagickImage(MagickColors.Blue, 1, 1));
+                images.Add(new MagickImage(MagickColors.Green, 1, 1));
+
+                using (var pallete = images.AppendHorizontally())
                 {
-                    images.Add(new MagickImage(MagickColors.Red, 1, 1));
-                    images.Add(new MagickImage(MagickColors.Blue, 1, 1));
-                    images.Add(new MagickImage(MagickColors.Green, 1, 1));
-
-                    using (var pallete = images.AppendHorizontally())
+                    using (var image = new MagickImage(Files.Builtin.Logo))
                     {
-                        using (var image = new MagickImage(Files.Builtin.Logo))
-                        {
-                            image.Clut(pallete, PixelInterpolateMethod.Catrom);
+                        image.Clut(pallete, PixelInterpolateMethod.Catrom);
 
-                            ColorAssert.Equal(MagickColors.Green, image, 400, 300);
-                        }
+                        ColorAssert.Equal(MagickColors.Green, image, 400, 300);
                     }
                 }
             }

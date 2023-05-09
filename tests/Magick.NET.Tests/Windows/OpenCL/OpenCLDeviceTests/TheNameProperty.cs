@@ -6,17 +6,16 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TheNameProperty
 {
-    public partial class TheNameProperty
+    [Fact]
+    public void ShouldNotBeNull()
     {
-        [Fact]
-        public void ShouldNotBeNull()
+        foreach (var device in OpenCL.Devices)
         {
-            foreach (var device in OpenCL.Devices)
-            {
-                Assert.NotNull(device.Name);
-            }
+            Assert.NotNull(device.Name);
         }
     }
 }

@@ -4,30 +4,29 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheInverseOpaqueMethod
-        {
-            [Fact]
-            public void ShouldNotChangePixelsThatMatchesTarget()
-            {
-                using (var image = new MagickImage(MagickColors.Red, 1, 1))
-                {
-                    image.InverseOpaque(MagickColors.Red, MagickColors.Yellow);
-                    ColorAssert.Equal(MagickColors.Red, image, 0, 0);
-                }
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldChangePixelsThatDoNotMatchesTarget()
+public partial class MagickImageTests
+{
+    public class TheInverseOpaqueMethod
+    {
+        [Fact]
+        public void ShouldNotChangePixelsThatMatchesTarget()
+        {
+            using (var image = new MagickImage(MagickColors.Red, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Red, 1, 1))
-                {
-                    image.InverseOpaque(MagickColors.Yellow, MagickColors.Purple);
-                    ColorAssert.Equal(MagickColors.Purple, image, 0, 0);
-                }
+                image.InverseOpaque(MagickColors.Red, MagickColors.Yellow);
+                ColorAssert.Equal(MagickColors.Red, image, 0, 0);
+            }
+        }
+
+        [Fact]
+        public void ShouldChangePixelsThatDoNotMatchesTarget()
+        {
+            using (var image = new MagickImage(MagickColors.Red, 1, 1))
+            {
+                image.InverseOpaque(MagickColors.Yellow, MagickColors.Purple);
+                ColorAssert.Equal(MagickColors.Purple, image, 0, 0);
             }
         }
     }

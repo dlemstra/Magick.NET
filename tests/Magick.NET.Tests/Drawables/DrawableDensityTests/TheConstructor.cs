@@ -4,19 +4,18 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class DrawableDensityTests
 {
-    public partial class DrawableDensityTests
+    public class TheConstructor
     {
-        public class TheConstructor
+        [Fact]
+        public void ShouldSetTheProperties()
         {
-            [Fact]
-            public void ShouldSetTheProperties()
-            {
-                var density = new DrawableDensity(new PointD(4, 2));
-                Assert.Equal(4, density.Density.X);
-                Assert.Equal(2, density.Density.Y);
-            }
+            var density = new DrawableDensity(new PointD(4, 2));
+            Assert.Equal(4, density.Density.X);
+            Assert.Equal(2, density.Density.Y);
         }
     }
 }

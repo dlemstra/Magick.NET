@@ -4,38 +4,37 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickSettingsTests
 {
-    public partial class MagickSettingsTests
+    public class TheTextKerningProperty
     {
-        public class TheTextKerningProperty
+        [Fact]
+        public void ShouldDefaultToZero()
         {
-            [Fact]
-            public void ShouldDefaultToZero()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Equal(0, image.Settings.TextKerning);
-                }
+                Assert.Equal(0, image.Settings.TextKerning);
             }
+        }
 
-            [Fact]
-            public void ShouldBeUsedWhenRenderingText()
+        [Fact]
+        public void ShouldBeUsedWhenRenderingText()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.TextKerning = 10;
-                    image.Read("label:First");
+                image.Settings.TextKerning = 10;
+                image.Read("label:First");
 
-                    Assert.Equal(65, image.Width);
-                    Assert.Equal(15, image.Height);
+                Assert.Equal(65, image.Width);
+                Assert.Equal(15, image.Height);
 
-                    image.Settings.TextKerning = 20;
-                    image.Read("label:First");
+                image.Settings.TextKerning = 20;
+                image.Read("label:First");
 
-                    Assert.Equal(105, image.Width);
-                    Assert.Equal(15, image.Height);
-                }
+                Assert.Equal(105, image.Width);
+                Assert.Equal(15, image.Height);
             }
         }
     }

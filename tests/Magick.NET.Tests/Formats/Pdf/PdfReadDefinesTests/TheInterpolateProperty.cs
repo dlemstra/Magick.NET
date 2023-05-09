@@ -5,52 +5,51 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PdfReadDefinesTests
 {
-    public partial class PdfReadDefinesTests
+    public class TheInterpolateProperty
     {
-        public class TheInterpolateProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenValueIsTrue()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenValueIsTrue()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        Interpolate = true,
-                    });
+                    Interpolate = true,
+                });
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Pdf, "interpolate"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Pdf, "interpolate"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsFalse()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsFalse()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        Interpolate = false,
-                    });
+                    Interpolate = false,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "interpolate"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "interpolate"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        Interpolate = null,
-                    });
+                    Interpolate = null,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "interpolate"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "interpolate"));
             }
         }
     }

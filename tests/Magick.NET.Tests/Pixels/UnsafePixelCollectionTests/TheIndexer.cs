@@ -4,47 +4,46 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class UnsafePixelCollectionTests
 {
-    public partial class UnsafePixelCollectionTests
+    public class TheIndexer
     {
-        public class TheIndexer
+        [Fact]
+        public void ShouldNotThrowExceptionWhenWidthOutOfRange()
         {
-            [Fact]
-            public void ShouldNotThrowExceptionWhenWidthOutOfRange()
+            using (var image = new MagickImage(Files.RedPNG))
             {
-                using (var image = new MagickImage(Files.RedPNG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var pixel = pixels[image.Width + 1, 0];
-                    }
+                    var pixel = pixels[image.Width + 1, 0];
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenHeightOutOfRange()
+        [Fact]
+        public void ShouldNotThrowExceptionWhenHeightOutOfRange()
+        {
+            using (var image = new MagickImage(Files.RedPNG))
             {
-                using (var image = new MagickImage(Files.RedPNG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var pixel = pixels[0, image.Height + 1];
-                    }
+                    var pixel = pixels[0, image.Height + 1];
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnPixelWhenIndexIsCorrect()
+        [Fact]
+        public void ShouldReturnPixelWhenIndexIsCorrect()
+        {
+            using (var image = new MagickImage(Files.RedPNG))
             {
-                using (var image = new MagickImage(Files.RedPNG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var pixel = pixels[300, 100];
+                    var pixel = pixels[300, 100];
 
-                        ColorAssert.Equal(MagickColors.Red, pixel.ToColor());
-                    }
+                    ColorAssert.Equal(MagickColors.Red, pixel.ToColor());
                 }
             }
         }

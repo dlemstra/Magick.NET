@@ -4,48 +4,47 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    [Collection(nameof(RunTestsSeparately))]
+    public class TheAddNoiseMethod
     {
-        [Collection(nameof(RunTestsSeparately))]
-        public class TheAddNoiseMethod
+        [Fact]
+        public void ShouldCreateDifferentImagesEachRun()
         {
-            [Fact]
-            public void ShouldCreateDifferentImagesEachRun()
+            using (var imageA = new MagickImage(MagickColors.Black, 10, 10))
             {
-                using (var imageA = new MagickImage(MagickColors.Black, 10, 10))
+                using (var imageB = new MagickImage(MagickColors.Black, 10, 10))
                 {
-                    using (var imageB = new MagickImage(MagickColors.Black, 10, 10))
-                    {
-                        imageA.AddNoise(NoiseType.Random);
-                        imageB.AddNoise(NoiseType.Random);
+                    imageA.AddNoise(NoiseType.Random);
+                    imageB.AddNoise(NoiseType.Random);
 
-                        Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
-                    }
+                    Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheRandomSeed()
+        [Fact]
+        public void ShouldUseTheRandomSeed()
+        {
+            MagickNET.SetRandomSeed(1337);
+
+            using (var first = new MagickImage(Files.Builtin.Logo))
             {
-                MagickNET.SetRandomSeed(1337);
+                first.AddNoise(NoiseType.Laplacian);
+                ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
 
-                using (var first = new MagickImage(Files.Builtin.Logo))
+                using (var second = new MagickImage(Files.Builtin.Logo))
                 {
-                    first.AddNoise(NoiseType.Laplacian);
+                    second.AddNoise(NoiseType.Laplacian, 2.0);
                     ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
-
-                    using (var second = new MagickImage(Files.Builtin.Logo))
-                    {
-                        second.AddNoise(NoiseType.Laplacian, 2.0);
-                        ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
-                        Assert.False(first.Equals(second));
-                    }
+                    Assert.False(first.Equals(second));
                 }
-
-                MagickNET.ResetRandomSeed();
             }
+
+            MagickNET.ResetRandomSeed();
         }
     }
 }

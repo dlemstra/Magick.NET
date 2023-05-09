@@ -4,60 +4,59 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheProgressEvent
     {
-        public class TheProgressEvent
+        [Fact]
+        public void ShouldStopMethodExecutionWhenCancelIsSetToTrue()
         {
-            [Fact]
-            public void ShouldStopMethodExecutionWhenCancelIsSetToTrue()
+            var progress = new Percentage(0);
+            void ProgressEvent(object sender, ProgressEventArgs arguments)
             {
-                var progress = new Percentage(0);
-                void ProgressEvent(object sender, ProgressEventArgs arguments)
-                {
-                    Assert.NotNull(sender);
-                    Assert.NotNull(arguments);
-                    Assert.NotNull(arguments.Origin);
-                    Assert.False(arguments.Cancel);
+                Assert.NotNull(sender);
+                Assert.NotNull(arguments);
+                Assert.NotNull(arguments.Origin);
+                Assert.False(arguments.Cancel);
 
-                    progress = arguments.Progress;
-                    arguments.Cancel = true;
-                }
-
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Progress += ProgressEvent;
-                    image.Flip();
-                    Assert.False(image.IsDisposed);
-                }
-
-                Assert.InRange((int)progress, 0, 2);
+                progress = arguments.Progress;
+                arguments.Cancel = true;
             }
 
-            [Fact]
-            public void ShouldNotStopMethodExecutionWhenCancelIsSetToFalse()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                var progress = new Percentage(0);
-                void ProgressEvent(object sender, ProgressEventArgs arguments)
-                {
-                    Assert.NotNull(sender);
-                    Assert.NotNull(arguments);
-                    Assert.NotNull(arguments.Origin);
-                    Assert.False(arguments.Cancel);
-
-                    progress = arguments.Progress;
-                    arguments.Cancel = false;
-                }
-
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Progress += ProgressEvent;
-                    image.Flip();
-                }
-
-                Assert.Equal(100, (int)progress);
+                image.Progress += ProgressEvent;
+                image.Flip();
+                Assert.False(image.IsDisposed);
             }
+
+            Assert.InRange((int)progress, 0, 2);
+        }
+
+        [Fact]
+        public void ShouldNotStopMethodExecutionWhenCancelIsSetToFalse()
+        {
+            var progress = new Percentage(0);
+            void ProgressEvent(object sender, ProgressEventArgs arguments)
+            {
+                Assert.NotNull(sender);
+                Assert.NotNull(arguments);
+                Assert.NotNull(arguments.Origin);
+                Assert.False(arguments.Cancel);
+
+                progress = arguments.Progress;
+                arguments.Cancel = false;
+            }
+
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Progress += ProgressEvent;
+                image.Flip();
+            }
+
+            Assert.Equal(100, (int)progress);
         }
     }
 }

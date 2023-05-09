@@ -4,30 +4,29 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickFactoryTests
 {
-    public partial class MagickFactoryTests
+    public class TheImageProperty
     {
-        public class TheImageProperty
+        [Fact]
+        public void ShouldReturnInstance()
         {
-            [Fact]
-            public void ShouldReturnInstance()
-            {
-                var factory = new MagickFactory();
+            var factory = new MagickFactory();
 
-                Assert.NotNull(factory.Image);
-                Assert.IsType<MagickImageFactory>(factory.Image);
-            }
+            Assert.NotNull(factory.Image);
+            Assert.IsType<MagickImageFactory>(factory.Image);
+        }
 
-            [Fact]
-            public void ShouldReturnTheSameInstance()
-            {
-                var factory = new MagickFactory();
+        [Fact]
+        public void ShouldReturnTheSameInstance()
+        {
+            var factory = new MagickFactory();
 
-                var first = factory.Image;
-                var second = factory.Image;
-                Assert.Same(first, second);
-            }
+            var first = factory.Image;
+            var second = factory.Image;
+            Assert.Same(first, second);
         }
     }
 }

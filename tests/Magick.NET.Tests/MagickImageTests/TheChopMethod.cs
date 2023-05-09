@@ -5,30 +5,29 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheChopMethod
-        {
-            [Fact]
-            public void ShouldRaiseExceptionWhenGeometryIsNull()
-            {
-                using (var image = new MagickImage())
-                {
-                    Assert.Throws<ArgumentNullException>("geometry", () => image.Chop(null));
-                }
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldChopTheImage()
+public partial class MagickImageTests
+{
+    public class TheChopMethod
+    {
+        [Fact]
+        public void ShouldRaiseExceptionWhenGeometryIsNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage(Files.Builtin.Wizard))
-                {
-                    image.Chop(new MagickGeometry(new Percentage(50), new Percentage(50)));
-                    Assert.Equal(240, image.Width);
-                    Assert.Equal(320, image.Height);
-                }
+                Assert.Throws<ArgumentNullException>("geometry", () => image.Chop(null));
+            }
+        }
+
+        [Fact]
+        public void ShouldChopTheImage()
+        {
+            using (var image = new MagickImage(Files.Builtin.Wizard))
+            {
+                image.Chop(new MagickGeometry(new Percentage(50), new Percentage(50)));
+                Assert.Equal(240, image.Width);
+                Assert.Equal(320, image.Height);
             }
         }
     }

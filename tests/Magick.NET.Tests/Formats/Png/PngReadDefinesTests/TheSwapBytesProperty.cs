@@ -5,42 +5,41 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PngReadDefinesTests
 {
-    public partial class PngReadDefinesTests
+    public class TheSwapBytesProperty
     {
-        public class TheSwapBytesProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenSetToTrue()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenSetToTrue()
+            var defines = new PngReadDefines
             {
-                var defines = new PngReadDefines
-                {
-                    SwapBytes = true,
-                };
+                SwapBytes = true,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenSetToFalse()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenSetToFalse()
+        {
+            var defines = new PngReadDefines
             {
-                var defines = new PngReadDefines
-                {
-                    SwapBytes = false,
-                };
+                SwapBytes = false,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "swap-bytes"));
             }
         }
     }

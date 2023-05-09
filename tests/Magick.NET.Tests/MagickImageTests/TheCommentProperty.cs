@@ -4,45 +4,44 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheCommentProperty
     {
-        public class TheCommentProperty
+        [Fact]
+        public void ShouldGetTheCommentAttribute()
         {
-            [Fact]
-            public void ShouldGetTheCommentAttribute()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.SetAttribute("comment", "foo");
+                image.SetAttribute("comment", "foo");
 
-                    Assert.Equal("foo", image.Comment);
-                }
+                Assert.Equal("foo", image.Comment);
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheCommentAttribute()
+        [Fact]
+        public void ShouldSetTheCommentAttribute()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.Comment = "foo";
+                image.Comment = "foo";
 
-                    Assert.Equal("foo", image.GetAttribute("comment"));
-                }
+                Assert.Equal("foo", image.GetAttribute("comment"));
             }
+        }
 
-            [Fact]
-            public void ShouldRemoveTheCommentAttributeWhenSetToNull()
+        [Fact]
+        public void ShouldRemoveTheCommentAttributeWhenSetToNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.SetAttribute("comment", "foo");
+                image.SetAttribute("comment", "foo");
 
-                    image.Comment = null;
+                image.Comment = null;
 
-                    Assert.Null(image.GetAttribute("comment"));
-                }
+                Assert.Null(image.GetAttribute("comment"));
             }
         }
     }

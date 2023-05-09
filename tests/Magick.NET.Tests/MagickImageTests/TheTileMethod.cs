@@ -5,36 +5,35 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheTileMethod
     {
-        public class TheTileMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenImageIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenImageIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("image", () =>
-                    {
-                        image.Tile(null, CompositeOperator.Undefined);
-                    });
-                }
+                    image.Tile(null, CompositeOperator.Undefined);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldComposeAnImageRepeatedAcrossAndDownTheImage()
+        [Fact]
+        public void ShouldComposeAnImageRepeatedAcrossAndDownTheImage()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                using (var checkerboard = new MagickImage(Files.Patterns.Checkerboard))
                 {
-                    using (var checkerboard = new MagickImage(Files.Patterns.Checkerboard))
-                    {
-                        image.Opaque(MagickColors.White, MagickColors.Transparent);
-                        image.Tile(checkerboard, CompositeOperator.DstOver);
+                    image.Opaque(MagickColors.White, MagickColors.Transparent);
+                    image.Tile(checkerboard, CompositeOperator.DstOver);
 
-                        ColorAssert.Equal(new MagickColor("#66"), image, 578, 260);
-                    }
+                    ColorAssert.Equal(new MagickColor("#66"), image, 578, 260);
                 }
             }
         }

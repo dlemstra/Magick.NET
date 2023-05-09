@@ -4,23 +4,22 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class XmpProfileTests
-    {
-        public class TheToIXPathNavigableMethod
-        {
-            [Fact]
-            public void ShouldCreateIXPathNavigableFromProfile()
-            {
-                using (var image = new MagickImage(Files.InvitationTIF))
-                {
-                    var profile = image.GetXmpProfile();
-                    Assert.NotNull(profile);
+namespace Magick.NET.Tests;
 
-                    var doc = profile.ToIXPathNavigable();
-                    Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", doc.CreateNavigator().OuterXml);
-                }
+public partial class XmpProfileTests
+{
+    public class TheToIXPathNavigableMethod
+    {
+        [Fact]
+        public void ShouldCreateIXPathNavigableFromProfile()
+        {
+            using (var image = new MagickImage(Files.InvitationTIF))
+            {
+                var profile = image.GetXmpProfile();
+                Assert.NotNull(profile);
+
+                var doc = profile.ToIXPathNavigable();
+                Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", doc.CreateNavigator().OuterXml);
             }
         }
     }

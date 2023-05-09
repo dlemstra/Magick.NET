@@ -5,61 +5,60 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PdfReadDefinesTests
 {
-    public partial class PdfReadDefinesTests
+    public class TheFitPageProperty
     {
-        public class TheFitPageProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenValueIsSet()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenValueIsSet()
+            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        FitPage = new MagickGeometry(1, 2, 3, 4),
-                    });
+                    FitPage = new MagickGeometry(1, 2, 3, 4),
+                });
 
-                    Assert.Equal("3x4+1+2", image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
-                }
+                Assert.Equal("3x4+1+2", image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        FitPage = null,
-                    });
+                    FitPage = null,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
             }
+        }
 
-            [Fact]
-            public void ShouldLimitTheDimensions()
+        [Fact]
+        public void ShouldLimitTheDimensions()
+        {
+            if (!Ghostscript.IsAvailable)
+                return;
+
+            var settings = new MagickReadSettings
             {
-                if (!Ghostscript.IsAvailable)
-                    return;
-
-                var settings = new MagickReadSettings
+                Defines = new PdfReadDefines
                 {
-                    Defines = new PdfReadDefines
-                    {
-                        FitPage = new MagickGeometry(50, 40),
-                    },
-                };
+                    FitPage = new MagickGeometry(50, 40),
+                },
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
+            using (var image = new MagickImage())
+            {
+                image.Read(Files.Coders.CartoonNetworkStudiosLogoAI, settings);
 
-                    Assert.True(image.Width <= 50);
-                    Assert.True(image.Height <= 40);
-                }
+                Assert.True(image.Width <= 50);
+                Assert.True(image.Height <= 40);
             }
         }
     }

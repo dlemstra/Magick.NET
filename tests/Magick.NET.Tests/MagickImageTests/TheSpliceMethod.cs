@@ -5,34 +5,33 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSpliceMethod
     {
-        public class TheSpliceMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenGeometryIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenGeometryIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Throws<ArgumentNullException>("geometry", () => image.Splice(null));
-                }
+                Assert.Throws<ArgumentNullException>("geometry", () => image.Splice(null));
             }
+        }
 
-            [Fact]
-            public void ShouldSpliceTheBackgroundColorIntoTheImage()
+        [Fact]
+        public void ShouldSpliceTheBackgroundColorIntoTheImage()
+        {
+            using (var image = new MagickImage(Files.SnakewarePNG))
             {
-                using (var image = new MagickImage(Files.SnakewarePNG))
-                {
-                    image.BackgroundColor = MagickColors.Fuchsia;
-                    image.Splice(new MagickGeometry(105, 50, 10, 20));
+                image.BackgroundColor = MagickColors.Fuchsia;
+                image.Splice(new MagickGeometry(105, 50, 10, 20));
 
-                    Assert.Equal(296, image.Width);
-                    Assert.Equal(87, image.Height);
-                    ColorAssert.Equal(MagickColors.Fuchsia, image, 105, 50);
-                    ColorAssert.Equal(new MagickColor("#0000"), image, 115, 70);
-                }
+                Assert.Equal(296, image.Width);
+                Assert.Equal(87, image.Height);
+                ColorAssert.Equal(MagickColors.Fuchsia, image, 105, 50);
+                ColorAssert.Equal(new MagickColor("#0000"), image, 115, 70);
             }
         }
     }

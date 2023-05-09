@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SettingsFactoryTests
 {
-    public partial class SettingsFactoryTests
+    public class TheCreateDeskewSettingsMethod
     {
-        public class TheCreateDeskewSettingsMethod
+        [Fact]
+        public void ShouldCreateInstance()
         {
-            [Fact]
-            public void ShouldCreateInstance()
-            {
-                var factory = new SettingsFactory();
+            var factory = new SettingsFactory();
 
-                var settings = factory.CreateDeskewSettings();
+            var settings = factory.CreateDeskewSettings();
 
-                Assert.NotNull(settings);
-                Assert.IsType<DeskewSettings>(settings);
-            }
+            Assert.NotNull(settings);
+            Assert.IsType<DeskewSettings>(settings);
         }
     }
 }

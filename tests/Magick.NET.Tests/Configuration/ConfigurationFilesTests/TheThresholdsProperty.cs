@@ -4,22 +4,21 @@
 using ImageMagick.Configuration;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class ConfigurationFilesTests
-    {
-        public class TheThresholdsProperty
-        {
-            [Fact]
-            public void ShouldBeInitialized()
-            {
-                var configurationFiles = ConfigurationFiles.Default;
+namespace Magick.NET.Tests;
 
-                Assert.NotNull(configurationFiles.Thresholds);
-                Assert.Equal("thresholds.xml", configurationFiles.Thresholds.FileName);
-                Assert.NotNull(configurationFiles.Thresholds.Data);
-                Assert.Contains(@"<thresholds>", configurationFiles.Thresholds.Data);
-            }
+public partial class ConfigurationFilesTests
+{
+    public class TheThresholdsProperty
+    {
+        [Fact]
+        public void ShouldBeInitialized()
+        {
+            var configurationFiles = ConfigurationFiles.Default;
+
+            Assert.NotNull(configurationFiles.Thresholds);
+            Assert.Equal("thresholds.xml", configurationFiles.Thresholds.FileName);
+            Assert.NotNull(configurationFiles.Thresholds.Data);
+            Assert.Contains(@"<thresholds>", configurationFiles.Thresholds.Data);
         }
     }
 }

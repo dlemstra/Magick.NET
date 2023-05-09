@@ -5,29 +5,28 @@ using ImageMagick;
 using Xunit;
 using Xunit.Sdk;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ResourceLimitsTests
 {
-    public partial class ResourceLimitsTests
+    [Collection(nameof(RunTestsSeparately))]
+    public class TheAreaProperty
     {
-        [Collection(nameof(RunTestsSeparately))]
-        public class TheAreaProperty
+        [Fact]
+        public void ShouldHaveTheCorrectValue()
         {
-            [Fact]
-            public void ShouldHaveTheCorrectValue()
-            {
-                if (ResourceLimits.Area < 100000000U)
-                    throw new XunitException("Invalid memory limit: " + ResourceLimits.Area);
-            }
+            if (ResourceLimits.Area < 100000000U)
+                throw new XunitException("Invalid memory limit: " + ResourceLimits.Area);
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenChanged()
-            {
-                var area = ResourceLimits.Area;
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenChanged()
+        {
+            var area = ResourceLimits.Area;
 
-                ResourceLimits.Area = 10000000U;
-                Assert.Equal(10000000U, ResourceLimits.Area);
-                ResourceLimits.Area = area;
-            }
+            ResourceLimits.Area = 10000000U;
+            Assert.Equal(10000000U, ResourceLimits.Area);
+            ResourceLimits.Area = area;
         }
     }
 }

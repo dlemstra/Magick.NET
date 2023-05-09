@@ -17,94 +17,93 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheMapMethod
     {
-        public class TheMapMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenImageIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenImageIsNull()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("image", () =>
-                    {
-                        image.Map((IMagickImage<QuantumType>)null);
-                    });
-                }
+                    image.Map((IMagickImage<QuantumType>)null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorsIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenColorsIsNull()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                Assert.Throws<ArgumentNullException>("colors", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("colors", () =>
-                    {
-                        image.Map((IEnumerable<MagickColor>)null);
-                    });
-                }
+                    image.Map((IEnumerable<MagickColor>)null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorsIsEmpty()
+        [Fact]
+        public void ShouldThrowExceptionWhenColorsIsEmpty()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                Assert.Throws<ArgumentException>("colors", () =>
                 {
-                    Assert.Throws<ArgumentException>("colors", () =>
-                    {
-                        image.Map(Enumerable.Empty<MagickColor>());
-                    });
-                }
+                    image.Map(Enumerable.Empty<MagickColor>());
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheColorsOfTheImage()
+        [Fact]
+        public void ShouldUseTheColorsOfTheImage()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                using (var colors = CreatePalleteImage())
                 {
-                    using (var colors = CreatePalleteImage())
-                    {
-                        image.Map(colors);
-
-                        ColorAssert.Equal(MagickColors.Blue, image, 0, 0);
-                        ColorAssert.Equal(MagickColors.Green, image, 455, 396);
-                        ColorAssert.Equal(MagickColors.Red, image, 505, 451);
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldUseTheColors()
-            {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    var colors = new List<MagickColor>
-                    {
-                        MagickColors.Gold,
-                        MagickColors.Lime,
-                        MagickColors.Fuchsia,
-                    };
-
                     image.Map(colors);
 
-                    ColorAssert.Equal(MagickColors.Fuchsia, image, 0, 0);
-                    ColorAssert.Equal(MagickColors.Lime, image, 455, 396);
-                    ColorAssert.Equal(MagickColors.Gold, image, 512, 449);
+                    ColorAssert.Equal(MagickColors.Blue, image, 0, 0);
+                    ColorAssert.Equal(MagickColors.Green, image, 455, 396);
+                    ColorAssert.Equal(MagickColors.Red, image, 505, 451);
                 }
             }
+        }
 
-            private IMagickImage<QuantumType> CreatePalleteImage()
+        [Fact]
+        public void ShouldUseTheColors()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var images = new MagickImageCollection())
+                var colors = new List<MagickColor>
                 {
-                    images.Add(new MagickImage(MagickColors.Red, 1, 1));
-                    images.Add(new MagickImage(MagickColors.Blue, 1, 1));
-                    images.Add(new MagickImage(MagickColors.Green, 1, 1));
+                    MagickColors.Gold,
+                    MagickColors.Lime,
+                    MagickColors.Fuchsia,
+                };
 
-                    return images.AppendHorizontally();
-                }
+                image.Map(colors);
+
+                ColorAssert.Equal(MagickColors.Fuchsia, image, 0, 0);
+                ColorAssert.Equal(MagickColors.Lime, image, 455, 396);
+                ColorAssert.Equal(MagickColors.Gold, image, 512, 449);
+            }
+        }
+
+        private IMagickImage<QuantumType> CreatePalleteImage()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                images.Add(new MagickImage(MagickColors.Red, 1, 1));
+                images.Add(new MagickImage(MagickColors.Blue, 1, 1));
+                images.Add(new MagickImage(MagickColors.Green, 1, 1));
+
+                return images.AppendHorizontally();
             }
         }
     }

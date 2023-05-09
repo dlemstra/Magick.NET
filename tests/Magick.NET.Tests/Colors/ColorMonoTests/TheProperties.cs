@@ -4,20 +4,19 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class ColorMonoTests
-    {
-        public class TheProperties
-        {
-            [Fact]
-            public void ShouldSetTheCorrectValue()
-            {
-                var color = ColorMono.White;
+namespace Magick.NET.Tests;
 
-                color.IsBlack = true;
-                Assert.True(color.IsBlack);
-            }
+public partial class ColorMonoTests
+{
+    public class TheProperties
+    {
+        [Fact]
+        public void ShouldSetTheCorrectValue()
+        {
+            var color = ColorMono.White;
+
+            color.IsBlack = true;
+            Assert.True(color.IsBlack);
         }
     }
 }

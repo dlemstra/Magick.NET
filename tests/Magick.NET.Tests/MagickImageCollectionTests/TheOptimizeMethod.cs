@@ -15,63 +15,62 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheOptimizeMethod
     {
-        public class TheOptimizeMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<InvalidOperationException>(() => images.Optimize());
-                }
+                Assert.Throws<InvalidOperationException>(() => images.Optimize());
             }
+        }
 
-            [Fact]
-            public void ShouldCorrectlyOptimizeTheImages()
+        [Fact]
+        public void ShouldCorrectlyOptimizeTheImages()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                images.Add(new MagickImage(MagickColors.Red, 11, 11));
+
+                var image = new MagickImage(MagickColors.Red, 11, 11);
+                using (var pixels = image.GetPixels())
                 {
-                    images.Add(new MagickImage(MagickColors.Red, 11, 11));
-
-                    var image = new MagickImage(MagickColors.Red, 11, 11);
-                    using (var pixels = image.GetPixels())
-                    {
-                        pixels.SetPixel(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
-                    }
-
-                    images.Add(image);
-                    images.Optimize();
-
-                    Assert.Equal(1, images[1].Width);
-                    Assert.Equal(1, images[1].Height);
-                    Assert.Equal(5, images[1].Page.X);
-                    Assert.Equal(5, images[1].Page.Y);
-                    ColorAssert.Equal(MagickColors.Lime, images[1], 0, 0);
+                    pixels.SetPixel(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
                 }
+
+                images.Add(image);
+                images.Optimize();
+
+                Assert.Equal(1, images[1].Width);
+                Assert.Equal(1, images[1].Height);
+                Assert.Equal(5, images[1].Page.X);
+                Assert.Equal(5, images[1].Page.Y);
+                ColorAssert.Equal(MagickColors.Lime, images[1], 0, 0);
             }
+        }
 
-            [Fact]
-            public void ShouldCorrectlyOptimizeDuplicateFrames()
+        [Fact]
+        public void ShouldCorrectlyOptimizeDuplicateFrames()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Add(new MagickImage("xc:red", 2, 2));
-                    images.Add(new MagickImage("xc:red", 2, 2));
-                    images.Add(new MagickImage("xc:green", 2, 2));
+                images.Add(new MagickImage("xc:red", 2, 2));
+                images.Add(new MagickImage("xc:red", 2, 2));
+                images.Add(new MagickImage("xc:green", 2, 2));
 
-                    images.Optimize();
+                images.Optimize();
 
-                    Assert.Equal(3, images.Count);
-                    var secondFrame = images[1];
+                Assert.Equal(3, images.Count);
+                var secondFrame = images[1];
 
-                    Assert.Equal(1, secondFrame.Width);
-                    Assert.Equal(1, secondFrame.Height);
-                    ColorAssert.Equal(new MagickColor("#fff0"), secondFrame, 0, 0);
-                }
+                Assert.Equal(1, secondFrame.Width);
+                Assert.Equal(1, secondFrame.Height);
+                ColorAssert.Equal(new MagickColor("#fff0"), secondFrame, 0, 0);
             }
         }
     }

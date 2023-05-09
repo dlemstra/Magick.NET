@@ -6,32 +6,31 @@ using ImageMagick;
 using Xunit;
 using Xunit.Sdk;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    public class TheSupportedFormatsProperty
     {
-        public class TheSupportedFormatsProperty
+        [Fact]
+        public void ShouldContainNoFormatInformationWithMagickFormatSetToUnknown()
         {
-            [Fact]
-            public void ShouldContainNoFormatInformationWithMagickFormatSetToUnknown()
+            foreach (var formatInfo in MagickNET.SupportedFormats)
             {
-                foreach (var formatInfo in MagickNET.SupportedFormats)
-                {
-                    if (formatInfo.Format == MagickFormat.Unknown)
-                        throw new XunitException("Unknown format: " + formatInfo.Description + " (" + formatInfo.ModuleFormat + ")");
-                }
+                if (formatInfo.Format == MagickFormat.Unknown)
+                    throw new XunitException("Unknown format: " + formatInfo.Description + " (" + formatInfo.ModuleFormat + ")");
             }
+        }
 
-            [Fact]
-            public void ShouldContainTheCorrectNumberOfFormats()
-            {
-                var formatsCount = MagickNET.SupportedFormats.Count();
+        [Fact]
+        public void ShouldContainTheCorrectNumberOfFormats()
+        {
+            var formatsCount = MagickNET.SupportedFormats.Count();
 
-                if (Runtime.IsWindows)
-                    Assert.Equal(267, formatsCount);
-                else
-                    Assert.Equal(264, formatsCount);
-            }
+            if (Runtime.IsWindows)
+                Assert.Equal(267, formatsCount);
+            else
+                Assert.Equal(264, formatsCount);
         }
     }
 }

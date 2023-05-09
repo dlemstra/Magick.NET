@@ -4,46 +4,45 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSetClippingPathMethod
     {
-        public class TheSetClippingPathMethod
+        [Fact]
+        public void ShouldSetTheClippingPath()
         {
-            [Fact]
-            public void ShouldSetTheClippingPath()
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
+                Assert.Null(image.GetClippingPath());
+
+                using (var path = new MagickImage(Files.InvitationTIF))
                 {
-                    Assert.Null(image.GetClippingPath());
+                    var clippingPath = path.GetClippingPath();
 
-                    using (var path = new MagickImage(Files.InvitationTIF))
-                    {
-                        var clippingPath = path.GetClippingPath();
+                    image.SetClippingPath(clippingPath);
 
-                        image.SetClippingPath(clippingPath);
-
-                        Assert.NotNull(image.GetClippingPath());
-                    }
+                    Assert.NotNull(image.GetClippingPath());
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheClippingPathWithTheSpecfiedName()
+        [Fact]
+        public void ShouldSetTheClippingPathWithTheSpecfiedName()
+        {
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
+                Assert.Null(image.GetClippingPath());
+
+                using (var path = new MagickImage(Files.InvitationTIF))
                 {
-                    Assert.Null(image.GetClippingPath());
+                    var clippingPath = path.GetClippingPath();
 
-                    using (var path = new MagickImage(Files.InvitationTIF))
-                    {
-                        var clippingPath = path.GetClippingPath();
+                    image.SetClippingPath(clippingPath, "test");
 
-                        image.SetClippingPath(clippingPath, "test");
-
-                        Assert.NotNull(image.GetClippingPath("test"));
-                        Assert.Null(image.GetClippingPath("#1"));
-                    }
+                    Assert.NotNull(image.GetClippingPath("test"));
+                    Assert.Null(image.GetClippingPath("#1"));
                 }
             }
         }

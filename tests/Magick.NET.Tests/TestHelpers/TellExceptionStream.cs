@@ -4,19 +4,18 @@
 using System;
 using System.IO;
 
-namespace Magick.NET.Tests
-{
-    internal sealed class TellExceptionStream : TestStream
-    {
-        public TellExceptionStream(Stream innerStream)
-          : base(innerStream, true)
-        {
-        }
+namespace Magick.NET.Tests;
 
-        public override long Position
-        {
-            get => throw new InvalidOperationException();
-            set => base.Position = value;
-        }
+internal sealed class TellExceptionStream : TestStream
+{
+    public TellExceptionStream(Stream innerStream)
+      : base(innerStream, true)
+    {
+    }
+
+    public override long Position
+    {
+        get => throw new InvalidOperationException();
+        set => base.Position = value;
     }
 }

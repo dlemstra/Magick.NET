@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class ExifProfileTests
-    {
-        public class TheGetValueMethod
-        {
-            [Fact]
-            public void ShouldReturnStringWhenValueIsString()
-            {
-                var profile = new ExifProfile();
-                profile.SetValue(ExifTag.Software, "Magick.NET");
+namespace Magick.NET.Tests;
 
-                var value = profile.GetValue(ExifTag.Software);
-                TestValue(value, "Magick.NET");
-            }
+public partial class ExifProfileTests
+{
+    public class TheGetValueMethod
+    {
+        [Fact]
+        public void ShouldReturnStringWhenValueIsString()
+        {
+            var profile = new ExifProfile();
+            profile.SetValue(ExifTag.Software, "Magick.NET");
+
+            var value = profile.GetValue(ExifTag.Software);
+            TestValue(value, "Magick.NET");
         }
     }
 }

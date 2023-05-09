@@ -6,86 +6,85 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class GifOptimizerTests
 {
-    public partial class GifOptimizerTests
+    public class TheCompressMethod : GifOptimizerTests
     {
-        public class TheCompressMethod : GifOptimizerTests
+        [Fact]
+        public void ShouldCompress()
+        {
+            var result = AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
+            Assert.Equal(172861, result);
+        }
+
+        [Fact]
+        public void ShouldTryToCompress()
+            => AssertCompressNotSmaller(Files.RoseSparkleGIF);
+
+        [Fact]
+        public void ShouldBeAbleToCompressFileTwoTimes()
+            => AssertCompressTwice(Files.FujiFilmFinePixS1ProGIF);
+
+        [Fact]
+        public void ShouldThrowExceptionWhenFileFormatIsInvalid()
+            => AssertCompressInvalidFileFormat(Files.ImageMagickJPG);
+
+        public class WithFileInfo : TheCompressMethod
         {
             [Fact]
-            public void ShouldCompress()
+            public void ShouldThrowExceptionWhenFileIsNull()
+                => Assert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null));
+        }
+
+        public class WithFileName : TheCompressMethod
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsNull()
+                => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null));
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                => Assert.Throws<ArgumentException>("fileName", () => Optimizer.Compress(string.Empty));
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsInvalid()
             {
-                var result = AssertCompressSmaller(Files.FujiFilmFinePixS1ProGIF);
-                Assert.Equal(172861, result);
+                var exception = Assert.Throws<MagickBlobErrorException>(() => Optimizer.Compress(Files.Missing));
+
+                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+            }
+        }
+
+        public class WithStreamName : TheCompressMethod
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenStreamIsNull()
+                => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null));
+
+            [Fact]
+            public void ShouldThrowExceptionWhenStreamIsNotReadable()
+            {
+                using var stream = TestStream.ThatCannotRead();
+
+                Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
             }
 
             [Fact]
-            public void ShouldTryToCompress()
-                => AssertCompressNotSmaller(Files.RoseSparkleGIF);
-
-            [Fact]
-            public void ShouldBeAbleToCompressFileTwoTimes()
-                => AssertCompressTwice(Files.FujiFilmFinePixS1ProGIF);
-
-            [Fact]
-            public void ShouldThrowExceptionWhenFileFormatIsInvalid()
-                => AssertCompressInvalidFileFormat(Files.ImageMagickJPG);
-
-            public class WithFileInfo : TheCompressMethod
+            public void ShouldThrowExceptionWhenStreamIsNotWriteable()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenFileIsNull()
-                    => Assert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null));
+                using var stream = TestStream.ThatCannotWrite();
+
+                Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
             }
 
-            public class WithFileName : TheCompressMethod
+            [Fact]
+            public void ShouldThrowExceptionWhenStreamIsNotSeekable()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsNull()
-                    => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null));
+                using var stream = TestStream.ThatCannotSeek();
 
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsEmpty()
-                    => Assert.Throws<ArgumentException>("fileName", () => Optimizer.Compress(string.Empty));
-
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsInvalid()
-                {
-                    var exception = Assert.Throws<MagickBlobErrorException>(() => Optimizer.Compress(Files.Missing));
-
-                    Assert.Contains("error/blob.c/OpenBlob", exception.Message);
-                }
-            }
-
-            public class WithStreamName : TheCompressMethod
-            {
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNull()
-                    => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null));
-
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNotReadable()
-                {
-                    using var stream = TestStream.ThatCannotRead();
-
-                    Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNotWriteable()
-                {
-                    using var stream = TestStream.ThatCannotWrite();
-
-                    Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNotSeekable()
-                {
-                    using var stream = TestStream.ThatCannotSeek();
-
-                    Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
-                }
+                Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
             }
         }
     }

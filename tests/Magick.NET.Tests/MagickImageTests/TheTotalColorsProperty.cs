@@ -4,28 +4,27 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheTotalColorsProperty
-        {
-            [Fact]
-            public void ShouldReturnZeroForEmptyImage()
-            {
-                using (var image = new MagickImage())
-                {
-                    Assert.Equal(0, image.TotalColors);
-                }
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldReturnTheTotalNumberOfColors()
+public partial class MagickImageTests
+{
+    public class TheTotalColorsProperty
+    {
+        [Fact]
+        public void ShouldReturnZeroForEmptyImage()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    Assert.Equal(256, image.TotalColors);
-                }
+                Assert.Equal(0, image.TotalColors);
+            }
+        }
+
+        [Fact]
+        public void ShouldReturnTheTotalNumberOfColors()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                Assert.Equal(256, image.TotalColors);
             }
         }
     }

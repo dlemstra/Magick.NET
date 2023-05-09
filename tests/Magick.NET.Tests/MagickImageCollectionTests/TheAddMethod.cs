@@ -15,61 +15,60 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheAddMethod
     {
-        public class TheAddMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenItemIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenItemIsNull()
+            using (var images = new MagickImageCollection())
+            {
+                Assert.Throws<ArgumentNullException>("item", () =>
+                {
+                    images.Add((IMagickImage<QuantumType>)null);
+                });
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenFileNameIsNull()
+        {
+            Assert.Throws<ArgumentNullException>("fileName", () =>
             {
                 using (var images = new MagickImageCollection())
                 {
-                    Assert.Throws<ArgumentNullException>("item", () =>
-                    {
-                        images.Add((IMagickImage<QuantumType>)null);
-                    });
+                    images.Add((string)null);
                 }
-            }
+            });
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenFileNameIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("fileName", () =>
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.Add((string)null);
-                    }
-                });
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenFileNameIsEmpty()
-            {
-                Assert.Throws<ArgumentException>("fileName", () =>
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.Add(string.Empty);
-                    }
-                });
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
+        [Fact]
+        public void ShouldThrowExceptionWhenFileNameIsEmpty()
+        {
+            Assert.Throws<ArgumentException>("fileName", () =>
             {
                 using (var images = new MagickImageCollection())
                 {
-                    var image = new MagickImage();
+                    images.Add(string.Empty);
+                }
+            });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                var image = new MagickImage();
+                images.Add(image);
+
+                Assert.Throws<InvalidOperationException>(() =>
+                {
                     images.Add(image);
-
-                    Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        images.Add(image);
-                    });
-                }
+                });
             }
         }
     }

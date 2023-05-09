@@ -5,43 +5,42 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheMorphMethod
     {
-        public class TheMorphMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<InvalidOperationException>(() => { images.Morph(10); });
-                }
+                Assert.Throws<InvalidOperationException>(() => { images.Morph(10); });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionContainsSingleImage()
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionContainsSingleImage()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Add(new MagickImage(MagickColors.Red, 1, 1));
+                images.Add(new MagickImage(MagickColors.Red, 1, 1));
 
-                    Assert.Throws<InvalidOperationException>(() => { images.Morph(10); });
-                }
+                Assert.Throws<InvalidOperationException>(() => { images.Morph(10); });
             }
+        }
 
-            [Fact]
-            public void ShouldMorphTheImages()
+        [Fact]
+        public void ShouldMorphTheImages()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Add(Files.Builtin.Logo);
-                    images.AddRange(Files.Builtin.Wizard);
+                images.Add(Files.Builtin.Logo);
+                images.AddRange(Files.Builtin.Wizard);
 
-                    images.Morph(4);
-                    Assert.Equal(6, images.Count);
-                }
+                images.Morph(4);
+                Assert.Equal(6, images.Count);
             }
         }
     }

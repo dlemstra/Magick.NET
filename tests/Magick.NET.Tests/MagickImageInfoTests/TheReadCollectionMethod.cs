@@ -7,128 +7,127 @@ using System.Linq;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageInfoTests
 {
-    public partial class MagickImageInfoTests
+    public partial class TheReadCollectionMethod
     {
-        public partial class TheReadCollectionMethod
+        public class WithByteArray
         {
-            public class WithByteArray
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsNull()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("data", () => MagickImageInfo.ReadCollection((byte[])null).ToArray());
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(Array.Empty<byte>()).ToArray());
-                }
+                Assert.Throws<ArgumentNullException>("data", () => MagickImageInfo.ReadCollection((byte[])null).ToArray());
             }
 
-            public class WithByteArrayAndOffset
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenArrayIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("data", () => MagickImageInfo.ReadCollection(null, 0, 0).ToArray());
-                }
+                Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(Array.Empty<byte>()).ToArray());
+            }
+        }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenArrayIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(Array.Empty<byte>(), 0, 0).ToArray());
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenOffsetIsNegative()
-                {
-                    Assert.Throws<ArgumentException>("offset", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, -1, 0).ToArray());
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenCountIsZero()
-                {
-                    Assert.Throws<ArgumentException>("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, 0).ToArray());
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenCountIsNegative()
-                {
-                    Assert.Throws<ArgumentException>("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, -1).ToArray());
-                }
+        public class WithByteArrayAndOffset
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenArrayIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("data", () => MagickImageInfo.ReadCollection(null, 0, 0).ToArray());
             }
 
-            public class WithFileInfo
+            [Fact]
+            public void ShouldThrowExceptionWhenArrayIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenFileIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("file", () => MagickImageInfo.ReadCollection((FileInfo)null).ToArray());
-                }
+                Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(Array.Empty<byte>(), 0, 0).ToArray());
             }
 
-            public class WithFileName
+            [Fact]
+            public void ShouldThrowExceptionWhenOffsetIsNegative()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsNull()
-                {
-                    Assert.Throws<ArgumentNullException>("fileName", () => MagickImageInfo.ReadCollection((string)null).ToArray());
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("fileName", () => MagickImageInfo.ReadCollection(string.Empty).ToArray());
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsInvalid()
-                {
-                    var exception = Assert.Throws<MagickBlobErrorException>(() =>
-                    {
-                        MagickImageInfo.ReadCollection(Files.Missing).ToArray();
-                    });
-
-                    Assert.Contains("error/blob.c/OpenBlob", exception.Message);
-                }
-
-                [Fact]
-                public void ShouldReturnEnumerableWithCorrectCount()
-                {
-                    var info = MagickImageInfo.ReadCollection(Files.RoseSparkleGIF);
-                    Assert.Equal(3, info.Count());
-                }
-
-                [Fact]
-                public void ShouldReturnTheCorrectInformation()
-                {
-                    var info = MagickImageInfo.ReadCollection(Files.InvitationTIF);
-
-                    var first = info.First();
-                    Assert.Equal(ColorSpace.sRGB, first.ColorSpace);
-                    Assert.Equal(CompressionMethod.Zip, first.Compression);
-                    Assert.EndsWith("Invitation.tif", first.FileName);
-                    Assert.Equal(MagickFormat.Tiff, first.Format);
-                    Assert.Equal(700, first.Height);
-                    Assert.Equal(350, first.Density.X);
-                    Assert.Equal(350, first.Density.Y);
-                    Assert.Equal(DensityUnit.PixelsPerInch, first.Density.Units);
-                    Assert.Equal(Interlace.NoInterlace, first.Interlace);
-                    Assert.Equal(827, first.Width);
-                    Assert.Equal(0, first.Quality);
-                }
+                Assert.Throws<ArgumentException>("offset", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, -1, 0).ToArray());
             }
 
-            public class WithStream
+            [Fact]
+            public void ShouldThrowExceptionWhenCountIsZero()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNull()
+                Assert.Throws<ArgumentException>("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, 0).ToArray());
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenCountIsNegative()
+            {
+                Assert.Throws<ArgumentException>("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, -1).ToArray());
+            }
+        }
+
+        public class WithFileInfo
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenFileIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("file", () => MagickImageInfo.ReadCollection((FileInfo)null).ToArray());
+            }
+        }
+
+        public class WithFileName
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("fileName", () => MagickImageInfo.ReadCollection((string)null).ToArray());
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsEmpty()
+            {
+                Assert.Throws<ArgumentException>("fileName", () => MagickImageInfo.ReadCollection(string.Empty).ToArray());
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsInvalid()
+            {
+                var exception = Assert.Throws<MagickBlobErrorException>(() =>
                 {
-                    Assert.Throws<ArgumentNullException>("stream", () => MagickImageInfo.ReadCollection((Stream)null).ToArray());
-                }
+                    MagickImageInfo.ReadCollection(Files.Missing).ToArray();
+                });
+
+                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+            }
+
+            [Fact]
+            public void ShouldReturnEnumerableWithCorrectCount()
+            {
+                var info = MagickImageInfo.ReadCollection(Files.RoseSparkleGIF);
+                Assert.Equal(3, info.Count());
+            }
+
+            [Fact]
+            public void ShouldReturnTheCorrectInformation()
+            {
+                var info = MagickImageInfo.ReadCollection(Files.InvitationTIF);
+
+                var first = info.First();
+                Assert.Equal(ColorSpace.sRGB, first.ColorSpace);
+                Assert.Equal(CompressionMethod.Zip, first.Compression);
+                Assert.EndsWith("Invitation.tif", first.FileName);
+                Assert.Equal(MagickFormat.Tiff, first.Format);
+                Assert.Equal(700, first.Height);
+                Assert.Equal(350, first.Density.X);
+                Assert.Equal(350, first.Density.Y);
+                Assert.Equal(DensityUnit.PixelsPerInch, first.Density.Units);
+                Assert.Equal(Interlace.NoInterlace, first.Interlace);
+                Assert.Equal(827, first.Width);
+                Assert.Equal(0, first.Quality);
+            }
+        }
+
+        public class WithStream
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenStreamIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("stream", () => MagickImageInfo.ReadCollection((Stream)null).ToArray());
             }
         }
     }

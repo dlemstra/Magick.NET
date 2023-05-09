@@ -5,46 +5,45 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheQuantizeMethod
     {
-        public class TheQuantizeMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenSettingsAreNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenSettingsAreNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("settings", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("settings", () =>
-                    {
-                        var errorInfo = image.Quantize(null);
-                    });
-                }
+                    var errorInfo = image.Quantize(null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldReduceNumberOfColors()
+        [Fact]
+        public void ShouldReduceNumberOfColors()
+        {
+            var settings = new QuantizeSettings();
+            settings.Colors = 8;
+
+            Assert.Equal(DitherMethod.Riemersma, settings.DitherMethod);
+
+            settings.DitherMethod = DitherMethod.No;
+            settings.MeasureErrors = true;
+
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                var settings = new QuantizeSettings();
-                settings.Colors = 8;
-
-                Assert.Equal(DitherMethod.Riemersma, settings.DitherMethod);
-
-                settings.DitherMethod = DitherMethod.No;
-                settings.MeasureErrors = true;
-
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var errorInfo = image.Quantize(settings);
+                var errorInfo = image.Quantize(settings);
 #if Q8
-                    Assert.InRange(errorInfo.MeanErrorPerPixel, 7.066, 7.067);
+                Assert.InRange(errorInfo.MeanErrorPerPixel, 7.066, 7.067);
 #else
-                    Assert.InRange(errorInfo.MeanErrorPerPixel, 1827.8, 1827.9);
+                Assert.InRange(errorInfo.MeanErrorPerPixel, 1827.8, 1827.9);
 #endif
-                    Assert.InRange(errorInfo.NormalizedMaximumError, 0.352, 0.354);
-                    Assert.InRange(errorInfo.NormalizedMeanError, 0.001, 0.002);
-                }
+                Assert.InRange(errorInfo.NormalizedMaximumError, 0.352, 0.354);
+                Assert.InRange(errorInfo.NormalizedMeanError, 0.001, 0.002);
             }
         }
     }

@@ -4,19 +4,18 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class DrawablePathTests
-    {
-        public class TheDrawMethod
-        {
-            [Fact]
-            public void ShouldSupportNullArgument()
-            {
-                var path = new DrawablePath();
+namespace Magick.NET.Tests;
 
-                ((IDrawingWand)path).Draw(null);
-            }
+public partial class DrawablePathTests
+{
+    public class TheDrawMethod
+    {
+        [Fact]
+        public void ShouldSupportNullArgument()
+        {
+            var path = new DrawablePath();
+
+            ((IDrawingWand)path).Draw(null);
         }
     }
 }

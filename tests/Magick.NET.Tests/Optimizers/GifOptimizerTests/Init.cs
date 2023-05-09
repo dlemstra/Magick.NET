@@ -3,9 +3,8 @@
 
 using ImageMagick.ImageOptimizers;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class GifOptimizerTests : ImageOptimizerTestHelper<GifOptimizer>
 {
-    public partial class GifOptimizerTests : ImageOptimizerTestHelper<GifOptimizer>
-    {
-    }
 }

@@ -5,105 +5,104 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSetArtifactMethod
     {
-        public class TheSetArtifactMethod
+        public class WithBoolean
         {
-            public class WithBoolean
+            [Fact]
+            public void ShouldThrowExceptionWhenNameIsNull()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenNameIsNull()
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("name", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("name", () =>
-                        {
-                            image.SetArtifact(null, false);
-                        });
-                    }
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenNameIsEmpty()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("name", () =>
-                        {
-                            image.SetArtifact(string.Empty, true);
-                        });
-                    }
-                }
-
-                [Fact]
-                public void ShouldSetValue()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        image.SetArtifact("test", true);
-                        Assert.Equal("true", image.GetArtifact("test"));
-                    }
+                        image.SetArtifact(null, false);
+                    });
                 }
             }
 
-            public class WithString
+            [Fact]
+            public void ShouldThrowExceptionWhenNameIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenNameIsNull()
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentException>("name", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("name", () =>
-                        {
-                            image.SetArtifact(null, "foo");
-                        });
-                    }
+                        image.SetArtifact(string.Empty, true);
+                    });
                 }
+            }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenNameIsEmpty()
+            [Fact]
+            public void ShouldSetValue()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("name", () =>
-                        {
-                            image.SetArtifact(string.Empty, "foo");
-                        });
-                    }
+                    image.SetArtifact("test", true);
+                    Assert.Equal("true", image.GetArtifact("test"));
                 }
+            }
+        }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenValueIsNull()
+        public class WithString
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenNameIsNull()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("name", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("value", () =>
-                        {
-                            image.SetArtifact("foo", null);
-                        });
-                    }
+                        image.SetArtifact(null, "foo");
+                    });
                 }
+            }
 
-                [Fact]
-                public void ShouldSetEmptyValue()
+            [Fact]
+            public void ShouldThrowExceptionWhenNameIsEmpty()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentException>("name", () =>
                     {
-                        image.SetArtifact("test", string.Empty);
-                        Assert.Equal(string.Empty, image.GetArtifact("test"));
-                    }
+                        image.SetArtifact(string.Empty, "foo");
+                    });
                 }
+            }
 
-                [Fact]
-                public void ShouldSetValue()
+            [Fact]
+            public void ShouldThrowExceptionWhenValueIsNull()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("value", () =>
                     {
-                        image.SetArtifact("test", "123");
-                        Assert.Equal("123", image.GetArtifact("test"));
-                    }
+                        image.SetArtifact("foo", null);
+                    });
+                }
+            }
+
+            [Fact]
+            public void ShouldSetEmptyValue()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.SetArtifact("test", string.Empty);
+                    Assert.Equal(string.Empty, image.GetArtifact("test"));
+                }
+            }
+
+            [Fact]
+            public void ShouldSetValue()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.SetArtifact("test", "123");
+                    Assert.Equal("123", image.GetArtifact("test"));
                 }
             }
         }

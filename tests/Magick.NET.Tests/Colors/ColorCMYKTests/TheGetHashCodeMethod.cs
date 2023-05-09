@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class ColorCMYKTests
-    {
-        public class TheGetHashCodeMethod
-        {
-            [Fact]
-            public void ShouldReturnDifferentValueWhenChannelChanged()
-            {
-                var first = new ColorCMYK(0, 0, 0, 0);
-                var hashCode = first.GetHashCode();
+namespace Magick.NET.Tests;
 
-                first.K = Quantum.Max;
-                Assert.NotEqual(hashCode, first.GetHashCode());
-            }
+public partial class ColorCMYKTests
+{
+    public class TheGetHashCodeMethod
+    {
+        [Fact]
+        public void ShouldReturnDifferentValueWhenChannelChanged()
+        {
+            var first = new ColorCMYK(0, 0, 0, 0);
+            var hashCode = first.GetHashCode();
+
+            first.K = Quantum.Max;
+            Assert.NotEqual(hashCode, first.GetHashCode());
         }
     }
 }

@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class StreamWrapperTests
-    {
-        public class TheDisposeMethod
-        {
-            [Fact]
-            public void ShouldNotThrowExceptionWhenCalledTwice()
-            {
-                using var stream = TestStream.ThatCanOnlyRead();
-                var wrapper = StreamWrapper.CreateForReading(stream);
+namespace Magick.NET.Tests;
 
-                wrapper.Dispose();
-                wrapper.Dispose();
-            }
+public partial class StreamWrapperTests
+{
+    public class TheDisposeMethod
+    {
+        [Fact]
+        public void ShouldNotThrowExceptionWhenCalledTwice()
+        {
+            using var stream = TestStream.ThatCanOnlyRead();
+            var wrapper = StreamWrapper.CreateForReading(stream);
+
+            wrapper.Dispose();
+            wrapper.Dispose();
         }
     }
 }

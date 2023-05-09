@@ -5,42 +5,41 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheAppendHorizontallyMethod
     {
-        public class TheAppendHorizontallyMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                Assert.Throws<InvalidOperationException>(() =>
                 {
-                    Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        images.AppendHorizontally();
-                    });
-                }
+                    images.AppendHorizontally();
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldAppendTheImagesHorizontally()
+        [Fact]
+        public void ShouldAppendTheImagesHorizontally()
+        {
+            var width = 70;
+            var height = 46;
+
+            using (var images = new MagickImageCollection())
             {
-                var width = 70;
-                var height = 46;
+                images.Read(Files.RoseSparkleGIF);
 
-                using (var images = new MagickImageCollection())
+                Assert.Equal(width, images[0].Width);
+                Assert.Equal(height, images[0].Height);
+
+                using (var image = images.AppendHorizontally())
                 {
-                    images.Read(Files.RoseSparkleGIF);
-
-                    Assert.Equal(width, images[0].Width);
-                    Assert.Equal(height, images[0].Height);
-
-                    using (var image = images.AppendHorizontally())
-                    {
-                        Assert.Equal(width * 3, image.Width);
-                        Assert.Equal(height, image.Height);
-                    }
+                    Assert.Equal(width * 3, image.Width);
+                    Assert.Equal(height, image.Height);
                 }
             }
         }

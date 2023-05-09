@@ -6,17 +6,16 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TheBenchmarkScoreProperty
 {
-    public partial class TheBenchmarkScoreProperty
+    [Fact]
+    public void ShouldNotBeZero()
     {
-        [Fact]
-        public void ShouldNotBeZero()
+        foreach (var device in OpenCL.Devices)
         {
-            foreach (var device in OpenCL.Devices)
-            {
-                Assert.NotEqual(0.0, device.BenchmarkScore);
-            }
+            Assert.NotEqual(0.0, device.BenchmarkScore);
         }
     }
 }

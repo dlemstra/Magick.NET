@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SettingsFactoryTests
 {
-    public partial class SettingsFactoryTests
+    public class TheCreateDistortSettingsMethod
     {
-        public class TheCreateDistortSettingsMethod
+        [Fact]
+        public void ShouldCreateInstance()
         {
-            [Fact]
-            public void ShouldCreateInstance()
-            {
-                var factory = new SettingsFactory();
+            var factory = new SettingsFactory();
 
-                var settings = factory.CreateDistortSettings();
+            var settings = factory.CreateDistortSettings();
 
-                Assert.NotNull(settings);
-                Assert.IsType<DistortSettings>(settings);
-            }
+            Assert.NotNull(settings);
+            Assert.IsType<DistortSettings>(settings);
         }
     }
 }

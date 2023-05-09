@@ -7,152 +7,151 @@ using ImageMagick;
 using ImageMagick.ImageOptimizers;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class JpegOptimizerTests
 {
-    public partial class JpegOptimizerTests
+    public class TheCompressMethod : JpegOptimizerTests
     {
-        public class TheCompressMethod : JpegOptimizerTests
+        [Fact]
+        public void ShouldCompress()
+        {
+            var result = AssertCompressSmaller(Files.ImageMagickJPG);
+            Assert.Equal(5146, result);
+        }
+
+        [Fact]
+        public void ShouldTryToCompress()
+            => AssertCompressNotSmaller(Files.LetterJPG);
+
+        [Fact]
+        public void ShouldBeAbleToCompressFileTwoTimes()
+            => AssertCompressTwice(Files.ImageMagickJPG);
+
+        [Fact]
+        public void ShouldThrowExceptionWhenFileFormatIsInvalid()
+            => AssertCompressInvalidFileFormat(Files.CirclePNG);
+
+        public class WithFileInfo : TheCompressMethod
         {
             [Fact]
-            public void ShouldCompress()
+            public void ShouldThrowExceptionWhenFileIsNull()
+                => Assert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null));
+
+            [Fact]
+            public void ShouldResultInSmallerFileWHenQualityIsSetTo40()
             {
-                var result = AssertCompressSmaller(Files.ImageMagickJPG);
-                Assert.Equal(5146, result);
+                using var tempFile = new TemporaryFile(Files.ImageMagickJPG);
+
+                var optimizer = new JpegOptimizer();
+                optimizer.Compress(tempFile.File);
+
+                var info = new MagickImageInfo(tempFile.File);
+                Assert.Equal(85, info.Quality);
+
+                FileHelper.Copy(Files.ImageMagickJPG, tempFile.File.FullName);
+
+                optimizer.Compress(tempFile.File, 40);
+
+                info = new MagickImageInfo(tempFile.File);
+                Assert.Equal(40, info.Quality);
             }
 
             [Fact]
-            public void ShouldTryToCompress()
-                => AssertCompressNotSmaller(Files.LetterJPG);
-
-            [Fact]
-            public void ShouldBeAbleToCompressFileTwoTimes()
-                => AssertCompressTwice(Files.ImageMagickJPG);
-
-            [Fact]
-            public void ShouldThrowExceptionWhenFileFormatIsInvalid()
-                => AssertCompressInvalidFileFormat(Files.CirclePNG);
-
-            public class WithFileInfo : TheCompressMethod
+            public void ShouldPreserveTheColorProfile()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenFileIsNull()
-                    => Assert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null));
+                using var input = new MagickImage();
+                input.Ping(Files.PictureJPG);
 
-                [Fact]
-                public void ShouldResultInSmallerFileWHenQualityIsSetTo40()
-                {
-                    using var tempFile = new TemporaryFile(Files.ImageMagickJPG);
+                Assert.NotNull(input.GetColorProfile());
 
-                    var optimizer = new JpegOptimizer();
-                    optimizer.Compress(tempFile.File);
+                using var tempFile = new TemporaryFile(Files.PictureJPG);
+                var result = Optimizer.Compress(tempFile.File);
 
-                    var info = new MagickImageInfo(tempFile.File);
-                    Assert.Equal(85, info.Quality);
+                Assert.True(result);
 
-                    FileHelper.Copy(Files.ImageMagickJPG, tempFile.File.FullName);
+                using var output = new MagickImage();
+                output.Ping(tempFile.File);
 
-                    optimizer.Compress(tempFile.File, 40);
-
-                    info = new MagickImageInfo(tempFile.File);
-                    Assert.Equal(40, info.Quality);
-                }
-
-                [Fact]
-                public void ShouldPreserveTheColorProfile()
-                {
-                    using var input = new MagickImage();
-                    input.Ping(Files.PictureJPG);
-
-                    Assert.NotNull(input.GetColorProfile());
-
-                    using var tempFile = new TemporaryFile(Files.PictureJPG);
-                    var result = Optimizer.Compress(tempFile.File);
-
-                    Assert.True(result);
-
-                    using var output = new MagickImage();
-                    output.Ping(tempFile.File);
-
-                    Assert.NotNull(output.GetColorProfile());
-                }
-
-                [Fact]
-                public void ShouldNotPreserveTheExifProfile()
-                {
-                    using var input = new MagickImage();
-                    input.Ping(Files.PictureJPG);
-
-                    Assert.NotNull(input.GetExifProfile());
-
-                    using var tempFile = new TemporaryFile(Files.PictureJPG);
-                    var result = Optimizer.Compress(tempFile.File);
-
-                    Assert.True(result);
-
-                    using var output = new MagickImage();
-                    output.Ping(tempFile.File);
-
-                    Assert.Null(output.GetExifProfile());
-                }
+                Assert.NotNull(output.GetColorProfile());
             }
 
-            public class WithFileName : TheCompressMethod
+            [Fact]
+            public void ShouldNotPreserveTheExifProfile()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsNull()
-                    => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null));
+                using var input = new MagickImage();
+                input.Ping(Files.PictureJPG);
 
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsEmpty()
-                    => Assert.Throws<ArgumentException>("fileName", () => Optimizer.Compress(string.Empty));
+                Assert.NotNull(input.GetExifProfile());
 
-                [Fact]
-                public void ShouldThrowExceptionWhenFileNameIsInvalid()
-                {
-                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() => Optimizer.Compress(Files.Missing));
-                    Assert.Contains("Input file read error", exception.Message);
-                }
+                using var tempFile = new TemporaryFile(Files.PictureJPG);
+                var result = Optimizer.Compress(tempFile.File);
 
-                [Fact]
-                public void ShouldCompressUTF8PathName()
-                {
-                    using var tempDir = new TemporaryDirectory("爱");
-                    var tempFile = Path.Combine(tempDir.FullName, "ImageMagick.jpg");
-                    FileHelper.Copy(Files.ImageMagickJPG, tempFile);
+                Assert.True(result);
 
-                    Optimizer.Compress(tempFile);
-                }
+                using var output = new MagickImage();
+                output.Ping(tempFile.File);
+
+                Assert.Null(output.GetExifProfile());
+            }
+        }
+
+        public class WithFileName : TheCompressMethod
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsNull()
+                => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null));
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsEmpty()
+                => Assert.Throws<ArgumentException>("fileName", () => Optimizer.Compress(string.Empty));
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileNameIsInvalid()
+            {
+                var exception = Assert.Throws<MagickCorruptImageErrorException>(() => Optimizer.Compress(Files.Missing));
+                Assert.Contains("Input file read error", exception.Message);
             }
 
-            public class WithStreamName : TheCompressMethod
+            [Fact]
+            public void ShouldCompressUTF8PathName()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNull()
-                    => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null));
+                using var tempDir = new TemporaryDirectory("爱");
+                var tempFile = Path.Combine(tempDir.FullName, "ImageMagick.jpg");
+                FileHelper.Copy(Files.ImageMagickJPG, tempFile);
 
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNotReadable()
-                {
-                    using var stream = TestStream.ThatCannotRead();
+                Optimizer.Compress(tempFile);
+            }
+        }
 
-                    Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
-                }
+        public class WithStreamName : TheCompressMethod
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenStreamIsNull()
+                => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null));
 
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNotWriteable()
-                {
-                    using var stream = TestStream.ThatCannotSeek();
+            [Fact]
+            public void ShouldThrowExceptionWhenStreamIsNotReadable()
+            {
+                using var stream = TestStream.ThatCannotRead();
 
-                    Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
-                }
+                Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
+            }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenStreamIsNotSeekable()
-                {
-                    using var stream = TestStream.ThatCannotWrite();
+            [Fact]
+            public void ShouldThrowExceptionWhenStreamIsNotWriteable()
+            {
+                using var stream = TestStream.ThatCannotSeek();
 
-                    Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
-                }
+                Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenStreamIsNotSeekable()
+            {
+                using var stream = TestStream.ThatCannotWrite();
+
+                Assert.Throws<ArgumentException>("stream", () => Optimizer.Compress(stream));
             }
         }
     }

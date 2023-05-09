@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheAutoOrientMethod
     {
-        public class TheAutoOrientMethod
+        [Fact]
+        public void ShouldRotateTheImage()
         {
-            [Fact]
-            public void ShouldRotateTheImage()
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-                {
-                    Assert.Equal(600, image.Width);
-                    Assert.Equal(400, image.Height);
-                    Assert.Equal(OrientationType.TopLeft, image.Orientation);
+                Assert.Equal(600, image.Width);
+                Assert.Equal(400, image.Height);
+                Assert.Equal(OrientationType.TopLeft, image.Orientation);
 
-                    image.Orientation = OrientationType.RightTop;
+                image.Orientation = OrientationType.RightTop;
 
-                    image.AutoOrient();
+                image.AutoOrient();
 
-                    Assert.Equal(400, image.Width);
-                    Assert.Equal(600, image.Height);
-                    Assert.Equal(OrientationType.TopLeft, image.Orientation);
-                }
+                Assert.Equal(400, image.Width);
+                Assert.Equal(600, image.Height);
+                Assert.Equal(OrientationType.TopLeft, image.Orientation);
             }
         }
     }

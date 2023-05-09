@@ -6,35 +6,34 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    public class TheSetTempDirectoryMethod
     {
-        public class TheSetTempDirectoryMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenPathIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenPathIsNull()
+            Assert.Throws<ArgumentNullException>("path", () =>
             {
-                Assert.Throws<ArgumentNullException>("path", () =>
-                {
-                    MagickNET.SetTempDirectory(null);
-                });
-            }
+                MagickNET.SetTempDirectory(null);
+            });
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenPathIsInvalid()
+        [Fact]
+        public void ShouldThrowExceptionWhenPathIsInvalid()
+        {
+            Assert.Throws<ArgumentException>("path", () =>
             {
-                Assert.Throws<ArgumentException>("path", () =>
-                {
-                    MagickNET.SetTempDirectory("Invalid");
-                });
-            }
+                MagickNET.SetTempDirectory("Invalid");
+            });
+        }
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenPathIsCorrect()
-            {
-                MagickNET.SetTempDirectory(Path.GetTempPath());
-            }
+        [Fact]
+        public void ShouldNotThrowExceptionWhenPathIsCorrect()
+        {
+            MagickNET.SetTempDirectory(Path.GetTempPath());
         }
     }
 }

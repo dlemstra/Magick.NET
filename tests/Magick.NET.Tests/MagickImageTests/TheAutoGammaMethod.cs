@@ -4,36 +4,35 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheAutoGammaMethod
     {
-        public class TheAutoGammaMethod
+        [Fact]
+        public void ShouldAdjustTheImage()
         {
-            [Fact]
-            public void ShouldAdjustTheImage()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.AutoGamma();
+                image.AutoGamma();
 
-                    ColorAssert.Equal(new MagickColor("#00000003017E"), image, 496, 429);
-                }
+                ColorAssert.Equal(new MagickColor("#00000003017E"), image, 496, 429);
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheCorrectDefaultChannels()
+        [Fact]
+        public void ShouldUseTheCorrectDefaultChannels()
+        {
+            using (var imageA = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var imageA = new MagickImage(Files.MagickNETIconPNG))
+                using (var imageB = imageA.Clone())
                 {
-                    using (var imageB = imageA.Clone())
-                    {
-                        imageA.AutoGamma();
-                        imageB.AutoGamma(Channels.Composite);
+                    imageA.AutoGamma();
+                    imageB.AutoGamma(Channels.Composite);
 
-                        var distortion = imageA.Compare(imageB, ErrorMetric.RootMeanSquared);
-                        Assert.Equal(0.0, distortion);
-                    }
+                    var distortion = imageA.Compare(imageB, ErrorMetric.RootMeanSquared);
+                    Assert.Equal(0.0, distortion);
                 }
             }
         }

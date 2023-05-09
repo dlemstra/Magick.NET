@@ -5,30 +5,29 @@ using ImageMagick;
 using ImageMagick.Configuration;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickFactoryTests
 {
-    public partial class MagickFactoryTests
+    public class TheConfigurationfilesProperty
     {
-        public class TheConfigurationfilesProperty
+        [Fact]
+        public void ShouldReturnInstance()
         {
-            [Fact]
-            public void ShouldReturnInstance()
-            {
-                var factory = new MagickFactory();
+            var factory = new MagickFactory();
 
-                Assert.NotNull(factory.ConfigurationFiles);
-                Assert.IsType<ConfigurationFiles>(factory.ConfigurationFiles);
-            }
+            Assert.NotNull(factory.ConfigurationFiles);
+            Assert.IsType<ConfigurationFiles>(factory.ConfigurationFiles);
+        }
 
-            [Fact]
-            public void ShouldReturnDifferentInstance()
-            {
-                var factory = new MagickFactory();
+        [Fact]
+        public void ShouldReturnDifferentInstance()
+        {
+            var factory = new MagickFactory();
 
-                var first = factory.ConfigurationFiles;
-                var second = factory.ConfigurationFiles;
-                Assert.NotSame(first, second);
-            }
+            var first = factory.ConfigurationFiles;
+            var second = factory.ConfigurationFiles;
+            Assert.NotSame(first, second);
         }
     }
 }

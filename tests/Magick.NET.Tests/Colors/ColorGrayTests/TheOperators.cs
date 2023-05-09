@@ -4,65 +4,64 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorGrayTests
 {
-    public partial class ColorGrayTests
+    public class TheOperators
     {
-        public class TheOperators
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
-            {
-                var color = new ColorGray(0);
+            var color = new ColorGray(0);
 
-                Assert.False(color == null);
-                Assert.True(color != null);
-                Assert.False(color < null);
-                Assert.False(color <= null);
-                Assert.True(color > null);
-                Assert.True(color >= null);
-                Assert.False(null == color);
-                Assert.True(null != color);
-                Assert.True(null < color);
-                Assert.True(null <= color);
-                Assert.False(null > color);
-                Assert.False(null >= color);
-            }
+            Assert.False(color == null);
+            Assert.True(color != null);
+            Assert.False(color < null);
+            Assert.False(color <= null);
+            Assert.True(color > null);
+            Assert.True(color >= null);
+            Assert.False(null == color);
+            Assert.True(null != color);
+            Assert.True(null < color);
+            Assert.True(null <= color);
+            Assert.False(null > color);
+            Assert.False(null >= color);
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenInstancesAreEqual()
-            {
-                var first = new ColorGray(0);
-                var second = new ColorGray(0);
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenInstancesAreEqual()
+        {
+            var first = new ColorGray(0);
+            var second = new ColorGray(0);
 
-                Assert.True(first == second);
-                Assert.False(first != second);
-                Assert.False(first < second);
-                Assert.True(first <= second);
-                Assert.False(first > second);
-                Assert.True(first >= second);
-            }
+            Assert.True(first == second);
+            Assert.False(first != second);
+            Assert.False(first < second);
+            Assert.True(first <= second);
+            Assert.False(first > second);
+            Assert.True(first >= second);
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenInstancesAreNotEqual()
-            {
-                var first = new ColorGray(0.5);
-                var second = new ColorGray(0);
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenInstancesAreNotEqual()
+        {
+            var first = new ColorGray(0.5);
+            var second = new ColorGray(0);
 
-                Assert.False(first == second);
-                Assert.True(first != second);
-                Assert.False(first < second);
-                Assert.False(first <= second);
-                Assert.True(first > second);
-                Assert.True(first >= second);
-            }
+            Assert.False(first == second);
+            Assert.True(first != second);
+            Assert.False(first < second);
+            Assert.False(first <= second);
+            Assert.True(first > second);
+            Assert.True(first >= second);
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
-            {
-                var actual = (ColorGray)new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
-                Assert.InRange(actual.Shade, 0.20, 0.22);
-            }
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
+        {
+            var actual = (ColorGray)new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
+            Assert.InRange(actual.Shade, 0.20, 0.22);
         }
     }
 }

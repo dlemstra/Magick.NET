@@ -5,56 +5,55 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class TheJpegCoder
 {
-    public class TheJpegCoder
+    [Fact]
+    public void ShouldDecodeCorrectly()
     {
-        [Fact]
-        public void ShouldDecodeCorrectly()
-        {
-            using var image = new MagickImage(Files.WhiteJPG);
-            using var pixels = image.GetPixels();
-            var color = pixels.GetPixel(0, 0).ToColor();
+        using var image = new MagickImage(Files.WhiteJPG);
+        using var pixels = image.GetPixels();
+        var color = pixels.GetPixel(0, 0).ToColor();
 
-            Assert.Equal(Quantum.Max, color.R);
-            Assert.Equal(Quantum.Max, color.G);
-            Assert.Equal(Quantum.Max, color.B);
-            Assert.Equal(Quantum.Max, color.A);
-        }
+        Assert.Equal(Quantum.Max, color.R);
+        Assert.Equal(Quantum.Max, color.G);
+        Assert.Equal(Quantum.Max, color.B);
+        Assert.Equal(Quantum.Max, color.A);
+    }
 
-        [Fact]
-        public void ShouldReadImageProfile()
-        {
-            using var image = new MagickImage(Files.CMYKJPG);
-            image.SetProfile(ColorProfile.USWebCoatedSWOP);
+    [Fact]
+    public void ShouldReadImageProfile()
+    {
+        using var image = new MagickImage(Files.CMYKJPG);
+        image.SetProfile(ColorProfile.USWebCoatedSWOP);
 
-            using var memoryStream = new MemoryStream();
-            image.Write(memoryStream);
-            memoryStream.Position = 0;
+        using var memoryStream = new MemoryStream();
+        image.Write(memoryStream);
+        memoryStream.Position = 0;
 
-            image.Read(memoryStream);
-            var profile = image.GetColorProfile();
+        image.Read(memoryStream);
+        var profile = image.GetColorProfile();
 
-            Assert.NotNull(profile);
-        }
+        Assert.NotNull(profile);
+    }
 
-        [Fact]
-        public void ShouldWriteTheXmpProfileToTheImage()
-        {
-            using var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
-            var profile = input.GetXmpProfile();
+    [Fact]
+    public void ShouldWriteTheXmpProfileToTheImage()
+    {
+        using var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
+        var profile = input.GetXmpProfile();
 
-            Assert.NotNull(profile);
+        Assert.NotNull(profile);
 
-            using var memoryStream = new MemoryStream();
-            input.Write(memoryStream, MagickFormat.Jpeg);
-            memoryStream.Position = 0;
+        using var memoryStream = new MemoryStream();
+        input.Write(memoryStream, MagickFormat.Jpeg);
+        memoryStream.Position = 0;
 
-            using var output = new MagickImage(memoryStream);
-            var result = output.GetXmpProfile();
+        using var output = new MagickImage(memoryStream);
+        var result = output.GetXmpProfile();
 
-            Assert.NotNull(result);
-            Assert.True(result.Equals(profile));
-        }
+        Assert.NotNull(result);
+        Assert.True(result.Equals(profile));
     }
 }

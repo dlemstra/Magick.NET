@@ -6,38 +6,37 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PdfWriteDefinesTests
 {
-    public partial class PdfWriteDefinesTests
+    public class TheModificationTimeProperty
     {
-        public class TheModificationTimeProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenValueIsSet()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenValueIsSet()
+            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                image.Settings.SetDefines(new PdfWriteDefines
                 {
-                    image.Settings.SetDefines(new PdfWriteDefines
-                    {
-                        ModificationTime = new DateTime(2000, 1, 2, 3, 4, 5, DateTimeKind.Utc),
-                    });
+                    ModificationTime = new DateTime(2000, 1, 2, 3, 4, 5, DateTimeKind.Utc),
+                });
 
-                    Assert.Equal("946782245", image.Settings.GetDefine(MagickFormat.Pdf, "modify-epoch"));
-                }
+                Assert.Equal("946782245", image.Settings.GetDefine(MagickFormat.Pdf, "modify-epoch"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfWriteDefines
                 {
-                    image.Settings.SetDefines(new PdfWriteDefines
-                    {
-                        ModificationTime = null,
-                    });
+                    ModificationTime = null,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "modify-epoch"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "modify-epoch"));
             }
         }
     }

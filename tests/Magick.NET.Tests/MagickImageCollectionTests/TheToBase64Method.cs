@@ -4,31 +4,30 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheToBase64Method
     {
-        public class TheToBase64Method
+        [Fact]
+        public void ShouldReturnEmptyStringWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldReturnEmptyStringWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Equal(string.Empty, images.ToBase64());
-                }
+                Assert.Equal(string.Empty, images.ToBase64());
             }
+        }
 
-            [Fact]
-            public void ShouldReturnBase64StringOfTheImages()
+        [Fact]
+        public void ShouldReturnBase64StringOfTheImages()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Read(Files.Builtin.Logo);
+                images.Read(Files.Builtin.Logo);
 
-                    var base64 = images.ToBase64(MagickFormat.Rgb);
-                    Assert.Equal(1228800, base64.Length);
-                }
+                var base64 = images.ToBase64(MagickFormat.Rgb);
+                Assert.Equal(1228800, base64.Length);
             }
         }
     }

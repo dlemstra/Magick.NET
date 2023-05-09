@@ -5,43 +5,42 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheGetArtifactMethod
     {
-        public class TheGetArtifactMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenNameIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenNameIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("name", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("name", () =>
-                    {
-                        image.GetArtifact(null);
-                    });
-                }
+                    image.GetArtifact(null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenNameIsEmpty()
+        [Fact]
+        public void ShouldThrowExceptionWhenNameIsEmpty()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentException>("name", () =>
                 {
-                    Assert.Throws<ArgumentException>("name", () =>
-                    {
-                        image.GetArtifact(string.Empty);
-                    });
-                }
+                    image.GetArtifact(string.Empty);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldReturnNullWhenValueIsNull()
+        [Fact]
+        public void ShouldReturnNullWhenValueIsNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Null(image.GetArtifact("test"));
-                }
+                Assert.Null(image.GetArtifact("test"));
             }
         }
     }

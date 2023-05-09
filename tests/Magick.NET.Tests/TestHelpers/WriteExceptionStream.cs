@@ -4,18 +4,17 @@
 using System;
 using System.IO;
 
-namespace Magick.NET.Tests
-{
-    internal sealed class WriteExceptionStream : TestStream
-    {
-        public WriteExceptionStream(Stream innerStream)
-          : base(innerStream, true)
-        {
-        }
+namespace Magick.NET.Tests;
 
-        public override void Write(byte[] buffer, int offset, int count)
-        {
-            throw new InvalidOperationException();
-        }
+internal sealed class WriteExceptionStream : TestStream
+{
+    public WriteExceptionStream(Stream innerStream)
+      : base(innerStream, true)
+    {
+    }
+
+    public override void Write(byte[] buffer, int offset, int count)
+    {
+        throw new InvalidOperationException();
     }
 }

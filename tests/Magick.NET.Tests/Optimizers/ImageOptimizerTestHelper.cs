@@ -6,117 +6,116 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public abstract class ImageOptimizerTestHelper
 {
-    public abstract class ImageOptimizerTestHelper
+    protected long AssertCompressSmaller(string fileName, Func<FileInfo, bool> action)
+        => AssertCompress(fileName, action, resultIsSmaller: true);
+
+    protected long AssertCompressNotSmaller(string fileName, Func<FileInfo, bool> action)
+        => AssertCompress(fileName, action, resultIsSmaller: false);
+
+    protected long AssertCompressSmaller(string fileName, Func<Stream, bool> action)
+        => AssertCompress(fileName, action, resultIsSmaller: true);
+
+    protected long AssertCompressNotSmaller(string fileName, Func<Stream, bool> action)
+        => AssertCompress(fileName, action, resultIsSmaller: false);
+
+    protected long AssertCompressSmaller(string fileName, Func<string, bool> action)
+        => AssertCompress(fileName, action, resultIsSmaller: true);
+
+    protected long AssertCompressNotSmaller(string fileName, Func<string, bool> action)
+        => AssertCompress(fileName, action, resultIsSmaller: false);
+
+    protected void AssertInvalidFileFormat(string fileName, Action<FileInfo> action)
     {
-        protected long AssertCompressSmaller(string fileName, Func<FileInfo, bool> action)
-            => AssertCompress(fileName, action, resultIsSmaller: true);
+        using var tempFile = new TemporaryFile(fileName);
 
-        protected long AssertCompressNotSmaller(string fileName, Func<FileInfo, bool> action)
-            => AssertCompress(fileName, action, resultIsSmaller: false);
+        Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.File));
+    }
 
-        protected long AssertCompressSmaller(string fileName, Func<Stream, bool> action)
-            => AssertCompress(fileName, action, resultIsSmaller: true);
+    protected void AssertInvalidFileFormat(string fileName, Action<Stream> action)
+    {
+        using var tempFile = new TemporaryFile(fileName);
+        using var fileStream = FileHelper.OpenRead(fileName);
+        using var memoryStream = new MemoryStream();
+        fileStream.CopyTo(memoryStream);
+        memoryStream.Position = 0;
 
-        protected long AssertCompressNotSmaller(string fileName, Func<Stream, bool> action)
-            => AssertCompress(fileName, action, resultIsSmaller: false);
+        Assert.Throws<MagickCorruptImageErrorException>(() => action(memoryStream));
+    }
 
-        protected long AssertCompressSmaller(string fileName, Func<string, bool> action)
-            => AssertCompress(fileName, action, resultIsSmaller: true);
+    protected void AssertInvalidFileFormat(string fileName, Action<string> action)
+    {
+        using var tempFile = new TemporaryFile(fileName);
 
-        protected long AssertCompressNotSmaller(string fileName, Func<string, bool> action)
-            => AssertCompress(fileName, action, resultIsSmaller: false);
+        Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.File.FullName));
+    }
 
-        protected void AssertInvalidFileFormat(string fileName, Action<FileInfo> action)
-        {
-            using var tempFile = new TemporaryFile(fileName);
+    private long AssertCompress(string fileName, Func<FileInfo, bool> action, bool resultIsSmaller)
+    {
+        using var tempFile = new TemporaryFile(fileName);
 
-            Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.File));
-        }
+        var before = tempFile.Length;
 
-        protected void AssertInvalidFileFormat(string fileName, Action<Stream> action)
-        {
-            using var tempFile = new TemporaryFile(fileName);
-            using var fileStream = FileHelper.OpenRead(fileName);
-            using var memoryStream = new MemoryStream();
-            fileStream.CopyTo(memoryStream);
-            memoryStream.Position = 0;
+        var result = action(tempFile.File);
 
-            Assert.Throws<MagickCorruptImageErrorException>(() => action(memoryStream));
-        }
+        var after = tempFile.Length;
 
-        protected void AssertInvalidFileFormat(string fileName, Action<string> action)
-        {
-            using var tempFile = new TemporaryFile(fileName);
+        Assert.Equal(resultIsSmaller, result);
 
-            Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.File.FullName));
-        }
+        if (resultIsSmaller)
+            Assert.True(after < before);
+        else
+            Assert.Equal(before, after);
 
-        private long AssertCompress(string fileName, Func<FileInfo, bool> action, bool resultIsSmaller)
-        {
-            using var tempFile = new TemporaryFile(fileName);
+        return after;
+    }
 
-            var before = tempFile.Length;
+    private long AssertCompress(string fileName, Func<Stream, bool> action, bool resultIsSmaller)
+    {
+        using var fileStream = FileHelper.OpenRead(fileName);
+        using var memoryStream = new MemoryStream();
 
-            var result = action(tempFile.File);
+        memoryStream.Position = 42;
+        fileStream.CopyTo(memoryStream);
+        memoryStream.Position = 42;
 
-            var after = tempFile.Length;
+        var before = memoryStream.Length;
 
-            Assert.Equal(resultIsSmaller, result);
+        var result = action(memoryStream);
 
-            if (resultIsSmaller)
-                Assert.True(after < before);
-            else
-                Assert.Equal(before, after);
+        var after = memoryStream.Length;
 
-            return after;
-        }
+        Assert.Equal(42, memoryStream.Position);
+        Assert.Equal(resultIsSmaller, result);
 
-        private long AssertCompress(string fileName, Func<Stream, bool> action, bool resultIsSmaller)
-        {
-            using var fileStream = FileHelper.OpenRead(fileName);
-            using var memoryStream = new MemoryStream();
+        if (resultIsSmaller)
+            Assert.True(after < before);
+        else
+            Assert.Equal(before, after);
 
-            memoryStream.Position = 42;
-            fileStream.CopyTo(memoryStream);
-            memoryStream.Position = 42;
+        return after - 42;
+    }
 
-            var before = memoryStream.Length;
+    private long AssertCompress(string fileName, Func<string, bool> action, bool resultIsSmaller)
+    {
+        using var tempFile = new TemporaryFile(fileName);
 
-            var result = action(memoryStream);
+        var before = tempFile.Length;
 
-            var after = memoryStream.Length;
+        var result = action(tempFile.File.FullName);
 
-            Assert.Equal(42, memoryStream.Position);
-            Assert.Equal(resultIsSmaller, result);
+        var after = tempFile.Length;
 
-            if (resultIsSmaller)
-                Assert.True(after < before);
-            else
-                Assert.Equal(before, after);
+        Assert.Equal(resultIsSmaller, result);
 
-            return after - 42;
-        }
+        if (resultIsSmaller)
+            Assert.True(after < before);
+        else
+            Assert.Equal(before, after);
 
-        private long AssertCompress(string fileName, Func<string, bool> action, bool resultIsSmaller)
-        {
-            using var tempFile = new TemporaryFile(fileName);
-
-            var before = tempFile.Length;
-
-            var result = action(tempFile.File.FullName);
-
-            var after = tempFile.Length;
-
-            Assert.Equal(resultIsSmaller, result);
-
-            if (resultIsSmaller)
-                Assert.True(after < before);
-            else
-                Assert.Equal(before, after);
-
-            return after;
-        }
+        return after;
     }
 }

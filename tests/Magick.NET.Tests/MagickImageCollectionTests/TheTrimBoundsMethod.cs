@@ -5,43 +5,42 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheTrimBoundsMethod
     {
-        public class TheTrimBoundsMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                Assert.Throws<InvalidOperationException>(() =>
                 {
-                    Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        images.TrimBounds();
-                    });
-                }
-            }
-
-            [Fact]
-            public void ShouldAdjustTheCanvas()
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Add(Files.Builtin.Logo);
-                    images.Add(Files.Builtin.Wizard);
                     images.TrimBounds();
+                });
+            }
+        }
 
-                    Assert.Equal(640, images[0].Page.Width);
-                    Assert.Equal(640, images[0].Page.Height);
-                    Assert.Equal(0, images[0].Page.X);
-                    Assert.Equal(0, images[0].Page.Y);
+        [Fact]
+        public void ShouldAdjustTheCanvas()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                images.Add(Files.Builtin.Logo);
+                images.Add(Files.Builtin.Wizard);
+                images.TrimBounds();
 
-                    Assert.Equal(640, images[1].Page.Width);
-                    Assert.Equal(640, images[1].Page.Height);
-                    Assert.Equal(0, images[0].Page.X);
-                    Assert.Equal(0, images[0].Page.Y);
-                }
+                Assert.Equal(640, images[0].Page.Width);
+                Assert.Equal(640, images[0].Page.Height);
+                Assert.Equal(0, images[0].Page.X);
+                Assert.Equal(0, images[0].Page.Y);
+
+                Assert.Equal(640, images[1].Page.Width);
+                Assert.Equal(640, images[1].Page.Height);
+                Assert.Equal(0, images[0].Page.X);
+                Assert.Equal(0, images[0].Page.Y);
             }
         }
     }

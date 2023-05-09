@@ -5,52 +5,51 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSampleMethod
     {
-        public class TheSampleMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenGeometryIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenGeometryIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Throws<ArgumentNullException>("geometry", () => image.Sample(null));
-                }
+                Assert.Throws<ArgumentNullException>("geometry", () => image.Sample(null));
             }
+        }
 
-            [Fact]
-            public void ShouldResizeTheImage()
+        [Fact]
+        public void ShouldResizeTheImage()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Sample(400, 400);
-                    Assert.Equal(400, image.Width);
-                    Assert.Equal(300, image.Height);
-                }
+                image.Sample(400, 400);
+                Assert.Equal(400, image.Width);
+                Assert.Equal(300, image.Height);
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheSpecifiedGeometry()
+        [Fact]
+        public void ShouldUseTheSpecifiedGeometry()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Sample(new MagickGeometry(300, 300));
-                    Assert.Equal(300, image.Width);
-                    Assert.Equal(225, image.Height);
-                }
+                image.Sample(new MagickGeometry(300, 300));
+                Assert.Equal(300, image.Width);
+                Assert.Equal(225, image.Height);
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheSpecifiedPercentage()
+        [Fact]
+        public void ShouldUseTheSpecifiedPercentage()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Sample(new Percentage(50));
-                    Assert.Equal(320, image.Width);
-                    Assert.Equal(240, image.Height);
-                }
+                image.Sample(new Percentage(50));
+                Assert.Equal(320, image.Width);
+                Assert.Equal(240, image.Height);
             }
         }
     }

@@ -5,22 +5,21 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class HeicReadDefinesTests
-    {
-        public class TheConstructor
-        {
-            [Fact]
-            public void ShouldNotSetAnyDefines()
-            {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(new HeicReadDefines());
+namespace Magick.NET.Tests;
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
-                }
+public partial class HeicReadDefinesTests
+{
+    public class TheConstructor
+    {
+        [Fact]
+        public void ShouldNotSetAnyDefines()
+        {
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(new HeicReadDefines());
+
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
             }
         }
     }

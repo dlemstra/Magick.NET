@@ -5,29 +5,28 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class JpegReadDefinesTests
 {
-    public partial class JpegReadDefinesTests
+    public class TheFancyUpsamplingProperty
     {
-        public class TheFancyUpsamplingProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Defines = new JpegReadDefines
                 {
-                    Defines = new JpegReadDefines
-                    {
-                        FancyUpsampling = false,
-                    },
-                };
+                    FancyUpsampling = false,
+                },
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Read(Files.ImageMagickJPG, settings);
+            using (var image = new MagickImage())
+            {
+                image.Read(Files.ImageMagickJPG, settings);
 
-                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
-                }
+                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "fancy-upsampling"));
             }
         }
     }

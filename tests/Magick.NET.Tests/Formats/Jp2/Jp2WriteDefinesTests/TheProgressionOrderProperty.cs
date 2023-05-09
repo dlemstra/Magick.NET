@@ -5,24 +5,23 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class Jp2WriteDefinesTests
-    {
-        public class TheProgressionOrderProperty
-        {
-            [Fact]
-            public void ShouldSetTheDefine()
-            {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(new Jp2WriteDefines
-                    {
-                        ProgressionOrder = Jp2ProgressionOrder.PCRL,
-                    });
+namespace Magick.NET.Tests;
 
-                    Assert.Equal("pcrl", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
-                }
+public partial class Jp2WriteDefinesTests
+{
+    public class TheProgressionOrderProperty
+    {
+        [Fact]
+        public void ShouldSetTheDefine()
+        {
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(new Jp2WriteDefines
+                {
+                    ProgressionOrder = Jp2ProgressionOrder.PCRL,
+                });
+
+                Assert.Equal("pcrl", image.Settings.GetDefine(MagickFormat.Jp2, "progression-order"));
             }
         }
     }

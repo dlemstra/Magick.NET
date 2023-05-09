@@ -5,43 +5,42 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheGetAttributeMethod
     {
-        public class TheGetAttributeMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenNameIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenNameIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("name", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("name", () =>
-                    {
-                        image.GetAttribute(null);
-                    });
-                }
+                    image.GetAttribute(null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenNameIsEmpty()
+        [Fact]
+        public void ShouldThrowExceptionWhenNameIsEmpty()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentException>("name", () =>
                 {
-                    Assert.Throws<ArgumentException>("name", () =>
-                    {
-                        image.GetAttribute(string.Empty);
-                    });
-                }
+                    image.GetAttribute(string.Empty);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldReturnNullWhenValueIsNull()
+        [Fact]
+        public void ShouldReturnNullWhenValueIsNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Null(image.GetAttribute("test"));
-                }
+                Assert.Null(image.GetAttribute("test"));
             }
         }
     }

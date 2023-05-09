@@ -5,38 +5,37 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class WebPWriteDefinesTests
 {
-    public partial class WebPWriteDefinesTests
+    public class TheEmulateJpegSizeProperty : WebPWriteDefinesTests
     {
-        public class TheEmulateJpegSizeProperty : WebPWriteDefinesTests
+        [Fact]
+        public void ShouldSetTheDefineWhenSetToTrue()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenSetToTrue()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                image.Settings.SetDefines(new WebPWriteDefines
                 {
-                    image.Settings.SetDefines(new WebPWriteDefines
-                    {
-                        EmulateJpegSize = true,
-                    });
+                    EmulateJpegSize = true,
+                });
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "emulate-jpeg-size"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "emulate-jpeg-size"));
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheDefineWhenSetToFalse()
+        [Fact]
+        public void ShouldSetTheDefineWhenSetToFalse()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new WebPWriteDefines
                 {
-                    image.Settings.SetDefines(new WebPWriteDefines
-                    {
-                        EmulateJpegSize = false,
-                    });
+                    EmulateJpegSize = false,
+                });
 
-                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "emulate-jpeg-size"));
-                }
+                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "emulate-jpeg-size"));
             }
         }
     }

@@ -5,52 +5,51 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PdfReadDefinesTests
 {
-    public partial class PdfReadDefinesTests
+    public class TheHideAnnotationsProperty
     {
-        public class TheHideAnnotationsProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenValueIsTrue()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenValueIsTrue()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        HideAnnotations = true,
-                    });
+                    HideAnnotations = true,
+                });
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsFalse()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsFalse()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        HideAnnotations = false,
-                    });
+                    HideAnnotations = false,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        HideAnnotations = null,
-                    });
+                    HideAnnotations = null,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
             }
         }
     }

@@ -5,30 +5,29 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class ThePreserveColorTypeMethod
     {
-        public class ThePreserveColorTypeMethod
+        [Fact]
+        public void ShouldPreserveTheColorTypeWhenWritingImage()
         {
-            [Fact]
-            public void ShouldPreserveTheColorTypeWhenWritingImage()
+            using (var image = new MagickImage(Files.WireframeTIF))
             {
-                using (var image = new MagickImage(Files.WireframeTIF))
+                Assert.Equal(ColorType.TrueColor, image.ColorType);
+                image.PreserveColorType();
+
+                using (var memStream = new MemoryStream())
                 {
-                    Assert.Equal(ColorType.TrueColor, image.ColorType);
-                    image.PreserveColorType();
+                    image.Format = MagickFormat.Psd;
+                    image.Write(memStream);
+                    memStream.Position = 0;
 
-                    using (var memStream = new MemoryStream())
+                    using (var result = new MagickImage(memStream))
                     {
-                        image.Format = MagickFormat.Psd;
-                        image.Write(memStream);
-                        memStream.Position = 0;
-
-                        using (var result = new MagickImage(memStream))
-                        {
-                            Assert.Equal(ColorType.TrueColor, result.ColorType);
-                        }
+                        Assert.Equal(ColorType.TrueColor, result.ColorType);
                     }
                 }
             }

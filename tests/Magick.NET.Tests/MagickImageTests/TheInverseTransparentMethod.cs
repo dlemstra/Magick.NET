@@ -5,40 +5,39 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheInverseTransparentMethod
     {
-        public class TheInverseTransparentMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenColorIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenColorIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("color", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("color", () =>
-                    {
-                        image.InverseTransparent(null);
-                    });
-                }
+                    image.InverseTransparent(null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldChangePixelsThatDoNotMatchColorToTransparent()
+        [Fact]
+        public void ShouldChangePixelsThatDoNotMatchColorToTransparent()
+        {
+            var red = new MagickColor("red");
+            var transparentRed = new MagickColor("red");
+            transparentRed.A = 0;
+
+            using (var image = new MagickImage(Files.RedPNG))
             {
-                var red = new MagickColor("red");
-                var transparentRed = new MagickColor("red");
-                transparentRed.A = 0;
+                ColorAssert.Equal(red, image, 0, 0);
 
-                using (var image = new MagickImage(Files.RedPNG))
-                {
-                    ColorAssert.Equal(red, image, 0, 0);
+                image.InverseTransparent(red);
 
-                    image.InverseTransparent(red);
-
-                    ColorAssert.NotEqual(transparentRed, image, 0, 0);
-                    ColorAssert.Equal(transparentRed, image, image.Width - 1, 0);
-                }
+                ColorAssert.NotEqual(transparentRed, image, 0, 0);
+                ColorAssert.Equal(transparentRed, image, image.Width - 1, 0);
             }
         }
     }

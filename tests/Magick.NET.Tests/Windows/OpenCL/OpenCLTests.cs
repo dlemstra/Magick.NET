@@ -6,19 +6,18 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class OpenCLTests
-    {
-        [Fact]
-        public void Test_IsEnabled()
-        {
-            OpenCL.IsEnabled = false;
-            Assert.False(OpenCL.IsEnabled);
+namespace Magick.NET.Tests;
 
-            OpenCL.IsEnabled = true;
-            Assert.True(OpenCL.IsEnabled);
-        }
+public partial class OpenCLTests
+{
+    [Fact]
+    public void Test_IsEnabled()
+    {
+        OpenCL.IsEnabled = false;
+        Assert.False(OpenCL.IsEnabled);
+
+        OpenCL.IsEnabled = true;
+        Assert.True(OpenCL.IsEnabled);
     }
 }
 

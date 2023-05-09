@@ -5,35 +5,34 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheColorMatrixMethod
     {
-        public class TheColorMatrixMethod
+        [Fact]
+        public void SouldApplyTheSpecifiedColorMatrix()
         {
-            [Fact]
-            public void SouldApplyTheSpecifiedColorMatrix()
+            using (var image = new MagickImage(Files.Builtin.Rose))
             {
-                using (var image = new MagickImage(Files.Builtin.Rose))
-                {
-                    var matrix = new MagickColorMatrix(3, 0, 0, 1, 0, 1, 0, 1, 0, 0);
+                var matrix = new MagickColorMatrix(3, 0, 0, 1, 0, 1, 0, 1, 0, 0);
 
-                    image.ColorMatrix(matrix);
+                image.ColorMatrix(matrix);
 
-                    ColorAssert.Equal(MagickColor.FromRgb(58, 31, 255), image, 39, 25);
-                }
+                ColorAssert.Equal(MagickColor.FromRgb(58, 31, 255), image, 39, 25);
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenMatrixIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenMatrixIsNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("matrix", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("matrix", () =>
-                    {
-                        image.ColorMatrix(null);
-                    });
-                }
+                    image.ColorMatrix(null);
+                });
             }
         }
     }

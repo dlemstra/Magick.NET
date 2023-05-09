@@ -4,22 +4,21 @@
 using ImageMagick.Configuration;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class ConfigurationFilesTests
-    {
-        public class ThePolicyProperty
-        {
-            [Fact]
-            public void ShouldBeInitialized()
-            {
-                var configurationFiles = ConfigurationFiles.Default;
+namespace Magick.NET.Tests;
 
-                Assert.NotNull(configurationFiles.Policy);
-                Assert.Equal("policy.xml", configurationFiles.Policy.FileName);
-                Assert.NotNull(configurationFiles.Policy.Data);
-                Assert.Contains(@"<policymap>", configurationFiles.Policy.Data);
-            }
+public partial class ConfigurationFilesTests
+{
+    public class ThePolicyProperty
+    {
+        [Fact]
+        public void ShouldBeInitialized()
+        {
+            var configurationFiles = ConfigurationFiles.Default;
+
+            Assert.NotNull(configurationFiles.Policy);
+            Assert.Equal("policy.xml", configurationFiles.Policy.FileName);
+            Assert.NotNull(configurationFiles.Policy.Data);
+            Assert.Contains(@"<policymap>", configurationFiles.Policy.Data);
         }
     }
 }

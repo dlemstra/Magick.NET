@@ -5,63 +5,62 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheKmeansMethod
     {
-        public class TheKmeansMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenSettingsIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenSettingsIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Throws<ArgumentNullException>("settings", () => image.Kmeans(null));
-                }
+                Assert.Throws<ArgumentNullException>("settings", () => image.Kmeans(null));
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenNumberColorsIsNegative()
+        [Fact]
+        public void ShouldThrowExceptionWhenNumberColorsIsNegative()
+        {
+            var settings = new KmeansSettings
             {
-                var settings = new KmeansSettings
-                {
-                    NumberColors = -1,
-                };
+                NumberColors = -1,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
-                }
+            using (var image = new MagickImage())
+            {
+                Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenMaxIterationsIsNegative()
+        [Fact]
+        public void ShouldThrowExceptionWhenMaxIterationsIsNegative()
+        {
+            var settings = new KmeansSettings
             {
-                var settings = new KmeansSettings
-                {
-                    MaxIterations = -1,
-                };
+                MaxIterations = -1,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
-                }
+            using (var image = new MagickImage())
+            {
+                Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
             }
+        }
 
-            [Fact]
-            public void ShouldReduceTheNumberOfColors()
+        [Fact]
+        public void ShouldReduceTheNumberOfColors()
+        {
+            var settings = new KmeansSettings
             {
-                var settings = new KmeansSettings
-                {
-                    NumberColors = 5,
-                };
+                NumberColors = 5,
+            };
 
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Kmeans(settings);
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Kmeans(settings);
 
-                    ColorAssert.Equal(new MagickColor("#f0fb6f8c3098"), image, 430, 225);
-                }
+                ColorAssert.Equal(new MagickColor("#f0fb6f8c3098"), image, 430, 225);
             }
         }
     }

@@ -4,23 +4,22 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageCollectionTests
-    {
-        public class TheRemoveAtMethod
-        {
-            [Fact]
-            public void ShouldRemoveTheImageAtTheSpecifiedIndex()
-            {
-                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-                {
-                    var second = images[1];
-                    images.RemoveAt(1);
+namespace Magick.NET.Tests;
 
-                    Assert.Equal(2, images.Count);
-                    Assert.Equal(-1, images.IndexOf(second));
-                }
+public partial class MagickImageCollectionTests
+{
+    public class TheRemoveAtMethod
+    {
+        [Fact]
+        public void ShouldRemoveTheImageAtTheSpecifiedIndex()
+        {
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
+            {
+                var second = images[1];
+                images.RemoveAt(1);
+
+                Assert.Equal(2, images.Count);
+                Assert.Equal(-1, images.IndexOf(second));
             }
         }
     }

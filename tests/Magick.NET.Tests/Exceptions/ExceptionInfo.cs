@@ -6,27 +6,26 @@
 
 using System.Runtime.InteropServices;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+/// <summary>
+/// This struct only has the fields that we need.
+/// </summary>
+[StructLayout(LayoutKind.Sequential)]
+internal unsafe struct ExceptionInfo
 {
-    /// <summary>
-    /// This struct only has the fields that we need.
-    /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
-    internal unsafe struct ExceptionInfo
-    {
-        public int
-          severity;
+    public int
+      severity;
 
-        public int
-          error_number;
+    public int
+      error_number;
 
-        public char
-          *reason;
+    public char
+      *reason;
 
-        public char
-          *description;
+    public char
+      *description;
 
-        public void
-          *exceptions;
-    }
+    public void
+      *exceptions;
 }

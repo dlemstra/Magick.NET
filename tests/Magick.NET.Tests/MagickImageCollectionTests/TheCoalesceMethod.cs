@@ -5,44 +5,43 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheCoalesceMethod
     {
-        public class TheCoalesceMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                Assert.Throws<InvalidOperationException>(() =>
                 {
-                    Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        images.Coalesce();
-                    });
-                }
-            }
-
-            [Fact]
-            public void ShouldMergeTheImages()
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Read(Files.RoseSparkleGIF);
-
-                    using (var pixels = images[1].GetPixels())
-                    {
-                        var color = pixels.GetPixel(53, 3).ToColor();
-                        Assert.Equal(0, color.A);
-                    }
-
                     images.Coalesce();
+                });
+            }
+        }
 
-                    using (var pixels = images[1].GetPixels())
-                    {
-                        var color = pixels.GetPixel(53, 3).ToColor();
-                        Assert.Equal(Quantum.Max, color.A);
-                    }
+        [Fact]
+        public void ShouldMergeTheImages()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                images.Read(Files.RoseSparkleGIF);
+
+                using (var pixels = images[1].GetPixels())
+                {
+                    var color = pixels.GetPixel(53, 3).ToColor();
+                    Assert.Equal(0, color.A);
+                }
+
+                images.Coalesce();
+
+                using (var pixels = images[1].GetPixels())
+                {
+                    var color = pixels.GetPixel(53, 3).ToColor();
+                    Assert.Equal(Quantum.Max, color.A);
                 }
             }
         }

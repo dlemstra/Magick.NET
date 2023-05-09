@@ -5,150 +5,149 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheAnnotateMethod
     {
-        public class TheAnnotateMethod
+        public class WithGravity
         {
-            public class WithGravity
+            [Fact]
+            public void ShouldThrowExceptionWhenTextIsNull()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenTextIsNull()
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, Gravity.Center));
-                    }
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenTextIsEmpty()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("text", () => image.Annotate(string.Empty, Gravity.Center));
-                    }
-                }
-
-                [Fact]
-                public void ShouldUseTheSpecifiedGravity()
-                {
-                    using (var image = new MagickImage(MagickColors.Thistle, 200, 50))
-                    {
-                        image.Settings.FontPointsize = 20;
-                        image.Settings.FillColor = MagickColors.Purple;
-                        image.Settings.StrokeColor = MagickColors.Purple;
-                        image.Annotate("Magick.NET", Gravity.East);
-
-                        ColorAssert.Equal(MagickColors.Purple, image, 196, 17);
-                        ColorAssert.Equal(MagickColors.Thistle, image, 173, 17);
-                    }
+                    Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, Gravity.Center));
                 }
             }
 
-            public class WithGeometry
+            [Fact]
+            public void ShouldThrowExceptionWhenTextIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenTextIsNull()
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4)));
-                    }
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenTextIsEmpty()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("text", () => image.Annotate(string.Empty, new MagickGeometry(1, 2, 3, 4)));
-                    }
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenGeometryIsNull()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null));
-                    }
+                    Assert.Throws<ArgumentException>("text", () => image.Annotate(string.Empty, Gravity.Center));
                 }
             }
 
-            public class WithGeometryAndGravity
+            [Fact]
+            public void ShouldUseTheSpecifiedGravity()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenTextIsNull()
+                using (var image = new MagickImage(MagickColors.Thistle, 200, 50))
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4), Gravity.Center));
-                    }
-                }
+                    image.Settings.FontPointsize = 20;
+                    image.Settings.FillColor = MagickColors.Purple;
+                    image.Settings.StrokeColor = MagickColors.Purple;
+                    image.Annotate("Magick.NET", Gravity.East);
 
-                [Fact]
-                public void ShouldThrowExceptionWhenTextIsEmpty()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("text", () => image.Annotate(string.Empty, new MagickGeometry(1, 2, 3, 4), Gravity.Center));
-                    }
+                    ColorAssert.Equal(MagickColors.Purple, image, 196, 17);
+                    ColorAssert.Equal(MagickColors.Thistle, image, 173, 17);
                 }
+            }
+        }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenGeometryIsNull()
+        public class WithGeometry
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenTextIsNull()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null, Gravity.Center));
-                    }
+                    Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4)));
                 }
             }
 
-            public class WithGeometryAndGravityAndAngle
+            [Fact]
+            public void ShouldThrowExceptionWhenTextIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenTextIsNull()
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4), Gravity.Center, 2.0));
-                    }
+                    Assert.Throws<ArgumentException>("text", () => image.Annotate(string.Empty, new MagickGeometry(1, 2, 3, 4)));
                 }
+            }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenTextIsEmpty()
+            [Fact]
+            public void ShouldThrowExceptionWhenGeometryIsNull()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("text", () => image.Annotate(string.Empty, new MagickGeometry(1, 2, 3, 4), Gravity.Center, 2.0));
-                    }
+                    Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null));
                 }
+            }
+        }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenGeometryIsNull()
+        public class WithGeometryAndGravity
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenTextIsNull()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null, Gravity.Center, 2.0));
-                    }
+                    Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4), Gravity.Center));
                 }
+            }
 
-                [Fact]
-                public void ShouldUseTheSpecifiedSettings()
+            [Fact]
+            public void ShouldThrowExceptionWhenTextIsEmpty()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage(MagickColors.GhostWhite, 200, 200))
-                    {
-                        image.Settings.FontPointsize = 30;
-                        image.Settings.FillColor = MagickColors.Orange;
-                        image.Settings.StrokeColor = MagickColors.Orange;
-                        image.Annotate("Magick.NET", new MagickGeometry(75, 125, 0, 0), Gravity.Undefined, 45);
+                    Assert.Throws<ArgumentException>("text", () => image.Annotate(string.Empty, new MagickGeometry(1, 2, 3, 4), Gravity.Center));
+                }
+            }
 
-                        ColorAssert.Equal(MagickColors.GhostWhite, image, 104, 83);
-                        ColorAssert.Equal(MagickColors.Orange, image, 117, 70);
-                    }
+            [Fact]
+            public void ShouldThrowExceptionWhenGeometryIsNull()
+            {
+                using (var image = new MagickImage())
+                {
+                    Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null, Gravity.Center));
+                }
+            }
+        }
+
+        public class WithGeometryAndGravityAndAngle
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenTextIsNull()
+            {
+                using (var image = new MagickImage())
+                {
+                    Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4), Gravity.Center, 2.0));
+                }
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenTextIsEmpty()
+            {
+                using (var image = new MagickImage())
+                {
+                    Assert.Throws<ArgumentException>("text", () => image.Annotate(string.Empty, new MagickGeometry(1, 2, 3, 4), Gravity.Center, 2.0));
+                }
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenGeometryIsNull()
+            {
+                using (var image = new MagickImage())
+                {
+                    Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null, Gravity.Center, 2.0));
+                }
+            }
+
+            [Fact]
+            public void ShouldUseTheSpecifiedSettings()
+            {
+                using (var image = new MagickImage(MagickColors.GhostWhite, 200, 200))
+                {
+                    image.Settings.FontPointsize = 30;
+                    image.Settings.FillColor = MagickColors.Orange;
+                    image.Settings.StrokeColor = MagickColors.Orange;
+                    image.Annotate("Magick.NET", new MagickGeometry(75, 125, 0, 0), Gravity.Undefined, 45);
+
+                    ColorAssert.Equal(MagickColors.GhostWhite, image, 104, 83);
+                    ColorAssert.Equal(MagickColors.Orange, image, 117, 70);
                 }
             }
         }

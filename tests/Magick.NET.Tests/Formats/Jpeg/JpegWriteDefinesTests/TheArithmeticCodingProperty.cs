@@ -6,50 +6,49 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class JpegWriteDefinesTests
 {
-    public partial class JpegWriteDefinesTests
+    public class TheArithmeticCodingProperty
     {
-        public class TheArithmeticCodingProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var defines = new JpegWriteDefines
             {
-                var defines = new JpegWriteDefines
-                {
-                    ArithmeticCoding = false,
-                };
+                ArithmeticCoding = false,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
-                }
+                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
             }
+        }
 
-            [Fact]
-            public void ShouldEncodeTheImagArarithmetic()
+        [Fact]
+        public void ShouldEncodeTheImagArarithmetic()
+        {
+            var defines = new JpegWriteDefines
             {
-                var defines = new JpegWriteDefines
-                {
-                    ArithmeticCoding = true,
-                };
+                ArithmeticCoding = true,
+            };
 
-                using (var input = new MagickImage(Files.Builtin.Logo))
+            using (var input = new MagickImage(Files.Builtin.Logo))
+            {
+                using (var memStream = new MemoryStream())
                 {
-                    using (var memStream = new MemoryStream())
+                    input.Write(memStream, defines);
+
+                    Assert.Equal("true", input.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
+
+                    memStream.Position = 0;
+                    using (var output = new MagickImage(memStream))
                     {
-                        input.Write(memStream, defines);
-
-                        Assert.Equal("true", input.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
-
-                        memStream.Position = 0;
-                        using (var output = new MagickImage(memStream))
-                        {
-                            var arithmeticCoding = output.GetAttribute("jpeg:arithmetic-coding");
-                            Assert.Equal("true", arithmeticCoding);
-                        }
+                        var arithmeticCoding = output.GetAttribute("jpeg:arithmetic-coding");
+                        Assert.Equal("true", arithmeticCoding);
                     }
                 }
             }

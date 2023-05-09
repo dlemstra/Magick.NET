@@ -5,63 +5,62 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickColorMatrixTests
 {
-    public partial class MagickColorMatrixTests
+    public class TheSetRowMethod
     {
-        public class TheSetRowMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenYTooLow()
+            => TestThrowsException(-1);
+
+        [Fact]
+        public void ShouldThrowExceptionWhenYTooHigh()
+            => TestThrowsException(2);
+
+        [Fact]
+        public void ShoulddThrowExceptionWhenValuesIsNul()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenYTooLow()
-                => TestThrowsException(-1);
+            var matrix = new MagickColorMatrix(2);
 
-            [Fact]
-            public void ShouldThrowExceptionWhenYTooHigh()
-                => TestThrowsException(2);
-
-            [Fact]
-            public void ShoulddThrowExceptionWhenValuesIsNul()
+            Assert.Throws<ArgumentNullException>("values", () =>
             {
-                var matrix = new MagickColorMatrix(2);
+                matrix.SetRow(0, null);
+            });
+        }
 
-                Assert.Throws<ArgumentNullException>("values", () =>
-                {
-                    matrix.SetRow(0, null);
-                });
-            }
+        [Fact]
+        public void ShouldSetColumnForCorrectNumberOfValues()
+        {
+            var matrix = new MagickColorMatrix(2);
 
-            [Fact]
-            public void ShouldSetColumnForCorrectNumberOfValues()
+            matrix.SetRow(1, 6, 8);
+            Assert.Equal(0, matrix.GetValue(0, 0));
+            Assert.Equal(6, matrix.GetValue(0, 1));
+            Assert.Equal(0, matrix.GetValue(1, 0));
+            Assert.Equal(8, matrix.GetValue(1, 1));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionForInvalidNumberOfValues()
+        {
+            var matrix = new MagickColorMatrix(2);
+
+            Assert.Throws<ArgumentException>("values", () =>
             {
-                var matrix = new MagickColorMatrix(2);
+                matrix.SetRow(0, 1, 2, 3);
+            });
+        }
 
-                matrix.SetRow(1, 6, 8);
-                Assert.Equal(0, matrix.GetValue(0, 0));
-                Assert.Equal(6, matrix.GetValue(0, 1));
-                Assert.Equal(0, matrix.GetValue(1, 0));
-                Assert.Equal(8, matrix.GetValue(1, 1));
-            }
+        private void TestThrowsException(int y)
+        {
+            var matrix = new MagickColorMatrix(2);
 
-            [Fact]
-            public void ShouldThrowExceptionForInvalidNumberOfValues()
+            Assert.Throws<ArgumentOutOfRangeException>("y", () =>
             {
-                var matrix = new MagickColorMatrix(2);
-
-                Assert.Throws<ArgumentException>("values", () =>
-                {
-                    matrix.SetRow(0, 1, 2, 3);
-                });
-            }
-
-            private void TestThrowsException(int y)
-            {
-                var matrix = new MagickColorMatrix(2);
-
-                Assert.Throws<ArgumentOutOfRangeException>("y", () =>
-                {
-                    matrix.SetRow(y, 1.0, 2.0);
-                });
-            }
+                matrix.SetRow(y, 1.0, 2.0);
+            });
         }
     }
 }

@@ -4,37 +4,36 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class IptcProfileTests
 {
-    public partial class IptcProfileTests
+    public class TheRemoveValueMethod
     {
-        public class TheRemoveValueMethod
+        [Fact]
+        public void ShouldRemoveTheValueAndReturnTrueWhenValueWasFound()
         {
-            [Fact]
-            public void ShouldRemoveTheValueAndReturnTrueWhenValueWasFound()
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetIptcProfile();
-                    var result = profile.RemoveValue(IptcTag.Title);
+                var profile = image.GetIptcProfile();
+                var result = profile.RemoveValue(IptcTag.Title);
 
-                    Assert.True(result);
+                Assert.True(result);
 
-                    var value = profile.GetValue(IptcTag.Title);
-                    Assert.Null(value);
-                }
+                var value = profile.GetValue(IptcTag.Title);
+                Assert.Null(value);
             }
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenProfileDoesNotContainTag()
+        [Fact]
+        public void ShouldReturnFalseWhenProfileDoesNotContainTag()
+        {
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetIptcProfile();
-                    var result = profile.RemoveValue(IptcTag.ReferenceNumber);
+                var profile = image.GetIptcProfile();
+                var result = profile.RemoveValue(IptcTag.ReferenceNumber);
 
-                    Assert.False(result);
-                }
+                Assert.False(result);
             }
         }
     }

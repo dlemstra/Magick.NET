@@ -5,38 +5,37 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PdfWriteDefinesTests
 {
-    public partial class PdfWriteDefinesTests
+    public class TheAuthorProperty
     {
-        public class TheAuthorProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenValueIsSet()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenValueIsSet()
+            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                image.Settings.SetDefines(new PdfWriteDefines
                 {
-                    image.Settings.SetDefines(new PdfWriteDefines
-                    {
-                        Author = "magick",
-                    });
+                    Author = "magick",
+                });
 
-                    Assert.Equal("magick", image.Settings.GetDefine(MagickFormat.Pdf, "author"));
-                }
+                Assert.Equal("magick", image.Settings.GetDefine(MagickFormat.Pdf, "author"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfWriteDefines
                 {
-                    image.Settings.SetDefines(new PdfWriteDefines
-                    {
-                        Author = null,
-                    });
+                    Author = null,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "author"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "author"));
             }
         }
     }

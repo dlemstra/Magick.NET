@@ -5,26 +5,25 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class DngReadDefinesTests
 {
-    public partial class DngReadDefinesTests
+    public class TheOutputColorProperty
     {
-        public class TheOutputColorProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var defines = new DngReadDefines
             {
-                var defines = new DngReadDefines
-                {
-                    OutputColor = DngOutputColor.KodakProPhotoRGB,
-                };
+                OutputColor = DngOutputColor.KodakProPhotoRGB,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Dng, "output-color"));
-                }
+                Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Dng, "output-color"));
             }
         }
     }

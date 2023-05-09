@@ -5,50 +5,49 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PngReadDefinesTests
 {
-    public partial class PngReadDefinesTests
+    public class TheChunkMallocMaxProperty
     {
-        public class TheChunkMallocMaxProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PngReadDefines
                 {
-                    image.Settings.SetDefines(new PngReadDefines
-                    {
-                        ChunkMallocMax = 20,
-                    });
+                    ChunkMallocMax = 20,
+                });
 
-                    Assert.Equal("20", image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
-                }
+                Assert.Equal("20", image.Settings.GetDefine(MagickFormat.Png, "chunk-malloc-max"));
             }
+        }
 
-            [Fact]
-            public void ShouldLimitTheChunkSize()
+        [Fact]
+        public void ShouldLimitTheChunkSize()
+        {
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Defines = new PngReadDefines
                 {
-                    Defines = new PngReadDefines
-                    {
-                        ChunkMallocMax = 2,
-                    },
+                    ChunkMallocMax = 2,
+                },
+            };
+
+            using (var image = new MagickImage())
+            {
+                var message = string.Empty;
+
+                image.Warning += (object sender, WarningEventArgs e) =>
+                {
+                    message = e.Message;
                 };
 
-                using (var image = new MagickImage())
-                {
-                    var message = string.Empty;
+                image.Read(Files.SnakewarePNG, settings);
 
-                    image.Warning += (object sender, WarningEventArgs e) =>
-                    {
-                        message = e.Message;
-                    };
-
-                    image.Read(Files.SnakewarePNG, settings);
-
-                    Assert.Contains("IHDR: chunk data is too large", message);
-                }
+                Assert.Contains("IHDR: chunk data is too large", message);
             }
         }
     }

@@ -5,26 +5,25 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class DngReadDefinesTests
 {
-    public partial class DngReadDefinesTests
+    public class TheReadThumbnailProperty
     {
-        public class TheReadThumbnailProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var defines = new DngReadDefines
             {
-                var defines = new DngReadDefines
-                {
-                    ReadThumbnail = true,
-                };
+                ReadThumbnail = true,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "read-thumbnail"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dng, "read-thumbnail"));
             }
         }
     }

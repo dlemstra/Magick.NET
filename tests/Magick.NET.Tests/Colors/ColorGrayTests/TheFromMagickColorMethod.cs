@@ -14,28 +14,27 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorGrayTests
 {
-    public partial class ColorGrayTests
+    public class TheFromMagickColorMethod
     {
-        public class TheFromMagickColorMethod
+        [Fact]
+        public void ShouldReturnNullWhenValueIsNull()
         {
-            [Fact]
-            public void ShouldReturnNullWhenValueIsNull()
-            {
-                var result = ColorGray.FromMagickColor(null);
+            var result = ColorGray.FromMagickColor(null);
 
-                Assert.Null(result);
-            }
+            Assert.Null(result);
+        }
 
-            [Fact]
-            public void ShouldInitializeTheProperties()
-            {
-                var color = new MagickColor(Quantum.Max, (QuantumType)(Quantum.Max * 0.25), (QuantumType)(Quantum.Max * 0.5));
-                var grayColor = ColorGray.FromMagickColor(color);
+        [Fact]
+        public void ShouldInitializeTheProperties()
+        {
+            var color = new MagickColor(Quantum.Max, (QuantumType)(Quantum.Max * 0.25), (QuantumType)(Quantum.Max * 0.5));
+            var grayColor = ColorGray.FromMagickColor(color);
 
-                Assert.InRange(grayColor.Shade, 0.41, 0.43);
-            }
+            Assert.InRange(grayColor.Shade, 0.41, 0.43);
         }
     }
 }

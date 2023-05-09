@@ -5,26 +5,25 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PsdReadDefinesTests
 {
-    public partial class PsdReadDefinesTests
+    public class TheReplicateProfileProperty
     {
-        public class TheReplicateProfileProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var defines = new PsdReadDefines
             {
-                var defines = new PsdReadDefines
-                {
-                    ReplicateProfile = false,
-                };
+                ReplicateProfile = false,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Psd, "replicate-profile"));
-                }
+                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Psd, "replicate-profile"));
             }
         }
     }

@@ -3,24 +3,23 @@
 
 using System.IO;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+internal sealed class PartialStream : TestStream
 {
-    internal sealed class PartialStream : TestStream
+    private bool _firstReadDone = false;
+
+    public PartialStream(Stream innerStream, bool canSeek)
+      : base(innerStream, canSeek)
     {
-        private bool _firstReadDone = false;
+    }
 
-        public PartialStream(Stream innerStream, bool canSeek)
-          : base(innerStream, canSeek)
-        {
-        }
+    public override int Read(byte[] buffer, int offset, int count)
+    {
+        if (_firstReadDone)
+            return InnerStream.Read(buffer, offset, count);
 
-        public override int Read(byte[] buffer, int offset, int count)
-        {
-            if (_firstReadDone)
-                return InnerStream.Read(buffer, offset, count);
-
-            _firstReadDone = true;
-            return InnerStream.Read(buffer, offset, count / 2);
-        }
+        _firstReadDone = true;
+        return InnerStream.Read(buffer, offset, count / 2);
     }
 }

@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheDetermineColorTypeMethod
-        {
-            [Fact]
-            public void ShouldDetermineTheColorTypeOfTheImage()
-            {
-                using (var image = new MagickImage(Files.WireframeTIF))
-                {
-                    Assert.Equal(ColorType.TrueColor, image.ColorType);
+namespace Magick.NET.Tests;
 
-                    var colorType = image.DetermineColorType();
-                    Assert.Equal(ColorType.Grayscale, colorType);
-                }
+public partial class MagickImageTests
+{
+    public class TheDetermineColorTypeMethod
+    {
+        [Fact]
+        public void ShouldDetermineTheColorTypeOfTheImage()
+        {
+            using (var image = new MagickImage(Files.WireframeTIF))
+            {
+                Assert.Equal(ColorType.TrueColor, image.ColorType);
+
+                var colorType = image.DetermineColorType();
+                Assert.Equal(ColorType.Grayscale, colorType);
             }
         }
     }

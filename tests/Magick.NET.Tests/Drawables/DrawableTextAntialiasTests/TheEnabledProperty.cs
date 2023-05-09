@@ -4,19 +4,18 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class DrawableTextAntialiasTests
-    {
-        public class TheEnabledProperty
-        {
-            [Fact]
-            public void ShouldReturnDrawableTextAntialiasThatIsEnabled()
-            {
-                var result = DrawableTextAntialias.Enabled;
+namespace Magick.NET.Tests;
 
-                Assert.True(result.IsEnabled);
-            }
+public partial class DrawableTextAntialiasTests
+{
+    public class TheEnabledProperty
+    {
+        [Fact]
+        public void ShouldReturnDrawableTextAntialiasThatIsEnabled()
+        {
+            var result = DrawableTextAntialias.Enabled;
+
+            Assert.True(result.IsEnabled);
         }
     }
 }

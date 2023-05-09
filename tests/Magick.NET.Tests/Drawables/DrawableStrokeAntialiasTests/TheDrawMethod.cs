@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class DrawableStrokeAntialiasTests
-    {
-        public class TheDrawMethod
-        {
-            [Fact]
-            public void ShouldDrawOnDrawingWand()
-            {
-                IDrawingWand drawableStrokeAntialias = DrawableStrokeAntialias.Enabled;
+namespace Magick.NET.Tests;
 
-                using var image = new MagickImage();
-                var wand = new DrawingWand(image);
-                drawableStrokeAntialias.Draw(wand);
-            }
+public partial class DrawableStrokeAntialiasTests
+{
+    public class TheDrawMethod
+    {
+        [Fact]
+        public void ShouldDrawOnDrawingWand()
+        {
+            IDrawingWand drawableStrokeAntialias = DrawableStrokeAntialias.Enabled;
+
+            using var image = new MagickImage();
+            var wand = new DrawingWand(image);
+            drawableStrokeAntialias.Draw(wand);
         }
     }
 }

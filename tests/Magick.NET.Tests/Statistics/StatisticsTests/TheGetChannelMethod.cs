@@ -4,23 +4,22 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class StatisticsTests
-    {
-        public class TheGetChannelMethod
-        {
-            [Fact]
-            public void ShouldReturnNullWhenImageDoesNotContainThatChannel()
-            {
-                using (var image = new MagickImage(Files.SnakewarePNG))
-                {
-                    var statistics = image.Statistics();
+namespace Magick.NET.Tests;
 
-                    Assert.Null(statistics.GetChannel(PixelChannel.Green));
-                    Assert.Null(statistics.GetChannel(PixelChannel.Blue));
-                    Assert.Null(statistics.GetChannel(PixelChannel.Black));
-                }
+public partial class StatisticsTests
+{
+    public class TheGetChannelMethod
+    {
+        [Fact]
+        public void ShouldReturnNullWhenImageDoesNotContainThatChannel()
+        {
+            using (var image = new MagickImage(Files.SnakewarePNG))
+            {
+                var statistics = image.Statistics();
+
+                Assert.Null(statistics.GetChannel(PixelChannel.Green));
+                Assert.Null(statistics.GetChannel(PixelChannel.Blue));
+                Assert.Null(statistics.GetChannel(PixelChannel.Black));
             }
         }
     }

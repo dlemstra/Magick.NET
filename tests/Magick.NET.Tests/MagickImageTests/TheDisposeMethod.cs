@@ -5,23 +5,22 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheDisposeMethod
-        {
-            [Fact]
-            public void ShouldDetermineTheColorTypeOfTheImage()
-            {
-                var image = new MagickImage();
-                image.Dispose();
+namespace Magick.NET.Tests;
 
-                Assert.Throws<ObjectDisposedException>(() =>
-                {
-                    image.HasAlpha = true;
-                });
-            }
+public partial class MagickImageTests
+{
+    public class TheDisposeMethod
+    {
+        [Fact]
+        public void ShouldDetermineTheColorTypeOfTheImage()
+        {
+            var image = new MagickImage();
+            image.Dispose();
+
+            Assert.Throws<ObjectDisposedException>(() =>
+            {
+                image.HasAlpha = true;
+            });
         }
     }
 }

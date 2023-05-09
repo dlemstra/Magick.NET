@@ -4,65 +4,64 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheBorderMethod
     {
-        public class TheBorderMethod
+        [Fact]
+        public void ShouldAddBorderOnAllSides()
         {
-            [Fact]
-            public void ShouldAddBorderOnAllSides()
+            using (var image = new MagickImage("xc:red", 1, 1))
             {
-                using (var image = new MagickImage("xc:red", 1, 1))
-                {
-                    image.BorderColor = MagickColors.Green;
-                    image.Border(3);
+                image.BorderColor = MagickColors.Green;
+                image.Border(3);
 
-                    Assert.Equal(7, image.Width);
-                    Assert.Equal(7, image.Height);
-                    ColorAssert.Equal(MagickColors.Green, image, 1, 1);
-                }
+                Assert.Equal(7, image.Width);
+                Assert.Equal(7, image.Height);
+                ColorAssert.Equal(MagickColors.Green, image, 1, 1);
             }
+        }
 
-            [Fact]
-            public void ShouldOnlyAddVerticalBorderWhenOnlyWidthIsSpecified()
+        [Fact]
+        public void ShouldOnlyAddVerticalBorderWhenOnlyWidthIsSpecified()
+        {
+            using (var image = new MagickImage("xc:red", 1, 1))
             {
-                using (var image = new MagickImage("xc:red", 1, 1))
-                {
-                    image.Border(3, 0);
+                image.Border(3, 0);
 
-                    Assert.Equal(7, image.Width);
-                    Assert.Equal(1, image.Height);
-                }
+                Assert.Equal(7, image.Width);
+                Assert.Equal(1, image.Height);
             }
+        }
 
-            [Fact]
-            public void ShouldOnlyAddHorizontalBorderWhenOnlyHeightIsSpecified()
+        [Fact]
+        public void ShouldOnlyAddHorizontalBorderWhenOnlyHeightIsSpecified()
+        {
+            using (var image = new MagickImage("xc:red", 1, 1))
             {
-                using (var image = new MagickImage("xc:red", 1, 1))
-                {
-                    image.Border(0, 3);
+                image.Border(0, 3);
 
-                    Assert.Equal(1, image.Width);
-                    Assert.Equal(7, image.Height);
-                }
+                Assert.Equal(1, image.Width);
+                Assert.Equal(7, image.Height);
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheSpecifiedPercentage()
+        [Fact]
+        public void ShouldUseTheSpecifiedPercentage()
+        {
+            using (var image = new MagickImage("xc:red", 10, 20))
             {
-                using (var image = new MagickImage("xc:red", 10, 20))
-                {
-                    image.BorderColor = MagickColors.Green;
-                    image.Border(new Percentage(10));
+                image.BorderColor = MagickColors.Green;
+                image.Border(new Percentage(10));
 
-                    Assert.Equal(12, image.Width);
-                    Assert.Equal(24, image.Height);
-                    ColorAssert.Equal(MagickColors.Green, image, 1, 1);
-                    ColorAssert.Equal(MagickColors.Red, image, 1, 2);
-                    ColorAssert.Equal(MagickColors.Red, image, 10, 21);
-                    ColorAssert.Equal(MagickColors.Green, image, 10, 22);
-                }
+                Assert.Equal(12, image.Width);
+                Assert.Equal(24, image.Height);
+                ColorAssert.Equal(MagickColors.Green, image, 1, 1);
+                ColorAssert.Equal(MagickColors.Red, image, 1, 2);
+                ColorAssert.Equal(MagickColors.Red, image, 10, 21);
+                ColorAssert.Equal(MagickColors.Green, image, 10, 22);
             }
         }
     }

@@ -9,17 +9,16 @@ using Xunit.Abstractions;
 
 [assembly: TestCollectionOrderer("Magick.NET.Tests.TestCollectionOrderer", "Magick.NET.Tests")]
 
-namespace Magick.NET.Tests
-{
-    public sealed class TestCollectionOrderer : ITestCollectionOrderer
-    {
-        public IEnumerable<ITestCollection> OrderTestCollections(IEnumerable<ITestCollection> testCollections)
-        {
-            if (!TestInitializer.Initialize())
-                return null;
+namespace Magick.NET.Tests;
 
-            return testCollections;
-        }
+public sealed class TestCollectionOrderer : ITestCollectionOrderer
+{
+    public IEnumerable<ITestCollection> OrderTestCollections(IEnumerable<ITestCollection> testCollections)
+    {
+        if (!TestInitializer.Initialize())
+            return null;
+
+        return testCollections;
     }
 }
 

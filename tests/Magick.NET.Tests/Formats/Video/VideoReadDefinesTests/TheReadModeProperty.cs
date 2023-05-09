@@ -5,52 +5,51 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class VideoReadDefinesTests
 {
-    public partial class VideoReadDefinesTests
+    public class TheReadModeProperty
     {
-        public class TheReadModeProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenToPamWhenValueIsByFrame()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenToPamWhenValueIsByFrame()
+            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
                 {
-                    image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
-                    {
-                        ReadMode = VideoReadMode.ByFrame,
-                    });
+                    ReadMode = VideoReadMode.ByFrame,
+                });
 
-                    Assert.Equal("pam", image.Settings.GetDefine("video:intermediate-format"));
-                }
+                Assert.Equal("pam", image.Settings.GetDefine("video:intermediate-format"));
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheDefineWhenToWebpWhenValueIsByDuration()
+        [Fact]
+        public void ShouldSetTheDefineWhenToWebpWhenValueIsByDuration()
+        {
+            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
                 {
-                    image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
-                    {
-                        ReadMode = VideoReadMode.ByDuration,
-                    });
+                    ReadMode = VideoReadMode.ByDuration,
+                });
 
-                    Assert.Equal("webp", image.Settings.GetDefine("video:intermediate-format"));
-                }
+                Assert.Equal("webp", image.Settings.GetDefine("video:intermediate-format"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
                 {
-                    image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4)
-                    {
-                        ReadMode = null,
-                    });
+                    ReadMode = null,
+                });
 
-                    Assert.Null(image.Settings.GetDefine("video:intermediate-format"));
-                }
+                Assert.Null(image.Settings.GetDefine("video:intermediate-format"));
             }
         }
     }

@@ -5,26 +5,25 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class DdsWriteDefinesTests
 {
-    public partial class DdsWriteDefinesTests
+    public class TheFastMipmapsProperty
     {
-        public class TheFastMipmapsProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                var defines = new DdsWriteDefines
                 {
-                    var defines = new DdsWriteDefines
-                    {
-                        FastMipmaps = true,
-                    };
+                    FastMipmaps = true,
+                };
 
-                    image.Settings.SetDefines(defines);
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Dds, "fast-mipmaps"));
             }
         }
     }

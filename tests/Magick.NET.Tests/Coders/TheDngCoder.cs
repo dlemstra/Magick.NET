@@ -5,40 +5,39 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class TheDngCoder
 {
-    public class TheDngCoder
+    [Fact]
+    public void ShouldReadTheThumbnail()
     {
-        [Fact]
-        public void ShouldReadTheThumbnail()
+        var settings = new MagickReadSettings
         {
-            var settings = new MagickReadSettings
+            Defines = new DngReadDefines
             {
-                Defines = new DngReadDefines
-                {
-                    ReadThumbnail = true,
-                },
-            };
+                ReadThumbnail = true,
+            },
+        };
 
-            using var image = new MagickImage();
-            image.Ping(Files.Coders.RawKodakDC50KDC, settings);
+        using var image = new MagickImage();
+        image.Ping(Files.Coders.RawKodakDC50KDC, settings);
 
-            var profile = image.GetProfile("dng:thumbnail");
-            Assert.NotNull(profile);
+        var profile = image.GetProfile("dng:thumbnail");
+        Assert.NotNull(profile);
 
-            var data = profile.GetData();
-            Assert.NotNull(data);
-            Assert.Equal(18432, data.Length);
-        }
+        var data = profile.GetData();
+        Assert.NotNull(data);
+        Assert.Equal(18432, data.Length);
+    }
 
-        [Fact]
-        public void ShouldNotReadTheThumbnailByDefault()
-        {
-            using var image = new MagickImage();
-            image.Ping(Files.Coders.RawKodakDC50KDC);
+    [Fact]
+    public void ShouldNotReadTheThumbnailByDefault()
+    {
+        using var image = new MagickImage();
+        image.Ping(Files.Coders.RawKodakDC50KDC);
 
-            var profile = image.GetProfile("dng:thumbnail");
-            Assert.Null(profile);
-        }
+        var profile = image.GetProfile("dng:thumbnail");
+        Assert.Null(profile);
     }
 }

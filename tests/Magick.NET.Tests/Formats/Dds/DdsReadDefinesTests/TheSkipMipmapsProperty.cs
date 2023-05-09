@@ -5,49 +5,48 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class DdsReadDefinesTests
 {
-    public partial class DdsReadDefinesTests
+    public class TheSkipMipmapsProperty
     {
-        public class TheSkipMipmapsProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Defines = new DdsReadDefines
                 {
-                    Defines = new DdsReadDefines
-                    {
-                        SkipMipmaps = false,
-                    },
-                };
+                    SkipMipmaps = false,
+                },
+            };
 
-                using (var images = new MagickImageCollection())
-                {
-                    images.Read(Files.Coders.TestDDS, settings);
+            using (var images = new MagickImageCollection())
+            {
+                images.Read(Files.Coders.TestDDS, settings);
 
-                    Assert.Equal(5, images.Count);
-                    Assert.Equal("false", images[0].Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
-                }
+                Assert.Equal(5, images.Count);
+                Assert.Equal("false", images[0].Settings.GetDefine(MagickFormat.Dds, "skip-mipmaps"));
             }
+        }
 
-            [Fact]
-            public void ShouldSkipTheMipmaps()
+        [Fact]
+        public void ShouldSkipTheMipmaps()
+        {
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Defines = new DdsReadDefines
                 {
-                    Defines = new DdsReadDefines
-                    {
-                        SkipMipmaps = true,
-                    },
-                };
+                    SkipMipmaps = true,
+                },
+            };
 
-                using (var images = new MagickImageCollection())
-                {
-                    images.Read(Files.Coders.TestDDS, settings);
+            using (var images = new MagickImageCollection())
+            {
+                images.Read(Files.Coders.TestDDS, settings);
 
-                    Assert.Single(images);
-                }
+                Assert.Single(images);
             }
         }
     }

@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    public class ThePolicy
     {
-        public class ThePolicy
+        /// <summary>
+        /// The policy is initialized with <see cref="TestInitializer.ModifyPolicy"/> at the start of all tests.
+        /// </summary>
+        [Fact]
+        public void ShouldCauseAnExceptionWhenThePalmCoderIsDisabled()
         {
-            /// <summary>
-            /// The policy is initialized with <see cref="TestInitializer.ModifyPolicy"/> at the start of all tests.
-            /// </summary>
-            [Fact]
-            public void ShouldCauseAnExceptionWhenThePalmCoderIsDisabled()
+            using var tempFile = new TemporaryFile("test.palm");
+            using (var fs = tempFile.File.OpenWrite())
             {
-                using var tempFile = new TemporaryFile("test.palm");
-                using (var fs = tempFile.File.OpenWrite())
-                {
-                    var bytes = new byte[4] { 0, 0, 0, 0 };
-                    fs.Write(bytes, 0, bytes.Length);
-                }
-
-                using var image = new MagickImage();
-
-                Assert.Throws<MagickPolicyErrorException>(() => image.Read(tempFile.File));
+                var bytes = new byte[4] { 0, 0, 0, 0 };
+                fs.Write(bytes, 0, bytes.Length);
             }
+
+            using var image = new MagickImage();
+
+            Assert.Throws<MagickPolicyErrorException>(() => image.Read(tempFile.File));
         }
     }
 }

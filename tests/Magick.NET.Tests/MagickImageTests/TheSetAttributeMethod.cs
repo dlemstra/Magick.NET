@@ -5,107 +5,106 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSetAttributeMethod
     {
-        public class TheSetAttributeMethod
+        public class WithBoolean
         {
-            public class WithBoolean
+            [Fact]
+            public void ShouldThrowExceptionWhenNameIsNull()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenNameIsNull()
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("name", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("name", () =>
-                        {
-                            image.SetAttribute(null, true);
-                        });
-                    }
-                }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenNameIsEmpty()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("name", () =>
-                        {
-                            image.SetAttribute(string.Empty, true);
-                        });
-                    }
-                }
-
-                [Fact]
-                public void ShouldSetValue()
-                {
-                    using (var image = new MagickImage())
-                    {
-                        image.SetAttribute("test", true);
-                        Assert.Equal("true", image.GetAttribute("test"));
-                    }
+                        image.SetAttribute(null, true);
+                    });
                 }
             }
 
-            public class WithString
+            [Fact]
+            public void ShouldThrowExceptionWhenNameIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenNameIsNull()
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentException>("name", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("name", () =>
-                        {
-                            image.SetAttribute(null, "foo");
-                        });
-                    }
+                        image.SetAttribute(string.Empty, true);
+                    });
                 }
+            }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenNameIsEmpty()
+            [Fact]
+            public void ShouldSetValue()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("name", () =>
-                        {
-                            image.SetAttribute(string.Empty, "foo");
-                        });
-                    }
+                    image.SetAttribute("test", true);
+                    Assert.Equal("true", image.GetAttribute("test"));
                 }
+            }
+        }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenValueIsNull()
+        public class WithString
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenNameIsNull()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("name", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("value", () =>
-                        {
-                            image.SetAttribute("foo", null);
-                        });
-                    }
+                        image.SetAttribute(null, "foo");
+                    });
                 }
+            }
 
-                [Fact]
-                public void ShouldSetEmptyValue()
+            [Fact]
+            public void ShouldThrowExceptionWhenNameIsEmpty()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentException>("name", () =>
                     {
-                        image.SetAttribute("test", string.Empty);
-                        Assert.Equal(string.Empty, image.GetAttribute("test"));
-                    }
+                        image.SetAttribute(string.Empty, "foo");
+                    });
                 }
+            }
 
-                [Fact]
-                public void ShouldSetValue()
+            [Fact]
+            public void ShouldThrowExceptionWhenValueIsNull()
+            {
+                using (var image = new MagickImage())
                 {
-                    using (var image = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("value", () =>
                     {
-                        image.SetAttribute("test", "123");
-                        Assert.Equal("123", image.GetAttribute("test"));
+                        image.SetAttribute("foo", null);
+                    });
+                }
+            }
 
-                        image.SetArtifact("foo", "bar");
-                    }
+            [Fact]
+            public void ShouldSetEmptyValue()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.SetAttribute("test", string.Empty);
+                    Assert.Equal(string.Empty, image.GetAttribute("test"));
+                }
+            }
+
+            [Fact]
+            public void ShouldSetValue()
+            {
+                using (var image = new MagickImage())
+                {
+                    image.SetAttribute("test", "123");
+                    Assert.Equal("123", image.GetAttribute("test"));
+
+                    image.SetArtifact("foo", "bar");
                 }
             }
         }

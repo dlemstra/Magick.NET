@@ -5,21 +5,20 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class PsdWriteDefinesTests
-    {
-        public class TheConstructor
-        {
-            [Fact]
-            public void ShouldSetAdditionalInfoToNullWhenNotSpecified()
-            {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(new PsdWriteDefines());
+namespace Magick.NET.Tests;
 
-                    Assert.Equal("none", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
-                }
+public partial class PsdWriteDefinesTests
+{
+    public class TheConstructor
+    {
+        [Fact]
+        public void ShouldSetAdditionalInfoToNullWhenNotSpecified()
+        {
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(new PsdWriteDefines());
+
+                Assert.Equal("none", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
             }
         }
     }

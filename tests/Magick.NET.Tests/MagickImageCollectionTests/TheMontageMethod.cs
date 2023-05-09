@@ -5,55 +5,54 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheMontageMethod
     {
-        public class TheMontageMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<InvalidOperationException>(() => images.Montage(null));
-                }
+                Assert.Throws<InvalidOperationException>(() => images.Montage(null));
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSettingsIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenSettingsIsNull()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Add(new MagickImage(MagickColors.Magenta, 1, 1));
+                images.Add(new MagickImage(MagickColors.Magenta, 1, 1));
 
-                    Assert.Throws<ArgumentNullException>("settings", () =>
-                    {
-                        images.Montage(null);
-                    });
-                }
+                Assert.Throws<ArgumentNullException>("settings", () =>
+                {
+                    images.Montage(null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldMontageTheImages()
+        [Fact]
+        public void ShouldMontageTheImages()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                for (var i = 0; i < 9; i++)
+                    images.Add(Files.Builtin.Logo);
+
+                var settings = new MontageSettings
                 {
-                    for (var i = 0; i < 9; i++)
-                        images.Add(Files.Builtin.Logo);
+                    Geometry = new MagickGeometry("200x200"),
+                    TileGeometry = new MagickGeometry("2x"),
+                };
 
-                    var settings = new MontageSettings
-                    {
-                        Geometry = new MagickGeometry("200x200"),
-                        TileGeometry = new MagickGeometry("2x"),
-                    };
-
-                    using (var montageResult = images.Montage(settings))
-                    {
-                        Assert.NotNull(montageResult);
-                        Assert.Equal(400, montageResult.Width);
-                        Assert.Equal(1000, montageResult.Height);
-                    }
+                using (var montageResult = images.Montage(settings))
+                {
+                    Assert.NotNull(montageResult);
+                    Assert.Equal(400, montageResult.Width);
+                    Assert.Equal(1000, montageResult.Height);
                 }
             }
         }

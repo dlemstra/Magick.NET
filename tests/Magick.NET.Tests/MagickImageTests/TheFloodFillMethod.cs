@@ -5,130 +5,129 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheFloodFillMethod
     {
-        public class TheFloodFillMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenColorIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenColorIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("color", () =>
-                {
-                    using (var image = new MagickImage(MagickColors.White, 2, 2))
-                    {
-                        image.FloodFill((MagickColor)null, 0, 0);
-                    }
-                });
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenTargetColorIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("target", () =>
-                {
-                    using (var image = new MagickImage(MagickColors.White, 2, 2))
-                    {
-                        image.FloodFill(MagickColors.Purple, 0, 0, null);
-                    }
-                });
-            }
-
-            [Fact]
-            public void ShouldChangeTheColors()
+            Assert.Throws<ArgumentNullException>("color", () =>
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
-                    image.FloodFill(MagickColors.Red, 0, 0);
-
-                    ColorAssert.Equal(MagickColors.Red, image, 0, 0);
-                    ColorAssert.Equal(MagickColors.Red, image, 0, 1);
-                    ColorAssert.Equal(MagickColors.Red, image, 1, 0);
-                    ColorAssert.Equal(MagickColors.Red, image, 1, 1);
+                    image.FloodFill((MagickColor)null, 0, 0);
                 }
-            }
+            });
+        }
 
-            [Fact]
-            public void ShouldChangeTheTargetColors()
+        [Fact]
+        public void ShouldThrowExceptionWhenTargetColorIsNull()
+        {
+            Assert.Throws<ArgumentNullException>("target", () =>
             {
                 using (var image = new MagickImage(MagickColors.White, 2, 2))
                 {
-                    using (var green = new MagickImage(MagickColors.Green, 1, 1))
-                    {
-                        image.Composite(green, 0, 0, CompositeOperator.Over);
-                    }
-
-                    image.FloodFill(MagickColors.Red, 0, 0, MagickColors.Green);
-
-                    ColorAssert.Equal(MagickColors.Red, image, 0, 0);
-                    ColorAssert.Equal(MagickColors.White, image, 0, 1);
-                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
-                    ColorAssert.Equal(MagickColors.White, image, 1, 1);
+                    image.FloodFill(MagickColors.Purple, 0, 0, null);
                 }
-            }
+            });
+        }
 
-            [Fact]
-            public void ShouldChangeTheNeighboursWithTargetColor()
+        [Fact]
+        public void ShouldChangeTheColors()
+        {
+            using (var image = new MagickImage(MagickColors.White, 2, 2))
             {
-                using (var image = new MagickImage(MagickColors.White, 2, 2))
-                {
-                    using (var green = new MagickImage(MagickColors.Green, 1, 1))
-                    {
-                        image.Composite(green, 0, 1, CompositeOperator.Over);
-                    }
+                image.FloodFill(MagickColors.Red, 0, 0);
 
-                    image.FloodFill(MagickColors.Red, 0, 0, MagickColors.Green);
-
-                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
-                    ColorAssert.Equal(MagickColors.Red, image, 0, 1);
-                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
-                    ColorAssert.Equal(MagickColors.White, image, 1, 1);
-                }
+                ColorAssert.Equal(MagickColors.Red, image, 0, 0);
+                ColorAssert.Equal(MagickColors.Red, image, 0, 1);
+                ColorAssert.Equal(MagickColors.Red, image, 1, 0);
+                ColorAssert.Equal(MagickColors.Red, image, 1, 1);
             }
+        }
 
-            [Fact]
-            public void ShouldNotChangeTheTargetColors()
+        [Fact]
+        public void ShouldChangeTheTargetColors()
+        {
+            using (var image = new MagickImage(MagickColors.White, 2, 2))
             {
-                using (var image = new MagickImage(MagickColors.White, 2, 2))
+                using (var green = new MagickImage(MagickColors.Green, 1, 1))
                 {
-                    using (var green = new MagickImage(MagickColors.Green, 1, 1))
-                    {
-                        image.Composite(green, 1, 1, CompositeOperator.Over);
-                    }
-
-                    image.FloodFill(MagickColors.Red, 0, 0, MagickColors.Green);
-
-                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
-                    ColorAssert.Equal(MagickColors.White, image, 0, 1);
-                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
-                    ColorAssert.Equal(MagickColors.Green, image, 1, 1);
+                    image.Composite(green, 0, 0, CompositeOperator.Over);
                 }
+
+                image.FloodFill(MagickColors.Red, 0, 0, MagickColors.Green);
+
+                ColorAssert.Equal(MagickColors.Red, image, 0, 0);
+                ColorAssert.Equal(MagickColors.White, image, 0, 1);
+                ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                ColorAssert.Equal(MagickColors.White, image, 1, 1);
             }
+        }
 
-            [Fact]
-            public void ShouldChangeTheColorsWithTheSameTransparency()
+        [Fact]
+        public void ShouldChangeTheNeighboursWithTargetColor()
+        {
+            using (var image = new MagickImage(MagickColors.White, 2, 2))
             {
-                using (var image = new MagickImage(MagickColors.White, 2, 2))
+                using (var green = new MagickImage(MagickColors.Green, 1, 1))
                 {
-                    image.HasAlpha = true;
-
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var pixel = pixels.GetPixel(1, 1);
-                        pixel.SetChannel(3, 0);
-
-                        pixels.SetPixel(pixel);
-                    }
-
-                    image.Settings.FillColor = MagickColors.Purple;
-                    image.FloodFill(0, 0, 0);
-
-                    ColorAssert.Equal(MagickColors.White, image, 0, 0);
-                    ColorAssert.Equal(MagickColors.White, image, 0, 1);
-                    ColorAssert.Equal(MagickColors.White, image, 1, 0);
-                    ColorAssert.Equal(new MagickColor("#ffffff00"), image, 1, 1);
+                    image.Composite(green, 0, 1, CompositeOperator.Over);
                 }
+
+                image.FloodFill(MagickColors.Red, 0, 0, MagickColors.Green);
+
+                ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                ColorAssert.Equal(MagickColors.Red, image, 0, 1);
+                ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                ColorAssert.Equal(MagickColors.White, image, 1, 1);
+            }
+        }
+
+        [Fact]
+        public void ShouldNotChangeTheTargetColors()
+        {
+            using (var image = new MagickImage(MagickColors.White, 2, 2))
+            {
+                using (var green = new MagickImage(MagickColors.Green, 1, 1))
+                {
+                    image.Composite(green, 1, 1, CompositeOperator.Over);
+                }
+
+                image.FloodFill(MagickColors.Red, 0, 0, MagickColors.Green);
+
+                ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                ColorAssert.Equal(MagickColors.White, image, 0, 1);
+                ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                ColorAssert.Equal(MagickColors.Green, image, 1, 1);
+            }
+        }
+
+        [Fact]
+        public void ShouldChangeTheColorsWithTheSameTransparency()
+        {
+            using (var image = new MagickImage(MagickColors.White, 2, 2))
+            {
+                image.HasAlpha = true;
+
+                using (var pixels = image.GetPixelsUnsafe())
+                {
+                    var pixel = pixels.GetPixel(1, 1);
+                    pixel.SetChannel(3, 0);
+
+                    pixels.SetPixel(pixel);
+                }
+
+                image.Settings.FillColor = MagickColors.Purple;
+                image.FloodFill(0, 0, 0);
+
+                ColorAssert.Equal(MagickColors.White, image, 0, 0);
+                ColorAssert.Equal(MagickColors.White, image, 0, 1);
+                ColorAssert.Equal(MagickColors.White, image, 1, 0);
+                ColorAssert.Equal(new MagickColor("#ffffff00"), image, 1, 1);
             }
         }
     }

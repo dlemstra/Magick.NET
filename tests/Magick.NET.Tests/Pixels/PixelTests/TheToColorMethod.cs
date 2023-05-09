@@ -15,87 +15,86 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PixelTests
 {
-    public partial class PixelTests
+    public class TheToColorMethod
     {
-        public class TheToColorMethod
+        [Fact]
+        public void ShouldReturnNullWhenImageHasNoChannels()
         {
-            [Fact]
-            public void ShouldReturnNullWhenImageHasNoChannels()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                using (var pixels = new UnsafePixelCollection(image))
                 {
-                    using (var pixels = new UnsafePixelCollection(image))
-                    {
-                        var pixel = Pixel.Create(pixels, 0, 0, Array.Empty<QuantumType>());
+                    var pixel = Pixel.Create(pixels, 0, 0, Array.Empty<QuantumType>());
 
-                        Assert.Null(pixel.ToColor());
-                    }
+                    Assert.Null(pixel.ToColor());
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueForOneChannel()
+        [Fact]
+        public void ShouldReturnTheCorrectValueForOneChannel()
+        {
+            var pixel = new Pixel(0, 0, 1);
+            pixel.SetValues(new QuantumType[] { Quantum.Max });
+            ColorAssert.Equal(new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max), pixel.ToColor());
+        }
+
+        [Fact]
+        public void ShouldReturnTheCorrectValueForTwoChannels()
+        {
+            var pixel = new Pixel(0, 0, 2);
+            pixel.SetValues(new QuantumType[] { Quantum.Max, 0 });
+            ColorAssert.Equal(new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max, 0), pixel.ToColor());
+        }
+
+        [Fact]
+        public void ShouldReturnTheCorrectValueForThreeChannels()
+        {
+            var half = (QuantumType)(Quantum.Max / 2.0);
+
+            var pixel = new Pixel(0, 0, 3);
+            pixel.SetValues(new QuantumType[] { Quantum.Max, 0, half });
+            ColorAssert.Equal(new MagickColor(Quantum.Max, 0, half), pixel.ToColor());
+        }
+
+        [Fact]
+        public void ShouldReturnTheCorrectValueForFourRgbChannels()
+        {
+            var half = (QuantumType)(Quantum.Max / 2.0);
+
+            var pixel = new Pixel(0, 0, 4);
+            pixel.SetValues(new QuantumType[] { 0, half, Quantum.Max, Quantum.Max });
+            ColorAssert.Equal(new MagickColor(0, half, Quantum.Max, Quantum.Max), pixel.ToColor());
+        }
+
+        [Fact]
+        public void ShouldReturnTheCorrectValueForFourCmykChannels()
+        {
+            using (var image = new MagickImage("xc:cmyk(0, 127.499, 255, 255)", 1, 1))
             {
-                var pixel = new Pixel(0, 0, 1);
-                pixel.SetValues(new QuantumType[] { Quantum.Max });
-                ColorAssert.Equal(new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max), pixel.ToColor());
-            }
-
-            [Fact]
-            public void ShouldReturnTheCorrectValueForTwoChannels()
-            {
-                var pixel = new Pixel(0, 0, 2);
-                pixel.SetValues(new QuantumType[] { Quantum.Max, 0 });
-                ColorAssert.Equal(new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max, 0), pixel.ToColor());
-            }
-
-            [Fact]
-            public void ShouldReturnTheCorrectValueForThreeChannels()
-            {
-                var half = (QuantumType)(Quantum.Max / 2.0);
-
-                var pixel = new Pixel(0, 0, 3);
-                pixel.SetValues(new QuantumType[] { Quantum.Max, 0, half });
-                ColorAssert.Equal(new MagickColor(Quantum.Max, 0, half), pixel.ToColor());
-            }
-
-            [Fact]
-            public void ShouldReturnTheCorrectValueForFourRgbChannels()
-            {
-                var half = (QuantumType)(Quantum.Max / 2.0);
-
-                var pixel = new Pixel(0, 0, 4);
-                pixel.SetValues(new QuantumType[] { 0, half, Quantum.Max, Quantum.Max });
-                ColorAssert.Equal(new MagickColor(0, half, Quantum.Max, Quantum.Max), pixel.ToColor());
-            }
-
-            [Fact]
-            public void ShouldReturnTheCorrectValueForFourCmykChannels()
-            {
-                using (var image = new MagickImage("xc:cmyk(0, 127.499, 255, 255)", 1, 1))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var pixel = pixels.GetPixel(0, 0);
+                    var pixel = pixels.GetPixel(0, 0);
 
-                        var half = (QuantumType)(Quantum.Max / 2.0);
-                        var color = new ColorCMYK(0, half, Quantum.Max, Quantum.Max);
-                        ColorAssert.Equal(color.ToMagickColor(), pixel.ToColor());
-                    }
+                    var half = (QuantumType)(Quantum.Max / 2.0);
+                    var color = new ColorCMYK(0, half, Quantum.Max, Quantum.Max);
+                    ColorAssert.Equal(color.ToMagickColor(), pixel.ToColor());
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueForFourFiveChannels()
-            {
-                var half = (QuantumType)(Quantum.Max / 2.0);
+        [Fact]
+        public void ShouldReturnTheCorrectValueForFourFiveChannels()
+        {
+            var half = (QuantumType)(Quantum.Max / 2.0);
 
-                var pixel = new Pixel(0, 0, 5);
-                pixel.SetValues(new QuantumType[] { Quantum.Max, 0, half, Quantum.Max, Quantum.Max });
-                ColorAssert.Equal(new MagickColor(Quantum.Max, 0, half, Quantum.Max), pixel.ToColor());
-            }
+            var pixel = new Pixel(0, 0, 5);
+            pixel.SetValues(new QuantumType[] { Quantum.Max, 0, half, Quantum.Max, Quantum.Max });
+            ColorAssert.Equal(new MagickColor(Quantum.Max, 0, half, Quantum.Max), pixel.ToColor());
         }
     }
 }

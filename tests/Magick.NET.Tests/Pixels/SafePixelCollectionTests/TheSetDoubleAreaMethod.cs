@@ -5,100 +5,99 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TheSetDoubleAreaMethod
 {
-    public partial class TheSetDoubleAreaMethod
+    public class TheSetAreaMethod
     {
-        public class TheSetAreaMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayIsNull()
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentNullException>("values", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("values", () =>
-                        {
-                            pixels.SetDoubleArea(10, 10, 1000, 1000, null);
-                        });
-                    }
+                        pixels.SetDoubleArea(10, 10, 1000, 1000, null);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayHasInvalidSize()
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayHasInvalidSize()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentException>("values", () =>
                     {
-                        Assert.Throws<ArgumentException>("values", () =>
-                        {
-                            pixels.SetDoubleArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
-                        });
-                    }
+                        pixels.SetDoubleArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayHasTooManyValues()
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayHasTooManyValues()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentException>("values", () =>
                     {
-                        Assert.Throws<ArgumentException>("values", () =>
-                        {
-                            var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                            pixels.SetDoubleArea(10, 10, 113, 108, values);
-                        });
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixels())
-                    {
-                        var values = new double[113 * 108 * image.ChannelCount];
+                        var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
                         pixels.SetDoubleArea(10, 10, 113, 108, values);
-
-                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                    }
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
+        [Fact]
+        public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
-                    {
-                        Assert.Throws<ArgumentNullException>("geometry", () =>
-                        {
-                            pixels.SetDoubleArea(null, new double[] { 0 });
-                        });
-                    }
+                    var values = new double[113 * 108 * image.ChannelCount];
+                    pixels.SetDoubleArea(10, 10, 113, 108, values);
+
+                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentNullException>("geometry", () =>
                     {
-                        var values = new double[113 * 108 * image.ChannelCount];
-                        pixels.SetDoubleArea(new MagickGeometry(10, 10, 113, 108), values);
+                        pixels.SetDoubleArea(null, new double[] { 0 });
+                    });
+                }
+            }
+        }
 
-                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                    }
+        [Fact]
+        public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (var pixels = image.GetPixels())
+                {
+                    var values = new double[113 * 108 * image.ChannelCount];
+                    pixels.SetDoubleArea(new MagickGeometry(10, 10, 113, 108), values);
+
+                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
             }
         }

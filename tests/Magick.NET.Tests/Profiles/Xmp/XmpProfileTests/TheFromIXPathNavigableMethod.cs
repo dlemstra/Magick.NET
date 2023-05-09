@@ -7,32 +7,31 @@ using System.Xml;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class XmpProfileTests
 {
-    public partial class XmpProfileTests
+    public class TheFromIXPathNavigableMethod
     {
-        public class TheFromIXPathNavigableMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenDocumentIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenDocumentIsNull()
+            Assert.Throws<ArgumentNullException>("document", () =>
             {
-                Assert.Throws<ArgumentNullException>("document", () =>
-                {
-                    XmpProfile.FromIXPathNavigable(null);
-                });
-            }
+                XmpProfile.FromIXPathNavigable(null);
+            });
+        }
 
-            [Fact]
-            public void ShouldCreateProfileFromIXPathNavigable()
-            {
-                var document = new XmlDocument();
-                document.LoadXml("<test />");
+        [Fact]
+        public void ShouldCreateProfileFromIXPathNavigable()
+        {
+            var document = new XmlDocument();
+            document.LoadXml("<test />");
 
-                var profile = XmpProfile.FromIXPathNavigable(document);
+            var profile = XmpProfile.FromIXPathNavigable(document);
 
-                Assert.NotNull(profile);
-                Assert.Equal(@"﻿<?xml version=""1.0"" encoding=""utf-8""?><test />", Encoding.UTF8.GetString(profile.ToByteArray()));
-            }
+            Assert.NotNull(profile);
+            Assert.Equal(@"﻿<?xml version=""1.0"" encoding=""utf-8""?><test />", Encoding.UTF8.GetString(profile.ToByteArray()));
         }
     }
 }

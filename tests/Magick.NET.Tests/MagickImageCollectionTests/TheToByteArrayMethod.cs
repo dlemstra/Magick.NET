@@ -5,63 +5,62 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheToByteArrayMethod
     {
-        public class TheToByteArrayMethod
+        [Fact]
+        public void ShouldReturnImageWithTheSameFormat()
         {
-            [Fact]
-            public void ShouldReturnImageWithTheSameFormat()
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
             {
-                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-                {
-                    var data = images.ToByteArray();
+                var data = images.ToByteArray();
 
-                    Assert.NotNull(data);
-                    Assert.Equal(9891, data.Length);
+                Assert.NotNull(data);
+                Assert.Equal(9891, data.Length);
 
-                    images.Read(data);
+                images.Read(data);
 
-                    Assert.Equal(MagickFormat.Gif, images[0].Format);
-                }
+                Assert.Equal(MagickFormat.Gif, images[0].Format);
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheFormatOfTheDefines()
+        [Fact]
+        public void ShouldUseTheFormatOfTheDefines()
+        {
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
             {
-                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
+                var defines = new TiffWriteDefines
                 {
-                    var defines = new TiffWriteDefines
-                    {
-                        PreserveCompression = true,
-                    };
+                    PreserveCompression = true,
+                };
 
-                    var data = images.ToByteArray(defines);
+                var data = images.ToByteArray(defines);
 
-                    Assert.NotNull(data);
-                    Assert.Equal(28316, data.Length);
+                Assert.NotNull(data);
+                Assert.Equal(28316, data.Length);
 
-                    images.Read(data);
+                images.Read(data);
 
-                    Assert.Equal(MagickFormat.Tiff, images[0].Format);
-                }
+                Assert.Equal(MagickFormat.Tiff, images[0].Format);
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheSpecifiedFormat()
+        [Fact]
+        public void ShouldUseTheSpecifiedFormat()
+        {
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
             {
-                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-                {
-                    var data = images.ToByteArray(MagickFormat.Tiff);
+                var data = images.ToByteArray(MagickFormat.Tiff);
 
-                    Assert.NotNull(data);
-                    Assert.Equal(39494, data.Length);
+                Assert.NotNull(data);
+                Assert.Equal(39494, data.Length);
 
-                    images.Read(data);
+                images.Read(data);
 
-                    Assert.Equal(MagickFormat.Tiff, images[0].Format);
-                }
+                Assert.Equal(MagickFormat.Tiff, images[0].Format);
             }
         }
     }

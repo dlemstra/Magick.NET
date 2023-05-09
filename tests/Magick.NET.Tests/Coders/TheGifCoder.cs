@@ -4,26 +4,25 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class TheGifCoder
 {
-    public class TheGifCoder
+    [Fact]
+    public void ShouldReturnTheCorrectNumberOfAnimationIterations()
     {
-        [Fact]
-        public void ShouldReturnTheCorrectNumberOfAnimationIterations()
+        using var images = new MagickImageCollection
         {
-            using var images = new MagickImageCollection
-            {
-                new MagickImage(MagickColors.Red, 1, 1),
-                new MagickImage(MagickColors.Green, 1, 1),
-            };
+            new MagickImage(MagickColors.Red, 1, 1),
+            new MagickImage(MagickColors.Green, 1, 1),
+        };
 
-            images[0].AnimationIterations = 1;
+        images[0].AnimationIterations = 1;
 
-            using var tempFile = new TemporaryFile("output.gif");
-            images.Write(tempFile.File);
+        using var tempFile = new TemporaryFile("output.gif");
+        images.Write(tempFile.File);
 
-            images.Read(tempFile.File);
-            Assert.Equal(1, images[0].AnimationIterations);
-        }
+        images.Read(tempFile.File);
+        Assert.Equal(1, images[0].AnimationIterations);
     }
 }

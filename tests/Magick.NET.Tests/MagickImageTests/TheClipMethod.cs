@@ -5,65 +5,64 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheClipMethod
     {
-        public class TheClipMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenPathNameIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenPathNameIsNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentNullException>("pathName", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("pathName", () =>
-                    {
-                        image.Clip(null);
-                    });
-                }
+                    image.Clip(null);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenPathNameIsEmpty()
+        [Fact]
+        public void ShouldThrowExceptionWhenPathNameIsEmpty()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                Assert.Throws<ArgumentException>("pathName", () =>
                 {
-                    Assert.Throws<ArgumentException>("pathName", () =>
-                    {
-                        image.Clip(string.Empty);
-                    });
-                }
+                    image.Clip(string.Empty);
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheCorrectColors()
+        [Fact]
+        public void ShouldSetTheCorrectColors()
+        {
+            using (var image = new MagickImage(Files.InvitationTIF))
             {
-                using (var image = new MagickImage(Files.InvitationTIF))
+                image.Alpha(AlphaOption.Transparent);
+                image.Clip("Pad A");
+                image.Alpha(AlphaOption.Opaque);
+
+                using (var mask = image.GetWriteMask())
                 {
-                    image.Alpha(AlphaOption.Transparent);
-                    image.Clip("Pad A");
-                    image.Alpha(AlphaOption.Opaque);
+                    Assert.NotNull(mask);
+                    Assert.False(mask.HasAlpha);
 
-                    using (var mask = image.GetWriteMask())
+                    using (var pixels = mask.GetPixels())
                     {
-                        Assert.NotNull(mask);
-                        Assert.False(mask.HasAlpha);
+                        var pixelA = pixels.GetPixel(0, 0).ToColor();
+                        var pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
 
-                        using (var pixels = mask.GetPixels())
-                        {
-                            var pixelA = pixels.GetPixel(0, 0).ToColor();
-                            var pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
+                        Assert.Equal(pixelA, pixelB);
+                        Assert.Equal(0, pixelA.R);
+                        Assert.Equal(0, pixelA.G);
+                        Assert.Equal(0, pixelA.B);
 
-                            Assert.Equal(pixelA, pixelB);
-                            Assert.Equal(0, pixelA.R);
-                            Assert.Equal(0, pixelA.G);
-                            Assert.Equal(0, pixelA.B);
-
-                            var pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
-                            Assert.Equal(Quantum.Max, pixelC.R);
-                            Assert.Equal(Quantum.Max, pixelC.G);
-                            Assert.Equal(Quantum.Max, pixelC.B);
-                        }
+                        var pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
+                        Assert.Equal(Quantum.Max, pixelC.R);
+                        Assert.Equal(Quantum.Max, pixelC.G);
+                        Assert.Equal(Quantum.Max, pixelC.B);
                     }
                 }
             }

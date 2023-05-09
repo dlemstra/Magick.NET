@@ -5,15 +5,14 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class ShortConverterTests
 {
-    public class ShortConverterTests
+    [Fact]
+    public void Test_ToArray()
     {
-        [Fact]
-        public void Test_ToArray()
-        {
-            var value = ShortConverter.ToArray(IntPtr.Zero, 4);
-            Assert.Null(value);
-        }
+        var value = ShortConverter.ToArray(IntPtr.Zero, 4);
+        Assert.Null(value);
     }
 }

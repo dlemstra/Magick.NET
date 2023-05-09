@@ -4,52 +4,51 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheAdaptiveResizeMethod
     {
-        public class TheAdaptiveResizeMethod
+        [Fact]
+        public void ShouldNotEnlargeTheImage()
         {
-            [Fact]
-            public void ShouldNotEnlargeTheImage()
+            using (var image = new MagickImage(MagickColors.Black, 512, 1))
             {
-                using (var image = new MagickImage(MagickColors.Black, 512, 1))
-                {
-                    image.AdaptiveResize(512, 512);
+                image.AdaptiveResize(512, 512);
 
-                    Assert.Equal(1, image.Height);
-                }
+                Assert.Equal(1, image.Height);
             }
+        }
 
-            [Fact]
-            public void ShouldEnlargeTheImageWhenAspectRatioIsIgnored()
+        [Fact]
+        public void ShouldEnlargeTheImageWhenAspectRatioIsIgnored()
+        {
+            using (var image = new MagickImage(MagickColors.Black, 512, 1))
             {
-                using (var image = new MagickImage(MagickColors.Black, 512, 1))
+                var geometry = new MagickGeometry(512, 512)
                 {
-                    var geometry = new MagickGeometry(512, 512)
-                    {
-                        IgnoreAspectRatio = true,
-                    };
+                    IgnoreAspectRatio = true,
+                };
 
-                    image.AdaptiveResize(geometry);
+                image.AdaptiveResize(geometry);
 
-                    Assert.Equal(512, image.Height);
-                }
+                Assert.Equal(512, image.Height);
             }
+        }
 
-            [Fact]
-            public void ShouldResizeTheImage()
+        [Fact]
+        public void ShouldResizeTheImage()
+        {
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    image.AdaptiveResize(100, 80);
+                image.AdaptiveResize(100, 80);
 
-                    Assert.Equal(80, image.Width);
-                    Assert.Equal(80, image.Height);
+                Assert.Equal(80, image.Width);
+                Assert.Equal(80, image.Height);
 
-                    ColorAssert.Equal(new MagickColor("#347bbd"), image, 23, 42);
-                    ColorAssert.Equal(new MagickColor("#a8dff8"), image, 42, 42);
-                }
+                ColorAssert.Equal(new MagickColor("#347bbd"), image, 23, 42);
+                ColorAssert.Equal(new MagickColor("#a8dff8"), image, 42, 42);
             }
         }
     }

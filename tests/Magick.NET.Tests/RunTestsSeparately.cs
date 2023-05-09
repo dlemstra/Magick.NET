@@ -3,10 +3,9 @@
 
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+[CollectionDefinition(nameof(RunTestsSeparately), DisableParallelization = true)]
+public class RunTestsSeparately
 {
-    [CollectionDefinition(nameof(RunTestsSeparately), DisableParallelization = true)]
-    public class RunTestsSeparately
-    {
-    }
 }

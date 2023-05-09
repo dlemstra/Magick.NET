@@ -4,45 +4,44 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorMonoTests
 {
-    public partial class ColorMonoTests
+    public class TheCompareToMethod
     {
-        public class TheCompareToMethod
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsNull()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsNull()
-            {
-                var color = ColorMono.Black;
+            var color = ColorMono.Black;
 
-                Assert.Equal(1, color.CompareTo(null));
-            }
+            Assert.Equal(1, color.CompareTo(null));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsEqual()
-            {
-                var color = ColorMono.Black;
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsEqual()
+        {
+            var color = ColorMono.Black;
 
-                Assert.Equal(0, color.CompareTo(color));
-            }
+            Assert.Equal(0, color.CompareTo(color));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsLower()
-            {
-                var color = ColorMono.White;
-                var other = ColorMono.Black;
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsLower()
+        {
+            var color = ColorMono.White;
+            var other = ColorMono.Black;
 
-                Assert.Equal(1, color.CompareTo(other));
-            }
+            Assert.Equal(1, color.CompareTo(other));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsHigher()
-            {
-                var color = ColorMono.Black;
-                var other = ColorMono.White;
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsHigher()
+        {
+            var color = ColorMono.Black;
+            var other = ColorMono.White;
 
-                Assert.Equal(-1, color.CompareTo(other));
-            }
+            Assert.Equal(-1, color.CompareTo(other));
         }
     }
 }

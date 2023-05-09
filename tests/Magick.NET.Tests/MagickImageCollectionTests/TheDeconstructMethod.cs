@@ -5,51 +5,50 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheDeconstructMethod
     {
-        public class TheDeconstructMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
+                Assert.Throws<InvalidOperationException>(() =>
                 {
-                    Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        images.Deconstruct();
-                    });
-                }
-            }
-
-            [Fact]
-            public void ShouldDeconstructTheImages()
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Add(new MagickImage(MagickColors.Red, 20, 20));
-
-                    using (var frames = new MagickImageCollection())
-                    {
-                        frames.Add(new MagickImage(MagickColors.Red, 10, 20));
-                        frames.Add(new MagickImage(MagickColors.Purple, 10, 20));
-
-                        images.Add(frames.AppendHorizontally());
-                    }
-
-                    Assert.Equal(20, images[1].Width);
-                    Assert.Equal(20, images[1].Height);
-                    Assert.Equal(new MagickGeometry(0, 0, 10, 20), images[1].Page);
-                    ColorAssert.Equal(MagickColors.Red, images[1], 3, 3);
-
                     images.Deconstruct();
+                });
+            }
+        }
 
-                    Assert.Equal(10, images[1].Width);
-                    Assert.Equal(20, images[1].Height);
-                    Assert.Equal(new MagickGeometry(10, 0, 10, 20), images[1].Page);
-                    ColorAssert.Equal(MagickColors.Purple, images[1], 3, 3);
+        [Fact]
+        public void ShouldDeconstructTheImages()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                images.Add(new MagickImage(MagickColors.Red, 20, 20));
+
+                using (var frames = new MagickImageCollection())
+                {
+                    frames.Add(new MagickImage(MagickColors.Red, 10, 20));
+                    frames.Add(new MagickImage(MagickColors.Purple, 10, 20));
+
+                    images.Add(frames.AppendHorizontally());
                 }
+
+                Assert.Equal(20, images[1].Width);
+                Assert.Equal(20, images[1].Height);
+                Assert.Equal(new MagickGeometry(0, 0, 10, 20), images[1].Page);
+                ColorAssert.Equal(MagickColors.Red, images[1], 3, 3);
+
+                images.Deconstruct();
+
+                Assert.Equal(10, images[1].Width);
+                Assert.Equal(20, images[1].Height);
+                Assert.Equal(new MagickGeometry(10, 0, 10, 20), images[1].Page);
+                ColorAssert.Equal(MagickColors.Purple, images[1], 3, 3);
             }
         }
     }

@@ -5,38 +5,37 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TiffWriteDefinesTests
 {
-    public partial class TiffWriteDefinesTests
+    public class ThePreserveCompressionProperty : TiffWriteDefinesTests
     {
-        public class ThePreserveCompressionProperty : TiffWriteDefinesTests
+        [Fact]
+        public void ShouldSetTheDefineWhenSetToTrue()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenSetToTrue()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                image.Settings.SetDefines(new TiffWriteDefines
                 {
-                    image.Settings.SetDefines(new TiffWriteDefines
-                    {
-                        PreserveCompression = true,
-                    });
+                    PreserveCompression = true,
+                });
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenSetToFalse()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenSetToFalse()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new TiffWriteDefines
                 {
-                    image.Settings.SetDefines(new TiffWriteDefines
-                    {
-                        PreserveCompression = false,
-                    });
+                    PreserveCompression = false,
+                });
 
-                    Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "preserve-compression"));
-                }
+                Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "preserve-compression"));
             }
         }
     }

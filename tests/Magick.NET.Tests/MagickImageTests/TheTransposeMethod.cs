@@ -4,26 +4,25 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheTransposeMethod
     {
-        public class TheTransposeMethod
+        [Fact]
+        public void ShouldCreateHorizontalMirrorImage()
         {
-            [Fact]
-            public void ShouldCreateHorizontalMirrorImage()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Transpose();
+                image.Transpose();
 
-                    Assert.Equal(480, image.Width);
-                    Assert.Equal(640, image.Height);
+                Assert.Equal(480, image.Width);
+                Assert.Equal(640, image.Height);
 
-                    ColorAssert.Equal(MagickColors.Red, image, 61, 292);
-                    ColorAssert.Equal(new MagickColor("#f5f5eeee3636"), image, 104, 377);
-                    ColorAssert.Equal(new MagickColor("#eded1f1f2424"), image, 442, 391);
-                }
+                ColorAssert.Equal(MagickColors.Red, image, 61, 292);
+                ColorAssert.Equal(new MagickColor("#f5f5eeee3636"), image, 104, 377);
+                ColorAssert.Equal(new MagickColor("#eded1f1f2424"), image, 442, 391);
             }
         }
     }

@@ -7,175 +7,174 @@ using ImageMagick;
 using ImageMagick.Configuration;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    public class TheInitializeMethod : MagickNETTests
     {
-        public class TheInitializeMethod : MagickNETTests
+        [Collection(nameof(RunTestsSeparately))]
+        public class WithPath
         {
-            [Collection(nameof(RunTestsSeparately))]
-            public class WithPath
+            [Fact]
+            public void ShouldThrowExceptionWhenPathIsNull()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenPathIsNull()
+                Assert.Throws<ArgumentNullException>("path", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("path", () =>
-                    {
-                        MagickNET.Initialize((string)null);
-                    });
-                }
+                    MagickNET.Initialize((string)null);
+                });
+            }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenPathIsInvalid()
+            [Fact]
+            public void ShouldThrowExceptionWhenPathIsInvalid()
+            {
+                Assert.Throws<ArgumentException>("path", () =>
                 {
-                    Assert.Throws<ArgumentException>("path", () =>
-                    {
-                        MagickNET.Initialize("Invalid");
-                    });
-                }
+                    MagickNET.Initialize("Invalid");
+                });
+            }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenXmlFileIsMissing()
-                {
-                    var path = Files.Root + @"../../src/Magick.Native/resources/Release";
+            [Fact]
+            public void ShouldThrowExceptionWhenXmlFileIsMissing()
+            {
+                var path = Files.Root + @"../../src/Magick.Native/resources/Release";
 #if Q8
-                    path += "Q8";
+                path += "Q8";
 #elif Q16
-                    path += "Q16";
+                path += "Q16";
 #else
-                    path += "Q16-HDRI";
+                path += "Q16-HDRI";
 #endif
 
-                    foreach (var fileName in Directory.GetFiles(path, "*.xml"))
-                    {
-                        var tempFile = fileName + ".tmp";
-
-                        Cleanup.DeleteFile(tempFile);
-
-                        File.Move(fileName, tempFile);
-
-                        try
-                        {
-                            var exception = Assert.Throws<ArgumentException>("path", () =>
-                            {
-                                MagickNET.Initialize(path);
-                            });
-
-                            Assert.Contains("Unable to find file: " + Path.GetFullPath(fileName), exception.Message);
-                        }
-                        finally
-                        {
-                            File.Move(tempFile, fileName);
-                        }
-                    }
-                }
-            }
-
-            [Collection(nameof(RunTestsSeparately))]
-            public class WithConfigurationFiles
-            {
-                [Fact]
-                public void ShouldThrowExceptionWhenConfigurationFilesIsNull()
+                foreach (var fileName in Directory.GetFiles(path, "*.xml"))
                 {
-                    Assert.Throws<ArgumentNullException>("configFiles", () =>
-                    {
-                        MagickNET.Initialize((ConfigurationFiles)null);
-                    });
-                }
+                    var tempFile = fileName + ".tmp";
 
-                [Fact]
-                public void ShouldWriteAllFilesInTheReturnedPath()
-                {
-                    string path = null;
+                    Cleanup.DeleteFile(tempFile);
+
+                    File.Move(fileName, tempFile);
+
                     try
                     {
-                        path = MagickNET.Initialize(ConfigurationFiles.Default);
+                        var exception = Assert.Throws<ArgumentException>("path", () =>
+                        {
+                            MagickNET.Initialize(path);
+                        });
 
-                        AssertConfigFiles(path);
+                        Assert.Contains("Unable to find file: " + Path.GetFullPath(fileName), exception.Message);
                     }
                     finally
                     {
-                        Cleanup.DeleteDirectory(path);
-                    }
-                }
-
-                [Fact]
-                public void ShouldWriteCustomPolicyToDisk()
-                {
-                    var policy = @"<test/>";
-
-                    string path = null;
-                    try
-                    {
-                        var configFiles = ConfigurationFiles.Default;
-                        configFiles.Policy.Data = policy;
-
-                        path = MagickNET.Initialize(configFiles);
-
-                        Assert.Equal(policy, File.ReadAllText(Path.Combine(path, "policy.xml")));
-                    }
-                    finally
-                    {
-                        Cleanup.DeleteDirectory(path);
+                        File.Move(tempFile, fileName);
                     }
                 }
             }
+        }
 
-            [Collection(nameof(RunTestsSeparately))]
-            public class WithConfigurationFilesAndPath
+        [Collection(nameof(RunTestsSeparately))]
+        public class WithConfigurationFiles
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenConfigurationFilesIsNull()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenConfigurationFilesIsNull()
+                Assert.Throws<ArgumentNullException>("configFiles", () =>
                 {
-                    Assert.Throws<ArgumentNullException>("configFiles", () =>
-                    {
-                        MagickNET.Initialize(null, Path.GetTempPath());
-                    });
+                    MagickNET.Initialize((ConfigurationFiles)null);
+                });
+            }
+
+            [Fact]
+            public void ShouldWriteAllFilesInTheReturnedPath()
+            {
+                string path = null;
+                try
+                {
+                    path = MagickNET.Initialize(ConfigurationFiles.Default);
+
+                    AssertConfigFiles(path);
                 }
-
-                [Fact]
-                public void ShouldThrowExceptionWhenPathIsNull()
+                finally
                 {
-                    Assert.Throws<ArgumentNullException>("path", () =>
-                    {
-                        MagickNET.Initialize(ConfigurationFiles.Default, null);
-                    });
+                    Cleanup.DeleteDirectory(path);
                 }
+            }
 
-                [Fact]
-                public void ShouldThrowExceptionWhenPathIsInvalid()
+            [Fact]
+            public void ShouldWriteCustomPolicyToDisk()
+            {
+                var policy = @"<test/>";
+
+                string path = null;
+                try
                 {
-                    var exception = Assert.Throws<ArgumentException>("path", () =>
-                    {
-                        MagickNET.Initialize(ConfigurationFiles.Default, "invalid");
-                    });
+                    var configFiles = ConfigurationFiles.Default;
+                    configFiles.Policy.Data = policy;
 
-                    Assert.Contains("Unable to find directory", exception.Message);
+                    path = MagickNET.Initialize(configFiles);
+
+                    Assert.Equal(policy, File.ReadAllText(Path.Combine(path, "policy.xml")));
                 }
-
-                [Fact]
-                public void ShouldWriteAllFilesInTheReturnedPath()
+                finally
                 {
-                    using (var directory = new TemporaryDirectory())
-                    {
-                        var path = directory.FullName;
-
-                        MagickNET.Initialize(ConfigurationFiles.Default, path);
-
-                        AssertConfigFiles(path);
-                    }
+                    Cleanup.DeleteDirectory(path);
                 }
+            }
+        }
 
-                [Fact]
-                public void CanBeCalledTwice()
+        [Collection(nameof(RunTestsSeparately))]
+        public class WithConfigurationFilesAndPath
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenConfigurationFilesIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("configFiles", () =>
                 {
-                    using (var directory = new TemporaryDirectory())
-                    {
-                        var path = directory.FullName;
+                    MagickNET.Initialize(null, Path.GetTempPath());
+                });
+            }
 
-                        MagickNET.Initialize(ConfigurationFiles.Default, path);
-                        MagickNET.Initialize(ConfigurationFiles.Default, path);
-                    }
+            [Fact]
+            public void ShouldThrowExceptionWhenPathIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("path", () =>
+                {
+                    MagickNET.Initialize(ConfigurationFiles.Default, null);
+                });
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenPathIsInvalid()
+            {
+                var exception = Assert.Throws<ArgumentException>("path", () =>
+                {
+                    MagickNET.Initialize(ConfigurationFiles.Default, "invalid");
+                });
+
+                Assert.Contains("Unable to find directory", exception.Message);
+            }
+
+            [Fact]
+            public void ShouldWriteAllFilesInTheReturnedPath()
+            {
+                using (var directory = new TemporaryDirectory())
+                {
+                    var path = directory.FullName;
+
+                    MagickNET.Initialize(ConfigurationFiles.Default, path);
+
+                    AssertConfigFiles(path);
+                }
+            }
+
+            [Fact]
+            public void CanBeCalledTwice()
+            {
+                using (var directory = new TemporaryDirectory())
+                {
+                    var path = directory.FullName;
+
+                    MagickNET.Initialize(ConfigurationFiles.Default, path);
+                    MagickNET.Initialize(ConfigurationFiles.Default, path);
                 }
             }
         }

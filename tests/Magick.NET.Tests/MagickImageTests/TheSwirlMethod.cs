@@ -4,43 +4,42 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSwirlMethod
     {
-        public class TheSwirlMethod
+        [Fact]
+        public void ShouldSwirlTheImage()
         {
-            [Fact]
-            public void ShouldSwirlTheImage()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Alpha(AlphaOption.Deactivate);
+                image.Alpha(AlphaOption.Deactivate);
 
-                    ColorAssert.Equal(MagickColors.Red, image, 287, 74);
-                    ColorAssert.NotEqual(MagickColors.White, image, 363, 333);
+                ColorAssert.Equal(MagickColors.Red, image, 287, 74);
+                ColorAssert.NotEqual(MagickColors.White, image, 363, 333);
 
-                    image.Swirl(60);
+                image.Swirl(60);
 
-                    ColorAssert.NotEqual(MagickColors.Red, image, 287, 74);
-                    ColorAssert.Equal(MagickColors.White, image, 363, 333);
-                }
+                ColorAssert.NotEqual(MagickColors.Red, image, 287, 74);
+                ColorAssert.Equal(MagickColors.White, image, 363, 333);
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheCorrectDefaultValue()
+        [Fact]
+        public void ShouldUseTheCorrectDefaultValue()
+        {
+            using (var image = new MagickImage(Files.Builtin.Wizard))
             {
-                using (var image = new MagickImage(Files.Builtin.Wizard))
+                using (var other = image.Clone())
                 {
-                    using (var other = image.Clone())
-                    {
-                        image.Swirl(60);
-                        other.Swirl(other.Interpolate, 60);
+                    image.Swirl(60);
+                    other.Swirl(other.Interpolate, 60);
 
-                        var distortion = other.Compare(image, ErrorMetric.RootMeanSquared);
+                    var distortion = other.Compare(image, ErrorMetric.RootMeanSquared);
 
-                        Assert.Equal(0.0, distortion);
-                    }
+                    Assert.Equal(0.0, distortion);
                 }
             }
         }

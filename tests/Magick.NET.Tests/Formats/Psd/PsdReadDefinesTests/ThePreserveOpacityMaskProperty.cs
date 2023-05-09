@@ -5,26 +5,25 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PsdReadDefinesTests
 {
-    public partial class PsdReadDefinesTests
+    public class ThePreserveOpacityMaskProperty
     {
-        public class ThePreserveOpacityMaskProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var defines = new PsdReadDefines
             {
-                var defines = new PsdReadDefines
-                {
-                    PreserveOpacityMask = true,
-                };
+                PreserveOpacityMask = true,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Psd, "preserve-opacity-mask"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Psd, "preserve-opacity-mask"));
             }
         }
     }

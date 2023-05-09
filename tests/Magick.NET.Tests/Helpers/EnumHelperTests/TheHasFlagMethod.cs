@@ -4,31 +4,30 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class EnumHelperTests
 {
-    public partial class EnumHelperTests
+    public class TheHasFlagMethod
     {
-        public class TheHasFlagMethod
+        [Fact]
+        public void ShouldReturnTrueWhenValueHasFlag()
         {
-            [Fact]
-            public void ShouldReturnTrueWhenValueHasFlag()
-            {
-                var redBlue = Channels.Red | Channels.Blue;
+            var redBlue = Channels.Red | Channels.Blue;
 
-                var result = EnumHelper.HasFlag(redBlue, Channels.Blue);
+            var result = EnumHelper.HasFlag(redBlue, Channels.Blue);
 
-                Assert.True(result);
-            }
+            Assert.True(result);
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenValueDoesNotHaveFlag()
-            {
-                var redBlue = Channels.Red | Channels.Blue;
+        [Fact]
+        public void ShouldReturnFalseWhenValueDoesNotHaveFlag()
+        {
+            var redBlue = Channels.Red | Channels.Blue;
 
-                var result = EnumHelper.HasFlag(redBlue, Channels.Green);
+            var result = EnumHelper.HasFlag(redBlue, Channels.Green);
 
-                Assert.False(result);
-            }
+            Assert.False(result);
         }
     }
 }

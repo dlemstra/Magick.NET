@@ -4,19 +4,18 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class DrawableStrokeAntialiasTests
-    {
-        public class TheEnabledProperty
-        {
-            [Fact]
-            public void ShouldReturnDrawableStrokeAntialiasThatIsEnabled()
-            {
-                var result = DrawableStrokeAntialias.Enabled;
+namespace Magick.NET.Tests;
 
-                Assert.True(result.IsEnabled);
-            }
+public partial class DrawableStrokeAntialiasTests
+{
+    public class TheEnabledProperty
+    {
+        [Fact]
+        public void ShouldReturnDrawableStrokeAntialiasThatIsEnabled()
+        {
+            var result = DrawableStrokeAntialias.Enabled;
+
+            Assert.True(result.IsEnabled);
         }
     }
 }

@@ -14,88 +14,87 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class UnsafePixelCollectionTests
 {
-    public partial class UnsafePixelCollectionTests
+    public partial class TheSetAreaMethod
     {
-        public partial class TheSetAreaMethod
+        [Fact]
+        public void ShouldNotThrowExceptionWhenArrayIsNull()
         {
-            [Fact]
-            public void ShouldNotThrowExceptionWhenArrayIsNull()
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        pixels.SetArea(10, 10, 1000, 1000, null);
-                    }
+                    pixels.SetArea(10, 10, 1000, 1000, null);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenArrayHasInvalidSize()
+        [Fact]
+        public void ShouldNotThrowExceptionWhenArrayHasInvalidSize()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
-                    }
+                    pixels.SetArea(10, 10, 1000, 1000, new QuantumType[] { 0, 0, 0, 0 });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenArrayHasTooManyValues()
+        [Fact]
+        public void ShouldNotThrowExceptionWhenArrayHasTooManyValues()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                        pixels.SetArea(10, 10, 113, 108, values);
-                    }
+                    var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
+        [Fact]
+        public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = new QuantumType[113 * 108 * image.ChannelCount];
-                        pixels.SetArea(10, 10, 113, 108, values);
+                    var values = new QuantumType[113 * 108 * image.ChannelCount];
+                    pixels.SetArea(10, 10, 113, 108, values);
 
-                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                    }
+                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
+        [Fact]
+        public void ShouldNotThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        pixels.SetArea(null, new QuantumType[] { 0 });
-                    }
+                    pixels.SetArea(null, new QuantumType[] { 0 });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
+        [Fact]
+        public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = new QuantumType[113 * 108 * image.ChannelCount];
-                        pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
+                    var values = new QuantumType[113 * 108 * image.ChannelCount];
+                    pixels.SetArea(new MagickGeometry(10, 10, 113, 108), values);
 
-                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                    }
+                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
                 }
             }
         }

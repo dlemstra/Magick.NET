@@ -6,27 +6,26 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PsdAdditionalInfoTests
 {
-    public partial class PsdAdditionalInfoTests
+    public class TheFromImageMethod
     {
-        public class TheFromImageMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenImageIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenImageIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("image", () => PsdAdditionalInfo.FromImage(null));
-            }
+            Assert.Throws<ArgumentNullException>("image", () => PsdAdditionalInfo.FromImage(null));
+        }
 
-            [Fact]
-            public void ShouldReturnNullWhenImageHasNoPsdAdditionalInfo()
+        [Fact]
+        public void ShouldReturnNullWhenImageHasNoPsdAdditionalInfo()
+        {
+            using (var image = new MagickImage(Files.SnakewarePNG))
             {
-                using (var image = new MagickImage(Files.SnakewarePNG))
-                {
-                    var info = PsdAdditionalInfo.FromImage(image);
+                var info = PsdAdditionalInfo.FromImage(image);
 
-                    Assert.Null(info);
-                }
+                Assert.Null(info);
             }
         }
     }

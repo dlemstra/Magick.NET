@@ -5,52 +5,51 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SafePixelCollectionTests
 {
-    public partial class SafePixelCollectionTests
+    public class TheGetPixelMethod
     {
-        public class TheGetPixelMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthOutsideImage()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenWidthOutsideImage()
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentOutOfRangeException>("x", () =>
                     {
-                        Assert.Throws<ArgumentOutOfRangeException>("x", () =>
-                        {
-                            pixels.GetPixel(image.Width + 1, 0);
-                        });
-                    }
+                        pixels.GetPixel(image.Width + 1, 0);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenHeightOutsideImage()
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightOutsideImage()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentOutOfRangeException>("y", () =>
                     {
-                        Assert.Throws<ArgumentOutOfRangeException>("y", () =>
-                        {
-                            pixels.GetPixel(0, image.Height + 1);
-                        });
-                    }
+                        pixels.GetPixel(0, image.Height + 1);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnPixelWhenIndexInsideImage()
+        [Fact]
+        public void ShouldReturnPixelWhenIndexInsideImage()
+        {
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
-                    {
-                        var pixel = pixels.GetPixel(55, 68);
-                        ColorAssert.Equal(new MagickColor("#a8dff8ff"), pixel.ToColor());
-                    }
+                    var pixel = pixels.GetPixel(55, 68);
+                    ColorAssert.Equal(new MagickColor("#a8dff8ff"), pixel.ToColor());
                 }
             }
         }

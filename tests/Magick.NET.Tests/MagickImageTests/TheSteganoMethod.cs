@@ -5,41 +5,40 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSteganoMethod
     {
-        public class TheSteganoMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenWatermarkIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenWatermarkIsNull()
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("watermark", () => image.Stegano(null));
+        }
+
+        [Fact]
+        public void ShouldAddDigitalWatermark()
+        {
+            using var message = new MagickImage("label:Magick.NET is the best!", 200, 20);
+
+            using var image = new MagickImage(Files.Builtin.Wizard);
+            image.Stegano(message);
+
+            using var tempFile = new TemporaryFile(".png");
+            image.Write(tempFile.File);
+
+            var settings = new MagickReadSettings
             {
-                using var image = new MagickImage();
+                Format = MagickFormat.Stegano,
+                Width = 200,
+                Height = 20,
+            };
+            using var hiddenMessage = new MagickImage(tempFile.File, settings);
 
-                Assert.Throws<ArgumentNullException>("watermark", () => image.Stegano(null));
-            }
-
-            [Fact]
-            public void ShouldAddDigitalWatermark()
-            {
-                using var message = new MagickImage("label:Magick.NET is the best!", 200, 20);
-
-                using var image = new MagickImage(Files.Builtin.Wizard);
-                image.Stegano(message);
-
-                using var tempFile = new TemporaryFile(".png");
-                image.Write(tempFile.File);
-
-                var settings = new MagickReadSettings
-                {
-                    Format = MagickFormat.Stegano,
-                    Width = 200,
-                    Height = 20,
-                };
-                using var hiddenMessage = new MagickImage(tempFile.File, settings);
-
-                Assert.InRange(message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared), 0, 0.001);
-            }
+            Assert.InRange(message.Compare(hiddenMessage, ErrorMetric.RootMeanSquared), 0, 0.001);
         }
     }
 }

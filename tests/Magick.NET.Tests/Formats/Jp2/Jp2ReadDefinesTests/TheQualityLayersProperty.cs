@@ -5,29 +5,28 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class Jp2ReadDefinesTests
 {
-    public partial class Jp2ReadDefinesTests
+    public class TheQualityLayersProperty
     {
-        public class TheQualityLayersProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var settings = new MagickReadSettings
             {
-                var settings = new MagickReadSettings
+                Defines = new Jp2ReadDefines
                 {
-                    Defines = new Jp2ReadDefines
-                    {
-                        QualityLayers = 4,
-                    },
-                };
+                    QualityLayers = 4,
+                },
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Read(Files.Coders.GrimJP2, settings);
+            using (var image = new MagickImage())
+            {
+                image.Read(Files.Coders.GrimJP2, settings);
 
-                    Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
-                }
+                Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
             }
         }
     }

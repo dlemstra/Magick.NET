@@ -4,35 +4,34 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class IptcProfileTests
 {
-    public partial class IptcProfileTests
+    public class TheGetValueMethod
     {
-        public class TheGetValueMethod
+        [Fact]
+        public void ShouldReturnNullWhenImageDoesNotContainValue()
         {
-            [Fact]
-            public void ShouldReturnNullWhenImageDoesNotContainValue()
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetIptcProfile();
-                    var value = profile.GetValue(IptcTag.ReferenceNumber);
+                var profile = image.GetIptcProfile();
+                var value = profile.GetValue(IptcTag.ReferenceNumber);
 
-                    Assert.Null(value);
-                }
+                Assert.Null(value);
             }
+        }
 
-            [Fact]
-            public void ShouldReturnTheValue()
+        [Fact]
+        public void ShouldReturnTheValue()
+        {
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetIptcProfile();
-                    var value = profile.GetValue(IptcTag.Title);
+                var profile = image.GetIptcProfile();
+                var value = profile.GetValue(IptcTag.Title);
 
-                    Assert.NotNull(value);
-                    Assert.Equal("Communications", value.Value);
-                }
+                Assert.NotNull(value);
+                Assert.Equal("Communications", value.Value);
             }
         }
     }

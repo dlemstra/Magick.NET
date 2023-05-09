@@ -4,19 +4,18 @@
 using ImageMagick.Configuration;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class ConfigurationFilesTests
-    {
-        [Fact]
-        public void ShouldBeInitialized()
-        {
-            var configurationFiles = ConfigurationFiles.Default;
+namespace Magick.NET.Tests;
 
-            Assert.NotNull(configurationFiles.Configure);
-            Assert.Equal("configure.xml", configurationFiles.Configure.FileName);
-            Assert.NotNull(configurationFiles.Configure.Data);
-            Assert.Contains("<configuremap>", configurationFiles.Configure.Data);
-        }
+public partial class ConfigurationFilesTests
+{
+    [Fact]
+    public void ShouldBeInitialized()
+    {
+        var configurationFiles = ConfigurationFiles.Default;
+
+        Assert.NotNull(configurationFiles.Configure);
+        Assert.Equal("configure.xml", configurationFiles.Configure.FileName);
+        Assert.NotNull(configurationFiles.Configure.Data);
+        Assert.Contains("<configuremap>", configurationFiles.Configure.Data);
     }
 }

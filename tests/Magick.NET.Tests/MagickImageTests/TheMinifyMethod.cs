@@ -4,21 +4,20 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheMinifyMethod
     {
-        public class TheMinifyMethod
+        [Fact]
+        public void ShouldReduceImageByIntegralSize()
         {
-            [Fact]
-            public void ShouldReduceImageByIntegralSize()
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    image.Minify();
-                    Assert.Equal(64, image.Width);
-                    Assert.Equal(64, image.Height);
-                }
+                image.Minify();
+                Assert.Equal(64, image.Width);
+                Assert.Equal(64, image.Height);
             }
         }
     }

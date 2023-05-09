@@ -5,26 +5,25 @@ using System.Linq;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class IptcProfileTests
 {
-    public partial class IptcProfileTests
+    public class TheValuesProperty
     {
-        public class TheValuesProperty
+        [Fact]
+        public void ShouldReturnTheValues()
         {
-            [Fact]
-            public void ShouldReturnTheValues()
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+                var profile = image.GetIptcProfile();
+                Assert.NotNull(profile);
+
+                Assert.Equal(18, profile.Values.Count());
+
+                foreach (IptcValue value in profile.Values)
                 {
-                    var profile = image.GetIptcProfile();
-                    Assert.NotNull(profile);
-
-                    Assert.Equal(18, profile.Values.Count());
-
-                    foreach (IptcValue value in profile.Values)
-                    {
-                        Assert.NotNull(value.Value);
-                    }
+                    Assert.NotNull(value.Value);
                 }
             }
         }

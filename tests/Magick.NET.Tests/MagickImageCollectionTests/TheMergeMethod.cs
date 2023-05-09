@@ -5,33 +5,32 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheMergeMethod
     {
-        public class TheMergeMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<InvalidOperationException>(() => images.Merge());
-                }
+                Assert.Throws<InvalidOperationException>(() => images.Merge());
             }
+        }
 
-            [Fact]
-            public void ShouldMergeTheImages()
+        [Fact]
+        public void ShouldMergeTheImages()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Read(Files.RoseSparkleGIF);
+                images.Read(Files.RoseSparkleGIF);
 
-                    using (var first = images.Merge())
-                    {
-                        Assert.Equal(images[0].Width, first.Width);
-                        Assert.Equal(images[0].Height, first.Height);
-                    }
+                using (var first = images.Merge())
+                {
+                    Assert.Equal(images[0].Width, first.Width);
+                    Assert.Equal(images[0].Height, first.Height);
                 }
             }
         }

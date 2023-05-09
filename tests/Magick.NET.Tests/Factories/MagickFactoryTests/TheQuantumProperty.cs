@@ -4,35 +4,34 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickFactoryTests
-    {
-        public class TheQuantumInfoProperty
-        {
-            [Fact]
-            public void ShouldHaveTheCorrectDephValue()
-            {
-                var factory = new MagickFactory();
-#if Q8
-                Assert.Equal(8, factory.Quantum.Depth);
-#else
-                Assert.Equal(16, factory.Quantum.Depth);
-#endif
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldHaveTheCorrectMaxValue()
-            {
-                var factory = new MagickFactory();
+public partial class MagickFactoryTests
+{
+    public class TheQuantumInfoProperty
+    {
+        [Fact]
+        public void ShouldHaveTheCorrectDephValue()
+        {
+            var factory = new MagickFactory();
 #if Q8
-                Assert.Equal(byte.MaxValue, factory.Quantum.Max);
-#elif Q16
-                Assert.Equal(ushort.MaxValue, factory.Quantum.Max);
+            Assert.Equal(8, factory.Quantum.Depth);
 #else
-                Assert.Equal((float)ushort.MaxValue, factory.Quantum.Max);
+            Assert.Equal(16, factory.Quantum.Depth);
 #endif
-            }
+        }
+
+        [Fact]
+        public void ShouldHaveTheCorrectMaxValue()
+        {
+            var factory = new MagickFactory();
+#if Q8
+            Assert.Equal(byte.MaxValue, factory.Quantum.Max);
+#elif Q16
+            Assert.Equal(ushort.MaxValue, factory.Quantum.Max);
+#else
+            Assert.Equal((float)ushort.MaxValue, factory.Quantum.Max);
+#endif
         }
     }
 }

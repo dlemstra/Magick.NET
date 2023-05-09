@@ -4,28 +4,27 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ResourceLimitsTests
 {
-    public partial class ResourceLimitsTests
+    [Collection(nameof(RunTestsSeparately))]
+    public class TheThrottleProperty
     {
-        [Collection(nameof(RunTestsSeparately))]
-        public class TheThrottleProperty
+        [Fact]
+        public void ShouldHaveTheCorrectValue()
         {
-            [Fact]
-            public void ShouldHaveTheCorrectValue()
-            {
-                Assert.Equal(0U, ResourceLimits.Throttle);
-            }
+            Assert.Equal(0U, ResourceLimits.Throttle);
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenChanged()
-            {
-                var throttle = ResourceLimits.Throttle;
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenChanged()
+        {
+            var throttle = ResourceLimits.Throttle;
 
-                ResourceLimits.Throttle = 1U;
-                Assert.Equal(1U, ResourceLimits.Throttle);
-                ResourceLimits.Throttle = throttle;
-            }
+            ResourceLimits.Throttle = 1U;
+            Assert.Equal(1U, ResourceLimits.Throttle);
+            ResourceLimits.Throttle = throttle;
         }
     }
 }

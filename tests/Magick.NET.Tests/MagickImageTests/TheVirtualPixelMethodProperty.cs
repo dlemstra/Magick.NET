@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheVirtualPixelMethodProperty
-        {
-            [Fact]
-            public void ShouldReturnUndefinedAsTheDefaultValue()
-            {
-                using (var image = new MagickImage())
-                {
-                    Assert.Equal(VirtualPixelMethod.Undefined, image.VirtualPixelMethod);
-                }
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldChangeTheVirtualPixelMethod()
+public partial class MagickImageTests
+{
+    public class TheVirtualPixelMethodProperty
+    {
+        [Fact]
+        public void ShouldReturnUndefinedAsTheDefaultValue()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.VirtualPixelMethod = VirtualPixelMethod.Random;
-                    Assert.Equal(VirtualPixelMethod.Random, image.VirtualPixelMethod);
-                }
+                Assert.Equal(VirtualPixelMethod.Undefined, image.VirtualPixelMethod);
+            }
+        }
+
+        [Fact]
+        public void ShouldChangeTheVirtualPixelMethod()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.VirtualPixelMethod = VirtualPixelMethod.Random;
+                Assert.Equal(VirtualPixelMethod.Random, image.VirtualPixelMethod);
             }
         }
     }

@@ -5,24 +5,23 @@ using System.Collections;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class DrawablesTests
-    {
-        public class TheGetEnumeratorMethod
-        {
-            [Fact]
-            public void ShouldReturnAnEnumerator()
-            {
-                var drawables = new Drawables()
-                  .FillColor(MagickColors.Red)
-                  .Rectangle(10, 10, 90, 90);
+namespace Magick.NET.Tests;
 
-                var enumerator = ((IEnumerable)drawables).GetEnumerator();
-                Assert.True(enumerator.MoveNext());
-                Assert.True(enumerator.MoveNext());
-                Assert.False(enumerator.MoveNext());
-            }
+public partial class DrawablesTests
+{
+    public class TheGetEnumeratorMethod
+    {
+        [Fact]
+        public void ShouldReturnAnEnumerator()
+        {
+            var drawables = new Drawables()
+              .FillColor(MagickColors.Red)
+              .Rectangle(10, 10, 90, 90);
+
+            var enumerator = ((IEnumerable)drawables).GetEnumerator();
+            Assert.True(enumerator.MoveNext());
+            Assert.True(enumerator.MoveNext());
+            Assert.False(enumerator.MoveNext());
         }
     }
 }

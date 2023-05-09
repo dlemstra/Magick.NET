@@ -3,19 +3,18 @@
 
 using System.IO;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ImageOptimizerTests
 {
-    public partial class ImageOptimizerTests
+    private static MemoryStream OpenStream(string fileName)
     {
-        private static MemoryStream OpenStream(string fileName)
+        var memoryStream = new MemoryStream();
+        using (var input = FileHelper.OpenRead(fileName))
         {
-            var memoryStream = new MemoryStream();
-            using (var input = FileHelper.OpenRead(fileName))
-            {
-                input.CopyTo(memoryStream);
-                memoryStream.Position = 0;
-                return memoryStream;
-            }
+            input.CopyTo(memoryStream);
+            memoryStream.Position = 0;
+            return memoryStream;
         }
     }
 }

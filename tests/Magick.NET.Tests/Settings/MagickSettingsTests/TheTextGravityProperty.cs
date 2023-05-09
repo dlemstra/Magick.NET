@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickSettingsTests
 {
-    public partial class MagickSettingsTests
+    public class TheTextGravityProperty
     {
-        public class TheTextGravityProperty
+        [Fact]
+        public void ShouldDetermineThePositionOfTheText()
         {
-            [Fact]
-            public void ShouldDetermineThePositionOfTheText()
+            using (var image = new MagickImage("xc:red", 300, 300))
             {
-                using (var image = new MagickImage("xc:red", 300, 300))
-                {
-                    Assert.Equal(Gravity.Undefined, image.Settings.TextGravity);
+                Assert.Equal(Gravity.Undefined, image.Settings.TextGravity);
 
-                    image.Settings.BackgroundColor = MagickColors.Yellow;
-                    image.Settings.StrokeColor = MagickColors.Fuchsia;
-                    image.Settings.FillColor = MagickColors.Fuchsia;
-                    image.Settings.TextGravity = Gravity.Center;
+                image.Settings.BackgroundColor = MagickColors.Yellow;
+                image.Settings.StrokeColor = MagickColors.Fuchsia;
+                image.Settings.FillColor = MagickColors.Fuchsia;
+                image.Settings.TextGravity = Gravity.Center;
 
-                    image.Read("label:Test");
+                image.Read("label:Test");
 
-                    ColorAssert.Equal(MagickColors.Yellow, image, 50, 80);
-                    ColorAssert.Equal(MagickColors.Fuchsia, image, 50, 160);
-                }
+                ColorAssert.Equal(MagickColors.Yellow, image, 50, 80);
+                ColorAssert.Equal(MagickColors.Fuchsia, image, 50, 160);
             }
         }
     }

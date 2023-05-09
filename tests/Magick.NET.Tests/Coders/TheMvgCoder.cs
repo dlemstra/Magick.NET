@@ -5,35 +5,34 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class TheMvgCoder
 {
-    public class TheMvgCoder
+    [Fact]
+    public void ShouldBeDisabled()
     {
-        [Fact]
-        public void ShouldBeDisabled()
-        {
-            using var memStream = new MemoryStream();
-            using var writer = new StreamWriter(memStream);
-            writer.Write(@"push graphic-context
+        using var memStream = new MemoryStream();
+        using var writer = new StreamWriter(memStream);
+        writer.Write(@"push graphic-context
                 viewbox 0 0 640 480
                 image over 0,0 0,0 ""label:Magick.NET""
                 pop graphic-context");
 
-            writer.Flush();
-            memStream.Position = 0;
+        writer.Flush();
+        memStream.Position = 0;
 
-            using var image = new MagickImage();
+        using var image = new MagickImage();
 
-            Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read(memStream));
+        Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read(memStream));
 
-            memStream.Position = 0;
+        memStream.Position = 0;
 
-            var settings = new MagickReadSettings
-            {
-                Format = MagickFormat.Mvg,
-            };
+        var settings = new MagickReadSettings
+        {
+            Format = MagickFormat.Mvg,
+        };
 
-            Assert.Throws<MagickPolicyErrorException>(() => image.Read(memStream, settings));
-        }
+        Assert.Throws<MagickPolicyErrorException>(() => image.Read(memStream, settings));
     }
 }

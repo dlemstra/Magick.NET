@@ -4,30 +4,29 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheCharcoalMethod
-        {
-            [Fact]
-            public void ShouldApplyCharcoalEffect()
-            {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Charcoal();
-                    ColorAssert.Equal(MagickColors.White, image, 424, 412);
-                }
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldUseTheSpecifiedRadiusAndSigma()
+public partial class MagickImageTests
+{
+    public class TheCharcoalMethod
+    {
+        [Fact]
+        public void ShouldApplyCharcoalEffect()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Charcoal(4, 2);
-                    ColorAssert.Equal(MagickColors.Black, image, 370, 240);
-                }
+                image.Charcoal();
+                ColorAssert.Equal(MagickColors.White, image, 424, 412);
+            }
+        }
+
+        [Fact]
+        public void ShouldUseTheSpecifiedRadiusAndSigma()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Charcoal(4, 2);
+                ColorAssert.Equal(MagickColors.Black, image, 370, 240);
             }
         }
     }

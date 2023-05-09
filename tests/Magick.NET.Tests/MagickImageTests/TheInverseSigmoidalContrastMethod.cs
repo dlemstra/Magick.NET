@@ -4,55 +4,54 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheInverseSigmoidalContrastMethod
     {
-        public class TheInverseSigmoidalContrastMethod
+        [Fact]
+        public void ShouldUseHalfOfQuantumForMidpointByDefault()
         {
-            [Fact]
-            public void ShouldUseHalfOfQuantumForMidpointByDefault()
+            using (var image = new MagickImage(Files.NoisePNG))
             {
-                using (var image = new MagickImage(Files.NoisePNG))
+                using (var other = image.Clone())
                 {
-                    using (var other = image.Clone())
-                    {
-                        image.InverseSigmoidalContrast(4.0);
-                        other.InverseSigmoidalContrast(4.0, new Percentage(50));
+                    image.InverseSigmoidalContrast(4.0);
+                    other.InverseSigmoidalContrast(4.0, new Percentage(50));
 
-                        var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.Equal(0.0, difference);
-                    }
+                    var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
+                    Assert.Equal(0.0, difference);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldAdjustTheImageContrast()
+        [Fact]
+        public void ShouldAdjustTheImageContrast()
+        {
+            using (var image = new MagickImage(Files.PictureJPG))
             {
-                using (var image = new MagickImage(Files.PictureJPG))
+                using (var other = image.Clone())
                 {
-                    using (var other = image.Clone())
-                    {
-                        other.InverseSigmoidalContrast(4.0, new Percentage(25));
+                    other.InverseSigmoidalContrast(4.0, new Percentage(25));
 
-                        var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.InRange(difference, 0.11, 0.12);
-                    }
+                    var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
+                    Assert.InRange(difference, 0.11, 0.12);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldAdjustTheSpecifiedChannel()
+        [Fact]
+        public void ShouldAdjustTheSpecifiedChannel()
+        {
+            using (var image = new MagickImage(Files.PictureJPG))
             {
-                using (var image = new MagickImage(Files.PictureJPG))
+                using (var other = image.Clone())
                 {
-                    using (var other = image.Clone())
-                    {
-                        other.InverseSigmoidalContrast(4.0, Quantum.Max * 0.25, Channels.Blue);
+                    other.InverseSigmoidalContrast(4.0, Quantum.Max * 0.25, Channels.Blue);
 
-                        var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                        Assert.InRange(difference, 0.05, 0.06);
-                    }
+                    var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
+                    Assert.InRange(difference, 0.05, 0.06);
                 }
             }
         }

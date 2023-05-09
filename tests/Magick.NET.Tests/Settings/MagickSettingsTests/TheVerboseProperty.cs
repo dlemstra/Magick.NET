@@ -4,19 +4,18 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickSettingsTests
 {
-    public partial class MagickSettingsTests
+    public class TheVerboseProperty
     {
-        public class TheVerboseProperty
+        [Fact]
+        public void ShouldDefaultToFalse()
         {
-            [Fact]
-            public void ShouldDefaultToFalse()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.False(image.Settings.Verbose);
-                }
+                Assert.False(image.Settings.Verbose);
             }
         }
     }

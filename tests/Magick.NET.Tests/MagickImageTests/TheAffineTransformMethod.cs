@@ -5,32 +5,31 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheAffineTransformMethod
     {
-        public class TheAffineTransformMethod
+        [Fact]
+        public void ShouldChangeTheSizeOfTheImage()
         {
-            [Fact]
-            public void ShouldChangeTheSizeOfTheImage()
+            using (var image = new MagickImage(Files.Builtin.Wizard))
             {
-                using (var image = new MagickImage(Files.Builtin.Wizard))
-                {
-                    var affineMatrix = new DrawableAffine(1, 0.5, 0, 0, 0, 0);
-                    image.AffineTransform(affineMatrix);
+                var affineMatrix = new DrawableAffine(1, 0.5, 0, 0, 0, 0);
+                image.AffineTransform(affineMatrix);
 
-                    Assert.Equal(482, image.Width);
-                    Assert.Equal(322, image.Height);
-                }
+                Assert.Equal(482, image.Width);
+                Assert.Equal(322, image.Height);
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenAffineMatrixIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenAffineMatrixIsNull()
+        {
+            using (var image = new MagickImage(MagickColors.Purple, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Purple, 1, 1))
-                {
-                    Assert.Throws<ArgumentNullException>("affineMatrix", () => image.AffineTransform(null));
-                }
+                Assert.Throws<ArgumentNullException>("affineMatrix", () => image.AffineTransform(null));
             }
         }
     }

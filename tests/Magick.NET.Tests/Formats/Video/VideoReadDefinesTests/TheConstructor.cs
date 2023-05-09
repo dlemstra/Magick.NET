@@ -6,30 +6,29 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class VideoReadDefinesTests
 {
-    public partial class VideoReadDefinesTests
+    public class TheConstructor
     {
-        public class TheConstructor
+        [Fact]
+        public void ShouldNotSetAnyDefine()
         {
-            [Fact]
-            public void ShouldNotSetAnyDefine()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4));
+                image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4));
 
-                    Assert.Null(image.Settings.GetDefine("video:vsync"));
-                    Assert.Null(image.Settings.GetDefine("video:pixel-format"));
-                    Assert.Null(image.Settings.GetDefine("video:intermediate-format"));
-                }
+                Assert.Null(image.Settings.GetDefine("video:vsync"));
+                Assert.Null(image.Settings.GetDefine("video:pixel-format"));
+                Assert.Null(image.Settings.GetDefine("video:intermediate-format"));
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenFormatIsInvalid()
-            {
-                Assert.Throws<ArgumentException>("format", () => new VideoReadDefines(MagickFormat.Png));
-            }
+        [Fact]
+        public void ShouldThrowExceptionWhenFormatIsInvalid()
+        {
+            Assert.Throws<ArgumentException>("format", () => new VideoReadDefines(MagickFormat.Png));
         }
     }
 }

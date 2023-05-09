@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheDepthProperty
-        {
-            [Fact]
-            public void ShouldAllowValueHigherThanQuantum()
-            {
-                using (var image = new MagickImage())
-                {
-                    var depth = Quantum.Depth * 2;
+namespace Magick.NET.Tests;
 
-                    image.Depth = depth;
-                    Assert.Equal(depth, image.Depth);
-                }
+public partial class MagickImageTests
+{
+    public class TheDepthProperty
+    {
+        [Fact]
+        public void ShouldAllowValueHigherThanQuantum()
+        {
+            using (var image = new MagickImage())
+            {
+                var depth = Quantum.Depth * 2;
+
+                image.Depth = depth;
+                Assert.Equal(depth, image.Depth);
             }
         }
     }

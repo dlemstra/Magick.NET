@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SettingsFactoryTests
 {
-    public partial class SettingsFactoryTests
+    public class TheCreateMagickReadSettingsMethod
     {
-        public class TheCreateMagickReadSettingsMethod
+        [Fact]
+        public void ShouldCreateInstance()
         {
-            [Fact]
-            public void ShouldCreateInstance()
-            {
-                var factory = new SettingsFactory();
+            var factory = new SettingsFactory();
 
-                var settings = factory.CreateMagickReadSettings();
+            var settings = factory.CreateMagickReadSettings();
 
-                Assert.NotNull(settings);
-                Assert.IsType<MagickReadSettings>(settings);
-            }
+            Assert.NotNull(settings);
+            Assert.IsType<MagickReadSettings>(settings);
         }
     }
 }

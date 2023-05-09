@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageTests
-    {
-        public class TheIsOpaqueProperty
-        {
-            [Fact]
-            public void ShouldReturnTrueWhenImageIsOpaque()
-            {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    Assert.True(image.IsOpaque);
-                }
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ShouldReturnFalseWhenImageIsNotOpaque()
+public partial class MagickImageTests
+{
+    public class TheIsOpaqueProperty
+    {
+        [Fact]
+        public void ShouldReturnTrueWhenImageIsOpaque()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Alpha(AlphaOption.Transparent);
-                    Assert.False(image.IsOpaque);
-                }
+                Assert.True(image.IsOpaque);
+            }
+        }
+
+        [Fact]
+        public void ShouldReturnFalseWhenImageIsNotOpaque()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Alpha(AlphaOption.Transparent);
+                Assert.False(image.IsOpaque);
             }
         }
     }

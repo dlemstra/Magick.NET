@@ -6,53 +6,52 @@ using System.Collections.Generic;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests.Defines
+namespace Magick.NET.Tests.Defines;
+
+public partial class MagickDefineTests
 {
-    public partial class MagickDefineTests
+    public class TheCreateMethod
     {
-        public class TheCreateMethod
+        [Fact]
+        public void ShouldReturnTheCorrectDefine()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectDefine()
-            {
-                var value = new[] { Channels.Red, Channels.Green };
+            var value = new[] { Channels.Red, Channels.Green };
 
-                var define = MagickDefine.Create(MagickFormat.A, "test", value);
+            var define = MagickDefine.Create(MagickFormat.A, "test", value);
 
-                Assert.Equal(MagickFormat.A, define.Format);
-                Assert.Equal("test", define.Name);
-                Assert.Equal("Cyan,Green", define.Value);
-            }
+            Assert.Equal(MagickFormat.A, define.Format);
+            Assert.Equal("test", define.Name);
+            Assert.Equal("Cyan,Green", define.Value);
+        }
 
-            [Fact]
-            public void ShouldReturnNullWhenValueIsNull()
-            {
-                var define = MagickDefine.Create(MagickFormat.A, "test", (IEnumerable<string>)null);
+        [Fact]
+        public void ShouldReturnNullWhenValueIsNull()
+        {
+            var define = MagickDefine.Create(MagickFormat.A, "test", (IEnumerable<string>)null);
 
-                Assert.Null(define);
-            }
+            Assert.Null(define);
+        }
 
-            [Fact]
-            public void ShouldSkipNullvalue()
-            {
-                var value = new[] { "A", null, "B" };
+        [Fact]
+        public void ShouldSkipNullvalue()
+        {
+            var value = new[] { "A", null, "B" };
 
-                var define = MagickDefine.Create(MagickFormat.A, "test", value);
+            var define = MagickDefine.Create(MagickFormat.A, "test", value);
 
-                Assert.Equal(MagickFormat.A, define.Format);
-                Assert.Equal("test", define.Name);
-                Assert.Equal("A,B", define.Value);
-            }
+            Assert.Equal(MagickFormat.A, define.Format);
+            Assert.Equal("test", define.Name);
+            Assert.Equal("A,B", define.Value);
+        }
 
-            [Fact]
-            public void ShouldReturnNullForEmptyCollection()
-            {
-                var value = Array.Empty<string>();
+        [Fact]
+        public void ShouldReturnNullForEmptyCollection()
+        {
+            var value = Array.Empty<string>();
 
-                var define = MagickDefine.Create(MagickFormat.A, "test", value);
+            var define = MagickDefine.Create(MagickFormat.A, "test", value);
 
-                Assert.Null(define);
-            }
+            Assert.Null(define);
         }
     }
 }

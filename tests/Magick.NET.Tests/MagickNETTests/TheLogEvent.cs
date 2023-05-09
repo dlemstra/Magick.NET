@@ -4,113 +4,112 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickNETTests
 {
-    public partial class MagickNETTests
+    [Collection(nameof(RunTestsSeparately))]
+    public class TheLogEvent
     {
-        [Collection(nameof(RunTestsSeparately))]
-        public class TheLogEvent
+        [Fact]
+        public void ShouldPassOrderedTests()
         {
-            [Fact]
-            public void ShouldPassOrderedTests()
+            ShouldNotCallLogDelegeteWhenLogEventsAreNotSet();
+
+            ShouldCallLogDelegateWhenLogEventsAreSet();
+
+            ShouldLogTraceEventsWhenLogEventsIsSetToAll();
+
+            ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
+        }
+
+        private void ShouldNotCallLogDelegeteWhenLogEventsAreNotSet()
+        {
+            var count = 0;
+            void LogDelegate(object sender, LogEventArgs arguments)
             {
-                ShouldNotCallLogDelegeteWhenLogEventsAreNotSet();
-
-                ShouldCallLogDelegateWhenLogEventsAreSet();
-
-                ShouldLogTraceEventsWhenLogEventsIsSetToAll();
-
-                ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
+                count++;
             }
 
-            private void ShouldNotCallLogDelegeteWhenLogEventsAreNotSet()
+            MagickNET.Log += LogDelegate;
+
+            using var image = new MagickImage(Files.SnakewarePNG);
+            image.Flip();
+
+            MagickNET.Log -= LogDelegate;
+
+            Assert.Equal(0, count);
+        }
+
+        private void ShouldCallLogDelegateWhenLogEventsAreSet()
+        {
+            var count = 0;
+            void LogDelegate(object sender, LogEventArgs arguments)
             {
-                var count = 0;
-                void LogDelegate(object sender, LogEventArgs arguments)
-                {
-                    count++;
-                }
+                Assert.Null(sender);
+                Assert.NotNull(arguments);
+                Assert.NotEqual(LogEvents.None, arguments.EventType);
+                Assert.NotNull(arguments.Message);
+                Assert.NotEqual(0, arguments.Message.Length);
 
-                MagickNET.Log += LogDelegate;
-
-                using var image = new MagickImage(Files.SnakewarePNG);
-                image.Flip();
-
-                MagickNET.Log -= LogDelegate;
-
-                Assert.Equal(0, count);
+                count++;
             }
 
-            private void ShouldCallLogDelegateWhenLogEventsAreSet()
+            MagickNET.Log += LogDelegate;
+
+            MagickNET.SetLogEvents(LogEvents.Detailed);
+
+            using var image = new MagickImage(Files.SnakewarePNG);
+            image.Flip();
+
+            MagickNET.Log -= LogDelegate;
+
+            Assert.NotEqual(0, count);
+            count = 0;
+
+            image.Flip();
+
+            Assert.Equal(0, count);
+        }
+
+        private void ShouldLogTraceEventsWhenLogEventsIsSetToAll()
+        {
+            var traceEvents = 0;
+            void LogDelegate(object sender, LogEventArgs arguments)
             {
-                var count = 0;
-                void LogDelegate(object sender, LogEventArgs arguments)
-                {
-                    Assert.Null(sender);
-                    Assert.NotNull(arguments);
-                    Assert.NotEqual(LogEvents.None, arguments.EventType);
-                    Assert.NotNull(arguments.Message);
-                    Assert.NotEqual(0, arguments.Message.Length);
-
-                    count++;
-                }
-
-                MagickNET.Log += LogDelegate;
-
-                MagickNET.SetLogEvents(LogEvents.Detailed);
-
-                using var image = new MagickImage(Files.SnakewarePNG);
-                image.Flip();
-
-                MagickNET.Log -= LogDelegate;
-
-                Assert.NotEqual(0, count);
-                count = 0;
-
-                image.Flip();
-
-                Assert.Equal(0, count);
+                if (arguments.EventType == LogEvents.Trace)
+                    traceEvents++;
             }
 
-            private void ShouldLogTraceEventsWhenLogEventsIsSetToAll()
+            MagickNET.SetLogEvents(LogEvents.All);
+
+            MagickNET.Log += LogDelegate;
+
+            using var image = new MagickImage(Files.SnakewarePNG);
+
+            MagickNET.Log -= LogDelegate;
+
+            Assert.NotEqual(0, traceEvents);
+        }
+
+        private void ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved()
+        {
+            var count = 0;
+            void LogDelegate(object sender, LogEventArgs arguments)
             {
-                var traceEvents = 0;
-                void LogDelegate(object sender, LogEventArgs arguments)
-                {
-                    if (arguments.EventType == LogEvents.Trace)
-                        traceEvents++;
-                }
-
-                MagickNET.SetLogEvents(LogEvents.All);
-
-                MagickNET.Log += LogDelegate;
-
-                using var image = new MagickImage(Files.SnakewarePNG);
-
-                MagickNET.Log -= LogDelegate;
-
-                Assert.NotEqual(0, traceEvents);
+                count++;
             }
 
-            private void ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved()
-            {
-                var count = 0;
-                void LogDelegate(object sender, LogEventArgs arguments)
-                {
-                    count++;
-                }
+            MagickNET.Log += LogDelegate;
 
-                MagickNET.Log += LogDelegate;
+            MagickNET.SetLogEvents(LogEvents.Detailed);
 
-                MagickNET.SetLogEvents(LogEvents.Detailed);
+            MagickNET.Log -= LogDelegate;
 
-                MagickNET.Log -= LogDelegate;
+            using var image = new MagickImage(Files.SnakewarePNG);
+            image.Flip();
 
-                using var image = new MagickImage(Files.SnakewarePNG);
-                image.Flip();
-
-                Assert.Equal(0, count);
-            }
+            Assert.Equal(0, count);
         }
     }
 }

@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickFormatInfoTests
-    {
-        public class TheEqualsMethod
-        {
-            [Fact]
-            public void ShouldReturnTrueWhenTheObjectsAreEqual()
-            {
-                var first = MagickFormatInfo.Create(MagickFormat.Png);
-                var second = MagickFormatInfo.Create(Files.SnakewarePNG);
+namespace Magick.NET.Tests;
 
-                Assert.True(first == second);
-                Assert.True(first.Equals(second));
-                Assert.True(first.Equals((object)second));
-            }
+public partial class MagickFormatInfoTests
+{
+    public class TheEqualsMethod
+    {
+        [Fact]
+        public void ShouldReturnTrueWhenTheObjectsAreEqual()
+        {
+            var first = MagickFormatInfo.Create(MagickFormat.Png);
+            var second = MagickFormatInfo.Create(Files.SnakewarePNG);
+
+            Assert.True(first == second);
+            Assert.True(first.Equals(second));
+            Assert.True(first.Equals((object)second));
         }
     }
 }

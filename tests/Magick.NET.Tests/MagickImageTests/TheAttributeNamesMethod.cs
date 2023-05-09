@@ -5,26 +5,25 @@ using System.Linq;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheAttributeNamesMethod
     {
-        public class TheAttributeNamesMethod
+        [Fact]
+        public void ShouldReturnTheAttributeNames()
         {
-            [Fact]
-            public void ShouldReturnTheAttributeNames()
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    image.SetAttribute("foo", "bar");
-                    image.SetArtifact("bar", "foo");
+                image.SetAttribute("foo", "bar");
+                image.SetArtifact("bar", "foo");
 
-                    var names = image.AttributeNames;
-                    var allNames = string.Join(",", names);
+                var names = image.AttributeNames;
+                var allNames = string.Join(",", names);
 
-                    Assert.Equal(6, names.Count());
-                    Assert.Equal("date:create,date:modify,date:timestamp,foo,jpeg:colorspace,jpeg:sampling-factor", allNames);
-                }
+                Assert.Equal(6, names.Count());
+                Assert.Equal("date:create,date:modify,date:timestamp,foo,jpeg:colorspace,jpeg:sampling-factor", allNames);
             }
         }
     }

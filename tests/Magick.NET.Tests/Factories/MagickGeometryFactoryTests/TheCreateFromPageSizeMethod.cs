@@ -5,60 +5,59 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickGeometryFactoryTests
 {
-    public partial class MagickGeometryFactoryTests
+    public partial class TheCreateFromPageSizeMethod
     {
-        public partial class TheCreateFromPageSizeMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenValueIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenValueIsNull()
-            {
-                var factory = new MagickGeometryFactory();
+            var factory = new MagickGeometryFactory();
 
-                Assert.Throws<ArgumentNullException>("pageSize", () => factory.CreateFromPageSize(null));
-            }
+            Assert.Throws<ArgumentNullException>("pageSize", () => factory.CreateFromPageSize(null));
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenValueIsEmpty()
-            {
-                var factory = new MagickGeometryFactory();
+        [Fact]
+        public void ShouldThrowExceptionWhenValueIsEmpty()
+        {
+            var factory = new MagickGeometryFactory();
 
-                Assert.Throws<ArgumentException>("pageSize", () => factory.CreateFromPageSize(string.Empty));
-            }
+            Assert.Throws<ArgumentException>("pageSize", () => factory.CreateFromPageSize(string.Empty));
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenPageSizeIsInvalid()
-            {
-                var factory = new MagickGeometryFactory();
-                var exception = Assert.Throws<InvalidOperationException>(() => factory.CreateFromPageSize("invalid"));
+        [Fact]
+        public void ShouldThrowExceptionWhenPageSizeIsInvalid()
+        {
+            var factory = new MagickGeometryFactory();
+            var exception = Assert.Throws<InvalidOperationException>(() => factory.CreateFromPageSize("invalid"));
 
-                Assert.Equal("Invalid page size specified.", exception.Message);
-            }
+            Assert.Equal("Invalid page size specified.", exception.Message);
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectGeometry()
-            {
-                var factory = new MagickGeometryFactory();
-                var geometry = factory.CreateFromPageSize("a4");
+        [Fact]
+        public void ShouldReturnTheCorrectGeometry()
+        {
+            var factory = new MagickGeometryFactory();
+            var geometry = factory.CreateFromPageSize("a4");
 
-                Assert.Equal(595, geometry.Width);
-                Assert.Equal(842, geometry.Height);
-                Assert.Equal(0, geometry.X);
-                Assert.Equal(0, geometry.Y);
-            }
+            Assert.Equal(595, geometry.Width);
+            Assert.Equal(842, geometry.Height);
+            Assert.Equal(0, geometry.X);
+            Assert.Equal(0, geometry.Y);
+        }
 
-            [Fact]
-            public void ShouldSetTheXAndYPosition()
-            {
-                var factory = new MagickGeometryFactory();
-                var geometry = factory.CreateFromPageSize("a4+3+2");
+        [Fact]
+        public void ShouldSetTheXAndYPosition()
+        {
+            var factory = new MagickGeometryFactory();
+            var geometry = factory.CreateFromPageSize("a4+3+2");
 
-                Assert.Equal(595, geometry.Width);
-                Assert.Equal(842, geometry.Height);
-                Assert.Equal(3, geometry.X);
-                Assert.Equal(2, geometry.Y);
-            }
+            Assert.Equal(595, geometry.Width);
+            Assert.Equal(842, geometry.Height);
+            Assert.Equal(3, geometry.X);
+            Assert.Equal(2, geometry.Y);
         }
     }
 }

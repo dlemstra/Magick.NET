@@ -6,61 +6,60 @@ using System.Linq;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class UnsafePixelCollectionTests
 {
-    public partial class UnsafePixelCollectionTests
+    public class TheGetEnumeratorMethod
     {
-        public class TheGetEnumeratorMethod
+        [Fact]
+        public void ShouldReturnEnumerator()
         {
-            [Fact]
-            public void ShouldReturnEnumerator()
+            using (var image = new MagickImage(Files.CirclePNG))
             {
-                using (var image = new MagickImage(Files.CirclePNG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var enumerator = pixels.GetEnumerator();
-                        Assert.NotNull(enumerator);
-                    }
+                    var enumerator = pixels.GetEnumerator();
+                    Assert.NotNull(enumerator);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnEnumeratorForInterfaceImplementation()
+        [Fact]
+        public void ShouldReturnEnumeratorForInterfaceImplementation()
+        {
+            using (var image = new MagickImage(Files.CirclePNG))
             {
-                using (var image = new MagickImage(Files.CirclePNG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        IEnumerable enumerable = pixels;
-                        Assert.NotNull(enumerable.GetEnumerator());
-                    }
+                    IEnumerable enumerable = pixels;
+                    Assert.NotNull(enumerable.GetEnumerator());
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnEnumeratorForFirst()
+        [Fact]
+        public void ShouldReturnEnumeratorForFirst()
+        {
+            using (var image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
             {
-                using (var image = new MagickImage(Files.ConnectedComponentsPNG, 10, 10))
-                {
-                    var pixel = image.GetPixelsUnsafe().First(p => p.ToColor().Equals(MagickColors.Black));
-                    Assert.NotNull(pixel);
+                var pixel = image.GetPixelsUnsafe().First(p => p.ToColor().Equals(MagickColors.Black));
+                Assert.NotNull(pixel);
 
-                    Assert.Equal(350, pixel.X);
-                    Assert.Equal(196, pixel.Y);
-                    Assert.Equal(2, pixel.Channels);
-                }
+                Assert.Equal(350, pixel.X);
+                Assert.Equal(196, pixel.Y);
+                Assert.Equal(2, pixel.Channels);
             }
+        }
 
-            [Fact]
-            public void ShouldReturnEnumeratorForCount()
+        [Fact]
+        public void ShouldReturnEnumeratorForCount()
+        {
+            using (var image = new MagickImage(MagickColors.Red, 5, 10))
             {
-                using (var image = new MagickImage(MagickColors.Red, 5, 10))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        Assert.Equal(50, pixels.Count());
-                    }
+                    Assert.Equal(50, pixels.Count());
                 }
             }
         }

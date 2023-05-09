@@ -5,18 +5,17 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ByteConverterTests
 {
-    public partial class ByteConverterTests
+    public class TheToArrayMethod
     {
-        public class TheToArrayMethod
+        [Fact]
+        public void ShouldReturnNullWhenIntPtrIsZero()
         {
-            [Fact]
-            public void ShouldReturnNullWhenIntPtrIsZero()
-            {
-                var value = ByteConverter.ToArray(IntPtr.Zero, 4);
-                Assert.Null(value);
-            }
+            var value = ByteConverter.ToArray(IntPtr.Zero, 4);
+            Assert.Null(value);
         }
     }
 }

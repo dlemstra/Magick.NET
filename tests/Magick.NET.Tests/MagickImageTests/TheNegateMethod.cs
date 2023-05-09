@@ -4,32 +4,31 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheNegateMethod
     {
-        public class TheNegateMethod
+        [Fact]
+        public void ShouldNegateTheImage()
         {
-            [Fact]
-            public void ShouldNegateTheImage()
+            using (var image = new MagickImage("xc:white", 1, 1))
             {
-                using (var image = new MagickImage("xc:white", 1, 1))
-                {
-                    image.Negate();
+                image.Negate();
 
-                    ColorAssert.Equal(MagickColors.Black, image, 0, 0);
-                }
+                ColorAssert.Equal(MagickColors.Black, image, 0, 0);
             }
+        }
 
-            [Fact]
-            public void ShouldNegateTheSpecifedChannels()
+        [Fact]
+        public void ShouldNegateTheSpecifedChannels()
+        {
+            using (var image = new MagickImage("xc:white", 1, 1))
             {
-                using (var image = new MagickImage("xc:white", 1, 1))
-                {
-                    image.Negate(Channels.Red);
+                image.Negate(Channels.Red);
 
-                    ColorAssert.Equal(MagickColors.Aqua, image, 0, 0);
-                }
+                ColorAssert.Equal(MagickColors.Aqua, image, 0, 0);
             }
         }
     }

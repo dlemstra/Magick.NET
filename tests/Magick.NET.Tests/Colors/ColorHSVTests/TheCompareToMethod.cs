@@ -4,45 +4,44 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorHSVTests
 {
-    public partial class ColorHSVTests
+    public class TheCompareToMethod
     {
-        public class TheCompareToMethod
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsNull()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsNull()
-            {
-                var color = new ColorHSV(1, 2, 3);
+            var color = new ColorHSV(1, 2, 3);
 
-                Assert.Equal(1, color.CompareTo(null));
-            }
+            Assert.Equal(1, color.CompareTo(null));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsEqual()
-            {
-                var color = new ColorHSV(1, 2, 3);
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsEqual()
+        {
+            var color = new ColorHSV(1, 2, 3);
 
-                Assert.Equal(0, color.CompareTo(color));
-            }
+            Assert.Equal(0, color.CompareTo(color));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsLower()
-            {
-                var color = new ColorHSV(1.0, 1.0, 1.0);
-                var other = new ColorHSV(0.5, 0.5, 0.5);
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsLower()
+        {
+            var color = new ColorHSV(1.0, 1.0, 1.0);
+            var other = new ColorHSV(0.5, 0.5, 0.5);
 
-                Assert.Equal(1, color.CompareTo(other));
-            }
+            Assert.Equal(1, color.CompareTo(other));
+        }
 
-            [Fact]
-            public void ShouldReturnTheCorrectValueWhenOtherIsHigher()
-            {
-                var color = new ColorHSV(0.5, 0.5, 0.5);
-                var other = new ColorHSV(1.0, 1.0, 1.0);
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenOtherIsHigher()
+        {
+            var color = new ColorHSV(0.5, 0.5, 0.5);
+            var other = new ColorHSV(1.0, 1.0, 1.0);
 
-                Assert.Equal(-1, color.CompareTo(other));
-            }
+            Assert.Equal(-1, color.CompareTo(other));
         }
     }
 }

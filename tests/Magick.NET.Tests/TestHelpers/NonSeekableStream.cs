@@ -3,18 +3,17 @@
 
 using System.IO;
 
-namespace Magick.NET.Tests
-{
-    internal sealed class NonSeekableStream : TestStream
-    {
-        public NonSeekableStream(string fileName)
-          : base(File.OpenRead(fileName), false)
-        {
-        }
+namespace Magick.NET.Tests;
 
-        public NonSeekableStream(Stream innerStream)
-          : base(innerStream, false)
-        {
-        }
+internal sealed class NonSeekableStream : TestStream
+{
+    public NonSeekableStream(string fileName)
+      : base(File.OpenRead(fileName), false)
+    {
+    }
+
+    public NonSeekableStream(Stream innerStream)
+      : base(innerStream, false)
+    {
     }
 }

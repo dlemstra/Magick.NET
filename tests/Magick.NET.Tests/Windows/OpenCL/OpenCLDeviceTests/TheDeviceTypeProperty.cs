@@ -6,17 +6,16 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TheDeviceTypeProperty
 {
-    public partial class TheDeviceTypeProperty
+    [Fact]
+    public void ShouldNotBeUndefines()
     {
-        [Fact]
-        public void ShouldNotBeUndefines()
+        foreach (var device in OpenCL.Devices)
         {
-            foreach (var device in OpenCL.Devices)
-            {
-                Assert.NotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
-            }
+            Assert.NotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
         }
     }
 }

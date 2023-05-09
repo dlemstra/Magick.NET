@@ -17,223 +17,222 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheAddRangeMethod
     {
-        public class TheAddRangeMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenByteArrayIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenByteArrayIsNull()
+            Assert.Throws<ArgumentNullException>("data", () =>
             {
-                Assert.Throws<ArgumentNullException>("data", () =>
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.AddRange((byte[])null);
-                    }
-                });
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenByteArrayIsEmpty()
-            {
-                Assert.Throws<ArgumentException>("data", () =>
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.AddRange(Array.Empty<byte>());
-                    }
-                });
-            }
-
-            [Fact]
-            public void ShouldNotThrowExceptionWhenByteArrayReadSettingsIsNull()
-            {
-                var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-
                 using (var images = new MagickImageCollection())
                 {
-                    images.AddRange(bytes, null);
+                    images.AddRange((byte[])null);
+                }
+            });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenByteArrayIsEmpty()
+        {
+            Assert.Throws<ArgumentException>("data", () =>
+            {
+                using (var images = new MagickImageCollection())
+                {
+                    images.AddRange(Array.Empty<byte>());
+                }
+            });
+        }
+
+        [Fact]
+        public void ShouldNotThrowExceptionWhenByteArrayReadSettingsIsNull()
+        {
+            var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+
+            using (var images = new MagickImageCollection())
+            {
+                images.AddRange(bytes, null);
+
+                Assert.Single(images);
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenEnumerableImagesIsNull()
+        {
+            Assert.Throws<ArgumentNullException>("images", () =>
+            {
+                using (var images = new MagickImageCollection())
+                {
+                    images.AddRange((IEnumerable<IMagickImage<QuantumType>>)null);
+                }
+            });
+        }
+
+        [Fact]
+        public void ShouldNotThrowExceptionWhenEnumerableImagesIsEmpty()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                images.AddRange(Array.Empty<IMagickImage<QuantumType>>());
+
+                Assert.Empty(images);
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenImagesIsMagickImageCollection()
+        {
+            using (var images = new MagickImageCollection(Files.SnakewarePNG))
+            {
+                Assert.Throws<ArgumentException>("images", () =>
+                {
+                    images.AddRange(images);
+                });
+            }
+        }
+
+        [Fact]
+        public void ShouldNotThrowExceptionWhenCollectionIsEmpty()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                images.AddRange(Array.Empty<IMagickImage<QuantumType>>());
+
+                Assert.Empty(images);
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenFileNameIsNull()
+        {
+            Assert.Throws<ArgumentNullException>("fileName", () =>
+            {
+                using (var images = new MagickImageCollection())
+                {
+                    images.AddRange((string)null);
+                }
+            });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenFileNameIsEmpty()
+        {
+            Assert.Throws<ArgumentException>("fileName", () =>
+            {
+                using (var images = new MagickImageCollection())
+                {
+                    images.AddRange(string.Empty);
+                }
+            });
+        }
+
+        [Fact]
+        public void ShouldNotThrowExceptionWhenFileNameReadSettingsIsNull()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                images.AddRange(Files.SnakewarePNG, null);
+
+                Assert.Single(images);
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenFileNameIsInvalid()
+        {
+            var exception = Assert.Throws<MagickBlobErrorException>(() =>
+            {
+                using (var images = new MagickImageCollection())
+                {
+                    images.Add(Files.Missing);
+                }
+            });
+
+            Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenStreamIsNull()
+        {
+            Assert.Throws<ArgumentNullException>("stream", () =>
+            {
+                using (var images = new MagickImageCollection())
+                {
+                    images.AddRange((Stream)null);
+                }
+            });
+        }
+
+        [Fact]
+        public void ShouldNotThrowExceptionWhenStreamReadSettingsIsNull()
+        {
+            using (var images = new MagickImageCollection())
+            {
+                using (var stream = File.OpenRead(Files.SnakewarePNG))
+                {
+                    images.AddRange(stream, null);
 
                     Assert.Single(images);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenEnumerableImagesIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
+        {
+            using (var images = new MagickImageCollection())
             {
-                Assert.Throws<ArgumentNullException>("images", () =>
+                var image = new MagickImage();
+                images.AddRange(new[] { image });
+
+                Assert.Throws<InvalidOperationException>(() =>
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.AddRange((IEnumerable<IMagickImage<QuantumType>>)null);
-                    }
+                    images.AddRange(new[] { image });
                 });
             }
+        }
 
-            [Fact]
-            public void ShouldNotThrowExceptionWhenEnumerableImagesIsEmpty()
+        [Fact]
+        public void ShouldThrowExceptionWhenImagesContainsDuplicates()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    images.AddRange(Array.Empty<IMagickImage<QuantumType>>());
-
-                    Assert.Empty(images);
-                }
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenImagesIsMagickImageCollection()
-            {
-                using (var images = new MagickImageCollection(Files.SnakewarePNG))
-                {
-                    Assert.Throws<ArgumentException>("images", () =>
-                    {
-                        images.AddRange(images);
-                    });
-                }
-            }
-
-            [Fact]
-            public void ShouldNotThrowExceptionWhenCollectionIsEmpty()
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    images.AddRange(Array.Empty<IMagickImage<QuantumType>>());
-
-                    Assert.Empty(images);
-                }
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenFileNameIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("fileName", () =>
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.AddRange((string)null);
-                    }
-                });
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenFileNameIsEmpty()
-            {
-                Assert.Throws<ArgumentException>("fileName", () =>
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.AddRange(string.Empty);
-                    }
-                });
-            }
-
-            [Fact]
-            public void ShouldNotThrowExceptionWhenFileNameReadSettingsIsNull()
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    images.AddRange(Files.SnakewarePNG, null);
-
-                    Assert.Single(images);
-                }
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenFileNameIsInvalid()
-            {
-                var exception = Assert.Throws<MagickBlobErrorException>(() =>
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.Add(Files.Missing);
-                    }
-                });
-
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenStreamIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("stream", () =>
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.AddRange((Stream)null);
-                    }
-                });
-            }
-
-            [Fact]
-            public void ShouldNotThrowExceptionWhenStreamReadSettingsIsNull()
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    using (var stream = File.OpenRead(Files.SnakewarePNG))
-                    {
-                        images.AddRange(stream, null);
-
-                        Assert.Single(images);
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
-            {
-                using (var images = new MagickImageCollection())
+                Assert.Throws<InvalidOperationException>(() =>
                 {
                     var image = new MagickImage();
-                    images.AddRange(new[] { image });
-
-                    Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        images.AddRange(new[] { image });
-                    });
-                }
+                    images.AddRange(new[] { image, image });
+                });
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenImagesContainsDuplicates()
+        [Fact]
+        public void ShouldAddAllGifFrames()
+        {
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        var image = new MagickImage();
-                        images.AddRange(new[] { image, image });
-                    });
-                }
+                Assert.Equal(3, images.Count);
+
+                images.AddRange(Files.RoseSparkleGIF);
+                Assert.Equal(6, images.Count);
             }
+        }
 
-            [Fact]
-            public void ShouldAddAllGifFrames()
+        [Fact]
+        public void ShouldNotCloneTheInputImages()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-                {
-                    Assert.Equal(3, images.Count);
+                var image = new MagickImage("xc:red", 100, 100);
 
-                    images.AddRange(Files.RoseSparkleGIF);
-                    Assert.Equal(6, images.Count);
-                }
-            }
+                var list = new List<IMagickImage<QuantumType>> { image };
 
-            [Fact]
-            public void ShouldNotCloneTheInputImages()
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    var image = new MagickImage("xc:red", 100, 100);
+                images.AddRange(list);
 
-                    var list = new List<IMagickImage<QuantumType>> { image };
-
-                    images.AddRange(list);
-
-                    Assert.True(ReferenceEquals(image, list[0]));
-                }
+                Assert.True(ReferenceEquals(image, list[0]));
             }
         }
     }

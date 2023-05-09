@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ExifProfileTests
 {
-    public partial class ExifProfileTests
+    public class TheRewriteMethod : ExifProfileTests
     {
-        public class TheRewriteMethod : ExifProfileTests
+        [Fact]
+        public void ShouldUpdateTheData()
         {
-            [Fact]
-            public void ShouldUpdateTheData()
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetExifProfile();
+                var profile = image.GetExifProfile();
 
-                    var before = profile.GetData();
+                var before = profile.GetData();
 
-                    profile.Rewrite();
+                profile.Rewrite();
 
-                    var after = profile.GetData();
+                var after = profile.GetData();
 
-                    Assert.NotNull(after);
-                    Assert.NotSame(before, after);
-                    Assert.Equal(958, after.Length);
-                }
+                Assert.NotNull(after);
+                Assert.NotSame(before, after);
+                Assert.Equal(958, after.Length);
             }
         }
     }

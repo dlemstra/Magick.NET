@@ -4,27 +4,26 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheImplodeMethod
     {
-        public class TheImplodeMethod
+        [Fact]
+        public void ShouldImplodeTheImage()
         {
-            [Fact]
-            public void ShouldImplodeTheImage()
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
+                ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
 
-                    image.Implode(0.5, PixelInterpolateMethod.Blend);
+                image.Implode(0.5, PixelInterpolateMethod.Blend);
 
-                    ColorAssert.Equal(new MagickColor("#a8dff8"), image, 69, 45);
+                ColorAssert.Equal(new MagickColor("#a8dff8"), image, 69, 45);
 
-                    image.Implode(-0.5, PixelInterpolateMethod.Background);
+                image.Implode(-0.5, PixelInterpolateMethod.Background);
 
-                    ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
-                }
+                ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
             }
         }
     }

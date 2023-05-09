@@ -5,20 +5,19 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorRGBTests
 {
-    public partial class ColorRGBTests
+    public class TheConstructor
     {
-        public class TheConstructor
+        [Fact]
+        public void ShouldThrowExceptionWhenColorIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenColorIsNull()
+            Assert.Throws<ArgumentNullException>("color", () =>
             {
-                Assert.Throws<ArgumentNullException>("color", () =>
-                {
-                    new ColorRGB(null);
-                });
-            }
+                new ColorRGB(null);
+            });
         }
     }
 }

@@ -6,52 +6,51 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class ByteArrayWrapperTests
-    {
-        public class TheWriteMethod
-        {
-            [Fact]
-            public void ShouldReturnZeroWhenBufferIsNull()
-            {
-                using var wrapper = new ByteArrayWrapper();
+namespace Magick.NET.Tests;
 
-                var count = wrapper.Write(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
+public partial class ByteArrayWrapperTests
+{
+    public class TheWriteMethod
+    {
+        [Fact]
+        public void ShouldReturnZeroWhenBufferIsNull()
+        {
+            using var wrapper = new ByteArrayWrapper();
+
+            var count = wrapper.Write(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
+            Assert.Equal(0, count);
+        }
+
+        [Fact]
+        public unsafe void ShouldReturnZeroWhenNothingShouldBeWritten()
+        {
+            using var wrapper = new ByteArrayWrapper();
+
+            var buffer = new byte[255];
+            fixed (byte* p = buffer)
+            {
+                var count = wrapper.Write((IntPtr)p, UIntPtr.Zero, IntPtr.Zero);
                 Assert.Equal(0, count);
             }
+        }
 
-            [Fact]
-            public unsafe void ShouldReturnZeroWhenNothingShouldBeWritten()
+        [Fact]
+        public unsafe void ShouldReturnTheNumberOfBytesThatCouldBeWritten()
+        {
+            using var wrapper = new ByteArrayWrapper();
+
+            var buffer = new byte[5];
+            fixed (byte* p = buffer)
             {
-                using var wrapper = new ByteArrayWrapper();
+                var count = wrapper.Write((IntPtr)p, (UIntPtr)5, IntPtr.Zero);
+                Assert.Equal(5, count);
 
-                var buffer = new byte[255];
-                fixed (byte* p = buffer)
-                {
-                    var count = wrapper.Write((IntPtr)p, UIntPtr.Zero, IntPtr.Zero);
-                    Assert.Equal(0, count);
-                }
-            }
+                wrapper.Seek(10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
-            [Fact]
-            public unsafe void ShouldReturnTheNumberOfBytesThatCouldBeWritten()
-            {
-                using var wrapper = new ByteArrayWrapper();
+                count = wrapper.Write((IntPtr)p, (UIntPtr)4, IntPtr.Zero);
+                Assert.Equal(4, count);
 
-                var buffer = new byte[5];
-                fixed (byte* p = buffer)
-                {
-                    var count = wrapper.Write((IntPtr)p, (UIntPtr)5, IntPtr.Zero);
-                    Assert.Equal(5, count);
-
-                    wrapper.Seek(10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
-
-                    count = wrapper.Write((IntPtr)p, (UIntPtr)4, IntPtr.Zero);
-                    Assert.Equal(4, count);
-
-                    Assert.Equal(19, wrapper.GetBytes().Length);
-                }
+                Assert.Equal(19, wrapper.GetBytes().Length);
             }
         }
     }

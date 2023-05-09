@@ -5,23 +5,22 @@ using System.Linq;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageCollectionTests
-    {
-        public class TheReverseMethod
-        {
-            [Fact]
-            public void ShouldReverseTheImageOrder()
-            {
-                using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-                {
-                    var first = images.First();
-                    images.Reverse();
+namespace Magick.NET.Tests;
 
-                    var last = images.Last();
-                    Assert.True(last == first);
-                }
+public partial class MagickImageCollectionTests
+{
+    public class TheReverseMethod
+    {
+        [Fact]
+        public void ShouldReverseTheImageOrder()
+        {
+            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
+            {
+                var first = images.First();
+                images.Reverse();
+
+                var last = images.Last();
+                Assert.True(last == first);
             }
         }
     }

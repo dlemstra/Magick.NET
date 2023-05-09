@@ -4,24 +4,23 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class SafePixelCollectionTests
-    {
-        public class TheToArrayMethod
-        {
-            [Fact]
-            public void ShouldReturnAllPixels()
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixels())
-                    {
-                        var values = pixels.ToArray();
-                        var length = image.Width * image.Height * image.ChannelCount;
+namespace Magick.NET.Tests;
 
-                        Assert.Equal(length, values.Length);
-                    }
+public partial class SafePixelCollectionTests
+{
+    public class TheToArrayMethod
+    {
+        [Fact]
+        public void ShouldReturnAllPixels()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
+            {
+                using (var pixels = image.GetPixels())
+                {
+                    var values = pixels.ToArray();
+                    var length = image.Width * image.Height * image.ChannelCount;
+
+                    Assert.Equal(length, values.Length);
                 }
             }
         }

@@ -6,124 +6,123 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TheTiffCoder
 {
-    public partial class TheTiffCoder
+    [Fact]
+    public void ShouldIgnoreTheSpecifiedTags()
     {
-        [Fact]
-        public void ShouldIgnoreTheSpecifiedTags()
+        var tag = "32934";
+        using var image = new MagickImage();
+
+        var exception = Assert.Throws<MagickCoderErrorException>(() => image.Read(Files.Coders.IgnoreTagTIF));
+
+        Assert.Contains(tag, exception.Message);
+
+        image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", tag);
+        image.Read(Files.Coders.IgnoreTagTIF);
+
+        var settings = new MagickReadSettings(new TiffReadDefines
         {
-            var tag = "32934";
-            using var image = new MagickImage();
+            IgnoreTags = new string[] { tag },
+        });
 
-            var exception = Assert.Throws<MagickCoderErrorException>(() => image.Read(Files.Coders.IgnoreTagTIF));
+        image.Settings.RemoveDefine(MagickFormat.Tiff, "ignore-tags");
+        image.Read(Files.Coders.IgnoreTagTIF, settings);
+    }
 
-            Assert.Contains(tag, exception.Message);
+    [Fact]
+    public void ShouldBeAbleToReadAndWriteIptcValues()
+    {
+        using var input = new MagickImage(Files.MagickNETIconPNG);
+        var profile = input.GetIptcProfile();
 
-            image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", tag);
-            image.Read(Files.Coders.IgnoreTagTIF);
+        Assert.Null(profile);
 
-            var settings = new MagickReadSettings(new TiffReadDefines
-            {
-                IgnoreTags = new string[] { tag },
-            });
+        profile = new IptcProfile();
+        profile.SetValue(IptcTag.Headline, "Magick.NET");
+        profile.SetValue(IptcTag.CopyrightNotice, "Copyright.NET");
 
-            image.Settings.RemoveDefine(MagickFormat.Tiff, "ignore-tags");
-            image.Read(Files.Coders.IgnoreTagTIF, settings);
-        }
+        input.SetProfile(profile);
 
-        [Fact]
-        public void ShouldBeAbleToReadAndWriteIptcValues()
-        {
-            using var input = new MagickImage(Files.MagickNETIconPNG);
-            var profile = input.GetIptcProfile();
+        using var memStream = new MemoryStream();
+        input.Format = MagickFormat.Tiff;
+        input.Write(memStream);
+        memStream.Position = 0;
 
-            Assert.Null(profile);
+        using var output = new MagickImage(memStream);
+        profile = output.GetIptcProfile();
 
-            profile = new IptcProfile();
-            profile.SetValue(IptcTag.Headline, "Magick.NET");
-            profile.SetValue(IptcTag.CopyrightNotice, "Copyright.NET");
+        Assert.NotNull(profile);
+        TestValue(profile, IptcTag.Headline, "Magick.NET");
+        TestValue(profile, IptcTag.CopyrightNotice, "Copyright.NET");
+    }
 
-            input.SetProfile(profile);
+    [Fact]
+    public void ShouldBeAbleToWriteLzwPTiffToStream()
+    {
+        using var image = new MagickImage(Files.InvitationTIF);
+        image.Settings.Compression = CompressionMethod.LZW;
 
-            using var memStream = new MemoryStream();
-            input.Format = MagickFormat.Tiff;
-            input.Write(memStream);
-            memStream.Position = 0;
+        using var stream = new MemoryStream();
+        image.Write(stream, MagickFormat.Ptif);
+    }
 
-            using var output = new MagickImage(memStream);
-            profile = output.GetIptcProfile();
+    [Theory]
+    [InlineData(CompressionMethod.Fax)]
+    [InlineData(CompressionMethod.Group4)]
+    [InlineData(CompressionMethod.JPEG)]
+    public void ShouldBeAbleToUseTheSpecifiedCompression(CompressionMethod compression)
+    {
+        using var input = new MagickImage(Files.Builtin.Logo);
+        input.Settings.Compression = compression;
 
-            Assert.NotNull(profile);
-            TestValue(profile, IptcTag.Headline, "Magick.NET");
-            TestValue(profile, IptcTag.CopyrightNotice, "Copyright.NET");
-        }
+        var bytes = input.ToByteArray(MagickFormat.Tiff);
 
-        [Fact]
-        public void ShouldBeAbleToWriteLzwPTiffToStream()
-        {
-            using var image = new MagickImage(Files.InvitationTIF);
-            image.Settings.Compression = CompressionMethod.LZW;
+        using var output = new MagickImage(bytes);
 
-            using var stream = new MemoryStream();
-            image.Write(stream, MagickFormat.Ptif);
-        }
+        Assert.Equal(compression, output.Compression);
+    }
 
-        [Theory]
-        [InlineData(CompressionMethod.Fax)]
-        [InlineData(CompressionMethod.Group4)]
-        [InlineData(CompressionMethod.JPEG)]
-        public void ShouldBeAbleToUseTheSpecifiedCompression(CompressionMethod compression)
-        {
-            using var input = new MagickImage(Files.Builtin.Logo);
-            input.Settings.Compression = compression;
+    [Fact]
+    public void ShouldBeAbleToReadImageWithInfiniteRowsPerStrip()
+    {
+        using var image = new MagickImage(Files.Coders.RowsPerStripTIF);
 
-            var bytes = input.ToByteArray(MagickFormat.Tiff);
+        Assert.Equal(MagickFormat.Tiff, image.Format);
+    }
 
-            using var output = new MagickImage(bytes);
+    [Fact]
+    public void ShouldBeAbleToReadImageWithLargeScanLine()
+    {
+        using var image = new MagickImage(MagickColors.Green, 1000, 1);
 
-            Assert.Equal(compression, output.Compression);
-        }
+        image.Settings.Compression = CompressionMethod.Zip;
 
-        [Fact]
-        public void ShouldBeAbleToReadImageWithInfiniteRowsPerStrip()
-        {
-            using var image = new MagickImage(Files.Coders.RowsPerStripTIF);
+        var data = image.ToByteArray(MagickFormat.Tiff);
+        Assert.NotNull(data);
 
-            Assert.Equal(MagickFormat.Tiff, image.Format);
-        }
+        image.Read(data);
+    }
 
-        [Fact]
-        public void ShouldBeAbleToReadImageWithLargeScanLine()
-        {
-            using var image = new MagickImage(MagickColors.Green, 1000, 1);
+    [Fact]
+    public void ShouldReadImageWithAlphaCorrectly()
+    {
+        using var image = new MagickImage(Files.MagickNETIconPNG);
+        using var stream = new MemoryStream();
+        image.Write(stream, MagickFormat.Tiff);
+        stream.Position = 0;
 
-            image.Settings.Compression = CompressionMethod.Zip;
+        image.Read(stream);
 
-            var data = image.ToByteArray(MagickFormat.Tiff);
-            Assert.NotNull(data);
+        ColorAssert.Equal(new MagickColor("#a8dff8ff"), image, 55, 70);
+    }
 
-            image.Read(data);
-        }
-
-        [Fact]
-        public void ShouldReadImageWithAlphaCorrectly()
-        {
-            using var image = new MagickImage(Files.MagickNETIconPNG);
-            using var stream = new MemoryStream();
-            image.Write(stream, MagickFormat.Tiff);
-            stream.Position = 0;
-
-            image.Read(stream);
-
-            ColorAssert.Equal(new MagickColor("#a8dff8ff"), image, 55, 70);
-        }
-
-        private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
-        {
-            var value = profile.GetValue(tag);
-            Assert.NotNull(value);
-            Assert.Equal(expectedValue, value.Value);
-        }
+    private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
+    {
+        var value = profile.GetValue(tag);
+        Assert.NotNull(value);
+        Assert.Equal(expectedValue, value.Value);
     }
 }

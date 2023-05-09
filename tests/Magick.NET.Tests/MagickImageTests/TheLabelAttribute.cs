@@ -4,45 +4,44 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheLabelAttribute
     {
-        public class TheLabelAttribute
+        [Fact]
+        public void ShouldGetTheLabelAttribute()
         {
-            [Fact]
-            public void ShouldGetTheLabelAttribute()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.SetAttribute("label", "foo");
+                image.SetAttribute("label", "foo");
 
-                    Assert.Equal("foo", image.Label);
-                }
+                Assert.Equal("foo", image.Label);
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheLabelAttribute()
+        [Fact]
+        public void ShouldSetTheLabelAttribute()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.Label = "foo";
+                image.Label = "foo";
 
-                    Assert.Equal("foo", image.GetAttribute("label"));
-                }
+                Assert.Equal("foo", image.GetAttribute("label"));
             }
+        }
 
-            [Fact]
-            public void ShouldRemoveTheLabelAttributeWhenSetToNull()
+        [Fact]
+        public void ShouldRemoveTheLabelAttributeWhenSetToNull()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    image.SetAttribute("label", "foo");
+                image.SetAttribute("label", "foo");
 
-                    image.Label = null;
+                image.Label = null;
 
-                    Assert.Null(image.GetAttribute("label"));
-                }
+                Assert.Null(image.GetAttribute("label"));
             }
         }
     }

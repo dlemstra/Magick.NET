@@ -5,53 +5,52 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SafePixelCollectionTests
 {
-    public partial class SafePixelCollectionTests
+    public class TheIndexer
     {
-        public class TheIndexer
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthOutOfRange()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenWidthOutOfRange()
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentOutOfRangeException>("x", () =>
                     {
-                        Assert.Throws<ArgumentOutOfRangeException>("x", () =>
-                        {
-                            var pixel = pixels[image.Width + 1, 0];
-                        });
-                    }
+                        var pixel = pixels[image.Width + 1, 0];
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenHeightOutOfRange()
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightOutOfRange()
+        {
+            using (var image = new MagickImage(Files.ImageMagickJPG))
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
+                    Assert.Throws<ArgumentOutOfRangeException>("y", () =>
                     {
-                        Assert.Throws<ArgumentOutOfRangeException>("y", () =>
-                        {
-                            var pixel = pixels[0, image.Height + 1];
-                        });
-                    }
+                        var pixel = pixels[0, image.Height + 1];
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldReturnPixelWhenIndexIsCorrect()
+        [Fact]
+        public void ShouldReturnPixelWhenIndexIsCorrect()
+        {
+            using (var image = new MagickImage(Files.RedPNG))
             {
-                using (var image = new MagickImage(Files.RedPNG))
+                using (var pixels = image.GetPixels())
                 {
-                    using (var pixels = image.GetPixels())
-                    {
-                        var pixel = pixels[300, 100];
+                    var pixel = pixels[300, 100];
 
-                        ColorAssert.Equal(MagickColors.Red, pixel.ToColor());
-                    }
+                    ColorAssert.Equal(MagickColors.Red, pixel.ToColor());
                 }
             }
         }

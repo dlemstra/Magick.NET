@@ -4,37 +4,36 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheVignetteMethod
     {
-        public class TheVignetteMethod
+        [Fact]
+        public void ShouldSoftenTheEdges()
         {
-            [Fact]
-            public void ShouldSoftenTheEdges()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.BackgroundColor = MagickColors.Aqua;
-                    image.Vignette();
+                image.BackgroundColor = MagickColors.Aqua;
+                image.Vignette();
 
-                    ColorAssert.Equal(new MagickColor("#6480ffffffff"), image, 292, 0);
-                    ColorAssert.Equal(new MagickColor("#91acffffffff"), image, 358, 479);
-                }
+                ColorAssert.Equal(new MagickColor("#6480ffffffff"), image, 292, 0);
+                ColorAssert.Equal(new MagickColor("#91acffffffff"), image, 358, 479);
             }
+        }
 
-            [Fact]
-            public void ShouldUseTheCorrectDefaultValues()
+        [Fact]
+        public void ShouldUseTheCorrectDefaultValues()
+        {
+            using (var image = new MagickImage(Files.NoisePNG))
             {
-                using (var image = new MagickImage(Files.NoisePNG))
+                using (var other = image.Clone())
                 {
-                    using (var other = image.Clone())
-                    {
-                        image.Vignette();
-                        other.Vignette(0.0, 1.0, 0, 0);
+                    image.Vignette();
+                    other.Vignette(0.0, 1.0, 0, 0);
 
-                        Assert.Equal(0, other.Compare(image, ErrorMetric.RootMeanSquared));
-                    }
+                    Assert.Equal(0, other.Compare(image, ErrorMetric.RootMeanSquared));
                 }
             }
         }

@@ -14,30 +14,29 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorHSVTests
 {
-    public partial class ColorHSVTests
+    public class TheFromMagickColorMethod
     {
-        public class TheFromMagickColorMethod
+        [Fact]
+        public void ShouldReturnNullWhenValueIsNull()
         {
-            [Fact]
-            public void ShouldReturnNullWhenValueIsNull()
-            {
-                var result = ColorHSV.FromMagickColor(null);
+            var result = ColorHSV.FromMagickColor(null);
 
-                Assert.Null(result);
-            }
+            Assert.Null(result);
+        }
 
-            [Fact]
-            public void ShouldInitializeTheProperties()
-            {
-                var color = new MagickColor(Quantum.Max, Quantum.Max, (QuantumType)(Quantum.Max * 0.02));
-                var hslColor = ColorHSV.FromMagickColor(color);
+        [Fact]
+        public void ShouldInitializeTheProperties()
+        {
+            var color = new MagickColor(Quantum.Max, Quantum.Max, (QuantumType)(Quantum.Max * 0.02));
+            var hslColor = ColorHSV.FromMagickColor(color);
 
-                Assert.InRange(hslColor.Hue, 0.16, 0.17);
-                Assert.InRange(hslColor.Saturation, 0.98, 0.99);
-                Assert.InRange(hslColor.Value, 1.0, 1.01);
-            }
+            Assert.InRange(hslColor.Hue, 0.16, 0.17);
+            Assert.InRange(hslColor.Saturation, 0.98, 0.99);
+            Assert.InRange(hslColor.Value, 1.0, 1.01);
         }
     }
 }

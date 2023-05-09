@@ -4,29 +4,28 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheShearMethod
     {
-        public class TheShearMethod
+        [Fact]
+        public void ShouldShearTheImage()
         {
-            [Fact]
-            public void ShouldShearTheImage()
+            using (var image = new MagickImage(Files.TestPNG))
             {
-                using (var image = new MagickImage(Files.TestPNG))
-                {
-                    image.BackgroundColor = MagickColors.Firebrick;
-                    image.VirtualPixelMethod = VirtualPixelMethod.Background;
-                    image.Shear(20, 40);
+                image.BackgroundColor = MagickColors.Firebrick;
+                image.VirtualPixelMethod = VirtualPixelMethod.Background;
+                image.Shear(20, 40);
 
-                    Assert.Equal(186, image.Width);
-                    Assert.Equal(195, image.Height);
+                Assert.Equal(186, image.Width);
+                Assert.Equal(195, image.Height);
 
-                    ColorAssert.Equal(MagickColors.Red, image, 14, 68);
-                    ColorAssert.Equal(MagickColors.Firebrick, image, 45, 6);
-                    ColorAssert.Equal(MagickColors.Blue, image, 150, 171);
-                    ColorAssert.Equal(MagickColors.Firebrick, image, 158, 181);
-                }
+                ColorAssert.Equal(MagickColors.Red, image, 14, 68);
+                ColorAssert.Equal(MagickColors.Firebrick, image, 45, 6);
+                ColorAssert.Equal(MagickColors.Blue, image, 150, 171);
+                ColorAssert.Equal(MagickColors.Firebrick, image, 158, 181);
             }
         }
     }

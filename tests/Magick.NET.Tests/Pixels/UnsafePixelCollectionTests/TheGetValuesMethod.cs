@@ -4,24 +4,23 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class UnsafePixelCollectionTests
-    {
-        public class TheGetValuesMethod
-        {
-            [Fact]
-            public void ShouldReturnAllPixels()
-            {
-                using (var image = new MagickImage(MagickColors.Purple, 4, 2))
-                {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        var values = pixels.GetValues();
-                        var length = 4 * 2 * 3;
+namespace Magick.NET.Tests;
 
-                        Assert.Equal(length, values.Length);
-                    }
+public partial class UnsafePixelCollectionTests
+{
+    public class TheGetValuesMethod
+    {
+        [Fact]
+        public void ShouldReturnAllPixels()
+        {
+            using (var image = new MagickImage(MagickColors.Purple, 4, 2))
+            {
+                using (var pixels = image.GetPixelsUnsafe())
+                {
+                    var values = pixels.GetValues();
+                    var length = 4 * 2 * 3;
+
+                    Assert.Equal(length, values.Length);
                 }
             }
         }

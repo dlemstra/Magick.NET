@@ -5,26 +5,25 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class CaptionReadDefinesTests
 {
-    public partial class CaptionReadDefinesTests
+    public class TheStartPointsizeProperty
     {
-        public class TheStartPointsizeProperty
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            [Fact]
-            public void ShouldSetTheDefine()
+            var defines = new CaptionReadDefines
             {
-                var defines = new CaptionReadDefines
-                {
-                    StartFontPointsize = 42,
-                };
+                StartFontPointsize = 42,
+            };
 
-                using (var image = new MagickImage())
-                {
-                    image.Settings.SetDefines(defines);
+            using (var image = new MagickImage())
+            {
+                image.Settings.SetDefines(defines);
 
-                    Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
-                }
+                Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
             }
         }
     }

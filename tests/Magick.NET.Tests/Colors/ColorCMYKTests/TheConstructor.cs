@@ -5,109 +5,108 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorCMYKTests
 {
-    public partial class ColorCMYKTests
+    public class TheConstructor
     {
-        public class TheConstructor
+        [Fact]
+        public void ShouldThrowExceptionWhenColorIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenColorIsNull()
+            Assert.Throws<ArgumentNullException>("color", () =>
             {
-                Assert.Throws<ArgumentNullException>("color", () =>
-                {
-                    new ColorCMYK(null);
-                });
-            }
+                new ColorCMYK(null);
+            });
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorIsEmpty()
+        [Fact]
+        public void ShouldThrowExceptionWhenColorIsEmpty()
+        {
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    new ColorCMYK(string.Empty);
-                });
-            }
+                new ColorCMYK(string.Empty);
+            });
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorDoesNotStartWithHash()
+        [Fact]
+        public void ShouldThrowExceptionWhenColorDoesNotStartWithHash()
+        {
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    new ColorCMYK("FFFFFF");
-                });
-            }
+                new ColorCMYK("FFFFFF");
+            });
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorHasInvalidLength()
+        [Fact]
+        public void ShouldThrowExceptionWhenColorHasInvalidLength()
+        {
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    new ColorCMYK("#FFFFF");
-                });
-            }
+                new ColorCMYK("#FFFFF");
+            });
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenColorHasInvalidHexValue()
+        [Fact]
+        public void ShouldThrowExceptionWhenColorHasInvalidHexValue()
+        {
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    new ColorCMYK("#FGF");
-                });
+                new ColorCMYK("#FGF");
+            });
 
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    new ColorCMYK("#GGFFFF");
-                });
-
-                Assert.Throws<ArgumentException>("color", () =>
-                {
-                    new ColorCMYK("#FFFG000000000000");
-                });
-            }
-
-            [Fact]
-            public void ShouldConvertPercentageToColor()
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                var color = new ColorCMYK((Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
-                Assert.Equal(0, color.C);
-                Assert.Equal(Quantum.Max, color.M);
-                Assert.Equal(0, color.Y);
-                Assert.Equal(Quantum.Max, color.K);
-                Assert.Equal(Quantum.Max, color.A);
+                new ColorCMYK("#GGFFFF");
+            });
 
-                color = new ColorCMYK((Percentage)100, (Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
-                Assert.Equal(Quantum.Max, color.C);
-                Assert.Equal(0, color.M);
-                Assert.Equal(Quantum.Max, color.Y);
-                Assert.Equal(0, color.K);
-                Assert.Equal(Quantum.Max, color.A);
-            }
-
-            [Fact]
-            public void ShouldConvertHexValueToColor()
+            Assert.Throws<ArgumentException>("color", () =>
             {
-                var color = new ColorCMYK("#0ff0");
-                Assert.Equal(0, color.C);
-                Assert.Equal(Quantum.Max, color.M);
-                Assert.Equal(Quantum.Max, color.Y);
-                Assert.Equal(0, color.K);
-                Assert.Equal(Quantum.Max, color.A);
+                new ColorCMYK("#FFFG000000000000");
+            });
+        }
 
-                color = new ColorCMYK("#ff00ff00");
-                Assert.Equal(Quantum.Max, color.C);
-                Assert.Equal(0, color.M);
-                Assert.Equal(Quantum.Max, color.Y);
-                Assert.Equal(0, color.K);
-                Assert.Equal(Quantum.Max, color.A);
+        [Fact]
+        public void ShouldConvertPercentageToColor()
+        {
+            var color = new ColorCMYK((Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
+            Assert.Equal(0, color.C);
+            Assert.Equal(Quantum.Max, color.M);
+            Assert.Equal(0, color.Y);
+            Assert.Equal(Quantum.Max, color.K);
+            Assert.Equal(Quantum.Max, color.A);
 
-                color = new ColorCMYK("#0000ffff0000ffff");
-                Assert.Equal(0, color.C);
-                Assert.Equal(Quantum.Max, color.M);
-                Assert.Equal(0, color.Y);
-                Assert.Equal(Quantum.Max, color.K);
-                Assert.Equal(Quantum.Max, color.A);
-            }
+            color = new ColorCMYK((Percentage)100, (Percentage)0, (Percentage)100, (Percentage)0, (Percentage)100);
+            Assert.Equal(Quantum.Max, color.C);
+            Assert.Equal(0, color.M);
+            Assert.Equal(Quantum.Max, color.Y);
+            Assert.Equal(0, color.K);
+            Assert.Equal(Quantum.Max, color.A);
+        }
+
+        [Fact]
+        public void ShouldConvertHexValueToColor()
+        {
+            var color = new ColorCMYK("#0ff0");
+            Assert.Equal(0, color.C);
+            Assert.Equal(Quantum.Max, color.M);
+            Assert.Equal(Quantum.Max, color.Y);
+            Assert.Equal(0, color.K);
+            Assert.Equal(Quantum.Max, color.A);
+
+            color = new ColorCMYK("#ff00ff00");
+            Assert.Equal(Quantum.Max, color.C);
+            Assert.Equal(0, color.M);
+            Assert.Equal(Quantum.Max, color.Y);
+            Assert.Equal(0, color.K);
+            Assert.Equal(Quantum.Max, color.A);
+
+            color = new ColorCMYK("#0000ffff0000ffff");
+            Assert.Equal(0, color.C);
+            Assert.Equal(Quantum.Max, color.M);
+            Assert.Equal(0, color.Y);
+            Assert.Equal(Quantum.Max, color.K);
+            Assert.Equal(Quantum.Max, color.A);
         }
     }
 }

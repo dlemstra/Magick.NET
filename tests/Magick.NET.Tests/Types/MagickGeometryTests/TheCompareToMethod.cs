@@ -4,45 +4,44 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickGeometryTests
 {
-    public partial class MagickGeometryTests
+    public class TheCompareToMethod
     {
-        public class TheCompareToMethod
+        [Fact]
+        public void ShouldReturnZeroWhenInstancesAreTheSame()
         {
-            [Fact]
-            public void ShouldReturnZeroWhenInstancesAreTheSame()
-            {
-                var first = new MagickGeometry(10, 5);
+            var first = new MagickGeometry(10, 5);
 
-                Assert.Equal(0, first.CompareTo(first));
-            }
+            Assert.Equal(0, first.CompareTo(first));
+        }
 
-            [Fact]
-            public void ShouldReturnOneWhenInstancesIsNull()
-            {
-                var first = new MagickGeometry(10, 5);
+        [Fact]
+        public void ShouldReturnOneWhenInstancesIsNull()
+        {
+            var first = new MagickGeometry(10, 5);
 
-                Assert.Equal(1, first.CompareTo(null));
-            }
+            Assert.Equal(1, first.CompareTo(null));
+        }
 
-            [Fact]
-            public void ShouldReturnZeroWhenInstancesAreEqual()
-            {
-                var first = new MagickGeometry(10, 5);
-                var second = new MagickGeometry(10, 5);
+        [Fact]
+        public void ShouldReturnZeroWhenInstancesAreEqual()
+        {
+            var first = new MagickGeometry(10, 5);
+            var second = new MagickGeometry(10, 5);
 
-                Assert.Equal(0, first.CompareTo(second));
-            }
+            Assert.Equal(0, first.CompareTo(second));
+        }
 
-            [Fact]
-            public void ShouldReturnOneWhenInstancesAreNotEqual()
-            {
-                var first = new MagickGeometry(10, 5);
-                var second = new MagickGeometry(5, 5);
+        [Fact]
+        public void ShouldReturnOneWhenInstancesAreNotEqual()
+        {
+            var first = new MagickGeometry(10, 5);
+            var second = new MagickGeometry(5, 5);
 
-                Assert.Equal(1, first.CompareTo(second));
-            }
+            Assert.Equal(1, first.CompareTo(second));
         }
     }
 }

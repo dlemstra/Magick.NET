@@ -4,36 +4,35 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class StatisticsTests
 {
-    public partial class StatisticsTests
+    public class TheCompositeMethod
     {
-        public class TheCompositeMethod
+        [Fact]
+        public void ShouldReturnTheCompositeStatistics()
         {
-            [Fact]
-            public void ShouldReturnTheCompositeStatistics()
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
-                {
-                    var statistics = image.Statistics().Composite();
+                var statistics = image.Statistics().Composite();
 
-                    Assert.NotNull(statistics);
+                Assert.NotNull(statistics);
 
-                    Assert.Equal(8, statistics.Depth);
-                    Assert.InRange(statistics.Entropy, 0.19, 0.20);
-                    Assert.InRange(statistics.Kurtosis, 0.34, 0.35);
-                    Assert.Equal(0, statistics.Minimum);
-                    Assert.InRange(statistics.Skewness, 1.46, 1.47);
+                Assert.Equal(8, statistics.Depth);
+                Assert.InRange(statistics.Entropy, 0.19, 0.20);
+                Assert.InRange(statistics.Kurtosis, 0.34, 0.35);
+                Assert.Equal(0, statistics.Minimum);
+                Assert.InRange(statistics.Skewness, 1.46, 1.47);
 #if Q8
-                    Assert.Equal(255, statistics.Maximum);
-                    Assert.InRange(statistics.Mean, 48.58, 48.59);
-                    Assert.InRange(statistics.StandardDeviation, 88.23, 88.24);
+                Assert.Equal(255, statistics.Maximum);
+                Assert.InRange(statistics.Mean, 48.58, 48.59);
+                Assert.InRange(statistics.StandardDeviation, 88.23, 88.24);
 #else
-                    Assert.Equal(65535, statistics.Maximum);
-                    Assert.InRange(statistics.Mean, 12486.36, 12486.37);
-                    Assert.InRange(statistics.StandardDeviation, 22677.39, 22677.40);
+                Assert.Equal(65535, statistics.Maximum);
+                Assert.InRange(statistics.Mean, 12486.36, 12486.37);
+                Assert.InRange(statistics.StandardDeviation, 22677.39, 22677.40);
 #endif
-                }
             }
         }
     }

@@ -6,23 +6,22 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class TheIsEnabledProperty
 {
-    public partial class TheIsEnabledProperty
+    [Fact]
+    public void ShouldReturnTheCorrectValue()
     {
-        [Fact]
-        public void ShouldReturnTheCorrectValue()
+        foreach (var device in OpenCL.Devices)
         {
-            foreach (var device in OpenCL.Devices)
-            {
-                var isEnabled = device.IsEnabled;
+            var isEnabled = device.IsEnabled;
 
-                device.IsEnabled = !isEnabled;
-                Assert.NotEqual(isEnabled, device.IsEnabled);
+            device.IsEnabled = !isEnabled;
+            Assert.NotEqual(isEnabled, device.IsEnabled);
 
-                device.IsEnabled = isEnabled;
-                Assert.Equal(isEnabled, device.IsEnabled);
-            }
+            device.IsEnabled = isEnabled;
+            Assert.Equal(isEnabled, device.IsEnabled);
         }
     }
 }

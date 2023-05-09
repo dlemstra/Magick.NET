@@ -4,25 +4,24 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class UnsafePixelCollectionTests
 {
-    public partial class UnsafePixelCollectionTests
+    public class TheChannelsProperty
     {
-        public class TheChannelsProperty
+        [Fact]
+        public void ShouldReturnChannelCountOfImage()
         {
-            [Fact]
-            public void ShouldReturnChannelCountOfImage()
+            using (var image = new MagickImage(Files.CMYKJPG))
             {
-                using (var image = new MagickImage(Files.CMYKJPG))
+                using (var pixels = image.GetPixelsUnsafe())
                 {
-                    using (var pixels = image.GetPixelsUnsafe())
-                    {
-                        Assert.Equal(image.ChannelCount, pixels.Channels);
+                    Assert.Equal(image.ChannelCount, pixels.Channels);
 
-                        image.HasAlpha = true;
+                    image.HasAlpha = true;
 
-                        Assert.Equal(image.ChannelCount, pixels.Channels);
-                    }
+                    Assert.Equal(image.ChannelCount, pixels.Channels);
                 }
             }
         }

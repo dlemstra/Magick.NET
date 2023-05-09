@@ -4,22 +4,21 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SettingsFactoryTests
 {
-    public partial class SettingsFactoryTests
+    public class TheCreateKmeansSettingsMethod
     {
-        public class TheCreateKmeansSettingsMethod
+        [Fact]
+        public void ShouldCreateInstance()
         {
-            [Fact]
-            public void ShouldCreateInstance()
-            {
-                var factory = new SettingsFactory();
+            var factory = new SettingsFactory();
 
-                var settings = factory.CreateKmeansSettings();
+            var settings = factory.CreateKmeansSettings();
 
-                Assert.NotNull(settings);
-                Assert.IsType<KmeansSettings>(settings);
-            }
+            Assert.NotNull(settings);
+            Assert.IsType<KmeansSettings>(settings);
         }
     }
 }

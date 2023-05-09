@@ -14,59 +14,58 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheLevelMethod
     {
-        public class TheLevelMethod
+        [Fact]
+        public void ShouldUseCompositeAsDefaultChannels()
         {
-            [Fact]
-            public void ShouldUseCompositeAsDefaultChannels()
+            using (var first = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var first = new MagickImage(Files.MagickNETIconPNG))
+                using (var second = first.Clone())
                 {
-                    using (var second = first.Clone())
-                    {
-                        first.Level(new Percentage(50), new Percentage(10));
-                        second.Level(new Percentage(50), new Percentage(10), Channels.Composite);
+                    first.Level(new Percentage(50), new Percentage(10));
+                    second.Level(new Percentage(50), new Percentage(10), Channels.Composite);
 
-                        Assert.Equal(first.Signature, second.Signature);
-                    }
+                    Assert.Equal(first.Signature, second.Signature);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldUseOneAsGammaDefault()
+        [Fact]
+        public void ShouldUseOneAsGammaDefault()
+        {
+            using (var first = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var first = new MagickImage(Files.MagickNETIconPNG))
+                using (var second = first.Clone())
                 {
-                    using (var second = first.Clone())
-                    {
-                        first.Level(new Percentage(50), new Percentage(10));
-                        second.Level(new Percentage(50), new Percentage(10), 1.0, Channels.Composite);
+                    first.Level(new Percentage(50), new Percentage(10));
+                    second.Level(new Percentage(50), new Percentage(10), 1.0, Channels.Composite);
 
-                        Assert.Equal(first.Signature, second.Signature);
-                    }
+                    Assert.Equal(first.Signature, second.Signature);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldScaleTheColors()
+        [Fact]
+        public void ShouldScaleTheColors()
+        {
+            using (var image = new MagickImage(Files.MagickNETIconPNG))
             {
-                using (var image = new MagickImage(Files.MagickNETIconPNG))
+                using (var second = image.Clone())
                 {
-                    using (var second = image.Clone())
-                    {
-                        image.Level(new Percentage(50.0), new Percentage(10.0));
+                    image.Level(new Percentage(50.0), new Percentage(10.0));
 
-                        var fifty = (QuantumType)(Quantum.Max * 0.5);
-                        var ten = (QuantumType)(Quantum.Max * 0.1);
-                        second.Level(fifty, ten, Channels.Red);
-                        second.Level(fifty, ten, Channels.Green | Channels.Blue);
-                        second.Level(fifty, ten, Channels.Alpha);
+                    var fifty = (QuantumType)(Quantum.Max * 0.5);
+                    var ten = (QuantumType)(Quantum.Max * 0.1);
+                    second.Level(fifty, ten, Channels.Red);
+                    second.Level(fifty, ten, Channels.Green | Channels.Blue);
+                    second.Level(fifty, ten, Channels.Alpha);
 
-                        Assert.Equal(image.Signature, second.Signature);
-                    }
+                    Assert.Equal(image.Signature, second.Signature);
                 }
             }
         }

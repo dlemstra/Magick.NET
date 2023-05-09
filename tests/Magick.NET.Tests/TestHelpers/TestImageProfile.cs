@@ -3,24 +3,23 @@
 
 using ImageMagick;
 
-namespace Magick.NET
+namespace Magick.NET;
+
+public sealed class TestImageProfile : IImageProfile
 {
-    public sealed class TestImageProfile : IImageProfile
+    private readonly byte[] _bytes;
+
+    public TestImageProfile(string name, byte[] bytes)
     {
-        private readonly byte[] _bytes;
-
-        public TestImageProfile(string name, byte[] bytes)
-        {
-            Name = name;
-            _bytes = bytes;
-        }
-
-        public string Name { get; }
-
-        public bool Equals(IImageProfile other) => false;
-
-        public byte[] GetData() => _bytes;
-
-        public byte[] ToByteArray() => _bytes;
+        Name = name;
+        _bytes = bytes;
     }
+
+    public string Name { get; }
+
+    public bool Equals(IImageProfile other) => false;
+
+    public byte[] GetData() => _bytes;
+
+    public byte[] ToByteArray() => _bytes;
 }

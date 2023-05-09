@@ -5,24 +5,23 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class TiffWriteDefinesTests
-    {
-        public class TheTileGeometryProperty : TiffWriteDefinesTests
-        {
-            [Fact]
-            public void ShouldSetTheDefine()
-            {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Settings.SetDefines(new TiffWriteDefines
-                    {
-                        TileGeometry = new MagickGeometry(1, 2),
-                    });
+namespace Magick.NET.Tests;
 
-                    Assert.Equal("1x2", image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
-                }
+public partial class TiffWriteDefinesTests
+{
+    public class TheTileGeometryProperty : TiffWriteDefinesTests
+    {
+        [Fact]
+        public void ShouldSetTheDefine()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Settings.SetDefines(new TiffWriteDefines
+                {
+                    TileGeometry = new MagickGeometry(1, 2),
+                });
+
+                Assert.Equal("1x2", image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
             }
         }
     }

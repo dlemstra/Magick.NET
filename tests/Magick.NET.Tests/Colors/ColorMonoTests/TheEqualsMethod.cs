@@ -4,63 +4,62 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class ColorMonoTests
 {
-    public partial class ColorMonoTests
+    public class TheEqualsMethod
     {
-        public class TheEqualsMethod
+        [Fact]
+        public void ShouldReturnFalseWhenOtherIsNull()
         {
-            [Fact]
-            public void ShouldReturnFalseWhenOtherIsNull()
-            {
-                var color = ColorMono.Black;
+            var color = ColorMono.Black;
 
-                Assert.False(color.Equals(null));
-            }
+            Assert.False(color.Equals(null));
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenOtherAsObjectIsNull()
-            {
-                var color = ColorMono.Black;
+        [Fact]
+        public void ShouldReturnFalseWhenOtherAsObjectIsNull()
+        {
+            var color = ColorMono.Black;
 
-                Assert.False(color.Equals((object)null));
-            }
+            Assert.False(color.Equals((object)null));
+        }
 
-            [Fact]
-            public void ShouldReturnTrueWhenOtherIsEqual()
-            {
-                var color = ColorMono.White;
-                var other = ColorMono.White;
+        [Fact]
+        public void ShouldReturnTrueWhenOtherIsEqual()
+        {
+            var color = ColorMono.White;
+            var other = ColorMono.White;
 
-                Assert.True(color.Equals(other));
-            }
+            Assert.True(color.Equals(other));
+        }
 
-            [Fact]
-            public void ShouldReturnTrueWhenOtherAsObjectIsEqual()
-            {
-                var color = ColorMono.White;
-                var other = ColorMono.White;
+        [Fact]
+        public void ShouldReturnTrueWhenOtherAsObjectIsEqual()
+        {
+            var color = ColorMono.White;
+            var other = ColorMono.White;
 
-                Assert.True(color.Equals((object)other));
-            }
+            Assert.True(color.Equals((object)other));
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenOtherIsNotEqual()
-            {
-                var color = ColorMono.Black;
-                var other = ColorMono.White;
+        [Fact]
+        public void ShouldReturnFalseWhenOtherIsNotEqual()
+        {
+            var color = ColorMono.Black;
+            var other = ColorMono.White;
 
-                Assert.False(color.Equals(other));
-            }
+            Assert.False(color.Equals(other));
+        }
 
-            [Fact]
-            public void ShouldReturnFalseWhenOtherAsObjectIsNotEqual()
-            {
-                var color = ColorMono.Black;
-                var other = ColorMono.White;
+        [Fact]
+        public void ShouldReturnFalseWhenOtherAsObjectIsNotEqual()
+        {
+            var color = ColorMono.Black;
+            var other = ColorMono.White;
 
-                Assert.False(color.Equals((object)other));
-            }
+            Assert.False(color.Equals((object)other));
         }
     }
 }

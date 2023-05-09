@@ -4,26 +4,25 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheIntegralMethod
     {
-        public class TheIntegralMethod
+        [Fact]
+        public void ShouldReturnTheCorrectImage()
         {
-            [Fact]
-            public void ShouldReturnTheCorrectImage()
+            using (var input = new MagickImage(Files.TestPNG))
             {
-                using (var input = new MagickImage(Files.TestPNG))
+                using (var integral = input.Integral())
                 {
-                    using (var integral = input.Integral())
-                    {
-                        var distortion = input.Compare(integral, ErrorMetric.MeanAbsolute);
+                    var distortion = input.Compare(integral, ErrorMetric.MeanAbsolute);
 #if Q16HDRI
-                        Assert.InRange(distortion, 724.0, 724.1);
+                    Assert.InRange(distortion, 724.0, 724.1);
 #else
-                        Assert.InRange(distortion, 0.30, 0.31);
+                    Assert.InRange(distortion, 0.30, 0.31);
 #endif
-                    }
                 }
             }
         }

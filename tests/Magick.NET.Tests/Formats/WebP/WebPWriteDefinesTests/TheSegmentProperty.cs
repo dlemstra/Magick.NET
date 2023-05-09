@@ -5,24 +5,23 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class WebPWriteDefinesTests
-    {
-        public class TheSegmentProperty : WebPWriteDefinesTests
-        {
-            [Fact]
-            public void ShouldSetTheDefine()
-            {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Settings.SetDefines(new WebPWriteDefines
-                    {
-                        Segment = 3,
-                    });
+namespace Magick.NET.Tests;
 
-                    Assert.Equal("3", image.Settings.GetDefine(MagickFormat.WebP, "segment"));
-                }
+public partial class WebPWriteDefinesTests
+{
+    public class TheSegmentProperty : WebPWriteDefinesTests
+    {
+        [Fact]
+        public void ShouldSetTheDefine()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Settings.SetDefines(new WebPWriteDefines
+                {
+                    Segment = 3,
+                });
+
+                Assert.Equal("3", image.Settings.GetDefine(MagickFormat.WebP, "segment"));
             }
         }
     }

@@ -4,34 +4,33 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheSetBitDepthMethod
     {
-        public class TheSetBitDepthMethod
+        [Fact]
+        public void ShouldChangeTheBithDepth()
         {
-            [Fact]
-            public void ShouldChangeTheBithDepth()
+            using (var image = new MagickImage(Files.RoseSparkleGIF))
             {
-                using (var image = new MagickImage(Files.RoseSparkleGIF))
-                {
-                    image.SetBitDepth(1);
+                image.SetBitDepth(1);
 
-                    Assert.Equal(1, image.DetermineBitDepth());
-                }
+                Assert.Equal(1, image.DetermineBitDepth());
             }
+        }
 
-            [Fact]
-            public void ShouldChangeTheBithDepthForTheSpecifiedChannel()
+        [Fact]
+        public void ShouldChangeTheBithDepthForTheSpecifiedChannel()
+        {
+            using (var image = new MagickImage(Files.RoseSparkleGIF))
             {
-                using (var image = new MagickImage(Files.RoseSparkleGIF))
-                {
-                    image.SetBitDepth(1, Channels.Red);
+                image.SetBitDepth(1, Channels.Red);
 
-                    Assert.Equal(1, image.DetermineBitDepth(Channels.Red));
-                    Assert.Equal(8, image.DetermineBitDepth(Channels.Green));
-                    Assert.Equal(8, image.DetermineBitDepth(Channels.Blue));
-                }
+                Assert.Equal(1, image.DetermineBitDepth(Channels.Red));
+                Assert.Equal(8, image.DetermineBitDepth(Channels.Green));
+                Assert.Equal(8, image.DetermineBitDepth(Channels.Blue));
             }
         }
     }

@@ -5,38 +5,37 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class WebPWriteDefinesTests
 {
-    public partial class WebPWriteDefinesTests
+    public class TheShowCompressedProperty : WebPWriteDefinesTests
     {
-        public class TheShowCompressedProperty : WebPWriteDefinesTests
+        [Fact]
+        public void ShouldSetTheDefineWhenSetToTrue()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenSetToTrue()
+            using (var image = new MagickImage(Files.Builtin.Logo))
             {
-                using (var image = new MagickImage(Files.Builtin.Logo))
+                image.Settings.SetDefines(new WebPWriteDefines
                 {
-                    image.Settings.SetDefines(new WebPWriteDefines
-                    {
-                        ShowCompressed = true,
-                    });
+                    ShowCompressed = true,
+                });
 
-                    Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
-                }
+                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
             }
+        }
 
-            [Fact]
-            public void ShouldSetTheDefineWhenSetToFalse()
+        [Fact]
+        public void ShouldSetTheDefineWhenSetToFalse()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new WebPWriteDefines
                 {
-                    image.Settings.SetDefines(new WebPWriteDefines
-                    {
-                        ShowCompressed = false,
-                    });
+                    ShowCompressed = false,
+                });
 
-                    Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
-                }
+                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
             }
         }
     }

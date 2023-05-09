@@ -5,57 +5,56 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public class TheComplexMethod
     {
-        public class TheComplexMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenCollectionIsEmpty()
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<InvalidOperationException>(() => images.Complex(new ComplexSettings()));
-                }
+                Assert.Throws<InvalidOperationException>(() => images.Complex(new ComplexSettings()));
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSettingsIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenSettingsIsNull()
+        {
+            using (var images = new MagickImageCollection())
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentNullException>("complexSettings", () => images.Complex(null));
-                }
+                Assert.Throws<ArgumentNullException>("complexSettings", () => images.Complex(null));
             }
+        }
 
-            [Fact]
-            public void ShouldApplyTheOperatorToTheImages()
+        [Fact]
+        public void ShouldApplyTheOperatorToTheImages()
+        {
+            if (TestRuntime.HasFlakyLinuxArm64Result)
+                return;
+
+            using (var images = new MagickImageCollection())
             {
-                if (TestRuntime.HasFlakyLinuxArm64Result)
-                    return;
+                images.Read(Files.RoseSparkleGIF);
 
-                using (var images = new MagickImageCollection())
+                images.Complex(new ComplexSettings
                 {
-                    images.Read(Files.RoseSparkleGIF);
+                    ComplexOperator = ComplexOperator.Conjugate,
+                });
 
-                    images.Complex(new ComplexSettings
-                    {
-                        ComplexOperator = ComplexOperator.Conjugate,
-                    });
-
-                    Assert.Equal(2, images.Count);
+                Assert.Equal(2, images.Count);
 
 #if Q8
-                    ColorAssert.Equal(new MagickColor("#abb4ba01"), images[1], 10, 10);
+                ColorAssert.Equal(new MagickColor("#abb4ba01"), images[1], 10, 10);
 
 #elif Q16
-                    ColorAssert.Equal(new MagickColor("#aaabb3b4b9ba0001"), images[1], 10, 10);
+                ColorAssert.Equal(new MagickColor("#aaabb3b4b9ba0001"), images[1], 10, 10);
 #else
-                    images[1].Clamp();
-                    ColorAssert.Equal(new MagickColor("#0000000000000000"), images[1], 10, 10);
+                images[1].Clamp();
+                ColorAssert.Equal(new MagickColor("#0000000000000000"), images[1], 10, 10);
 #endif
-                }
             }
         }
     }

@@ -5,247 +5,246 @@ using System;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheCopyPixelsMethod
     {
-        public class TheCopyPixelsMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenSourceIsNull()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenSourceIsNull()
+            using (var destination = new MagickImage())
+            {
+                Assert.Throws<ArgumentNullException>("source", () =>
+                {
+                    destination.CopyPixels(null);
+                });
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenSourceIsNullAndChannelIsSpecified()
+        {
+            using (var destination = new MagickImage())
+            {
+                Assert.Throws<ArgumentNullException>("source", () =>
+                {
+                    destination.CopyPixels(null, Channels.Red);
+                });
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenSourceIsNullAndGeometryIsSpecified()
+        {
+            using (var source = new MagickImage())
             {
                 using (var destination = new MagickImage())
                 {
                     Assert.Throws<ArgumentNullException>("source", () =>
                     {
-                        destination.CopyPixels(null);
+                        destination.CopyPixels(null, new MagickGeometry(10, 10));
                     });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSourceIsNullAndChannelIsSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenSourceIsNullAndGeometryAndChannelsAreSpecified()
+        {
+            using (var source = new MagickImage())
             {
                 using (var destination = new MagickImage())
                 {
                     Assert.Throws<ArgumentNullException>("source", () =>
                     {
-                        destination.CopyPixels(null, Channels.Red);
+                        destination.CopyPixels(null, new MagickGeometry(10, 10), Channels.Black);
                     });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSourceIsNullAndGeometryIsSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenSourceIsNullAndGeometryAndXYAreSpecified()
+        {
+            using (var source = new MagickImage())
             {
-                using (var source = new MagickImage())
+                using (var destination = new MagickImage())
                 {
-                    using (var destination = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("source", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("source", () =>
-                        {
-                            destination.CopyPixels(null, new MagickGeometry(10, 10));
-                        });
-                    }
+                        destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSourceIsNullAndGeometryAndChannelsAreSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenSourceIsNullAndGeometryAndXYAndChannelsAreSpecified()
+        {
+            using (var source = new MagickImage())
             {
-                using (var source = new MagickImage())
+                using (var destination = new MagickImage())
                 {
-                    using (var destination = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("source", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("source", () =>
-                        {
-                            destination.CopyPixels(null, new MagickGeometry(10, 10), Channels.Black);
-                        });
-                    }
+                        destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0, Channels.Black);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSourceIsNullAndGeometryAndXYAreSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenGeometryIsNull()
+        {
+            using (var source = new MagickImage())
             {
-                using (var source = new MagickImage())
+                using (var destination = new MagickImage())
                 {
-                    using (var destination = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("geometry", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("source", () =>
-                        {
-                            destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0);
-                        });
-                    }
+                        destination.CopyPixels(source, null);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSourceIsNullAndGeometryAndXYAndChannelsAreSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenGeometryIsNullAndChannelIsSpecified()
+        {
+            using (var source = new MagickImage())
             {
-                using (var source = new MagickImage())
+                using (var destination = new MagickImage())
                 {
-                    using (var destination = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("geometry", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("source", () =>
-                        {
-                            destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0, Channels.Black);
-                        });
-                    }
+                        destination.CopyPixels(source, null, Channels.Green);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenGeometryIsNull()
+        [Fact]
+        public void ShouldThrowExceptionWhenGeometryIsNullAndXYIsSpecified()
+        {
+            using (var source = new MagickImage())
             {
-                using (var source = new MagickImage())
+                using (var destination = new MagickImage())
                 {
-                    using (var destination = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("geometry", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("geometry", () =>
-                        {
-                            destination.CopyPixels(source, null);
-                        });
-                    }
+                        destination.CopyPixels(source, null, 0, 0);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenGeometryIsNullAndChannelIsSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenGeometryIsNullAndXYAndChannelsAreSpecified()
+        {
+            using (var source = new MagickImage())
             {
-                using (var source = new MagickImage())
+                using (var destination = new MagickImage())
                 {
-                    using (var destination = new MagickImage())
+                    Assert.Throws<ArgumentNullException>("geometry", () =>
                     {
-                        Assert.Throws<ArgumentNullException>("geometry", () =>
-                        {
-                            destination.CopyPixels(source, null, Channels.Green);
-                        });
-                    }
+                        destination.CopyPixels(source, null, 0, 0, Channels.Green);
+                    });
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenGeometryIsNullAndXYIsSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthIsTooHigh()
+        {
+            using (var source = new MagickImage(MagickColors.White, 100, 100))
             {
-                using (var source = new MagickImage())
+                using (var destination = new MagickImage(MagickColors.Black, 50, 50))
                 {
-                    using (var destination = new MagickImage())
+                    var exception = Assert.Throws<MagickOptionErrorException>(() =>
                     {
-                        Assert.Throws<ArgumentNullException>("geometry", () =>
-                        {
-                            destination.CopyPixels(source, null, 0, 0);
-                        });
-                    }
+                        destination.CopyPixels(source, new MagickGeometry(51, 50), 0, 0);
+                    });
+
+                    Assert.Contains("geometry does not contain image", exception.Message);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenGeometryIsNullAndXYAndChannelsAreSpecified()
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsTooHigh()
+        {
+            using (var source = new MagickImage(MagickColors.White, 100, 100))
             {
-                using (var source = new MagickImage())
+                using (var destination = new MagickImage(MagickColors.Black, 50, 50))
                 {
-                    using (var destination = new MagickImage())
+                    var exception = Assert.Throws<MagickOptionErrorException>(() =>
                     {
-                        Assert.Throws<ArgumentNullException>("geometry", () =>
-                        {
-                            destination.CopyPixels(source, null, 0, 0, Channels.Green);
-                        });
-                    }
+                        destination.CopyPixels(source, new MagickGeometry(50, 51), 0, 0);
+                    });
+
+                    Assert.Contains("geometry does not contain image", exception.Message);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenWidthIsTooHigh()
+        [Fact]
+        public void ShouldThrowExceptionWhenXIsTooHigh()
+        {
+            using (var source = new MagickImage(MagickColors.White, 100, 100))
             {
-                using (var source = new MagickImage(MagickColors.White, 100, 100))
+                using (var destination = new MagickImage(MagickColors.Black, 50, 50))
                 {
-                    using (var destination = new MagickImage(MagickColors.Black, 50, 50))
+                    var exception = Assert.Throws<MagickOptionErrorException>(() =>
                     {
-                        var exception = Assert.Throws<MagickOptionErrorException>(() =>
-                        {
-                            destination.CopyPixels(source, new MagickGeometry(51, 50), 0, 0);
-                        });
+                        destination.CopyPixels(source, new MagickGeometry(50, 50), 1, 0);
+                    });
 
-                        Assert.Contains("geometry does not contain image", exception.Message);
-                    }
+                    Assert.Contains("geometry does not contain image", exception.Message);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenHeightIsTooHigh()
+        [Fact]
+        public void ShouldThrowExceptionWhenYIsTooHigh()
+        {
+            using (var source = new MagickImage(MagickColors.White, 100, 100))
             {
-                using (var source = new MagickImage(MagickColors.White, 100, 100))
+                using (var destination = new MagickImage(MagickColors.Black, 50, 50))
                 {
-                    using (var destination = new MagickImage(MagickColors.Black, 50, 50))
+                    var exception = Assert.Throws<MagickOptionErrorException>(() =>
                     {
-                        var exception = Assert.Throws<MagickOptionErrorException>(() =>
-                        {
-                            destination.CopyPixels(source, new MagickGeometry(50, 51), 0, 0);
-                        });
+                        destination.CopyPixels(source, new MagickGeometry(50, 50), 0, 1);
+                    });
 
-                        Assert.Contains("geometry does not contain image", exception.Message);
-                    }
+                    Assert.Contains("geometry does not contain image", exception.Message);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenXIsTooHigh()
+        [Fact]
+        public void ShouldCopyThePixelsOfTheSpecifiedArea()
+        {
+            using (var source = new MagickImage(MagickColors.White, 100, 100))
             {
-                using (var source = new MagickImage(MagickColors.White, 100, 100))
+                using (var destination = new MagickImage(MagickColors.Black, 50, 50))
                 {
-                    using (var destination = new MagickImage(MagickColors.Black, 50, 50))
-                    {
-                        var exception = Assert.Throws<MagickOptionErrorException>(() =>
-                        {
-                            destination.CopyPixels(source, new MagickGeometry(50, 50), 1, 0);
-                        });
+                    destination.CopyPixels(source, new MagickGeometry(25, 25), 25, 25);
 
-                        Assert.Contains("geometry does not contain image", exception.Message);
-                    }
-                }
-            }
+                    ColorAssert.Equal(MagickColors.Black, destination, 0, 0);
+                    ColorAssert.Equal(MagickColors.Black, destination, 24, 24);
+                    ColorAssert.Equal(MagickColors.White, destination, 25, 25);
+                    ColorAssert.Equal(MagickColors.White, destination, 49, 49);
 
-            [Fact]
-            public void ShouldThrowExceptionWhenYIsTooHigh()
-            {
-                using (var source = new MagickImage(MagickColors.White, 100, 100))
-                {
-                    using (var destination = new MagickImage(MagickColors.Black, 50, 50))
-                    {
-                        var exception = Assert.Throws<MagickOptionErrorException>(() =>
-                        {
-                            destination.CopyPixels(source, new MagickGeometry(50, 50), 0, 1);
-                        });
+                    destination.CopyPixels(source, new MagickGeometry(25, 25), 0, 25, Channels.Green);
 
-                        Assert.Contains("geometry does not contain image", exception.Message);
-                    }
-                }
-            }
-
-            [Fact]
-            public void ShouldCopyThePixelsOfTheSpecifiedArea()
-            {
-                using (var source = new MagickImage(MagickColors.White, 100, 100))
-                {
-                    using (var destination = new MagickImage(MagickColors.Black, 50, 50))
-                    {
-                        destination.CopyPixels(source, new MagickGeometry(25, 25), 25, 25);
-
-                        ColorAssert.Equal(MagickColors.Black, destination, 0, 0);
-                        ColorAssert.Equal(MagickColors.Black, destination, 24, 24);
-                        ColorAssert.Equal(MagickColors.White, destination, 25, 25);
-                        ColorAssert.Equal(MagickColors.White, destination, 49, 49);
-
-                        destination.CopyPixels(source, new MagickGeometry(25, 25), 0, 25, Channels.Green);
-
-                        ColorAssert.Equal(MagickColors.Black, destination, 0, 0);
-                        ColorAssert.Equal(MagickColors.Black, destination, 24, 24);
-                        ColorAssert.Equal(MagickColors.White, destination, 25, 25);
-                        ColorAssert.Equal(MagickColors.White, destination, 49, 49);
-                        ColorAssert.Equal(MagickColors.Lime, destination, 0, 25);
-                        ColorAssert.Equal(MagickColors.Lime, destination, 24, 49);
-                    }
+                    ColorAssert.Equal(MagickColors.Black, destination, 0, 0);
+                    ColorAssert.Equal(MagickColors.Black, destination, 24, 24);
+                    ColorAssert.Equal(MagickColors.White, destination, 25, 25);
+                    ColorAssert.Equal(MagickColors.White, destination, 49, 49);
+                    ColorAssert.Equal(MagickColors.Lime, destination, 0, 25);
+                    ColorAssert.Equal(MagickColors.Lime, destination, 24, 49);
                 }
             }
         }

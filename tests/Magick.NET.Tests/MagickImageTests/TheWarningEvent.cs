@@ -6,43 +6,42 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheWarningEvent
     {
-        public class TheWarningEvent
+        [Fact]
+        public void ShouldRaiseEventsForWarnings()
         {
-            [Fact]
-            public void ShouldRaiseEventsForWarnings()
+            var count = 0;
+            EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
             {
-                var count = 0;
-                EventHandler<WarningEventArgs> warningDelegate = (sender, arguments) =>
-                {
-                    Assert.NotNull(sender);
-                    Assert.NotNull(arguments);
-                    Assert.NotNull(arguments.Message);
-                    Assert.NotEqual(string.Empty, arguments.Message);
-                    Assert.NotNull(arguments.Exception);
+                Assert.NotNull(sender);
+                Assert.NotNull(arguments);
+                Assert.NotNull(arguments.Message);
+                Assert.NotEqual(string.Empty, arguments.Message);
+                Assert.NotNull(arguments.Exception);
 
-                    count++;
-                };
+                count++;
+            };
 
-                var bytes = File.ReadAllBytes(Files.EightBimTIF);
-                bytes[229] = 1;
+            var bytes = File.ReadAllBytes(Files.EightBimTIF);
+            bytes[229] = 1;
 
-                using (var image = new MagickImage())
-                {
-                    image.Warning += warningDelegate;
-                    image.Read(bytes);
+            using (var image = new MagickImage())
+            {
+                image.Warning += warningDelegate;
+                image.Read(bytes);
 
-                    Assert.NotEqual(0, count);
+                Assert.NotEqual(0, count);
 
-                    var expectedCount = count;
-                    image.Warning -= warningDelegate;
-                    image.Read(bytes);
+                var expectedCount = count;
+                image.Warning -= warningDelegate;
+                image.Read(bytes);
 
-                    Assert.Equal(expectedCount, count);
-                }
+                Assert.Equal(expectedCount, count);
             }
         }
     }

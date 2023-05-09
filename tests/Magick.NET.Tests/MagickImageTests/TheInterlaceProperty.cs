@@ -5,44 +5,43 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheInterlaceProperty
     {
-        public class TheInterlaceProperty
+        [Fact]
+        public void ShouldUseNoInterlaceAsTheDefault()
         {
-            [Fact]
-            public void ShouldUseNoInterlaceAsTheDefault()
+            using (var image = new MagickImage(MagickColors.Fuchsia, 100, 60))
             {
-                using (var image = new MagickImage(MagickColors.Fuchsia, 100, 60))
+                using (var memStream = new MemoryStream())
                 {
-                    using (var memStream = new MemoryStream())
-                    {
-                        image.Write(memStream, MagickFormat.Jpeg);
+                    image.Write(memStream, MagickFormat.Jpeg);
 
-                        memStream.Position = 0;
-                        image.Read(memStream);
+                    memStream.Position = 0;
+                    image.Read(memStream);
 
-                        Assert.Equal(Interlace.NoInterlace, image.Interlace);
-                    }
+                    Assert.Equal(Interlace.NoInterlace, image.Interlace);
                 }
             }
+        }
 
-            [Fact]
-            public void ShouldBeUseWhenWritingJpegImage()
+        [Fact]
+        public void ShouldBeUseWhenWritingJpegImage()
+        {
+            using (var image = new MagickImage(MagickColors.Fuchsia, 100, 60))
             {
-                using (var image = new MagickImage(MagickColors.Fuchsia, 100, 60))
+                using (var memStream = new MemoryStream())
                 {
-                    using (var memStream = new MemoryStream())
-                    {
-                        image.Interlace = Interlace.Undefined;
-                        image.Write(memStream, MagickFormat.Jpeg);
+                    image.Interlace = Interlace.Undefined;
+                    image.Write(memStream, MagickFormat.Jpeg);
 
-                        memStream.Position = 0;
-                        image.Read(memStream);
+                    memStream.Position = 0;
+                    image.Read(memStream);
 
-                        Assert.Equal(Interlace.Jpeg, image.Interlace);
-                    }
+                    Assert.Equal(Interlace.Jpeg, image.Interlace);
                 }
             }
         }

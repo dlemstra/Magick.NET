@@ -5,24 +5,23 @@ using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class WebPWriteDefinesTests
-    {
-        public class TheAlphaQualityProperty : WebPWriteDefinesTests
-        {
-            [Fact]
-            public void ShouldSetTheDefine()
-            {
-                using (var image = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Settings.SetDefines(new WebPWriteDefines
-                    {
-                        AlphaQuality = 42,
-                    });
+namespace Magick.NET.Tests;
 
-                    Assert.Equal("42", image.Settings.GetDefine(MagickFormat.WebP, "alpha-quality"));
-                }
+public partial class WebPWriteDefinesTests
+{
+    public class TheAlphaQualityProperty : WebPWriteDefinesTests
+    {
+        [Fact]
+        public void ShouldSetTheDefine()
+        {
+            using (var image = new MagickImage(Files.Builtin.Logo))
+            {
+                image.Settings.SetDefines(new WebPWriteDefines
+                {
+                    AlphaQuality = 42,
+                });
+
+                Assert.Equal("42", image.Settings.GetDefine(MagickFormat.WebP, "alpha-quality"));
             }
         }
     }

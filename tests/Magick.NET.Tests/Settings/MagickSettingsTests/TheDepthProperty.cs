@@ -4,25 +4,24 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickSettingsTests
 {
-    public partial class MagickSettingsTests
+    public class TheDepthProperty
     {
-        public class TheDepthProperty
+        [Fact]
+        public void ShouldChangeTheDepthOfTheOutputImage()
         {
-            [Fact]
-            public void ShouldChangeTheDepthOfTheOutputImage()
+            using (var input = new MagickImage(Files.Builtin.Logo))
             {
-                using (var input = new MagickImage(Files.Builtin.Logo))
+                input.Settings.Depth = 5;
+
+                var bytes = input.ToByteArray(MagickFormat.Tga);
+
+                using (var output = new MagickImage(bytes, MagickFormat.Tga))
                 {
-                    input.Settings.Depth = 5;
-
-                    var bytes = input.ToByteArray(MagickFormat.Tga);
-
-                    using (var output = new MagickImage(bytes, MagickFormat.Tga))
-                    {
-                        Assert.Equal(5, output.Depth);
-                    }
+                    Assert.Equal(5, output.Depth);
                 }
             }
         }

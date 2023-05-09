@@ -4,19 +4,18 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickSettingsTests
 {
-    public partial class MagickSettingsTests
+    public class TheTextEncodingProperty
     {
-        public class TheTextEncodingProperty
+        [Fact]
+        public void ShouldDefaultToNull()
         {
-            [Fact]
-            public void ShouldDefaultToNull()
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Null(image.Settings.TextEncoding);
-                }
+                Assert.Null(image.Settings.TextEncoding);
             }
         }
     }

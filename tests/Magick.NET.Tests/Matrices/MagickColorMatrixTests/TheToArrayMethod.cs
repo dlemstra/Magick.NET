@@ -4,19 +4,18 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickColorMatrixTests
-    {
-        public class TheToArrayMethod
-        {
-            [Fact]
-            public void ShouldReturnArray()
-            {
-                var matrix = new MagickColorMatrix(1, 6);
+namespace Magick.NET.Tests;
 
-                Assert.Equal(new double[] { 6 }, matrix.ToArray());
-            }
+public partial class MagickColorMatrixTests
+{
+    public class TheToArrayMethod
+    {
+        [Fact]
+        public void ShouldReturnArray()
+        {
+            var matrix = new MagickColorMatrix(1, 6);
+
+            Assert.Equal(new double[] { 6 }, matrix.ToArray());
         }
     }
 }

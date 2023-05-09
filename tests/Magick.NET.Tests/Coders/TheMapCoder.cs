@@ -4,71 +4,70 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public class TheMapCoder
 {
-    public class TheMapCoder
+    [Fact]
+    public void CanBeReadFromFileWithMapExtensions()
     {
-        [Fact]
-        public void CanBeReadFromFileWithMapExtensions()
+        using var image = new MagickImage(Files.Builtin.Logo);
+        using var tempFile = new TemporaryFile("test.map");
+        image.Write(tempFile.File, MagickFormat.Map);
+
+        var settings = new MagickReadSettings
         {
-            using var image = new MagickImage(Files.Builtin.Logo);
-            using var tempFile = new TemporaryFile("test.map");
-            image.Write(tempFile.File, MagickFormat.Map);
+            Width = image.Width,
+            Height = image.Height,
+            Depth = 8,
+        };
+        image.Read(tempFile.File, settings);
 
-            var settings = new MagickReadSettings
-            {
-                Width = image.Width,
-                Height = image.Height,
-                Depth = 8,
-            };
-            image.Read(tempFile.File, settings);
+        Assert.Equal(MagickFormat.Map, image.Format);
+    }
 
-            Assert.Equal(MagickFormat.Map, image.Format);
-        }
-
-        [Theory]
-        [InlineData(null, null)]
-        [InlineData(null, 1)]
-        [InlineData(1, null)]
-        public void ShouldThrowExceptionWhenDimensionsNotSpecified(int? width, int? height)
+    [Theory]
+    [InlineData(null, null)]
+    [InlineData(null, 1)]
+    [InlineData(1, null)]
+    public void ShouldThrowExceptionWhenDimensionsNotSpecified(int? width, int? height)
+    {
+        var settings = new MagickReadSettings
         {
-            var settings = new MagickReadSettings
-            {
-                Width = width,
-                Height = height,
-            };
+            Width = width,
+            Height = height,
+        };
 
-            using var tempFile = new TemporaryFile("test.map");
-            using var image = new MagickImage();
+        using var tempFile = new TemporaryFile("test.map");
+        using var image = new MagickImage();
 
-            var exception = Assert.Throws<MagickOptionErrorException>(() => image.Read(tempFile.File, settings));
-            Assert.Contains("must specify image size", exception.Message);
-        }
+        var exception = Assert.Throws<MagickOptionErrorException>(() => image.Read(tempFile.File, settings));
+        Assert.Contains("must specify image size", exception.Message);
+    }
 
-        [Fact]
-        public void ShouldThrowExceptionWhenDepthNotSpecified()
+    [Fact]
+    public void ShouldThrowExceptionWhenDepthNotSpecified()
+    {
+        var settings = new MagickReadSettings
         {
-            var settings = new MagickReadSettings
-            {
-                Width = 1,
-                Height = 1,
-            };
+            Width = 1,
+            Height = 1,
+        };
 
-            using var tempFile = new TemporaryFile("test.map");
-            using var image = new MagickImage();
+        using var tempFile = new TemporaryFile("test.map");
+        using var image = new MagickImage();
 
-            var exception = Assert.Throws<MagickOptionErrorException>(() => image.Read(tempFile.File, settings));
-            Assert.Contains("must specify image depth", exception.Message);
-        }
+        var exception = Assert.Throws<MagickOptionErrorException>(() => image.Read(tempFile.File, settings));
+        Assert.Contains("must specify image depth", exception.Message);
+    }
 
-        [Fact]
-        public void CannotBeReadFromFileWithoutMapExtensions()
-        {
-            using var image = new MagickImage(Files.Builtin.Logo);
-            using var tempFile = new TemporaryFile("test");
-            image.Write(tempFile.File, MagickFormat.Map);
+    [Fact]
+    public void CannotBeReadFromFileWithoutMapExtensions()
+    {
+        using var image = new MagickImage(Files.Builtin.Logo);
+        using var tempFile = new TemporaryFile("test");
+        image.Write(tempFile.File, MagickFormat.Map);
 
-            Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read(tempFile.File, image.Width, image.Height));
-        }
+        Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read(tempFile.File, image.Width, image.Height));
     }
 }

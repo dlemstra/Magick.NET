@@ -7,94 +7,93 @@ using ImageMagick.Formats;
 using Xunit;
 using Xunit.Sdk;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class PdfReadDefinesTests
 {
-    public partial class PdfReadDefinesTests
+    public class ThePasswordProperty
     {
-        public class ThePasswordProperty
+        [Fact]
+        public void ShouldSetTheDefineWhenValueIsSet()
         {
-            [Fact]
-            public void ShouldSetTheDefineWhenValueIsSet()
+            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
             {
-                using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        Password = "test",
-                    });
+                    Password = "test",
+                });
 
-                    Assert.Equal("test", image.Settings.GetDefine("authenticate"));
-                }
+                Assert.Equal("test", image.Settings.GetDefine("authenticate"));
             }
+        }
 
-            [Fact]
-            public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Fact]
+        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        {
+            using (var image = new MagickImage())
             {
-                using (var image = new MagickImage())
+                image.Settings.SetDefines(new PdfReadDefines
                 {
-                    image.Settings.SetDefines(new PdfReadDefines
-                    {
-                        Password = null,
-                    });
+                    Password = null,
+                });
 
-                    Assert.Null(image.Settings.GetDefine("authenticate"));
-                }
+                Assert.Null(image.Settings.GetDefine("authenticate"));
             }
+        }
 
-            [Fact]
-            public void ShouldUseThePasswordToReadTheImage()
+        [Fact]
+        public void ShouldUseThePasswordToReadTheImage()
+        {
+            if (!Ghostscript.IsAvailable)
+                return;
+
+            var settings = new MagickReadSettings
             {
-                if (!Ghostscript.IsAvailable)
-                    return;
-
-                var settings = new MagickReadSettings
+                Defines = new PdfReadDefines
                 {
-                    Defines = new PdfReadDefines
-                    {
-                        Password = "test",
-                    },
-                };
+                    Password = "test",
+                },
+            };
 
-                using (var image = new MagickImage())
+            using (var image = new MagickImage())
+            {
+                image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
+            }
+        }
+
+        [Fact]
+        public void ShouldNotBeAbleToOpenFileWithNullPassword()
+        {
+            if (!Ghostscript.IsAvailable)
+                return;
+
+            var settings = new MagickReadSettings
+            {
+                Defines = new PdfReadDefines
+                {
+                    Password = null,
+                },
+            };
+
+            using (var image = new MagickImage())
+            {
+                try
                 {
                     image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
                 }
-            }
+                catch (MagickDelegateErrorException exception)
+                {
+                    var message = exception.Message;
 
-            [Fact]
-            public void ShouldNotBeAbleToOpenFileWithNullPassword()
-            {
-                if (!Ghostscript.IsAvailable)
+                    var relatedException = exception.RelatedExceptions.FirstOrDefault();
+                    if (relatedException is not null)
+                        message += relatedException.Message;
+
+                    Assert.Contains("This file requires a password for access.", message);
                     return;
-
-                var settings = new MagickReadSettings
-                {
-                    Defines = new PdfReadDefines
-                    {
-                        Password = null,
-                    },
-                };
-
-                using (var image = new MagickImage())
-                {
-                    try
-                    {
-                        image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
-                    }
-                    catch (MagickDelegateErrorException exception)
-                    {
-                        var message = exception.Message;
-
-                        var relatedException = exception.RelatedExceptions.FirstOrDefault();
-                        if (relatedException is not null)
-                            message += relatedException.Message;
-
-                        Assert.Contains("This file requires a password for access.", message);
-                        return;
-                    }
-
-                    throw new XunitException("Exception should be thrown.");
                 }
+
+                throw new XunitException("Exception should be thrown.");
             }
         }
     }

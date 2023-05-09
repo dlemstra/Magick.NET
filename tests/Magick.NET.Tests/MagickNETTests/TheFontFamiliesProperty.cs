@@ -6,27 +6,26 @@ using ImageMagick;
 using Xunit;
 using Xunit.Sdk;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickNETTests
-    {
-        public class TheFontFamiliesProperty
-        {
-            [Fact]
-            public void ContainsArial()
-            {
-                var fontFamilies = MagickNET.FontFamilies.ToArray();
-                var fontFamily = fontFamilies.FirstOrDefault(f => f == "Arial");
-                if (fontFamily is null)
-                    throw new XunitException($"Unable to find Arial in font families: {string.Join(",", fontFamilies)}");
-            }
+namespace Magick.NET.Tests;
 
-            [Fact]
-            public void ContainsNoDuplicates()
-            {
-                var fontFamilies = MagickNET.FontFamilies.ToArray();
-                Assert.Equal(fontFamilies.Count(), fontFamilies.Distinct().Count());
-            }
+public partial class MagickNETTests
+{
+    public class TheFontFamiliesProperty
+    {
+        [Fact]
+        public void ContainsArial()
+        {
+            var fontFamilies = MagickNET.FontFamilies.ToArray();
+            var fontFamily = fontFamilies.FirstOrDefault(f => f == "Arial");
+            if (fontFamily is null)
+                throw new XunitException($"Unable to find Arial in font families: {string.Join(",", fontFamilies)}");
+        }
+
+        [Fact]
+        public void ContainsNoDuplicates()
+        {
+            var fontFamilies = MagickNET.FontFamilies.ToArray();
+            Assert.Equal(fontFamilies.Count(), fontFamilies.Distinct().Count());
         }
     }
 }

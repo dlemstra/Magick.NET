@@ -4,37 +4,36 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickSettingsTests
 {
-    public partial class MagickSettingsTests
+    public class TheSyncImageWithExifProfileProperty
     {
-        public class TheSyncImageWithExifProfileProperty
+        [Fact]
+        public void ShouldReturnTrueAsTheDefaultValue()
         {
-            [Fact]
-            public void ShouldReturnTrueAsTheDefaultValue()
+            var settings = new MagickReadSettings();
+            Assert.True(settings.SyncImageWithExifProfile);
+        }
+
+        [Fact]
+        public void ShouldNotChangeTheDensityOfTheImageWhenSetToFalse()
+        {
+            using (var image = new MagickImage(Files.EightBimJPG))
             {
-                var settings = new MagickReadSettings();
-                Assert.True(settings.SyncImageWithExifProfile);
+                Assert.Equal(300.0, image.Density.X);
             }
 
-            [Fact]
-            public void ShouldNotChangeTheDensityOfTheImageWhenSetToFalse()
+            var settings = new MagickReadSettings
             {
-                using (var image = new MagickImage(Files.EightBimJPG))
-                {
-                    Assert.Equal(300.0, image.Density.X);
-                }
+                SyncImageWithExifProfile = false,
+            };
 
-                var settings = new MagickReadSettings
-                {
-                    SyncImageWithExifProfile = false,
-                };
-
-                using (var image = new MagickImage())
-                {
-                    image.Read(Files.EightBimJPG, settings);
-                    Assert.Equal(72.0, image.Density.X);
-                }
+            using (var image = new MagickImage())
+            {
+                image.Read(Files.EightBimJPG, settings);
+                Assert.Equal(72.0, image.Density.X);
             }
         }
     }

@@ -4,18 +4,17 @@
 using System;
 using System.IO;
 
-namespace Magick.NET.Tests
-{
-    internal sealed class ReadExceptionStream : TestStream
-    {
-        public ReadExceptionStream(Stream innerStream)
-          : base(innerStream, true)
-        {
-        }
+namespace Magick.NET.Tests;
 
-        public override int Read(byte[] buffer, int offset, int count)
-        {
-            throw new InvalidOperationException();
-        }
+internal sealed class ReadExceptionStream : TestStream
+{
+    public ReadExceptionStream(Stream innerStream)
+      : base(innerStream, true)
+    {
+    }
+
+    public override int Read(byte[] buffer, int offset, int count)
+    {
+        throw new InvalidOperationException();
     }
 }

@@ -4,55 +4,54 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageTests
 {
-    public partial class MagickImageTests
+    public class TheAutoThresholdMethod
     {
-        public class TheAutoThresholdMethod
+        [Fact]
+        public void ShouldThresholdImageWithKapurMethod()
         {
-            [Fact]
-            public void ShouldThresholdImageWithKapurMethod()
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-                {
-                    image.AutoThreshold(AutoThresholdMethod.Kapur);
+                image.AutoThreshold(AutoThresholdMethod.Kapur);
 
-                    var colors = image.Histogram();
+                var colors = image.Histogram();
 
-                    Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
-                    Assert.Equal(236359, colors[MagickColors.Black]);
-                    Assert.Equal(3641, colors[MagickColors.White]);
-                }
+                Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
+                Assert.Equal(236359, colors[MagickColors.Black]);
+                Assert.Equal(3641, colors[MagickColors.White]);
             }
+        }
 
-            [Fact]
-            public void ShouldThresholdImageWithOTSUMethod()
+        [Fact]
+        public void ShouldThresholdImageWithOTSUMethod()
+        {
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-                {
-                    image.AutoThreshold(AutoThresholdMethod.OTSU);
+                image.AutoThreshold(AutoThresholdMethod.OTSU);
 
-                    var colors = image.Histogram();
+                var colors = image.Histogram();
 
-                    Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
-                    Assert.Equal(67844, colors[MagickColors.Black]);
-                    Assert.Equal(172156, colors[MagickColors.White]);
-                }
+                Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
+                Assert.Equal(67844, colors[MagickColors.Black]);
+                Assert.Equal(172156, colors[MagickColors.White]);
             }
+        }
 
-            [Fact]
-            public void ShouldThresholdImageWithTriangleMethod()
+        [Fact]
+        public void ShouldThresholdImageWithTriangleMethod()
+        {
+            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-                {
-                    image.AutoThreshold(AutoThresholdMethod.Triangle);
+                image.AutoThreshold(AutoThresholdMethod.Triangle);
 
-                    var colors = image.Histogram();
+                var colors = image.Histogram();
 
-                    Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
-                    Assert.Equal(210553, colors[MagickColors.Black]);
-                    Assert.Equal(29447, colors[MagickColors.White]);
-                }
+                Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
+                Assert.Equal(210553, colors[MagickColors.Black]);
+                Assert.Equal(29447, colors[MagickColors.White]);
             }
         }
     }
