@@ -14,13 +14,9 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenValueIsNull()
         {
-            using (var images = new MagickImageCollection(Files.CirclePNG))
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    images[0] = null;
-                });
-            }
+            using var images = new MagickImageCollection(Files.CirclePNG);
+
+            Assert.Throws<InvalidOperationException>(() => images[0] = null);
         }
 
         [Fact]
@@ -29,13 +25,9 @@ public partial class MagickImageCollectionTests
             var imageA = new MagickImage();
             var imageB = new MagickImage();
 
-            using (var images = new MagickImageCollection(new[] { imageA, imageB }))
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    images[0] = imageB;
-                });
-            }
+            using var images = new MagickImageCollection(new[] { imageA, imageB });
+
+            Assert.Throws<InvalidOperationException>(() => images[0] = imageB);
         }
 
         [Fact]
@@ -43,10 +35,10 @@ public partial class MagickImageCollectionTests
         {
             var image = new MagickImage();
 
-            using (var images = new MagickImageCollection(new[] { image }))
+            using var images = new MagickImageCollection(new[] { image })
             {
-                images[0] = image;
-            }
+                [0] = image,
+            };
         }
     }
 }

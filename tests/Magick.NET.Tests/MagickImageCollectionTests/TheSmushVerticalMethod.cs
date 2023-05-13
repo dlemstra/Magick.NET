@@ -14,25 +14,21 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() => images.SmushVertical(1));
-            }
+            using var images = new MagickImageCollection();
+
+            Assert.Throws<InvalidOperationException>(() => images.SmushVertical(1));
         }
 
         [Fact]
         public void ShouldSmushTheImagesHorizontally()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.AddRange(Files.RoseSparkleGIF);
+            using var images = new MagickImageCollection();
+            images.AddRange(Files.RoseSparkleGIF);
 
-                using (var image = images.SmushVertical(40))
-                {
-                    Assert.Equal(70, image.Width);
-                    Assert.Equal((46 * 3) + (40 * 2), image.Height);
-                }
-            }
+            using var image = images.SmushVertical(40);
+
+            Assert.Equal(70, image.Width);
+            Assert.Equal((46 * 3) + (40 * 2), image.Height);
         }
     }
 }

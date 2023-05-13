@@ -47,10 +47,9 @@ public partial class MagickImageCollectionTests
 
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                using (var input = new MagickImageCollection(bytes, settings))
-                {
-                    Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
-                }
+                using var images = new MagickImageCollection(bytes, settings);
+
+                Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
             }
         }
 
@@ -93,10 +92,9 @@ public partial class MagickImageCollectionTests
                 var bytes = new byte[fileBytes.Length + 10];
                 fileBytes.CopyTo(bytes, 10);
 
-                using (var images = new MagickImageCollection(bytes, 10, bytes.Length - 10))
-                {
-                    Assert.Single(images);
-                }
+                using var images = new MagickImageCollection(bytes, 10, bytes.Length - 10);
+
+                Assert.Single(images);
             }
         }
 
@@ -131,9 +129,7 @@ public partial class MagickImageCollectionTests
             {
                 Assert.Throws<ArgumentException>("count", () =>
                 {
-                    using (var images = new MagickImageCollection(new byte[] { 215 }, 0, -1, MagickFormat.Png))
-                    {
-                    }
+                    using var images = new MagickImageCollection(new byte[] { 215 }, 0, -1, MagickFormat.Png);
                 });
             }
 
@@ -144,10 +140,9 @@ public partial class MagickImageCollectionTests
                 var bytes = new byte[fileBytes.Length + 10];
                 fileBytes.CopyTo(bytes, 10);
 
-                using (var images = new MagickImageCollection(bytes, 10, bytes.Length - 10, MagickFormat.Png))
-                {
-                    Assert.Single(images);
-                }
+                using var images = new MagickImageCollection(bytes, 10, bytes.Length - 10, MagickFormat.Png);
+
+                Assert.Single(images);
             }
         }
 
@@ -202,10 +197,9 @@ public partial class MagickImageCollectionTests
                 var bytes = new byte[fileBytes.Length + 10];
                 fileBytes.CopyTo(bytes, 10);
 
-                using (var images = new MagickImageCollection(bytes, 10, bytes.Length - 10, settings))
-                {
-                    Assert.Single(images);
-                }
+                using var images = new MagickImageCollection(bytes, 10, bytes.Length - 10, settings);
+
+                Assert.Single(images);
             }
 
             [Fact]
@@ -213,9 +207,7 @@ public partial class MagickImageCollectionTests
             {
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                using (var image = new MagickImageCollection(bytes, 0, bytes.Length, null))
-                {
-                }
+                using var image = new MagickImageCollection(bytes, 0, bytes.Length, null);
             }
         }
 
@@ -226,10 +218,9 @@ public partial class MagickImageCollectionTests
             {
                 var bytes = File.ReadAllBytes(Files.SnakewarePNG);
 
-                using (var images = new MagickImageCollection(bytes, null))
-                {
-                    Assert.Single(images);
-                }
+                using var images = new MagickImageCollection(bytes, null);
+
+                Assert.Single(images);
             }
         }
 
@@ -266,10 +257,9 @@ public partial class MagickImageCollectionTests
             {
                 var file = new FileInfo(Files.SnakewarePNG);
 
-                using (var images = new MagickImageCollection(file, null))
-                {
-                    Assert.Single(images);
-                }
+                using var images = new MagickImageCollection(file, null);
+
+                Assert.Single(images);
             }
         }
 
@@ -303,10 +293,9 @@ public partial class MagickImageCollectionTests
                     Format = MagickFormat.Png,
                 };
 
-                using (var input = new MagickImageCollection(Files.CirclePNG, settings))
-                {
-                    Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
-                }
+                using var images = new MagickImageCollection(Files.CirclePNG, settings);
+
+                Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
             }
         }
 
@@ -346,10 +335,9 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldNotThrowExceptionWhenFileNameSettingsIsNull()
             {
-                using (var images = new MagickImageCollection(Files.SnakewarePNG, null))
-                {
-                    Assert.Single(images);
-                }
+                using var images = new MagickImageCollection(Files.SnakewarePNG, null);
+
+                Assert.Single(images);
             }
 
             [Fact]
@@ -364,11 +352,10 @@ public partial class MagickImageCollectionTests
                     TextGravity = Gravity.Center,
                 };
 
-                using (var images = new MagickImageCollection(Files.ImageMagickTXT, settings))
-                {
-                    Assert.Equal(2, images.Count);
-                    ColorAssert.Equal(MagickColors.Gold, images[0], 348, 648);
-                }
+                using var images = new MagickImageCollection(Files.ImageMagickTXT, settings);
+
+                Assert.Equal(2, images.Count);
+                ColorAssert.Equal(MagickColors.Gold, images[0], 348, 648);
             }
         }
 
@@ -405,10 +392,9 @@ public partial class MagickImageCollectionTests
 
                 var list = new List<IMagickImage<QuantumType>> { image };
 
-                using (var images = new MagickImageCollection(list))
-                {
-                    Assert.True(ReferenceEquals(image, list[0]));
-                }
+                using var images = new MagickImageCollection(list);
+
+                Assert.True(ReferenceEquals(image, list[0]));
             }
         }
 
@@ -428,13 +414,10 @@ public partial class MagickImageCollectionTests
                     Format = MagickFormat.Png,
                 };
 
-                using (var stream = File.OpenRead(Files.CirclePNG))
-                {
-                    using (var input = new MagickImageCollection(stream, settings))
-                    {
-                        Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
-                    }
-                }
+                using var stream = File.OpenRead(Files.CirclePNG);
+                using var images = new MagickImageCollection(stream, settings);
+
+                Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
             }
         }
 
@@ -474,13 +457,10 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldNotThrowExceptionWhenStreamSettingsIsNull()
             {
-                using (var stream = File.OpenRead(Files.SnakewarePNG))
-                {
-                    using (var images = new MagickImageCollection(stream, null))
-                    {
-                        Assert.Single(images);
-                    }
-                }
+                using var stream = File.OpenRead(Files.SnakewarePNG);
+                using var images = new MagickImageCollection(stream, null);
+
+                Assert.Single(images);
             }
         }
     }

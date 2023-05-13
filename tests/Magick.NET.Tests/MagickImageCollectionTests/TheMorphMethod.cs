@@ -14,34 +14,29 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() => { images.Morph(10); });
-            }
+            using var images = new MagickImageCollection();
+
+            Assert.Throws<InvalidOperationException>(() => { images.Morph(10); });
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenCollectionContainsSingleImage()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage(MagickColors.Red, 1, 1));
+            using var images = new MagickImageCollection();
+            images.Add(new MagickImage(MagickColors.Red, 1, 1));
 
-                Assert.Throws<InvalidOperationException>(() => { images.Morph(10); });
-            }
+            Assert.Throws<InvalidOperationException>(() => { images.Morph(10); });
         }
 
         [Fact]
         public void ShouldMorphTheImages()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(Files.Builtin.Logo);
-                images.AddRange(Files.Builtin.Wizard);
+            using var images = new MagickImageCollection();
+            images.Add(Files.Builtin.Logo);
+            images.AddRange(Files.Builtin.Wizard);
 
-                images.Morph(4);
-                Assert.Equal(6, images.Count);
-            }
+            images.Morph(4);
+            Assert.Equal(6, images.Count);
         }
     }
 }

@@ -14,96 +14,68 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    images.Map(null);
-                });
-            }
+            using var images = new MagickImageCollection();
+
+            Assert.Throws<InvalidOperationException>(() => images.Map(null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmptyAndImageIsNotNull()
         {
-            using (var colors = new MagickImageCollection())
-            {
-                colors.Add(new MagickImage(MagickColors.Red, 1, 1));
-                colors.Add(new MagickImage(MagickColors.Green, 1, 1));
+            using var colors = new MagickImageCollection();
+            colors.Add(new MagickImage(MagickColors.Red, 1, 1));
+            colors.Add(new MagickImage(MagickColors.Green, 1, 1));
 
-                using (var remapImage = colors.AppendHorizontally())
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<InvalidOperationException>(() =>
-                        {
-                            images.Map(remapImage);
-                        });
-                    }
-                }
-            }
+            using var remapImage = colors.AppendHorizontally();
+            using var images = new MagickImageCollection();
+
+            Assert.Throws<InvalidOperationException>(() => images.Map(remapImage));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenImageIsNull()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Read(Files.RoseSparkleGIF);
+            using var images = new MagickImageCollection();
+            images.Read(Files.RoseSparkleGIF);
 
-                Assert.Throws<ArgumentNullException>("image", () =>
-                {
-                    images.Map(null);
-                });
-            }
+            Assert.Throws<ArgumentNullException>("image", () => images.Map(null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenSettingsIsNull()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Read(Files.RoseSparkleGIF);
+            using var images = new MagickImageCollection();
+            images.Read(Files.RoseSparkleGIF);
 
-                Assert.Throws<ArgumentNullException>("settings", () =>
-                {
-                    images.Map(images[0], null);
-                });
-            }
+            Assert.Throws<ArgumentNullException>("settings", () => images.Map(images[0], null));
         }
 
         [Fact]
         public void ShouldDitherWhenSpecifiedInSettings()
         {
-            using (var colors = new MagickImageCollection())
+            using var colors = new MagickImageCollection();
+            colors.Add(new MagickImage(MagickColors.Red, 1, 1));
+            colors.Add(new MagickImage(MagickColors.Green, 1, 1));
+
+            using var remapImage = colors.AppendHorizontally();
+            using var images = new MagickImageCollection();
+            images.Read(Files.RoseSparkleGIF);
+
+            var settings = new QuantizeSettings
             {
-                colors.Add(new MagickImage(MagickColors.Red, 1, 1));
-                colors.Add(new MagickImage(MagickColors.Green, 1, 1));
+                DitherMethod = DitherMethod.FloydSteinberg,
+            };
 
-                using (var remapImage = colors.AppendHorizontally())
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.Read(Files.RoseSparkleGIF);
+            images.Map(remapImage, settings);
 
-                        var settings = new QuantizeSettings
-                        {
-                            DitherMethod = DitherMethod.FloydSteinberg,
-                        };
+            ColorAssert.Equal(MagickColors.Red, images[0], 60, 17);
+            ColorAssert.Equal(MagickColors.Green, images[0], 37, 24);
 
-                        images.Map(remapImage, settings);
+            ColorAssert.Equal(MagickColors.Red, images[1], 27, 45);
+            ColorAssert.Equal(MagickColors.Green, images[1], 36, 26);
 
-                        ColorAssert.Equal(MagickColors.Red, images[0], 60, 17);
-                        ColorAssert.Equal(MagickColors.Green, images[0], 37, 24);
-
-                        ColorAssert.Equal(MagickColors.Red, images[1], 27, 45);
-                        ColorAssert.Equal(MagickColors.Green, images[1], 36, 26);
-
-                        ColorAssert.Equal(MagickColors.Red, images[2], 55, 12);
-                        ColorAssert.Equal(MagickColors.Green, images[2], 17, 21);
-                    }
-                }
-            }
+            ColorAssert.Equal(MagickColors.Red, images[2], 55, 12);
+            ColorAssert.Equal(MagickColors.Green, images[2], 17, 21);
         }
     }
 }

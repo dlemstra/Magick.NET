@@ -22,11 +22,10 @@ public partial class TheLabelCoder
             Density = new Density(96, 96, DensityUnit.PixelsPerInch),
         };
 
-        using (var image = new MagickImage($"label:Masai Mara", settings))
-        {
-            Assert.Equal(93, image.Width);
-            Assert.Equal(21, image.Height);
-        }
+        using var image = new MagickImage($"label:Masai Mara", settings);
+
+        Assert.Equal(93, image.Width);
+        Assert.Equal(21, image.Height);
     }
 
     [Fact]
@@ -41,15 +40,13 @@ public partial class TheLabelCoder
             Width = 60,
         };
 
-        using (var image = new MagickImage("label:1", settings))
-        {
-            Assert.Equal(119, image.Height);
+        using var image = new MagickImage("label:1", settings);
 
-            ColorAssert.Equal(MagickColors.Green, image, 40, 60);
-            ColorAssert.Equal(MagickColors.Red, image, 38, 60);
-            ColorAssert.Equal(MagickColors.Red, image, 34, 21);
-            ColorAssert.Equal(MagickColors.Green, image, 34, 95);
-        }
+        Assert.Equal(119, image.Height);
+        ColorAssert.Equal(MagickColors.Green, image, 40, 60);
+        ColorAssert.Equal(MagickColors.Red, image, 38, 60);
+        ColorAssert.Equal(MagickColors.Red, image, 34, 21);
+        ColorAssert.Equal(MagickColors.Green, image, 34, 95);
     }
 
     [Fact]
@@ -64,15 +61,13 @@ public partial class TheLabelCoder
             Width = 60,
         };
 
-        using (var image = new MagickImage("label:1\n2", settings))
-        {
-            Assert.Equal(237, image.Height);
+        using var image = new MagickImage("label:1\n2", settings);
 
-            ColorAssert.Equal(MagickColors.Green, image, 42, 158);
-            ColorAssert.Equal(MagickColors.Red, image, 44, 158);
-            ColorAssert.Equal(MagickColors.Green, image, 34, 137);
-            ColorAssert.Equal(MagickColors.Red, image, 34, 212);
-        }
+        Assert.Equal(237, image.Height);
+        ColorAssert.Equal(MagickColors.Green, image, 42, 158);
+        ColorAssert.Equal(MagickColors.Red, image, 44, 158);
+        ColorAssert.Equal(MagickColors.Green, image, 34, 137);
+        ColorAssert.Equal(MagickColors.Red, image, 34, 212);
     }
 }
 

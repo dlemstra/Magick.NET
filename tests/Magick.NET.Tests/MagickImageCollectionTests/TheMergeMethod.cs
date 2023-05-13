@@ -14,25 +14,21 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() => images.Merge());
-            }
+            using var images = new MagickImageCollection();
+
+            Assert.Throws<InvalidOperationException>(() => images.Merge());
         }
 
         [Fact]
         public void ShouldMergeTheImages()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Read(Files.RoseSparkleGIF);
+            using var images = new MagickImageCollection();
+            images.Read(Files.RoseSparkleGIF);
 
-                using (var first = images.Merge())
-                {
-                    Assert.Equal(images[0].Width, first.Width);
-                    Assert.Equal(images[0].Height, first.Height);
-                }
-            }
+            using var image = images.Merge();
+
+            Assert.Equal(images[0].Width, image.Width);
+            Assert.Equal(images[0].Height, image.Height);
         }
     }
 }

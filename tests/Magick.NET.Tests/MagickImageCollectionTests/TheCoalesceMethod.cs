@@ -14,36 +14,28 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    images.Coalesce();
-                });
-            }
+            using var images = new MagickImageCollection();
+
+            Assert.Throws<InvalidOperationException>(() => images.Coalesce());
         }
 
         [Fact]
         public void ShouldMergeTheImages()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Read(Files.RoseSparkleGIF);
+            using var images = new MagickImageCollection();
+            images.Read(Files.RoseSparkleGIF);
 
-                using (var pixels = images[1].GetPixels())
-                {
-                    var color = pixels.GetPixel(53, 3).ToColor();
-                    Assert.Equal(0, color.A);
-                }
+            using var pixels = images[1].GetPixels();
 
-                images.Coalesce();
+            var color = pixels.GetPixel(53, 3).ToColor();
+            Assert.Equal(0, color.A);
 
-                using (var pixels = images[1].GetPixels())
-                {
-                    var color = pixels.GetPixel(53, 3).ToColor();
-                    Assert.Equal(Quantum.Max, color.A);
-                }
-            }
+            images.Coalesce();
+
+            using var coalescePixels = images[1].GetPixels();
+            color = coalescePixels.GetPixel(53, 3).ToColor();
+
+            Assert.Equal(Quantum.Max, color.A);
         }
     }
 }

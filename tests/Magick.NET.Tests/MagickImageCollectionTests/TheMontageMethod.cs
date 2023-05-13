@@ -14,47 +14,39 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() => images.Montage(null));
-            }
+            using var images = new MagickImageCollection();
+
+            Assert.Throws<InvalidOperationException>(() => images.Montage(null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenSettingsIsNull()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage(MagickColors.Magenta, 1, 1));
+            using var images = new MagickImageCollection();
+            images.Add(new MagickImage(MagickColors.Magenta, 1, 1));
 
-                Assert.Throws<ArgumentNullException>("settings", () =>
-                {
-                    images.Montage(null);
-                });
-            }
+            Assert.Throws<ArgumentNullException>("settings", () => images.Montage(null));
         }
 
         [Fact]
         public void ShouldMontageTheImages()
         {
-            using (var images = new MagickImageCollection())
+            using var images = new MagickImageCollection();
+
+            for (var i = 0; i < 9; i++)
+                images.Add(Files.Builtin.Logo);
+
+            var settings = new MontageSettings
             {
-                for (var i = 0; i < 9; i++)
-                    images.Add(Files.Builtin.Logo);
+                Geometry = new MagickGeometry("200x200"),
+                TileGeometry = new MagickGeometry("2x"),
+            };
 
-                var settings = new MontageSettings
-                {
-                    Geometry = new MagickGeometry("200x200"),
-                    TileGeometry = new MagickGeometry("2x"),
-                };
+            using var montageResult = images.Montage(settings);
 
-                using (var montageResult = images.Montage(settings))
-                {
-                    Assert.NotNull(montageResult);
-                    Assert.Equal(400, montageResult.Width);
-                    Assert.Equal(1000, montageResult.Height);
-                }
-            }
+            Assert.NotNull(montageResult);
+            Assert.Equal(400, montageResult.Width);
+            Assert.Equal(1000, montageResult.Height);
         }
     }
 }

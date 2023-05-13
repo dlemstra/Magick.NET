@@ -14,14 +14,12 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldReverseTheImageOrder()
         {
-            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-            {
-                var first = images.First();
-                images.Reverse();
+            using var images = new MagickImageCollection(Files.RoseSparkleGIF);
+            var first = images.First();
+            images.Reverse();
 
-                var last = images.Last();
-                Assert.True(last == first);
-            }
+            var last = images.Last();
+            Assert.True(last == first);
         }
     }
 }

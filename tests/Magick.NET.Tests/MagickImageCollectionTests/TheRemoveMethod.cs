@@ -13,14 +13,12 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldRemoveTheSpecifiedImage()
         {
-            using (var images = new MagickImageCollection(Files.RoseSparkleGIF))
-            {
-                var first = images[0];
-                images.Remove(first);
+            using var images = new MagickImageCollection(Files.RoseSparkleGIF);
+            var first = images[0];
+            images.Remove(first);
 
-                Assert.Equal(2, images.Count);
-                Assert.Equal(-1, images.IndexOf(first));
-            }
+            Assert.Equal(2, images.Count);
+            Assert.Equal(-1, images.IndexOf(first));
         }
     }
 }

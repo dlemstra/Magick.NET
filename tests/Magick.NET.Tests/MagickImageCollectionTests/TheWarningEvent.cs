@@ -30,19 +30,17 @@ public partial class MagickImageCollectionTests
             var bytes = File.ReadAllBytes(Files.EightBimTIF);
             bytes[229] = 1;
 
-            using (var images = new MagickImageCollection())
-            {
-                images.Warning += warningDelegate;
-                images.Read(bytes);
+            using var images = new MagickImageCollection();
+            images.Warning += warningDelegate;
+            images.Read(bytes);
 
-                Assert.NotEqual(0, count);
+            Assert.NotEqual(0, count);
 
-                var expectedCount = count;
-                images.Warning -= warningDelegate;
-                images.Read(bytes);
+            var expectedCount = count;
+            images.Warning -= warningDelegate;
+            images.Read(bytes);
 
-                Assert.Equal(expectedCount, count);
-            }
+            Assert.Equal(expectedCount, count);
         }
     }
 }

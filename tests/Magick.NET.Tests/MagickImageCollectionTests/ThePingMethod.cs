@@ -17,19 +17,17 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentNullException>("data", () => images.Ping((byte[])null));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentNullException>("data", () => images.Ping((byte[])null));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenArrayIsEmpty()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("data", () => images.Ping(Array.Empty<byte>()));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentException>("data", () => images.Ping(Array.Empty<byte>()));
             }
 
             [Fact]
@@ -42,13 +40,11 @@ public partial class MagickImageCollectionTests
 
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                using (var images = new MagickImageCollection())
-                {
-                    images.Ping(bytes, settings);
+                using var images = new MagickImageCollection();
+                images.Ping(bytes, settings);
 
-                    Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
-                    Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                }
+                Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
         }
 
@@ -57,61 +53,54 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentNullException>("data", () => images.Ping(null, 0, 0));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentNullException>("data", () => images.Ping(null, 0, 0));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenArrayIsEmpty()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("data", () => images.Ping(Array.Empty<byte>(), 0, 0));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentException>("data", () => images.Ping(Array.Empty<byte>(), 0, 0));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenOffsetIsNegative()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("offset", () => images.Ping(new byte[] { 215 }, -1, 0));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentException>("offset", () => images.Ping(new byte[] { 215 }, -1, 0));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("count", () => images.Ping(new byte[] { 215 }, 0, 0));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentException>("count", () => images.Ping(new byte[] { 215 }, 0, 0));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenCountIsNegative()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("count", () => images.Ping(new byte[] { 215 }, 0, -1));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentException>("count", () => images.Ping(new byte[] { 215 }, 0, -1));
             }
 
             [Fact]
             public void ShouldPingImage()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
-                    var bytes = new byte[fileBytes.Length + 10];
-                    fileBytes.CopyTo(bytes, 10);
+                using var images = new MagickImageCollection();
+                var fileBytes = File.ReadAllBytes(Files.SnakewarePNG);
+                var bytes = new byte[fileBytes.Length + 10];
+                fileBytes.CopyTo(bytes, 10);
 
-                    images.Ping(bytes, 10, bytes.Length - 10);
-                    Assert.Single(images);
-                    Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                }
+                images.Ping(bytes, 10, bytes.Length - 10);
+                Assert.Single(images);
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
         }
 
@@ -121,55 +110,45 @@ public partial class MagickImageCollectionTests
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
                 var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
 
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentNullException>("data", () => images.Ping(null, 0, 0, settings));
-                }
+                Assert.Throws<ArgumentNullException>("data", () => images.Ping(null, 0, 0, settings));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenArrayIsEmpty()
             {
                 var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
 
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("data", () => images.Ping(Array.Empty<byte>(), 0, 0, settings));
-                }
+                Assert.Throws<ArgumentException>("data", () => images.Ping(Array.Empty<byte>(), 0, 0, settings));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenOffsetIsNegative()
             {
                 var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
 
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("offset", () => images.Ping(new byte[] { 215 }, -1, 0, settings));
-                }
+                Assert.Throws<ArgumentException>("offset", () => images.Ping(new byte[] { 215 }, -1, 0, settings));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
 
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("count", () => images.Ping(new byte[] { 215 }, 0, 0, settings));
-                }
+                Assert.Throws<ArgumentException>("count", () => images.Ping(new byte[] { 215 }, 0, 0, settings));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenCountIsNegative()
             {
                 var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
 
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("count", () => images.Ping(new byte[] { 215 }, 0, -1, settings));
-                }
+                Assert.Throws<ArgumentException>("count", () => images.Ping(new byte[] { 215 }, 0, -1, settings));
             }
 
             [Fact]
@@ -181,12 +160,11 @@ public partial class MagickImageCollectionTests
                 var bytes = new byte[fileBytes.Length + 10];
                 fileBytes.CopyTo(bytes, 10);
 
-                using (var images = new MagickImageCollection())
-                {
-                    images.Ping(bytes, 10, bytes.Length - 10, settings);
-                    Assert.Single(images);
-                    Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                }
+                using var images = new MagickImageCollection();
+                images.Ping(bytes, 10, bytes.Length - 10, settings);
+
+                Assert.Single(images);
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
 
             [Fact]
@@ -194,11 +172,10 @@ public partial class MagickImageCollectionTests
             {
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                using (var images = new MagickImageCollection())
-                {
-                    images.Ping(bytes, 0, bytes.Length, null);
-                    Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                }
+                using var images = new MagickImageCollection();
+                images.Ping(bytes, 0, bytes.Length, null);
+
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
         }
 
@@ -209,13 +186,11 @@ public partial class MagickImageCollectionTests
             {
                 var bytes = File.ReadAllBytes(Files.SnakewarePNG);
 
-                using (var images = new MagickImageCollection())
-                {
-                    images.Ping(bytes, null);
+                using var images = new MagickImageCollection();
+                images.Ping(bytes, null);
 
-                    Assert.Single(images);
-                    Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                }
+                Assert.Single(images);
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
         }
 
@@ -224,10 +199,9 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldThrowExceptionWhenFileInfoIsNull()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentNullException>("file", () => images.Ping((FileInfo)null));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentNullException>("file", () => images.Ping((FileInfo)null));
             }
         }
 
@@ -238,13 +212,11 @@ public partial class MagickImageCollectionTests
             {
                 var file = new FileInfo(Files.SnakewarePNG);
 
-                using (var images = new MagickImageCollection())
-                {
-                    images.Ping(file, null);
+                using var images = new MagickImageCollection();
+                images.Ping(file, null);
 
-                    Assert.Single(images);
-                    Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                }
+                Assert.Single(images);
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
         }
 
@@ -253,30 +225,26 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldThrowExceptionWhenFileNameIsNull()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentNullException>("fileName", () => images.Ping((string)null));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentNullException>("fileName", () => images.Ping((string)null));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenFileNameIsEmpty()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentException>("fileName", () => images.Ping(string.Empty));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentException>("fileName", () => images.Ping(string.Empty));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenFileNameIsInvalid()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    var exception = Assert.Throws<MagickBlobErrorException>(() => images.Ping(Files.Missing));
+                using var images = new MagickImageCollection();
 
-                    Assert.Contains("error/blob.c/OpenBlob", exception.Message);
-                }
+                var exception = Assert.Throws<MagickBlobErrorException>(() => images.Ping(Files.Missing));
+                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
             }
 
             [Fact]
@@ -287,13 +255,11 @@ public partial class MagickImageCollectionTests
                     Format = MagickFormat.Png,
                 };
 
-                using (var images = new MagickImageCollection())
-                {
-                    images.Ping(Files.CirclePNG, settings);
+                using var images = new MagickImageCollection();
+                images.Ping(Files.CirclePNG, settings);
 
-                    Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
-                    Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                }
+                Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
         }
 
@@ -302,13 +268,11 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldNotThrowExceptionWhenFileNameSettingsIsNull()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    images.Ping(Files.SnakewarePNG, null);
+                using var images = new MagickImageCollection();
+                images.Ping(Files.SnakewarePNG, null);
 
-                    Assert.Single(images);
-                    Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                }
+                Assert.Single(images);
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
 
             [Fact]
@@ -323,12 +287,10 @@ public partial class MagickImageCollectionTests
                     TextGravity = Gravity.Center,
                 };
 
-                using (var images = new MagickImageCollection())
-                {
-                    images.Ping(Files.ImageMagickTXT, settings);
+                using var images = new MagickImageCollection();
+                images.Ping(Files.ImageMagickTXT, settings);
 
-                    Assert.Equal(2, images.Count);
-                }
+                Assert.Equal(2, images.Count);
             }
         }
 
@@ -337,10 +299,9 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()
             {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<ArgumentNullException>("stream", () => images.Ping((Stream)null));
-                }
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<ArgumentNullException>("stream", () => images.Ping((Stream)null));
             }
 
             [Fact]
@@ -351,16 +312,12 @@ public partial class MagickImageCollectionTests
                     Format = MagickFormat.Png,
                 };
 
-                using (var stream = File.OpenRead(Files.CirclePNG))
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.Ping(stream, settings);
+                using var stream = File.OpenRead(Files.CirclePNG);
+                using var images = new MagickImageCollection();
+                images.Ping(stream, settings);
 
-                        Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
-                        Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                    }
-                }
+                Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
         }
 
@@ -369,16 +326,12 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldNotThrowExceptionWhenStreamSettingsIsNull()
             {
-                using (var stream = File.OpenRead(Files.SnakewarePNG))
-                {
-                    using (var images = new MagickImageCollection())
-                    {
-                        images.Ping(stream, null);
+                using var stream = File.OpenRead(Files.SnakewarePNG);
+                using var images = new MagickImageCollection();
+                images.Ping(stream, null);
 
-                        Assert.Single(images);
-                        Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
-                    }
-                }
+                Assert.Single(images);
+                Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
         }
     }

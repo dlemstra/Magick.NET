@@ -14,16 +14,11 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionAlreadyContainsItem()
         {
-            using (var images = new MagickImageCollection())
-            {
-                var image = new MagickImage();
-                images.Add(image);
+            using var images = new MagickImageCollection();
+            var image = new MagickImage();
+            images.Add(image);
 
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    images.Insert(0, image);
-                });
-            }
+            Assert.Throws<InvalidOperationException>(() => images.Insert(0, image));
         }
     }
 }

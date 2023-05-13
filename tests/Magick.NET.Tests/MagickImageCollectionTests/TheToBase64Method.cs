@@ -13,22 +13,19 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldReturnEmptyStringWhenCollectionIsEmpty()
         {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Equal(string.Empty, images.ToBase64());
-            }
+            using var images = new MagickImageCollection();
+
+            Assert.Equal(string.Empty, images.ToBase64());
         }
 
         [Fact]
         public void ShouldReturnBase64StringOfTheImages()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Read(Files.Builtin.Logo);
+            using var images = new MagickImageCollection();
+            images.Read(Files.Builtin.Logo);
 
-                var base64 = images.ToBase64(MagickFormat.Rgb);
-                Assert.Equal(1228800, base64.Length);
-            }
+            var base64 = images.ToBase64(MagickFormat.Rgb);
+            Assert.Equal(1228800, base64.Length);
         }
     }
 }

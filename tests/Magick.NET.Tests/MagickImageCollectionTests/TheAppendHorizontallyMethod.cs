@@ -14,13 +14,9 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            using (var images = new MagickImageCollection())
-            {
-                Assert.Throws<InvalidOperationException>(() =>
-                {
-                    images.AppendHorizontally();
-                });
-            }
+            using var images = new MagickImageCollection();
+
+            Assert.Throws<InvalidOperationException>(() => images.AppendHorizontally());
         }
 
         [Fact]
@@ -29,19 +25,16 @@ public partial class MagickImageCollectionTests
             var width = 70;
             var height = 46;
 
-            using (var images = new MagickImageCollection())
-            {
-                images.Read(Files.RoseSparkleGIF);
+            using var images = new MagickImageCollection();
+            images.Read(Files.RoseSparkleGIF);
 
-                Assert.Equal(width, images[0].Width);
-                Assert.Equal(height, images[0].Height);
+            Assert.Equal(width, images[0].Width);
+            Assert.Equal(height, images[0].Height);
 
-                using (var image = images.AppendHorizontally())
-                {
-                    Assert.Equal(width * 3, image.Width);
-                    Assert.Equal(height, image.Height);
-                }
-            }
+            using var image = images.AppendHorizontally();
+
+            Assert.Equal(width * 3, image.Width);
+            Assert.Equal(height, image.Height);
         }
     }
 }

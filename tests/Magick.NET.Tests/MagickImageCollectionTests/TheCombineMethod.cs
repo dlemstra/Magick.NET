@@ -14,54 +14,36 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
-            using (var rose = new MagickImage(Files.Builtin.Rose))
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    Assert.Throws<InvalidOperationException>(() =>
-                    {
-                        images.Combine();
-                    });
-                }
-            }
+            using var images = new MagickImageCollection();
+
+            Assert.Throws<InvalidOperationException>(() => images.Combine());
         }
 
         [Fact]
         public void ShouldCombineSeparatedImages()
         {
-            using (var rose = new MagickImage(Files.Builtin.Rose))
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    images.AddRange(rose.Separate(Channels.RGB));
+            using var rose = new MagickImage(Files.Builtin.Rose);
+            using var images = new MagickImageCollection();
+            images.AddRange(rose.Separate(Channels.RGB));
 
-                    Assert.Equal(3, images.Count);
+            Assert.Equal(3, images.Count);
 
-                    using (var image = images.Combine())
-                    {
-                        Assert.Equal(rose.TotalColors, image.TotalColors);
-                    }
-                }
-            }
+            using var image = images.Combine();
+
+            Assert.Equal(rose.TotalColors, image.TotalColors);
         }
 
         [Fact]
         public void ShouldCombineCmykImage()
         {
-            using (var cmyk = new MagickImage(Files.CMYKJPG))
-            {
-                using (var images = new MagickImageCollection())
-                {
-                    images.AddRange(cmyk.Separate(Channels.CMYK));
+            using var cmyk = new MagickImage(Files.CMYKJPG);
+            using var images = new MagickImageCollection();
+            images.AddRange(cmyk.Separate(Channels.CMYK));
 
-                    Assert.Equal(4, images.Count);
+            Assert.Equal(4, images.Count);
 
-                    using (var image = images.Combine(ColorSpace.CMYK))
-                    {
-                        Assert.Equal(0.0, cmyk.Compare(image, ErrorMetric.RootMeanSquared));
-                    }
-                }
-            }
+            using var image = images.Combine(ColorSpace.CMYK);
+            Assert.Equal(0.0, cmyk.Compare(image, ErrorMetric.RootMeanSquared));
         }
     }
 }

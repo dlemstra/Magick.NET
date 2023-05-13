@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.Collections.ObjectModel;
 using ImageMagick;
 using Xunit;
 
@@ -14,7 +15,6 @@ public partial class MagickImageCollectionTests
         public void ShouldRemoveAndDisposeTheImages()
         {
             var image = new MagickImage(MagickColors.Red, 10, 10);
-
             var collection = new MagickImageCollection
             {
                 image,
@@ -23,6 +23,18 @@ public partial class MagickImageCollectionTests
 
             Assert.Empty(collection);
             Assert.True(image.IsDisposed);
+        }
+
+        [Fact]
+        public void ShouldNotThrowExceptionWhenCalledTwice()
+        {
+            var collection = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Red, 10, 10),
+            };
+
+            collection.Dispose();
+            collection.Dispose();
         }
     }
 }

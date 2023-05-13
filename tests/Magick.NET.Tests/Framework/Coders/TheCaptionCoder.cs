@@ -22,13 +22,11 @@ public partial class TheCaptionCoder
             Height = 85,
         };
 
-        using (var image = new MagickImage(caption, settings))
-        {
-            Assert.Equal(180, image.Width);
-            Assert.Equal(85, image.Height);
+        using var image = new MagickImage(caption, settings);
 
-            ColorAssert.Equal(MagickColors.Blue, image, 55, 20);
-        }
+        Assert.Equal(180, image.Width);
+        Assert.Equal(85, image.Height);
+        ColorAssert.Equal(MagickColors.Blue, image, 55, 20);
     }
 
     [Fact]
@@ -45,18 +43,16 @@ public partial class TheCaptionCoder
             Width = 450,
         };
 
-        using (var image = new MagickImage(caption, settings))
-        {
-            Assert.Equal(450, image.Width);
-            Assert.Equal(138, image.Height);
+        using var image = new MagickImage(caption, settings);
 
-            ColorAssert.Equal(MagickColors.Green, image, 155, 57);
-            ColorAssert.Equal(MagickColors.Green, image, 178, 80);
-            ColorAssert.Equal(MagickColors.Red, image, 441, 26);
-            ColorAssert.Equal(MagickColors.Red, image, 395, 55);
-            ColorAssert.Equal(MagickColors.Red, image, 231, 116);
-            ColorAssert.Equal(new MagickColor("#0000"), image, 170, 93);
-        }
+        Assert.Equal(450, image.Width);
+        Assert.Equal(138, image.Height);
+        ColorAssert.Equal(MagickColors.Green, image, 155, 57);
+        ColorAssert.Equal(MagickColors.Green, image, 178, 80);
+        ColorAssert.Equal(MagickColors.Red, image, 441, 26);
+        ColorAssert.Equal(MagickColors.Red, image, 395, 55);
+        ColorAssert.Equal(MagickColors.Red, image, 231, 116);
+        ColorAssert.Equal(new MagickColor("#0000"), image, 170, 93);
     }
 
     [Fact]
@@ -70,17 +66,15 @@ public partial class TheCaptionCoder
             Height = 101,
         };
 
-        using (var image = new MagickImage(caption, settings))
-        {
-            Assert.Equal(465, image.Width);
-            Assert.Equal(101, image.Height);
+        using var image = new MagickImage(caption, settings);
 
-            ColorAssert.Equal(MagickColors.Black, image, 416, 27);
-            ColorAssert.Equal(MagickColors.Black, image, 256, 49);
-            ColorAssert.Equal(MagickColors.White, image, 267, 49);
-            ColorAssert.Equal(MagickColors.Black, image, 426, 52);
-            ColorAssert.Equal(MagickColors.Black, image, 316, 86);
-        }
+        Assert.Equal(465, image.Width);
+        Assert.Equal(101, image.Height);
+        ColorAssert.Equal(MagickColors.Black, image, 416, 27);
+        ColorAssert.Equal(MagickColors.Black, image, 256, 49);
+        ColorAssert.Equal(MagickColors.White, image, 267, 49);
+        ColorAssert.Equal(MagickColors.Black, image, 426, 52);
+        ColorAssert.Equal(MagickColors.Black, image, 316, 86);
     }
 
     [Fact]
@@ -93,14 +87,12 @@ public partial class TheCaptionCoder
             Width = 400,
         };
 
-        using (var image = new MagickImage(caption, settings))
-        {
-            Assert.Equal(400, image.Width);
-            Assert.Equal(116, image.Height);
+        using var image = new MagickImage(caption, settings);
 
-            ColorAssert.Equal(MagickColors.White, image, 321, 30);
-            ColorAssert.Equal(MagickColors.Black, image, 86, 86);
-        }
+        Assert.Equal(400, image.Width);
+        Assert.Equal(116, image.Height);
+        ColorAssert.Equal(MagickColors.White, image, 321, 30);
+        ColorAssert.Equal(MagickColors.Black, image, 86, 86);
     }
 
     [Fact]
@@ -116,14 +108,12 @@ public partial class TheCaptionCoder
             Width = 40,
         };
 
-        using (var image = new MagickImage(caption, settings))
-        {
-            Assert.Equal(40, image.Width);
-            Assert.Equal(83, image.Height);
+        using var image = new MagickImage(caption, settings);
 
-            ColorAssert.Equal(MagickColors.Black, image, 39, 46);
-            ColorAssert.Equal(new MagickColor("#0000"), image, 39, 65);
-        }
+        Assert.Equal(40, image.Width);
+        Assert.Equal(83, image.Height);
+        ColorAssert.Equal(MagickColors.Black, image, 39, 46);
+        ColorAssert.Equal(new MagickColor("#0000"), image, 39, 65);
     }
 
     [Fact]
@@ -139,18 +129,16 @@ public partial class TheCaptionCoder
             Width = 40,
         };
 
-        using (var image = new MagickImage(caption, settings))
-        {
-            Assert.Equal(40, image.Width);
-            Assert.Equal(249, image.Height);
+        using var image = new MagickImage(caption, settings);
 
-            ColorAssert.Equal(MagickColors.Black, image, 39, 47);
-            ColorAssert.Equal(new MagickColor("#0000"), image, 39, 66);
-            ColorAssert.Equal(MagickColors.Black, image, 39, 129);
-            ColorAssert.Equal(new MagickColor("#0000"), image, 39, 148);
-            ColorAssert.Equal(MagickColors.Black, image, 39, 211);
-            ColorAssert.Equal(new MagickColor("#0000"), image, 39, 230);
-        }
+        Assert.Equal(40, image.Width);
+        Assert.Equal(249, image.Height);
+        ColorAssert.Equal(MagickColors.Black, image, 39, 47);
+        ColorAssert.Equal(new MagickColor("#0000"), image, 39, 66);
+        ColorAssert.Equal(MagickColors.Black, image, 39, 129);
+        ColorAssert.Equal(new MagickColor("#0000"), image, 39, 148);
+        ColorAssert.Equal(MagickColors.Black, image, 39, 211);
+        ColorAssert.Equal(new MagickColor("#0000"), image, 39, 230);
     }
 }
 
