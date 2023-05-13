@@ -670,7 +670,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public MagickFormat Format
     {
         get => EnumHelper.Parse(_nativeInstance.Format, MagickFormat.Unknown);
-
         set
         {
             _nativeInstance.Format = Enum.GetName(value.GetType(), value);
