@@ -15,14 +15,12 @@ public partial class VideoReadDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefine()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4));
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new VideoReadDefines(MagickFormat.Mp4));
 
-                Assert.Null(image.Settings.GetDefine("video:vsync"));
-                Assert.Null(image.Settings.GetDefine("video:pixel-format"));
-                Assert.Null(image.Settings.GetDefine("video:intermediate-format"));
-            }
+            Assert.Null(image.Settings.GetDefine("video:vsync"));
+            Assert.Null(image.Settings.GetDefine("video:pixel-format"));
+            Assert.Null(image.Settings.GetDefine("video:intermediate-format"));
         }
 
         [Fact]

@@ -29,15 +29,13 @@ public partial class JpegWriteDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefineForEmptyValues()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new JpegWriteDefines
             {
-                image.Settings.SetDefines(new JpegWriteDefines
-                {
-                    QuantizationTables = string.Empty,
-                });
+                QuantizationTables = string.Empty,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
         }
     }
 }

@@ -14,29 +14,25 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenSetToTrue()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    ShowCompressed = true,
-                });
+                ShowCompressed = true,
+            });
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
         }
 
         [Fact]
         public void ShouldSetTheDefineWhenSetToFalse()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    ShowCompressed = false,
-                });
+                ShowCompressed = false,
+            });
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
         }
     }
 }

@@ -14,15 +14,13 @@ public partial class TiffWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                image.Settings.SetDefines(new TiffWriteDefines
-                {
-                    TileGeometry = new MagickGeometry(1, 2),
-                });
+                TileGeometry = new MagickGeometry(1, 2),
+            });
 
-                Assert.Equal("1x2", image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
-            }
+            Assert.Equal("1x2", image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
         }
     }
 }

@@ -15,22 +15,18 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    TargetSize = 8192,
-                });
+                TargetSize = 8192,
+            });
 
-                Assert.Equal("8192", image.Settings.GetDefine(MagickFormat.WebP, "target-size"));
+            Assert.Equal("8192", image.Settings.GetDefine(MagickFormat.WebP, "target-size"));
 
-                using (var output = new MemoryStream())
-                {
-                    image.Write(output, MagickFormat.WebP);
+            using var output = new MemoryStream();
+            image.Write(output, MagickFormat.WebP);
 
-                    Assert.Equal(7594, output.Length);
-                }
-            }
+            Assert.Equal(7594, output.Length);
         }
     }
 }

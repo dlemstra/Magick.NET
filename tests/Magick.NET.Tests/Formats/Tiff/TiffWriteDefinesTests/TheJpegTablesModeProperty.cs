@@ -14,29 +14,25 @@ public partial class TiffWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var input = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                input.Settings.SetDefines(new TiffWriteDefines
-                {
-                    JpegTablesMode = TiffJpegTablesMode.Huff | TiffJpegTablesMode.Quant,
-                });
+                JpegTablesMode = TiffJpegTablesMode.Huff | TiffJpegTablesMode.Quant,
+            });
 
-                Assert.Equal("3", input.Settings.GetDefine(MagickFormat.Tiff, "jpeg-tables-mode"));
-            }
+            Assert.Equal("3", image.Settings.GetDefine(MagickFormat.Tiff, "jpeg-tables-mode"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenTheValueIsNull()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                image.Settings.SetDefines(new TiffWriteDefines
-                {
-                    JpegTablesMode = null,
-                });
+                JpegTablesMode = null,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "jpeg-tables-mode"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "jpeg-tables-mode"));
         }
     }
 }

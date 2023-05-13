@@ -14,15 +14,13 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    ImageHint = WebPImageHint.Picture,
-                });
+                ImageHint = WebPImageHint.Picture,
+            });
 
-                Assert.Equal("picture", image.Settings.GetDefine(MagickFormat.WebP, "image-hint"));
-            }
+            Assert.Equal("picture", image.Settings.GetDefine(MagickFormat.WebP, "image-hint"));
         }
     }
 }

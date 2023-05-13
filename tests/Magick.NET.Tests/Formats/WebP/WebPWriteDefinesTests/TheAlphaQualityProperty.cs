@@ -14,15 +14,13 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    AlphaQuality = 42,
-                });
+                AlphaQuality = 42,
+            });
 
-                Assert.Equal("42", image.Settings.GetDefine(MagickFormat.WebP, "alpha-quality"));
-            }
+            Assert.Equal("42", image.Settings.GetDefine(MagickFormat.WebP, "alpha-quality"));
         }
     }
 }

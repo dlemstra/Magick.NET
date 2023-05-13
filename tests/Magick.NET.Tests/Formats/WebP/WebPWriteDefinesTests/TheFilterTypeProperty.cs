@@ -14,15 +14,13 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    FilterType = WebPFilterType.Strong,
-                });
+                FilterType = WebPFilterType.Strong,
+            });
 
-                Assert.Equal("1", image.Settings.GetDefine(MagickFormat.WebP, "filter-type"));
-            }
+            Assert.Equal("1", image.Settings.GetDefine(MagickFormat.WebP, "filter-type"));
         }
     }
 }

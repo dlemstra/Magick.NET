@@ -14,29 +14,25 @@ public partial class TiffWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var input = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                input.Settings.SetDefines(new TiffWriteDefines
-                {
-                    FillOrder = Endian.LSB,
-                });
+                FillOrder = Endian.LSB,
+            });
 
-                Assert.Equal("lsb", input.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
-            }
+            Assert.Equal("lsb", image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenTheValueIsUndefined()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                image.Settings.SetDefines(new TiffWriteDefines
-                {
-                    FillOrder = Endian.Undefined,
-                });
+                FillOrder = Endian.Undefined,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
         }
     }
 }

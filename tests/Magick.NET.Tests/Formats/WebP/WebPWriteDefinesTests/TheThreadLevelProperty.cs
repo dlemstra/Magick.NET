@@ -14,29 +14,25 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenSetToTrue()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    ThreadLevel = true,
-                });
+                ThreadLevel = true,
+            });
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "thread-level"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "thread-level"));
         }
 
         [Fact]
         public void ShouldSetTheDefineWhenSetToFalse()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    ThreadLevel = false,
-                });
+                ThreadLevel = false,
+            });
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "thread-level"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "thread-level"));
         }
     }
 }

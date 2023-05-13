@@ -14,15 +14,13 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    AlphaCompression = WebPAlphaCompression.Compressed,
-                });
+                AlphaCompression = WebPAlphaCompression.Compressed,
+            });
 
-                Assert.Equal("1", image.Settings.GetDefine(MagickFormat.WebP, "alpha-compression"));
-            }
+            Assert.Equal("1", image.Settings.GetDefine(MagickFormat.WebP, "alpha-compression"));
         }
     }
 }

@@ -14,15 +14,13 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    Preprocessing = WebPPreprocessing.PseudoRandom,
-                });
+                Preprocessing = WebPPreprocessing.PseudoRandom,
+            });
 
-                Assert.Equal("2", image.Settings.GetDefine(MagickFormat.WebP, "preprocessing"));
-            }
+            Assert.Equal("2", image.Settings.GetDefine(MagickFormat.WebP, "preprocessing"));
         }
     }
 }

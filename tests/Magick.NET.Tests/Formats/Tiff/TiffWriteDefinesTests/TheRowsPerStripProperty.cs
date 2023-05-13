@@ -14,15 +14,13 @@ public partial class TiffWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                image.Settings.SetDefines(new TiffWriteDefines
-                {
-                    RowsPerStrip = 42,
-                });
+                RowsPerStrip = 42,
+            });
 
-                Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
-            }
+            Assert.Equal("42", image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
         }
     }
 }

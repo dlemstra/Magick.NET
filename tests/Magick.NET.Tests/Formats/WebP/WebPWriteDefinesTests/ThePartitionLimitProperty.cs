@@ -14,15 +14,13 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    PartitionLimit = 42,
-                });
+                PartitionLimit = 42,
+            });
 
-                Assert.Equal("42", image.Settings.GetDefine(MagickFormat.WebP, "partition-limit"));
-            }
+            Assert.Equal("42", image.Settings.GetDefine(MagickFormat.WebP, "partition-limit"));
         }
     }
 }

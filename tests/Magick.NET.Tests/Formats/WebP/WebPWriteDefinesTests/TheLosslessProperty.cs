@@ -14,29 +14,25 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenSetToTrue()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    Lossless = true,
-                });
+                Lossless = true,
+            });
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "lossless"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "lossless"));
         }
 
         [Fact]
         public void ShouldSetTheDefineWhenSetToFalse()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    Lossless = false,
-                });
+                Lossless = false,
+            });
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "lossless"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "lossless"));
         }
     }
 }

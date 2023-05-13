@@ -14,29 +14,25 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenSetToTrue()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    AutoFilter = true,
-                });
+                AutoFilter = true,
+            });
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "auto-filter"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "auto-filter"));
         }
 
         [Fact]
         public void ShouldSetTheDefineWhenSetToFalse()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    AutoFilter = false,
-                });
+                AutoFilter = false,
+            });
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "auto-filter"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "auto-filter"));
         }
     }
 }

@@ -14,29 +14,25 @@ public partial class WebPWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenSetToTrue()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    LowMemory = true,
-                });
+                LowMemory = true,
+            });
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "low-memory"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "low-memory"));
         }
 
         [Fact]
         public void ShouldSetTheDefineWhenSetToFalse()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new WebPWriteDefines
             {
-                image.Settings.SetDefines(new WebPWriteDefines
-                {
-                    LowMemory = false,
-                });
+                LowMemory = false,
+            });
 
-                Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "low-memory"));
-            }
+            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "low-memory"));
         }
     }
 }

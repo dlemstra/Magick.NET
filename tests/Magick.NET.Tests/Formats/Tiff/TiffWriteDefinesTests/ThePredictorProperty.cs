@@ -14,29 +14,25 @@ public partial class TiffWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using (var input = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                input.Settings.SetDefines(new TiffWriteDefines
-                {
-                    Predictor = 1,
-                });
+                Predictor = 1,
+            });
 
-                Assert.Equal("1", input.Settings.GetDefine(MagickFormat.Tiff, "predictor"));
-            }
+            Assert.Equal("1", image.Settings.GetDefine(MagickFormat.Tiff, "predictor"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenTheValueIsNull()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                image.Settings.SetDefines(new TiffWriteDefines
-                {
-                    Predictor = null,
-                });
+                Predictor = null,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "predictor"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "predictor"));
         }
     }
 }

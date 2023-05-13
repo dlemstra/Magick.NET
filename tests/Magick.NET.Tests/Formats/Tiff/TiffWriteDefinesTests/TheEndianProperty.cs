@@ -14,13 +14,13 @@ public partial class TiffWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefine()
         {
-            using var input = new MagickImage(Files.Builtin.Logo);
-            input.Settings.SetDefines(new TiffWriteDefines
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new TiffWriteDefines
             {
                 Endian = Endian.MSB,
             });
 
-            using var output = WriteTiff(input);
+            using var output = WriteTiff(image);
 
             Assert.Equal("msb", output.GetAttribute("tiff:endian"));
         }

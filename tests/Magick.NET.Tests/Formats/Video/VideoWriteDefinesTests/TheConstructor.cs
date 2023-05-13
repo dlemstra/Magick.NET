@@ -15,12 +15,10 @@ public partial class VideoWriteDefinesTests
         [Fact]
         public void ShouldNotSetAnyDefine()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefines(new VideoWriteDefines(MagickFormat.Mp4));
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new VideoWriteDefines(MagickFormat.Mp4));
 
-                Assert.Null(image.Settings.GetDefine("video:pixel-format"));
-            }
+            Assert.Null(image.Settings.GetDefine("video:pixel-format"));
         }
 
         [Fact]

@@ -14,29 +14,25 @@ public partial class TiffWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenSetToTrue()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                image.Settings.SetDefines(new TiffWriteDefines
-                {
-                    WriteLayers = true,
-                });
+                WriteLayers = true,
+            });
 
-                Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));
-            }
+            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenSetToFalse()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new TiffWriteDefines
             {
-                image.Settings.SetDefines(new TiffWriteDefines
-                {
-                    WriteLayers = false,
-                });
+                WriteLayers = false,
+            });
 
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "write-layers"));
-            }
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "write-layers"));
         }
     }
 }

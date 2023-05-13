@@ -14,29 +14,25 @@ public partial class VideoWriteDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenValueIsSet()
         {
-            using (var image = new MagickImage(MagickColors.Magenta, 1, 1))
+            using var image = new MagickImage(MagickColors.Magenta, 1, 1);
+            image.Settings.SetDefines(new VideoWriteDefines(MagickFormat.Mp4)
             {
-                image.Settings.SetDefines(new VideoWriteDefines(MagickFormat.Mp4)
-                {
-                    PixelFormat = "magick",
-                });
+                PixelFormat = "magick",
+            });
 
-                Assert.Equal("magick", image.Settings.GetDefine("video:pixel-format"));
-            }
+            Assert.Equal("magick", image.Settings.GetDefine("video:pixel-format"));
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenValueIsNotSet()
         {
-            using (var image = new MagickImage())
+            using var image = new MagickImage();
+            image.Settings.SetDefines(new VideoWriteDefines(MagickFormat.Mp4)
             {
-                image.Settings.SetDefines(new VideoWriteDefines(MagickFormat.Mp4)
-                {
-                    PixelFormat = null,
-                });
+                PixelFormat = null,
+            });
 
-                Assert.Null(image.Settings.GetDefine("video:pixel-format"));
-            }
+            Assert.Null(image.Settings.GetDefine("video:pixel-format"));
         }
     }
 }
