@@ -13,29 +13,23 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldApplyHistogramEqualizationToTheImage()
         {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                image.Equalize();
+            using var image = new MagickImage(Files.SnakewarePNG);
+            image.Equalize();
 
-                ColorAssert.Equal(MagickColors.White, image, 105, 25);
-                ColorAssert.Equal(new MagickColor("#0000"), image, 105, 60);
-            }
+            ColorAssert.Equal(MagickColors.White, image, 105, 25);
+            ColorAssert.Equal(new MagickColor("#0000"), image, 105, 60);
         }
 
         [Fact]
         public void ShouldUseTheCorrectDefaultChannels()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                using (var other = image.Clone())
-                {
-                    image.Equalize();
-                    other.Equalize(Channels.Default);
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            using var other = image.Clone();
+            image.Equalize();
+            other.Equalize(Channels.Default);
 
-                    var distortion = image.Compare(other, ErrorMetric.RootMeanSquared);
-                    Assert.Equal(0.0, distortion);
-                }
-            }
+            var distortion = image.Compare(other, ErrorMetric.RootMeanSquared);
+            Assert.Equal(0.0, distortion);
         }
     }
 }

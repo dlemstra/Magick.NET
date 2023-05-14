@@ -13,15 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldImproveTheQualityOfNoiseImage()
         {
-            using (var enhanced = new MagickImage(Files.NoisePNG))
-            {
-                using (var original = enhanced.Clone())
-                {
-                    enhanced.Enhance();
+            using var enhanced = new MagickImage(Files.NoisePNG);
+            using var original = enhanced.Clone();
+            enhanced.Enhance();
 
-                    Assert.InRange(enhanced.Compare(original, ErrorMetric.RootMeanSquared), 0.0115, 0.0118);
-                }
-            }
+            Assert.InRange(enhanced.Compare(original, ErrorMetric.RootMeanSquared), 0.0115, 0.0118);
         }
     }
 }

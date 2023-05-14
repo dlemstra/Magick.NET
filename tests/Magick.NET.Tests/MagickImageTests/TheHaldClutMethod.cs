@@ -13,23 +13,17 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldApplyTheSpecifiedColorTable()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage(MagickColors.Red, 1, 1));
-                images.Add(new MagickImage(MagickColors.Blue, 1, 1));
-                images.Add(new MagickImage(MagickColors.Green, 1, 1));
+            using var images = new MagickImageCollection();
+            images.Add(new MagickImage(MagickColors.Red, 1, 1));
+            images.Add(new MagickImage(MagickColors.Blue, 1, 1));
+            images.Add(new MagickImage(MagickColors.Green, 1, 1));
 
-                using (var pallete = images.AppendHorizontally())
-                {
-                    using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                    {
-                        image.HaldClut(pallete);
+            using var pallete = images.AppendHorizontally();
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            image.HaldClut(pallete);
 
-                        ColorAssert.Equal(new MagickColor("#052268042ba5"), image, 228, 276);
-                        ColorAssert.Equal(new MagickColor("#144f623a2801"), image, 295, 270);
-                    }
-                }
-            }
+            ColorAssert.Equal(new MagickColor("#052268042ba5"), image, 228, 276);
+            ColorAssert.Equal(new MagickColor("#144f623a2801"), image, 295, 270);
         }
     }
 }

@@ -13,22 +13,18 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldFlipTheImageVertically()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage(MagickColors.DodgerBlue, 10, 10));
-                images.Add(new MagickImage(MagickColors.Firebrick, 10, 10));
+            using var images = new MagickImageCollection();
+            images.Add(new MagickImage(MagickColors.DodgerBlue, 10, 10));
+            images.Add(new MagickImage(MagickColors.Firebrick, 10, 10));
 
-                using (var image = images.AppendVertically())
-                {
-                    ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 0);
-                    ColorAssert.Equal(MagickColors.Firebrick, image, 5, 10);
+            using var image = images.AppendVertically();
+            ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 0);
+            ColorAssert.Equal(MagickColors.Firebrick, image, 5, 10);
 
-                    image.Flip();
+            image.Flip();
 
-                    ColorAssert.Equal(MagickColors.Firebrick, image, 5, 0);
-                    ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 10);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Firebrick, image, 5, 0);
+            ColorAssert.Equal(MagickColors.DodgerBlue, image, 5, 10);
         }
     }
 }

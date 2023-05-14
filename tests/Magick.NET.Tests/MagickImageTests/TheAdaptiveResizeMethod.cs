@@ -13,43 +13,37 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldNotEnlargeTheImage()
         {
-            using (var image = new MagickImage(MagickColors.Black, 512, 1))
-            {
-                image.AdaptiveResize(512, 512);
+            using var image = new MagickImage(MagickColors.Black, 512, 1);
+            image.AdaptiveResize(512, 512);
 
-                Assert.Equal(1, image.Height);
-            }
+            Assert.Equal(1, image.Height);
         }
 
         [Fact]
         public void ShouldEnlargeTheImageWhenAspectRatioIsIgnored()
         {
-            using (var image = new MagickImage(MagickColors.Black, 512, 1))
+            var geometry = new MagickGeometry(512, 512)
             {
-                var geometry = new MagickGeometry(512, 512)
-                {
-                    IgnoreAspectRatio = true,
-                };
+                IgnoreAspectRatio = true,
+            };
+            using var image = new MagickImage(MagickColors.Black, 512, 1);
 
-                image.AdaptiveResize(geometry);
+            image.AdaptiveResize(geometry);
 
-                Assert.Equal(512, image.Height);
-            }
+            Assert.Equal(512, image.Height);
         }
 
         [Fact]
         public void ShouldResizeTheImage()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.AdaptiveResize(100, 80);
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            image.AdaptiveResize(100, 80);
 
-                Assert.Equal(80, image.Width);
-                Assert.Equal(80, image.Height);
+            Assert.Equal(80, image.Width);
+            Assert.Equal(80, image.Height);
 
-                ColorAssert.Equal(new MagickColor("#347bbd"), image, 23, 42);
-                ColorAssert.Equal(new MagickColor("#a8dff8"), image, 42, 42);
-            }
+            ColorAssert.Equal(new MagickColor("#347bbd"), image, 23, 42);
+            ColorAssert.Equal(new MagickColor("#a8dff8"), image, 42, 42);
         }
     }
 }

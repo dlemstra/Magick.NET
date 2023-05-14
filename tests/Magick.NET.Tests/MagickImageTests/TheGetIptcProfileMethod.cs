@@ -13,21 +13,19 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheIptcProfile()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetIptcProfile();
-                Assert.NotNull(profile);
-            }
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+
+            var profile = image.GetIptcProfile();
+            Assert.NotNull(profile);
         }
 
         [Fact]
         public void ShouldReturnNullWhenProfileEmpty()
         {
-            using (var image = new MagickImage(Files.PictureJPG))
-            {
-                var profile = image.GetIptcProfile();
-                Assert.Null(profile);
-            }
+            using var image = new MagickImage(Files.PictureJPG);
+
+            var profile = image.GetIptcProfile();
+            Assert.Null(profile);
         }
     }
 }

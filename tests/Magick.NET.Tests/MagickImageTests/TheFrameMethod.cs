@@ -15,15 +15,13 @@ public partial class MagickImageTests
         {
             var frameSize = 100;
 
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                var expectedWidth = frameSize + image.Width + frameSize;
-                var expectedHeight = frameSize + image.Height + frameSize;
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            var expectedWidth = frameSize + image.Width + frameSize;
+            var expectedHeight = frameSize + image.Height + frameSize;
 
-                image.Frame(frameSize, frameSize);
-                Assert.Equal(expectedWidth, image.Width);
-                Assert.Equal(expectedHeight, image.Height);
-            }
+            image.Frame(frameSize, frameSize);
+            Assert.Equal(expectedWidth, image.Width);
+            Assert.Equal(expectedHeight, image.Height);
         }
 
         [Fact]
@@ -31,29 +29,25 @@ public partial class MagickImageTests
         {
             var frameSize = 100;
 
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                var expectedWidth = frameSize + image.Width + frameSize;
-                var expectedHeight = frameSize + image.Height + frameSize;
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            var expectedWidth = frameSize + image.Width + frameSize;
+            var expectedHeight = frameSize + image.Height + frameSize;
 
-                image.Frame(frameSize, frameSize, 6, 6);
-                Assert.Equal(expectedWidth, image.Width);
-                Assert.Equal(expectedHeight, image.Height);
-            }
+            image.Frame(frameSize, frameSize, 6, 6);
+            Assert.Equal(expectedWidth, image.Width);
+            Assert.Equal(expectedHeight, image.Height);
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenFrameIsLessThanImageSize()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            var exception = Assert.Throws<MagickOptionErrorException>(() =>
             {
-                var exception = Assert.Throws<MagickOptionErrorException>(() =>
-                {
-                    image.Frame(6, 6, 7, 7);
-                });
+                image.Frame(6, 6, 7, 7);
+            });
 
-                Assert.Contains("frame is less than image size", exception.Message);
-            }
+            Assert.Contains("frame is less than image size", exception.Message);
         }
     }
 }

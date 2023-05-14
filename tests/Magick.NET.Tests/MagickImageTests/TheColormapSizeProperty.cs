@@ -13,21 +13,18 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheSizeOfTheColormap()
         {
-            using (var first = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Equal(256, first.ColormapSize);
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+
+            Assert.Equal(256, image.ColormapSize);
         }
 
         [Fact]
         public void ShouldChangeTheSizeOfTheColormap()
         {
-            using (var first = new MagickImage(Files.Builtin.Logo))
-            {
-                first.ColormapSize = 128;
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.ColormapSize = 128;
 
-                Assert.Equal(128, first.ColormapSize);
-            }
+            Assert.Equal(128, image.ColormapSize);
         }
     }
 }

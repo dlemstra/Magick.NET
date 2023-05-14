@@ -13,54 +13,50 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldDoNothingWhenAmountIsZero()
         {
-            using (var first = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var second = first.Clone())
-                {
-                    second.CycleColormap(0);
-                    Assert.Equal(first, second);
-                }
-            }
+            using var first = new MagickImage(Files.Builtin.Logo);
+            using var second = first.Clone();
+            second.CycleColormap(0);
+
+            Assert.Equal(first, second);
         }
 
         [Fact]
         public void ShouldAllowNegativeValue()
         {
-            using (var first = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var second = first.Clone())
-                {
-                    second.CycleColormap(-128);
-                    Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+            using var first = new MagickImage(Files.Builtin.Logo);
+            using var second = first.Clone();
+            second.CycleColormap(-128);
 
-                    second.CycleColormap(-128);
-                    Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-                }
-            }
+            Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+
+            second.CycleColormap(-128);
+
+            Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
         }
 
         [Fact]
         public void ShouldDisplaceTheColormap()
         {
-            using (var first = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Equal(256, first.ColormapSize);
+            using var first = new MagickImage(Files.Builtin.Logo);
 
-                using (var second = first.Clone())
-                {
-                    second.CycleColormap(128);
-                    Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+            Assert.Equal(256, first.ColormapSize);
 
-                    second.CycleColormap(128);
-                    Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+            using var second = first.Clone();
+            second.CycleColormap(128);
 
-                    second.CycleColormap(256);
-                    Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+            Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
 
-                    second.CycleColormap(512);
-                    Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-                }
-            }
+            second.CycleColormap(128);
+
+            Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+
+            second.CycleColormap(256);
+
+            Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
+
+            second.CycleColormap(512);
+
+            Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
         }
     }
 }

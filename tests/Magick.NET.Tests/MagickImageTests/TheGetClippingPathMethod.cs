@@ -13,21 +13,19 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheFirstClippingPath()
         {
-            using (var image = new MagickImage(Files.InvitationTIF))
-            {
-                var clippingPath = image.GetClippingPath();
-                Assert.NotNull(clippingPath);
-            }
+            using var image = new MagickImage(Files.InvitationTIF);
+            var clippingPath = image.GetClippingPath();
+
+            Assert.NotNull(clippingPath);
         }
 
         [Fact]
         public void ShouldReturnTheSpecifiedClippingPath()
         {
-            using (var image = new MagickImage(Files.InvitationTIF))
-            {
-                var clippingPath = image.GetClippingPath("#1");
-                Assert.NotNull(clippingPath);
-            }
+            using var image = new MagickImage(Files.InvitationTIF);
+            var clippingPath = image.GetClippingPath("#1");
+
+            Assert.NotNull(clippingPath);
         }
     }
 }

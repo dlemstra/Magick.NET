@@ -14,37 +14,29 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldUseTheDefaultPixelIntensityMethod()
         {
-            using (var imageA = new MagickImage(MagickColors.Purple, 1, 1))
-            {
-                imageA.Grayscale();
-                Assert.Equal(1, imageA.ChannelCount);
-                Assert.Equal(PixelChannel.Red, imageA.Channels.First());
+            using var imageA = new MagickImage(MagickColors.Purple, 1, 1);
+            imageA.Grayscale();
+            Assert.Equal(1, imageA.ChannelCount);
+            Assert.Equal(PixelChannel.Red, imageA.Channels.First());
 
-                using (var imageB = new MagickImage(MagickColors.Purple, 1, 1))
-                {
-                    imageB.Grayscale(PixelIntensityMethod.Brightness);
-                    Assert.Equal(1, imageB.ChannelCount);
-                    Assert.Equal(PixelChannel.Red, imageB.Channels.First());
+            using var imageB = new MagickImage(MagickColors.Purple, 1, 1);
+            imageB.Grayscale(PixelIntensityMethod.Brightness);
+            Assert.Equal(1, imageB.ChannelCount);
+            Assert.Equal(PixelChannel.Red, imageB.Channels.First());
 
-                    Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
-                }
-            }
+            Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
         }
 
         [Fact]
         public void ShouldNotRoundWhenHdriEnabled()
         {
-            using (var image = new MagickImage(MagickColors.Black, 1, 1))
-            {
-                image.Grayscale(PixelIntensityMethod.Average);
+            using var image = new MagickImage(MagickColors.Black, 1, 1);
+            image.Grayscale(PixelIntensityMethod.Average);
 
-                using (var pixels = image.GetPixels())
-                {
-                    var pixel = pixels.GetValue(0, 0);
+            using var pixels = image.GetPixels();
+            var pixel = pixels.GetValue(0, 0);
 
-                    Assert.Equal(0, pixel[0]);
-                }
-            }
+            Assert.Equal(0, pixel[0]);
         }
     }
 }

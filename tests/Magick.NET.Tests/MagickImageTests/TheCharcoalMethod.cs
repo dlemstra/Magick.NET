@@ -13,21 +13,19 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldApplyCharcoalEffect()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Charcoal();
-                ColorAssert.Equal(MagickColors.White, image, 424, 412);
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Charcoal();
+
+            ColorAssert.Equal(MagickColors.White, image, 424, 412);
         }
 
         [Fact]
         public void ShouldUseTheSpecifiedRadiusAndSigma()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Charcoal(4, 2);
-                ColorAssert.Equal(MagickColors.Black, image, 370, 240);
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Charcoal(4, 2);
+
+            ColorAssert.Equal(MagickColors.Black, image, 370, 240);
         }
     }
 }

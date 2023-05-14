@@ -13,20 +13,19 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldSimulateNightimeScene()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                ColorAssert.NotEqual(MagickColors.White, image, 180, 80);
+            using var image = new MagickImage(Files.Builtin.Logo);
 
-                image.BlueShift(2);
+            ColorAssert.NotEqual(MagickColors.White, image, 180, 80);
+
+            image.BlueShift(2);
 
 #if Q16HDRI
-                ColorAssert.NotEqual(MagickColors.White, image, 180, 80);
-                image.Clamp();
+            ColorAssert.NotEqual(MagickColors.White, image, 180, 80);
+            image.Clamp();
 #endif
 
-                ColorAssert.Equal(MagickColors.White, image, 180, 80);
-                ColorAssert.Equal(new MagickColor("#ac2cb333c848"), image, 350, 265);
-            }
+            ColorAssert.Equal(MagickColors.White, image, 180, 80);
+            ColorAssert.Equal(new MagickColor("#ac2cb333c848"), image, 350, 265);
         }
     }
 }

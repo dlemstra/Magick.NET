@@ -14,37 +14,33 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenNameIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("name", () => image.HasProfile(null));
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("name", () => image.HasProfile(null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenNameIsEmpty()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentException>("name", () => image.HasProfile(string.Empty));
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("name", () => image.HasProfile(string.Empty));
         }
 
         [Fact]
         public void ShouldReturnTrueWhenImageHasProfileWithTheSpecifiedName()
         {
-            using (var image = new MagickImage(Files.InvitationTIF))
-            {
-                Assert.True(image.HasProfile("icc"));
-            }
+            using var image = new MagickImage(Files.InvitationTIF);
+
+            Assert.True(image.HasProfile("icc"));
         }
 
         [Fact]
         public void ShouldReturnFalseWhenImageDoesNotHaveProfileWithTheSpecifiedName()
         {
-            using (var image = new MagickImage(Files.InvitationTIF))
-            {
-                Assert.False(image.HasProfile("foo"));
-            }
+            using var image = new MagickImage(Files.InvitationTIF);
+
+            Assert.False(image.HasProfile("foo"));
         }
     }
 }

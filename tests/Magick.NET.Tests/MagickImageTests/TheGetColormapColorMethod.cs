@@ -13,20 +13,18 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnNullWhenImageHasNoColormap()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                Assert.Null(image.GetColormapColor(0));
-                Assert.Null(image.GetColormapColor(1));
-            }
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+
+            Assert.Null(image.GetColormapColor(0));
+            Assert.Null(image.GetColormapColor(1));
         }
 
         [Fact]
         public void ShouldReturnTheColorOfTheSpecifiedIndex()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
-            {
-                ColorAssert.Equal(new MagickColor("#040d14"), image.GetColormapColor(0));
-            }
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF);
+
+            ColorAssert.Equal(new MagickColor("#040d14"), image.GetColormapColor(0));
         }
     }
 }

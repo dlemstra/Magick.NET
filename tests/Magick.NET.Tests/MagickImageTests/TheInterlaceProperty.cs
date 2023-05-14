@@ -14,36 +14,29 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldUseNoInterlaceAsTheDefault()
         {
-            using (var image = new MagickImage(MagickColors.Fuchsia, 100, 60))
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    image.Write(memStream, MagickFormat.Jpeg);
+            using var image = new MagickImage(MagickColors.Fuchsia, 100, 60);
+            using var memStream = new MemoryStream();
+            image.Write(memStream, MagickFormat.Jpeg);
 
-                    memStream.Position = 0;
-                    image.Read(memStream);
+            memStream.Position = 0;
+            image.Read(memStream);
 
-                    Assert.Equal(Interlace.NoInterlace, image.Interlace);
-                }
-            }
+            Assert.Equal(Interlace.NoInterlace, image.Interlace);
         }
 
         [Fact]
         public void ShouldBeUseWhenWritingJpegImage()
         {
-            using (var image = new MagickImage(MagickColors.Fuchsia, 100, 60))
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    image.Interlace = Interlace.Undefined;
-                    image.Write(memStream, MagickFormat.Jpeg);
+            using var image = new MagickImage(MagickColors.Fuchsia, 100, 60);
+            using var memStream = new MemoryStream();
 
-                    memStream.Position = 0;
-                    image.Read(memStream);
+            image.Interlace = Interlace.Undefined;
+            image.Write(memStream, MagickFormat.Jpeg);
 
-                    Assert.Equal(Interlace.Jpeg, image.Interlace);
-                }
-            }
+            memStream.Position = 0;
+            image.Read(memStream);
+
+            Assert.Equal(Interlace.Jpeg, image.Interlace);
         }
     }
 }

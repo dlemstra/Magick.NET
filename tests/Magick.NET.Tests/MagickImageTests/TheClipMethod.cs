@@ -14,58 +14,45 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenPathNameIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("pathName", () =>
-                {
-                    image.Clip(null);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("pathName", () => image.Clip(null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenPathNameIsEmpty()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentException>("pathName", () =>
-                {
-                    image.Clip(string.Empty);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("pathName", () => image.Clip(string.Empty));
         }
 
         [Fact]
         public void ShouldSetTheCorrectColors()
         {
-            using (var image = new MagickImage(Files.InvitationTIF))
-            {
-                image.Alpha(AlphaOption.Transparent);
-                image.Clip("Pad A");
-                image.Alpha(AlphaOption.Opaque);
+            using var image = new MagickImage(Files.InvitationTIF);
+            image.Alpha(AlphaOption.Transparent);
+            image.Clip("Pad A");
+            image.Alpha(AlphaOption.Opaque);
 
-                using (var mask = image.GetWriteMask())
-                {
-                    Assert.NotNull(mask);
-                    Assert.False(mask.HasAlpha);
+            using var mask = image.GetWriteMask();
 
-                    using (var pixels = mask.GetPixels())
-                    {
-                        var pixelA = pixels.GetPixel(0, 0).ToColor();
-                        var pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
+            Assert.NotNull(mask);
+            Assert.False(mask.HasAlpha);
 
-                        Assert.Equal(pixelA, pixelB);
-                        Assert.Equal(0, pixelA.R);
-                        Assert.Equal(0, pixelA.G);
-                        Assert.Equal(0, pixelA.B);
+            using var pixels = mask.GetPixels();
+            var pixelA = pixels.GetPixel(0, 0).ToColor();
+            var pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
 
-                        var pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
-                        Assert.Equal(Quantum.Max, pixelC.R);
-                        Assert.Equal(Quantum.Max, pixelC.G);
-                        Assert.Equal(Quantum.Max, pixelC.B);
-                    }
-                }
-            }
+            Assert.Equal(pixelA, pixelB);
+            Assert.Equal(0, pixelA.R);
+            Assert.Equal(0, pixelA.G);
+            Assert.Equal(0, pixelA.B);
+
+            var pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
+            Assert.Equal(Quantum.Max, pixelC.R);
+            Assert.Equal(Quantum.Max, pixelC.G);
+            Assert.Equal(Quantum.Max, pixelC.B);
         }
     }
 }

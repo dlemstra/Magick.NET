@@ -17,10 +17,7 @@ public partial class MagickImageTests
             var image = new MagickImage();
             image.Dispose();
 
-            Assert.Throws<ObjectDisposedException>(() =>
-            {
-                image.HasAlpha = true;
-            });
+            Assert.Throws<ObjectDisposedException>(() => image.HasAlpha = true);
         }
     }
 }

@@ -14,34 +14,25 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenNameIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("name", () =>
-                {
-                    image.GetAttribute(null);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("name", () => image.GetAttribute(null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenNameIsEmpty()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentException>("name", () =>
-                {
-                    image.GetAttribute(string.Empty);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("name", () => image.GetAttribute(string.Empty));
         }
 
         [Fact]
         public void ShouldReturnNullWhenValueIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Null(image.GetAttribute("test"));
-            }
+            using var image = new MagickImage();
+
+            Assert.Null(image.GetAttribute("test"));
         }
     }
 }

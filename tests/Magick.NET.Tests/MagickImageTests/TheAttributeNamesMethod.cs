@@ -14,17 +14,15 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheAttributeNames()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                image.SetAttribute("foo", "bar");
-                image.SetArtifact("bar", "foo");
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            image.SetAttribute("foo", "bar");
+            image.SetArtifact("bar", "foo");
 
-                var names = image.AttributeNames;
-                var allNames = string.Join(",", names);
+            var names = image.AttributeNames;
+            var allNames = string.Join(",", names);
 
-                Assert.Equal(6, names.Count());
-                Assert.Equal("date:create,date:modify,date:timestamp,foo,jpeg:colorspace,jpeg:sampling-factor", allNames);
-            }
+            Assert.Equal(6, names.Count());
+            Assert.Equal("date:create,date:modify,date:timestamp,foo,jpeg:colorspace,jpeg:sampling-factor", allNames);
         }
     }
 }

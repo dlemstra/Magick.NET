@@ -13,18 +13,17 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldImplodeTheImage()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
+            using var image = new MagickImage(Files.MagickNETIconPNG);
 
-                image.Implode(0.5, PixelInterpolateMethod.Blend);
+            ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
 
-                ColorAssert.Equal(new MagickColor("#a8dff8"), image, 69, 45);
+            image.Implode(0.5, PixelInterpolateMethod.Blend);
 
-                image.Implode(-0.5, PixelInterpolateMethod.Background);
+            ColorAssert.Equal(new MagickColor("#a8dff8"), image, 69, 45);
 
-                ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
-            }
+            image.Implode(-0.5, PixelInterpolateMethod.Background);
+
+            ColorAssert.Equal(new MagickColor("#00000000"), image, 69, 45);
         }
     }
 }

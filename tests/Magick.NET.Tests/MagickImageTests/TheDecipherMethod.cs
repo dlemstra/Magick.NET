@@ -13,39 +13,29 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnDifferentImageWhenPassphraseIsIncorrect()
         {
-            using (var original = new MagickImage(Files.SnakewarePNG))
-            {
-                using (var enciphered = original.Clone())
-                {
-                    enciphered.Encipher("All your base are belong to us");
+            using var original = new MagickImage(Files.SnakewarePNG);
+            using var enciphered = original.Clone();
+            enciphered.Encipher("All your base are belong to us");
 
-                    using (var deciphered = enciphered.Clone())
-                    {
-                        deciphered.Decipher("What you say!!");
-                        Assert.NotEqual(0.0, enciphered.Compare(deciphered, ErrorMetric.RootMeanSquared));
-                        Assert.NotEqual(0.0, original.Compare(deciphered, ErrorMetric.RootMeanSquared));
-                    }
-                }
-            }
+            using var deciphered = enciphered.Clone();
+            deciphered.Decipher("What you say!!");
+
+            Assert.NotEqual(0.0, enciphered.Compare(deciphered, ErrorMetric.RootMeanSquared));
+            Assert.NotEqual(0.0, original.Compare(deciphered, ErrorMetric.RootMeanSquared));
         }
 
         [Fact]
         public void ShouldChangeThePixelsToTheOriginalValues()
         {
-            using (var original = new MagickImage(Files.SnakewarePNG))
-            {
-                using (var enciphered = original.Clone())
-                {
-                    enciphered.Encipher("All your base are belong to us");
+            using var original = new MagickImage(Files.SnakewarePNG);
+            using var enciphered = original.Clone();
+            enciphered.Encipher("All your base are belong to us");
 
-                    using (var deciphered = enciphered.Clone())
-                    {
-                        deciphered.Decipher("All your base are belong to us");
-                        Assert.NotEqual(0.0, enciphered.Compare(deciphered, ErrorMetric.RootMeanSquared));
-                        Assert.Equal(0.0, original.Compare(deciphered, ErrorMetric.RootMeanSquared));
-                    }
-                }
-            }
+            using var deciphered = enciphered.Clone();
+            deciphered.Decipher("All your base are belong to us");
+
+            Assert.NotEqual(0.0, enciphered.Compare(deciphered, ErrorMetric.RootMeanSquared));
+            Assert.Equal(0.0, original.Compare(deciphered, ErrorMetric.RootMeanSquared));
         }
     }
 }

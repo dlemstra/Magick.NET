@@ -12,29 +12,23 @@ public partial class MagickImageTests
     public class TheColorAlphaMethod
     {
         [Fact]
-        public void ShouldSetTheAlphaChannelToTheSpecifiedColor()
+        public void ShouldThrowExceptionWhenColorIsNull()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                var purple = new MagickColor("purple");
+            using var image = new MagickImage();
 
-                image.ColorAlpha(purple);
-
-                ColorAssert.NotEqual(purple, image, 45, 75);
-                ColorAssert.Equal(purple, image, 100, 60);
-            }
+            Assert.Throws<ArgumentNullException>("color", () => image.ColorAlpha(null));
         }
 
         [Fact]
-        public void ShouldThrowExceptionWhenColorIsNull()
+        public void ShouldSetTheAlphaChannelToTheSpecifiedColor()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("color", () =>
-                {
-                    image.ColorAlpha(null);
-                });
-            }
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            var purple = new MagickColor("purple");
+
+            image.ColorAlpha(purple);
+
+            ColorAssert.NotEqual(purple, image, 45, 75);
+            ColorAssert.Equal(purple, image, 100, 60);
         }
     }
 }

@@ -13,27 +13,23 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldHaveTheCorrectDefaultValues()
         {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                Assert.InRange(image.ChromaWhitePoint.X, 0.3127, 0.31271);
-                Assert.InRange(image.ChromaWhitePoint.Y, 0.329, 0.3291);
-                Assert.InRange(image.ChromaWhitePoint.Z, 0.00, 0.001);
-            }
+            using var image = new MagickImage(Files.SnakewarePNG);
+
+            Assert.InRange(image.ChromaWhitePoint.X, 0.3127, 0.31271);
+            Assert.InRange(image.ChromaWhitePoint.Y, 0.329, 0.3291);
+            Assert.InRange(image.ChromaWhitePoint.Z, 0.00, 0.001);
         }
 
         [Fact]
         public void ShouldHaveTheCorrectValuesWhenChanged()
         {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                var info = new PrimaryInfo(0.5, 1.0, 1.5);
+            using var image = new MagickImage(Files.SnakewarePNG);
+            var info = new PrimaryInfo(0.5, 1.0, 1.5);
+            image.ChromaWhitePoint = info;
 
-                image.ChromaWhitePoint = info;
-
-                Assert.InRange(image.ChromaWhitePoint.X, 0.50, 0.501);
-                Assert.InRange(image.ChromaWhitePoint.Y, 1.00, 1.001);
-                Assert.InRange(image.ChromaWhitePoint.Z, 1.50, 1.501);
-            }
+            Assert.InRange(image.ChromaWhitePoint.X, 0.50, 0.501);
+            Assert.InRange(image.ChromaWhitePoint.Y, 1.00, 1.001);
+            Assert.InRange(image.ChromaWhitePoint.Z, 1.50, 1.501);
         }
     }
 }

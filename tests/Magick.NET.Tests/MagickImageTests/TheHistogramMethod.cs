@@ -13,33 +13,30 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnEmptyHistogramForEmptyImage()
         {
-            using (var image = new MagickImage())
-            {
-                var histogram = image.Histogram();
-                Assert.NotNull(histogram);
-                Assert.Empty(histogram);
-            }
+            using var image = new MagickImage();
+            var histogram = image.Histogram();
+
+            Assert.NotNull(histogram);
+            Assert.Empty(histogram);
         }
 
         [Fact]
         public void ShouldReturnHistogramOfTheImage()
         {
-            using (var image = new MagickImage(Files.RedPNG))
-            {
-                var histogram = image.Histogram();
+            using var image = new MagickImage(Files.RedPNG);
+            var histogram = image.Histogram();
 
-                Assert.NotNull(histogram);
-                Assert.Equal(3, histogram.Count);
+            Assert.NotNull(histogram);
+            Assert.Equal(3, histogram.Count);
 
-                var red = new MagickColor(Quantum.Max, 0, 0);
-                var alphaRed = new MagickColor(Quantum.Max, 0, 0, 0);
-                var halfAlphaRed = new MagickColor("#FF000080");
+            var red = new MagickColor(Quantum.Max, 0, 0);
+            var alphaRed = new MagickColor(Quantum.Max, 0, 0, 0);
+            var halfAlphaRed = new MagickColor("#FF000080");
 
-                Assert.Equal(3, histogram.Count);
-                Assert.Equal(50000, histogram[red]);
-                Assert.Equal(30000, histogram[alphaRed]);
-                Assert.Equal(40000, histogram[halfAlphaRed]);
-            }
+            Assert.Equal(3, histogram.Count);
+            Assert.Equal(50000, histogram[red]);
+            Assert.Equal(30000, histogram[alphaRed]);
+            Assert.Equal(40000, histogram[halfAlphaRed]);
         }
     }
 }

@@ -13,17 +13,16 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReduceSpeckleNoise()
         {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                var color = new MagickColor("#d1d1d1d1d1d1");
-                ColorAssert.NotEqual(color, image, 130, 123);
+            using var image = new MagickImage(Files.NoisePNG);
+            var color = new MagickColor("#d1d1d1d1d1d1");
 
-                image.Despeckle();
-                image.Despeckle();
-                image.Despeckle();
+            ColorAssert.NotEqual(color, image, 130, 123);
 
-                ColorAssert.Equal(color, image, 130, 123);
-            }
+            image.Despeckle();
+            image.Despeckle();
+            image.Despeckle();
+
+            ColorAssert.Equal(color, image, 130, 123);
         }
     }
 }

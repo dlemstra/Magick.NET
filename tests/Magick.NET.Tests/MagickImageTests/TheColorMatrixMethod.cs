@@ -12,28 +12,22 @@ public partial class MagickImageTests
     public class TheColorMatrixMethod
     {
         [Fact]
-        public void SouldApplyTheSpecifiedColorMatrix()
+        public void ShouldThrowExceptionWhenMatrixIsNull()
         {
-            using (var image = new MagickImage(Files.Builtin.Rose))
-            {
-                var matrix = new MagickColorMatrix(3, 0, 0, 1, 0, 1, 0, 1, 0, 0);
+            using var image = new MagickImage();
 
-                image.ColorMatrix(matrix);
-
-                ColorAssert.Equal(MagickColor.FromRgb(58, 31, 255), image, 39, 25);
-            }
+            Assert.Throws<ArgumentNullException>("matrix", () => image.ColorMatrix(null));
         }
 
         [Fact]
-        public void ShouldThrowExceptionWhenMatrixIsNull()
+        public void SouldApplyTheSpecifiedColorMatrix()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("matrix", () =>
-                {
-                    image.ColorMatrix(null);
-                });
-            }
+            using var image = new MagickImage(Files.Builtin.Rose);
+            var matrix = new MagickColorMatrix(3, 0, 0, 1, 0, 1, 0, 1, 0, 0);
+
+            image.ColorMatrix(matrix);
+
+            ColorAssert.Equal(MagickColor.FromRgb(58, 31, 255), image, 39, 25);
         }
     }
 }

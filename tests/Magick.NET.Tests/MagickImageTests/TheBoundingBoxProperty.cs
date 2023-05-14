@@ -13,29 +13,25 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheCorrectValue()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                var boundingBox = image.BoundingBox;
+            using var image = new MagickImage(Files.Builtin.Logo);
+            var boundingBox = image.BoundingBox;
 
-                Assert.Equal(458, boundingBox.Width);
-                Assert.Equal(473, boundingBox.Height);
-                Assert.Equal(92, boundingBox.X);
-                Assert.Equal(0, boundingBox.Y);
-            }
+            Assert.Equal(458, boundingBox.Width);
+            Assert.Equal(473, boundingBox.Height);
+            Assert.Equal(92, boundingBox.X);
+            Assert.Equal(0, boundingBox.Y);
         }
 
         [Fact]
         public void ShouldReturnNullWhenThereIsNoBoundingBox()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.ColorFuzz = new Percentage(2);
-                image.InverseOpaque(new MagickColor("#19FF8c"), MagickColors.Black);
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.ColorFuzz = new Percentage(2);
+            image.InverseOpaque(new MagickColor("#19FF8c"), MagickColors.Black);
 
-                var boundingBox = image.BoundingBox;
+            var boundingBox = image.BoundingBox;
 
-                Assert.Null(boundingBox);
-            }
+            Assert.Null(boundingBox);
         }
     }
 }

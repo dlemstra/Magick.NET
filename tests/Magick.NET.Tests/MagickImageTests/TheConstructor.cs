@@ -140,9 +140,7 @@ public partial class MagickImageTests
             {
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                using (var image = new MagickImage(bytes, 0, bytes.Length, null))
-                {
-                }
+                using var image = new MagickImage(bytes, 0, bytes.Length, null);
             }
         }
 
@@ -183,9 +181,7 @@ public partial class MagickImageTests
             public void ShouldNotThrowExceptionWhenSettingsIsNull()
             {
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
-                using (var image = new MagickImage(bytes, null))
-                {
-                }
+                using var image = new MagickImage(bytes, null);
             }
         }
 
@@ -226,12 +222,11 @@ public partial class MagickImageTests
             {
                 var color = new MagickColor("red");
 
-                using (var image = new MagickImage(color, 20, 30))
-                {
-                    Assert.Equal(20, image.Width);
-                    Assert.Equal(30, image.Height);
-                    ColorAssert.Equal(color, image, 10, 10);
-                }
+                using var image = new MagickImage(color, 20, 30);
+
+                Assert.Equal(20, image.Width);
+                Assert.Equal(30, image.Height);
+                ColorAssert.Equal(color, image, 10, 10);
             }
         }
 
@@ -266,9 +261,7 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldNotThrowExceptionWhenSettingsIsNull()
             {
-                using (var image = new MagickImage(new FileInfo(Files.CirclePNG), null))
-                {
-                }
+                using var image = new MagickImage(new FileInfo(Files.CirclePNG), null);
             }
         }
 
@@ -290,7 +283,6 @@ public partial class MagickImageTests
             public void ShouldUseBaseDirectoryOfCurrentAppDomainWhenFileNameStartsWithTilde()
             {
                 var exception = Assert.Throws<MagickBlobErrorException>(() => new MagickImage("~/test.gif"));
-
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
                 Assert.Contains("error/blob.c/OpenBlob", exception.Message);
@@ -343,9 +335,7 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldNotThrowExceptionWhenSettingsIsNull()
             {
-                using (var image = new MagickImage(Files.CirclePNG, null))
-                {
-                }
+                using var image = new MagickImage(Files.CirclePNG, null);
             }
         }
 
@@ -384,12 +374,11 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldReadImage()
             {
-                using (var image = new MagickImage("xc:red", 20, 30))
-                {
-                    Assert.Equal(20, image.Width);
-                    Assert.Equal(30, image.Height);
-                    ColorAssert.Equal(MagickColors.Red, image, 10, 10);
-                }
+                using var image = new MagickImage("xc:red", 20, 30);
+
+                Assert.Equal(20, image.Width);
+                Assert.Equal(30, image.Height);
+                ColorAssert.Equal(MagickColors.Red, image, 10, 10);
             }
         }
 
@@ -446,12 +435,8 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldNotThrowExceptionWhenSettingsIsNull()
             {
-                using (var fileStream = File.OpenRead(Files.CirclePNG))
-                {
-                    using (var image = new MagickImage(fileStream, null))
-                    {
-                    }
-                }
+                using var fileStream = File.OpenRead(Files.CirclePNG);
+                using var image = new MagickImage(fileStream, null);
             }
         }
     }

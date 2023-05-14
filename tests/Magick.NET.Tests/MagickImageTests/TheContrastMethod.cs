@@ -13,15 +13,12 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldEnhanceTheImage()
         {
-            using (var first = new MagickImage(Files.Builtin.Wizard))
-            {
-                first.Contrast();
+            using var first = new MagickImage(Files.Builtin.Wizard);
+            first.Contrast();
 
-                using (var second = new MagickImage(Files.Builtin.Wizard))
-                {
-                    Assert.InRange(first.Compare(second, ErrorMetric.RootMeanSquared), 0.0174, 0.0175);
-                }
-            }
+            using var second = new MagickImage(Files.Builtin.Wizard);
+
+            Assert.InRange(first.Compare(second, ErrorMetric.RootMeanSquared), 0.0174, 0.0175);
         }
     }
 }

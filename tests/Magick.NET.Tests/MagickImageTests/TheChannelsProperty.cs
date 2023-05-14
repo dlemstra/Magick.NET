@@ -24,14 +24,13 @@ public partial class MagickImageTests
                 PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue, PixelChannel.Alpha,
             };
 
-            using (var image = new MagickImage(Files.RoseSparkleGIF))
-            {
-                Assert.Equal(rgba, image.Channels.ToArray());
+            using var image = new MagickImage(Files.RoseSparkleGIF);
 
-                image.Alpha(AlphaOption.Off);
+            Assert.Equal(rgba, image.Channels.ToArray());
 
-                Assert.Equal(rgb, image.Channels.ToArray());
-            }
+            image.Alpha(AlphaOption.Off);
+
+            Assert.Equal(rgb, image.Channels.ToArray());
         }
 
         [Fact]
@@ -47,19 +46,17 @@ public partial class MagickImageTests
                 PixelChannel.Gray, PixelChannel.Alpha,
             };
 
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                Assert.Equal(grayAlpha, image.Channels.ToArray());
+            using var image = new MagickImage(Files.SnakewarePNG);
 
-                using (var redChannel = image.Separate(Channels.Red).First())
-                {
-                    Assert.Equal(gray, redChannel.Channels.ToArray());
+            Assert.Equal(grayAlpha, image.Channels.ToArray());
 
-                    redChannel.Alpha(AlphaOption.On);
+            using var redChannel = image.Separate(Channels.Red).First();
 
-                    Assert.Equal(grayAlpha, redChannel.Channels.ToArray());
-                }
-            }
+            Assert.Equal(gray, redChannel.Channels.ToArray());
+
+            redChannel.Alpha(AlphaOption.On);
+
+            Assert.Equal(grayAlpha, redChannel.Channels.ToArray());
         }
 
         [Fact]
@@ -75,16 +72,14 @@ public partial class MagickImageTests
                 PixelChannel.Cyan, PixelChannel.Magenta, PixelChannel.Yellow, PixelChannel.Black, PixelChannel.Alpha,
             };
 
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                image.ColorSpace = ColorSpace.CMYK;
+            using var image = new MagickImage(Files.SnakewarePNG);
+            image.ColorSpace = ColorSpace.CMYK;
 
-                Assert.Equal(cmyka, image.Channels.ToArray());
+            Assert.Equal(cmyka, image.Channels.ToArray());
 
-                image.Alpha(AlphaOption.Off);
+            image.Alpha(AlphaOption.Off);
 
-                Assert.Equal(cmyk, image.Channels.ToArray());
-            }
+            Assert.Equal(cmyk, image.Channels.ToArray());
         }
     }
 }

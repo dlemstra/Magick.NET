@@ -14,88 +14,76 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldNotChangeWhenValueIsNull()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                Assert.Equal(300, image.Density.X);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
 
-                image.Density = null;
+            Assert.Equal(300, image.Density.X);
 
-                Assert.Equal(300, image.Density.X);
-            }
+            image.Density = null;
+
+            Assert.Equal(300, image.Density.X);
         }
 
         [Fact]
         public void ShouldUpdateExifProfile()
         {
-            using (var memStream = new MemoryStream())
-            {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetExifProfile();
-                    var value = profile.GetValue(ExifTag.XResolution);
-                    Assert.Equal("300", value.ToString());
+            using var memStream = new MemoryStream();
+            using var input = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = input.GetExifProfile();
+            var value = profile.GetValue(ExifTag.XResolution);
 
-                    image.Density = new Density(72);
+            Assert.Equal("300", value.ToString());
 
-                    image.Write(memStream);
-                }
+            input.Density = new Density(72);
+            input.Write(memStream);
 
-                memStream.Position = 0;
-                using (var image = new MagickImage(memStream))
-                {
-                    var profile = image.GetExifProfile();
-                    var value = profile.GetValue(ExifTag.XResolution);
+            memStream.Position = 0;
+            using var output = new MagickImage(memStream);
+            profile = output.GetExifProfile();
+            value = profile.GetValue(ExifTag.XResolution);
 
-                    Assert.Equal("72", value.ToString());
-                }
-            }
+            Assert.Equal("72", value.ToString());
         }
 
         [Fact]
         public void ShouldSetTheCorrectDimensionsWhenReadingImage()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Null(image.Settings.Density);
+            using var image = new MagickImage();
 
-                image.Settings.Density = new Density(100);
+            Assert.Null(image.Settings.Density);
 
-                image.Read(Files.Logos.MagickNETSVG);
-                Assert.Equal(new Density(100, DensityUnit.Undefined), image.Density);
-                Assert.Equal(524, image.Width);
-                Assert.Equal(252, image.Height);
-            }
+            image.Settings.Density = new Density(100);
+
+            image.Read(Files.Logos.MagickNETSVG);
+            Assert.Equal(new Density(100, DensityUnit.Undefined), image.Density);
+            Assert.Equal(524, image.Width);
+            Assert.Equal(252, image.Height);
         }
 
         [Fact]
         public void ShouldUpdateTheDensitOfTheExifProfileInsideThe8BimProfile()
         {
-            using (var input = new MagickImage(Files.EightBimJPG))
-            {
-                input.Density = new Density(96);
+            using var input = new MagickImage(Files.EightBimJPG);
+            input.Density = new Density(96);
 
-                using (var stream = new MemoryStream())
-                {
-                    input.Write(stream);
+            using var stream = new MemoryStream();
+            input.Write(stream);
 
-                    var profile = input.GetExifProfile();
-                    var value = profile.GetValue(ExifTag.XResolution);
-                    Assert.Equal(96.0, value.Value.ToDouble());
+            var profile = input.GetExifProfile();
+            var value = profile.GetValue(ExifTag.XResolution);
 
-                    stream.Position = 0;
+            Assert.Equal(96.0, value.Value.ToDouble());
 
-                    using (var output = new MagickImage(stream))
-                    {
-                        output.Read(stream);
+            stream.Position = 0;
 
-                        Assert.Equal(96.0, input.Density.X);
+            using var output = new MagickImage(stream);
+            output.Read(stream);
 
-                        profile = output.GetExifProfile();
-                        value = profile.GetValue(ExifTag.XResolution);
-                        Assert.Equal(96.0, value.Value.ToDouble());
-                    }
-                }
-            }
+            Assert.Equal(96.0, input.Density.X);
+
+            profile = output.GetExifProfile();
+            value = profile.GetValue(ExifTag.XResolution);
+
+            Assert.Equal(96.0, value.Value.ToDouble());
         }
     }
 }

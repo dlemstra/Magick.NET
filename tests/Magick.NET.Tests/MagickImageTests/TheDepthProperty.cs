@@ -13,13 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldAllowValueHigherThanQuantum()
         {
-            using (var image = new MagickImage())
-            {
-                var depth = Quantum.Depth * 2;
+            using var image = new MagickImage();
+            var depth = Quantum.Depth * 2;
 
-                image.Depth = depth;
-                Assert.Equal(depth, image.Depth);
-            }
+            image.Depth = depth;
+            Assert.Equal(depth, image.Depth);
         }
     }
 }

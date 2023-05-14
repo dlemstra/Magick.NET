@@ -13,7 +13,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnZeroWhenInstancesAreTheSame()
         {
-            var image = new MagickImage(MagickColors.Red, 1, 1);
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
 
             Assert.Equal(0, image.CompareTo(image));
         }
@@ -21,7 +21,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnOneWhenInstancesIsNull()
         {
-            var image = new MagickImage(MagickColors.Red, 1, 1);
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
 
             Assert.Equal(1, image.CompareTo(null));
         }
@@ -29,8 +29,8 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnZeroWhenInstancesAreEqual()
         {
-            var first = new MagickImage(MagickColors.Red, 1, 1);
-            var second = new MagickImage(MagickColors.Red, 1, 1);
+            using var first = new MagickImage(MagickColors.Red, 1, 1);
+            using var second = new MagickImage(MagickColors.Red, 1, 1);
 
             Assert.Equal(0, first.CompareTo(second));
         }
@@ -38,8 +38,8 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnOneWhenInstancesAreNotEqual()
         {
-            var first = new MagickImage(MagickColors.Red, 1, 1);
-            var second = new MagickImage(MagickColors.Red, 2, 1);
+            using var first = new MagickImage(MagickColors.Red, 1, 1);
+            using var second = new MagickImage(MagickColors.Red, 2, 1);
 
             Assert.Equal(-1, first.CompareTo(second));
         }

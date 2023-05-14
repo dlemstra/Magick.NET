@@ -14,21 +14,19 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldRaiseExceptionWhenGeometryIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("geometry", () => image.Chop(null));
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("geometry", () => image.Chop(null));
         }
 
         [Fact]
         public void ShouldChopTheImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                image.Chop(new MagickGeometry(new Percentage(50), new Percentage(50)));
-                Assert.Equal(240, image.Width);
-                Assert.Equal(320, image.Height);
-            }
+            using var image = new MagickImage(Files.Builtin.Wizard);
+            image.Chop(new MagickGeometry(new Percentage(50), new Percentage(50)));
+
+            Assert.Equal(240, image.Width);
+            Assert.Equal(320, image.Height);
         }
     }
 }

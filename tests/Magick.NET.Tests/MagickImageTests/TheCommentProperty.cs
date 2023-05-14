@@ -13,36 +13,30 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldGetTheCommentAttribute()
         {
-            using (var image = new MagickImage())
-            {
-                image.SetAttribute("comment", "foo");
+            using var image = new MagickImage();
+            image.SetAttribute("comment", "foo");
 
-                Assert.Equal("foo", image.Comment);
-            }
+            Assert.Equal("foo", image.Comment);
         }
 
         [Fact]
         public void ShouldSetTheCommentAttribute()
         {
-            using (var image = new MagickImage())
-            {
-                image.Comment = "foo";
+            using var image = new MagickImage();
+            image.Comment = "foo";
 
-                Assert.Equal("foo", image.GetAttribute("comment"));
-            }
+            Assert.Equal("foo", image.GetAttribute("comment"));
         }
 
         [Fact]
         public void ShouldRemoveTheCommentAttributeWhenSetToNull()
         {
-            using (var image = new MagickImage())
-            {
-                image.SetAttribute("comment", "foo");
+            using var image = new MagickImage();
+            image.SetAttribute("comment", "foo");
 
-                image.Comment = null;
+            image.Comment = null;
 
-                Assert.Null(image.GetAttribute("comment"));
-            }
+            Assert.Null(image.GetAttribute("comment"));
         }
     }
 }

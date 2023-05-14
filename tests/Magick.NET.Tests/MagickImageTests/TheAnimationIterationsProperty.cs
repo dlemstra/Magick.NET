@@ -13,33 +13,30 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldChangeTheAnimationDelay()
         {
-            using (var image = new MagickImage())
-            {
-                image.AnimationIterations = 60;
-                Assert.Equal(60, image.AnimationIterations);
-            }
+            using var image = new MagickImage();
+            image.AnimationIterations = 60;
+
+            Assert.Equal(60, image.AnimationIterations);
         }
 
         [Fact]
         public void ShouldNotAllowNegativeValue()
         {
-            using (var image = new MagickImage())
-            {
-                image.AnimationIterations = 60;
-                image.AnimationIterations = -1;
-                Assert.Equal(60, image.AnimationIterations);
-            }
+            using var image = new MagickImage();
+            image.AnimationIterations = 60;
+            image.AnimationIterations = -1;
+
+            Assert.Equal(60, image.AnimationIterations);
         }
 
         [Fact]
         public void ShouldAllowZeroValue()
         {
-            using (var image = new MagickImage())
-            {
-                image.AnimationIterations = 60;
-                image.AnimationIterations = 0;
-                Assert.Equal(0, image.AnimationIterations);
-            }
+            using var image = new MagickImage();
+            image.AnimationIterations = 60;
+            image.AnimationIterations = 0;
+
+            Assert.Equal(0, image.AnimationIterations);
         }
     }
 }

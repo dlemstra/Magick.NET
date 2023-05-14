@@ -13,14 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldChangeThePixels()
         {
-            using (var original = new MagickImage(Files.SnakewarePNG))
-            {
-                using (var enciphered = original.Clone())
-                {
-                    enciphered.Encipher("All your base are belong to us");
-                    Assert.NotEqual(0.0, enciphered.Compare(original, ErrorMetric.RootMeanSquared));
-                }
-            }
+            using var original = new MagickImage(Files.SnakewarePNG);
+            using var enciphered = original.Clone();
+            enciphered.Encipher("All your base are belong to us");
+
+            Assert.NotEqual(0.0, enciphered.Compare(original, ErrorMetric.RootMeanSquared));
         }
     }
 }

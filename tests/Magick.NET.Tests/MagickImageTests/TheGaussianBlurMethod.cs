@@ -13,42 +13,34 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldBlurTheImage()
         {
-            using (var gaussian = new MagickImage(Files.Builtin.Wizard))
-            {
-                gaussian.GaussianBlur(5.5, 10.2);
+            using var gaussian = new MagickImage(Files.Builtin.Wizard);
+            gaussian.GaussianBlur(5.5, 10.2);
 
-                using (var blur = new MagickImage(Files.Builtin.Wizard))
-                {
-                    blur.Blur(5.5, 10.2);
+            using var blur = new MagickImage(Files.Builtin.Wizard);
+            blur.Blur(5.5, 10.2);
 
-                    var distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
+            var distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
 #if Q8
-                    Assert.InRange(distortion, 0.00066, 0.00067);
+            Assert.InRange(distortion, 0.00066, 0.00067);
 #elif Q16
-                    Assert.InRange(distortion, 0.0000033, 0.0000034);
+            Assert.InRange(distortion, 0.0000033, 0.0000034);
 #else
-                    Assert.InRange(distortion, 0.0000011, 0.0000012);
+            Assert.InRange(distortion, 0.0000011, 0.0000012);
 #endif
-                }
-            }
         }
 
         [Fact]
         public void ShouldUseTheCorrectDefaultValue()
         {
-            using (var gaussian = new MagickImage(Files.Builtin.Wizard))
-            {
-                gaussian.GaussianBlur(4.2);
+            using var gaussian = new MagickImage(Files.Builtin.Wizard);
+            gaussian.GaussianBlur(4.2);
 
-                using (var blur = new MagickImage(Files.Builtin.Wizard))
-                {
-                    blur.GaussianBlur(4.2, 1.0);
+            using var blur = new MagickImage(Files.Builtin.Wizard);
+            blur.GaussianBlur(4.2, 1.0);
 
-                    var distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
+            var distortion = blur.Compare(gaussian, ErrorMetric.RootMeanSquared);
 
-                    Assert.Equal(0.0, distortion);
-                }
-            }
+            Assert.Equal(0.0, distortion);
         }
     }
 }

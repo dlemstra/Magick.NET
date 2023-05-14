@@ -13,28 +13,22 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldAdjustTheImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.AutoGamma();
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.AutoGamma();
 
-                ColorAssert.Equal(new MagickColor("#00000003017E"), image, 496, 429);
-            }
+            ColorAssert.Equal(new MagickColor("#00000003017E"), image, 496, 429);
         }
 
         [Fact]
         public void ShouldUseTheCorrectDefaultChannels()
         {
-            using (var imageA = new MagickImage(Files.MagickNETIconPNG))
-            {
-                using (var imageB = imageA.Clone())
-                {
-                    imageA.AutoGamma();
-                    imageB.AutoGamma(Channels.Composite);
+            using var imageA = new MagickImage(Files.MagickNETIconPNG);
+            using var imageB = imageA.Clone();
+            imageA.AutoGamma();
+            imageB.AutoGamma(Channels.Composite);
 
-                    var distortion = imageA.Compare(imageB, ErrorMetric.RootMeanSquared);
-                    Assert.Equal(0.0, distortion);
-                }
-            }
+            var distortion = imageA.Compare(imageB, ErrorMetric.RootMeanSquared);
+            Assert.Equal(0.0, distortion);
         }
     }
 }

@@ -13,29 +13,27 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldChangeBrightnesAndContrastOfTheImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                ColorAssert.NotEqual(MagickColors.White, image, 340, 295);
+            using var image = new MagickImage(Files.Builtin.Wizard);
 
-                image.BrightnessContrast(new Percentage(50), new Percentage(50));
-                image.Clamp();
+            ColorAssert.NotEqual(MagickColors.White, image, 340, 295);
 
-                ColorAssert.Equal(MagickColors.White, image, 340, 295);
-            }
+            image.BrightnessContrast(new Percentage(50), new Percentage(50));
+            image.Clamp();
+
+            ColorAssert.Equal(MagickColors.White, image, 340, 295);
         }
 
         [Fact]
         public void ShouldChangeTheSpecifiedChannel()
         {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                ColorAssert.NotEqual(MagickColors.White, image, 340, 295);
+            using var image = new MagickImage(Files.Builtin.Wizard);
 
-                image.BrightnessContrast(new Percentage(50), new Percentage(50), Channels.Red);
-                image.Clamp();
+            ColorAssert.NotEqual(MagickColors.White, image, 340, 295);
 
-                ColorAssert.Equal(new MagickColor("#FFE9F2FF"), image, 340, 295);
-            }
+            image.BrightnessContrast(new Percentage(50), new Percentage(50), Channels.Red);
+            image.Clamp();
+
+            ColorAssert.Equal(new MagickColor("#FFE9F2FF"), image, 340, 295);
         }
     }
 }

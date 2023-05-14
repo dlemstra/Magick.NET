@@ -14,16 +14,12 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldCreateDifferentImagesEachRun()
         {
-            using (var imageA = new MagickImage(MagickColors.Black, 10, 10))
-            {
-                using (var imageB = new MagickImage(MagickColors.Black, 10, 10))
-                {
-                    imageA.AddNoise(NoiseType.Random);
-                    imageB.AddNoise(NoiseType.Random);
+            using var imageA = new MagickImage(MagickColors.Black, 10, 10);
+            using var imageB = new MagickImage(MagickColors.Black, 10, 10);
+            imageA.AddNoise(NoiseType.Random);
+            imageB.AddNoise(NoiseType.Random);
 
-                    Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
-                }
-            }
+            Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));
         }
 
         [Fact]
@@ -31,18 +27,16 @@ public partial class MagickImageTests
         {
             MagickNET.SetRandomSeed(1337);
 
-            using (var first = new MagickImage(Files.Builtin.Logo))
-            {
-                first.AddNoise(NoiseType.Laplacian);
-                ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
+            using var first = new MagickImage(Files.Builtin.Logo);
+            first.AddNoise(NoiseType.Laplacian);
 
-                using (var second = new MagickImage(Files.Builtin.Logo))
-                {
-                    second.AddNoise(NoiseType.Laplacian, 2.0);
-                    ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
-                    Assert.False(first.Equals(second));
-                }
-            }
+            ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
+
+            using var second = new MagickImage(Files.Builtin.Logo);
+            second.AddNoise(NoiseType.Laplacian, 2.0);
+
+            ColorAssert.NotEqual(MagickColors.White, first, 46, 62);
+            Assert.False(first.Equals(second));
 
             MagickNET.ResetRandomSeed();
         }

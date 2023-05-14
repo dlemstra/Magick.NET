@@ -14,23 +14,20 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldChangeTheSizeOfTheImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                var affineMatrix = new DrawableAffine(1, 0.5, 0, 0, 0, 0);
-                image.AffineTransform(affineMatrix);
+            using var image = new MagickImage(Files.Builtin.Wizard);
+            var affineMatrix = new DrawableAffine(1, 0.5, 0, 0, 0, 0);
+            image.AffineTransform(affineMatrix);
 
-                Assert.Equal(482, image.Width);
-                Assert.Equal(322, image.Height);
-            }
+            Assert.Equal(482, image.Width);
+            Assert.Equal(322, image.Height);
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenAffineMatrixIsNull()
         {
-            using (var image = new MagickImage(MagickColors.Purple, 1, 1))
-            {
-                Assert.Throws<ArgumentNullException>("affineMatrix", () => image.AffineTransform(null));
-            }
+            using var image = new MagickImage(MagickColors.Purple, 1, 1);
+
+            Assert.Throws<ArgumentNullException>("affineMatrix", () => image.AffineTransform(null));
         }
     }
 }

@@ -13,31 +13,28 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldMakeImageTransparent()
         {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                Assert.False(image.HasAlpha);
+            using var image = new MagickImage(Files.Builtin.Wizard);
 
-                image.Alpha(AlphaOption.Transparent);
+            Assert.False(image.HasAlpha);
 
-                Assert.True(image.HasAlpha);
-                ColorAssert.Equal(new MagickColor("#fff0"), image, 0, 0);
-            }
+            image.Alpha(AlphaOption.Transparent);
+
+            Assert.True(image.HasAlpha);
+            ColorAssert.Equal(new MagickColor("#fff0"), image, 0, 0);
         }
 
         [Fact]
         public void ShouldUseTheBackgroundColor()
         {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                image.Alpha(AlphaOption.Transparent);
+            using var image = new MagickImage(Files.Builtin.Wizard);
+            image.Alpha(AlphaOption.Transparent);
 
-                image.BackgroundColor = new MagickColor("red");
-                image.Alpha(AlphaOption.Background);
-                image.Alpha(AlphaOption.Off);
+            image.BackgroundColor = new MagickColor("red");
+            image.Alpha(AlphaOption.Background);
+            image.Alpha(AlphaOption.Off);
 
-                Assert.False(image.HasAlpha);
-                ColorAssert.Equal(new MagickColor(Quantum.Max, 0, 0), image, 0, 0);
-            }
+            Assert.False(image.HasAlpha);
+            ColorAssert.Equal(new MagickColor(Quantum.Max, 0, 0), image, 0, 0);
         }
     }
 }

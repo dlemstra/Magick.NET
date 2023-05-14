@@ -370,19 +370,17 @@ public partial class MagickImageCollectionTests
             [Fact]
             public void ShouldThrowExceptionWhenImagesIsMagickImageCollection()
             {
-                using (var images = new MagickImageCollection(Files.SnakewarePNG))
-                {
-                    Assert.Throws<ArgumentException>("images", () => new MagickImageCollection(images));
-                }
+                using var images = new MagickImageCollection(Files.SnakewarePNG);
+
+                Assert.Throws<ArgumentException>("images", () => new MagickImageCollection(images));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenImagesContainsDuplicates()
             {
-                using (var image = new MagickImage())
-                {
-                    Assert.Throws<InvalidOperationException>(() => new MagickImageCollection(new[] { image, image }));
-                }
+                using var image = new MagickImage();
+
+                Assert.Throws<InvalidOperationException>(() => new MagickImageCollection(new[] { image, image }));
             }
 
             [Fact]

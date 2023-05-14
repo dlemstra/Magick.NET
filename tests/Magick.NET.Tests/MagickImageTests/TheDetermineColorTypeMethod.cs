@@ -13,13 +13,13 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldDetermineTheColorTypeOfTheImage()
         {
-            using (var image = new MagickImage(Files.WireframeTIF))
-            {
-                Assert.Equal(ColorType.TrueColor, image.ColorType);
+            using var image = new MagickImage(Files.WireframeTIF);
 
-                var colorType = image.DetermineColorType();
-                Assert.Equal(ColorType.Grayscale, colorType);
-            }
+            Assert.Equal(ColorType.TrueColor, image.ColorType);
+
+            var colorType = image.DetermineColorType();
+
+            Assert.Equal(ColorType.Grayscale, colorType);
         }
     }
 }

@@ -13,14 +13,12 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheFormatInformationOfTheImage()
         {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                var info = image.FormatInfo;
+            using var image = new MagickImage(Files.SnakewarePNG);
+            var info = image.FormatInfo;
 
-                Assert.NotNull(info);
-                Assert.Equal(MagickFormat.Png, info.Format);
-                Assert.Equal("image/png", info.MimeType);
-            }
+            Assert.NotNull(info);
+            Assert.Equal(MagickFormat.Png, info.Format);
+            Assert.Equal("image/png", info.MimeType);
         }
     }
 }
