@@ -13,13 +13,15 @@ public partial class TemporaryDefinesTests
         [Fact]
         public void ShouldRemoveArtifactsThatWereSet()
         {
-            using var image = new MagickImage();
-            image.SetArtifact("foo", "bar");
-
-            using (var temporaryDefines = new TemporaryDefines(image))
+            static void SetTemporaryArtifact(MagickImage image)
             {
+                using var temporaryDefines = new TemporaryDefines(image);
                 temporaryDefines.SetArtifact("bar", "foo");
             }
+
+            using var image = new MagickImage();
+            image.SetArtifact("foo", "bar");
+            SetTemporaryArtifact(image);
 
             Assert.Null(image.GetArtifact("bar"));
             Assert.Equal("bar", image.GetArtifact("foo"));
