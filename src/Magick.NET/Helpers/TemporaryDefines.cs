@@ -40,21 +40,15 @@ internal sealed class TemporaryDefines : IDisposable
         _image.SetArtifact(name, value);
     }
 
-    public void SetArtifact(string name, double? value)
-    {
-        if (value is null)
-            return;
-
-        _names.Add(name);
-        _image.SetArtifact(name, value.Value.ToString(CultureInfo.InvariantCulture));
-    }
-
     public void SetArtifact<TValue>(string name, TValue? value)
     {
         if (value is null)
             return;
 
         _names.Add(name);
-        _image.SetArtifact(name, value.ToString());
+        if (value is IConvertible convertible)
+            _image.SetArtifact(name, convertible.ToString(CultureInfo.InvariantCulture));
+        else
+            _image.SetArtifact(name, value.ToString());
     }
 }
