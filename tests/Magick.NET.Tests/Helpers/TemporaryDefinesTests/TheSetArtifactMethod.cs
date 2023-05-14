@@ -85,7 +85,7 @@ public partial class TemporaryDefinesTests
         {
             using var image = new MagickImage();
             using var temporaryDefines = new TemporaryDefines(image);
-            temporaryDefines.SetArtifact("foo", (double)1.25);
+            temporaryDefines.SetArtifact("foo", 1.25);
 
             Assert.Equal("1.25", image.GetArtifact("foo"));
         }
