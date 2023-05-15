@@ -106,7 +106,7 @@ internal sealed unsafe class ByteArrayWrapper : IDisposable
             {
                 AppendBufferToBytes();
 
-                length = Math.Min(length, _buffer.Length - _offset);
+                length = Math.Min(length, _bytes.Length - _offset);
                 source = FillBuffer(source, length);
 
                 CopyBufferToBytes();
