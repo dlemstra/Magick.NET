@@ -10,7 +10,7 @@ namespace ImageMagick;
 
 internal sealed unsafe class ByteArrayWrapper : IDisposable
 {
-    private const int BufferSize = 81920;
+    internal const int BufferSize = 81920;
 
     private readonly byte[] _buffer;
     private readonly byte* _bufferStart;
