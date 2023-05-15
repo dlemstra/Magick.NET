@@ -13,13 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldLightenTheEdges()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                image.Raise(30);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            image.Raise(30);
 
-                ColorAssert.Equal(new MagickColor("#6ee29508b532"), image, 29, 30);
-                ColorAssert.Equal(new MagickColor("#2f2054867aac"), image, 570, 265);
-            }
+            ColorAssert.Equal(new MagickColor("#6ee29508b532"), image, 29, 30);
+            ColorAssert.Equal(new MagickColor("#2f2054867aac"), image, 570, 265);
         }
     }
 }

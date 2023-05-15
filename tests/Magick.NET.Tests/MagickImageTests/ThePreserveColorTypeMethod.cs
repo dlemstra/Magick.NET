@@ -14,23 +14,17 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldPreserveTheColorTypeWhenWritingImage()
         {
-            using (var image = new MagickImage(Files.WireframeTIF))
-            {
-                Assert.Equal(ColorType.TrueColor, image.ColorType);
-                image.PreserveColorType();
+            using var image = new MagickImage(Files.WireframeTIF);
 
-                using (var memStream = new MemoryStream())
-                {
-                    image.Format = MagickFormat.Psd;
-                    image.Write(memStream);
-                    memStream.Position = 0;
+            Assert.Equal(ColorType.TrueColor, image.ColorType);
 
-                    using (var result = new MagickImage(memStream))
-                    {
-                        Assert.Equal(ColorType.TrueColor, result.ColorType);
-                    }
-                }
-            }
+            image.PreserveColorType();
+
+            var bytes = image.ToByteArray(MagickFormat.Psd);
+
+            using var result = new MagickImage(bytes);
+
+            Assert.Equal(ColorType.TrueColor, result.ColorType);
         }
     }
 }

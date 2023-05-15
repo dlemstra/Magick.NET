@@ -13,21 +13,19 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldChangePixelsThatMatchesTarget()
         {
-            using (var image = new MagickImage(MagickColors.Red, 1, 1))
-            {
-                image.Opaque(MagickColors.Red, MagickColors.Yellow);
-                ColorAssert.Equal(MagickColors.Yellow, image, 0, 0);
-            }
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
+            image.Opaque(MagickColors.Red, MagickColors.Yellow);
+
+            ColorAssert.Equal(MagickColors.Yellow, image, 0, 0);
         }
 
         [Fact]
         public void ShouldNotChangePixelsThatDoNotMatchesTarget()
         {
-            using (var image = new MagickImage(MagickColors.Red, 1, 1))
-            {
-                image.Opaque(MagickColors.Yellow, MagickColors.Red);
-                ColorAssert.Equal(MagickColors.Red, image, 0, 0);
-            }
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
+            image.Opaque(MagickColors.Yellow, MagickColors.Red);
+
+            ColorAssert.Equal(MagickColors.Red, image, 0, 0);
         }
     }
 }

@@ -26,85 +26,64 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenImageIsNull()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Throws<ArgumentNullException>("image", () =>
-                {
-                    image.Map((IMagickImage<QuantumType>)null);
-                });
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+
+            Assert.Throws<ArgumentNullException>("image", () => image.Map((IMagickImage<QuantumType>)null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenColorsIsNull()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Throws<ArgumentNullException>("colors", () =>
-                {
-                    image.Map((IEnumerable<MagickColor>)null);
-                });
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+
+            Assert.Throws<ArgumentNullException>("colors", () => image.Map((IEnumerable<MagickColor>)null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenColorsIsEmpty()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Throws<ArgumentException>("colors", () =>
-                {
-                    image.Map(Enumerable.Empty<MagickColor>());
-                });
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+
+            Assert.Throws<ArgumentException>("colors", () => image.Map(Enumerable.Empty<MagickColor>()));
         }
 
         [Fact]
         public void ShouldUseTheColorsOfTheImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var colors = CreatePalleteImage())
-                {
-                    image.Map(colors);
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var colors = CreatePalleteImage();
+            image.Map(colors);
 
-                    ColorAssert.Equal(MagickColors.Blue, image, 0, 0);
-                    ColorAssert.Equal(MagickColors.Green, image, 455, 396);
-                    ColorAssert.Equal(MagickColors.Red, image, 505, 451);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Blue, image, 0, 0);
+            ColorAssert.Equal(MagickColors.Green, image, 455, 396);
+            ColorAssert.Equal(MagickColors.Red, image, 505, 451);
         }
 
         [Fact]
         public void ShouldUseTheColors()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
+            using var image = new MagickImage(Files.Builtin.Logo);
+            var colors = new List<MagickColor>
             {
-                var colors = new List<MagickColor>
-                {
-                    MagickColors.Gold,
-                    MagickColors.Lime,
-                    MagickColors.Fuchsia,
-                };
+                MagickColors.Gold,
+                MagickColors.Lime,
+                MagickColors.Fuchsia,
+            };
+            image.Map(colors);
 
-                image.Map(colors);
-
-                ColorAssert.Equal(MagickColors.Fuchsia, image, 0, 0);
-                ColorAssert.Equal(MagickColors.Lime, image, 455, 396);
-                ColorAssert.Equal(MagickColors.Gold, image, 512, 449);
-            }
+            ColorAssert.Equal(MagickColors.Fuchsia, image, 0, 0);
+            ColorAssert.Equal(MagickColors.Lime, image, 455, 396);
+            ColorAssert.Equal(MagickColors.Gold, image, 512, 449);
         }
 
-        private IMagickImage<QuantumType> CreatePalleteImage()
+        private static IMagickImage<QuantumType> CreatePalleteImage()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage(MagickColors.Red, 1, 1));
-                images.Add(new MagickImage(MagickColors.Blue, 1, 1));
-                images.Add(new MagickImage(MagickColors.Green, 1, 1));
+            using var images = new MagickImageCollection();
+            images.Add(new MagickImage(MagickColors.Red, 1, 1));
+            images.Add(new MagickImage(MagickColors.Blue, 1, 1));
+            images.Add(new MagickImage(MagickColors.Green, 1, 1));
 
-                return images.AppendHorizontally();
-            }
+            return images.AppendHorizontally();
         }
     }
 }

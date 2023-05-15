@@ -13,12 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReduceImageByIntegralSize()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.Minify();
-                Assert.Equal(64, image.Width);
-                Assert.Equal(64, image.Height);
-            }
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            image.Minify();
+
+            Assert.Equal(64, image.Width);
+            Assert.Equal(64, image.Height);
         }
     }
 }

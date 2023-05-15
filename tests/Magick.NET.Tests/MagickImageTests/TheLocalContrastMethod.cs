@@ -13,17 +13,13 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldOnlyChangeSpecifiedChannels()
         {
-            using (var image = new MagickImage("plasma:purple", 100, 100))
-            {
-                using (var allChannels = image.Clone())
-                {
-                    allChannels.LocalContrast(2, new Percentage(50));
-                    image.LocalContrast(2, new Percentage(50), Channels.Red);
+            using var image = new MagickImage("plasma:purple", 100, 100);
+            using var allChannels = image.Clone();
+            allChannels.LocalContrast(2, new Percentage(50));
+            image.LocalContrast(2, new Percentage(50), Channels.Red);
 
-                    var difference = image.Compare(allChannels, ErrorMetric.RootMeanSquared);
-                    Assert.NotEqual(0, difference);
-                }
-            }
+            var difference = image.Compare(allChannels, ErrorMetric.RootMeanSquared);
+            Assert.NotEqual(0, difference);
         }
     }
 }

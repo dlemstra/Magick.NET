@@ -14,10 +14,9 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenSettingsIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("settings", () => image.Kmeans(null));
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("settings", () => image.Kmeans(null));
         }
 
         [Fact]
@@ -28,10 +27,9 @@ public partial class MagickImageTests
                 NumberColors = -1,
             };
 
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
         }
 
         [Fact]
@@ -42,10 +40,9 @@ public partial class MagickImageTests
                 MaxIterations = -1,
             };
 
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
         }
 
         [Fact]
@@ -56,12 +53,10 @@ public partial class MagickImageTests
                 NumberColors = 5,
             };
 
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Kmeans(settings);
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Kmeans(settings);
 
-                ColorAssert.Equal(new MagickColor("#f0fb6f8c3098"), image, 430, 225);
-            }
+            ColorAssert.Equal(new MagickColor("#f0fb6f8c3098"), image, 430, 225);
         }
     }
 }

@@ -13,7 +13,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldNotAllowValueBelowOne()
         {
-            var image = new MagickImage
+            using var image = new MagickImage
             {
                 Quality = 0,
             };
@@ -24,7 +24,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldNotAllowValueAbove100()
         {
-            var image = new MagickImage
+            using var image = new MagickImage
             {
                 Quality = 101,
             };
@@ -35,10 +35,9 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldSetTheBackgroundColorWhenReadingImage()
         {
-            using (var image = new MagickImage(Files.CMYKJPG))
-            {
-                Assert.Equal(91, image.Quality);
-            }
+            using var image = new MagickImage(Files.CMYKJPG);
+
+            Assert.Equal(91, image.Quality);
         }
     }
 }

@@ -13,29 +13,23 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldUseTheCorrectDefaultValues()
         {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                using (var other = new MagickImage(Files.NoisePNG))
-                {
-                    image.Kuwahara();
-                    other.Kuwahara(0.0, 1.0);
+            using var image = new MagickImage(Files.NoisePNG);
+            using var other = new MagickImage(Files.NoisePNG);
+            image.Kuwahara();
+            other.Kuwahara(0.0, 1.0);
 
-                    Assert.Equal(image, other);
-                }
-            }
+            Assert.Equal(image, other);
         }
 
         [Fact]
         public void ShouldApplyEdgePreservingNoiseReductionFilter()
         {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                image.Kuwahara(13.4, 2.5);
-                image.ColorType = ColorType.Bilevel;
+            using var image = new MagickImage(Files.NoisePNG);
+            image.Kuwahara(13.4, 2.5);
+            image.ColorType = ColorType.Bilevel;
 
-                ColorAssert.Equal(MagickColors.White, image, 216, 120);
-                ColorAssert.Equal(MagickColors.Black, image, 39, 138);
-            }
+            ColorAssert.Equal(MagickColors.White, image, 216, 120);
+            ColorAssert.Equal(MagickColors.Black, image, 39, 138);
         }
     }
 }

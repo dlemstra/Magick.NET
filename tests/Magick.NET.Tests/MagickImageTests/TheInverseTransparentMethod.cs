@@ -14,13 +14,9 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenColorIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("color", () =>
-                {
-                    image.InverseTransparent(null);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("color", () => image.InverseTransparent(null));
         }
 
         [Fact]
@@ -30,15 +26,14 @@ public partial class MagickImageTests
             var transparentRed = new MagickColor("red");
             transparentRed.A = 0;
 
-            using (var image = new MagickImage(Files.RedPNG))
-            {
-                ColorAssert.Equal(red, image, 0, 0);
+            using var image = new MagickImage(Files.RedPNG);
 
-                image.InverseTransparent(red);
+            ColorAssert.Equal(red, image, 0, 0);
 
-                ColorAssert.NotEqual(transparentRed, image, 0, 0);
-                ColorAssert.Equal(transparentRed, image, image.Width - 1, 0);
-            }
+            image.InverseTransparent(red);
+
+            ColorAssert.NotEqual(transparentRed, image, 0, 0);
+            ColorAssert.Equal(transparentRed, image, image.Width - 1, 0);
         }
     }
 }

@@ -13,25 +13,19 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldRemoveWriteMask()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var writeMask = new MagickImage(MagickColors.Black, image.Width, image.Height))
-                {
-                    image.SetWriteMask(writeMask);
-                }
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var writeMask = new MagickImage(MagickColors.Black, image.Width, image.Height);
+            image.SetWriteMask(writeMask);
 
-                using (var writeMask = image.GetWriteMask())
-                {
-                    Assert.NotNull(writeMask);
-                }
+            using var writeMaskBeforeRemoval = image.GetWriteMask();
 
-                image.RemoveWriteMask();
+            Assert.NotNull(writeMaskBeforeRemoval);
 
-                using (var writeMask = image.GetWriteMask())
-                {
-                    Assert.Null(writeMask);
-                }
-            }
+            image.RemoveWriteMask();
+
+            using var writeMaskAfterRemoval = image.GetWriteMask();
+
+            Assert.Null(writeMaskAfterRemoval);
         }
     }
 }

@@ -14,39 +14,31 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenArrayIsNull()
         {
-            using (var green = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("region", () =>
-                {
-                    green.RegionMask(null);
-                });
-            }
+            using var green = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("region", () => green.RegionMask(null));
         }
 
         [Fact]
         public void ShouldBeUsedWhenCompositingAnImage()
         {
-            using (var red = new MagickImage("xc:red", 100, 100))
-            {
-                using (var green = new MagickImage("xc:green", 100, 100))
-                {
-                    green.RegionMask(new MagickGeometry(10, 10, 50, 50));
+            using var red = new MagickImage("xc:red", 100, 100);
+            using var green = new MagickImage("xc:green", 100, 100);
+            green.RegionMask(new MagickGeometry(10, 10, 50, 50));
 
-                    green.Composite(red, CompositeOperator.SrcOver);
+            green.Composite(red, CompositeOperator.SrcOver);
 
-                    ColorAssert.Equal(MagickColors.Green, green, 0, 0);
-                    ColorAssert.Equal(MagickColors.Red, green, 10, 10);
-                    ColorAssert.Equal(MagickColors.Green, green, 60, 60);
+            ColorAssert.Equal(MagickColors.Green, green, 0, 0);
+            ColorAssert.Equal(MagickColors.Red, green, 10, 10);
+            ColorAssert.Equal(MagickColors.Green, green, 60, 60);
 
-                    green.RemoveRegionMask();
+            green.RemoveRegionMask();
 
-                    green.Composite(red, CompositeOperator.SrcOver);
+            green.Composite(red, CompositeOperator.SrcOver);
 
-                    ColorAssert.Equal(MagickColors.Red, green, 0, 0);
-                    ColorAssert.Equal(MagickColors.Red, green, 10, 10);
-                    ColorAssert.Equal(MagickColors.Red, green, 60, 60);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Red, green, 0, 0);
+            ColorAssert.Equal(MagickColors.Red, green, 10, 10);
+            ColorAssert.Equal(MagickColors.Red, green, 60, 60);
         }
     }
 }

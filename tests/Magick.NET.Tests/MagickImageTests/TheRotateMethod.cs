@@ -13,16 +13,15 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldRotateTheImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Equal(640, image.Width);
-                Assert.Equal(480, image.Height);
+            using var image = new MagickImage(Files.Builtin.Logo);
 
-                image.Rotate(90);
+            Assert.Equal(640, image.Width);
+            Assert.Equal(480, image.Height);
 
-                Assert.Equal(480, image.Width);
-                Assert.Equal(640, image.Height);
-            }
+            image.Rotate(90);
+
+            Assert.Equal(480, image.Width);
+            Assert.Equal(640, image.Height);
         }
     }
 }

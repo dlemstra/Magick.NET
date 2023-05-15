@@ -13,23 +13,19 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldNegateTheImage()
         {
-            using (var image = new MagickImage("xc:white", 1, 1))
-            {
-                image.Negate();
+            using var image = new MagickImage("xc:white", 1, 1);
+            image.Negate();
 
-                ColorAssert.Equal(MagickColors.Black, image, 0, 0);
-            }
+            ColorAssert.Equal(MagickColors.Black, image, 0, 0);
         }
 
         [Fact]
         public void ShouldNegateTheSpecifedChannels()
         {
-            using (var image = new MagickImage("xc:white", 1, 1))
-            {
-                image.Negate(Channels.Red);
+            using var image = new MagickImage("xc:white", 1, 1);
+            image.Negate(Channels.Red);
 
-                ColorAssert.Equal(MagickColors.Aqua, image, 0, 0);
-            }
+            ColorAssert.Equal(MagickColors.Aqua, image, 0, 0);
         }
     }
 }

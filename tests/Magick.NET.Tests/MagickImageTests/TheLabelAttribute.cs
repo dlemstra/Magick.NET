@@ -13,36 +13,30 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldGetTheLabelAttribute()
         {
-            using (var image = new MagickImage())
-            {
-                image.SetAttribute("label", "foo");
+            using var image = new MagickImage();
+            image.SetAttribute("label", "foo");
 
-                Assert.Equal("foo", image.Label);
-            }
+            Assert.Equal("foo", image.Label);
         }
 
         [Fact]
         public void ShouldSetTheLabelAttribute()
         {
-            using (var image = new MagickImage())
-            {
-                image.Label = "foo";
+            using var image = new MagickImage();
+            image.Label = "foo";
 
-                Assert.Equal("foo", image.GetAttribute("label"));
-            }
+            Assert.Equal("foo", image.GetAttribute("label"));
         }
 
         [Fact]
         public void ShouldRemoveTheLabelAttributeWhenSetToNull()
         {
-            using (var image = new MagickImage())
-            {
-                image.SetAttribute("label", "foo");
+            using var image = new MagickImage();
+            image.SetAttribute("label", "foo");
 
-                image.Label = null;
+            image.Label = null;
 
-                Assert.Null(image.GetAttribute("label"));
-            }
+            Assert.Null(image.GetAttribute("label"));
         }
     }
 }

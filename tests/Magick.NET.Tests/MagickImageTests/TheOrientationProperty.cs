@@ -14,34 +14,29 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldOverwriteTheExifOrientation()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetExifProfile();
-                var exifOrientation = profile.GetValue(ExifTag.Orientation).Value;
-                Assert.Equal((ushort)1, exifOrientation);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetExifProfile();
+            var exifOrientation = profile.GetValue(ExifTag.Orientation).Value;
 
-                Assert.Equal(OrientationType.TopLeft, image.Orientation);
+            Assert.Equal((ushort)1, exifOrientation);
 
-                profile.SetValue(ExifTag.Orientation, (ushort)6); // RightTop
-                image.SetProfile(profile);
+            Assert.Equal(OrientationType.TopLeft, image.Orientation);
 
-                image.Orientation = OrientationType.LeftBotom;
+            profile.SetValue(ExifTag.Orientation, (ushort)OrientationType.RightTop);
+            image.SetProfile(profile);
 
-                using (var stream = new MemoryStream())
-                {
-                    image.Write(stream);
+            image.Orientation = OrientationType.LeftBotom;
 
-                    stream.Position = 0;
-                    using (var output = new MagickImage(stream))
-                    {
-                        profile = output.GetExifProfile();
-                        exifOrientation = profile.GetValue(ExifTag.Orientation).Value;
-                        Assert.Equal((ushort)8, exifOrientation);
+            using var stream = new MemoryStream();
+            image.Write(stream);
 
-                        Assert.Equal(OrientationType.LeftBotom, image.Orientation);
-                    }
-                }
-            }
+            stream.Position = 0;
+            using var output = new MagickImage(stream);
+            profile = output.GetExifProfile();
+            exifOrientation = profile.GetValue(ExifTag.Orientation).Value;
+
+            Assert.Equal((ushort)8, exifOrientation);
+            Assert.Equal(OrientationType.LeftBotom, image.Orientation);
         }
     }
 }

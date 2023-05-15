@@ -13,14 +13,12 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldBeUsedWhenFramingImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.MatteColor = MagickColors.PaleGoldenrod;
-                image.Frame();
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.MatteColor = MagickColors.PaleGoldenrod;
+            image.Frame();
 
-                ColorAssert.Equal(MagickColors.PaleGoldenrod, image, 10, 10);
-                ColorAssert.Equal(MagickColors.PaleGoldenrod, image, 680, 520);
-            }
+            ColorAssert.Equal(MagickColors.PaleGoldenrod, image, 10, 10);
+            ColorAssert.Equal(MagickColors.PaleGoldenrod, image, 680, 520);
         }
     }
 }

@@ -13,25 +13,19 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldRemoveReadMask()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var readMask = new MagickImage(MagickColors.Black, image.Width, image.Height))
-                {
-                    image.SetReadMask(readMask);
-                }
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var readMask = new MagickImage(MagickColors.Black, image.Width, image.Height);
+            image.SetReadMask(readMask);
 
-                using (var readMask = image.GetReadMask())
-                {
-                    Assert.NotNull(readMask);
-                }
+            using var readMaskBeforeRemoval = image.GetReadMask();
 
-                image.RemoveReadMask();
+            Assert.NotNull(readMaskBeforeRemoval);
 
-                using (var readMask = image.GetReadMask())
-                {
-                    Assert.Null(readMask);
-                }
-            }
+            image.RemoveReadMask();
+
+            using var readMaskAfterRemoval = image.GetReadMask();
+
+            Assert.Null(readMaskAfterRemoval);
         }
     }
 }

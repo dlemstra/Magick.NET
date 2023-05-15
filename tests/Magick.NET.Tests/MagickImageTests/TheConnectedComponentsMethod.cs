@@ -97,12 +97,11 @@ public partial class MagickImageTests
             Assert.InRange(component.Centroid.X, centroidX - delta, centroidX + delta);
             Assert.InRange(component.Centroid.Y, centroidY - delta, centroidY + delta);
 
-            using (var componentImage = image.Clone())
-            {
-                componentImage.Crop(component.ToGeometry(10));
-                Assert.InRange(componentImage.Width, width + 20 - delta, width + 20 + delta);
-                Assert.InRange(componentImage.Height, height + 20 - delta, height + 20 + delta);
-            }
+            using var componentImage = image.Clone();
+            componentImage.Crop(component.ToGeometry(10));
+
+            Assert.InRange(componentImage.Width, width + 20 - delta, width + 20 + delta);
+            Assert.InRange(componentImage.Height, height + 20 - delta, height + 20 + delta);
         }
     }
 }

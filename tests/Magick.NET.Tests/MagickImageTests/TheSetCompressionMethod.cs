@@ -13,12 +13,10 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldChangeTheCompression()
         {
-            using (var image = new MagickImage())
-            {
-                image.SetCompression(CompressionMethod.JBIG2);
+            using var image = new MagickImage();
+            image.SetCompression(CompressionMethod.JBIG2);
 
-                Assert.Equal(CompressionMethod.JBIG2, image.Compression);
-            }
+            Assert.Equal(CompressionMethod.JBIG2, image.Compression);
         }
     }
 }

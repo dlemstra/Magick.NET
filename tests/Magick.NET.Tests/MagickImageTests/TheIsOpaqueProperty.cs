@@ -13,20 +13,18 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTrueWhenImageIsOpaque()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.True(image.IsOpaque);
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+
+            Assert.True(image.IsOpaque);
         }
 
         [Fact]
         public void ShouldReturnFalseWhenImageIsNotOpaque()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Alpha(AlphaOption.Transparent);
-                Assert.False(image.IsOpaque);
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Alpha(AlphaOption.Transparent);
+
+            Assert.False(image.IsOpaque);
         }
     }
 }

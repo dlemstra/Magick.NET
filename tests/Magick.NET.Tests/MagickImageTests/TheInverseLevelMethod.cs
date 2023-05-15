@@ -23,51 +23,39 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldUseCompositeAsDefaultChannels()
         {
-            using (var first = new MagickImage(Files.MagickNETIconPNG))
-            {
-                using (var second = first.Clone())
-                {
-                    first.InverseLevel(new Percentage(50), new Percentage(10));
-                    second.InverseLevel(new Percentage(50), new Percentage(10), Channels.Composite);
+            using var first = new MagickImage(Files.MagickNETIconPNG);
+            using var second = first.Clone();
+            first.InverseLevel(new Percentage(50), new Percentage(10));
+            second.InverseLevel(new Percentage(50), new Percentage(10), Channels.Composite);
 
-                    Assert.Equal(first.Signature, second.Signature);
-                }
-            }
+            Assert.Equal(first.Signature, second.Signature);
         }
 
         [Fact]
         public void ShouldUseOneAsGammaDefault()
         {
-            using (var first = new MagickImage(Files.MagickNETIconPNG))
-            {
-                using (var second = first.Clone())
-                {
-                    first.InverseLevel(new Percentage(50), new Percentage(10));
-                    second.InverseLevel(new Percentage(50), new Percentage(10), 1.0, Channels.Composite);
+            using var first = new MagickImage(Files.MagickNETIconPNG);
+            using var second = first.Clone();
+            first.InverseLevel(new Percentage(50), new Percentage(10));
+            second.InverseLevel(new Percentage(50), new Percentage(10), 1.0, Channels.Composite);
 
-                    Assert.Equal(first.Signature, second.Signature);
-                }
-            }
+            Assert.Equal(first.Signature, second.Signature);
         }
 
         [Fact]
         public void ShouldScaleTheColors()
         {
-            using (var first = new MagickImage(Files.MagickNETIconPNG))
-            {
-                using (var second = first.Clone())
-                {
-                    first.InverseLevel(new Percentage(50.0), new Percentage(10.0));
+            using var first = new MagickImage(Files.MagickNETIconPNG);
+            using var second = first.Clone();
+            first.InverseLevel(new Percentage(50.0), new Percentage(10.0));
 
-                    var fifty = (QuantumType)(Quantum.Max * 0.5);
-                    var ten = (QuantumType)(Quantum.Max * 0.1);
-                    second.InverseLevel(fifty, ten, Channels.Red);
-                    second.InverseLevel(fifty, ten, Channels.Green | Channels.Blue);
-                    second.InverseLevel(fifty, ten, Channels.Alpha);
+            var fifty = (QuantumType)(Quantum.Max * 0.5);
+            var ten = (QuantumType)(Quantum.Max * 0.1);
+            second.InverseLevel(fifty, ten, Channels.Red);
+            second.InverseLevel(fifty, ten, Channels.Green | Channels.Blue);
+            second.InverseLevel(fifty, ten, Channels.Alpha);
 
-                    Assert.Equal(first.Signature, second.Signature);
-                }
-            }
+            Assert.Equal(first.Signature, second.Signature);
         }
     }
 }

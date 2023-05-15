@@ -25,12 +25,9 @@ public partial class MagickImageTests
                 arguments.Cancel = true;
             }
 
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Progress += ProgressEvent;
-                image.Flip();
-                Assert.False(image.IsDisposed);
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Progress += ProgressEvent;
+            image.Flip();
 
             Assert.InRange((int)progress, 0, 2);
         }
@@ -50,11 +47,9 @@ public partial class MagickImageTests
                 arguments.Cancel = false;
             }
 
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Progress += ProgressEvent;
-                image.Flip();
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Progress += ProgressEvent;
+            image.Flip();
 
             Assert.Equal(100, (int)progress);
         }

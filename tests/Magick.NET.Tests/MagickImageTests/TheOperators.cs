@@ -13,7 +13,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
         {
-            var image = new MagickImage(MagickColors.Red, 1, 1);
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
 
             Assert.False(image < null);
             Assert.False(image <= null);
@@ -28,8 +28,8 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenInstanceIsSpecified()
         {
-            var first = new MagickImage(MagickColors.Red, 2, 1);
-            var second = new MagickImage(MagickColors.Red, 1, 1);
+            using var first = new MagickImage(MagickColors.Red, 2, 1);
+            using var second = new MagickImage(MagickColors.Red, 1, 1);
 
             Assert.False(first < second);
             Assert.False(first <= second);
@@ -40,8 +40,8 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenInstanceHasSameSize()
         {
-            var first = new MagickImage(MagickColors.Red, 1, 2);
-            var second = new MagickImage(MagickColors.Red, 2, 1);
+            using var first = new MagickImage(MagickColors.Red, 1, 2);
+            using var second = new MagickImage(MagickColors.Red, 2, 1);
 
             Assert.False(first < second);
             Assert.True(first <= second);
@@ -52,8 +52,8 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenInstanceAreEqual()
         {
-            var first = new MagickImage(MagickColors.Red, 1, 1);
-            var second = new MagickImage(MagickColors.Red, 1, 1);
+            using var first = new MagickImage(MagickColors.Red, 1, 1);
+            using var second = new MagickImage(MagickColors.Red, 1, 1);
 
             Assert.False(first < second);
             Assert.True(first <= second);

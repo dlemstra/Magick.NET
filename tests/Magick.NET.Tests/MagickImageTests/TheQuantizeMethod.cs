@@ -14,13 +14,9 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenSettingsAreNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("settings", () =>
-                {
-                    var errorInfo = image.Quantize(null);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("settings", () => image.Quantize(null));
         }
 
         [Fact]
@@ -34,17 +30,16 @@ public partial class MagickImageTests
             settings.DitherMethod = DitherMethod.No;
             settings.MeasureErrors = true;
 
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var errorInfo = image.Quantize(settings);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var errorInfo = image.Quantize(settings);
+
 #if Q8
-                Assert.InRange(errorInfo.MeanErrorPerPixel, 7.066, 7.067);
+            Assert.InRange(errorInfo.MeanErrorPerPixel, 7.066, 7.067);
 #else
-                Assert.InRange(errorInfo.MeanErrorPerPixel, 1827.8, 1827.9);
+            Assert.InRange(errorInfo.MeanErrorPerPixel, 1827.8, 1827.9);
 #endif
-                Assert.InRange(errorInfo.NormalizedMaximumError, 0.352, 0.354);
-                Assert.InRange(errorInfo.NormalizedMeanError, 0.001, 0.002);
-            }
+            Assert.InRange(errorInfo.NormalizedMaximumError, 0.352, 0.354);
+            Assert.InRange(errorInfo.NormalizedMeanError, 0.001, 0.002);
         }
     }
 }

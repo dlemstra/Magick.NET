@@ -13,38 +13,32 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldSetTheClippingPath()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                Assert.Null(image.GetClippingPath());
+            using var image = new MagickImage(Files.MagickNETIconPNG);
 
-                using (var path = new MagickImage(Files.InvitationTIF))
-                {
-                    var clippingPath = path.GetClippingPath();
+            Assert.Null(image.GetClippingPath());
 
-                    image.SetClippingPath(clippingPath);
+            using var path = new MagickImage(Files.InvitationTIF);
+            var clippingPath = path.GetClippingPath();
 
-                    Assert.NotNull(image.GetClippingPath());
-                }
-            }
+            image.SetClippingPath(clippingPath);
+
+            Assert.NotNull(image.GetClippingPath());
         }
 
         [Fact]
         public void ShouldSetTheClippingPathWithTheSpecfiedName()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                Assert.Null(image.GetClippingPath());
+            using var image = new MagickImage(Files.MagickNETIconPNG);
 
-                using (var path = new MagickImage(Files.InvitationTIF))
-                {
-                    var clippingPath = path.GetClippingPath();
+            Assert.Null(image.GetClippingPath());
 
-                    image.SetClippingPath(clippingPath, "test");
+            using var path = new MagickImage(Files.InvitationTIF);
+            var clippingPath = path.GetClippingPath();
 
-                    Assert.NotNull(image.GetClippingPath("test"));
-                    Assert.Null(image.GetClippingPath("#1"));
-                }
-            }
+            image.SetClippingPath(clippingPath, "test");
+
+            Assert.NotNull(image.GetClippingPath("test"));
+            Assert.Null(image.GetClippingPath("#1"));
         }
     }
 }

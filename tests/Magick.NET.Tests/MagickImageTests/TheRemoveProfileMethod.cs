@@ -16,40 +16,39 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldThrowExceptionWhenProfileIsNull()
             {
-                using (var image = new MagickImage(MagickColors.Red, 1, 1))
-                {
-                    Assert.Throws<ArgumentNullException>("profile", () => image.RemoveProfile((IImageProfile)null));
-                }
+                using var image = new MagickImage(MagickColors.Red, 1, 1);
+
+                Assert.Throws<ArgumentNullException>("profile", () => image.RemoveProfile((IImageProfile)null));
             }
 
             [Fact]
             public void ShouldRemoveTheSpecifiedColorProfile()
             {
-                using (var image = new MagickImage(Files.PictureJPG))
-                {
-                    var profile = image.GetColorProfile();
-                    Assert.NotNull(profile);
+                using var image = new MagickImage(Files.PictureJPG);
+                var profile = image.GetColorProfile();
 
-                    image.RemoveProfile(profile);
+                Assert.NotNull(profile);
 
-                    profile = image.GetColorProfile();
-                    Assert.Null(profile);
-                }
+                image.RemoveProfile(profile);
+
+                profile = image.GetColorProfile();
+
+                Assert.Null(profile);
             }
 
             [Fact]
             public void ShouldRemoveTheSpecifiedIptcProfile()
             {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetIptcProfile();
-                    Assert.NotNull(profile);
+                using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+                var profile = image.GetIptcProfile();
 
-                    image.RemoveProfile(profile);
+                Assert.NotNull(profile);
 
-                    profile = image.GetIptcProfile();
-                    Assert.Null(profile);
-                }
+                image.RemoveProfile(profile);
+
+                profile = image.GetIptcProfile();
+
+                Assert.Null(profile);
             }
         }
 
@@ -58,35 +57,33 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldThrowExceptionWhenProfileIsNull()
             {
-                using (var image = new MagickImage(MagickColors.Red, 1, 1))
-                {
-                    Assert.Throws<ArgumentNullException>("name", () => image.RemoveProfile((string)null));
-                }
+                using var image = new MagickImage(MagickColors.Red, 1, 1);
+
+                Assert.Throws<ArgumentNullException>("name", () => image.RemoveProfile((string)null));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenProfileIsEmpty()
             {
-                using (var image = new MagickImage(MagickColors.Red, 1, 1))
-                {
-                    Assert.Throws<ArgumentException>("name", () => image.RemoveProfile(string.Empty));
-                }
+                using var image = new MagickImage(MagickColors.Red, 1, 1);
+
+                Assert.Throws<ArgumentException>("name", () => image.RemoveProfile(string.Empty));
             }
 
             [Fact]
             public void ShouldRemoveTheProfile()
             {
-                using (var image = new MagickImage(Files.PictureJPG))
-                {
-                    var profile = image.GetColorProfile();
-                    Assert.NotNull(profile);
-                    Assert.Equal("icc", profile.Name);
+                using var image = new MagickImage(Files.PictureJPG);
+                var profile = image.GetColorProfile();
 
-                    image.RemoveProfile(profile.Name);
+                Assert.NotNull(profile);
+                Assert.Equal("icc", profile.Name);
 
-                    profile = image.GetColorProfile();
-                    Assert.Null(profile);
-                }
+                image.RemoveProfile(profile.Name);
+
+                profile = image.GetColorProfile();
+
+                Assert.Null(profile);
             }
         }
     }

@@ -13,15 +13,13 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldRollTheImage()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.Roll(40, 60);
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            image.Roll(40, 60);
 
-                var blue = new MagickColor("#a8dff8");
-                ColorAssert.Equal(blue, image, 66, 103);
-                ColorAssert.Equal(blue, image, 120, 86);
-                ColorAssert.Equal(blue, image, 0, 82);
-            }
+            var blue = new MagickColor("#a8dff8");
+            ColorAssert.Equal(blue, image, 66, 103);
+            ColorAssert.Equal(blue, image, 120, 86);
+            ColorAssert.Equal(blue, image, 0, 82);
         }
     }
 }

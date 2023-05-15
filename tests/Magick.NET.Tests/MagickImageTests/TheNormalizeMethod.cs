@@ -13,33 +13,29 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldNormalizeTheImage()
         {
-            using (var images = new MagickImageCollection())
-            {
-                images.Add(new MagickImage("gradient:gray70-gray30", 100, 100));
-                images.Add(new MagickImage("gradient:blue-navy", 50, 100));
+            using var images = new MagickImageCollection();
+            images.Add(new MagickImage("gradient:gray70-gray30", 100, 100));
+            images.Add(new MagickImage("gradient:blue-navy", 50, 100));
 
-                using (var colorRange = images.AppendHorizontally())
-                {
-                    ColorAssert.Equal(new MagickColor("gray70"), colorRange, 0, 0);
-                    ColorAssert.Equal(new MagickColor("blue"), colorRange, 101, 0);
+            using var colorRange = images.AppendHorizontally();
+            ColorAssert.Equal(new MagickColor("gray70"), colorRange, 0, 0);
+            ColorAssert.Equal(new MagickColor("blue"), colorRange, 101, 0);
 
-                    ColorAssert.Equal(new MagickColor("gray30"), colorRange, 0, 99);
-                    ColorAssert.Equal(new MagickColor("navy"), colorRange, 101, 99);
+            ColorAssert.Equal(new MagickColor("gray30"), colorRange, 0, 99);
+            ColorAssert.Equal(new MagickColor("navy"), colorRange, 101, 99);
 
-                    colorRange.Normalize();
+            colorRange.Normalize();
 
-                    ColorAssert.Equal(new MagickColor("white"), colorRange, 0, 0);
-                    ColorAssert.Equal(new MagickColor("blue"), colorRange, 101, 0);
+            ColorAssert.Equal(new MagickColor("white"), colorRange, 0, 0);
+            ColorAssert.Equal(new MagickColor("blue"), colorRange, 101, 0);
 
 #if Q8
-                    ColorAssert.Equal(new MagickColor("gray40"), colorRange, 0, 99);
-                    ColorAssert.Equal(new MagickColor("#0000b3"), colorRange, 101, 99);
+            ColorAssert.Equal(new MagickColor("gray40"), colorRange, 0, 99);
+            ColorAssert.Equal(new MagickColor("#0000b3"), colorRange, 101, 99);
 #else
-                    ColorAssert.Equal(new MagickColor("#664d664d664d"), colorRange, 0, 99);
-                    ColorAssert.Equal(new MagickColor("#00000000b3ef"), colorRange, 101, 99);
+            ColorAssert.Equal(new MagickColor("#664d664d664d"), colorRange, 0, 99);
+            ColorAssert.Equal(new MagickColor("#00000000b3ef"), colorRange, 101, 99);
 #endif
-                }
-            }
         }
     }
 }

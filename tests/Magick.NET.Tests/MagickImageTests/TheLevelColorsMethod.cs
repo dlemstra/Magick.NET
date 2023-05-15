@@ -13,12 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldLevelTheColors()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.LevelColors(MagickColors.Fuchsia, MagickColors.Goldenrod);
-                ColorAssert.Equal(new MagickColor("#ffffbed54bc4"), image, 42, 75);
-                ColorAssert.Equal(new MagickColor("#ffffffff0809"), image, 62, 75);
-            }
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            image.LevelColors(MagickColors.Fuchsia, MagickColors.Goldenrod);
+
+            ColorAssert.Equal(new MagickColor("#ffffbed54bc4"), image, 42, 75);
+            ColorAssert.Equal(new MagickColor("#ffffffff0809"), image, 62, 75);
         }
     }
 }

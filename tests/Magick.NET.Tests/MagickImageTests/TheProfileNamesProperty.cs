@@ -13,23 +13,21 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheProfileNames()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var names = image.ProfileNames;
-                Assert.NotNull(names);
-                Assert.Equal("8bim,exif,icc,iptc,xmp", string.Join(",", names));
-            }
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var names = image.ProfileNames;
+
+            Assert.NotNull(names);
+            Assert.Equal("8bim,exif,icc,iptc,xmp", string.Join(",", names));
         }
 
         [Fact]
         public void ShouldReturnEmptyCollectionForImageWithoutProfiles()
         {
-            using (var image = new MagickImage(Files.RedPNG))
-            {
-                var names = image.ProfileNames;
-                Assert.NotNull(names);
-                Assert.Empty(names);
-            }
+            using var image = new MagickImage(Files.RedPNG);
+            var names = image.ProfileNames;
+
+            Assert.NotNull(names);
+            Assert.Empty(names);
         }
     }
 }

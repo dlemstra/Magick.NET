@@ -13,29 +13,21 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldNotChangeImageWhenSizeIsOne()
         {
-            using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-            {
-                using (var output = input.Clone())
-                {
-                    output.MeanShift(1);
+            using var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
+            using var output = input.Clone();
+            output.MeanShift(1);
 
-                    Assert.Equal(0.0, output.Compare(input, ErrorMetric.RootMeanSquared));
-                }
-            }
+            Assert.Equal(0.0, output.Compare(input, ErrorMetric.RootMeanSquared));
         }
 
         [Fact]
         public void ShouldChangeImage()
         {
-            using (var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG))
-            {
-                using (var output = input.Clone())
-                {
-                    output.MeanShift(2, new Percentage(80));
+            using var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
+            using var output = input.Clone();
+            output.MeanShift(2, new Percentage(80));
 
-                    Assert.InRange(output.Compare(input, ErrorMetric.RootMeanSquared), 0.019, 0.020);
-                }
-            }
+            Assert.InRange(output.Compare(input, ErrorMetric.RootMeanSquared), 0.019, 0.020);
         }
     }
 }

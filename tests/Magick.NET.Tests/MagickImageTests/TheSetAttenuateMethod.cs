@@ -13,11 +13,10 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldSetImageArtifact()
         {
-            using (var image = new MagickImage())
-            {
-                image.SetAttenuate(5.6);
-                Assert.Equal("5.6", image.GetArtifact("attenuate"));
-            }
+            using var image = new MagickImage();
+            image.SetAttenuate(5.6);
+
+            Assert.Equal("5.6", image.GetArtifact("attenuate"));
         }
     }
 }

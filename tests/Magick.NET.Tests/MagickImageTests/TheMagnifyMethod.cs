@@ -13,12 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldMagnifyTheImage()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.Magnify();
-                Assert.Equal(256, image.Width);
-                Assert.Equal(256, image.Height);
-            }
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            image.Magnify();
+
+            Assert.Equal(256, image.Width);
+            Assert.Equal(256, image.Height);
         }
     }
 }

@@ -13,10 +13,9 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnFalseWhenTheImageIsNotDisposed()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.False(image.IsDisposed);
-            }
+            using var image = new MagickImage();
+
+            Assert.False(image.IsDisposed);
         }
 
         [Fact]

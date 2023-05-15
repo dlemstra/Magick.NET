@@ -13,30 +13,26 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldChangeTheColorAtTheSpecifiedIndex()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
-            {
-                image.SetColormapColor(0, MagickColors.Fuchsia);
-                ColorAssert.Equal(MagickColors.Fuchsia, image.GetColormapColor(0));
-            }
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF);
+            image.SetColormapColor(0, MagickColors.Fuchsia);
+
+            ColorAssert.Equal(MagickColors.Fuchsia, image.GetColormapColor(0));
         }
 
         [Fact]
         public void ShouldNotThrowExceptionWhenImageHasNoColormap()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.SetColormapColor(0, MagickColors.Fuchsia);
-            }
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            image.SetColormapColor(0, MagickColors.Fuchsia);
         }
 
         [Fact]
         public void ShouldNotThrowExceptionWhenIndexIsOutOfRange()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF))
-            {
-                image.SetColormapColor(65536, MagickColors.Fuchsia);
-                Assert.Null(image.GetColormapColor(65536));
-            }
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProGIF);
+            image.SetColormapColor(65536, MagickColors.Fuchsia);
+
+            Assert.Null(image.GetColormapColor(65536));
         }
     }
 }
