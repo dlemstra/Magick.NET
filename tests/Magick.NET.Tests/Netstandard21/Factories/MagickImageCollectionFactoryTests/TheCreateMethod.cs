@@ -28,13 +28,11 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldCreateMagickImageCollection()
                 {
-                    var factory = new MagickImageCollectionFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
+                    var factory = new MagickImageCollectionFactory();
+                    using var images = factory.Create(new ReadOnlySequence<byte>(data));
 
-                    using (var images = factory.Create(new ReadOnlySequence<byte>(data)))
-                    {
-                        Assert.IsType<MagickImageCollection>(images);
-                    }
+                    Assert.IsType<MagickImageCollection>(images);
                 }
             }
 
@@ -43,8 +41,8 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
-                    var factory = new MagickImageCollectionFactory();
                     var settings = new MagickReadSettings();
+                    var factory = new MagickImageCollectionFactory();
 
                     Assert.Throws<ArgumentException>("data", () => factory.Create(ReadOnlySequence<byte>.Empty, settings));
                 }
@@ -52,12 +50,10 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    var factory = new MagickImageCollectionFactory();
-
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
-                    using (var images = factory.Create(new ReadOnlySequence<byte>(bytes), null))
-                    {
-                    }
+
+                    var factory = new MagickImageCollectionFactory();
+                    using var images = factory.Create(new ReadOnlySequence<byte>(bytes), null);
                 }
 
                 [Fact]
@@ -70,10 +66,9 @@ namespace Magick.NET.Tests
                         BackgroundColor = MagickColors.Goldenrod,
                     };
 
-                    using (var image = factory.Create(new ReadOnlySequence<byte>(data), settings))
-                    {
-                        Assert.IsType<MagickImageCollection>(image);
-                    }
+                    using var image = factory.Create(new ReadOnlySequence<byte>(data), settings);
+
+                    Assert.IsType<MagickImageCollection>(image);
                 }
             }
 
@@ -90,13 +85,11 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldCreateMagickImageCollection()
                 {
-                    var factory = new MagickImageCollectionFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
+                    var factory = new MagickImageCollectionFactory();
+                    using var images = factory.Create(new Span<byte>(data));
 
-                    using (var images = factory.Create(new Span<byte>(data)))
-                    {
-                        Assert.IsType<MagickImageCollection>(images);
-                    }
+                    Assert.IsType<MagickImageCollection>(images);
                 }
             }
 
@@ -105,8 +98,8 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
-                    var factory = new MagickImageCollectionFactory();
                     var settings = new MagickReadSettings();
+                    var factory = new MagickImageCollectionFactory();
 
                     Assert.Throws<ArgumentException>("data", () => factory.Create(Span<byte>.Empty, settings));
                 }
@@ -114,28 +107,25 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
                     var factory = new MagickImageCollectionFactory();
 
-                    var bytes = File.ReadAllBytes(Files.CirclePNG);
-                    using (var images = factory.Create(new Span<byte>(bytes), null))
-                    {
-                    }
+                    using var images = factory.Create(new Span<byte>(bytes), null);
                 }
 
                 [Fact]
                 public void ShouldCreateMagickImageCollection()
                 {
-                    var factory = new MagickImageCollectionFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
                     var settings = new MagickReadSettings
                     {
                         BackgroundColor = MagickColors.Goldenrod,
                     };
+                    var factory = new MagickImageCollectionFactory();
 
-                    using (var image = factory.Create(new Span<byte>(data), settings))
-                    {
-                        Assert.IsType<MagickImageCollection>(image);
-                    }
+                    using var image = factory.Create(new Span<byte>(data), settings);
+
+                    Assert.IsType<MagickImageCollection>(image);
                 }
             }
         }

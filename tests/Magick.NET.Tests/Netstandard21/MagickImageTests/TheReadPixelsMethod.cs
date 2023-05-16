@@ -29,27 +29,18 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     var settings = new PixelReadSettings();
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            image.ReadPixels(Span<byte>.Empty, settings);
-                        });
-                        Assert.Contains("Value cannot be empty.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("data", () => image.ReadPixels(Span<byte>.Empty, settings));
+                    Assert.Contains("Value cannot be empty.", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("settings", () =>
-                        {
-                            image.ReadPixels(new Span<byte>(new byte[] { 215 }), null);
-                        });
-                    }
+                    using var image = new MagickImage();
+
+                    Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new Span<byte>(new byte[] { 215 }), null));
                 }
 
                 [Fact]
@@ -60,15 +51,10 @@ namespace Magick.NET.Tests
                         Mapping = null,
                         StorageType = StorageType.Char,
                     };
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentNullException>("settings", () =>
-                        {
-                            image.ReadPixels(new Span<byte>(new byte[] { 215 }), settings);
-                        });
-                        Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new Span<byte>(new byte[] { 215 }), settings));
+                    Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
                 }
 
                 [Fact]
@@ -79,15 +65,10 @@ namespace Magick.NET.Tests
                         Mapping = string.Empty,
                         StorageType = StorageType.Char,
                     };
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
-                        {
-                            image.ReadPixels(new Span<byte>(new byte[] { 215 }), settings);
-                        });
-                        Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("settings", () => image.ReadPixels(new Span<byte>(new byte[] { 215 }), settings));
+                    Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
                 }
 
                 [Fact]
@@ -98,15 +79,10 @@ namespace Magick.NET.Tests
                         Mapping = "R",
                         StorageType = StorageType.Undefined,
                     };
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
-                        {
-                            image.ReadPixels(new Span<byte>(new byte[] { 215 }), settings);
-                        });
-                        Assert.Contains("Storage type should not be undefined.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("settings", () => image.ReadPixels(new Span<byte>(new byte[] { 215 }), settings));
+                    Assert.Contains("Storage type should not be undefined.", exception.Message);
                 }
 
                 [Fact]
@@ -123,33 +99,28 @@ namespace Magick.NET.Tests
                         0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0,
                     };
-
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+                    using var image = new MagickImage();
+                    image.ReadPixels(new Span<byte>(data), settings);
 
-                    using (var image = new MagickImage())
-                    {
-                        image.ReadPixels(new Span<byte>(data), settings);
+                    Assert.Equal(2, image.Width);
+                    Assert.Equal(1, image.Height);
 
-                        Assert.Equal(2, image.Width);
-                        Assert.Equal(1, image.Height);
+                    using var pixels = image.GetPixels();
+                    var pixel = pixels.GetPixel(0, 0);
 
-                        using (var pixels = image.GetPixels())
-                        {
-                            var pixel = pixels.GetPixel(0, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            Assert.Equal(0, pixel.GetChannel(0));
-                            Assert.Equal(0, pixel.GetChannel(1));
-                            Assert.Equal(0, pixel.GetChannel(2));
-                            Assert.Equal(Quantum.Max, pixel.GetChannel(3));
+                    Assert.Equal(4, pixel.Channels);
+                    Assert.Equal(0, pixel.GetChannel(0));
+                    Assert.Equal(0, pixel.GetChannel(1));
+                    Assert.Equal(0, pixel.GetChannel(2));
+                    Assert.Equal(Quantum.Max, pixel.GetChannel(3));
 
-                            pixel = pixels.GetPixel(1, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            Assert.Equal(0, pixel.GetChannel(0));
-                            Assert.Equal(Quantum.Max, pixel.GetChannel(1));
-                            Assert.Equal(0, pixel.GetChannel(2));
-                            Assert.Equal(0, pixel.GetChannel(3));
-                        }
-                    }
+                    pixel = pixels.GetPixel(1, 0);
+                    Assert.Equal(4, pixel.Channels);
+                    Assert.Equal(0, pixel.GetChannel(0));
+                    Assert.Equal(Quantum.Max, pixel.GetChannel(1));
+                    Assert.Equal(0, pixel.GetChannel(2));
+                    Assert.Equal(0, pixel.GetChannel(3));
                 }
             }
 
@@ -163,27 +134,18 @@ namespace Magick.NET.Tests
                     {
                         StorageType = StorageType.Quantum,
                     };
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            image.ReadPixels(Span<QuantumType>.Empty, settings);
-                        });
-                        Assert.Contains("Value cannot be empty.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("data", () => image.ReadPixels(Span<QuantumType>.Empty, settings));
+                    Assert.Contains("Value cannot be empty.", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("settings", () =>
-                        {
-                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), null);
-                        });
-                    }
+                    using var image = new MagickImage();
+
+                    Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), null));
                 }
 
                 [Fact]
@@ -194,15 +156,10 @@ namespace Magick.NET.Tests
                         StorageType = StorageType.Quantum,
                         Mapping = string.Empty,
                     };
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
-                        {
-                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
-                        });
-                        Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("settings", () => image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings));
+                    Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
                 }
 
                 [Fact]
@@ -213,15 +170,10 @@ namespace Magick.NET.Tests
                         StorageType = StorageType.Char,
                         Mapping = "R",
                     };
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
-                        {
-                            image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
-                        });
-                        Assert.Contains("Storage type should be Quantum.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("settings", () => image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings));
+                    Assert.Contains("Storage type should be Quantum.", exception.Message);
                 }
 
                 [Fact]
@@ -232,33 +184,28 @@ namespace Magick.NET.Tests
                         0, 0, 0, Quantum.Max,
                         0, Quantum.Max, 0, 0,
                     };
-
                     var settings = new PixelReadSettings(2, 1, StorageType.Quantum, PixelMapping.RGBA);
+                    using var image = new MagickImage();
+                    image.ReadPixels(new Span<QuantumType>(data), settings);
 
-                    using (var image = new MagickImage())
-                    {
-                        image.ReadPixels(new Span<QuantumType>(data), settings);
+                    Assert.Equal(2, image.Width);
+                    Assert.Equal(1, image.Height);
 
-                        Assert.Equal(2, image.Width);
-                        Assert.Equal(1, image.Height);
+                    using var pixels = image.GetPixels();
+                    var pixel = pixels.GetPixel(0, 0);
 
-                        using (var pixels = image.GetPixels())
-                        {
-                            var pixel = pixels.GetPixel(0, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            Assert.Equal(0, pixel.GetChannel(0));
-                            Assert.Equal(0, pixel.GetChannel(1));
-                            Assert.Equal(0, pixel.GetChannel(2));
-                            Assert.Equal(Quantum.Max, pixel.GetChannel(3));
+                    Assert.Equal(4, pixel.Channels);
+                    Assert.Equal(0, pixel.GetChannel(0));
+                    Assert.Equal(0, pixel.GetChannel(1));
+                    Assert.Equal(0, pixel.GetChannel(2));
+                    Assert.Equal(Quantum.Max, pixel.GetChannel(3));
 
-                            pixel = pixels.GetPixel(1, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            Assert.Equal(0, pixel.GetChannel(0));
-                            Assert.Equal(Quantum.Max, pixel.GetChannel(1));
-                            Assert.Equal(0, pixel.GetChannel(2));
-                            Assert.Equal(0, pixel.GetChannel(3));
-                        }
-                    }
+                    pixel = pixels.GetPixel(1, 0);
+                    Assert.Equal(4, pixel.Channels);
+                    Assert.Equal(0, pixel.GetChannel(0));
+                    Assert.Equal(Quantum.Max, pixel.GetChannel(1));
+                    Assert.Equal(0, pixel.GetChannel(2));
+                    Assert.Equal(0, pixel.GetChannel(3));
                 }
             }
 #endif

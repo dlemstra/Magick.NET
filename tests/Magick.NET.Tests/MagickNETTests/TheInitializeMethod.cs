@@ -156,26 +156,22 @@ public partial class MagickNETTests
             [Fact]
             public void ShouldWriteAllFilesInTheReturnedPath()
             {
-                using (var directory = new TemporaryDirectory())
-                {
-                    var path = directory.FullName;
+                using var directory = new TemporaryDirectory();
+                var path = directory.FullName;
 
-                    MagickNET.Initialize(ConfigurationFiles.Default, path);
+                MagickNET.Initialize(ConfigurationFiles.Default, path);
 
-                    AssertConfigFiles(path);
-                }
+                AssertConfigFiles(path);
             }
 
             [Fact]
             public void CanBeCalledTwice()
             {
-                using (var directory = new TemporaryDirectory())
-                {
-                    var path = directory.FullName;
+                using var directory = new TemporaryDirectory();
+                var path = directory.FullName;
 
-                    MagickNET.Initialize(ConfigurationFiles.Default, path);
-                    MagickNET.Initialize(ConfigurationFiles.Default, path);
-                }
+                MagickNET.Initialize(ConfigurationFiles.Default, path);
+                MagickNET.Initialize(ConfigurationFiles.Default, path);
             }
         }
     }

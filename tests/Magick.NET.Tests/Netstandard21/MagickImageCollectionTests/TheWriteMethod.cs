@@ -20,10 +20,9 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenBufferWriterIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null));
-                    }
+                    using var images = new MagickImageCollection();
+
+                    Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null));
                 }
             }
 
@@ -32,28 +31,24 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenBufferWriterIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null, MagickFormat.Bmp));
-                    }
+                    using var images = new MagickImageCollection();
+
+                    Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null, MagickFormat.Bmp));
                 }
 
                 [Fact]
                 public void ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
-                    {
-                        var bufferWriter = new ArrayBufferWriter<byte>();
+                    var bufferWriter = new ArrayBufferWriter<byte>();
+                    using var input = new MagickImageCollection(Files.CirclePNG);
+                    input.Write(bufferWriter, MagickFormat.Tiff);
 
-                        input.Write(bufferWriter, MagickFormat.Tiff);
-                        Assert.Equal(MagickFormat.Png, input[0].Format);
+                    Assert.Equal(MagickFormat.Png, input[0].Format);
 
-                        using (var output = new MagickImageCollection(bufferWriter.WrittenSpan))
-                        {
-                            Assert.Single(output);
-                            Assert.Equal(MagickFormat.Tiff, output[0].Format);
-                        }
-                    }
+                    using var output = new MagickImageCollection(bufferWriter.WrittenSpan);
+
+                    Assert.Single(output);
+                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
                 }
             }
 
@@ -62,48 +57,40 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenBufferWriterIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        var defines = new TiffWriteDefines();
+                    var defines = new TiffWriteDefines();
+                    using var images = new MagickImageCollection();
 
-                        Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null, defines));
-                    }
+                    Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null, defines));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenDefinesIsNull()
                 {
-                    using (var images = new MagickImageCollection())
-                    {
-                        var bufferWriter = new ArrayBufferWriter<byte>();
+                    var bufferWriter = new ArrayBufferWriter<byte>();
+                    using var images = new MagickImageCollection();
 
-                        Assert.Throws<ArgumentNullException>("defines", () => images.Write(bufferWriter, null));
-                    }
+                    Assert.Throws<ArgumentNullException>("defines", () => images.Write(bufferWriter, null));
                 }
 
                 [Fact]
                 public void ShouldUseTheSpecifiedFormat()
                 {
-                    using (var input = new MagickImageCollection(Files.CirclePNG))
+                    var defines = new TiffWriteDefines()
                     {
-                        var bufferWriter = new ArrayBufferWriter<byte>();
+                        Endian = Endian.MSB,
+                    };
+                    var bufferWriter = new ArrayBufferWriter<byte>();
+                    using var input = new MagickImageCollection(Files.CirclePNG);
+                    input.Write(bufferWriter, MagickFormat.Tiff);
 
-                        var defines = new TiffWriteDefines()
-                        {
-                            Endian = Endian.MSB,
-                        };
+                    Assert.Equal(MagickFormat.Png, input[0].Format);
 
-                        input.Write(bufferWriter, MagickFormat.Tiff);
-                        Assert.Equal(MagickFormat.Png, input[0].Format);
+                    using var output = new MagickImageCollection();
 
-                        using (var output = new MagickImageCollection())
-                        {
-                            output.Read(bufferWriter.WrittenSpan);
+                    output.Read(bufferWriter.WrittenSpan);
 
-                            Assert.Single(output);
-                            Assert.Equal(MagickFormat.Tiff, output[0].Format);
-                        }
-                    }
+                    Assert.Single(output);
+                    Assert.Equal(MagickFormat.Tiff, output[0].Format);
                 }
             }
         }

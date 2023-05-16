@@ -23,26 +23,20 @@ public partial class MagickNETTests
 
         private void ShouldMakeDuplicatePlasmaImagesWhenSet()
         {
-            using (var first = new MagickImage("plasma:red", 10, 10))
-            {
-                using (var second = new MagickImage("plasma:red", 10, 10))
-                {
-                    Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-                }
-            }
+            using var first = new MagickImage("plasma:red", 10, 10);
+            using var second = new MagickImage("plasma:red", 10, 10);
+
+            Assert.NotEqual(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
         }
 
         private void ShouldMakeDifferentPlasmaImageWhenNotSet()
         {
             MagickNET.SetRandomSeed(42);
 
-            using (var first = new MagickImage("plasma:red", 10, 10))
-            {
-                using (var second = new MagickImage("plasma:red", 10, 10))
-                {
-                    Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
-                }
-            }
+            using var first = new MagickImage("plasma:red", 10, 10);
+            using var second = new MagickImage("plasma:red", 10, 10);
+
+            Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));
 
             MagickNET.ResetRandomSeed();
         }

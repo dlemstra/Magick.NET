@@ -28,9 +28,8 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldCreateMagickImage()
                 {
-                    var factory = new MagickImageInfoFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
-
+                    var factory = new MagickImageInfoFactory();
                     var info = factory.Create(new ReadOnlySequence<byte>(data));
 
                     Assert.IsType<MagickImageInfo>(info);
@@ -51,9 +50,8 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldCreateMagickImage()
                 {
-                    var factory = new MagickImageInfoFactory();
                     var data = File.ReadAllBytes(Files.ImageMagickJPG);
-
+                    var factory = new MagickImageInfoFactory();
                     var info = factory.Create(new Span<byte>(data));
 
                     Assert.IsType<MagickImageInfo>(info);

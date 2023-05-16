@@ -29,72 +29,48 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     var settings = new PixelImportSettings(1, 1, StorageType.Char, "r");
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            image.ImportPixels(Span<byte>.Empty, settings);
-                        });
-                        Assert.Contains("Value cannot be empty.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("data", () => image.ImportPixels(Span<byte>.Empty, settings));
+                    Assert.Contains("Value cannot be empty.", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("settings", () =>
-                        {
-                            image.ImportPixels(new Span<byte>(new byte[] { 215 }), null);
-                        });
-                    }
+                    using var image = new MagickImage();
+
+                    Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), null));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenMappingIsNull()
                 {
                     var settings = new PixelImportSettings(1, 1, StorageType.Char, null);
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentNullException>("settings", () =>
-                        {
-                            image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings);
-                        });
-                        Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings));
+                    Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenMappingIsEmpty()
                 {
                     var settings = new PixelImportSettings(1, 1, StorageType.Char, string.Empty);
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
-                        {
-                            image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings);
-                        });
-                        Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings));
+                    Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStorageTypeIsInvalid()
                 {
                     var settings = new PixelImportSettings(1, 1, StorageType.Undefined, "r");
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
-                        {
-                            image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings);
-                        });
-                        Assert.Contains("Storage type should not be undefined.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings));
+                    Assert.Contains("Storage type should not be undefined.", exception.Message);
                 }
 
                 [Fact]
@@ -111,36 +87,31 @@ namespace Magick.NET.Tests
                         0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0,
                     };
-
                     var settings = new PixelImportSettings(1, 2, StorageType.Double, PixelMapping.RGBA);
+                    using var image = new MagickImage(MagickColors.Green, 2, 2);
+                    image.Alpha(AlphaOption.On);
+                    image.ImportPixels(data, settings);
 
-                    using (var image = new MagickImage(MagickColors.Green, 2, 2))
-                    {
-                        image.Alpha(AlphaOption.On);
-                        image.ImportPixels(data, settings);
+                    Assert.Equal(2, image.Width);
+                    Assert.Equal(2, image.Height);
 
-                        Assert.Equal(2, image.Width);
-                        Assert.Equal(2, image.Height);
+                    using var pixels = image.GetPixels();
+                    var pixel = pixels.GetPixel(0, 0);
 
-                        using (var pixels = image.GetPixels())
-                        {
-                            var pixel = pixels.GetPixel(0, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            pixel.Equals(MagickColors.Black);
+                    Assert.Equal(4, pixel.Channels);
+                    pixel.Equals(MagickColors.Black);
 
-                            pixel = pixels.GetPixel(0, 1);
-                            Assert.Equal(4, pixel.Channels);
-                            pixel.Equals(new MagickColor("#00ff0000"));
+                    pixel = pixels.GetPixel(0, 1);
+                    Assert.Equal(4, pixel.Channels);
+                    pixel.Equals(new MagickColor("#00ff0000"));
 
-                            pixel = pixels.GetPixel(1, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            pixel.Equals(MagickColors.Green);
+                    pixel = pixels.GetPixel(1, 0);
+                    Assert.Equal(4, pixel.Channels);
+                    pixel.Equals(MagickColors.Green);
 
-                            pixel = pixels.GetPixel(1, 1);
-                            Assert.Equal(4, pixel.Channels);
-                            pixel.Equals(MagickColors.Green);
-                        }
-                    }
+                    pixel = pixels.GetPixel(1, 1);
+                    Assert.Equal(4, pixel.Channels);
+                    pixel.Equals(MagickColors.Green);
                 }
             }
 
@@ -151,57 +122,38 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     var settings = new PixelImportSettings(1, 1, StorageType.Quantum, "r");
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("data", () =>
-                        {
-                            image.ImportPixels(Span<QuantumType>.Empty, settings);
-                        });
-                        Assert.Contains("Value cannot be empty.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("data", () => image.ImportPixels(Span<QuantumType>.Empty, settings));
+                    Assert.Contains("Value cannot be empty.", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentNullException>("settings", () =>
-                        {
-                            image.ImportPixels(new Span<QuantumType>(new QuantumType[] { 215 }), null);
-                        });
-                    }
+                    using var image = new MagickImage();
+
+                    Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new Span<QuantumType>(new QuantumType[] { 215 }), null));
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenMappingIsEmpty()
                 {
                     var settings = new PixelImportSettings(1, 1, StorageType.Quantum, string.Empty);
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
-                        {
-                            image.ImportPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
-                        });
-                        Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("settings", () => image.ImportPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings));
+                    Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldThrowExceptionWhenStorageTypeIsNotQuantum()
                 {
                     var settings = new PixelImportSettings(1, 1, StorageType.Char, "r");
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<ArgumentException>("settings", () =>
-                        {
-                            image.ImportPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings);
-                        });
-                        Assert.Contains("Storage type should be Quantum.", exception.Message);
-                    }
+                    var exception = Assert.Throws<ArgumentException>("settings", () => image.ImportPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings));
+                    Assert.Contains("Storage type should be Quantum.", exception.Message);
                 }
 
                 [Fact]
@@ -212,36 +164,31 @@ namespace Magick.NET.Tests
                         0, 0, 0, Quantum.Max,
                         0, Quantum.Max, 0, 0,
                     };
-
                     var settings = new PixelImportSettings(1, 2, StorageType.Quantum, PixelMapping.RGBA);
+                    using var image = new MagickImage(MagickColors.Green, 2, 2);
+                    image.Alpha(AlphaOption.On);
+                    image.ImportPixels(new Span<QuantumType>(data), settings);
 
-                    using (var image = new MagickImage(MagickColors.Green, 2, 2))
-                    {
-                        image.Alpha(AlphaOption.On);
-                        image.ImportPixels(new Span<QuantumType>(data), settings);
+                    Assert.Equal(2, image.Width);
+                    Assert.Equal(2, image.Height);
 
-                        Assert.Equal(2, image.Width);
-                        Assert.Equal(2, image.Height);
+                    using var pixels = image.GetPixels();
+                    var pixel = pixels.GetPixel(0, 0);
 
-                        using (var pixels = image.GetPixels())
-                        {
-                            var pixel = pixels.GetPixel(0, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            pixel.Equals(MagickColors.Black);
+                    Assert.Equal(4, pixel.Channels);
+                    pixel.Equals(MagickColors.Black);
 
-                            pixel = pixels.GetPixel(0, 1);
-                            Assert.Equal(4, pixel.Channels);
-                            pixel.Equals(new MagickColor("#00ff0000"));
+                    pixel = pixels.GetPixel(0, 1);
+                    Assert.Equal(4, pixel.Channels);
+                    pixel.Equals(new MagickColor("#00ff0000"));
 
-                            pixel = pixels.GetPixel(1, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            pixel.Equals(MagickColors.Green);
+                    pixel = pixels.GetPixel(1, 0);
+                    Assert.Equal(4, pixel.Channels);
+                    pixel.Equals(MagickColors.Green);
 
-                            pixel = pixels.GetPixel(1, 1);
-                            Assert.Equal(4, pixel.Channels);
-                            pixel.Equals(MagickColors.Green);
-                        }
-                    }
+                    pixel = pixels.GetPixel(1, 1);
+                    Assert.Equal(4, pixel.Channels);
+                    pixel.Equals(MagickColors.Green);
                 }
             }
 #endif

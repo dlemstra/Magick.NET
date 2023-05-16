@@ -21,40 +21,34 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenSequenceIsEmpty()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("data", () => image.Ping(ReadOnlySequence<byte>.Empty));
-                    }
+                    using var image = new MagickImage();
+
+                    Assert.Throws<ArgumentException>("data", () => image.Ping(ReadOnlySequence<byte>.Empty));
                 }
 
                 [Fact]
                 public void ShouldPingImage()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-                        image.Ping(new ReadOnlySequence<byte>(bytes));
+                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    using var image = new MagickImage();
+                    image.Ping(new ReadOnlySequence<byte>(bytes));
 
-                        Assert.Equal(286, image.Width);
-                        Assert.Equal(67, image.Height);
-                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
-                    }
+                    Assert.Equal(286, image.Width);
+                    Assert.Equal(67, image.Height);
+                    Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                 }
 
                 [Fact]
                 public void ShouldSupportMultipleSegments()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-                        var sequence = TestReadOnlySequence.Create(bytes, 5);
+                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    var sequence = TestReadOnlySequence.Create(bytes, 5);
+                    using var image = new MagickImage();
+                    image.Ping(sequence);
 
-                        image.Ping(sequence);
-
-                        Assert.Equal(286, image.Width);
-                        Assert.Equal(67, image.Height);
-                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
-                    }
+                    Assert.Equal(286, image.Width);
+                    Assert.Equal(67, image.Height);
+                    Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                 }
             }
 
@@ -64,23 +58,19 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenSequenceIsEmpty()
                 {
                     var settings = new MagickReadSettings();
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("data", () => image.Ping(ReadOnlySequence<byte>.Empty, settings));
-                    }
+                    Assert.Throws<ArgumentException>("data", () => image.Ping(ReadOnlySequence<byte>.Empty, settings));
                 }
 
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var bytes = File.ReadAllBytes(Files.CirclePNG);
-                        image.Ping(new ReadOnlySequence<byte>(bytes), null);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+                    using var image = new MagickImage();
+                    image.Ping(new ReadOnlySequence<byte>(bytes), null);
 
-                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
-                    }
+                    Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                 }
 
                 [Fact]
@@ -91,32 +81,25 @@ namespace Magick.NET.Tests
                     {
                         Format = MagickFormat.Png,
                     };
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Ping(new ReadOnlySequence<byte>(bytes), settings));
-
-                        Assert.Contains("ReadPNGImage", exception.Message);
-                    }
+                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Ping(new ReadOnlySequence<byte>(bytes), settings));
+                    Assert.Contains("ReadPNGImage", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
                     var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
+                    using var image = new MagickImage();
+                    image.Ping(new ReadOnlySequence<byte>(bytes), settings);
 
-                    var bytes = File.ReadAllBytes(Files.CirclePNG);
-
-                    using (var image = new MagickImage())
-                    {
-                        image.Ping(new ReadOnlySequence<byte>(bytes), settings);
-
-                        Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
-                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
-                    }
+                    Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
+                    Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                 }
             }
 
@@ -125,25 +108,21 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("data", () => image.Ping(Span<byte>.Empty));
-                    }
+                    using var image = new MagickImage();
+
+                    Assert.Throws<ArgumentException>("data", () => image.Ping(Span<byte>.Empty));
                 }
 
                 [Fact]
                 public void ShouldPingImage()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    using var image = new MagickImage();
+                    image.Ping(new Span<byte>(bytes));
 
-                        image.Ping(new Span<byte>(bytes));
-
-                        Assert.Equal(286, image.Width);
-                        Assert.Equal(67, image.Height);
-                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
-                    }
+                    Assert.Equal(286, image.Width);
+                    Assert.Equal(67, image.Height);
+                    Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                 }
             }
 
@@ -153,23 +132,19 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenDataIsEmpty()
                 {
                     var settings = new MagickReadSettings();
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        Assert.Throws<ArgumentException>("data", () => image.Ping(Span<byte>.Empty, settings));
-                    }
+                    Assert.Throws<ArgumentException>("data", () => image.Ping(Span<byte>.Empty, settings));
                 }
 
                 [Fact]
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
-                    using (var image = new MagickImage())
-                    {
-                        var bytes = File.ReadAllBytes(Files.CirclePNG);
-                        image.Ping(new Span<byte>(bytes), null);
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
+                    using var image = new MagickImage();
+                    image.Ping(new Span<byte>(bytes), null);
 
-                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
-                    }
+                    Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                 }
 
                 [Fact]
@@ -180,32 +155,25 @@ namespace Magick.NET.Tests
                     {
                         Format = MagickFormat.Png,
                     };
+                    using var image = new MagickImage();
 
-                    using (var image = new MagickImage())
-                    {
-                        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Ping(new Span<byte>(bytes), settings));
-
-                        Assert.Contains("ReadPNGImage", exception.Message);
-                    }
+                    var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Ping(new Span<byte>(bytes), settings));
+                    Assert.Contains("ReadPNGImage", exception.Message);
                 }
 
                 [Fact]
                 public void ShouldResetTheFormatAfterReading()
                 {
+                    var bytes = File.ReadAllBytes(Files.CirclePNG);
                     var settings = new MagickReadSettings
                     {
                         Format = MagickFormat.Png,
                     };
+                    using var image = new MagickImage();
+                    image.Ping(new Span<byte>(bytes), settings);
 
-                    var bytes = File.ReadAllBytes(Files.CirclePNG);
-
-                    using (var image = new MagickImage())
-                    {
-                        image.Ping(new Span<byte>(bytes), settings);
-
-                        Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
-                        Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
-                    }
+                    Assert.Equal(MagickFormat.Unknown, image.Settings.Format);
+                    Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
                 }
             }
         }

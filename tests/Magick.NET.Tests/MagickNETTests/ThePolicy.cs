@@ -17,11 +17,10 @@ public partial class MagickNETTests
         public void ShouldCauseAnExceptionWhenThePalmCoderIsDisabled()
         {
             using var tempFile = new TemporaryFile("test.palm");
-            using (var fs = tempFile.File.OpenWrite())
-            {
-                var bytes = new byte[4] { 0, 0, 0, 0 };
-                fs.Write(bytes, 0, bytes.Length);
-            }
+            using var fs = tempFile.File.OpenWrite();
+            var bytes = new byte[4] { 0, 0, 0, 0 };
+            fs.Write(bytes, 0, bytes.Length);
+            fs.Close();
 
             using var image = new MagickImage();
 

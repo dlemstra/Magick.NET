@@ -30,13 +30,10 @@ namespace Magick.NET.Tests
                     {
                         Format = MagickFormat.Png,
                     };
-
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
+                    using var input = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), settings);
 
-                    using (var input = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), settings))
-                    {
-                        Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
-                    }
+                    Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
                 }
             }
 
@@ -52,11 +49,9 @@ namespace Magick.NET.Tests
                 public void ShouldReadImage()
                 {
                     var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    using var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), MagickFormat.Png);
 
-                    using (var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), MagickFormat.Png))
-                    {
-                        Assert.Single(images);
-                    }
+                    Assert.Single(images);
                 }
             }
 
@@ -66,11 +61,9 @@ namespace Magick.NET.Tests
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
                     var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    using var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), null);
 
-                    using (var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), null))
-                    {
-                        Assert.Single(images);
-                    }
+                    Assert.Single(images);
                 }
             }
 
@@ -89,13 +82,10 @@ namespace Magick.NET.Tests
                     {
                         Format = MagickFormat.Png,
                     };
-
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
+                    using var input = new MagickImageCollection(new Span<byte>(bytes), settings);
 
-                    using (var input = new MagickImageCollection(new Span<byte>(bytes), settings))
-                    {
-                        Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
-                    }
+                    Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
                 }
             }
 
@@ -111,11 +101,9 @@ namespace Magick.NET.Tests
                 public void ShouldReadImage()
                 {
                     var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    using var images = new MagickImageCollection(new Span<byte>(bytes), MagickFormat.Png);
 
-                    using (var images = new MagickImageCollection(new Span<byte>(bytes), MagickFormat.Png))
-                    {
-                        Assert.Single(images);
-                    }
+                    Assert.Single(images);
                 }
             }
 
@@ -125,11 +113,9 @@ namespace Magick.NET.Tests
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
                     var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                    using var images = new MagickImageCollection(new Span<byte>(bytes), null);
 
-                    using (var images = new MagickImageCollection(new Span<byte>(bytes), null))
-                    {
-                        Assert.Single(images);
-                    }
+                    Assert.Single(images);
                 }
             }
         }

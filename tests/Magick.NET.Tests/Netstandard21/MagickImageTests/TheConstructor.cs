@@ -47,9 +47,7 @@ namespace Magick.NET.Tests
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
-                    using (var image = new MagickImage(new ReadOnlySequence<byte>(bytes), (MagickReadSettings)null))
-                    {
-                    }
+                    using var image = new MagickImage(new ReadOnlySequence<byte>(bytes), (MagickReadSettings)null);
                 }
             }
 
@@ -85,9 +83,7 @@ namespace Magick.NET.Tests
                 public void ShouldNotThrowExceptionWhenSettingsIsNull()
                 {
                     var bytes = File.ReadAllBytes(Files.CirclePNG);
-                    using (var image = new MagickImage(new Span<byte>(bytes), (MagickReadSettings)null))
-                    {
-                    }
+                    using var image = new MagickImage(new Span<byte>(bytes), (MagickReadSettings)null);
                 }
             }
 
@@ -105,6 +101,7 @@ namespace Magick.NET.Tests
                 public void ShouldThrowExceptionWhenSettingsIsNull()
                 {
                     var bytes = new byte[] { 215 };
+
                     Assert.Throws<ArgumentNullException>("settings", () => new MagickImage(new Span<byte>(bytes), (PixelReadSettings)null));
                 }
 
@@ -122,31 +119,27 @@ namespace Magick.NET.Tests
                         0, 0, 0, 0, 0, 0, 0, 0,
                         0, 0, 0, 0, 0, 0, 0, 0,
                     };
-
                     var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+                    using var image = new MagickImage(new Span<byte>(data), settings);
 
-                    using (var image = new MagickImage(new Span<byte>(data), settings))
-                    {
-                        Assert.Equal(2, image.Width);
-                        Assert.Equal(1, image.Height);
+                    Assert.Equal(2, image.Width);
+                    Assert.Equal(1, image.Height);
 
-                        using (var pixels = image.GetPixels())
-                        {
-                            var pixel = pixels.GetPixel(0, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            Assert.Equal(0, pixel.GetChannel(0));
-                            Assert.Equal(0, pixel.GetChannel(1));
-                            Assert.Equal(0, pixel.GetChannel(2));
-                            Assert.Equal(Quantum.Max, pixel.GetChannel(3));
+                    using var pixels = image.GetPixels();
+                    var pixel = pixels.GetPixel(0, 0);
 
-                            pixel = pixels.GetPixel(1, 0);
-                            Assert.Equal(4, pixel.Channels);
-                            Assert.Equal(0, pixel.GetChannel(0));
-                            Assert.Equal(Quantum.Max, pixel.GetChannel(1));
-                            Assert.Equal(0, pixel.GetChannel(2));
-                            Assert.Equal(0, pixel.GetChannel(3));
-                        }
-                    }
+                    Assert.Equal(4, pixel.Channels);
+                    Assert.Equal(0, pixel.GetChannel(0));
+                    Assert.Equal(0, pixel.GetChannel(1));
+                    Assert.Equal(0, pixel.GetChannel(2));
+                    Assert.Equal(Quantum.Max, pixel.GetChannel(3));
+
+                    pixel = pixels.GetPixel(1, 0);
+                    Assert.Equal(4, pixel.Channels);
+                    Assert.Equal(0, pixel.GetChannel(0));
+                    Assert.Equal(Quantum.Max, pixel.GetChannel(1));
+                    Assert.Equal(0, pixel.GetChannel(2));
+                    Assert.Equal(0, pixel.GetChannel(3));
                 }
             }
         }

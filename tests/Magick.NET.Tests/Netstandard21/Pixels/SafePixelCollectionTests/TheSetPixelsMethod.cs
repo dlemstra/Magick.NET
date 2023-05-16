@@ -26,47 +26,31 @@ namespace Magick.NET.Tests
             [Fact]
             public void ShouldThrowExceptionWhenSpanHasInvalidSize()
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixels())
-                    {
-                        Assert.Throws<ArgumentException>("values", () =>
-                        {
-                            pixels.SetPixels(new Span<QuantumType>(new QuantumType[] { 0, 0, 0, 0 }));
-                        });
-                    }
-                }
+                using var image = new MagickImage(Files.ImageMagickJPG);
+                using var pixels = image.GetPixels();
+
+                Assert.Throws<ArgumentException>("values", () => pixels.SetPixels(new Span<QuantumType>(new QuantumType[] { 0, 0, 0, 0 })));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenSpanIsTooLong()
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixels())
-                    {
-                        Assert.Throws<ArgumentException>("values", () =>
-                        {
-                            var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
-                            pixels.SetPixels(new Span<QuantumType>(values));
-                        });
-                    }
-                }
+                using var image = new MagickImage(Files.ImageMagickJPG);
+                using var pixels = image.GetPixels();
+                var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
+
+                Assert.Throws<ArgumentException>("values", () => pixels.SetPixels(new Span<QuantumType>(values)));
             }
 
             [Fact]
             public void ShouldChangePixelsWhenSpanHasMaxNumberOfValues()
             {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    using (var pixels = image.GetPixels())
-                    {
-                        var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
-                        pixels.SetPixels(new Span<QuantumType>(values));
+                using var image = new MagickImage(Files.ImageMagickJPG);
+                using var pixels = image.GetPixels();
+                var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
+                pixels.SetPixels(new Span<QuantumType>(values));
 
-                        ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                    }
-                }
+                ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
             }
         }
     }
