@@ -192,7 +192,7 @@ internal struct BigRational : IEquatable<BigRational>
 
         if (Numerator == 0)
         {
-            Denominator = 0;
+            Denominator = 1;
             return;
         }
 
