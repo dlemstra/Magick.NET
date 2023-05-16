@@ -556,13 +556,9 @@ public partial class MagickImageTests
                 if (!Ghostscript.IsAvailable)
                     return;
 
-                using (var stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI))
-                {
-                    using (var image = new MagickImage())
-                    {
-                        image.Read(stream);
-                    }
-                }
+                using var stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI);
+                using var image = new MagickImage();
+                image.Read(stream);
             }
         }
 

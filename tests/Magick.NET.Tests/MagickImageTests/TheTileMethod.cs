@@ -14,28 +14,20 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenImageIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("image", () =>
-                {
-                    image.Tile(null, CompositeOperator.Undefined);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("image", () => image.Tile(null, CompositeOperator.Undefined));
         }
 
         [Fact]
         public void ShouldComposeAnImageRepeatedAcrossAndDownTheImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var checkerboard = new MagickImage(Files.Patterns.Checkerboard))
-                {
-                    image.Opaque(MagickColors.White, MagickColors.Transparent);
-                    image.Tile(checkerboard, CompositeOperator.DstOver);
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var checkerboard = new MagickImage(Files.Patterns.Checkerboard);
+            image.Opaque(MagickColors.White, MagickColors.Transparent);
+            image.Tile(checkerboard, CompositeOperator.DstOver);
 
-                    ColorAssert.Equal(new MagickColor("#66"), image, 578, 260);
-                }
-            }
+            ColorAssert.Equal(new MagickColor("#66"), image, 578, 260);
         }
     }
 }

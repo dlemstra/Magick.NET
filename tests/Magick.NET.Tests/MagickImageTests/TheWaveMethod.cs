@@ -13,14 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldAddWaveEffectToImage()
         {
-            using (var image = new MagickImage(Files.TestPNG))
-            {
-                using (var original = image.Clone())
-                {
-                    image.Wave();
-                    Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.62619, 0.62623);
-                }
-            }
+            using var image = new MagickImage(Files.TestPNG);
+            using var original = image.Clone();
+            image.Wave();
+
+            Assert.InRange(original.Compare(image, ErrorMetric.RootMeanSquared), 0.62619, 0.62623);
         }
     }
 }

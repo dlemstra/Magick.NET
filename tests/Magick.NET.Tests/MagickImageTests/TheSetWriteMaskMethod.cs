@@ -14,34 +14,25 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenImageIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("image", () =>
-                {
-                    image.SetWriteMask(null);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("image", () => image.SetWriteMask(null));
         }
 
         [Fact]
         public void ShouldSetMaskForWholeImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var imageMask = new MagickImage(MagickColors.White, 10, 15))
-                {
-                    image.SetWriteMask(imageMask);
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var imageMask = new MagickImage(MagickColors.White, 10, 15);
+            image.SetWriteMask(imageMask);
 
-                    using (var mask = image.GetWriteMask())
-                    {
-                        Assert.NotNull(mask);
-                        Assert.Equal(640, mask.Width);
-                        Assert.Equal(480, mask.Height);
-                        ColorAssert.Equal(MagickColors.White, mask, 9, 14);
-                        ColorAssert.Equal(MagickColors.Black, mask, 10, 15);
-                    }
-                }
-            }
+            using var mask = image.GetWriteMask();
+
+            Assert.NotNull(mask);
+            Assert.Equal(640, mask.Width);
+            Assert.Equal(480, mask.Height);
+            ColorAssert.Equal(MagickColors.White, mask, 9, 14);
+            ColorAssert.Equal(MagickColors.Black, mask, 10, 15);
         }
     }
 }

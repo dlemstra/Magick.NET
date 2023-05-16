@@ -14,30 +14,22 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenRightImageIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("rightImage", () =>
-                {
-                    image.Stereo(null);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("rightImage", () => image.Stereo(null));
         }
 
         [Fact]
         public void ShouldCreateAnImageThatAppearsInStereo()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Flop();
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Flop();
 
-                using (var rightImage = new MagickImage(Files.Builtin.Logo))
-                {
-                    image.Stereo(rightImage);
+            using var rightImage = new MagickImage(Files.Builtin.Logo);
+            image.Stereo(rightImage);
 
-                    ColorAssert.Equal(new MagickColor("#2222ffffffff"), image, 250, 375);
-                    ColorAssert.Equal(new MagickColor("#ffff3e3e9292"), image, 380, 375);
-                }
-            }
+            ColorAssert.Equal(new MagickColor("#2222ffffffff"), image, 250, 375);
+            ColorAssert.Equal(new MagickColor("#ffff3e3e9292"), image, 380, 375);
         }
     }
 }

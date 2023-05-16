@@ -14,16 +14,14 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldSimulatePencilSketch()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                image.Resize(400, 400);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            image.Resize(400, 400);
 
-                image.Sketch();
-                image.ColorType = ColorType.Bilevel;
+            image.Sketch();
+            image.ColorType = ColorType.Bilevel;
 
-                ColorAssert.Equal(MagickColors.White, image, 63, 100);
-                ColorAssert.Equal(MagickColors.White, image, 150, 175);
-            }
+            ColorAssert.Equal(MagickColors.White, image, 63, 100);
+            ColorAssert.Equal(MagickColors.White, image, 150, 175);
         }
 
         [Fact]
@@ -31,18 +29,14 @@ public partial class MagickImageTests
         {
             MagickNET.SetRandomSeed(42);
 
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                using (var other = image.Clone())
-                {
-                    image.Sketch();
-                    other.Sketch(0.0, 1.0, 0.0);
+            using var image = new MagickImage(Files.Builtin.Wizard);
+            using var other = image.Clone();
+            image.Sketch();
+            other.Sketch(0.0, 1.0, 0.0);
 
-                    var distortion = other.Compare(image, ErrorMetric.RootMeanSquared);
+            var distortion = other.Compare(image, ErrorMetric.RootMeanSquared);
 
-                    Assert.Equal(0.0, distortion);
-                }
-            }
+            Assert.Equal(0.0, distortion);
 
             MagickNET.ResetRandomSeed();
         }

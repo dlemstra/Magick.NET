@@ -14,32 +14,26 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThresholdTheImage()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    image.Threshold(new Percentage(80));
-                    image.Settings.Compression = CompressionMethod.Group4;
-                    image.Format = MagickFormat.Pdf;
-                    image.Write(memStream);
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            image.Threshold(new Percentage(80));
+            image.Settings.Compression = CompressionMethod.Group4;
+            image.Format = MagickFormat.Pdf;
+
+            using var memStream = new MemoryStream();
+            image.Write(memStream);
         }
 
         [Fact]
         public void ShouldUseTheCorrectDefaultValues()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var other = image.Clone())
-                {
-                    image.Threshold(new Percentage(80));
-                    other.Threshold(new Percentage(80), Channels.Default);
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var other = image.Clone();
+            image.Threshold(new Percentage(80));
+            other.Threshold(new Percentage(80), Channels.Default);
 
-                    var difference = image.Compare(other, ErrorMetric.RootMeanSquared);
-                    Assert.Equal(0.0, difference);
-                }
-            }
+            var difference = image.Compare(other, ErrorMetric.RootMeanSquared);
+
+            Assert.Equal(0.0, difference);
         }
     }
 }

@@ -13,19 +13,17 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnZeroForEmptyImage()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Equal(0, image.TotalColors);
-            }
+            using var image = new MagickImage();
+
+            Assert.Equal(0, image.TotalColors);
         }
 
         [Fact]
         public void ShouldReturnTheTotalNumberOfColors()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                Assert.Equal(256, image.TotalColors);
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+
+            Assert.Equal(256, image.TotalColors);
         }
     }
 }

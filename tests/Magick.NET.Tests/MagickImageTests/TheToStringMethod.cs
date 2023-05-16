@@ -13,15 +13,13 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheStringRepresentationOfTheImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Wizard))
-            {
-                Assert.Equal("Gif 480x640 8-bit sRGB", image.ToString());
-            }
+            using var image = new MagickImage(Files.Builtin.Wizard);
 
-            using (var image = new MagickImage(Files.TestPNG))
-            {
-                Assert.Equal("Png 150x100 16-bit sRGB", image.ToString());
-            }
+            Assert.Equal("Gif 480x640 8-bit sRGB", image.ToString());
+
+            image.Read(Files.TestPNG);
+
+            Assert.Equal("Png 150x100 16-bit sRGB", image.ToString());
         }
     }
 }

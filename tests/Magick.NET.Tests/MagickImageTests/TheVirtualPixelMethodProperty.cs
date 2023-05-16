@@ -13,20 +13,18 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnUndefinedAsTheDefaultValue()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Equal(VirtualPixelMethod.Undefined, image.VirtualPixelMethod);
-            }
+            using var image = new MagickImage();
+
+            Assert.Equal(VirtualPixelMethod.Undefined, image.VirtualPixelMethod);
         }
 
         [Fact]
         public void ShouldChangeTheVirtualPixelMethod()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.VirtualPixelMethod = VirtualPixelMethod.Random;
-                Assert.Equal(VirtualPixelMethod.Random, image.VirtualPixelMethod);
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.VirtualPixelMethod = VirtualPixelMethod.Random;
+
+            Assert.Equal(VirtualPixelMethod.Random, image.VirtualPixelMethod);
         }
     }
 }

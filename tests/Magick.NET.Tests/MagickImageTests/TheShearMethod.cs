@@ -13,20 +13,17 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldShearTheImage()
         {
-            using (var image = new MagickImage(Files.TestPNG))
-            {
-                image.BackgroundColor = MagickColors.Firebrick;
-                image.VirtualPixelMethod = VirtualPixelMethod.Background;
-                image.Shear(20, 40);
+            using var image = new MagickImage(Files.TestPNG);
+            image.BackgroundColor = MagickColors.Firebrick;
+            image.VirtualPixelMethod = VirtualPixelMethod.Background;
+            image.Shear(20, 40);
 
-                Assert.Equal(186, image.Width);
-                Assert.Equal(195, image.Height);
-
-                ColorAssert.Equal(MagickColors.Red, image, 14, 68);
-                ColorAssert.Equal(MagickColors.Firebrick, image, 45, 6);
-                ColorAssert.Equal(MagickColors.Blue, image, 150, 171);
-                ColorAssert.Equal(MagickColors.Firebrick, image, 158, 181);
-            }
+            Assert.Equal(186, image.Width);
+            Assert.Equal(195, image.Height);
+            ColorAssert.Equal(MagickColors.Red, image, 14, 68);
+            ColorAssert.Equal(MagickColors.Firebrick, image, 45, 6);
+            ColorAssert.Equal(MagickColors.Blue, image, 150, 171);
+            ColorAssert.Equal(MagickColors.Firebrick, image, 158, 181);
         }
     }
 }

@@ -13,14 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheUniqueColorsAsAnImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                using (var uniqueColors = image.UniqueColors())
-                {
-                    Assert.Equal(1, uniqueColors.Height);
-                    Assert.Equal(256, uniqueColors.Width);
-                }
-            }
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var uniqueColors = image.UniqueColors();
+
+            Assert.Equal(1, uniqueColors.Height);
+            Assert.Equal(256, uniqueColors.Width);
         }
     }
 }

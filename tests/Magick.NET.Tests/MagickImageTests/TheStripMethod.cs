@@ -13,35 +13,32 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldRemovePropertiesFromImage()
         {
-            using (var image = new MagickImage(Files.Builtin.Logo))
-            {
-                image.Comment = "FooBar";
+            using var image = new MagickImage(Files.Builtin.Logo);
+            image.Comment = "FooBar";
 
-                Assert.NotNull(image.Comment);
-                Assert.NotNull(image.GetAttribute("date:create"));
-                Assert.NotNull(image.GetAttribute("date:modify"));
-                Assert.NotNull(image.GetAttribute("date:timestamp"));
+            Assert.NotNull(image.Comment);
+            Assert.NotNull(image.GetAttribute("date:create"));
+            Assert.NotNull(image.GetAttribute("date:modify"));
+            Assert.NotNull(image.GetAttribute("date:timestamp"));
 
-                image.Strip();
+            image.Strip();
 
-                Assert.Null(image.Comment);
-                Assert.Null(image.GetAttribute("date:create"));
-                Assert.Null(image.GetAttribute("date:modify"));
-                Assert.Null(image.GetAttribute("date:timestamp"));
-            }
+            Assert.Null(image.Comment);
+            Assert.Null(image.GetAttribute("date:create"));
+            Assert.Null(image.GetAttribute("date:modify"));
+            Assert.Null(image.GetAttribute("date:timestamp"));
         }
 
         [Fact]
         public void ShouldRemoveProfilesFromImage()
         {
-            using (var image = new MagickImage(Files.PictureJPG))
-            {
-                Assert.NotNull(image.GetColorProfile());
+            using var image = new MagickImage(Files.PictureJPG);
 
-                image.Strip();
+            Assert.NotNull(image.GetColorProfile());
 
-                Assert.Null(image.GetColorProfile());
-            }
+            image.Strip();
+
+            Assert.Null(image.GetColorProfile());
         }
     }
 }

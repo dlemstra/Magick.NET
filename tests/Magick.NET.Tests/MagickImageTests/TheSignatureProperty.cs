@@ -13,12 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnImageSignature()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Equal(0, image.Width);
-                Assert.Equal(0, image.Height);
-                Assert.Equal("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", image.Signature);
-            }
+            using var image = new MagickImage();
+
+            Assert.Equal(0, image.Width);
+            Assert.Equal(0, image.Height);
+            Assert.Equal("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", image.Signature);
         }
     }
 }

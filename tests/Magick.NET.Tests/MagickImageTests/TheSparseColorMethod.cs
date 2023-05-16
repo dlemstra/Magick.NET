@@ -14,41 +14,27 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenArgsIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("args", () =>
-                {
-                    image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("args", () => image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenArgsIsEmpty()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentException>("args", () =>
-                {
-                    image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, new SparseColorArg[] { });
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("args", () => image.SparseColor(Channels.Blue, SparseColorMethod.Barycentric, new SparseColorArg[] { }));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenInvalidChannelsAreSpecified()
         {
-            using (var image = new MagickImage())
-            {
-                var args = new[] { new SparseColorArg(0, 0, MagickColors.SkyBlue) };
+            using var image = new MagickImage();
+            var args = new[] { new SparseColorArg(0, 0, MagickColors.SkyBlue) };
 
-                var exception = Assert.Throws<ArgumentException>("channels", () =>
-                {
-                    image.SparseColor(Channels.Black, SparseColorMethod.Barycentric, args);
-                });
-
-                Assert.Contains("Invalid channels specified.", exception.Message);
-            }
+            var exception = Assert.Throws<ArgumentException>("channels", () => image.SparseColor(Channels.Black, SparseColorMethod.Barycentric, args));
+            Assert.Contains("Invalid channels specified.", exception.Message);
         }
 
         [Fact]
@@ -60,27 +46,23 @@ public partial class MagickImageTests
                 Height = 60,
             };
 
-            using (var image = new MagickImage("xc:", settings))
+            using var image = new MagickImage("xc:", settings);
+            using var before = image.GetPixels();
+
+            ColorAssert.Equal(before.GetPixel(0, 0).ToColor(), before.GetPixel(599, 59).ToColor());
+
+            var args = new[]
             {
-                using (var pixels = image.GetPixels())
-                {
-                    ColorAssert.Equal(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
-                }
+                new SparseColorArg(0, 0, MagickColors.SkyBlue),
+                new SparseColorArg(-600, 60, MagickColors.SkyBlue),
+                new SparseColorArg(600, 60, MagickColors.Black),
+            };
 
-                var args = new[]
-                {
-                    new SparseColorArg(0, 0, MagickColors.SkyBlue),
-                    new SparseColorArg(-600, 60, MagickColors.SkyBlue),
-                    new SparseColorArg(600, 60, MagickColors.Black),
-                };
+            image.SparseColor(SparseColorMethod.Barycentric, args);
 
-                image.SparseColor(SparseColorMethod.Barycentric, args);
+            using var after = image.GetPixels();
 
-                using (var pixels = image.GetPixels())
-                {
-                    ColorAssert.NotEqual(pixels.GetPixel(0, 0).ToColor(), pixels.GetPixel(599, 59).ToColor());
-                }
-            }
+            ColorAssert.NotEqual(after.GetPixel(0, 0).ToColor(), after.GetPixel(599, 59).ToColor());
         }
     }
 }

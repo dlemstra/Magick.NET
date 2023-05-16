@@ -13,12 +13,11 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldMakePixelsAboveThresholdWhite()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                image.WhiteThreshold(new Percentage(10));
-                ColorAssert.Equal(MagickColors.White, image, 43, 74);
-                ColorAssert.Equal(MagickColors.White, image, 60, 74);
-            }
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            image.WhiteThreshold(new Percentage(10));
+
+            ColorAssert.Equal(MagickColors.White, image, 43, 74);
+            ColorAssert.Equal(MagickColors.White, image, 60, 74);
         }
     }
 }

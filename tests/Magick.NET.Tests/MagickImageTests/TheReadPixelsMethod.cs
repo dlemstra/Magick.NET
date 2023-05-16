@@ -46,9 +46,9 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldThrowExceptionWhenSettingsIsNull()
             {
-                using (var image = new MagickImage())
+                using var image = new MagickImage();
 
-                    Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, null));
             }
 
             [Fact]

@@ -14,29 +14,21 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenImageIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("image", () =>
-                {
-                    image.Texture(null);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("image", () => image.Texture(null));
         }
 
         [Fact]
         public void ShouldAddTextureToImageBackground()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                using (var canvas = new MagickImage(MagickColors.Fuchsia, 300, 300))
-                {
-                    canvas.Texture(image);
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            using var canvas = new MagickImage(MagickColors.Fuchsia, 300, 300);
+            canvas.Texture(image);
 
-                    ColorAssert.Equal(MagickColors.Fuchsia, canvas, 72, 68);
-                    ColorAssert.Equal(new MagickColor("#a8a8dfdff8f8"), canvas, 299, 48);
-                    ColorAssert.Equal(new MagickColor("#a8a8dfdff8f8"), canvas, 160, 299);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Fuchsia, canvas, 72, 68);
+            ColorAssert.Equal(new MagickColor("#a8a8dfdff8f8"), canvas, 299, 48);
+            ColorAssert.Equal(new MagickColor("#a8a8dfdff8f8"), canvas, 160, 299);
         }
     }
 }

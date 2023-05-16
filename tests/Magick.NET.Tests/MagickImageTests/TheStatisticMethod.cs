@@ -13,14 +13,12 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldChangePixels()
         {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                image.Statistic(StatisticType.Minimum, 10, 1);
+            using var image = new MagickImage(Files.NoisePNG);
+            image.Statistic(StatisticType.Minimum, 10, 1);
 
-                ColorAssert.Equal(MagickColors.Black, image, 42, 119);
-                ColorAssert.Equal(new MagickColor("#eeeeeeeeeeee"), image, 90, 120);
-                ColorAssert.Equal(new MagickColor("#999999999999"), image, 90, 168);
-            }
+            ColorAssert.Equal(MagickColors.Black, image, 42, 119);
+            ColorAssert.Equal(new MagickColor("#eeeeeeeeeeee"), image, 90, 120);
+            ColorAssert.Equal(new MagickColor("#999999999999"), image, 90, 168);
         }
     }
 }

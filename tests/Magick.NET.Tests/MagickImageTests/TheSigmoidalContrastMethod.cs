@@ -13,47 +13,38 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldUseHalfOfQuantumForMidpointByDefault()
         {
-            using (var image = new MagickImage(Files.NoisePNG))
-            {
-                using (var other = image.Clone())
-                {
-                    image.SigmoidalContrast(4.0);
-                    other.SigmoidalContrast(4.0, new Percentage(50));
+            using var image = new MagickImage(Files.NoisePNG);
+            using var other = image.Clone();
+            image.SigmoidalContrast(4.0);
+            other.SigmoidalContrast(4.0, new Percentage(50));
 
-                    var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                    Assert.Equal(0.0, difference);
-                }
-            }
+            var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
+
+            Assert.Equal(0.0, difference);
         }
 
         [Fact]
         public void ShouldAdjustTheImageContrast()
         {
-            using (var image = new MagickImage(Files.PictureJPG))
-            {
-                using (var other = image.Clone())
-                {
-                    other.SigmoidalContrast(4.0, new Percentage(25));
+            using var image = new MagickImage(Files.PictureJPG);
+            using var other = image.Clone();
+            other.SigmoidalContrast(4.0, new Percentage(25));
 
-                    var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                    Assert.InRange(difference, 0.11, 0.12);
-                }
-            }
+            var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
+
+            Assert.InRange(difference, 0.11, 0.12);
         }
 
         [Fact]
         public void ShouldAdjustTheSpecifiedChannel()
         {
-            using (var image = new MagickImage(Files.PictureJPG))
-            {
-                using (var other = image.Clone())
-                {
-                    other.SigmoidalContrast(4.0, Quantum.Max * 0.25, Channels.Blue);
+            using var image = new MagickImage(Files.PictureJPG);
+            using var other = image.Clone();
+            other.SigmoidalContrast(4.0, Quantum.Max * 0.25, Channels.Blue);
 
-                    var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                    Assert.InRange(difference, 0.05, 0.06);
-                }
-            }
+            var difference = other.Compare(image, ErrorMetric.RootMeanSquared);
+
+            Assert.InRange(difference, 0.05, 0.06);
         }
     }
 }
