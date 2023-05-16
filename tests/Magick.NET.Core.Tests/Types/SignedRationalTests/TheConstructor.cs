@@ -14,6 +14,7 @@ public partial class SignedRationalTests
         public void ShouldSetTheProperties()
         {
             var rational = new SignedRational(7, -55);
+
             Assert.Equal(7, rational.Numerator);
             Assert.Equal(-55, rational.Denominator);
         }
@@ -22,6 +23,7 @@ public partial class SignedRationalTests
         public void ShouldSetThePropertiesWhenOnlyValueIsSpecified()
         {
             var rational = new SignedRational(7);
+
             Assert.Equal(7, rational.Numerator);
             Assert.Equal(1, rational.Denominator);
         }
@@ -30,6 +32,7 @@ public partial class SignedRationalTests
         public void ShouldSimplifyByDefault()
         {
             var rational = new SignedRational(-755, 100);
+
             Assert.Equal(-151, rational.Numerator);
             Assert.Equal(20, rational.Denominator);
         }
@@ -38,6 +41,7 @@ public partial class SignedRationalTests
         public void ShouldNotSimplifyWhenSpecified()
         {
             var rational = new SignedRational(-755, -100, false);
+
             Assert.Equal(-755, rational.Numerator);
             Assert.Equal(-100, rational.Denominator);
         }
@@ -46,8 +50,18 @@ public partial class SignedRationalTests
         public void ShouldHandleNegativeValue()
         {
             var rational = new SignedRational(-7.55);
+
             Assert.Equal(-151, rational.Numerator);
             Assert.Equal(20, rational.Denominator);
+        }
+
+        [Fact]
+        public void ShouldHandleZeroValue()
+        {
+            var rational = new SignedRational(0.0);
+
+            Assert.Equal(0, rational.Numerator);
+            Assert.Equal(1, rational.Denominator);
         }
     }
 }

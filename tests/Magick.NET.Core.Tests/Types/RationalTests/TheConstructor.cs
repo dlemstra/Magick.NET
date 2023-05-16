@@ -14,6 +14,7 @@ public partial class RationalTests
         public void ShouldSetTheProperties()
         {
             var rational = new Rational(7, 55);
+
             Assert.Equal(7U, rational.Numerator);
             Assert.Equal(55U, rational.Denominator);
         }
@@ -22,6 +23,7 @@ public partial class RationalTests
         public void ShouldSetThePropertiesWhenOnlyValueIsSpecified()
         {
             var rational = new Rational(7);
+
             Assert.Equal(7U, rational.Numerator);
             Assert.Equal(1U, rational.Denominator);
         }
@@ -30,6 +32,7 @@ public partial class RationalTests
         public void ShouldSimplifyByDefault()
         {
             var rational = new Rational(755, 100);
+
             Assert.Equal(151U, rational.Numerator);
             Assert.Equal(20U, rational.Denominator);
         }
@@ -38,6 +41,7 @@ public partial class RationalTests
         public void ShouldNotSimplifyWhenSpecified()
         {
             var rational = new Rational(755, 100, false);
+
             Assert.Equal(755U, rational.Numerator);
             Assert.Equal(100U, rational.Denominator);
         }
@@ -46,8 +50,18 @@ public partial class RationalTests
         public void ShouldHandleNegativeValue()
         {
             var rational = new Rational(-7.55);
+
             Assert.Equal(151U, rational.Numerator);
             Assert.Equal(20U, rational.Denominator);
+        }
+
+        [Fact]
+        public void ShouldHandleZeroValue()
+        {
+            var rational = new Rational(0.0);
+
+            Assert.Equal(0U, rational.Numerator);
+            Assert.Equal(1U, rational.Denominator);
         }
     }
 }
