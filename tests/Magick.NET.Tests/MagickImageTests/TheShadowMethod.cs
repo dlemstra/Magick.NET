@@ -45,7 +45,7 @@ public partial class MagickImageTests
 #if Q8
             Assert.Equal(68, pixel.ToColor().A);
 #else
-             Assert.InRange(pixel.ToColor().A, 17057, 17058);
+            Assert.InRange(pixel.ToColor().A, 17057, 17058);
 #endif
         }
     }
