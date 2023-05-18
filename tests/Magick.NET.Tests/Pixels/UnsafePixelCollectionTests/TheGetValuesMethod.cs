@@ -13,16 +13,12 @@ public partial class UnsafePixelCollectionTests
         [Fact]
         public void ShouldReturnAllPixels()
         {
-            using (var image = new MagickImage(MagickColors.Purple, 4, 2))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    var values = pixels.GetValues();
-                    var length = 4 * 2 * 3;
+            using var image = new MagickImage(MagickColors.Purple, 4, 2);
+            using var pixels = image.GetPixelsUnsafe();
+            var values = pixels.GetValues();
+            var length = 4 * 2 * 3;
 
-                    Assert.Equal(length, values.Length);
-                }
-            }
+            Assert.Equal(length, values.Length);
         }
     }
 }

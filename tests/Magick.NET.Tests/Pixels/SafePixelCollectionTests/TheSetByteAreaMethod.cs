@@ -14,92 +14,60 @@ public partial class SafePixelCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenArrayIsNull()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    Assert.Throws<ArgumentNullException>("values", () =>
-                    {
-                        pixels.SetByteArea(10, 10, 1000, 1000, null);
-                    });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+
+            Assert.Throws<ArgumentNullException>("values", () => pixels.SetByteArea(10, 10, 1000, 1000, null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenArrayHasInvalidSize()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    Assert.Throws<ArgumentException>("values", () =>
-                    {
-                        pixels.SetByteArea(10, 10, 1000, 1000, new byte[] { 0, 0, 0, 0 });
-                    });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+
+            Assert.Throws<ArgumentException>("values", () => pixels.SetByteArea(10, 10, 1000, 1000, new byte[] { 0, 0, 0, 0 }));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenArrayHasTooManyValues()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    Assert.Throws<ArgumentException>("values", () =>
-                    {
-                        var values = new byte[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                        pixels.SetByteArea(10, 10, 113, 108, values);
-                    });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new byte[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+
+            Assert.Throws<ArgumentException>("values", () => pixels.SetByteArea(10, 10, 113, 108, values));
         }
 
         [Fact]
         public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    var values = new byte[113 * 108 * image.ChannelCount];
-                    pixels.SetByteArea(10, 10, 113, 108, values);
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new byte[113 * 108 * image.ChannelCount];
+            pixels.SetByteArea(10, 10, 113, 108, values);
 
-                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    Assert.Throws<ArgumentNullException>("geometry", () =>
-                    {
-                        pixels.SetByteArea(null, new byte[] { 0 });
-                    });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+
+            Assert.Throws<ArgumentNullException>("geometry", () => pixels.SetByteArea(null, new byte[] { 0 }));
         }
 
         [Fact]
         public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    var values = new byte[113 * 108 * image.ChannelCount];
-                    pixels.SetByteArea(new MagickGeometry(10, 10, 113, 108), values);
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new byte[113 * 108 * image.ChannelCount];
+            pixels.SetByteArea(new MagickGeometry(10, 10, 113, 108), values);
 
-                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
         }
     }
 }

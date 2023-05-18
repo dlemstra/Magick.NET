@@ -14,62 +14,40 @@ public partial class SafePixelCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenArrayIsNull()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    Assert.Throws<ArgumentNullException>("values", () =>
-                    {
-                        pixels.SetBytePixels(null);
-                    });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+
+            Assert.Throws<ArgumentNullException>("values", () => pixels.SetBytePixels(null));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenArrayHasInvalidSize()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    Assert.Throws<ArgumentException>("values", () =>
-                    {
-                        pixels.SetBytePixels(new byte[] { 0, 0, 0, 0 });
-                    });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+
+            Assert.Throws<ArgumentException>("values", () => pixels.SetBytePixels(new byte[] { 0, 0, 0, 0 }));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenArrayIsTooLong()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    Assert.Throws<ArgumentException>("values", () =>
-                    {
-                        var values = new byte[(image.Width * image.Height * image.ChannelCount) + 1];
-                        pixels.SetBytePixels(values);
-                    });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new byte[(image.Width * image.Height * image.ChannelCount) + 1];
+
+            Assert.Throws<ArgumentException>("values", () => pixels.SetBytePixels(values));
         }
 
         [Fact]
         public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    var values = new byte[image.Width * image.Height * image.ChannelCount];
-                    pixels.SetBytePixels(values);
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new byte[image.Width * image.Height * image.ChannelCount];
+            pixels.SetBytePixels(values);
 
-                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
         }
     }
 }

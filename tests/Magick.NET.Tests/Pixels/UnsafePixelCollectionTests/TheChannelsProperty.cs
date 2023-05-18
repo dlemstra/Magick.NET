@@ -13,17 +13,14 @@ public partial class UnsafePixelCollectionTests
         [Fact]
         public void ShouldReturnChannelCountOfImage()
         {
-            using (var image = new MagickImage(Files.CMYKJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    Assert.Equal(image.ChannelCount, pixels.Channels);
+            using var image = new MagickImage(Files.CMYKJPG);
+            using var pixels = image.GetPixelsUnsafe();
 
-                    image.HasAlpha = true;
+            Assert.Equal(image.ChannelCount, pixels.Channels);
 
-                    Assert.Equal(image.ChannelCount, pixels.Channels);
-                }
-            }
+            image.HasAlpha = true;
+
+            Assert.Equal(image.ChannelCount, pixels.Channels);
         }
     }
 }

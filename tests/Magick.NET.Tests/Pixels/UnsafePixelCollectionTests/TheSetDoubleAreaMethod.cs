@@ -13,80 +13,56 @@ public partial class UnsafePixelCollectionTests
         [Fact]
         public void ShouldNotThrowExceptionWhenArrayIsNull()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    pixels.SetDoubleArea(10, 10, 1000, 1000, null);
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            pixels.SetDoubleArea(10, 10, 1000, 1000, null);
         }
 
         [Fact]
         public void ShouldNotThrowExceptionWhenArrayHasInvalidSize()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    pixels.SetDoubleArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            pixels.SetDoubleArea(10, 10, 1000, 1000, new double[] { 0, 0, 0, 0 });
         }
 
         [Fact]
         public void ShouldNotThrowExceptionWhenArrayHasTooManyValues()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
-                    pixels.SetDoubleArea(10, 10, 113, 108, values);
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            var values = new double[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+            pixels.SetDoubleArea(10, 10, 113, 108, values);
         }
 
         [Fact]
         public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    var values = new double[113 * 108 * image.ChannelCount];
-                    pixels.SetDoubleArea(10, 10, 113, 108, values);
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            var values = new double[113 * 108 * image.ChannelCount];
+            pixels.SetDoubleArea(10, 10, 113, 108, values);
 
-                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
         }
 
         [Fact]
         public void ShouldNotThrowExceptionWhenArrayIsSpecifiedAndGeometryIsNull()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    pixels.SetDoubleArea(null, new double[] { 0 });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            pixels.SetDoubleArea(null, new double[] { 0 });
         }
 
         [Fact]
         public void ShouldChangePixelsWhenGeometryAndArrayAreSpecified()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    var values = new double[113 * 108 * image.ChannelCount];
-                    pixels.SetDoubleArea(new MagickGeometry(10, 10, 113, 108), values);
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            var values = new double[113 * 108 * image.ChannelCount];
+            pixels.SetDoubleArea(new MagickGeometry(10, 10, 113, 108), values);
 
-                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
         }
     }
 }

@@ -10,11 +10,9 @@ public partial class ImageOptimizerTests
     private static MemoryStream OpenStream(string fileName)
     {
         var memoryStream = new MemoryStream();
-        using (var input = FileHelper.OpenRead(fileName))
-        {
-            input.CopyTo(memoryStream);
-            memoryStream.Position = 0;
-            return memoryStream;
-        }
+        using var input = FileHelper.OpenRead(fileName);
+        input.CopyTo(memoryStream);
+        memoryStream.Position = 0;
+        return memoryStream;
     }
 }

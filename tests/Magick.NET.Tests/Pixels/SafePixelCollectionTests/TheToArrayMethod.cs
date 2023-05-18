@@ -13,16 +13,12 @@ public partial class SafePixelCollectionTests
         [Fact]
         public void ShouldReturnAllPixels()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    var values = pixels.ToArray();
-                    var length = image.Width * image.Height * image.ChannelCount;
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = pixels.ToArray();
+            var length = image.Width * image.Height * image.ChannelCount;
 
-                    Assert.Equal(length, values.Length);
-                }
-            }
+            Assert.Equal(length, values.Length);
         }
     }
 }

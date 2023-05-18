@@ -13,53 +13,37 @@ public partial class UnsafePixelCollectionTests
         [Fact]
         public void ShouldNotThrowExceptionWhenArrayIsNull()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    pixels.SetIntPixels(null);
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            pixels.SetIntPixels(null);
         }
 
         [Fact]
         public void ShouldNotThrowExceptionWhenArrayHasInvalidSize()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    pixels.SetIntPixels(new int[] { 0, 0, 0, 0 });
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            pixels.SetIntPixels(new int[] { 0, 0, 0, 0 });
         }
 
         [Fact]
         public void ShouldNotThrowExceptionWhenArrayIsTooLong()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    var values = new int[(image.Width * image.Height * image.ChannelCount) + 1];
-                    pixels.SetIntPixels(values);
-                }
-            }
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            var values = new int[(image.Width * image.Height * image.ChannelCount) + 1];
+            pixels.SetIntPixels(values);
         }
 
         [Fact]
         public void ShouldChangePixelsWhenArrayHasMaxNumberOfValues()
         {
-            using (var image = new MagickImage(Files.ImageMagickJPG))
-            {
-                using (var pixels = image.GetPixelsUnsafe())
-                {
-                    var values = new int[image.Width * image.Height * image.ChannelCount];
-                    pixels.SetIntPixels(values);
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixelsUnsafe();
+            var values = new int[image.Width * image.Height * image.ChannelCount];
+            pixels.SetIntPixels(values);
 
-                    ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-                }
-            }
+            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
         }
     }
 }

@@ -13,57 +13,39 @@ public partial class SafePixelCollectionTests
     {
         [Fact]
         public void ShouldThrowExceptionWhenXTooLow()
-        {
-            ThrowsArgumentOutOfRangeException("x", -1, 0);
-        }
+            => ThrowsArgumentOutOfRangeException("x", -1, 0);
 
         [Fact]
         public void ShouldThrowExceptionWhenXTooHigh()
-        {
-            ThrowsArgumentOutOfRangeException("x", 6, 0);
-        }
+            => ThrowsArgumentOutOfRangeException("x", 6, 0);
 
         [Fact]
         public void ShouldThrowExceptionWhenYTooLow()
-        {
-            ThrowsArgumentOutOfRangeException("y", 0, -1);
-        }
+            => ThrowsArgumentOutOfRangeException("y", 0, -1);
 
         [Fact]
         public void ShouldThrowExceptionWhenYTooHigh()
-        {
-            ThrowsArgumentOutOfRangeException("y", 0, 11);
-        }
+            => ThrowsArgumentOutOfRangeException("y", 0, 11);
 
         [Fact]
         public void ShouldReturnCorrectValue()
         {
-            using (var image = new MagickImage(MagickColors.Red, 1, 1))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    var pixel = pixels.GetValue(0, 0);
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
+            using var pixels = image.GetPixels();
+            var pixel = pixels.GetValue(0, 0);
 
-                    Assert.Equal(3, pixel.Length);
-                    Assert.Equal(Quantum.Max, pixel[0]);
-                    Assert.Equal(0, pixel[1]);
-                    Assert.Equal(0, pixel[2]);
-                }
-            }
+            Assert.Equal(3, pixel.Length);
+            Assert.Equal(Quantum.Max, pixel[0]);
+            Assert.Equal(0, pixel[1]);
+            Assert.Equal(0, pixel[2]);
         }
 
         private static void ThrowsArgumentOutOfRangeException(string paramName, int x, int y)
         {
-            using (var image = new MagickImage(MagickColors.Red, 5, 10))
-            {
-                using (var pixels = image.GetPixels())
-                {
-                    Assert.Throws<ArgumentOutOfRangeException>(paramName, () =>
-                    {
-                        pixels.GetValue(x, y);
-                    });
-                }
-            }
+            using var image = new MagickImage(MagickColors.Red, 5, 10);
+            using var pixels = image.GetPixels();
+
+            Assert.Throws<ArgumentOutOfRangeException>(paramName, () => pixels.GetValue(x, y));
         }
     }
 }
