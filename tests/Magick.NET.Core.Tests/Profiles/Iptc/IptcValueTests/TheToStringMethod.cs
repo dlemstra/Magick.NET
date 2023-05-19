@@ -24,7 +24,7 @@ public partial class IptcValueTests
         {
             var value = new IptcValue(IptcTag.Caption, (string)null);
 
-            Assert.Equal(string.Empty, value.ToString());
+            Assert.Empty(value.ToString());
         }
 
         [Fact]
@@ -32,7 +32,7 @@ public partial class IptcValueTests
         {
             var value = new IptcValue(IptcTag.Caption, Array.Empty<byte>());
 
-            Assert.Equal(string.Empty, value.ToString());
+            Assert.Empty(value.ToString());
         }
     }
 }

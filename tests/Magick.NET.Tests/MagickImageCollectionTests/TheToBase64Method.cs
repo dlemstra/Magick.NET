@@ -15,7 +15,7 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection();
 
-            Assert.Equal(string.Empty, images.ToBase64());
+            Assert.Empty(images.ToBase64());
         }
 
         [Fact]

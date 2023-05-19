@@ -16,7 +16,7 @@ public partial class IptcValueTests
             var value = new IptcValue(IptcTag.Caption, "Test");
             value.Value = string.Empty;
 
-            Assert.Equal(string.Empty, value.ToString());
+            Assert.Empty(value.ToString());
         }
     }
 }

@@ -22,7 +22,7 @@ public partial class MagickImageCollectionTests
                 Assert.NotNull(arguments);
                 Assert.NotNull(arguments.Message);
                 Assert.NotNull(arguments.Exception);
-                Assert.NotEqual(string.Empty, arguments.Message);
+                Assert.NotEmpty(arguments.Message);
 
                 count++;
             };

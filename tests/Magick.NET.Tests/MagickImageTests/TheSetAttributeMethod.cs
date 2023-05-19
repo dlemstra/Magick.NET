@@ -71,7 +71,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.SetAttribute("test", string.Empty);
 
-                Assert.Equal(string.Empty, image.GetAttribute("test"));
+                Assert.Empty(image.GetAttribute("test"));
             }
 
             [Fact]

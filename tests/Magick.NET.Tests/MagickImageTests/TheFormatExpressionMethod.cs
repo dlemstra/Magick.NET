@@ -52,7 +52,7 @@ public partial class MagickImageTests
                 Assert.NotNull(sender);
                 Assert.NotNull(arguments);
                 Assert.NotNull(arguments.Message);
-                Assert.NotEqual(string.Empty, arguments.Message);
+                Assert.NotEmpty(arguments.Message);
                 Assert.NotNull(arguments.Exception);
 
                 count++;
