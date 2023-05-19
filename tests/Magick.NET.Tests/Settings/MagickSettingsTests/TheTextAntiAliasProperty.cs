@@ -11,21 +11,25 @@ public partial class MagickSettingsTests
     public class TheTextAntiAliasProperty
     {
         [Fact]
+        public void ShouldDefaultToTrue()
+        {
+            using var image = new MagickImage(MagickColors.Azure, 1, 1);
+
+            Assert.True(image.Settings.TextAntiAlias);
+        }
+
+        [Fact]
         public void ShouldDisableTextAntialiasingWhenFalse()
         {
-            using (var image = new MagickImage(MagickColors.Azure, 300, 300))
-            {
-                Assert.True(image.Settings.TextAntiAlias);
+            using var image = new MagickImage(MagickColors.Azure, 300, 300);
+            image.Settings.TextAntiAlias = false;
+            image.Settings.FontPointsize = 100;
+            image.Annotate("TEST", Gravity.Center);
 
-                image.Settings.TextAntiAlias = false;
-                image.Settings.FontPointsize = 100;
-                image.Annotate("TEST", Gravity.Center);
-
-                ColorAssert.Equal(MagickColors.Azure, image, 158, 125);
-                ColorAssert.Equal(MagickColors.Black, image, 158, 126);
-                ColorAssert.Equal(MagickColors.Azure, image, 209, 127);
-                ColorAssert.Equal(MagickColors.Black, image, 208, 128);
-            }
+            ColorAssert.Equal(MagickColors.Azure, image, 158, 125);
+            ColorAssert.Equal(MagickColors.Black, image, 158, 126);
+            ColorAssert.Equal(MagickColors.Azure, image, 209, 127);
+            ColorAssert.Equal(MagickColors.Black, image, 208, 128);
         }
     }
 }

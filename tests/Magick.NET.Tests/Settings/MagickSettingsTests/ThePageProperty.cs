@@ -13,17 +13,16 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldSetTheCorrectDimensionsWhenReadingImage()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Null(image.Settings.Page);
+            using var image = new MagickImage();
 
-                image.Settings.Font = "Courier New";
-                image.Settings.Page = new MagickGeometry(50, 50, 100, 100);
-                image.Read("pango:Test");
+            Assert.Null(image.Settings.Page);
 
-                Assert.Equal(140, image.Width);
-                Assert.Contains(image.Height, new[] { 114, 118, 119 });
-            }
+            image.Settings.Font = "Courier New";
+            image.Settings.Page = new MagickGeometry(50, 50, 100, 100);
+            image.Read("pango:Test");
+
+            Assert.Equal(140, image.Width);
+            Assert.Contains(image.Height, new[] { 114, 118, 119 });
         }
     }
 }

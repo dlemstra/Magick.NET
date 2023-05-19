@@ -13,20 +13,19 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldDetermineThePositionOfTheText()
         {
-            using (var image = new MagickImage("xc:red", 300, 300))
-            {
-                Assert.Equal(Gravity.Undefined, image.Settings.TextGravity);
+            using var image = new MagickImage("xc:red", 300, 300);
 
-                image.Settings.BackgroundColor = MagickColors.Yellow;
-                image.Settings.StrokeColor = MagickColors.Fuchsia;
-                image.Settings.FillColor = MagickColors.Fuchsia;
-                image.Settings.TextGravity = Gravity.Center;
+            Assert.Equal(Gravity.Undefined, image.Settings.TextGravity);
 
-                image.Read("label:Test");
+            image.Settings.BackgroundColor = MagickColors.Yellow;
+            image.Settings.StrokeColor = MagickColors.Fuchsia;
+            image.Settings.FillColor = MagickColors.Fuchsia;
+            image.Settings.TextGravity = Gravity.Center;
 
-                ColorAssert.Equal(MagickColors.Yellow, image, 50, 80);
-                ColorAssert.Equal(MagickColors.Fuchsia, image, 50, 160);
-            }
+            image.Read("label:Test");
+
+            ColorAssert.Equal(MagickColors.Yellow, image, 50, 80);
+            ColorAssert.Equal(MagickColors.Fuchsia, image, 50, 160);
         }
     }
 }

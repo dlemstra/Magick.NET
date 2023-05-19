@@ -13,29 +13,26 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldDefaultToZero()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Equal(0, image.Settings.TextKerning);
-            }
+            using var image = new MagickImage();
+
+            Assert.Equal(0, image.Settings.TextKerning);
         }
 
         [Fact]
         public void ShouldBeUsedWhenRenderingText()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.TextKerning = 10;
-                image.Read("label:First");
+            using var image = new MagickImage();
+            image.Settings.TextKerning = 10;
+            image.Read("label:First");
 
-                Assert.Equal(65, image.Width);
-                Assert.Equal(15, image.Height);
+            Assert.Equal(65, image.Width);
+            Assert.Equal(15, image.Height);
 
-                image.Settings.TextKerning = 20;
-                image.Read("label:First");
+            image.Settings.TextKerning = 20;
+            image.Read("label:First");
 
-                Assert.Equal(105, image.Width);
-                Assert.Equal(15, image.Height);
-            }
+            Assert.Equal(105, image.Width);
+            Assert.Equal(15, image.Height);
         }
     }
 }

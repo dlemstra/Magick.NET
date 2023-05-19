@@ -13,29 +13,26 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldDefaultToZero()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Equal(0, image.Settings.TextInterwordSpacing);
-            }
+            using var image = new MagickImage();
+
+            Assert.Equal(0, image.Settings.TextInterwordSpacing);
         }
 
         [Fact]
         public void ShouldBeUsedWhenRenderingText()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.TextInterwordSpacing = 10;
-                image.Read("label:First second");
+            using var image = new MagickImage();
+            image.Settings.TextInterwordSpacing = 10;
+            image.Read("label:First second");
 
-                Assert.Equal(74, image.Width);
-                Assert.Equal(15, image.Height);
+            Assert.Equal(74, image.Width);
+            Assert.Equal(15, image.Height);
 
-                image.Settings.TextInterwordSpacing = 20;
-                image.Read("label:First second");
+            image.Settings.TextInterwordSpacing = 20;
+            image.Read("label:First second");
 
-                Assert.Equal(84, image.Width);
-                Assert.Equal(15, image.Height);
-            }
+            Assert.Equal(84, image.Width);
+            Assert.Equal(15, image.Height);
         }
     }
 }

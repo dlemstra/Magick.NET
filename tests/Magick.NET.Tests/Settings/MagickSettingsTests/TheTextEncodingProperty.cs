@@ -13,10 +13,9 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldDefaultToNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Null(image.Settings.TextEncoding);
-            }
+            using var image = new MagickImage();
+
+            Assert.Null(image.Settings.TextEncoding);
         }
     }
 }

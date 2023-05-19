@@ -13,13 +13,12 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldRemoveTheDefine()
         {
-            using (var image = new MagickImage())
-            {
-                image.Settings.SetDefine(MagickFormat.Jpeg, "optimize-coding", "test");
+            using var image = new MagickImage();
+            image.Settings.SetDefine(MagickFormat.Jpeg, "optimize-coding", "test");
 
-                image.Settings.RemoveDefine(MagickFormat.Jpeg, "optimize-coding");
-                Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
-            }
+            image.Settings.RemoveDefine(MagickFormat.Jpeg, "optimize-coding");
+
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
         }
     }
 }

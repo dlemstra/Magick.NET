@@ -13,10 +13,9 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldDefaultToFalse()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.False(image.Settings.Verbose);
-            }
+            using var image = new MagickImage();
+
+            Assert.False(image.Settings.Verbose);
         }
     }
 }

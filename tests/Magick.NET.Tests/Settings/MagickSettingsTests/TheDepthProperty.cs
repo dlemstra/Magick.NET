@@ -13,17 +13,14 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldChangeTheDepthOfTheOutputImage()
         {
-            using (var input = new MagickImage(Files.Builtin.Logo))
-            {
-                input.Settings.Depth = 5;
+            using var input = new MagickImage(Files.Builtin.Logo);
+            input.Settings.Depth = 5;
 
-                var bytes = input.ToByteArray(MagickFormat.Tga);
+            var bytes = input.ToByteArray(MagickFormat.Tga);
 
-                using (var output = new MagickImage(bytes, MagickFormat.Tga))
-                {
-                    Assert.Equal(5, output.Depth);
-                }
-            }
+            using var output = new MagickImage(bytes, MagickFormat.Tga);
+
+            Assert.Equal(5, output.Depth);
         }
     }
 }
