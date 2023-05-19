@@ -13,35 +13,31 @@ public partial class ExifProfileTests
         [Fact]
         public void ShouldReturnOriginalDataWhenNotParsed()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetExifProfile();
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetExifProfile();
+            var bytes = profile.ToByteArray();
 
-                var bytes = profile.ToByteArray();
-                Assert.Equal(4706, bytes.Length);
-            }
+            Assert.Equal(4706, bytes.Length);
         }
 
         [Fact]
         public void ShouldPreserveTheThumbnail()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetExifProfile();
-                Assert.NotNull(profile);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetExifProfile();
 
-                var bytes = profile.ToByteArray();
+            Assert.NotNull(profile);
 
-                profile = new ExifProfile(bytes);
+            var bytes = profile.ToByteArray();
 
-                using (var thumbnail = profile.CreateThumbnail())
-                {
-                    Assert.NotNull(thumbnail);
-                    Assert.Equal(128, thumbnail.Width);
-                    Assert.Equal(85, thumbnail.Height);
-                    Assert.Equal(MagickFormat.Jpeg, thumbnail.Format);
-                }
-            }
+            profile = new ExifProfile(bytes);
+
+            using var thumbnail = profile.CreateThumbnail();
+
+            Assert.NotNull(thumbnail);
+            Assert.Equal(128, thumbnail.Width);
+            Assert.Equal(85, thumbnail.Height);
+            Assert.Equal(MagickFormat.Jpeg, thumbnail.Format);
         }
     }
 }

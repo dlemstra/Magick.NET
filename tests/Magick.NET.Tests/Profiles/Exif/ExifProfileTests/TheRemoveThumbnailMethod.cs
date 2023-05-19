@@ -13,16 +13,15 @@ public partial class ExifProfileTests
         [Fact]
         public void ShouldRemoveTheThumbnail()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetExifProfile();
-                Assert.NotNull(profile);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetExifProfile();
 
-                profile.RemoveThumbnail();
+            Assert.NotNull(profile);
 
-                Assert.Equal(0, profile.ThumbnailLength);
-                Assert.Equal(0, profile.ThumbnailOffset);
-            }
+            profile.RemoveThumbnail();
+
+            Assert.Equal(0, profile.ThumbnailLength);
+            Assert.Equal(0, profile.ThumbnailOffset);
         }
     }
 }

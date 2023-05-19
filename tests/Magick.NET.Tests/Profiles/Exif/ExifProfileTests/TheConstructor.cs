@@ -33,25 +33,19 @@ public partial class ExifProfileTests
         [Fact]
         public void ShouldAllowEmptyStream()
         {
-            using (var image = new MagickImage())
-            {
-                using (var memStream = new MemoryStream())
-                {
-                    var profile = new ExifProfile(memStream);
-                    image.SetProfile(profile);
-                }
-            }
+            using var image = new MagickImage();
+            using var memStream = new MemoryStream();
+            var profile = new ExifProfile(memStream);
+            image.SetProfile(profile);
         }
 
         [Fact]
         public void ShouldAllowEmptyData()
         {
-            using (var image = new MagickImage())
-            {
-                var data = Array.Empty<byte>();
-                var profile = new ExifProfile(data);
-                image.SetProfile(profile);
-            }
+            using var image = new MagickImage();
+            var data = Array.Empty<byte>();
+            var profile = new ExifProfile(data);
+            image.SetProfile(profile);
         }
     }
 }

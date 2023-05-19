@@ -15,36 +15,29 @@ public partial class ExifProfileTests
         [Fact]
         public void ShouldUpdateTheDataInTheProfile()
         {
-            using (var memStream = new MemoryStream())
-            {
-                using (var image = new MagickImage(Files.ImageMagickJPG))
-                {
-                    var profile = image.GetExifProfile();
-                    Assert.Null(profile);
+            using var input = new MagickImage(Files.ImageMagickJPG);
+            var profile = input.GetExifProfile();
 
-                    profile = new ExifProfile();
-                    profile.SetValue(ExifTag.Copyright, "Dirk Lemstra");
+            Assert.Null(profile);
 
-                    image.SetProfile(profile);
+            profile = new ExifProfile();
+            profile.SetValue(ExifTag.Copyright, "Dirk Lemstra");
 
-                    profile = image.GetExifProfile();
-                    Assert.NotNull(profile);
+            input.SetProfile(profile);
+            profile = input.GetExifProfile();
+            Assert.NotNull(profile);
 
-                    image.Write(memStream);
-                }
+            var bytes = input.ToByteArray();
 
-                memStream.Position = 0;
-                using (var image = new MagickImage(memStream))
-                {
-                    var profile = image.GetExifProfile();
+            using var image = new MagickImage(bytes);
+            profile = image.GetExifProfile();
 
-                    Assert.NotNull(profile);
-                    Assert.Single(profile.Values);
+            Assert.NotNull(profile);
+            Assert.Single(profile.Values);
 
-                    var value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Copyright);
-                    TestValue(value, "Dirk Lemstra");
-                }
-            }
+            var value = profile.Values.FirstOrDefault(val => val.Tag == ExifTag.Copyright);
+
+            AssertValue(value, "Dirk Lemstra");
         }
     }
 }

@@ -17,7 +17,8 @@ public partial class ExifProfileTests
             profile.SetValue(ExifTag.Software, "Magick.NET");
 
             var value = profile.GetValue(ExifTag.Software);
-            TestValue(value, "Magick.NET");
+
+            AssertValue(value, "Magick.NET");
         }
     }
 }

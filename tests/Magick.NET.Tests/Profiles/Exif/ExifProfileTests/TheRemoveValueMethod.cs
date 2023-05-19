@@ -13,23 +13,19 @@ public partial class ExifProfileTests
         [Fact]
         public void ShouldRemoveValueAndReturnTrue()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetExifProfile();
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetExifProfile();
 
-                Assert.True(profile.RemoveValue(ExifTag.FNumber));
-            }
+            Assert.True(profile.RemoveValue(ExifTag.FNumber));
         }
 
         [Fact]
         public void ShouldRemoveFalseWhenProfileDoesNotContainTag()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetExifProfile();
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetExifProfile();
 
-                Assert.False(profile.RemoveValue(ExifTag.Acceleration));
-            }
+            Assert.False(profile.RemoveValue(ExifTag.Acceleration));
         }
     }
 }

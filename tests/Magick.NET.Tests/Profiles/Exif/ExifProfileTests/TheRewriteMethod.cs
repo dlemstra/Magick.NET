@@ -13,20 +13,18 @@ public partial class ExifProfileTests
         [Fact]
         public void ShouldUpdateTheData()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetExifProfile();
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetExifProfile();
 
-                var before = profile.GetData();
+            var before = profile.GetData();
+            profile.Rewrite();
 
-                profile.Rewrite();
+            var after = profile.GetData();
 
-                var after = profile.GetData();
-
-                Assert.NotNull(after);
-                Assert.NotSame(before, after);
-                Assert.Equal(958, after.Length);
-            }
+            Assert.NotNull(after);
+            Assert.NotSame(before, after);
+            Assert.Equal(4706, before.Length);
+            Assert.Equal(958, after.Length);
         }
     }
 }

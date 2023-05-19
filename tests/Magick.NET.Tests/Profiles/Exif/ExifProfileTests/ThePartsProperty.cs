@@ -15,26 +15,21 @@ public partial class ExifProfileTests
         [Fact]
         public void ShouldFilterTheTagsWhenWritten()
         {
-            using (var memStream = new MemoryStream())
-            {
-                using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-                {
-                    var profile = image.GetExifProfile();
-                    Assert.Equal(44, profile.Values.Count());
+            using var memStream = new MemoryStream();
+            using var input = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = input.GetExifProfile();
 
-                    profile.Parts = ExifParts.ExifTags;
-                    image.SetProfile(profile);
+            Assert.Equal(44, profile.Values.Count());
 
-                    image.Write(memStream);
-                }
+            profile.Parts = ExifParts.ExifTags;
+            input.SetProfile(profile);
+            input.Write(memStream);
 
-                memStream.Position = 0;
-                using (var image = new MagickImage(memStream))
-                {
-                    var profile = image.GetExifProfile();
-                    Assert.Equal(24, profile.Values.Count());
-                }
-            }
+            memStream.Position = 0;
+            using var output = new MagickImage(memStream);
+            profile = output.GetExifProfile();
+
+            Assert.Equal(24, profile.Values.Count());
         }
     }
 }
