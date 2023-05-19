@@ -15,10 +15,24 @@ public partial class ExifProfileTests
         {
             var profile = new ExifProfile();
             profile.SetValue(ExifTag.Software, "Magick.NET");
-
             var value = profile.GetValue(ExifTag.Software);
 
             AssertValue(value, "Magick.NET");
+        }
+
+        [Fact]
+        public void ShouldReturnByteArrayWhenDataTypeIsUndefined()
+        {
+            var image = new MagickImage(Files.ExifUndefTypeJPG);
+            var profile = image.GetExifProfile();
+            var value = profile.GetValue(ExifTag.ExifVersion);
+
+            Assert.NotNull(value);
+            Assert.Equal(ExifDataType.Undefined, value.DataType);
+
+            var data = value.GetValue() as byte[];
+            Assert.NotNull(data);
+            Assert.Equal(4, data.Length);
         }
     }
 }
