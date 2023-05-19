@@ -22,14 +22,18 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheCorrectColorTypeWhenThisWasChanged()
         {
-            using var image = new MagickImage(Files.WireframeTIF);
+            using var input = new MagickImage(Files.WireframeTIF);
+
+            Assert.NotEqual(ColorType.Grayscale, input.ColorType);
+
             using var memStream = new MemoryStream();
 
-            image.Write(memStream);
+            input.Write(memStream);
             memStream.Position = 0;
 
-            using var result = new MagickImage(memStream);
-            Assert.Equal(ColorType.Grayscale, result.ColorType);
+            using var output = new MagickImage(memStream);
+
+            Assert.Equal(ColorType.Grayscale, output.ColorType);
         }
     }
 }
