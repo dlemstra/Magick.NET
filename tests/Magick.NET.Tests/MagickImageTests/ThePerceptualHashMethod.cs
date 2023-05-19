@@ -1,31 +1,21 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick;
 using Xunit;
 
 namespace Magick.NET.Tests;
 
-public class PerceptualHashTests
+public partial class MagickImageTests
 {
-    [Fact]
-    public void Test_Channel()
+    public class ThePerceptualHashMethod
     {
-        using (var image = new MagickImage(Files.ImageMagickJPG))
+        [Fact]
+        public void ShouldReturnThePerceptualHash()
         {
+            using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();
             var channel = phash.GetChannel(PixelChannel.Red);
-
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                channel.HclpHuPhash(7);
-            });
-
-            Assert.Throws<ArgumentOutOfRangeException>(() =>
-            {
-                channel.SrgbHuPhash(7);
-            });
 
 #if Q8
             TestChannel(channel, 0, 0.6980, 0.6980, 0.0974, 0.0993);
@@ -54,6 +44,7 @@ public class PerceptualHashTests
 #endif
 
             channel = phash.GetChannel(PixelChannel.Green);
+
 #if Q8
             TestChannel(channel, 0, 0.6942, 0.6942, -0.0601, -0.0601);
             TestChannel(channel, 1, 3.3993, 3.3995, 0.3090, 0.3093);
@@ -81,6 +72,7 @@ public class PerceptualHashTests
 #endif
 
             channel = phash.GetChannel(PixelChannel.Blue);
+
 #if Q8
             TestChannel(channel, 0, 0.7223, 0.7223, 0.6984, 0.6984);
             TestChannel(channel, 1, 3.8298, 3.8298, 3.4611, 3.4612);
@@ -107,79 +99,11 @@ public class PerceptualHashTests
             TestChannel(channel, 6, 10.1388, 10.1388, 9.0737, 9.0737);
 #endif
         }
-    }
 
-    [Fact]
-    public void Test_Constructor()
-    {
-        Assert.Throws<ArgumentNullException>("hash", () =>
+        private void TestChannel(IChannelPerceptualHash channel, int index, double srgbHuPhashWithOpenCL, double srgbHuPhashWithoutOpenCL, double hclpHuPhashWithOpenCL, double hclpHuPhashWithoutOpenCL)
         {
-            new PerceptualHash(null);
-        });
-
-        Assert.Throws<ArgumentException>("hash", () =>
-        {
-            new PerceptualHash(string.Empty);
-        });
-
-        Assert.Throws<ArgumentException>("hash", () =>
-        {
-            new PerceptualHash("a0df");
-        });
-
-        Assert.Throws<ArgumentException>("hash", () =>
-        {
-            new PerceptualHash("H00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
-        });
-    }
-
-    [Fact]
-    public void Test_ToString()
-    {
-        using (var image = new MagickImage(Files.ImageMagickJPG))
-        {
-            var phash = image.PerceptualHash();
-            var hash = phash.ToString();
-            Assert.Equal(210, hash.Length);
-#if Q8
-            OpenCLValue.Assert("81b4488655898d38a7aa6223562032620f8a2614819b78241685c4b8c1a786f0689c9881b1f884ca8a0d38af2f622728fd3d623fedeacea78bcaedaa81d8884349824c583ad981c37895998c8658c42a628ed61b216279b81b49887348a1608af44622a3619d362371", "81b4488656898d38a7a96223562017620f7a26cd81a1e823ec85b3b8cc3186ec889ad481b1f884cb8a0d58af30622728fd41623fedea8aa78d4aeda481d8f84355824cd83ae281c378959a8c8668c42a628ec61b216279c81b49887348a1608af44622a3619d362370", hash);
-#elif Q16
-            OpenCLValue.Assert("81b4488652898d48a7a9622346206e620f8a649d8297d835bd86eb58c7be887e78c5f881b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", "81b4488652898d48a7a9622346206e620f8a646682939835e986ec98c78f887ae8c67f81b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", hash);
-#else
-            OpenCLValue.Assert("81b4488652898d48a7a9622346206e620f8a730882e4a83a9e877108d25488fc58dbb781b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", "81b4488652898d48a7a9622346206e620f8a731182e3a83aa2876d48d19488f438dcb581b1e884c58a0d18af2d622718fd35623ffdeac9a78cbaedaa81d888434e824c683ad781c37895978c8688c426628ed61b216279b81b48887318a1628af43622a2619d162372", hash);
-#endif
-            var clone = new PerceptualHash(hash);
-            Assert.InRange(phash.SumSquaredDistance(clone), 0.0, 0.001);
+            OpenCLValue.Assert(srgbHuPhashWithOpenCL, srgbHuPhashWithoutOpenCL, channel.SrgbHuPhash(index), 0.0001);
+            OpenCLValue.Assert(hclpHuPhashWithOpenCL, hclpHuPhashWithoutOpenCL, channel.HclpHuPhash(index), 0.0001);
         }
-    }
-
-    [Fact]
-    public void Test_SumSquaredDistance()
-    {
-        using (var image = new MagickImage(Files.ImageMagickJPG))
-        {
-            var phash = image.PerceptualHash();
-
-            using (var other = new MagickImage(Files.MagickNETIconPNG))
-            {
-                other.HasAlpha = false;
-                Assert.Equal(3, other.ChannelCount);
-
-                var otherPhash = other.PerceptualHash();
-#if Q8
-                OpenCLValue.Assert(394.74, 394.90, phash.SumSquaredDistance(otherPhash), 0.01);
-#elif Q16
-                OpenCLValue.Assert(395.35, 395.39, phash.SumSquaredDistance(otherPhash), 0.02);
-#else
-                OpenCLValue.Assert(395.60, 395.68, phash.SumSquaredDistance(otherPhash), 0.02);
-#endif
-            }
-        }
-    }
-
-    private void TestChannel(IChannelPerceptualHash channel, int index, double srgbHuPhashWithOpenCL, double srgbHuPhashWithoutOpenCL, double hclpHuPhashWithOpenCL, double hclpHuPhashWithoutOpenCL)
-    {
-        OpenCLValue.Assert(srgbHuPhashWithOpenCL, srgbHuPhashWithoutOpenCL, channel.SrgbHuPhash(index), 0.0001);
-        OpenCLValue.Assert(hclpHuPhashWithOpenCL, hclpHuPhashWithoutOpenCL, channel.HclpHuPhash(index), 0.0001);
     }
 }
