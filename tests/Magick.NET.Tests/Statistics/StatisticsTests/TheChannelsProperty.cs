@@ -14,19 +14,17 @@ public partial class StatisticsTests
         [Fact]
         public void ShouldReturnTheCorrectChannels()
         {
-            using (var image = new MagickImage(Files.MagickNETIconPNG))
-            {
-                var statistics = image.Statistics();
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            var statistics = image.Statistics();
 
-                var channels = statistics.Channels.ToList();
+            var channels = statistics.Channels.ToList();
 
-                Assert.Equal(5, channels.Count);
-                Assert.Contains(PixelChannel.Red, channels);
-                Assert.Contains(PixelChannel.Green, channels);
-                Assert.Contains(PixelChannel.Blue, channels);
-                Assert.Contains(PixelChannel.Alpha, channels);
-                Assert.Contains(PixelChannel.Composite, channels);
-            }
+            Assert.Equal(5, channels.Count);
+            Assert.Contains(PixelChannel.Red, channels);
+            Assert.Contains(PixelChannel.Green, channels);
+            Assert.Contains(PixelChannel.Blue, channels);
+            Assert.Contains(PixelChannel.Alpha, channels);
+            Assert.Contains(PixelChannel.Composite, channels);
         }
     }
 }

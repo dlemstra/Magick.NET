@@ -13,10 +13,9 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldDefaultToUndefined()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Equal(TextDirection.Undefined, image.Settings.TextDirection);
-            }
+            using var image = new MagickImage();
+
+            Assert.Equal(TextDirection.Undefined, image.Settings.TextDirection);
         }
     }
 }

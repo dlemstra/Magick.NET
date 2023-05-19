@@ -20,21 +20,17 @@ public partial class MagickReadSettingsTests
         [Fact]
         public void ShouldNotChangeTheDensityOfTheImageWhenSetToFalse()
         {
-            using (var image = new MagickImage(Files.EightBimJPG))
-            {
-                Assert.Equal(300.0, image.Density.X);
-            }
+            using var original = new MagickImage(Files.EightBimJPG);
+            Assert.Equal(300.0, original.Density.X);
 
             var settings = new MagickReadSettings
             {
                 SyncImageWithExifProfile = false,
             };
+            using var image = new MagickImage();
+            image.Read(Files.EightBimJPG, settings);
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.EightBimJPG, settings);
-                Assert.Equal(72.0, image.Density.X);
-            }
+            Assert.Equal(72.0, image.Density.X);
         }
     }
 }

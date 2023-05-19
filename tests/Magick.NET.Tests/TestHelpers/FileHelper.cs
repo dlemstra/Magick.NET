@@ -11,10 +11,8 @@ internal static class FileHelper
     {
         var bytes = File.ReadAllBytes(sourceFileName);
 
-        using (var output = File.Open(destFileName, FileMode.Create, FileAccess.Write))
-        {
-            output.Write(bytes, 0, bytes.Length);
-        }
+        using var output = File.Open(destFileName, FileMode.Create, FileAccess.Write);
+        output.Write(bytes, 0, bytes.Length);
     }
 
     public static MemoryStream OpenRead(string fileName)

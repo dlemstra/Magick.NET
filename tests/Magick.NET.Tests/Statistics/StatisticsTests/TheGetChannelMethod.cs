@@ -13,14 +13,12 @@ public partial class StatisticsTests
         [Fact]
         public void ShouldReturnNullWhenImageDoesNotContainThatChannel()
         {
-            using (var image = new MagickImage(Files.SnakewarePNG))
-            {
-                var statistics = image.Statistics();
+            using var image = new MagickImage(Files.SnakewarePNG);
+            var statistics = image.Statistics();
 
-                Assert.Null(statistics.GetChannel(PixelChannel.Green));
-                Assert.Null(statistics.GetChannel(PixelChannel.Blue));
-                Assert.Null(statistics.GetChannel(PixelChannel.Black));
-            }
+            Assert.Null(statistics.GetChannel(PixelChannel.Green));
+            Assert.Null(statistics.GetChannel(PixelChannel.Blue));
+            Assert.Null(statistics.GetChannel(PixelChannel.Black));
         }
     }
 }

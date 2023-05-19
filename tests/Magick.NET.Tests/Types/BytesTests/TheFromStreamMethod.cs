@@ -14,23 +14,19 @@ public partial class BytesTests
         [Fact]
         public void ShouldReturnNullWhenStreamIsFileStream()
         {
-            using (var fileStream = File.OpenRead(Files.ImageMagickJPG))
-            {
-                var bytes = Bytes.FromStreamBuffer(fileStream);
+            using var fileStream = File.OpenRead(Files.ImageMagickJPG);
+            var bytes = Bytes.FromStreamBuffer(fileStream);
 
-                Assert.Null(bytes);
-            }
+            Assert.Null(bytes);
         }
 
         [Fact]
         public void ShouldReturnObjectWhenStreamIsMemoryStream()
         {
-            using (var memStream = new MemoryStream())
-            {
-                var bytes = Bytes.FromStreamBuffer(memStream);
+            using var memStream = new MemoryStream();
+            var bytes = Bytes.FromStreamBuffer(memStream);
 
-                Assert.NotNull(bytes);
-            }
+            Assert.NotNull(bytes);
         }
     }
 }

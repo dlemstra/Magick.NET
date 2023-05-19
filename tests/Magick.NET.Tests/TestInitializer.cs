@@ -55,14 +55,10 @@ public static class TestInitializer
             DtdProcessing = DtdProcessing.Ignore,
         };
 
+        using var stringReader = new StringReader(data);
+        using var reader = XmlReader.Create(stringReader, settings);
         var doc = new XmlDocument();
-        using (var stringReader = new StringReader(data))
-        {
-            using (var reader = XmlReader.Create(stringReader, settings))
-            {
-                doc.Load(reader);
-            }
-        }
+        doc.Load(reader);
 
         SetPolicyRights(doc, "coder", "PALM", "none");
         SetPolicyRights(doc, "module", "{SUN,JPEG}", "none");

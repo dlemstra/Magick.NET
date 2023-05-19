@@ -14,13 +14,9 @@ public partial class SparseColorArgTests
         [Fact]
         public void ShouldThrowExceptionWhenColorIsNull()
         {
-            using (var image = new MagickImage())
-            {
-                Assert.Throws<ArgumentNullException>("color", () =>
-                {
-                    new SparseColorArg(0, 0, null);
-                });
-            }
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentNullException>("color", () => new SparseColorArg(0, 0, null));
         }
     }
 }

@@ -20,11 +20,9 @@ public partial class TheKernelProfileRecordsProperty
 
         device.ProfileKernels = true;
 
-        using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-        {
-            image.Resize(500, 500);
-            image.Resize(100, 100);
-        }
+        using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+        image.Resize(500, 500);
+        image.Resize(100, 100);
 
         device.ProfileKernels = false;
 

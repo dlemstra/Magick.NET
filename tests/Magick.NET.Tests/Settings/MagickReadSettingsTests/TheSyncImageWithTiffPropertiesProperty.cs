@@ -20,21 +20,18 @@ public partial class MagickReadSettingsTests
         [Fact]
         public void ShouldNotChangeTheDensityOfTheImageWhenSetToFalse()
         {
-            using (var image = new MagickImage(Files.VicelandPNG))
-            {
-                Assert.Equal(300.0, image.Density.X);
-            }
+            using var original = new MagickImage(Files.VicelandPNG);
+
+            Assert.Equal(300.0, original.Density.X);
 
             var settings = new MagickReadSettings
             {
                 SyncImageWithTiffProperties = false,
             };
+            using var image = new MagickImage();
+            image.Read(Files.VicelandPNG, settings);
 
-            using (var image = new MagickImage())
-            {
-                image.Read(Files.VicelandPNG, settings);
-                Assert.InRange(image.Density.X, 118, 119);
-            }
+            Assert.InRange(image.Density.X, 118, 119);
         }
     }
 }
