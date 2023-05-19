@@ -6,7 +6,7 @@ using Xunit;
 
 namespace Magick.NET.Tests;
 
-public partial class MagickSettingsTests
+public partial class MagickReadSettingsTests
 {
     public class TheSyncImageWithTiffPropertiesProperty
     {

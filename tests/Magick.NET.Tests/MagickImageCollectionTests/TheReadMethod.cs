@@ -447,6 +447,17 @@ public partial class MagickImageCollectionTests
 
                 Assert.Single(images);
             }
+
+            [Fact]
+            public void ShouldUseTheSpecifiedFrameIndex()
+            {
+                using var image = new MagickImage();
+                image.Read($"{Files.RoseSparkleGIF}[1]");
+
+                using var images = new MagickImageCollection(Files.RoseSparkleGIF);
+
+                Assert.Equal(0.0, image.Compare(images[1], ErrorMetric.RootMeanSquared));
+            }
         }
 
         public class WithStream
