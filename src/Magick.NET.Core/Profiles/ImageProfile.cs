@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.IO;
 
 namespace ImageMagick;
@@ -160,7 +161,7 @@ public class ImageProfile : IImageProfile
     private static byte[] Copy(byte[]? data)
     {
         if (data is null || data.Length == 0)
-            return new byte[0];
+            return Array.Empty<byte>();
 
         var result = new byte[data.Length];
         data.CopyTo(result, 0);
