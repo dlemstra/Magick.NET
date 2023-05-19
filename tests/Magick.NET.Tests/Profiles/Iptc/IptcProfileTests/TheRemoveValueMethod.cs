@@ -13,28 +13,25 @@ public partial class IptcProfileTests
         [Fact]
         public void ShouldRemoveTheValueAndReturnTrueWhenValueWasFound()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetIptcProfile();
-                var result = profile.RemoveValue(IptcTag.Title);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetIptcProfile();
+            var result = profile.RemoveValue(IptcTag.Title);
 
-                Assert.True(result);
+            Assert.True(result);
 
-                var value = profile.GetValue(IptcTag.Title);
-                Assert.Null(value);
-            }
+            var value = profile.GetValue(IptcTag.Title);
+
+            Assert.Null(value);
         }
 
         [Fact]
         public void ShouldReturnFalseWhenProfileDoesNotContainTag()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetIptcProfile();
-                var result = profile.RemoveValue(IptcTag.ReferenceNumber);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetIptcProfile();
+            var result = profile.RemoveValue(IptcTag.ReferenceNumber);
 
-                Assert.False(result);
-            }
+            Assert.False(result);
         }
     }
 }

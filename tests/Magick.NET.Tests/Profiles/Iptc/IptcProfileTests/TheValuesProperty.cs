@@ -14,17 +14,16 @@ public partial class IptcProfileTests
         [Fact]
         public void ShouldReturnTheValues()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetIptcProfile();
+
+            Assert.NotNull(profile);
+
+            Assert.Equal(18, profile.Values.Count());
+
+            foreach (var value in profile.Values.Cast<IptcValue>())
             {
-                var profile = image.GetIptcProfile();
-                Assert.NotNull(profile);
-
-                Assert.Equal(18, profile.Values.Count());
-
-                foreach (IptcValue value in profile.Values)
-                {
-                    Assert.NotNull(value.Value);
-                }
+                Assert.NotNull(value.Value);
             }
         }
     }

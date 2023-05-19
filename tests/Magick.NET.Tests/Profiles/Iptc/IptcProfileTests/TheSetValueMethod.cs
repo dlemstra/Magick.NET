@@ -13,37 +13,33 @@ public partial class IptcProfileTests
         [Fact]
         public void ShouldChangeTheValue()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetIptcProfile();
-                var value = profile.GetValue(IptcTag.Title);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetIptcProfile();
+            var value = profile.GetValue(IptcTag.Title);
 
-                profile.SetValue(IptcTag.Title, "Magick.NET Title");
+            profile.SetValue(IptcTag.Title, "Magick.NET Title");
 
-                Assert.Equal("Magick.NET Title", value.Value);
+            Assert.Equal("Magick.NET Title", value.Value);
 
-                value = profile.GetValue(IptcTag.Title);
+            value = profile.GetValue(IptcTag.Title);
 
-                Assert.Equal("Magick.NET Title", value.Value);
-            }
+            Assert.Equal("Magick.NET Title", value.Value);
         }
 
         [Fact]
         public void ShouldAddValueThatDoesNotExist()
         {
-            using (var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG))
-            {
-                var profile = image.GetIptcProfile();
-                var value = profile.GetValue(IptcTag.ReferenceNumber);
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            var profile = image.GetIptcProfile();
+            var value = profile.GetValue(IptcTag.ReferenceNumber);
 
-                Assert.Null(value);
+            Assert.Null(value);
 
-                profile.SetValue(IptcTag.Title, "Magick.NET ReferenceNümber");
+            profile.SetValue(IptcTag.Title, "Magick.NET ReferenceNümber");
 
-                value = profile.GetValue(IptcTag.Title);
+            value = profile.GetValue(IptcTag.Title);
 
-                Assert.Equal("Magick.NET ReferenceNümber", value.Value);
-            }
+            Assert.Equal("Magick.NET ReferenceNümber", value.Value);
         }
     }
 }
