@@ -14,18 +14,17 @@ public partial class XmpProfileTests
         [Fact]
         public void ShouldCreateAnXmlReader()
         {
-            using (var image = new MagickImage(Files.InvitationTIF))
-            {
-                var profile = image.GetXmpProfile();
-                Assert.NotNull(profile);
+            using var image = new MagickImage(Files.InvitationTIF);
+            var profile = image.GetXmpProfile();
 
-                using (var reader = profile.CreateReader())
-                {
-                    var doc = new XmlDocument();
-                    doc.Load(reader);
-                    Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", doc.CreateNavigator().OuterXml);
-                }
-            }
+            Assert.NotNull(profile);
+
+            using var reader = profile.CreateReader();
+            var doc = new XmlDocument();
+            doc.Load(reader);
+            var xml = doc.CreateNavigator().OuterXml;
+
+            Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", xml);
         }
     }
 }

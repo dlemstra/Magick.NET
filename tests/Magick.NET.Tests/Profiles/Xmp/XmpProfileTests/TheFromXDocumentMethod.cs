@@ -16,10 +16,7 @@ public partial class XmpProfileTests
         [Fact]
         public void ShouldThrowExceptionWhenDocumentIsNull()
         {
-            Assert.Throws<ArgumentNullException>("document", () =>
-            {
-                XmpProfile.FromXDocument(null);
-            });
+            Assert.Throws<ArgumentNullException>("document", () => XmpProfile.FromXDocument(null));
         }
 
         [Fact]
@@ -30,7 +27,10 @@ public partial class XmpProfileTests
             var profile = XmpProfile.FromXDocument(document);
 
             Assert.NotNull(profile);
-            Assert.Equal(@"﻿<?xml version=""1.0"" encoding=""utf-8""?><test />", Encoding.UTF8.GetString(profile.ToByteArray()));
+
+            var xml = Encoding.UTF8.GetString(profile.ToByteArray());
+
+            Assert.Equal(@"﻿<?xml version=""1.0"" encoding=""utf-8""?><test />", xml);
         }
     }
 }

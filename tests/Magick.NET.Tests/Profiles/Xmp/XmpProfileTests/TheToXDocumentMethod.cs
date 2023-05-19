@@ -13,14 +13,15 @@ public partial class XmpProfileTests
         [Fact]
         public void ShouldCreateXDocumentFromProfile()
         {
-            using (var image = new MagickImage(Files.InvitationTIF))
-            {
-                var profile = image.GetXmpProfile();
-                Assert.NotNull(profile);
+            using var image = new MagickImage(Files.InvitationTIF);
+            var profile = image.GetXmpProfile();
 
-                var doc = profile.ToXDocument();
-                Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", doc.ToString());
-            }
+            Assert.NotNull(profile);
+
+            var doc = profile.ToXDocument();
+            var xml = doc.ToString();
+
+            Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", xml);
         }
     }
 }

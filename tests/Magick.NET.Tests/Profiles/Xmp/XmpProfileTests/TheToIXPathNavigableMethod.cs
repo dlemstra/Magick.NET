@@ -13,14 +13,15 @@ public partial class XmpProfileTests
         [Fact]
         public void ShouldCreateIXPathNavigableFromProfile()
         {
-            using (var image = new MagickImage(Files.InvitationTIF))
-            {
-                var profile = image.GetXmpProfile();
-                Assert.NotNull(profile);
+            using var image = new MagickImage(Files.InvitationTIF);
+            var profile = image.GetXmpProfile();
 
-                var doc = profile.ToIXPathNavigable();
-                Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", doc.CreateNavigator().OuterXml);
-            }
+            Assert.NotNull(profile);
+
+            var doc = profile.ToIXPathNavigable();
+            var xml = doc.CreateNavigator().OuterXml;
+
+            Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", xml);
         }
     }
 }
