@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Text;
 
 namespace ImageMagick;
@@ -115,7 +116,7 @@ public sealed class IptcValue : IIptcValue
     private byte[] GetData(string value)
     {
         if (string.IsNullOrEmpty(value))
-            return new byte[0];
+            return Array.Empty<byte>();
         else
             return _encoding.GetBytes(value);
     }
