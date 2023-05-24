@@ -25,13 +25,15 @@ result.Write("Mosaic.png");
 ```C#
 using var images = new MagickImageCollection();
 
-// Add first image and set the animation delay to 100ms
+// Add the first image, set the animation delay to 100ms, and set the disposal method
 images.Add(SampleFiles.SnakewarePng);
 images[0].AnimationDelay = 100;
+images[0].GifDisposeMethod = GifDisposeMethod.Previous; // Prevents frames with transparent backgrounds from overlapping each other
 
-// Add second image, set the animation delay to 100ms and flip the image
+// Add the second image, set the animation delay to 100ms, set the disposal method, and flip the image
 images.Add(SampleFiles.SnakewarePng);
 images[1].AnimationDelay = 100;
+images[0].GifDisposeMethod = GifDisposeMethod.Previous;
 images[1].Flip();
 
 // Optionally reduce colors
