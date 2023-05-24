@@ -33,7 +33,7 @@ images[0].GifDisposeMethod = GifDisposeMethod.Previous; // Prevents frames with 
 // Add the second image, set the animation delay to 100ms, set the disposal method, and flip the image
 images.Add(SampleFiles.SnakewarePng);
 images[1].AnimationDelay = 100;
-images[0].GifDisposeMethod = GifDisposeMethod.Previous;
+images[1].GifDisposeMethod = GifDisposeMethod.Previous;
 images[1].Flip();
 
 // Optionally reduce colors
