@@ -221,8 +221,6 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
-            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_Annotate(IntPtr Instance, IntPtr settings, IntPtr text, IntPtr boundingArea, UIntPtr gravity, double degrees, out IntPtr exception);
@@ -515,6 +513,8 @@ public partial class MagickImage : IDisposable
             public static extern bool MagickImage_SetColorMetric(IntPtr Instance, IntPtr image, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_SetNext(IntPtr Instance, IntPtr image);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate? method);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -786,8 +786,6 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
-            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_Annotate(IntPtr Instance, IntPtr settings, IntPtr text, IntPtr boundingArea, UIntPtr gravity, double degrees, out IntPtr exception);
@@ -1080,6 +1078,8 @@ public partial class MagickImage : IDisposable
             public static extern bool MagickImage_SetColorMetric(IntPtr Instance, IntPtr image, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_SetNext(IntPtr Instance, IntPtr image);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate? method);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1351,8 +1351,6 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_AddNoise(IntPtr Instance, UIntPtr noiseType, double attenuate, UIntPtr channels, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_AddProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
-            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_AffineTransform(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_Annotate(IntPtr Instance, IntPtr settings, IntPtr text, IntPtr boundingArea, UIntPtr gravity, double degrees, out IntPtr exception);
@@ -1645,6 +1643,8 @@ public partial class MagickImage : IDisposable
             public static extern bool MagickImage_SetColorMetric(IntPtr Instance, IntPtr image, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_SetNext(IntPtr Instance, IntPtr image);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_SetProfile(IntPtr Instance, IntPtr name, byte* datum, UIntPtr length, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_SetProgressDelegate(IntPtr Instance, ProgressDelegate? method);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3975,33 +3975,6 @@ public partial class MagickImage : IDisposable
             CheckException(exception, result);
             if (result != IntPtr.Zero)
               Instance = result;
-        }
-        public void AddProfile(string name, byte[] datum, int length)
-        {
-            using var nameNative = UTF8Marshaler.CreateInstance(name);
-            fixed (byte* datumFixed = datum)
-            {
-                IntPtr exception = IntPtr.Zero;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_AddProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
-                #endif
-                CheckException(exception);
-            }
         }
         public void AffineTransform(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
         {
@@ -7660,6 +7633,33 @@ public partial class MagickImage : IDisposable
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             NativeMethods.X86.MagickImage_SetNext(Instance, image);
             #endif
+        }
+        public void SetProfile(string name, byte[] datum, int length)
+        {
+            using var nameNative = UTF8Marshaler.CreateInstance(name);
+            fixed (byte* datumFixed = datum)
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_SetProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_SetProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_SetProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
+                #endif
+                CheckException(exception);
+            }
         }
         public void SetProgressDelegate(ProgressDelegate? method)
         {

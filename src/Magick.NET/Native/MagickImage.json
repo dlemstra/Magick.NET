@@ -392,24 +392,6 @@
       ]
     },
     {
-      "name": "AddProfile",
-      "throws": true,
-      "arguments": [
-        {
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "name": "datum",
-          "type": "byte[]"
-        },
-        {
-          "name": "length",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
       "name": "AffineTransform",
       "instance": true,
       "throws": true,
@@ -2452,6 +2434,24 @@
         {
           "name": "image",
           "type": "Instance"
+        }
+      ]
+    },
+    {
+      "name": "SetProfile",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "datum",
+          "type": "byte[]"
+        },
+        {
+          "name": "length",
+          "type": "size_t"
         }
       ]
     },

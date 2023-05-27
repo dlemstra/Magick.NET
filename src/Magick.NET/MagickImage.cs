@@ -5837,7 +5837,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         if (datum is null || datum.Length == 0)
             return;
 
-        _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
+        _nativeInstance.SetProfile(profile.Name, datum, datum.Length);
     }
 
     /// <summary>
@@ -5866,7 +5866,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         if (mode == ColorTransformMode.Quantum)
             temporaryDefines.SetArtifact("profile:highres-transform", false);
 
-        _nativeInstance.AddProfile(profile.Name, datum, datum.Length);
+        _nativeInstance.SetProfile(profile.Name, datum, datum.Length);
     }
 
     /// <summary>
