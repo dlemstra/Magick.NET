@@ -45,7 +45,7 @@ public static partial class IMagickImageExtentions
     /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
     public static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self)
         where TQuantumType : struct, IConvertible
-        => ToBitmap(self, false);
+        => ToBitmap(self, withDensity: false);
 
     /// <summary>
     /// Converts this instance to a <see cref="Bitmap"/> using <see cref="ImageFormat.Bmp"/>.
@@ -55,7 +55,7 @@ public static partial class IMagickImageExtentions
     /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
     public static Bitmap ToBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self)
         where TQuantumType : struct, IConvertible
-        => ToBitmap(self, true);
+        => ToBitmap(self, withDensity: true);
 
     /// <summary>
     /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
@@ -67,7 +67,7 @@ public static partial class IMagickImageExtentions
     /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
     public static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, ImageFormat imageFormat)
         where TQuantumType : struct, IConvertible
-        => ToBitmap(self, imageFormat, false);
+        => ToBitmap(self, imageFormat, withDensity: false);
 
     /// <summary>
     /// Converts this instance to a <see cref="Bitmap"/> using the specified <see cref="ImageFormat"/>.
@@ -79,9 +79,9 @@ public static partial class IMagickImageExtentions
     /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
     public static Bitmap ToBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self, ImageFormat imageFormat)
         where TQuantumType : struct, IConvertible
-        => ToBitmap(self, imageFormat, true);
+        => ToBitmap(self, imageFormat, withDensity: true);
 
-    private static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, bool useDensity)
+    private static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, bool withDensity)
         where TQuantumType : struct, IConvertible
     {
         Throw.IfNull(nameof(self), self);
@@ -118,7 +118,9 @@ public static partial class IMagickImageExtentions
                 bitmap.UnlockBits(data);
             }
 
-            SetBitmapDensity(self, bitmap, useDensity);
+            if (withDensity)
+                SetBitmapDensity(self, bitmap);
+
             return bitmap;
         }
         finally
@@ -128,7 +130,7 @@ public static partial class IMagickImageExtentions
         }
     }
 
-    private static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, ImageFormat imageFormat, bool useDensity)
+    private static Bitmap ToBitmap<TQuantumType>(IMagickImage<TQuantumType> self, ImageFormat imageFormat, bool withDensity)
         where TQuantumType : struct, IConvertible
     {
         Throw.IfNull(nameof(self), self);
@@ -142,29 +144,25 @@ public static partial class IMagickImageExtentions
 
         /* Do not dispose the memStream, the bitmap owns it. */
         var bitmap = new Bitmap(memStream);
-        SetBitmapDensity(self, bitmap, useDensity);
+        if (withDensity)
+            SetBitmapDensity(self, bitmap);
 
         return bitmap;
     }
 
-    private static void SetBitmapDensity<TQuantumType>(IMagickImage<TQuantumType> image, Bitmap bitmap, bool useDpi)
+    private static void SetBitmapDensity<TQuantumType>(IMagickImage<TQuantumType> image, Bitmap bitmap)
         where TQuantumType : struct, IConvertible
     {
-        if (useDpi)
-        {
-            var dpi = GetDefaultDensity(image, useDpi ? DensityUnit.PixelsPerInch : DensityUnit.Undefined);
-            bitmap.SetResolution((float)dpi.X, (float)dpi.Y);
-        }
+        var dpi = GetDefaultDensity(image);
+        bitmap.SetResolution((float)dpi.X, (float)dpi.Y);
     }
 
-    private static Density GetDefaultDensity(IMagickImage image, DensityUnit units)
+    private static Density GetDefaultDensity(IMagickImage image)
     {
-        Throw.IfNull(nameof(image), image);
-
-        if (units == DensityUnit.Undefined || (image.Density.Units == DensityUnit.Undefined && image.Density.X == 0 && image.Density.Y == 0))
+        if (image.Density.Units == DensityUnit.Undefined && image.Density.X == 0 && image.Density.Y == 0)
             return new Density(96);
 
-        return image.Density.ChangeUnits(units);
+        return image.Density.ChangeUnits(DensityUnit.PixelsPerInch);
     }
 
     private static string GetMapping(PixelFormat format)
