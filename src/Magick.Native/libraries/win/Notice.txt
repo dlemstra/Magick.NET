@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-10 (2023-05-21) ] copyright:
+[ ImageMagick 7.1.1-11 (2023-05-29) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -2333,7 +2333,7 @@ Legal Terms
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ fribidi 1.0.12 (2022-04-19) ] copyright:
+[ fribidi 1.0.13 (2023-05-16) ] copyright:
 
 		  GNU LESSER GENERAL PUBLIC LICENSE
 		       Version 2.1, February 1999
@@ -4898,7 +4898,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lzma 5.4.1 (2023-03-11) ] copyright:
+[ lzma 5.4.3 (2023-05-20) ] copyright:
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
@@ -6589,7 +6589,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.11.3 (2023-05-11) ] copyright:
+[ xml 2.11.4 (2023-05-18) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files hash.c,
 list.c and the trio files, which are covered by a similar licence but
