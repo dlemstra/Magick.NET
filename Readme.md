@@ -81,10 +81,6 @@ Every commit to Magick.NET is automatically build and tested with the help of [G
 
 Magick.NET uses [semantic versioning](https://semver.org/#semantic-versioning-200).
 
-## Sponsors
-
-- [@HEIC-to-JPEG-Dev](https://github.com/HEIC-to-JPEG-Dev)
-
 ## Donate
 
 If you have an uncontrollable urge to give me something for the time and effort I am putting into this project then please buy me something from my
