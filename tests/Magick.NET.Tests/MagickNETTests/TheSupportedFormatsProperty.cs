@@ -28,9 +28,9 @@ public partial class MagickNETTests
             var formatsCount = MagickNET.SupportedFormats.Count();
 
             if (Runtime.IsWindows)
-                Assert.Equal(267, formatsCount);
+                Assert.Equal(268, formatsCount);
             else
-                Assert.Equal(264, formatsCount);
+                Assert.Equal(265, formatsCount);
         }
     }
 }

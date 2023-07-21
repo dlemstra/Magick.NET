@@ -714,6 +714,11 @@ public enum MagickFormat
     Mpg,
 
     /// <summary>
+    /// Joint Photographic Experts Group JFIF format (Jpeg).
+    /// </summary>
+    Mpo,
+
+    /// <summary>
     /// Sony (Minolta) Raw Image File.
     /// </summary>
     Mrw,
