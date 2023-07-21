@@ -4414,6 +4414,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IPerceptualHash? PerceptualHash()
     {
+        using var temporaryDefines = new TemporaryDefines(this);
+        temporaryDefines.SetArtifact("phash:colorspaces", "sRGB,HCLp");
         var list = _nativeInstance.PerceptualHash();
 
         try
