@@ -10,6 +10,16 @@ namespace Magick.NET.Tests;
 public class TheDngCoder
 {
     [Fact]
+    public void ShouldNotReadTheThumbnailByDefault()
+    {
+        using var image = new MagickImage();
+        image.Ping(Files.Coders.RawKodakDC50KDC);
+
+        var profile = image.GetProfile("dng:thumbnail");
+        Assert.Null(profile);
+    }
+
+    [Fact]
     public void ShouldReadTheThumbnail()
     {
         var settings = new MagickReadSettings
@@ -29,15 +39,21 @@ public class TheDngCoder
         var data = profile.GetData();
         Assert.NotNull(data);
         Assert.Equal(18432, data.Length);
-    }
 
-    [Fact]
-    public void ShouldNotReadTheThumbnailByDefault()
-    {
-        using var image = new MagickImage();
-        image.Ping(Files.Coders.RawKodakDC50KDC);
+        var type = image.GetAttribute("dng:thumbnail.type");
+        var size = new MagickGeometry(image.GetAttribute("dng:thumbnail.geometry"));
+        var bits = int.Parse(image.GetAttribute("dng:thumbnail.bits"));
+        var colors = int.Parse(image.GetAttribute("dng:thumbnail.colors"));
 
-        var profile = image.GetProfile("dng:thumbnail");
-        Assert.Null(profile);
+        Assert.Equal("bitmap", type);
+        Assert.Equal(768, image.Width);
+        Assert.Equal(512, image.Height);
+        Assert.Equal(8, bits);
+        Assert.Equal(3, colors);
+
+        using var thumbnail = new MagickImage();
+        thumbnail.ReadPixels(data, new PixelReadSettings(size.Width, size.Height, StorageType.Char, "RGB"));
+
+        Assert.Equal("b68a4fcd77c02b98b22707db20bdbdd55a310fc0b96e91d174c0d7f1139033bf", thumbnail.Signature);
     }
 }
