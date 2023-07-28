@@ -83,7 +83,7 @@ public static partial class IMagickImageExtentions
     {
         Throw.IfNull(nameof(image), image);
 
-        if (units == DensityUnit.Undefined || (image.Density.Units == DensityUnit.Undefined && image.Density.X == 0 && image.Density.Y == 0))
+        if (units == DensityUnit.Undefined || (image.Density.X <= 0 || image.Density.Y <= 0))
             return new Density(96);
 
         return image.Density.ChangeUnits(units);
