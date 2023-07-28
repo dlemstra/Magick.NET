@@ -133,14 +133,14 @@ public partial class IMagickImageExtensionsTests
             Assert.Equal(200, (int)bitmap.VerticalResolution);
         }
 
-        private void AssertUnsupportedImageFormat(ImageFormat imageFormat)
+        private static void AssertUnsupportedImageFormat(ImageFormat imageFormat)
         {
             using var image = new MagickImage(MagickColors.Red, 10, 10);
 
             Assert.Throws<NotSupportedException>(() => image.ToBitmapWithDensity(imageFormat));
         }
 
-        private void AssertSupportedImageFormat(ImageFormat imageFormat)
+        private static void AssertSupportedImageFormat(ImageFormat imageFormat)
         {
             using var image = new MagickImage(MagickColors.Red, 10, 10);
             using var bitmap = image.ToBitmapWithDensity(imageFormat);
@@ -155,7 +155,7 @@ public partial class IMagickImageExtensionsTests
             ColorAssert.Equal(MagickColors.Red, ToMagickColor(bitmap.GetPixel(9, 9)));
         }
 
-        private MagickColor ToMagickColor(Color color)
+        private static MagickColor ToMagickColor(Color color)
         {
             var result = new MagickColor();
             result.SetFromColor(color);
