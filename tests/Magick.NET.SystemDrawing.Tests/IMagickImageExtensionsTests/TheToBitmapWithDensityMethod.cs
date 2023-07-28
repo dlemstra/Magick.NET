@@ -133,6 +133,39 @@ public partial class IMagickImageExtensionsTests
             Assert.Equal(200, (int)bitmap.VerticalResolution);
         }
 
+        [Fact]
+        public void ShouldUseTheDensityWhenUnitsAreUndefined()
+        {
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
+            image.Density = new Density(1, 1, DensityUnit.Undefined);
+
+            using var bitmap = image.ToBitmapWithDensity(ImageFormat.Jpeg);
+            Assert.Equal(1, bitmap.HorizontalResolution);
+            Assert.Equal(1, bitmap.VerticalResolution);
+        }
+
+        [Fact]
+        public void ShouldUseTheDefaultDensityWhenXIsZero()
+        {
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
+            image.Density = new Density(0, 1, DensityUnit.PixelsPerCentimeter);
+
+            using var bitmap = image.ToBitmapWithDensity(ImageFormat.Jpeg);
+            Assert.Equal(96, bitmap.HorizontalResolution);
+            Assert.Equal(96, bitmap.VerticalResolution);
+        }
+
+        [Fact]
+        public void ShouldUseTheDefaultDensityWhenYIsZero()
+        {
+            using var image = new MagickImage(MagickColors.Red, 1, 1);
+            image.Density = new Density(1, 0, DensityUnit.PixelsPerCentimeter);
+
+            using var bitmap = image.ToBitmapWithDensity(ImageFormat.Jpeg);
+            Assert.Equal(96, bitmap.HorizontalResolution);
+            Assert.Equal(96, bitmap.VerticalResolution);
+        }
+
         private static void AssertUnsupportedImageFormat(ImageFormat imageFormat)
         {
             using var image = new MagickImage(MagickColors.Red, 10, 10);

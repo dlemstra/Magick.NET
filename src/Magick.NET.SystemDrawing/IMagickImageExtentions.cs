@@ -159,7 +159,7 @@ public static partial class IMagickImageExtentions
 
     private static Density GetDefaultDensity(IMagickImage image)
     {
-        if (image.Density.Units == DensityUnit.Undefined && image.Density.X == 0 && image.Density.Y == 0)
+        if (image.Density.X <= 0 || image.Density.Y <= 0)
             return new Density(96);
 
         return image.Density.ChangeUnits(DensityUnit.PixelsPerInch);
