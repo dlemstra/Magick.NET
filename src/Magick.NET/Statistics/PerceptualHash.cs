@@ -40,19 +40,12 @@ public sealed partial class PerceptualHash : IPerceptualHash
     }
 
     private PerceptualHash()
-    {
-        _channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
-    }
+        => _channels = new Dictionary<PixelChannel, ChannelPerceptualHash>();
 
     internal bool Isvalid
-    {
-        get
-        {
-            return _channels.ContainsKey(PixelChannel.Red) &&
-              _channels.ContainsKey(PixelChannel.Green) &&
-              _channels.ContainsKey(PixelChannel.Blue);
-        }
-    }
+        => _channels.ContainsKey(PixelChannel.Red) &&
+           _channels.ContainsKey(PixelChannel.Green) &&
+           _channels.ContainsKey(PixelChannel.Blue);
 
     /// <summary>
     /// Returns the perceptual hash for the specified channel.
@@ -85,12 +78,9 @@ public sealed partial class PerceptualHash : IPerceptualHash
     /// </summary>
     /// <returns>A <see cref="string"/>.</returns>
     public override string ToString()
-    {
-        return
-          _channels[PixelChannel.Red].ToString() +
-          _channels[PixelChannel.Green].ToString() +
-          _channels[PixelChannel.Blue].ToString();
-    }
+        => _channels[PixelChannel.Red].ToString() +
+           _channels[PixelChannel.Green].ToString() +
+           _channels[PixelChannel.Blue].ToString();
 
     internal static void DisposeList(IntPtr list)
     {
