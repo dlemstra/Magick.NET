@@ -49,14 +49,12 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
 
     internal ChannelPerceptualHash(PixelChannel channel, string hash)
       : this(channel)
-    {
-        ParseHash(hash);
-    }
+        => ParseHash(hash);
 
     /// <summary>
     /// Gets the channel.
     /// </summary>
-    public PixelChannel Channel { get; private set; }
+    public PixelChannel Channel { get; }
 
     /// <summary>
     /// SRGB hu perceptual hash.
@@ -106,19 +104,30 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// Returns a string representation of this hash.
     /// </summary>
     /// <returns>A string representation of this hash.</returns>
-    public override string ToString() =>
-        _hash;
+    public override string ToString()
+        => _hash;
+
+    private static double PowerOfTen(int power)
+        => power switch
+        {
+            2 => 100.0,
+            3 => 1000.0,
+            4 => 10000.0,
+            5 => 100000.0,
+            6 => 1000000.0,
+            _ => 10.0,
+        };
 
     private void ParseHash(string hash)
     {
         _hash = hash;
 
-        for (var i = 0; i < 14; i++)
+        for (int i = 0, offset = 0; i < 14; i++, offset += 5)
         {
-            if (!int.TryParse(hash.Substring(i * 5, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var hex))
+            if (!int.TryParse(hash.Substring(offset, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var hex))
                 throw new ArgumentException("Invalid hash specified", nameof(hash));
 
-            var value = (ushort)hex / Math.Pow(10.0, hex >> 17);
+            var value = (ushort)hex / PowerOfTen(hex >> 17);
             if ((hex & (1 << 16)) != 0)
                 value = -value;
             if (i < 7)
