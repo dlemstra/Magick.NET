@@ -7,7 +7,7 @@
       "arguments": [
         {
           "name": "value",
-          "type": "size_t"
+          "type": "ssize_t"
         }
       ]
     },
@@ -16,7 +16,7 @@
       "arguments": [
         {
           "name": "value",
-          "type": "size_t"
+          "type": "ssize_t"
         }
       ]
     }
