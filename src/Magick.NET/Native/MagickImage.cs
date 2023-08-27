@@ -388,7 +388,7 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ImportPixels(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
+            public static extern void MagickImage_ImportPixels(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Integral(IntPtr Instance, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -953,7 +953,7 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ImportPixels(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
+            public static extern void MagickImage_ImportPixels(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Integral(IntPtr Instance, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1518,7 +1518,7 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Implode(IntPtr Instance, double amount, UIntPtr method, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ImportPixels(IntPtr Instance, UIntPtr x, UIntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
+            public static extern void MagickImage_ImportPixels(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, IntPtr map, UIntPtr storageType, void* data, UIntPtr offsetInBytes, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Integral(IntPtr Instance, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -6054,19 +6054,19 @@ public partial class MagickImage : IDisposable
             if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.MagickImage_ImportPixels(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            NativeMethods.ARM64.MagickImage_ImportPixels(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_ImportPixels(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            NativeMethods.X64.MagickImage_ImportPixels(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            NativeMethods.X86.MagickImage_ImportPixels(Instance, (UIntPtr)x, (UIntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            NativeMethods.X86.MagickImage_ImportPixels(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
             #endif
             CheckException(exception);
         }
