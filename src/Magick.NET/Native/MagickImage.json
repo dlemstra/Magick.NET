@@ -1822,7 +1822,7 @@
         },
         {
           "name": "iterations",
-          "type": "size_t"
+          "type": "ssize_t"
         }
       ]
     },

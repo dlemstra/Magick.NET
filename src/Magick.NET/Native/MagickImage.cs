@@ -425,7 +425,7 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
+            public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, IntPtr iterations, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -990,7 +990,7 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
+            public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, IntPtr iterations, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1555,7 +1555,7 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_MinimumBoundingBox(IntPtr Instance, out UIntPtr length, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, UIntPtr iterations, out IntPtr exception);
+            public static extern IntPtr MagickImage_Morphology(IntPtr Instance, UIntPtr method, IntPtr kernel, UIntPtr channels, IntPtr iterations, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_MotionBlur(IntPtr Instance, double radius, double sigma, double angle, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -6523,19 +6523,19 @@ public partial class MagickImage : IDisposable
             if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            result = NativeMethods.ARM64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+            result = NativeMethods.ARM64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (IntPtr)iterations, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+            result = NativeMethods.X64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (IntPtr)iterations, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            result = NativeMethods.X86.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (UIntPtr)iterations, out exception);
+            result = NativeMethods.X86.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (UIntPtr)channels, (IntPtr)iterations, out exception);
             #endif
             CheckException(exception, result);
             if (result != IntPtr.Zero)
