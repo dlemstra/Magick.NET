@@ -622,7 +622,7 @@
     },
     {
       "name": "ChannelOffset",
-      "type": "size_t",
+      "type": "ssize_t",
       "arguments": [
         {
           "name": "channel",

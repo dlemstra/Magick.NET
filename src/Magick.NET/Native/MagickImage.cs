@@ -249,7 +249,7 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_CannyEdge(IntPtr Instance, double radius, double sigma, double lower, double upper, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern UIntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
+            public static extern IntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -814,7 +814,7 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_CannyEdge(IntPtr Instance, double radius, double sigma, double lower, double upper, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern UIntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
+            public static extern IntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1379,7 +1379,7 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_CannyEdge(IntPtr Instance, double radius, double sigma, double lower, double upper, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern UIntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
+            public static extern IntPtr MagickImage_ChannelOffset(IntPtr Instance, UIntPtr channel);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Charcoal(IntPtr Instance, double radius, double sigma, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -4328,7 +4328,7 @@ public partial class MagickImage : IDisposable
         }
         public int ChannelOffset(PixelChannel channel)
         {
-            UIntPtr result;
+            IntPtr result;
             #if PLATFORM_AnyCPU
             if (Runtime.IsArm64)
             #endif
