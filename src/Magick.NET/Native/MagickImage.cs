@@ -48,9 +48,9 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
+            public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -613,9 +613,9 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
+            public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1178,9 +1178,9 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_AnimationIterations_Set(IntPtr instance, UIntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern UIntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_AnimationTicksPerSecond_Get(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, UIntPtr value);
+            public static extern void MagickImage_AnimationTicksPerSecond_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_BackgroundColor_Get(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1888,7 +1888,7 @@ public partial class MagickImage : IDisposable
         {
             get
             {
-                UIntPtr result;
+                IntPtr result;
                 #if PLATFORM_AnyCPU
                 if (Runtime.IsArm64)
                 #endif
@@ -1915,19 +1915,19 @@ public partial class MagickImage : IDisposable
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
+                NativeMethods.ARM64.MagickImage_AnimationTicksPerSecond_Set(Instance, (IntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
+                NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Set(Instance, (IntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_AnimationTicksPerSecond_Set(Instance, (UIntPtr)value);
+                NativeMethods.X86.MagickImage_AnimationTicksPerSecond_Set(Instance, (IntPtr)value);
                 #endif
             }
         }

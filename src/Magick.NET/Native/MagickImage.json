@@ -91,7 +91,7 @@
     },
     {
       "name": "AnimationTicksPerSecond",
-      "type": "size_t"
+      "type": "ssize_t"
     },
     {
       "name": "BackgroundColor",
