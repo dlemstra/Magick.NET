@@ -53,16 +53,16 @@ internal static partial class Environment
         public static void Initialize()
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.Environment_Initialize();
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.Environment_Initialize();
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.Environment_Initialize();
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -76,16 +76,16 @@ internal static partial class Environment
             using var nameNative = UTF8Marshaler.CreateInstance(name);
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            result = NativeMethods.ARM64.Environment_GetEnv(nameNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             result = NativeMethods.X64.Environment_GetEnv(nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.Environment_GetEnv(nameNative.Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -100,16 +100,16 @@ internal static partial class Environment
             using var nameNative = UTF8Marshaler.CreateInstance(name);
             using var valueNative = UTF8Marshaler.CreateInstance(value);
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.Environment_SetEnv(nameNative.Instance, valueNative.Instance);
             #endif
             #if PLATFORM_AnyCPU
             else

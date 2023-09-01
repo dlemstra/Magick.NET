@@ -83,16 +83,16 @@ internal partial class PixelCollection : IDisposable
         protected override void Dispose(IntPtr instance)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.PixelCollection_Dispose(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.PixelCollection_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.PixelCollection_Dispose(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -105,16 +105,16 @@ internal partial class PixelCollection : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            Instance = NativeMethods.ARM64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             Instance = NativeMethods.X64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.ARM64.PixelCollection_Create(MagickImage.GetInstance(image), out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -138,16 +138,16 @@ internal partial class PixelCollection : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            result = NativeMethods.ARM64.PixelCollection_GetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             result = NativeMethods.X64.PixelCollection_GetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.PixelCollection_GetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -164,16 +164,16 @@ internal partial class PixelCollection : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.PixelCollection_SetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.PixelCollection_SetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.PixelCollection_SetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -191,16 +191,16 @@ internal partial class PixelCollection : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.PixelCollection_SetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 NativeMethods.X64.PixelCollection_SetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.PixelCollection_SetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -218,16 +218,16 @@ internal partial class PixelCollection : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            result = NativeMethods.ARM64.PixelCollection_ToByteArray(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             result = NativeMethods.X64.PixelCollection_ToByteArray(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.PixelCollection_ToByteArray(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -253,16 +253,16 @@ internal partial class PixelCollection : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            result = NativeMethods.ARM64.PixelCollection_ToShortArray(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             result = NativeMethods.X64.PixelCollection_ToShortArray(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.PixelCollection_ToShortArray(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mappingNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else

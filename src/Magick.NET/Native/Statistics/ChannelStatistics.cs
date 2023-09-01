@@ -98,16 +98,16 @@ internal partial class ChannelStatistics
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelStatistics_Depth_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelStatistics_Depth_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelStatistics_Depth_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -124,16 +124,16 @@ internal partial class ChannelStatistics
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelStatistics_Entropy_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelStatistics_Entropy_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelStatistics_Entropy_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -150,16 +150,16 @@ internal partial class ChannelStatistics
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelStatistics_Kurtosis_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelStatistics_Kurtosis_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelStatistics_Kurtosis_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -176,16 +176,16 @@ internal partial class ChannelStatistics
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelStatistics_Maximum_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelStatistics_Maximum_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelStatistics_Maximum_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -202,16 +202,16 @@ internal partial class ChannelStatistics
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelStatistics_Mean_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelStatistics_Mean_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelStatistics_Mean_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -228,16 +228,16 @@ internal partial class ChannelStatistics
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelStatistics_Minimum_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelStatistics_Minimum_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelStatistics_Minimum_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -254,16 +254,16 @@ internal partial class ChannelStatistics
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelStatistics_Skewness_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelStatistics_Skewness_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelStatistics_Skewness_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -280,16 +280,16 @@ internal partial class ChannelStatistics
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelStatistics_StandardDeviation_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelStatistics_StandardDeviation_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelStatistics_StandardDeviation_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else

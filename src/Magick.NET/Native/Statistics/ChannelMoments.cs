@@ -86,16 +86,16 @@ public partial class ChannelMoments
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelMoments_Centroid_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelMoments_Centroid_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelMoments_Centroid_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -112,16 +112,16 @@ public partial class ChannelMoments
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelMoments_EllipseAngle_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelMoments_EllipseAngle_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelMoments_EllipseAngle_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -138,16 +138,16 @@ public partial class ChannelMoments
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelMoments_EllipseAxis_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelMoments_EllipseAxis_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelMoments_EllipseAxis_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -164,16 +164,16 @@ public partial class ChannelMoments
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelMoments_EllipseEccentricity_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelMoments_EllipseEccentricity_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelMoments_EllipseEccentricity_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -190,16 +190,16 @@ public partial class ChannelMoments
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.ChannelMoments_EllipseIntensity_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.ChannelMoments_EllipseIntensity_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ChannelMoments_EllipseIntensity_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -214,16 +214,16 @@ public partial class ChannelMoments
         {
             double result;
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            result = NativeMethods.ARM64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             result = NativeMethods.X64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.ChannelMoments_GetHuInvariants(Instance, (UIntPtr)index);
             #endif
             #if PLATFORM_AnyCPU
             else

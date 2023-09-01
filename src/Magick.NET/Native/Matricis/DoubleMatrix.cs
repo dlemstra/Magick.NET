@@ -48,16 +48,16 @@ public partial class DoubleMatrix
         protected override void Dispose(IntPtr instance)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.DoubleMatrix_Dispose(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.DoubleMatrix_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.DoubleMatrix_Dispose(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -71,16 +71,16 @@ public partial class DoubleMatrix
             fixed (double* valuesFixed = values)
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                Instance = NativeMethods.ARM64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 Instance = NativeMethods.X64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                Instance = NativeMethods.ARM64.DoubleMatrix_Create(valuesFixed, (UIntPtr)order);
                 #endif
                 #if PLATFORM_AnyCPU
                 else

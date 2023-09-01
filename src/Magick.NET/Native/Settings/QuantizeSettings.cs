@@ -78,16 +78,16 @@ public partial class QuantizeSettings
         protected override void Dispose(IntPtr instance)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.QuantizeSettings_Dispose(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.QuantizeSettings_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.QuantizeSettings_Dispose(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -99,16 +99,16 @@ public partial class QuantizeSettings
         public NativeQuantizeSettings()
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            Instance = NativeMethods.ARM64.QuantizeSettings_Create();
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             Instance = NativeMethods.X64.QuantizeSettings_Create();
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.ARM64.QuantizeSettings_Create();
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -129,16 +129,16 @@ public partial class QuantizeSettings
         public void SetColors(int value)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.QuantizeSettings_SetColors(Instance, (UIntPtr)value);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -150,16 +150,16 @@ public partial class QuantizeSettings
         public void SetColorSpace(ColorSpace value)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.QuantizeSettings_SetColorSpace(Instance, (UIntPtr)value);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -171,16 +171,16 @@ public partial class QuantizeSettings
         public void SetDitherMethod(DitherMethod value)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.QuantizeSettings_SetDitherMethod(Instance, (UIntPtr)value);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -192,16 +192,16 @@ public partial class QuantizeSettings
         public void SetMeasureErrors(bool value)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.QuantizeSettings_SetMeasureErrors(Instance, value);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.QuantizeSettings_SetMeasureErrors(Instance, value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.QuantizeSettings_SetMeasureErrors(Instance, value);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -213,16 +213,16 @@ public partial class QuantizeSettings
         public void SetTreeDepth(int value)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.QuantizeSettings_SetTreeDepth(Instance, (UIntPtr)value);
             #endif
             #if PLATFORM_AnyCPU
             else

@@ -42,16 +42,16 @@ internal static partial class MagickMemory
         public static void Relinquish(IntPtr value)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.MagickMemory_Relinquish(value);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.MagickMemory_Relinquish(value);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickMemory_Relinquish(value);
             #endif
             #if PLATFORM_AnyCPU
             else

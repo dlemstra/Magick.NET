@@ -53,16 +53,16 @@ public partial class JpegOptimizer
             using var outputNative = UTF8Marshaler.CreateInstance(output);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.JpegOptimizer_CompressFile(inputNative.Instance, outputNative.Instance, progressive, lossless, (UIntPtr)quality, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -76,16 +76,16 @@ public partial class JpegOptimizer
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.JpegOptimizer_CompressStream(reader, writer, progressive, lossless, (UIntPtr)quality, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
+            if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
             NativeMethods.X64.JpegOptimizer_CompressStream(reader, writer, progressive, lossless, (UIntPtr)quality, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.JpegOptimizer_CompressStream(reader, writer, progressive, lossless, (UIntPtr)quality, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else

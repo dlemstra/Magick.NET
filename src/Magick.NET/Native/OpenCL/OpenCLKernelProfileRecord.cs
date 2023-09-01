@@ -76,16 +76,16 @@ public partial class OpenCLKernelProfileRecord
             {
                 long result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Count_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.OpenCLKernelProfileRecord_Count_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Count_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -102,16 +102,16 @@ public partial class OpenCLKernelProfileRecord
             {
                 long result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MaximumDuration_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -128,16 +128,16 @@ public partial class OpenCLKernelProfileRecord
             {
                 long result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_MinimumDuration_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -154,16 +154,16 @@ public partial class OpenCLKernelProfileRecord
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Name_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.OpenCLKernelProfileRecord_Name_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_Name_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -180,16 +180,16 @@ public partial class OpenCLKernelProfileRecord
             {
                 long result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
+                if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
                 result = NativeMethods.X64.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.OpenCLKernelProfileRecord_TotalDuration_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
