@@ -6261,7 +6261,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>The image statistics.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IStatistics Statistics()
-        => Statistics(ImageMagick.Channels.Default);
+        => Statistics(ImageMagick.Channels.All);
 
     /// <summary>
     /// Returns the image statistics.

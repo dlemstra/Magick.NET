@@ -29,7 +29,7 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var other = image.Clone();
             image.Threshold(new Percentage(80));
-            other.Threshold(new Percentage(80), Channels.Default);
+            other.Threshold(new Percentage(80), Channels.All);
 
             var difference = image.Compare(other, ErrorMetric.RootMeanSquared);
 
