@@ -106,16 +106,16 @@ public partial class ConnectedComponent
         public static void DisposeList(IntPtr list)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.ConnectedComponent_DisposeList(list);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.ConnectedComponent_DisposeList(list);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.ConnectedComponent_DisposeList(list);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -128,16 +128,16 @@ public partial class ConnectedComponent
         {
             UIntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ConnectedComponent_GetArea(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ConnectedComponent_GetArea(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ConnectedComponent_GetArea(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -151,16 +151,16 @@ public partial class ConnectedComponent
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ConnectedComponent_GetCentroid(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ConnectedComponent_GetCentroid(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ConnectedComponent_GetCentroid(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -174,16 +174,16 @@ public partial class ConnectedComponent
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ConnectedComponent_GetColor(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ConnectedComponent_GetColor(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ConnectedComponent_GetColor(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -197,16 +197,16 @@ public partial class ConnectedComponent
         {
             UIntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ConnectedComponent_GetHeight(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ConnectedComponent_GetHeight(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ConnectedComponent_GetHeight(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -220,16 +220,16 @@ public partial class ConnectedComponent
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ConnectedComponent_GetId(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ConnectedComponent_GetId(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ConnectedComponent_GetId(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -243,16 +243,16 @@ public partial class ConnectedComponent
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ConnectedComponent_GetInstance(list, (UIntPtr)index);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ConnectedComponent_GetInstance(list, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ConnectedComponent_GetInstance(list, (UIntPtr)index);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -266,16 +266,16 @@ public partial class ConnectedComponent
         {
             UIntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ConnectedComponent_GetWidth(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ConnectedComponent_GetWidth(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ConnectedComponent_GetWidth(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -289,16 +289,16 @@ public partial class ConnectedComponent
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ConnectedComponent_GetX(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ConnectedComponent_GetX(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ConnectedComponent_GetX(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -312,16 +312,16 @@ public partial class ConnectedComponent
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ConnectedComponent_GetY(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ConnectedComponent_GetY(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ConnectedComponent_GetY(instance);
             #endif
             #if PLATFORM_AnyCPU
             else

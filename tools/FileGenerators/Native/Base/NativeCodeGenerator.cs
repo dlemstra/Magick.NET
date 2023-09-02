@@ -190,20 +190,21 @@ internal abstract class NativeCodeGenerator : CodeGenerator
 
     protected void WriteNativeIfContent(string action)
     {
+        // This needs to go first because Is64Bit also returns true for arm64
         WriteLine("#if PLATFORM_AnyCPU");
-        WriteLine("if (Runtime.Is64Bit)");
-        WriteLine("#endif");
-
-        WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
-        WriteLine(string.Format(action, "X64"));
-        WriteLine("#endif");
-
-        WriteLine("#if PLATFORM_AnyCPU");
-        WriteLine("else if (Runtime.IsArm64)");
+        WriteLine("if (Runtime.IsArm64)");
         WriteLine("#endif");
 
         WriteLine("#if PLATFORM_arm64 || PLATFORM_AnyCPU");
         WriteLine(string.Format(action, "ARM64"));
+        WriteLine("#endif");
+
+        WriteLine("#if PLATFORM_AnyCPU");
+        WriteLine("else if (Runtime.Is64Bit)");
+        WriteLine("#endif");
+
+        WriteLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
+        WriteLine(string.Format(action, "X64"));
         WriteLine("#endif");
 
         WriteLine("#if PLATFORM_AnyCPU");

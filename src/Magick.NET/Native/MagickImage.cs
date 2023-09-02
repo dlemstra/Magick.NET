@@ -1741,16 +1741,16 @@ public partial class MagickImage : IDisposable
         protected override void Dispose(IntPtr instance)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Dispose(instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Dispose(instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Dispose(instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -1764,16 +1764,16 @@ public partial class MagickImage : IDisposable
             using var settingsNative = MagickSettings.CreateInstance(settings);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            Instance = NativeMethods.X64.MagickImage_Create(settingsNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             Instance = NativeMethods.ARM64.MagickImage_Create(settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            Instance = NativeMethods.X64.MagickImage_Create(settingsNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -1802,16 +1802,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AnimationDelay_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_AnimationDelay_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_AnimationDelay_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1824,16 +1824,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_AnimationDelay_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1849,16 +1849,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AnimationIterations_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_AnimationIterations_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_AnimationIterations_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1871,16 +1871,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_AnimationIterations_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1896,16 +1896,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_AnimationTicksPerSecond_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1918,16 +1918,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Set(Instance, (IntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_AnimationTicksPerSecond_Set(Instance, (IntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_AnimationTicksPerSecond_Set(Instance, (IntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1943,16 +1943,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_BackgroundColor_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_BackgroundColor_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_BackgroundColor_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1966,16 +1966,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = MagickColor.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_BackgroundColor_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -1991,16 +1991,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_BaseHeight_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_BaseHeight_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_BaseHeight_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2017,16 +2017,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_BaseWidth_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_BaseWidth_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_BaseWidth_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2043,16 +2043,16 @@ public partial class MagickImage : IDisposable
             {
                 bool result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_BlackPointCompensation_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_BlackPointCompensation_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_BlackPointCompensation_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2065,16 +2065,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_BlackPointCompensation_Set(Instance, value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_BlackPointCompensation_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_BlackPointCompensation_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2090,16 +2090,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_BorderColor_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_BorderColor_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_BorderColor_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2113,16 +2113,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = MagickColor.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_BorderColor_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2139,16 +2139,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_BoundingBox_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_BoundingBox_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_BoundingBox_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2166,16 +2166,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChannelCount_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ChannelCount_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChannelCount_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2192,16 +2192,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChromaBluePrimary_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ChromaBluePrimary_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChromaBluePrimary_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2215,16 +2215,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = PrimaryInfo.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2240,16 +2240,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChromaGreenPrimary_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ChromaGreenPrimary_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChromaGreenPrimary_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2263,16 +2263,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = PrimaryInfo.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2288,16 +2288,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChromaRedPrimary_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ChromaRedPrimary_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChromaRedPrimary_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2311,16 +2311,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = PrimaryInfo.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2336,16 +2336,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChromaWhitePoint_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ChromaWhitePoint_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ChromaWhitePoint_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2359,16 +2359,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = PrimaryInfo.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2385,16 +2385,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ClassType_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ClassType_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ClassType_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2409,16 +2409,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ClassType_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2436,16 +2436,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ColorFuzz_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ColorFuzz_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ColorFuzz_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2460,16 +2460,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ColorFuzz_Set(Instance, value, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ColorFuzz_Set(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ColorFuzz_Set(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2487,16 +2487,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ColormapSize_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ColormapSize_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ColormapSize_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2511,16 +2511,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ColormapSize_Set(Instance, (IntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2538,16 +2538,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ColorSpace_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ColorSpace_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ColorSpace_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2562,16 +2562,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ColorSpace_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2589,16 +2589,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ColorType_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ColorType_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ColorType_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2613,16 +2613,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ColorType_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2639,16 +2639,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Compose_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Compose_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Compose_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2661,16 +2661,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Compose_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Compose_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Compose_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2686,16 +2686,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Compression_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Compression_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Compression_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2708,16 +2708,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Compression_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Compression_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Compression_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2733,16 +2733,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Depth_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Depth_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Depth_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2755,16 +2755,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Depth_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Depth_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Depth_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2780,16 +2780,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Endian_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Endian_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Endian_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2802,16 +2802,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Endian_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Endian_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Endian_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2827,16 +2827,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_EncodingGeometry_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_EncodingGeometry_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_EncodingGeometry_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2853,16 +2853,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_FileName_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_FileName_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_FileName_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2876,16 +2876,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = UTF8Marshaler.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_FileName_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_FileName_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_FileName_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2901,16 +2901,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_FilterType_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_FilterType_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_FilterType_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2923,16 +2923,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_FilterType_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2948,16 +2948,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Format_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Format_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Format_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2971,16 +2971,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = UTF8Marshaler.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Format_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Format_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Format_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -2996,16 +2996,16 @@ public partial class MagickImage : IDisposable
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Gamma_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Gamma_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Gamma_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3022,16 +3022,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_GifDisposeMethod_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_GifDisposeMethod_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_GifDisposeMethod_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3044,16 +3044,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_GifDisposeMethod_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3069,16 +3069,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Height_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Height_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Height_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3096,16 +3096,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 bool result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_HasAlpha_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_HasAlpha_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_HasAlpha_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3120,16 +3120,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_HasAlpha_Set(Instance, value, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_HasAlpha_Set(Instance, value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_HasAlpha_Set(Instance, value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3146,16 +3146,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Interlace_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Interlace_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Interlace_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3168,16 +3168,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Interlace_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3193,16 +3193,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Interpolate_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Interpolate_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Interpolate_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3215,16 +3215,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Interpolate_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3241,16 +3241,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 bool result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_IsOpaque_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_IsOpaque_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_IsOpaque_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3268,16 +3268,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_MatteColor_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_MatteColor_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_MatteColor_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3291,16 +3291,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = MagickColor.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_MatteColor_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3316,16 +3316,16 @@ public partial class MagickImage : IDisposable
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_MeanErrorPerPixel_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_MeanErrorPerPixel_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_MeanErrorPerPixel_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3342,16 +3342,16 @@ public partial class MagickImage : IDisposable
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_NormalizedMaximumError_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_NormalizedMaximumError_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_NormalizedMaximumError_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3368,16 +3368,16 @@ public partial class MagickImage : IDisposable
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_NormalizedMeanError_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_NormalizedMeanError_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_NormalizedMeanError_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3394,16 +3394,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Orientation_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Orientation_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Orientation_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3416,16 +3416,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Orientation_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3441,16 +3441,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Page_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Page_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Page_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3464,16 +3464,16 @@ public partial class MagickImage : IDisposable
             {
                 using var valueNative = MagickRectangle.CreateInstance(value);
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Page_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Page_Set(Instance, valueNative.Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Page_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3489,16 +3489,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Quality_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Quality_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Quality_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3511,16 +3511,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_Quality_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_Quality_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_Quality_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3536,16 +3536,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_RenderingIntent_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_RenderingIntent_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_RenderingIntent_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3558,16 +3558,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_RenderingIntent_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3583,16 +3583,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ResolutionUnits_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ResolutionUnits_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ResolutionUnits_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3605,16 +3605,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ResolutionUnits_Set(Instance, (UIntPtr)value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3630,16 +3630,16 @@ public partial class MagickImage : IDisposable
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ResolutionX_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ResolutionX_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ResolutionX_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3652,16 +3652,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ResolutionX_Set(Instance, value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ResolutionX_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ResolutionX_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3677,16 +3677,16 @@ public partial class MagickImage : IDisposable
             {
                 double result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ResolutionY_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ResolutionY_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ResolutionY_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3699,16 +3699,16 @@ public partial class MagickImage : IDisposable
             set
             {
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ResolutionY_Set(Instance, value);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_ResolutionY_Set(Instance, value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_ResolutionY_Set(Instance, value);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3725,16 +3725,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Signature_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Signature_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Signature_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3753,16 +3753,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_TotalColors_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_TotalColors_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_TotalColors_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3781,16 +3781,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_VirtualPixelMethod_Get(Instance, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3805,16 +3805,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_VirtualPixelMethod_Set(Instance, (UIntPtr)value, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3831,16 +3831,16 @@ public partial class MagickImage : IDisposable
             {
                 UIntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Width_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Width_Get(Instance);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Width_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -3856,16 +3856,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AdaptiveBlur(Instance, radius, sigma, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -3883,16 +3883,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AdaptiveResize(Instance, geometryNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -3909,16 +3909,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AdaptiveSharpen(Instance, radius, sigma, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -3935,16 +3935,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AdaptiveThreshold(Instance, (UIntPtr)width, (UIntPtr)height, bias, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -3961,16 +3961,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AddNoise(Instance, (UIntPtr)noiseType, attenuate, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -3987,16 +3987,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AffineTransform(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4015,16 +4015,16 @@ public partial class MagickImage : IDisposable
             using var boundingAreaNative = UTF8Marshaler.CreateInstance(boundingArea);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Annotate(Instance, settingsNative.Instance, textNative.Instance, boundingAreaNative.Instance, (UIntPtr)gravity, degrees, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4040,16 +4040,16 @@ public partial class MagickImage : IDisposable
             using var textNative = UTF8Marshaler.CreateInstance(text);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_AnnotateGravity(Instance, settingsNative.Instance, textNative.Instance, (UIntPtr)gravity, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4063,16 +4063,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_AutoGamma(Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_AutoGamma(Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_AutoGamma(Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4086,16 +4086,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_AutoLevel(Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_AutoLevel(Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_AutoLevel(Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4110,16 +4110,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_AutoOrient(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_AutoOrient(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_AutoOrient(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4135,16 +4135,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_AutoThreshold(Instance, (UIntPtr)method, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4159,16 +4159,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_BilateralBlur(Instance, (UIntPtr)width, (UIntPtr)height, intensitySigma, spatialSigma, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4185,16 +4185,16 @@ public partial class MagickImage : IDisposable
             using var thresholdNative = UTF8Marshaler.CreateInstance(threshold);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_BlackThreshold(Instance, thresholdNative.Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4209,16 +4209,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_BlueShift(Instance, factor, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_BlueShift(Instance, factor, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_BlueShift(Instance, factor, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4235,16 +4235,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Blur(Instance, radius, sigma, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Blur(Instance, radius, sigma, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Blur(Instance, radius, sigma, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4262,16 +4262,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Border(Instance, valueNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Border(Instance, valueNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Border(Instance, valueNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4287,16 +4287,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_BrightnessContrast(Instance, brightness, contrast, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_BrightnessContrast(Instance, brightness, contrast, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_BrightnessContrast(Instance, brightness, contrast, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4311,16 +4311,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_CannyEdge(Instance, radius, sigma, lower, upper, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4336,16 +4336,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ChannelOffset(Instance, (UIntPtr)channel);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4360,16 +4360,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Charcoal(Instance, radius, sigma, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Charcoal(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Charcoal(Instance, radius, sigma, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4387,16 +4387,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Chop(Instance, geometryNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4412,16 +4412,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Clahe(Instance, (UIntPtr)xTiles, (UIntPtr)yTiles, (UIntPtr)numberBins, clipLimit, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4435,16 +4435,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Clamp(Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Clamp(Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Clamp(Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4459,16 +4459,16 @@ public partial class MagickImage : IDisposable
             using var pathNameNative = UTF8Marshaler.CreateInstance(pathName);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ClipPath(Instance, pathNameNative.Instance, inside, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4483,16 +4483,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Clone(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Clone(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Clone(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4508,16 +4508,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_CloneArea(Instance, (UIntPtr)width, (UIntPtr)height, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4532,16 +4532,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Clut(Instance, MagickImage.GetInstance(image), (UIntPtr)method, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4556,16 +4556,16 @@ public partial class MagickImage : IDisposable
             using var fileNameNative = UTF8Marshaler.CreateInstance(fileName);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ColorDecisionList(Instance, fileNameNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4582,16 +4582,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Colorize(Instance, colorNative.Instance, blendNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4609,16 +4609,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ColorMatrix(Instance, matrixNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4636,16 +4636,16 @@ public partial class MagickImage : IDisposable
             using var stopColorNative = MagickColor.CreateInstance(stopColor);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ColorThreshold(Instance, startColorNative.Instance, stopColorNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4660,16 +4660,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (NativeChannelsType)channels, out distortion, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (NativeChannelsType)channels, out distortion, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Compare(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (NativeChannelsType)channels, out distortion, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4685,16 +4685,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             double result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_CompareDistortion(Instance, MagickImage.GetInstance(image), (UIntPtr)metric, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4709,16 +4709,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Composite(Instance, MagickImage.GetInstance(image), (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4732,16 +4732,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_CompositeGravity(Instance, MagickImage.GetInstance(image), (UIntPtr)gravity, (IntPtr)x, (IntPtr)y, (UIntPtr)compose, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4756,16 +4756,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ConnectedComponents(Instance, (UIntPtr)connectivity, out objects, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4781,16 +4781,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Contrast(Instance, enhance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Contrast(Instance, enhance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Contrast(Instance, enhance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4804,16 +4804,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ContrastStretch(Instance, blackPoint, whitePoint, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4828,16 +4828,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_ConvexHull(Instance, out length, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_ConvexHull(Instance, out length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ConvexHull(Instance, out length, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4863,16 +4863,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Convolve(Instance, matrixNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4890,16 +4890,16 @@ public partial class MagickImage : IDisposable
             using var offsetNative = OffsetInfo.CreateInstance(offset);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_CopyPixels(Instance, MagickImage.GetInstance(image), geometryNative.Instance, offsetNative.Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4915,16 +4915,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Crop(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4942,16 +4942,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_CropToTiles(Instance, geometryNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4966,16 +4966,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_CycleColormap(Instance, (IntPtr)amount, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -4990,16 +4990,16 @@ public partial class MagickImage : IDisposable
             using var passphraseNative = UTF8Marshaler.CreateInstance(passphrase);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Decipher(Instance, passphraseNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5014,16 +5014,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Deskew(Instance, threshold, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Deskew(Instance, threshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Deskew(Instance, threshold, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5040,16 +5040,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Despeckle(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Despeckle(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Despeckle(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5066,16 +5066,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             UIntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_DetermineBitDepth(Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_DetermineBitDepth(Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_DetermineBitDepth(Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5091,16 +5091,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             UIntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_DetermineColorType(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_DetermineColorType(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_DetermineColorType(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5118,16 +5118,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_Distort(Instance, (UIntPtr)method, bestfit, argumentsFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -5145,16 +5145,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Edge(Instance, radius, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Edge(Instance, radius, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Edge(Instance, radius, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5171,16 +5171,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Emboss(Instance, radius, sigma, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Emboss(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Emboss(Instance, radius, sigma, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5197,16 +5197,16 @@ public partial class MagickImage : IDisposable
             using var passphraseNative = UTF8Marshaler.CreateInstance(passphrase);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Encipher(Instance, passphraseNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5221,16 +5221,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Enhance(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Enhance(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Enhance(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5246,16 +5246,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Equalize(Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Equalize(Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Equalize(Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5270,16 +5270,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             bool result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Equals(Instance, MagickImage.GetInstance(image), out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5296,16 +5296,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_EvaluateFunction(Instance, (NativeChannelsType)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_EvaluateFunction(Instance, (NativeChannelsType)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_EvaluateFunction(Instance, (NativeChannelsType)channels, (UIntPtr)evaluateFunction, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -5321,16 +5321,16 @@ public partial class MagickImage : IDisposable
             using var geometryNative = MagickRectangle.CreateInstance(geometry);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_EvaluateGeometry(Instance, (NativeChannelsType)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_EvaluateGeometry(Instance, (NativeChannelsType)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_EvaluateGeometry(Instance, (NativeChannelsType)channels, geometryNative.Instance, (UIntPtr)evaluateOperator, value, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5344,16 +5344,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_EvaluateOperator(Instance, (NativeChannelsType)channels, (UIntPtr)evaluateOperator, value, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_EvaluateOperator(Instance, (NativeChannelsType)channels, (UIntPtr)evaluateOperator, value, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_EvaluateOperator(Instance, (NativeChannelsType)channels, (UIntPtr)evaluateOperator, value, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5369,16 +5369,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Extent(Instance, geometryNative.Instance, (UIntPtr)gravity, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5395,16 +5395,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Flip(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Flip(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Flip(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5422,16 +5422,16 @@ public partial class MagickImage : IDisposable
             using var targetNative = MagickColor.CreateInstance(target);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_FloodFill(Instance, settingsNative.Instance, (IntPtr)x, (IntPtr)y, targetNative.Instance, invert, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5446,16 +5446,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Flop(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Flop(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Flop(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5473,16 +5473,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_FontTypeMetrics(Instance, settingsNative.Instance, ignoreNewlines, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5509,16 +5509,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5535,16 +5535,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Frame(Instance, geometryNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5562,16 +5562,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Fx(Instance, expressionNative.Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Fx(Instance, expressionNative.Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Fx(Instance, expressionNative.Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5587,16 +5587,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_GammaCorrect(Instance, gamma, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_GammaCorrect(Instance, gamma, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_GammaCorrect(Instance, gamma, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5611,16 +5611,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GaussianBlur(Instance, radius, sigma, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GaussianBlur(Instance, radius, sigma, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GaussianBlur(Instance, radius, sigma, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5637,16 +5637,16 @@ public partial class MagickImage : IDisposable
             using var nameNative = UTF8Marshaler.CreateInstance(name);
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetArtifact(Instance, nameNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetArtifact(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetArtifact(Instance, nameNative.Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5662,16 +5662,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5686,16 +5686,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetColormapColor(Instance, (UIntPtr)index);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetColormapColor(Instance, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetColormapColor(Instance, (UIntPtr)index);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5709,16 +5709,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetNext(image);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetNext(image);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetNext(image);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5732,16 +5732,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetNextArtifactName(Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetNextArtifactName(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetNextArtifactName(Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5755,16 +5755,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetNextAttributeName(Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetNextAttributeName(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetNextAttributeName(Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5778,16 +5778,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetNextProfileName(Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetNextProfileName(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetNextProfileName(Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5803,16 +5803,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetProfile(Instance, nameNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5828,16 +5828,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetReadMask(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetReadMask(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetReadMask(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5853,16 +5853,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_GetWriteMask(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_GetWriteMask(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_GetWriteMask(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5877,16 +5877,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Grayscale(Instance, (UIntPtr)method, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5900,16 +5900,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_HaldClut(Instance, MagickImage.GetInstance(image), out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5923,16 +5923,16 @@ public partial class MagickImage : IDisposable
         {
             bool result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_HasChannel(Instance, (UIntPtr)channel);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5947,16 +5947,16 @@ public partial class MagickImage : IDisposable
             using var nameNative = UTF8Marshaler.CreateInstance(name);
             bool result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_HasProfile(Instance, nameNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_HasProfile(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_HasProfile(Instance, nameNative.Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -5971,16 +5971,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Histogram(Instance, out length, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Histogram(Instance, out length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Histogram(Instance, out length, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6005,16 +6005,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_HoughLine(Instance, (UIntPtr)width, (UIntPtr)height, (UIntPtr)threshold, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6031,16 +6031,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Implode(Instance, amount, (UIntPtr)method, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6057,16 +6057,16 @@ public partial class MagickImage : IDisposable
             using var mapNative = UTF8Marshaler.CreateInstance(map);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_ImportPixels(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_ImportPixels(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ImportPixels(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6081,16 +6081,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Integral(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Integral(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Integral(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6107,16 +6107,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_InterpolativeResize(Instance, geometryNative.Instance, (UIntPtr)method, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_InterpolativeResize(Instance, geometryNative.Instance, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_InterpolativeResize(Instance, geometryNative.Instance, (UIntPtr)method, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6132,16 +6132,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Kmeans(Instance, (UIntPtr)numberColors, (UIntPtr)maxIterations, tolerance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6156,16 +6156,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Kuwahara(Instance, radius, sigma, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6181,16 +6181,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Level(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6206,16 +6206,16 @@ public partial class MagickImage : IDisposable
             using var whiteColorNative = MagickColor.CreateInstance(whiteColor);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (NativeChannelsType)channels, invert, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (NativeChannelsType)channels, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (NativeChannelsType)channels, invert, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6229,16 +6229,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6252,16 +6252,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_LinearStretch(Instance, blackPoint, whitePoint, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6277,16 +6277,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_LiquidRescale(Instance, geometryNative.Instance, deltaX, rigidity, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6303,16 +6303,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_LocalContrast(Instance, radius, strength, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_LocalContrast(Instance, radius, strength, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_LocalContrast(Instance, radius, strength, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6329,16 +6329,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Magnify(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Magnify(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Magnify(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6356,16 +6356,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             bool result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Map(Instance, MagickImage.GetInstance(image), settingsNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6381,16 +6381,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_MeanShift(Instance, (UIntPtr)width, (UIntPtr)height, colorDistance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6407,16 +6407,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Minify(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Minify(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Minify(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6433,16 +6433,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Moments(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Moments(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Moments(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6467,16 +6467,16 @@ public partial class MagickImage : IDisposable
             using var modulateNative = UTF8Marshaler.CreateInstance(modulate);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Modulate(Instance, modulateNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6491,16 +6491,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_MinimumBoundingBox(Instance, out length, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6526,16 +6526,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (NativeChannelsType)channels, (IntPtr)iterations, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (NativeChannelsType)channels, (IntPtr)iterations, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Morphology(Instance, (UIntPtr)method, kernelNative.Instance, (NativeChannelsType)channels, (IntPtr)iterations, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6552,16 +6552,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_MotionBlur(Instance, radius, sigma, angle, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6577,16 +6577,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Negate(Instance, onlyGrayscale, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Negate(Instance, onlyGrayscale, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Negate(Instance, onlyGrayscale, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6600,16 +6600,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Normalize(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Normalize(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Normalize(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6624,16 +6624,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_OilPaint(Instance, radius, sigma, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_OilPaint(Instance, radius, sigma, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_OilPaint(Instance, radius, sigma, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6651,16 +6651,16 @@ public partial class MagickImage : IDisposable
             using var fillNative = MagickColor.CreateInstance(fill);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Opaque(Instance, targetNative.Instance, fillNative.Instance, invert, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6675,16 +6675,16 @@ public partial class MagickImage : IDisposable
             using var thresholdMapNative = UTF8Marshaler.CreateInstance(thresholdMap);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_OrderedDither(Instance, thresholdMapNative.Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6698,16 +6698,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Perceptible(Instance, epsilon, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Perceptible(Instance, epsilon, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Perceptible(Instance, epsilon, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6722,16 +6722,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_PerceptualHash(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_PerceptualHash(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_PerceptualHash(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6758,16 +6758,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Polaroid(Instance, settingsNative.Instance, captionNative.Instance, angle, (UIntPtr)method, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6783,16 +6783,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Posterize(Instance, (UIntPtr)levels, (UIntPtr)method, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6807,16 +6807,16 @@ public partial class MagickImage : IDisposable
             using var settingsNative = QuantizeSettings.CreateInstance(settings);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Quantize(Instance, settingsNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6830,16 +6830,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RaiseOrLower(Instance, (UIntPtr)size, raise, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6853,16 +6853,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_RandomThreshold(Instance, low, high, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_RandomThreshold(Instance, low, high, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RandomThreshold(Instance, low, high, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6876,16 +6876,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RangeThreshold(Instance, low_black, low_white, high_white, high_black, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6903,16 +6903,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -6934,16 +6934,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_ReadBlob(settingsNative.Instance, dataFixed, (UIntPtr)offset, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -6963,16 +6963,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_ReadFile(settingsNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_ReadFile(settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ReadFile(settingsNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -6990,16 +6990,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ReadPixels((UIntPtr)width, (UIntPtr)height, mapNative.Instance, (UIntPtr)storageType, data, (UIntPtr)offsetInBytes, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7017,16 +7017,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7043,16 +7043,16 @@ public partial class MagickImage : IDisposable
             using var regionNative = MagickRectangle.CreateInstance(region);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RegionMask(Instance, regionNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7066,16 +7066,16 @@ public partial class MagickImage : IDisposable
         {
             using var nameNative = UTF8Marshaler.CreateInstance(name);
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RemoveArtifact(Instance, nameNative.Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7088,16 +7088,16 @@ public partial class MagickImage : IDisposable
         {
             using var nameNative = UTF8Marshaler.CreateInstance(name);
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RemoveAttribute(Instance, nameNative.Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7110,16 +7110,16 @@ public partial class MagickImage : IDisposable
         {
             using var nameNative = UTF8Marshaler.CreateInstance(name);
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_RemoveProfile(Instance, nameNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_RemoveProfile(Instance, nameNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_RemoveProfile(Instance, nameNative.Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7131,16 +7131,16 @@ public partial class MagickImage : IDisposable
         public void ResetArtifactIterator()
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_ResetArtifactIterator(Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_ResetArtifactIterator(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ResetArtifactIterator(Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7152,16 +7152,16 @@ public partial class MagickImage : IDisposable
         public void ResetAttributeIterator()
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_ResetAttributeIterator(Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_ResetAttributeIterator(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ResetAttributeIterator(Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7173,16 +7173,16 @@ public partial class MagickImage : IDisposable
         public void ResetProfileIterator()
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_ResetProfileIterator(Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_ResetProfileIterator(Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_ResetProfileIterator(Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7196,16 +7196,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Resample(Instance, resolutionX, resolutionY, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7223,16 +7223,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Resize(Instance, geometryNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7249,16 +7249,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Roll(Instance, (IntPtr)x, (IntPtr)y, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7275,16 +7275,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Rotate(Instance, degrees, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Rotate(Instance, degrees, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Rotate(Instance, degrees, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7301,16 +7301,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_RotationalBlur(Instance, angle, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_RotationalBlur(Instance, angle, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_RotationalBlur(Instance, angle, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7328,16 +7328,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Sample(Instance, geometryNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7355,16 +7355,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Scale(Instance, geometryNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7380,16 +7380,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Segment(Instance, (UIntPtr)colorSpace, clusterThreshold, smoothingThreshold, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7404,16 +7404,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_SelectiveBlur(Instance, radius, sigma, threshold, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7430,16 +7430,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Separate(Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Separate(Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Separate(Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7455,16 +7455,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_SepiaTone(Instance, threshold, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_SepiaTone(Instance, threshold, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_SepiaTone(Instance, threshold, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7480,16 +7480,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetAlpha(Instance, (UIntPtr)value, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7504,16 +7504,16 @@ public partial class MagickImage : IDisposable
             using var nameNative = UTF8Marshaler.CreateInstance(name);
             using var valueNative = UTF8Marshaler.CreateInstance(value);
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetArtifact(Instance, nameNative.Instance, valueNative.Instance);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7528,16 +7528,16 @@ public partial class MagickImage : IDisposable
             using var valueNative = UTF8Marshaler.CreateInstance(value);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetAttribute(Instance, nameNative.Instance, valueNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7551,16 +7551,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetBitDepth(Instance, (UIntPtr)value, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7575,16 +7575,16 @@ public partial class MagickImage : IDisposable
             using var colorNative = MagickColor.CreateInstance(color);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SetColormapColor(Instance, (UIntPtr)index, colorNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SetColormapColor(Instance, (UIntPtr)index, colorNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetColormapColor(Instance, (UIntPtr)index, colorNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7599,16 +7599,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             bool result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_SetColorMetric(Instance, MagickImage.GetInstance(image), out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7622,16 +7622,16 @@ public partial class MagickImage : IDisposable
         public void SetNext(IntPtr image)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SetNext(Instance, image);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SetNext(Instance, image);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetNext(Instance, image);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7647,16 +7647,16 @@ public partial class MagickImage : IDisposable
             {
                 IntPtr exception = IntPtr.Zero;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_SetProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 NativeMethods.ARM64.MagickImage_SetProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_SetProfile(Instance, nameNative.Instance, datumFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -7670,16 +7670,16 @@ public partial class MagickImage : IDisposable
         public void SetProgressDelegate(ProgressDelegate? method)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SetProgressDelegate(Instance, method);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SetProgressDelegate(Instance, method);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetProgressDelegate(Instance, method);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7692,16 +7692,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetReadMask(Instance, MagickImage.GetInstance(image), out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7715,16 +7715,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SetWriteMask(Instance, MagickImage.GetInstance(image), out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7739,16 +7739,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Shade(Instance, azimuth, elevation, colorShading, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7765,16 +7765,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Shadow(Instance, (IntPtr)x, (IntPtr)y, sigma, alphaPercentage, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7791,16 +7791,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Sharpen(Instance, radius, sigma, (NativeChannelsType)channel, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Sharpen(Instance, radius, sigma, (NativeChannelsType)channel, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Sharpen(Instance, radius, sigma, (NativeChannelsType)channel, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7817,16 +7817,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Shave(Instance, (UIntPtr)leftRight, (UIntPtr)topBottom, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7843,16 +7843,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Shear(Instance, xAngle, yAngle, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7868,16 +7868,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SigmoidalContrast(Instance, sharpen, contrast, midpoint, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7894,16 +7894,16 @@ public partial class MagickImage : IDisposable
                 IntPtr exception = IntPtr.Zero;
                 IntPtr result;
                 #if PLATFORM_AnyCPU
-                if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_SparseColor(Instance, (NativeChannelsType)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.IsArm64)
+                if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
                 result = NativeMethods.ARM64.MagickImage_SparseColor(Instance, (NativeChannelsType)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_SparseColor(Instance, (NativeChannelsType)channel, (UIntPtr)method, valuesFixed, (UIntPtr)length, out exception);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
@@ -7921,16 +7921,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Sketch(Instance, radius, sigma, angle, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7946,16 +7946,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Solarize(Instance, factor, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Solarize(Instance, factor, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Solarize(Instance, factor, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7969,16 +7969,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_SortPixels(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_SortPixels(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_SortPixels(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -7994,16 +7994,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Splice(Instance, geometryNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8020,16 +8020,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Spread(Instance, (UIntPtr)method, radius, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8046,16 +8046,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Statistic(Instance, (UIntPtr)type, (UIntPtr)width, (UIntPtr)height, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8072,16 +8072,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Statistics(Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Statistics(Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Statistics(Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8106,16 +8106,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Stegano(Instance, MagickImage.GetInstance(watermark), out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8132,16 +8132,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Stereo(Instance, MagickImage.GetInstance(rightImage), out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8157,16 +8157,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Strip(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Strip(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Strip(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8183,16 +8183,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_SubImageSearch(Instance, MagickImage.GetInstance(reference), (UIntPtr)metric, similarityThreshold, offsetNativeOut, out similarityMetric, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8209,16 +8209,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Swirl(Instance, (UIntPtr)method, degrees, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8234,16 +8234,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Texture(Instance, MagickImage.GetInstance(image), out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8257,16 +8257,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Threshold(Instance, threshold, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Threshold(Instance, threshold, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Threshold(Instance, threshold, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8282,16 +8282,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Thumbnail(Instance, geometryNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8310,16 +8310,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Tint(Instance, opacityNative.Instance, tintNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8336,16 +8336,16 @@ public partial class MagickImage : IDisposable
             using var colorNative = MagickColor.CreateInstance(color);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_Transparent(Instance, colorNative.Instance, invert, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8361,16 +8361,16 @@ public partial class MagickImage : IDisposable
             using var colorHighNative = MagickColor.CreateInstance(colorHigh);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_TransparentChroma(Instance, colorLowNative.Instance, colorHighNative.Instance, invert, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8385,16 +8385,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Transpose(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Transpose(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Transpose(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8411,16 +8411,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Transverse(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Transverse(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Transverse(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8437,16 +8437,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Trim(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Trim(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Trim(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8463,16 +8463,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_UniqueColors(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_UniqueColors(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_UniqueColors(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8488,16 +8488,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_UnsharpMask(Instance, radius, sigma, amount, threshold, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8514,16 +8514,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Vignette(Instance, radius, sigma, (IntPtr)x, (IntPtr)y, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8540,16 +8540,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_Wave(Instance, (UIntPtr)method, amplitude, length, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8565,16 +8565,16 @@ public partial class MagickImage : IDisposable
         {
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_WhiteBalance(Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_WhiteBalance(Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_WhiteBalance(Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8589,16 +8589,16 @@ public partial class MagickImage : IDisposable
             IntPtr exception = IntPtr.Zero;
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickImage_WaveletDenoise(Instance, threshold, softness, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8615,16 +8615,16 @@ public partial class MagickImage : IDisposable
             using var thresholdNative = UTF8Marshaler.CreateInstance(threshold);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_WhiteThreshold(Instance, thresholdNative.Instance, (NativeChannelsType)channels, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8639,16 +8639,16 @@ public partial class MagickImage : IDisposable
             using var settingsNative = MagickSettings.CreateInstance(settings);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_WriteFile(Instance, settingsNative.Instance, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -8663,16 +8663,16 @@ public partial class MagickImage : IDisposable
             using var settingsNative = MagickSettings.CreateInstance(settings);
             IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, reader, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, reader, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_WriteStream(Instance, settingsNative.Instance, writer, seeker, teller, reader, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else

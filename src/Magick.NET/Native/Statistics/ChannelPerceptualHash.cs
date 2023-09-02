@@ -60,16 +60,16 @@ public partial class ChannelPerceptualHash
         {
             double result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ChannelPerceptualHash_GetSrgbHuPhash(Instance, (UIntPtr)index);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ChannelPerceptualHash_GetSrgbHuPhash(Instance, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ChannelPerceptualHash_GetSrgbHuPhash(Instance, (UIntPtr)index);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -83,16 +83,16 @@ public partial class ChannelPerceptualHash
         {
             double result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.ChannelPerceptualHash_GetHclpHuPhash(Instance, (UIntPtr)index);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.ChannelPerceptualHash_GetHclpHuPhash(Instance, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ChannelPerceptualHash_GetHclpHuPhash(Instance, (UIntPtr)index);
             #endif
             #if PLATFORM_AnyCPU
             else

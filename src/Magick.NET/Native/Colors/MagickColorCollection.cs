@@ -48,16 +48,16 @@ internal static partial class MagickColorCollection
         public static void DisposeList(IntPtr list)
         {
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickColorCollection_DisposeList(list);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             NativeMethods.ARM64.MagickColorCollection_DisposeList(list);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickColorCollection_DisposeList(list);
             #endif
             #if PLATFORM_AnyCPU
             else
@@ -70,16 +70,16 @@ internal static partial class MagickColorCollection
         {
             IntPtr result;
             #if PLATFORM_AnyCPU
-            if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickColorCollection_GetInstance(list, (UIntPtr)index);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.IsArm64)
+            if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
             result = NativeMethods.ARM64.MagickColorCollection_GetInstance(list, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickColorCollection_GetInstance(list, (UIntPtr)index);
             #endif
             #if PLATFORM_AnyCPU
             else
