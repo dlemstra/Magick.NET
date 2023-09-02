@@ -10,9 +10,7 @@ namespace ImageMagick;
 internal sealed class UTF8Marshaler : INativeInstance
 {
     private UTF8Marshaler(string? value)
-    {
-        Instance = ManagedToNative(value);
-    }
+        => Instance = ManagedToNative(value);
 
     public IntPtr Instance { get; private set; }
 
