@@ -4,7 +4,7 @@
     "dockerfile": "../../build/linux-x64/Dockerfile",
     "context": "../.."
   },
-  "postCreateCommand": "bash .devcontainer/linux-x64/post-create-command.sh",
+  "postCreateCommand": "bash .devcontainer/linux-x64/post-create-command.sh linux x64",
   "customizations": {
     "vscode": {
       "extensions": [
