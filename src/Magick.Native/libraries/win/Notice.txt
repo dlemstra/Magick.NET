@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-14 (2023-07-22) ] copyright:
+[ ImageMagick 7.1.1-16 beta (2023-09-01) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -2102,7 +2102,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openexr 3.1.9 (2023-06-26) ] copyright:
+[ openexr 3.1.11 (2023-08-14) ] copyright:
 
 <!-- SPDX-License-Identifier: BSD-3-Clause -->
 <!-- Copyright (c) Contributors to the OpenEXR Project -->
@@ -2161,7 +2161,7 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ freetype 2.13.1 (2023-06-24) ] copyright:
+[ freetype 2.13.2 (2023-08-25) ] copyright:
 
                     The FreeType Project LICENSE
                     ----------------------------
@@ -3351,7 +3351,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 8.0.1 (2023-07-12) ] copyright:
+[ harfbuzz 8.1.1 (2023-08-02) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -4274,7 +4274,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ highway 1.0.4 (2023-03-17) ] copyright:
+[ highway 1.0.6 (2023-08-11) ] copyright:
 
                                  Apache License
                            Version 2.0, January 2004
@@ -6591,7 +6591,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.11.4 (2023-05-18) ] copyright:
+[ xml 2.11.5 (2023-08-09) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files hash.c,
 list.c and the trio files, which are covered by a similar licence but
@@ -6619,7 +6619,7 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ zip 1.10.0 (2023-06-23) ] copyright:
+[ zip 1.10.1 (2023-08-23) ] copyright:
 
 Copyright (C) 1999-2020 Dieter Baron and Thomas Klausner
 

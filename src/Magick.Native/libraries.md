@@ -1,5 +1,5 @@
 # Libraries
-Magick.Native [3d04a91b772c2ca850b94cc446517d867b53a768](https://github.com/dlemstra/Magick.Native/commit/3d04a91b772c2ca850b94cc446517d867b53a768) is build with the following libraries:
+Magick.Native [fe77a7bca371abf15582f987497f479b5594b1e9](https://github.com/dlemstra/Magick.Native/commit/fe77a7bca371abf15582f987497f479b5594b1e9) is build with the following libraries:
 
 - aom 3.6.1 (2022-05-08)
 - brotli 1.0.9 (2020-08-27)
@@ -8,15 +8,15 @@ Magick.Native [3d04a91b772c2ca850b94cc446517d867b53a768](https://github.com/dlem
 - croco 0.6.13 (2019-04-06)
 - de265 1.0.12 (2023-06-13)
 - imath 3.1.9 (2023-06-01)
-- openexr 3.1.9 (2023-06-26)
+- openexr 3.1.11 (2023-08-14)
 - ffi 3.4.4 (2022-10-23)
-- freetype 2.13.1 (2023-06-24)
+- freetype 2.13.2 (2023-08-25)
 - fribidi 1.0.13 (2023-05-16)
 - glib 2.64.3 (2020-05-20)
-- harfbuzz 8.0.1 (2023-07-12)
+- harfbuzz 8.1.1 (2023-08-02)
 - heif 1.16.2 (2023-05-22)
-- highway 1.0.4 (2023-03-17)
-- ImageMagick 7.1.1-14 (2023-07-22)
+- highway 1.0.6 (2023-08-11)
+- ImageMagick 7.1.1-16 beta (2023-09-01)
 - jasper 4.0.0 (2022-11-05)
 - jpeg-turbo 3.0.0 (2023-07-03)
 - jpeg-xl 0.8.2 (2023-06-14)
@@ -32,6 +32,6 @@ Magick.Native [3d04a91b772c2ca850b94cc446517d867b53a768](https://github.com/dlem
 - rsvg 2.40.20 (2017-12-15)
 - tiff 4.5.1 (2023-06-10)
 - webp 1.3.1 (2023-06-23)
-- xml 2.11.4 (2023-05-18)
-- zip 1.10.0 (2023-06-23)
+- xml 2.11.5 (2023-08-09)
+- zip 1.10.1 (2023-08-23)
 - zlib 1.2.13 (2022-10-14)
