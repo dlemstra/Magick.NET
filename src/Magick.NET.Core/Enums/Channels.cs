@@ -11,17 +11,17 @@ namespace ImageMagick;
 /// </summary>
 [Flags]
 [SuppressMessage("Naming", "CA1724", Justification = "No real collision.")]
-public enum Channels
+public enum Channels : ulong
 {
     /// <summary>
     /// Undefined.
     /// </summary>
-    Undefined = 0x0000,
+    Undefined = 0,
 
     /// <summary>
     /// Red.
     /// </summary>
-    Red = 0x0001,
+    Red = 0b1,
 
     /// <summary>
     /// Gray.
@@ -36,7 +36,7 @@ public enum Channels
     /// <summary>
     /// Green.
     /// </summary>
-    Green = 0x0002,
+    Green = 0b10,
 
     /// <summary>
     /// Magenta.
@@ -46,7 +46,7 @@ public enum Channels
     /// <summary>
     /// Blue.
     /// </summary>
-    Blue = 0x0004,
+    Blue = 0b100,
 
     /// <summary>
     /// Yellow.
@@ -56,12 +56,12 @@ public enum Channels
     /// <summary>
     /// Black.
     /// </summary>
-    Black = 0x0008,
+    Black = 0b1000,
 
     /// <summary>
     /// Alpha.
     /// </summary>
-    Alpha = 0x0010,
+    Alpha = 0b10000,
 
     /// <summary>
     /// Opacity.
@@ -71,22 +71,22 @@ public enum Channels
     /// <summary>
     /// Index.
     /// </summary>
-    Index = 0x0020,
+    Index = 0b100000,
 
     /// <summary>
     /// Composite.
     /// </summary>
-    Composite = 0x001F,
+    Composite = 0b11111,
 
     /// <summary>
     /// All.
     /// </summary>
-    All = 0x7ffffff,
+    All = 0b0111111111111111111111111111111111111111111111111111111111111111,
 
     /// <summary>
     /// TrueAlpha.
     /// </summary>
-    TrueAlpha = 0x0100,
+    TrueAlpha = 0b100000000,
 
     /// <summary>
     /// RGB.

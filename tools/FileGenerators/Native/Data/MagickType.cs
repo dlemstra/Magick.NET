@@ -65,6 +65,9 @@ internal sealed class MagickType
     public bool IsBool
         => ManagedName == "bool";
 
+    public bool IsChannels
+        => ManagedName == "Channels";
+
     public bool IsDelegate
         => _type.EndsWith("Delegate");
 
@@ -113,10 +116,13 @@ internal sealed class MagickType
     {
         get
         {
-            if (NeedsTypeCast)
-                return "(" + NativeName + ")";
+            if (!NeedsTypeCast)
+                return string.Empty;
 
-            return string.Empty;
+            if (IsChannels)
+                return "(NativeChannelsType)";
+            else
+                return "(" + NativeName + ")";
         }
     }
 
