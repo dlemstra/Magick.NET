@@ -147,4 +147,9 @@ public enum CompressionMethod
     /// BC5.
     /// </summary>
     BC5,
+
+    /// <summary>
+    /// LERC.
+    /// </summary>
+    LERC,
 }
