@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick;
 using Xunit;
 
@@ -12,19 +11,13 @@ public partial class UnsafePixelCollectionTests
     public class TheToShortArrayMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenXTooLow()
+        public void ShouldReturnPixelsWhenXTooLow()
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
 
-            if (Runtime.Is64Bit)
-            {
-                pixels.ToShortArray(-1, 0, 1, 1, "RGB");
-            }
-            else
-            {
-                Assert.Throws<OverflowException>(() => pixels.ToShortArray(-1, 0, 1, 1, "RGB"));
-            }
+            var result = pixels.ToShortArray(-1, 0, 1, 1, "RGB");
+            Assert.Equal(new ushort[] { 65535, 65535, 65535 }, result);
         }
 
         [Fact]

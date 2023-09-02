@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick;
 using Xunit;
 
@@ -12,19 +11,19 @@ public partial class UnsafePixelCollectionTests
     public class TheGetValueMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenXTooLow()
-            => ThrowsOverflowException(-1, 0);
+        public void ShouldNotThrowExceptionWhenXTooLow()
+            => ThrowsNoException(-1, 0);
 
         [Fact]
-        public void ShouldThrowExceptionWhenXTooHigh()
+        public void ShouldNotThrowExceptionWhenXTooHigh()
             => ThrowsNoException(6, 0);
 
         [Fact]
-        public void ShouldThrowExceptionWhenYTooLow()
-            => ThrowsOverflowException(0, -1);
+        public void ShouldNotThrowExceptionWhenYTooLow()
+            => ThrowsNoException(0, -1);
 
         [Fact]
-        public void ShouldThrowExceptionWhenYTooHigh()
+        public void ShouldNotThrowExceptionWhenYTooHigh()
             => ThrowsNoException(0, 11);
 
         [Fact]
@@ -38,21 +37,6 @@ public partial class UnsafePixelCollectionTests
             Assert.Equal(Quantum.Max, pixel[0]);
             Assert.Equal(0, pixel[1]);
             Assert.Equal(0, pixel[2]);
-        }
-
-        private static void ThrowsOverflowException(int x, int y)
-        {
-            using var image = new MagickImage(MagickColors.Red, 5, 10);
-            using var pixels = image.GetPixelsUnsafe();
-
-            if (Runtime.Is64Bit)
-            {
-                pixels.GetValue(x, y);
-            }
-            else
-            {
-                Assert.Throws<OverflowException>(() => pixels.GetValue(x, y));
-            }
         }
 
         private static void ThrowsNoException(int x, int y)

@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick;
 using Xunit;
 
@@ -12,19 +11,13 @@ public partial class UnsafePixelCollectionTests
     public class TheToByteArrayMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenXTooLow()
+        public void ShouldNotThrowExceptionWhenXTooLow()
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
 
-            if (Runtime.Is64Bit)
-            {
-                pixels.ToByteArray(-1, 0, 1, 1, "RGB");
-            }
-            else
-            {
-                Assert.Throws<OverflowException>(() => pixels.ToByteArray(-1, 0, 1, 1, "RGB"));
-            }
+            var result = pixels.ToByteArray(-1, 0, 1, 1, "RGB");
+            Assert.Equal(new byte[] { 255, 255, 255 }, result);
         }
 
         [Fact]

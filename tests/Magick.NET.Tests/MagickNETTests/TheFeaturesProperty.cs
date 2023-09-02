@@ -13,7 +13,12 @@ public partial class MagickNETTests
         [Fact]
         public void ContainsExpectedFeatures()
         {
-            var expected = "Cipher ";
+            var expected = string.Empty;
+
+            if (Runtime.Is64Bit)
+                expected += "Channel-masks(64-bit) ";
+
+            expected += "Cipher ";
 #if Q16HDRI
             expected += "HDRI ";
 #endif
