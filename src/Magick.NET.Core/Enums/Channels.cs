@@ -19,19 +19,24 @@ public enum Channels : long
     Undefined = 0,
 
     /// <summary>
+    /// Gray.
+    /// </summary>
+    Gray = 0b1,
+
+    /// <summary>
+    /// Cyan.
+    /// </summary>
+    Cyan = 0b1,
+
+    /// <summary>
     /// Red.
     /// </summary>
     Red = 0b1,
 
     /// <summary>
-    /// Gray.
+    /// Magenta.
     /// </summary>
-    Gray = Red,
-
-    /// <summary>
-    /// Cyan.
-    /// </summary>
-    Cyan = Red,
+    Magenta = 0b10,
 
     /// <summary>
     /// Green.
@@ -39,9 +44,9 @@ public enum Channels : long
     Green = 0b10,
 
     /// <summary>
-    /// Magenta.
+    /// Yellow.
     /// </summary>
-    Magenta = Green,
+    Yellow = 0b100,
 
     /// <summary>
     /// Blue.
@@ -49,24 +54,19 @@ public enum Channels : long
     Blue = 0b100,
 
     /// <summary>
-    /// Yellow.
-    /// </summary>
-    Yellow = Blue,
-
-    /// <summary>
     /// Black.
     /// </summary>
     Black = 0b1000,
 
     /// <summary>
+    /// Opacity.
+    /// </summary>
+    Opacity = 0b10000,
+
+    /// <summary>
     /// Alpha.
     /// </summary>
     Alpha = 0b10000,
-
-    /// <summary>
-    /// Opacity.
-    /// </summary>
-    Opacity = Alpha,
 
     /// <summary>
     /// Index.
@@ -94,9 +94,19 @@ public enum Channels : long
     RGB = Red | Green | Blue,
 
     /// <summary>
+    /// RGBA.
+    /// </summary>
+    RGBA = Red | Green | Blue | Alpha,
+
+    /// <summary>
     /// CMYK.
     /// </summary>
     CMYK = Cyan | Magenta | Yellow | Black,
+
+    /// <summary>
+    /// CMYKA.
+    /// </summary>
+    CMYKA = Cyan | Magenta | Yellow | Black | Alpha,
 
     /// <summary>
     /// Meta0.

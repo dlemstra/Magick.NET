@@ -17,7 +17,7 @@ public partial class EnumHelperTests
 
             var result = EnumHelper.ConvertFlags(blueRed);
 
-            Assert.Equal("Cyan, Blue", result);
+            Assert.Equal("Red, Blue", result);
         }
     }
 }
