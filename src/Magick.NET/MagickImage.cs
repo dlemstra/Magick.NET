@@ -7620,11 +7620,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         var newReadSettings = CreateReadSettings(readSettings);
         SetSettings(newReadSettings);
 
-        _settings.Ping = ping;
         _settings.FileName = filePath;
+        _settings.Ping = ping;
 
         _nativeInstance.ReadFile(Settings);
-
         ResetSettings();
     }
 
