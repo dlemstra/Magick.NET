@@ -101,15 +101,18 @@ public enum Channels : ulong
     /// <summary>
     /// Grays.
     /// </summary>
+    [Obsolete("The value 'Grays' will be removed in a future release.")]
     Grays = 0x0400,
 
     /// <summary>
     /// Sync.
     /// </summary>
+    [Obsolete("The value 'Sync' will be removed in a future release.")]
     Sync = 0x20000,
 
     /// <summary>
     /// Default.
     /// </summary>
+    [Obsolete("The value 'Default' will be removed in a future release use 'All' instead.")]
     Default = All,
 }
