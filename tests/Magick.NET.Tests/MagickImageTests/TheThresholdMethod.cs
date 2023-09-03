@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.IO;
 using ImageMagick;
 using Xunit;
@@ -34,6 +35,17 @@ public partial class MagickImageTests
             var difference = image.Compare(other, ErrorMetric.RootMeanSquared);
 
             Assert.Equal(0.0, difference);
+        }
+
+        [Fact]
+        public void ShoulThrowExceptionOn32BitPlatformWhenChannelIsTooHigh()
+        {
+            if (Runtime.Is64Bit)
+                return;
+
+            using var image = new MagickImage(Files.ImageMagickJPG);
+
+            Assert.Throws<ArgumentException>("channels", () => image.Threshold(new Percentage(80), Channels.Meta22));
         }
     }
 }

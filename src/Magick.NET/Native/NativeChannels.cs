@@ -9,8 +9,8 @@ internal struct NativeChannels
 {
     private readonly UIntPtr _value;
 
-    private NativeChannels(Channels value)
-        => _value = ConvertValue(value);
+    private NativeChannels(Channels channels)
+        => _value = ConvertValue(channels);
 
     public static explicit operator NativeChannels(Channels channels)
         => new NativeChannels(channels);
@@ -18,17 +18,17 @@ internal struct NativeChannels
     public static implicit operator UIntPtr(NativeChannels channels)
         => channels._value;
 
-    private static UIntPtr ConvertValue(Channels value)
+    private static UIntPtr ConvertValue(Channels channels)
     {
         if (Runtime.Is64Bit)
-            return (UIntPtr)value;
+            return (UIntPtr)channels;
 
-        if (value == Channels.All)
+        if (channels == Channels.All)
             return (UIntPtr)0b0111111111111111111111111111;
 
-        if ((ulong)value > 0b1111111111111111111111111111)
-            throw new ArgumentException("There is no support for setting more than 32 bits of the Channels on a 32-bit platform", nameof(value));
+        if ((ulong)channels > 0b1111111111111111111111111111)
+            throw new ArgumentException("There is no support for setting more than 32 bits of the Channels on a 32-bit platform", nameof(channels));
 
-        return (UIntPtr)value;
+        return (UIntPtr)channels;
     }
 }
