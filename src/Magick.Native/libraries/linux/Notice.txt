@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-16 beta (2023-09-04) ] copyright:
+[ ImageMagick 7.1.1-16 beta (2023-09-06) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -122,7 +122,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ aom 3.6.1 (2022-05-08) ] copyright:
+[ aom 3.7.0 (2023-08-25) ] copyright:
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -4276,7 +4276,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ highway 1.0.6 (2023-08-11) ] copyright:
+[ highway 1.0.7 (2023-08-30) ] copyright:
 
                                  Apache License
                            Version 2.0, January 2004

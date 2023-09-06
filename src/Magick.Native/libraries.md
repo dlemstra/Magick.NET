@@ -1,7 +1,7 @@
 # Libraries
-Magick.Native [0c2392b31198a7ff509f9e499a758e26a3bd529b](https://github.com/dlemstra/Magick.Native/commit/0c2392b31198a7ff509f9e499a758e26a3bd529b) is build with the following libraries:
+Magick.Native [00150935d21e6b32b6b2b1b976f23745a6952234](https://github.com/dlemstra/Magick.Native/commit/00150935d21e6b32b6b2b1b976f23745a6952234) is build with the following libraries:
 
-- aom 3.6.1 (2022-05-08)
+- aom 3.7.0 (2023-08-25)
 - brotli 1.0.9 (2020-08-27)
 - bzlib 1.0.8 (2019-07-13)
 - cairo 1.17.8 (2023-01-30)
@@ -15,8 +15,8 @@ Magick.Native [0c2392b31198a7ff509f9e499a758e26a3bd529b](https://github.com/dlem
 - glib 2.64.3 (2020-05-20)
 - harfbuzz 8.1.1 (2023-08-02)
 - heif 1.16.2 (2023-05-22)
-- highway 1.0.6 (2023-08-11)
-- ImageMagick 7.1.1-16 beta (2023-09-04)
+- highway 1.0.7 (2023-08-30)
+- ImageMagick 7.1.1-16 beta (2023-09-06)
 - jasper 4.0.0 (2022-11-05)
 - jpeg-turbo 3.0.0 (2023-07-03)
 - jpeg-xl 0.8.2 (2023-06-14)
