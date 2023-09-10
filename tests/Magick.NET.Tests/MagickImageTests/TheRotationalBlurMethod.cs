@@ -19,7 +19,7 @@ public partial class MagickImageTests
 #if Q8
             ColorAssert.Equal(new MagickColor("#fbfbfb2b"), image, 10, 10);
             ColorAssert.Equal(new MagickColor("#8b0303"), image, 13, 67);
-            ColorAssert.Equal(new MagickColor(OpenCLValue.Get("#167516", "#167616")), image, 63, 67);
+            ColorAssert.Equal(new MagickColor("#167616"), image, 63, 67);
             ColorAssert.Equal(new MagickColor("#3131fc"), image, 125, 67);
 #else
             ColorAssert.Equal(new MagickColor("#fbf7fbf7fbf72aab"), image, 10, 10);
@@ -38,7 +38,7 @@ public partial class MagickImageTests
 #if Q8
             ColorAssert.Equal(new MagickColor("#fbfbfb80"), image, 10, 10);
             ColorAssert.Equal(new MagickColor("#8b0303"), image, 13, 67);
-            ColorAssert.Equal(new MagickColor(OpenCLValue.Get("#167516", "#167616")), image, 63, 67);
+            ColorAssert.Equal(new MagickColor("#167616"), image, 63, 67);
             ColorAssert.Equal(new MagickColor("#3131fc"), image, 125, 67);
 #else
             ColorAssert.Equal(new MagickColor("#fbf7fbf7fbf78000"), image, 10, 10);
