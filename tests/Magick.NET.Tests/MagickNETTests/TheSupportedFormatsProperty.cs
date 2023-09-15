@@ -25,12 +25,38 @@ public partial class MagickNETTests
         [Fact]
         public void ShouldContainTheCorrectNumberOfFormats()
         {
-            var formatsCount = MagickNET.SupportedFormats.Count();
+            var formatsCount = MagickNET.SupportedFormats.Count;
 
             if (Runtime.IsWindows)
                 Assert.Equal(268, formatsCount);
             else
                 Assert.Equal(265, formatsCount);
+        }
+
+        [Fact]
+        public void ShouldContainTheCorrectNumberOfReadableFormats()
+        {
+            var formatsCount = MagickNET.SupportedFormats
+                .Where(format => format.SupportsReading)
+                .Count();
+
+            if (Runtime.IsWindows)
+                Assert.Equal(246, formatsCount);
+            else
+                Assert.Equal(242, formatsCount);
+        }
+
+        [Fact]
+        public void ShouldContainTheCorrectNumberOfWritableFormats()
+        {
+            var formatsCount = MagickNET.SupportedFormats
+                .Where(format => format.SupportsWriting)
+                .Count();
+
+            if (Runtime.IsWindows)
+                Assert.Equal(191, formatsCount);
+            else
+                Assert.Equal(190, formatsCount);
         }
     }
 }
