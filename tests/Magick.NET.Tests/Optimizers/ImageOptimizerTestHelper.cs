@@ -66,7 +66,7 @@ public abstract class ImageOptimizerTestHelper
         Assert.Equal(resultIsSmaller, result);
 
         if (resultIsSmaller)
-            Assert.True(after < before);
+            Assert.True(after < before, $"Expected {after} to be smaller than {before}.");
         else
             Assert.Equal(before, after);
 
