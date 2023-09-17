@@ -24,14 +24,10 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            if (Runtime.Is64Bit)
-            {
-                Assert.Equal(1844674407370955161U / sizeof(QuantumType), ResourceLimits.Height);
-            }
-            else
-            {
-                Assert.Equal(429496729U / sizeof(QuantumType), ResourceLimits.Height);
-            }
+            var memoryLimit = Runtime.Is64Bit ? (ulong)long.MaxValue : int.MaxValue;
+            var maxChannels = 64UL;
+
+            Assert.Equal(memoryLimit / sizeof(QuantumType) / maxChannels, ResourceLimits.Height);
         }
 
         [Fact]
