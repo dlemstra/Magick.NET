@@ -12,7 +12,7 @@ public class TemporaryFile : IDisposable
 
     public TemporaryFile(byte[] data)
     {
-        _file = new FileInfo(Path.GetTempFileName());
+        _file = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
         System.IO.File.WriteAllBytes(_file.FullName, data);
     }
 
