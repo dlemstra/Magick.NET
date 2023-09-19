@@ -489,7 +489,7 @@ public partial class MagickNET : IMagickNET
 
     private static void CheckImageMagickFiles(string path)
     {
-        foreach (var configurationFile in ((IConfigurationFiles)ConfigurationFiles.Default).All)
+        foreach (var configurationFile in ConfigurationFiles.Default.All)
         {
             var fileName = Path.Combine(path, configurationFile.FileName);
             Throw.IfFalse(nameof(path), File.Exists(fileName), $"Unable to find file: {fileName}");
