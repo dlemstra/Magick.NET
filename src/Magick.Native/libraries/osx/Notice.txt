@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-16 (2023-09-17) ] copyright:
+[ ImageMagick 7.1.1-17 (2023-09-19) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -6502,7 +6502,7 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ webp 1.3.1 (2023-06-23) ] copyright:
+[ webp 1.3.2 (2023-09-14) ] copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
