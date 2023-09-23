@@ -9,7 +9,7 @@ namespace ImageMagick;
 public enum DensityUnit
 {
     /// <summary>
-    /// Undefied.
+    /// Undefined.
     /// </summary>
     Undefined,
 
