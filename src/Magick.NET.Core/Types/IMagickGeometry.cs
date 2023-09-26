@@ -66,7 +66,7 @@ public interface IMagickGeometry : IEquatable<IMagickGeometry?>, IComparable<IMa
     int Y { get; set; }
 
     /// <summary>
-    /// Initializes the geometry using the sepcified value.
+    /// Initializes the geometry using the specified value.
     /// </summary>
     /// <param name="x">The X offset from origin.</param>
     /// <param name="y">The Y offset from origin.</param>
