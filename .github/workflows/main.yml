@@ -179,6 +179,7 @@ jobs:
       working-directory: build/windows
 
     - name: Sign library (Magick.NET)
+      if: ${{ github.event_name != 'pull_request' }}
       uses: dlemstra/code-sign-action@v1
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
@@ -195,6 +196,7 @@ jobs:
       working-directory: publish
 
     - name: Sign NuGet package
+      if: ${{ github.event_name != 'pull_request' }}
       uses: dlemstra/code-sign-action@v1
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
@@ -239,6 +241,7 @@ jobs:
       working-directory: build/windows
 
     - name: 'Sign library (Magick.NET.${{ matrix.libraryName }})'
+      if: ${{ github.event_name != 'pull_request' }}
       uses: dlemstra/code-sign-action@v1
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
@@ -255,6 +258,7 @@ jobs:
       working-directory: publish
 
     - name: Sign NuGet package
+      if: ${{ github.event_name != 'pull_request' }}
       uses: dlemstra/code-sign-action@v1
       with:
         certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
