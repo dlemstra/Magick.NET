@@ -68,7 +68,7 @@ public partial class IcoOptimizerTests
             }
         }
 
-        public class WithStreamName : TheLosslessCompressMethod
+        public class WithStream : TheLosslessCompressMethod
         {
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()

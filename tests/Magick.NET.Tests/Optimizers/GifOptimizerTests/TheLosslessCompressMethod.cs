@@ -56,7 +56,7 @@ public partial class GifOptimizerTests
             }
         }
 
-        public class WithStreamName : TheLosslessCompressMethod
+        public class WithStream : TheLosslessCompressMethod
         {
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()

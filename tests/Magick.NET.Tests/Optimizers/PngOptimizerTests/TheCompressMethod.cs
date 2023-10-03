@@ -88,7 +88,7 @@ public partial class PngOptimizerTests
             }
         }
 
-        public class WithStreamName : TheCompressMethod
+        public class WithStream : TheCompressMethod
         {
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()

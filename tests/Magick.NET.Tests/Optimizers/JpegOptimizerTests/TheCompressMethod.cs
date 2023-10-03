@@ -124,7 +124,7 @@ public partial class JpegOptimizerTests
             }
         }
 
-        public class WithStreamName : TheCompressMethod
+        public class WithStream : TheCompressMethod
         {
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()

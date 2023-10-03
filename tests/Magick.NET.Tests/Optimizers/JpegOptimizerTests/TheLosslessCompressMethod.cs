@@ -94,7 +94,7 @@ public partial class JpegOptimizerTests
             }
         }
 
-        public class WithStreamName : TheLosslessCompressMethod
+        public class WithStream : TheLosslessCompressMethod
         {
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()
