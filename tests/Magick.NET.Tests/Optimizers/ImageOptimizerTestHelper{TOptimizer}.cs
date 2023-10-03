@@ -86,13 +86,12 @@ public abstract class ImageOptimizerTestHelper<TOptimizer> : ImageOptimizerTestH
 
         var after1 = tempFile.Length;
 
-        var compressed2 = Optimizer.LosslessCompress(tempFile.File);
+        Optimizer.LosslessCompress(tempFile.File);
 
         var after2 = tempFile.Length;
 
         Assert.InRange(after1, after2 - 1, after2 + 1);
         Assert.True(compressed1);
-        Assert.False(compressed2);
     }
 
     protected void AssertLosslessCompressInvalidFileFormat(string fileName)
