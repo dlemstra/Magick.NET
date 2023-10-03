@@ -37,7 +37,8 @@ public interface IResourceLimits
 
     /// <summary>
     /// Gets or sets the pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
-    /// operations are to/from disk.
+    /// operations are to/from disk. The default value of this is 50% of the available memory on the machine in 64-bit mode.
+    /// When running in 32-bit mode this is 50% of the limit of the operating system.
     /// </summary>
     ulong Memory { get; set; }
 
