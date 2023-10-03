@@ -78,7 +78,7 @@ public static class ReadImageSamples
 
         // Read from stream
         using var memStream = LoadMemoryStreamImage();
-        using var imagesromStream = new MagickImageCollection(memStream);
+        using var imagesFromStream = new MagickImageCollection(memStream);
 
         // Read from byte array
         var data = LoadImageBytes();
