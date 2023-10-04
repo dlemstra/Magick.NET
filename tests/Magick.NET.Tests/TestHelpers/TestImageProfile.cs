@@ -17,9 +17,12 @@ public sealed class TestImageProfile : IImageProfile
 
     public string Name { get; }
 
-    public bool Equals(IImageProfile other) => false;
+    public bool Equals(IImageProfile other)
+        => false;
 
-    public byte[] GetData() => _bytes;
+    public byte[] GetData()
+        => _bytes;
 
-    public byte[] ToByteArray() => _bytes;
+    public byte[] ToByteArray()
+        => _bytes;
 }
