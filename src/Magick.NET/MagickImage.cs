@@ -445,6 +445,14 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
                 if (_nativeInstance.HasChannel(channel))
                     yield return channel;
             }
+
+            for (var channel = PixelChannel.Meta0; channel <= PixelChannel.Meta53; channel++)
+            {
+                if (_nativeInstance.HasChannel(channel))
+                    yield return channel;
+                else
+                    yield break;
+            }
         }
     }
 
