@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-17 (2023-09-19) ] copyright:
+[ ImageMagick 7.1.1-20 (2023-10-08) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -225,7 +225,7 @@ bzip2/libbzip2 version 1.0.8 of 13 July 2019
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ cairo 1.17.8 (2023-01-30) ] copyright:
+[ cairo 1.18.0 (2023-09-20) ] copyright:
 
 
                   GNU LESSER GENERAL PUBLIC LICENSE
@@ -2102,10 +2102,33 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openexr 3.1.11 (2023-08-14) ] copyright:
+[ deflate 1.19.0 (2023-09-17) ] copyright:
 
-<!-- SPDX-License-Identifier: BSD-3-Clause -->
-<!-- Copyright (c) Contributors to the OpenEXR Project -->
+Copyright 2016 Eric Biggers
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation files
+(the "Software"), to deal in the Software without restriction,
+including without limitation the rights to use, copy, modify, merge,
+publish, distribute, sublicense, and/or sell copies of the Software,
+and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS
+BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+[ openexr 3.2.1 (2023-09-27) ] copyright:
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -3353,7 +3376,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 8.2.0 (2023-09-08) ] copyright:
+[ harfbuzz 8.2.1 (2023-09-18) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -4846,7 +4869,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lzma 5.4.3 (2023-05-20) ] copyright:
+[ lzma 5.4.4 (2023-09-23) ] copyright:
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
@@ -6474,7 +6497,7 @@ Public License instead of this License.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ tiff 4.5.1 (2023-06-10) ] copyright:
+[ tiff 4.6.0 (2023-09-08) ] copyright:
 
 # LibTIFF license
 
