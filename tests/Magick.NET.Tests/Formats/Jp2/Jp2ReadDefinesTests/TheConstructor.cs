@@ -17,6 +17,7 @@ public partial class Jp2ReadDefinesTests
             using var image = new MagickImage();
             image.Settings.SetDefines(new Jp2ReadDefines());
 
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "assume-alpha"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "quality-layers"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jp2, "reduce-factor"));
         }

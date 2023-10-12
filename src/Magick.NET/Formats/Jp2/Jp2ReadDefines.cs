@@ -17,6 +17,11 @@ public sealed class Jp2ReadDefines : IReadDefines
         => MagickFormat.Jp2;
 
     /// <summary>
+    /// Gets or sets the flag that assumes an alpha channel when the image has 2 or 4 channels (jp2:assume-alpha).
+    /// </summary>
+    public bool? AssumeAlpha { get; set; }
+
+    /// <summary>
     /// Gets or sets the maximum number of quality layers to decode (jp2:quality-layers).
     /// </summary>
     public int? QualityLayers { get; set; }
@@ -33,6 +38,9 @@ public sealed class Jp2ReadDefines : IReadDefines
     {
         get
         {
+            if (AssumeAlpha.HasValue)
+                yield return new MagickDefine(Format, "assume-alpha", AssumeAlpha.Value);
+
             if (QualityLayers.HasValue)
                 yield return new MagickDefine(Format, "quality-layers", QualityLayers.Value);
 
