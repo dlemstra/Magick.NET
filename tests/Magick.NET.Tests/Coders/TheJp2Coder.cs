@@ -26,4 +26,16 @@ public class TheJp2Coder
         Assert.Equal(256, second.Width);
         Assert.Equal(256, second.Height);
     }
+
+    [Fact]
+    public void ShouldCheckTheAlphaValue()
+    {
+        using var image = new MagickImage(Files.Coders.TestJP2);
+
+        Assert.Equal(1, image.Width);
+        Assert.Equal(1, image.Height);
+        Assert.False(image.HasAlpha);
+        Assert.Equal(4, image.ChannelCount);
+        Assert.Contains(PixelChannel.Meta0, image.Channels);
+    }
 }
