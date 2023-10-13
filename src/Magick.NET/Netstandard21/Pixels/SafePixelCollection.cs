@@ -22,6 +22,7 @@ internal sealed partial class SafePixelCollection
     public override void SetArea(int x, int y, int width, int height, ReadOnlySpan<QuantumType> values)
     {
         CheckValues(x, y, width, height, values);
+
         base.SetArea(x, y, width, height, values);
     }
 
@@ -35,6 +36,7 @@ internal sealed partial class SafePixelCollection
     public override void SetPixels(ReadOnlySpan<QuantumType> values)
     {
         CheckValues(values);
+
         base.SetPixels(values);
     }
 
