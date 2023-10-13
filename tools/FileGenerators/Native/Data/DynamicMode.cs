@@ -8,11 +8,13 @@ namespace FileGenerator.Native;
 [Flags]
 public enum DynamicMode
 {
-    None = 0,
+    None = 0b0,
 
-    NativeToManaged = 1,
+    NativeToManaged = 0b01,
 
-    ManagedToNative = 2,
+    ManagedToNative = 0b10,
 
-    Both = 3,
+    Both = 0b11,
+
+    Custom = 0b100,
 }

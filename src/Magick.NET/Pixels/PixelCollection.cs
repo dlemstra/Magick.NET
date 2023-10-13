@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using static System.Net.Mime.MediaTypeNames;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -19,22 +20,35 @@ namespace ImageMagick;
 
 internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 {
+    private NativePixelCollection? _nativeInstance;
+
     protected PixelCollection(MagickImage image)
-    {
-        Image = image;
-        _nativeInstance = new NativePixelCollection(image);
-    }
+        => Image = image;
 
     public int Channels
         => Image.ChannelCount;
 
     protected MagickImage Image { get; }
 
+    private NativePixelCollection NativeInstance
+    {
+        get
+        {
+            if (_nativeInstance is null)
+                _nativeInstance = new NativePixelCollection(Image);
+
+            return _nativeInstance;
+        }
+    }
+
     public IPixel<QuantumType>? this[int x, int y]
         => GetPixel(x, y);
 
     public void Dispose()
-        => _nativeInstance.Dispose();
+    {
+        if (_nativeInstance is not null)
+            _nativeInstance.Dispose();
+    }
 
     public virtual QuantumType[]? GetArea(int x, int y, int width, int height)
         => GetAreaUnchecked(x, y, width, height);
@@ -43,7 +57,7 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
         => GetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
 
     public virtual IntPtr GetAreaPointer(int x, int y, int width, int height)
-        => _nativeInstance.GetArea(x, y, width, height);
+        => NativeInstance.GetArea(x, y, width, height);
 
     public virtual IntPtr GetAreaPointer(IMagickGeometry geometry)
         => GetAreaPointer(geometry.X, geometry.Y, geometry.Width, geometry.Height);
@@ -149,7 +163,7 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
         try
         {
-            nativeResult = _nativeInstance.ToByteArray(x, y, width, height, mapping);
+            nativeResult = NativeInstance.ToByteArray(x, y, width, height, mapping);
             result = ByteConverter.ToArray(nativeResult, width * height * mapping.Length);
         }
         finally
@@ -181,7 +195,7 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
         try
         {
-            nativeResult = _nativeInstance.ToShortArray(x, y, width, height, mapping);
+            nativeResult = NativeInstance.ToShortArray(x, y, width, height, mapping);
             return ShortConverter.ToArray(nativeResult, width * height * mapping.Length);
         }
         finally
@@ -207,7 +221,7 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     internal QuantumType[]? GetAreaUnchecked(int x, int y, int width, int height)
     {
-        var pixels = _nativeInstance.GetArea(x, y, width, height);
+        var pixels = NativeInstance.GetArea(x, y, width, height);
         if (pixels == IntPtr.Zero)
             throw new InvalidOperationException("Image contains no pixel data.");
 
@@ -228,5 +242,5 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
     }
 
     private void SetAreaUnchecked(int x, int y, int width, int height, QuantumType[] values)
-        => _nativeInstance.SetArea(x, y, width, height, values, values.Length);
+        => NativeInstance.SetArea(x, y, width, height, values, values.Length);
 }

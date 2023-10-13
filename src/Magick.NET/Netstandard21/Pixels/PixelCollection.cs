@@ -35,7 +35,7 @@ internal abstract partial class PixelCollection
         => SetAreaUnchecked(x, y, 1, 1, value);
 
     private void SetAreaUnchecked(int x, int y, int width, int height, ReadOnlySpan<QuantumType> values)
-        => _nativeInstance.SetArea(x, y, width, height, values, values.Length);
+        => NativeInstance.SetArea(x, y, width, height, values, values.Length);
 }
 
 #endif

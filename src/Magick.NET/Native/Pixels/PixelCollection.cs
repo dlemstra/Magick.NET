@@ -19,7 +19,7 @@ using QuantumType = System.Single;
 
 namespace ImageMagick;
 
-internal partial class PixelCollection : IDisposable
+internal partial class PixelCollection
 {
     [SuppressUnmanagedCodeSecurity]
     private static unsafe class NativeMethods
@@ -76,7 +76,6 @@ internal partial class PixelCollection : IDisposable
         }
         #endif
     }
-    private NativePixelCollection _nativeInstance;
     private unsafe sealed partial class NativePixelCollection : NativeInstance
     {
         static NativePixelCollection() { Environment.Initialize(); }

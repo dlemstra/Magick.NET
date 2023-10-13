@@ -1,4 +1,5 @@
 ﻿{
+  "dynamic": "Custom",
   "access": "internal",
   "constructor": {
     "throws": true,
