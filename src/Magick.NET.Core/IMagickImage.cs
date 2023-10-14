@@ -3080,7 +3080,8 @@ public partial interface IMagickImage : IDisposable
 
     /// <summary>
     /// Sets the associated write mask of the image. The mask must be the same dimensions as the image and
-    /// only contains the colors black and white.
+    /// only contains the colors black and white or have grayscale values that will cause blended updates of
+    /// the image.
     /// </summary>
     /// <param name="image">The image that contains the write mask.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
