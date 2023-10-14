@@ -2821,7 +2821,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => FloodFill(alpha, x, y, false);
 
     /// <summary>
-    /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
+    /// Flood-fill color across pixels that match the color of the target pixel and are neighbors
     /// of the target pixel. Uses current fuzz setting when determining color match.
     /// </summary>
     /// <param name="color">The color to use.</param>

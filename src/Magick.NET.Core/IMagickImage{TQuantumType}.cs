@@ -207,7 +207,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     void FloodFill(TQuantumType alpha, int x, int y);
 
     /// <summary>
-    /// Flood-fill color across pixels that match the color of the  target pixel and are neighbors
+    /// Flood-fill color across pixels that match the color of the target pixel and are neighbors
     /// of the target pixel. Uses current fuzz setting when determining color match.
     /// </summary>
     /// <param name="color">The color to use.</param>

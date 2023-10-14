@@ -41,7 +41,7 @@ that there are no compiler warnings anymore because the GitHub actions build wil
 
 This project also includes some files that make it easy to debug the [Magick.Native](https://github.com/dlemstra/Magick.Native) library.
 For this to be possible the Magick.Native library needs to be cloned out at the same level as the Magick.NET library. If Magick.NET is cloned in
-`C:\Projects\Magick.NET` the library needs to be cloned into `C:\Projects\Magick.Native`. Before executing one of the  build files inside this project
+`C:\Projects\Magick.NET` the library needs to be cloned into `C:\Projects\Magick.Native`. Before executing one of the build files inside this project
 ImageMagick needs to be cloned in the Magick.Native project. This can be done with the file `Magick.Native\src\ImageMagick\checkout.cmd`.
 After the library is cloned one of the scripts inside [src/Magick.Native/build](src/Magick.Native/build) can be used to do create a debug build
 that can be used to debug the native code through this project.
