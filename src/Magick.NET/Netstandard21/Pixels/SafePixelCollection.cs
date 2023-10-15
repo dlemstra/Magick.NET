@@ -19,14 +19,14 @@ namespace ImageMagick;
 
 internal sealed partial class SafePixelCollection
 {
-    public override ReadOnlySpan<byte> GetReadOnlyArea(int x, int y, int width, int height)
+    public override ReadOnlySpan<QuantumType> GetReadOnlyArea(int x, int y, int width, int height)
     {
         CheckArea(x, y, width, height);
 
         return base.GetReadOnlyArea(x, y, width, height);
     }
 
-    public override ReadOnlySpan<byte> GetReadOnlyArea(IMagickGeometry geometry)
+    public override ReadOnlySpan<QuantumType> GetReadOnlyArea(IMagickGeometry geometry)
     {
         Throw.IfNull(nameof(geometry), geometry);
 
