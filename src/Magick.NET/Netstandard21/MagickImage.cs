@@ -272,7 +272,7 @@ public sealed partial class MagickImage
 
         var newReadSettings = CreateReadSettings(settings.ReadSettings);
         SetSettings(newReadSettings);
-        
+
         var length = data.Length;
         var expectedLength = GetExpectedByteLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
