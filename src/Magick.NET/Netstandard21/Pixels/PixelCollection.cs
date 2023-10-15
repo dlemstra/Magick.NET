@@ -19,6 +19,30 @@ namespace ImageMagick;
 
 internal abstract partial class PixelCollection
 {
+    public virtual unsafe ReadOnlySpan<QuantumType> GetReadOnlyArea(int x, int y, int width, int height)
+    {
+        var area = GetAreaPointer(x, y, width, height);
+        if (area == IntPtr.Zero)
+        {
+            return default;
+        }
+
+        var length = width * height * Image.ChannelCount;
+
+#if Q8
+        return new ReadOnlySpan<QuantumType>((byte*)area, length);
+#elif Q16
+        return new ReadOnlySpan<QuantumType>((ushort*)area, length);
+#elif Q16HDRI
+        return new ReadOnlySpan<QuantumType>((float*)area, length);
+#else
+#error Not implemented!
+#endif
+    }
+
+    public virtual ReadOnlySpan<QuantumType> GetReadOnlyArea(IMagickGeometry geometry)
+        => GetReadOnlyArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
+
     public virtual void SetArea(int x, int y, int width, int height, ReadOnlySpan<QuantumType> values)
         => SetAreaUnchecked(x, y, width, height, values);
 

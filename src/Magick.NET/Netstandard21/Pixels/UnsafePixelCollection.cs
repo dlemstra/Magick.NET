@@ -19,6 +19,14 @@ namespace ImageMagick;
 
 internal sealed partial class UnsafePixelCollection
 {
+    public override ReadOnlySpan<byte> GetReadOnlyArea(IMagickGeometry geometry)
+    {
+        if (geometry is null)
+            return default;
+
+        return base.GetReadOnlyArea(geometry);
+    }
+
     public override void SetArea(IMagickGeometry geometry, ReadOnlySpan<QuantumType> values)
     {
         if (geometry is not null)

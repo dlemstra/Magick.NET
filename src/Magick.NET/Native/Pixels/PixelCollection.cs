@@ -34,6 +34,8 @@ internal partial class PixelCollection
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr PixelCollection_GetArea(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr PixelCollection_GetReadOnlyArea(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void PixelCollection_SetArea(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, QuantumType* values, UIntPtr length, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr PixelCollection_ToByteArray(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
@@ -51,6 +53,8 @@ internal partial class PixelCollection
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr PixelCollection_GetArea(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr PixelCollection_GetReadOnlyArea(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void PixelCollection_SetArea(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, QuantumType* values, UIntPtr length, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr PixelCollection_ToByteArray(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, IntPtr mapping, out IntPtr exception);
@@ -67,6 +71,8 @@ internal partial class PixelCollection
             public static extern void PixelCollection_Dispose(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr PixelCollection_GetArea(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr PixelCollection_GetReadOnlyArea(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void PixelCollection_SetArea(IntPtr Instance, IntPtr x, IntPtr y, UIntPtr width, UIntPtr height, QuantumType* values, UIntPtr length, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -153,6 +159,31 @@ internal partial class PixelCollection
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.PixelCollection_GetArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            CheckException(exception);
+            return result;
+        }
+        public IntPtr GetReadOnlyArea(int x, int y, int width, int height)
+        {
+            IntPtr exception = IntPtr.Zero;
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.PixelCollection_GetReadOnlyArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.PixelCollection_GetReadOnlyArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.PixelCollection_GetReadOnlyArea(Instance, (IntPtr)x, (IntPtr)y, (UIntPtr)width, (UIntPtr)height, out exception);
             #endif
             CheckException(exception);
             return result;

@@ -11,6 +11,23 @@ namespace ImageMagick;
 public partial interface IPixelCollection<TQuantumType>
 {
     /// <summary>
+    /// Returns the pixels at the specified area.
+    /// </summary>
+    /// <param name="x">The X coordinate of the area.</param>
+    /// <param name="y">The Y coordinate of the area.</param>
+    /// <param name="width">The width of the area.</param>
+    /// <param name="height">The height of the area.</param>
+    /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
+    ReadOnlySpan<TQuantumType> GetReadOnlyArea(int x, int y, int width, int height);
+
+    /// <summary>
+    /// Returns the pixels of the specified area.
+    /// </summary>
+    /// <param name="geometry">The geometry of the area.</param>
+    /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
+    ReadOnlySpan<TQuantumType> GetReadOnlyArea(IMagickGeometry geometry);
+
+    /// <summary>
     /// Changes the values of the specified pixels.
     /// </summary>
     /// <param name="x">The X coordinate of the area.</param>

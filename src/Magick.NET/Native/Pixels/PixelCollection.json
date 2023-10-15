@@ -35,6 +35,29 @@
       ]
     },
     {
+      "name": "GetReadOnlyArea",
+      "type": "Instance",
+      "throws": "true",
+      "arguments": [
+        {
+          "name": "x",
+          "type": "ssize_t"
+        },
+        {
+          "name": "y",
+          "type": "ssize_t"
+        },
+        {
+          "name": "width",
+          "type": "size_t"
+        },
+        {
+          "name": "height",
+          "type": "size_t"
+        }
+      ],
+    }
+    {
       "name": "SetArea",
       "throws": "true",
       "arguments": [
