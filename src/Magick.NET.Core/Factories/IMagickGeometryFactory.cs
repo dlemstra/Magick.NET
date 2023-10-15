@@ -43,7 +43,7 @@ public interface IMagickGeometryFactory
     /// Initializes a new instance that implements <see cref="IMagickGeometry"/>.
     /// </summary>
     /// <param name="percentageWidth">The percentage of the width.</param>
-    /// <param name="percentageHeight">The percentage of the  height.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
     IMagickGeometry Create(Percentage percentageWidth, Percentage percentageHeight);
 
@@ -53,7 +53,7 @@ public interface IMagickGeometryFactory
     /// <param name="x">The X offset from origin.</param>
     /// <param name="y">The Y offset from origin.</param>
     /// <param name="percentageWidth">The percentage of the width.</param>
-    /// <param name="percentageHeight">The percentage of the  height.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
     IMagickGeometry Create(int x, int y, Percentage percentageWidth, Percentage percentageHeight);
 

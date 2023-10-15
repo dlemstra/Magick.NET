@@ -47,7 +47,7 @@ public sealed class MagickGeometryFactory : IMagickGeometryFactory
     /// Initializes a new instance that implements <see cref="IMagickGeometry"/>.
     /// </summary>
     /// <param name="percentageWidth">The percentage of the width.</param>
-    /// <param name="percentageHeight">The percentage of the  height.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
     public IMagickGeometry Create(Percentage percentageWidth, Percentage percentageHeight)
         => new MagickGeometry(percentageWidth, percentageHeight);
@@ -58,7 +58,7 @@ public sealed class MagickGeometryFactory : IMagickGeometryFactory
     /// <param name="x">The X offset from origin.</param>
     /// <param name="y">The Y offset from origin.</param>
     /// <param name="percentageWidth">The percentage of the width.</param>
-    /// <param name="percentageHeight">The percentage of the  height.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
     public IMagickGeometry Create(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
         => new MagickGeometry(x, y, percentageWidth, percentageHeight);
