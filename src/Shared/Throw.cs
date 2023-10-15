@@ -16,7 +16,7 @@ internal static partial class Throw
             throw new ArgumentException(message, paramName);
     }
 
-    public static void IfFalse<T>(string paramName, bool condition, string message, T arg0)
+    public static void IfFalse<T0>(string paramName, bool condition, string message, T0 arg0)
     {
         if (!condition)
             throw new ArgumentException(FormatMessage(message, arg0), paramName);
