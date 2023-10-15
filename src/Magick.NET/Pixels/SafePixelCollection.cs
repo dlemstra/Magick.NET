@@ -187,14 +187,14 @@ internal sealed partial class SafePixelCollection : PixelCollection
     private void CheckArea(int x, int y, int width, int height)
     {
         CheckIndex(x, y);
-        Throw.IfOutOfRange(nameof(width), 1, Image.Width - x, width, $"Invalid width: {width}.");
-        Throw.IfOutOfRange(nameof(height), 1, Image.Height - y, height, $"Invalid height: {height}.");
+        Throw.IfOutOfRange(nameof(width), 1, Image.Width - x, width, "Invalid width: {0}.", width);
+        Throw.IfOutOfRange(nameof(height), 1, Image.Height - y, height, "Invalid height: {0}.", height);
     }
 
     private void CheckIndex(int x, int y)
     {
-        Throw.IfOutOfRange(nameof(x), 0, Image.Width - 1, x, $"Invalid X coordinate: {x}.");
-        Throw.IfOutOfRange(nameof(y), 0, Image.Height - 1, y, $"Invalid Y coordinate: {y}.");
+        Throw.IfOutOfRange(nameof(x), 0, Image.Width - 1, x, "Invalid X coordinate: {0}.", x);
+        Throw.IfOutOfRange(nameof(y), 0, Image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
     }
 
     private void CheckValues<T>(T[] values)

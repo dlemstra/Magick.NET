@@ -78,10 +78,10 @@ internal static partial class Throw
             throw new ArgumentOutOfRangeException(paramName);
     }
 
-    public static void IfOutOfRange(string paramName, int min, int max, int value, string message)
+    public static void IfOutOfRange<T>(string paramName, int min, int max, int value, string message, T arg0)
     {
         if (value < min || value > max)
-            throw new ArgumentOutOfRangeException(paramName, message);
+            throw new ArgumentOutOfRangeException(paramName, string.Format(message, arg0));
     }
 
     public static void IfOutOfRange(string paramName, Percentage value)
