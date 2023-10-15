@@ -170,7 +170,7 @@ namespace Magick.NET.Tests
                 [Fact]
                 public void ShouldThrowExceptionWhenLengthIsTooLow()
                 {
-                    var settings = new PixelImportSettings(1, 1, StorageType.Char, PixelMapping.RGB);
+                    var settings = new PixelImportSettings(1, 1, StorageType.Quantum, PixelMapping.RGB);
 
                     using var image = new MagickImage();
 

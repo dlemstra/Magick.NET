@@ -103,7 +103,7 @@ public sealed partial class MagickImage
         Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
 
         var length = data.Length;
-        var expectedLength = GetExpectedByteLength(settings);
+        var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0);
@@ -124,7 +124,7 @@ public sealed partial class MagickImage
         Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
 
         var length = data.Length;
-        var expectedLength = GetExpectedByteLength(settings);
+        var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0);
@@ -274,7 +274,7 @@ public sealed partial class MagickImage
         SetSettings(newReadSettings);
 
         var length = data.Length;
-        var expectedLength = GetExpectedByteLength(settings);
+        var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
         _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0);

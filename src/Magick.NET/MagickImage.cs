@@ -3351,7 +3351,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
 
         var length = data.Length - offset;
-        var expectedLength = GetExpectedByteLength(settings);
+        var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", data.Length, expectedLength + offset);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
