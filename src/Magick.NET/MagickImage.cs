@@ -1452,9 +1452,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The geometry to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Chop(IMagickGeometry geometry)
-    {
-        _nativeInstance.Chop(MagickRectangle.FromGeometry(geometry, this));
-    }
+        => _nativeInstance.Chop(MagickRectangle.FromGeometry(geometry, this));
 
     /// <summary>
     /// Chop image (remove horizontal subregion of image).
