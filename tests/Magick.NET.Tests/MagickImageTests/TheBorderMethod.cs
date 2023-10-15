@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,20 @@ public partial class MagickImageTests
 {
     public class TheBorderMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthIsNegative()
+        {
+            using var image = new MagickImage("xc:red", 1, 1);
+            Assert.Throws<ArgumentException>("width", () => image.Border(-1, 1));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsNegative()
+        {
+            using var image = new MagickImage("xc:red", 1, 1);
+            Assert.Throws<ArgumentException>("height", () => image.Border(1, -1));
+        }
+
         [Fact]
         public void ShouldAddBorderOnAllSides()
         {
