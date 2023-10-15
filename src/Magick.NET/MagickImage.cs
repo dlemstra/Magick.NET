@@ -2672,12 +2672,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="value">The value.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Evaluate(Channels channels, IMagickGeometry geometry, EvaluateOperator evaluateOperator, double value)
-    {
-        var newGeomtry = MagickRectangle.FromGeometry(geometry, this);
-        Throw.IfNull(nameof(geometry), newGeomtry);
-
-        _nativeInstance.EvaluateGeometry(channels, newGeomtry, evaluateOperator, value);
-    }
+        => _nativeInstance.EvaluateGeometry(channels, MagickRectangle.FromGeometry(geometry, this), evaluateOperator, value);
 
     /// <summary>
     /// Apply an arithmetic or bitwise operator to the image pixel quantums.
