@@ -5318,7 +5318,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ReduceNoise()
-            => ReduceNoise(3);
+        => ReduceNoise(3);
 
     /// <summary>
     /// Reduce noise in image using a noise peak elimination filter.
