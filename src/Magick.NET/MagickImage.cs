@@ -5333,12 +5333,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <param name="region">The mask region.</param>
     public void RegionMask(IMagickGeometry region)
-    {
-        Throw.IfNull(nameof(region), region);
-
-        var magickRegion = MagickRectangle.FromGeometry(region, this);
-        _nativeInstance.RegionMask(magickRegion);
-    }
+        => _nativeInstance.RegionMask(MagickRectangle.FromGeometry(region, this));
 
     /// <summary>
     /// Removes the artifact with the specified name.
