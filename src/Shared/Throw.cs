@@ -3,6 +3,7 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.IO;
 
 namespace ImageMagick;
@@ -13,6 +14,12 @@ internal static partial class Throw
     {
         if (!condition)
             throw new ArgumentException(message, paramName);
+    }
+
+    public static void IfFalse<T>(string paramName, bool condition, string message, T arg0)
+    {
+        if (!condition)
+            throw new ArgumentException(FormatMessage(message, arg0), paramName);
     }
 
     public static void IfNull(string paramName, [NotNull] object? value)
@@ -81,7 +88,7 @@ internal static partial class Throw
     public static void IfOutOfRange<T>(string paramName, int min, int max, int value, string message, T arg0)
     {
         if (value < min || value > max)
-            throw new ArgumentOutOfRangeException(paramName, string.Format(message, arg0));
+            throw new ArgumentOutOfRangeException(paramName, FormatMessage(message, arg0));
     }
 
     public static void IfOutOfRange(string paramName, Percentage value)
@@ -100,4 +107,7 @@ internal static partial class Throw
         if (condition)
             throw new ArgumentException(message, paramName);
     }
+
+    private static string FormatMessage<T>(string message, T arg0)
+        => string.Format(CultureInfo.InvariantCulture, message, arg0);
 }

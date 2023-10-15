@@ -207,7 +207,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
     {
         CheckIndex(x, y);
         Throw.IfNullOrEmpty(nameof(values), values);
-        Throw.IfFalse(nameof(values), values.Length % Channels == 0, $"Values should have {Channels} channels.");
+        Throw.IfFalse(nameof(values), values.Length % Channels == 0, "Values should have {0} channels.", Channels);
 
         var length = values.Length;
         var max = width * height * Channels;

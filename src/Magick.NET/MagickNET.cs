@@ -492,7 +492,7 @@ public partial class MagickNET : IMagickNET
         foreach (var configurationFile in ConfigurationFiles.Default.All)
         {
             var fileName = Path.Combine(path, configurationFile.FileName);
-            Throw.IfFalse(nameof(path), File.Exists(fileName), $"Unable to find file: {fileName}");
+            Throw.IfFalse(nameof(path), File.Exists(fileName), "Unable to find file: {0}", fileName);
         }
     }
 

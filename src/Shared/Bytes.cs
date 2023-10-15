@@ -121,9 +121,7 @@ internal sealed partial class Bytes
     }
 
     private static void CheckLength(long length)
-    {
-        Throw.IfFalse(nameof(length), IsSupportedLength(length), $"Streams with a length larger than {int.MaxValue} are not supported, read from file instead.");
-    }
+        => Throw.IfFalse(nameof(length), IsSupportedLength(length), "Streams with a length larger than {0} are not supported, read from file instead.", int.MaxValue);
 
     private static bool IsSupportedLength(long length)
         => length <= int.MaxValue;
