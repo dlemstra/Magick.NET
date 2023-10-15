@@ -5331,9 +5331,9 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Associates a mask with the image as defined by the specified region.
     /// </summary>
-    /// <param name="region">The mask region.</param>
-    public void RegionMask(IMagickGeometry region)
-        => _nativeInstance.RegionMask(MagickRectangle.FromGeometry(region, this));
+    /// <param name="geometry">The mask region.</param>
+    public void RegionMask(IMagickGeometry geometry)
+        => _nativeInstance.RegionMask(MagickRectangle.FromGeometry(geometry, this));
 
     /// <summary>
     /// Removes the artifact with the specified name.
