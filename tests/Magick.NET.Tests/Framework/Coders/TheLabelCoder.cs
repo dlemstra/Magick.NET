@@ -22,7 +22,7 @@ public partial class TheLabelCoder
             Density = new Density(96, 96, DensityUnit.PixelsPerInch),
         };
 
-        using var image = new MagickImage($"label:Masai Mara", settings);
+        using var image = new MagickImage("label:Masai Mara", settings);
 
         Assert.Equal(93, image.Width);
         Assert.Equal(21, image.Height);
