@@ -86,6 +86,16 @@ namespace Magick.NET.Tests
                 }
 
                 [Fact]
+                public void ShouldThrowExceptionWhenLengthIsTooLow()
+                {
+                    var settings = new PixelReadSettings(2, 2, StorageType.Char, "R");
+                    using var image = new MagickImage();
+
+                    var exception = Assert.Throws<ArgumentException>("data", () => image.ReadPixels(new Span<byte>(new byte[] { 215, 215 }), settings));
+                    Assert.Contains("The data length is 2 but should be at least 4.", exception.Message);
+                }
+
+                [Fact]
                 public void ShouldReadSpan()
                 {
                     var data = new byte[]
@@ -174,6 +184,16 @@ namespace Magick.NET.Tests
 
                     var exception = Assert.Throws<ArgumentException>("settings", () => image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), settings));
                     Assert.Contains("Storage type should be Quantum.", exception.Message);
+                }
+
+                [Fact]
+                public void ShouldThrowExceptionWhenLengthIsTooLow()
+                {
+                    var settings = new PixelReadSettings(2, 2, StorageType.Char, "R");
+                    using var image = new MagickImage();
+
+                    var exception = Assert.Throws<ArgumentException>("data", () => image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215, 215 }), settings));
+                    Assert.Contains("The data length is 2 but should be at least 4.", exception.Message);
                 }
 
                 [Fact]

@@ -108,6 +108,12 @@ internal static partial class Throw
             throw new ArgumentException(message, paramName);
     }
 
-    private static string FormatMessage<T>(string message, T arg0)
-        => string.Format(CultureInfo.InvariantCulture, message, arg0);
+    public static void IfTrue<T0, T1>(string paramName, bool condition, string message, T0 arg0, T1 arg1)
+    {
+        if (condition)
+            throw new ArgumentException(FormatMessage(message, arg0, arg1), paramName);
+    }
+
+    private static string FormatMessage(string message, params object?[] args)
+        => string.Format(CultureInfo.InvariantCulture, message, args);
 }

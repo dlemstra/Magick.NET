@@ -102,9 +102,9 @@ public sealed partial class MagickImage
         Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
         Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
 
-        var count = data.Length;
+        var length = data.Length;
         var expectedLength = GetExpectedByteLength(settings);
-        Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+        Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0);
     }
@@ -123,9 +123,9 @@ public sealed partial class MagickImage
         Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
         Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
 
-        var count = data.Length;
-        var expectedLength = GetExpectedLength(settings);
-        Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+        var length = data.Length;
+        var expectedLength = GetExpectedByteLength(settings);
+        Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0);
     }
@@ -249,9 +249,9 @@ public sealed partial class MagickImage
         var newReadSettings = CreateReadSettings(settings.ReadSettings);
         SetSettings(newReadSettings);
 
-        var count = data.Length;
+        var length = data.Length;
         var expectedLength = GetExpectedByteLength(settings);
-        Throw.IfTrue(nameof(data), count < expectedLength, "The array count is " + count + " but should be at least " + expectedLength + ".");
+        Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
         _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0);
     }
@@ -272,10 +272,10 @@ public sealed partial class MagickImage
 
         var newReadSettings = CreateReadSettings(settings.ReadSettings);
         SetSettings(newReadSettings);
-
-        var count = data.Length;
-        var expectedLength = GetExpectedLength(settings);
-        Throw.IfTrue(nameof(data), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+        
+        var length = data.Length;
+        var expectedLength = GetExpectedByteLength(settings);
+        Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
         _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0);
     }

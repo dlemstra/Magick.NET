@@ -3313,9 +3313,9 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
         Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
 
-        var count = data.Length;
-        var expectedLength = offset + GetExpectedByteLength(settings);
-        Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+        var length = data.Length - offset;
+        var expectedLength = GetExpectedByteLength(settings);
+        Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", data.Length, expectedLength + offset);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
     }
@@ -3350,9 +3350,9 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
         Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
 
-        var count = data.Length;
-        var expectedLength = offset + GetExpectedLength(settings);
-        Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+        var length = data.Length - offset;
+        var expectedLength = GetExpectedByteLength(settings);
+        Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", data.Length, expectedLength + offset);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
     }
@@ -5141,7 +5141,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         SetSettings(newReadSettings);
 
         var expectedLength = GetExpectedByteLength(settings);
-        Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+        Throw.IfTrue(nameof(count), count < expectedLength, "The count is {0} but should be at least {1}.", count, expectedLength);
 
         _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, offset);
     }
@@ -5183,7 +5183,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         SetSettings(newReadSettings);
 
         var expectedLength = GetExpectedLength(settings);
-        Throw.IfTrue(nameof(count), count < expectedLength, "The count is " + count + " but should be at least " + expectedLength + ".");
+        Throw.IfTrue(nameof(count), count < expectedLength, "The count is {0} but should be at least {1}.", count, expectedLength);
 
         var offsetInBytes = ToByteCount(settings.StorageType, offset);
 
