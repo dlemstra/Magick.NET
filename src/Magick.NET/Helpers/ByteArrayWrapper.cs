@@ -3,59 +3,41 @@
 
 using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using ImageMagick.Helpers;
 
 namespace ImageMagick;
 
-internal sealed unsafe class ByteArrayWrapper : IDisposable
+internal sealed unsafe class ByteArrayWrapper
 {
-    internal const int BufferSize = 81920;
-
-    private readonly byte[] _buffer;
-    private readonly byte* _bufferStart;
-    private readonly GCHandle _handle;
-    private int _bufferOffset;
-    private byte[] _bytes;
-    private int _offset;
-
-    public ByteArrayWrapper()
-    {
-        _buffer = new byte[BufferSize];
-        _handle = GCHandle.Alloc(_buffer, GCHandleType.Pinned);
-        _bufferStart = (byte*)_handle.AddrOfPinnedObject().ToPointer();
-        _bufferOffset = 0;
-        _bytes = new byte[0];
-        _offset = 0;
-    }
+    private byte[] _bytes = new byte[8192];
+    private int _offset = 0;
+    private int _length = 0;
 
     public byte[] GetBytes()
     {
-        AppendBufferToBytes();
+        ResizeBytes(_length);
         return _bytes;
     }
 
-    public void Dispose()
-        => _handle.Free();
-
     public long Read(IntPtr data, UIntPtr count, IntPtr user_data)
     {
+        if (data == IntPtr.Zero)
+            return 0;
+
         var total = (int)count;
         if (total == 0)
             return 0;
 
-        if (data == IntPtr.Zero)
-            return 0;
-
-        var length = Math.Min(total, _bytes.Length - _offset);
+        var length = Math.Min(total, _length - _offset);
         if (length != 0)
         {
             var destination = (byte*)data.ToPointer();
             fixed (byte* source = _bytes)
             {
                 NativeMemory.Copy(source + _offset, destination, length);
-                _offset += length;
             }
+
+            _offset += length;
         }
 
         return length;
@@ -63,13 +45,11 @@ internal sealed unsafe class ByteArrayWrapper : IDisposable
 
     public long Seek(long offset, IntPtr whence, IntPtr user_data)
     {
-        AppendBufferToBytes();
-
         var newOffset = (int)((SeekOrigin)whence switch
         {
             SeekOrigin.Begin => offset,
             SeekOrigin.Current => _offset + offset,
-            SeekOrigin.End => _bytes.Length - offset,
+            SeekOrigin.End => _length - offset,
             _ => -1,
         });
 
@@ -78,74 +58,52 @@ internal sealed unsafe class ByteArrayWrapper : IDisposable
 
         if (newOffset < 0)
             return -1;
-        else if (newOffset > _bytes.Length)
-            ResizeBytes(newOffset);
 
         _offset = newOffset;
+
         return _offset;
     }
 
     public long Tell(IntPtr user_data)
-        => _offset + _bufferOffset;
+        => _offset;
 
     public long Write(IntPtr data, UIntPtr count, IntPtr user_data)
     {
-        var total = (int)count;
-        if (total == 0)
-            return 0;
-
         if (data == IntPtr.Zero)
             return 0;
 
+        var total = (int)count;
+
+        if (total == 0)
+            return 0;
+
+        var newOffset = _offset + total;
+
+        EnsureLength(newOffset);
+
         var source = (byte*)data.ToPointer();
-
-        while (total > 0)
+        fixed (byte* destination = _bytes)
         {
-            var length = Math.Min(total, BufferSize - _bufferOffset);
-            if (_offset < _bytes.Length)
-            {
-                AppendBufferToBytes();
-
-                length = Math.Min(length, _bytes.Length - _offset);
-                source = FillBuffer(source, length);
-
-                CopyBufferToBytes();
-            }
-            else
-            {
-                source = FillBuffer(source, length);
-
-                if (_bufferOffset == BufferSize)
-                    AppendBufferToBytes();
-            }
-
-            total -= length;
+            NativeMemory.Copy(source, destination + _offset, total);
         }
 
-        return (long)count;
+        _offset = newOffset;
+
+        return total;
     }
 
-    private void AppendBufferToBytes()
+    private void EnsureLength(int length)
     {
-        if (_bufferOffset == 0)
+        if (length < _length)
             return;
 
-        ResizeBytes(_bytes.Length + _bufferOffset);
-        CopyBufferToBytes();
-    }
+        _length = length;
 
-    private void CopyBufferToBytes()
-    {
-        Buffer.BlockCopy(_buffer, 0, _bytes, _offset, _bufferOffset);
-        _offset += _bufferOffset;
-        _bufferOffset = 0;
-    }
+        if (_length < _bytes.Length)
+            return;
 
-    private byte* FillBuffer(byte* source, int length)
-    {
-        NativeMemory.Copy(source, _bufferStart + _bufferOffset, length);
-        _bufferOffset += length;
-        return source + length;
+        var newLength = Math.Max(_bytes.Length * 2, _length);
+        ResizeBytes(newLength);
     }
 
     private void ResizeBytes(int length)

@@ -15,18 +15,27 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnTheNewOffset()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
 
             var result = wrapper.Seek(10, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
 
             Assert.Equal(10, result);
-            Assert.Equal(10, wrapper.GetBytes().Length);
         }
 
         [Fact]
-        public unsafe void ShouldReturnTheNewOffsetSStartingFromTheCurrentPosition()
+        public unsafe void ShouldNotChangeTheSizeOfTheBytes()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
+
+            var result = wrapper.Seek(10, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
+
+            Assert.Empty(wrapper.GetBytes());
+        }
+
+        [Fact]
+        public unsafe void ShouldReturnTheNewOffsetStartingFromTheCurrentPosition()
+        {
+            var wrapper = new ByteArrayWrapper();
 
             var buffer = new byte[42];
             fixed (byte* p = buffer)
@@ -42,7 +51,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnCorrectValueFromEnd()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
 
             var buffer = new byte[42];
             fixed (byte* p = buffer)
@@ -57,7 +66,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public void ShouldReturnMinusOneForInvalidOffset()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
             var result = wrapper.Seek(-10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
             Assert.Equal(-1, result);
@@ -66,7 +75,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public void ShouldNotChangeOffsetWhenValueIsInvalid()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
             wrapper.Seek(-10, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
             Assert.Equal(0, wrapper.Tell(IntPtr.Zero));
@@ -75,7 +84,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public void ShouldReturnMinusOneForInvalidWhence()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
             var result = wrapper.Seek(0, (IntPtr)3, IntPtr.Zero);
 
             Assert.Equal(-1, result);

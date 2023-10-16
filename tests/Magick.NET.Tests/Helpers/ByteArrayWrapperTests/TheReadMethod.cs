@@ -15,7 +15,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public void ShouldReturnZeroWhenBufferIsNull()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
 
             var count = wrapper.Read(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
             Assert.Equal(0, count);
@@ -24,7 +24,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnZeroWhenNothingShouldBeRead()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
 
             var buffer = new byte[255];
             fixed (byte* p = buffer)
@@ -37,27 +37,28 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnTheNumberOfBytesThatCouldBeRead()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
 
+            var offset = 0L;
             var buffer = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             fixed (byte* p = buffer)
             {
-                wrapper.Write((IntPtr)p, (UIntPtr)buffer.Length, IntPtr.Zero);
+                var count = wrapper.Write((IntPtr)p, (UIntPtr)buffer.Length, IntPtr.Zero);
+                Assert.Equal(10, count);
 
-                wrapper.Seek(0, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+                offset = wrapper.Seek(0, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
+                Assert.Equal(10, offset);
 
-                wrapper.Write((IntPtr)p, (UIntPtr)buffer.Length, IntPtr.Zero);
+                count = wrapper.Write((IntPtr)p, (UIntPtr)buffer.Length, IntPtr.Zero);
+                Assert.Equal(10, count);
             }
+
+            offset = wrapper.Seek(15, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
+            Assert.Equal(15, offset);
 
             buffer = new byte[] { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 };
             fixed (byte* p = buffer)
             {
-                wrapper.Seek(0, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
-
-                wrapper.Write((IntPtr)p, (UIntPtr)buffer.Length, IntPtr.Zero);
-
-                wrapper.Seek(5, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
-
                 var count = wrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
                 Assert.Equal(5, count);
                 Assert.Equal(20, wrapper.Tell(IntPtr.Zero));

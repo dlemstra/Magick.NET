@@ -1466,7 +1466,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         {
             AttachImages();
 
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
             var writer = new ReadWriteStreamDelegate(wrapper.Write);
             var seeker = new SeekStreamDelegate(wrapper.Seek);
             var teller = new TellStreamDelegate(wrapper.Tell);

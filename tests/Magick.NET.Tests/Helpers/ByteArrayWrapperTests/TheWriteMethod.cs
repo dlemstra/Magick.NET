@@ -3,7 +3,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using ImageMagick;
 using Xunit;
 
@@ -16,7 +15,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public void ShouldReturnZeroWhenBufferIsNull()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
 
             var count = wrapper.Write(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
             Assert.Equal(0, count);
@@ -25,7 +24,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnZeroWhenNothingShouldBeWritten()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
 
             var buffer = new byte[255];
             fixed (byte* p = buffer)
@@ -38,7 +37,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnTheNumberOfBytesThatCouldBeWritten()
         {
-            using var wrapper = new ByteArrayWrapper();
+            var wrapper = new ByteArrayWrapper();
 
             var buffer = new byte[5];
             fixed (byte* p = buffer)
@@ -52,24 +51,6 @@ public partial class ByteArrayWrapperTests
                 Assert.Equal(4, count);
 
                 Assert.Equal(19, wrapper.GetBytes().Length);
-            }
-        }
-
-        [Fact]
-        public unsafe void ShouldCalculateRemainingBytesInBytesCorrectly()
-        {
-            using var wrapper = new ByteArrayWrapper();
-            wrapper.Seek(ByteArrayWrapper.BufferSize + 2, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
-            wrapper.Seek(ByteArrayWrapper.BufferSize + 1, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
-
-            var buffer = new byte[5] { 1, 2, 3, 4, 5 };
-            fixed (byte* p = buffer)
-            {
-                var count = wrapper.Write((IntPtr)p, (UIntPtr)buffer.Length, IntPtr.Zero);
-                Assert.Equal(5, count);
-
-                var bytes = wrapper.GetBytes().Reverse().Take(5).Reverse();
-                Assert.Equal(buffer, bytes);
             }
         }
     }
