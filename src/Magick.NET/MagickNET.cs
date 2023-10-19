@@ -204,6 +204,8 @@ public partial class MagickNET : IMagickNET
     string IMagickNET.Version
         => Version;
 
+    internal static string TemporaryDirectory { get; private set; } = Path.GetTempPath();
+
     /// <summary>
     /// Gets the environment variable with the specified name.
     /// </summary>
@@ -244,7 +246,7 @@ public partial class MagickNET : IMagickNET
     {
         Throw.IfNull(nameof(configFiles), configFiles);
 
-        var path = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+        var path = Path.Combine(TemporaryDirectory, Guid.NewGuid().ToString());
         Directory.CreateDirectory(path);
 
         InitializeConfiguration(configFiles, path);
@@ -358,7 +360,10 @@ public partial class MagickNET : IMagickNET
     /// </summary>
     /// <param name="path">The path where temp files will be written.</param>
     public static void SetTempDirectory(string path)
-        => Environment.SetEnv("MAGICK_TEMPORARY_PATH", FileHelper.GetFullPath(path));
+    {
+        TemporaryDirectory = FileHelper.GetFullPath(path);
+        Environment.SetEnv("MAGICK_TEMPORARY_PATH", TemporaryDirectory);
+    }
 
     /// <summary>
     /// Sets the pseudo-random number generator secret key.

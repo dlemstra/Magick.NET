@@ -11,7 +11,7 @@ internal sealed class TemporaryFile : IDisposable
     private readonly FileInfo _tempFile;
 
     public TemporaryFile()
-        => _tempFile = new FileInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
+        => _tempFile = new FileInfo(Path.Combine(MagickNET.TemporaryDirectory, Guid.NewGuid().ToString()));
 
     public long Length
     {
