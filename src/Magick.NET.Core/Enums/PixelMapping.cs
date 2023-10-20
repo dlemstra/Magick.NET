@@ -32,4 +32,9 @@ public enum PixelMapping
     /// CMYK.
     /// </summary>
     CMYK,
+
+    /// <summary>
+    /// BGRA.
+    /// </summary>
+    BGRA,
 }
