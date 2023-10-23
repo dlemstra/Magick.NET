@@ -427,7 +427,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => _nativeInstance.ChannelCount;
 
     /// <summary>
-    /// Gets the channels of the image.
+    /// Gets the color and metadata channels of the image.
     /// </summary>
     public IEnumerable<PixelChannel> Channels
     {
