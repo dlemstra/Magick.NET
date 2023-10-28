@@ -178,15 +178,6 @@ jobs:
       run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release'
       working-directory: build/windows
 
-    - name: Sign library (Magick.NET)
-      if: ${{ github.event_name != 'pull_request' }}
-      uses: dlemstra/code-sign-action@v1
-      with:
-        certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
-        password: '${{ secrets.IMAGEMAGICK_CERTIFICATE_PASSWORD }}'
-        folder: src/Magick.NET/bin
-        recursive: true
-
     - name: Set NuGet version
       run: ./set.version.ps1
       working-directory: publish
@@ -194,14 +185,6 @@ jobs:
     - name: Create NuGet package
       run: './publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
       working-directory: publish
-
-    - name: Sign NuGet package
-      if: ${{ github.event_name != 'pull_request' }}
-      uses: dlemstra/code-sign-action@v1
-      with:
-        certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
-        password: '${{ secrets.IMAGEMAGICK_CERTIFICATE_PASSWORD }}'
-        folder: publish/output
 
     - name: Upload library
       uses: actions/upload-artifact@v3
@@ -240,15 +223,6 @@ jobs:
       run: './build.Magick.NET.cmd "Q8" "Any CPU" Release'
       working-directory: build/windows
 
-    - name: 'Sign library (Magick.NET.${{ matrix.libraryName }})'
-      if: ${{ github.event_name != 'pull_request' }}
-      uses: dlemstra/code-sign-action@v1
-      with:
-        certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
-        password: '${{ secrets.IMAGEMAGICK_CERTIFICATE_PASSWORD }}'
-        folder: 'src/Magick.NET.${{ matrix.libraryName }}/bin'
-        recursive: true
-
     - name: Set NuGet version
       run: ./set.version.ps1
       working-directory: publish
@@ -256,14 +230,6 @@ jobs:
     - name: Create NuGet package
       run: './publish.library.cmd "Magick.NET.${{ matrix.libraryName }}"'
       working-directory: publish
-
-    - name: Sign NuGet package
-      if: ${{ github.event_name != 'pull_request' }}
-      uses: dlemstra/code-sign-action@v1
-      with:
-        certificate: '${{ secrets.IMAGEMAGICK_CERTIFICATE }}'
-        password: '${{ secrets.IMAGEMAGICK_CERTIFICATE_PASSWORD }}'
-        folder: publish/output
 
     - name: Upload library
       uses: actions/upload-artifact@v3
