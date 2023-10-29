@@ -7,6 +7,16 @@ using System;
 using System.Buffers;
 using System.Collections.Generic;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick;
 
 /// <content />
@@ -80,9 +90,18 @@ public sealed partial class MagickImageInfo
     /// <param name="data">The sequence of bytes to read the information from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(ReadOnlySequence<byte> data)
+        => Read(data, null);
+
+    /// <summary>
+    /// Read basic information about an image.
+    /// </summary>
+    /// <param name="data">The sequence of bytes to read the information from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Read(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var image = new MagickImage();
-        image.Ping(data);
+        image.Ping(data, readSettings);
         Initialize(image);
     }
 
@@ -92,9 +111,18 @@ public sealed partial class MagickImageInfo
     /// <param name="data">The span of bytes to read the information from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(ReadOnlySpan<byte> data)
+        => Read(data, null);
+
+    /// <summary>
+    /// Read basic information about an image.
+    /// </summary>
+    /// <param name="data">The span of bytes to read the information from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var image = new MagickImage();
-        image.Ping(data);
+        image.Ping(data, readSettings);
         Initialize(image);
     }
 }
