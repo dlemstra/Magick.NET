@@ -8,28 +8,27 @@ using System.Buffers;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
-{
-    public partial class MagickImageInfoTests
-    {
-        public partial class TheReadCollectionMethod
-        {
-            public class WithReadOnlySequence
-            {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(ReadOnlySequence<byte>.Empty));
-                }
-            }
+namespace Magick.NET.Tests;
 
-            public class WithReadOnlySpan
+public partial class MagickImageInfoTests
+{
+    public partial class TheReadCollectionMethod
+    {
+        public class WithReadOnlySequence
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(Span<byte>.Empty));
-                }
+                Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(ReadOnlySequence<byte>.Empty));
+            }
+        }
+
+        public class WithReadOnlySpan
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
+            {
+                Assert.Throws<ArgumentException>("data", () => MagickImageInfo.ReadCollection(Span<byte>.Empty));
             }
         }
     }

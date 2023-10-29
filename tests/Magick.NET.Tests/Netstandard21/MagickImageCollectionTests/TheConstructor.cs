@@ -9,114 +9,113 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageCollectionTests
 {
-    public partial class MagickImageCollectionTests
+    public partial class TheConstructor
     {
-        public partial class TheConstructor
+        public class WithReadOnlySequence
         {
-            public class WithReadOnlySequence
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(ReadOnlySequence<byte>.Empty));
-                }
-
-                [Fact]
-                public void ShouldResetTheFormatAfterReading()
-                {
-                    var settings = new MagickReadSettings
-                    {
-                        Format = MagickFormat.Png,
-                    };
-                    var bytes = File.ReadAllBytes(Files.CirclePNG);
-                    using var input = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), settings);
-
-                    Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
-                }
+                Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(ReadOnlySequence<byte>.Empty));
             }
 
-            public class WithReadOnlySequenceAndMagickFormat
+            [Fact]
+            public void ShouldResetTheFormatAfterReading()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
+                var settings = new MagickReadSettings
                 {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(ReadOnlySequence<byte>.Empty, MagickFormat.Png));
-                }
+                    Format = MagickFormat.Png,
+                };
+                var bytes = File.ReadAllBytes(Files.CirclePNG);
+                using var input = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), settings);
 
-                [Fact]
-                public void ShouldReadImage()
-                {
-                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-                    using var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), MagickFormat.Png);
+                Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
+            }
+        }
 
-                    Assert.Single(images);
-                }
+        public class WithReadOnlySequenceAndMagickFormat
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
+            {
+                Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(ReadOnlySequence<byte>.Empty, MagickFormat.Png));
             }
 
-            public class WithReadOnlySequenceAndMagickReadSettings
+            [Fact]
+            public void ShouldReadImage()
             {
-                [Fact]
-                public void ShouldNotThrowExceptionWhenSettingsIsNull()
-                {
-                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-                    using var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), null);
+                var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                using var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), MagickFormat.Png);
 
-                    Assert.Single(images);
-                }
+                Assert.Single(images);
+            }
+        }
+
+        public class WithReadOnlySequenceAndMagickReadSettings
+        {
+            [Fact]
+            public void ShouldNotThrowExceptionWhenSettingsIsNull()
+            {
+                var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                using var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), null);
+
+                Assert.Single(images);
+            }
+        }
+
+        public class WithReadOnlySpan
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
+            {
+                Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(Span<byte>.Empty));
             }
 
-            public class WithReadOnlySpan
+            [Fact]
+            public void ShouldResetTheFormatAfterReading()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
+                var settings = new MagickReadSettings
                 {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(Span<byte>.Empty));
-                }
+                    Format = MagickFormat.Png,
+                };
+                var bytes = File.ReadAllBytes(Files.CirclePNG);
+                using var input = new MagickImageCollection(new Span<byte>(bytes), settings);
 
-                [Fact]
-                public void ShouldResetTheFormatAfterReading()
-                {
-                    var settings = new MagickReadSettings
-                    {
-                        Format = MagickFormat.Png,
-                    };
-                    var bytes = File.ReadAllBytes(Files.CirclePNG);
-                    using var input = new MagickImageCollection(new Span<byte>(bytes), settings);
+                Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
+            }
+        }
 
-                    Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
-                }
+        public class WithReadOnlySpanAndMagickFormat
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
+            {
+                Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(Span<byte>.Empty, MagickFormat.Png));
             }
 
-            public class WithReadOnlySpanAndMagickFormat
+            [Fact]
+            public void ShouldReadImage()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
-                {
-                    Assert.Throws<ArgumentException>("data", () => new MagickImageCollection(Span<byte>.Empty, MagickFormat.Png));
-                }
+                var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                using var images = new MagickImageCollection(new Span<byte>(bytes), MagickFormat.Png);
 
-                [Fact]
-                public void ShouldReadImage()
-                {
-                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-                    using var images = new MagickImageCollection(new Span<byte>(bytes), MagickFormat.Png);
-
-                    Assert.Single(images);
-                }
+                Assert.Single(images);
             }
+        }
 
-            public class WithReadOnlySpanAndMagickReadSettings
+        public class WithReadOnlySpanAndMagickReadSettings
+        {
+            [Fact]
+            public void ShouldNotThrowExceptionWhenSettingsIsNull()
             {
-                [Fact]
-                public void ShouldNotThrowExceptionWhenSettingsIsNull()
-                {
-                    var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-                    using var images = new MagickImageCollection(new Span<byte>(bytes), null);
+                var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                using var images = new MagickImageCollection(new Span<byte>(bytes), null);
 
-                    Assert.Single(images);
-                }
+                Assert.Single(images);
             }
         }
     }

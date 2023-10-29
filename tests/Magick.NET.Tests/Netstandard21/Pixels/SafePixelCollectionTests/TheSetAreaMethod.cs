@@ -17,61 +17,60 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SafePixelCollectionTests
 {
-    public partial class SafePixelCollectionTests
+    public partial class TheSetAreaMethod
     {
-        public partial class TheSetAreaMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenSpanHasInvalidSize()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenSpanHasInvalidSize()
-            {
-                using var image = new MagickImage(Files.ImageMagickJPG);
-                using var pixels = image.GetPixels();
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
 
-                Assert.Throws<ArgumentException>("values", () => pixels.SetArea(10, 10, 1000, 1000, new Span<QuantumType>(new QuantumType[] { 0, 0, 0, 0 })));
-            }
+            Assert.Throws<ArgumentException>("values", () => pixels.SetArea(10, 10, 1000, 1000, new Span<QuantumType>(new QuantumType[] { 0, 0, 0, 0 })));
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSpanHasTooManyValues()
-            {
-                using var image = new MagickImage(Files.ImageMagickJPG);
-                using var pixels = image.GetPixels();
-                var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
+        [Fact]
+        public void ShouldThrowExceptionWhenSpanHasTooManyValues()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new QuantumType[(113 * 108 * image.ChannelCount) + image.ChannelCount];
 
-                Assert.Throws<ArgumentException>("values", () => pixels.SetArea(10, 10, 113, 108, new Span<QuantumType>(values)));
-            }
+            Assert.Throws<ArgumentException>("values", () => pixels.SetArea(10, 10, 113, 108, new Span<QuantumType>(values)));
+        }
 
-            [Fact]
-            public void ShouldChangePixelsWhenSpanHasMaxNumberOfValues()
-            {
-                using var image = new MagickImage(Files.ImageMagickJPG);
-                using var pixels = image.GetPixels();
-                var values = new QuantumType[113 * 108 * image.ChannelCount];
-                pixels.SetArea(10, 10, 113, 108, new Span<QuantumType>(values));
+        [Fact]
+        public void ShouldChangePixelsWhenSpanHasMaxNumberOfValues()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new QuantumType[113 * 108 * image.ChannelCount];
+            pixels.SetArea(10, 10, 113, 108, new Span<QuantumType>(values));
 
-                ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-            }
+            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSpanIsSpecifiedAndGeometryIsNull()
-            {
-                using var image = new MagickImage(Files.ImageMagickJPG);
-                using var pixels = image.GetPixels();
+        [Fact]
+        public void ShouldThrowExceptionWhenSpanIsSpecifiedAndGeometryIsNull()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
 
-                Assert.Throws<ArgumentNullException>("geometry", () => pixels.SetArea(null, new Span<QuantumType>(new QuantumType[] { 0 })));
-            }
+            Assert.Throws<ArgumentNullException>("geometry", () => pixels.SetArea(null, new Span<QuantumType>(new QuantumType[] { 0 })));
+        }
 
-            [Fact]
-            public void ShouldChangePixelsWhenGeometryAndSpanAreSpecified()
-            {
-                using var image = new MagickImage(Files.ImageMagickJPG);
-                using var pixels = image.GetPixels();
-                var values = new QuantumType[113 * 108 * image.ChannelCount];
-                pixels.SetArea(new MagickGeometry(10, 10, 113, 108), new Span<QuantumType>(values));
+        [Fact]
+        public void ShouldChangePixelsWhenGeometryAndSpanAreSpecified()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new QuantumType[113 * 108 * image.ChannelCount];
+            pixels.SetArea(new MagickGeometry(10, 10, 113, 108), new Span<QuantumType>(values));
 
-                ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-            }
+            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
         }
     }
 }

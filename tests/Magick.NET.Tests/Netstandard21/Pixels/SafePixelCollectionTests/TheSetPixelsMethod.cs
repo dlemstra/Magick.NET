@@ -17,41 +17,40 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class SafePixelCollectionTests
 {
-    public partial class SafePixelCollectionTests
+    public partial class TheSetPixelsMethod
     {
-        public partial class TheSetPixelsMethod
+        [Fact]
+        public void ShouldThrowExceptionWhenSpanHasInvalidSize()
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenSpanHasInvalidSize()
-            {
-                using var image = new MagickImage(Files.ImageMagickJPG);
-                using var pixels = image.GetPixels();
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
 
-                Assert.Throws<ArgumentException>("values", () => pixels.SetPixels(new Span<QuantumType>(new QuantumType[] { 0, 0, 0, 0 })));
-            }
+            Assert.Throws<ArgumentException>("values", () => pixels.SetPixels(new Span<QuantumType>(new QuantumType[] { 0, 0, 0, 0 })));
+        }
 
-            [Fact]
-            public void ShouldThrowExceptionWhenSpanIsTooLong()
-            {
-                using var image = new MagickImage(Files.ImageMagickJPG);
-                using var pixels = image.GetPixels();
-                var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
+        [Fact]
+        public void ShouldThrowExceptionWhenSpanIsTooLong()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new QuantumType[(image.Width * image.Height * image.ChannelCount) + 1];
 
-                Assert.Throws<ArgumentException>("values", () => pixels.SetPixels(new Span<QuantumType>(values)));
-            }
+            Assert.Throws<ArgumentException>("values", () => pixels.SetPixels(new Span<QuantumType>(values)));
+        }
 
-            [Fact]
-            public void ShouldChangePixelsWhenSpanHasMaxNumberOfValues()
-            {
-                using var image = new MagickImage(Files.ImageMagickJPG);
-                using var pixels = image.GetPixels();
-                var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
-                pixels.SetPixels(new Span<QuantumType>(values));
+        [Fact]
+        public void ShouldChangePixelsWhenSpanHasMaxNumberOfValues()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            using var pixels = image.GetPixels();
+            var values = new QuantumType[image.Width * image.Height * image.ChannelCount];
+            pixels.SetPixels(new Span<QuantumType>(values));
 
-                ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
-            }
+            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
         }
     }
 }

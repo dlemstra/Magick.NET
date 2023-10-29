@@ -9,54 +9,53 @@ using System.IO;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests
+namespace Magick.NET.Tests;
+
+public partial class MagickImageInfoFactoryTests
 {
-    public partial class MagickImageInfoFactoryTests
+    public partial class TheCreateMethod
     {
-        public partial class TheCreateMethod
+        public class WithReadOnlySequence
         {
-            public class WithReadOnlySequence
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
-                {
-                    var factory = new MagickImageInfoFactory();
+                var factory = new MagickImageInfoFactory();
 
-                    Assert.Throws<ArgumentException>("data", () => factory.Create(ReadOnlySequence<byte>.Empty));
-                }
-
-                [Fact]
-                public void ShouldCreateMagickImage()
-                {
-                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
-                    var factory = new MagickImageInfoFactory();
-                    var info = factory.Create(new ReadOnlySequence<byte>(data));
-
-                    Assert.IsType<MagickImageInfo>(info);
-                    Assert.Equal(123, info.Width);
-                }
+                Assert.Throws<ArgumentException>("data", () => factory.Create(ReadOnlySequence<byte>.Empty));
             }
 
-            public class WithReadOnlySpan
+            [Fact]
+            public void ShouldCreateMagickImage()
             {
-                [Fact]
-                public void ShouldThrowExceptionWhenDataIsEmpty()
-                {
-                    var factory = new MagickImageInfoFactory();
+                var data = File.ReadAllBytes(Files.ImageMagickJPG);
+                var factory = new MagickImageInfoFactory();
+                var info = factory.Create(new ReadOnlySequence<byte>(data));
 
-                    Assert.Throws<ArgumentException>("data", () => factory.Create(Span<byte>.Empty));
-                }
+                Assert.IsType<MagickImageInfo>(info);
+                Assert.Equal(123, info.Width);
+            }
+        }
 
-                [Fact]
-                public void ShouldCreateMagickImage()
-                {
-                    var data = File.ReadAllBytes(Files.ImageMagickJPG);
-                    var factory = new MagickImageInfoFactory();
-                    var info = factory.Create(new Span<byte>(data));
+        public class WithReadOnlySpan
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenDataIsEmpty()
+            {
+                var factory = new MagickImageInfoFactory();
 
-                    Assert.IsType<MagickImageInfo>(info);
-                    Assert.Equal(123, info.Width);
-                }
+                Assert.Throws<ArgumentException>("data", () => factory.Create(Span<byte>.Empty));
+            }
+
+            [Fact]
+            public void ShouldCreateMagickImage()
+            {
+                var data = File.ReadAllBytes(Files.ImageMagickJPG);
+                var factory = new MagickImageInfoFactory();
+                var info = factory.Create(new Span<byte>(data));
+
+                Assert.IsType<MagickImageInfo>(info);
+                Assert.Equal(123, info.Width);
             }
         }
     }
