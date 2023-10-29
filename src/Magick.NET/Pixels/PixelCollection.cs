@@ -34,8 +34,7 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
     {
         get
         {
-            if (_nativeInstance is null)
-                _nativeInstance = new NativePixelCollection(Image);
+            _nativeInstance ??= new NativePixelCollection(Image);
 
             return _nativeInstance;
         }
@@ -46,8 +45,7 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     public void Dispose()
     {
-        if (_nativeInstance is not null)
-            _nativeInstance.Dispose();
+        _nativeInstance?.Dispose();
     }
 
     public virtual QuantumType[]? GetArea(int x, int y, int width, int height)
