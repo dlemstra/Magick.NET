@@ -19,7 +19,7 @@ namespace ImageMagick;
 /// <summary>
 /// Class that contains basic information about an image.
 /// </summary>
-public sealed partial class MagickImageInfo : IMagickImageInfo
+public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickImageInfo"/> class.
@@ -213,9 +213,18 @@ public sealed partial class MagickImageInfo : IMagickImageInfo
     /// <param name="data">The byte array to read the information from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data)
+        => Read(data, null);
+
+    /// <summary>
+    /// Read basic information about an image.
+    /// </summary>
+    /// <param name="data">The byte array to read the information from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Read(byte[] data, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var image = new MagickImage();
-        image.Ping(data);
+        image.Ping(data, readSettings);
         Initialize(image);
     }
 
@@ -227,9 +236,20 @@ public sealed partial class MagickImageInfo : IMagickImageInfo
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data, int offset, int count)
+        => Read(data, offset, count, null);
+
+    /// <summary>
+    /// Read basic information about an image.
+    /// </summary>
+    /// <param name="data">The byte array to read the information from.</param>
+    /// <param name="offset">The offset at which to begin reading data.</param>
+    /// <param name="count">The maximum number of bytes to read.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Read(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var image = new MagickImage();
-        image.Ping(data, offset, count);
+        image.Ping(data, offset, count, readSettings);
         Initialize(image);
     }
 
@@ -239,9 +259,18 @@ public sealed partial class MagickImageInfo : IMagickImageInfo
     /// <param name="file">The file to read the image from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(FileInfo file)
+        => Read(file, null);
+
+    /// <summary>
+    /// Read basic information about an image.
+    /// </summary>
+    /// <param name="file">The file to read the image from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Read(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var image = new MagickImage();
-        image.Ping(file);
+        image.Ping(file, readSettings);
         Initialize(image);
     }
 
@@ -251,9 +280,18 @@ public sealed partial class MagickImageInfo : IMagickImageInfo
     /// <param name="stream">The stream to read the image data from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(Stream stream)
+        => Read(stream, null);
+
+    /// <summary>
+    /// Read basic information about an image.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Read(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var image = new MagickImage();
-        image.Ping(stream);
+        image.Ping(stream, readSettings);
         Initialize(image);
     }
 
@@ -263,9 +301,18 @@ public sealed partial class MagickImageInfo : IMagickImageInfo
     /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(string fileName)
+        => Read(fileName, null);
+
+    /// <summary>
+    /// Read basic information about an image.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Read(string fileName, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var image = new MagickImage();
-        image.Ping(fileName);
+        image.Ping(fileName, readSettings);
         Initialize(image);
     }
 
