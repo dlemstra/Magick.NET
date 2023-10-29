@@ -41,7 +41,7 @@ public partial class MagickImageInfoFactoryTests
             }
 
             [Fact]
-            public void ShouldCreateMagickImage()
+            public void ShouldCreateMagickImageInfo()
             {
                 var factory = new MagickImageInfoFactory();
                 var data = File.ReadAllBytes(Files.ImageMagickJPG);
@@ -107,7 +107,7 @@ public partial class MagickImageInfoFactoryTests
             }
 
             [Fact]
-            public void ShouldCreateMagickImage()
+            public void ShouldCreateMagickImageInfo()
             {
                 var factory = new MagickImageInfoFactory();
                 var file = new FileInfo(Files.ImageMagickJPG);
@@ -138,7 +138,7 @@ public partial class MagickImageInfoFactoryTests
             }
 
             [Fact]
-            public void ShouldCreateMagickImage()
+            public void ShouldCreateMagickImageInfo()
             {
                 var factory = new MagickImageInfoFactory();
 
@@ -168,7 +168,7 @@ public partial class MagickImageInfoFactoryTests
             }
 
             [Fact]
-            public void ShouldCreateMagickImage()
+            public void ShouldCreateMagickImageInfo()
             {
                 var factory = new MagickImageInfoFactory();
 
