@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using ImageMagick;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests;
@@ -92,6 +93,21 @@ public partial class MagickImageInfoTests
                 });
 
                 Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+            }
+        }
+
+        public class WithFileNameAndReadSettings
+        {
+            [Fact]
+            public void ShouldUseTheReadsettings()
+            {
+                var imageInfo = new MagickImageInfo();
+                var settings = new MagickReadSettings(new BmpReadDefines
+                {
+                    IgnoreFileSize = true,
+                });
+
+                _ = new MagickImageInfo(Files.Coders.InvalidCrcBMP, settings);
             }
         }
 
