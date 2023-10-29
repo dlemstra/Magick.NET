@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
@@ -37,6 +38,32 @@ public partial class BmpReadDefinesTests
             image.Settings.SetDefines(defines);
 
             Assert.Null(image.Settings.GetDefine(MagickFormat.Bmp, "ignore-filesize"));
+        }
+
+        [Fact]
+        public void ShouldAllowReadingBmpWithInvalidFileSize()
+        {
+            var defines = new BmpReadDefines
+            {
+                IgnoreFileSize = true,
+            };
+
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
+
+            image.Read(Files.Coders.InvalidCrcBMP);
+        }
+
+        [Fact]
+        public void ShouldNotAllowReadingBmpWithInvalidFileSizeByDefault()
+        {
+            var defines = new BmpReadDefines();
+
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
+
+            var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(Files.Coders.InvalidCrcBMP));
+            Assert.Contains("length and filesize do not match", exception.Message);
         }
     }
 }
