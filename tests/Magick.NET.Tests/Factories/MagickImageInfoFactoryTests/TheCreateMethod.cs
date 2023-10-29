@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using ImageMagick;
+using ImageMagick.Formats;
 using Xunit;
 
 namespace Magick.NET.Tests;
@@ -146,6 +147,24 @@ public partial class MagickImageInfoFactoryTests
 
                 Assert.IsType<MagickImageInfo>(info);
                 Assert.Equal(123, info.Width);
+            }
+        }
+
+        public class WithFileNameAndReadSettings
+        {
+            [Fact]
+            public void ShouldUseTheReadSettings()
+            {
+                var factory = new MagickImageInfoFactory();
+                var settings = new MagickReadSettings(new BmpReadDefines
+                {
+                    IgnoreFileSize = true,
+                });
+
+                var info = factory.Create(Files.Coders.InvalidCrcBMP, settings);
+
+                Assert.IsType<MagickImageInfo>(info);
+                Assert.Equal(1, info.Width);
             }
         }
 
