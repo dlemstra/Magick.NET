@@ -184,9 +184,20 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data)
+        => ReadCollection(data, null);
+
+    /// <summary>
+    /// Read basic information about an image with multiple frames/pages.
+    /// </summary>
+    /// <param name="data">The byte array to read the information from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var images = new MagickImageCollection();
-        images.Ping(data);
+        images.Ping(data, readSettings);
+
         foreach (var image in images)
         {
             var info = new MagickImageInfo();
@@ -204,9 +215,22 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, int offset, int count)
+        => ReadCollection(data, offset, count, null);
+
+    /// <summary>
+    /// Read basic information about an image with multiple frames/pages.
+    /// </summary>
+    /// <param name="data">The byte array to read the information from.</param>
+    /// <param name="offset">The offset at which to begin reading data.</param>
+    /// <param name="count">The maximum number of bytes to read.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var images = new MagickImageCollection();
-        images.Ping(data, offset, count);
+        images.Ping(data, offset, count, readSettings);
+
         foreach (var image in images)
         {
             var info = new MagickImageInfo();
@@ -222,10 +246,20 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(FileInfo file)
+        => ReadCollection(file, null);
+
+    /// <summary>
+    /// Read basic information about an image with multiple frames/pages.
+    /// </summary>
+    /// <param name="file">The file to read the frames from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public static IEnumerable<IMagickImageInfo> ReadCollection(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
     {
         Throw.IfNull(nameof(file), file);
 
-        return ReadCollection(file.FullName);
+        return ReadCollection(file.FullName, readSettings);
     }
 
     /// <summary>
@@ -235,9 +269,20 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(Stream stream)
+        => ReadCollection(stream, null);
+
+    /// <summary>
+    /// Read basic information about an image with multiple frames/pages.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public static IEnumerable<IMagickImageInfo> ReadCollection(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var images = new MagickImageCollection();
-        images.Ping(stream);
+        images.Ping(stream, readSettings);
+
         foreach (var image in images)
         {
             var info = new MagickImageInfo();
@@ -253,9 +298,19 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(string fileName)
+        => ReadCollection(fileName, null);
+
+    /// <summary>
+    /// Read basic information about an image with multiple frames/pages.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public static IEnumerable<IMagickImageInfo> ReadCollection(string fileName, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var images = new MagickImageCollection();
-        images.Ping(fileName);
+        images.Ping(fileName, readSettings);
         foreach (var image in images)
         {
             var info = new MagickImageInfo();
