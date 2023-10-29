@@ -140,7 +140,7 @@ public partial class MagickImageInfoTests
         public class WithFileNameAndReadSettings
         {
             [Fact]
-            public void ShouldUseTheReadsettings()
+            public void ShouldUseTheReadSettings()
             {
                 var imageInfo = new MagickImageInfo();
                 var settings = new MagickReadSettings(new BmpReadDefines
