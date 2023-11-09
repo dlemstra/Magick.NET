@@ -100,9 +100,6 @@ provide you with some help on how to use Magick.NET.
   - Create a PDF file from two images
   - Create a PDF file from a single image
   - Read a single page from a PDF file
-- [Read raw image from camera](ReadRawImageFromCamera.md)
-  - Installation
-  - Convert to CR2 to JPG
 - [Command line option -define](Defines.md)
   - Command line option -define
   - Defines that need to be set before reading an image

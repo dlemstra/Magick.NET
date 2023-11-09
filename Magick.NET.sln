@@ -36,7 +36,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6D1DE15B-E
 		docs\LosslessCompression.md = docs\LosslessCompression.md
 		docs\ReadingImages.md = docs\ReadingImages.md
 		docs\Readme.md = docs\Readme.md
-		docs\ReadRawImageFromCamera.md = docs\ReadRawImageFromCamera.md
 		docs\ResizeImage.md = docs\ResizeImage.md
 		docs\UsingColors.md = docs\UsingColors.md
 		docs\Watermark.md = docs\Watermark.md
