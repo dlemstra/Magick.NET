@@ -71,7 +71,7 @@ internal sealed class UTF8Marshaler : INativeInstance
 
     internal static string? NativeToManagedAndRelinquish(IntPtr nativeData)
     {
-        var result = NativeToManaged(nativeData);
+        var result = NativeToManagedNullable(nativeData);
 
         MagickMemory.Relinquish(nativeData);
 
