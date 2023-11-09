@@ -108,6 +108,8 @@ provide you with some help on how to use Magick.NET.
 - [Exif data](ExifData.md)
   - Read exif data
   - Create thumbnail from exif data
+- [Read raw thumbnail](ReadRawThumbnail.md)
+  - Read thumbnail from raw image
 - [Lossless compression](LosslessCompression.md)
   - Lossless compress JPEG logo
 - [Detailed debug information](DetailedDebugInformation.md)
