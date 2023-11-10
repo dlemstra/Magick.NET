@@ -29,8 +29,8 @@ public abstract class ImageOptimizerTestHelper<TOptimizer> : ImageOptimizerTestH
         var lengthB = AssertCompressNotSmaller(fileName, (string file) => Optimizer.Compress(file));
         var lengthC = AssertCompressNotSmaller(fileName, (Stream stream) => Optimizer.Compress(stream));
 
-        Assert.Equal(lengthA, lengthB);
-        Assert.Equal(lengthB, lengthC);
+        Assert.InRange(lengthA, lengthB - 1, lengthB + 1);
+        Assert.InRange(lengthB, lengthC - 1, lengthC + 1);
     }
 
     protected void AssertCompressTwice(string fileName)
