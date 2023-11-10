@@ -10,7 +10,8 @@ namespace Magick.NET.Tests;
 public abstract class ImageOptimizerTestHelper<TOptimizer> : ImageOptimizerTestHelper
     where TOptimizer : IImageOptimizer, new()
 {
-    protected IImageOptimizer Optimizer => new TOptimizer();
+    protected IImageOptimizer Optimizer
+        => new TOptimizer();
 
     protected long AssertCompressSmaller(string fileName)
     {
