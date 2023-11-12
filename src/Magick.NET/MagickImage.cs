@@ -456,8 +456,38 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
+    /// Gets or sets the chromaticity of the image.
+    /// </summary>
+    public IChromaticityInfo Chromaticity
+    {
+        get
+        {
+            if (_nativeInstance.ChromaRedPrimary is null ||
+                _nativeInstance.ChromaGreenPrimary is null ||
+                _nativeInstance.ChromaBluePrimary is null ||
+                _nativeInstance.ChromaWhitePoint is null)
+                throw new MagickErrorException("Unable to allocate primary info");
+
+            return new ChromaticityInfo(
+                _nativeInstance.ChromaRedPrimary,
+                _nativeInstance.ChromaGreenPrimary,
+                _nativeInstance.ChromaBluePrimary,
+                _nativeInstance.ChromaWhitePoint);
+        }
+
+        set
+        {
+            _nativeInstance.ChromaRedPrimary = value.Red;
+            _nativeInstance.ChromaGreenPrimary = value.Green;
+            _nativeInstance.ChromaBluePrimary = value.Blue;
+            _nativeInstance.ChromaWhitePoint = value.White;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the chromaticity blue primary point.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
     public IPrimaryInfo ChromaBluePrimary
     {
         get
@@ -475,6 +505,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Gets or sets the chromaticity green primary point.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
     public IPrimaryInfo ChromaGreenPrimary
     {
         get
@@ -492,6 +523,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Gets or sets the chromaticity red primary point.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
     public IPrimaryInfo ChromaRedPrimary
     {
         get
@@ -509,6 +541,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Gets or sets the chromaticity white primary point.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
     public IPrimaryInfo ChromaWhitePoint
     {
         get

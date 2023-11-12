@@ -82,23 +82,32 @@ public partial interface IMagickImage : IDisposable
     IEnumerable<PixelChannel> Channels { get; }
 
     /// <summary>
+    /// Gets or sets the chromaticity of the image.
+    /// </summary>
+    IChromaticityInfo Chromaticity { get; set; }
+
+    /// <summary>
     /// Gets or sets the chromaticity blue primary point.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
     IPrimaryInfo ChromaBluePrimary { get; set; }
 
     /// <summary>
     /// Gets or sets the chromaticity green primary point.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
     IPrimaryInfo ChromaGreenPrimary { get; set; }
 
     /// <summary>
     /// Gets or sets the chromaticity red primary point.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
     IPrimaryInfo ChromaRedPrimary { get; set; }
 
     /// <summary>
     /// Gets or sets the chromaticity white primary point.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
     IPrimaryInfo ChromaWhitePoint { get; set; }
 
     /// <summary>
