@@ -7,7 +7,7 @@
     },
     {
       "name": "GetEnv",
-      "type": "string",
+      "type": "nativeString?",
       "arguments": [
         {
           "name": "name",

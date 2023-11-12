@@ -71,7 +71,7 @@ internal static partial class Environment
             NativeMethods.X86.Environment_Initialize();
             #endif
         }
-        public static string GetEnv(string name)
+        public static string? GetEnv(string name)
         {
             using var nameNative = UTF8Marshaler.CreateInstance(name);
             IntPtr result;
@@ -93,7 +93,7 @@ internal static partial class Environment
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.Environment_GetEnv(nameNative.Instance);
             #endif
-            return UTF8Marshaler.NativeToManaged(result);
+            return UTF8Marshaler.NativeToManagedAndRelinquish(result);
         }
         public static void SetEnv(string name, string value)
         {

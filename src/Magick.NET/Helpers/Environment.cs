@@ -23,7 +23,7 @@ internal static partial class Environment
         }
     }
 
-    public static string GetEnv(string name)
+    public static string? GetEnv(string name)
         => NativeEnvironment.GetEnv(name);
 
     public static void SetEnv(string name, string value)

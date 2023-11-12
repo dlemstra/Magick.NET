@@ -211,7 +211,7 @@ public partial class MagickNET : IMagickNET
     /// </summary>
     /// <param name="name">The name of the environment variable.</param>
     /// <returns>The environment variable with the specified name.</returns>
-    public static string GetEnvironmentVariable(string name)
+    public static string? GetEnvironmentVariable(string name)
     {
         Throw.IfNullOrEmpty(nameof(name), name);
         return Environment.GetEnv(name);
