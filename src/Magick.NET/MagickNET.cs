@@ -377,7 +377,7 @@ public partial class MagickNET : IMagickNET
     /// </summary>
     /// <param name="name">The name of the environment variable.</param>
     /// <returns>The environment variable with the specified name.</returns>
-    string IMagickNET.GetEnvironmentVariable(string name)
+    string? IMagickNET.GetEnvironmentVariable(string name)
         => GetEnvironmentVariable(name);
 
     /// <summary>
