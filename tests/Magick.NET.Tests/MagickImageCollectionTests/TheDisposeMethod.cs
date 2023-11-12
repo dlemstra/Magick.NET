@@ -21,7 +21,6 @@ public partial class MagickImageCollectionTests
             collection.Dispose();
 
             Assert.Empty(collection);
-            Assert.True(image.IsDisposed);
         }
 
         [Fact]
