@@ -19,7 +19,7 @@ internal static class ImageOptimizerHelper
 {
     public static void CheckFormat(IMagickImage<QuantumType> image, MagickFormat expectedFormat)
     {
-        var format = image.FormatInfo?.ModuleFormat;
+        var format = MagickFormatInfo.Create(image.Format)?.ModuleFormat;
         if (format != expectedFormat)
             throw new MagickCorruptImageErrorException("Invalid image format: " + format.ToString());
     }
