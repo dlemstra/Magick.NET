@@ -7,7 +7,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -644,6 +643,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// Gets the preferred size of the image when encoding.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    [Obsolete("Will be removed in the next major release.")]
     public IMagickGeometry? EncodingGeometry
         => MagickGeometry.FromString(_nativeInstance.EncodingGeometry);
 
@@ -688,6 +688,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Gets the information about the format of the image.
     /// </summary>
+    [Obsolete("Will be removed in the next major release.")]
     public IMagickFormatInfo? FormatInfo
         => MagickFormatInfo.Create(Format);
 
@@ -755,6 +756,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Gets a value indicating whether the instance is disposed.
     /// </summary>
+    [Obsolete("Will be removed in the next major release.")]
     public bool IsDisposed
         => _nativeInstance.IsDisposed;
 

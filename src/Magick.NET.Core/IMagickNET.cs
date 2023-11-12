@@ -58,7 +58,7 @@ public interface IMagickNET
     /// </summary>
     /// <param name="name">The name of the environment variable.</param>
     /// <returns>The environment variable with the specified name.</returns>
-    string GetEnvironmentVariable(string name);
+    string? GetEnvironmentVariable(string name);
 
     /// <summary>
     /// Initializes ImageMagick.

@@ -158,6 +158,7 @@ public partial interface IMagickImage : IDisposable
     /// Gets the preferred size of the image when encoding.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    [Obsolete("Will be removed in the next major release.")]
     IMagickGeometry? EncodingGeometry { get; }
 
     /// <summary>
@@ -184,6 +185,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets the information about the format of the image.
     /// </summary>
+    [Obsolete("Will be removed in the next major release.")]
     IMagickFormatInfo? FormatInfo { get; }
 
     /// <summary>
@@ -220,6 +222,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets a value indicating whether the instance is disposed.
     /// </summary>
+    [Obsolete("Will be removed in the next major release.")]
     bool IsDisposed { get; }
 
     /// <summary>
