@@ -24,7 +24,7 @@ public enum ColorType
     Grayscale,
 
     /// <summary>
-    /// GrayscaleAlpha.
+    /// Grayscale alpha.
     /// </summary>
     GrayscaleAlpha,
 
@@ -34,7 +34,7 @@ public enum ColorType
     Palette,
 
     /// <summary>
-    /// PaletteAlpha.
+    /// Palette alpha.
     /// </summary>
     PaletteAlpha,
 
@@ -44,17 +44,17 @@ public enum ColorType
     TrueColor,
 
     /// <summary>
-    /// TrueColorAlpha.
+    /// TrueColor alpha.
     /// </summary>
     TrueColorAlpha,
 
     /// <summary>
-    /// ColorSeparation.
+    /// Color separation.
     /// </summary>
     ColorSeparation,
 
     /// <summary>
-    /// ColorSeparationAlpha.
+    /// Color separation alpha.
     /// </summary>
     ColorSeparationAlpha,
 
@@ -64,7 +64,7 @@ public enum ColorType
     Optimize,
 
     /// <summary>
-    /// PaletteBilevelAlpha.
+    /// Palette bilevel alpha.
     /// </summary>
     PaletteBilevelAlpha,
 }
