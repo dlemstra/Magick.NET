@@ -770,6 +770,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public Interlace Interlace
     {
         get => _nativeInstance.Interlace;
+        [Obsolete($"The setter will be removed in the next major release, use Settings.{nameof(Interlace)} instead.")]
         set
         {
             _nativeInstance.Interlace = value;

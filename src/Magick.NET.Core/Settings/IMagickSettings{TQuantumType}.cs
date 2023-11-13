@@ -116,6 +116,11 @@ public interface IMagickSettings<TQuantumType>
     MagickFormat Format { get; set; }
 
     /// <summary>
+    /// Gets or sets the interlace method.
+    /// </summary>
+    Interlace Interlace { get; set; }
+
+    /// <summary>
     /// Gets or sets the preferred size and location of an image canvas.
     /// </summary>
     IMagickGeometry? Page { get; set; }

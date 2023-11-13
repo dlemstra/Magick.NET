@@ -229,6 +229,11 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     public MagickFormat Format { get; set; }
 
     /// <summary>
+    /// Gets or sets the interlace method.
+    /// </summary>
+    public Interlace Interlace { get; set; }
+
+    /// <summary>
     /// Gets or sets the preferred size and location of an image canvas.
     /// </summary>
     public IMagickGeometry? Page { get; set; }
@@ -432,8 +437,6 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     internal double ColorFuzz { get; set; }
 
     internal string? FileName { get; set; }
-
-    internal Interlace Interlace { get; set; }
 
     internal bool Ping { get; set; }
 
