@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// <summary>
 /// Struct for a threshold with a minimum and maximum.
 /// </summary>
-public struct Threshold : IEquatable<Threshold>
+public readonly struct Threshold : IEquatable<Threshold>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="Threshold"/> struct.

@@ -12,7 +12,7 @@ namespace ImageMagick;
 /// <remarks>
 /// This is a very simplified implementation of a rational number designed for use with metadata only.
 /// </remarks>
-public struct SignedRational : IEquatable<SignedRational>
+public readonly struct SignedRational : IEquatable<SignedRational>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="SignedRational"/> struct.

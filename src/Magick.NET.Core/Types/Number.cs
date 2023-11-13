@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// <summary>
 /// Represents an exif number.
 /// </summary>
-public struct Number : IEquatable<Number>, IComparable<Number>
+public readonly struct Number : IEquatable<Number>, IComparable<Number>
 {
     private readonly uint _value;
 

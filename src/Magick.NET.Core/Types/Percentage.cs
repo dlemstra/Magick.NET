@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// <summary>
 /// Represents a percentage value.
 /// </summary>
-public struct Percentage : IEquatable<Percentage>, IComparable<Percentage>
+public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percentage>
 {
     private readonly double _value;
 
