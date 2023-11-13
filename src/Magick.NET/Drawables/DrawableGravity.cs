@@ -4,7 +4,7 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Encapsulation of the DrawableGravity object.
+/// Sets the gravity to use when drawing.
 /// </summary>
 public sealed class DrawableGravity : IDrawable, IDrawingWand
 {
