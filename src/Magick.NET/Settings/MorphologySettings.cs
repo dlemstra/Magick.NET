@@ -24,12 +24,12 @@ public sealed class MorphologySettings : IMorphologySettings
     public Channels Channels { get; set; }
 
     /// <summary>
-    /// Gets or sets the bias to use when the method is Convolve.
+    /// Gets or sets the bias to use when the method is <see cref="MorphologyMethod.Convolve"/>.
     /// </summary>
     public Percentage? ConvolveBias { get; set; }
 
     /// <summary>
-    /// Gets or sets the scale to use when the method is Convolve.
+    /// Gets or sets the scale to use when the method is <see cref="MorphologyMethod.Convolve"/>.
     /// </summary>
     public IMagickGeometry? ConvolveScale { get; set; }
 
