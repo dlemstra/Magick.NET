@@ -25,7 +25,7 @@ public partial class MagickImageTests
             profile.SetValue(ExifTag.Orientation, (ushort)OrientationType.RightTop);
             image.SetProfile(profile);
 
-            image.Orientation = OrientationType.LeftBotom;
+            image.Orientation = OrientationType.LeftBottom;
 
             using var stream = new MemoryStream();
             image.Write(stream);
@@ -36,7 +36,7 @@ public partial class MagickImageTests
             exifOrientation = profile.GetValue(ExifTag.Orientation).Value;
 
             Assert.Equal((ushort)8, exifOrientation);
-            Assert.Equal(OrientationType.LeftBotom, image.Orientation);
+            Assert.Equal(OrientationType.LeftBottom, image.Orientation);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
+
 namespace ImageMagick;
 
 /// <summary>
@@ -14,42 +16,48 @@ public enum OrientationType
     Undefined,
 
     /// <summary>
-    /// TopLeft.
+    /// Top left.
     /// </summary>
     TopLeft,
 
     /// <summary>
-    /// TopRight.
+    /// Top right.
     /// </summary>
     TopRight,
 
     /// <summary>
-    /// BottomRight.
+    /// Bottom right.
     /// </summary>
     BottomRight,
 
     /// <summary>
-    /// BottomLeft.
+    /// Bottom left.
     /// </summary>
     BottomLeft,
 
     /// <summary>
-    /// LeftTop.
+    /// Left top.
     /// </summary>
     LeftTop,
 
     /// <summary>
-    /// RightTop.
+    /// Right top.
     /// </summary>
     RightTop,
 
     /// <summary>
-    /// RightBottom.
+    /// Right bottom.
     /// </summary>
     RightBottom,
 
     /// <summary>
-    /// LeftBotom.
+    /// Left bottom.
     /// </summary>
-    LeftBotom,
+    LeftBottom,
+
+    /// <summary>
+    /// Left bottom.
+    /// </summary>
+    [Obsolete($"This value will be removed in the next major release, use {nameof(LeftBottom)} instead.")]
+    LeftBotom = LeftBottom,
 }
