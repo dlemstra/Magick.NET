@@ -59,7 +59,7 @@ public sealed partial class MontageSettings : IMontageSettings<QuantumType>
     public IMagickGeometry? Geometry { get; set; }
 
     /// <summary>
-    /// Gets or sets the thumbnail position (e.g. SouthWestGravity).
+    /// Gets or sets the thumbnail position (e.g. <see cref="Gravity.Southwest"/>).
     /// </summary>
     public Gravity Gravity { get; set; }
 
