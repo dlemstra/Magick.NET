@@ -165,18 +165,18 @@ public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percenta
         => _value.GetHashCode();
 
     /// <summary>
-    /// Multiplies the value by the percentage.
+    /// Multiplies the value by the specified percentage.
     /// </summary>
     /// <param name="value">The value to use.</param>
-    /// <returns>the new value.</returns>
+    /// <returns>The new value.</returns>
     public double Multiply(double value)
         => (value * _value) / 100.0;
 
     /// <summary>
-    /// Multiplies the value by the percentage.
+    /// Multiplies the value by the specified percentage.
     /// </summary>
     /// <param name="value">The value to use.</param>
-    /// <returns>the new value.</returns>
+    /// <returns>The new value.</returns>
     public int Multiply(int value)
         => (int)((value * _value) / 100.0);
 
