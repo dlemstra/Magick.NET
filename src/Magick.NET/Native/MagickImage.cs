@@ -79,21 +79,21 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaBluePrimary_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaBlue_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaBluePrimary_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaBlue_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaGreenPrimary_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaGreen_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaGreenPrimary_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaGreen_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaRedPrimary_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaRed_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaRedPrimary_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaRed_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaWhitePoint_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaWhite_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaWhitePoint_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaWhite_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern UIntPtr MagickImage_ClassType_Get(IntPtr instance, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -644,21 +644,21 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaBluePrimary_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaBlue_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaBluePrimary_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaBlue_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaGreenPrimary_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaGreen_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaGreenPrimary_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaGreen_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaRedPrimary_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaRed_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaRedPrimary_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaRed_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaWhitePoint_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaWhite_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaWhitePoint_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaWhite_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern UIntPtr MagickImage_ClassType_Get(IntPtr instance, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1209,21 +1209,21 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern UIntPtr MagickImage_ChannelCount_Get(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaBluePrimary_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaBlue_Get(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaBluePrimary_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaBlue_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaGreenPrimary_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaGreen_Get(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaGreenPrimary_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaGreen_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaRedPrimary_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaRed_Get(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaRedPrimary_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaRed_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImage_ChromaWhitePoint_Get(IntPtr instance);
+            public static extern IntPtr MagickImage_ChromaWhite_Get(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_ChromaWhitePoint_Set(IntPtr instance, IntPtr value);
+            public static extern void MagickImage_ChromaWhite_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern UIntPtr MagickImage_ClassType_Get(IntPtr instance, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -2186,7 +2186,7 @@ public partial class MagickImage : IDisposable
                 return (int)result;
             }
         }
-        public IPrimaryInfo? ChromaBluePrimary
+        public IPrimaryInfo? ChromaBlue
         {
             get
             {
@@ -2195,19 +2195,19 @@ public partial class MagickImage : IDisposable
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ChromaBluePrimary_Get(Instance);
+                result = NativeMethods.ARM64.MagickImage_ChromaBlue_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChromaBluePrimary_Get(Instance);
+                result = NativeMethods.X64.MagickImage_ChromaBlue_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ChromaBluePrimary_Get(Instance);
+                result = NativeMethods.X86.MagickImage_ChromaBlue_Get(Instance);
                 #endif
                 return PrimaryInfo.CreateInstance(result);
             }
@@ -2218,23 +2218,23 @@ public partial class MagickImage : IDisposable
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+                NativeMethods.ARM64.MagickImage_ChromaBlue_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+                NativeMethods.X64.MagickImage_ChromaBlue_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ChromaBluePrimary_Set(Instance, valueNative.Instance);
+                NativeMethods.X86.MagickImage_ChromaBlue_Set(Instance, valueNative.Instance);
                 #endif
             }
         }
-        public IPrimaryInfo? ChromaGreenPrimary
+        public IPrimaryInfo? ChromaGreen
         {
             get
             {
@@ -2243,19 +2243,19 @@ public partial class MagickImage : IDisposable
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ChromaGreenPrimary_Get(Instance);
+                result = NativeMethods.ARM64.MagickImage_ChromaGreen_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChromaGreenPrimary_Get(Instance);
+                result = NativeMethods.X64.MagickImage_ChromaGreen_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ChromaGreenPrimary_Get(Instance);
+                result = NativeMethods.X86.MagickImage_ChromaGreen_Get(Instance);
                 #endif
                 return PrimaryInfo.CreateInstance(result);
             }
@@ -2266,23 +2266,23 @@ public partial class MagickImage : IDisposable
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+                NativeMethods.ARM64.MagickImage_ChromaGreen_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+                NativeMethods.X64.MagickImage_ChromaGreen_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ChromaGreenPrimary_Set(Instance, valueNative.Instance);
+                NativeMethods.X86.MagickImage_ChromaGreen_Set(Instance, valueNative.Instance);
                 #endif
             }
         }
-        public IPrimaryInfo? ChromaRedPrimary
+        public IPrimaryInfo? ChromaRed
         {
             get
             {
@@ -2291,19 +2291,19 @@ public partial class MagickImage : IDisposable
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ChromaRedPrimary_Get(Instance);
+                result = NativeMethods.ARM64.MagickImage_ChromaRed_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChromaRedPrimary_Get(Instance);
+                result = NativeMethods.X64.MagickImage_ChromaRed_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ChromaRedPrimary_Get(Instance);
+                result = NativeMethods.X86.MagickImage_ChromaRed_Get(Instance);
                 #endif
                 return PrimaryInfo.CreateInstance(result);
             }
@@ -2314,23 +2314,23 @@ public partial class MagickImage : IDisposable
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+                NativeMethods.ARM64.MagickImage_ChromaRed_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+                NativeMethods.X64.MagickImage_ChromaRed_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ChromaRedPrimary_Set(Instance, valueNative.Instance);
+                NativeMethods.X86.MagickImage_ChromaRed_Set(Instance, valueNative.Instance);
                 #endif
             }
         }
-        public IPrimaryInfo? ChromaWhitePoint
+        public IPrimaryInfo? ChromaWhite
         {
             get
             {
@@ -2339,19 +2339,19 @@ public partial class MagickImage : IDisposable
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickImage_ChromaWhitePoint_Get(Instance);
+                result = NativeMethods.ARM64.MagickImage_ChromaWhite_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickImage_ChromaWhitePoint_Get(Instance);
+                result = NativeMethods.X64.MagickImage_ChromaWhite_Get(Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickImage_ChromaWhitePoint_Get(Instance);
+                result = NativeMethods.X86.MagickImage_ChromaWhite_Get(Instance);
                 #endif
                 return PrimaryInfo.CreateInstance(result);
             }
@@ -2362,19 +2362,19 @@ public partial class MagickImage : IDisposable
                 if (Runtime.IsArm64)
                 #endif
                 #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+                NativeMethods.ARM64.MagickImage_ChromaWhite_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else if (Runtime.Is64Bit)
                 #endif
                 #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+                NativeMethods.X64.MagickImage_ChromaWhite_Set(Instance, valueNative.Instance);
                 #endif
                 #if PLATFORM_AnyCPU
                 else
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickImage_ChromaWhitePoint_Set(Instance, valueNative.Instance);
+                NativeMethods.X86.MagickImage_ChromaWhite_Set(Instance, valueNative.Instance);
                 #endif
             }
         }

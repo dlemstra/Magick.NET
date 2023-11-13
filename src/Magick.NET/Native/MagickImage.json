@@ -127,19 +127,19 @@
       "readonly": true
     },
     {
-      "name": "ChromaBluePrimary",
+      "name": "ChromaBlue",
       "type": "PrimaryInfo?"
     },
     {
-      "name": "ChromaGreenPrimary",
+      "name": "ChromaGreen",
       "type": "PrimaryInfo?"
     },
     {
-      "name": "ChromaRedPrimary",
+      "name": "ChromaRed",
       "type": "PrimaryInfo?"
     },
     {
-      "name": "ChromaWhitePoint",
+      "name": "ChromaWhite",
       "type": "PrimaryInfo?"
     },
     {

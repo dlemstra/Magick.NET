@@ -445,7 +445,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
                     yield return channel;
             }
 
-            for (var channel = PixelChannel.Meta0; channel <= PixelChannel.Meta53; channel++)
+            for (var channel = PixelChannel.Meta0; channel <= PixelChannel.Meta52; channel++)
             {
                 if (_nativeInstance.HasChannel(channel))
                     yield return channel;
@@ -462,25 +462,25 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         get
         {
-            if (_nativeInstance.ChromaRedPrimary is null ||
-                _nativeInstance.ChromaGreenPrimary is null ||
-                _nativeInstance.ChromaBluePrimary is null ||
-                _nativeInstance.ChromaWhitePoint is null)
+            if (_nativeInstance.ChromaRed is null ||
+                _nativeInstance.ChromaGreen is null ||
+                _nativeInstance.ChromaBlue is null ||
+                _nativeInstance.ChromaWhite is null)
                 throw new MagickErrorException("Unable to allocate primary info");
 
             return new ChromaticityInfo(
-                _nativeInstance.ChromaRedPrimary,
-                _nativeInstance.ChromaGreenPrimary,
-                _nativeInstance.ChromaBluePrimary,
-                _nativeInstance.ChromaWhitePoint);
+                _nativeInstance.ChromaRed,
+                _nativeInstance.ChromaGreen,
+                _nativeInstance.ChromaBlue,
+                _nativeInstance.ChromaWhite);
         }
 
         set
         {
-            _nativeInstance.ChromaRedPrimary = value.Red;
-            _nativeInstance.ChromaGreenPrimary = value.Green;
-            _nativeInstance.ChromaBluePrimary = value.Blue;
-            _nativeInstance.ChromaWhitePoint = value.White;
+            _nativeInstance.ChromaRed = value.Red;
+            _nativeInstance.ChromaGreen = value.Green;
+            _nativeInstance.ChromaBlue = value.Blue;
+            _nativeInstance.ChromaWhite = value.White;
         }
     }
 
@@ -492,14 +492,14 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         get
         {
-            var primaryInfo = _nativeInstance.ChromaBluePrimary;
+            var primaryInfo = _nativeInstance.ChromaBlue;
 
             if (primaryInfo is null)
                 throw new MagickErrorException("Unable to allocate primary info");
 
             return primaryInfo;
         }
-        set => _nativeInstance.ChromaBluePrimary = value;
+        set => _nativeInstance.ChromaBlue = value;
     }
 
     /// <summary>
@@ -510,14 +510,14 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         get
         {
-            var primaryInfo = _nativeInstance.ChromaGreenPrimary;
+            var primaryInfo = _nativeInstance.ChromaGreen;
 
             if (primaryInfo is null)
                 throw new MagickErrorException("Unable to allocate primary info");
 
             return primaryInfo;
         }
-        set => _nativeInstance.ChromaGreenPrimary = value;
+        set => _nativeInstance.ChromaGreen = value;
     }
 
     /// <summary>
@@ -528,14 +528,14 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         get
         {
-            var primaryInfo = _nativeInstance.ChromaRedPrimary;
+            var primaryInfo = _nativeInstance.ChromaRed;
 
             if (primaryInfo is null)
                 throw new MagickErrorException("Unable to allocate primary info");
 
             return primaryInfo;
         }
-        set => _nativeInstance.ChromaRedPrimary = value;
+        set => _nativeInstance.ChromaRed = value;
     }
 
     /// <summary>
@@ -546,14 +546,14 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         get
         {
-            var primaryInfo = _nativeInstance.ChromaWhitePoint;
+            var primaryInfo = _nativeInstance.ChromaWhite;
 
             if (primaryInfo is null)
                 throw new MagickErrorException("Unable to allocate primary info");
 
             return primaryInfo;
         }
-        set => _nativeInstance.ChromaWhitePoint = value;
+        set => _nativeInstance.ChromaWhite = value;
     }
 
     /// <summary>
