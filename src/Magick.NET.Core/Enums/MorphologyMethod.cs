@@ -34,17 +34,17 @@ public enum MorphologyMethod
     Dilate,
 
     /// <summary>
-    /// ErodeIntensity.
+    /// Erode intensity.
     /// </summary>
     ErodeIntensity,
 
     /// <summary>
-    /// DilateIntensity.
+    /// Dilate intensity.
     /// </summary>
     DilateIntensity,
 
     /// <summary>
-    /// IterativeDistance.
+    /// Iterative distance.
     /// </summary>
     IterativeDistance,
 
@@ -59,12 +59,12 @@ public enum MorphologyMethod
     Close,
 
     /// <summary>
-    /// OpenIntensity.
+    /// Open intensity.
     /// </summary>
     OpenIntensity,
 
     /// <summary>
-    /// CloseIntensity.
+    /// Close intensity.
     /// </summary>
     CloseIntensity,
 
@@ -74,12 +74,12 @@ public enum MorphologyMethod
     Smooth,
 
     /// <summary>
-    /// EdgeIn.
+    /// Edge in.
     /// </summary>
     EdgeIn,
 
     /// <summary>
-    /// EdgeOut.
+    /// Edge out.
     /// </summary>
     EdgeOut,
 
@@ -89,17 +89,17 @@ public enum MorphologyMethod
     Edge,
 
     /// <summary>
-    /// TopHat.
+    /// Top hat.
     /// </summary>
     TopHat,
 
     /// <summary>
-    /// BottomHat.
+    /// Bottom hat.
     /// </summary>
     BottomHat,
 
     /// <summary>
-    /// HitAndMiss.
+    /// Hit and miss.
     /// </summary>
     HitAndMiss,
 

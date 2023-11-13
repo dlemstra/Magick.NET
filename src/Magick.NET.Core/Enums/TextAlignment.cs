@@ -4,7 +4,7 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Specified the type of text alignment.
+/// Specified the types of text alignment.
 /// </summary>
 public enum TextAlignment
 {

@@ -14,7 +14,7 @@ public enum Interlace
     Undefined,
 
     /// <summary>
-    /// NoInterlace.
+    /// No interlacing.
     /// </summary>
     NoInterlace,
 

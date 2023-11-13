@@ -74,7 +74,7 @@ public enum CompressionMethod
     JPEG,
 
     /// <summary>
-    /// LosslessJPEG.
+    /// Lossless JPEG.
     /// </summary>
     LosslessJPEG,
 
@@ -89,7 +89,7 @@ public enum CompressionMethod
     LZW,
 
     /// <summary>
-    /// NoCompression.
+    /// No compression.
     /// </summary>
     NoCompression,
 

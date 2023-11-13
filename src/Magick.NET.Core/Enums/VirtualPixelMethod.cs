@@ -69,27 +69,27 @@ public enum VirtualPixelMethod
     White,
 
     /// <summary>
-    /// HorizontalTile.
+    /// Horizontal tile.
     /// </summary>
     HorizontalTile,
 
     /// <summary>
-    /// VerticalTile.
+    /// Vertical tile.
     /// </summary>
     VerticalTile,
 
     /// <summary>
-    /// HorizontalTileEdge.
+    /// Horizontal tile edge.
     /// </summary>
     HorizontalTileEdge,
 
     /// <summary>
-    /// VerticalTileEdge.
+    /// Vertical tile edge.
     /// </summary>
     VerticalTileEdge,
 
     /// <summary>
-    /// CheckerTile.
+    /// Checker tile.
     /// </summary>
     CheckerTile,
 }

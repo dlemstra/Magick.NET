@@ -84,7 +84,7 @@ public enum FilterType
     Sinc,
 
     /// <summary>
-    /// SincFast.
+    /// Sinc fast.
     /// </summary>
     SincFast,
 
@@ -124,17 +124,17 @@ public enum FilterType
     Lanczos,
 
     /// <summary>
-    /// LanczosSharp.
+    /// Lanczos sharp.
     /// </summary>
     LanczosSharp,
 
     /// <summary>
-    /// Lanczos2.
+    /// Lanczos 2.
     /// </summary>
     Lanczos2,
 
     /// <summary>
-    /// Lanczos2Sharp.
+    /// Lanczos 2 sharp.
     /// </summary>
     Lanczos2Sharp,
 
@@ -144,7 +144,7 @@ public enum FilterType
     Robidoux,
 
     /// <summary>
-    /// RobidouxSharp.
+    /// Robidoux sharp.
     /// </summary>
     RobidouxSharp,
 
@@ -159,12 +159,12 @@ public enum FilterType
     Spline,
 
     /// <summary>
-    /// LanczosRadius.
+    /// Lanczos radius.
     /// </summary>
     LanczosRadius,
 
     /// <summary>
-    /// CubicSpline.
+    /// Cubic spline.
     /// </summary>
     CubicSpline,
 }

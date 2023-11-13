@@ -19,12 +19,12 @@ public enum DistortMethod
     Affine,
 
     /// <summary>
-    /// AffineProjection.
+    /// Affine projection.
     /// </summary>
     AffineProjection,
 
     /// <summary>
-    /// ScaleRotateTranslate.
+    /// Scale rotate translate.
     /// </summary>
     ScaleRotateTranslate,
 
@@ -34,17 +34,17 @@ public enum DistortMethod
     Perspective,
 
     /// <summary>
-    /// PerspectiveProjection.
+    /// Perspective projection.
     /// </summary>
     PerspectiveProjection,
 
     /// <summary>
-    /// BilinearForward.
+    /// Bilinear forward.
     /// </summary>
     BilinearForward,
 
     /// <summary>
-    /// BilinearReverse.
+    /// Bilinear reverse.
     /// </summary>
     BilinearReverse,
 
@@ -64,17 +64,17 @@ public enum DistortMethod
     Polar,
 
     /// <summary>
-    /// DePolar.
+    /// De-polar.
     /// </summary>
     DePolar,
 
     /// <summary>
-    /// Cylinder2Plane.
+    /// Cylinder 2 plane.
     /// </summary>
     Cylinder2Plane,
 
     /// <summary>
-    /// Plane2Cylinder.
+    /// Plane 2 cylinder.
     /// </summary>
     Plane2Cylinder,
 
@@ -84,7 +84,7 @@ public enum DistortMethod
     Barrel,
 
     /// <summary>
-    /// BarrelInverse.
+    /// Barrel inverse.
     /// </summary>
     BarrelInverse,
 
@@ -104,7 +104,7 @@ public enum DistortMethod
     Sentinel,
 
     /// <summary>
-    /// RigidAffine.
+    /// Rigid affine.
     /// </summary>
     RigidAffine,
 }

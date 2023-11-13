@@ -4,7 +4,7 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Specifies the paint method.
+/// Specifies the paint methods.
 /// </summary>
 public enum PaintMethod
 {

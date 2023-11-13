@@ -4,7 +4,7 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Pixel intensity methods.
+/// Specifies the pixel intensity methods.
 /// </summary>
 public enum PixelIntensityMethod
 {

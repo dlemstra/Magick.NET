@@ -24,7 +24,7 @@ public enum EvaluateOperator
     Add,
 
     /// <summary>
-    /// AddModulus.
+    /// Add modulus.
     /// </summary>
     AddModulus,
 
@@ -49,22 +49,22 @@ public enum EvaluateOperator
     Exponential,
 
     /// <summary>
-    /// GaussianNoise.
+    /// Gaussian noise.
     /// </summary>
     GaussianNoise,
 
     /// <summary>
-    /// ImpulseNoise.
+    /// Impulse noise.
     /// </summary>
     ImpulseNoise,
 
     /// <summary>
-    /// LaplacianNoise.
+    /// Laplacian noise.
     /// </summary>
     LaplacianNoise,
 
     /// <summary>
-    /// LeftShift.
+    /// Left shift.
     /// </summary>
     LeftShift,
 
@@ -94,7 +94,7 @@ public enum EvaluateOperator
     Min,
 
     /// <summary>
-    /// MultiplicativeNoise.
+    /// Multiplicative noise.
     /// </summary>
     MultiplicativeNoise,
 
@@ -109,7 +109,7 @@ public enum EvaluateOperator
     Or,
 
     /// <summary>
-    /// PoissonNoise.
+    /// Poisson noise.
     /// </summary>
     PoissonNoise,
 
@@ -119,12 +119,12 @@ public enum EvaluateOperator
     Pow,
 
     /// <summary>
-    /// RightShift.
+    /// Right shift.
     /// </summary>
     RightShift,
 
     /// <summary>
-    /// RootMeanSquare.
+    /// Root mean square.
     /// </summary>
     RootMeanSquare,
 
@@ -149,7 +149,7 @@ public enum EvaluateOperator
     Sum,
 
     /// <summary>
-    /// ThresholdBlack.
+    /// Threshold black.
     /// </summary>
     ThresholdBlack,
 
@@ -159,12 +159,12 @@ public enum EvaluateOperator
     Threshold,
 
     /// <summary>
-    /// ThresholdWhite.
+    /// Threshold white.
     /// </summary>
     ThresholdWhite,
 
     /// <summary>
-    /// UniformNoise.
+    /// Uniform noise.
     /// </summary>
     UniformNoise,
 
@@ -174,7 +174,7 @@ public enum EvaluateOperator
     Xor,
 
     /// <summary>
-    /// InverseLog.
+    /// Inverse log.
     /// </summary>
     InverseLog,
 }

@@ -59,7 +59,7 @@ public enum Kernel
     Sobel,
 
     /// <summary>
-    /// FreiChen.
+    /// Frei chen.
     /// </summary>
     FreiChen,
 
@@ -144,12 +144,12 @@ public enum Kernel
     Diagonals,
 
     /// <summary>
-    /// LineEnds.
+    /// Line ends.
     /// </summary>
     LineEnds,
 
     /// <summary>
-    /// LineJunctions.
+    /// Line junctions.
     /// </summary>
     LineJunctions,
 
@@ -159,12 +159,12 @@ public enum Kernel
     Ridges,
 
     /// <summary>
-    /// ConvexHull.
+    /// Convex hull.
     /// </summary>
     ConvexHull,
 
     /// <summary>
-    /// ThinSE.
+    /// Thin SE.
     /// </summary>
     ThinSE,
 
@@ -194,7 +194,7 @@ public enum Kernel
     Euclidean,
 
     /// <summary>
-    /// UserDefined.
+    /// User defined.
     /// </summary>
     UserDefined,
 }

@@ -4,7 +4,7 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Specifies the different file formats that are supported by ImageMagick.
+/// Specifies the different image formats that are supported by ImageMagick.
 /// </summary>
 public enum MagickFormat
 {

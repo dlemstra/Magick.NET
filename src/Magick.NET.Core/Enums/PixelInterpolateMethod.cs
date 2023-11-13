@@ -4,7 +4,7 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Pixel color interpolate methods.
+/// Specifies the pixel interpolate methods.
 /// </summary>
 public enum PixelInterpolateMethod
 {

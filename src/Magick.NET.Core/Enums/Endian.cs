@@ -14,12 +14,12 @@ public enum Endian
     Undefined,
 
     /// <summary>
-    /// LSB.
+    /// Least significant bit, byte 0 is least significant.
     /// </summary>
     LSB,
 
     /// <summary>
-    /// MSB.
+    /// Most significant bit, byte 0 is most significant.
     /// </summary>
     MSB,
 }

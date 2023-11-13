@@ -6,7 +6,7 @@ using System;
 namespace ImageMagick;
 
 /// <summary>
-/// Specifies log events.
+/// Specifies log event types.
 /// </summary>
 [Flags]
 public enum LogEvents

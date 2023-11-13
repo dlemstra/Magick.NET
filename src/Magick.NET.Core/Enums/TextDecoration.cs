@@ -4,7 +4,7 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Specified the type of decoration for text.
+/// Specified the types of decoration for text.
 /// </summary>
 public enum TextDecoration
 {
@@ -29,7 +29,7 @@ public enum TextDecoration
     Overline,
 
     /// <summary>
-    /// LineThrough.
+    /// Line through.
     /// </summary>
     LineThrough,
 }

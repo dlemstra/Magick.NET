@@ -24,52 +24,52 @@ public enum ErrorMetric
     Fuzz,
 
     /// <summary>
-    /// MeanAbsolute.
+    /// Mean absolute.
     /// </summary>
     MeanAbsolute,
 
     /// <summary>
-    /// MeanErrorPerPixel.
+    /// Mean error per pixel.
     /// </summary>
     MeanErrorPerPixel,
 
     /// <summary>
-    /// MeanSquared.
+    /// Mean squared.
     /// </summary>
     MeanSquared,
 
     /// <summary>
-    /// NormalizedCrossCorrelation.
+    /// Normalized cross correlation.
     /// </summary>
     NormalizedCrossCorrelation,
 
     /// <summary>
-    /// PeakAbsolute.
+    /// Peak absolute.
     /// </summary>
     PeakAbsolute,
 
     /// <summary>
-    /// PeakSignalToNoiseRatio.
+    /// Peak signal to noise ratio.
     /// </summary>
     PeakSignalToNoiseRatio,
 
     /// <summary>
-    /// PerceptualHash.
+    /// Perceptual hash.
     /// </summary>
     PerceptualHash,
 
     /// <summary>
-    /// RootMeanSquared.
+    /// Root mean squared.
     /// </summary>
     RootMeanSquared,
 
     /// <summary>
-    /// StructuralSimilarity.
+    /// Structural similarity.
     /// </summary>
     StructuralSimilarity,
 
     /// <summary>
-    /// StructuralDissimilarity.
+    /// Structural dissimilarity.
     /// </summary>
     StructuralDissimilarity,
 }
