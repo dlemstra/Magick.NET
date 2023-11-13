@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-20 (2023-10-08) ] copyright:
+[ ImageMagick 7.1.1-22 beta (2023-11-11) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -3374,7 +3374,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 8.2.1 (2023-09-18) ] copyright:
+[ harfbuzz 8.2.2 (2023-10-18) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -3421,7 +3421,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.16.2 (2023-05-22) ] copyright:
+[ heif 1.17.3 (2023-11-03) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -4502,7 +4502,7 @@ SOFTWARE.
    limitations under the License.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jasper 4.0.0 (2022-11-05) ] copyright:
+[ jasper 4.1.0 (2023-11-05) ] copyright:
 
 JasPer License Version 2.0
 
@@ -4558,7 +4558,7 @@ EXPRESS OR IMPLIED WARRANTY OF FITNESS FOR HIGH RISK ACTIVITIES.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-turbo 3.0.0 (2023-07-03) ] copyright:
+[ jpeg-turbo 3.0.1 (2023-10-16) ] copyright:
 
 libjpeg-turbo Licenses
 ======================
