@@ -39,7 +39,7 @@ public enum CompositeOperator
     Bumpmap,
 
     /// <summary>
-    /// ChangeMask.
+    /// Change mask.
     /// </summary>
     ChangeMask,
 
@@ -49,12 +49,12 @@ public enum CompositeOperator
     Clear,
 
     /// <summary>
-    /// ColorBurn.
+    /// Color burn.
     /// </summary>
     ColorBurn,
 
     /// <summary>
-    /// ColorDodge.
+    /// Color dodge.
     /// </summary>
     ColorDodge,
 
@@ -64,12 +64,12 @@ public enum CompositeOperator
     Colorize,
 
     /// <summary>
-    /// CopyBlack.
+    /// Copy black.
     /// </summary>
     CopyBlack,
 
     /// <summary>
-    /// CopyBlue.
+    /// Copy blue.
     /// </summary>
     CopyBlue,
 
@@ -79,32 +79,32 @@ public enum CompositeOperator
     Copy,
 
     /// <summary>
-    /// CopyCyan.
+    /// Copy cyan.
     /// </summary>
     CopyCyan,
 
     /// <summary>
-    /// CopyGreen.
+    /// Copy green.
     /// </summary>
     CopyGreen,
 
     /// <summary>
-    /// CopyMagenta.
+    /// Copy magenta.
     /// </summary>
     CopyMagenta,
 
     /// <summary>
-    /// CopyAlpha.
+    /// Copy alpha.
     /// </summary>
     CopyAlpha,
 
     /// <summary>
-    /// CopyRed.
+    /// Copy red.
     /// </summary>
     CopyRed,
 
     /// <summary>
-    /// CopyYellow.
+    /// Copy yellow.
     /// </summary>
     CopyYellow,
 
@@ -114,7 +114,7 @@ public enum CompositeOperator
     Darken,
 
     /// <summary>
-    /// DarkenIntensity.
+    /// Darken intensity.
     /// </summary>
     DarkenIntensity,
 
@@ -139,17 +139,17 @@ public enum CompositeOperator
     Distort,
 
     /// <summary>
-    /// DivideDst.
+    /// Divide dst.
     /// </summary>
     DivideDst,
 
     /// <summary>
-    /// DivideSrc.
+    /// Divide src.
     /// </summary>
     DivideSrc,
 
     /// <summary>
-    /// DstAtop.
+    /// Dst atop.
     /// </summary>
     DstAtop,
 
@@ -159,17 +159,17 @@ public enum CompositeOperator
     Dst,
 
     /// <summary>
-    /// DstIn.
+    /// Dst in.
     /// </summary>
     DstIn,
 
     /// <summary>
-    /// DstOut.
+    /// Dst out.
     /// </summary>
     DstOut,
 
     /// <summary>
-    /// DstOver.
+    /// Dst over.
     /// </summary>
     DstOver,
 
@@ -179,12 +179,12 @@ public enum CompositeOperator
     Exclusion,
 
     /// <summary>
-    /// HardLight.
+    /// Hard light.
     /// </summary>
     HardLight,
 
     /// <summary>
-    /// HardMix.
+    /// Hard mix.
     /// </summary>
     HardMix,
 
@@ -209,22 +209,22 @@ public enum CompositeOperator
     Lighten,
 
     /// <summary>
-    /// LightenIntensity.
+    /// Lighten intensity.
     /// </summary>
     LightenIntensity,
 
     /// <summary>
-    /// LinearBurn.
+    /// Linear burn.
     /// </summary>
     LinearBurn,
 
     /// <summary>
-    /// LinearDodge.
+    /// Linear dodge.
     /// </summary>
     LinearDodge,
 
     /// <summary>
-    /// LinearLight.
+    /// Linear light.
     /// </summary>
     LinearLight,
 
@@ -239,12 +239,12 @@ public enum CompositeOperator
     Mathematics,
 
     /// <summary>
-    /// MinusDst.
+    /// Minus dst.
     /// </summary>
     MinusDst,
 
     /// <summary>
-    /// MinusSrc.
+    /// Minus src.
     /// </summary>
     MinusSrc,
 
@@ -254,12 +254,12 @@ public enum CompositeOperator
     Modulate,
 
     /// <summary>
-    /// ModulusAdd.
+    /// Modulus add.
     /// </summary>
     ModulusAdd,
 
     /// <summary>
-    /// ModulusSubtract.
+    /// Modulus subtract.
     /// </summary>
     ModulusSubtract,
 
@@ -289,12 +289,12 @@ public enum CompositeOperator
     Overlay,
 
     /// <summary>
-    /// PegtopLight.
+    /// Pegtop light.
     /// </summary>
     PegtopLight,
 
     /// <summary>
-    /// PinLight.
+    /// Pin light.
     /// </summary>
     PinLight,
 
@@ -319,12 +319,12 @@ public enum CompositeOperator
     Screen,
 
     /// <summary>
-    /// SoftLight.
+    /// Soft light.
     /// </summary>
     SoftLight,
 
     /// <summary>
-    /// SrcAtop.
+    /// Src atop.
     /// </summary>
     SrcAtop,
 
@@ -334,17 +334,17 @@ public enum CompositeOperator
     Src,
 
     /// <summary>
-    /// SrcIn.
+    /// Src in.
     /// </summary>
     SrcIn,
 
     /// <summary>
-    /// SrcOut.
+    /// Src out.
     /// </summary>
     SrcOut,
 
     /// <summary>
-    /// SrcOver.
+    /// Src over.
     /// </summary>
     SrcOver,
 
@@ -354,7 +354,7 @@ public enum CompositeOperator
     Threshold,
 
     /// <summary>
-    /// VividLight.
+    /// Vivid light.
     /// </summary>
     VividLight,
 
@@ -389,12 +389,12 @@ public enum CompositeOperator
     Reflect,
 
     /// <summary>
-    /// SoftBurn.
+    /// Soft burn.
     /// </summary>
     SoftBurn,
 
     /// <summary>
-    /// SoftDodge.
+    /// Soft dodge.
     /// </summary>
     SoftDodge,
 
@@ -404,17 +404,17 @@ public enum CompositeOperator
     Stamp,
 
     /// <summary>
-    /// RMSE.
+    /// Root-mean-square error.
     /// </summary>
     RMSE,
 
     /// <summary>
-    /// SaliencyBlend.
+    /// Saliency blend.
     /// </summary>
     SaliencyBlend,
 
     /// <summary>
-    /// SeamlessBlend.
+    /// Seamless blend.
     /// </summary>
     SeamlessBlend,
 }
