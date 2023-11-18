@@ -1822,7 +1822,6 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
@@ -1832,7 +1831,6 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
@@ -1843,25 +1841,23 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
+    /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint);
+    void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma);
 
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
+    /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
     /// <param name="channels">The channel(s) to level.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels);
+    void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma, Channels channels);
 
     /// <summary>
     /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
@@ -1918,7 +1914,7 @@ public partial interface IMagickImage : IDisposable
 
     /// <summary>
     /// Adjust the levels of the image by scaling the colors falling between specified white and
-    /// black points to the full available quantum range. Uses a midpoint of 1.0.
+    /// black points to the full available quantum range.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
@@ -1927,7 +1923,7 @@ public partial interface IMagickImage : IDisposable
 
     /// <summary>
     /// Adjust the levels of the image by scaling the colors falling between specified white and
-    /// black points to the full available quantum range. Uses a midpoint of 1.0.
+    /// black points to the full available quantum range.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>

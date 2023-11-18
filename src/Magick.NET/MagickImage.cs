@@ -3522,7 +3522,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
     /// </summary>
     /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
@@ -3533,7 +3532,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
@@ -3544,7 +3542,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
     /// </summary>
     /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
@@ -3556,7 +3553,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped. Uses a midpoint of 1.0.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
@@ -3568,52 +3564,48 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped.
     /// </summary>
     /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
+    /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint)
-        => _nativeInstance.Levelize(blackPoint, whitePoint, midpoint, ImageMagick.Channels.Undefined);
+    public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double gamma)
+        => _nativeInstance.Levelize(blackPoint, whitePoint, gamma, ImageMagick.Channels.Undefined);
 
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
+    /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint)
-        => InverseLevel(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), midpoint);
+    public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma)
+        => InverseLevel(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), gamma);
 
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped.
     /// </summary>
     /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
+    /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
     /// <param name="channels">The channel(s) to level.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double midpoint, Channels channels)
-        => _nativeInstance.Levelize(blackPoint, whitePoint, midpoint, channels);
+    public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double gamma, Channels channels)
+        => _nativeInstance.Levelize(blackPoint, whitePoint, gamma, channels);
 
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
     /// the full range of color values, so that they lie between the given black and white points.
-    /// Gamma is applied before the values are mapped.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
+    /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
     /// <param name="channels">The channel(s) to level.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double midpoint, Channels channels)
-        => InverseLevel(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), midpoint, channels);
+    public void InverseLevel(Percentage blackPointPercentage, Percentage whitePointPercentage, double gamma, Channels channels)
+        => InverseLevel(PercentageHelper.ToQuantumType(blackPointPercentage), PercentageHelper.ToQuantumType(whitePointPercentage), gamma, channels);
 
     /// <summary>
     /// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
@@ -3755,7 +3747,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     /// <summary>
     /// Adjust the levels of the image by scaling the colors falling between specified white and
-    /// black points to the full available quantum range. Uses a midpoint of 1.0.
+    /// black points to the full available quantum range.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
@@ -3765,7 +3757,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     /// <summary>
     /// Adjust the levels of the image by scaling the colors falling between specified white and
-    /// black points to the full available quantum range. Uses a midpoint of 1.0.
+    /// black points to the full available quantum range.
     /// </summary>
     /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
@@ -3776,7 +3768,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     /// <summary>
     /// Adjust the levels of the image by scaling the colors falling between specified white and
-    /// black points to the full available quantum range. Uses a midpoint of 1.0.
+    /// black points to the full available quantum range.
     /// </summary>
     /// <param name="blackPointPercentage">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePointPercentage">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
