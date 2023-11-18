@@ -6089,7 +6089,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
     /// </summary>
-    /// <param name="contrast">The contrast to use..</param>
+    /// <param name="contrast">The contrast to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SigmoidalContrast(double contrast)
         => SigmoidalContrast(contrast, Quantum.Max * 0.5);
@@ -6880,7 +6880,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Map image pixels to a sine wave.
     /// </summary>
-    /// <param name="method">Pixel interpolate method.</param>
+    /// <param name="method">The pixel interpolate method.</param>
     /// <param name="amplitude">The amplitude.</param>
     /// <param name="length">The length of the wave.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
