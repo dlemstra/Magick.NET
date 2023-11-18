@@ -332,10 +332,10 @@ public partial class MagickNET : IMagickNET
 
     /// <summary>
     /// Set the events that will be written to the log. The log will be written to the Log event
-    /// and the debug window in VisualStudio. To change the log settings you must use a custom
-    /// log.xml file.
+    /// and the debug window in VisualStudio. To change the log settings you a custom log.xml file
+    /// should be used.
     /// </summary>
-    /// <param name="events">The events that will be logged.</param>
+    /// <param name="events">The events that should be logged.</param>
     public static void SetLogEvents(LogEvents events)
     {
         _logEvents = events;
