@@ -11,7 +11,7 @@ namespace Magick.NET.Tests;
 public partial class ThePdfCoder
 {
     [Fact]
-    public void ShouldReadFileMultithreadedCorrectly()
+    public async Task ShouldReadFileMultithreadedCorrectly()
     {
         if (!Ghostscript.IsAvailable)
             return;
@@ -33,7 +33,7 @@ public partial class ThePdfCoder
 
         for (var i = 0; i < results.Length; ++i)
         {
-            results[i].Wait();
+            await results[i];
         }
     }
 
