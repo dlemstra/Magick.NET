@@ -4,7 +4,7 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Encapsulation of the ImageMagick ImageChannelStatistics object.
+/// Encapsulation of the ImageMagick cannel statistics object.
 /// </summary>
 public interface IChannelStatistics
 {

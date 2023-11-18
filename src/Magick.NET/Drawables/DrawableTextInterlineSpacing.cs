@@ -11,7 +11,7 @@ public sealed class DrawableTextInterlineSpacing : IDrawable, IDrawingWand
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextInterlineSpacing"/> class.
     /// </summary>
-    /// <param name="spacing">Spacing to use.</param>
+    /// <param name="spacing">The spacing to use.</param>
     public DrawableTextInterlineSpacing(double spacing)
     {
         Spacing = spacing;

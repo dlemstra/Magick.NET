@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace ImageMagick;
 
 /// <summary>
-/// Encapsulation of the ImageMagick ImageStatistics object.
+/// Encapsulation of the ImageMagick statistics object.
 /// </summary>
 public interface IStatistics
 {

@@ -11,7 +11,7 @@ public sealed class DrawableTextKerning : IDrawable, IDrawingWand
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextKerning"/> class.
     /// </summary>
-    /// <param name="kerning">Kerning to use.</param>
+    /// <param name="kerning">The kerning to use.</param>
     public DrawableTextKerning(double kerning)
     {
         Kerning = kerning;
