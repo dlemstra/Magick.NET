@@ -93,7 +93,7 @@ jobs:
     - name: Test
       run: |
         export path=$(pwd)
-        docker run -v $path:/Magick.NET mcr.microsoft.com/dotnet/sdk:8.0-focal-arm64v8 /Magick.NET/build/linux-arm64/github-actions.sh
+        docker run -v $path:/Magick.NET mcr.microsoft.com/dotnet/sdk:8.0-jammy-arm64v8 /Magick.NET/build/linux-arm64/github-actions.sh
 
   macos:
     name: 'MacOS (Q8/Q16/Q16-HDRI)'
