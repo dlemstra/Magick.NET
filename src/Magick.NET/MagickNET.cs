@@ -175,12 +175,6 @@ public partial class MagickNET : IMagickNET
         => Features;
 
     /// <summary>
-    /// Gets the information about the supported formats.
-    /// </summary>
-    IReadOnlyCollection<IMagickFormatInfo> IMagickNET.SupportedFormats
-        => SupportedFormats;
-
-    /// <summary>
     /// Gets the font families that are known by ImageMagick.
     /// </summary>
     IReadOnlyCollection<string> IMagickNET.FontFamilies
@@ -197,6 +191,12 @@ public partial class MagickNET : IMagickNET
     /// </summary>
     string IMagickNET.ImageMagickVersion
         => ImageMagickVersion;
+
+    /// <summary>
+    /// Gets the information about the supported formats.
+    /// </summary>
+    IReadOnlyCollection<IMagickFormatInfo> IMagickNET.SupportedFormats
+        => SupportedFormats;
 
     /// <summary>
     /// Gets the version of Magick.NET.

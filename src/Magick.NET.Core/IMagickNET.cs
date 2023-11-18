@@ -29,11 +29,6 @@ public interface IMagickNET
     string Features { get; }
 
     /// <summary>
-    /// Gets the information about the supported formats.
-    /// </summary>
-    IReadOnlyCollection<IMagickFormatInfo> SupportedFormats { get; }
-
-    /// <summary>
     /// Gets the font families that are known by ImageMagick.
     /// </summary>
     IReadOnlyCollection<string> FontFamilies { get; }
@@ -47,6 +42,11 @@ public interface IMagickNET
     /// Gets the version of ImageMagick.
     /// </summary>
     string ImageMagickVersion { get; }
+
+    /// <summary>
+    /// Gets information about the supported formats.
+    /// </summary>
+    IReadOnlyCollection<IMagickFormatInfo> SupportedFormats { get; }
 
     /// <summary>
     /// Gets the version of Magick.NET.
