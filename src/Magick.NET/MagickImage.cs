@@ -1299,7 +1299,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// Automatically selects a threshold and replaces each pixel in the image with a black pixel if
     /// the image intentsity is less than the selected threshold otherwise white.
     /// </summary>
-    /// <param name="method">The threshold method.</param>
+    /// <param name="method">The threshold method to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AutoThreshold(AutoThresholdMethod method)
         => _nativeInstance.AutoThreshold(method);
@@ -1371,7 +1371,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => Blur(0.0, 1.0);
 
     /// <summary>
-    /// Blur image the specified channel of the image with the default blur factor (0x1).
+    /// Blur the specified channel(s) of the image with the default blur factor (0x1).
     /// </summary>
     /// <param name="channels">The channel(s) that should be blurred.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -1388,7 +1388,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => Blur(radius, sigma, ImageMagick.Channels.Undefined);
 
     /// <summary>
-    /// Blur image with specified blur factor and channel.
+    /// Blur the specified channel(s) of the image with the specified blur factor.
     /// </summary>
     /// <param name="radius">The radius of the Gaussian in pixels, not counting the center pixel.</param>
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
@@ -1398,7 +1398,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => _nativeInstance.Blur(radius, sigma, channels);
 
     /// <summary>
-    /// Border image (add border to image).
+    /// Add a border to the image.
     /// </summary>
     /// <param name="size">The size of the border.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -1406,7 +1406,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => Border(size, size);
 
     /// <summary>
-    /// Border image (add border to image).
+    /// Add a border to the image.
     /// </summary>
     /// <param name="width">The width of the border.</param>
     /// <param name="height">The height of the border.</param>
@@ -1418,7 +1418,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
-    /// Border image (add border to image).
+    /// Add a border to the image.
     /// </summary>
     /// <param name="percentage">The size of the border.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -2384,8 +2384,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// Crop image (subregion of original image). RePage should be called unless the Page information
     /// is needed.
     /// </summary>
-    /// <param name="width">The width of the subregion.</param>
-    /// <param name="height">The height of the subregion.</param>
+    /// <param name="width">The width of the subregion to crop.</param>
+    /// <param name="height">The height of the subregion to crop.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Crop(int width, int height)
         => Crop(width, height, Gravity.Undefined);
@@ -2394,8 +2394,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// Crop image (subregion of original image). RePage should be called unless the Page information
     /// is needed.
     /// </summary>
-    /// <param name="width">The width of the subregion.</param>
-    /// <param name="height">The height of the subregion.</param>
+    /// <param name="width">The width of the subregion to crop.</param>
+    /// <param name="height">The height of the subregion to crop.</param>
     /// <param name="gravity">The position where the cropping should start from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Crop(int width, int height, Gravity gravity)
@@ -2427,8 +2427,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Creates tiles of the current image in the specified dimension.
     /// </summary>
-    /// <param name="width">The width of the tile.</param>
-    /// <param name="height">The height of the tile.</param>
+    /// <param name="width">The width of the tiles.</param>
+    /// <param name="height">The height of the tiles.</param>
     /// <returns>New title of the current image.</returns>
     public IReadOnlyCollection<IMagickImage<QuantumType>> CropToTiles(int width, int height)
         => CropToTiles(new MagickGeometry(width, height));
@@ -2436,7 +2436,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Creates tiles of the current image in the specified dimension.
     /// </summary>
-    /// <param name="geometry">The size of the tile.</param>
+    /// <param name="geometry">The dimension of the tiles.</param>
     /// <returns>New title of the current image.</returns>
     public IReadOnlyCollection<IMagickImage<QuantumType>> CropToTiles(IMagickGeometry geometry)
     {
@@ -2669,7 +2669,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// Apply an arithmetic or bitwise operator to the image pixel quantums.
     /// </summary>
     /// <param name="channels">The channel(s) to apply the operator on.</param>
-    /// <param name="evaluateFunction">The function.</param>
+    /// <param name="evaluateFunction">The function to use.</param>
     /// <param name="arguments">The arguments for the function.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Evaluate(Channels channels, EvaluateFunction evaluateFunction, params double[] arguments)
@@ -2683,8 +2683,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// Apply an arithmetic or bitwise operator to the image pixel quantums.
     /// </summary>
     /// <param name="channels">The channel(s) to apply the operator on.</param>
-    /// <param name="evaluateOperator">The operator.</param>
-    /// <param name="value">The value.</param>
+    /// <param name="evaluateOperator">The operator to use.</param>
+    /// <param name="value">The value to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Evaluate(Channels channels, EvaluateOperator evaluateOperator, double value)
         => _nativeInstance.EvaluateOperator(channels, evaluateOperator, value);
@@ -2693,8 +2693,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// Apply an arithmetic or bitwise operator to the image pixel quantums.
     /// </summary>
     /// <param name="channels">The channel(s) to apply the operator on.</param>
-    /// <param name="evaluateOperator">The operator.</param>
-    /// <param name="percentage">The value.</param>
+    /// <param name="evaluateOperator">The operator to use.</param>
+    /// <param name="percentage">The value to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Evaluate(Channels channels, EvaluateOperator evaluateOperator, Percentage percentage)
         => Evaluate(channels, evaluateOperator, PercentageHelper.ToQuantum(percentage));
@@ -2705,7 +2705,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to apply the operator on.</param>
     /// <param name="geometry">The geometry to use.</param>
     /// <param name="evaluateOperator">The operator.</param>
-    /// <param name="value">The value.</param>
+    /// <param name="value">The value to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Evaluate(Channels channels, IMagickGeometry geometry, EvaluateOperator evaluateOperator, double value)
         => _nativeInstance.EvaluateGeometry(channels, MagickRectangle.FromGeometry(geometry, this), evaluateOperator, value);
@@ -2715,8 +2715,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <param name="channels">The channel(s) to apply the operator on.</param>
     /// <param name="geometry">The geometry to use.</param>
-    /// <param name="evaluateOperator">The operator.</param>
-    /// <param name="percentage">The value.</param>
+    /// <param name="evaluateOperator">The operator to use.</param>
+    /// <param name="percentage">The value to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Evaluate(Channels channels, IMagickGeometry geometry, EvaluateOperator evaluateOperator, Percentage percentage)
         => Evaluate(channels, geometry, evaluateOperator, PercentageHelper.ToQuantum(percentage));
@@ -3650,7 +3650,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Adjust the image contrast with an inverse non-linear sigmoidal contrast algorithm.
     /// </summary>
-    /// <param name="contrast">The contrast.</param>
+    /// <param name="contrast">The contrast to use..</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseSigmoidalContrast(double contrast)
         => InverseSigmoidalContrast(contrast, Quantum.Max * 0.5);
@@ -6089,7 +6089,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
     /// </summary>
-    /// <param name="contrast">The contrast.</param>
+    /// <param name="contrast">The contrast to use..</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SigmoidalContrast(double contrast)
         => SigmoidalContrast(contrast, Quantum.Max * 0.5);
