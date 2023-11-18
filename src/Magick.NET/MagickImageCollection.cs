@@ -604,6 +604,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     }
 
     /// <summary>
+    /// Flatten this collection into a single image.
     /// Use the virtual canvas size of first image. Images which fall outside this canvas is clipped.
     /// This can be used to 'fill out' a given virtual canvas.
     /// </summary>

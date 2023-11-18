@@ -95,6 +95,7 @@ public partial interface IMagickImageCollection<TQuantumType> : IMagickImageColl
     IMagickImage<TQuantumType> Evaluate(EvaluateOperator evaluateOperator);
 
     /// <summary>
+    /// Flatten this collection into a single image.
     /// Use the virtual canvas size of first image. Images which fall outside this canvas is clipped.
     /// This can be used to 'fill out' a given virtual canvas.
     /// </summary>
