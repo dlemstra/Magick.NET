@@ -216,6 +216,11 @@ jobs:
       run: ./install.dependencies.cmd
       working-directory: build/windows
 
+    - name: Install .NET 8.0
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 8.0.x
+
     - name: Create nuget.config
       run: './create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
       working-directory: src/Magick.Native
