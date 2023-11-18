@@ -18,7 +18,7 @@ function executeFile($path)
 function generateFiles($name)
 {
   buildSolution "tools\FileGenerators\FileGenerator.$name.sln" "Configuration=Release"
-  executeFile "tools\FileGenerators\$name\bin\x64\Release\net6\FileGenerator.$name.exe"
+  executeFile "tools\FileGenerators\$name\bin\x64\Release\net8\FileGenerator.$name.exe"
 }
 
 function buildMagickNET()

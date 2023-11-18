@@ -19,19 +19,19 @@ public enum Channels : ulong
     Undefined = 0,
 
     /// <summary>
+    /// Red.
+    /// </summary>
+    Red = 0b1,
+
+    /// <summary>
     /// Gray.
     /// </summary>
-    Gray = 0b1,
+    Gray = Red,
 
     /// <summary>
     /// Cyan.
     /// </summary>
-    Cyan = 0b1,
-
-    /// <summary>
-    /// Red.
-    /// </summary>
-    Red = 0b1,
+    Cyan = Red,
 
     /// <summary>
     /// Green.
@@ -41,7 +41,7 @@ public enum Channels : ulong
     /// <summary>
     /// Magenta.
     /// </summary>
-    Magenta = 0b10,
+    Magenta = Green,
 
     /// <summary>
     /// Blue.
@@ -51,7 +51,7 @@ public enum Channels : ulong
     /// <summary>
     /// Yellow.
     /// </summary>
-    Yellow = 0b100,
+    Yellow = Blue,
 
     /// <summary>
     /// Black.
@@ -59,14 +59,14 @@ public enum Channels : ulong
     Black = 0b1000,
 
     /// <summary>
-    /// Opacity.
-    /// </summary>
-    Opacity = 0b10000,
-
-    /// <summary>
     /// Alpha.
     /// </summary>
     Alpha = 0b10000,
+
+    /// <summary>
+    /// Opacity.
+    /// </summary>
+    Opacity = Alpha,
 
     /// <summary>
     /// Index.

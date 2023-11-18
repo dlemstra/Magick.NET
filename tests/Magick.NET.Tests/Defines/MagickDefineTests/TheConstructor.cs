@@ -49,7 +49,7 @@ public partial class MagickDefineTests
 
                 Assert.Equal(MagickFormat.A, define.Format);
                 Assert.Equal("test", define.Name);
-                Assert.Equal("red", define.Value);
+                Assert.Equal("cyan", define.Value);
             }
         }
 

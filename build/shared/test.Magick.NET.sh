@@ -9,8 +9,8 @@ testMagickNET() {
         config=$config-OpenMP
     fi
 
-    dotnet test tests/Magick.NET.Core.Tests/Magick.NET.Core.Tests.csproj -f net6 --no-build -c $config
-    dotnet test tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f net6 --no-build -c $config
+    dotnet test tests/Magick.NET.Core.Tests/Magick.NET.Core.Tests.csproj -f net8 --no-build -c $config
+    dotnet test tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f net8 --no-build -c $config
 }
 
 testMagickNET "Q8"
