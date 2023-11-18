@@ -61,8 +61,9 @@ public partial class MagickImageTests
                 Threshold = new Percentage(10),
             };
             using var image = new MagickImage(Files.LetterJPG);
-            image.Deskew(settings);
+            var angle = image.Deskew(settings);
 
+            Assert.InRange(angle, 7.01, 7.02);
             Assert.Equal(480, image.Width);
             Assert.Equal(577, image.Height);
         }
@@ -74,6 +75,8 @@ public partial class MagickImageTests
             var angle = image.Deskew(new Percentage(10));
 
             Assert.InRange(angle, 7.01, 7.02);
+            Assert.Equal(546, image.Width);
+            Assert.Equal(579, image.Height);
         }
     }
 }
