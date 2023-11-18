@@ -12,7 +12,7 @@ jobs:
   linux:
     name: 'Linux (Q8/Q16/Q16-HDRI, x64)'
     container:
-      image: mcr.microsoft.com/dotnet/sdk:6.0
+      image: mcr.microsoft.com/dotnet/sdk:8.0
     runs-on: ubuntu-latest
 
     steps:
@@ -43,7 +43,7 @@ jobs:
   linux_musl:
     name: 'Linux musl (Q8/Q16/Q16-HDRI, x64)'
     container:
-      image: mcr.microsoft.com/dotnet/sdk:6.0-alpine
+      image: mcr.microsoft.com/dotnet/sdk:8.0-alpine
     runs-on: ubuntu-latest
 
     steps:
@@ -93,7 +93,7 @@ jobs:
     - name: Test
       run: |
         export path=$(pwd)
-        docker run -v $path:/Magick.NET mcr.microsoft.com/dotnet/sdk:6.0-focal-arm64v8 /Magick.NET/build/linux-arm64/github-actions.sh
+        docker run -v $path:/Magick.NET mcr.microsoft.com/dotnet/sdk:8.0-focal-arm64v8 /Magick.NET/build/linux-arm64/github-actions.sh
 
   macos:
     name: 'MacOS (Q8/Q16/Q16-HDRI)'
@@ -109,10 +109,10 @@ jobs:
     - name: Install dependencies
       run: build/osx-x64/install.dependencies.sh
 
-    - name: Install .NET 6.0
+    - name: Install .NET 8.0
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 8.0.x
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64'
