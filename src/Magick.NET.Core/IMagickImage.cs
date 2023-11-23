@@ -20,7 +20,7 @@ public partial interface IMagickImage : IDisposable
     event EventHandler<ProgressEventArgs> Progress;
 
     /// <summary>
-    /// Event that will we raised when a warning is thrown by ImageMagick.
+    /// Event that will we raised when a warning is raised by ImageMagick.
     /// </summary>
     event EventHandler<WarningEventArgs> Warning;
 

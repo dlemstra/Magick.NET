@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// <summary>
 /// Arguments for the Warning event.
 /// </summary>
-/// <param name="exception">The MagickWarningException that was thrown.</param>
+/// <param name="exception">The warning that was raised.</param>
 public sealed class WarningEventArgs(MagickWarningException exception) : EventArgs
 {
     /// <summary>
@@ -18,7 +18,7 @@ public sealed class WarningEventArgs(MagickWarningException exception) : EventAr
         => Exception.Message;
 
     /// <summary>
-    /// Gets the MagickWarningException that was thrown.
+    /// Gets the warning that was raised.
     /// </summary>
     public MagickWarningException Exception { get; } = exception;
 }

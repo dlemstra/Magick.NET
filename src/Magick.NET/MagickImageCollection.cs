@@ -209,7 +209,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         => Dispose(false);
 
     /// <summary>
-    /// Event that will we raised when a warning is thrown by ImageMagick.
+    /// Event that will we raised when a warning is raised by ImageMagick.
     /// </summary>
     public event EventHandler<WarningEventArgs> Warning
     {
