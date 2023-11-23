@@ -8,24 +8,17 @@ namespace ImageMagick;
 /// <summary>
 /// Arguments for the Warning event.
 /// </summary>
-public sealed class WarningEventArgs : EventArgs
+/// <param name="exception">The MagickWarningException that was thrown.</param>
+public sealed class WarningEventArgs(MagickWarningException exception) : EventArgs
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="WarningEventArgs"/> class.
-    /// </summary>
-    /// <param name="exception">The MagickWarningException that was thrown.</param>
-    public WarningEventArgs(MagickWarningException exception)
-    {
-        Exception = exception;
-    }
-
     /// <summary>
     /// Gets the message of the exception.
     /// </summary>
-    public string Message => Exception.Message;
+    public string Message
+        => Exception.Message;
 
     /// <summary>
     /// Gets the MagickWarningException that was thrown.
     /// </summary>
-    public MagickWarningException Exception { get; }
+    public MagickWarningException Exception { get; } = exception;
 }
