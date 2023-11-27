@@ -400,6 +400,8 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, IntPtr geometry, UIntPtr method, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_InverseLevel(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
@@ -407,8 +409,6 @@ public partial class MagickImage : IDisposable
             public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -965,6 +965,8 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, IntPtr geometry, UIntPtr method, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_InverseLevel(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
@@ -972,8 +974,6 @@ public partial class MagickImage : IDisposable
             public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1530,6 +1530,8 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_InterpolativeResize(IntPtr Instance, IntPtr geometry, UIntPtr method, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_InverseLevel(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_Kmeans(IntPtr Instance, UIntPtr numberColors, UIntPtr maxIterations, double tolerance, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImage_Kuwahara(IntPtr Instance, double radius, double sigma, out IntPtr exception);
@@ -1537,8 +1539,6 @@ public partial class MagickImage : IDisposable
             public static extern void MagickImage_Level(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_LevelColors(IntPtr Instance, IntPtr blackColor, IntPtr whiteColor, UIntPtr channels, [MarshalAs(UnmanagedType.Bool)] bool invert, out IntPtr exception);
-            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImage_Levelize(IntPtr Instance, double blackPoint, double whitePoint, double gamma, UIntPtr channels, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImage_LinearStretch(IntPtr Instance, double blackPoint, double whitePoint, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -6128,6 +6128,29 @@ public partial class MagickImage : IDisposable
             if (result != IntPtr.Zero)
               Instance = result;
         }
+        public void InverseLevel(double blackPoint, double whitePoint, double gamma, Channels channels)
+        {
+            IntPtr exception = IntPtr.Zero;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            NativeMethods.ARM64.MagickImage_InverseLevel(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            NativeMethods.X64.MagickImage_InverseLevel(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            NativeMethods.X86.MagickImage_InverseLevel(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
+            #endif
+            CheckException(exception);
+        }
         public void Kmeans(int numberColors, int maxIterations, double tolerance)
         {
             IntPtr exception = IntPtr.Zero;
@@ -6222,29 +6245,6 @@ public partial class MagickImage : IDisposable
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             NativeMethods.X86.MagickImage_LevelColors(Instance, blackColorNative.Instance, whiteColorNative.Instance, (NativeChannelsType)channels, invert, out exception);
-            #endif
-            CheckException(exception);
-        }
-        public void Levelize(double blackPoint, double whitePoint, double gamma, Channels channels)
-        {
-            IntPtr exception = IntPtr.Zero;
-            #if PLATFORM_AnyCPU
-            if (Runtime.IsArm64)
-            #endif
-            #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else if (Runtime.Is64Bit)
-            #endif
-            #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
-            #endif
-            #if PLATFORM_AnyCPU
-            else
-            #endif
-            #if PLATFORM_x86 || PLATFORM_AnyCPU
-            NativeMethods.X86.MagickImage_Levelize(Instance, blackPoint, whitePoint, gamma, (NativeChannelsType)channels, out exception);
             #endif
             CheckException(exception);
         }

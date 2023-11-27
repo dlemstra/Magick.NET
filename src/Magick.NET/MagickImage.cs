@@ -3570,7 +3570,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double gamma)
-        => _nativeInstance.Levelize(blackPoint, whitePoint, gamma, ImageMagick.Channels.Undefined);
+        => InverseLevel(blackPoint, whitePoint, gamma, ImageMagick.Channels.Undefined);
 
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -3593,7 +3593,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to level.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseLevel(QuantumType blackPoint, QuantumType whitePoint, double gamma, Channels channels)
-        => _nativeInstance.Levelize(blackPoint, whitePoint, gamma, channels);
+        => _nativeInstance.InverseLevel(blackPoint, whitePoint, gamma, channels);
 
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses

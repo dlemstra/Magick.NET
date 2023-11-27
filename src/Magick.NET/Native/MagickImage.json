@@ -1576,6 +1576,28 @@
       ]
     },
     {
+      "name": "InverseLevel",
+      "throws": true,
+      "arguments": [
+        {
+          "name": "blackPoint",
+          "type": "double"
+        },
+        {
+          "name": "whitePoint",
+          "type": "double"
+        },
+        {
+          "name": "gamma",
+          "type": "double"
+        },
+        {
+          "name": "channels",
+          "type": "Channels"
+        }
+      ]
+    },
+    {
       "name": "Kmeans",
       "throws": true,
       "arguments": [
@@ -1649,28 +1671,6 @@
         {
           "name": "invert",
           "type": "bool"
-        }
-      ]
-    },
-    {
-      "name": "Levelize",
-      "throws": true,
-      "arguments": [
-        {
-          "name": "blackPoint",
-          "type": "double"
-        },
-        {
-          "name": "whitePoint",
-          "type": "double"
-        },
-        {
-          "name": "gamma",
-          "type": "double"
-        },
-        {
-          "name": "channels",
-          "type": "Channels"
         }
       ]
     },
