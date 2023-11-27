@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-22 beta (2023-11-11) ] copyright:
+[ ImageMagick 7.1.1-22 beta (2023-11-26) ] copyright:
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -3376,7 +3376,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 8.2.2 (2023-10-18) ] copyright:
+[ harfbuzz 8.3.0 (2023-11-11) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -6560,9 +6560,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.11.5 (2023-08-09) ] copyright:
+[ xml 2.12.0 (2023-11-16) ] copyright:
 
-Except where otherwise noted in the source code (e.g. the files hash.c,
+Except where otherwise noted in the source code (e.g. the files dict.c,
 list.c and the trio files, which are covered by a similar licence but
 with different Copyright notices) all the files are:
 
