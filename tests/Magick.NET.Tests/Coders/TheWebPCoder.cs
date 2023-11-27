@@ -60,7 +60,7 @@ public partial class TheWebPCoder
         var data = input.ToByteArray(MagickFormat.WebP);
         using var output = new MagickImage(data);
 
-        //Assert.Equal(1234.5678, output.Density.X);
+        Assert.Equal(1234.5678, output.Density.X);
         Assert.Equal(5, output.Density.Y);
         Assert.Equal(DensityUnit.PixelsPerCentimeter, output.Density.Units);
         Assert.Equal(OrientationType.LeftBottom, output.Orientation);
