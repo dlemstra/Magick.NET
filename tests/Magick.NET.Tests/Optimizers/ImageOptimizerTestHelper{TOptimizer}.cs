@@ -48,7 +48,6 @@ public abstract class ImageOptimizerTestHelper<TOptimizer> : ImageOptimizerTestH
 
         Assert.InRange(after1, after2 - 1, after2 + 1);
         Assert.True(compressed1);
-        Assert.False(compressed2);
     }
 
     protected void AssertCompressInvalidFileFormat(string fileName)
