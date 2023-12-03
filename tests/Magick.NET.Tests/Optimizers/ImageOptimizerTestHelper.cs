@@ -85,6 +85,7 @@ public abstract class ImageOptimizerTestHelper
         var before = memoryStream.Length;
 
         var result = action(memoryStream);
+        memoryStream.Flush();
 
         var after = memoryStream.Length;
 
@@ -92,7 +93,7 @@ public abstract class ImageOptimizerTestHelper
         Assert.Equal(resultIsSmaller, result);
 
         if (resultIsSmaller)
-            Assert.True(after < before);
+            Assert.True(after < before, $"Expected {after} to be smaller than {before}.");
         else
             Assert.Equal(before, after);
 
@@ -112,7 +113,7 @@ public abstract class ImageOptimizerTestHelper
         Assert.Equal(resultIsSmaller, result);
 
         if (resultIsSmaller)
-            Assert.True(after < before);
+            Assert.True(after < before, $"Expected {after} to be smaller than {before}.");
         else
             Assert.Equal(before, after);
 
