@@ -2,9 +2,9 @@
   <PropertyGroup>
     <TargetFrameworks>netstandard21;netstandard20</TargetFrameworks>
     <Platforms>x86;x64;arm64;AnyCPU</Platforms>
-    <AssemblyVersion>13.4.0</AssemblyVersion>
-    <FileVersion>13.4.0</FileVersion>
-    <Version>13.4.0</Version>
+    <AssemblyVersion>13.5.0</AssemblyVersion>
+    <FileVersion>13.5.0</FileVersion>
+    <Version>13.5.0</Version>
     <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP;ReleaseQ8;ReleaseQ8-OpenMP;ReleaseQ16;ReleaseQ16-OpenMP;ReleaseQ16-HDRI;ReleaseQ16-HDRI-OpenMP</Configurations>
   </PropertyGroup>
 

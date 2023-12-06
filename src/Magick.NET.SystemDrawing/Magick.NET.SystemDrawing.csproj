@@ -3,8 +3,8 @@
     <TargetFrameworks>netstandard21;netstandard20;net462</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>7.2.0</AssemblyVersion>
-    <FileVersion>7.2.0</FileVersion>
-    <Version>7.2.0</Version>
+    <FileVersion>7.2.1</FileVersion>
+    <Version>7.2.1</Version>
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 
