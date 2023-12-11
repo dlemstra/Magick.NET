@@ -14,7 +14,10 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-22 (2023-12-03) ] copyright:
+[ ImageMagick 7.1.1-24 beta (2023-12-11) ] copyright:
+
+                         ImageMagick License
+             https://imagemagick.org/script/license.php
 
 Before we get to the text of the license, lets just review what the license says in simple terms:
 
@@ -122,7 +125,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ aom 3.7.1 (2023-11-17) ] copyright:
+[ aom 3.8.0 (2023-12-06) ] copyright:
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -4876,10 +4879,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lcms 2.15.0 (2023-03-01) ] copyright:
+[ lcms 2.16.0 (2023-12-03) ] copyright:
 
-Little CMS
-Copyright (c) 1998-2020 Marti Maria Saguer
+MIT License
+
+Copyright (c) 2023 Marti Maria Saguer
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the 
@@ -6905,7 +6909,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.12.1 (2023-11-23) ] copyright:
+[ xml 2.12.2 (2023-12-05) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files dict.c,
 list.c and the trio files, which are covered by a similar licence but
@@ -6969,7 +6973,7 @@ IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ zlib 1.2.13 (2022-10-14) ] copyright:
+[ zlib 1.3.0 (2023-08-18) ] copyright:
 
 Copyright notice:
 
