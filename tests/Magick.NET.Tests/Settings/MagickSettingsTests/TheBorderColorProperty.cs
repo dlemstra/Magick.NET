@@ -26,7 +26,7 @@ public partial class MagickSettingsTests
             image.Settings.FillColor = MagickColors.Beige;
             image.Settings.BorderColor = MagickColors.MediumTurquoise;
             image.Extent(20, 20, Gravity.Center, MagickColors.Aqua);
-            image.Draw(new DrawableAlpha(0, 0, PaintMethod.FillToBorder));
+            image.Draw(new DrawableColor(0, 0, PaintMethod.FillToBorder));
 
             ColorAssert.Equal(MagickColors.Beige, image, 0, 0);
             ColorAssert.Equal(MagickColors.MediumTurquoise, image, 10, 10);
