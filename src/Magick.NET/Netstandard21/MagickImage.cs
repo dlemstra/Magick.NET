@@ -188,7 +188,7 @@ public sealed partial class MagickImage
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(ReadOnlySequence<byte> data, MagickFormat format)
-        => Read(data, new MagickReadSettings { Format = format });
+        => Read(data, new MagickReadSettings(_settings) { Format = format });
 
     /// <summary>
     /// Read single image frame.
@@ -218,7 +218,7 @@ public sealed partial class MagickImage
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(ReadOnlySpan<byte> data, MagickFormat format)
-        => Read(data, new MagickReadSettings { Format = format });
+        => Read(data, new MagickReadSettings(_settings) { Format = format });
 
     /// <summary>
     /// Read single image frame.
