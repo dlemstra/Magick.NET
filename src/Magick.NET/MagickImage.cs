@@ -4750,7 +4750,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data, int offset, int count, MagickFormat format)
-        => Read(data, offset, count, new MagickReadSettings { Format = format });
+        => Read(data, offset, count, new MagickReadSettings(_settings) { Format = format });
 
     /// <summary>
     /// Read single image frame.
@@ -4781,7 +4781,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNullOrEmpty(nameof(data), data);
 
-        Read(data, 0, data.Length, new MagickReadSettings { Format = format }, false);
+        Read(data, 0, data.Length, new MagickReadSettings(_settings) { Format = format }, false);
     }
 
     /// <summary>
@@ -4829,7 +4829,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(nameof(file), file);
 
-        Read(file.FullName, new MagickReadSettings { Format = format });
+        Read(file.FullName, new MagickReadSettings(_settings) { Format = format });
     }
 
     /// <summary>
@@ -4875,7 +4875,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(Stream stream, MagickFormat format)
-        => Read(stream, new MagickReadSettings { Format = format });
+        => Read(stream, new MagickReadSettings(_settings) { Format = format });
 
     /// <summary>
     /// Read single image frame.
@@ -4922,7 +4922,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(string fileName, MagickFormat format)
-        => Read(fileName, new MagickReadSettings { Format = format });
+        => Read(fileName, new MagickReadSettings(_settings) { Format = format });
 
     /// <summary>
     /// Read single image frame.
@@ -4971,7 +4971,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
-        => ReadAsync(file, new MagickReadSettings { Format = format }, cancellationToken);
+        => ReadAsync(file, new MagickReadSettings(_settings) { Format = format }, cancellationToken);
 
     /// <summary>
     /// Read single image frame.
@@ -5036,7 +5036,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken)
-        => ReadAsync(stream, new MagickReadSettings { Format = format }, cancellationToken);
+        => ReadAsync(stream, new MagickReadSettings(_settings) { Format = format }, cancellationToken);
 
     /// <summary>
     /// Read single image frame.
@@ -5102,7 +5102,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
-        => ReadAsync(fileName, new MagickReadSettings { Format = format }, cancellationToken);
+        => ReadAsync(fileName, new MagickReadSettings(_settings) { Format = format }, cancellationToken);
 
     /// <summary>
     /// Read single image frame.
