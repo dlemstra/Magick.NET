@@ -439,6 +439,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
                 PixelChannel.Blue,
                 PixelChannel.Black,
                 PixelChannel.Alpha,
+                PixelChannel.Index,
             })
             {
                 if (_nativeInstance.HasChannel(channel))

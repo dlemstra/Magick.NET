@@ -16,12 +16,12 @@ public partial class MagickImageTests
         {
             var rgb = new PixelChannel[]
             {
-                PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue,
+                PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue, PixelChannel.Index,
             };
 
             var rgba = new PixelChannel[]
             {
-                PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue, PixelChannel.Alpha,
+                PixelChannel.Red, PixelChannel.Green, PixelChannel.Blue, PixelChannel.Alpha, PixelChannel.Index,
             };
 
             using var image = new MagickImage(Files.RoseSparkleGIF);
