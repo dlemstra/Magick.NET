@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-24 beta (2023-12-11) ] copyright:
+[ ImageMagick 7.1.1-24 (2023-12-25) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -6760,7 +6760,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.12.2 (2023-12-05) ] copyright:
+[ xml 2.12.3 (2023-12-12) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files dict.c,
 list.c and the trio files, which are covered by a similar licence but
