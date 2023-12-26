@@ -43,7 +43,7 @@ public partial class MagickNETTests
             if (Runtime.IsWindows)
                 Assert.Equal(246, formatsCount);
             else
-                Assert.Equal(242, formatsCount);
+                Assert.Equal(241, formatsCount);
         }
 
         [Fact]
