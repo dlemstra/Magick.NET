@@ -53,6 +53,12 @@ public interface IResourceLimits
     ulong Throttle { get; set; }
 
     /// <summary>
+    /// Gets or sets the maximum number of seconds that the process is permitted to execute. Exceed this limit and
+    /// an exception is thrown and processing stops.
+    /// </summary>
+    ulong Time { get; set; }
+
+    /// <summary>
     /// Gets or sets the maximum width of an image.
     /// </summary>
     ulong Width { get; set; }

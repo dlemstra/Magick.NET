@@ -34,6 +34,10 @@
       "type": "ulong"
     },
     {
+      "name": "Time",
+      "type": "ulong"
+    },
+    {
       "name": "Width",
       "type": "ulong"
     }

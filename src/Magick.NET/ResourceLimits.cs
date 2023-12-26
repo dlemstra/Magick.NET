@@ -85,6 +85,16 @@ public partial class ResourceLimits : IResourceLimits
     }
 
     /// <summary>
+    /// Gets or sets the maximum number of seconds that the process is permitted to execute. Exceed this limit and
+    /// an exception is thrown and processing stops.
+    /// </summary>
+    public static ulong Time
+    {
+        get => NativeResourceLimits.Time;
+        set => NativeResourceLimits.Time = value;
+    }
+
+    /// <summary>
     /// Gets or sets the maximum width of an image.
     /// </summary>
     public static ulong Width
@@ -167,6 +177,16 @@ public partial class ResourceLimits : IResourceLimits
     {
         get => Throttle;
         set => Throttle = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the maximum number of seconds that the process is permitted to execute. Exceed this limit and
+    /// an exception is thrown and processing stops.
+    /// </summary>
+    ulong IResourceLimits.Time
+    {
+        get => Time;
+        set => Time = value;
     }
 
     /// <summary>

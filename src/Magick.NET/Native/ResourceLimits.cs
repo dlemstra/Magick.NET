@@ -50,6 +50,10 @@ public partial class ResourceLimits
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void ResourceLimits_Throttle_Set(ulong value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern ulong ResourceLimits_Time_Get();
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ResourceLimits_Time_Set(ulong value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern ulong ResourceLimits_Width_Get();
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void ResourceLimits_Width_Set(ulong value);
@@ -93,6 +97,10 @@ public partial class ResourceLimits
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void ResourceLimits_Throttle_Set(ulong value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern ulong ResourceLimits_Time_Get();
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ResourceLimits_Time_Set(ulong value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern ulong ResourceLimits_Width_Get();
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void ResourceLimits_Width_Set(ulong value);
@@ -135,6 +143,10 @@ public partial class ResourceLimits
             public static extern ulong ResourceLimits_Throttle_Get();
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void ResourceLimits_Throttle_Set(ulong value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern ulong ResourceLimits_Time_Get();
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void ResourceLimits_Time_Set(ulong value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern ulong ResourceLimits_Width_Get();
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -520,6 +532,53 @@ public partial class ResourceLimits
                 #endif
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 NativeMethods.X86.ResourceLimits_Throttle_Set(value);
+                #endif
+            }
+        }
+        public static ulong Time
+        {
+            get
+            {
+                ulong result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.ResourceLimits_Time_Get();
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.ResourceLimits_Time_Get();
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.ResourceLimits_Time_Get();
+                #endif
+                return result;
+            }
+            set
+            {
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.ResourceLimits_Time_Set(value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.ResourceLimits_Time_Set(value);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.ResourceLimits_Time_Set(value);
                 #endif
             }
         }
