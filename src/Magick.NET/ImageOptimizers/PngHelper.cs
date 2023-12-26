@@ -110,11 +110,11 @@ internal sealed class PngHelper
             image.HasAlpha = false;
     }
 
-    private IReadOnlyCollection<int> GetQualityList()
+    private int[] GetQualityList()
     {
         if (_optimalCompression)
-            return new int[] { 91, 94, 95, 97 };
+            return new[] { 91, 94, 95, 97 };
         else
-            return new int[] { 90 };
+            return new[] { 90 };
     }
 }
