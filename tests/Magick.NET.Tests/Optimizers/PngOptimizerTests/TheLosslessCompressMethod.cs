@@ -13,24 +13,27 @@ public partial class PngOptimizerTests
 {
     public class TheLosslessCompressMethod : PngOptimizerTests
     {
-        [Fact]
-        public void ShouldCompressLossless()
+        public class WithFileInfoFileNameOrStream : TheLosslessCompressMethod
         {
-            var result = AssertLosslessCompressSmaller(Files.SnakewarePNG);
-            Assert.Equal(8684, result);
+            [Fact]
+            public void ShouldCompressLossless()
+            {
+                var result = AssertLosslessCompressSmaller(Files.SnakewarePNG);
+                Assert.Equal(8684, result);
+            }
+
+            [Fact]
+            public void ShouldTryToCompressLossLess()
+                => AssertLosslessCompressNotSmaller(Files.MagickNETIconPNG);
+
+            [Fact]
+            public void ShouldBeAbleToCompressFileTwoTimes()
+                => AssertLosslessCompressTwice(Files.SnakewarePNG);
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileFormatIsInvalid()
+                => AssertLosslessCompressInvalidFileFormat(Files.ImageMagickJPG);
         }
-
-        [Fact]
-        public void ShouldTryToCompressLossLess()
-            => AssertLosslessCompressNotSmaller(Files.MagickNETIconPNG);
-
-        [Fact]
-        public void ShouldBeAbleToCompressFileTwoTimes()
-            => AssertLosslessCompressTwice(Files.SnakewarePNG);
-
-        [Fact]
-        public void ShouldThrowExceptionWhenFileFormatIsInvalid()
-            => AssertLosslessCompressInvalidFileFormat(Files.ImageMagickJPG);
 
         public class WithFileInfo : TheLosslessCompressMethod
         {

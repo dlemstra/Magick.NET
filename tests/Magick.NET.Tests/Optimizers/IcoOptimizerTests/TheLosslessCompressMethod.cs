@@ -13,24 +13,27 @@ public partial class IcoOptimizerTests
 {
     public class TheLosslessCompressMethod : IcoOptimizerTests
     {
-        [Fact]
-        public void ShouldCompressLossless()
+        public class WithFileInfoFileNameOrStream : TheLosslessCompressMethod
         {
-            var result = AssertLosslessCompressSmaller(Files.WandICO);
-            Assert.Equal(41247, result);
+            [Fact]
+            public void ShouldCompressLossless()
+            {
+                var result = AssertLosslessCompressSmaller(Files.WandICO);
+                Assert.Equal(41247, result);
+            }
+
+            [Fact]
+            public void ShouldTryToCompressLossLess()
+                => AssertLosslessCompressNotSmaller(Files.ImageMagickICO);
+
+            [Fact]
+            public void ShouldBeAbleToCompressFileTwoTimes()
+                => AssertLosslessCompressTwice(Files.WandICO);
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileFormatIsInvalid()
+                => AssertLosslessCompressInvalidFileFormat(Files.MagickNETIconPNG);
         }
-
-        [Fact]
-        public void ShouldTryToCompressLossLess()
-            => AssertLosslessCompressNotSmaller(Files.ImageMagickICO);
-
-        [Fact]
-        public void ShouldBeAbleToCompressFileTwoTimes()
-            => AssertLosslessCompressTwice(Files.WandICO);
-
-        [Fact]
-        public void ShouldThrowExceptionWhenFileFormatIsInvalid()
-            => AssertLosslessCompressInvalidFileFormat(Files.MagickNETIconPNG);
 
         public class WithFileInfo : TheLosslessCompressMethod
         {

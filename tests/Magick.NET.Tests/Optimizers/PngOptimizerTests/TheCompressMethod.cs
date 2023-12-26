@@ -13,24 +13,27 @@ public partial class PngOptimizerTests
 {
     public class TheCompressMethod : PngOptimizerTests
     {
-        [Fact]
-        public void ShouldCompress()
+        public class WithFileInfoFileNameOrStream : TheCompressMethod
         {
-            var result = AssertCompressSmaller(Files.SnakewarePNG);
-            Assert.Equal(6922, result);
+            [Fact]
+            public void ShouldCompress()
+            {
+                var result = AssertCompressSmaller(Files.SnakewarePNG);
+                Assert.Equal(6922, result);
+            }
+
+            [Fact]
+            public void ShouldTryToCompress()
+                => AssertCompressNotSmaller(Files.MagickNETIconPNG);
+
+            [Fact]
+            public void ShouldBeAbleToCompressFileTwoTimes()
+                => AssertCompressTwice(Files.SnakewarePNG);
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileFormatIsInvalid()
+                => AssertCompressInvalidFileFormat(Files.ImageMagickJPG);
         }
-
-        [Fact]
-        public void ShouldTryToCompress()
-            => AssertCompressNotSmaller(Files.MagickNETIconPNG);
-
-        [Fact]
-        public void ShouldBeAbleToCompressFileTwoTimes()
-            => AssertCompressTwice(Files.SnakewarePNG);
-
-        [Fact]
-        public void ShouldThrowExceptionWhenFileFormatIsInvalid()
-            => AssertCompressInvalidFileFormat(Files.ImageMagickJPG);
 
         public class WithFileInfo : TheCompressMethod
         {

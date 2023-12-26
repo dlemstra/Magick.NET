@@ -13,24 +13,27 @@ public partial class IcoOptimizerTests
 {
     public class TheCompressMethod : IcoOptimizerTests
     {
-        [Fact]
-        public void ShouldCompress()
+        public class WithFileInfoFileNameOrStream : TheCompressMethod
         {
-            var result = AssertCompressSmaller(Files.WandICO);
-            Assert.Equal(29983, result);
+            [Fact]
+            public void ShouldCompress()
+            {
+                var result = AssertCompressSmaller(Files.WandICO);
+                Assert.Equal(29983, result);
+            }
+
+            [Fact]
+            public void ShouldTryToCompress()
+                => AssertCompressNotSmaller(Files.ImageMagickICO);
+
+            [Fact]
+            public void ShouldBeAbleToCompressFileTwoTimes()
+                => AssertCompressTwice(Files.WandICO);
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileFormatIsInvalid()
+                => AssertCompressInvalidFileFormat(Files.MagickNETIconPNG);
         }
-
-        [Fact]
-        public void ShouldTryToCompress()
-            => AssertCompressNotSmaller(Files.ImageMagickICO);
-
-        [Fact]
-        public void ShouldBeAbleToCompressFileTwoTimes()
-            => AssertCompressTwice(Files.WandICO);
-
-        [Fact]
-        public void ShouldThrowExceptionWhenFileFormatIsInvalid()
-            => AssertCompressInvalidFileFormat(Files.MagickNETIconPNG);
 
         public class WithFileInfo : TheCompressMethod
         {

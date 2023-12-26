@@ -12,13 +12,16 @@ public partial class MagickImageCollectionFactoryTests
 {
     public partial class TheCreateMethod
     {
-        [Fact]
-        public void ShouldCreateMagickImageCollection()
+        public class WithoutArguments
         {
-            var factory = new MagickImageCollectionFactory();
+            [Fact]
+            public void ShouldCreateMagickImageCollection()
+            {
+                var factory = new MagickImageCollectionFactory();
 
-            using var images = factory.Create();
-            Assert.IsType<MagickImageCollection>(images);
+                using var images = factory.Create();
+                Assert.IsType<MagickImageCollection>(images);
+            }
         }
 
         public class WithByteArray

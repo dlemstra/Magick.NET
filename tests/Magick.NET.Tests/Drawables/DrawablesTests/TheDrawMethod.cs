@@ -57,22 +57,19 @@ public partial class DrawablesTests
             Assert.Equal(19, image.Height);
         }
 
-        public class WithDrawableDensity
+        [Fact]
+        public void ShouldUseTheSpecifiedDensity()
         {
-            [Fact]
-            public void ShouldUseTheSpecifiedDensity()
-            {
-                using var image = new MagickImage(MagickColors.Purple, 500, 500);
-                var pointSize = new DrawableFontPointSize(20);
-                var text = new DrawableText(250, 250, "Magick.NET");
+            using var image = new MagickImage(MagickColors.Purple, 500, 500);
+            var pointSize = new DrawableFontPointSize(20);
+            var text = new DrawableText(250, 250, "Magick.NET");
 
-                image.Draw(pointSize, new DrawableDensity(96), text);
+            image.Draw(pointSize, new DrawableDensity(96), text);
 
-                image.Trim();
+            image.Trim();
 
-                Assert.Equal(144, image.Width);
-                Assert.Equal(24, image.Height);
-            }
+            Assert.Equal(144, image.Width);
+            Assert.Equal(24, image.Height);
         }
     }
 }

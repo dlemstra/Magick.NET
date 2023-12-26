@@ -12,24 +12,27 @@ public partial class JpegOptimizerTests
 {
     public class TheLosslessCompressMethod : JpegOptimizerTests
     {
-        [Fact]
-        public void ShouldCompressLossless()
+        public class WithFileInfoFileNameOrStream : TheLosslessCompressMethod
         {
-            var result = AssertLosslessCompressSmaller(Files.ImageMagickJPG);
-            Assert.Equal(18533, result);
+            [Fact]
+            public void ShouldCompressLossless()
+            {
+                var result = AssertLosslessCompressSmaller(Files.ImageMagickJPG);
+                Assert.Equal(18533, result);
+            }
+
+            [Fact]
+            public void ShouldTryToCompressLossLess()
+                => AssertLosslessCompressNotSmaller(Files.LetterJPG);
+
+            [Fact]
+            public void ShouldBeAbleToCompressFileTwoTimes()
+                => AssertLosslessCompressTwice(Files.ImageMagickJPG);
+
+            [Fact]
+            public void ShouldThrowExceptionWhenFileFormatIsInvalid()
+                => AssertLosslessCompressInvalidFileFormat(Files.CirclePNG);
         }
-
-        [Fact]
-        public void ShouldTryToCompressLossLess()
-            => AssertLosslessCompressNotSmaller(Files.LetterJPG);
-
-        [Fact]
-        public void ShouldBeAbleToCompressFileTwoTimes()
-            => AssertLosslessCompressTwice(Files.ImageMagickJPG);
-
-        [Fact]
-        public void ShouldThrowExceptionWhenFileFormatIsInvalid()
-            => AssertLosslessCompressInvalidFileFormat(Files.CirclePNG);
 
         public class WithFileInfo : TheLosslessCompressMethod
         {
