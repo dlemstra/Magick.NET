@@ -1,6 +1,6 @@
 root = true
 
-[*.{cmd,cs,csproj,md,nuspec,ps1,sh,targets,yml}]
+[*.{cmd,cs,csproj,md,nuspec,props,ps1,sh,targets,yml}]
 
 indent_style = space
 insert_final_newline = true
