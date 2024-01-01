@@ -7,7 +7,7 @@ installPackage() {
     mkdir foo
     cd foo
 
-    dotnet new console
+    dotnet new console --no-restore
     dotnet add package Magick.Native --version $version --package-directory nuget
 
     mkdir ../temp
