@@ -24,21 +24,6 @@ internal static class TypeHelper
         return (T[])field.GetCustomAttributes(typeof(T), false);
     }
 
-    public static Type[] GetGenericArguments(Type type)
-        => type.GetGenericArguments();
-
     public static Stream GetManifestResourceStream(Type type, string resourcePath, string resourceName)
         => type.Assembly.GetManifestResourceStream(resourcePath + "." + resourceName);
-
-    public static bool IsEnum(Type type)
-        => type.IsEnum;
-
-    public static bool IsGeneric(Type type)
-        => type.IsGenericType;
-
-    public static bool IsNullable(Type type)
-        => type.GetGenericTypeDefinition() == typeof(Nullable<>);
-
-    public static bool IsValueType(Type type)
-        => type.IsValueType;
 }
