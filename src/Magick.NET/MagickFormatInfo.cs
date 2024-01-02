@@ -109,7 +109,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
 
     /// <summary>
     /// Returns the format information. The header of the image in the array of bytes is used to
-    /// determine the format.
+    /// determine the format. Null will be returned when the format could not be determined.
     /// </summary>
     /// <param name="data">The array of bytes to read the image header from.</param>
     /// <returns>The format information.</returns>
