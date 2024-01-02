@@ -22,6 +22,20 @@
           "type": "size_t"
         }
       ]
+    },
+    {
+      "name": "GetHuPhash",
+      "type": "double",
+      "arguments": [
+        {
+          "name": "colorSpaceIndex",
+          "type": "size_t"
+        },
+        {
+          "name": "index",
+          "type": "size_t"
+        }
+      ]
     }
   ]
 }

@@ -21,6 +21,8 @@ public partial class ChannelPerceptualHash
             public static extern double ChannelPerceptualHash_GetSrgbHuPhash(IntPtr Instance, UIntPtr index);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double ChannelPerceptualHash_GetHclpHuPhash(IntPtr Instance, UIntPtr index);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelPerceptualHash_GetHuPhash(IntPtr Instance, UIntPtr colorSpaceIndex, UIntPtr index);
         }
         #endif
         #if PLATFORM_arm64 || PLATFORM_AnyCPU
@@ -30,6 +32,8 @@ public partial class ChannelPerceptualHash
             public static extern double ChannelPerceptualHash_GetSrgbHuPhash(IntPtr Instance, UIntPtr index);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double ChannelPerceptualHash_GetHclpHuPhash(IntPtr Instance, UIntPtr index);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelPerceptualHash_GetHuPhash(IntPtr Instance, UIntPtr colorSpaceIndex, UIntPtr index);
         }
         #endif
         #if PLATFORM_x86 || PLATFORM_AnyCPU
@@ -39,6 +43,8 @@ public partial class ChannelPerceptualHash
             public static extern double ChannelPerceptualHash_GetSrgbHuPhash(IntPtr Instance, UIntPtr index);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double ChannelPerceptualHash_GetHclpHuPhash(IntPtr Instance, UIntPtr index);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern double ChannelPerceptualHash_GetHuPhash(IntPtr Instance, UIntPtr colorSpaceIndex, UIntPtr index);
         }
         #endif
     }
@@ -99,6 +105,29 @@ public partial class ChannelPerceptualHash
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.ChannelPerceptualHash_GetHclpHuPhash(Instance, (UIntPtr)index);
+            #endif
+            return result;
+        }
+        public double GetHuPhash(int colorSpaceIndex, int index)
+        {
+            double result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.ChannelPerceptualHash_GetHuPhash(Instance, (UIntPtr)colorSpaceIndex, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.ChannelPerceptualHash_GetHuPhash(Instance, (UIntPtr)colorSpaceIndex, (UIntPtr)index);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.ChannelPerceptualHash_GetHuPhash(Instance, (UIntPtr)colorSpaceIndex, (UIntPtr)index);
             #endif
             return result;
         }
