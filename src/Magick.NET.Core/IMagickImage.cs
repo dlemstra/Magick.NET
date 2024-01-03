@@ -194,7 +194,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets the information about the format of the image.
     /// </summary>
-    [Obsolete("Will be removed in the next major release.")]
+    [Obsolete("Will be removed in the next major release, use MagickFormatInfo.Create(image.Format) instead.")]
     IMagickFormatInfo? FormatInfo { get; }
 
     /// <summary>

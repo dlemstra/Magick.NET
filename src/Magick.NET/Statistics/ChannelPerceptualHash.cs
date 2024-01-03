@@ -57,7 +57,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// </summary>
     /// <param name="index">The index to use.</param>
     /// <returns>The SRGB hu perceptual hash.</returns>
-    [Obsolete("Will be removed in the next major release (use HuPhash(ColorSpace.sRGB, index) instead).")]
+    [Obsolete("Will be removed in the next major release, use HuPhash(ColorSpace.sRGB, index) instead.")]
     public double SrgbHuPhash(int index)
         => HuPhash(ColorSpace.sRGB, index);
 
@@ -66,7 +66,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// </summary>
     /// <param name="index">The index to use.</param>
     /// <returns>The Hclp hu perceptual hash.</returns>
-    [Obsolete("Will be removed in the next major release (use HuPhash(ColorSpace.HCLp, index) instead).")]
+    [Obsolete("Will be removed in the next major releas, use HuPhash(ColorSpace.HCLp, index) instead.")]
     public double HclpHuPhash(int index)
         => HuPhash(ColorSpace.HCLp, index);
 

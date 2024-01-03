@@ -723,7 +723,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Gets the information about the format of the image.
     /// </summary>
-    [Obsolete("Will be removed in the next major release.")]
+    [Obsolete("Will be removed in the next major release, use MagickFormatInfo.Create(image.Format) instead.")]
     public IMagickFormatInfo? FormatInfo
         => MagickFormatInfo.Create(Format);
 
