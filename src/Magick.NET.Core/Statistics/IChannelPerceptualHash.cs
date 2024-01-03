@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
+
 namespace ImageMagick;
 
 /// <summary>
@@ -18,6 +20,7 @@ public interface IChannelPerceptualHash
     /// </summary>
     /// <param name="index">The index to use.</param>
     /// <returns>The SRGB hu perceptual hash.</returns>
+    [Obsolete("Will be removed in the next major release (use HuPhash(ColorSpace.sRGB, index) instead).")]
     double SrgbHuPhash(int index);
 
     /// <summary>
@@ -25,7 +28,16 @@ public interface IChannelPerceptualHash
     /// </summary>
     /// <param name="index">The index to use.</param>
     /// <returns>The Hclp hu perceptual hash.</returns>
+    [Obsolete("Will be removed in the next major release (use HuPhash(ColorSpace.HCLp, index) instead).")]
     double HclpHuPhash(int index);
+
+    /// <summary>
+    /// Returns the hu perceptual hash for the specified colorspace.
+    /// </summary>
+    /// <param name="colorSpace">The colorspace to use.</param>
+    /// <param name="index">The index to use.</param>
+    /// <returns>The hu perceptual hash for the specified colorspace.</returns>
+    double HuPhash(ColorSpace colorSpace, int index);
 
     /// <summary>
     /// Returns the sum squared difference between this hash and the other hash.

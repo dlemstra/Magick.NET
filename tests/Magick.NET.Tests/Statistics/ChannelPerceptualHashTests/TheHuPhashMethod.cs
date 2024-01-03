@@ -18,7 +18,7 @@ public partial class ChannelPerceptualHashTests
             var phash = image.PerceptualHash();
             var channel = phash.GetChannel(PixelChannel.Red);
 
-            Assert.Throws<ArgumentOutOfRangeException>(() => channel.HclpHuPhash(7));
+            Assert.Throws<ArgumentOutOfRangeException>(() => channel.HuPhash(ColorSpace.HCLp, 7));
         }
     }
 }

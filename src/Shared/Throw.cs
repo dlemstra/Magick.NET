@@ -85,6 +85,12 @@ internal static partial class Throw
             throw new ArgumentOutOfRangeException(paramName);
     }
 
+    public static void IfOutOfRange(string paramName, int min, int max, int value, string message)
+    {
+        if (value < min || value > max)
+            throw new ArgumentOutOfRangeException(paramName, message);
+    }
+
     public static void IfOutOfRange<T>(string paramName, int min, int max, int value, string message, T arg0)
     {
         if (value < min || value > max)

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -4438,19 +4439,31 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => _nativeInstance.Perceptible(epsilon, channels);
 
     /// <summary>
-    /// Returns the perceptual hash of this image.
+    /// Returns the perceptual hash of this image with the colorspaces <see cref="ColorSpace.sRGB"/>
+    /// and <see cref="ColorSpace.HCLp"/>.
     /// </summary>
     /// <returns>The perceptual hash of this image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IPerceptualHash? PerceptualHash()
+        => PerceptualHash(ImageMagick.PerceptualHash.DefaultColorSpaces);
+
+    /// <summary>
+    /// Returns the perceptual hash of this image.
+    /// </summary>
+    /// <param name="colorSpaces">The colorspaces to get the perceptual hash for.</param>
+    /// <returns>The perceptual hash of this image.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IPerceptualHash? PerceptualHash(params ColorSpace[] colorSpaces)
     {
+        ImageMagick.PerceptualHash.ValidateColorSpaces(colorSpaces);
+
         using var temporaryDefines = new TemporaryDefines(this);
-        temporaryDefines.SetArtifact("phash:colorspaces", "sRGB,HCLp");
+        temporaryDefines.SetArtifact("phash:colorspaces", string.Join(",", colorSpaces.Select(colorSpace => colorSpace.ToString())));
         var list = _nativeInstance.PerceptualHash();
 
         try
         {
-            var hash = new PerceptualHash(this, list);
+            var hash = new PerceptualHash(this, colorSpaces, list);
             if (!hash.Isvalid)
                 return null;
 

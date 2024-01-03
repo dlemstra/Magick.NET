@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,34 @@ public partial class MagickImageTests
 {
     public class ThePerceptualHashMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenColorSpacesIsNull()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            Assert.Throws<ArgumentNullException>("colorSpaces", () => image.PerceptualHash(null));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenNotEnoughColorSpacesAreProvided()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            Assert.Throws<ArgumentOutOfRangeException>("colorSpaces", () => image.PerceptualHash([]));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenTooMuchColorSpacesAreProvided()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            Assert.Throws<ArgumentOutOfRangeException>("colorSpaces", () => image.PerceptualHash(ColorSpace.CMY, ColorSpace.CMYK, ColorSpace.Gray, ColorSpace.HCL, ColorSpace.HCLp, ColorSpace.HSB, ColorSpace.HSI));
+        }
+
+        [Fact]
+        public void ShouldRemoveDuplicateColorSpaces()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            Assert.Throws<ArgumentException>("colorSpaces", () => image.PerceptualHash(ColorSpace.CMY, ColorSpace.CMY));
+        }
+
         [Fact]
         public void ShouldReturnThePerceptualHash()
         {
@@ -102,8 +131,8 @@ public partial class MagickImageTests
 
         private void TestChannel(IChannelPerceptualHash channel, int index, double srgbHuPhashWithOpenCL, double srgbHuPhashWithoutOpenCL, double hclpHuPhashWithOpenCL, double hclpHuPhashWithoutOpenCL)
         {
-            OpenCLValue.Assert(srgbHuPhashWithOpenCL, srgbHuPhashWithoutOpenCL, channel.SrgbHuPhash(index), 0.0001);
-            OpenCLValue.Assert(hclpHuPhashWithOpenCL, hclpHuPhashWithoutOpenCL, channel.HclpHuPhash(index), 0.0001);
+            OpenCLValue.Assert(srgbHuPhashWithOpenCL, srgbHuPhashWithoutOpenCL, channel.HuPhash(ColorSpace.sRGB, index), 0.0001);
+            OpenCLValue.Assert(hclpHuPhashWithOpenCL, hclpHuPhashWithoutOpenCL, channel.HuPhash(ColorSpace.HCLp, index), 0.0001);
         }
     }
 }

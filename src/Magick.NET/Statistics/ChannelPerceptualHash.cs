@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace ImageMagick;
@@ -11,9 +12,8 @@ namespace ImageMagick;
 /// </summary>
 public partial class ChannelPerceptualHash : IChannelPerceptualHash
 {
-    private readonly double[] _srgbHuPhash;
-    private readonly double[] _hclpHuPhash;
-    private string _hash;
+    private readonly List<HuPhashList> _huPhashes = new();
+    private string _hash = string.Empty;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ChannelPerceptualHash"/> class.
@@ -22,34 +22,30 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// <param name="srgbHuPhash">SRGB hu perceptual hash.</param>
     /// <param name="hclpHuPhash">Hclp hu perceptual hash.</param>
     /// <param name="hash">A string representation of this hash.</param>
+    [Obsolete("Will be removed in the next major release.")]
     public ChannelPerceptualHash(PixelChannel channel, double[] srgbHuPhash, double[] hclpHuPhash, string hash)
     {
         Channel = channel;
-        _srgbHuPhash = srgbHuPhash;
-        _hclpHuPhash = hclpHuPhash;
+        _huPhashes.Add(new HuPhashList(ColorSpace.sRGB, srgbHuPhash));
+        _huPhashes.Add(new HuPhashList(ColorSpace.HCLp, hclpHuPhash));
         _hash = hash;
     }
 
-    internal ChannelPerceptualHash(PixelChannel channel)
+    internal ChannelPerceptualHash(PixelChannel channel, ColorSpace[] colorSpaces, IntPtr instance)
     {
         Channel = channel;
-        _hclpHuPhash = new double[7];
-        _srgbHuPhash = new double[7];
-        _hash = string.Empty;
-    }
-
-    internal ChannelPerceptualHash(PixelChannel channel, IntPtr instance)
-      : this(channel)
-    {
         var nativeInstance = new NativeChannelPerceptualHash(instance);
-        SetSrgbHuPhash(nativeInstance);
-        SetHclpHuPhash(nativeInstance);
-        SetHash();
+        for (var i = 0; i < colorSpaces.Length; i++)
+        {
+            AddHuPhash(nativeInstance, colorSpaces[i], i);
+        }
     }
 
-    internal ChannelPerceptualHash(PixelChannel channel, string hash)
-      : this(channel)
-        => ParseHash(hash);
+    internal ChannelPerceptualHash(PixelChannel channel, ColorSpace[] colorSpaces, string hash)
+    {
+        Channel = channel;
+        ParseHash(colorSpaces, hash);
+    }
 
     /// <summary>
     /// Gets the channel.
@@ -61,23 +57,36 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// </summary>
     /// <param name="index">The index to use.</param>
     /// <returns>The SRGB hu perceptual hash.</returns>
+    [Obsolete("Will be removed in the next major release (use HuPhash(ColorSpace.sRGB, index) instead).")]
     public double SrgbHuPhash(int index)
-    {
-        Throw.IfOutOfRange(nameof(index), index, 7);
-
-        return _srgbHuPhash[index];
-    }
+        => HuPhash(ColorSpace.sRGB, index);
 
     /// <summary>
     /// Hclp hu perceptual hash.
     /// </summary>
     /// <param name="index">The index to use.</param>
     /// <returns>The Hclp hu perceptual hash.</returns>
+    [Obsolete("Will be removed in the next major release (use HuPhash(ColorSpace.HCLp, index) instead).")]
     public double HclpHuPhash(int index)
+        => HuPhash(ColorSpace.HCLp, index);
+
+    /// <summary>
+    /// Returns the hu perceptual hash for the specified colorspace.
+    /// </summary>
+    /// <param name="colorSpace">The colorspace to use.</param>
+    /// <param name="index">The index to use.</param>
+    /// <returns>The hu perceptual hash for the specified colorspace.</returns>
+    public double HuPhash(ColorSpace colorSpace, int index)
     {
         Throw.IfOutOfRange(nameof(index), index, 7);
 
-        return _hclpHuPhash[index];
+        var huPhashList = GetHuPhashListByColorSpace(colorSpace);
+        if (huPhashList is null)
+        {
+            throw new ArgumentException("Invalid colorspace specified.", nameof(colorSpace));
+        }
+
+        return huPhashList[index];
     }
 
     /// <summary>
@@ -89,12 +98,20 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     {
         Throw.IfNull(nameof(other), other);
 
+        var otherChannelPerceptualHash = other as ChannelPerceptualHash;
         var ssd = 0.0;
 
-        for (var i = 0; i < 7; i++)
+        foreach (var huPhashList in _huPhashes)
         {
-            ssd += (_srgbHuPhash[i] - other.SrgbHuPhash(i)) * (_srgbHuPhash[i] - other.SrgbHuPhash(i));
-            ssd += (_hclpHuPhash[i] - other.HclpHuPhash(i)) * (_hclpHuPhash[i] - other.HclpHuPhash(i));
+            var otherHuPhashList = otherChannelPerceptualHash?.GetHuPhashListByColorSpace(huPhashList.ColorSpace);
+
+            for (var i = 0; i < 7; i++)
+            {
+                var a = huPhashList[i];
+                var b = otherHuPhashList is null ? 0 : otherHuPhashList[i];
+
+                ssd += (a - b) * (a - b);
+            }
         }
 
         return ssd;
@@ -105,7 +122,12 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// </summary>
     /// <returns>A string representation of this hash.</returns>
     public override string ToString()
-        => _hash;
+    {
+        if (_hash == string.Empty)
+            SetHash();
+
+        return _hash;
+    }
 
     private static double PowerOfTen(int power)
         => power switch
@@ -118,60 +140,98 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
             _ => 10.0,
         };
 
-    private void ParseHash(string hash)
+    private HuPhashList? GetHuPhashListByColorSpace(ColorSpace colorSpace)
+    {
+        foreach (var huPhashList in _huPhashes)
+        {
+            if (huPhashList.ColorSpace == colorSpace)
+                return huPhashList;
+        }
+
+        return null;
+    }
+
+    private void ParseHash(ColorSpace[] colorSpaces, string hash)
     {
         _hash = hash;
 
-        for (int i = 0, offset = 0; i < 14; i++, offset += 5)
+        var offset = 0;
+        foreach (var colorSpace in colorSpaces)
         {
-            if (!int.TryParse(hash.Substring(offset, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var hex))
-                throw new ArgumentException("Invalid hash specified", nameof(hash));
+            var huPhashList = new HuPhashList(colorSpace);
+            for (var i = 0; i < 7; i++, offset += 5)
+            {
+                if (!int.TryParse(hash.Substring(offset, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var hex))
+                    throw new ArgumentException("Invalid hash specified", nameof(hash));
 
-            var value = (ushort)hex / PowerOfTen(hex >> 17);
-            if ((hex & (1 << 16)) != 0)
-                value = -value;
-            if (i < 7)
-                _srgbHuPhash[i] = value;
-            else
-                _hclpHuPhash[i - 7] = value;
+                var value = (ushort)hex / PowerOfTen(hex >> 17);
+                if ((hex & (1 << 16)) != 0)
+                    value = -value;
+
+                huPhashList[i] = value;
+            }
+
+            _huPhashes.Add(huPhashList);
         }
     }
 
     private void SetHash()
     {
         _hash = string.Empty;
-        for (var i = 0; i < 14; i++)
+
+        foreach (var huPhashList in _huPhashes)
         {
-            double value;
-            if (i < 7)
-                value = _srgbHuPhash[i];
-            else
-                value = _hclpHuPhash[i - 7];
-
-            var hex = 0;
-            while (hex < 7 && Math.Abs(value * 10) < 65536)
+            for (var i = 0; i < 7; i++)
             {
-                value *= 10;
-                hex++;
-            }
+                var value = huPhashList[i];
 
-            hex <<= 1;
-            if (value < 0.0)
-                hex |= 1;
-            hex = (hex << 16) + (int)(value < 0.0 ? -(value - 0.5) : value + 0.5);
-            _hash += hex.ToString("x", CultureInfo.InvariantCulture);
+                var hex = 0;
+                while (hex < 7 && Math.Abs(value * 10) < 65536)
+                {
+                    value *= 10;
+                    hex++;
+                }
+
+                hex <<= 1;
+                if (value < 0.0)
+                    hex |= 1;
+                hex = (hex << 16) + (int)(value < 0.0 ? -(value - 0.5) : value + 0.5);
+                _hash += hex.ToString("x", CultureInfo.InvariantCulture);
+            }
         }
     }
 
-    private void SetHclpHuPhash(NativeChannelPerceptualHash instance)
+    private void AddHuPhash(NativeChannelPerceptualHash instance, ColorSpace colorSpace, int colorSpaceIndex)
     {
+        var huPhashList = new HuPhashList(colorSpace);
+
         for (var i = 0; i < 7; i++)
-            _hclpHuPhash[i] = instance.GetHclpHuPhash(i);
+            huPhashList[i] = instance.GetHuPhash(colorSpaceIndex, i);
+
+        _huPhashes.Add(huPhashList);
     }
 
-    private void SetSrgbHuPhash(NativeChannelPerceptualHash instance)
+    private sealed class HuPhashList
     {
-        for (var i = 0; i < 7; i++)
-            _srgbHuPhash[i] = instance.GetSrgbHuPhash(i);
+        private readonly double[] _values;
+
+        public HuPhashList(ColorSpace colorSpace)
+            : this(colorSpace, new double[] { 0, 0, 0, 0, 0, 0, 0 })
+        {
+        }
+
+        public HuPhashList(ColorSpace colorSpace, double[] values)
+        {
+            ColorSpace = colorSpace;
+            _values = values;
+        }
+
+        public ColorSpace ColorSpace { get; }
+
+        public double this[int index]
+        {
+            get => _values[index];
+            set => _values[index] = value;
+        }
     }
 }
