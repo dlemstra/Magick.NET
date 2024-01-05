@@ -118,18 +118,12 @@ internal sealed class ColorProfileReader
     }
 
     private string? ReadTagValue(uint length)
-    {
-        var type = _reader.ReadString(4);
-        switch (type)
+        => _reader.ReadString(4) switch
         {
-            case "desc":
-                return ReadTextDescriptionTypeValue();
-            case "text":
-                return ReadTextTypeValue(length);
-            default:
-                return null;
-        }
-    }
+            "desc" => ReadTextDescriptionTypeValue(),
+            "text" => ReadTextTypeValue(length),
+            _ => null,
+        };
 
     private string? ReadTextDescriptionTypeValue()
     {
