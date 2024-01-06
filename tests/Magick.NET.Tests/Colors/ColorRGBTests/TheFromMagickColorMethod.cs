@@ -32,11 +32,11 @@ public partial class ColorRGBTests
         public void ShouldInitializeTheProperties()
         {
             var color = new MagickColor(Quantum.Max, (QuantumType)(Quantum.Max * 0.75), (QuantumType)(Quantum.Max * 0.5));
-            var cmykColor = ColorRGB.FromMagickColor(color);
+            var rgbColor = ColorRGB.FromMagickColor(color);
 
-            Assert.Equal(Quantum.Max, color.R);
-            Assert.Equal((QuantumType)(Quantum.Max * 0.75), color.G);
-            Assert.Equal((QuantumType)(Quantum.Max * 0.5), color.B);
+            Assert.Equal(Quantum.Max, rgbColor.R);
+            Assert.Equal((QuantumType)(Quantum.Max * 0.75), rgbColor.G);
+            Assert.Equal((QuantumType)(Quantum.Max * 0.5), rgbColor.B);
         }
     }
 }
