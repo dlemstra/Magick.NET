@@ -6,9 +6,9 @@ using Xunit;
 
 namespace Magick.NET.Tests;
 
-public partial class ColorHSVTests
+public partial class ColorYUVTests
 {
-    public class ColorYUVTests
+    public class TheEqualsMethod
     {
         [Fact]
         public void ShouldReturnFalseWhenOtherIsNull()

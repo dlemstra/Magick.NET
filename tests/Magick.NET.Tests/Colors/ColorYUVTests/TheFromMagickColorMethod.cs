@@ -23,7 +23,7 @@ public partial class ColorYUVTests
         [Fact]
         public void ShouldReturnNullWhenValueIsNull()
         {
-            var result = ColorHSV.FromMagickColor(null);
+            var result = ColorYUV.FromMagickColor(null);
 
             Assert.Null(result);
         }
