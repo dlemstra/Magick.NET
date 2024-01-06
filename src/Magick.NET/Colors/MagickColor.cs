@@ -257,7 +257,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
         if (!color.IsCmyk)
             return new MagickColor(red, green, blue, color.A);
 
-        var key = (QuantumType)percentage.Multiply((double)color.K);
+        var key = Quantum.Convert(percentage.Multiply((double)color.K));
 
         return new MagickColor(red, green, blue, key, color.A);
     }
