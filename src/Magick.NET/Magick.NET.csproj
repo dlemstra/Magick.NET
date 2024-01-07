@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard21;netstandard20</TargetFrameworks>
     <Platforms>x86;x64;arm64;AnyCPU</Platforms>
@@ -56,7 +56,7 @@
 
   <PropertyGroup Condition="'$(Platform)' == 'x64'">
     <PlatformTarget>x64</PlatformTarget>
-  </PropertyGroup> 
+  </PropertyGroup>
 
   <PropertyGroup Condition="'$(Platform)' == 'arm64'">
     <PlatformTarget>ARM64</PlatformTarget>
@@ -114,6 +114,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../Magick.NET.Core/Magick.NET.Core.csproj" />
+    <ProjectReference Include="../Magick.NET.SourceGenerator\Magick.NET.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"  />
   </ItemGroup>
 
   <Import Project="../Magick.NET.props" />

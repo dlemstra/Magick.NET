@@ -49,5 +49,9 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../Magick.NET.SourceGenerator\Magick.NET.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"  />
+  </ItemGroup>
+
   <Import Project="../Magick.NET.props" />
 </Project>

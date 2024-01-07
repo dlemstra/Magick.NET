@@ -47,4 +47,14 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>../Magick.NET.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**" />
+    <None Include="$(CompilerGeneratedFilesOutputPath)/**" />
+  </ItemGroup>
 </Project>

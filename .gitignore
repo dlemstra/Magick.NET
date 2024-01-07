@@ -2,6 +2,7 @@
 *.user
 .vs
 bin
+Generated
 obj
 lib
 runtimes
