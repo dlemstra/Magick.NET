@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8-windows;net462</TargetFrameworks>
     <Platforms>x86;x64;arm64;AnyCPU</Platforms>
