@@ -76,6 +76,9 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
     {
         foreach (var color in GetColors())
         {
+            if (color.Name == "RebeccaPurple")
+                continue;
+
             codeBuilder.AppendComment(color.Comment);
             if (generateInterface)
             {
