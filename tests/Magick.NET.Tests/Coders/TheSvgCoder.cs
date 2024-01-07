@@ -13,7 +13,7 @@ public class TheSvgCoder
     [Fact]
     public void ShouldDetectFormatFromXmlDeclaration()
     {
-        var data = Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""UTF-8""?>");
+        var data = Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""UTF-8""?><circle />");
 
         var info = new MagickImageInfo(data);
 
@@ -25,7 +25,7 @@ public class TheSvgCoder
     [Fact]
     public void ShouldDetectFormatFromSvgTag()
     {
-        var data = Encoding.ASCII.GetBytes(@"<svg xmlns=""http://www.w3.org/2000/svg"" width=""1000"" height=""716"">");
+        var data = Encoding.ASCII.GetBytes(@"<svg xmlns=""http://www.w3.org/2000/svg"" width=""1000"" height=""716"" />");
 
         var info = new MagickImageInfo(data);
 
