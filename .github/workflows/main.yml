@@ -109,11 +109,6 @@ jobs:
     - name: Install dependencies
       run: build/osx-x64/install.dependencies.sh
 
-    - name: Install .NET 8.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64'
 
@@ -155,11 +150,6 @@ jobs:
     - name: Install dependencies
       run: ./install.dependencies.cmd
       working-directory: build/windows
-
-    - name: Install .NET 8.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
 
     - name: Create nuget.config
       run: './create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
@@ -215,11 +205,6 @@ jobs:
     - name: Install dependencies
       run: ./install.dependencies.cmd
       working-directory: build/windows
-
-    - name: Install .NET 8.0
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
 
     - name: Create nuget.config
       run: './create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
