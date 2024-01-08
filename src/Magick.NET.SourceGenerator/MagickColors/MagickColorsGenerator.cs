@@ -20,14 +20,10 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<MagickColorsAttribute>());
-
-        var fullName = typeof(MagickColorsAttribute).FullName ?? throw new InvalidOperationException();
-
-        var valuesProvider = context.SyntaxProvider.ForAttributeWithMetadataName(fullName, (_, _) => true, CheckForInterface);
-        context.RegisterSourceOutput(valuesProvider, GenerateCode);
+        context.RegisterAttributeCodeGenerator<MagickColorsAttribute, bool>(CheckForInterface, GenerateCode);
     }
 
-    private static bool CheckForInterface(GeneratorAttributeSyntaxContext context, CancellationToken token)
+    private static bool CheckForInterface(GeneratorAttributeSyntaxContext context)
         => context.TargetNode.IsKind(SyntaxKind.InterfaceDeclaration);
 
     private static IReadOnlyCollection<SystemDrawingColor> GetColors()
