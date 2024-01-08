@@ -1,7 +1,6 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick.SourceGenerator;
 
 #if Q8
@@ -19,7 +18,7 @@ namespace ImageMagick;
 /// <summary>
 /// Class that contains the same colors as System.Drawing.Colors.
 /// </summary>
-[MagickColorsGenerator]
+[MagickColors]
 public partial class MagickColors : IMagickColors<QuantumType>
 {
     /// <summary>

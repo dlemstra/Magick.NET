@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="MagickColors\MagickColorsGeneratorAttribute.cs">
-      <LogicalName>MagickColorsGeneratorAttribute</LogicalName>
+    <EmbeddedResource Include="MagickColors\MagickColorsAttribute.cs">
+      <LogicalName>MagickColorsAttribute</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 

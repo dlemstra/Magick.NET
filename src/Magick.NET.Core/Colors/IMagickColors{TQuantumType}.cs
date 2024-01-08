@@ -10,7 +10,7 @@ namespace ImageMagick;
 /// Interface that contains the same colors as System.Drawing.Colors.
 /// </summary>
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-[MagickColorsGenerator]
+[MagickColors]
 public partial interface IMagickColors<TQuantumType>
     where TQuantumType : struct, IConvertible
 {

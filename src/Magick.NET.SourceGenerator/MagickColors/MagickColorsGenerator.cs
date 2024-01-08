@@ -19,9 +19,9 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<MagickColorsGeneratorAttribute>());
+        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<MagickColorsAttribute>());
 
-        var fullName = typeof(MagickColorsGeneratorAttribute).FullName ?? throw new InvalidOperationException();
+        var fullName = typeof(MagickColorsAttribute).FullName ?? throw new InvalidOperationException();
 
         var valuesProvider = context.SyntaxProvider.ForAttributeWithMetadataName(fullName, (_, _) => true, CheckForInterface);
         context.RegisterSourceOutput(valuesProvider, GenerateCode);
