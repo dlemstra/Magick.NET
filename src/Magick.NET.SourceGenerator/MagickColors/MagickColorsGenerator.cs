@@ -3,11 +3,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Drawing;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
@@ -20,19 +20,33 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<MagickColorsAttribute>());
-        context.RegisterAttributeCodeGenerator<MagickColorsAttribute, bool>(CheckForInterface, GenerateCode);
+
+        var type = typeof(Color);
+        var colors = context.CompilationProvider
+            .Select((compilation, _) => compilation
+                .GetTypesByMetadataName(type.FullName).Single()
+                .GetMembers().OfType<IPropertySymbol>()
+                .Where(property => property.Type.Name == type.Name)
+                .Select(property => property.Name)
+                .ToImmutableArray());
+
+        var fullName = typeof(MagickColorsAttribute).FullName ?? throw new InvalidOperationException();
+        var info = context.SyntaxProvider.ForAttributeWithMetadataName(fullName, (_, _) => true, (syntaxContext, _) => CheckForInterface(syntaxContext));
+        var combinedInfo = info.Combine(colors);
+
+        context.RegisterSourceOutput(combinedInfo, GenerateCode);
     }
 
     private static bool CheckForInterface(GeneratorAttributeSyntaxContext context)
         => context.TargetNode.IsKind(SyntaxKind.InterfaceDeclaration);
 
-    private static IReadOnlyCollection<SystemDrawingColor> GetColors()
+    private static IReadOnlyCollection<SystemDrawingColor> GetColors(ImmutableArray<string> allowedColors)
     {
         var type = typeof(Color);
 
         var properties = type
             .GetProperties(BindingFlags.Public | BindingFlags.Static)
-            .Where(property => property.PropertyType == type);
+            .Where(property => property.PropertyType == type && allowedColors.Contains(property.Name));
 
         var colors = properties
             .Select(property => new SystemDrawingColor(property))
@@ -43,11 +57,12 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
         return colors;
     }
 
-    private void GenerateCode(SourceProductionContext context, bool generateInterface)
+    private void GenerateCode(SourceProductionContext context, (bool GenerateInterface, ImmutableArray<string> Colors) info)
     {
         var codeBuilder = new CodeBuilder();
         codeBuilder.AppendLine("#nullable enable");
-        if (!generateInterface)
+
+        if (!info.GenerateInterface)
         {
             codeBuilder.AppendLine();
             codeBuilder.AppendQuantumType();
@@ -57,26 +72,23 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
         codeBuilder.AppendLine("namespace ImageMagick;");
         codeBuilder.AppendLine();
         codeBuilder.Append("public partial ");
-        codeBuilder.AppendLine(generateInterface ? "interface IMagickColors<TQuantumType>" : "class MagickColors");
+        codeBuilder.AppendLine(info.GenerateInterface ? "interface IMagickColors<TQuantumType>" : "class MagickColors");
         codeBuilder.AppendLine("{");
         codeBuilder.Indent++;
-        AppendSystemDrawingColors(codeBuilder, generateInterface);
+        AppendSystemDrawingColors(codeBuilder, info);
         codeBuilder.Indent--;
         codeBuilder.AppendLine("}");
 
-        var hintName = generateInterface ? "IMagickColors{TQuantumType}.g.cs" : "MagickColors.g.cs";
+        var hintName = info.GenerateInterface ? "IMagickColors{TQuantumType}.g.cs" : "MagickColors.g.cs";
         context.AddSource(hintName, SourceText.From(codeBuilder.ToString(), Encoding.UTF8));
     }
 
-    private void AppendSystemDrawingColors(CodeBuilder codeBuilder, bool generateInterface)
+    private void AppendSystemDrawingColors(CodeBuilder codeBuilder, (bool GenerateInterface, ImmutableArray<string> AllowedColors) info)
     {
-        foreach (var color in GetColors())
+        foreach (var color in GetColors(info.AllowedColors))
         {
-            if (color.Name == "RebeccaPurple")
-                continue;
-
             codeBuilder.AppendComment(color.Comment);
-            if (generateInterface)
+            if (info.GenerateInterface)
             {
                 codeBuilder.Append("IMagickColor<TQuantumType> ");
                 codeBuilder.Append(color.Name);
