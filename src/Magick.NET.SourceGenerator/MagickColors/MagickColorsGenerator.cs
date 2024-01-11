@@ -21,17 +21,19 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
     {
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<MagickColorsAttribute>());
 
-        var type = typeof(Color);
+        var colorType = typeof(Color);
+        var colorFullName = colorType.FullName ?? throw new InvalidOperationException();
+
         var colors = context.CompilationProvider
             .Select((compilation, _) => compilation
-                .GetTypesByMetadataName(type.FullName).Single()
+                .GetTypesByMetadataName(colorFullName).Single()
                 .GetMembers().OfType<IPropertySymbol>()
-                .Where(property => property.Type.Name == type.Name)
+                .Where(property => property.Type.Name == colorType.Name)
                 .Select(property => property.Name)
                 .ToImmutableArray());
 
-        var fullName = typeof(MagickColorsAttribute).FullName ?? throw new InvalidOperationException();
-        var info = context.SyntaxProvider.ForAttributeWithMetadataName(fullName, (_, _) => true, (syntaxContext, _) => CheckForInterface(syntaxContext));
+        var attributeFullName = typeof(MagickColorsAttribute).FullName ?? throw new InvalidOperationException();
+        var info = context.SyntaxProvider.ForAttributeWithMetadataName(attributeFullName, (_, _) => true, (syntaxContext, _) => CheckForInterface(syntaxContext));
         var combinedInfo = info.Combine(colors);
 
         context.RegisterSourceOutput(combinedInfo, GenerateCode);
