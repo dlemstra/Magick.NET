@@ -128,7 +128,7 @@ internal partial class DrawingSettings
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void DrawingSettings_SetFillPattern(IntPtr Instance, IntPtr value, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
+            public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double* dash, UIntPtr length);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -241,7 +241,7 @@ internal partial class DrawingSettings
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void DrawingSettings_SetFillPattern(IntPtr Instance, IntPtr value, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
+            public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double* dash, UIntPtr length);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -354,7 +354,7 @@ internal partial class DrawingSettings
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void DrawingSettings_SetFillPattern(IntPtr Instance, IntPtr value, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY, out IntPtr exception);
+            public static extern void DrawingSettings_SetAffine(IntPtr Instance, double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void DrawingSettings_SetStrokeDashArray(IntPtr Instance, double* dash, UIntPtr length);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -1531,26 +1531,24 @@ internal partial class DrawingSettings
         }
         public void SetAffine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY)
         {
-            IntPtr exception = IntPtr.Zero;
             #if PLATFORM_AnyCPU
             if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+            NativeMethods.ARM64.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY);
             #endif
             #if PLATFORM_AnyCPU
             else if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+            NativeMethods.X64.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY);
             #endif
             #if PLATFORM_AnyCPU
             else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            NativeMethods.X86.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY, out exception);
+            NativeMethods.X86.DrawingSettings_SetAffine(Instance, scaleX, scaleY, shearX, shearY, translateX, translateY);
             #endif
-            CheckException(exception);
         }
         public void SetStrokeDashArray(double[] dash, int length)
         {
