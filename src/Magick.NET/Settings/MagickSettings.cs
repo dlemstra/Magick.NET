@@ -165,7 +165,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// </summary>
     public string? FontFamily
     {
-        get => GetOption("family");
+        get => Drawing.FontFamily;
         set
         {
             SetOptionAndArtifact("family", value);
@@ -191,7 +191,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// </summary>
     public FontStyleType FontStyle
     {
-        get => EnumHelper.Parse(GetOption("style"), FontStyleType.Undefined);
+        get => Drawing.FontStyle;
         set
         {
             SetOptionAndArtifact("style", value);
@@ -204,18 +204,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// </summary>
     public FontWeight FontWeight
     {
-        get
-        {
-            var weight = GetOption("weight");
-            if (string.IsNullOrEmpty(weight))
-                return FontWeight.Undefined;
-
-            if (!int.TryParse(weight, NumberStyles.Number, CultureInfo.InvariantCulture, out var fontweight))
-                return FontWeight.Undefined;
-
-            return EnumHelper.Parse(fontweight, FontWeight.Undefined);
-        }
-
+        get => Drawing.FontWeight;
         set
         {
             SetOptionAndArtifact("weight", ((int)value).ToString(CultureInfo.InvariantCulture));
