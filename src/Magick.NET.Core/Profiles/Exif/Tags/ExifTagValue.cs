@@ -8,6 +8,7 @@ namespace ImageMagick;
 /// <summary>
 /// All exif tags from the Exif standard 2.31.
 /// </summary>
+[SourceGenerator.ExifTagDescription]
 public enum ExifTagValue
 {
     /// <summary>

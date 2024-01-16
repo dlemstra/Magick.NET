@@ -56,17 +56,12 @@ internal abstract class ExifValue<TValueType> : ExifValue, IExifValue<TValueType
     private static string? GetDescription(ExifTag tag, object value)
     {
         var tagValue = (ExifTagValue)(ushort)tag;
-        var attributes = TypeHelper.GetCustomAttributes<ExifTagDescriptionAttribute>(tagValue);
-
-        if (attributes is null || attributes.Length == 0)
+        if (!ExifTagDescriptions.ForExifTagValue.TryGetValue(tagValue, out var descriptions))
             return null;
 
-        foreach (var attribute in attributes)
-        {
-            if (Equals(attribute.Value, value))
-                return attribute.Description;
-        }
+        if (!descriptions.TryGetValue(value, out var description))
+            return null;
 
-        return null;
+        return description;
     }
 }

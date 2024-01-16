@@ -18,7 +18,7 @@ internal sealed class CodeBuilder
         _builder.Append(value);
     }
 
-    public void Append(string value)
+    public void Append(string? value)
     {
         AppendIdentation();
         _builder.Append(value);

@@ -11,6 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="ExifTagDescription\ExifTagDescriptionAttribute.cs">
+      <LogicalName>ExifTagDescriptionAttribute</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="MagickColors\MagickColorsAttribute.cs">
       <LogicalName>MagickColorsAttribute</LogicalName>
     </EmbeddedResource>
