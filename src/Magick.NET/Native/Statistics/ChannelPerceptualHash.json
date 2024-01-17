@@ -4,26 +4,6 @@
   "nativeConstructor": true,
   "methods": [
     {
-      "name": "GetSrgbHuPhash",
-      "type": "double",
-      "arguments": [
-        {
-          "name": "index",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
-      "name": "GetHclpHuPhash",
-      "type": "double",
-      "arguments": [
-        {
-          "name": "index",
-          "type": "size_t"
-        }
-      ]
-    },
-    {
       "name": "GetHuPhash",
       "type": "double",
       "arguments": [
