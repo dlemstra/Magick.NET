@@ -30,6 +30,8 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
 
     internal MagickSettings()
     {
+        Drawing = new DrawingSettings();
+
         using var instance = new NativeMagickSettings();
         AntiAlias = instance.AntiAlias;
         BackgroundColor = instance.BackgroundColor;
@@ -41,13 +43,12 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
         Depth = instance.Depth;
         Endian = instance.Endian;
         Extract = MagickGeometry.FromString(instance.Extract);
-        _font = instance.Font;
-        _fontPointsize = instance.FontPointsize;
+        Font = instance.Font;
+        FontPointsize = instance.FontPointsize;
         Format = EnumHelper.Parse(instance.Format, MagickFormat.Unknown);
         Interlace = instance.Interlace;
         Monochrome = instance.Monochrome;
         Verbose = instance.Verbose;
-        Drawing = new DrawingSettings();
     }
 
     internal event EventHandler<ArtifactEventArgs>? Artifact;
