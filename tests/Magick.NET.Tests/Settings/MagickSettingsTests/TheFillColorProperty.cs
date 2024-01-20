@@ -21,7 +21,7 @@ public partial class MagickSettingsTests
     public class TheFillColorProperty
     {
         [Fact]
-        public void ShouldHaveBlackAsTheDefaultColor()
+        public void ShouldDefaultToBlack()
         {
             using var image = new MagickImage();
 
@@ -49,7 +49,7 @@ public partial class MagickSettingsTests
             Assert.Equal(100, image.Height);
 
             using var pixelsA = image.GetPixels();
-            pixelA = pixelsA.GetPixel(62, 6);
+            pixelA = pixelsA.GetPixel(63, 6);
 
             ColorAssert.NotEqual(MagickColors.Transparent, pixelA.ToColor());
 
@@ -57,7 +57,7 @@ public partial class MagickSettingsTests
             image.Settings.FillColor = MagickColors.Yellow;
             image.Read("caption:Magick.NET");
             using var pixelsB = image.GetPixels();
-            pixelB = pixelsB.GetPixel(62, 6);
+            pixelB = pixelsB.GetPixel(63, 6);
 
             ColorAssert.NotEqual(MagickColors.Transparent, pixelB.ToColor());
             ColorAssert.NotEqual(pixelA.ToColor(), pixelB.ToColor());

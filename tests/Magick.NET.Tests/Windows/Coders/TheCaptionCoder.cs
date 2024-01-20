@@ -70,11 +70,11 @@ public partial class TheCaptionCoder
 
         Assert.Equal(465, image.Width);
         Assert.Equal(101, image.Height);
-        ColorAssert.Equal(MagickColors.Black, image, 416, 27);
-        ColorAssert.Equal(MagickColors.Black, image, 256, 49);
-        ColorAssert.Equal(MagickColors.White, image, 267, 49);
-        ColorAssert.Equal(MagickColors.Black, image, 426, 52);
-        ColorAssert.Equal(MagickColors.Black, image, 316, 86);
+        ColorAssert.Equal(MagickColors.Black, image, 14, 73);
+        ColorAssert.Equal(MagickColors.Black, image, 220, 49);
+        ColorAssert.Equal(MagickColors.White, image, 307, 49);
+        ColorAssert.Equal(MagickColors.Black, image, 423, 27);
+        ColorAssert.Equal(MagickColors.Black, image, 453, 90);
     }
 
     [Fact]
