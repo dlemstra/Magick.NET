@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-25 (2023-12-30) ] copyright:
+[ ImageMagick 7.1.1-26 (2024-01-07) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -6327,7 +6327,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ raw 0.21.1 (2023-01-05) ] copyright:
+[ raw 0.21.2 (2023-12-19) ] copyright:
 
  ** LibRaw: Raw images processing library **
 
