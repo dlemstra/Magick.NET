@@ -47,10 +47,6 @@
       "type": "string?"
     },
     {
-      "name": "Font",
-      "type": "string?"
-    },
-    {
       "name": "FontPointsize",
       "type": "double"
     },
@@ -79,6 +75,16 @@
     },
     {
       "name": "SetFileName",
+      "arguments": [
+        {
+          "name": "value",
+          "type": "string?"
+        }
+      ]
+    },
+    {
+      "name": "SetFont",
+      "type": "string?",
       "arguments": [
         {
           "name": "value",

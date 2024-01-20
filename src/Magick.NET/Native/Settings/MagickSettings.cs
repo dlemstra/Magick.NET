@@ -78,10 +78,6 @@ public partial class MagickSettings
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_Format_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickSettings_Font_Get(IntPtr instance);
-            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickSettings_Font_Set(IntPtr instance, IntPtr value);
-            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickSettings_FontPointsize_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_FontPointsize_Set(IntPtr instance, double value);
@@ -103,6 +99,8 @@ public partial class MagickSettings
             public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickSettings_SetFont(IntPtr Instance, IntPtr value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -175,10 +173,6 @@ public partial class MagickSettings
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_Format_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickSettings_Font_Get(IntPtr instance);
-            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickSettings_Font_Set(IntPtr instance, IntPtr value);
-            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickSettings_FontPointsize_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_FontPointsize_Set(IntPtr instance, double value);
@@ -200,6 +194,8 @@ public partial class MagickSettings
             public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickSettings_SetFont(IntPtr Instance, IntPtr value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
@@ -272,10 +268,6 @@ public partial class MagickSettings
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_Format_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickSettings_Font_Get(IntPtr instance);
-            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickSettings_Font_Set(IntPtr instance, IntPtr value);
-            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickSettings_FontPointsize_Get(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_FontPointsize_Set(IntPtr instance, double value);
@@ -297,6 +289,8 @@ public partial class MagickSettings
             public static extern void MagickSettings_SetColorFuzz(IntPtr Instance, double value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_SetFileName(IntPtr Instance, IntPtr value);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern IntPtr MagickSettings_SetFont(IntPtr Instance, IntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickSettings_SetNumberScenes(IntPtr Instance, UIntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -891,54 +885,6 @@ public partial class MagickSettings
                 #endif
             }
         }
-        public string? Font
-        {
-            get
-            {
-                IntPtr result;
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                result = NativeMethods.ARM64.MagickSettings_Font_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                result = NativeMethods.X64.MagickSettings_Font_Get(Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                result = NativeMethods.X86.MagickSettings_Font_Get(Instance);
-                #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
-            }
-            set
-            {
-                using var valueNative = UTF8Marshaler.CreateInstance(value);
-                #if PLATFORM_AnyCPU
-                if (Runtime.IsArm64)
-                #endif
-                #if PLATFORM_arm64 || PLATFORM_AnyCPU
-                NativeMethods.ARM64.MagickSettings_Font_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else if (Runtime.Is64Bit)
-                #endif
-                #if PLATFORM_x64 || PLATFORM_AnyCPU
-                NativeMethods.X64.MagickSettings_Font_Set(Instance, valueNative.Instance);
-                #endif
-                #if PLATFORM_AnyCPU
-                else
-                #endif
-                #if PLATFORM_x86 || PLATFORM_AnyCPU
-                NativeMethods.X86.MagickSettings_Font_Set(Instance, valueNative.Instance);
-                #endif
-            }
-        }
         public double FontPointsize
         {
             get
@@ -1169,6 +1115,30 @@ public partial class MagickSettings
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             NativeMethods.X86.MagickSettings_SetFileName(Instance, valueNative.Instance);
             #endif
+        }
+        public string? SetFont(string? value)
+        {
+            using var valueNative = UTF8Marshaler.CreateInstance(value);
+            IntPtr result;
+            #if PLATFORM_AnyCPU
+            if (Runtime.IsArm64)
+            #endif
+            #if PLATFORM_arm64 || PLATFORM_AnyCPU
+            result = NativeMethods.ARM64.MagickSettings_SetFont(Instance, valueNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else if (Runtime.Is64Bit)
+            #endif
+            #if PLATFORM_x64 || PLATFORM_AnyCPU
+            result = NativeMethods.X64.MagickSettings_SetFont(Instance, valueNative.Instance);
+            #endif
+            #if PLATFORM_AnyCPU
+            else
+            #endif
+            #if PLATFORM_x86 || PLATFORM_AnyCPU
+            result = NativeMethods.X86.MagickSettings_SetFont(Instance, valueNative.Instance);
+            #endif
+            return UTF8Marshaler.NativeToManagedNullable(result);
         }
         public void SetNumberScenes(int value)
         {

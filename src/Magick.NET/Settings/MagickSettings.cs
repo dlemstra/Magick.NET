@@ -23,9 +23,8 @@ namespace ImageMagick;
 /// </summary>
 public partial class MagickSettings : IMagickSettings<QuantumType>
 {
-    private readonly Dictionary<string, string?> _options = new Dictionary<string, string?>();
+    private readonly Dictionary<string, string?> _options = new();
 
-    private string? _font;
     private double _fontPointsize;
 
     internal MagickSettings()
@@ -41,7 +40,6 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
         Depth = instance.Depth;
         Endian = instance.Endian;
         Extract = MagickGeometry.FromString(instance.Extract);
-        _font = instance.Font;
         _fontPointsize = instance.FontPointsize;
         Format = EnumHelper.Parse(instance.Format, MagickFormat.Unknown);
         Interlace = instance.Interlace;
@@ -152,10 +150,9 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// </summary>
     public string? Font
     {
-        get => _font;
+        get => Drawing.Font;
         set
         {
-            _font = value;
             Drawing.Font = value;
         }
     }
@@ -599,7 +596,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
         Depth = settings.Depth;
         Endian = settings.Endian;
         Extract = MagickGeometry.Clone(settings.Extract);
-        _font = settings._font;
+        Font = settings.Font;
         _fontPointsize = settings._fontPointsize;
         Format = settings.Format;
         Monochrome = settings.Monochrome;
@@ -696,7 +693,6 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
             Depth = settings.Depth,
             Endian = settings.Endian,
             Extract = settings.Extract?.ToString(),
-            Font = settings._font,
             FontPointsize = settings._fontPointsize,
             Format = format,
             Interlace = settings.Interlace,
@@ -706,6 +702,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
 
         result.SetColorFuzz(settings.ColorFuzz);
         result.SetFileName(fileName);
+        result.SetFont(settings.Font);
         result.SetNumberScenes(settings.NumberScenes);
         result.SetPage(settings.Page?.ToString());
         result.SetPing(settings.Ping);
