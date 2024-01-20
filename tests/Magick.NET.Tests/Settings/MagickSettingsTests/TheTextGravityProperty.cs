@@ -11,6 +11,14 @@ public partial class MagickSettingsTests
     public class TheTextGravityProperty
     {
         [Fact]
+        public void ShouldDefaultToUndefined()
+        {
+            using var image = new MagickImage(MagickColors.Fuchsia, 100, 60);
+
+            Assert.Equal(Gravity.Undefined, image.Settings.TextGravity);
+        }
+
+        [Fact]
         public void ShouldDetermineThePositionOfTheText()
         {
             using var image = new MagickImage("xc:red", 300, 300);

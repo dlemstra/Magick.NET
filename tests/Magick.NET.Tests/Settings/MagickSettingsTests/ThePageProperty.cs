@@ -11,6 +11,14 @@ public partial class MagickSettingsTests
     public class ThePageProperty
     {
         [Fact]
+        public void ShouldDefaultToNull()
+        {
+            using var image = new MagickImage();
+
+            Assert.Null(image.Settings.Page);
+        }
+
+        [Fact]
         public void ShouldSetTheCorrectDimensionsWhenReadingImage()
         {
             using var image = new MagickImage();

@@ -12,7 +12,7 @@ public partial class MagickSettingsTests
     public class TheInterlaceProperty
     {
         [Fact]
-        public void ShouldReturnThecorrectDefaultValue()
+        public void ShouldDefaultToNoInterlace()
         {
             using var image = new MagickImage(MagickColors.Fuchsia, 100, 60);
 

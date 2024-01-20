@@ -11,6 +11,14 @@ public partial class MagickSettingsTests
     public class TheDepthProperty
     {
         [Fact]
+        public void ShouldDefaultToZero()
+        {
+            using var image = new MagickImage();
+
+            Assert.Equal(0, image.Settings.Depth);
+        }
+
+        [Fact]
         public void ShouldChangeTheDepthOfTheOutputImage()
         {
             using var input = new MagickImage(Files.Builtin.Logo);

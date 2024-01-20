@@ -11,6 +11,14 @@ public partial class MagickSettingsTests
     public class TheFontProperty
     {
         [Fact]
+        public void ShouldDefaultToNull()
+        {
+            using var image = new MagickImage();
+
+            Assert.Null(image.Settings.Font);
+        }
+
+        [Fact]
         public void ShouldSetTheFontWhenReadingImage()
         {
             if (TestRuntime.HasFlakyMacOSResult)

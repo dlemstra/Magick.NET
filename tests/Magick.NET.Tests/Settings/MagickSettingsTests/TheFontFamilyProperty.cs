@@ -11,13 +11,17 @@ public partial class MagickSettingsTests
     public class TheFontFamilyProperty
     {
         [Fact]
+        public void ShouldDefaultToNull()
+        {
+            using var image = new MagickImage();
+
+            Assert.Null(image.Settings.FontFamily);
+        }
+
+        [Fact]
         public void ShouldChangeTheFont()
         {
             using var image = new MagickImage();
-            Assert.Null(image.Settings.FontFamily);
-            Assert.Equal(0, image.Settings.FontPointsize);
-            Assert.Equal(FontStyleType.Undefined, image.Settings.FontStyle);
-            Assert.Equal(FontWeight.Undefined, image.Settings.FontWeight);
 
             image.Settings.FontFamily = "Courier New";
             image.Settings.FontPointsize = 40;

@@ -11,7 +11,7 @@ public partial class MagickSettingsTests
     public class TheCompressionProperty
     {
         [Fact]
-        public void ShouldDefaultToUndefined()
+        public void ShouldHaveUndefinedAsTheDefaultValue()
         {
             using var image = new MagickImage();
 

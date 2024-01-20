@@ -15,7 +15,7 @@ public partial class MagickSettingsTests
         {
             using var image = new MagickImage();
 
-            Assert.Equal(FillRule.EvenOdd, image.Settings.FillRule);
+            Assert.True(image.Settings.StrokeAntiAlias);
         }
 
         [Fact]
