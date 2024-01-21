@@ -1,6 +1,8 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
+
 namespace ImageMagick;
 
 /// <summary>
@@ -21,7 +23,7 @@ public sealed class DrawablePushPattern : IDrawable, IDrawingWand
     /// <param name="height">The height.</param>
     public DrawablePushPattern(string id, double x, double y, double width, double height)
     {
-        ID = id;
+        Id = id;
         X = x;
         Y = y;
         Width = width;
@@ -31,7 +33,17 @@ public sealed class DrawablePushPattern : IDrawable, IDrawingWand
     /// <summary>
     /// Gets or sets the ID of the pattern.
     /// </summary>
-    public string ID { get; set; }
+    public string Id { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ID of the pattern.
+    /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Id)} instead.")]
+    public string ID
+    {
+        get => Id;
+        set => Id = value;
+    }
 
     /// <summary>
     /// Gets or sets the height.
