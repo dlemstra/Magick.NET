@@ -101,7 +101,7 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         if (value.Name is null)
             return null;
 
-        var d = GetClipPath(0, value.ToByteArray());
+        var d = GetClipPath(value.ToByteArray());
         if (string.IsNullOrEmpty(d))
             return null;
 
@@ -124,7 +124,7 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         return new ClipPath(value.Name, doc.CreateNavigator());
     }
 
-    private string? GetClipPath(int offset, byte[] data)
+    private string? GetClipPath(byte[] data)
     {
         if (_width == 0 || _height == 0)
             return null;
@@ -138,57 +138,6 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         if (_values is not null)
             return;
 
-        _values = new Collection<IEightBimValue>();
-
-        var data = GetData();
-        if (data is null)
-            return;
-
-        var i = 0;
-        while (i < data.Length)
-        {
-            if (data[i++] != '8')
-                continue;
-            if (data[i++] != 'B')
-                continue;
-            if (data[i++] != 'I')
-                continue;
-            if (data[i++] != 'M')
-                continue;
-
-            if (i + 7 > data.Length)
-                return;
-
-            var id = ByteConverter.ToShort(data, ref i);
-
-            string? name = null;
-            int length = data[i++];
-            if (length != 0)
-            {
-                if (id > 1999 && id < 2998 && i + length < data.Length)
-                    name = Encoding.ASCII.GetString(data, i, length);
-
-                i += length;
-            }
-
-            if ((length & 0x01) == 0)
-                i++;
-
-            length = ByteConverter.ToUInt(data, ref i);
-            if (i + length > data.Length)
-                return;
-
-            if (length < 0)
-                return;
-
-            if (length != 0)
-            {
-                var value = new byte[length];
-                Array.Copy(data, i, value, 0, length);
-                _values.Add(new EightBimValue(id, name, value));
-            }
-
-            i += length;
-        }
+        _values = EightBimReader.Read(GetData());
     }
 }
