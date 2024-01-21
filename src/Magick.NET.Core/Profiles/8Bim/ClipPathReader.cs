@@ -10,7 +10,6 @@ internal sealed class ClipPathReader
 {
     private readonly int _height;
     private readonly int _width;
-    private readonly int _offset;
     private readonly PointD[] _first = new PointD[3];
     private readonly PointD[] _last = new PointD[3];
     private readonly StringBuilder _path = new StringBuilder();
@@ -19,24 +18,23 @@ internal sealed class ClipPathReader
     private bool _inSubpath = false;
     private int _knotCount = 0;
 
-    private ClipPathReader(int width, int height, int offset)
+    private ClipPathReader(int width, int height)
     {
         _width = width;
         _height = height;
-        _offset = offset;
 
-        _index = _offset;
+        _index = 0;
     }
 
-    public static string Read(int width, int height, byte[] data, int offset, int length)
+    public static string Read(int width, int height, byte[] data)
     {
-        var reader = new ClipPathReader(width, height, offset);
-        return reader.Read(data, length);
+        var reader = new ClipPathReader(width, height);
+        return reader.Read(data);
     }
 
-    private string Read(byte[] data, int length)
+    private string Read(byte[] data)
     {
-        while (_index < _offset + length)
+        while (_index < data.Length)
         {
             var selector = ByteConverter.ToShort(data, ref _index);
             switch (selector)

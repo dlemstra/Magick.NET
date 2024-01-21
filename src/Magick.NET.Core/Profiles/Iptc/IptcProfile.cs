@@ -61,6 +61,7 @@ public sealed class IptcProfile : ImageProfile, IIptcProfile
         get
         {
             Initialize();
+
             return _values;
         }
     }

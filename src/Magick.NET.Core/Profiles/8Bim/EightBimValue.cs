@@ -13,9 +13,10 @@ public sealed class EightBimValue : IEightBimValue
 {
     private readonly byte[] _data;
 
-    internal EightBimValue(short id, byte[] data)
+    internal EightBimValue(short id, string? name, byte[] data)
     {
         Id = id;
+        Name = name;
         _data = data;
     }
 
@@ -30,6 +31,11 @@ public sealed class EightBimValue : IEightBimValue
     [Obsolete($"This property will be removed in the next major release, use {nameof(Id)} instead.")]
     public short ID
        => Id;
+
+    /// <summary>
+    /// Gets the name of the 8bim value.
+    /// </summary>
+    public string? Name { get; }
 
     /// <summary>
     /// Determines whether the specified object is equal to the current <see cref="EightBimValue"/>.

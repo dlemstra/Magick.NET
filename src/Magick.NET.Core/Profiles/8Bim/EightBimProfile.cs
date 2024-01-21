@@ -18,7 +18,6 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     private readonly int _height;
     private readonly int _width;
 
-    private Collection<IClipPath>? _clipPaths;
     private Collection<IEightBimValue>? _values;
 
     /// <summary>
@@ -72,7 +71,15 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         {
             Initialize();
 
-            return _clipPaths;
+            var clipPaths = new List<IClipPath>();
+            foreach (var value in _values)
+            {
+                var clipPath = CreateClipPath(value);
+                if (clipPath is not null)
+                    clipPaths.Add(clipPath);
+            }
+
+            return clipPaths;
         }
     }
 
@@ -89,9 +96,12 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         }
     }
 
-    private ClipPath? CreateClipPath(string name, int offset, int length)
+    private ClipPath? CreateClipPath(IEightBimValue value)
     {
-        var d = GetClipPath(offset, length);
+        if (value.Name is null)
+            return null;
+
+        var d = GetClipPath(0, value.ToByteArray());
         if (string.IsNullOrEmpty(d))
             return null;
 
@@ -111,28 +121,23 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         XmlHelper.SetAttribute(path, "stroke-antialiasing", "false");
         XmlHelper.SetAttribute(path, "d", d);
 
-        return new ClipPath(name, doc.CreateNavigator());
+        return new ClipPath(value.Name, doc.CreateNavigator());
     }
 
-    private string? GetClipPath(int offset, int length)
+    private string? GetClipPath(int offset, byte[] data)
     {
         if (_width == 0 || _height == 0)
             return null;
 
-        var data = GetData();
-        if (data is null)
-            return null;
-
-        return ClipPathReader.Read(_width, _height, data, offset, length);
+        return ClipPathReader.Read(_width, _height, data);
     }
 
-    [MemberNotNull(nameof(_clipPaths), nameof(_values))]
+    [MemberNotNull(nameof(_values))]
     private void Initialize()
     {
-        if (_clipPaths is not null && _values is not null)
+        if (_values is not null)
             return;
 
-        _clipPaths = new Collection<IClipPath>();
         _values = new Collection<IEightBimValue>();
 
         var data = GetData();
@@ -155,13 +160,12 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
                 return;
 
             var id = ByteConverter.ToShort(data, ref i);
-            var isClipPath = id > 1999 && id < 2998;
 
             string? name = null;
             int length = data[i++];
             if (length != 0)
             {
-                if (isClipPath && i + length < data.Length)
+                if (id > 1999 && id < 2998 && i + length < data.Length)
                     name = Encoding.ASCII.GetString(data, i, length);
 
                 i += length;
@@ -179,16 +183,9 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
 
             if (length != 0)
             {
-                if (isClipPath)
-                {
-                    var clipPath = CreateClipPath(name!, i, length);
-                    if (clipPath is not null)
-                        _clipPaths.Add(clipPath);
-                }
-
                 var value = new byte[length];
                 Array.Copy(data, i, value, 0, length);
-                _values.Add(new EightBimValue(id, value));
+                _values.Add(new EightBimValue(id, name, value));
             }
 
             i += length;

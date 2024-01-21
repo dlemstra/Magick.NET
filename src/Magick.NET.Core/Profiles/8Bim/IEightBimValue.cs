@@ -23,6 +23,11 @@ public interface IEightBimValue : IEquatable<IEightBimValue?>
     short ID { get; }
 
     /// <summary>
+    /// Gets the name of the 8bim value.
+    /// </summary>
+    string? Name { get; }
+
+    /// <summary>
     /// Converts this instance to a byte array.
     /// </summary>
     /// <returns>A <see cref="byte"/> array.</returns>
