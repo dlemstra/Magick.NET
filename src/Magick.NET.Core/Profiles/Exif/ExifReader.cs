@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ImageMagick;
 
@@ -76,7 +76,7 @@ internal sealed class ExifReader
             AddValues(_data.Values, _gpsOffset);
     }
 
-    private void AddValues(List<IExifValue> values, uint index)
+    private void AddValues(Collection<IExifValue> values, uint index)
     {
         _reader.Seek(_startIndex + index);
         var count = ReadShort();
@@ -309,7 +309,7 @@ internal sealed class ExifReader
 
     private void ReadThumbnail(uint offset)
     {
-        var values = new List<IExifValue>();
+        var values = new Collection<IExifValue>();
         AddValues(values, offset);
 
         foreach (var value in values)

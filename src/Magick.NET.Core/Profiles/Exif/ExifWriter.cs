@@ -2,7 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Text;
 
@@ -17,7 +17,7 @@ internal sealed class ExifWriter
     public ExifWriter(ExifParts allowedParts)
         => _allowedParts = allowedParts;
 
-    public byte[]? Write(List<IExifValue> values)
+    public byte[]? Write(Collection<IExifValue> values)
     {
         var ifdValues = GetPartValues(values, ExifParts.IfdTags);
         var exifValues = GetPartValues(values, ExifParts.ExifTags);
@@ -104,7 +104,7 @@ internal sealed class ExifWriter
     private static void Write(byte[] bytes, Stream stream)
         => stream.Write(bytes, 0, bytes.Length);
 
-    private static void RemoveOffsetValues(List<IExifValue> ifdValues, params ExifTag[] offsetTags)
+    private static void RemoveOffsetValues(Collection<IExifValue> ifdValues, params ExifTag[] offsetTags)
     {
         for (var i = ifdValues.Count - 1; i >= 0; i--)
         {
@@ -126,10 +126,10 @@ internal sealed class ExifWriter
     private static uint PositionToOffset(long offset)
         => (uint)offset - 6;
 
-    private static void WriteHeaders(List<IExifValue> values, Stream stream)
+    private static void WriteHeaders(Collection<IExifValue> values, Stream stream)
         => WriteHeaders(values, stream, 0);
 
-    private static void WriteHeaders(List<IExifValue> values, Stream stream, ushort countDelta)
+    private static void WriteHeaders(Collection<IExifValue> values, Stream stream, ushort countDelta)
     {
         var count = (ushort)(values.Count + countDelta);
 
@@ -210,7 +210,7 @@ internal sealed class ExifWriter
         return true;
     }
 
-    private static void WriteValues(List<IExifValue> values, Stream stream)
+    private static void WriteValues(Collection<IExifValue> values, Stream stream)
     {
         foreach (var value in values)
         {
@@ -300,9 +300,9 @@ internal sealed class ExifWriter
         Write(BitConverter.GetBytes(value.Denominator), stream);
     }
 
-    private List<IExifValue> GetPartValues(List<IExifValue> values, ExifParts part)
+    private Collection<IExifValue> GetPartValues(Collection<IExifValue> values, ExifParts part)
     {
-        var result = new List<IExifValue>();
+        var result = new Collection<IExifValue>();
 
         if (!EnumHelper.HasFlag(_allowedParts, part))
             return result;

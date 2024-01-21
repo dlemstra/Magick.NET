@@ -1,7 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ImageMagick;
 
@@ -11,7 +11,7 @@ internal sealed class ExifData
 
     public uint ThumbnailOffset { get; set; }
 
-    public List<ExifTag> InvalidTags { get; } = new List<ExifTag>();
+    public Collection<ExifTag> InvalidTags { get; } = new Collection<ExifTag>();
 
-    public List<IExifValue> Values { get; } = new List<IExifValue>();
+    public Collection<IExifValue> Values { get; } = new Collection<IExifValue>();
 }
