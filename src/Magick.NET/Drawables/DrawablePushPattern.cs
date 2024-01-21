@@ -70,5 +70,5 @@ public sealed class DrawablePushPattern : IDrawable, IDrawingWand
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.PushPattern(ID, X, Y, Width, Height);
+        => wand?.PushPattern(Id, X, Y, Width, Height);
 }
