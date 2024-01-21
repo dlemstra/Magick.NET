@@ -15,14 +15,21 @@ public sealed class EightBimValue : IEightBimValue
 
     internal EightBimValue(short id, byte[] data)
     {
-        ID = id;
+        Id = id;
         _data = data;
     }
 
     /// <summary>
     /// Gets the ID of the 8bim value.
     /// </summary>
-    public short ID { get; }
+    public short Id { get; }
+
+    /// <summary>
+    /// Gets the id of the 8bim value.
+    /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(Id)} instead.")]
+    public short ID
+       => Id;
 
     /// <summary>
     /// Determines whether the specified object is equal to the current <see cref="EightBimValue"/>.
@@ -45,7 +52,7 @@ public sealed class EightBimValue : IEightBimValue
         if (ReferenceEquals(this, other))
             return true;
 
-        if (ID != other.ID)
+        if (Id != other.Id)
             return false;
 
         var data = other.ToByteArray();
@@ -67,7 +74,7 @@ public sealed class EightBimValue : IEightBimValue
     /// </summary>
     /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
-        => _data.GetHashCode() ^ ID.GetHashCode();
+        => _data.GetHashCode() ^ Id.GetHashCode();
 
     /// <summary>
     /// Converts this instance to a byte array.
