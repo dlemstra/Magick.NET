@@ -51,8 +51,6 @@ internal sealed class EightBimWriter
                 stream.WriteByte(0);
         }
 
-        stream.Flush();
-
         return stream.ToArray();
     }
 }
