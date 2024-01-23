@@ -16,6 +16,11 @@ public interface IEightBimProfile : IImageProfile
     IReadOnlyCollection<IClipPath> ClipPaths { get; }
 
     /// <summary>
+    /// Gets or sets the iptc profile inside the 8bim profile.
+    /// </summary>
+    IIptcProfile? IptcProfile { get; set; }
+
+    /// <summary>
     /// Gets the values of this 8bim profile.
     /// </summary>
     IReadOnlyCollection<IEightBimValue> Values { get; }

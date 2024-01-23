@@ -1,12 +1,11 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using System.Text;
+using System.Linq;
 
 namespace ImageMagick;
 
@@ -15,6 +14,8 @@ namespace ImageMagick;
 /// </summary>
 public sealed class EightBimProfile : ImageProfile, IEightBimProfile
 {
+    private static readonly short IptcProfileId = 1028;
+
     private readonly int _height;
     private readonly int _width;
 
@@ -84,6 +85,42 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     }
 
     /// <summary>
+    /// Gets or sets the iptc profile inside the 8bim profile.
+    /// </summary>
+    public IIptcProfile? IptcProfile
+    {
+        get
+        {
+            Initialize();
+
+            var value = FindValue(IptcProfileId);
+            if (value is null)
+                return null;
+
+            return new IptcProfile(value.ToByteArray());
+        }
+
+        set
+        {
+            Initialize();
+
+            var currentValue = FindValue(IptcProfileId);
+
+            if (currentValue is not null)
+                _values.Remove(currentValue);
+
+            SetData(null);
+
+            if (value is null)
+                return;
+
+            var data = value.ToByteArray();
+            if (data is not null)
+                _values.Add(new EightBimValue(IptcProfileId, null, data));
+        }
+    }
+
+    /// <summary>
     /// Gets the values of this 8bim profile.
     /// </summary>
     public IReadOnlyCollection<IEightBimValue> Values
@@ -94,6 +131,22 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
 
             return _values;
         }
+    }
+
+    /// <summary>
+    /// Updates the data of the profile.
+    /// </summary>
+    protected override void UpdateData()
+    {
+        var data = GetData();
+        if (data is not null)
+            return;
+
+        if (_values is null)
+            return;
+
+        data = EightBimWriter.Write(_values);
+        SetData(data);
     }
 
     private ClipPath? CreateClipPath(IEightBimValue value)
@@ -122,6 +175,13 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         XmlHelper.SetAttribute(path, "d", d);
 
         return new ClipPath(value.Name, doc.CreateNavigator());
+    }
+
+    private IEightBimValue? FindValue(int id)
+    {
+        return _values
+            .Where(value => value.Id == id)
+            .FirstOrDefault();
     }
 
     private string? GetClipPath(byte[] data)
