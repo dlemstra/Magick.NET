@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.IO;
-using System.Linq;
 using ImageMagick;
 using Xunit;
 
@@ -76,7 +75,10 @@ public partial class EightBimProfileTests
             stream.Position = 0;
             image.Read(stream);
 
+            profile = image.Get8BimProfile();
             exifProfile = image.GetExifProfile();
+
+            Assert.NotNull(profile.ExifProfile);
             Assert.NotNull(exifProfile);
             Assert.Single(exifProfile.Values);
         }

@@ -74,7 +74,10 @@ public partial class EightBimProfileTests
             stream.Position = 0;
             image.Read(stream);
 
+            profile = image.Get8BimProfile();
             var iptcProfile = image.GetIptcProfile();
+
+            Assert.NotNull(profile.IptcProfile);
             Assert.NotNull(iptcProfile);
             Assert.Equal(bytes, iptcProfile.GetData().Skip(8));
         }
