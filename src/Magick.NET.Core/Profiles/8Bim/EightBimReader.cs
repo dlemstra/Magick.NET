@@ -55,7 +55,7 @@ internal sealed class EightBimReader
                 i += length;
             }
 
-            if ((length & 0x01) == 0)
+            if ((length + 1 & 0x01) != 0)
                 i++;
 
             length = ByteConverter.ToUInt(_data, ref i);
@@ -73,6 +73,8 @@ internal sealed class EightBimReader
             }
 
             i += length;
+            if ((length & 0x01) != 0)
+                i++;
         }
     }
 }
