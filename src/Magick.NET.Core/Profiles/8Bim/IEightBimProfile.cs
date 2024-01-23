@@ -29,4 +29,9 @@ public interface IEightBimProfile : IImageProfile
     /// Gets the values of this 8bim profile.
     /// </summary>
     IReadOnlyCollection<IEightBimValue> Values { get; }
+
+    /// <summary>
+    /// Gets or sets the xmp profile inside the 8bim profile.
+    /// </summary>
+    IXmpProfile? XmpProfile { get; set; }
 }
