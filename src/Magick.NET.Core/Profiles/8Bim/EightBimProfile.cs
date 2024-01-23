@@ -14,6 +14,7 @@ namespace ImageMagick;
 /// </summary>
 public sealed class EightBimProfile : ImageProfile, IEightBimProfile
 {
+    private static readonly short ExifProfileId = 1058;
     private static readonly short IptcProfileId = 1028;
 
     private readonly int _height;
@@ -81,6 +82,42 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
             }
 
             return clipPaths;
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets the exif profile inside the 8bim profile.
+    /// </summary>
+    public IExifProfile? ExifProfile
+    {
+        get
+        {
+            Initialize();
+
+            var value = FindValue(ExifProfileId);
+            if (value is null)
+                return null;
+
+            return new ExifProfile(value.ToByteArray());
+        }
+
+        set
+        {
+            Initialize();
+
+            var currentValue = FindValue(ExifProfileId);
+
+            if (currentValue is not null)
+                _values.Remove(currentValue);
+
+            SetData(null);
+
+            if (value is null)
+                return;
+
+            var data = value.ToByteArray();
+            if (data is not null)
+                _values.Add(new EightBimValue(ExifProfileId, null, data));
         }
     }
 
