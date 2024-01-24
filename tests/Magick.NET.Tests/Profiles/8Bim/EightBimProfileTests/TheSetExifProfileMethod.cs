@@ -9,30 +9,8 @@ namespace Magick.NET.Tests;
 
 public partial class EightBimProfileTests
 {
-    public class TheExifProfileProperty
+    public class TheSetExifProfileMethod
     {
-        [Fact]
-        public void ShouldReturnNullWhenProfileHasNoIptcProfile()
-        {
-            using var image = new MagickImage(Files.EightBimTIF);
-
-            var profile = image.Get8BimProfile()!;
-
-            Assert.Null(profile.ExifProfile);
-        }
-
-        [Fact]
-        public void ShouldReturnValueWhenProfileHasIptcProfile()
-        {
-            using var image = new MagickImage(Files.EightBimJPG);
-
-            var profile = image.Get8BimProfile();
-
-            Assert.NotNull(profile.ExifProfile);
-            Assert.Equal(446, profile.ExifProfile.GetData().Length);
-            Assert.Empty(profile.ExifProfile.Values);
-        }
-
         [Fact]
         public void ShouldRemoveProfileWhenSetToNull()
         {
@@ -42,7 +20,7 @@ public partial class EightBimProfileTests
             image.RemoveProfile(exifProfile);
 
             var profile = image.Get8BimProfile();
-            profile.ExifProfile = null;
+            profile.SetExifProfile(null);
 
             image.SetProfile(profile);
 
@@ -65,7 +43,7 @@ public partial class EightBimProfileTests
 
             IExifProfile exifProfile = new ExifProfile();
             exifProfile.SetValue(ExifTag.Copyright, "Magick.NET");
-            profile.ExifProfile = exifProfile;
+            profile.SetExifProfile(exifProfile);
 
             image.SetProfile(profile);
 
@@ -78,7 +56,7 @@ public partial class EightBimProfileTests
             profile = image.Get8BimProfile();
             exifProfile = image.GetExifProfile();
 
-            Assert.NotNull(profile.ExifProfile);
+            Assert.NotNull(profile.GetExifProfile());
             Assert.NotNull(exifProfile);
             Assert.Single(exifProfile.Values);
         }

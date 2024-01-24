@@ -87,42 +87,6 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     }
 
     /// <summary>
-    /// Gets or sets the exif profile inside the 8bim profile.
-    /// </summary>
-    public IExifProfile? ExifProfile
-    {
-        get
-        {
-            Initialize();
-
-            var value = FindValue(ExifProfileId);
-            if (value is null)
-                return null;
-
-            return new ExifProfile(value.ToByteArray());
-        }
-
-        set
-        {
-            Initialize();
-
-            var currentValue = FindValue(ExifProfileId);
-
-            if (currentValue is not null)
-                _values.Remove(currentValue);
-
-            SetData(null);
-
-            if (value is null)
-                return;
-
-            var data = value.ToByteArray();
-            if (data is not null)
-                _values.Add(new EightBimValue(ExifProfileId, null, data));
-        }
-    }
-
-    /// <summary>
     /// Gets the values of this 8bim profile.
     /// </summary>
     public IReadOnlyCollection<IEightBimValue> Values
@@ -133,6 +97,21 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
 
             return _values;
         }
+    }
+
+    /// <summary>
+    /// Gets the exif profile inside the 8bim profile.
+    /// </summary>
+    /// <returns>The exif profile.</returns>
+    public IExifProfile? GetExifProfile()
+    {
+        Initialize();
+
+        var value = FindValue(ExifProfileId);
+        if (value is null)
+            return null;
+
+        return new ExifProfile(value.ToByteArray());
     }
 
     /// <summary>
@@ -163,6 +142,29 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
             return null;
 
         return new XmpProfile(value.ToByteArray());
+    }
+
+    /// <summary>
+    /// Sets the exif profile inside the 8bim profile.
+    /// </summary>
+    /// <param name="profile">The exif profile.</param>
+    public void SetExifProfile(IExifProfile? profile)
+    {
+        Initialize();
+
+        var currentValue = FindValue(ExifProfileId);
+
+        if (currentValue is not null)
+            _values.Remove(currentValue);
+
+        SetData(null);
+
+        if (profile is null)
+            return;
+
+        var data = profile.ToByteArray();
+        if (data is not null)
+            _values.Add(new EightBimValue(ExifProfileId, null, data));
     }
 
     /// <summary>

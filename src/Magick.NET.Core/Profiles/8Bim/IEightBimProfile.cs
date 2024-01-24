@@ -16,14 +16,15 @@ public interface IEightBimProfile : IImageProfile
     IReadOnlyCollection<IClipPath> ClipPaths { get; }
 
     /// <summary>
-    /// Gets or sets the exif profile inside the 8bim profile.
-    /// </summary>
-    IExifProfile? ExifProfile { get; set; }
-
-    /// <summary>
     /// Gets the values of this 8bim profile.
     /// </summary>
     IReadOnlyCollection<IEightBimValue> Values { get; }
+
+    /// <summary>
+    /// Gets the exif profile inside the 8bim profile.
+    /// </summary>
+    /// <returns>The exif profile.</returns>
+    IExifProfile? GetExifProfile();
 
     /// <summary>
     /// Gets the iptc profile inside the 8bim profile.
@@ -36,6 +37,12 @@ public interface IEightBimProfile : IImageProfile
     /// </summary>
     /// <returns>The xmp profile.</returns>
     IXmpProfile? GetXmpProfile();
+
+    /// <summary>
+    /// Sets the exif profile inside the 8bim profile.
+    /// </summary>
+    /// <param name="profile">The exif profile.</param>
+    void SetExifProfile(IExifProfile? profile);
 
     /// <summary>
     /// Sets the iptc profile inside the 8bim profile.
