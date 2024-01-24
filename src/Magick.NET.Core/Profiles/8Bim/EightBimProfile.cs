@@ -123,42 +123,6 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     }
 
     /// <summary>
-    /// Gets or sets the iptc profile inside the 8bim profile.
-    /// </summary>
-    public IIptcProfile? IptcProfile
-    {
-        get
-        {
-            Initialize();
-
-            var value = FindValue(IptcProfileId);
-            if (value is null)
-                return null;
-
-            return new IptcProfile(value.ToByteArray());
-        }
-
-        set
-        {
-            Initialize();
-
-            var currentValue = FindValue(IptcProfileId);
-
-            if (currentValue is not null)
-                _values.Remove(currentValue);
-
-            SetData(null);
-
-            if (value is null)
-                return;
-
-            var data = value.ToByteArray();
-            if (data is not null)
-                _values.Add(new EightBimValue(IptcProfileId, null, data));
-        }
-    }
-
-    /// <summary>
     /// Gets the values of this 8bim profile.
     /// </summary>
     public IReadOnlyCollection<IEightBimValue> Values
@@ -169,6 +133,21 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
 
             return _values;
         }
+    }
+
+    /// <summary>
+    /// Gets the iptc profile inside the 8bim profile.
+    /// </summary>
+    /// <returns>The iptc profile.</returns>
+    public IIptcProfile? GetIptcProfile()
+    {
+        Initialize();
+
+        var value = FindValue(IptcProfileId);
+        if (value is null)
+            return null;
+
+        return new IptcProfile(value.ToByteArray());
     }
 
     /// <summary>
@@ -187,7 +166,30 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     }
 
     /// <summary>
-    /// Sets the exif profile inside the 8bim profile.
+    /// Sets the iptc profile inside the 8bim profile.
+    /// </summary>
+    /// <param name="profile">The iptc profile.</param>
+    public void SetIptcProfile(IIptcProfile? profile)
+    {
+        Initialize();
+
+        var currentValue = FindValue(IptcProfileId);
+
+        if (currentValue is not null)
+            _values.Remove(currentValue);
+
+        SetData(null);
+
+        if (profile is null)
+            return;
+
+        var data = profile.ToByteArray();
+        if (data is not null)
+            _values.Add(new EightBimValue(IptcProfileId, null, data));
+    }
+
+    /// <summary>
+    /// Sets the xmp profile inside the 8bim profile.
     /// </summary>
     /// <param name="profile">The xmp profile.</param>
     public void SetXmpProfile(IXmpProfile? profile)

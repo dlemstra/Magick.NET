@@ -10,30 +10,8 @@ namespace Magick.NET.Tests;
 
 public partial class EightBimProfileTests
 {
-    public class TheIptcProfileProperty
+    public class TheSetIptcProfileMethod
     {
-        [Fact]
-        public void ShouldReturnNullWhenProfileHasNoIptcProfile()
-        {
-            using var image = new MagickImage(Files.EightBimTIF);
-
-            var profile = image.Get8BimProfile()!;
-
-            Assert.Null(profile.IptcProfile);
-        }
-
-        [Fact]
-        public void ShouldReturnValueWhenProfileHasIptcProfile()
-        {
-            using var image = new MagickImage(Files.EightBimJPG);
-
-            var profile = image.Get8BimProfile();
-
-            Assert.NotNull(profile.IptcProfile);
-            Assert.Equal(7, profile.IptcProfile.GetData().Length);
-            Assert.Single(profile.IptcProfile.Values);
-        }
-
         [Fact]
         public void ShouldRemoveProfileWhenSetToNull()
         {
@@ -43,7 +21,7 @@ public partial class EightBimProfileTests
             image.RemoveProfile(iptcProfile);
 
             var profile = image.Get8BimProfile();
-            profile.IptcProfile = null;
+            profile.SetIptcProfile(null);
 
             image.SetProfile(profile);
 
@@ -64,7 +42,7 @@ public partial class EightBimProfileTests
 
             var profile = image.Get8BimProfile();
             var bytes = new byte[] { 0x1c, 0x02, 0, 0, 0, 0, 0, 0 };
-            profile.IptcProfile = new IptcProfile(bytes);
+            profile.SetIptcProfile(new IptcProfile(bytes));
 
             image.SetProfile(profile);
 
@@ -77,7 +55,7 @@ public partial class EightBimProfileTests
             profile = image.Get8BimProfile();
             var iptcProfile = image.GetIptcProfile();
 
-            Assert.NotNull(profile.IptcProfile);
+            Assert.NotNull(profile.GetIptcProfile());
             Assert.NotNull(iptcProfile);
             Assert.Equal(bytes, iptcProfile.GetData().Skip(8));
         }
