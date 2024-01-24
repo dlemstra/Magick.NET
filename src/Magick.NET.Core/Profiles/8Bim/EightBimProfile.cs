@@ -174,37 +174,39 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     /// <summary>
     /// Gets or sets the xmp profile inside the 8bim profile.
     /// </summary>
-    public IXmpProfile? XmpProfile
+    /// <returns>The xmp profile.</returns>
+    public IXmpProfile? GetXmpProfile()
     {
-        get
-        {
-            Initialize();
+        Initialize();
 
-            var value = FindValue(XmpProfileId);
-            if (value is null)
-                return null;
+        var value = FindValue(XmpProfileId);
+        if (value is null)
+            return null;
 
-            return new XmpProfile(value.ToByteArray());
-        }
+        return new XmpProfile(value.ToByteArray());
+    }
 
-        set
-        {
-            Initialize();
+    /// <summary>
+    /// Sets the exif profile inside the 8bim profile.
+    /// </summary>
+    /// <param name="profile">The xmp profile.</param>
+    public void SetXmpProfile(IXmpProfile? profile)
+    {
+        Initialize();
 
-            var currentValue = FindValue(XmpProfileId);
+        var currentValue = FindValue(XmpProfileId);
 
-            if (currentValue is not null)
-                _values.Remove(currentValue);
+        if (currentValue is not null)
+            _values.Remove(currentValue);
 
-            SetData(null);
+        SetData(null);
 
-            if (value is null)
-                return;
+        if (profile is null)
+            return;
 
-            var data = value.ToByteArray();
-            if (data is not null)
-                _values.Add(new EightBimValue(XmpProfileId, null, data));
-        }
+        var data = profile.ToByteArray();
+        if (data is not null)
+            _values.Add(new EightBimValue(XmpProfileId, null, data));
     }
 
     /// <summary>

@@ -33,5 +33,12 @@ public interface IEightBimProfile : IImageProfile
     /// <summary>
     /// Gets or sets the xmp profile inside the 8bim profile.
     /// </summary>
-    IXmpProfile? XmpProfile { get; set; }
+    /// <returns>The xmp profile.</returns>
+    IXmpProfile? GetXmpProfile();
+
+    /// <summary>
+    /// Sets the exif profile inside the 8bim profile.
+    /// </summary>
+    /// <param name="profile">The xmp profile.</param>
+    void SetXmpProfile(IXmpProfile? profile);
 }

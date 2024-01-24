@@ -9,25 +9,15 @@ namespace Magick.NET.Tests;
 
 public partial class EightBimProfileTests
 {
-    public class TheXmpProfileProperty
+    public class TheSetXmpProfileMethod
     {
-        [Fact]
-        public void ShouldReturnNullWhenProfileHasNoIptcProfile()
-        {
-            using var image = new MagickImage(Files.EightBimTIF);
-
-            var profile = image.Get8BimProfile()!;
-
-            Assert.Null(profile.XmpProfile);
-        }
-
         [Fact]
         public void ShouldRemoveProfileWhenSetToNull()
         {
             using var image = new MagickImage(Files.EightBimTIF);
 
             var profile = image.Get8BimProfile();
-            profile.XmpProfile = image.GetXmpProfile();
+            profile.SetXmpProfile(image.GetXmpProfile());
 
             image.SetProfile(profile);
 
@@ -38,9 +28,9 @@ public partial class EightBimProfileTests
             image.Read(stream);
 
             profile = image.Get8BimProfile();
-            Assert.NotNull(profile.XmpProfile);
+            Assert.NotNull(profile.GetXmpProfile());
 
-            profile.XmpProfile = null;
+            profile.SetXmpProfile(null);
             image.SetProfile(profile);
 
             stream.SetLength(0);
@@ -51,7 +41,7 @@ public partial class EightBimProfileTests
             image.Read(stream);
 
             profile = image.Get8BimProfile();
-            Assert.Null(profile.XmpProfile);
+            Assert.Null(profile.GetXmpProfile());
         }
 
         [Fact]
@@ -65,7 +55,7 @@ public partial class EightBimProfileTests
             image.RemoveProfile(xmpProfile);
 
             xmpProfile = new XmpProfile([1, 2, 3, 4, 5, 6, 7, 8]);
-            profile.XmpProfile = xmpProfile;
+            profile.SetXmpProfile(xmpProfile);
 
             image.SetProfile(profile);
 
@@ -78,7 +68,7 @@ public partial class EightBimProfileTests
             profile = image.Get8BimProfile();
             xmpProfile = image.GetXmpProfile();
 
-            Assert.NotNull(profile.XmpProfile);
+            Assert.NotNull(profile.GetXmpProfile());
             Assert.NotNull(xmpProfile);
             Assert.Equal(8, xmpProfile.GetData().Length);
         }
