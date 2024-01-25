@@ -19,8 +19,6 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
 
     - name: Install dependencies
       run: build/linux-x64/install.dependencies.sh
@@ -50,8 +48,6 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
 
     - name: Install dependencies
       run: build/linux-musl-x64/install.dependencies.sh
@@ -79,8 +75,6 @@ jobs:
 
   #   - name: Checkout
   #     uses: actions/checkout@v4
-  #     with:
-  #       fetch-depth: 1
 
   #   - name: Install Magick.Native
   #     run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64'
@@ -103,8 +97,6 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        fetch-depth: 1
 
     - name: Install dependencies
       run: build/osx-x64/install.dependencies.sh
@@ -145,7 +137,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-tags: true
 
     - name: Install dependencies
       run: ./install.dependencies.cmd
@@ -200,7 +192,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        fetch-depth: 0
+        fetch-tags: true
 
     - name: Install dependencies
       run: ./install.dependencies.cmd
