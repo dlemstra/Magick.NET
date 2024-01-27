@@ -6,6 +6,4 @@ using System;
 namespace ImageMagick.SourceGenerator;
 
 [AttributeUsage(AttributeTargets.Enum, AllowMultiple = true)]
-internal sealed class ExifTagDescriptionAttribute : Attribute
-{
-}
+internal sealed class ExifTagDescriptionAttribute : Attribute;

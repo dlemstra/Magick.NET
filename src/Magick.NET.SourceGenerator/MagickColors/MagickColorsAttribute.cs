@@ -6,6 +6,4 @@ using System;
 namespace ImageMagick.SourceGenerator;
 
 [AttributeUsage(AttributeTargets.Interface | AttributeTargets.Class)]
-internal sealed class MagickColorsAttribute : Attribute
-{
-}
+internal sealed class MagickColorsAttribute : Attribute;
