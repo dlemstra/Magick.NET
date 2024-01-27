@@ -1,12 +1,9 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
-using ImageMagick.SourceGenerator;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
@@ -15,14 +12,10 @@ namespace ImageMagick.SourceGenerator;
 [Generator]
 internal class ExifTagDescriptionGenerator : IIncrementalGenerator
 {
-    public static Dictionary<string, Dictionary<object, string>> ForExifTagValue { get; } = new()
-    {
-    };
-
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<ExifTagDescriptionAttribute>());
-        context.RegisterAttributeCodeGenerator<ExifTagDescriptionAttribute, IEnumerable<ExifTagDescriptionInfo>>(CheckForInterface, GenerateCode);
+        context.RegisterAttributeCodeGenerator<ExifTagDescriptionAttribute, IEnumerable<ExifTagDescriptionInfo>>(CreateInfo, GenerateCode);
     }
 
     private void GenerateCode(SourceProductionContext context, IEnumerable<ExifTagDescriptionInfo> descriptionInfos)
@@ -88,10 +81,10 @@ internal class ExifTagDescriptionGenerator : IIncrementalGenerator
         codeBuilder.Indent--;
         codeBuilder.AppendLine("}");
 
-        context.AddSource($"ExifTagDescriptions.g.cs", SourceText.From(codeBuilder.ToString(), Encoding.UTF8));
+        context.AddSource("ExifTagDescriptions.g.cs", SourceText.From(codeBuilder.ToString(), Encoding.UTF8));
     }
 
-    private IEnumerable<ExifTagDescriptionInfo> CheckForInterface(GeneratorAttributeSyntaxContext context)
+    private IEnumerable<ExifTagDescriptionInfo> CreateInfo(GeneratorAttributeSyntaxContext context)
         => ((INamedTypeSymbol)context.TargetSymbol)
             .GetMembers().OfType<IFieldSymbol>()
             .Where(value => value.GetAttributes().Any())
