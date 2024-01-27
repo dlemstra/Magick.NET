@@ -34,7 +34,8 @@ internal sealed class CodeBuilder
 
     public void AppendLine(string? value = null)
     {
-        AppendIdentation();
+        if (value is not null && value.Length > 0)
+            AppendIdentation();
 
         _builder.AppendLine(value);
         _indentationWritten = false;
