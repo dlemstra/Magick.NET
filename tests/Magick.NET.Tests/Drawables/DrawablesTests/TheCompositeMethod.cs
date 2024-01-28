@@ -11,6 +11,7 @@ public partial class DrawablesTests
 {
     public class TheCompositeMethod
     {
+        [Obsolete]
         public class WithOffsetAndImage
         {
             [Fact]
@@ -46,7 +47,8 @@ public partial class DrawablesTests
             }
         }
 
-        public class WithOffsetAndCompositeOperatorAndImage
+        [Obsolete]
+        public class WithGeometryOffsetAndCompositeOperatorAndImage
         {
             [Fact]
             public void ShouldThrowExceptionWhenOffsetIsNull()
@@ -81,6 +83,33 @@ public partial class DrawablesTests
             }
         }
 
+        public class WithOffsetAndCompositeOperatorAndImage
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenImageIsNull()
+            {
+                Assert.Throws<ArgumentNullException>("image", () =>
+                {
+                    new Drawables().Composite(1, 0, 1, 1, CompositeOperator.Over, null);
+                });
+            }
+
+            [Fact]
+            public void ShouldUseTheCompositeOperator()
+            {
+                using var image = new MagickImage(MagickColors.Green, 3, 1);
+                using var inner = new MagickImage(MagickColors.Purple, 2, 2);
+                new Drawables()
+                    .Composite(1, 0, 1, 1, CompositeOperator.Plus, inner)
+                    .Draw(image);
+
+                ColorAssert.Equal(MagickColors.Green, image, 0, 0);
+                ColorAssert.Equal(MagickColors.Gray, image, 1, 0);
+                ColorAssert.Equal(MagickColors.Green, image, 2, 0);
+            }
+        }
+
+        [Obsolete]
         public class WithXYAndImage
         {
             [Fact]
