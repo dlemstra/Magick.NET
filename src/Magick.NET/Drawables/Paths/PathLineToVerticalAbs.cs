@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Draws a vertical line path from the current point to the target point using absolute
 /// coordinates. The target point then becomes the new current point.
 /// </summary>
-public sealed class PathLineToVerticalAbs : IPath, IDrawingWand
+public sealed class PathLineToVerticalAbs : IPathLineToVertical, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PathLineToVerticalAbs"/> class.

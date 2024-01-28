@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Draws a vertical line path from the current point to the target point using relative
 /// coordinates. The target point then becomes the new current point.
 /// </summary>
-public sealed class PathLineToVerticalRel : IPath, IDrawingWand
+public sealed class PathLineToVerticalRel : IPathLineToVertical, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PathLineToVerticalRel"/> class.

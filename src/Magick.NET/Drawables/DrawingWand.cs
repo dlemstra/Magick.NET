@@ -167,11 +167,11 @@ internal sealed partial class DrawingWand : IDisposable
         }
     }
 
-    public void PathMoveToAbs(double x, double y)
-        => _nativeInstance.PathMoveToAbs(x, y);
+    public void PathMoveToAbs(PointD coordinate)
+        => _nativeInstance.PathMoveToAbs(coordinate.X, coordinate.Y);
 
-    public void PathMoveToRel(double x, double y)
-        => _nativeInstance.PathMoveToRel(x, y);
+    public void PathMoveToRel(PointD coordinate)
+        => _nativeInstance.PathMoveToRel(coordinate.X, coordinate.Y);
 
     public void PathQuadraticCurveToAbs(PointD controlPoint, PointD endPoint)
         => _nativeInstance.PathQuadraticCurveToAbs(controlPoint.X, controlPoint.Y, endPoint.X, endPoint.Y);

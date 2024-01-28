@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Draws a horizontal line path from the current point to the target point using absolute
 /// coordinates. The target point then becomes the new current point.
 /// </summary>
-public sealed class PathLineToHorizontalAbs : IPath, IDrawingWand
+public sealed class PathLineToHorizontalAbs : IPathLineToHorizontal, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PathLineToHorizontalAbs"/> class.

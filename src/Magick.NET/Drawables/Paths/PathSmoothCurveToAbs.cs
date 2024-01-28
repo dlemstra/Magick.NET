@@ -13,11 +13,8 @@ namespace ImageMagick;
 /// the end of the command, the new current point becomes the final (x,y) coordinate pair used
 /// in the polybezier.
 /// </summary>
-public sealed class PathSmoothCurveToAbs : IPath, IDrawingWand
+public sealed class PathSmoothCurveToAbs : IPathSmoothCurveTo, IDrawingWand
 {
-    private readonly PointD _controlPoint;
-    private readonly PointD _end;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PathSmoothCurveToAbs"/> class.
     /// </summary>
@@ -37,14 +34,24 @@ public sealed class PathSmoothCurveToAbs : IPath, IDrawingWand
     /// <param name="end">Coordinate of final point.</param>
     public PathSmoothCurveToAbs(PointD controlPoint, PointD end)
     {
-        _controlPoint = controlPoint;
-        _end = end;
+        ControlPoint = controlPoint;
+        End = end;
     }
+
+    /// <summary>
+    /// Gets the coordinate of second point.
+    /// </summary>
+    public PointD ControlPoint { get; }
+
+    /// <summary>
+    /// Gets the coordinate of final point.
+    /// </summary>
+    public PointD End { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.PathSmoothCurveToAbs(_controlPoint, _end);
+        => wand?.PathSmoothCurveToAbs(ControlPoint, End);
 }

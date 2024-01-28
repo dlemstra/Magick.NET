@@ -44,6 +44,16 @@ public sealed class PathArc
     }
 
     /// <summary>
+    /// Gets or sets the X offset from origin.
+    /// </summary>
+    public double X { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Y offset from origin.
+    /// </summary>
+    public double Y { get; set; }
+
+    /// <summary>
     /// Gets or sets the X radius.
     /// </summary>
     public double RadiusX { get; set; }
@@ -67,14 +77,4 @@ public sealed class PathArc
     /// Gets or sets a value indicating whether the arc should be drawn matching a clock-wise rotation.
     /// </summary>
     public bool UseSweep { get; set; }
-
-    /// <summary>
-    /// Gets or sets the X offset from origin.
-    /// </summary>
-    public double X { get; set; }
-
-    /// <summary>
-    /// Gets or sets the Y offset from origin.
-    /// </summary>
-    public double Y { get; set; }
 }

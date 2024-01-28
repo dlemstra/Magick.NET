@@ -9,12 +9,8 @@ namespace ImageMagick;
 /// absolute coordinates. At the end of the command, the new current point becomes the final (x, y)
 /// coordinate pair used in the polybezier.
 /// </summary>
-public sealed class PathCurveToAbs : IPath, IDrawingWand
+public sealed class PathCurveToAbs : IPathCurveTo, IDrawingWand
 {
-    private readonly PointD _controlPointStart;
-    private readonly PointD _controlPointEnd;
-    private readonly PointD _end;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PathCurveToAbs"/> class.
     /// </summary>
@@ -37,15 +33,30 @@ public sealed class PathCurveToAbs : IPath, IDrawingWand
     /// <param name="end">Coordinate of the end of the curve.</param>
     public PathCurveToAbs(PointD controlPointStart, PointD controlPointEnd, PointD end)
     {
-        _controlPointStart = controlPointStart;
-        _controlPointEnd = controlPointEnd;
-        _end = end;
+        ControlPointStart = controlPointStart;
+        ControlPointEnd = controlPointEnd;
+        End = end;
     }
+
+    /// <summary>
+    /// Gets the coordinate of control point for curve beginning.
+    /// </summary>
+    public PointD ControlPointStart { get; }
+
+    /// <summary>
+    /// Gets the coordinate of control point for curve ending.
+    /// </summary>
+    public PointD ControlPointEnd { get; }
+
+    /// <summary>
+    /// Gets the coordinate of the end of the curve.
+    /// </summary>
+    public PointD End { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.PathCurveToAbs(_controlPointStart, _controlPointEnd, _end);
+        => wand?.PathCurveToAbs(ControlPointStart, ControlPointEnd, End);
 }

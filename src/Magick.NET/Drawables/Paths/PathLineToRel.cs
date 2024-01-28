@@ -9,10 +9,8 @@ namespace ImageMagick;
 /// Draws a line path from the current point to the given coordinate using relative coordinates.
 /// The coordinate then becomes the new current point.
 /// </summary>
-public sealed class PathLineToRel : IPath, IDrawingWand
+public sealed class PathLineToRel : IPathLineTo, IDrawingWand
 {
-    private readonly PointDCoordinates _coordinates;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PathLineToRel"/> class.
     /// </summary>
@@ -28,23 +26,24 @@ public sealed class PathLineToRel : IPath, IDrawingWand
     /// </summary>
     /// <param name="coordinates">The coordinates to use.</param>
     public PathLineToRel(params PointD[] coordinates)
-    {
-        _coordinates = new PointDCoordinates(coordinates);
-    }
+        => Coordinates = new PointDCoordinates(coordinates);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PathLineToRel"/> class.
     /// </summary>
     /// <param name="coordinates">The coordinates to use.</param>
     public PathLineToRel(IEnumerable<PointD> coordinates)
-    {
-        _coordinates = new PointDCoordinates(coordinates);
-    }
+        => Coordinates = new PointDCoordinates(coordinates);
+
+    /// <summary>
+    /// Gets the coordinates.
+    /// </summary>
+    public IReadOnlyList<PointD> Coordinates { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.PathLineToRel(_coordinates.ToList());
+        => wand?.PathLineToRel(Coordinates);
 }

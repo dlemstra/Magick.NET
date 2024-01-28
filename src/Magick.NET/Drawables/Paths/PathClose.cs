@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// line from the current point to the current subpath's most recent starting point (usually, the
 /// most recent moveto point).
 /// </summary>
-public sealed class PathClose : IPath, IDrawingWand
+public sealed class PathClose : IPathClose, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="PathClose"/> class.

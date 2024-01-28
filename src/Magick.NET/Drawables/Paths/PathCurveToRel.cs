@@ -9,12 +9,8 @@ namespace ImageMagick;
 /// relative coordinates. At the end of the command, the new current point becomes the final (x, y)
 /// coordinate pair used in the polybezier.
 /// </summary>
-public sealed class PathCurveToRel : IPath, IDrawingWand
+public sealed class PathCurveToRel : IPathCurveTo, IDrawingWand
 {
-    private readonly PointD _controlPointStart;
-    private readonly PointD _controlPointEnd;
-    private readonly PointD _end;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PathCurveToRel"/> class.
     /// </summary>
@@ -37,15 +33,30 @@ public sealed class PathCurveToRel : IPath, IDrawingWand
     /// <param name="end">Coordinate of the end of the curve.</param>
     public PathCurveToRel(PointD controlPointStart, PointD controlPointEnd, PointD end)
     {
-        _controlPointStart = controlPointStart;
-        _controlPointEnd = controlPointEnd;
-        _end = end;
+        ControlPointStart = controlPointStart;
+        ControlPointEnd = controlPointEnd;
+        End = end;
     }
+
+    /// <summary>
+    /// Gets the coordinate of control point for curve beginning.
+    /// </summary>
+    public PointD ControlPointStart { get; }
+
+    /// <summary>
+    /// Gets the coordinate of control point for curve ending.
+    /// </summary>
+    public PointD ControlPointEnd { get; }
+
+    /// <summary>
+    /// Gets the coordinate of the end of the curve.
+    /// </summary>
+    public PointD End { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.PathCurveToRel(_controlPointStart, _controlPointEnd, _end);
+        => wand?.PathCurveToRel(ControlPointStart, ControlPointEnd, End);
 }

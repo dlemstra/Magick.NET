@@ -12,10 +12,8 @@ namespace ImageMagick;
 /// coincident with the current point.). At the end of the command, the new current point becomes
 /// the final (X,Y) coordinate pair used in the polybezier.
 /// </summary>
-public sealed class PathSmoothQuadraticCurveToRel : IPath, IDrawingWand
+public sealed class PathSmoothQuadraticCurveToRel : IPathSmoothQuadraticCurveTo, IDrawingWand
 {
-    private readonly PointD _end;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="PathSmoothQuadraticCurveToRel"/> class.
     /// </summary>
@@ -31,14 +29,17 @@ public sealed class PathSmoothQuadraticCurveToRel : IPath, IDrawingWand
     /// </summary>
     /// <param name="end">Coordinate of final point.</param>
     public PathSmoothQuadraticCurveToRel(PointD end)
-    {
-        _end = end;
-    }
+        => End = end;
+
+    /// <summary>
+    /// Gets the coordinate of final point.
+    /// </summary>
+    public PointD End { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.PathSmoothQuadraticCurveToRel(_end);
+        => wand?.PathSmoothQuadraticCurveToRel(End);
 }
