@@ -43,7 +43,7 @@ internal sealed partial class DrawingWand : IDisposable
     public void Arc(double startX, double startY, double endX, double endY, double startDegrees, double endDegrees)
         => _nativeInstance.Arc(startX, startY, endX, endY, startDegrees, endDegrees);
 
-    public void Bezier(IList<PointD> coordinates)
+    public void Bezier(IReadOnlyList<PointD> coordinates)
     {
         using var pointInfo = new PointInfoCollection(coordinates);
         _nativeInstance.Bezier(pointInfo, pointInfo.Count);
@@ -197,13 +197,13 @@ internal sealed partial class DrawingWand : IDisposable
     public void Point(double x, double y)
         => _nativeInstance.Point(x, y);
 
-    public void Polygon(IList<PointD> coordinates)
+    public void Polygon(IReadOnlyList<PointD> coordinates)
     {
         using var pointInfo = new PointInfoCollection(coordinates);
         _nativeInstance.Polygon(pointInfo, pointInfo.Count);
     }
 
-    public void Polyline(IList<PointD> coordinates)
+    public void Polyline(IReadOnlyList<PointD> coordinates)
     {
         using var pointInfo = new PointInfoCollection(coordinates);
         _nativeInstance.Polyline(pointInfo, pointInfo.Count);

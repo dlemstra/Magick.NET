@@ -11,36 +11,29 @@ namespace ImageMagick;
 /// </summary>
 public sealed class DrawablePolyline : IDrawablePolyline, IDrawingWand
 {
-    private readonly PointDCoordinates _coordinates;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePolyline"/> class.
     /// </summary>
     /// <param name="coordinates">The coordinates.</param>
     public DrawablePolyline(params PointD[] coordinates)
-    {
-        _coordinates = new PointDCoordinates(coordinates, 3);
-    }
+        => Coordinates = new PointDCoordinates(coordinates, 3);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePolyline"/> class.
     /// </summary>
     /// <param name="coordinates">The coordinates.</param>
     public DrawablePolyline(IEnumerable<PointD> coordinates)
-    {
-        _coordinates = new PointDCoordinates(coordinates, 3);
-    }
+        => Coordinates = new PointDCoordinates(coordinates, 3);
 
     /// <summary>
     /// Gets the coordinates.
     /// </summary>
-    public IReadOnlyList<PointD> Coordinates
-        => _coordinates.ToList();
+    public IReadOnlyList<PointD> Coordinates { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.Polyline(_coordinates.ToList());
+        => wand?.Polyline(Coordinates);
 }

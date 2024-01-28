@@ -2,23 +2,33 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace ImageMagick;
 
-internal abstract class DrawableCoordinates<TCoordinateType>
+internal abstract class DrawableCoordinates<TCoordinateType> : IReadOnlyList<TCoordinateType>
 {
+    private readonly List<TCoordinateType> _coordinates;
+
     protected DrawableCoordinates(IEnumerable<TCoordinateType> coordinates, int minCount)
     {
         Throw.IfNull(nameof(coordinates), coordinates);
 
-        Coordinates = DrawableCoordinates<TCoordinateType>.CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
+        _coordinates = DrawableCoordinates<TCoordinateType>.CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
     }
 
-    protected List<TCoordinateType> Coordinates { get; }
+    public int Count
+        => _coordinates.Count;
 
-    public List<TCoordinateType> ToList()
-        => Coordinates;
+    public TCoordinateType this[int index]
+        => _coordinates[index];
+
+    public IEnumerator<TCoordinateType> GetEnumerator()
+        => _coordinates.GetEnumerator();
+
+    IEnumerator IEnumerable.GetEnumerator()
+        => _coordinates.GetEnumerator();
 
     private static List<TCoordinateType> CheckCoordinates(List<TCoordinateType> coordinates, int minCount)
     {
