@@ -92,37 +92,21 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
             codeBuilder.AppendComment(color.Comment);
             if (info.GenerateInterface)
             {
-                codeBuilder.Append("IMagickColor<TQuantumType> ");
-                codeBuilder.Append(color.Name);
-                codeBuilder.AppendLine(" { get; }");
+                codeBuilder.AppendLine("IMagickColor<TQuantumType> ", color.Name, " { get; }");
                 codeBuilder.AppendLine();
             }
             else
             {
-                codeBuilder.Append("public static MagickColor ");
-                codeBuilder.Append(color.Name);
-                codeBuilder.AppendLine();
+                codeBuilder.AppendLine("public static MagickColor ", color.Name);
                 codeBuilder.Indent++;
-                codeBuilder.Append("=> MagickColor.FromRgba(");
-                codeBuilder.Append(color.R);
-                codeBuilder.Append(", ");
-                codeBuilder.Append(color.G);
-                codeBuilder.Append(", ");
-                codeBuilder.Append(color.B);
-                codeBuilder.Append(", ");
-                codeBuilder.Append(color.A);
-                codeBuilder.AppendLine(");");
+                codeBuilder.AppendLine("=> MagickColor.FromRgba(", color.R, ", ", color.G, ", ", color.B, ", ", color.A, ");");
                 codeBuilder.Indent--;
                 codeBuilder.AppendLine();
 
                 codeBuilder.AppendComment(color.Comment);
-                codeBuilder.Append("IMagickColor<QuantumType> IMagickColors<QuantumType>.");
-                codeBuilder.Append(color.Name);
-                codeBuilder.AppendLine();
+                codeBuilder.AppendLine("IMagickColor<QuantumType> IMagickColors<QuantumType>.", color.Name);
                 codeBuilder.Indent++;
-                codeBuilder.Append("=> ");
-                codeBuilder.Append(color.Name);
-                codeBuilder.AppendLine(";");
+                codeBuilder.AppendLine("=> ", color.Name, ";");
                 codeBuilder.Indent--;
                 codeBuilder.AppendLine();
             }

@@ -37,9 +37,7 @@ internal class ExifTagDescriptionGenerator : IIncrementalGenerator
         {
             codeBuilder.AppendLine("{");
             codeBuilder.Indent++;
-            codeBuilder.Append("ExifTagValue.");
-            codeBuilder.Append(descriptionInfo.ValueName);
-            codeBuilder.AppendLine(", new()");
+            codeBuilder.AppendLine("ExifTagValue.", descriptionInfo.ValueName, ", new()");
             codeBuilder.AppendLine("{");
             codeBuilder.Indent++;
 
@@ -53,15 +51,10 @@ internal class ExifTagDescriptionGenerator : IIncrementalGenerator
                 switch (value)
                 {
                     case string:
-                        codeBuilder.Append("\"");
-                        codeBuilder.Append(value.ToString());
-                        codeBuilder.Append("\"");
+                        codeBuilder.Append("\"", value.ToString(), "\"");
                         break;
                     default:
-                        codeBuilder.Append("(");
-                        codeBuilder.Append(value.GetType().ToString());
-                        codeBuilder.Append(") ");
-                        codeBuilder.Append(value.ToString());
+                        codeBuilder.Append("(", value.GetType().ToString(), ") ", value.ToString());
                         break;
                 }
 

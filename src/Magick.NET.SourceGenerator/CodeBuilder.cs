@@ -19,10 +19,12 @@ internal sealed class CodeBuilder
         _builder.Append(value);
     }
 
-    public void Append(string? value)
+    public void Append(params string?[] values)
     {
         AppendIdentation();
-        _builder.Append(value);
+
+        foreach (var value in values)
+            _builder.Append(value);
     }
 
     public void AppendComment(params string[] comment)
@@ -53,12 +55,15 @@ internal sealed class CodeBuilder
         AppendLine("</returns>");
     }
 
-    public void AppendLine(string? value = null)
+    public void AppendLine(params string?[] values)
     {
-        if (value is not null && value.Length > 0)
+        if (values.Length > 0)
             AppendIdentation();
 
-        _builder.AppendLine(value);
+        foreach (var value in values)
+            _builder.Append(value);
+
+        _builder.AppendLine();
         _indentationWritten = false;
     }
 

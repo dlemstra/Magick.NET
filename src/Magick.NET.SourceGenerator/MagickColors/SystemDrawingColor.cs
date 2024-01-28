@@ -30,15 +30,15 @@ internal sealed class SystemDrawingColor
 
     public string Name { get; }
 
-    public byte R
-        => _color.R;
+    public string R
+        => _color.R.ToString();
 
-    public byte G
-        => _color.G;
+    public string G
+        => _color.G.ToString();
 
-    public byte B
-        => _color.B;
+    public string B
+        => _color.B.ToString();
 
-    public byte A
-        => _color.A;
+    public string A
+        => _color.A.ToString();
 }
