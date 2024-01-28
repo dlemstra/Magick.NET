@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Starts a clip path definition which is comprized of any number of drawing commands and
 /// terminated by a DrawablePopClipPath.
 /// </summary>
-public sealed class DrawablePushClipPath : IDrawable, IDrawingWand
+public sealed class DrawablePushClipPath : IDrawablePushClipPath, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePushClipPath"/> class.

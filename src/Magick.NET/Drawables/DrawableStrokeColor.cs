@@ -16,7 +16,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the color used for stroking object outlines.
 /// </summary>
-public sealed partial class DrawableStrokeColor : IDrawable, IDrawingWand
+public sealed partial class DrawableStrokeColor : IDrawableStrokeColor<QuantumType>, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeColor"/> class.

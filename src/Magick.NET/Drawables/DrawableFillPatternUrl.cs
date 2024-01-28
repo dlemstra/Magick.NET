@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// supported at this time. These local URLs are normally created by defining a named fill pattern
 /// with <see cref="DrawablePushPattern"/>/<see cref="DrawablePopPattern"/>.
 /// </summary>
-public sealed class DrawableFillPatternUrl : IDrawable, IDrawingWand
+public sealed class DrawableFillPatternUrl : IDrawableFillPatternUrl, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableFillPatternUrl"/> class.

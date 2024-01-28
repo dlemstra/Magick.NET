@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Specifies the shape to be used at the corners of paths (or other vector shapes) when they
 /// are stroked.
 /// </summary>
-public sealed class DrawableStrokeLineJoin : IDrawable, IDrawingWand
+public sealed class DrawableStrokeLineJoin : IDrawableStrokeLineJoin, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeLineJoin"/> class.

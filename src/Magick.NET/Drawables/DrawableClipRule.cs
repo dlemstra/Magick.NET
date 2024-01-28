@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the polygon fill rule to be used by the clipping path.
 /// </summary>
-public sealed class DrawableClipRule : IDrawable, IDrawingWand
+public sealed class DrawableClipRule : IDrawableClipRule, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableClipRule"/> class.

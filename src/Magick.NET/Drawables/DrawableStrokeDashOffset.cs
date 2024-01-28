@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Specifies the offset into the dash pattern to start the dash.
 /// </summary>
-public sealed class DrawableStrokeDashOffset : IDrawable, IDrawingWand
+public sealed class DrawableStrokeDashOffset : IDrawableStrokeDashOffset, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeDashOffset"/> class.

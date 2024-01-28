@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Skews the current coordinate system in the vertical direction.
 /// </summary>
-public sealed class DrawableSkewY : IDrawable, IDrawingWand
+public sealed class DrawableSkewY : IDrawableSkewY, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableSkewY"/> class.

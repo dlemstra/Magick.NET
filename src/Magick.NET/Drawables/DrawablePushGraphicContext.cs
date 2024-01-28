@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// may be returned to by invoking DrawablePopGraphicContext. The drawing wands are stored on a
 /// drawing wand stack. For every Pop there must have already been an equivalent Push.
 /// </summary>
-public sealed class DrawablePushGraphicContext : IDrawable, IDrawingWand
+public sealed class DrawablePushGraphicContext : IDrawablePushGraphicContext, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePushGraphicContext"/> class.

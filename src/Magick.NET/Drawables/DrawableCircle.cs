@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Draws a circle on the image.
 /// </summary>
-public sealed class DrawableCircle : IDrawable, IDrawingWand
+public sealed class DrawableCircle : IDrawableCircle, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableCircle"/> class.

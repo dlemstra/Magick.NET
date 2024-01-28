@@ -16,7 +16,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the border color to be used for drawing bordered objects.
 /// </summary>
-public sealed partial class DrawableBorderColor : IDrawable, IDrawingWand
+public sealed partial class DrawableBorderColor : IDrawableBorderColor<QuantumType>, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableBorderColor"/> class.

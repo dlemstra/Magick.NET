@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Controls whether text is antialiased. Text is antialiased by default.
 /// </summary>
-public sealed class DrawableTextAntialias : IDrawable, IDrawingWand
+public sealed class DrawableTextAntialias : IDrawableTextAntialias, IDrawingWand
 {
     private DrawableTextAntialias(bool isEnabled)
     {

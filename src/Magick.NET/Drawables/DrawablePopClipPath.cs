@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Terminates a clip path definition.
 /// </summary>
-public sealed class DrawablePopClipPath : IDrawable, IDrawingWand
+public sealed class DrawablePopClipPath : IDrawablePopClipPath, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePopClipPath"/> class.

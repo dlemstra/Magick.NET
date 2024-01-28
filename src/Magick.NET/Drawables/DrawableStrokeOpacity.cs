@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Specifies the alpha of stroked object outlines.
 /// </summary>
-public sealed class DrawableStrokeOpacity : IDrawable, IDrawingWand
+public sealed class DrawableStrokeOpacity : IDrawableStrokeOpacity, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeOpacity"/> class.

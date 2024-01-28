@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Draws an ellipse on the image.
 /// </summary>
-public sealed class DrawableEllipse : IDrawable, IDrawingWand
+public sealed class DrawableEllipse : IDrawableEllipse, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableEllipse"/> class.

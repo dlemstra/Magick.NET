@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the interpretation of clip path units.
 /// </summary>
-public sealed class DrawableClipUnits : IDrawable, IDrawingWand
+public sealed class DrawableClipUnits : IDrawableClipUnits, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableClipUnits"/> class.

@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the alpha to use when drawing using the fill color or fill texture.
 /// </summary>
-public sealed class DrawableFillOpacity : IDrawable, IDrawingWand
+public sealed class DrawableFillOpacity : IDrawableFillOpacity, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableFillOpacity"/> class.

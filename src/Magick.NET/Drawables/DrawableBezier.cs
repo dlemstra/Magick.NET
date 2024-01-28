@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// <summary>
 /// Draws a bezier curve through a set of points on the image.
 /// </summary>
-public sealed class DrawableBezier : IDrawable, IDrawingWand
+public sealed class DrawableBezier : IDrawableBezier, IDrawingWand
 {
     private readonly PointDCoordinates _coordinates;
 

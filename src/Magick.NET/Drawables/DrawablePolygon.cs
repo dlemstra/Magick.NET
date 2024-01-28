@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// Draws a polygon using the current stroke, stroke width, and fill color or texture, using the
 /// specified array of coordinates.
 /// </summary>
-public sealed class DrawablePolygon : IDrawable, IDrawingWand
+public sealed class DrawablePolygon : IDrawablePolygon, IDrawingWand
 {
     private readonly PointDCoordinates _coordinates;
 
@@ -30,6 +30,12 @@ public sealed class DrawablePolygon : IDrawable, IDrawingWand
     {
         _coordinates = new PointDCoordinates(coordinates, 3);
     }
+
+    /// <summary>
+    /// Gets the coordinates.
+    /// </summary>
+    public IReadOnlyList<PointD> Coordinates
+        => _coordinates.ToList();
 
     /// <summary>
     /// Draws this instance with the drawing wand.

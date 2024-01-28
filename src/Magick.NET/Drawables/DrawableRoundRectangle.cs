@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Draws a rounted rectangle given two coordinates, x &amp; y corner radiuses and using the current
 /// stroke, stroke width, and fill settings.
 /// </summary>
-public sealed class DrawableRoundRectangle : IDrawable, IDrawingWand
+public sealed class DrawableRoundRectangle : IDrawableRoundRectangle, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableRoundRectangle"/> class.

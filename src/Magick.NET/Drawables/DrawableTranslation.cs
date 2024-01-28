@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Applies a translation to the current coordinate system which moves the coordinate system
 /// origin to the specified coordinate.
 /// </summary>
-public sealed class DrawableTranslation : IDrawable, IDrawingWand
+public sealed class DrawableTranslation : IDrawableTranslation, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTranslation"/> class.

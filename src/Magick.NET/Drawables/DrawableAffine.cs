@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// Adjusts the current affine transformation matrix with the specified affine transformation
 /// matrix. Note that the current affine transform is adjusted rather than replaced.
 /// </summary>
-public sealed partial class DrawableAffine : IDrawableAffine, IDrawable, IDrawingWand
+public sealed partial class DrawableAffine : IDrawableAffine, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableAffine"/> class.

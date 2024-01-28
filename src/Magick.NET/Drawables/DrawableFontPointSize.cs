@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the font pointsize to use when annotating with text.
 /// </summary>
-public sealed class DrawableFontPointSize : IDrawable, IDrawingWand
+public sealed class DrawableFontPointSize : IDrawableFontPointSize, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableFontPointSize"/> class.

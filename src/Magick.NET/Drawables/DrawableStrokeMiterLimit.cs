@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// beyond the thickness of the line stroking the path. The 'DrawableStrokeMiterLimit' imposes a
 /// limit on the ratio of the miter length to the 'DrawableStrokeLineWidth'.
 /// </summary>
-public sealed class DrawableStrokeMiterLimit : IDrawable, IDrawingWand
+public sealed class DrawableStrokeMiterLimit : IDrawableStrokeMiterLimit, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeMiterLimit"/> class.

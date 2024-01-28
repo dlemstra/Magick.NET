@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the spacing between words in text.
 /// </summary>
-public sealed class DrawableTextInterwordSpacing : IDrawable, IDrawingWand
+public sealed class DrawableTextInterwordSpacing : IDrawableTextInterwordSpacing, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextInterwordSpacing"/> class.

@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// <summary>
 /// Encapsulation of the DrawableTextEncoding object.
 /// </summary>
-public sealed class DrawableTextEncoding : IDrawable, IDrawingWand
+public sealed class DrawableTextEncoding : IDrawableTextEncoding, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextEncoding"/> class.

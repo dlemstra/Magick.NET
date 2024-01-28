@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the font family, style, weight and stretch to use when annotating with text.
 /// </summary>
-public sealed class DrawableFont : IDrawable, IDrawingWand
+public sealed class DrawableFont : IDrawableFont, IDrawingWand
 {
     private static readonly string[] _fontExtensions = new string[] { ".ttf", ".ttc", ".pfb", ".pfm", ".otf" };
 

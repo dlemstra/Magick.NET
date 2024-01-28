@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the fill rule to use while drawing polygons.
 /// </summary>
-public sealed class DrawableFillRule : IDrawable, IDrawingWand
+public sealed class DrawableFillRule : IDrawableFillRule, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableFillRule"/> class.

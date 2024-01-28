@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Draws a point using the current fill color.
 /// </summary>
-public sealed class DrawablePoint : IDrawable, IDrawingWand
+public sealed class DrawablePoint : IDrawablePoint, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePoint"/> class.

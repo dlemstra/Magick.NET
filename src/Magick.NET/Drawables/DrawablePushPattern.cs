@@ -11,7 +11,7 @@ namespace ImageMagick;
 /// height, and becomes its own drawing space. Anything which can be drawn may be used in a
 /// pattern definition. Named patterns may be used as stroke or brush definitions.
 /// </summary>
-public sealed class DrawablePushPattern : IDrawable, IDrawingWand
+public sealed class DrawablePushPattern : IDrawablePushPattern, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePushPattern"/> class.

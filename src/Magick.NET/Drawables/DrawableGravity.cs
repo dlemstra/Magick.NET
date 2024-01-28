@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the gravity to use when drawing.
 /// </summary>
-public sealed class DrawableGravity : IDrawable, IDrawingWand
+public sealed class DrawableGravity : IDrawableGravity, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableGravity"/> class.

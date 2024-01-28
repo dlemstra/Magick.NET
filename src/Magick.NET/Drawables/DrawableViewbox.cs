@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// or MVG formats, the viewbox is use to specify the size of the canvas image that a viewer
 /// will render the vector data on.
 /// </summary>
-public sealed partial class DrawableViewbox : IDrawable, IDrawingWand
+public sealed partial class DrawableViewbox : IDrawableViewbox, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableViewbox"/> class.

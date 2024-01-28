@@ -16,7 +16,7 @@ namespace ImageMagick;
 /// <summary>
 /// Specifies the color of a background rectangle to place under text annotations.
 /// </summary>
-public sealed partial class DrawableTextUnderColor : IDrawable, IDrawingWand
+public sealed partial class DrawableTextUnderColor : IDrawableTextUnderColor<QuantumType>, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextUnderColor"/> class.

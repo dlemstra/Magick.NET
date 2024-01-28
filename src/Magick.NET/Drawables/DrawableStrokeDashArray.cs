@@ -1,6 +1,9 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace ImageMagick;
 
 /// <summary>
@@ -10,23 +13,26 @@ namespace ImageMagick;
 /// an even number of values. To remove an existing dash array, pass a null dasharray. A typical
 /// stroke dash array might contain the members 5 3 2.
 /// </summary>
-public sealed class DrawableStrokeDashArray : IDrawable, IDrawingWand
+public sealed class DrawableStrokeDashArray : IDrawableStrokeDashArray, IDrawingWand
 {
-    private readonly double[] _dash;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeDashArray"/> class.
     /// </summary>
     /// <param name="dash">An array containing the dash information.</param>
     public DrawableStrokeDashArray(params double[] dash)
     {
-        _dash = dash;
+        Dash = dash;
     }
+
+    /// <summary>
+    /// Gets the dash array.
+    /// </summary>
+    public IReadOnlyList<double> Dash { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.StrokeDashArray(_dash);
+        => wand?.StrokeDashArray(Dash.ToArray());
 }

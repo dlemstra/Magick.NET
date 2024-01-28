@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Specifies a decoration to be applied when annotating with text.
 /// </summary>
-public sealed class DrawableTextDecoration : IDrawable, IDrawingWand
+public sealed class DrawableTextDecoration : IDrawableTextDecoration, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextDecoration"/> class.

@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// <summary>
 /// Draws a set of paths.
 /// </summary>
-public sealed class DrawablePath : IDrawable, IDrawingWand
+public sealed class DrawablePath : IDrawablePath, IDrawingWand
 {
     private readonly List<IPath> _paths;
 

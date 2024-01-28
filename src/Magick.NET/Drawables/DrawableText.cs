@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Draws text on the image.
 /// </summary>
-public sealed class DrawableText : IDrawable, IDrawingWand
+public sealed class DrawableText : IDrawableText, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableText"/> class.

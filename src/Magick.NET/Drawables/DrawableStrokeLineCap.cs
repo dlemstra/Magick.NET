@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Specifies the shape to be used at the end of open subpaths when they are stroked.
 /// </summary>
-public sealed class DrawableStrokeLineCap : IDrawable, IDrawingWand
+public sealed class DrawableStrokeLineCap : IDrawableStrokeLineCap, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeLineCap"/> class.

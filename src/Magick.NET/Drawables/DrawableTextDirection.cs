@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Specifies the direction to be used when annotating with text.
 /// </summary>
-public sealed class DrawableTextDirection : IDrawable, IDrawingWand
+public sealed class DrawableTextDirection : IDrawableTextDirection, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextDirection"/> class.

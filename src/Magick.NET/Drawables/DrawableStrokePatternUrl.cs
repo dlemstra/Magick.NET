@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// supported at this time. These local URLs are normally created by defining a named stroke
 /// pattern with DrawablePushPattern/DrawablePopPattern.
 /// </summary>
-public sealed class DrawableStrokePatternUrl : IDrawable, IDrawingWand
+public sealed class DrawableStrokePatternUrl : IDrawableStrokePatternUrl, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokePatternUrl"/> class.

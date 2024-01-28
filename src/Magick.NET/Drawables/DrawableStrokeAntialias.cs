@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// When antialiasing is disabled stroked pixels are thresholded to determine if the stroke color
 /// or underlying canvas color should be used.
 /// </summary>
-public sealed class DrawableStrokeAntialias : IDrawable, IDrawingWand
+public sealed class DrawableStrokeAntialias : IDrawableStrokeAntialias, IDrawingWand
 {
     private DrawableStrokeAntialias(bool isEnabled)
         => IsEnabled = isEnabled;

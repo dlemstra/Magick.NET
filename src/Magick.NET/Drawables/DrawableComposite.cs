@@ -16,10 +16,8 @@ namespace ImageMagick;
 /// <summary>
 /// Encapsulation of the DrawableCompositeImage object.
 /// </summary>
-public sealed class DrawableComposite : IDrawable, IDrawingWand
+public sealed class DrawableComposite : IDrawableComposite<QuantumType>, IDrawingWand
 {
-    private readonly IMagickImage<QuantumType> _image;
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
     /// </summary>
@@ -43,8 +41,8 @@ public sealed class DrawableComposite : IDrawable, IDrawingWand
     {
         X = x;
         Y = y;
-        Width = _image.Width;
-        Height = _image.Height;
+        Width = Image.Width;
+        Height = Image.Height;
         Compose = compose;
     }
 
@@ -80,7 +78,7 @@ public sealed class DrawableComposite : IDrawable, IDrawingWand
     {
         Throw.IfNull(nameof(image), image);
 
-        _image = image;
+        Image = image;
     }
 
     /// <summary>
@@ -109,9 +107,14 @@ public sealed class DrawableComposite : IDrawable, IDrawingWand
     public double Y { get; set; }
 
     /// <summary>
+    /// Gets the composite image.
+    /// </summary>
+    public IMagickImage<QuantumType> Image { get; }
+
+    /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.Composite(X, Y, Width, Height, Compose, _image);
+        => wand?.Composite(X, Y, Width, Height, Compose, Image);
 }

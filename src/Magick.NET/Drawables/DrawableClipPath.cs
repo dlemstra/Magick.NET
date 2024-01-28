@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Associates a named clipping path with the image. Only the areas drawn on by the clipping path
 /// will be modified as ssize_t as it remains in effect.
 /// </summary>
-public sealed class DrawableClipPath : IDrawable, IDrawingWand
+public sealed class DrawableClipPath : IDrawableClipPath, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableClipPath"/> class.

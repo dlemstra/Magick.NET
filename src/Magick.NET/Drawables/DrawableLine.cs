@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Draws a line on the image using the current stroke color, stroke alpha, and stroke width.
 /// </summary>
-public sealed class DrawableLine : IDrawable, IDrawingWand
+public sealed class DrawableLine : IDrawableLine, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableLine"/> class.

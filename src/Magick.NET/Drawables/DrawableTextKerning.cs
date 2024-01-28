@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the spacing between characters in text.
 /// </summary>
-public sealed class DrawableTextKerning : IDrawable, IDrawingWand
+public sealed class DrawableTextKerning : IDrawableTextKerning, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableTextKerning"/> class.

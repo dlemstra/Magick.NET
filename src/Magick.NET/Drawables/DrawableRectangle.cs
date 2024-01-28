@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Draws a rectangle given two coordinates and using the current stroke, stroke width, and fill
 /// settings.
 /// </summary>
-public sealed partial class DrawableRectangle : IDrawable, IDrawingWand
+public sealed partial class DrawableRectangle : IDrawableRectangle, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableRectangle"/> class.

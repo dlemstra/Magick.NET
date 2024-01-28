@@ -16,7 +16,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the fill color to be used for drawing filled objects.
 /// </summary>
-public sealed partial class DrawableFillColor : IDrawable, IDrawingWand
+public sealed partial class DrawableFillColor : IDrawableFillColor<QuantumType>, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableFillColor"/> class.

@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Encapsulation of the DrawableDensity object.
 /// </summary>
-public sealed class DrawableDensity : IDrawable, IDrawingWand
+public sealed class DrawableDensity : IDrawableDensity, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableDensity"/> class.

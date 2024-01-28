@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Paints on the image's alpha channel in order to set effected pixels to transparent.
 /// </summary>
-public sealed class DrawableAlpha : IDrawable, IDrawingWand
+public sealed class DrawableAlpha : IDrawableAlpha, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableAlpha"/> class.

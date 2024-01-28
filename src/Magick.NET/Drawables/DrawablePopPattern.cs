@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Terminates a pattern definition.
 /// </summary>
-public sealed class DrawablePopPattern : IDrawable, IDrawingWand
+public sealed class DrawablePopPattern : IDrawablePopPattern, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePopPattern"/> class.

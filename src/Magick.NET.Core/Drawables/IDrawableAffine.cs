@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Adjusts the current affine transformation matrix with the specified affine transformation
 /// matrix. Note that the current affine transform is adjusted rather than replaced.
 /// </summary>
-public interface IDrawableAffine
+public interface IDrawableAffine : IDrawable
 {
     /// <summary>
     /// Gets or sets the X coordinate scaling element.

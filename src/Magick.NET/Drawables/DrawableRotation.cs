@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Applies the specified rotation to the current coordinate space.
 /// </summary>
-public sealed class DrawableRotation : IDrawable, IDrawingWand
+public sealed class DrawableRotation : IDrawableRotation, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableRotation"/> class.

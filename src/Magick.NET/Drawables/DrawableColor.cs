@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Draws color on image using the current fill color, starting at specified position, and using
 /// specified paint method.
 /// </summary>
-public sealed class DrawableColor : IDrawable, IDrawingWand
+public sealed class DrawableColor : IDrawableColor, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableColor"/> class.

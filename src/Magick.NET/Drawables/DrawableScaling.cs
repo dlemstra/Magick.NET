@@ -7,7 +7,7 @@ namespace ImageMagick;
 /// Adjusts the scaling factor to apply in the horizontal and vertical directions to the current
 /// coordinate space.
 /// </summary>
-public sealed class DrawableScaling : IDrawable, IDrawingWand
+public sealed class DrawableScaling : IDrawableScaling, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableScaling"/> class.

@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Draws an arc falling within a specified bounding rectangle on the image.
 /// </summary>
-public sealed class DrawableArc : IDrawable, IDrawingWand
+public sealed class DrawableArc : IDrawableArc, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableArc"/> class.

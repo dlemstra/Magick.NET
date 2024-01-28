@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Sets the width of the stroke used to draw object outlines.
 /// </summary>
-public sealed class DrawableStrokeWidth : IDrawable, IDrawingWand
+public sealed class DrawableStrokeWidth : IDrawableStrokeWidth, IDrawingWand
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableStrokeWidth"/> class.
