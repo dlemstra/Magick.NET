@@ -32,7 +32,7 @@ public sealed class DrawableAlpha : IDrawableAlpha, IDrawingWand
     public double Y { get; set; }
 
     /// <summary>
-    /// Gets or sets the <see cref="PaintMethod"/> to use.
+    /// Gets or sets the paint method to use.
     /// </summary>
     public PaintMethod PaintMethod { get; set; }
 
