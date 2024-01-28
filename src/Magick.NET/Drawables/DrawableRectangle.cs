@@ -27,22 +27,22 @@ public sealed partial class DrawableRectangle : IDrawableRectangle, IDrawingWand
     /// <summary>
     /// Gets or sets the upper left X coordinate.
     /// </summary>
-    public double LowerRightX { get; set; }
-
-    /// <summary>
-    /// Gets or sets the upper left Y coordinate.
-    /// </summary>
-    public double LowerRightY { get; set; }
-
-    /// <summary>
-    /// Gets or sets the upper left X coordinate.
-    /// </summary>
     public double UpperLeftX { get; set; }
 
     /// <summary>
     /// Gets or sets the upper left Y coordinate.
     /// </summary>
     public double UpperLeftY { get; set; }
+
+    /// <summary>
+    /// Gets or sets the upper left X coordinate.
+    /// </summary>
+    public double LowerRightX { get; set; }
+
+    /// <summary>
+    /// Gets or sets the upper left Y coordinate.
+    /// </summary>
+    public double LowerRightY { get; set; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

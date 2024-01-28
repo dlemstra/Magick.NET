@@ -105,21 +105,6 @@ public sealed class DrawableComposite : IDrawableComposite<QuantumType>, IDrawin
     }
 
     /// <summary>
-    /// Gets or sets the composition operator.
-    /// </summary>
-    public CompositeOperator Compose { get; set; }
-
-    /// <summary>
-    /// Gets or sets the height to scale the image to.
-    /// </summary>
-    public double Height { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width to scale the image to.
-    /// </summary>
-    public double Width { get; set; }
-
-    /// <summary>
     /// Gets or sets the X coordinate.
     /// </summary>
     public double X { get; set; }
@@ -128,6 +113,21 @@ public sealed class DrawableComposite : IDrawableComposite<QuantumType>, IDrawin
     /// Gets or sets the Y coordinate.
     /// </summary>
     public double Y { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width to scale the image to.
+    /// </summary>
+    public double Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height to scale the image to.
+    /// </summary>
+    public double Height { get; set; }
+
+    /// <summary>
+    /// Gets or sets the composition operator.
+    /// </summary>
+    public CompositeOperator Compose { get; set; }
 
     /// <summary>
     /// Gets the composite image.

@@ -25,6 +25,15 @@ public sealed class DrawableStrokeDashArray : IDrawableStrokeDashArray, IDrawing
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="DrawableStrokeDashArray"/> class.
+    /// </summary>
+    /// <param name="dash">An array containing the dash information.</param>
+    public DrawableStrokeDashArray(IEnumerable<double> dash)
+    {
+        Dash = dash.ToArray();
+    }
+
+    /// <summary>
     /// Gets the dash array.
     /// </summary>
     public IReadOnlyList<double> Dash { get; }

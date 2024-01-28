@@ -28,11 +28,6 @@ public sealed class DrawableEllipse : IDrawableEllipse, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the ending degrees of rotation.
-    /// </summary>
-    public double EndDegrees { get; set; }
-
-    /// <summary>
     /// Gets or sets the origin X coordinate.
     /// </summary>
     public double OriginX { get; set; }
@@ -56,6 +51,11 @@ public sealed class DrawableEllipse : IDrawableEllipse, IDrawingWand
     /// Gets or sets the starting degrees of rotation.
     /// </summary>
     public double StartDegrees { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ending degrees of rotation.
+    /// </summary>
+    public double EndDegrees { get; set; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

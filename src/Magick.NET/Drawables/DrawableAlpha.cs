@@ -22,11 +22,6 @@ public sealed class DrawableAlpha : IDrawableAlpha, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the <see cref="PaintMethod"/> to use.
-    /// </summary>
-    public PaintMethod PaintMethod { get; set; }
-
-    /// <summary>
     /// Gets or sets the X coordinate.
     /// </summary>
     public double X { get; set; }
@@ -35,6 +30,11 @@ public sealed class DrawableAlpha : IDrawableAlpha, IDrawingWand
     /// Gets or sets the Y coordinate.
     /// </summary>
     public double Y { get; set; }
+
+    /// <summary>
+    /// Gets or sets the <see cref="PaintMethod"/> to use.
+    /// </summary>
+    public PaintMethod PaintMethod { get; set; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

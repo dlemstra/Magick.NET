@@ -46,16 +46,6 @@ public sealed class DrawablePushPattern : IDrawablePushPattern, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the height.
-    /// </summary>
-    public double Height { get; set; }
-
-    /// <summary>
-    /// Gets or sets the width.
-    /// </summary>
-    public double Width { get; set; }
-
-    /// <summary>
     /// Gets or sets the X coordinate.
     /// </summary>
     public double X { get; set; }
@@ -64,6 +54,16 @@ public sealed class DrawablePushPattern : IDrawablePushPattern, IDrawingWand
     /// Gets or sets the Y coordinate.
     /// </summary>
     public double Y { get; set; }
+
+    /// <summary>
+    /// Gets or sets the width.
+    /// </summary>
+    public double Width { get; set; }
+
+    /// <summary>
+    /// Gets or sets the height.
+    /// </summary>
+    public double Height { get; set; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

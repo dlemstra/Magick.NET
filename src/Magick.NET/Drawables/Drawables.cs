@@ -1,10 +1,11 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics.CodeAnalysis;
+using ImageMagick.SourceGenerator;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -21,7 +22,7 @@ namespace ImageMagick;
 /// <summary>
 /// Class that can be used to chain draw actions.
 /// </summary>
-[SuppressMessage("Naming", "CA1710", Justification = "No need to use Collection suffix.")]
+[DrawablesAttribute]
 public sealed partial class Drawables : IDrawables<QuantumType>
 {
     private readonly Collection<IDrawable> _drawables;
@@ -32,6 +33,72 @@ public sealed partial class Drawables : IDrawables<QuantumType>
     public Drawables()
     {
         _drawables = new Collection<IDrawable>();
+    }
+
+    /// <summary>
+    /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
+    /// </summary>
+    /// <param name="offset">The offset from origin.</param>
+    /// <param name="image">The image to draw.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
+    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
+    public IDrawables<QuantumType> Composite(IMagickGeometry offset, IMagickImage<QuantumType> image)
+    {
+        _drawables.Add(new DrawableComposite(offset, image));
+        return this;
+    }
+
+    /// <summary>
+    /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
+    /// <param name="image">The image to draw.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
+    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, compose instead.")]
+    public IDrawables<QuantumType> Composite(double x, double y, IMagickImage<QuantumType> image)
+    {
+        _drawables.Add(new DrawableComposite(x, y, image));
+        return this;
+    }
+
+    /// <summary>
+    /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
+    /// </summary>
+    /// <param name="offset">The offset from origin.</param>
+    /// <param name="compose">The algorithm to use.</param>
+    /// <param name="image">The image to draw.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
+    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
+    public IDrawables<QuantumType> Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<QuantumType> image)
+    {
+        _drawables.Add(new DrawableComposite(offset, compose, image));
+        return this;
+    }
+
+    /// <summary>
+    /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
+    /// <param name="compose">The algorithm to use.</param>
+    /// <param name="image">The image to draw.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
+    public IDrawables<QuantumType> Composite(double x, double y, CompositeOperator compose, IMagickImage<QuantumType> image)
+    {
+        _drawables.Add(new DrawableComposite(x, y, compose, image));
+        return this;
+    }
+
+    /// <summary>
+    /// Applies the DrawableDensity operation to the <see cref="Drawables" />.
+    /// </summary>
+    /// <param name="density">The vertical and horizontal resolution.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
+    public IDrawables<QuantumType> Density(double density)
+    {
+        _drawables.Add(new DrawableDensity(density));
+        return this;
     }
 
     /// <summary>
@@ -53,6 +120,17 @@ public sealed partial class Drawables : IDrawables<QuantumType>
     /// <returns>An enumerator.</returns>
     IEnumerator IEnumerable.GetEnumerator()
         => _drawables.GetEnumerator();
+
+    /// <summary>
+    /// Applies the DrawableFont operation to the <see cref="Drawables" />.
+    /// </summary>
+    /// <param name="family">The font family or the full path to the font file.</param>
+    /// <returns>The <see cref="Drawables" /> instance.</returns>
+    public IDrawables<QuantumType> Font(string family)
+    {
+        _drawables.Add(new DrawableFont(family));
+        return this;
+    }
 
     /// <summary>
     /// Obtain font metrics for text string given current font, pointsize, and density settings.

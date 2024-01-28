@@ -32,12 +32,12 @@ internal class DrawablesGenerator : IIncrementalGenerator
         return (generateInterface, interfaces);
     }
 
-    private static void AppendProperties(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties)
+    private static void AppendProperties(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
     {
         var isEnableProperty = properties.SingleOrDefault(x => x.ParameterName == "isEnabled");
         if (isEnableProperty is not null)
         {
-            AppendEnableDisabledMethods(codeBuilder, name, isEnableProperty);
+            AppendEnableDisabledMethods(codeBuilder, name, isEnableProperty, generateInterface);
             return;
         }
 
@@ -46,59 +46,83 @@ internal class DrawablesGenerator : IIncrementalGenerator
             x.Type.StartsWith("System.Collections.Generic.IReadOnlyList<", StringComparison.Ordinal));
         if (readOnlyListProperty is not null)
         {
-            AppendReadOnlyListMethod(codeBuilder, type, name, readOnlyListProperty);
+            AppendReadOnlyListMethod(codeBuilder, type, name, readOnlyListProperty, generateInterface);
             return;
         }
 
-        AppendDefaultMethod(codeBuilder, type, name, properties);
+        AppendDefaultMethod(codeBuilder, type, name, properties, generateInterface);
     }
 
-    private static void AppendEnableDisabledMethods(CodeBuilder codeBuilder, string name, PropertySymbolInfo property)
+    private static void AppendEnableDisabledMethods(CodeBuilder codeBuilder, string name, PropertySymbolInfo property, bool generateInterface)
     {
         var comment = property.Documentation
             .Replace("Gets a value indicating whether ", string.Empty)
             .Replace(" is enabled or disabled", string.Empty);
 
-        codeBuilder.AppendComment($"Disables {comment}");
-        codeBuilder.AppendReturnsComment("The <see cref=\"IDrawables{TQuantumType}\" /> instance.");
-        codeBuilder.Append("IDrawables<TQuantumType> Disable");
-        codeBuilder.Append(name);
-        codeBuilder.AppendLine("();");
+        AppendEnableDisabledMethod(codeBuilder, name, "Disable", comment, generateInterface);
         codeBuilder.AppendLine();
-
-        codeBuilder.AppendComment($"Enables {comment}");
-        codeBuilder.Append("IDrawables<TQuantumType> Enable");
-        codeBuilder.Append(name);
-        codeBuilder.AppendLine("();");
+        AppendEnableDisabledMethod(codeBuilder, name, "Enable", comment, generateInterface);
     }
 
-    private static void AppendReadOnlyListMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, PropertySymbolInfo property)
+    private static void AppendEnableDisabledMethod(CodeBuilder codeBuilder, string name, string type, string comment, bool generateInterface)
+    {
+        codeBuilder.AppendComment($"{type}s {comment}");
+        codeBuilder.AppendReturnsComment($"The <see cref=\"IDrawables{{{(generateInterface ? "T" : null)}QuantumType}}\" /> instance.");
+        AppendIDrawablesGenericType(codeBuilder, generateInterface);
+        codeBuilder.Append(type, name, "()");
+
+        if (generateInterface)
+        {
+            codeBuilder.AppendLine(";");
+        }
+        else
+        {
+            codeBuilder.AppendLine();
+            codeBuilder.AppendLine("{");
+            codeBuilder.Indent++;
+            codeBuilder.AppendLine("_drawables.Add(Drawable", name, ".", type, "d);");
+            codeBuilder.AppendLine("return this;");
+            codeBuilder.Indent--;
+            codeBuilder.AppendLine("}");
+        }
+    }
+
+    private static void AppendReadOnlyListMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, PropertySymbolInfo property, bool generateInterface)
     {
         var typeName = property.TypeArguments[0];
 
         codeBuilder.AppendComment(type.GetDocumentation());
         codeBuilder.AppendReturnsComment("The <see cref=\"IDrawables{TQuantumType}\" /> instance.");
-        codeBuilder.Append("IDrawables<TQuantumType> ");
-        codeBuilder.Append(name);
-        codeBuilder.Append("(params ");
-        codeBuilder.Append(typeName);
-        codeBuilder.Append("[] ");
-        codeBuilder.Append(property.ParameterName);
-        codeBuilder.AppendLine(");");
+        AppendIDrawablesGenericType(codeBuilder, generateInterface);
+        codeBuilder.Append(name, "(params ", typeName, "[] ", property.ParameterName, ")");
+        if (generateInterface)
+            codeBuilder.AppendLine(";");
+        else
+            AppendReadOnlyListImplementation(codeBuilder, name, property);
+
         codeBuilder.AppendLine();
 
         codeBuilder.AppendComment(type.GetDocumentation());
-        codeBuilder.Append("IDrawables<TQuantumType> ");
-        codeBuilder.Append(name);
-        codeBuilder.Append("(System.Collections.Generic.IEnumerable<");
-        codeBuilder.Append(typeName);
-        codeBuilder.Append("> ");
-        codeBuilder.Append(property.ParameterName);
-        codeBuilder.AppendLine(");");
-        codeBuilder.AppendLine();
+        AppendIDrawablesGenericType(codeBuilder, generateInterface);
+        codeBuilder.Append(name, "(System.Collections.Generic.IEnumerable <", typeName, "> ", property.ParameterName, ")");
+        if (generateInterface)
+            codeBuilder.AppendLine(";");
+        else
+            AppendReadOnlyListImplementation(codeBuilder, name, property);
     }
 
-    private static void AppendDefaultMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties)
+    private static void AppendReadOnlyListImplementation(CodeBuilder codeBuilder, string name, PropertySymbolInfo property)
+    {
+        codeBuilder.AppendLine();
+        codeBuilder.AppendLine("{");
+        codeBuilder.Indent++;
+        codeBuilder.AppendLine("_drawables.Add(new Drawable", name, "(", property.ParameterName, "));");
+        codeBuilder.AppendLine("return this;");
+        codeBuilder.Indent--;
+        codeBuilder.AppendLine("}");
+    }
+
+    private static void AppendDefaultMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
     {
         codeBuilder.AppendComment(type.GetDocumentation());
         codeBuilder.AppendReturnsComment("The <see cref=\"IDrawables{TQuantumType}\" /> instance.");
@@ -110,7 +134,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
             codeBuilder.AppendParameterComment(parameterName, comment);
         }
 
-        codeBuilder.Append("IDrawables<TQuantumType> ");
+        AppendIDrawablesGenericType(codeBuilder, generateInterface);
         codeBuilder.Append(name);
         codeBuilder.Append("(");
 
@@ -123,7 +147,40 @@ internal class DrawablesGenerator : IIncrementalGenerator
             codeBuilder.Append(properties[i].ParameterName);
         }
 
-        codeBuilder.AppendLine(");");
+        codeBuilder.Append(")");
+        if (generateInterface)
+        {
+            codeBuilder.AppendLine(";");
+        }
+        else
+        {
+            codeBuilder.AppendLine();
+            codeBuilder.AppendLine("{");
+            codeBuilder.Indent++;
+            codeBuilder.Append("_drawables.Add(new Drawable", name, "(");
+
+            for (var i = 0; i < properties.Length; i++)
+            {
+                if (i > 0)
+                    codeBuilder.Append(", ");
+                codeBuilder.Append(properties[i].ParameterName);
+            }
+
+            codeBuilder.AppendLine("));");
+            codeBuilder.AppendLine("return this;");
+            codeBuilder.Indent--;
+            codeBuilder.AppendLine("}");
+        }
+    }
+
+    private static void AppendIDrawablesGenericType(CodeBuilder codeBuilder, bool generateInterface)
+    {
+        if (!generateInterface)
+            codeBuilder.Append("public ");
+        codeBuilder.Append("IDrawables<");
+        if (generateInterface)
+            codeBuilder.Append("T");
+        codeBuilder.Append("QuantumType> ");
     }
 
     private void GenerateCode(SourceProductionContext context, (bool GenerateInterface, ImmutableArray<INamedTypeSymbol> Interfaces) info)
@@ -132,11 +189,22 @@ internal class DrawablesGenerator : IIncrementalGenerator
 
         foreach (var type in info.Interfaces)
         {
-            allProperties[type] = type.GetMembers().OfType<IPropertySymbol>().Select(property => new PropertySymbolInfo(property)).ToImmutableArray();
+            allProperties[type] = type.GetMembers()
+                .OfType<IPropertySymbol>()
+                .Where(property => !property.GetAttributes().Any(attribute => attribute.AttributeClass?.Name == nameof(ObsoleteAttribute)))
+                .Select(property => new PropertySymbolInfo(property))
+                .ToImmutableArray();
         }
 
         var codeBuilder = new CodeBuilder();
         codeBuilder.AppendLine("#nullable enable");
+
+        if (!info.GenerateInterface)
+        {
+            codeBuilder.AppendLine();
+            codeBuilder.AppendQuantumType();
+        }
+
         codeBuilder.AppendLine();
         codeBuilder.AppendLine("namespace ImageMagick;");
         codeBuilder.AppendLine();
@@ -152,9 +220,9 @@ internal class DrawablesGenerator : IIncrementalGenerator
                 codeBuilder.AppendLine();
 
             var type = info.Interfaces[i];
-            var name = type.Name.Substring(9);
+            var name = type.Name.Substring(info.GenerateInterface ? 9 : 8);
             var properties = allProperties[type];
-            AppendProperties(codeBuilder, type, name, properties);
+            AppendProperties(codeBuilder, type, name, properties, info.GenerateInterface);
         }
 
         codeBuilder.Indent--;

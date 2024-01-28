@@ -24,16 +24,6 @@ public sealed class DrawableLine : IDrawableLine, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the ending X coordinate.
-    /// </summary>
-    public double EndX { get; set; }
-
-    /// <summary>
-    /// Gets or sets the ending Y coordinate.
-    /// </summary>
-    public double EndY { get; set; }
-
-    /// <summary>
     /// Gets or sets the starting X coordinate.
     /// </summary>
     public double StartX { get; set; }
@@ -42,6 +32,16 @@ public sealed class DrawableLine : IDrawableLine, IDrawingWand
     /// Gets or sets the starting Y coordinate.
     /// </summary>
     public double StartY { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ending X coordinate.
+    /// </summary>
+    public double EndX { get; set; }
+
+    /// <summary>
+    /// Gets or sets the ending Y coordinate.
+    /// </summary>
+    public double EndY { get; set; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
