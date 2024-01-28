@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// Draws a polyline using the current stroke, stroke width, and fill color or texture, using the
 /// specified array of coordinates.
 /// </summary>
-public sealed class DrawablePolyline : IDrawablePolyLine, IDrawingWand
+public sealed class DrawablePolyline : IDrawablePolyline, IDrawingWand
 {
     private readonly PointDCoordinates _coordinates;
 
