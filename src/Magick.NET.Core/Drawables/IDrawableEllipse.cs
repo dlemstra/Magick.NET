@@ -19,11 +19,6 @@ public interface IDrawableEllipse : IDrawable
     double OriginY { get; }
 
     /// <summary>
-    /// Gets the ending degrees of rotation.
-    /// </summary>
-    double EndDegrees { get; }
-
-    /// <summary>
     /// Gets the X radius.
     /// </summary>
     double RadiusX { get; }
@@ -37,4 +32,9 @@ public interface IDrawableEllipse : IDrawable
     /// Gets the starting degrees of rotation.
     /// </summary>
     double StartDegrees { get; }
+
+    /// <summary>
+    /// Gets the ending degrees of rotation.
+    /// </summary>
+    double EndDegrees { get; }
 }
