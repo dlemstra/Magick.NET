@@ -15,9 +15,7 @@ public sealed partial class DrawableAffine : IDrawableAffine, IDrawingWand
     /// Initializes a new instance of the <see cref="DrawableAffine"/> class.
     /// </summary>
     public DrawableAffine()
-    {
-        Reset();
-    }
+        => Reset();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableAffine"/> class.
@@ -72,7 +70,8 @@ public sealed partial class DrawableAffine : IDrawableAffine, IDrawingWand
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
-    void IDrawingWand.Draw(DrawingWand wand) => wand?.Affine(ScaleX, ScaleY, ShearX, ShearY, TranslateX, TranslateY);
+    void IDrawingWand.Draw(DrawingWand wand)
+        => wand?.Affine(ScaleX, ScaleY, ShearX, ShearY, TranslateX, TranslateY);
 
     /// <summary>
     /// Reset to default.
