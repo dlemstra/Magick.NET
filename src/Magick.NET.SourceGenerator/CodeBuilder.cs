@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Text;
+using System.Xml.Linq;
 
 namespace ImageMagick;
 
@@ -24,12 +25,32 @@ internal sealed class CodeBuilder
         _builder.Append(value);
     }
 
-    public void AppendComment(string value)
+    public void AppendComment(params string[] comment)
     {
         AppendLine("/// <summary>");
-        Append("/// ");
-        AppendLine(value);
+        foreach (var line in comment)
+        {
+            Append("/// ");
+            AppendLine(line);
+        }
+
         AppendLine("/// </summary>");
+    }
+
+    public void AppendParameterComment(string name, string comment)
+    {
+        Append("/// <param name=\"");
+        Append(name);
+        Append("\">");
+        Append(comment);
+        AppendLine("</param>");
+    }
+
+    public void AppendReturnsComment(string comment)
+    {
+        Append("/// <returns>");
+        Append(comment);
+        AppendLine("</returns>");
     }
 
     public void AppendLine(string? value = null)

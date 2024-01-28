@@ -11,6 +11,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Drawables\DrawablesAttribute.cs">
+      <LogicalName>DrawablesAttribute</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <EmbeddedResource Include="ExifTagDescription\ExifTagDescriptionAttribute.cs">
       <LogicalName>ExifTagDescriptionAttribute</LogicalName>
     </EmbeddedResource>

@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using ImageMagick.SourceGenerator;
 
 namespace ImageMagick;
 
@@ -11,16 +12,69 @@ namespace ImageMagick;
 /// Class that can be used to chain draw actions.
 /// </summary>
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
-[SuppressMessage("Naming", "CA1710", Justification = "No need to use Collection suffix.")]
+[Drawables]
 public partial interface IDrawables<TQuantumType> : IEnumerable<IDrawable>
     where TQuantumType : struct, IConvertible
 {
+    /// <summary>
+    /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
+    /// </summary>
+    /// <param name="offset">The offset from origin.</param>
+    /// <param name="image">The image to draw.</param>
+    /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
+    IDrawables<TQuantumType> Composite(IMagickGeometry offset, IMagickImage<TQuantumType> image);
+
+    /// <summary>
+    /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
+    /// <param name="image">The image to draw.</param>
+    /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, compose instead.")]
+    IDrawables<TQuantumType> Composite(double x, double y, IMagickImage<TQuantumType> image);
+
+    /// <summary>
+    /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
+    /// </summary>
+    /// <param name="offset">The offset from origin.</param>
+    /// <param name="compose">The algorithm to use.</param>
+    /// <param name="image">The image to draw.</param>
+    /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
+    IDrawables<TQuantumType> Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<TQuantumType> image);
+
+    /// <summary>
+    /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
+    /// </summary>
+    /// <param name="x">The X coordinate.</param>
+    /// <param name="y">The Y coordinate.</param>
+    /// <param name="compose">The algorithm to use.</param>
+    /// <param name="image">The image to draw.</param>
+    /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+    IDrawables<TQuantumType> Composite(double x, double y, CompositeOperator compose, IMagickImage<TQuantumType> image);
+
+    /// <summary>
+    /// Encapsulation of the DrawableDensity object.
+    /// </summary>
+    /// <param name="density">Gets the vertical and horizontal resolution.</param>
+    /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+    IDrawables<TQuantumType> Density(double density);
+
     /// <summary>
     /// Draw on the specified image.
     /// </summary>
     /// <param name="image">The image to draw on.</param>
     /// <returns>The current instance.</returns>
     IDrawables<TQuantumType> Draw(IMagickImage<TQuantumType> image);
+
+    /// <summary>
+    /// Applies the DrawableFont operation to the <see cref="IDrawables{TQuantumType}" />.
+    /// </summary>
+    /// <param name="family">The font family or the full path to the font file.</param>
+    /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
+    IDrawables<TQuantumType> Font(string family);
 
     /// <summary>
     /// Obtain font metrics for text string given current font, pointsize, and density settings.
