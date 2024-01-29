@@ -104,7 +104,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
 
         codeBuilder.AppendComment(type.GetDocumentation());
         AppendIDrawablesGenericType(codeBuilder, generateInterface);
-        codeBuilder.Append(name, "(System.Collections.Generic.IEnumerable <", typeName, "> ", property.ParameterName, ")");
+        codeBuilder.Append(name, "(System.Collections.Generic.IEnumerable<", typeName, "> ", property.ParameterName, ")");
         if (generateInterface)
             codeBuilder.AppendLine(";");
         else
