@@ -32,7 +32,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
         return (generateInterface, interfaces);
     }
 
-    private static void AppendProperties(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
+    private static void AppendMethods(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
     {
         var isEnableProperty = properties.SingleOrDefault(x => x.ParameterName == "isEnabled");
         if (isEnableProperty is not null)
@@ -222,7 +222,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
             var type = info.Interfaces[i];
             var name = type.Name.Substring(info.GenerateInterface ? 9 : 8);
             var properties = allProperties[type];
-            AppendProperties(codeBuilder, type, name, properties, info.GenerateInterface);
+            AppendMethods(codeBuilder, type, name, properties, info.GenerateInterface);
         }
 
         codeBuilder.Indent--;
