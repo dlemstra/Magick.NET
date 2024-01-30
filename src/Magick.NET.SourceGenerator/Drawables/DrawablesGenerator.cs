@@ -142,9 +142,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
         {
             if (i > 0)
                 codeBuilder.Append(", ");
-            codeBuilder.Append(properties[i].Type);
-            codeBuilder.Append(" ");
-            codeBuilder.Append(properties[i].ParameterName);
+            codeBuilder.Append(properties[i].Type, " ", properties[i].ParameterName);
         }
 
         codeBuilder.Append(")");
