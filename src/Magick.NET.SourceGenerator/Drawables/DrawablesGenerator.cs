@@ -34,16 +34,16 @@ internal class DrawablesGenerator : IIncrementalGenerator
 
     private static void AppendMethods(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
     {
-        var isEnableProperty = properties.SingleOrDefault(x => x.ParameterName == "isEnabled");
+        var isEnableProperty = properties.SingleOrDefault(property => property.ParameterName == "isEnabled");
         if (isEnableProperty is not null)
         {
             AppendEnableDisabledMethods(codeBuilder, name, isEnableProperty, generateInterface);
             return;
         }
 
-        var readOnlyListProperty = properties.SingleOrDefault(x =>
-            x.Type.StartsWith("System.Collections.Generic.IReadOnlyCollection<", StringComparison.Ordinal) ||
-            x.Type.StartsWith("System.Collections.Generic.IReadOnlyList<", StringComparison.Ordinal));
+        var readOnlyListProperty = properties.SingleOrDefault(property =>
+            property.Type.StartsWith("System.Collections.Generic.IReadOnlyCollection<", StringComparison.Ordinal) ||
+            property.Type.StartsWith("System.Collections.Generic.IReadOnlyList<", StringComparison.Ordinal));
         if (readOnlyListProperty is not null)
         {
             AppendReadOnlyListMethod(codeBuilder, type, name, readOnlyListProperty, generateInterface);
