@@ -3,7 +3,7 @@
     <TargetFrameworks>netstandard20;net8</TargetFrameworks>
     <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4" PrivateAssets="all" />
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" PrivateAssets="all" />
@@ -14,17 +14,14 @@
     <EmbeddedResource Include="Drawables\DrawablesAttribute.cs">
       <LogicalName>DrawablesAttribute</LogicalName>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="ExifTagDescription\ExifTagDescriptionAttribute.cs">
       <LogicalName>ExifTagDescriptionAttribute</LogicalName>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
     <EmbeddedResource Include="MagickColors\MagickColorsAttribute.cs">
       <LogicalName>MagickColorsAttribute</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Paths\PathsAttribute.cs">
+      <LogicalName>PathsAttribute</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 

@@ -7,7 +7,7 @@ using Xunit;
 
 namespace Magick.NET.Tests;
 
-public class PathsTests
+public partial class PathsTests
 {
     [Fact]
     public void Test_Draw_Drawables()
