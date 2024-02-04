@@ -730,7 +730,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Gets the gamma level of the image.
     /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public double Gamma
         => _nativeInstance.Gamma;
 
