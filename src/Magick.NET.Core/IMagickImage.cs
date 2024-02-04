@@ -200,7 +200,6 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets the gamma level of the image.
     /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     double Gamma { get; }
 
     /// <summary>
