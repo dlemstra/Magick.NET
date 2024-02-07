@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 
 namespace ImageMagick.Formats;
@@ -35,7 +36,17 @@ public sealed class DdsWriteDefines : IWriteDefines
     /// <summary>
     /// Gets or sets the the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
     /// </summary>
-    public int? Mipmaps { get; set; }
+    [Obsolete($"This property will be removed in the next major release, use {nameof(MipmapCount)} instead.")]
+    public int? Mipmaps
+    {
+        get => MipmapCount;
+        set => MipmapCount = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
+    /// </summary>
+    public int? MipmapCount { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the mipmaps should be created from the images in the collection (dds:mipmaps=fromlist).
@@ -70,8 +81,8 @@ public sealed class DdsWriteDefines : IWriteDefines
 
             if (MipmapsFromCollection == true)
                 yield return new MagickDefine(Format, "mipmaps", "fromlist");
-            else if (Mipmaps.HasValue)
-                yield return new MagickDefine(Format, "mipmaps", Mipmaps.Value);
+            else if (MipmapCount.HasValue)
+                yield return new MagickDefine(Format, "mipmaps", MipmapCount.Value);
 
             if (Raw.HasValue)
                 yield return new MagickDefine(Format, "raw", Raw.Value);

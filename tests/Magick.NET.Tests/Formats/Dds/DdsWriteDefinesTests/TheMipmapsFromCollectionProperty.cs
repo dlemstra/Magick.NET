@@ -17,7 +17,7 @@ public partial class DdsWriteDefinesTests
             var defines = new DdsWriteDefines
             {
                 MipmapsFromCollection = true,
-                Mipmaps = 4, // this is ignored
+                MipmapCount = 4, // this is ignored
             };
 
             using var image = new MagickImage();
@@ -32,7 +32,7 @@ public partial class DdsWriteDefinesTests
             var defines = new DdsWriteDefines
             {
                 MipmapsFromCollection = false,
-                Mipmaps = 4,
+                MipmapCount = 4,
             };
 
             using var image = new MagickImage();

@@ -9,14 +9,14 @@ namespace Magick.NET.Tests;
 
 public partial class DdsWriteDefinesTests
 {
-    public class TheMipmapsProperty
+    public class TheMipmapCountProperty
     {
         [Fact]
         public void ShouldSetTheDefine()
         {
             var defines = new DdsWriteDefines
             {
-                Mipmaps = 2,
+                MipmapCount = 2,
             };
 
             using var image = new MagickImage();
