@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,20 @@ public partial class MagickImageTests
 {
     public class TheAdaptiveThresholdMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthIsNegative()
+        {
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            Assert.Throws<ArgumentException>("width", () => image.AdaptiveThreshold(-1, 10, 0.0, Channels.Red));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsNegative()
+        {
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            Assert.Throws<ArgumentException>("height", () => image.AdaptiveThreshold(10, -1, 0.0, Channels.Red));
+        }
+
         [Fact]
         public void ShouldThresholdTheImage()
         {
