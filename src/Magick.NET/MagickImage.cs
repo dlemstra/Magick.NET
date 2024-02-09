@@ -1131,6 +1131,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNegative(nameof(width), width);
         Throw.IfNegative(nameof(height), height);
+
         _nativeInstance.AdaptiveThreshold(width, height, bias, channels);
     }
 
