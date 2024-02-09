@@ -1312,10 +1312,12 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
     /// </summary>
-    /// <param name="width">The width of the neighborhood in pixels.</param>
-    /// <param name="height">The height of the neighborhood in pixels.</param>
+    /// <param name="width">The width of the neighborhood in pixels (> 0).</param>
+    /// <param name="height">The height of the neighborhood in pixels (> 0).</param>
     public void BilateralBlur(int width, int height)
     {
+        Throw.IfFalse(nameof(width), width > 1, "The width must be > 1");
+        Throw.IfFalse(nameof(height), height > 1, "The height must be > 1");
         var intensitySigma = Math.Sqrt((width * width) + (height * height));
         BilateralBlur(width, height, intensitySigma, intensitySigma * 0.25);
     }
@@ -1323,12 +1325,16 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
     /// </summary>
-    /// <param name="width">The width of the neighborhood in pixels.</param>
-    /// <param name="height">The height of the neighborhood in pixels.</param>
+    /// <param name="width">The width of the neighborhood in pixels (> 0).</param>
+    /// <param name="height">The height of the neighborhood in pixels (> 0).</param>
     /// <param name="intensitySigma">The sigma in the intensity space.</param>
     /// <param name="spatialSigma">The sigma in the coordinate space.</param>
     public void BilateralBlur(int width, int height, double intensitySigma, double spatialSigma)
-       => _nativeInstance.BilateralBlur(width, height, intensitySigma, spatialSigma);
+    {
+        Throw.IfFalse(nameof(width), width > 1, "The width must be > 1");
+        Throw.IfFalse(nameof(height), height > 1, "The height must be > 1");
+        _nativeInstance.BilateralBlur(width, height, intensitySigma, spatialSigma);
+    }
 
     /// <summary>
     /// Forces all pixels below the threshold into black while leaving all pixels at or above
