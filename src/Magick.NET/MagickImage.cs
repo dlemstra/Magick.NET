@@ -1319,6 +1319,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNegative(nameof(width), width);
         Throw.IfNegative(nameof(height), height);
+
         var intensitySigma = Math.Sqrt((width * width) + (height * height));
         BilateralBlur(width, height, intensitySigma, intensitySigma * 0.25);
     }
@@ -1335,6 +1336,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNegative(nameof(width), width);
         Throw.IfNegative(nameof(height), height);
+
         _nativeInstance.BilateralBlur(width, height, intensitySigma, spatialSigma);
     }
 
