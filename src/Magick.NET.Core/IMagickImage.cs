@@ -559,7 +559,8 @@ public partial interface IMagickImage : IDisposable
     /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
     /// </summary>
     /// <param name="width">The width of the neighborhood in pixels.</param>
-    /// <param name="height">The height of the neighborhood in pixels.</param>\
+    /// <param name="height">The height of the neighborhood in pixels.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void BilateralBlur(int width, int height);
 
     /// <summary>
@@ -569,6 +570,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="height">The height of the neighborhood in pixels.</param>
     /// <param name="intensitySigma">The sigma in the intensity space.</param>
     /// <param name="spatialSigma">The sigma in the coordinate space.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void BilateralBlur(int width, int height, double intensitySigma, double spatialSigma);
 
     /// <summary>

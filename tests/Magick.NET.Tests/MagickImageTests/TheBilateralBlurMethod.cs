@@ -12,31 +12,31 @@ public partial class MagickImageTests
     public class TheBilateralBlurMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenWidthIsLessThanOne()
+        public void ShouldThrowExceptionWhenWidthIsNegative()
         {
             using var image = new MagickImage(Files.NoisePNG);
-            Assert.Throws<ArgumentException>("width", () => image.BilateralBlur(1, 2));
+            Assert.Throws<ArgumentException>("width", () => image.BilateralBlur(-1, 2));
         }
 
         [Fact]
-        public void ShouldThrowExceptionWhenWidthIsLessThanOneWithLowAndHigh()
+        public void ShouldThrowExceptionWhenWidthIsNegativeThanOneWithLowAndHigh()
         {
             using var image = new MagickImage(Files.NoisePNG);
-            Assert.Throws<ArgumentException>("width", () => image.BilateralBlur(1, 2, 0.1, 0.1));
+            Assert.Throws<ArgumentException>("width", () => image.BilateralBlur(-1, 2, 0.1, 0.1));
         }
 
         [Fact]
-        public void ShouldThrowExceptionWhenHeightIsLessThanOne()
+        public void ShouldThrowExceptionWhenHeightIsNegative()
         {
             using var image = new MagickImage(Files.NoisePNG);
-            Assert.Throws<ArgumentException>("height", () => image.BilateralBlur(2, 1));
+            Assert.Throws<ArgumentException>("height", () => image.BilateralBlur(2, -1));
         }
 
         [Fact]
-        public void ShouldThrowExceptionWhenHeightIsLessThanOneWithLowAndHigh()
+        public void ShouldThrowExceptionWhenHeightIsNegativeWithLowAndHigh()
         {
             using var image = new MagickImage(Files.NoisePNG);
-            Assert.Throws<ArgumentException>("height", () => image.BilateralBlur(2, 1, 0.1, 0.1));
+            Assert.Throws<ArgumentException>("height", () => image.BilateralBlur(2, -1, 0.1, 0.1));
         }
 
         [Fact]
