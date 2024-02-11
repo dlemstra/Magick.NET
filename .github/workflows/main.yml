@@ -99,10 +99,31 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Install dependencies
-      run: build/osx-x64/install.dependencies.sh
+      run: build/macos-x64/install.dependencies.sh
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64'
+
+    - name: Build
+      run: build/shared/build.Magick.NET.sh
+
+    - name: Test
+      run: build/shared/test.Magick.NET.sh
+
+  macos_arm64:
+    name: 'MacOS (Q8/Q16/Q16-HDRI, arm64)'
+    runs-on: macos-14
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: build/macos-x64/install.dependencies.sh
+
+    - name: Install Magick.Native
+      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos arm64'
 
     - name: Build
       run: build/shared/build.Magick.NET.sh

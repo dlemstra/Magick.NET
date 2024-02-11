@@ -150,9 +150,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EE5A8EB5
 		src\Magick.Native\build\Debug-Q8-x86.cmd = src\Magick.Native\build\Debug-Q8-x86.cmd
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "osx-x64", "osx-x64", "{8BAE93F7-10BB-409F-8823-52D0F766E44D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macos-x64", "macos-x64", "{8BAE93F7-10BB-409F-8823-52D0F766E44D}"
 	ProjectSection(SolutionItems) = preProject
-		build\osx-x64\install.dependencies.sh = build\osx-x64\install.dependencies.sh
+		build\macos-x64\install.dependencies.sh = build\macos-x64\install.dependencies.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{3A8414CC-62A7-4E38-B6AC-75ED9D276971}"
@@ -209,6 +209,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-x64", "linux-x64", "{
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.SourceGenerator", "src\Magick.NET.SourceGenerator\Magick.NET.SourceGenerator.csproj", "{6179CA65-2469-492B-BFED-5B25E2E2FEF9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "macos-arm64", "macos-arm64", "{0A65931C-E3BE-4648-ACF4-3629A5AD732F}"
+	ProjectSection(SolutionItems) = preProject
+		build\macos-arm64\install.dependencies.sh = build\macos-arm64\install.dependencies.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1445,6 +1450,7 @@ Global
 		{3318785C-365D-49C9-AEC5-25C014B80698} = {F6E20621-E266-4314-ADE0-A899270F2312}
 		{CA0B3C1A-0C4D-4329-8C6F-4C097E916221} = {A5315407-FA73-469B-99BB-7DFD5E043A92}
 		{6179CA65-2469-492B-BFED-5B25E2E2FEF9} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
+		{0A65931C-E3BE-4648-ACF4-3629A5AD732F} = {F6E20621-E266-4314-ADE0-A899270F2312}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}
