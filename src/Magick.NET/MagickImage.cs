@@ -1552,7 +1552,13 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="clipLimit">The contrast limit for localised changes in contrast. A limit less than 1
     /// results in standard non-contrast limited AHE.</param>
     public void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit)
-        => _nativeInstance.Clahe(xTiles, yTiles, numberBins, clipLimit);
+    {
+        Throw.IfNegative(nameof(xTiles), xTiles);
+        Throw.IfNegative(nameof(yTiles), yTiles);
+        Throw.IfNegative(nameof(numberBins), numberBins);
+
+        _nativeInstance.Clahe(xTiles, yTiles, numberBins, clipLimit);
+    }
 
     /// <summary>
     /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
