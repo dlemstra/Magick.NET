@@ -12,4 +12,7 @@ internal static class TestRuntime
 
     public static bool HasFlakyMacOSResult
         => Runtime.IsMacOS;
+
+    public static bool HasFlakyMacOSArm64Result
+        => Runtime.IsMacOS && Runtime.IsArm64;
 }

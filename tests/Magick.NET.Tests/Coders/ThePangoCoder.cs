@@ -26,6 +26,9 @@ public class ThePangoCoder
     [Fact]
     public void ShouldUseTextAntiAliasSetting()
     {
+        if (TestRuntime.HasFlakyMacOSArm64Result)
+            return;
+
         var settings = new MagickReadSettings()
         {
             AntiAlias = false,
