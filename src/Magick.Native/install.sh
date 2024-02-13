@@ -42,11 +42,6 @@ copyToTestProjects() {
     copyToTestProject $runtime $platform "Q8" ""
     copyToTestProject $runtime $platform "Q16" ""
     copyToTestProject $runtime $platform "Q16-HDRI" ""
-
-    if [ "$runtime" = "macos" ] && [ "$platform" = "arm64" ]; then
-        return
-    fi
-
     copyToTestProject $runtime $platform "Q8" "-OpenMP"
     copyToTestProject $runtime $platform "Q16" "-OpenMP"
     copyToTestProject $runtime $platform "Q16-HDRI" "-OpenMP"
