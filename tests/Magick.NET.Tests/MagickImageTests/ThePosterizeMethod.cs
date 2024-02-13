@@ -34,11 +34,11 @@ public partial class MagickImageTests
             image.Posterize(5, Channels.Red);
 
 #if Q8
-            ColorAssert.Equal(new MagickColor("#4072a1"), image, 300, 150);
+            ColorAssert.Equal(new MagickColor("#4073a4"), image, 300, 150);
             ColorAssert.Equal(new MagickColor("#405b64"), image, 495, 270);
             ColorAssert.Equal(new MagickColor("#404b54"), image, 445, 255);
 #else
-            ColorAssert.Equal(new MagickColor("#400070d9a32b"), image, 300, 150);
+            ColorAssert.Equal(new MagickColor("#40007342a43f"), image, 300, 150);
             ColorAssert.Equal(new MagickColor("#40005389648a"), image, 495, 270);
             ColorAssert.Equal(new MagickColor("#40004b045492"), image, 445, 255);
 #endif
