@@ -1539,6 +1539,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="numberBins">The number of bins for histogram ("dynamic range").</param>
     /// <param name="clipLimit">The contrast limit for localised changes in contrast. A limit less than 1
     /// results in standard non-contrast limited AHE.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Clahe(Percentage xTiles, Percentage yTiles, int numberBins, double clipLimit)
         => Clahe(Width * xTiles, Height * yTiles, numberBins, clipLimit);
 
@@ -1551,8 +1552,15 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="numberBins">The number of bins for histogram ("dynamic range").</param>
     /// <param name="clipLimit">The contrast limit for localised changes in contrast. A limit less than 1
     /// results in standard non-contrast limited AHE.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit)
-        => _nativeInstance.Clahe(xTiles, yTiles, numberBins, clipLimit);
+    {
+        Throw.IfNegative(nameof(xTiles), xTiles);
+        Throw.IfNegative(nameof(yTiles), yTiles);
+        Throw.IfNegative(nameof(numberBins), numberBins);
+
+        _nativeInstance.Clahe(xTiles, yTiles, numberBins, clipLimit);
+    }
 
     /// <summary>
     /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
