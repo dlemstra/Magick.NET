@@ -118,6 +118,22 @@ public partial class MagickColorTests
                 Assert.Equal(Quantum.Max / 2, result.K);
                 Assert.Equal(Quantum.Max, result.A);
             }
+
+            [Fact]
+            public void ShouldLimitChannelToQuantumMax()
+            {
+                var color = new MagickColor("cmyka(50%,50%,50%,50%)");
+                var percentage = new Percentage(220);
+
+                var result = color * percentage;
+
+                Assert.NotNull(result);
+                Assert.Equal(Quantum.Max, result.R);
+                Assert.Equal(Quantum.Max, result.G);
+                Assert.Equal(Quantum.Max, result.B);
+                Assert.Equal(Quantum.Max, result.K);
+                Assert.Equal(Quantum.Max, result.A);
+            }
         }
     }
 }
