@@ -11,7 +11,7 @@ public partial class ImageProfileTests
     public class TheGetDataMethod
     {
         [Fact]
-        public void ShouldReturNullWhenDataIsNull()
+        public void ShouldReturnNullWhenDataIsNull()
         {
             var profile = new TestProfile();
             var bytes = profile.GetData();

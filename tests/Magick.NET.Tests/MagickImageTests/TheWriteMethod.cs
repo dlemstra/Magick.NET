@@ -55,13 +55,13 @@ public partial class MagickImageTests
             public void ShouldUseTheSpecifiedFormat()
             {
                 using var input = new MagickImage(Files.CirclePNG);
-                using var tempfile = new TemporaryFile("foobar.jpg");
+                using var tempFile = new TemporaryFile("foobar.jpg");
 
-                input.Write(tempfile.File, MagickFormat.Tiff);
+                input.Write(tempFile.File, MagickFormat.Tiff);
 
                 Assert.Equal(MagickFormat.Png, input.Format);
 
-                using var output = new MagickImage(tempfile.File);
+                using var output = new MagickImage(tempFile.File);
 
                 Assert.Equal(MagickFormat.Tiff, output.Format);
             }
@@ -91,17 +91,17 @@ public partial class MagickImageTests
             public void ShouldUseTheSpecifiedFormat()
             {
                 using var input = new MagickImage(Files.CirclePNG);
-                using var tempfile = new TemporaryFile("foobar");
+                using var tempFile = new TemporaryFile("foobar");
 
                 var defines = new JpegWriteDefines
                 {
                     DctMethod = JpegDctMethod.Fast,
                 };
-                input.Write(tempfile.File, defines);
+                input.Write(tempFile.File, defines);
 
                 Assert.Equal(MagickFormat.Png, input.Format);
 
-                using var output = new MagickImage(tempfile.File);
+                using var output = new MagickImage(tempFile.File);
 
                 Assert.Equal(MagickFormat.Jpeg, output.Format);
             }
@@ -176,12 +176,12 @@ public partial class MagickImageTests
             public void ShouldUseTheSpecifiedFormat()
             {
                 using var input = new MagickImage(Files.CirclePNG);
-                using var tempfile = new TemporaryFile("foobar");
-                input.Write(tempfile.File.FullName, MagickFormat.Tiff);
+                using var tempFile = new TemporaryFile("foobar");
+                input.Write(tempFile.File.FullName, MagickFormat.Tiff);
 
                 Assert.Equal(MagickFormat.Png, input.Format);
 
-                using var output = new MagickImage(tempfile.File.FullName);
+                using var output = new MagickImage(tempFile.File.FullName);
 
                 Assert.Equal(MagickFormat.Tiff, output.Format);
             }
@@ -223,12 +223,12 @@ public partial class MagickImageTests
                     DctMethod = JpegDctMethod.Fast,
                 };
                 using var input = new MagickImage(Files.CirclePNG);
-                using var tempfile = new TemporaryFile("foobar");
-                input.Write(tempfile.File.FullName, defines);
+                using var tempFile = new TemporaryFile("foobar");
+                input.Write(tempFile.File.FullName, defines);
 
                 Assert.Equal(MagickFormat.Png, input.Format);
 
-                using var output = new MagickImage(tempfile.File.FullName);
+                using var output = new MagickImage(tempFile.File.FullName);
 
                 Assert.Equal(MagickFormat.Jpeg, output.Format);
             }

@@ -56,10 +56,10 @@ public partial class MagickImageCollectionTests
             public async Task ShouldUseTheSpecifiedFormat()
             {
                 using var input = new MagickImageCollection(Files.CirclePNG);
-                using var tempfile = new TemporaryFile("foobar");
-                await input.WriteAsync(tempfile.File, MagickFormat.Tiff);
+                using var tempFile = new TemporaryFile("foobar");
+                await input.WriteAsync(tempFile.File, MagickFormat.Tiff);
 
-                using var output = new MagickImageCollection(tempfile.File);
+                using var output = new MagickImageCollection(tempFile.File);
 
                 Assert.Single(output);
                 Assert.Equal(MagickFormat.Tiff, output[0].Format);
@@ -90,17 +90,17 @@ public partial class MagickImageCollectionTests
             public async Task ShouldUseTheSpecifiedFormat()
             {
                 using var input = new MagickImageCollection(Files.CirclePNG);
-                using var tempfile = new TemporaryFile("foobar");
+                using var tempFile = new TemporaryFile("foobar");
                 var defines = new TiffWriteDefines()
                 {
                     Endian = Endian.MSB,
                 };
-                await input.WriteAsync(tempfile.File, defines);
+                await input.WriteAsync(tempFile.File, defines);
 
                 Assert.Equal(MagickFormat.Png, input[0].Format);
 
                 using var output = new MagickImageCollection();
-                await output.ReadAsync(tempfile.File);
+                await output.ReadAsync(tempFile.File);
 
                 Assert.Single(output);
                 Assert.Equal(MagickFormat.Tiff, output[0].Format);
@@ -164,11 +164,11 @@ public partial class MagickImageCollectionTests
             public async Task ShouldUseTheSpecifiedFormat()
             {
                 using var input = new MagickImageCollection(Files.CirclePNG);
-                using var tempfile = new TemporaryFile("foobar");
+                using var tempFile = new TemporaryFile("foobar");
 
-                await input.WriteAsync(tempfile.File.FullName, MagickFormat.Tiff);
+                await input.WriteAsync(tempFile.File.FullName, MagickFormat.Tiff);
 
-                using var output = new MagickImageCollection(tempfile.File.FullName);
+                using var output = new MagickImageCollection(tempFile.File.FullName);
 
                 Assert.Single(output);
                 Assert.Equal(MagickFormat.Tiff, output[0].Format);
@@ -198,17 +198,17 @@ public partial class MagickImageCollectionTests
             public async Task ShouldUseTheSpecifiedFormat()
             {
                 using var input = new MagickImageCollection(Files.CirclePNG);
-                using var tempfile = new TemporaryFile("foobar");
+                using var tempFile = new TemporaryFile("foobar");
                 var defines = new TiffWriteDefines()
                 {
                     Endian = Endian.MSB,
                 };
-                await input.WriteAsync(tempfile.File.FullName, defines);
+                await input.WriteAsync(tempFile.File.FullName, defines);
 
                 Assert.Equal(MagickFormat.Png, input[0].Format);
 
                 using var output = new MagickImageCollection();
-                await output.ReadAsync(tempfile.File.FullName);
+                await output.ReadAsync(tempFile.File.FullName);
 
                 Assert.Single(output);
                 Assert.Equal(MagickFormat.Tiff, output[0].Format);

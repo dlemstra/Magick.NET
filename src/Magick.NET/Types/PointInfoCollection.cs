@@ -42,8 +42,8 @@ internal sealed partial class PointInfoCollection : INativeInstance
             return;
         }
 
-        var nativeIstance = new NativePointInfoCollection(instance);
-        nativeIstance.Dispose();
+        var nativeInstance = new NativePointInfoCollection(instance);
+        nativeInstance.Dispose();
     }
 
     public void Dispose()

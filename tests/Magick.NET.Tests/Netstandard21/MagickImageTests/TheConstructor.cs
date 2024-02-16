@@ -87,7 +87,7 @@ public partial class MagickImageTests
             }
         }
 
-        public class WithReadOnlySpanyAndPixelReadSettings
+        public class WithReadOnlySpanAndPixelReadSettings
         {
             [Fact]
             public void ShouldThrowExceptionWhenDataIsEmpty()

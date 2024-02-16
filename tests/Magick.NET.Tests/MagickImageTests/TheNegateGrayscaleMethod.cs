@@ -26,7 +26,7 @@ public partial class MagickImageTests
         }
 
         [Fact]
-        public void ShouldNegateTheSpecifedChannels()
+        public void ShouldNegateTheSpecifiedChannels()
         {
             using var image = new MagickImage("xc:white", 2, 1);
             using var pixels = image.GetPixels();

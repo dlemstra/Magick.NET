@@ -11,7 +11,7 @@ public partial class ThresholdTests
     public class TheToStringMethod
     {
         [Fact]
-        public void ShouldReturnSingleValueWhenOnlyMimimumIsSet()
+        public void ShouldReturnSingleValueWhenOnlyMinimumIsSet()
         {
             var point = new Threshold(1.2);
             Assert.Equal("1.2", point.ToString());

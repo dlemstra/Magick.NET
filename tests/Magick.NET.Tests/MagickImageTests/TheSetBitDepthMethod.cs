@@ -11,7 +11,7 @@ public partial class MagickImageTests
     public class TheSetBitDepthMethod
     {
         [Fact]
-        public void ShouldChangeTheBithDepth()
+        public void ShouldChangeTheBitDepth()
         {
             using var image = new MagickImage(Files.RoseSparkleGIF);
             image.SetBitDepth(1);
@@ -20,7 +20,7 @@ public partial class MagickImageTests
         }
 
         [Fact]
-        public void ShouldChangeTheBithDepthForTheSpecifiedChannel()
+        public void ShouldChangeTheBitDepthForTheSpecifiedChannel()
         {
             using var image = new MagickImage(Files.RoseSparkleGIF);
             image.SetBitDepth(1, Channels.Red);

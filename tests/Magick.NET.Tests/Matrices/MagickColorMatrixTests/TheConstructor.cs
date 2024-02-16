@@ -52,7 +52,7 @@ public partial class MagickColorMatrixTests
         }
 
         [Fact]
-        public void ShouldThroWExceptionWhenOrderIsTooLowAndValuesAreProvided()
+        public void ShouldThrowExceptionWhenOrderIsTooLowAndValuesAreProvided()
         {
             Assert.Throws<ArgumentException>("order", () =>
             {
@@ -61,7 +61,7 @@ public partial class MagickColorMatrixTests
         }
 
         [Fact]
-        public void ShouldThroWExceptionWhenOrderIsTooHighAndValuesAreProvided()
+        public void ShouldThrowExceptionWhenOrderIsTooHighAndValuesAreProvided()
         {
             Assert.Throws<ArgumentException>("order", () =>
             {

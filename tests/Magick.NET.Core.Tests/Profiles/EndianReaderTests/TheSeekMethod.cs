@@ -8,7 +8,7 @@ namespace Magick.NET.Core.Tests;
 
 public partial class EndianReaderTests
 {
-    public class TheSeekMetod
+    public class TheSeekMethod
     {
         [Fact]
         public void ShouldReturnFalseWhenIndexIsTooHigh()

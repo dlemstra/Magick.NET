@@ -14,13 +14,13 @@ internal sealed class CodeBuilder
 
     public void Append(int value)
     {
-        AppendIdentation();
+        AppendIndentation();
         _builder.Append(value);
     }
 
     public void Append(params string?[] values)
     {
-        AppendIdentation();
+        AppendIndentation();
 
         foreach (var value in values)
             _builder.Append(value);
@@ -57,7 +57,7 @@ internal sealed class CodeBuilder
     public void AppendLine(params string?[] values)
     {
         if (values.Length > 0)
-            AppendIdentation();
+            AppendIndentation();
 
         foreach (var value in values)
             _builder.Append(value);
@@ -82,7 +82,7 @@ internal sealed class CodeBuilder
     public override string ToString()
         => _builder.ToString();
 
-    private void AppendIdentation()
+    private void AppendIndentation()
     {
         if (_indentationWritten)
             return;

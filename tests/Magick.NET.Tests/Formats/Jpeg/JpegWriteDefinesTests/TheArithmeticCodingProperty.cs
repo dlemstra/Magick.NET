@@ -27,7 +27,7 @@ public partial class JpegWriteDefinesTests
         }
 
         [Fact]
-        public void ShouldEncodeTheImagArarithmetic()
+        public void ShouldEncodeTheImageArithmetic()
         {
             var defines = new JpegWriteDefines
             {

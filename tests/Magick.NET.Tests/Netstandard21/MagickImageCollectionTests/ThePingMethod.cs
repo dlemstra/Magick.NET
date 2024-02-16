@@ -55,7 +55,7 @@ public partial class MagickImageCollectionTests
             }
         }
 
-        public class WithReadOnlySequencenAndMagickReadSettings
+        public class WithReadOnlySequenceAndMagickReadSettings
         {
             [Fact]
             public void ShouldNotThrowExceptionWhenSettingsIsNull()
@@ -112,4 +112,3 @@ public partial class MagickImageCollectionTests
 }
 
 #endif
-

@@ -38,7 +38,7 @@ public partial class MagickImageTests
         }
 
         [Fact]
-        public void ShoulThrowExceptionOn32BitPlatformWhenChannelIsTooHigh()
+        public void ShouldThrowExceptionOn32BitPlatformWhenChannelIsTooHigh()
         {
             if (Runtime.Is64Bit)
                 return;

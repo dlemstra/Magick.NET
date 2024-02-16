@@ -60,7 +60,7 @@ public partial class MagickImageTests
         }
 
         [Fact]
-        public void ShouldUpdateTheDensitOfTheExifProfileInsideThe8BimProfile()
+        public void ShouldUpdateTheDensityOfTheExifProfileInsideThe8BimProfile()
         {
             using var input = new MagickImage(Files.EightBimJPG);
             input.Density = new Density(96);

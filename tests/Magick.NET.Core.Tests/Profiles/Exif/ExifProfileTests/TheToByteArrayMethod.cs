@@ -26,8 +26,8 @@ public partial class ExifProfileTests
 
             var profile = new ExifProfile(bytes);
 
-            var unkownTag = new ExifTag<uint>((ExifTagValue)298);
-            var value = profile.GetValue<uint>(unkownTag);
+            var unknownTag = new ExifTag<uint>((ExifTagValue)298);
+            var value = profile.GetValue<uint>(unknownTag);
             Assert.Equal(42U, value.GetValue());
             Assert.Equal("42", value.ToString());
 

@@ -14,7 +14,7 @@ public partial class MagickNETTests
         [Fact]
         public void ShouldPassOrderedTests()
         {
-            ShouldNotCallLogDelegeteWhenLogEventsAreNotSet();
+            ShouldNotCallLogDelegateWhenLogEventsAreNotSet();
 
             ShouldCallLogDelegateWhenLogEventsAreSet();
 
@@ -23,7 +23,7 @@ public partial class MagickNETTests
             ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
         }
 
-        private void ShouldNotCallLogDelegeteWhenLogEventsAreNotSet()
+        private void ShouldNotCallLogDelegateWhenLogEventsAreNotSet()
         {
             var count = 0;
             void LogDelegate(object sender, LogEventArgs arguments)

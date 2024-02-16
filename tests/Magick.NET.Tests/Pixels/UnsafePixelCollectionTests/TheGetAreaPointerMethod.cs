@@ -22,7 +22,7 @@ public partial class UnsafePixelCollectionTests
     public class TheGetAreaPointerMethod
     {
         [Fact]
-        public void ShouldNotThrowExceptionWhendXTooLow()
+        public void ShouldNotThrowExceptionWhenXTooLow()
             => ThrowsNoException(-1, 0, 1, 1);
 
         [Fact]

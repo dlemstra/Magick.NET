@@ -284,7 +284,7 @@ public partial class ImageOptimizerTests
             }
 
             [Fact]
-            public void ShouldMakeFileSmallerWhenStreamIsCompressibleJpgStrea()
+            public void ShouldMakeFileSmallerWhenStreamIsCompressibleJpgStream()
             {
                 var optimizer = new ImageOptimizer();
 

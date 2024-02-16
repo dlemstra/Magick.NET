@@ -11,7 +11,7 @@ public partial class MagickFactoryTests
     public class TheQuantumInfoProperty
     {
         [Fact]
-        public void ShouldHaveTheCorrectDephValue()
+        public void ShouldHaveTheCorrectDepthValue()
         {
             var factory = new MagickFactory();
 #if Q8

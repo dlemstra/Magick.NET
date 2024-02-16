@@ -12,7 +12,7 @@ public partial class UnsafePixelCollectionTests
     public class TheGetAreaMethod
     {
         [Fact]
-        public void ShouldTNothrowExceptionWhendXTooLow()
+        public void ShouldTNothrowExceptionWhenXTooLow()
             => ThrowsNoException(-1, 0, 1, 1);
 
         [Fact]

@@ -20,7 +20,7 @@ public partial class MagickColorMatrixTests
             => TestThrowsException(2);
 
         [Fact]
-        public void ShoulddThrowExceptionWhenValuesIsNul()
+        public void ShouldThrowExceptionWhenValuesIsNul()
         {
             var matrix = new MagickColorMatrix(2);
 
