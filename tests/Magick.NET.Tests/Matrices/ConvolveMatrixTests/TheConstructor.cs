@@ -25,7 +25,7 @@ public partial class ConvolveMatrixTests
         {
             Assert.Throws<ArgumentException>("order", () =>
             {
-                new ConvolveMatrix(0);
+                new ConvolveMatrix(2);
             });
         }
 
