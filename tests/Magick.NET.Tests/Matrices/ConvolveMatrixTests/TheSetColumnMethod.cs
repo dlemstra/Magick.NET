@@ -12,11 +12,11 @@ public partial class ConvolveMatrixTests
     public class TheSetColumnMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenYTooLow()
+        public void ShouldThrowExceptionWhenXTooLow()
             => TestThrowsException(-1);
 
         [Fact]
-        public void ShouldThrowExceptionWhenYTooHigh()
+        public void ShouldThrowExceptionWhenXTooHigh()
             => TestThrowsException(2);
 
         [Fact]
@@ -24,7 +24,10 @@ public partial class ConvolveMatrixTests
         {
             var matrix = new ConvolveMatrix(1);
 
-            Assert.Throws<ArgumentNullException>("values", () => { matrix.SetColumn(0, null); });
+            Assert.Throws<ArgumentNullException>("values", () =>
+            {
+                matrix.SetColumn(0, null);
+            });
         }
 
         [Fact]
