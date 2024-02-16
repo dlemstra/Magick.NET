@@ -17,7 +17,7 @@ public partial class TiffReadDefinesTests
             using var image = new MagickImage();
             image.Settings.SetDefines(new TiffReadDefines
             {
-                IgnoreExifPoperties = true,
+                IgnoreExifProperties = true,
             });
 
             Assert.Equal("false", image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
@@ -29,7 +29,7 @@ public partial class TiffReadDefinesTests
             using var image = new MagickImage();
             image.Settings.SetDefines(new TiffReadDefines
             {
-                IgnoreExifPoperties = false,
+                IgnoreExifProperties = false,
             });
 
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
@@ -42,7 +42,7 @@ public partial class TiffReadDefinesTests
             {
                 Defines = new TiffReadDefines
                 {
-                    IgnoreExifPoperties = true,
+                    IgnoreExifProperties = true,
                 },
             };
 
