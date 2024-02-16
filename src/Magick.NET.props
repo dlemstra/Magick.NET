@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputPath>bin/$(Configuration)/$(Platform)/</OutputPath>
     <Authors>Dirk Lemstra</Authors>
-    <Copyright>Copyright 2013-2023 Dirk Lemstra</Copyright>
+    <Copyright>Copyright 2013-2024 Dirk Lemstra</Copyright>
     <LangVersion>preview</LangVersion>
     <RootNamespace>ImageMagick</RootNamespace>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
