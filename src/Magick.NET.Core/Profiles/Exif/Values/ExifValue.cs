@@ -11,7 +11,7 @@ internal abstract class ExifValue : IExifValue, IEquatable<ExifTag?>
         => Tag = tag;
 
     public ExifValue(ExifTagValue tag)
-        => Tag = new UnkownExifTag(tag);
+        => Tag = new UnknownExifTag(tag);
 
     public abstract ExifDataType DataType { get; }
 

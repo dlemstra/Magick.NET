@@ -26,7 +26,7 @@ public partial class MagickImageTests
         }
 
         [Fact]
-        public void ShouldSetTheClippingPathWithTheSpecfiedName()
+        public void ShouldSetTheClippingPathWithTheSpecifiedName()
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
 

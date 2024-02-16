@@ -424,9 +424,9 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings(1, 1, StorageType.Float, "R");
                 var bytes = BitConverter.GetBytes(1.0F);
 
-                using var temporyFile = new TemporaryFile(bytes);
+                using var tempFile = new TemporaryFile(bytes);
                 using var image = new MagickImage();
-                image.ReadPixels(temporyFile.File, settings);
+                image.ReadPixels(tempFile.File, settings);
 
                 Assert.Equal(1, image.Width);
                 Assert.Equal(1, image.Height);
@@ -509,9 +509,9 @@ public partial class MagickImageTests
             {
                 var settings = new PixelReadSettings(1, 1, StorageType.Short, "R");
                 var bytes = BitConverter.GetBytes(ushort.MaxValue);
-                using var temporyFile = new TemporaryFile(bytes);
+                using var tempFile = new TemporaryFile(bytes);
                 using var image = new MagickImage();
-                image.ReadPixels(temporyFile.File.FullName, settings);
+                image.ReadPixels(tempFile.File.FullName, settings);
 
                 Assert.Equal(1, image.Width);
                 Assert.Equal(1, image.Height);

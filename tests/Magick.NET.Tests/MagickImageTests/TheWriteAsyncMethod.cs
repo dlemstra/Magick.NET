@@ -57,12 +57,12 @@ public partial class MagickImageTests
             {
                 using var input = new MagickImage(Files.CirclePNG);
 
-                using var tempfile = new TemporaryFile("foobar");
-                await input.WriteAsync(tempfile.File, MagickFormat.Tiff);
+                using var tempFile = new TemporaryFile("foobar");
+                await input.WriteAsync(tempFile.File, MagickFormat.Tiff);
 
                 Assert.Equal(MagickFormat.Png, input.Format);
 
-                using var output = new MagickImage(tempfile.File);
+                using var output = new MagickImage(tempFile.File);
 
                 Assert.Equal(MagickFormat.Tiff, output.Format);
             }
@@ -97,13 +97,13 @@ public partial class MagickImageTests
                 };
                 using var input = new MagickImage(Files.CirclePNG);
 
-                using var tempfile = new TemporaryFile("foobar");
-                await input.WriteAsync(tempfile.File, defines);
+                using var tempFile = new TemporaryFile("foobar");
+                await input.WriteAsync(tempFile.File, defines);
 
                 Assert.Equal(MagickFormat.Png, input.Format);
 
                 using var output = new MagickImage();
-                await output.ReadAsync(tempfile.File);
+                await output.ReadAsync(tempFile.File);
 
                 Assert.Equal(MagickFormat.Jpeg, output.Format);
             }
@@ -163,12 +163,12 @@ public partial class MagickImageTests
             {
                 using var input = new MagickImage(Files.CirclePNG);
 
-                using var tempfile = new TemporaryFile("foobar");
-                await input.WriteAsync(tempfile.File.FullName, MagickFormat.Tiff);
+                using var tempFile = new TemporaryFile("foobar");
+                await input.WriteAsync(tempFile.File.FullName, MagickFormat.Tiff);
 
                 Assert.Equal(MagickFormat.Png, input.Format);
 
-                using var output = new MagickImage(tempfile.File.FullName);
+                using var output = new MagickImage(tempFile.File.FullName);
 
                 Assert.Equal(MagickFormat.Tiff, output.Format);
             }
@@ -204,13 +204,13 @@ public partial class MagickImageTests
 
                 using var input = new MagickImage(Files.CirclePNG);
 
-                using var tempfile = new TemporaryFile("foobar");
-                await input.WriteAsync(tempfile.File.FullName, defines);
+                using var tempFile = new TemporaryFile("foobar");
+                await input.WriteAsync(tempFile.File.FullName, defines);
 
                 Assert.Equal(MagickFormat.Png, input.Format);
 
                 using var output = new MagickImage();
-                await output.ReadAsync(tempfile.File.FullName);
+                await output.ReadAsync(tempFile.File.FullName);
 
                 Assert.Equal(MagickFormat.Jpeg, output.Format);
             }

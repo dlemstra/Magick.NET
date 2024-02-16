@@ -9,7 +9,7 @@ namespace Magick.NET.Tests;
 
 public partial class TiffReadDefinesTests
 {
-    public class TheIgnoreExifPopertiesProperty
+    public class TheIgnoreExifPropertiesProperty
     {
         [Fact]
         public void ShouldSetTheDefine()

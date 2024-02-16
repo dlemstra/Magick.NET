@@ -131,9 +131,9 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings(1, 1, StorageType.Short, "R");
                 var bytes = BitConverter.GetBytes(ushort.MaxValue);
 
-                using var temporyFile = new TemporaryFile(bytes);
+                using var tempFile = new TemporaryFile(bytes);
                 using var image = new MagickImage();
-                await image.ReadPixelsAsync(temporyFile.File.FullName, settings);
+                await image.ReadPixelsAsync(tempFile.File.FullName, settings);
 
                 Assert.Equal(1, image.Width);
                 Assert.Equal(1, image.Height);

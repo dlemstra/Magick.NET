@@ -211,8 +211,8 @@ public partial class MagickImageFactoryTests
 
                 var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
 
-                using var temporaryFile = new TemporaryFile(data);
-                using var image = await factory.CreateAsync(temporaryFile.File.FullName, settings);
+                using var tempFile = new TemporaryFile(data);
+                using var image = await factory.CreateAsync(tempFile.File.FullName, settings);
 
                 Assert.IsType<MagickImage>(image);
                 Assert.Equal(2, image.Width);

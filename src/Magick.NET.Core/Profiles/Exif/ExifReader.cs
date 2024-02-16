@@ -142,7 +142,7 @@ internal sealed class ExifReader
         }
 
         if (value is null)
-            _data.InvalidTags.Add(new UnkownExifTag(tag));
+            _data.InvalidTags.Add(new UnknownExifTag(tag));
 
         _reader.Seek(oldIndex + 4);
 

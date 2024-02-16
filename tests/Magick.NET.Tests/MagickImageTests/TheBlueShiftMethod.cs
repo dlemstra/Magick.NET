@@ -11,7 +11,7 @@ public partial class MagickImageTests
     public class TheBlueShiftMethod
     {
         [Fact]
-        public void ShouldSimulateNightimeScene()
+        public void ShouldSimulateNighttimeScene()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
 

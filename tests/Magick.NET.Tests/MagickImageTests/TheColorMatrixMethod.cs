@@ -20,7 +20,7 @@ public partial class MagickImageTests
         }
 
         [Fact]
-        public void SouldApplyTheSpecifiedColorMatrix()
+        public void ShouldApplyTheSpecifiedColorMatrix()
         {
             using var image = new MagickImage(Files.Builtin.Rose);
             var matrix = new MagickColorMatrix(3, 0, 0, 1, 0, 1, 0, 1, 0, 0);

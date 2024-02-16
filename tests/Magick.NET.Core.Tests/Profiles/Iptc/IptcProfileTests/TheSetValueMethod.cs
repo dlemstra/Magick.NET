@@ -28,7 +28,7 @@ public partial class IptcProfileTests
         [InlineData(IptcTag.Contact)]
         [InlineData(IptcTag.LocalCaption)]
         [InlineData(IptcTag.CaptionWriter)]
-        public void ShouldAllowDuplicateValuesForValuesThatCanBeRepated(IptcTag tag)
+        public void ShouldAllowDuplicateValuesForValuesThatCanBeRepeated(IptcTag tag)
         {
             var profile = new IptcProfile();
             var expectedValue1 = "test";
@@ -77,7 +77,7 @@ public partial class IptcProfileTests
         [InlineData(IptcTag.Caption)]
         [InlineData(IptcTag.ImageType)]
         [InlineData(IptcTag.ImageOrientation)]
-        public void ShoulNotdAllowDuplicateValuesForValuesThatCannotBeRepated(IptcTag tag)
+        public void ShouldNotAllowDuplicateValuesForValuesThatCannotBeRepeated(IptcTag tag)
         {
             var profile = new IptcProfile();
             var expectedValue = "another one";

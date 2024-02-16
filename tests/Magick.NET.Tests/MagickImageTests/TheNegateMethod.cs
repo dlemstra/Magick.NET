@@ -20,7 +20,7 @@ public partial class MagickImageTests
         }
 
         [Fact]
-        public void ShouldNegateTheSpecifedChannels()
+        public void ShouldNegateTheSpecifiedChannels()
         {
             using var image = new MagickImage("xc:white", 1, 1);
             image.Negate(Channels.Red);

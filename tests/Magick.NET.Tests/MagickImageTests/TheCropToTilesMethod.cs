@@ -55,7 +55,7 @@ public partial class MagickImageTests
         }
 
         [Fact]
-        public void ShouldCreateTilesOfTheSpeciedSize()
+        public void ShouldCreateTilesOfTheSpecifiedSize()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
             var tiles = image.CropToTiles(48, 48).ToArray();

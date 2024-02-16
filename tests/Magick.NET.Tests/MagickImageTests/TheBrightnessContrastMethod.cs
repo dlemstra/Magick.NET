@@ -11,7 +11,7 @@ public partial class MagickImageTests
     public class TheBrightnessContrastMethod
     {
         [Fact]
-        public void ShouldChangeBrightnesAndContrastOfTheImage()
+        public void ShouldChangeBrightnessAndContrastOfTheImage()
         {
             using var image = new MagickImage(Files.Builtin.Wizard);
 

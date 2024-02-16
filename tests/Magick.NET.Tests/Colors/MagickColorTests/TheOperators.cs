@@ -89,7 +89,7 @@ public partial class MagickColorTests
             }
 
             [Fact]
-            public void ShouldMultplyAllNonAlphaChannelsForRgbColor()
+            public void ShouldMultiplyAllNonAlphaChannelsForRgbColor()
             {
                 var color = MagickColors.White;
                 var percentage = new Percentage(50);
@@ -104,7 +104,7 @@ public partial class MagickColorTests
             }
 
             [Fact]
-            public void ShouldMultplyAllNonAlphaChannelsForCmykColor()
+            public void ShouldMultiplyAllNonAlphaChannelsForCmykColor()
             {
                 var color = new MagickColor("cmyka(100%,100%,100%,100%)");
                 var percentage = new Percentage(50);

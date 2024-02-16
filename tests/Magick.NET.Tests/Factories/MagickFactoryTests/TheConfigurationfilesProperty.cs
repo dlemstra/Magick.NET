@@ -9,7 +9,7 @@ namespace Magick.NET.Tests;
 
 public partial class MagickFactoryTests
 {
-    public class TheConfigurationfilesProperty
+    public class TheConfigurationFilesProperty
     {
         [Fact]
         public void ShouldReturnInstance()
