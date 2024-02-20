@@ -2190,18 +2190,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(nameof(image), image);
 
-        if (args is not null)
-            _nativeInstance.SetArtifact("compose:args", args);
+        using var temporaryDefines = new TemporaryDefines(this);
+        temporaryDefines.SetArtifact("compose:args", args);
 
-        try
-        {
-            _nativeInstance.CompositeGravity(image, gravity, x, y, compose, channels);
-        }
-        finally
-        {
-            if (args is not null)
-                _nativeInstance.RemoveArtifact("compose:args");
-        }
+        _nativeInstance.CompositeGravity(image, gravity, x, y, compose, channels);
     }
 
     /// <summary>
