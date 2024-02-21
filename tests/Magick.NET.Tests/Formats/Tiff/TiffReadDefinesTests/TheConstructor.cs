@@ -17,6 +17,7 @@ public partial class TiffReadDefinesTests
             using var image = new MagickImage();
             image.Settings.SetDefines(new TiffReadDefines());
 
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "assume-alpha"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-layers"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
