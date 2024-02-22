@@ -931,6 +931,9 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public int Width
         => _nativeInstance.Width;
 
+    private bool HasColorProfile
+        => HasProfile("icc") || HasProfile("icm");
+
     /// <summary>
     /// Determines whether the first <see cref="MagickImage"/> is more than the second <see cref="MagickImage"/>.
     /// </summary>
@@ -6653,7 +6656,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(nameof(target), target);
 
-        if (!HasProfile(target.Name))
+        if (!HasColorProfile)
             return false;
 
         SetProfile(target, mode);
@@ -6689,7 +6692,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         if (source.ColorSpace != ColorSpace)
             return false;
 
-        if (!HasProfile(target.Name))
+        if (!HasColorProfile)
             SetProfile(source);
 
         SetProfile(target, mode);
