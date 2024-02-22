@@ -77,6 +77,7 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit,
     addMagickNetLibraries $xml $quantumName $platform
     addNativeLibraries $xml $quantumName $platform
     addFile $xml "Magick.NET.targets" "build\netstandard20\$name.targets"
+    addFile $xml "Magick.NET.targets" "buildTransitive\netstandard20\$name.targets"
 
     createAndSignNuGetPackage $xml $name $version $pfxPassword
 }
