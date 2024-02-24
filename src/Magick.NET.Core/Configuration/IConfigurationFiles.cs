@@ -69,4 +69,10 @@ public interface IConfigurationFiles
     /// Gets the type-ghostscript configuration.
     /// </summary>
     IConfigurationFile TypeGhostscript { get; }
+
+    /// <summary>
+    /// Creates a new configuration with Inkscape enabled.
+    /// </summary>
+    /// <returns>A new configuration with Inkscape enabled.</returns>
+    public IConfigurationFiles WithInkscapeEnabled();
 }

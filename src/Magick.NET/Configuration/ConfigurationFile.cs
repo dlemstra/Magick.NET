@@ -13,6 +13,12 @@ internal sealed class ConfigurationFile : IConfigurationFile
         Data = LoadData();
     }
 
+    public ConfigurationFile(IConfigurationFile configurationFile)
+    {
+        FileName = configurationFile.FileName;
+        Data = configurationFile.Data;
+    }
+
     public string FileName { get; }
 
     public string Data { get; set; }
