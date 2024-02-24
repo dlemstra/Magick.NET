@@ -10,5 +10,7 @@ internal static partial class Runtime
 {
     public static bool Is64Bit { get; } = IntPtr.Size == 8;
 
+    public static bool IsArm64 { get; } = RuntimeInformation.ProcessArchitecture == Architecture.Arm64;
+
     public static bool IsWindows { get; } = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 }
