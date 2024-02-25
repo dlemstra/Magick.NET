@@ -3328,7 +3328,13 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="threshold">The line count threshold.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void HoughLine(int width, int height, int threshold)
-        => _nativeInstance.HoughLine(width, height, threshold);
+    {
+        Throw.IfNegative(nameof(width), width);
+        Throw.IfNegative(nameof(height), height);
+        Throw.IfNegative(nameof(threshold), threshold);
+
+        _nativeInstance.HoughLine(width, height, threshold);
+    }
 
     /// <summary>
     /// Implode image (special effect).
