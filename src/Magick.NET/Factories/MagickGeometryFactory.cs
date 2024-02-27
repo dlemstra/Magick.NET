@@ -76,7 +76,7 @@ public sealed class MagickGeometryFactory : IMagickGeometryFactory
     /// Initializes a new <see cref="IMagickGeometry"/> instance using the specified page size.
     /// </summary>
     /// <param name="pageSize">The page size.</param>
-    /// <returns>A <see cref="IMagickGeometry"/> instance that represents the specified page size.</returns>
+    /// <returns>A <see cref="IMagickGeometry"/> instance that represents the specified page size at 72 dpi.</returns>
     public IMagickGeometry CreateFromPageSize(string pageSize)
         => MagickGeometry.FromPageSize(pageSize);
 }
