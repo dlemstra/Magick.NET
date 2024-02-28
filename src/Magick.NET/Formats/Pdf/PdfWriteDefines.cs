@@ -53,6 +53,11 @@ public sealed class PdfWriteDefines : IWriteDefines
     public string? Subject { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating wether a thumbnail should be added to the pdf document (pdf:thumbnail).
+    /// </summary>
+    public bool? Thumbnail { get; set; }
+
+    /// <summary>
     /// Gets or sets the title of the pdf document (pdf:title).
     /// </summary>
     public string? Title { get; set; }
@@ -84,6 +89,9 @@ public sealed class PdfWriteDefines : IWriteDefines
 
             if (Subject?.Length > 0)
                 yield return new MagickDefine(Format, "subject", Subject);
+
+            if (Thumbnail.HasValue)
+                yield return new MagickDefine(Format, "thumbnail", Thumbnail.Value);
 
             if (Title?.Length > 0)
                 yield return new MagickDefine(Format, "title", Title);

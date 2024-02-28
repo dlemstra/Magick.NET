@@ -24,6 +24,7 @@ public partial class PdfWriteDefinesTests
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "modify-epoch"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "producer"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "subject"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "thumbnail"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "title"));
         }
     }
