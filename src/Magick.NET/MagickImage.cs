@@ -3995,7 +3995,11 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="size">The size of the edges.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Lower(int size)
-        => _nativeInstance.RaiseOrLower(size, false);
+    {
+        Throw.IfNegative(nameof(size), size);
+
+        _nativeInstance.RaiseOrLower(size, false);
+    }
 
     /// <summary>
     /// Magnify image by integral size.
