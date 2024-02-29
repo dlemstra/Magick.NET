@@ -26,6 +26,27 @@ public partial class MagickImageTests
         }
 
         [Fact]
+        public void ShouldThrowExceptionWhenPercentageIsNegative()
+        {
+            using var image = new MagickImage(Files.RedPNG);
+            Assert.Throws<ArgumentException>("percentageWidth", () => image.InterpolativeResize(new Percentage(-1), PixelInterpolateMethod.Mesh));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenPercentageWidthIsNegative()
+        {
+            using var image = new MagickImage(Files.RedPNG);
+            Assert.Throws<ArgumentException>("percentageWidth", () => image.InterpolativeResize(new Percentage(-1), new Percentage(10), PixelInterpolateMethod.Mesh));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenPercentageHeightIsNegative()
+        {
+            using var image = new MagickImage(Files.RedPNG);
+            Assert.Throws<ArgumentException>("percentageHeight", () => image.InterpolativeResize(new Percentage(10), new Percentage(-1), PixelInterpolateMethod.Mesh));
+        }
+
+        [Fact]
         public void ShouldResizeTheImage()
         {
             using var image = new MagickImage(Files.RedPNG);
