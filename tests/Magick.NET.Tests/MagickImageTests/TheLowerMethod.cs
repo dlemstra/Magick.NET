@@ -15,7 +15,7 @@ public partial class MagickImageTests
         public void ShouldThrowExceptionWhenSizeIsNegative()
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
-            Assert.Throws<ArgumentException>("width", () => image.Lower(-1));
+            Assert.Throws<ArgumentException>("size", () => image.Lower(-1));
         }
 
         [Fact]
