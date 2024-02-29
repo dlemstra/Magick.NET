@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,34 @@ public partial class MagickImageTests
 {
     public class TheCropMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthIsNegative()
+        {
+            {
+                using var image = new MagickImage(Files.Builtin.Logo);
+                Assert.Throws<ArgumentException>("width", () => image.Crop(-1, 50));
+            }
+
+            {
+                using var image = new MagickImage(Files.Builtin.Logo);
+                Assert.Throws<ArgumentException>("width", () => image.Crop(-1, 50, Gravity.Center));
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsNegative()
+        {
+            {
+                using var image = new MagickImage(Files.Builtin.Logo);
+                Assert.Throws<ArgumentException>("height", () => image.Crop(40, -1));
+            }
+
+            {
+                using var image = new MagickImage(Files.Builtin.Logo);
+                Assert.Throws<ArgumentException>("height", () => image.Crop(40, -1, Gravity.Center));
+            }
+        }
+
         [Fact]
         public void ShouldSetImageToCorrectDimensions()
         {
