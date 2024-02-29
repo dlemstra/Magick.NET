@@ -20,6 +20,20 @@ public partial class MagickImageTests
         }
 
         [Fact]
+        public void ShouldThrowExceptionWhenWidthIsNegative()
+        {
+            using var image = new MagickImage(Files.Builtin.Logo);
+            Assert.Throws<ArgumentException>("width", () => image.Scale(-1, 400));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsNegative()
+        {
+            using var image = new MagickImage(Files.Builtin.Logo);
+            Assert.Throws<ArgumentException>("height", () => image.Scale(400, -1));
+        }
+
+        [Fact]
         public void ShouldResizeTheImage()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
