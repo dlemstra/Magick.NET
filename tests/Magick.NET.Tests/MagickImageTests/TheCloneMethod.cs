@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,34 @@ public partial class MagickImageTests
 {
     public class TheCloneMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthIsNegative()
+        {
+            {
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+                Assert.Throws<ArgumentException>("width", () => image.Clone(-1, 64));
+            }
+
+            {
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+                Assert.Throws<ArgumentException>("width", () => image.Clone(0, 0, -1, 64));
+            }
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsNegative()
+        {
+            {
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+                Assert.Throws<ArgumentException>("height", () => image.Clone(32, -1));
+            }
+
+            {
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+                Assert.Throws<ArgumentException>("height", () => image.Clone(0, 0, 32, -1));
+            }
+        }
+
         [Fact]
         public void ShouldThrowExceptionWhenNoImageIsRead()
         {
