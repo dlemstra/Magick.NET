@@ -1033,10 +1033,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveResize(int width, int height)
-    {
-        var geometry = new MagickGeometry(width, height);
-        AdaptiveResize(geometry);
-    }
+        => AdaptiveResize(new MagickGeometry(width, height));
 
     /// <summary>
     /// Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
@@ -1516,10 +1513,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="width">The width of the part to chop horizontally.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ChopHorizontal(int offset, int width)
-    {
-        var geometry = new MagickGeometry(offset, 0, width, 0);
-        Chop(geometry);
-    }
+        => Chop(new MagickGeometry(offset, 0, width, 0));
 
     /// <summary>
     /// Chop image (remove horizontal subregion of image).
@@ -1528,10 +1522,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height of the part to chop vertically.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ChopVertical(int offset, int height)
-    {
-        var geometry = new MagickGeometry(0, offset, 0, height);
-        Chop(geometry);
-    }
+        => Chop(new MagickGeometry(0, offset, 0, height));
 
     /// <summary>
     /// A variant of adaptive histogram equalization in which the contrast amplification is limited,
@@ -2768,10 +2759,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="backgroundColor">The background color to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(int width, int height, IMagickColor<QuantumType> backgroundColor)
-    {
-        var geometry = new MagickGeometry(width, height);
-        Extent(geometry, backgroundColor);
-    }
+        => Extent(new MagickGeometry(width, height), backgroundColor);
 
     /// <summary>
     /// Extend the image as defined by the width and height.
@@ -2781,10 +2769,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="gravity">The placement gravity.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(int width, int height, Gravity gravity)
-    {
-        var geometry = new MagickGeometry(width, height);
-        Extent(geometry, gravity);
-    }
+        => Extent(new MagickGeometry(width, height), gravity);
 
     /// <summary>
     /// Extend the image as defined by the width and height.
@@ -2795,10 +2780,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="backgroundColor">The background color to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(int width, int height, Gravity gravity, IMagickColor<QuantumType> backgroundColor)
-    {
-        var geometry = new MagickGeometry(width, height);
-        Extent(geometry, gravity, backgroundColor);
-    }
+        => Extent(new MagickGeometry(width, height), gravity, backgroundColor);
 
     /// <summary>
     /// Extend the image as defined by the rectangle.
@@ -3457,10 +3439,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="method">Pixel interpolate method.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InterpolativeResize(Percentage percentage, PixelInterpolateMethod method)
-    {
-        var geometry = new MagickGeometry(percentage, percentage);
-        InterpolativeResize(geometry, method);
-    }
+        => InterpolativeResize(new MagickGeometry(percentage, percentage), method);
 
     /// <summary>
     /// Resize image to specified size using the specified interpolation method.
@@ -3470,10 +3449,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="method">Pixel interpolate method.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InterpolativeResize(Percentage percentageWidth, Percentage percentageHeight, PixelInterpolateMethod method)
-    {
-        var geometry = new MagickGeometry(percentageWidth, percentageHeight);
-        InterpolativeResize(geometry, method);
-    }
+        => InterpolativeResize(new MagickGeometry(percentageWidth, percentageHeight), method);
 
     /// <summary>
     /// Inverse contrast image (diminish intensity differences in image).
@@ -3887,10 +3863,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(int width, int height)
-    {
-        var geometry = new MagickGeometry(width, height);
-        LiquidRescale(geometry);
-    }
+        => LiquidRescale(new MagickGeometry(width, height));
 
     /// <summary>
     /// Rescales image with seam carving.
@@ -3925,10 +3898,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentage">The percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(Percentage percentage)
-    {
-        var geometry = new MagickGeometry(percentage, percentage);
-        LiquidRescale(geometry);
-    }
+        => LiquidRescale(new MagickGeometry(percentage, percentage));
 
     /// <summary>
     /// Rescales image with seam carving.
@@ -3937,10 +3907,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight)
-    {
-        var geometry = new MagickGeometry(percentageWidth, percentageHeight);
-        LiquidRescale(geometry);
-    }
+        => LiquidRescale(new MagickGeometry(percentageWidth, percentageHeight));
 
     /// <summary>
     /// Rescales image with seam carving.
@@ -5506,10 +5473,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentage">The percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(Percentage percentage)
-    {
-        var geometry = new MagickGeometry(percentage, percentage);
-        Resize(geometry);
-    }
+        => Resize(new MagickGeometry(percentage, percentage));
 
     /// <summary>
     /// Resize image to specified percentage.
@@ -5518,10 +5482,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(Percentage percentageWidth, Percentage percentageHeight)
-    {
-        var geometry = new MagickGeometry(percentageWidth, percentageHeight);
-        Resize(geometry);
-    }
+        => Resize(new MagickGeometry(percentageWidth, percentageHeight));
 
     /// <summary>
     /// Roll image (rolls image vertically and horizontally).
@@ -6451,10 +6412,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Thumbnail(int width, int height)
-    {
-        var geometry = new MagickGeometry(width, height);
-        Thumbnail(geometry);
-    }
+        => Thumbnail(new MagickGeometry(width, height));
 
     /// <summary>
     /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
@@ -6483,10 +6441,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Thumbnail(Percentage percentageWidth, Percentage percentageHeight)
-    {
-        var geometry = new MagickGeometry(percentageWidth, percentageHeight);
-        Thumbnail(geometry);
-    }
+        => Thumbnail(new MagickGeometry(percentageWidth, percentageHeight));
 
     /// <summary>
     /// Compose an image repeated across and down the image.
