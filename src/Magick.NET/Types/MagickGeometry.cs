@@ -48,12 +48,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="percentageWidth">The percentage of the width.</param>
     /// <param name="percentageHeight">The percentage of the height.</param>
     public MagickGeometry(Percentage percentageWidth, Percentage percentageHeight)
-    {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
-
-        InitializeFromPercentage(0, 0, (int)percentageWidth, (int)percentageHeight);
-    }
+        => InitializeFromPercentage(0, 0, (int)percentageWidth, (int)percentageHeight);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
@@ -63,12 +58,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="percentageWidth">The percentage of the width.</param>
     /// <param name="percentageHeight">The percentage of the height.</param>
     public MagickGeometry(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
-    {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
-
-        InitializeFromPercentage(x, y, (int)percentageWidth, (int)percentageHeight);
-    }
+        => InitializeFromPercentage(x, y, (int)percentageWidth, (int)percentageHeight);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified geometry.

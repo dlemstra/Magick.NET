@@ -18,14 +18,22 @@ public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percenta
     /// </summary>
     /// <param name="value">The value (0% = 0.0, 100% = 100.0).</param>
     public Percentage(double value)
-        => _value = value;
+    {
+        Throw.IfNegative(nameof(value), value);
+
+        _value = value;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Percentage"/> struct.
     /// </summary>
     /// <param name="value">The value (0% = 0, 100% = 100).</param>
     public Percentage(int value)
-        => _value = value;
+    {
+        Throw.IfNegative(nameof(value), value);
+
+        _value = value;
+    }
 
     /// <summary>
     /// Converts the specified double to an instance of this type.
@@ -170,7 +178,11 @@ public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percenta
     /// <param name="value">The value to use.</param>
     /// <returns>The new value.</returns>
     public double Multiply(double value)
-        => (value * _value) / 100.0;
+    {
+        Throw.IfNegative(nameof(value), value);
+
+        return (value * _value) / 100.0;
+    }
 
     /// <summary>
     /// Multiplies the value by the specified percentage.
@@ -178,7 +190,11 @@ public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percenta
     /// <param name="value">The value to use.</param>
     /// <returns>The new value.</returns>
     public int Multiply(int value)
-        => (int)((value * _value) / 100.0);
+    {
+        Throw.IfNegative(nameof(value), value);
+
+        return (int)((value * _value) / 100.0);
+    }
 
     /// <summary>
     /// Returns a double that represents the current percentage.

@@ -13,12 +13,6 @@ public partial class ResourceLimitsTests
     public class TheLimitMemoryMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenValueIsNegative()
-        {
-            Assert.Throws<ArgumentOutOfRangeException>("percentage", () => ResourceLimits.LimitMemory(new Percentage(-0.99)));
-        }
-
-        [Fact]
         public void ShouldThrowExceptionWhenValueIsTooHigh()
         {
             Assert.Throws<ArgumentOutOfRangeException>("percentage", () => ResourceLimits.LimitMemory(new Percentage(100.1)));
