@@ -99,7 +99,27 @@ public partial class MagickImageTests
                 var percentage = new Percentage(-0.5);
                 using var image = new MagickImage(Files.MagickNETIconPNG);
 
-                Assert.Throws<ArgumentException>("percentage", () => image.Resize(percentage));
+                Assert.Throws<ArgumentException>("percentageWidth", () => image.Resize(percentage));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenPercentageWidthIsNegative()
+            {
+                var percentageWidth = new Percentage(-0.5);
+                var percentageHeight = new Percentage(10);
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+
+                Assert.Throws<ArgumentException>("percentageWidth", () => image.Resize(percentageWidth, percentageHeight));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenPercentageHeightIsNegative()
+            {
+                var percentageWidth = new Percentage(10);
+                var percentageHeight = new Percentage(-0.5);
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+
+                Assert.Throws<ArgumentException>("percentageHeight", () => image.Resize(percentageWidth, percentageHeight));
             }
 
             [Fact]
@@ -115,6 +135,20 @@ public partial class MagickImageTests
 
         public class WithWidthAndHeight
         {
+            [Fact]
+            public void ShouldThrowExceptionWhenWidthIsNegative()
+            {
+                using var image = new MagickImage(Files.RedPNG);
+                Assert.Throws<ArgumentException>("width", () => image.Resize(-1, 32));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenHeightIsNegative()
+            {
+                using var image = new MagickImage(Files.RedPNG);
+                Assert.Throws<ArgumentException>("height", () => image.Resize(32, -1));
+            }
+
             [Fact]
             public void ShouldResizeTheImage()
             {

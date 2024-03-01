@@ -3458,8 +3458,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InterpolativeResize(Percentage percentage, PixelInterpolateMethod method)
     {
-        Throw.IfNegative(nameof(percentage), percentage);
-
         var geometry = new MagickGeometry(percentage, percentage);
         InterpolativeResize(geometry, method);
     }
@@ -3473,9 +3471,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InterpolativeResize(Percentage percentageWidth, Percentage percentageHeight, PixelInterpolateMethod method)
     {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
-
         var geometry = new MagickGeometry(percentageWidth, percentageHeight);
         InterpolativeResize(geometry, method);
     }
@@ -3931,8 +3926,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(Percentage percentage)
     {
-        Throw.IfNegative(nameof(percentage), percentage);
-
         var geometry = new MagickGeometry(percentage, percentage);
         LiquidRescale(geometry);
     }
@@ -3945,9 +3938,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight)
     {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
-
         var geometry = new MagickGeometry(percentageWidth, percentageHeight);
         LiquidRescale(geometry);
     }
@@ -3962,9 +3952,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity)
     {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
-
         var geometry = new MagickGeometry(percentageWidth, percentageHeight);
 
         _nativeInstance.LiquidRescale(geometry.ToString(), deltaX, rigidity);
@@ -5520,8 +5507,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(Percentage percentage)
     {
-        Throw.IfNegative(nameof(percentage), percentage);
-
         var geometry = new MagickGeometry(percentage, percentage);
         Resize(geometry);
     }
@@ -5534,9 +5519,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(Percentage percentageWidth, Percentage percentageHeight)
     {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
-
         var geometry = new MagickGeometry(percentageWidth, percentageHeight);
         Resize(geometry);
     }
@@ -5615,12 +5597,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sample(Percentage percentageWidth, Percentage percentageHeight)
-    {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
-
-        Sample(new MagickGeometry(percentageWidth, percentageHeight));
-    }
+        => Sample(new MagickGeometry(percentageWidth, percentageHeight));
 
     /// <summary>
     /// Resize image by using simple ratio algorithm.
@@ -5661,12 +5638,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Scale(Percentage percentageWidth, Percentage percentageHeight)
-    {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
-
-        Scale(new MagickGeometry(percentageWidth, percentageHeight));
-    }
+        => Scale(new MagickGeometry(percentageWidth, percentageHeight));
 
     /// <summary>
     /// Segment (coalesce similar image components) by analyzing the histograms of the color
@@ -6512,9 +6484,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Thumbnail(Percentage percentageWidth, Percentage percentageHeight)
     {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
-
         var geometry = new MagickGeometry(percentageWidth, percentageHeight);
         Thumbnail(geometry);
     }

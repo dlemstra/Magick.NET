@@ -29,4 +29,24 @@ public partial class MagickImageTests
             Assert.Equal(320, image.Height);
         }
     }
+
+    public class TheChopHorizontalMethod
+    {
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthIsNegative()
+        {
+            using var image = new MagickImage(Files.Builtin.Wizard);
+            Assert.Throws<ArgumentException>("width", () => image.ChopHorizontal(-1, -1));
+        }
+    }
+
+    public class TheChopVerticalMethod
+    {
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsNegative()
+        {
+            using var image = new MagickImage(Files.Builtin.Wizard);
+            Assert.Throws<ArgumentException>("height", () => image.ChopVertical(-1, -1));
+        }
+    }
 }

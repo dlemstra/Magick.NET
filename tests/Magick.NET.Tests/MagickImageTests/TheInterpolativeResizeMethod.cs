@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,41 @@ public partial class MagickImageTests
 {
     public class TheInterpolativeResizeMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthIsNegative()
+        {
+            using var image = new MagickImage(Files.RedPNG);
+            Assert.Throws<ArgumentException>("width", () => image.InterpolativeResize(-1, 32, PixelInterpolateMethod.Mesh));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsNegative()
+        {
+            using var image = new MagickImage(Files.RedPNG);
+            Assert.Throws<ArgumentException>("height", () => image.InterpolativeResize(32, -1, PixelInterpolateMethod.Mesh));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenPercentageIsNegative()
+        {
+            using var image = new MagickImage(Files.RedPNG);
+            Assert.Throws<ArgumentException>("percentageWidth", () => image.InterpolativeResize(new Percentage(-1), PixelInterpolateMethod.Mesh));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenPercentageWidthIsNegative()
+        {
+            using var image = new MagickImage(Files.RedPNG);
+            Assert.Throws<ArgumentException>("percentageWidth", () => image.InterpolativeResize(new Percentage(-1), new Percentage(10), PixelInterpolateMethod.Mesh));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenPercentageHeightIsNegative()
+        {
+            using var image = new MagickImage(Files.RedPNG);
+            Assert.Throws<ArgumentException>("percentageHeight", () => image.InterpolativeResize(new Percentage(10), new Percentage(-1), PixelInterpolateMethod.Mesh));
+        }
+
         [Fact]
         public void ShouldResizeTheImage()
         {

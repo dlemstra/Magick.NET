@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,20 @@ public partial class MagickImageTests
 {
     public class TheAdaptiveResizeMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthIsNegative()
+        {
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            Assert.Throws<ArgumentException>("width", () => image.AdaptiveResize(-1, 512));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsNegative()
+        {
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            Assert.Throws<ArgumentException>("height", () => image.AdaptiveResize(512, -1));
+        }
+
         [Fact]
         public void ShouldNotEnlargeTheImage()
         {
