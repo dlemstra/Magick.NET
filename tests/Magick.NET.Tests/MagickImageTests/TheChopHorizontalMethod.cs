@@ -9,23 +9,22 @@ namespace Magick.NET.Tests;
 
 public partial class MagickImageTests
 {
-    public class TheChopMethod
+    public class TheChopHorizontalMethod
     {
         [Fact]
-        public void ShouldRaiseExceptionWhenGeometryIsNull()
+        public void ShouldThrowExceptionWhenWidthIsNegative()
         {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentNullException>("geometry", () => image.Chop(null));
+            using var image = new MagickImage(Files.Builtin.Wizard);
+            Assert.Throws<ArgumentException>("width", () => image.ChopHorizontal(-1, -1));
         }
 
         [Fact]
-        public void ShouldChopTheImage()
+        public void ShouldChopTheImageHorizontaly()
         {
             using var image = new MagickImage(Files.Builtin.Wizard);
-            image.Chop(new MagickGeometry(new Percentage(50), new Percentage(50)));
+            image.ChopHorizontal(10, 200);
 
-            Assert.Equal(240, image.Width);
+            Assert.Equal(280, image.Width);
             Assert.Equal(320, image.Height);
         }
     }
