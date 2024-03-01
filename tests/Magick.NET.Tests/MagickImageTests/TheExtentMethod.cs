@@ -16,59 +16,15 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldThrowExceptionWhenWidthIsNegative()
             {
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("width", () => image.Extent(-1, 3));
-                }
-
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("width", () => image.Extent(2, 3, -1, 3));
-                }
-
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("width", () => image.Extent(-1, 3, MagickColors.Purple));
-                }
-
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("width", () => image.Extent(-1, 3, Gravity.Center));
-                }
-
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("width", () => image.Extent(-1, 3, Gravity.Center, MagickColors.Purple));
-                }
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("width", () => image.Extent(-1, 3));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenHeightIsNegative()
             {
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("height", () => image.Extent(2, -1));
-                }
-
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("height", () => image.Extent(2, 3, 2, -1));
-                }
-
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("height", () => image.Extent(2, -1, MagickColors.Purple));
-                }
-
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("height", () => image.Extent(2, -1, Gravity.Center));
-                }
-
-                {
-                    using var image = new MagickImage(MagickColors.Black, 1, 1);
-                    Assert.Throws<ArgumentException>("height", () => image.Extent(2, -1, Gravity.Center, MagickColors.Purple));
-                }
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("height", () => image.Extent(2, -1));
             }
 
             [Fact]
@@ -79,18 +35,6 @@ public partial class MagickImageTests
 
                 Assert.Equal(2, image.Width);
                 Assert.Equal(3, image.Height);
-            }
-
-            [Fact]
-            public void ShouldExtentTheImageAtOffset()
-            {
-                using var image = new MagickImage(MagickColors.Black, 1, 1);
-                image.BackgroundColor = MagickColors.Purple;
-                image.Extent(-1, -1, 2, 3);
-
-                Assert.Equal(2, image.Width);
-                Assert.Equal(3, image.Height);
-                ColorAssert.Equal(MagickColors.Purple, image, 0, 0);
             }
 
             [Fact]
@@ -125,6 +69,86 @@ public partial class MagickImageTests
                 Assert.Equal(2, image.Width);
                 Assert.Equal(3, image.Height);
                 ColorAssert.Equal(MagickColors.Purple, image, 1, 1);
+            }
+        }
+
+        public class WithWidthAndHeightAndOffset
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenWidthIsNegative()
+            {
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("width", () => image.Extent(2, 3, -1, 3));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenHeightIsNegative()
+            {
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("height", () => image.Extent(2, 3, 2, -1));
+            }
+
+            [Fact]
+            public void ShouldExtentTheImageAtOffset()
+            {
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                image.BackgroundColor = MagickColors.Purple;
+                image.Extent(-1, -1, 2, 3);
+
+                Assert.Equal(2, image.Width);
+                Assert.Equal(3, image.Height);
+                ColorAssert.Equal(MagickColors.Purple, image, 0, 0);
+            }
+        }
+
+        public class WithWidthAndHeightAndColor
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenWidthIsNegative()
+            {
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("width", () => image.Extent(-1, 3, MagickColors.Purple));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenHeightIsNegative()
+            {
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("height", () => image.Extent(2, -1, MagickColors.Purple));
+            }
+        }
+
+        public class WithWidthAndHeightAndGravity
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenWidthIsNegative()
+            {
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("width", () => image.Extent(-1, 3, Gravity.Center));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenHeightIsNegative()
+            {
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("height", () => image.Extent(2, -1, Gravity.Center));
+            }
+        }
+
+        public class WithWidthAndHeightAndGravityAndColor
+        {
+            [Fact]
+            public void ShouldThrowExceptionWhenWidthIsNegative()
+            {
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("width", () => image.Extent(-1, 3, Gravity.Center, MagickColors.Purple));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenHeightIsNegative()
+            {
+                using var image = new MagickImage(MagickColors.Black, 1, 1);
+                Assert.Throws<ArgumentException>("height", () => image.Extent(2, -1, Gravity.Center, MagickColors.Purple));
             }
         }
 
