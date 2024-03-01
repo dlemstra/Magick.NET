@@ -11,7 +11,7 @@ public partial class MagickImageTests
 {
     public class TheResizeMethod
     {
-        public class WithMagickGeometry
+        public class WithGeometry
         {
             [Fact]
             public void ShouldThrowExceptionWhenGeometryIsNull()
