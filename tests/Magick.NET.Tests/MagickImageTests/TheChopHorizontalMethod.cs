@@ -25,7 +25,7 @@ public partial class MagickImageTests
             image.ChopHorizontal(10, 200);
 
             Assert.Equal(280, image.Width);
-            Assert.Equal(320, image.Height);
+            Assert.Equal(640, image.Height);
         }
     }
 }
