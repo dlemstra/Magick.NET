@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ImageMagick.Formats;
 
@@ -63,6 +64,11 @@ public sealed class PdfWriteDefines : IWriteDefines
     public string? Title { get; set; }
 
     /// <summary>
+    /// Gets or sets the version of the pdf document, for example 1.4 or 1.7 (pdf:version).
+    /// </summary>
+    public double? Version { get; set; }
+
+    /// <summary>
     /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public IEnumerable<IDefine> Defines
@@ -92,6 +98,9 @@ public sealed class PdfWriteDefines : IWriteDefines
 
             if (Thumbnail.HasValue)
                 yield return new MagickDefine(Format, "thumbnail", Thumbnail.Value);
+
+            if (Version.HasValue)
+                yield return new MagickDefine(Format, "version", Version.Value.ToString(".0", CultureInfo.InvariantCulture));
 
             if (Title?.Length > 0)
                 yield return new MagickDefine(Format, "title", Title);
