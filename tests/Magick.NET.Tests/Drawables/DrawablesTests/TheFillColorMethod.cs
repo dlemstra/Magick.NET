@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Linq;
 using ImageMagick;
 using Xunit;
 
@@ -53,7 +54,16 @@ public partial class DrawablesTests
             var colors = image.Histogram();
 
             Assert.Equal(2, colors.Count);
-            Assert.Contains(colors.Keys, color => color.Equals(trueBlack));
+
+            var color = colors.Keys.FirstOrDefault(color => color.R != 0);
+            Assert.NotNull(color);
+            Assert.True(color.IsCmyk);
+            Assert.Equal((int)trueBlack.R, (int)color.R);
+            Assert.Equal((int)trueBlack.G, (int)color.G);
+            Assert.Equal((int)trueBlack.B, (int)color.B);
+            Assert.Equal((int)trueBlack.K, (int)color.K);
+            Assert.Equal((int)trueBlack.A, (int)color.A);
+
             Assert.Equal(ColorSpace.CMYK, image.ColorSpace);
         }
     }
