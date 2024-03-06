@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-28 (2024-02-11) ] copyright:
+[ ImageMagick 7.1.1-29 (2024-02-25) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -2131,7 +2131,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openexr 3.2.1 (2023-09-27) ] copyright:
+[ openexr 3.2.2 (2024-02-12) ] copyright:
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -2161,9 +2161,9 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ffi 3.4.4 (2022-10-23) ] copyright:
+[ ffi 3.4.6 (2024-02-18) ] copyright:
 
-libffi - Copyright (c) 1996-2022  Anthony Green, Red Hat, Inc and others.
+libffi - Copyright (c) 1996-2024  Anthony Green, Red Hat, Inc and others.
 See source files for details.
 
 Permission is hereby granted, free of charge, to any person obtaining
@@ -4505,7 +4505,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ highway 1.0.7 (2023-08-30) ] copyright:
+[ highway 1.1.0 (2024-02-18) ] copyright:
 
                                  Apache License
                            Version 2.0, January 2004
