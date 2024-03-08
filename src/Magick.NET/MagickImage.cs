@@ -6223,7 +6223,12 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height of the pixel neighborhood.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Statistic(StatisticType type, int width, int height)
-        => _nativeInstance.Statistic(type, width, height);
+    {
+        Throw.IfNegative(nameof(width), width);
+        Throw.IfNegative(nameof(height), height);
+
+        _nativeInstance.Statistic(type, width, height);
+    }
 
     /// <summary>
     /// Returns the image statistics.
