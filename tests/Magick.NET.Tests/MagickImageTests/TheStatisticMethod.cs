@@ -14,7 +14,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenWidthIsNegative()
         {
-            using var image = new MagickImage(Files.NoisePNG);
+            using var image = new MagickImage();
 
             Assert.Throws<ArgumentException>("width", () => image.Statistic(StatisticType.Minimum, -1, 1));
         }
@@ -22,7 +22,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenHeightIsNegative()
         {
-            using var image = new MagickImage(Files.NoisePNG);
+            using var image = new MagickImage();
 
             Assert.Throws<ArgumentException>("height", () => image.Statistic(StatisticType.Minimum, 10, -1));
         }
