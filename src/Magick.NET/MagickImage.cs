@@ -6012,7 +6012,12 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="topBottom">The number of pixels to shave top and bottom.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shave(int leftRight, int topBottom)
-        => _nativeInstance.Shave(leftRight, topBottom);
+    {
+        Throw.IfNegative(nameof(leftRight), leftRight);
+        Throw.IfNegative(nameof(topBottom), topBottom);
+
+        _nativeInstance.Shave(leftRight, topBottom);
+    }
 
     /// <summary>
     /// Shear image (create parallelogram by sliding image by X or Y axis).
