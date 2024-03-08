@@ -14,7 +14,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenValueIsNegative()
         {
-            using var image = new MagickImage(Files.RoseSparkleGIF);
+            using var image = new MagickImage();
 
             Assert.Throws<ArgumentException>("value", () => image.SetBitDepth(-1));
         }
