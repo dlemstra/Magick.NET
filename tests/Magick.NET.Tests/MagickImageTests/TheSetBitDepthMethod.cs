@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,14 @@ public partial class MagickImageTests
 {
     public class TheSetBitDepthMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenValueIsNegative()
+        {
+            using var image = new MagickImage(Files.RoseSparkleGIF);
+
+            Assert.Throws<ArgumentException>("value", () => image.SetBitDepth(-1));
+        }
+
         [Fact]
         public void ShouldChangeTheBitDepth()
         {
