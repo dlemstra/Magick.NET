@@ -14,7 +14,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenSizeIsNegative()
         {
-            using var image = new MagickImage(Files.Builtin.Logo);
+            using var image = new MagickImage();
 
             Assert.Throws<ArgumentException>("leftRight", () => image.Shave(-1));
         }
@@ -22,7 +22,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenLeftRightIsNegative()
         {
-            using var image = new MagickImage(Files.Builtin.Logo);
+            using var image = new MagickImage();
 
             Assert.Throws<ArgumentException>("leftRight", () => image.Shave(-1, 40));
         }
@@ -30,7 +30,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenTopBottomIsNegative()
         {
-            using var image = new MagickImage(Files.Builtin.Logo);
+            using var image = new MagickImage();
 
             Assert.Throws<ArgumentException>("topBottom", () => image.Shave(20, -1));
         }
