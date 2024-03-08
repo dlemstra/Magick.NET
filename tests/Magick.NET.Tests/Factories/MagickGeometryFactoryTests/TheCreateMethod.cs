@@ -244,21 +244,5 @@ public partial class MagickGeometryFactoryTests
             Assert.Throws<ArgumentException>("height", () => factory.Create(5, -1));
             Assert.Throws<ArgumentException>("height", () => factory.Create(0, 0, 5, -1));
         }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenPercentageWidthIsNegative()
-        {
-            var factory = new MagickGeometryFactory();
-
-            Assert.Throws<ArgumentException>("percentageWidth", () => factory.Create(new Percentage(-1), new Percentage(10)));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenPercentageHeightIsNegative()
-        {
-            var factory = new MagickGeometryFactory();
-
-            Assert.Throws<ArgumentException>("percentageHeight", () => factory.Create(new Percentage(10), new Percentage(-1)));
-        }
     }
 }

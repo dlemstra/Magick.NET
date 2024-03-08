@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,15 @@ public partial class PercentageTests
 {
     public class TheConstructor
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenValueIsNegative()
+        {
+            Assert.Throws<ArgumentException>("value", () => new Percentage(-1.0));
+            Assert.Throws<ArgumentException>("value", () => (Percentage)(-1.0));
+            Assert.Throws<ArgumentException>("value", () => new Percentage(-1));
+            Assert.Throws<ArgumentException>("value", () => (Percentage)(-1));
+        }
+
         [Fact]
         public void ShouldDefaultToZero()
         {
@@ -29,13 +39,6 @@ public partial class PercentageTests
         {
             var percentage = new Percentage(200.0);
             Assert.Equal("200%", percentage.ToString());
-        }
-
-        [Fact]
-        public void ShouldHandleNegativeValue()
-        {
-            var percentage = new Percentage(-25);
-            Assert.Equal("-25%", percentage.ToString());
         }
     }
 }

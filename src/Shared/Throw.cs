@@ -73,6 +73,12 @@ internal static partial class Throw
             throw new ArgumentException("Value should not be negative.", paramName);
     }
 
+    public static void IfNegative(string paramName, double value)
+    {
+        if (value < 0.0)
+            throw new ArgumentException("Value should not be negative.", paramName);
+    }
+
     public static void IfNegative(string paramName, Percentage value)
     {
         if ((double)value < 0.0)

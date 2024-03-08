@@ -1358,11 +1358,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to make black.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void BlackThreshold(Percentage threshold, Channels channels)
-    {
-        Throw.IfNegative(nameof(threshold), threshold);
-
-        _nativeInstance.BlackThreshold(threshold.ToString(), channels);
-    }
+        => _nativeInstance.BlackThreshold(threshold.ToString(), channels);
 
     /// <summary>
     /// Simulate a scene at nighttime in the moonlight.
@@ -1736,11 +1732,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="alpha">The alpha percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Colorize(IMagickColor<QuantumType> color, Percentage alpha)
-    {
-        Throw.IfNegative(nameof(alpha), alpha);
-
-        Colorize(color, alpha, alpha, alpha);
-    }
+        => Colorize(color, alpha, alpha, alpha);
 
     /// <summary>
     /// Colorize image with the specified color, using specified percent alpha for red, green,
@@ -1754,9 +1746,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public void Colorize(IMagickColor<QuantumType> color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue)
     {
         Throw.IfNull(nameof(color), color);
-        Throw.IfNegative(nameof(alphaRed), alphaRed);
-        Throw.IfNegative(nameof(alphaGreen), alphaGreen);
-        Throw.IfNegative(nameof(alphaBlue), alphaBlue);
 
         var blend = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", alphaRed.ToInt32(), alphaGreen.ToInt32(), alphaBlue.ToInt32());
 
@@ -2282,9 +2271,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ContrastStretch(Percentage blackPoint, Percentage whitePoint, Channels channels)
     {
-        Throw.IfNegative(nameof(blackPoint), blackPoint);
-        Throw.IfNegative(nameof(whitePoint), whitePoint);
-
         var contrast = CalculateContrastStretch(blackPoint, whitePoint);
         _nativeInstance.ContrastStretch(contrast.X, contrast.Y, channels);
     }
@@ -2500,7 +2486,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public double Deskew(IDeskewSettings settings)
     {
         Throw.IfNull(nameof(settings), settings);
-        Throw.IfNegative(nameof(settings), settings.Threshold);
 
         using var temporaryDefines = new TemporaryDefines(this);
         temporaryDefines.SetArtifact("deskew:auto-crop", settings.AutoCrop);
@@ -3849,12 +3834,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="whitePoint">The white point.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LinearStretch(Percentage blackPoint, Percentage whitePoint)
-    {
-        Throw.IfNegative(nameof(blackPoint), blackPoint);
-        Throw.IfNegative(nameof(whitePoint), whitePoint);
-
-        _nativeInstance.LinearStretch(PercentageHelper.ToQuantum(blackPoint), PercentageHelper.ToQuantum(whitePoint));
-    }
+        => _nativeInstance.LinearStretch(PercentageHelper.ToQuantum(blackPoint), PercentageHelper.ToQuantum(whitePoint));
 
     /// <summary>
     /// Rescales image with seam carving.
@@ -4125,10 +4105,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Modulate(Percentage brightness, Percentage saturation, Percentage hue)
     {
-        Throw.IfNegative(nameof(brightness), brightness);
-        Throw.IfNegative(nameof(saturation), saturation);
-        Throw.IfNegative(nameof(hue), hue);
-
         var modulate = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", brightness.ToDouble(), saturation.ToDouble(), hue.ToDouble());
 
         _nativeInstance.Modulate(modulate);
@@ -4698,14 +4674,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHighBlack">Defines the maximum black threshold value.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void RangeThreshold(Percentage percentageLowBlack, Percentage percentageLowWhite, Percentage percentageHighWhite, Percentage percentageHighBlack)
-    {
-        Throw.IfNegative(nameof(percentageLowBlack), percentageLowBlack);
-        Throw.IfNegative(nameof(percentageLowWhite), percentageLowWhite);
-        Throw.IfNegative(nameof(percentageHighWhite), percentageHighWhite);
-        Throw.IfNegative(nameof(percentageHighBlack), percentageHighBlack);
-
-        RangeThreshold(PercentageHelper.ToQuantumType(percentageLowBlack), PercentageHelper.ToQuantumType(percentageLowWhite), PercentageHelper.ToQuantumType(percentageHighWhite), PercentageHelper.ToQuantumType(percentageHighBlack));
-    }
+        => RangeThreshold(PercentageHelper.ToQuantumType(percentageLowBlack), PercentageHelper.ToQuantumType(percentageLowWhite), PercentageHelper.ToQuantumType(percentageHighWhite), PercentageHelper.ToQuantumType(percentageHighBlack));
 
     /// <summary>
     /// Applies soft and hard thresholding.
@@ -6906,11 +6875,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to make black.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void WhiteThreshold(Percentage threshold, Channels channels)
-    {
-        Throw.IfNegative(nameof(threshold), threshold);
-
-        _nativeInstance.WhiteThreshold(threshold.ToString(), channels);
-    }
+        => _nativeInstance.WhiteThreshold(threshold.ToString(), channels);
 
     /// <summary>
     /// Writes the image to the specified file.

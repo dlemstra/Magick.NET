@@ -24,38 +24,6 @@ public partial class MagickImageTests
         public class WithPercentage
         {
             [Fact]
-            public void ShouldThrowExceptionWhenLowBlackIsNegative()
-            {
-                using var image = new MagickImage(MagickColors.Red, 1, 1);
-
-                Assert.Throws<ArgumentException>("percentageLowBlack", () => image.RangeThreshold(new Percentage(-1), new Percentage(0), new Percentage(0), new Percentage(0)));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenLowWhiteIsNegative()
-            {
-                using var image = new MagickImage(MagickColors.Red, 1, 1);
-
-                Assert.Throws<ArgumentException>("percentageLowWhite", () => image.RangeThreshold(new Percentage(0), new Percentage(-1), new Percentage(0), new Percentage(0)));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenHighWhiteIsNegative()
-            {
-                using var image = new MagickImage(MagickColors.Red, 1, 1);
-
-                Assert.Throws<ArgumentException>("percentageHighWhite", () => image.RangeThreshold(new Percentage(0), new Percentage(0), new Percentage(-1), new Percentage(0)));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenHighBlackIsNegative()
-            {
-                using var image = new MagickImage(MagickColors.Red, 1, 1);
-
-                Assert.Throws<ArgumentException>("percentageHighBlack", () => image.RangeThreshold(new Percentage(0), new Percentage(0), new Percentage(0), new Percentage(-1)));
-            }
-
-            [Fact]
             public void ShouldChangeTheImage()
             {
                 using var image = new MagickImage("gradient:", 50, 256);

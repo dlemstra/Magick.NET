@@ -12,30 +12,6 @@ public partial class MagickImageTests
     public class TheContrastStretchMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenPercentageIsNull()
-        {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("blackPoint", () => image.ContrastStretch(new Percentage(-1)));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenBlackPointIsNull()
-        {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("blackPoint", () => image.ContrastStretch(new Percentage(-1), new Percentage(50)));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenWhitePointIsNull()
-        {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("whitePoint", () => image.ContrastStretch(new Percentage(50), new Percentage(-1)));
-        }
-
-        [Fact]
         public void ShouldImproveTheContrast()
         {
             using var image = new MagickImage(Files.Builtin.Wizard);

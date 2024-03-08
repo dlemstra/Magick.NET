@@ -22,14 +22,6 @@ public partial class MagickImageTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenPercentageIsNegative()
-            {
-                using var image = new MagickImage();
-
-                Assert.Throws<ArgumentException>("alpha", () => image.Colorize(MagickColors.Purple, new Percentage(-1)));
-            }
-
-            [Fact]
             public void ShouldColorizeTheImage()
             {
                 using var image = new MagickImage(Files.Builtin.Wizard);
@@ -47,30 +39,6 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 Assert.Throws<ArgumentNullException>("color", () => image.Colorize(null, new Percentage(25), new Percentage(50), new Percentage(75)));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenAlphaRedIsNegative()
-            {
-                using var image = new MagickImage();
-
-                Assert.Throws<ArgumentException>("alphaRed", () => image.Colorize(MagickColors.Purple, new Percentage(-1), new Percentage(50), new Percentage(75)));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenAlphaGreenIsNegative()
-            {
-                using var image = new MagickImage();
-
-                Assert.Throws<ArgumentException>("alphaGreen", () => image.Colorize(MagickColors.Purple, new Percentage(25), new Percentage(-1), new Percentage(75)));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenAlphaBlueIsNegative()
-            {
-                using var image = new MagickImage();
-
-                Assert.Throws<ArgumentException>("alphaBlue", () => image.Colorize(MagickColors.Purple, new Percentage(25), new Percentage(50), new Percentage(-1)));
             }
 
             [Fact]
