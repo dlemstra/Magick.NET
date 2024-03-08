@@ -5751,7 +5751,11 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel to set the depth for.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SetBitDepth(int value, Channels channels)
-        => _nativeInstance.SetBitDepth(value, channels);
+    {
+        Throw.IfNegative(nameof(value), value);
+
+        _nativeInstance.SetBitDepth(value, channels);
+    }
 
     /// <summary>
     /// Sets the default clipping path.
