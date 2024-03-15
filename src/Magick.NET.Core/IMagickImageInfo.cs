@@ -56,6 +56,11 @@ public partial interface IMagickImageInfo
     int Width { get; }
 
     /// <summary>
+    /// Gets the orientation of the image.
+    /// </summary>
+    OrientationType Orientation { get; }
+
+    /// <summary>
     /// Read basic information about an image.
     /// </summary>
     /// <param name="data">The byte array to read the information from.</param>
