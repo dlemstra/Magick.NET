@@ -168,6 +168,11 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     public Interlace Interlace { get; private set; }
 
     /// <summary>
+    /// Gets the orientation of the image.
+    /// </summary>
+    public OrientationType Orientation { get; private set; }
+
+    /// <summary>
     /// Gets the JPEG/MIFF/PNG compression level.
     /// </summary>
     public int Quality { get; private set; }
@@ -176,11 +181,6 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// Gets the width of the image.
     /// </summary>
     public int Width { get; private set; }
-
-    /// <summary>
-    /// Gets the orientation of the image.
-    /// </summary>
-    public OrientationType Orientation { get; private set; }
 
     /// <summary>
     /// Read basic information about an image with multiple frames/pages.
