@@ -62,9 +62,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{4D64
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{E9C7E93D-93C8-43FF-9D16-9B562F9310EA}"
 	ProjectSection(SolutionItems) = preProject
-		.github\ISSUE_TEMPLATE\bug-report.md = .github\ISSUE_TEMPLATE\bug-report.md
+		.github\ISSUE_TEMPLATE\bug-report.yml = .github\ISSUE_TEMPLATE\bug-report.yml
 		.github\ISSUE_TEMPLATE\config.yml = .github\ISSUE_TEMPLATE\config.yml
-		.github\ISSUE_TEMPLATE\feature-request.md = .github\ISSUE_TEMPLATE\feature-request.md
+		.github\ISSUE_TEMPLATE\feature-request.yml = .github\ISSUE_TEMPLATE\feature-request.yml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{D6C3708D-A8A1-4E8C-8E9A-73B12C322033}"
