@@ -17,15 +17,6 @@ public partial class BytesTests
             => Assert.Throws<ArgumentNullException>("stream", () => Bytes.Create(null));
 
         [Fact]
-        public void ShouldThrowExceptionWhenStreamPositionIsNotZero()
-        {
-            using var memStream = new MemoryStream(new byte[] { 42 });
-            memStream.Position = 10;
-
-            Assert.Throws<ArgumentException>("stream", () => Bytes.Create(memStream));
-        }
-
-        [Fact]
         public void ShouldThrowExceptionWhenStreamIsEmpty()
         {
             using var memStream = new MemoryStream();

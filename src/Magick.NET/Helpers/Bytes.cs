@@ -12,7 +12,6 @@ internal sealed partial class Bytes
     public static async Task<Bytes> CreateAsync(Stream stream, CancellationToken cancellationToken)
     {
         Throw.IfNullOrEmpty(nameof(stream), stream);
-        Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
 
         var (data, length) = await GetDataAsync(stream, cancellationToken).ConfigureAwait(false);
 

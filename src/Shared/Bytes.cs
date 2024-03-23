@@ -27,8 +27,6 @@ internal sealed partial class Bytes
         else
             Throw.IfNullOrEmpty(nameof(stream), stream);
 
-        Throw.IfFalse(nameof(stream), stream.Position == 0, "The position of the stream should be at zero.");
-
         var data = GetData(stream, out var length);
 
         return new Bytes(data, length);
