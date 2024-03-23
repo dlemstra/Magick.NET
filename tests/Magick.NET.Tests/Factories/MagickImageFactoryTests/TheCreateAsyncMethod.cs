@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
@@ -332,6 +333,31 @@ public partial class MagickImageFactoryTests
 
                 using var stream = new MemoryStream(data);
                 using var image = await factory.CreateAsync(stream, settings);
+
+                Assert.IsType<MagickImage>(image);
+                Assert.Equal(2, image.Width);
+            }
+
+            [Fact]
+            public async Task ShouldCreateMagickImageFromNonSeekableStream()
+            {
+                var factory = new MagickImageFactory();
+                var data = new byte[]
+                {
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0xf0, 0x3f,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                    0, 0, 0, 0, 0, 0, 0, 0,
+                };
+
+                var settings = new PixelReadSettings(2, 1, StorageType.Double, PixelMapping.RGBA);
+
+                using var stream = new NonSeekableStream(data);
+                using var image = await factory.CreateAsync(stream, settings, CancellationToken.None);
 
                 Assert.IsType<MagickImage>(image);
                 Assert.Equal(2, image.Width);

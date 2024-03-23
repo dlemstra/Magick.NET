@@ -12,6 +12,11 @@ internal sealed class NonSeekableStream : TestStream
     {
     }
 
+    public NonSeekableStream(byte[] data)
+      : base(new MemoryStream(data), false)
+    {
+    }
+
     public NonSeekableStream(Stream innerStream)
       : base(innerStream, false)
     {

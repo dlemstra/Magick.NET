@@ -46,7 +46,13 @@ internal class TestStream : Stream
 
     public override long Position
     {
-        get => InnerStream?.Position ?? 0;
+        get
+        {
+            if (!CanRead || !CanSeek)
+                throw new NotImplementedException();
+
+            return InnerStream?.Position ?? 0;
+        }
         set => throw new NotImplementedException();
     }
 

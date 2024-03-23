@@ -560,6 +560,20 @@ public partial class MagickImageTests
                 Assert.Equal(1, image.Height);
                 ColorAssert.Equal(MagickColors.White, image, 0, 0);
             }
+
+            [Fact]
+            public void ShouldReadNonSeekableStream()
+            {
+                var settings = new PixelReadSettings(1, 1, StorageType.Int64, "R");
+                var bytes = BitConverter.GetBytes(ulong.MaxValue);
+                using var memoryStream = new NonSeekableStream(bytes);
+                using var image = new MagickImage();
+                image.ReadPixels(memoryStream, settings);
+
+                Assert.Equal(1, image.Width);
+                Assert.Equal(1, image.Height);
+                ColorAssert.Equal(MagickColors.White, image, 0, 0);
+            }
         }
     }
 }
