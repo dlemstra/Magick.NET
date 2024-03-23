@@ -29,7 +29,7 @@ public partial class EightBimProfileTests
             var iptcProfile = profile.GetIptcProfile();
 
             Assert.NotNull(profile.GetIptcProfile());
-            Assert.Equal(7, iptcProfile.GetData().Length);
+            Assert.Equal(15, iptcProfile.ToByteArray().Length);
             Assert.Single(iptcProfile.Values);
         }
     }

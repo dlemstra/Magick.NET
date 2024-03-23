@@ -242,7 +242,7 @@ public sealed class IptcProfile : ImageProfile, IIptcProfile
 
         _values = new Collection<IIptcValue>();
 
-        var data = GetData();
+        var data = GetDataProtected();
         if (data is null || data[0] != 0x1c)
             return;
 

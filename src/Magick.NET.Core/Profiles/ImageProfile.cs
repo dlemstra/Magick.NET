@@ -119,7 +119,12 @@ public partial class ImageProfile : IImageProfile
     /// Returns the <see cref="byte"/> array of this profile.
     /// </summary>
     /// <returns>A <see cref="byte"/> array.</returns>
-    public byte[]? GetData()
+#if NETSTANDARD2_1
+    [Obsolete($"This property will be removed in the next major release, use {nameof(ToByteArray)} or {nameof(ToReadOnlySpan)} instead.")]
+#else
+    [Obsolete($"This property will be removed in the next major release, use {nameof(ToByteArray)} instead.")]
+#endif
+    public byte[]? GetData() // When removed GetDataProtected should be renamed to GetData
         => _data;
 
     /// <summary>
@@ -143,6 +148,13 @@ public partial class ImageProfile : IImageProfile
         UpdateData();
         return Copy(_data);
     }
+
+    /// <summary>
+    /// Returns the <see cref="byte"/> array of this profile.
+    /// </summary>
+    /// <returns>A <see cref="byte"/> array.</returns>
+    protected byte[]? GetDataProtected()
+        => _data;
 
     /// <summary>
     /// Sets the data of the profile.

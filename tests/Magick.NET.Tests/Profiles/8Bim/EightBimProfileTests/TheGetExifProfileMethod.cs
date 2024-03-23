@@ -29,7 +29,7 @@ public partial class EightBimProfileTests
             var exifProfile = profile.GetExifProfile();
 
             Assert.NotNull(exifProfile);
-            Assert.Equal(446, exifProfile.GetData().Length);
+            Assert.Equal(446, exifProfile.ToByteArray().Length);
             Assert.Empty(exifProfile.Values);
         }
     }

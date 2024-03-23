@@ -36,7 +36,7 @@ public class TheDngCoder
         var profile = image.GetProfile("dng:thumbnail");
         Assert.NotNull(profile);
 
-        var data = profile.GetData();
+        var data = profile.ToByteArray();
         Assert.NotNull(data);
         Assert.Equal(18432, data.Length);
 

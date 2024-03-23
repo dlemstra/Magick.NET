@@ -26,7 +26,7 @@ public static class ReadRawThumbnailSamples
         image.Ping(SampleFiles.StillLifeCR2);
 
         // Get thumbnail data
-        var thumbnailData = image.GetProfile("dng:thumbnail")?.GetData();
+        var thumbnailData = image.GetProfile("dng:thumbnail")?.ToByteArray();
 
         if (thumbnailData != null)
         {

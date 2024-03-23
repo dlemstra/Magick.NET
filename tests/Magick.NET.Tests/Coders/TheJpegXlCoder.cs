@@ -39,11 +39,11 @@ public class TheJpegXlCoder
         var outputXmpProfile = input.GetXmpProfile();
 
         Assert.NotNull(outputXmpProfile);
-        Assert.Equal(inputXmpProfile.GetData(), outputXmpProfile.GetData());
+        Assert.Equal(inputXmpProfile.ToByteArray(), outputXmpProfile.ToByteArray());
 
         var outputExifProfile = input.GetExifProfile();
 
         Assert.NotNull(outputExifProfile);
-        Assert.Equal(inputExifProfile.GetData(), outputExifProfile.GetData());
+        Assert.Equal(inputExifProfile.ToByteArray(), outputExifProfile.ToByteArray());
     }
 }

@@ -95,7 +95,7 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
     /// <returns>A <see cref="XmlReader"/>.</returns>
     public XmlReader? CreateReader()
     {
-        var data = GetData();
+        var data = GetDataProtected();
         if (data is null)
             return null;
 

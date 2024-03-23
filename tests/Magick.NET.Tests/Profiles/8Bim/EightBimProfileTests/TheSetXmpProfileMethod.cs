@@ -70,7 +70,7 @@ public partial class EightBimProfileTests
 
             Assert.NotNull(profile.GetXmpProfile());
             Assert.NotNull(xmpProfile);
-            Assert.Equal(8, xmpProfile.GetData().Length);
+            Assert.Equal(8, xmpProfile.ToByteArray().Length);
         }
     }
 }
