@@ -1,22 +1,28 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+#if NETCOREAPP
+
 using ImageMagick;
 using Xunit;
 
 namespace Magick.NET.Tests;
 
-public partial class IExifProfileExtensionsTests
+public partial class ExifProfileTests
 {
-    public class TheCreateThumbnailMethod
+    public partial class TheToByteArrayMethod
     {
         [Fact]
-        public void ShouldCreateImage()
+        public void ShouldPreserveTheThumbnail()
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
-
             var profile = image.GetExifProfile();
+
             Assert.NotNull(profile);
+
+            var bytes = profile.ToByteArray();
+
+            profile = new ExifProfile(bytes);
 
             using var thumbnail = profile.CreateThumbnail();
 
@@ -27,3 +33,5 @@ public partial class IExifProfileExtensionsTests
         }
     }
 }
+
+#endif

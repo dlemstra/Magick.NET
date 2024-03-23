@@ -8,7 +8,7 @@ namespace Magick.NET.Tests;
 
 public partial class ExifProfileTests
 {
-    public class TheToByteArrayMethod
+    public partial class TheToByteArrayMethod
     {
         [Fact]
         public void ShouldReturnOriginalDataWhenNotParsed()
@@ -18,26 +18,6 @@ public partial class ExifProfileTests
             var bytes = profile.ToByteArray();
 
             Assert.Equal(4706, bytes.Length);
-        }
-
-        [Fact]
-        public void ShouldPreserveTheThumbnail()
-        {
-            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
-            var profile = image.GetExifProfile();
-
-            Assert.NotNull(profile);
-
-            var bytes = profile.ToByteArray();
-
-            profile = new ExifProfile(bytes);
-
-            using var thumbnail = profile.CreateThumbnail();
-
-            Assert.NotNull(thumbnail);
-            Assert.Equal(128, thumbnail.Width);
-            Assert.Equal(85, thumbnail.Height);
-            Assert.Equal(MagickFormat.Jpeg, thumbnail.Format);
         }
     }
 }
