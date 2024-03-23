@@ -5025,7 +5025,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfNull(nameof(stream), stream);
 
         var bytes = await Bytes.CreateAsync(stream, cancellationToken).ConfigureAwait(false);
-        Read(bytes.GetData(), readSettings);
+        Read(bytes.GetData(), 0, bytes.Length, readSettings);
     }
 
     /// <summary>
