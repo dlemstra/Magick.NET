@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 
 namespace Magick.NET;
@@ -25,4 +26,9 @@ public sealed class TestImageProfile : IImageProfile
 
     public byte[] ToByteArray()
         => _bytes;
+
+#if NETCOREAPP
+    public ReadOnlySpan<byte> ToReadOnlySpan()
+        => _bytes.AsSpan();
+#endif
 }

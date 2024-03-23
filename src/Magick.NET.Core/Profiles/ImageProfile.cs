@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// <summary>
 /// Class that contains an image profile.
 /// </summary>
-public class ImageProfile : IImageProfile
+public partial class ImageProfile : IImageProfile
 {
     private byte[]? _data;
 

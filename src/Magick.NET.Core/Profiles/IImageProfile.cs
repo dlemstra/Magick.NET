@@ -8,7 +8,7 @@ namespace ImageMagick;
 /// <summary>
 /// Interface that describes an image profile.
 /// </summary>
-public interface IImageProfile : IEquatable<IImageProfile?>
+public partial interface IImageProfile : IEquatable<IImageProfile?>
 {
     /// <summary>
     /// Gets the name of the profile.
