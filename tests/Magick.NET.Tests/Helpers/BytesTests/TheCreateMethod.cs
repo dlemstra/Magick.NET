@@ -36,17 +36,6 @@ public partial class BytesTests
         }
 
         [Fact]
-        public void ShouldSetPropertiesWhenStreamIsFileStream()
-        {
-            using var fileStream = File.OpenRead(Files.ImageMagickJPG);
-            var bytes = Bytes.Create(fileStream);
-
-            Assert.Equal(18749, bytes.Length);
-            Assert.NotNull(bytes.GetData());
-            Assert.Equal(18749, bytes.GetData().Length);
-        }
-
-        [Fact]
         public void ShouldThrowExceptionWhenStreamCannotRead()
         {
             using var stream = TestStream.ThatCannotRead();
@@ -61,6 +50,29 @@ public partial class BytesTests
             stream.SetLength(long.MaxValue);
 
             Assert.Throws<ArgumentException>("length", () => Bytes.Create(stream));
+        }
+
+        [Fact]
+        public void ShouldSetPropertiesWhenStreamIsFileStream()
+        {
+            using var fileStream = File.OpenRead(Files.ImageMagickJPG);
+            var bytes = Bytes.Create(fileStream);
+
+            Assert.Equal(18749, bytes.Length);
+
+            var data = bytes.GetData();
+            Assert.NotNull(data);
+            Assert.Equal(18749, data.Length);
+        }
+
+        [Fact]
+        public void ShouldSetPropertiesWhenStreamIsNonSeekable()
+        {
+            using var fileStream = new NonSeekableStream(Files.ImageMagickJPG);
+            var bytes = Bytes.Create(fileStream);
+
+            Assert.Equal(18749, bytes.Length);
+            Assert.NotNull(bytes.GetData());
         }
     }
 }
