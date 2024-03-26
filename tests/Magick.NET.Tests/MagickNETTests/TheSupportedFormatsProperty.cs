@@ -559,8 +559,17 @@ public partial class MagickNETTests
                         break;
                     case MagickFormat.Ftp:
                         Assert.True(formatInfo.SupportsMultipleFrames);
-                        Assert.True(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        if (Runtime.IsWindows)
+                        {
+                            Assert.True(formatInfo.SupportsReading);
+                            Assert.True(formatInfo.CanReadMultithreaded);
+                        }
+                        else
+                        {
+                            Assert.False(formatInfo.SupportsReading);
+                            Assert.True(formatInfo.CanReadMultithreaded);
+                        }
+
                         Assert.False(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -699,8 +708,17 @@ public partial class MagickNETTests
                         break;
                     case MagickFormat.Http:
                         Assert.True(formatInfo.SupportsMultipleFrames);
-                        Assert.True(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        if (Runtime.IsWindows)
+                        {
+                            Assert.True(formatInfo.SupportsReading);
+                            Assert.True(formatInfo.CanReadMultithreaded);
+                        }
+                        else
+                        {
+                            Assert.False(formatInfo.SupportsReading);
+                            Assert.True(formatInfo.CanReadMultithreaded);
+                        }
+
                         Assert.False(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
