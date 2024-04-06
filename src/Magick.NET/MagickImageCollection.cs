@@ -242,7 +242,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
                 throw new InvalidOperationException("Not allowed to set null value.");
 
             if (!ReferenceEquals(value, _images[index]))
-                CheckDuplication(value);
+                CheckDuplicate(value);
 
             _images[index] = value;
         }
@@ -263,7 +263,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     {
         Throw.IfNull(nameof(item), item);
 
-        CheckDuplication(item);
+        CheckDuplicate(item);
 
         _images.Add(item);
     }
@@ -661,7 +661,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="item">The image to insert.</param>
     public void Insert(int index, IMagickImage<QuantumType> item)
     {
-        CheckDuplication(item);
+        CheckDuplicate(item);
 
         _images.Insert(index, item);
     }
@@ -2056,7 +2056,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         }
     }
 
-    private void CheckDuplication(IMagickImage<QuantumType> item)
+    private void CheckDuplicate(IMagickImage<QuantumType> item)
     {
         foreach (var image in _images)
         {
