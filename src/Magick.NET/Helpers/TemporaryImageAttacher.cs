@@ -18,7 +18,7 @@ namespace ImageMagick;
 
 internal sealed class TemporaryImageAttacher : IDisposable
 {
-    private readonly List<IMagickImage<byte>> _images;
+    private readonly List<IMagickImage<QuantumType>> _images;
 
     public TemporaryImageAttacher(List<IMagickImage<QuantumType>> images)
     {
