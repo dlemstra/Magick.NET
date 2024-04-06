@@ -14,16 +14,19 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
+            var settings = new MontageSettings();
             using var images = new MagickImageCollection();
 
-            Assert.Throws<InvalidOperationException>(() => images.Montage(null));
+            Assert.Throws<InvalidOperationException>(() => images.Montage(settings));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenSettingsIsNull()
         {
-            using var images = new MagickImageCollection();
-            images.Add(new MagickImage(MagickColors.Magenta, 1, 1));
+            using var images = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Magenta, 1, 1),
+            };
 
             Assert.Throws<ArgumentNullException>("settings", () => images.Montage(null));
         }

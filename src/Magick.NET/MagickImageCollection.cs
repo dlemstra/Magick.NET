@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices.ComTypes;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -354,18 +353,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> AppendHorizontally()
     {
-        ThrowIfEmpty();
-
-        try
-        {
-            AttachImages();
-            var image = _nativeInstance.Append(_images[0], false);
-            return MagickImage.Create(image, GetSettings());
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var image = _nativeInstance.Append(_images[0], false);
+        return MagickImage.Create(image, GetSettings());
     }
 
     /// <summary>
@@ -375,18 +365,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> AppendVertically()
     {
-        ThrowIfEmpty();
-
-        try
-        {
-            AttachImages();
-            var image = _nativeInstance.Append(_images[0], true);
-            return MagickImage.Create(image, GetSettings());
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var image = _nativeInstance.Append(_images[0], true);
+        return MagickImage.Create(image, GetSettings());
     }
 
     /// <summary>
@@ -396,24 +377,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Coalesce()
     {
-        ThrowIfEmpty();
-
-        var settings = GetSettings().Clone();
-
-        IntPtr images;
-        try
-        {
-            AttachImages();
-            images = _nativeInstance.Coalesce(_images[0]);
-        }
-        finally
-        {
-            DetachImages();
-        }
-
-        Clear();
-        foreach (var image in MagickImage.CreateList(images, settings))
-            Add(image);
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var images = _nativeInstance.Coalesce(_images[0]);
+        ReplaceImages(images);
     }
 
     /// <summary>
@@ -462,18 +428,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> Combine(ColorSpace colorSpace)
     {
-        ThrowIfEmpty();
-
-        try
-        {
-            AttachImages();
-            var image = _nativeInstance.Combine(_images[0], colorSpace);
-            return MagickImage.Create(image, GetSettings());
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var image = _nativeInstance.Combine(_images[0], colorSpace);
+        return MagickImage.Create(image, GetSettings());
     }
 
     /// <summary>
@@ -484,32 +441,19 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     public void Complex(IComplexSettings complexSettings)
     {
         Throw.IfNull(nameof(complexSettings), complexSettings);
-        ThrowIfEmpty();
 
-        var settings = GetSettings().Clone();
+        using var imageAttacher = new TemporaryImageAttacher(_images);
 
-        IntPtr images;
-        try
+        if (complexSettings.SignalToNoiseRatio is not null)
+            _images[0].SetArtifact("complex:snr", complexSettings.SignalToNoiseRatio.Value.ToString(CultureInfo.InvariantCulture));
+
+        var images = _nativeInstance.Complex(_images[0], complexSettings.ComplexOperator);
+        ReplaceImages(images);
+
+        if (complexSettings.SignalToNoiseRatio is not null)
         {
-            AttachImages();
-
-            if (complexSettings.SignalToNoiseRatio is not null)
-                _images[0].SetArtifact("complex:snr", complexSettings.SignalToNoiseRatio.Value.ToString(CultureInfo.InvariantCulture));
-
-            images = _nativeInstance.Complex(_images[0], complexSettings.ComplexOperator);
-        }
-        finally
-        {
-            DetachImages();
-        }
-
-        Clear();
-        foreach (var image in MagickImage.CreateList(images, settings))
-        {
-            if (complexSettings.SignalToNoiseRatio is not null)
+            foreach (var image in _images)
                 image.RemoveArtifact("complex:snr");
-
-            Add(image);
         }
     }
 
@@ -551,24 +495,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Deconstruct()
     {
-        ThrowIfEmpty();
-
-        var settings = GetSettings().Clone();
-
-        IntPtr images;
-        try
-        {
-            AttachImages();
-            images = _nativeInstance.Deconstruct(_images[0]);
-        }
-        finally
-        {
-            DetachImages();
-        }
-
-        Clear();
-        foreach (var image in MagickImage.CreateList(images, settings))
-            Add(image);
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var images = _nativeInstance.Deconstruct(_images[0]);
+        ReplaceImages(images);
     }
 
     /// <summary>
@@ -589,18 +518,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> Evaluate(EvaluateOperator evaluateOperator)
     {
-        ThrowIfEmpty();
-
-        try
-        {
-            AttachImages();
-            var image = _nativeInstance.Evaluate(_images[0], evaluateOperator);
-            return MagickImage.Create(image, GetSettings());
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var image = _nativeInstance.Evaluate(_images[0], evaluateOperator);
+        return MagickImage.Create(image, GetSettings());
     }
 
     /// <summary>
@@ -621,20 +541,17 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <returns>The resulting image of the flatten operation.</returns>
     public IMagickImage<QuantumType> Flatten(IMagickColor<QuantumType> backgroundColor)
     {
-        ThrowIfEmpty();
-
         var originalColor = _images[0].BackgroundColor;
         _images[0].BackgroundColor = backgroundColor;
 
         try
         {
-            AttachImages();
+            using var imageAttacher = new TemporaryImageAttacher(_images);
             var image = _nativeInstance.Merge(_images[0], LayerMethod.Flatten);
             return MagickImage.Create(image, GetSettings());
         }
         finally
         {
-            DetachImages();
             _images[0].BackgroundColor = originalColor;
         }
     }
@@ -690,20 +607,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Map(IMagickImage<QuantumType> image, IQuantizeSettings settings)
     {
-        ThrowIfEmpty();
-
         Throw.IfNull(nameof(image), image);
         Throw.IfNull(nameof(settings), settings);
 
-        try
-        {
-            AttachImages();
-            _nativeInstance.Map(_images[0], settings, image);
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        _nativeInstance.Map(_images[0], settings, image);
     }
 
     /// <summary>
@@ -723,34 +631,25 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> Montage(IMontageSettings<QuantumType> settings)
     {
-        ThrowIfEmpty();
-
         Throw.IfNull(nameof(settings), settings);
 
-        IntPtr imagesPtr;
-        try
-        {
-            AttachImages();
-            if (!string.IsNullOrEmpty(settings.Label))
-                _images[0].Label = settings.Label;
-            imagesPtr = _nativeInstance.Montage(_images[0], settings);
-        }
-        finally
-        {
-            DetachImages();
-        }
+        if (!string.IsNullOrEmpty(settings.Label))
+            _images[0].Label = settings.Label;
 
-        using var images = new MagickImageCollection();
-        images.AddRange(MagickImage.CreateList(imagesPtr, GetSettings()));
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var images = _nativeInstance.Montage(_images[0], settings);
+
+        using var result = new MagickImageCollection();
+        result.AddRange(MagickImage.CreateList(images, GetSettings()));
         if (settings.TransparentColor is not null)
         {
-            foreach (var image in images)
+            foreach (var image in result)
             {
                 image.Transparent(settings.TransparentColor);
             }
         }
 
-        return images.Merge();
+        return result.Merge();
     }
 
     /// <summary>
@@ -763,22 +662,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     {
         ThrowIfCountLowerThan(2);
 
-        var settings = GetSettings().Clone();
-
-        IntPtr images;
-        try
-        {
-            AttachImages();
-            images = _nativeInstance.Morph(_images[0], frames);
-        }
-        finally
-        {
-            DetachImages();
-        }
-
-        Clear();
-        foreach (var image in MagickImage.CreateList(images, settings))
-            Add(image);
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var images = _nativeInstance.Morph(_images[0], frames);
+        ReplaceImages(images);
     }
 
     /// <summary>
@@ -798,24 +684,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Optimize()
     {
-        ThrowIfEmpty();
-
-        var settings = GetSettings().Clone();
-
-        IntPtr images;
-        try
-        {
-            AttachImages();
-            images = _nativeInstance.Optimize(_images[0]);
-        }
-        finally
-        {
-            DetachImages();
-        }
-
-        Clear();
-        foreach (var image in MagickImage.CreateList(images, settings))
-            Add(image);
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var images = _nativeInstance.Optimize(_images[0]);
+        ReplaceImages(images);
     }
 
     /// <summary>
@@ -825,24 +696,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void OptimizePlus()
     {
-        ThrowIfEmpty();
-
-        var settings = GetSettings().Clone();
-
-        IntPtr images;
-        try
-        {
-            AttachImages();
-            images = _nativeInstance.OptimizePlus(_images[0]);
-        }
-        finally
-        {
-            DetachImages();
-        }
-
-        Clear();
-        foreach (var image in MagickImage.CreateList(images, settings))
-            Add(image);
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var images = _nativeInstance.OptimizePlus(_images[0]);
+        ReplaceImages(images);
     }
 
     /// <summary>
@@ -852,17 +708,8 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void OptimizeTransparency()
     {
-        ThrowIfEmpty();
-
-        try
-        {
-            AttachImages();
-            _nativeInstance.OptimizeTransparency(_images[0]);
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        _nativeInstance.OptimizeTransparency(_images[0]);
     }
 
     /// <summary>
@@ -987,20 +834,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// corresponding terms (coefficient and degree pairs).</returns>
     public IMagickImage<QuantumType> Polynomial(double[] terms)
     {
-        ThrowIfEmpty();
-
         Throw.IfNullOrEmpty(nameof(terms), terms);
 
-        try
-        {
-            AttachImages();
-            var image = _nativeInstance.Polynomial(_images[0], terms, terms.Length);
-            return MagickImage.Create(image, GetSettings());
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var image = _nativeInstance.Polynomial(_images[0], terms, terms.Length);
+        return MagickImage.Create(image, GetSettings());
     }
 
     /// <summary>
@@ -1019,19 +857,10 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickErrorInfo? Quantize(IQuantizeSettings settings)
     {
-        ThrowIfEmpty();
-
         Throw.IfNull(nameof(settings), settings);
 
-        try
-        {
-            AttachImages();
-            _nativeInstance.Quantize(_images[0], settings);
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        _nativeInstance.Quantize(_images[0], settings);
 
         if (settings.MeasureErrors && _images[0] is MagickImage image)
             return MagickImage.CreateErrorInfo(image);
@@ -1463,24 +1292,16 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         var settings = GetSettings().Clone();
         settings.FileName = null;
 
-        try
-        {
-            AttachImages();
+        var wrapper = new ByteArrayWrapper();
+        var writer = new ReadWriteStreamDelegate(wrapper.Write);
+        var seeker = new SeekStreamDelegate(wrapper.Seek);
+        var teller = new TellStreamDelegate(wrapper.Tell);
+        var reader = new ReadWriteStreamDelegate(wrapper.Read);
 
-            var wrapper = new ByteArrayWrapper();
-            var writer = new ReadWriteStreamDelegate(wrapper.Write);
-            var seeker = new SeekStreamDelegate(wrapper.Seek);
-            var teller = new TellStreamDelegate(wrapper.Tell);
-            var reader = new ReadWriteStreamDelegate(wrapper.Read);
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        _nativeInstance.WriteStream(_images[0], settings, writer, seeker, teller, reader);
 
-            _nativeInstance.WriteStream(_images[0], settings, writer, seeker, teller, reader);
-
-            return wrapper.GetBytes();
-        }
-        finally
-        {
-            DetachImages();
-        }
+        return wrapper.GetBytes();
     }
 
     /// <summary>
@@ -1536,17 +1357,8 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void TrimBounds()
     {
-        ThrowIfEmpty();
-
-        try
-        {
-            AttachImages();
-            _nativeInstance.Merge(_images[0], LayerMethod.Trimbounds);
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        _nativeInstance.Merge(_images[0], LayerMethod.Trimbounds);
     }
 
     /// <summary>
@@ -1605,31 +1417,23 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         var settings = GetSettings().Clone();
         settings.FileName = null;
 
-        try
+        using var wrapper = StreamWrapper.CreateForWriting(stream);
+        var writer = new ReadWriteStreamDelegate(wrapper.Write);
+        ReadWriteStreamDelegate? reader = null;
+        SeekStreamDelegate? seeker = null;
+        TellStreamDelegate? teller = null;
+
+        if (stream.CanSeek)
         {
-            AttachImages();
-
-            using var wrapper = StreamWrapper.CreateForWriting(stream);
-            var writer = new ReadWriteStreamDelegate(wrapper.Write);
-            ReadWriteStreamDelegate? reader = null;
-            SeekStreamDelegate? seeker = null;
-            TellStreamDelegate? teller = null;
-
-            if (stream.CanSeek)
-            {
-                seeker = new SeekStreamDelegate(wrapper.Seek);
-                teller = new TellStreamDelegate(wrapper.Tell);
-            }
-
-            if (stream.CanRead)
-                reader = new ReadWriteStreamDelegate(wrapper.Read);
-
-            _nativeInstance.WriteStream(_images[0], settings, writer, seeker, teller, reader);
+            seeker = new SeekStreamDelegate(wrapper.Seek);
+            teller = new TellStreamDelegate(wrapper.Tell);
         }
-        finally
-        {
-            DetachImages();
-        }
+
+        if (stream.CanRead)
+            reader = new ReadWriteStreamDelegate(wrapper.Read);
+
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        _nativeInstance.WriteStream(_images[0], settings, writer, seeker, teller, reader);
     }
 
     /// <summary>
@@ -1675,15 +1479,8 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         var settings = GetSettings().Clone();
         settings.FileName = fileName;
 
-        try
-        {
-            AttachImages();
-            _nativeInstance.WriteFile(_images[0], settings);
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        _nativeInstance.WriteFile(_images[0], settings);
     }
 
     /// <summary>
@@ -1822,17 +1619,10 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         if (_images.Count == 0)
             return;
 
-        try
-        {
-            AttachImages();
+        using var imageAttacher = new TemporaryImageAttacher(_images);
 
-            var bytes = ToByteArray();
-            await stream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
-        }
-        finally
-        {
-            DetachImages();
-        }
+        var bytes = ToByteArray();
+        await stream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -2047,30 +1837,12 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         }
     }
 
-    private void AttachImages()
-    {
-        for (var i = 0; i < _images.Count - 1; i++)
-        {
-            if (_images[i] is MagickImage image)
-                image.SetNext(_images[i + 1]);
-        }
-    }
-
     private void CheckDuplicate(IMagickImage<QuantumType> item)
     {
         foreach (var image in _images)
         {
             if (ReferenceEquals(image, item))
                 throw new InvalidOperationException("Not allowed to add the same image to the collection.");
-        }
-    }
-
-    private void DetachImages()
-    {
-        for (var i = 0; i < _images.Count - 1; i++)
-        {
-            if (_images[i] is MagickImage image)
-                image.SetNext(null);
         }
     }
 
@@ -2088,18 +1860,18 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
 
     private IMagickImage<QuantumType> Merge(LayerMethod layerMethod)
     {
-        ThrowIfEmpty();
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var image = _nativeInstance.Merge(_images[0], layerMethod);
+        return MagickImage.Create(image, GetSettings());
+    }
 
-        try
-        {
-            AttachImages();
-            var image = _nativeInstance.Merge(_images[0], layerMethod);
-            return MagickImage.Create(image, GetSettings());
-        }
-        finally
-        {
-            DetachImages();
-        }
+    private void ReplaceImages(IntPtr images)
+    {
+        var settings = GetSettings().Clone();
+
+        Clear();
+        foreach (var image in MagickImage.CreateList(images, settings))
+            Add(image);
     }
 
     private void OnWarning(object sender, WarningEventArgs arguments)
@@ -2117,24 +1889,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
 
     private IMagickImage<QuantumType> Smush(int offset, bool stack)
     {
-        ThrowIfEmpty();
-
-        try
-        {
-            AttachImages();
-            var image = _nativeInstance.Smush(_images[0], offset, stack);
-            return MagickImage.Create(image, GetSettings());
-        }
-        finally
-        {
-            DetachImages();
-        }
-    }
-
-    private void ThrowIfEmpty()
-    {
-        if (_images.Count == 0)
-            throw new InvalidOperationException("Operation requires at least one image.");
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        var image = _nativeInstance.Smush(_images[0], offset, stack);
+        return MagickImage.Create(image, GetSettings());
     }
 
     private void ThrowIfCountLowerThan(int count)
@@ -2156,17 +1913,8 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         }
         else
         {
-            try
-            {
-                AttachImages();
-
-                var bytes = format.HasValue ? ToByteArray(format.Value) : ToByteArray();
-                await FileHelper.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
-            }
-            finally
-            {
-                DetachImages();
-            }
+            var bytes = format.HasValue ? ToByteArray(format.Value) : ToByteArray();
+            await FileHelper.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
         }
     }
 }

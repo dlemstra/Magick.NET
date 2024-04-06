@@ -22,6 +22,9 @@ internal sealed class TemporaryImageAttacher : IDisposable
 
     public TemporaryImageAttacher(List<IMagickImage<QuantumType>> images)
     {
+        if (images.Count == 0)
+            throw new InvalidOperationException("Operation requires at least one image.");
+
         _images = images;
         AttachImages();
     }

@@ -14,17 +14,20 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
+            using var remapImage = new MagickImage();
             using var images = new MagickImageCollection();
 
-            Assert.Throws<InvalidOperationException>(() => images.Map(null));
+            Assert.Throws<InvalidOperationException>(() => images.Map(remapImage));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmptyAndImageIsNotNull()
         {
-            using var colors = new MagickImageCollection();
-            colors.Add(new MagickImage(MagickColors.Red, 1, 1));
-            colors.Add(new MagickImage(MagickColors.Green, 1, 1));
+            using var colors = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Red, 1, 1),
+                new MagickImage(MagickColors.Green, 1, 1),
+            };
 
             using var remapImage = colors.AppendHorizontally();
             using var images = new MagickImageCollection();
