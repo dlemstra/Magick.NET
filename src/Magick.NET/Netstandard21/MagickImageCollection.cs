@@ -200,19 +200,11 @@ public sealed partial class MagickImageCollection
         var settings = GetSettings().Clone();
         settings.FileName = null;
 
-        try
-        {
-            AttachImages();
+        var wrapper = new BufferWriterWrapper(bufferWriter);
+        var writer = new ReadWriteStreamDelegate(wrapper.Write);
 
-            var wrapper = new BufferWriterWrapper(bufferWriter);
-            var writer = new ReadWriteStreamDelegate(wrapper.Write);
-
-            _nativeInstance.WriteStream(_images[0], settings, writer, null, null, null);
-        }
-        finally
-        {
-            DetachImages();
-        }
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        _nativeInstance.WriteStream(_images[0], settings, writer, null, null, null);
     }
 
     /// <summary>
