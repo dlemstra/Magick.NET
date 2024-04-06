@@ -199,6 +199,7 @@ jobs:
         files-folder: 'src/Magick.NET/bin'
         files-folder-filter: dll
         files-folder-recurse: true
+        file-digest: SHA256
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
 
@@ -260,6 +261,7 @@ jobs:
         files-folder: 'src/Magick.NET.${{ matrix.libraryName }}/bin'
         files-folder-filter: dll
         files-folder-recurse: true
+        file-digest: SHA256
         timestamp-rfc3161: http://timestamp.acs.microsoft.com
         timestamp-digest: SHA256
 
