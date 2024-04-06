@@ -186,6 +186,22 @@ jobs:
       run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release'
       working-directory: build/windows
 
+    - name: Sign binaries
+      if: github.event_name != 'pull_request'
+      uses: azure/trusted-signing-action@v0.3.16
+      with:
+        azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+        endpoint: https://eus.codesigning.azure.net/
+        code-signing-account-name: ImageMagick
+        certificate-profile-name: ImageMagick
+        files-folder: 'src/Magick.NET/bin'
+        files-folder-filter: dll
+        files-folder-recurse: true
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
+
     - name: Set NuGet version
       run: ./set.version.ps1
       working-directory: publish
@@ -230,6 +246,22 @@ jobs:
     - name: 'Build Magick.NET.${{ matrix.libraryName }} (Release)'
       run: './build.Magick.NET.cmd "Q8" "Any CPU" Release'
       working-directory: build/windows
+
+    - name: Sign binaries
+      if: github.event_name != 'pull_request'
+      uses: azure/trusted-signing-action@v0.3.16
+      with:
+        azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
+        endpoint: https://eus.codesigning.azure.net/
+        code-signing-account-name: ImageMagick
+        certificate-profile-name: ImageMagick
+        files-folder: 'src/Magick.NET.${{ matrix.libraryName }}/bin'
+        files-folder-filter: dll
+        files-folder-recurse: true
+        timestamp-rfc3161: http://timestamp.acs.microsoft.com
+        timestamp-digest: SHA256
 
     - name: Set NuGet version
       run: ./set.version.ps1
