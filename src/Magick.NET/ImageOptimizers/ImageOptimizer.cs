@@ -31,7 +31,7 @@ public sealed class ImageOptimizer
     {
         get
         {
-            var formats = new List<string>();
+            var formats = new List<string>(_optimizers.Count);
 
             foreach (var optimizer in _optimizers)
             {

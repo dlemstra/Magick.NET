@@ -92,6 +92,7 @@ public partial class MagickNET : IMagickNET
             try
             {
                 list = NativeMagickNET.GetFonts(out length);
+                result.Capacity = (int)length;
 
                 for (var i = 0; i < (int)length; i++)
                 {
@@ -125,6 +126,7 @@ public partial class MagickNET : IMagickNET
             try
             {
                 list = NativeMagickNET.GetFonts(out length);
+                result.Capacity = (int)length;
 
                 for (var i = 0; i < (int)length; i++)
                 {

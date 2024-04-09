@@ -59,7 +59,7 @@ internal static partial class MagickExceptionHelper
         if (nestedCount == 0)
             return null;
 
-        var result = new List<MagickException>();
+        var result = new List<MagickException>(nestedCount);
         for (var i = 0; i < nestedCount; i++)
         {
             var nested = NativeMagickExceptionHelper.Related(exception, i);

@@ -74,7 +74,7 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         {
             Initialize();
 
-            var clipPaths = new List<IClipPath>();
+            var clipPaths = new List<IClipPath>(_values.Count);
             foreach (var value in _values)
             {
                 var clipPath = CreateClipPath(value);

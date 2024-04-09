@@ -48,10 +48,10 @@ public sealed partial class MagickImageInfo
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IReadOnlyCollection<IMagickImageInfo> ReadCollection(ReadOnlySequence<byte> data)
     {
-        var result = new List<MagickImageInfo>();
-
         using var images = new MagickImageCollection();
         images.Ping(data);
+
+        var result = new List<MagickImageInfo>(images.Count);
         foreach (var image in images)
         {
             var info = new MagickImageInfo();
@@ -70,10 +70,10 @@ public sealed partial class MagickImageInfo
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IReadOnlyCollection<IMagickImageInfo> ReadCollection(ReadOnlySpan<byte> data)
     {
-        var result = new List<MagickImageInfo>();
-
         using var images = new MagickImageCollection();
         images.Ping(data);
+
+        var result = new List<MagickImageInfo>(images.Count);
         foreach (var image in images)
         {
             var info = new MagickImageInfo();
