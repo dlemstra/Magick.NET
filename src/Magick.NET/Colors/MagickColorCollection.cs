@@ -26,7 +26,7 @@ internal static partial class MagickColorCollection
 
     public static IReadOnlyDictionary<IMagickColor<QuantumType>, int> ToDictionary(IntPtr list, int length)
     {
-        var colors = new Dictionary<IMagickColor<QuantumType>, int>();
+        var colors = new Dictionary<IMagickColor<QuantumType>, int>(length);
 
         if (list == IntPtr.Zero)
             return colors;
@@ -39,7 +39,7 @@ internal static partial class MagickColorCollection
             if (color is null)
                 continue;
 
-            colors[color] = count;
+            colors.Add(color, count);
         }
 
         return colors;
