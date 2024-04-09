@@ -1223,8 +1223,8 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="source">The source image to copy the pixels from.</param>
     /// <param name="geometry">The geometry to copy.</param>
-    /// <param name="x">The X offset to start the copy from.</param>
-    /// <param name="y">The Y offset to start the copy from.</param>
+    /// <param name="x">The X offset to copy the pixels to.</param>
+    /// <param name="y">The Y offset to copy the pixels to.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y);
 
