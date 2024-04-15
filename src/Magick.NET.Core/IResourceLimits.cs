@@ -31,7 +31,8 @@ public interface IResourceLimits
 
     /// <summary>
     /// Gets or sets the max memory request in bytes. ImageMagick maintains a separate memory pool for large
-    /// resource requests. If the limit is exceeded, the allocation is instead memory-mapped on disk.
+    /// resource requests. If the limit is exceeded when allocating pixels, the allocation is instead memory-mapped
+    /// on disk.
     /// </summary>
     ulong MaxMemoryRequest { get; set; }
 
