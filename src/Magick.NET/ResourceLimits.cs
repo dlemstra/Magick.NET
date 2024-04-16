@@ -14,8 +14,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong Area
     {
-        get => NativeResourceLimits.Area;
-        set => NativeResourceLimits.Area = value;
+        get => NativeResourceLimits.Area_Get();
+        set => NativeResourceLimits.Area_Set(value);
     }
 
     /// <summary>
@@ -23,8 +23,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong Disk
     {
-        get => NativeResourceLimits.Disk;
-        set => NativeResourceLimits.Disk = value;
+        get => NativeResourceLimits.Disk_Get();
+        set => NativeResourceLimits.Disk_Set(value);
     }
 
     /// <summary>
@@ -32,8 +32,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong Height
     {
-        get => NativeResourceLimits.Height;
-        set => NativeResourceLimits.Height = value;
+        get => NativeResourceLimits.Height_Get();
+        set => NativeResourceLimits.Height_Set(value);
     }
 
     /// <summary>
@@ -41,8 +41,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong ListLength
     {
-        get => NativeResourceLimits.ListLength;
-        set => NativeResourceLimits.ListLength = value;
+        get => NativeResourceLimits.ListLength_Get();
+        set => NativeResourceLimits.ListLength_Set(value);
     }
 
     /// <summary>
@@ -52,8 +52,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong MaxMemoryRequest
     {
-        get => NativeResourceLimits.MaxMemoryRequest;
-        set => NativeResourceLimits.MaxMemoryRequest = value;
+        get => NativeResourceLimits.MaxMemoryRequest_Get();
+        set => NativeResourceLimits.MaxMemoryRequest_Set(value);
     }
 
     /// <summary>
@@ -63,8 +63,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong Memory
     {
-        get => NativeResourceLimits.Memory;
-        set => NativeResourceLimits.Memory = value;
+        get => NativeResourceLimits.Memory_Get();
+        set => NativeResourceLimits.Memory_Set(value);
     }
 
     /// <summary>
@@ -72,8 +72,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong Thread
     {
-        get => NativeResourceLimits.Thread;
-        set => NativeResourceLimits.Thread = value;
+        get => NativeResourceLimits.Thread_Get();
+        set => NativeResourceLimits.Thread_Set(value);
     }
 
     /// <summary>
@@ -81,8 +81,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong Throttle
     {
-        get => NativeResourceLimits.Throttle;
-        set => NativeResourceLimits.Throttle = value;
+        get => NativeResourceLimits.Throttle_Get();
+        set => NativeResourceLimits.Throttle_Set(value);
     }
 
     /// <summary>
@@ -91,8 +91,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong Time
     {
-        get => NativeResourceLimits.Time;
-        set => NativeResourceLimits.Time = value;
+        get => NativeResourceLimits.Time_Get();
+        set => NativeResourceLimits.Time_Set(value);
     }
 
     /// <summary>
@@ -100,8 +100,8 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     public static ulong Width
     {
-        get => NativeResourceLimits.Width;
-        set => NativeResourceLimits.Width = value;
+        get => NativeResourceLimits.Width_Get();
+        set => NativeResourceLimits.Width_Set(value);
     }
 
     /// <summary>

@@ -20,6 +20,9 @@
     <EmbeddedResource Include="MagickColors\MagickColorsAttribute.cs">
       <LogicalName>MagickColorsAttribute</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="NativeInterop\NativeInteropAttribute.cs">
+      <LogicalName>NativeInteropAttribute</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="Paths\PathsAttribute.cs">
       <LogicalName>PathsAttribute</LogicalName>
     </EmbeddedResource>
