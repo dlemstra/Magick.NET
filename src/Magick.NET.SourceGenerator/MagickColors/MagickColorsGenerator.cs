@@ -42,7 +42,7 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
     private static bool CheckForInterface(GeneratorAttributeSyntaxContext context)
         => context.TargetNode.IsKind(SyntaxKind.InterfaceDeclaration);
 
-    private static IReadOnlyCollection<SystemDrawingColor> GetColors(ImmutableArray<string> allowedColors)
+    private static List<SystemDrawingColor> GetColors(ImmutableArray<string> allowedColors)
     {
         var type = typeof(Color);
 
