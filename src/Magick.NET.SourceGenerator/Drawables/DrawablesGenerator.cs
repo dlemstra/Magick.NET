@@ -32,7 +32,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
         return (generateInterface, interfaces);
     }
 
-    private static void AppendMethods(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
+    private static void AppendMethods(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertyInfo> properties, bool generateInterface)
     {
         var isEnableProperty = properties.SingleOrDefault(property => property.ParameterName == "isEnabled");
         if (isEnableProperty is not null)
@@ -53,7 +53,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
         AppendDefaultMethod(codeBuilder, type, name, properties, generateInterface);
     }
 
-    private static void AppendEnableDisabledMethods(CodeBuilder codeBuilder, string name, PropertySymbolInfo property, bool generateInterface)
+    private static void AppendEnableDisabledMethods(CodeBuilder codeBuilder, string name, PropertyInfo property, bool generateInterface)
     {
         var comment = property.Documentation
             .Replace("Gets a value indicating whether ", string.Empty)
@@ -87,7 +87,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
         }
     }
 
-    private static void AppendReadOnlyListMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, PropertySymbolInfo property, bool generateInterface)
+    private static void AppendReadOnlyListMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, PropertyInfo property, bool generateInterface)
     {
         var typeName = property.TypeArguments[0];
 
@@ -111,7 +111,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
             AppendReadOnlyListImplementation(codeBuilder, name, property);
     }
 
-    private static void AppendReadOnlyListImplementation(CodeBuilder codeBuilder, string name, PropertySymbolInfo property)
+    private static void AppendReadOnlyListImplementation(CodeBuilder codeBuilder, string name, PropertyInfo property)
     {
         codeBuilder.AppendLine();
         codeBuilder.AppendLine("{");
@@ -122,7 +122,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
         codeBuilder.AppendLine("}");
     }
 
-    private static void AppendDefaultMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
+    private static void AppendDefaultMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertyInfo> properties, bool generateInterface)
     {
         codeBuilder.AppendComment(type.GetDocumentation());
         codeBuilder.AppendReturnsComment("The <see cref=\"IDrawables{TQuantumType}\" /> instance.");
@@ -183,14 +183,14 @@ internal class DrawablesGenerator : IIncrementalGenerator
 
     private void GenerateCode(SourceProductionContext context, (bool GenerateInterface, ImmutableArray<INamedTypeSymbol> Interfaces) info)
     {
-        var allProperties = new Dictionary<INamedTypeSymbol, ImmutableArray<PropertySymbolInfo>>(SymbolEqualityComparer.Default);
+        var allProperties = new Dictionary<INamedTypeSymbol, ImmutableArray<PropertyInfo>>(SymbolEqualityComparer.Default);
 
         foreach (var type in info.Interfaces)
         {
             allProperties[type] = type.GetMembers()
                 .OfType<IPropertySymbol>()
                 .Where(property => !property.GetAttributes().Any(attribute => attribute.AttributeClass?.Name == nameof(ObsoleteAttribute)))
-                .Select(property => new PropertySymbolInfo(property))
+                .Select(property => new PropertyInfo(property))
                 .ToImmutableArray();
         }
 

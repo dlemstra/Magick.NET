@@ -10,12 +10,12 @@ internal sealed class SystemDrawingColor
 {
     private readonly Color _color;
 
-    public SystemDrawingColor(PropertyInfo property)
+    public SystemDrawingColor(System.Reflection.PropertyInfo property)
         : this(property.Name, property)
     {
     }
 
-    public SystemDrawingColor(string name, PropertyInfo property)
+    public SystemDrawingColor(string name, System.Reflection.PropertyInfo property)
     {
         Name = name;
         _color = (Color)property.GetValue(null, null)!;

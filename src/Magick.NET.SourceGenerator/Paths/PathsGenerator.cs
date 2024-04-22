@@ -32,7 +32,7 @@ internal class PathsGenerator : IIncrementalGenerator
         return (generateInterface, interfaces);
     }
 
-    private static void AppendMethods(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
+    private static void AppendMethods(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertyInfo> properties, bool generateInterface)
     {
         var readOnlyListProperty = properties.SingleOrDefault(property => property.Type.StartsWith("System.Collections.Generic.IReadOnlyList<", StringComparison.Ordinal));
         if (readOnlyListProperty is not null)
@@ -44,7 +44,7 @@ internal class PathsGenerator : IIncrementalGenerator
         AppendDefaultMethod(codeBuilder, type, name, properties, generateInterface);
     }
 
-    private static void AppendReadOnlyListMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, PropertySymbolInfo property, bool generateInterface)
+    private static void AppendReadOnlyListMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, PropertyInfo property, bool generateInterface)
     {
         if (generateInterface && name != "Close")
         {
@@ -57,7 +57,7 @@ internal class PathsGenerator : IIncrementalGenerator
         }
     }
 
-    private static void AppendReadOnlyListMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, string? suffix, PropertySymbolInfo property, bool generateInterface)
+    private static void AppendReadOnlyListMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, string? suffix, PropertyInfo property, bool generateInterface)
     {
         var typeName = property.TypeArguments[0];
 
@@ -81,7 +81,7 @@ internal class PathsGenerator : IIncrementalGenerator
             AppendReadOnlyListImplementation(codeBuilder, name, property);
     }
 
-    private static void AppendDefaultMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
+    private static void AppendDefaultMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertyInfo> properties, bool generateInterface)
     {
         if (generateInterface && name != "Close")
         {
@@ -94,7 +94,7 @@ internal class PathsGenerator : IIncrementalGenerator
         }
     }
 
-    private static void AppendDefaultMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, string? suffix, ImmutableArray<PropertySymbolInfo> properties, bool generateInterface)
+    private static void AppendDefaultMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, string? suffix, ImmutableArray<PropertyInfo> properties, bool generateInterface)
     {
         codeBuilder.AppendComment(type.GetDocumentation());
         codeBuilder.AppendReturnsComment("The <see cref=\"IPaths{TQuantumType}\" /> instance.");
@@ -142,7 +142,7 @@ internal class PathsGenerator : IIncrementalGenerator
         }
     }
 
-    private static void AppendReadOnlyListImplementation(CodeBuilder codeBuilder, string name, PropertySymbolInfo property)
+    private static void AppendReadOnlyListImplementation(CodeBuilder codeBuilder, string name, PropertyInfo property)
     {
         codeBuilder.AppendLine();
         codeBuilder.AppendLine("{");
@@ -165,14 +165,14 @@ internal class PathsGenerator : IIncrementalGenerator
 
     private void GenerateCode(SourceProductionContext context, (bool GenerateInterface, ImmutableArray<INamedTypeSymbol> Interfaces) info)
     {
-        var allProperties = new Dictionary<INamedTypeSymbol, ImmutableArray<PropertySymbolInfo>>(SymbolEqualityComparer.Default);
+        var allProperties = new Dictionary<INamedTypeSymbol, ImmutableArray<PropertyInfo>>(SymbolEqualityComparer.Default);
 
         foreach (var type in info.Interfaces)
         {
             allProperties[type] = type.GetMembers()
                 .OfType<IPropertySymbol>()
                 .Where(property => !property.GetAttributes().Any(attribute => attribute.AttributeClass?.Name == nameof(ObsoleteAttribute)))
-                .Select(property => new PropertySymbolInfo(property))
+                .Select(property => new PropertyInfo(property))
                 .ToImmutableArray();
         }
 
