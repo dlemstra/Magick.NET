@@ -29,9 +29,9 @@ public partial class MagickNETTests
             var formatsCount = MagickNET.SupportedFormats.Count;
 
             if (Runtime.IsWindows)
-                Assert.Equal(268, formatsCount);
+                Assert.Equal(274, formatsCount);
             else
-                Assert.Equal(265, formatsCount);
+                Assert.Equal(271, formatsCount);
         }
 
         [Fact]
@@ -42,9 +42,9 @@ public partial class MagickNETTests
                 .Count();
 
             if (Runtime.IsWindows)
-                Assert.Equal(246, formatsCount);
+                Assert.Equal(252, formatsCount);
             else
-                Assert.Equal(241, formatsCount);
+                Assert.Equal(247, formatsCount);
         }
 
         [Fact]
@@ -107,12 +107,12 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Ashlar:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -121,7 +121,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Avif:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -203,7 +203,7 @@ public partial class MagickNETTests
                     case MagickFormat.Brf:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -233,14 +233,14 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Caption:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Cin:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -252,7 +252,7 @@ public partial class MagickNETTests
                     case MagickFormat.Cip:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -289,28 +289,28 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Cr3:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Crw:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Cube:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Cur:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -324,7 +324,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Data:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -338,21 +338,21 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Dcr:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Dcraw:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Dcx:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -373,7 +373,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Dib:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -387,7 +387,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Dpx:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -415,7 +415,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Epdf:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -441,14 +441,14 @@ public partial class MagickNETTests
                     case MagickFormat.Eps2:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Eps3:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -492,7 +492,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Exr:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -522,12 +522,19 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
+                    case MagickFormat.Fff:
+                        Assert.True(formatInfo.SupportsMultipleFrames);
+                        Assert.True(formatInfo.SupportsReading);
+                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.SupportsWriting);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
+                        break;
                     case MagickFormat.File:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Fits:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -555,7 +562,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Ftp:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -567,11 +574,11 @@ public partial class MagickNETTests
                         else
                         {
                             Assert.False(formatInfo.SupportsReading);
-                            Assert.True(formatInfo.CanReadMultithreaded);
+                            Assert.False(formatInfo.CanReadMultithreaded);
                         }
 
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Fts:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -627,7 +634,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Gray:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -655,7 +662,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Hdr:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -669,19 +676,19 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Heif:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Histogram:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -695,14 +702,14 @@ public partial class MagickNETTests
                     case MagickFormat.Htm:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Html:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -716,18 +723,18 @@ public partial class MagickNETTests
                         else
                         {
                             Assert.False(formatInfo.SupportsReading);
-                            Assert.True(formatInfo.CanReadMultithreaded);
+                            Assert.False(formatInfo.CanReadMultithreaded);
                         }
 
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Https:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Icb:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -755,12 +762,12 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Info:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -781,14 +788,14 @@ public partial class MagickNETTests
                     case MagickFormat.Isobrl:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Isobrl6:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -818,7 +825,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Jp2:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -879,7 +886,7 @@ public partial class MagickNETTests
                     case MagickFormat.Json:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -902,21 +909,21 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Kdc:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Label:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.M:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -944,7 +951,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Map:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -970,16 +977,23 @@ public partial class MagickNETTests
                     case MagickFormat.Matte:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
+                        break;
+                    case MagickFormat.Mdc:
+                        Assert.True(formatInfo.SupportsMultipleFrames);
+                        Assert.True(formatInfo.SupportsReading);
+                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.SupportsWriting);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Mef:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Miff:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1008,6 +1022,13 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
+                        break;
+                    case MagickFormat.Mos:
+                        Assert.True(formatInfo.SupportsMultipleFrames);
+                        Assert.True(formatInfo.SupportsReading);
+                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.SupportsWriting);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Mov:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1049,14 +1070,14 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Mrw:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Msl:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1091,14 +1112,14 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Nrw:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Null:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1119,14 +1140,14 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Orf:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Otb:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1140,7 +1161,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Pal:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1175,7 +1196,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Pbm:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1245,28 +1266,28 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Pes:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Pfa:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Pfb:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Pfm:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1315,7 +1336,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Pjpeg:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1329,7 +1350,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Png:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1411,14 +1432,14 @@ public partial class MagickNETTests
                     case MagickFormat.Ps2:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Ps3:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -1448,7 +1469,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Qoi:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1469,14 +1490,14 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Raf:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Ras:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1490,7 +1511,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Rgb:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1504,7 +1525,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Rgba:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1532,21 +1553,21 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Rle:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Rmf:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Rsvg:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1560,35 +1581,42 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
+                        break;
+                    case MagickFormat.Rwl:
+                        Assert.True(formatInfo.SupportsMultipleFrames);
+                        Assert.True(formatInfo.SupportsReading);
+                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.SupportsWriting);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Scr:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Screenshot:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Sct:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Sfw:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Sgi:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1600,7 +1628,7 @@ public partial class MagickNETTests
                     case MagickFormat.Shtml:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -1621,7 +1649,7 @@ public partial class MagickNETTests
                     case MagickFormat.SparseColor:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -1630,21 +1658,35 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Srf:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
+                        break;
+                    case MagickFormat.Srw:
+                        Assert.True(formatInfo.SupportsMultipleFrames);
+                        Assert.True(formatInfo.SupportsReading);
+                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.SupportsWriting);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Stegano:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
+                        break;
+                    case MagickFormat.Sti:
+                        Assert.True(formatInfo.SupportsMultipleFrames);
+                        Assert.True(formatInfo.SupportsReading);
+                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.SupportsWriting);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.StrImg:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1679,7 +1721,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Tga:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1693,26 +1735,26 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.ThreeG2:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.ThreeGp:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Thumbnail:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -1742,35 +1784,35 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Tim:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Tm2:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Ttc:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Ttf:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Txt:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1782,21 +1824,21 @@ public partial class MagickNETTests
                     case MagickFormat.Ubrl:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Ubrl6:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Uil:
                         Assert.False(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
@@ -1875,7 +1917,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Wmv:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1896,7 +1938,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Xbm:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1910,14 +1952,14 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Xcf:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Xpm:
                         Assert.False(formatInfo.SupportsMultipleFrames);
@@ -1931,7 +1973,7 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Xv:
                         Assert.True(formatInfo.SupportsMultipleFrames);
@@ -1950,7 +1992,7 @@ public partial class MagickNETTests
                     case MagickFormat.Yaml:
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.False(formatInfo.SupportsReading);
-                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.False(formatInfo.CanReadMultithreaded);
                         Assert.True(formatInfo.SupportsWriting);
                         Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
