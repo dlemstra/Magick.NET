@@ -10,7 +10,7 @@ namespace Magick.NET.Tests;
 public partial class ResourceLimitsTests
 {
     [Collection(nameof(RunTestsSeparately))]
-    public class TheMaxMemoryRequest
+    public class TheMaxMemoryRequestProperty
     {
         [Fact]
         public void ShouldHaveTheCorrectValue()
