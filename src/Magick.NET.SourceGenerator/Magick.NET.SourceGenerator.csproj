@@ -11,20 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Drawables\DrawablesAttribute.cs">
-      <LogicalName>DrawablesAttribute</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ExifTagDescription\ExifTagDescriptionAttribute.cs">
-      <LogicalName>ExifTagDescriptionAttribute</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MagickColors\MagickColorsAttribute.cs">
-      <LogicalName>MagickColorsAttribute</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NativeInterop\NativeInteropAttribute.cs">
-      <LogicalName>NativeInteropAttribute</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Paths\PathsAttribute.cs">
-      <LogicalName>PathsAttribute</LogicalName>
+    <EmbeddedResource Include="**\*Attribute.cs">
+      <LogicalName>%(Filename)</LogicalName>
     </EmbeddedResource>
   </ItemGroup>
 
