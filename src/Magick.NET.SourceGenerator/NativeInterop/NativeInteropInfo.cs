@@ -15,13 +15,16 @@ internal class NativeInteropInfo
     public NativeInteropInfo(SyntaxNode syntaxNode)
     {
         _class = (ClassDeclarationSyntax)syntaxNode;
-        Methods = _class.Members.OfType<MethodDeclarationSyntax>().ToList();
+        Methods = _class.Members
+            .OfType<MethodDeclarationSyntax>()
+            .Select(method => new MethodInfo(method))
+            .ToList();
     }
 
     public string ClassName
         => _class.Identifier.Text;
 
-    public List<MethodDeclarationSyntax> Methods { get; }
+    public List<MethodInfo> Methods { get; }
 
     public string ParentClassName
         => ((ClassDeclarationSyntax)_class.Parent!).Identifier.Text;

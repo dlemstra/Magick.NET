@@ -7,11 +7,11 @@ using Microsoft.CodeAnalysis;
 
 namespace ImageMagick.SourceGenerator;
 
-internal sealed class PropertySymbolInfo
+internal sealed class PropertyInfo
 {
     private readonly IPropertySymbol _symbol;
 
-    public PropertySymbolInfo(IPropertySymbol symbol)
+    public PropertyInfo(IPropertySymbol symbol)
     {
         _symbol = symbol;
         ParameterName = symbol.Name.Substring(0, 1).ToLowerInvariant() + symbol.Name.Substring(1);

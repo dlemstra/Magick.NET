@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -16,6 +17,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<NativeInteropAttribute>());
+        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<ThrowsAttribute>());
         context.RegisterAttributeCodeGenerator<NativeInteropAttribute, NativeInteropInfo>(GetClass, GenerateCode);
     }
 
@@ -28,6 +30,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendLine("#nullable enable");
 
         codeBuilder.AppendLine();
+        codeBuilder.AppendLine("using System;");
         codeBuilder.AppendLine("using System.Runtime.InteropServices;");
 
         codeBuilder.AppendLine();
@@ -81,21 +84,29 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Append(name);
             codeBuilder.AppendLine("Name, CallingConvention = CallingConvention.Cdecl)]");
             codeBuilder.Append("public static extern ");
-            codeBuilder.Append(method.ReturnType.ToString());
+            codeBuilder.Append(method.ReturnType);
             codeBuilder.Append(" ");
             codeBuilder.Append(info.ParentClassName);
             codeBuilder.Append("_");
-            codeBuilder.Append(method.Identifier.Text);
+            codeBuilder.Append(method.Name);
             codeBuilder.Append("(");
-            for (var i = 0; i < method.ParameterList.Parameters.Count; i++)
+            for (var i = 0; i < method.Parameters.Count; i++)
             {
-                var parameter = method.ParameterList.Parameters[i];
+                var parameter = method.Parameters[i];
                 if (i > 0)
                     codeBuilder.Append(", ");
 
-                codeBuilder.Append(parameter.Type.ToNativeString());
+                codeBuilder.Append(parameter.NativeType);
                 codeBuilder.Append(" ");
-                codeBuilder.Append(parameter.Identifier.Text);
+                codeBuilder.Append(parameter.Name);
+            }
+
+            if (method.Throws)
+            {
+                if (method.Parameters.Count > 0)
+                    codeBuilder.Append(", ");
+
+                codeBuilder.Append("out IntPtr exception");
             }
 
             codeBuilder.Append(")");
@@ -120,25 +131,23 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         foreach (var method in info.Methods)
         {
-            var isVoid = method.ReturnType.ToString() == "void";
-
             codeBuilder.Append("public ");
-            if (method.Modifiers.Any(modifier => modifier.IsKind(SyntaxKind.StaticKeyword)))
+            if (method.IsStatic)
                 codeBuilder.Append("static ");
             codeBuilder.Append("partial ");
-            codeBuilder.Append(method.ReturnType.ToString());
+            codeBuilder.Append(method.ReturnType);
             codeBuilder.Append(" ");
-            codeBuilder.Append(method.Identifier.Text);
+            codeBuilder.Append(method.Name);
             codeBuilder.Append("(");
-            for (var i = 0; i < method.ParameterList.Parameters.Count; i++)
+            for (var i = 0; i < method.Parameters.Count; i++)
             {
-                var parameter = method.ParameterList.Parameters[i];
+                var parameter = method.Parameters[i];
                 if (i > 0)
                     codeBuilder.Append(", ");
 
-                codeBuilder.Append(parameter.Type!.ToString());
+                codeBuilder.Append(parameter.Type);
                 codeBuilder.Append(" ");
-                codeBuilder.Append(parameter.Identifier.Text);
+                codeBuilder.Append(parameter.Name);
             }
 
             codeBuilder.Append(")");
@@ -146,10 +155,15 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine("{");
             codeBuilder.Indent++;
 
-            if (!isVoid)
+            if (!method.IsVoid)
             {
-                codeBuilder.Append(method.ReturnType.ToNativeString());
+                codeBuilder.Append(method.NativeReturnType);
                 codeBuilder.AppendLine(" result;");
+            }
+
+            if (method.Throws)
+            {
+                codeBuilder.AppendLine("IntPtr exception = IntPtr.Zero;");
             }
 
             codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
@@ -165,7 +179,12 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine("#endif");
             AppendMethodImplementation(codeBuilder, info, method, "x86");
 
-            if (!isVoid)
+            if (method.Throws)
+            {
+                codeBuilder.AppendLine("MagickExceptionHelper.Check(exception);");
+            }
+
+            if (!method.IsVoid)
                 codeBuilder.AppendLine("return result;");
 
             codeBuilder.Indent--;
@@ -176,7 +195,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendLine("}");
     }
 
-    private static void AppendMethodImplementation(CodeBuilder codeBuilder, NativeInteropInfo info, MethodDeclarationSyntax method, string platform)
+    private static void AppendMethodImplementation(CodeBuilder codeBuilder, NativeInteropInfo info, MethodInfo method, string platform)
     {
         codeBuilder.Append("#if PLATFORM_");
         codeBuilder.Append(platform);
@@ -188,15 +207,23 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.Append(".");
         codeBuilder.Append(info.ParentClassName);
         codeBuilder.Append("_");
-        codeBuilder.Append(method.Identifier.Text);
+        codeBuilder.Append(method.Name);
         codeBuilder.Append("(");
-        for (var i = 0; i < method.ParameterList.Parameters.Count; i++)
+        for (var i = 0; i < method.Parameters.Count; i++)
         {
-            var parameter = method.ParameterList.Parameters[i];
+            var parameter = method.Parameters[i];
             if (i > 0)
                 codeBuilder.Append(", ");
 
-            codeBuilder.Append(parameter.Identifier.Text);
+            codeBuilder.Append(parameter.Name);
+        }
+
+        if (method.Throws)
+        {
+            if (method.Parameters.Count > 0)
+                codeBuilder.Append(", ");
+
+            codeBuilder.Append("out exception");
         }
 
         codeBuilder.AppendLine(");");
