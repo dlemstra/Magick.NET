@@ -1,7 +1,7 @@
 # Libraries
-Magick.Native [5c544bc69c20a1a3b22ffe7fdb96864595199e4d](https://github.com/dlemstra/Magick.Native/commit/5c544bc69c20a1a3b22ffe7fdb96864595199e4d) is build with the following libraries:
+Magick.Native [a1007ee33a4cf72178180f5b2b38d93e1f513892](https://github.com/dlemstra/Magick.Native/commit/a1007ee33a4cf72178180f5b2b38d93e1f513892) is build with the following libraries:
 
-- ImageMagick 7.1.1-31 (2024-04-21)
+- ImageMagick 7.1.1-32 beta (2024-04-23)
 - aom 3.8.2 (2024-03-13)
 - brotli 1.1.0 (2023-08-31)
 - bzlib 1.0.8 (2019-07-13)
