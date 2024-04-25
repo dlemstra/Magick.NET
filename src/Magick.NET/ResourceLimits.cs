@@ -57,6 +57,15 @@ public partial class ResourceLimits : IResourceLimits
     }
 
     /// <summary>
+    /// Gets or sets the max size of a profile in bytes that can be added to the image.
+    /// </summary>
+    public static ulong MaxProfileSize
+    {
+        get => NativeResourceLimits.MaxProfileSize_Get();
+        set => NativeResourceLimits.MaxProfileSize_Set(value);
+    }
+
+    /// <summary>
     /// Gets or sets the pixel cache limit in bytes. Once this memory limit is exceeded, all subsequent pixels cache
     /// operations are to/from disk. The default value of this is 50% of the available memory on the machine in 64-bit mode.
     /// When running in 32-bit mode this is 50% of the limit of the operating system.
@@ -149,6 +158,15 @@ public partial class ResourceLimits : IResourceLimits
     {
         get => MaxMemoryRequest;
         set => MaxMemoryRequest = value;
+    }
+
+    /// <summary>
+    /// Gets or sets the max size of a profile in bytes that can be added to the image.
+    /// </summary>
+    ulong IResourceLimits.MaxProfileSize
+    {
+        get => MaxProfileSize;
+        set => MaxProfileSize = value;
     }
 
     /// <summary>

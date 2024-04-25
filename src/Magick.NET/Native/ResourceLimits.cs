@@ -32,6 +32,11 @@ public partial class ResourceLimits
         [Throws]
         public static partial void MaxMemoryRequest_Set(ulong value);
 
+        public static partial ulong MaxProfileSize_Get();
+
+        [Throws]
+        public static partial void MaxProfileSize_Set(ulong value);
+
         public static partial ulong Memory_Get();
 
         public static partial void Memory_Set(ulong value);
