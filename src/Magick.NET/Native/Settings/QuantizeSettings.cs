@@ -232,10 +232,8 @@ public partial class QuantizeSettings
             #endif
         }
     }
-    internal static INativeInstance CreateInstance(IQuantizeSettings? instance)
+    internal static INativeInstance CreateInstance(IQuantizeSettings instance)
     {
-        if (instance is null)
-            return NativeInstance.Zero;
         return QuantizeSettings.CreateNativeInstance(instance);
     }
 }
