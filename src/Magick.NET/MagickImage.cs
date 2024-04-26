@@ -4035,7 +4035,12 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height of the pixels neighborhood.</param>
     /// <param name="colorDistance">The color distance.</param>
     public void MeanShift(int width, int height, Percentage colorDistance)
-        => _nativeInstance.MeanShift(width, height, PercentageHelper.ToQuantum(colorDistance));
+    {
+        Throw.IfNegative(nameof(width), width);
+        Throw.IfNegative(nameof(height), height);
+
+        _nativeInstance.MeanShift(width, height, PercentageHelper.ToQuantum(colorDistance));
+    }
 
     /// <summary>
     /// Filter image by replacing each pixel component with the median color in a circular neighborhood.

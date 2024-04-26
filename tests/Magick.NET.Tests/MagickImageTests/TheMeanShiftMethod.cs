@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,22 @@ public partial class MagickImageTests
 {
     public class TheMeanShiftMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenWidthIsNegative()
+        {
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
+
+            Assert.Throws<ArgumentException>("width", () => image.MeanShift(-1, 1));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenHeightIsNegative()
+        {
+            using var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
+
+            Assert.Throws<ArgumentException>("height", () => image.MeanShift(1, -1));
+        }
+
         [Fact]
         public void ShouldNotChangeImageWhenSizeIsOne()
         {
