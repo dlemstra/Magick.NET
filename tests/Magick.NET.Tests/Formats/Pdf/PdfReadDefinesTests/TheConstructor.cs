@@ -21,7 +21,6 @@ public partial class PdfReadDefinesTests
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "interpolate"));
-            Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "no-identifier"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
         }
