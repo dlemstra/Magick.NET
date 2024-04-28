@@ -27,7 +27,7 @@ public sealed class PdfReadDefines : IReadDefines
     public bool? HideAnnotations { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether all images are forced to be interpolated at full device resolution.
+    /// Gets or sets a value indicating whether all images are forced to be interpolated at full device resolution (pdf: interpolate).
     /// </summary>
     public bool? Interpolate { get; set; }
 
