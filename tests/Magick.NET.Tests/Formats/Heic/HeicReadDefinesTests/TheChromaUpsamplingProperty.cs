@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
+using System.Linq;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
@@ -11,18 +13,27 @@ public partial class HeicReadDefinesTests
 {
     public class TheChromaUpsamplingProperty
     {
-        [Theory]
-        [InlineData(HeicChromaUpsampling.Bilinear, "bilinear")]
-        [InlineData(HeicChromaUpsampling.NearestNeighbor, "nearest-neighbor")]
-        public void ShouldSetTheDefine(HeicChromaUpsampling chromaUpsampling, string excpeted)
+        [Fact]
+        public void ShouldSetTheDefine()
         {
-            using var image = new MagickImage();
-            image.Settings.SetDefines(new HeicReadDefines
+            foreach (var value in Enum.GetValues(typeof(HeicChromaUpsampling)).OfType<HeicChromaUpsampling>())
             {
-                ChromaUpsampling = chromaUpsampling,
-            });
+                using var image = new MagickImage();
+                image.Settings.SetDefines(new HeicReadDefines
+                {
+                    ChromaUpsampling = value,
+                });
 
-            Assert.Equal(excpeted, image.Settings.GetDefine(MagickFormat.Heic, "chroma-upsampling"));
+                switch (value)
+                {
+                    case HeicChromaUpsampling.Bilinear:
+                        Assert.Equal("bilinear", image.Settings.GetDefine(MagickFormat.Heic, "chroma-upsampling"));
+                        break;
+                    case HeicChromaUpsampling.NearestNeighbor:
+                        Assert.Equal("nearest-neighbor", image.Settings.GetDefine(MagickFormat.Heic, "chroma-upsampling"));
+                        break;
+                }
+            }
         }
 
         [Fact]
