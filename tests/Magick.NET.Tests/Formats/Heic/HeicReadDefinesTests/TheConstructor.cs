@@ -17,6 +17,7 @@ public partial class HeicReadDefinesTests
             using var image = new MagickImage();
             image.Settings.SetDefines(new HeicReadDefines());
 
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "chroma-upsampling"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
         }
