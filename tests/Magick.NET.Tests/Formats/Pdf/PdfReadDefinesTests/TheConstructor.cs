@@ -17,10 +17,11 @@ public partial class PdfReadDefinesTests
             using var image = new MagickImage();
             image.Settings.SetDefines(new PdfReadDefines());
 
+            Assert.Null(image.Settings.GetDefine("authenticate"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "fit-page"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "hide-annotations"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "interpolate"));
-            Assert.Null(image.Settings.GetDefine("authenticate"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "no-identifier"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "use-cropbox"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "use-trimbox"));
         }
