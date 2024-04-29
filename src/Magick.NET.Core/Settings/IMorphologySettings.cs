@@ -44,7 +44,7 @@ public interface IMorphologySettings
     MorphologyMethod Method { get; set; }
 
     /// <summary>
-    /// Gets or sets user suplied kernel.
+    /// Gets or sets user supplied kernel.
     /// </summary>
     string? UserKernel { get; set; }
 }
