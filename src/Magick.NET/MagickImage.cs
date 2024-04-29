@@ -4231,7 +4231,11 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="iterations">The number of iterations.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Morphology(MorphologyMethod method, string userKernel, Channels channels, int iterations)
-        => _nativeInstance.Morphology(method, userKernel, channels, iterations);
+    {
+        Throw.IfTrue(nameof(iterations), iterations < -1, "The number of iterations must be unlimited (-1) or positive");
+
+        _nativeInstance.Morphology(method, userKernel, channels, iterations);
+    }
 
     /// <summary>
     /// Applies a kernel to the image according to the given mophology method.
