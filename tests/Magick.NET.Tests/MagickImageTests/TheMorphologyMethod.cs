@@ -39,6 +39,16 @@ public partial class MagickImageTests
         }
 
         [Fact]
+        public void ShouldThrowExceptionWhenIterationsIsLowerThanMinusOne()
+        {
+            using var image = new MagickImage();
+            var settings = new MorphologySettings();
+            settings.Iterations = -2;
+
+            Assert.Throws<ArgumentException>("iterations", () => image.Morphology(settings));
+        }
+
+        [Fact]
         public void ShouldUseTheSpecifiedSettings()
         {
             using var image = new MagickImage(Files.Builtin.Logo);

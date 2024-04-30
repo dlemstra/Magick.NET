@@ -2163,7 +2163,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="method">The morphology method.</param>
     /// <param name="kernel">Built-in kernel.</param>
     /// <param name="channels">The channels to apply the kernel to.</param>
-    /// <param name="iterations">The number of iterations.</param>
+    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Morphology(MorphologyMethod method, Kernel kernel, Channels channels, int iterations);
 
@@ -2172,7 +2172,7 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="method">The morphology method.</param>
     /// <param name="kernel">Built-in kernel.</param>
-    /// <param name="iterations">The number of iterations.</param>
+    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Morphology(MorphologyMethod method, Kernel kernel, int iterations);
 
@@ -2202,7 +2202,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="kernel">Built-in kernel.</param>
     /// <param name="arguments">Kernel arguments.</param>
     /// <param name="channels">The channels to apply the kernel to.</param>
-    /// <param name="iterations">The number of iterations.</param>
+    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, Channels channels, int iterations);
 
@@ -2212,7 +2212,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="method">The morphology method.</param>
     /// <param name="kernel">Built-in kernel.</param>
     /// <param name="arguments">Kernel arguments.</param>
-    /// <param name="iterations">The number of iterations.</param>
+    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, int iterations);
 
@@ -2239,7 +2239,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="method">The morphology method.</param>
     /// <param name="userKernel">User suplied kernel.</param>
     /// <param name="channels">The channels to apply the kernel to.</param>
-    /// <param name="iterations">The number of iterations.</param>
+    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Morphology(MorphologyMethod method, string userKernel, Channels channels, int iterations);
 
@@ -2248,7 +2248,7 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="method">The morphology method.</param>
     /// <param name="userKernel">User suplied kernel.</param>
-    /// <param name="iterations">The number of iterations.</param>
+    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Morphology(MorphologyMethod method, string userKernel, int iterations);
 
