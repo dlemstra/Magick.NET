@@ -37,10 +37,7 @@ public sealed partial class Moments : IMoments
     /// <param name="channel">The channel to get the moments for.</param>
     /// <returns>The moments for the specified channel.</returns>
     public IChannelMoments GetChannel(PixelChannel channel)
-    {
-        _channels.TryGetValue(channel, out var moments);
-        return moments;
-    }
+        => _channels[channel];
 
     internal static void DisposeList(IntPtr list)
     {

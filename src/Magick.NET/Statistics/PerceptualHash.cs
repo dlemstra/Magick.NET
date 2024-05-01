@@ -64,10 +64,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
     /// <param name="channel">The channel to get the has for.</param>
     /// <returns>The perceptual hash for the specified channel.</returns>
     public IChannelPerceptualHash GetChannel(PixelChannel channel)
-    {
-        _channels.TryGetValue(channel, out var perceptualHash);
-        return perceptualHash;
-    }
+        => _channels[channel];
 
     /// <summary>
     /// Returns the sum squared difference between this hash and the other hash.
