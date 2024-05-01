@@ -44,6 +44,11 @@ public sealed class PdfWriteDefines : IWriteDefines
     public DateTime? ModificationTime { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether an identifier should be written (pdf:no-identifier).
+    /// </summary>
+    public bool? NoIdentifier { get; set; }
+
+    /// <summary>
     /// Gets or sets the producer of the pdf document (pdf:producer).
     /// </summary>
     public string? Producer { get; set; }
@@ -89,6 +94,9 @@ public sealed class PdfWriteDefines : IWriteDefines
 
             if (ModificationTime is not null)
                 yield return new MagickDefine(Format, "modify-epoch", ToUnixTimeSeconds(ModificationTime.Value));
+
+            if (NoIdentifier == true)
+                yield return new MagickDefine(Format, "no-identifier", NoIdentifier.Value);
 
             if (Producer?.Length > 0)
                 yield return new MagickDefine(Format, "producer", Producer);
