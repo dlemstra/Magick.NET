@@ -63,8 +63,11 @@ public sealed partial class PerceptualHash : IPerceptualHash
     /// </summary>
     /// <param name="channel">The channel to get the has for.</param>
     /// <returns>The perceptual hash for the specified channel.</returns>
-    public IChannelPerceptualHash GetChannel(PixelChannel channel)
-        => _channels[channel];
+    public IChannelPerceptualHash? GetChannel(PixelChannel channel)
+    {
+        _channels.TryGetValue(channel, out var perceptualHash);
+        return perceptualHash;
+    }
 
     /// <summary>
     /// Returns the sum squared difference between this hash and the other hash.
@@ -75,10 +78,17 @@ public sealed partial class PerceptualHash : IPerceptualHash
     {
         Throw.IfNull(nameof(other), other);
 
+        var red = other.GetChannel(PixelChannel.Red);
+        Throw.IfNull(nameof(red), other, "other hash does not have a Red channel");
+        var green = other.GetChannel(PixelChannel.Green);
+        Throw.IfNull(nameof(red), other, "other hash does not have a Green channel");
+        var blue = other.GetChannel(PixelChannel.Blue);
+        Throw.IfNull(nameof(red), other, "other hash does not have a Blue channel");
+
         return
-          _channels[PixelChannel.Red].SumSquaredDistance(other.GetChannel(PixelChannel.Red)) +
-          _channels[PixelChannel.Green].SumSquaredDistance(other.GetChannel(PixelChannel.Green)) +
-          _channels[PixelChannel.Blue].SumSquaredDistance(other.GetChannel(PixelChannel.Blue));
+          _channels[PixelChannel.Red].SumSquaredDistance(red!) +
+          _channels[PixelChannel.Green].SumSquaredDistance(green!) +
+          _channels[PixelChannel.Blue].SumSquaredDistance(blue!);
     }
 
     /// <summary>

@@ -13,7 +13,7 @@ public interface IPerceptualHash
     /// </summary>
     /// <param name="channel">The channel to get the has for.</param>
     /// <returns>The perceptual hash for the specified channel.</returns>
-    IChannelPerceptualHash GetChannel(PixelChannel channel);
+    IChannelPerceptualHash? GetChannel(PixelChannel channel);
 
     /// <summary>
     /// Returns the sum squared difference between this hash and the other hash.
