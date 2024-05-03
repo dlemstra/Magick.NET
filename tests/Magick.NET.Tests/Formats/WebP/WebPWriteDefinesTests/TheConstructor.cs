@@ -29,7 +29,6 @@ public partial class WebPWriteDefinesTests
             Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "image-hint"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "low-memory"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "lossless"));
-            Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "near-lossless"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "method"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "partition-limit"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.WebP, "partitions"));

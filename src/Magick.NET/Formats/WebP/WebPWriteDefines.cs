@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 
 namespace ImageMagick.Formats;
@@ -84,6 +85,7 @@ public sealed class WebPWriteDefines : IWriteDefines
     /// <summary>
     /// Gets or sets the near lossless encoding, between 0 (max-loss) and 100 (off) (webp:near-lossless).
     /// </summary>
+    [Obsolete("This property will be removed in the next major release, this was removed from ImageMagick.")]
     public int? NearLossless { get; set; }
 
     /// <summary>
