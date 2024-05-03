@@ -1,7 +1,6 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System.Collections.Generic;
 using ImageMagick;
 using Xunit;
 
@@ -20,7 +19,7 @@ public partial class PerceptualHashTests
             Assert.NotNull(hash.GetChannel(PixelChannel.Green));
             Assert.NotNull(hash.GetChannel(PixelChannel.Blue));
 
-            Assert.Throws<KeyNotFoundException>(() => hash.GetChannel(PixelChannel.Black));
+            Assert.Null(hash.GetChannel(PixelChannel.Black));
         }
     }
 }

@@ -1,7 +1,6 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System.Collections.Generic;
 using ImageMagick;
 using Xunit;
 
@@ -21,7 +20,7 @@ public partial class MomentsTests
             Assert.NotNull(moments.GetChannel(PixelChannel.Green));
             Assert.NotNull(moments.GetChannel(PixelChannel.Blue));
 
-            Assert.Throws<KeyNotFoundException>(() => moments.GetChannel(PixelChannel.Black));
+            Assert.Null(moments.GetChannel(PixelChannel.Black));
         }
     }
 }
