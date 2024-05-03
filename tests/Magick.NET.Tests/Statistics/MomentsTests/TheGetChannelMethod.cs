@@ -11,7 +11,7 @@ public partial class MomentsTests
     public class TheGetChannelMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenChannelDoesNotExist()
+        public void ShouldReturnNullWhenChannelDoesNotExist()
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             var moments = image.Moments();

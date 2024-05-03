@@ -12,9 +12,7 @@ public partial class PerceptualHashTests
     public class TestPerceptualHash : IPerceptualHash
     {
         public IChannelPerceptualHash GetChannel(PixelChannel channel)
-        {
-            return null;
-        }
+            => null;
 
         public double SumSquaredDistance(IPerceptualHash other)
         {
@@ -29,8 +27,10 @@ public partial class PerceptualHashTests
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();
+            Assert.NotNull(phash);
 
-            Assert.Throws<NotSupportedException>(() => phash.SumSquaredDistance(new TestPerceptualHash()));
+            var exception = Assert.Throws<NotSupportedException>(() => phash.SumSquaredDistance(new TestPerceptualHash()));
+            Assert.Equal("other IPerceptualHash must have Red, Green and Blue channel", exception.Message);
         }
 
         [Fact]
