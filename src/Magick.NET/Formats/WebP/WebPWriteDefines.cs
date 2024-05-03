@@ -189,9 +189,6 @@ public sealed class WebPWriteDefines : IWriteDefines
             if (Method.HasValue)
                 yield return new MagickDefine(Format, "method", Method.Value);
 
-            if (NearLossless.HasValue)
-                yield return new MagickDefine(Format, "near-lossless", NearLossless.Value);
-
             if (PartitionLimit.HasValue)
                 yield return new MagickDefine(Format, "partition-limit", PartitionLimit.Value);
 
