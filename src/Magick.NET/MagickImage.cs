@@ -4335,6 +4335,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Oilpaint image (image looks like oil painting).
     /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void OilPaint()
         => OilPaint(3.0, 1.0);
 
