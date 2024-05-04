@@ -2311,6 +2311,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Oilpaint image (image looks like oil painting).
     /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void OilPaint();
 
     /// <summary>
