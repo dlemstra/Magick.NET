@@ -82,9 +82,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
 
         var huPhashList = GetHuPhashListByColorSpace(colorSpace);
         if (huPhashList is null)
-        {
             throw new ArgumentException("Invalid colorspace specified.", nameof(colorSpace));
-        }
 
         return huPhashList[index];
     }
