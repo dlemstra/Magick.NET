@@ -3,34 +3,27 @@
 
 using System;
 using ImageMagick;
+using NSubstitute;
 using Xunit;
 
 namespace Magick.NET.Tests;
 
 public partial class PerceptualHashTests
 {
-    public class TestPerceptualHash : IPerceptualHash
-    {
-        public IChannelPerceptualHash GetChannel(PixelChannel channel)
-            => null;
-
-        public double SumSquaredDistance(IPerceptualHash other)
-        {
-            throw new System.NotImplementedException();
-        }
-    }
-
     public class TheSumSquaredDistanceMethod
     {
         [Fact]
-        public void ShouldThrowNotSupportedExceptionIfCustomImplementationDoesNotHaveExpectedChannels()
+        public void ShouldThrowExceptionWhenCustomImplementationDoesNotHaveExpectedChannels()
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();
             Assert.NotNull(phash);
 
-            var exception = Assert.Throws<NotSupportedException>(() => phash.SumSquaredDistance(new TestPerceptualHash()));
-            Assert.Equal("other IPerceptualHash must have Red, Green and Blue channel", exception.Message);
+            var perceptualHash = Substitute.For<IPerceptualHash>();
+            perceptualHash.GetChannel(PixelChannel.Blue).Returns((IChannelPerceptualHash)null);
+
+            var exception = Assert.Throws<NotSupportedException>(() => phash.SumSquaredDistance(perceptualHash));
+            Assert.Equal("The other perceptual hash should contain a red, green and blue channel.", exception.Message);
         }
 
         [Fact]

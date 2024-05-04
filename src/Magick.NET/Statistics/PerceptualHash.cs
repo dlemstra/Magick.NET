@@ -83,9 +83,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
         var blue = other.GetChannel(PixelChannel.Blue);
 
         if (red is null || green is null || blue is null)
-        {
-            throw new NotSupportedException("other IPerceptualHash must have Red, Green and Blue channel");
-        }
+            throw new NotSupportedException("The other perceptual hash should contain a red, green and blue channel.");
 
         return
           _channels[PixelChannel.Red].SumSquaredDistance(red) +
