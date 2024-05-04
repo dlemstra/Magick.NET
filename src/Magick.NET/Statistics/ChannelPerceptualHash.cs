@@ -8,7 +8,7 @@ using System.Globalization;
 namespace ImageMagick;
 
 /// <summary>
-/// Contains the he perceptual hash of one image channel.
+/// Contains the perceptual hash of one image channel.
 /// </summary>
 public partial class ChannelPerceptualHash : IChannelPerceptualHash
 {

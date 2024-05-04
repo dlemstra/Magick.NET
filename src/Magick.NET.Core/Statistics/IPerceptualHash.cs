@@ -4,7 +4,7 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Contains the he perceptual hash of one or more image channels.
+/// Contains the perceptual hash of one or more image channels.
 /// </summary>
 public interface IPerceptualHash
 {
