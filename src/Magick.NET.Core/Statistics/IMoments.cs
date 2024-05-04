@@ -12,12 +12,12 @@ public interface IMoments
     /// Gets the moments for the all the channels.
     /// </summary>
     /// <returns>The moments for the all the channels.</returns>
-    IChannelMoments Composite();
+    IChannelMoments? Composite();
 
     /// <summary>
     /// Gets the moments for the specified channel.
     /// </summary>
     /// <param name="channel">The channel to get the moments for.</param>
     /// <returns>The moments for the specified channel.</returns>
-    IChannelMoments GetChannel(PixelChannel channel);
+    IChannelMoments? GetChannel(PixelChannel channel);
 }

@@ -63,7 +63,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
     /// </summary>
     /// <param name="channel">The channel to get the has for.</param>
     /// <returns>The perceptual hash for the specified channel.</returns>
-    public IChannelPerceptualHash GetChannel(PixelChannel channel)
+    public IChannelPerceptualHash? GetChannel(PixelChannel channel)
     {
         _channels.TryGetValue(channel, out var perceptualHash);
         return perceptualHash;
@@ -78,10 +78,19 @@ public sealed partial class PerceptualHash : IPerceptualHash
     {
         Throw.IfNull(nameof(other), other);
 
+        var red = other.GetChannel(PixelChannel.Red);
+        var green = other.GetChannel(PixelChannel.Green);
+        var blue = other.GetChannel(PixelChannel.Blue);
+
+        if (red is null || green is null || blue is null)
+        {
+            throw new NotSupportedException("other IPerceptualHash must have Red, Green and Blue channel");
+        }
+
         return
-          _channels[PixelChannel.Red].SumSquaredDistance(other.GetChannel(PixelChannel.Red)) +
-          _channels[PixelChannel.Green].SumSquaredDistance(other.GetChannel(PixelChannel.Green)) +
-          _channels[PixelChannel.Blue].SumSquaredDistance(other.GetChannel(PixelChannel.Blue));
+          _channels[PixelChannel.Red].SumSquaredDistance(red) +
+          _channels[PixelChannel.Green].SumSquaredDistance(green) +
+          _channels[PixelChannel.Blue].SumSquaredDistance(blue);
     }
 
     /// <summary>

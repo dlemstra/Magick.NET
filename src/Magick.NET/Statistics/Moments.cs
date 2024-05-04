@@ -29,14 +29,14 @@ public sealed partial class Moments : IMoments
     /// </summary>
     /// <returns>The moments for the all the channels.</returns>
     public IChannelMoments Composite()
-        => GetChannel(PixelChannel.Composite);
+        => _channels[PixelChannel.Composite];
 
     /// <summary>
     /// Gets the moments for the specified channel.
     /// </summary>
     /// <param name="channel">The channel to get the moments for.</param>
     /// <returns>The moments for the specified channel.</returns>
-    public IChannelMoments GetChannel(PixelChannel channel)
+    public IChannelMoments? GetChannel(PixelChannel channel)
     {
         _channels.TryGetValue(channel, out var moments);
         return moments;

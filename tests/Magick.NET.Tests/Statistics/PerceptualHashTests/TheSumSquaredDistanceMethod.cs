@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -8,8 +9,30 @@ namespace Magick.NET.Tests;
 
 public partial class PerceptualHashTests
 {
+    public class TestPerceptualHash : IPerceptualHash
+    {
+        public IChannelPerceptualHash GetChannel(PixelChannel channel)
+            => null;
+
+        public double SumSquaredDistance(IPerceptualHash other)
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
     public class TheSumSquaredDistanceMethod
     {
+        [Fact]
+        public void ShouldThrowNotSupportedExceptionIfCustomImplementationDoesNotHaveExpectedChannels()
+        {
+            using var image = new MagickImage(Files.ImageMagickJPG);
+            var phash = image.PerceptualHash();
+            Assert.NotNull(phash);
+
+            var exception = Assert.Throws<NotSupportedException>(() => phash.SumSquaredDistance(new TestPerceptualHash()));
+            Assert.Equal("other IPerceptualHash must have Red, Green and Blue channel", exception.Message);
+        }
+
         [Fact]
         public void ShouldReturnTheDifference()
         {
