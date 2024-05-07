@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-32 beta (2024-04-23) ] copyright:
+[ ImageMagick 7.1.1-32 (2024-05-05) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -125,7 +125,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ aom 3.8.2 (2024-03-13) ] copyright:
+[ aom 3.9.0 (2024-04-23) ] copyright:
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -2105,7 +2105,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ deflate 1.19.0 (2023-09-17) ] copyright:
+[ deflate 1.20.0 (2024-03-23) ] copyright:
 
 Copyright 2016 Eric Biggers
 
@@ -2131,7 +2131,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openexr 3.2.3 (2024-03-07) ] copyright:
+[ openexr 3.2.4 (2024-03-26) ] copyright:
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -2566,7 +2566,7 @@ Legal Terms
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ fribidi 1.0.13 (2023-05-16) ] copyright:
+[ fribidi 1.0.14 (2024-04-25) ] copyright:
 
 		  GNU LESSER GENERAL PUBLIC LICENSE
 		       Version 2.1, February 1999
@@ -3582,7 +3582,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 8.3.1 (2024-03-17) ] copyright:
+[ harfbuzz 8.4.0 (2024-03-29) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -5076,7 +5076,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lzma 5.4.5 (2023-12-23) ] copyright:
+[ lzma 5.4.6 (2024-01-26) ] copyright:
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
@@ -6874,7 +6874,7 @@ OF THIS SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ webp 1.3.2 (2023-09-14) ] copyright:
+[ webp 1.4.0 (2023-04-13) ] copyright:
 
 Copyright (c) 2010, Google Inc. All rights reserved.
 
@@ -6909,7 +6909,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.12.5 (2024-02-04) ] copyright:
+[ xml 2.12.6 (2024-03-15) ] copyright:
 
 Except where otherwise noted in the source code (e.g. the files dict.c,
 list.c and the trio files, which are covered by a similar licence but
