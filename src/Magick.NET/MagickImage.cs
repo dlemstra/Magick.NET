@@ -5407,10 +5407,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="resolutionY">The new Y resolution.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resample(double resolutionX, double resolutionY)
-    {
-        var density = new PointD(resolutionX, resolutionY);
-        Resample(density);
-    }
+        => _nativeInstance.Resample(resolutionX, resolutionY);
 
     /// <summary>
     /// Resize image in terms of its pixel size.
@@ -5418,7 +5415,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="density">The density to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resample(PointD density)
-        => _nativeInstance.Resample(density.X, density.Y);
+        => Resample(density.X, density.Y);
 
     /// <summary>
     /// Resize image to specified size.
