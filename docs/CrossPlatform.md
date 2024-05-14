@@ -46,8 +46,21 @@ by adding one of the following properties your `.csproj` file:
 
 ### Mono
 
-Getting Magick.NET working on Mono sometimes requires an extra step. The Magick.NET.Native library is not always automatically copied
-to the output directory when the NuGet reference is added to the project. The copy does not happens when the project is build on Windows
-instead of a Linux machine. The native library located in the folder `runtimes/linux-x64/native` of the NuGet package should then be
-copied to the output folder of the project. And it is possible that you will need to rename the native library and prefix it with
-`lib` (e.g `libMagick.NET-Q8-x64.Native.dll.so`).
+Getting Magick.NET working for legacy Framework targets under Mono requires an extra step.
+As part of the NuGet restore for the relevant Magick.NET package, native libraries from are automatically copied to the project output,
+but when you have a `net4*` target the SDK assumes that Windows native libraries are desired. On a Windows host, this isn't a problem.
+The solution is to copy the correct library from the `runtimes` dir of the NuGet package, and optionally delete the incorrect versions,
+by adding something like this to the `.csproj`:
+```xml
+<ItemGroup>
+  <PackageReference Include="Magick.NET-Q8-AnyCPU" GeneratePathProperty="true" /> <!-- add `GeneratePathProperty` so `$(PkgMagick_NET-Q8-AnyCPU)` is usable -->
+</ItemGroup>
+<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition=" '$(OS)' != 'WINDOWS_NT' ">
+  <ItemGroup>
+    <ToDelete Include="$(OutputPath)Magick.Native-*.dll" />
+    <ToCopy Include="$(PkgMagick_NET-Q8-AnyCPU)/runtimes/linux-x64/native/*.dll.so" /> <!-- change `linux-x64` to match host -->
+  </ItemGroup>
+  <Delete Files="@(ToDelete)" />
+  <Copy SourceFiles="@(ToCopy)" DestinationFiles="@(ToCopy->'$(OutputPath)lib%(Filename)%(Extension)')" /> <!-- without a DllMap, Mono looks for e.g. `libmagick.dll.so` when a `[DllImport("magick.dll")]` is used, so this transforms the filename to the expected format -->
+</Target>
+```
