@@ -143,7 +143,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     /// <param name="obj">The object to compare this <see cref="MagickFormatInfo"/> with.</param>
     /// <returns>True when the specified object is equal to the current <see cref="MagickFormatInfo"/>.</returns>
     public override bool Equals(object? obj)
-        => Equals(obj as MagickFormatInfo);
+        => Equals(obj as IMagickFormatInfo);
 
     /// <summary>
     /// Determines whether the specified <see cref="IMagickFormatInfo"/> is equal to the current <see cref="MagickFormatInfo"/>.
