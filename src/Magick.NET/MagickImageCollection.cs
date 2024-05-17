@@ -1917,4 +1917,13 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
             await FileHelper.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
         }
     }
+
+    private unsafe sealed partial class NativeMagickImageCollection : NativeHelper
+    {
+        public IntPtr ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)
+            => ReadStream(settings, reader, seeker, teller, (void*)null);
+
+        public void WriteStream(IMagickImage image, IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader)
+            => WriteStream(image, settings, writer, seeker, teller, reader, (void*)null);
+    }
 }

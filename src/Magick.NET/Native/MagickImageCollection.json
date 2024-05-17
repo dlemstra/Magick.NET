@@ -382,6 +382,10 @@
         {
           "name": "teller",
           "type": "TellStreamDelegate?"
+        },
+        {
+          "name": "data",
+          "type": "void*"
         }
       ]
     },
@@ -449,6 +453,10 @@
         {
           "name": "reader",
           "type": "ReadWriteStreamDelegate?"
+        },
+        {
+          "name": "data",
+          "type": "void*"
         }
       ]
     }

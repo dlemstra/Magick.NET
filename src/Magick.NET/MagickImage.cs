@@ -3258,7 +3258,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(nameof(image), image);
 
-        _nativeInstance.HaldClut(image);
+        _nativeInstance.HaldClut(image, ImageMagick.Channels.Undefined);
     }
 
     /// <summary>
@@ -7660,5 +7660,11 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
             }
         }
 #endif
+
+        public void ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)
+            => ReadStream(settings, reader, seeker, teller, (void*)null);
+
+        public void WriteStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader)
+            => WriteStream(settings, writer, seeker, teller, reader, (void*)null);
     }
 }

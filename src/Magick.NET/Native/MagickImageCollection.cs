@@ -70,13 +70,13 @@ public partial class MagickImageCollection
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImageCollection_ReadFile(IntPtr settings, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImageCollection_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
+            public static extern IntPtr MagickImageCollection_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, void* data, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImageCollection_Smush(IntPtr image, IntPtr offset, [MarshalAs(UnmanagedType.Bool)] bool stack, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImageCollection_WriteFile(IntPtr image, IntPtr settings, out IntPtr exception);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, out IntPtr exception);
+            public static extern void MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, void* data, out IntPtr exception);
         }
         #endif
         #if PLATFORM_arm64 || PLATFORM_AnyCPU
@@ -119,13 +119,13 @@ public partial class MagickImageCollection
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImageCollection_ReadFile(IntPtr settings, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImageCollection_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
+            public static extern IntPtr MagickImageCollection_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, void* data, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImageCollection_Smush(IntPtr image, IntPtr offset, [MarshalAs(UnmanagedType.Bool)] bool stack, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImageCollection_WriteFile(IntPtr image, IntPtr settings, out IntPtr exception);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, out IntPtr exception);
+            public static extern void MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, void* data, out IntPtr exception);
         }
         #endif
         #if PLATFORM_x86 || PLATFORM_AnyCPU
@@ -168,13 +168,13 @@ public partial class MagickImageCollection
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImageCollection_ReadFile(IntPtr settings, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern IntPtr MagickImageCollection_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, out IntPtr exception);
+            public static extern IntPtr MagickImageCollection_ReadStream(IntPtr settings, ReadWriteStreamDelegate? reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, void* data, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern IntPtr MagickImageCollection_Smush(IntPtr image, IntPtr offset, [MarshalAs(UnmanagedType.Bool)] bool stack, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern void MagickImageCollection_WriteFile(IntPtr image, IntPtr settings, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
-            public static extern void MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, out IntPtr exception);
+            public static extern void MagickImageCollection_WriteStream(IntPtr image, IntPtr settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, void* data, out IntPtr exception);
         }
         #endif
     }
@@ -798,7 +798,7 @@ public partial class MagickImageCollection
             RaiseWarning(magickException);
             return result;
         }
-        public IntPtr ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller)
+        public IntPtr ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, void* data)
         {
             using var settingsNative = MagickSettings.CreateInstance(settings);
             IntPtr exception = IntPtr.Zero;
@@ -807,19 +807,19 @@ public partial class MagickImageCollection
             if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            result = NativeMethods.ARM64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+            result = NativeMethods.ARM64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, data, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
-            result = NativeMethods.X64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+            result = NativeMethods.X64.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, data, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            result = NativeMethods.X86.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, out exception);
+            result = NativeMethods.X86.MagickImageCollection_ReadStream(settingsNative.Instance, reader, seeker, teller, data, out exception);
             #endif
             var magickException = MagickExceptionHelper.Create(exception);
             if (magickException is null)
@@ -891,7 +891,7 @@ public partial class MagickImageCollection
             #endif
             CheckException(exception);
         }
-        public void WriteStream(IMagickImage image, IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader)
+        public void WriteStream(IMagickImage image, IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, void* data)
         {
             using var settingsNative = MagickSettings.CreateInstance(settings);
             IntPtr exception = IntPtr.Zero;
@@ -899,19 +899,19 @@ public partial class MagickImageCollection
             if (Runtime.IsArm64)
             #endif
             #if PLATFORM_arm64 || PLATFORM_AnyCPU
-            NativeMethods.ARM64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, out exception);
+            NativeMethods.ARM64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, data, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else if (Runtime.Is64Bit)
             #endif
             #if PLATFORM_x64 || PLATFORM_AnyCPU
-            NativeMethods.X64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, out exception);
+            NativeMethods.X64.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, data, out exception);
             #endif
             #if PLATFORM_AnyCPU
             else
             #endif
             #if PLATFORM_x86 || PLATFORM_AnyCPU
-            NativeMethods.X86.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, out exception);
+            NativeMethods.X86.MagickImageCollection_WriteStream(MagickImage.GetInstance(image), settingsNative.Instance, writer, seeker, teller, reader, data, out exception);
             #endif
             CheckException(exception);
         }
