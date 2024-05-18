@@ -1676,6 +1676,15 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// Apply a color lookup table (CLUT) to the image.
     /// </summary>
     /// <param name="image">The image to use.</param>
+    /// <param name="channels">The channel(s) to clut.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Clut(IMagickImage image, Channels channels)
+        => Clut(image, PixelInterpolateMethod.Undefined, channels);
+
+    /// <summary>
+    /// Apply a color lookup table (CLUT) to the image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
     /// <param name="method">Pixel interpolate method.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Clut(IMagickImage image, PixelInterpolateMethod method)
