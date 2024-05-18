@@ -3264,10 +3264,19 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="image">The image to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void HaldClut(IMagickImage image)
+        => HaldClut(image, ImageMagick.Channels.Undefined);
+
+    /// <summary>
+    /// Apply a color lookup table (Hald CLUT) to the image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <param name="channels">The channel(s) to hald clut.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void HaldClut(IMagickImage image, Channels channels)
     {
         Throw.IfNull(nameof(image), image);
 
-        _nativeInstance.HaldClut(image, ImageMagick.Channels.Undefined);
+        _nativeInstance.HaldClut(image, channels);
     }
 
     /// <summary>

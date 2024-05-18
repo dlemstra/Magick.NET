@@ -1744,6 +1744,14 @@ public partial interface IMagickImage : IDisposable
     void HaldClut(IMagickImage image);
 
     /// <summary>
+    /// Apply a color lookup table (Hald CLUT) to the image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <param name="channels">The channel(s) to hald clut.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void HaldClut(IMagickImage image, Channels channels);
+
+    /// <summary>
     /// Gets a value indicating whether a profile with the specified name already exists on the image.
     /// </summary>
     /// <param name="name">The name of the profile.</param>
