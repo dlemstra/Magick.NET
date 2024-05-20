@@ -138,6 +138,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      packages: read
 
     strategy:
       matrix:
@@ -232,6 +233,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      packages: read
 
     strategy:
       matrix:
