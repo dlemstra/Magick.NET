@@ -200,7 +200,7 @@ jobs:
 
     - name: Sign binaries
       if: github.event_name != 'pull_request'
-      uses: azure/trusted-signing-action@v0.3.16
+      uses: azure/trusted-signing-action@v0.3.18
       with:
         azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -271,7 +271,7 @@ jobs:
 
     - name: Sign binaries
       if: github.event_name != 'pull_request'
-      uses: azure/trusted-signing-action@v0.3.16
+      uses: azure/trusted-signing-action@v0.3.18
       with:
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: ImageMagick
