@@ -135,6 +135,10 @@ jobs:
     name: Windows
     runs-on: windows-2022
 
+    permissions:
+      id-token: write
+      contents: read
+
     strategy:
       matrix:
         quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
@@ -186,6 +190,13 @@ jobs:
       run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release'
       working-directory: build/windows
 
+    - name: 'Azure CLI login with federated credential'
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
     - name: Sign binaries
       if: github.event_name != 'pull_request'
       uses: azure/trusted-signing-action@v0.3.16
@@ -194,14 +205,11 @@ jobs:
         azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
         azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://eus.codesigning.azure.net/
-        code-signing-account-name: ImageMagick
+        trusted-signing-account-name: ImageMagick
         certificate-profile-name: ImageMagick
         files-folder: 'src/Magick.NET/bin'
         files-folder-filter: dll
         files-folder-recurse: true
-        file-digest: SHA256
-        timestamp-rfc3161: http://timestamp.acs.microsoft.com
-        timestamp-digest: SHA256
 
     - name: Set NuGet version
       run: ./set.version.ps1
@@ -220,6 +228,10 @@ jobs:
   libraries:
     name: Library
     runs-on: windows-2022
+
+    permissions:
+      id-token: write
+      contents: read
 
     strategy:
       matrix:
@@ -248,22 +260,23 @@ jobs:
       run: './build.Magick.NET.cmd "Q8" "Any CPU" Release'
       working-directory: build/windows
 
+    - name: 'Azure CLI login with federated credential'
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
     - name: Sign binaries
       if: github.event_name != 'pull_request'
       uses: azure/trusted-signing-action@v0.3.16
       with:
-        azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://eus.codesigning.azure.net/
-        code-signing-account-name: ImageMagick
+        trusted-signing-account-name: ImageMagick
         certificate-profile-name: ImageMagick
         files-folder: 'src/Magick.NET.${{ matrix.libraryName }}/bin'
         files-folder-filter: dll
         files-folder-recurse: true
-        file-digest: SHA256
-        timestamp-rfc3161: http://timestamp.acs.microsoft.com
-        timestamp-digest: SHA256
 
     - name: Set NuGet version
       run: ./set.version.ps1
