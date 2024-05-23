@@ -192,6 +192,7 @@ jobs:
       working-directory: build/windows
 
     - name: 'Azure CLI login with federated credential'
+      if: github.event_name != 'pull_request'
       uses: azure/login@v2
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -202,9 +203,6 @@ jobs:
       if: github.event_name != 'pull_request'
       uses: azure/trusted-signing-action@v0.3.18
       with:
-        azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: ImageMagick
         certificate-profile-name: ImageMagick
@@ -263,6 +261,7 @@ jobs:
       working-directory: build/windows
 
     - name: 'Azure CLI login with federated credential'
+      if: github.event_name != 'pull_request'
       uses: azure/login@v2
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
