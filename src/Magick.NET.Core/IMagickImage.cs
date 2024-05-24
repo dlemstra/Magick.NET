@@ -3494,6 +3494,13 @@ public partial interface IMagickImage : IDisposable
     string ToBase64(MagickFormat format);
 
     /// <summary>
+    /// Converts this instance to a base64 <see cref="string"/>.
+    /// </summary>
+    /// <param name="defines">The defines to set.</param>
+    /// <returns>A base64 <see cref="string"/>.</returns>
+    string ToBase64(IWriteDefines defines);
+
+    /// <summary>
     /// Converts this instance to a <see cref="byte"/> array.
     /// </summary>
     /// <returns>A <see cref="byte"/> array.</returns>
