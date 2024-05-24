@@ -243,6 +243,11 @@
       "readonly": true
     },
     {
+      "name": "MetaChannelCount",
+      "type": "size_t",
+      "throws": true
+    },
+    {
       "name": "NormalizedMaximumError",
       "type": "double",
       "readonly": true

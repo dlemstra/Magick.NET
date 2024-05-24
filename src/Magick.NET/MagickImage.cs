@@ -827,6 +827,15 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
+    /// Gets or sets the number of meta channels that the image contains.
+    /// </summary>
+    public int MetaChannelCount
+    {
+        get => _nativeInstance.MetaChannelCount;
+        set => _nativeInstance.MetaChannelCount = value;
+    }
+
+    /// <summary>
     /// Gets or sets the photo orientation of the image.
     /// </summary>
     public OrientationType Orientation

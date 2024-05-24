@@ -250,6 +250,11 @@ public partial interface IMagickImage : IDisposable
     string? Label { get; set; }
 
     /// <summary>
+    /// Gets or sets the number of meta channels that the image contains.
+    /// </summary>
+    int MetaChannelCount { get; set; }
+
+    /// <summary>
     /// Gets or sets the photo orientation of the image.
     /// </summary>
     OrientationType Orientation { get; set; }

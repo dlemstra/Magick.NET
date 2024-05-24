@@ -175,6 +175,10 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_MetaChannelCount_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_MetaChannelCount_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickImage_NormalizedMaximumError_Get(IntPtr instance);
             [DllImport(NativeLibrary.X64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickImage_NormalizedMeanError_Get(IntPtr instance);
@@ -740,6 +744,10 @@ public partial class MagickImage : IDisposable
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_MetaChannelCount_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_MetaChannelCount_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
+            [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickImage_NormalizedMaximumError_Get(IntPtr instance);
             [DllImport(NativeLibrary.ARM64Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickImage_NormalizedMeanError_Get(IntPtr instance);
@@ -1304,6 +1312,10 @@ public partial class MagickImage : IDisposable
             public static extern void MagickImage_MatteColor_Set(IntPtr instance, IntPtr value);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickImage_MeanErrorPerPixel_Get(IntPtr instance);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern UIntPtr MagickImage_MetaChannelCount_Get(IntPtr instance, out IntPtr exception);
+            [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
+            public static extern void MagickImage_MetaChannelCount_Set(IntPtr instance, UIntPtr value, out IntPtr exception);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
             public static extern double MagickImage_NormalizedMaximumError_Get(IntPtr instance);
             [DllImport(NativeLibrary.X86Name, CallingConvention = CallingConvention.Cdecl)]
@@ -3334,6 +3346,57 @@ public partial class MagickImage : IDisposable
                 result = NativeMethods.X86.MagickImage_MeanErrorPerPixel_Get(Instance);
                 #endif
                 return result;
+            }
+        }
+        public int MetaChannelCount
+        {
+            get
+            {
+                IntPtr exception = IntPtr.Zero;
+                UIntPtr result;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                result = NativeMethods.ARM64.MagickImage_MetaChannelCount_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                result = NativeMethods.X64.MagickImage_MetaChannelCount_Get(Instance, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                result = NativeMethods.X86.MagickImage_MetaChannelCount_Get(Instance, out exception);
+                #endif
+                CheckException(exception);
+                return (int)result;
+            }
+            set
+            {
+                IntPtr exception = IntPtr.Zero;
+                #if PLATFORM_AnyCPU
+                if (Runtime.IsArm64)
+                #endif
+                #if PLATFORM_arm64 || PLATFORM_AnyCPU
+                NativeMethods.ARM64.MagickImage_MetaChannelCount_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else if (Runtime.Is64Bit)
+                #endif
+                #if PLATFORM_x64 || PLATFORM_AnyCPU
+                NativeMethods.X64.MagickImage_MetaChannelCount_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                #if PLATFORM_AnyCPU
+                else
+                #endif
+                #if PLATFORM_x86 || PLATFORM_AnyCPU
+                NativeMethods.X86.MagickImage_MetaChannelCount_Set(Instance, (UIntPtr)value, out exception);
+                #endif
+                CheckException(exception);
             }
         }
         public double NormalizedMaximumError
