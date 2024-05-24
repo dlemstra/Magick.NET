@@ -43,7 +43,7 @@ public partial class MagickImageCollectionTests
             var base64 = images.ToBase64(defines);
 
             Assert.NotNull(base64);
-            Assert.Equal(1228800, base64.Length);
+            Assert.Equal(39952, base64.Length);
 
             var bytes = Convert.FromBase64String(base64);
 
