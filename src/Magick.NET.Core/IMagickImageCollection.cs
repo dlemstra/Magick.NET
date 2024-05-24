@@ -383,11 +383,18 @@ public partial interface IMagickImageCollection : IDisposable
     string ToBase64();
 
     /// <summary>
-    /// Converts this instance to a base64 string.
+    /// Converts this instance to a base64 <see cref="string"/>.
     /// </summary>
     /// <param name="format">The format to use.</param>
     /// <returns>A base64 <see cref="string"/>.</returns>
     string ToBase64(MagickFormat format);
+
+    /// <summary>
+    /// Converts this instance to a base64 <see cref="string"/>.
+    /// </summary>
+    /// <param name="defines">The defines to set.</param>
+    /// <returns>A base64 <see cref="string"/>.</returns>
+    string ToBase64(IWriteDefines defines);
 
     /// <summary>
     /// Determine the overall bounds of all the image layers just as in <see cref="IMagickImageCollection{TQuantumType}.Merge()"/>,

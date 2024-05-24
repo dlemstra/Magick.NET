@@ -1350,6 +1350,17 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     }
 
     /// <summary>
+    /// Converts this instance to a base64 <see cref="string"/>.
+    /// </summary>
+    /// <param name="defines">The defines to set.</param>
+    /// <returns>A base64 <see cref="string"/>.</returns>
+    public string ToBase64(IWriteDefines defines)
+    {
+        var bytes = ToByteArray(defines);
+        return ToBase64(bytes);
+    }
+
+    /// <summary>
     /// Determine the overall bounds of all the image layers just as in <see cref="Merge()"/>,
     /// then adjust the the canvas and offsets to be relative to those bounds,
     /// without overlaying the images.
