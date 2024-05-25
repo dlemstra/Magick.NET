@@ -18,7 +18,7 @@ namespace ImageMagick;
 
 internal sealed class TemporaryMagickFormat : IDisposable
 {
-    private readonly List<MagickFormatData> _images = new();
+    private readonly List<MagickFormatInfo> _formatInfos = new();
 
     public TemporaryMagickFormat(MagickImage image, MagickFormat format)
         => AddImage(image, format);
@@ -33,25 +33,25 @@ internal sealed class TemporaryMagickFormat : IDisposable
 
     public void Dispose()
     {
-        foreach (var image in _images)
+        foreach (var formatInfo in _formatInfos)
         {
-            image.RestoreOriginalFormat();
+            formatInfo.RestoreOriginalFormat();
         }
     }
 
     private void AddImage(IMagickImage<QuantumType> image, MagickFormat format)
     {
-        _images.Add(new MagickFormatData(image));
+        _formatInfos.Add(new MagickFormatInfo(image));
         image.Format = format;
     }
 
-    private sealed class MagickFormatData
+    private sealed class MagickFormatInfo
     {
         private readonly IMagickImage<QuantumType> _image;
         private readonly MagickFormat _originalImageFormat;
         private readonly MagickFormat _originalSettingsFormat;
 
-        public MagickFormatData(IMagickImage<QuantumType> image)
+        public MagickFormatInfo(IMagickImage<QuantumType> image)
         {
             _image = image;
             _originalImageFormat = image.Format;
@@ -61,6 +61,10 @@ internal sealed class TemporaryMagickFormat : IDisposable
         public void RestoreOriginalFormat()
         {
             _image.Format = _originalImageFormat;
+            /*
+             * We need to set the format of the settings because it is possible that this was different
+             * from the format of the image. And the Format property of the image also changes the settings.
+            */
             _image.Settings.Format = _originalSettingsFormat;
         }
     }
