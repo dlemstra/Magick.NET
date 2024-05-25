@@ -39,6 +39,11 @@ public partial class MagickImageTests
 
             using var output = new MagickImage(stream);
             Assert.Equal(4, output.ChannelCount);
+
+            using var outputPixels = image.GetPixelsUnsafe();
+            pixel = outputPixels.GetPixel(0, 0);
+            channel = outputPixels.GetIndex(PixelChannel.Meta0);
+            Assert.Equal(Quantum.Max, pixel.GetChannel(channel));
         }
     }
 }
