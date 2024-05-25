@@ -6745,14 +6745,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
             }
         }
 
-        var artifact = new List<string>();
-        foreach (var edge in GravityToEdge(edges))
-        {
-            if (!artifact.Contains(edge))
-            {
-                artifact.Add(edge);
-            }
-        }
+        var artifact = new HashSet<string>(GravityToEdge(edges));
 
         using var temporaryDefines = new TemporaryDefines(this);
         temporaryDefines.SetArtifact("trim:edges", string.Join(",", artifact.ToArray()));
