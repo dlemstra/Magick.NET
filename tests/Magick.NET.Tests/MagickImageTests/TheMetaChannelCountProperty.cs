@@ -30,7 +30,7 @@ public partial class MagickImageTests
 
             using var pixels = image.GetPixelsUnsafe();
             var pixel = pixels.GetPixel(0, 0);
-            var channel = pixels.GetIndex(PixelChannel.Meta0);
+            var channel = pixels.GetChannelIndex(PixelChannel.Meta0);
             pixel.SetChannel(channel, Quantum.Max);
 
             using var stream = new MemoryStream();
@@ -42,7 +42,7 @@ public partial class MagickImageTests
 
             using var outputPixels = image.GetPixelsUnsafe();
             pixel = outputPixels.GetPixel(0, 0);
-            channel = outputPixels.GetIndex(PixelChannel.Meta0);
+            channel = outputPixels.GetChannelIndex(PixelChannel.Meta0);
             Assert.Equal(Quantum.Max, pixel.GetChannel(channel));
         }
     }

@@ -4,7 +4,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using static System.Net.Mime.MediaTypeNames;
 
 #if Q8
 using QuantumType = System.Byte;
@@ -65,6 +64,9 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     public IEnumerator<IPixel<QuantumType>> GetEnumerator()
         => new PixelCollectionEnumerator(this, Image.Width, Image.Height);
+
+    public int GetChannelIndex(PixelChannel channel)
+        => Image.ChannelOffset(channel);
 
     public int GetIndex(PixelChannel channel)
         => Image.ChannelOffset(channel);

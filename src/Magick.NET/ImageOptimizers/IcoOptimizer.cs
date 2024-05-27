@@ -145,7 +145,7 @@ public sealed class IcoOptimizer : IImageOptimizer
     private static void FixAlpha(IMagickImage<QuantumType> image, QuantumType min, QuantumType max)
     {
         using var pixels = image.GetPixelsUnsafe();
-        var alphaIndex = pixels.GetIndex(PixelChannel.Alpha);
+        var alphaIndex = pixels.GetChannelIndex(PixelChannel.Alpha);
         var channels = pixels.Channels;
 
         for (var y = 0; y < image.Height; y++)

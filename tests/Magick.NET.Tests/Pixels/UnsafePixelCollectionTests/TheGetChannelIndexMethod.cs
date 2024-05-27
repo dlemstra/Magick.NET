@@ -8,14 +8,14 @@ namespace Magick.NET.Tests;
 
 public partial class UnsafePixelCollectionTests
 {
-    public class TheGetIndexMethod
+    public class TheGetChannelIndexMethod
     {
         [Fact]
         public void ShouldReturnMinusOneForInvalidChannel()
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
             using var pixels = image.GetPixelsUnsafe();
-            var index = pixels.GetIndex(PixelChannel.Black);
+            var index = pixels.GetChannelIndex(PixelChannel.Black);
 
             Assert.Equal(-1, index);
         }
@@ -25,7 +25,7 @@ public partial class UnsafePixelCollectionTests
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
             using var pixels = image.GetPixelsUnsafe();
-            var index = pixels.GetIndex(PixelChannel.Green);
+            var index = pixels.GetChannelIndex(PixelChannel.Green);
 
             Assert.Equal(1, index);
         }
