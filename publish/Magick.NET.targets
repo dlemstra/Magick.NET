@@ -1,5 +1,5 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <ItemGroup Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework' OR '$(MagickCopyNativeWindows)' == 'true'">
+  <ItemGroup Condition="('$(TargetFrameworkIdentifier)' == '.NETFramework' AND '$(MagickCopyNativeWindows)' != 'false') OR '$(MagickCopyNativeWindows)' == 'true'">
     <NativeWindowsDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\win*\native\*.dll" />
     <None Include="@(NativeWindowsDLL)" Condition="'$(GenerateManifests)' != 'true'">
       <Link>%(FileName)%(Extension)</Link>
@@ -13,31 +13,36 @@
   <ItemGroup Condition="'$(MagickCopyNativeLinux)' == 'true'">
     <NativeLinuxDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\linux-x64\native\*.so" />
     <None Include="@(NativeLinuxDLL)">
-      <Link>%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' != '.NETFramework'">%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">lib%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <NativeLinuxArm64DLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\linux-arm64\native\*.so" />
     <None Include="@(NativeLinuxArm64DLL)">
-      <Link>%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' != '.NETFramework'">%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">lib%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup Condition="'$(MagickCopyNativeLinuxMusl)' == 'true'">
     <NativeLinuxMuslDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\linux-musl-x64\native\*.so" />
     <None Include="@(NativeLinuxMuslDLL)">
-      <Link>%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' != '.NETFramework'">%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">lib%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup Condition="'$(MagickCopyNativeMacOS)' == 'true'">
     <NativeMacOSDLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\osx-x64\native\*.dylib" />
     <None Include="@(NativeMacOSDLL)">
-      <Link>%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' != '.NETFramework'">%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">lib%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <NativeMacOSArm64DLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\osx-arm64\native\*.dylib" />
     <None Include="@(NativeMacOSArm64DLL)">
-      <Link>%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' != '.NETFramework'">%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">lib%(FileName)%(Extension)</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

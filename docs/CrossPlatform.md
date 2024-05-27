@@ -25,9 +25,9 @@ Magick.NET. It might also be required to run `fc-cache` to update the font cache
 Running Magick.NET with .NET Core on Linux requires adding the library as a package reference to the project:
 
 ```xml
-  <ItemGroup>
-    <PackageReference Include="Magick.NET-Q8-x64" Version="7.x.x.x" />
-  </ItemGroup>
+<ItemGroup>
+  <PackageReference Include="Magick.NET-Q8-x64" Version="7.x.x.x" />
+</ItemGroup>
 ```
 
 ### Native library is not copied to the bin folder
@@ -36,18 +36,24 @@ On some of the platforms it appears that the binaries are not copied to the outp
 by adding one of the following properties your `.csproj` file:
 
 ```xml
-  <PropertyGroup>
-    <MagickCopyNativeWindows>true</MagickCopyNativeWindows>
-    <MagickCopyNativeLinux>true</MagickCopyNativeLinux>
-    <MagickCopyNativeLinuxMusl>true</MagickCopyNativeLinuxMusl>
-    <MagickCopyNativeMacOS>true</MagickCopyNativeMacOS>
-  </PropertyGroup>
+<PropertyGroup>
+  <MagickCopyNativeWindows>true</MagickCopyNativeWindows>
+  <MagickCopyNativeLinux>true</MagickCopyNativeLinux>
+  <MagickCopyNativeLinuxMusl>true</MagickCopyNativeLinuxMusl>
+  <MagickCopyNativeMacOS>true</MagickCopyNativeMacOS>
+</PropertyGroup>
 ```
 
 ### Mono
 
-Getting Magick.NET working on Mono sometimes requires an extra step. The Magick.NET.Native library is not always automatically copied
-to the output directory when the NuGet reference is added to the project. The copy does not happens when the project is build on Windows
-instead of a Linux machine. The native library located in the folder `runtimes/linux-x64/native` of the NuGet package should then be
-copied to the output folder of the project. And it is possible that you will need to rename the native library and prefix it with
-`lib` (e.g `libMagick.NET-Q8-x64.Native.dll.so`).
+With Mono there are sometimes some extra steps that need to be taken. When targeting `net4*` (.NET Framework)
+the native library needs to have a `lib` prefix. This will be done automatically when for example the
+`MagickCopyNativeLinux` property is set to `true`. But this also means that the Windows library will be copied.
+So for Mono it is recommended to set the `MagickCopyNativeWindows` property to `false`.
+
+```xml
+<PropertyGroup>
+  <MagickCopyNativeWindows>false</MagickCopyNativeWindows>
+  <MagickCopyNativeLinux>true</MagickCopyNativeLinux>
+</PropertyGroup>
+```
