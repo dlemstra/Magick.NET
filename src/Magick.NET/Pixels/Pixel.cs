@@ -101,7 +101,7 @@ public sealed class Pixel : IPixel<QuantumType>
         if (obj is Pixel other)
             return Equals(other);
 
-        return Equals(obj as MagickColor);
+        return Equals(obj as IMagickColor<QuantumType>);
     }
 
     /// <summary>
