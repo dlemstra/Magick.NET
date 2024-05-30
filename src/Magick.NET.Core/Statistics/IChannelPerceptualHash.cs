@@ -20,7 +20,7 @@ public interface IChannelPerceptualHash
     /// </summary>
     /// <param name="index">The index to use.</param>
     /// <returns>The SRGB hu perceptual hash.</returns>
-    [Obsolete("Will be removed in the next major release, use HuPhash(ColorSpace.sRGB, index) instead.")]
+    [Obsolete($"Will be removed in the next major release, use {nameof(HuPhash)}(ColorSpace.sRGB, index) instead.")]
     double SrgbHuPhash(int index);
 
     /// <summary>
@@ -28,7 +28,7 @@ public interface IChannelPerceptualHash
     /// </summary>
     /// <param name="index">The index to use.</param>
     /// <returns>The Hclp hu perceptual hash.</returns>
-    [Obsolete("Will be removed in the next major release, use HuPhash(ColorSpace.HCLp, index) instead.")]
+    [Obsolete($"Will be removed in the next major release, use {nameof(HuPhash)}(ColorSpace.HCLp, index) instead.")]
     double HclpHuPhash(int index);
 
     /// <summary>
