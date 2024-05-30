@@ -12,7 +12,7 @@ namespace ImageMagick;
 /// </summary>
 public partial class ChannelPerceptualHash : IChannelPerceptualHash
 {
-    private readonly List<HuPhashList> _huPhashes = new();
+    private readonly Dictionary<ColorSpace, HuPhashList> _huPhashes = new();
     private string _hash = string.Empty;
 
     /// <summary>
@@ -26,8 +26,8 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     public ChannelPerceptualHash(PixelChannel channel, double[] srgbHuPhash, double[] hclpHuPhash, string hash)
     {
         Channel = channel;
-        _huPhashes.Add(new HuPhashList(ColorSpace.sRGB, srgbHuPhash));
-        _huPhashes.Add(new HuPhashList(ColorSpace.HCLp, hclpHuPhash));
+        _huPhashes[ColorSpace.sRGB] = new HuPhashList(srgbHuPhash);
+        _huPhashes[ColorSpace.HCLp] = new HuPhashList(hclpHuPhash);
         _hash = hash;
     }
 
@@ -96,23 +96,20 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     {
         Throw.IfNull(nameof(other), other);
 
-        var otherChannelPerceptualHash = other as ChannelPerceptualHash;
-        var ssd = 0.0;
+        var sumSquaredDistance = 0.0;
 
         foreach (var huPhashList in _huPhashes)
         {
-            var otherHuPhashList = otherChannelPerceptualHash?.GetHuPhashListByColorSpace(huPhashList.ColorSpace);
-
             for (var i = 0; i < 7; i++)
             {
-                var a = huPhashList[i];
-                var b = otherHuPhashList is null ? 0 : otherHuPhashList[i];
+                var a = huPhashList.Value[i];
+                var b = other.HuPhash(huPhashList.Key, i);
 
-                ssd += (a - b) * (a - b);
+                sumSquaredDistance += (a - b) * (a - b);
             }
         }
 
-        return ssd;
+        return sumSquaredDistance;
     }
 
     /// <summary>
@@ -140,10 +137,9 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
 
     private HuPhashList? GetHuPhashListByColorSpace(ColorSpace colorSpace)
     {
-        foreach (var huPhashList in _huPhashes)
+        if (_huPhashes.TryGetValue(colorSpace, out var huPhashList))
         {
-            if (huPhashList.ColorSpace == colorSpace)
-                return huPhashList;
+            return huPhashList;
         }
 
         return null;
@@ -156,7 +152,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
         var offset = 0;
         foreach (var colorSpace in colorSpaces)
         {
-            var huPhashList = new HuPhashList(colorSpace);
+            var huPhashList = new HuPhashList();
             for (var i = 0; i < 7; i++, offset += 5)
             {
                 if (!int.TryParse(hash.Substring(offset, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var hex))
@@ -169,7 +165,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
                 huPhashList[i] = value;
             }
 
-            _huPhashes.Add(huPhashList);
+            _huPhashes[colorSpace] = huPhashList;
         }
     }
 
@@ -177,7 +173,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     {
         _hash = string.Empty;
 
-        foreach (var huPhashList in _huPhashes)
+        foreach (var huPhashList in _huPhashes.Values)
         {
             for (var i = 0; i < 7; i++)
             {
@@ -201,30 +197,27 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
 
     private void AddHuPhash(NativeChannelPerceptualHash instance, ColorSpace colorSpace, int colorSpaceIndex)
     {
-        var huPhashList = new HuPhashList(colorSpace);
+        var huPhashList = new HuPhashList();
 
         for (var i = 0; i < 7; i++)
             huPhashList[i] = instance.GetHuPhash(colorSpaceIndex, i);
 
-        _huPhashes.Add(huPhashList);
+        _huPhashes[colorSpace] = huPhashList;
     }
 
     private sealed class HuPhashList
     {
         private readonly double[] _values;
 
-        public HuPhashList(ColorSpace colorSpace)
-            : this(colorSpace, new double[] { 0, 0, 0, 0, 0, 0, 0 })
+        public HuPhashList()
+            : this(new double[] { 0, 0, 0, 0, 0, 0, 0 })
         {
         }
 
-        public HuPhashList(ColorSpace colorSpace, double[] values)
+        public HuPhashList(double[] values)
         {
-            ColorSpace = colorSpace;
             _values = values;
         }
-
-        public ColorSpace ColorSpace { get; }
 
         public double this[int index]
         {
