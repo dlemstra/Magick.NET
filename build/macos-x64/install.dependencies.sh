@@ -3,7 +3,6 @@ set -e
 
 export HOMEBREW_NO_AUTO_UPDATE=1
 
-brew install fontconfig
 fc-list
 
 downloadUrl=$(curl 'https://evermeet.cx/ffmpeg/info/ffmpeg/6.0' -fsS| jq -rc '.download.zip.url') 
