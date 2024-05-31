@@ -9,7 +9,7 @@ if [ -z "$GITHUB_USER" ]; then
 fi
 
 if [ -z "$GITHUB_TOKEN" ]; then
-    export GITHUB_TOKEN=$(cat /build/api.key.txt)
+    export GITHUB_TOKEN=$(cat /keys/github.txt)
 fi
 
 build/shared/install.Magick.Native.sh ${GITHUB_USER} ${GITHUB_TOKEN} ${config} ${arch}

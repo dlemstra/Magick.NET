@@ -5,8 +5,8 @@ bin
 Generated
 obj
 lib
+keys
 runtimes
-api.key.txt
 /src/Magick.Native/libraries
 /src/Magick.Native/nuget.config
 /src/Magick.Native/resources

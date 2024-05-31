@@ -3,10 +3,10 @@
 echo Are you sure?
 pause
 
-set /p ApiKey=<api.key.txt
+set /p ApiKey=<../keys/nuget.txt
 if not "%ApiKey%"=="" goto push
 
-echo Unable to find api.key.txt
+echo Unable to find nuget.txt in the keys folder.
 goto done
 
 :push
