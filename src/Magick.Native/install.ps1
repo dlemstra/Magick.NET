@@ -161,7 +161,12 @@ function createTrademarkAttribute($source, $target) {
 [assembly: System.Reflection.AssemblyTrademark(""ImageMagick $imageMagickVersion"")]"))
 }
 
-$version = [IO.File]::ReadAllText("$PSScriptRoot\Magick.Native.version").Trim()
+$version = [IO.File]::ReadAllText("$PSScriptRoot\Magick.Native.version")
+if ($version -ne $version.Trim()) {
+    Write-Error "Version contains whitespace"
+    Exit 1
+}
+
 $folder = "$PSScriptRoot\temp"
 $libraries = "$PSScriptRoot\libraries"
 $windowsLibraries = "$libraries\win"
