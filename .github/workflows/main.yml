@@ -290,5 +290,5 @@ jobs:
     - name: Upload library
       uses: actions/upload-artifact@v3
       with:
-        name: 'Magick.NET-${{ matrix.libraryName }}'
+        name: 'Magick.NET.${{ matrix.libraryName }}'
         path: publish/output
