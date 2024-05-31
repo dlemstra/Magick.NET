@@ -221,7 +221,7 @@ jobs:
     - name: Upload library
       uses: actions/upload-artifact@v3
       with:
-        name: packages
+        name: 'Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}'
         path: publish/output
 
   libraries:
@@ -290,5 +290,5 @@ jobs:
     - name: Upload library
       uses: actions/upload-artifact@v3
       with:
-        name: packages
+        name: 'Magick.NET-${{ matrix.libraryName }}'
         path: publish/output
