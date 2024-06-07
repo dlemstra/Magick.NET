@@ -3,7 +3,6 @@
 
 using System;
 using ImageMagick;
-using NSubstitute.ExceptionExtensions;
 using Xunit;
 
 namespace Magick.NET.Tests;
@@ -37,7 +36,6 @@ public partial class ColorCMYKTests
         }
 
 #if !Q16HDRI
-
         [Fact]
         public void ShouldThrowExceptionWhenCyanPercentageIsNegative()
         {

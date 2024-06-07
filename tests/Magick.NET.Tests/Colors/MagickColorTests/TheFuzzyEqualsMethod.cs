@@ -3,7 +3,6 @@
 
 using System;
 using ImageMagick;
-using NSubstitute.ExceptionExtensions;
 using Xunit;
 
 #if Q8
