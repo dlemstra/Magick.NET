@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -11,6 +12,18 @@ public partial class ResourceLimitsTests
     [Collection(nameof(RunTestsSeparately))]
     public class TheLimitMemoryMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenValueIsNegative()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>("percentage", () => ResourceLimits.LimitMemory(new Percentage(-0.99)));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenValueIsTooHigh()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>("percentage", () => ResourceLimits.LimitMemory(new Percentage(100.1)));
+        }
+
         [Fact]
         public void ShouldChangeAreaAndMemory()
         {

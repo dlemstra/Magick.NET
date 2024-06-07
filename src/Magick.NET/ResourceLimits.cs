@@ -223,7 +223,11 @@ public partial class ResourceLimits : IResourceLimits
     /// </summary>
     /// <param name="percentage">The percentage to use.</param>
     public static void LimitMemory(Percentage percentage)
-        => NativeResourceLimits.LimitMemory((double)percentage / 100.0);
+    {
+        Throw.IfOutOfRange(nameof(percentage), percentage);
+
+        NativeResourceLimits.LimitMemory((double)percentage / 100.0);
+    }
 
     /// <summary>
     /// Set the maximum percentage of memory that can be used for image data. This also changes

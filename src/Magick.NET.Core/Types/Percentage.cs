@@ -16,36 +16,32 @@ public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percenta
     /// <summary>
     /// Initializes a new instance of the <see cref="Percentage"/> struct.
     /// </summary>
-    /// <param name="value">The value (0% = 0.0, 100% = 100.0, 142.42% = 142.42).</param>
+    /// <param name="value">The value (0% = 0.0, 100% = 100.0, 142.42% = 142.42). Negative percentages are allow but are not supported by all methods.</param>
     public Percentage(double value)
     {
-        Throw.IfNegative(nameof(value), value);
-
         _value = value;
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Percentage"/> struct.
     /// </summary>
-    /// <param name="value">The value (0% = 0, 100% = 100, 142% = 142).</param>
+    /// <param name="value">The value (0% = 0, 100% = 100, 142% = 142). Negative percentages are allow but are not supported by all methods.</param>
     public Percentage(int value)
     {
-        Throw.IfNegative(nameof(value), value);
-
         _value = value;
     }
 
     /// <summary>
     /// Converts the specified double to an instance of this type.
     /// </summary>
-    /// <param name="value">The value (0% = 0.0, 100% = 100.0, 142.42% = 142.42).</param>
+    /// <param name="value">The value (0% = 0.0, 100% = 100.0, 142.42% = 142.42). Negative percentages are allow but are not supported by all methods.</param>
     public static explicit operator Percentage(double value)
         => new Percentage(value);
 
     /// <summary>
     /// Converts the specified int to an instance of this type.
     /// </summary>
-    /// <param name="value">The value (0% = 0, 100% = 100, 142% = 142).</param>
+    /// <param name="value">The value (0% = 0, 100% = 100, 142% = 142). Negative percentages are allow but are not supported by all methods.</param>
     public static explicit operator Percentage(int value)
         => new Percentage(value);
 
@@ -178,11 +174,7 @@ public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percenta
     /// <param name="value">The value to use.</param>
     /// <returns>The new value.</returns>
     public double Multiply(double value)
-    {
-        Throw.IfNegative(nameof(value), value);
-
-        return (value * _value) / 100.0;
-    }
+        => (value * _value) / 100.0;
 
     /// <summary>
     /// Multiplies the value by the specified percentage.
@@ -190,11 +182,7 @@ public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percenta
     /// <param name="value">The value to use.</param>
     /// <returns>The new value.</returns>
     public int Multiply(int value)
-    {
-        Throw.IfNegative(nameof(value), value);
-
-        return (int)((value * _value) / 100.0);
-    }
+        => (int)((value * _value) / 100.0);
 
     /// <summary>
     /// Returns a double that represents the current percentage.
