@@ -14,56 +14,34 @@ public partial class ColorCMYKTests
         [Fact]
         public void ShouldThrowExceptionWhenColorIsNull()
         {
-            Assert.Throws<ArgumentNullException>("color", () =>
-            {
-                new ColorCMYK(null);
-            });
+            Assert.Throws<ArgumentNullException>("color", () => { new ColorCMYK(null); });
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenColorIsEmpty()
         {
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK(string.Empty);
-            });
+            Assert.Throws<ArgumentException>("color", () => { new ColorCMYK(string.Empty); });
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenColorDoesNotStartWithHash()
         {
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("FFFFFF");
-            });
+            Assert.Throws<ArgumentException>("color", () => { new ColorCMYK("FFFFFF"); });
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenColorHasInvalidLength()
         {
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("#FFFFF");
-            });
+            Assert.Throws<ArgumentException>("color", () => { new ColorCMYK("#FFFFF"); });
         }
 
-        [Fact]
-        public void ShouldThrowExceptionWhenColorHasInvalidHexValue()
+        [Theory]
+        [InlineData("#FGF")]
+        [InlineData("#GGFFFF")]
+        [InlineData("#FFFG000000000000")]
+        public void ShouldThrowExceptionWhenColorHasInvalidHexValue(string color)
         {
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("#FGF");
-            });
-
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("#GGFFFF");
-            });
-
-            Assert.Throws<ArgumentException>("color", () =>
-            {
-                new ColorCMYK("#FFFG000000000000");
-            });
+            Assert.Throws<ArgumentException>("color", () => { new ColorCMYK(color); });
         }
 
         [Fact]
