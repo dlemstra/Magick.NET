@@ -18,9 +18,25 @@ internal static class PercentageHelper
     public static Percentage FromQuantum(double value)
         => new Percentage((value / Quantum.Max) * 100);
 
-    public static double ToQuantum(Percentage percentage)
-        => Quantum.Max * (percentage.ToDouble() / 100);
+    public static double ToQuantum(string paramName, Percentage percentage)
+    {
+        var value = percentage.ToDouble();
 
-    public static QuantumType ToQuantumType(Percentage self)
-        => (QuantumType)(Quantum.Max * (self.ToDouble() / 100));
+#if !Q16HDRI
+        Throw.IfNegative(paramName, value);
+#endif
+
+        return Quantum.Max * (value / 100);
+    }
+
+    public static QuantumType ToQuantumType(string paramName, Percentage percentage)
+    {
+        var value = percentage.ToDouble();
+
+#if !Q16HDRI
+        Throw.IfNegative(paramName, value);
+#endif
+
+        return (QuantumType)(Quantum.Max * (value / 100));
+    }
 }

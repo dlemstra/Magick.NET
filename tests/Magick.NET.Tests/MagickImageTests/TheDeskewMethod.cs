@@ -19,6 +19,28 @@ public partial class MagickImageTests
             Assert.Throws<ArgumentNullException>("settings", () => image.Deskew(null));
         }
 
+#if !Q16HDRI
+        [Fact]
+        public void ShouldThrowExceptionWhenSettingsThresholdIsNegative()
+        {
+            var settings = new DeskewSettings
+            {
+                Threshold = new Percentage(-1),
+            };
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("settings", () => image.Deskew(settings));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenThresholdIsNegative()
+        {
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("settings", () => image.Deskew(new Percentage(-1)));
+        }
+#endif
+
         [Fact]
         public void ShouldDeskewTheImage()
         {

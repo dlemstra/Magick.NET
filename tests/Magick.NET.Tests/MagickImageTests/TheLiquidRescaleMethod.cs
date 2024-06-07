@@ -100,6 +100,32 @@ public partial class MagickImageTests
         public class WithPercentage
         {
             [Fact]
+            public void ShouldThrowExceptionWhenPercentageIsNegative()
+            {
+                var percentage = new Percentage(-1);
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+                Assert.Throws<ArgumentException>("percentageWidth", () => image.LiquidRescale(percentage));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenPercentageWidthIsNegative()
+            {
+                var percentageWidth = new Percentage(-1);
+                var percentageHeight = new Percentage(1);
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+                Assert.Throws<ArgumentException>("percentageWidth", () => image.LiquidRescale(percentageWidth, percentageHeight));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenPercentageHeightIsNegative()
+            {
+                var percentageWidth = new Percentage(1);
+                var percentageHeight = new Percentage(-1);
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+                Assert.Throws<ArgumentException>("percentageHeight", () => image.LiquidRescale(percentageWidth, percentageHeight));
+            }
+
+            [Fact]
             public void ShouldResizeTheImage()
             {
                 using var image = new MagickImage(Files.MagickNETIconPNG);

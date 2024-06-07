@@ -3,6 +3,7 @@
 
 using System;
 using ImageMagick;
+using NSubstitute.ExceptionExtensions;
 using Xunit;
 
 namespace Magick.NET.Tests;
@@ -34,6 +35,39 @@ public partial class ColorCMYKTests
         {
             Assert.Throws<ArgumentException>("color", () => { new ColorCMYK("#FFFFF"); });
         }
+
+#if !Q16HDRI
+
+        [Fact]
+        public void ShouldThrowExceptionWhenCyanPercentageIsNegative()
+        {
+            Assert.Throws<ArgumentException>("cyan", () => { new ColorCMYK(new Percentage(-1), new Percentage(0), new Percentage(0), new Percentage(0)); });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenMagentaPercentageIsNegative()
+        {
+            Assert.Throws<ArgumentException>("magenta", () => { new ColorCMYK(new Percentage(0), new Percentage(-1), new Percentage(0), new Percentage(0)); });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenYellowPercentageIsNegative()
+        {
+            Assert.Throws<ArgumentException>("yellow", () => { new ColorCMYK(new Percentage(0), new Percentage(0), new Percentage(-1), new Percentage(0)); });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenKeyPercentageIsNegative()
+        {
+            Assert.Throws<ArgumentException>("key", () => { new ColorCMYK(new Percentage(0), new Percentage(0), new Percentage(0), new Percentage(-1)); });
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenColorAlphaPercentageIsNegative()
+        {
+            Assert.Throws<ArgumentException>("alpha", () => { new ColorCMYK(new Percentage(0), new Percentage(0), new Percentage(0), new Percentage(0), new Percentage(-1)); });
+        }
+#endif
 
         [Theory]
         [InlineData("#FGF")]

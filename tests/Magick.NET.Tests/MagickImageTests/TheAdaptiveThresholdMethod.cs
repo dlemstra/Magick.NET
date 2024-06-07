@@ -26,6 +26,22 @@ public partial class MagickImageTests
         }
 
         [Fact]
+        public void ShouldThrowExceptionWhenBiasIsNegative()
+        {
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            Assert.Throws<ArgumentException>("bias", () => image.AdaptiveThreshold(10, 10, -1, Channels.Red));
+        }
+
+#if !Q16HDRI
+        [Fact]
+        public void ShouldThrowExceptionWhenBiasPercentagetIsNegative()
+        {
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            Assert.Throws<ArgumentException>("biasPercentage", () => image.AdaptiveThreshold(10, -1, new Percentage(-1), Channels.Red));
+        }
+#endif
+
+        [Fact]
         public void ShouldThresholdTheImage()
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);

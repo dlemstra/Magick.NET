@@ -1,7 +1,9 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
+using NSubstitute.ExceptionExtensions;
 using Xunit;
 
 #if Q8
@@ -20,6 +22,17 @@ public partial class MagickColorTests
 {
     public class TheFuzzyEqualsMethod
     {
+#if !Q16HDRI
+        [Fact]
+        public void ShouldThrowExceptionWhenFuzzIsNegative()
+        {
+            var first = MagickColors.White;
+            var second = MagickColors.White;
+
+            Assert.Throws<ArgumentException>("fuzz", () => first.FuzzyEquals(second, new Percentage(-1)));
+        }
+#endif
+
         [Fact]
         public void ShouldReturnFalseWhenValueIsNull()
         {

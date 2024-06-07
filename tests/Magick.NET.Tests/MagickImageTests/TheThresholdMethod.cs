@@ -12,6 +12,16 @@ public partial class MagickImageTests
 {
     public class TheThresholdMethod
     {
+#if !Q16HDRI
+        [Fact]
+        public void ShouldThrowExceptionWhenPercentageIsNegative()
+        {
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("percentage", () => image.Threshold(new Percentage(-1)));
+        }
+#endif
+
         [Fact]
         public void ShouldThresholdTheImage()
         {

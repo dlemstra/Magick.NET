@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -20,42 +21,126 @@ public partial class MagickImageTests
 {
     public class TheInverseLevelMethod
     {
-        [Fact]
-        public void ShouldUseCompositeAsDefaultChannels()
+        public class WithPercentage
         {
-            using var first = new MagickImage(Files.MagickNETIconPNG);
-            using var second = first.Clone();
-            first.InverseLevel(new Percentage(50), new Percentage(10));
-            second.InverseLevel(new Percentage(50), new Percentage(10), Channels.Composite);
+#if !Q16HDRI
+            [Fact]
+            public void ShouldThrowExceptionWhenBlackPointPercentageIsNegative()
+            {
+                using var image = new MagickImage();
 
-            Assert.Equal(first.Signature, second.Signature);
+                Assert.Throws<ArgumentException>("blackPointPercentage", () => image.InverseLevel(new Percentage(-1), new Percentage(1)));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenWhitePointPercentageIsNegative()
+            {
+                using var image = new MagickImage();
+
+                Assert.Throws<ArgumentException>("whitePointPercentage", () => image.InverseLevel(new Percentage(1), new Percentage(-1)));
+            }
+#endif
+
+            [Fact]
+            public void ShouldUseCompositeAsDefaultChannels()
+            {
+                using var first = new MagickImage(Files.MagickNETIconPNG);
+                using var second = first.Clone();
+                first.InverseLevel(new Percentage(50), new Percentage(10));
+                second.InverseLevel(new Percentage(50), new Percentage(10), Channels.Composite);
+
+                Assert.Equal(first.Signature, second.Signature);
+            }
+
+            [Fact]
+            public void ShouldUseOneAsGammaDefault()
+            {
+                using var first = new MagickImage(Files.MagickNETIconPNG);
+                using var second = first.Clone();
+                first.InverseLevel(new Percentage(50), new Percentage(10));
+                second.InverseLevel(new Percentage(50), new Percentage(10), 1.0, Channels.Composite);
+
+                Assert.Equal(first.Signature, second.Signature);
+            }
+
+            [Fact]
+            public void ShouldScaleTheColors()
+            {
+                using var first = new MagickImage(Files.MagickNETIconPNG);
+                using var second = first.Clone();
+                first.InverseLevel(new Percentage(50.0), new Percentage(10.0));
+
+                var fifty = (QuantumType)(Quantum.Max * 0.5);
+                var ten = (QuantumType)(Quantum.Max * 0.1);
+                second.InverseLevel(fifty, ten, Channels.Red);
+                second.InverseLevel(fifty, ten, Channels.Green | Channels.Blue);
+                second.InverseLevel(fifty, ten, Channels.Alpha);
+
+                Assert.Equal(first.Signature, second.Signature);
+            }
         }
 
-        [Fact]
-        public void ShouldUseOneAsGammaDefault()
+        public class WithPercentageAndChannel
         {
-            using var first = new MagickImage(Files.MagickNETIconPNG);
-            using var second = first.Clone();
-            first.InverseLevel(new Percentage(50), new Percentage(10));
-            second.InverseLevel(new Percentage(50), new Percentage(10), 1.0, Channels.Composite);
+#if !Q16HDRI
+            [Fact]
+            public void ShouldThrowExceptionWhenBlackPointPercentageIsNegative()
+            {
+                using var image = new MagickImage();
 
-            Assert.Equal(first.Signature, second.Signature);
+                Assert.Throws<ArgumentException>("blackPointPercentage", () => image.InverseLevel(new Percentage(-1), new Percentage(1), Channels.Red));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenWhitePointPercentageIsNegative()
+            {
+                using var image = new MagickImage();
+
+                Assert.Throws<ArgumentException>("whitePointPercentage", () => image.InverseLevel(new Percentage(1), new Percentage(-1), Channels.Red));
+            }
+#endif
         }
 
-        [Fact]
-        public void ShouldScaleTheColors()
+        public class WithPercentageAndGamma
         {
-            using var first = new MagickImage(Files.MagickNETIconPNG);
-            using var second = first.Clone();
-            first.InverseLevel(new Percentage(50.0), new Percentage(10.0));
+#if !Q16HDRI
+            [Fact]
+            public void ShouldThrowExceptionWhenBlackPointPercentageIsNegative()
+            {
+                using var image = new MagickImage();
 
-            var fifty = (QuantumType)(Quantum.Max * 0.5);
-            var ten = (QuantumType)(Quantum.Max * 0.1);
-            second.InverseLevel(fifty, ten, Channels.Red);
-            second.InverseLevel(fifty, ten, Channels.Green | Channels.Blue);
-            second.InverseLevel(fifty, ten, Channels.Alpha);
+                Assert.Throws<ArgumentException>("blackPointPercentage", () => image.InverseLevel(new Percentage(-1), new Percentage(1), 2.0));
+            }
 
-            Assert.Equal(first.Signature, second.Signature);
+            [Fact]
+            public void ShouldThrowExceptionWhenWhitePointPercentageIsNegative()
+            {
+                using var image = new MagickImage();
+
+                Assert.Throws<ArgumentException>("whitePointPercentage", () => image.InverseLevel(new Percentage(1), new Percentage(-1), 2.0));
+            }
+#endif
+        }
+
+        public class WithPercentageGammaAndChannel
+        {
+#if !Q16HDRI
+            [Fact]
+            public void ShouldThrowExceptionWhenBlackPointPercentageIsNegative()
+            {
+                using var image = new MagickImage();
+
+                Assert.Throws<ArgumentException>("blackPointPercentage", () => image.InverseLevel(new Percentage(-1), new Percentage(1), 2.0, Channels.Red));
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenWhitePointPercentageIsNegative()
+            {
+                using var image = new MagickImage();
+
+                Assert.Throws<ArgumentException>("whitePointPercentage", () => image.InverseLevel(new Percentage(1), new Percentage(-1), 2.0, Channels.Red));
+            }
+#endif
         }
     }
 }

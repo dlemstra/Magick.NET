@@ -14,7 +14,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenWidthIsNegative()
         {
-            using var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
+            using var image = new MagickImage();
 
             Assert.Throws<ArgumentException>("width", () => image.MeanShift(-1, 1));
         }
@@ -22,10 +22,28 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionWhenHeightIsNegative()
         {
-            using var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
+            using var image = new MagickImage();
 
             Assert.Throws<ArgumentException>("height", () => image.MeanShift(1, -1));
         }
+
+#if !Q16HDRI
+        [Fact]
+        public void ShouldThrowExceptionWhenColorDistanceIsNegative()
+        {
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("colorDistance", () => image.MeanShift(1, 1, new Percentage(-1)));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenColorDistanceIsNegativeAndSizeIsSpecified()
+        {
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("colorDistance", () => image.MeanShift(1, new Percentage(-1)));
+        }
+#endif
 
         [Fact]
         public void ShouldNotChangeImageWhenSizeIsOne()

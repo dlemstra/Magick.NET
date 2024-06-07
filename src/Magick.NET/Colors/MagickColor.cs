@@ -381,7 +381,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
             return true;
 
         using var instance = CreateNativeInstance(this);
-        return instance.FuzzyEquals(other, PercentageHelper.ToQuantumType(fuzz));
+        return instance.FuzzyEquals(other, PercentageHelper.ToQuantumType(nameof(fuzz), fuzz));
     }
 
     /// <summary>

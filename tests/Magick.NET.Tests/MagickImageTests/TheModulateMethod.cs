@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -10,6 +11,30 @@ public partial class MagickImageTests
 {
     public class TheModulateMethod
     {
+        [Fact]
+        public void ShouldThrowExceptionWhenBrightnessIsNegative()
+        {
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("brightness", () => image.Modulate(new Percentage(-1)));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenSaturationIsNegative()
+        {
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("saturation", () => image.Modulate(new Percentage(0), new Percentage(-1)));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenHueIsNegative()
+        {
+            using var image = new MagickImage();
+
+            Assert.Throws<ArgumentException>("hue", () => image.Modulate(new Percentage(0), new Percentage(0), new Percentage(-1)));
+        }
+
         [Fact]
         public void ShouldDefaultTo100PercentForSaturationAndHue()
         {

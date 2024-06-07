@@ -25,12 +25,14 @@ public partial class MagickImageTests
             Assert.Throws<ArgumentException>("height", () => image.HoughLine(0, -1, 0));
         }
 
+#if !Q16HDRI
         [Fact]
         public void ShouldThrowExceptionWhenThresholdIsNegative()
         {
             using var image = new MagickImage(Files.ConnectedComponentsPNG);
             Assert.Throws<ArgumentException>("threshold", () => image.HoughLine(0, 0, -1));
         }
+#endif
 
         [Fact]
         public void ShouldIdentifyLinesInImage()
