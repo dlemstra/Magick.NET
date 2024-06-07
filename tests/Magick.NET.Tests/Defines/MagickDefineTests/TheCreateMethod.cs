@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests.Defines;
+namespace Magick.NET.Tests;
 
 public partial class MagickDefineTests
 {
