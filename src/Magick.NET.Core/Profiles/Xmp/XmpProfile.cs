@@ -33,7 +33,7 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
         Throw.IfNull(nameof(document), document);
 
         using var memStream = new MemoryStream();
-        using var writer = XmlWriter.Create(memStream);
+        using var writer = CreateXmlWriter(memStream);
         document.CreateNavigator().WriteSubtree(writer);
         writer.Flush();
         SetData(memStream.ToArray());
@@ -49,7 +49,7 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
         Throw.IfNull(nameof(document), document);
 
         using var memStream = new MemoryStream();
-        using var writer = XmlWriter.Create(memStream);
+        using var writer = CreateXmlWriter(memStream);
         document.WriteTo(writer);
         writer.Flush();
         SetData(memStream.ToArray());
@@ -126,6 +126,15 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
     {
         using var reader = CreateReader();
         return XDocument.Load(reader);
+    }
+
+    private static XmlWriter CreateXmlWriter(MemoryStream memStream)
+    {
+        var settings = new XmlWriterSettings
+        {
+            OmitXmlDeclaration = true,
+        };
+        return XmlWriter.Create(memStream, settings);
     }
 
     private static byte[] CheckTrailingNULL(byte[] data)
