@@ -30,7 +30,7 @@ public partial class XmpProfileTests
 
             var xml = Encoding.UTF8.GetString(profile.ToByteArray());
 
-            Assert.Equal("﻿<test />", xml);
+            Assert.Equal("<test />", xml);
         }
     }
 }

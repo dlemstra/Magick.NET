@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Text;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -133,6 +134,7 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
         var settings = new XmlWriterSettings
         {
             OmitXmlDeclaration = true,
+            Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
         };
         return XmlWriter.Create(memStream, settings);
     }
