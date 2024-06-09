@@ -75,11 +75,9 @@ internal sealed class MagickColorsGenerator : IIncrementalGenerator
         codeBuilder.AppendLine();
         codeBuilder.Append("public partial ");
         codeBuilder.AppendLine(info.GenerateInterface ? "interface IMagickColors<TQuantumType>" : "class MagickColors");
-        codeBuilder.AppendLine("{");
-        codeBuilder.Indent++;
+        codeBuilder.AppendOpenBrace();
         AppendSystemDrawingColors(codeBuilder, info);
-        codeBuilder.Indent--;
-        codeBuilder.AppendLine("}");
+        codeBuilder.AppendCloseBrace();
 
         var hintName = info.GenerateInterface ? "IMagickColors{TQuantumType}.g.cs" : "MagickColors.g.cs";
         context.AddSource(hintName, SourceText.From(codeBuilder.ToString(), Encoding.UTF8));

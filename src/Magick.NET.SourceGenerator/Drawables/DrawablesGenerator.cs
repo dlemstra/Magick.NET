@@ -78,12 +78,10 @@ internal class DrawablesGenerator : IIncrementalGenerator
         else
         {
             codeBuilder.AppendLine();
-            codeBuilder.AppendLine("{");
-            codeBuilder.Indent++;
+            codeBuilder.AppendOpenBrace();
             codeBuilder.AppendLine("_drawables.Add(Drawable", name, ".", type, "d);");
             codeBuilder.AppendLine("return this;");
-            codeBuilder.Indent--;
-            codeBuilder.AppendLine("}");
+            codeBuilder.AppendCloseBrace();
         }
     }
 
@@ -114,12 +112,10 @@ internal class DrawablesGenerator : IIncrementalGenerator
     private static void AppendReadOnlyListImplementation(CodeBuilder codeBuilder, string name, PropertyInfo property)
     {
         codeBuilder.AppendLine();
-        codeBuilder.AppendLine("{");
-        codeBuilder.Indent++;
+        codeBuilder.AppendOpenBrace();
         codeBuilder.AppendLine("_drawables.Add(new Drawable", name, "(", property.ParameterName, "));");
         codeBuilder.AppendLine("return this;");
-        codeBuilder.Indent--;
-        codeBuilder.AppendLine("}");
+        codeBuilder.AppendCloseBrace();
     }
 
     private static void AppendDefaultMethod(CodeBuilder codeBuilder, INamedTypeSymbol type, string name, ImmutableArray<PropertyInfo> properties, bool generateInterface)
@@ -153,8 +149,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
         else
         {
             codeBuilder.AppendLine();
-            codeBuilder.AppendLine("{");
-            codeBuilder.Indent++;
+            codeBuilder.AppendOpenBrace();
             codeBuilder.Append("_drawables.Add(new Drawable", name, "(");
 
             for (var i = 0; i < properties.Length; i++)
@@ -166,8 +161,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
 
             codeBuilder.AppendLine("));");
             codeBuilder.AppendLine("return this;");
-            codeBuilder.Indent--;
-            codeBuilder.AppendLine("}");
+            codeBuilder.AppendCloseBrace();
         }
     }
 
@@ -209,8 +203,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
 
         codeBuilder.Append("public partial ");
         codeBuilder.AppendLine(info.GenerateInterface ? "interface IDrawables<TQuantumType>" : "class Drawables");
-        codeBuilder.AppendLine("{");
-        codeBuilder.Indent++;
+        codeBuilder.AppendOpenBrace();
 
         for (var i = 0; i < info.Interfaces.Length; i++)
         {
@@ -223,8 +216,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
             AppendMethods(codeBuilder, type, name, properties, info.GenerateInterface);
         }
 
-        codeBuilder.Indent--;
-        codeBuilder.AppendLine("}");
+        codeBuilder.AppendCloseBrace();
 
         var hintName = info.GenerateInterface ? "IDrawables{TQuantumType}" : "Drawables";
         context.AddSource($"{hintName}.g.cs", SourceText.From(codeBuilder.ToString(), Encoding.UTF8));

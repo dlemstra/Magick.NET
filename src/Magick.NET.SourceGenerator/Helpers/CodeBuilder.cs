@@ -26,6 +26,12 @@ internal sealed class CodeBuilder
             _builder.Append(value);
     }
 
+    public void AppendCloseBrace()
+    {
+        Indent--;
+        AppendLine("}");
+    }
+
     public void AppendComment(params string[] comment)
     {
         AppendLine("/// <summary>");
@@ -36,6 +42,12 @@ internal sealed class CodeBuilder
         }
 
         AppendLine("/// </summary>");
+    }
+
+    public void AppendOpenBrace()
+    {
+        AppendLine("{");
+        Indent++;
     }
 
     public void AppendParameterComment(string name, string comment)

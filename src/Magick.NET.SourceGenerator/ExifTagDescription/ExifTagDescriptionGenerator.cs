@@ -28,18 +28,14 @@ internal class ExifTagDescriptionGenerator : IIncrementalGenerator
         codeBuilder.AppendLine("namespace ImageMagick;");
         codeBuilder.AppendLine();
         codeBuilder.AppendLine("internal static class ExifTagDescriptions");
-        codeBuilder.AppendLine("{");
-        codeBuilder.Indent++;
+        codeBuilder.AppendOpenBrace();
         codeBuilder.AppendLine("public static Dictionary<ExifTagValue, Dictionary<object, string>> ForExifTagValue { get; } = new()");
-        codeBuilder.AppendLine("{");
-        codeBuilder.Indent++;
+        codeBuilder.AppendOpenBrace();
         foreach (var descriptionInfo in descriptionInfos)
         {
-            codeBuilder.AppendLine("{");
-            codeBuilder.Indent++;
+            codeBuilder.AppendOpenBrace();
             codeBuilder.AppendLine("ExifTagValue.", descriptionInfo.ValueName, ", new()");
-            codeBuilder.AppendLine("{");
-            codeBuilder.Indent++;
+            codeBuilder.AppendOpenBrace();
 
             foreach (var attribute in descriptionInfo.Attributes)
             {
@@ -63,16 +59,14 @@ internal class ExifTagDescriptionGenerator : IIncrementalGenerator
                 codeBuilder.AppendLine("\" },");
             }
 
-            codeBuilder.Indent--;
-            codeBuilder.AppendLine("}");
+            codeBuilder.AppendCloseBrace();
             codeBuilder.Indent--;
             codeBuilder.AppendLine("},");
         }
 
         codeBuilder.Indent--;
         codeBuilder.AppendLine("};");
-        codeBuilder.Indent--;
-        codeBuilder.AppendLine("}");
+        codeBuilder.AppendCloseBrace();
 
         context.AddSource("ExifTagDescriptions.g.cs", SourceText.From(codeBuilder.ToString(), Encoding.UTF8));
     }
