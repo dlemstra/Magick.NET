@@ -22,8 +22,8 @@ public partial class Quantum : IQuantum<QuantumType>
 {
     static Quantum()
     {
-        Depth = NativeQuantum.Depth;
-        Max = NativeQuantum.Max;
+        Depth = NativeQuantum.Depth_Get();
+        Max = NativeQuantum.Max_Get();
     }
 
     /// <summary>

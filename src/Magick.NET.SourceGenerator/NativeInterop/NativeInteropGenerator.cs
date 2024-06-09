@@ -1,12 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
 namespace ImageMagick.SourceGenerator;
@@ -36,6 +32,20 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendLine();
         codeBuilder.AppendLine("namespace ImageMagick;");
         codeBuilder.AppendLine();
+
+        if (info.UsesQuantumType)
+        {
+            codeBuilder.AppendLine("#if Q8");
+            codeBuilder.AppendLine("using QuantumType = System.Byte;");
+            codeBuilder.AppendLine("#elif Q16");
+            codeBuilder.AppendLine("using QuantumType = System.UInt16;");
+            codeBuilder.AppendLine("#elif Q16HDRI");
+            codeBuilder.AppendLine("using QuantumType = System.Single;");
+            codeBuilder.AppendLine("#else");
+            codeBuilder.AppendLine("#error Not implemented!");
+            codeBuilder.AppendLine("#endif");
+            codeBuilder.AppendLine();
+        }
 
         codeBuilder.Append("public partial class ");
         codeBuilder.AppendLine(info.ParentClassName);

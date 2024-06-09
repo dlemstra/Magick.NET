@@ -40,8 +40,12 @@ internal sealed class MethodInfo
 
     public IReadOnlyList<ParameterInfo> Parameters { get; }
 
-    public bool Throws { get; }
-
     public string ReturnType
         => _method.ReturnType.ToString();
+
+    public bool Throws { get; }
+
+    public bool UsesQuantumType
+        => ReturnType == "QuantumType" ||
+           Parameters.Any(parameter => parameter.Type == "QuantumType");
 }

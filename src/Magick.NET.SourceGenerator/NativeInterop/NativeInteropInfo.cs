@@ -28,4 +28,7 @@ internal class NativeInteropInfo
 
     public string ParentClassName
         => ((ClassDeclarationSyntax)_class.Parent!).Identifier.Text;
+
+    public bool UsesQuantumType
+        => Methods.Any(method => method.UsesQuantumType);
 }
