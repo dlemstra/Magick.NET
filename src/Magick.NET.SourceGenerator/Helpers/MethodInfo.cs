@@ -21,31 +21,59 @@ internal sealed class MethodInfo
             .Select(parameter => new ParameterInfo(parameter))
             .ToList();
 
+        ReturnType = new TypeInfo(method.ReturnType);
+
         IsStatic = method.Modifiers.Any(modifier => modifier.IsKind(SyntaxKind.StaticKeyword));
+
         Throws = method.AttributeLists
             .SelectMany(list => list.Attributes)
             .Any(attribute => attribute.Name + "Attribute" == nameof(ThrowsAttribute));
+
+        Cleanup = method.AttributeLists
+            .SelectMany(list => list.Attributes)
+            .Where(attribute => attribute.Name + "Attribute" == nameof(CleanupAttribute))
+            .Select(attribute => new CleanupInfo(attribute.GetArgumentValue(nameof(CleanupAttribute.Name)), attribute.GetArgumentValue(nameof(CleanupAttribute.Arguments))))
+            .FirstOrDefault();
+
+        UsesInstance = !IsStatic;
+        SetsInstance = !IsStatic && IsVoid;
+
+        var instanceAttribute = method.AttributeLists
+            .SelectMany(list => list.Attributes)
+            .FirstOrDefault(attribute => attribute.Name + "Attribute" == nameof(InstanceAttribute));
+
+        if (instanceAttribute is not null)
+        {
+            UsesInstance = instanceAttribute.GetArgumentValue(nameof(InstanceAttribute.UsesInstance)) != "false";
+            SetsInstance = instanceAttribute.GetArgumentValue(nameof(InstanceAttribute.SetInstance)) != "false";
+        }
     }
 
+    public CleanupInfo? Cleanup { get; }
+
     public bool IsVoid
-        => ReturnType == "void";
+        => ReturnType.IsVoid;
 
     public bool IsStatic { get; }
+
+    public bool OnlySupportedInNetstandard21
+        => ReturnType.OnlySupportedInNetstandard21 ||
+           Parameters.Any(parameter => parameter.Type.OnlySupportedInNetstandard21);
 
     public string Name
         => _method.Identifier.Text;
 
-    public string NativeReturnType
-        => _method.ReturnType.ToNativeString();
-
     public IReadOnlyList<ParameterInfo> Parameters { get; }
 
-    public string ReturnType
-        => _method.ReturnType.ToString();
+    public TypeInfo ReturnType { get; }
+
+    public bool SetsInstance { get; }
 
     public bool Throws { get; }
 
+    public bool UsesInstance { get; }
+
     public bool UsesQuantumType
-        => ReturnType == "QuantumType" ||
-           Parameters.Any(parameter => parameter.Type == "QuantumType");
+        => ReturnType.Name == "QuantumType" ||
+           Parameters.Any(parameter => parameter.Type.Name == "QuantumType");
 }

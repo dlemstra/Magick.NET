@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
@@ -12,6 +13,8 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 {
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
+        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<CleanupAttribute>());
+        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<InstanceAttribute>());
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<NativeInteropAttribute>());
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<ThrowsAttribute>());
         context.RegisterAttributeCodeGenerator<NativeInteropAttribute, NativeInteropInfo>(GetClass, GenerateCode);
@@ -49,8 +52,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         codeBuilder.Append("public partial class ");
         codeBuilder.AppendLine(info.ParentClassName);
-        codeBuilder.AppendLine("{");
-        codeBuilder.Indent++;
+        codeBuilder.AppendOpenBrace();
 
         AppendNativeInterop(codeBuilder, info);
 
@@ -58,8 +60,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         AppendNativeClass(codeBuilder, info);
 
-        codeBuilder.Indent--;
-        codeBuilder.AppendLine("}");
+        codeBuilder.AppendCloseBrace();
 
         context.AddSource($"{info.ParentClassName}.g.cs", SourceText.From(codeBuilder.ToString(), Encoding.UTF8));
     }
@@ -67,13 +68,11 @@ internal class NativeInteropGenerator : IIncrementalGenerator
     private static void AppendNativeInterop(CodeBuilder codeBuilder, NativeInteropInfo info)
     {
         codeBuilder.AppendLine("private unsafe static class NativeMethods");
-        codeBuilder.AppendLine("{");
-        codeBuilder.Indent++;
+        codeBuilder.AppendOpenBrace();
         AppendNativeInterop(codeBuilder, info, "x64");
         AppendNativeInterop(codeBuilder, info, "arm64");
         AppendNativeInterop(codeBuilder, info, "x86");
-        codeBuilder.Indent--;
-        codeBuilder.AppendLine("}");
+        codeBuilder.AppendCloseBrace();
     }
 
     private static void AppendNativeInterop(CodeBuilder codeBuilder, NativeInteropInfo info, string platform)
@@ -85,28 +84,43 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendLine(" || PLATFORM_AnyCPU");
         codeBuilder.Append("public static class ");
         codeBuilder.AppendLine(name);
-        codeBuilder.AppendLine("{");
-        codeBuilder.Indent++;
+        codeBuilder.AppendOpenBrace();
 
-        foreach (var method in info.Methods)
+        var uniqueMethods = info.Methods
+            .GroupBy(method => method.Name)
+            .OrderBy(group => group.First().OnlySupportedInNetstandard21)
+            .Select(group => group.First());
+
+        foreach (var method in uniqueMethods)
         {
+            if (method.OnlySupportedInNetstandard21)
+                codeBuilder.AppendLine("#if NETSTANDARD2_1");
+
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
             codeBuilder.AppendLine("Name, CallingConvention = CallingConvention.Cdecl)]");
             codeBuilder.Append("public static extern ");
-            codeBuilder.Append(method.ReturnType);
+            if (method.SetsInstance)
+                codeBuilder.Append("IntPtr");
+            else
+                codeBuilder.Append(method.ReturnType.NativeName);
             codeBuilder.Append(" ");
             codeBuilder.Append(info.ParentClassName);
             codeBuilder.Append("_");
             codeBuilder.Append(method.Name);
             codeBuilder.Append("(");
+            if (method.UsesInstance)
+                codeBuilder.Append("IntPtr instance");
+
             for (var i = 0; i < method.Parameters.Count; i++)
             {
                 var parameter = method.Parameters[i];
-                if (i > 0)
+                if (method.UsesInstance ? i == 0 : i > 0)
                     codeBuilder.Append(", ");
 
-                codeBuilder.Append(parameter.NativeType);
+                if (parameter.IsOut)
+                    codeBuilder.Append("out ");
+                codeBuilder.Append(parameter.Type.NativeName);
                 codeBuilder.Append(" ");
                 codeBuilder.Append(parameter.Name);
             }
@@ -121,10 +135,12 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
             codeBuilder.Append(")");
             codeBuilder.AppendLine(";");
+
+            if (method.OnlySupportedInNetstandard21)
+                codeBuilder.AppendLine("#endif");
         }
 
-        codeBuilder.Indent--;
-        codeBuilder.AppendLine("}");
+        codeBuilder.AppendCloseBrace();
         codeBuilder.AppendLine("#endif");
     }
 
@@ -132,8 +148,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
     {
         codeBuilder.Append("private unsafe partial class ");
         codeBuilder.AppendLine(info.ClassName);
-        codeBuilder.AppendLine("{");
-        codeBuilder.Indent++;
+        codeBuilder.AppendOpenBrace();
 
         codeBuilder.Append("static ");
         codeBuilder.Append(info.ClassName);
@@ -141,11 +156,17 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         foreach (var method in info.Methods)
         {
+            if (method.OnlySupportedInNetstandard21)
+                codeBuilder.AppendLine("#if NETSTANDARD2_1");
+
             codeBuilder.Append("public ");
             if (method.IsStatic)
                 codeBuilder.Append("static ");
             codeBuilder.Append("partial ");
-            codeBuilder.Append(method.ReturnType);
+            if (method.SetsInstance)
+                codeBuilder.Append("void");
+            else
+                codeBuilder.Append(method.ReturnType.Name);
             codeBuilder.Append(" ");
             codeBuilder.Append(method.Name);
             codeBuilder.Append("(");
@@ -155,25 +176,65 @@ internal class NativeInteropGenerator : IIncrementalGenerator
                 if (i > 0)
                     codeBuilder.Append(", ");
 
-                codeBuilder.Append(parameter.Type);
+                if (parameter.IsOut)
+                    codeBuilder.Append("out ");
+                codeBuilder.Append(parameter.Type.Name);
                 codeBuilder.Append(" ");
                 codeBuilder.Append(parameter.Name);
             }
 
             codeBuilder.Append(")");
             codeBuilder.AppendLine();
-            codeBuilder.AppendLine("{");
-            codeBuilder.Indent++;
+            codeBuilder.AppendOpenBrace();
 
             if (!method.IsVoid)
             {
-                codeBuilder.Append(method.NativeReturnType);
+                codeBuilder.Append(method.ReturnType.NativeName);
                 codeBuilder.AppendLine(" result;");
+            }
+            else if (method.SetsInstance)
+            {
+                codeBuilder.AppendLine("IntPtr result;");
             }
 
             if (method.Throws)
             {
                 codeBuilder.AppendLine("IntPtr exception = IntPtr.Zero;");
+            }
+
+            foreach (var parameter in method.Parameters)
+            {
+                if (parameter.Type.IsFixed)
+                {
+                    codeBuilder.Append("fixed (");
+                    codeBuilder.Append(parameter.Type.NativeName);
+                    codeBuilder.Append(" ");
+                    codeBuilder.Append(parameter.Name);
+                    codeBuilder.Append("Fixed = ");
+                    codeBuilder.Append(parameter.Name);
+                    codeBuilder.AppendLine(")");
+                    codeBuilder.AppendOpenBrace();
+                }
+                else if (parameter.Type.IsInstance)
+                {
+                    codeBuilder.Append("using var ");
+                    codeBuilder.Append(parameter.Name);
+                    codeBuilder.Append("Native = ");
+                    switch (parameter.Type.Name)
+                    {
+                        case "string":
+                        case "string?":
+                            codeBuilder.Append("UTF8Marshaler");
+                            break;
+                        default:
+                            codeBuilder.Append("NotImplemented");
+                            break;
+                    }
+
+                    codeBuilder.Append(".CreateInstance(");
+                    codeBuilder.Append(parameter.Name);
+                    codeBuilder.AppendLine(");");
+                }
             }
 
             codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
@@ -189,20 +250,68 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine("#endif");
             AppendMethodImplementation(codeBuilder, info, method, "x86");
 
-            if (method.Throws)
+            if (method.Cleanup is not null)
+            {
+                codeBuilder.AppendLine("var magickException = MagickExceptionHelper.Create(exception);");
+                codeBuilder.AppendLine("if (magickException is MagickErrorException)");
+                codeBuilder.AppendOpenBrace();
+                codeBuilder.AppendLine("if (result != IntPtr.Zero)");
+                codeBuilder.Indent++;
+                codeBuilder.Append(method.Cleanup.Name);
+                codeBuilder.Append("(result, ");
+                codeBuilder.Append(method.Cleanup.Arguments);
+                codeBuilder.AppendLine(");");
+                codeBuilder.Indent--;
+                codeBuilder.AppendLine("throw magickException;");
+                codeBuilder.AppendCloseBrace();
+                if (!method.IsStatic)
+                    codeBuilder.AppendLine("RaiseWarning(magickException);");
+            }
+            else if (method.Throws)
             {
                 codeBuilder.AppendLine("MagickExceptionHelper.Check(exception);");
             }
 
-            if (!method.IsVoid)
-                codeBuilder.AppendLine("return result;");
+            if (method.SetsInstance)
+            {
+                codeBuilder.AppendLine("if (result != IntPtr.Zero)");
+                codeBuilder.Indent++;
+                codeBuilder.AppendLine("Instance = result;");
+                codeBuilder.Indent--;
+            }
+            else if (!method.IsVoid)
+            {
+                switch (method.ReturnType.Name)
+                {
+                    case "string":
+                        codeBuilder.AppendLine("return UTF8Marshaler.NativeToManaged(result);");
+                        break;
+                    case "string?":
+                        codeBuilder.AppendLine("return UTF8Marshaler.NativeToManagedNullable(result);");
+                        break;
+                    case "void":
+                        break;
+                    default:
+                        codeBuilder.AppendLine("return result;");
+                        break;
+                }
+            }
 
-            codeBuilder.Indent--;
-            codeBuilder.AppendLine("}");
+            foreach (var parameter in method.Parameters)
+            {
+                if (parameter.Type.IsFixed)
+                {
+                    codeBuilder.AppendCloseBrace();
+                }
+            }
+
+            codeBuilder.AppendCloseBrace();
+
+            if (method.OnlySupportedInNetstandard21)
+                codeBuilder.AppendLine("#endif");
         }
 
-        codeBuilder.Indent--;
-        codeBuilder.AppendLine("}");
+        codeBuilder.AppendCloseBrace();
     }
 
     private static void AppendMethodImplementation(CodeBuilder codeBuilder, NativeInteropInfo info, MethodInfo method, string platform)
@@ -210,7 +319,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.Append("#if PLATFORM_");
         codeBuilder.Append(platform);
         codeBuilder.AppendLine(" || PLATFORM_AnyCPU");
-        if (method.ReturnType.ToString() != "void")
+        if (!method.IsVoid || method.SetsInstance)
             codeBuilder.Append("result = ");
         codeBuilder.Append("NativeMethods.");
         codeBuilder.Append(platform.ToUpperInvariant());
@@ -219,13 +328,22 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.Append("_");
         codeBuilder.Append(method.Name);
         codeBuilder.Append("(");
+        if (method.UsesInstance)
+            codeBuilder.Append("Instance");
         for (var i = 0; i < method.Parameters.Count; i++)
         {
             var parameter = method.Parameters[i];
-            if (i > 0)
+            if (method.UsesInstance ? i == 0 : i > 0)
                 codeBuilder.Append(", ");
 
+            if (parameter.IsOut)
+                codeBuilder.Append("out ");
+
             codeBuilder.Append(parameter.Name);
+            if (parameter.Type.IsInstance)
+                codeBuilder.Append("Native.Instance");
+            else if (parameter.Type.IsFixed)
+                codeBuilder.Append("Fixed");
         }
 
         if (method.Throws)

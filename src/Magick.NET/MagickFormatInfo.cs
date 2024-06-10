@@ -17,15 +17,15 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
 
     private MagickFormatInfo(NativeMagickFormatInfo instance)
     {
-        Format = GetFormat(instance.Format);
-        Description = instance.Description;
-        CanReadMultithreaded = instance.CanReadMultithreaded;
-        CanWriteMultithreaded = instance.CanWriteMultithreaded;
-        SupportsMultipleFrames = instance.SupportsMultipleFrames;
-        SupportsReading = instance.SupportsReading;
-        SupportsWriting = instance.SupportsWriting;
-        MimeType = instance.MimeType;
-        ModuleFormat = GetFormat(instance.Module);
+        Format = GetFormat(instance.Format_Get());
+        Description = instance.Description_Get();
+        CanReadMultithreaded = instance.CanReadMultithreaded_Get();
+        CanWriteMultithreaded = instance.CanWriteMultithreaded_Get();
+        SupportsMultipleFrames = instance.SupportsMultipleFrames_Get();
+        SupportsReading = instance.SupportsReading_Get();
+        SupportsWriting = instance.SupportsWriting_Get();
+        MimeType = instance.MimeType_Get();
+        ModuleFormat = GetFormat(instance.Module_Get());
     }
 
     /// <summary>
@@ -217,15 +217,15 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
         var formats = new Dictionary<MagickFormat, IMagickFormatInfo>();
 
         var list = IntPtr.Zero;
-        var length = (UIntPtr)0;
-        var instance = new NativeMagickFormatInfo();
-
+        var length = 0;
         try
         {
-            list = instance.CreateList(out length);
+            list = NativeMagickFormatInfo.CreateList(out length);
+
+            var instance = new NativeMagickFormatInfo();
 
             var ptr = list;
-            for (var i = 0; i < (int)length; i++)
+            for (var i = 0; i < length; i++)
             {
                 instance.GetInfo(list, i);
 
@@ -241,7 +241,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
         finally
         {
             if (list != IntPtr.Zero)
-                NativeMagickFormatInfo.DisposeList(list, (int)length);
+                NativeMagickFormatInfo.DisposeList(list, length);
         }
 
         return formats;
