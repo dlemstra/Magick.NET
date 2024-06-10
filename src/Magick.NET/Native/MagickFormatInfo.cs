@@ -13,12 +13,7 @@ public partial class MagickFormatInfo
     private unsafe sealed partial class NativeMagickFormatInfo : ConstNativeInstance
     {
         protected override string TypeName
-        {
-            get
-            {
-                return nameof(MagickFormatInfo);
-            }
-        }
+            => nameof(MagickFormatInfo);
 
         [Throws]
         [Cleanup(Name = nameof(DisposeList), Arguments = "length")]
