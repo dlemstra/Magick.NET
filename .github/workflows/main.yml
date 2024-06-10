@@ -201,7 +201,7 @@ jobs:
 
     - name: Sign binaries
       if: github.event_name != 'pull_request'
-      uses: azure/trusted-signing-action@v0.3.18
+      uses: azure/trusted-signing-action@v0.3.20
       with:
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: ImageMagick
@@ -270,7 +270,7 @@ jobs:
 
     - name: Sign binaries
       if: github.event_name != 'pull_request'
-      uses: azure/trusted-signing-action@v0.3.18
+      uses: azure/trusted-signing-action@v0.3.20
       with:
         endpoint: https://eus.codesigning.azure.net/
         trusted-signing-account-name: ImageMagick
