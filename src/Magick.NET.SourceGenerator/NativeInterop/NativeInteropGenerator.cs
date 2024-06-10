@@ -98,7 +98,11 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
-            codeBuilder.AppendLine("Name, CallingConvention = CallingConvention.Cdecl)]");
+            codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = nameof(");
+            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.Append("_");
+            codeBuilder.Append(method.Name);
+            codeBuilder.AppendLine("))]");
             codeBuilder.Append("public static extern ");
             if (method.SetsInstance)
                 codeBuilder.Append("IntPtr");
