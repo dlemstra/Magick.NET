@@ -7,12 +7,8 @@ internal sealed class CleanupInfo
 {
     public CleanupInfo(string? name, string? arguments)
     {
-        Name = name is null ? "UnknownName" : name
-            .Replace("nameof(", string.Empty)
-            .Replace(")", string.Empty);
-
-        Arguments = arguments is null ? "UnknownArguments" : arguments
-            .Replace("\"", string.Empty);
+        Name = name is null ? "UnknownName" : name;
+        Arguments = arguments is null ? "UnknownArguments" : arguments;
     }
 
     public string Name { get; }

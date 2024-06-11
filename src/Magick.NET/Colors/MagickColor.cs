@@ -522,32 +522,19 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
             return null;
 
         using var nativeInstance = new NativeMagickColor(instance);
-        count = (int)nativeInstance.Count;
+        count = (int)nativeInstance.Count_Get();
         return new MagickColor(nativeInstance);
-    }
-
-    private static NativeMagickColor CreateNativeInstance(IMagickColor<QuantumType> instance)
-    {
-        return new NativeMagickColor
-        {
-            Red = instance.R,
-            Green = instance.G,
-            Blue = instance.B,
-            Alpha = instance.A,
-            Black = instance.K,
-            IsCMYK = instance.IsCmyk,
-        };
     }
 
     private void Initialize(NativeMagickColor instance)
     {
-        R = instance.Red;
-        G = instance.Green;
-        B = instance.Blue;
-        A = instance.Alpha;
-        K = instance.Black;
+        R = instance.Red_Get();
+        G = instance.Green_Get();
+        B = instance.Blue_Get();
+        A = instance.Alpha_Get();
+        K = instance.Black_Get();
 
-        IsCmyk = instance.IsCMYK;
+        IsCmyk = instance.IsCMYK_Get();
     }
 
     private void Initialize(QuantumType red, QuantumType green, QuantumType blue, QuantumType alpha)

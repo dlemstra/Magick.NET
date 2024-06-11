@@ -10,12 +10,20 @@ internal static class AttributeSyntaxExtensions
 {
     public static string? GetArgumentValue(this AttributeSyntax attribute, string name)
     {
-        var argument = attribute.ArgumentList!.Arguments
+        if (attribute.ArgumentList is null)
+            return null;
+
+        var argument = attribute.ArgumentList.Arguments
             .FirstOrDefault(argument => argument.NameEquals?.Name.Identifier.Text == name);
 
         if (argument == null)
             return null;
 
-        return argument.Expression.ToString();
+        var value = argument.Expression.ToString()
+            .Replace("nameof(", string.Empty)
+            .Replace(")", string.Empty)
+            .Replace("\"", string.Empty);
+
+        return value;
     }
 }

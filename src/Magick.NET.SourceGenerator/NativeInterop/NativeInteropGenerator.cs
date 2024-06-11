@@ -56,9 +56,9 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         AppendNativeInterop(codeBuilder, info);
 
-        codeBuilder.AppendLine();
-
         AppendNativeClass(codeBuilder, info);
+
+        AppendCreateMethods(context, codeBuilder, info);
 
         codeBuilder.AppendCloseBrace();
 
@@ -69,10 +69,11 @@ internal class NativeInteropGenerator : IIncrementalGenerator
     {
         codeBuilder.AppendLine("private unsafe static class NativeMethods");
         codeBuilder.AppendOpenBrace();
-        AppendNativeInterop(codeBuilder, info, "x64");
         AppendNativeInterop(codeBuilder, info, "arm64");
+        AppendNativeInterop(codeBuilder, info, "x64");
         AppendNativeInterop(codeBuilder, info, "x86");
         codeBuilder.AppendCloseBrace();
+        codeBuilder.AppendLine();
     }
 
     private static void AppendNativeInterop(CodeBuilder codeBuilder, NativeInteropInfo info, string platform)
@@ -90,6 +91,26 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             .GroupBy(method => method.Name)
             .OrderBy(group => group.First().OnlySupportedInNetstandard21)
             .Select(group => group.First());
+
+        if (info.HasConstructor)
+        {
+            codeBuilder.Append("[DllImport(NativeLibrary.");
+            codeBuilder.Append(name);
+            codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = nameof(");
+            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.AppendLine("_Dispose))]");
+            codeBuilder.Append("public static extern void ");
+            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.AppendLine("_Dispose(IntPtr instance);");
+            codeBuilder.Append("[DllImport(NativeLibrary.");
+            codeBuilder.Append(name);
+            codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = nameof(");
+            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.AppendLine("_Create))]");
+            codeBuilder.Append("public static extern IntPtr ");
+            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.AppendLine("_Create();");
+        }
 
         foreach (var method in uniqueMethods)
         {
@@ -119,7 +140,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             for (var i = 0; i < method.Parameters.Count; i++)
             {
                 var parameter = method.Parameters[i];
-                if (method.UsesInstance ? i == 0 : i > 0)
+                if (method.UsesInstance ? i >= 0 : i > 0)
                     codeBuilder.Append(", ");
 
                 if (parameter.IsOut)
@@ -157,6 +178,28 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.Append("static ");
         codeBuilder.Append(info.ClassName);
         codeBuilder.AppendLine("() { Environment.Initialize(); }");
+
+        if (info.HasConstructor)
+        {
+            codeBuilder.Append("public ");
+            codeBuilder.Append(info.ClassName);
+            codeBuilder.AppendLine("()");
+            codeBuilder.AppendOpenBrace();
+            AppendMethodCall(codeBuilder, info, "Create()");
+            codeBuilder.AppendCloseBrace();
+
+            codeBuilder.Append("public ");
+            codeBuilder.Append(info.ClassName);
+            codeBuilder.AppendLine("(IntPtr instance)");
+            codeBuilder.AppendOpenBrace();
+            codeBuilder.AppendLine("Instance = instance;");
+            codeBuilder.AppendCloseBrace();
+
+            codeBuilder.AppendLine("protected override void Dispose(IntPtr instance)");
+            codeBuilder.AppendOpenBrace();
+            AppendMethodCall(codeBuilder, info, "Dispose(instance)");
+            codeBuilder.AppendCloseBrace();
+        }
 
         foreach (var method in info.Methods)
         {
@@ -224,16 +267,16 @@ internal class NativeInteropGenerator : IIncrementalGenerator
                     codeBuilder.Append("using var ");
                     codeBuilder.Append(parameter.Name);
                     codeBuilder.Append("Native = ");
-                    switch (parameter.Type.Name)
-                    {
-                        case "string":
-                        case "string?":
-                            codeBuilder.Append("UTF8Marshaler");
-                            break;
-                        default:
-                            codeBuilder.Append("NotImplemented");
-                            break;
-                    }
+
+                    var name = parameter.Type.Name
+                        .TrimStart('I')
+                        .Replace("<QuantumType>", string.Empty)
+                        .Replace("?", string.Empty);
+
+                    if (name == "string")
+                        codeBuilder.Append("UTF8Marshaler");
+                    else
+                        codeBuilder.Append(name);
 
                     codeBuilder.Append(".CreateInstance(");
                     codeBuilder.Append(parameter.Name);
@@ -318,6 +361,46 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendCloseBrace();
     }
 
+    private static void AppendCreateMethods(SourceProductionContext context, CodeBuilder codeBuilder, NativeInteropInfo info)
+    {
+        if (info.ManagedToNative)
+        {
+            codeBuilder.AppendLine();
+            codeBuilder.Append("internal static INativeInstance CreateInstance(");
+            codeBuilder.Append(info.InterfaceName);
+            codeBuilder.AppendLine("? instance)");
+            codeBuilder.AppendOpenBrace();
+            codeBuilder.AppendLine("if (instance is null)");
+            codeBuilder.Indent++;
+            codeBuilder.AppendLine("return NativeInstance.Zero;");
+            codeBuilder.Indent--;
+            codeBuilder.Append("return ");
+            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.AppendLine(".CreateNativeInstance(instance);");
+            codeBuilder.AppendCloseBrace();
+        }
+
+        if (info.NativeToManaged)
+        {
+            codeBuilder.AppendLine();
+            codeBuilder.Append("internal static ");
+            codeBuilder.Append(info.InterfaceName);
+            codeBuilder.AppendLine("? CreateInstance(IntPtr instance)");
+            codeBuilder.AppendOpenBrace();
+            codeBuilder.AppendLine("if (instance == IntPtr.Zero)");
+            codeBuilder.Indent++;
+            codeBuilder.AppendLine("return null;");
+            codeBuilder.Indent--;
+            codeBuilder.Append("using var nativeInstance = new ");
+            codeBuilder.Append(info.ClassName);
+            codeBuilder.AppendLine("(instance);");
+            codeBuilder.Append("return new ");
+            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.AppendLine("(nativeInstance);");
+            codeBuilder.AppendCloseBrace();
+        }
+    }
+
     private static void AppendMethodImplementation(CodeBuilder codeBuilder, NativeInteropInfo info, MethodInfo method, string platform)
     {
         codeBuilder.Append("#if PLATFORM_");
@@ -337,7 +420,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         for (var i = 0; i < method.Parameters.Count; i++)
         {
             var parameter = method.Parameters[i];
-            if (method.UsesInstance ? i == 0 : i > 0)
+            if (method.UsesInstance ? i >= 0 : i > 0)
                 codeBuilder.Append(", ");
 
             if (parameter.IsOut)
@@ -359,6 +442,46 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         }
 
         codeBuilder.AppendLine(");");
+        codeBuilder.AppendLine("#endif");
+    }
+
+    private static void AppendMethodCall(CodeBuilder codeBuilder, NativeInteropInfo info, string methodCall)
+    {
+        codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+        codeBuilder.AppendLine("if (Runtime.IsArm64)");
+        codeBuilder.AppendLine("#endif");
+        codeBuilder.AppendLine("#if PLATFORM_arm64 || PLATFORM_AnyCPU");
+        if (methodCall == "Create()")
+            codeBuilder.Append("Instance = ");
+        codeBuilder.Append("NativeMethods.ARM64.");
+        codeBuilder.Append(info.ParentClassName);
+        codeBuilder.Append("_");
+        codeBuilder.Append(methodCall);
+        codeBuilder.AppendLine(";");
+        codeBuilder.AppendLine("#endif");
+        codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+        codeBuilder.AppendLine("else if (Runtime.Is64Bit)");
+        codeBuilder.AppendLine("#endif");
+        codeBuilder.AppendLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
+        if (methodCall == "Create()")
+            codeBuilder.Append("Instance = ");
+        codeBuilder.Append("NativeMethods.X64.");
+        codeBuilder.Append(info.ParentClassName);
+        codeBuilder.Append("_");
+        codeBuilder.Append(methodCall);
+        codeBuilder.AppendLine(";");
+        codeBuilder.AppendLine("#endif");
+        codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+        codeBuilder.AppendLine("else");
+        codeBuilder.AppendLine("#endif");
+        codeBuilder.AppendLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
+        if (methodCall == "Create()")
+            codeBuilder.Append("Instance = ");
+        codeBuilder.Append("NativeMethods.X86.");
+        codeBuilder.Append(info.ParentClassName);
+        codeBuilder.Append("_");
+        codeBuilder.Append(methodCall);
+        codeBuilder.AppendLine(";");
         codeBuilder.AppendLine("#endif");
     }
 }

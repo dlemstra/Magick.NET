@@ -25,6 +25,8 @@ internal sealed class TypeInfo
     public bool IsInstance
         => Name switch
         {
+            "bool" => false,
+            "byte" => false,
             "byte[]" => false,
             "double" => false,
             "int" => false,
@@ -51,10 +53,14 @@ internal sealed class TypeInfo
     public string NativeName
         => _type.ToString() switch
         {
+            "bool" => "bool",
+            "byte" => "byte",
             "byte[]" => "byte*",
+            "double" => "double",
+            "int" => "int",
+            "QuantumType" => "QuantumType",
             "ReadOnlySpan<byte>" => "byte*",
-            "string" => "IntPtr",
-            "string?" => "IntPtr",
-            _ => _type.ToString(),
+            "ulong" => "ulong",
+            _ => "IntPtr",
         };
 }

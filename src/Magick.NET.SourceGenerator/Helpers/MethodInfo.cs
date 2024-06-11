@@ -36,7 +36,7 @@ internal sealed class MethodInfo
             .FirstOrDefault();
 
         UsesInstance = !IsStatic;
-        SetsInstance = !IsStatic && IsVoid;
+        SetsInstance = !IsStatic && IsVoid && !Name.EndsWith("_Set");
 
         var instanceAttribute = method.AttributeLists
             .SelectMany(list => list.Attributes)
