@@ -21,7 +21,7 @@ internal class NativeInteropInfo
             .Select(method => new MethodInfo(method))
             .ToList();
 
-        HasConstructor = _class.BaseList?.Types.ToString() == "NativeInstance";
+        IsNativeInstance = _class.BaseList?.Types.ToString() == "NativeInstance";
 
         var parentClass = (ClassDeclarationSyntax)_class.Parent!;
         ParentClassName = parentClass.Identifier.Text;
@@ -49,7 +49,7 @@ internal class NativeInteropInfo
     public string ClassName
         => _class.Identifier.Text;
 
-    public bool HasConstructor { get; }
+    public bool IsNativeInstance { get; }
 
     public string? InterfaceName { get; }
 

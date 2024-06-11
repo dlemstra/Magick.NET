@@ -97,7 +97,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             .OrderBy(group => group.First().OnlySupportedInNetstandard21)
             .Select(group => group.First());
 
-        if (info.HasConstructor)
+        if (info.IsNativeInstance)
         {
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
@@ -107,14 +107,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Append("public static extern void ");
             codeBuilder.Append(info.ParentClassName);
             codeBuilder.AppendLine("_Dispose(IntPtr instance);");
-            codeBuilder.Append("[DllImport(NativeLibrary.");
-            codeBuilder.Append(name);
-            codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = nameof(");
-            codeBuilder.Append(info.ParentClassName);
-            codeBuilder.AppendLine("_Create))]");
-            codeBuilder.Append("public static extern IntPtr ");
-            codeBuilder.Append(info.ParentClassName);
-            codeBuilder.AppendLine("_Create();");
         }
 
         foreach (var method in uniqueMethods)
@@ -184,186 +176,219 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.Append(info.ClassName);
         codeBuilder.AppendLine("() { Environment.Initialize(); }");
 
-        if (info.HasConstructor)
-        {
-            codeBuilder.Append("public ");
-            codeBuilder.Append(info.ClassName);
-            codeBuilder.AppendLine("()");
-            codeBuilder.AppendOpenBrace();
-            AppendMethodCall(codeBuilder, info, "Create()");
-            codeBuilder.AppendCloseBrace();
+        AppendNativeConstructor(codeBuilder, info);
 
-            codeBuilder.Append("public ");
-            codeBuilder.Append(info.ClassName);
-            codeBuilder.AppendLine("(IntPtr instance)");
-            codeBuilder.AppendOpenBrace();
-            codeBuilder.AppendLine("Instance = instance;");
-            codeBuilder.AppendCloseBrace();
-
-            codeBuilder.AppendLine("protected override void Dispose(IntPtr instance)");
-            codeBuilder.AppendOpenBrace();
-            AppendMethodCall(codeBuilder, info, "Dispose(instance)");
-            codeBuilder.AppendCloseBrace();
-        }
+        AppendNativeClassInstanceMethods(codeBuilder, info);
 
         foreach (var method in info.Methods)
         {
-            if (method.OnlySupportedInNetstandard21)
-                codeBuilder.AppendLine("#if NETSTANDARD2_1");
-
-            codeBuilder.Append("public ");
-            if (method.IsStatic)
-                codeBuilder.Append("static ");
-            codeBuilder.Append("partial ");
-            if (method.SetsInstance)
-                codeBuilder.Append("void");
-            else
-                codeBuilder.Append(method.ReturnType.Name);
-            codeBuilder.Append(" ");
-            codeBuilder.Append(method.Name);
-            codeBuilder.Append("(");
-            for (var i = 0; i < method.Parameters.Count; i++)
-            {
-                var parameter = method.Parameters[i];
-                if (i > 0)
-                    codeBuilder.Append(", ");
-
-                if (parameter.IsOut)
-                    codeBuilder.Append("out ");
-                codeBuilder.Append(parameter.Type.Name);
-                codeBuilder.Append(" ");
-                codeBuilder.Append(parameter.Name);
-            }
-
-            codeBuilder.Append(")");
-            codeBuilder.AppendLine();
-            codeBuilder.AppendOpenBrace();
-
-            if (!method.IsVoid)
-            {
-                codeBuilder.Append(method.ReturnType.NativeName);
-                codeBuilder.AppendLine(" result;");
-            }
-            else if (method.SetsInstance)
-            {
-                codeBuilder.AppendLine("IntPtr result;");
-            }
-
-            if (method.Throws)
-            {
-                codeBuilder.AppendLine("IntPtr exception = IntPtr.Zero;");
-            }
-
-            foreach (var parameter in method.Parameters)
-            {
-                if (parameter.Type.IsFixed)
-                {
-                    codeBuilder.Append("fixed (");
-                    codeBuilder.Append(parameter.Type.NativeName);
-                    codeBuilder.Append(" ");
-                    codeBuilder.Append(parameter.Name);
-                    codeBuilder.Append("Fixed = ");
-                    codeBuilder.Append(parameter.Name);
-                    codeBuilder.AppendLine(")");
-                    codeBuilder.AppendOpenBrace();
-                }
-                else if (parameter.Type.IsInstance)
-                {
-                    codeBuilder.Append("using var ");
-                    codeBuilder.Append(parameter.Name);
-                    codeBuilder.Append("Native = ");
-
-                    var name = parameter.Type.Name
-                        .TrimStart('I')
-                        .Replace("<QuantumType>", string.Empty)
-                        .Replace("?", string.Empty);
-
-                    if (name == "string")
-                        codeBuilder.Append("UTF8Marshaler");
-                    else
-                        codeBuilder.Append(name);
-
-                    codeBuilder.Append(".CreateInstance(");
-                    codeBuilder.Append(parameter.Name);
-                    codeBuilder.AppendLine(");");
-                }
-            }
-
-            codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
-            codeBuilder.AppendLine("if (Runtime.IsArm64)");
-            codeBuilder.AppendLine("#endif");
-            AppendMethodImplementation(codeBuilder, info, method, "arm64");
-            codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
-            codeBuilder.AppendLine("else if (Runtime.Is64Bit)");
-            codeBuilder.AppendLine("#endif");
-            AppendMethodImplementation(codeBuilder, info, method, "x64");
-            codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
-            codeBuilder.AppendLine("else");
-            codeBuilder.AppendLine("#endif");
-            AppendMethodImplementation(codeBuilder, info, method, "x86");
-
-            if (method.Cleanup is not null)
-            {
-                codeBuilder.AppendLine("var magickException = MagickExceptionHelper.Create(exception);");
-                codeBuilder.AppendLine("if (magickException is MagickErrorException)");
-                codeBuilder.AppendOpenBrace();
-                codeBuilder.AppendLine("if (result != IntPtr.Zero)");
-                codeBuilder.Indent++;
-                codeBuilder.Append(method.Cleanup.Name);
-                codeBuilder.Append("(result, ");
-                codeBuilder.Append(method.Cleanup.Arguments);
-                codeBuilder.AppendLine(");");
-                codeBuilder.Indent--;
-                codeBuilder.AppendLine("throw magickException;");
-                codeBuilder.AppendCloseBrace();
-                if (!method.IsStatic)
-                    codeBuilder.AppendLine("RaiseWarning(magickException);");
-            }
-            else if (method.Throws)
-            {
-                codeBuilder.AppendLine("MagickExceptionHelper.Check(exception);");
-            }
-
-            if (method.SetsInstance)
-            {
-                codeBuilder.AppendLine("if (result != IntPtr.Zero)");
-                codeBuilder.Indent++;
-                codeBuilder.AppendLine("Instance = result;");
-                codeBuilder.Indent--;
-            }
-            else if (!method.IsVoid)
-            {
-                switch (method.ReturnType.Name)
-                {
-                    case "string":
-                        codeBuilder.AppendLine("return UTF8Marshaler.NativeToManaged(result);");
-                        break;
-                    case "string?":
-                        codeBuilder.AppendLine("return UTF8Marshaler.NativeToManagedNullable(result);");
-                        break;
-                    case "void":
-                        break;
-                    default:
-                        codeBuilder.AppendLine("return result;");
-                        break;
-                }
-            }
-
-            foreach (var parameter in method.Parameters)
-            {
-                if (parameter.Type.IsFixed)
-                {
-                    codeBuilder.AppendCloseBrace();
-                }
-            }
-
-            codeBuilder.AppendCloseBrace();
-
-            if (method.OnlySupportedInNetstandard21)
-                codeBuilder.AppendLine("#endif");
+            AppendNativeMethod(codeBuilder, info, method);
         }
 
         codeBuilder.AppendCloseBrace();
+    }
+
+    private static void AppendNativeConstructor(CodeBuilder codeBuilder, NativeInteropInfo info)
+    {
+        if (info.NativeToManaged)
+        {
+            codeBuilder.AppendLine();
+            codeBuilder.Append("public ");
+            codeBuilder.Append(info.ClassName);
+            codeBuilder.AppendLine("(IntPtr nativeInstance)");
+            codeBuilder.Indent++;
+            codeBuilder.AppendLine("=> Instance = nativeInstance;");
+            codeBuilder.Indent--;
+        }
+    }
+
+    private static void AppendNativeClassInstanceMethods(CodeBuilder codeBuilder, NativeInteropInfo info)
+    {
+        if (info.IsNativeInstance)
+        {
+            codeBuilder.AppendLine();
+            codeBuilder.AppendLine("protected override string TypeName");
+            codeBuilder.Indent++;
+            codeBuilder.Append("=> nameof(");
+            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.AppendLine(");");
+            codeBuilder.Indent--;
+
+            codeBuilder.AppendLine();
+            codeBuilder.AppendLine("protected override void Dispose(IntPtr instance)");
+            codeBuilder.AppendOpenBrace();
+            codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+            codeBuilder.AppendLine("if (Runtime.IsArm64)");
+            codeBuilder.AppendLine("#endif");
+            AppendDisposeCall(codeBuilder, info, "arm64");
+            codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+            codeBuilder.AppendLine("else if (Runtime.Is64Bit)");
+            codeBuilder.AppendLine("#endif");
+            AppendDisposeCall(codeBuilder, info, "x64");
+            codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+            codeBuilder.AppendLine("else");
+            codeBuilder.AppendLine("#endif");
+            AppendDisposeCall(codeBuilder, info, "x86");
+            codeBuilder.AppendCloseBrace();
+        }
+    }
+
+    private static void AppendNativeMethod(CodeBuilder codeBuilder, NativeInteropInfo info, MethodInfo method)
+    {
+        codeBuilder.AppendLine();
+        if (method.OnlySupportedInNetstandard21)
+            codeBuilder.AppendLine("#if NETSTANDARD2_1");
+
+        codeBuilder.Append("public ");
+        if (method.IsStatic)
+            codeBuilder.Append("static ");
+        codeBuilder.Append("partial ");
+        if (method.SetsInstance)
+            codeBuilder.Append("void");
+        else
+            codeBuilder.Append(method.ReturnType.Name);
+        codeBuilder.Append(" ");
+        codeBuilder.Append(method.Name);
+        codeBuilder.Append("(");
+        for (var i = 0; i < method.Parameters.Count; i++)
+        {
+            var parameter = method.Parameters[i];
+            if (i > 0)
+                codeBuilder.Append(", ");
+
+            if (parameter.IsOut)
+                codeBuilder.Append("out ");
+            codeBuilder.Append(parameter.Type.Name);
+            codeBuilder.Append(" ");
+            codeBuilder.Append(parameter.Name);
+        }
+
+        codeBuilder.Append(")");
+        codeBuilder.AppendLine();
+        codeBuilder.AppendOpenBrace();
+
+        if (!method.IsVoid)
+        {
+            codeBuilder.Append(method.ReturnType.NativeName);
+            codeBuilder.AppendLine(" result;");
+        }
+        else if (method.SetsInstance)
+        {
+            codeBuilder.AppendLine("IntPtr result;");
+        }
+
+        if (method.Throws)
+        {
+            codeBuilder.AppendLine("IntPtr exception = IntPtr.Zero;");
+        }
+
+        foreach (var parameter in method.Parameters)
+        {
+            if (parameter.Type.IsFixed)
+            {
+                codeBuilder.Append("fixed (");
+                codeBuilder.Append(parameter.Type.NativeName);
+                codeBuilder.Append(" ");
+                codeBuilder.Append(parameter.Name);
+                codeBuilder.Append("Fixed = ");
+                codeBuilder.Append(parameter.Name);
+                codeBuilder.AppendLine(")");
+                codeBuilder.AppendOpenBrace();
+            }
+            else if (parameter.Type.IsInstance)
+            {
+                codeBuilder.Append("using var ");
+                codeBuilder.Append(parameter.Name);
+                codeBuilder.Append("Native = ");
+
+                var name = parameter.Type.Name
+                    .TrimStart('I')
+                    .Replace("<QuantumType>", string.Empty)
+                    .Replace("?", string.Empty);
+
+                if (name == "string")
+                    codeBuilder.Append("UTF8Marshaler");
+                else
+                    codeBuilder.Append(name);
+
+                codeBuilder.Append(".CreateInstance(");
+                codeBuilder.Append(parameter.Name);
+                codeBuilder.AppendLine(");");
+            }
+        }
+
+        codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+        codeBuilder.AppendLine("if (Runtime.IsArm64)");
+        codeBuilder.AppendLine("#endif");
+        AppendMethodImplementation(codeBuilder, info, method, "arm64");
+        codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+        codeBuilder.AppendLine("else if (Runtime.Is64Bit)");
+        codeBuilder.AppendLine("#endif");
+        AppendMethodImplementation(codeBuilder, info, method, "x64");
+        codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+        codeBuilder.AppendLine("else");
+        codeBuilder.AppendLine("#endif");
+        AppendMethodImplementation(codeBuilder, info, method, "x86");
+
+        if (method.Cleanup is not null)
+        {
+            codeBuilder.AppendLine("var magickException = MagickExceptionHelper.Create(exception);");
+            codeBuilder.AppendLine("if (magickException is MagickErrorException)");
+            codeBuilder.AppendOpenBrace();
+            codeBuilder.AppendLine("if (result != IntPtr.Zero)");
+            codeBuilder.Indent++;
+            codeBuilder.Append(method.Cleanup.Name);
+            codeBuilder.Append("(result, ");
+            codeBuilder.Append(method.Cleanup.Arguments);
+            codeBuilder.AppendLine(");");
+            codeBuilder.Indent--;
+            codeBuilder.AppendLine("throw magickException;");
+            codeBuilder.AppendCloseBrace();
+            if (!method.IsStatic)
+                codeBuilder.AppendLine("RaiseWarning(magickException);");
+        }
+        else if (method.Throws)
+        {
+            codeBuilder.AppendLine("MagickExceptionHelper.Check(exception);");
+        }
+
+        if (method.SetsInstance)
+        {
+            codeBuilder.AppendLine("if (result != IntPtr.Zero)");
+            codeBuilder.Indent++;
+            codeBuilder.AppendLine("Instance = result;");
+            codeBuilder.Indent--;
+        }
+        else if (!method.IsVoid)
+        {
+            switch (method.ReturnType.Name)
+            {
+                case "string":
+                    codeBuilder.AppendLine("return UTF8Marshaler.NativeToManaged(result);");
+                    break;
+                case "string?":
+                    codeBuilder.AppendLine("return UTF8Marshaler.NativeToManagedNullable(result);");
+                    break;
+                case "void":
+                    break;
+                default:
+                    codeBuilder.AppendLine("return result;");
+                    break;
+            }
+        }
+
+        foreach (var parameter in method.Parameters)
+        {
+            if (parameter.Type.IsFixed)
+            {
+                codeBuilder.AppendCloseBrace();
+            }
+        }
+
+        codeBuilder.AppendCloseBrace();
+
+        if (method.OnlySupportedInNetstandard21)
+            codeBuilder.AppendLine("#endif");
     }
 
     private static void AppendCreateMethods(SourceProductionContext context, CodeBuilder codeBuilder, NativeInteropInfo info)
@@ -404,6 +429,19 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine("(nativeInstance);");
             codeBuilder.AppendCloseBrace();
         }
+    }
+
+    private static void AppendDisposeCall(CodeBuilder codeBuilder, NativeInteropInfo info, string platform)
+    {
+        codeBuilder.Append("#if PLATFORM_");
+        codeBuilder.Append(platform);
+        codeBuilder.AppendLine(" || PLATFORM_AnyCPU");
+        codeBuilder.Append("NativeMethods.");
+        codeBuilder.Append(platform.ToUpperInvariant());
+        codeBuilder.Append(".");
+        codeBuilder.Append(info.ParentClassName);
+        codeBuilder.AppendLine("_Dispose(instance);");
+        codeBuilder.AppendLine("#endif");
     }
 
     private static void AppendMethodImplementation(CodeBuilder codeBuilder, NativeInteropInfo info, MethodInfo method, string platform)
@@ -447,46 +485,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         }
 
         codeBuilder.AppendLine(");");
-        codeBuilder.AppendLine("#endif");
-    }
-
-    private static void AppendMethodCall(CodeBuilder codeBuilder, NativeInteropInfo info, string methodCall)
-    {
-        codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
-        codeBuilder.AppendLine("if (Runtime.IsArm64)");
-        codeBuilder.AppendLine("#endif");
-        codeBuilder.AppendLine("#if PLATFORM_arm64 || PLATFORM_AnyCPU");
-        if (methodCall == "Create()")
-            codeBuilder.Append("Instance = ");
-        codeBuilder.Append("NativeMethods.ARM64.");
-        codeBuilder.Append(info.ParentClassName);
-        codeBuilder.Append("_");
-        codeBuilder.Append(methodCall);
-        codeBuilder.AppendLine(";");
-        codeBuilder.AppendLine("#endif");
-        codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
-        codeBuilder.AppendLine("else if (Runtime.Is64Bit)");
-        codeBuilder.AppendLine("#endif");
-        codeBuilder.AppendLine("#if PLATFORM_x64 || PLATFORM_AnyCPU");
-        if (methodCall == "Create()")
-            codeBuilder.Append("Instance = ");
-        codeBuilder.Append("NativeMethods.X64.");
-        codeBuilder.Append(info.ParentClassName);
-        codeBuilder.Append("_");
-        codeBuilder.Append(methodCall);
-        codeBuilder.AppendLine(";");
-        codeBuilder.AppendLine("#endif");
-        codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
-        codeBuilder.AppendLine("else");
-        codeBuilder.AppendLine("#endif");
-        codeBuilder.AppendLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
-        if (methodCall == "Create()")
-            codeBuilder.Append("Instance = ");
-        codeBuilder.Append("NativeMethods.X86.");
-        codeBuilder.Append(info.ParentClassName);
-        codeBuilder.Append("_");
-        codeBuilder.Append(methodCall);
-        codeBuilder.AppendLine(";");
         codeBuilder.AppendLine("#endif");
     }
 }

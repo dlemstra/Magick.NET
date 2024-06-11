@@ -1,6 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick.SourceGenerator;
 
 #if Q8
@@ -34,8 +35,10 @@ public partial class MagickColor
     [NativeInterop(QuantumType = true, ManagedToNative = true, NativeToManaged = true)]
     private unsafe sealed partial class NativeMagickColor : NativeInstance
     {
-        protected override string TypeName
-            => nameof(MagickColor);
+        public NativeMagickColor()
+            => Instance = Create();
+
+        public static partial IntPtr Create();
 
         public partial ulong Count_Get();
 
