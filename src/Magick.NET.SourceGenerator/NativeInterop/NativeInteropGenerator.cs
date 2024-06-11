@@ -50,7 +50,12 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine();
         }
 
-        codeBuilder.Append("public partial class ");
+        if (info.IsInternal)
+            codeBuilder.Append("internal");
+        else
+            codeBuilder.Append("public");
+
+        codeBuilder.Append(" partial class ");
         codeBuilder.AppendLine(info.ParentClassName);
         codeBuilder.AppendOpenBrace();
 

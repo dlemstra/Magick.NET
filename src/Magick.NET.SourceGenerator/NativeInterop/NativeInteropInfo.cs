@@ -4,6 +4,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace ImageMagick.SourceGenerator;
@@ -21,7 +22,10 @@ internal class NativeInteropInfo
             .ToList();
 
         HasConstructor = _class.BaseList?.Types.ToString() == "NativeInstance";
-        ParentClassName = ((ClassDeclarationSyntax)_class.Parent!).Identifier.Text;
+
+        var parentClass = (ClassDeclarationSyntax)_class.Parent!;
+        ParentClassName = parentClass.Identifier.Text;
+        IsInternal = parentClass.Modifiers.Any(modifier => modifier.IsKind(SyntaxKind.InternalKeyword));
 
         var nativeInteropAttribute = _class.AttributeLists
             .SelectMany(list => list.Attributes)
@@ -48,6 +52,8 @@ internal class NativeInteropInfo
     public bool HasConstructor { get; }
 
     public string? InterfaceName { get; }
+
+    public bool IsInternal { get; }
 
     public bool ManagedToNative { get; }
 
