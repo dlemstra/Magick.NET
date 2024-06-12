@@ -13,15 +13,15 @@ internal sealed class MethodInfo
 {
     private readonly MethodDeclarationSyntax _method;
 
-    public MethodInfo(MethodDeclarationSyntax method)
+    public MethodInfo(SemanticModel semanticModel, MethodDeclarationSyntax method)
     {
         _method = method;
 
         Parameters = _method.ParameterList.Parameters
-            .Select(parameter => new ParameterInfo(parameter))
+            .Select(parameter => new ParameterInfo(semanticModel, parameter))
             .ToList();
 
-        ReturnType = new TypeInfo(method.ReturnType);
+        ReturnType = new TypeInfo(semanticModel, method.ReturnType);
 
         IsStatic = method.Modifiers.Any(modifier => modifier.IsKind(SyntaxKind.StaticKeyword));
 
@@ -45,7 +45,7 @@ internal sealed class MethodInfo
         if (instanceAttribute is not null)
         {
             UsesInstance = instanceAttribute.GetArgumentValue(nameof(InstanceAttribute.UsesInstance)) != "false";
-            SetsInstance = instanceAttribute.GetArgumentValue(nameof(InstanceAttribute.SetInstance)) != "false";
+            SetsInstance = instanceAttribute.GetArgumentValue(nameof(InstanceAttribute.SetsInstance)) != "false";
         }
     }
 
@@ -74,6 +74,6 @@ internal sealed class MethodInfo
     public bool UsesInstance { get; }
 
     public bool UsesQuantumType
-        => ReturnType.Name == "QuantumType" ||
-           Parameters.Any(parameter => parameter.Type.Name == "QuantumType");
+        => ReturnType.Name.Contains("QuantumType") ||
+           Parameters.Any(parameter => parameter.Type.Name.Contains("QuantumType"));
 }

@@ -13,12 +13,12 @@ internal class NativeInteropInfo
 {
     private readonly ClassDeclarationSyntax _class;
 
-    public NativeInteropInfo(SyntaxNode syntaxNode)
+    public NativeInteropInfo(SemanticModel semanticModel, SyntaxNode syntaxNode)
     {
         _class = (ClassDeclarationSyntax)syntaxNode;
         Methods = _class.Members
             .OfType<MethodDeclarationSyntax>()
-            .Select(method => new MethodInfo(method))
+            .Select(method => new MethodInfo(semanticModel, method))
             .ToList();
 
         IsNativeInstance = _class.BaseList?.Types.ToString() == "NativeInstance";
@@ -44,10 +44,14 @@ internal class NativeInteropInfo
         NativeToManaged = nativeInteropAttribute
             .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.NativeToManaged)))
             .FirstOrDefault() == "true";
+
+        HasInstance = IsNativeInstance && !(ManagedToNative || NativeToManaged);
     }
 
     public string ClassName
         => _class.Identifier.Text;
+
+    public bool HasInstance { get; }
 
     public bool IsNativeInstance { get; }
 

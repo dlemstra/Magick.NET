@@ -21,7 +21,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
     }
 
     private static NativeInteropInfo GetClass(GeneratorAttributeSyntaxContext context)
-        => new(context.TargetNode);
+        => new(context.SemanticModel, context.TargetNode);
 
     private static void GenerateCode(SourceProductionContext context, NativeInteropInfo info)
     {
@@ -59,6 +59,8 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendLine(info.ParentClassName);
         codeBuilder.AppendOpenBrace();
 
+        AppendInstance(info, codeBuilder);
+
         AppendNativeInterop(codeBuilder, info);
 
         AppendNativeClass(codeBuilder, info);
@@ -68,6 +70,19 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendCloseBrace();
 
         context.AddSource($"{info.ParentClassName}.g.cs", SourceText.From(codeBuilder.ToString(), Encoding.UTF8));
+    }
+
+    private static void AppendInstance(NativeInteropInfo info, CodeBuilder codeBuilder)
+    {
+        if (!info.HasInstance)
+        {
+            return;
+        }
+
+        codeBuilder.Append("private ");
+        codeBuilder.Append(info.ClassName);
+        codeBuilder.AppendLine(" _nativeInstance;");
+        codeBuilder.AppendLine();
     }
 
     private static void AppendNativeInterop(CodeBuilder codeBuilder, NativeInteropInfo info)
@@ -149,7 +164,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
             if (method.Throws)
             {
-                if (method.Parameters.Count > 0)
+                if (method.UsesInstance || method.Parameters.Count > 0)
                     codeBuilder.Append(", ");
 
                 codeBuilder.Append("out IntPtr exception");
@@ -295,21 +310,16 @@ internal class NativeInteropGenerator : IIncrementalGenerator
                 codeBuilder.AppendLine(")");
                 codeBuilder.AppendOpenBrace();
             }
-            else if (parameter.Type.IsInstance)
+            else if (parameter.Type.HasCreateInstance)
             {
                 codeBuilder.Append("using var ");
                 codeBuilder.Append(parameter.Name);
                 codeBuilder.Append("Native = ");
 
-                var name = parameter.Type.Name
-                    .TrimStart('I')
-                    .Replace("<QuantumType>", string.Empty)
-                    .Replace("?", string.Empty);
-
-                if (name == "string")
+                if (parameter.Type.ClassName == "string")
                     codeBuilder.Append("UTF8Marshaler");
                 else
-                    codeBuilder.Append(name);
+                    codeBuilder.Append(parameter.Type.ClassName);
 
                 codeBuilder.Append(".CreateInstance(");
                 codeBuilder.Append(parameter.Name);
@@ -466,11 +476,23 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             if (method.UsesInstance ? i >= 0 : i > 0)
                 codeBuilder.Append(", ");
 
+            if (parameter.Type.HasGetInstance)
+            {
+                codeBuilder.Append(parameter.Type.ClassName);
+                codeBuilder.Append(".GetInstance(");
+                codeBuilder.Append(parameter.Name);
+                codeBuilder.Append(")");
+                continue;
+            }
+
             if (parameter.IsOut)
                 codeBuilder.Append("out ");
 
+            if (parameter.Type.IsEnum)
+                codeBuilder.Append("(UIntPtr)");
+
             codeBuilder.Append(parameter.Name);
-            if (parameter.Type.IsInstance)
+            if (parameter.Type.HasCreateInstance)
                 codeBuilder.Append("Native.Instance");
             else if (parameter.Type.IsFixed)
                 codeBuilder.Append("Fixed");
@@ -478,7 +500,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         if (method.Throws)
         {
-            if (method.Parameters.Count > 0)
+            if (method.UsesInstance || method.Parameters.Count > 0)
                 codeBuilder.Append(", ");
 
             codeBuilder.Append("out exception");
