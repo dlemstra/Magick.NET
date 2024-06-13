@@ -6,6 +6,7 @@ using ImageMagick.SourceGenerator;
 
 namespace ImageMagick;
 
+/// <content />
 internal static partial class MagickExceptionHelper
 {
     [NativeInterop]
