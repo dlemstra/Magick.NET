@@ -19,7 +19,7 @@ namespace ImageMagick;
 /// <content />
 internal partial class DrawingWand : IDisposable
 {
-    [NativeInterop(QuantumType = true)]
+    [NativeInterop]
     private unsafe sealed partial class NativeDrawingWand : NativeInstance
     {
         public NativeDrawingWand(IMagickImage image, DrawingSettings settings)
