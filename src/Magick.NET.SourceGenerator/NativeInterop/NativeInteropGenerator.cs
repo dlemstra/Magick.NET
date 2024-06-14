@@ -189,9 +189,12 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendLine(info.ClassName);
         codeBuilder.AppendOpenBrace();
 
-        codeBuilder.Append("static ");
-        codeBuilder.Append(info.ClassName);
-        codeBuilder.AppendLine("() { Environment.Initialize(); }");
+        if (info.ParentClassName != "Environment")
+        {
+            codeBuilder.Append("static ");
+            codeBuilder.Append(info.ClassName);
+            codeBuilder.AppendLine("() { Environment.Initialize(); }");
+        }
 
         AppendNativeConstructor(codeBuilder, info);
 
