@@ -62,8 +62,7 @@ public sealed partial class PdfInfo
 
         Throw.IfNull(nameof(password), password);
 
-        var nativePdfInfo = new NativePdfInfo();
-        var pageCount = nativePdfInfo.PageCount(filePath, password);
+        var pageCount = NativePdfInfo.PageCount(filePath, password);
         if (pageCount == 0)
             throw new MagickErrorException("Unable to determine the page count.");
 

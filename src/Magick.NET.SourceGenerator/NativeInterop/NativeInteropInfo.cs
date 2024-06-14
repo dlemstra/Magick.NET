@@ -26,6 +26,7 @@ internal class NativeInteropInfo
         var parentClass = (ClassDeclarationSyntax)_class.Parent!;
         ParentClassName = parentClass.Identifier.Text;
         IsInternal = parentClass.Modifiers.Any(modifier => modifier.IsKind(SyntaxKind.InternalKeyword));
+        Namespace = ((FileScopedNamespaceDeclarationSyntax)parentClass.Parent!).Name.ToString();
 
         var nativeInteropAttribute = _class.AttributeLists
             .SelectMany(list => list.Attributes)
@@ -62,6 +63,8 @@ internal class NativeInteropInfo
     public bool ManagedToNative { get; }
 
     public List<MethodInfo> Methods { get; }
+
+    public string Namespace { get; }
 
     public bool NativeToManaged { get; }
 

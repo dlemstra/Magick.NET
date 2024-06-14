@@ -33,7 +33,9 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendLine("using System.Runtime.InteropServices;");
 
         codeBuilder.AppendLine();
-        codeBuilder.AppendLine("namespace ImageMagick;");
+        codeBuilder.Append("namespace ");
+        codeBuilder.Append(info.Namespace);
+        codeBuilder.AppendLine(";");
         codeBuilder.AppendLine();
 
         if (info.UsesQuantumType)
