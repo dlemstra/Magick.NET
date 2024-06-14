@@ -33,7 +33,7 @@ public partial class MagickColor
     }
 
     [NativeInterop(QuantumType = true, ManagedToNative = true, NativeToManaged = true)]
-    private unsafe sealed partial class NativeMagickColor : NativeInstance
+    private sealed partial class NativeMagickColor : NativeInstance
     {
         public NativeMagickColor()
             => Instance = Create();

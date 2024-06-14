@@ -9,7 +9,7 @@ namespace ImageMagick;
 public partial class ResourceLimits
 {
     [NativeInterop]
-    private sealed partial class NativeResourceLimits
+    private partial class NativeResourceLimits
     {
         public static partial ulong Area_Get();
 

@@ -10,7 +10,7 @@ namespace ImageMagick;
 internal static partial class MagickExceptionHelper
 {
     [NativeInterop]
-    private static unsafe partial class NativeMagickExceptionHelper
+    private partial class NativeMagickExceptionHelper
     {
         public static partial string? Description(IntPtr exception);
 

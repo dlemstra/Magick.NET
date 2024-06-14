@@ -10,7 +10,7 @@ namespace ImageMagick;
 public partial class MagickFormatInfo
 {
     [NativeInterop]
-    private unsafe sealed partial class NativeMagickFormatInfo : ConstNativeInstance
+    private sealed partial class NativeMagickFormatInfo : ConstNativeInstance
     {
         protected override string TypeName
             => nameof(MagickFormatInfo);

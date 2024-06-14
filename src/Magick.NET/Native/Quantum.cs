@@ -19,7 +19,7 @@ namespace ImageMagick;
 public partial class Quantum
 {
     [NativeInterop]
-    private sealed partial class NativeQuantum
+    private partial class NativeQuantum
     {
         public static partial int Depth_Get();
 

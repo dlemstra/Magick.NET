@@ -9,7 +9,7 @@ namespace ImageMagick;
 internal static partial class MagickColorCollection
 {
     [NativeInterop]
-    private unsafe partial class NativeMagickColorCollection
+    private partial class NativeMagickColorCollection
     {
         public static partial void DisposeList(IntPtr list);
 
