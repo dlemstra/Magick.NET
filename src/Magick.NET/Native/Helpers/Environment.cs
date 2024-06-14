@@ -8,7 +8,7 @@ namespace ImageMagick;
 internal static partial class Environment
 {
     [NativeInterop]
-    private partial class NativeEnvironment
+    private static partial class NativeEnvironment
     {
         public static partial void Initialize();
 
