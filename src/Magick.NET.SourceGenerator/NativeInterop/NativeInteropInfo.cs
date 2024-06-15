@@ -22,6 +22,7 @@ internal class NativeInteropInfo
             .ToList();
 
         IsNativeInstance = _class.BaseList?.Types.ToString() == "NativeInstance";
+        IsConstNativeInstance = _class.BaseList?.Types.ToString() == "ConstNativeInstance";
 
         var parentClass = (ClassDeclarationSyntax)_class.Parent!;
         ParentClassName = parentClass.Identifier.Text;
@@ -53,6 +54,8 @@ internal class NativeInteropInfo
         => _class.Identifier.Text;
 
     public bool HasInstance { get; }
+
+    public bool IsConstNativeInstance { get; }
 
     public bool IsNativeInstance { get; }
 

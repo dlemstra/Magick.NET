@@ -224,7 +224,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
     private static void AppendNativeClassInstanceMethods(CodeBuilder codeBuilder, NativeInteropInfo info)
     {
-        if (info.IsNativeInstance)
+        if (info.IsNativeInstance || info.IsConstNativeInstance)
         {
             codeBuilder.AppendLine();
             codeBuilder.AppendLine("protected override string TypeName");
@@ -233,7 +233,10 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Append(info.ParentClassName);
             codeBuilder.AppendLine(");");
             codeBuilder.Indent--;
+        }
 
+        if (info.IsNativeInstance)
+        {
             codeBuilder.AppendLine();
             codeBuilder.AppendLine("protected override void Dispose(IntPtr instance)");
             codeBuilder.AppendOpenBrace();

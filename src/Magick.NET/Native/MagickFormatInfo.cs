@@ -12,9 +12,6 @@ public partial class MagickFormatInfo
     [NativeInterop]
     private sealed partial class NativeMagickFormatInfo : ConstNativeInstance
     {
-        protected override string TypeName
-            => nameof(MagickFormatInfo);
-
         [Throws]
         [Cleanup(Name = nameof(DisposeList), Arguments = "length")]
         public static partial IntPtr CreateList(out int length);
