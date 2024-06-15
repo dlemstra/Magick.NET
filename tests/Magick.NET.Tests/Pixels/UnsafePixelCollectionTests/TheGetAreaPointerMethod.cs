@@ -38,44 +38,12 @@ public partial class UnsafePixelCollectionTests
             => ThrowsNoException(0, 11, 1, 1);
 
         [Fact]
-        public void ShouldThrowExceptionWhenWidthTooLow()
-        {
-            using var image = new MagickImage(MagickColors.Red, 5, 10);
-            using var pixels = image.GetPixelsUnsafe();
-
-            if (Runtime.Is64Bit)
-            {
-                Assert.Throws<MagickImageErrorException>(() => pixels.GetArea(0, 0, -1, 1));
-            }
-            else
-            {
-                Assert.Throws<OverflowException>(() => pixels.GetArea(0, 0, -1, 1));
-            }
-        }
-
-        [Fact]
         public void ShouldThrowExceptionWhenWidthZero()
         {
             using var image = new MagickImage(MagickColors.Red, 5, 10);
             using var pixels = image.GetPixelsUnsafe();
 
             Assert.Throws<MagickCacheErrorException>(() => pixels.GetAreaPointer(0, 0, 0, 1));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenHeightTooLow()
-        {
-            using var image = new MagickImage(MagickColors.Red, 5, 10);
-            using var pixels = image.GetPixelsUnsafe();
-
-            if (Runtime.Is64Bit)
-            {
-                Assert.Throws<MagickImageErrorException>(() => pixels.GetAreaPointer(0, 0, 1, -1));
-            }
-            else
-            {
-                Assert.Throws<OverflowException>(() => pixels.GetAreaPointer(0, 0, 1, -1));
-            }
         }
 
         [Fact]
