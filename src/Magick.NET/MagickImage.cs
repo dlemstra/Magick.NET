@@ -2316,7 +2316,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public IEnumerable<PointD> ConvexHull()
     {
         var result = _nativeInstance.ConvexHull(out var length);
-        using var coordinates = new PointInfoCollection(result, (int)length);
+        using var coordinates = new PointInfoCollection(result, (uint)length);
         for (var i = 0; i < coordinates.Count; i++)
         {
             var x = coordinates.GetX(i);
@@ -3314,7 +3314,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         try
         {
             histogram = _nativeInstance.Histogram(out var length);
-            return MagickColorCollection.ToDictionary(histogram, (int)length);
+            return MagickColorCollection.ToDictionary(histogram, (uint)length);
         }
         finally
         {
@@ -4116,7 +4116,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public IEnumerable<PointD> MinimumBoundingBox()
     {
         var result = _nativeInstance.MinimumBoundingBox(out var length);
-        using var coordinates = new PointInfoCollection(result, (int)length);
+        using var coordinates = new PointInfoCollection(result, (uint)length);
         for (var i = 0; i < coordinates.Count; i++)
         {
             var x = coordinates.GetX(i);

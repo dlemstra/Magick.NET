@@ -263,7 +263,7 @@ internal sealed partial class DrawingWand : IDisposable
     public void StrokeLineJoin(LineJoin value)
         => _nativeInstance.StrokeLineJoin(value);
 
-    public void StrokeMiterLimit(int value)
+    public void StrokeMiterLimit(uint value)
         => _nativeInstance.StrokeMiterLimit(value);
 
     public void StrokeOpacity(double value)

@@ -24,14 +24,14 @@ internal static partial class MagickColorCollection
             NativeMagickColorCollection.DisposeList(list);
     }
 
-    public static IReadOnlyDictionary<IMagickColor<QuantumType>, int> ToDictionary(IntPtr list, int length)
+    public static IReadOnlyDictionary<IMagickColor<QuantumType>, int> ToDictionary(IntPtr list, uint length)
     {
-        var colors = new Dictionary<IMagickColor<QuantumType>, int>(length);
+        var colors = new Dictionary<IMagickColor<QuantumType>, int>((int)length);
 
         if (list == IntPtr.Zero)
             return colors;
 
-        for (var i = 0; i < length; i++)
+        for (var i = 0U; i < length; i++)
         {
             var instance = NativeMagickColorCollection.GetInstance(list, i);
 

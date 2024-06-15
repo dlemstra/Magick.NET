@@ -74,6 +74,7 @@ internal sealed class TypeInfo
             "double" => "double",
             "double[]" => "double*",
             "int" => "int",
+            "uint" => "uint",
             "QuantumType" => "QuantumType",
             "ReadOnlySpan<byte>" => "byte*",
             "ulong" => "ulong",

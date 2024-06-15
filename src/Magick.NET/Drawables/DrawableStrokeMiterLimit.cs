@@ -30,5 +30,5 @@ public sealed class DrawableStrokeMiterLimit : IDrawableStrokeMiterLimit, IDrawi
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.StrokeMiterLimit(Miterlimit);
+        => wand?.StrokeMiterLimit((uint)Miterlimit);
 }

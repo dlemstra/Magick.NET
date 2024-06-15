@@ -41,7 +41,7 @@ internal partial class DrawingWand : IDisposable
 
         [Throws]
         [Instance(SetsInstance = false)]
-        public partial void Bezier(PointInfoCollection coordinates, int length);
+        public partial void Bezier(PointInfoCollection coordinates, uint length);
 
         [Throws]
         [Instance(SetsInstance = false)]
@@ -208,11 +208,11 @@ internal partial class DrawingWand : IDisposable
 
         [Throws]
         [Instance(SetsInstance = false)]
-        public partial void Polygon(PointInfoCollection coordinates, int length);
+        public partial void Polygon(PointInfoCollection coordinates, uint length);
 
         [Throws]
         [Instance(SetsInstance = false)]
-        public partial void Polyline(PointInfoCollection coordinates, int length);
+        public partial void Polyline(PointInfoCollection coordinates, uint length);
 
         [Throws]
         [Instance(SetsInstance = false)]
@@ -292,7 +292,7 @@ internal partial class DrawingWand : IDisposable
 
         [Throws]
         [Instance(SetsInstance = false)]
-        public partial void StrokeMiterLimit(int value);
+        public partial void StrokeMiterLimit(uint value);
 
         [Throws]
         [Instance(SetsInstance = false)]
