@@ -18,7 +18,7 @@ namespace ImageMagick;
 
 internal static class QuantumConverter
 {
-    public static QuantumType[]? ToArray(IntPtr nativeData, int length)
+    public static QuantumType[]? ToArray(IntPtr nativeData, uint length)
     {
         if (nativeData == IntPtr.Zero)
             return null;

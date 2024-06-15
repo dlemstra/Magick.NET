@@ -21,8 +21,10 @@ internal class NativeInteropInfo
             .Select(method => new MethodInfo(semanticModel, method))
             .ToList();
 
-        IsNativeInstance = _class.BaseList?.Types.ToString() == "NativeInstance";
-        IsConstNativeInstance = _class.BaseList?.Types.ToString() == "ConstNativeInstance";
+        var isNativeInstance = _class.BaseList?.Types.ToString() == "NativeInstance";
+        var isConstNativeInstance = _class.BaseList?.Types.ToString() == "ConstNativeInstance";
+        HasDispose = isNativeInstance;
+        HasTypeName = isNativeInstance || isConstNativeInstance;
 
         var parentClass = (ClassDeclarationSyntax)_class.Parent!;
         ParentClassName = parentClass.Identifier.Text;
@@ -47,17 +49,19 @@ internal class NativeInteropInfo
             .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.NativeToManaged)))
             .FirstOrDefault() == "true";
 
-        HasInstance = IsNativeInstance && !(ManagedToNative || NativeToManaged);
+        HasInstanceField = isNativeInstance && !(ManagedToNative || NativeToManaged || nativeInteropAttribute
+            .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.CustomInstance)))
+            .FirstOrDefault() == "true");
     }
 
     public string ClassName
         => _class.Identifier.Text;
 
-    public bool HasInstance { get; }
+    public bool HasDispose { get; }
 
-    public bool IsConstNativeInstance { get; }
+    public bool HasInstanceField { get; }
 
-    public bool IsNativeInstance { get; }
+    public bool HasTypeName { get; }
 
     public string? InterfaceName { get; }
 

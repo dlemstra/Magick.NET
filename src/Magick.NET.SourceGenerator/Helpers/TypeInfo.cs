@@ -48,7 +48,9 @@ internal sealed class TypeInfo
         {
             "byte[]" => true,
             "double[]" => true,
+            "QuantumType[]" => true,
             "ReadOnlySpan<byte>" => true,
+            "ReadOnlySpan<QuantumType>" => true,
             _ => false,
         };
 
@@ -56,6 +58,7 @@ internal sealed class TypeInfo
         => Name switch
         {
             "ReadOnlySpan<byte>" => true,
+            "ReadOnlySpan<QuantumType>" => true,
             _ => false,
         };
 
@@ -74,9 +77,11 @@ internal sealed class TypeInfo
             "double" => "double",
             "double[]" => "double*",
             "int" => "int",
-            "uint" => "uint",
             "QuantumType" => "QuantumType",
+            "QuantumType[]" => "QuantumType*",
             "ReadOnlySpan<byte>" => "byte*",
+            "ReadOnlySpan<QuantumType>" => "QuantumType*",
+            "uint" => "uint",
             "ulong" => "ulong",
             _ => IsEnum ? "UIntPtr" : "IntPtr",
         };

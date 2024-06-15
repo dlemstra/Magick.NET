@@ -20,14 +20,14 @@ namespace ImageMagick;
 internal sealed class PixelCollectionEnumerator : IEnumerator<IPixel<QuantumType>>
 {
     private readonly PixelCollection _collection;
-    private readonly int _height;
-    private readonly int _width;
+    private readonly uint _height;
+    private readonly uint _width;
 
     private QuantumType[]? _row;
     private int _x;
     private int _y;
 
-    public PixelCollectionEnumerator(PixelCollection collection, int width, int height)
+    public PixelCollectionEnumerator(PixelCollection collection, uint width, uint height)
     {
         _collection = collection;
         _width = width;
@@ -68,8 +68,8 @@ internal sealed class PixelCollectionEnumerator : IEnumerator<IPixel<QuantumType
         if (_y < _height)
             return true;
 
-        _x = _width - 1;
-        _y = _height - 1;
+        _x = (int)(_width - 1U);
+        _y = (int)(_height - 1U);
         return false;
     }
 

@@ -8,9 +8,11 @@ namespace ImageMagick.SourceGenerator;
 [AttributeUsage(AttributeTargets.Class)]
 internal sealed class NativeInteropAttribute : Attribute
 {
-    public bool QuantumType { get; set; } = false;
+    public bool CustomInstance { get; set; } = false;
 
     public bool ManagedToNative { get; set; } = false;
 
     public bool NativeToManaged { get; set; } = false;
+
+    public bool QuantumType { get; set; } = false;
 }

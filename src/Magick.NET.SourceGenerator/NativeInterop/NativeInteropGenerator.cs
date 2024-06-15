@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
@@ -77,15 +76,13 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
     private static void AppendInstance(NativeInteropInfo info, CodeBuilder codeBuilder)
     {
-        if (!info.HasInstance)
+        if (info.HasInstanceField)
         {
-            return;
+            codeBuilder.Append("private readonly ");
+            codeBuilder.Append(info.ClassName);
+            codeBuilder.AppendLine(" _nativeInstance;");
+            codeBuilder.AppendLine();
         }
-
-        codeBuilder.Append("private ");
-        codeBuilder.Append(info.ClassName);
-        codeBuilder.AppendLine(" _nativeInstance;");
-        codeBuilder.AppendLine();
     }
 
     private static void AppendNativeInterop(CodeBuilder codeBuilder, NativeInteropInfo info)
@@ -112,10 +109,9 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         var uniqueMethods = info.Methods
             .GroupBy(method => method.Name)
-            .OrderBy(group => group.First().OnlySupportedInNetstandard21)
             .Select(group => group.First());
 
-        if (info.IsNativeInstance)
+        if (info.HasDispose)
         {
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
@@ -225,7 +221,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
     private static void AppendNativeClassInstanceMethods(CodeBuilder codeBuilder, NativeInteropInfo info)
     {
-        if (info.IsNativeInstance || info.IsConstNativeInstance)
+        if (info.HasTypeName)
         {
             codeBuilder.AppendLine();
             codeBuilder.AppendLine("protected override string TypeName");
@@ -236,7 +232,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Indent--;
         }
 
-        if (info.IsNativeInstance)
+        if (info.HasDispose)
         {
             codeBuilder.AppendLine();
             codeBuilder.AppendLine("protected override void Dispose(IntPtr instance)");
@@ -357,8 +353,13 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine("if (result != IntPtr.Zero)");
             codeBuilder.Indent++;
             codeBuilder.Append(method.Cleanup.Name);
-            codeBuilder.Append("(result, ");
-            codeBuilder.Append(method.Cleanup.Arguments);
+            codeBuilder.Append("(result");
+            if (method.Cleanup.Arguments is not null)
+            {
+                codeBuilder.Append(", ");
+                codeBuilder.Append(method.Cleanup.Arguments);
+            }
+
             codeBuilder.AppendLine(");");
             codeBuilder.Indent--;
             codeBuilder.AppendLine("throw magickException;");
