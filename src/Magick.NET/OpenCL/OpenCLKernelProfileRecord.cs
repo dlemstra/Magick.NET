@@ -12,11 +12,11 @@ public sealed partial class OpenCLKernelProfileRecord : IOpenCLKernelProfileReco
 {
     private OpenCLKernelProfileRecord(NativeOpenCLKernelProfileRecord instance)
     {
-        Name = instance.Name;
-        Count = instance.Count;
-        MaximumDuration = instance.MaximumDuration;
-        MinimumDuration = instance.MinimumDuration;
-        TotalDuration = instance.TotalDuration;
+        Name = instance.Name_Get();
+        Count = (long)instance.Count_Get();
+        MaximumDuration = (long)instance.MaximumDuration_Get();
+        MinimumDuration = (long)instance.MinimumDuration_Get();
+        TotalDuration = (long)instance.TotalDuration_Get();
     }
 
     /// <summary>

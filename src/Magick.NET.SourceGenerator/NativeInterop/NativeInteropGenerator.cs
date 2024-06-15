@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
@@ -390,7 +391,15 @@ internal class NativeInteropGenerator : IIncrementalGenerator
                 case "void":
                     break;
                 default:
-                    codeBuilder.AppendLine("return result;");
+                    codeBuilder.Append("return");
+                    if (method.ReturnType.IsEnum)
+                    {
+                        codeBuilder.Append(" (");
+                        codeBuilder.Append(method.ReturnType.Name);
+                        codeBuilder.Append(")");
+                    }
+
+                    codeBuilder.AppendLine(" result;");
                     break;
             }
         }

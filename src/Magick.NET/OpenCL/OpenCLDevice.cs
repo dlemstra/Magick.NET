@@ -26,21 +26,21 @@ public sealed partial class OpenCLDevice : IOpenCLDevice
     /// Gets the benchmark score of the device.
     /// </summary>
     public double BenchmarkScore
-        => _instance.BenchmarkScore;
+        => _instance.BenchmarkScore_Get();
 
     /// <summary>
     /// Gets the type of the device.
     /// </summary>
     public OpenCLDeviceType DeviceType
-        => _instance.DeviceType;
+        => _instance.DeviceType_Get();
 
     /// <summary>
     /// Gets or sets a value indicating whether the device is enabled or disabled.
     /// </summary>
     public bool IsEnabled
     {
-        get => _instance.IsEnabled;
-        set => _instance.IsEnabled = value;
+        get => _instance.IsEnabled_Get();
+        set => _instance.IsEnabled_Set(value);
     }
 
     /// <summary>
@@ -51,14 +51,13 @@ public sealed partial class OpenCLDevice : IOpenCLDevice
     {
         get
         {
-            UIntPtr length;
-            var records = _instance.GetKernelProfileRecords(out length);
+            var records = _instance.GetKernelProfileRecords(out var length);
             var result = new Collection<IOpenCLKernelProfileRecord>();
 
             if (records == IntPtr.Zero)
                 return result;
 
-            for (var i = 0; i < (int)length; i++)
+            for (var i = 0U; i < length; i++)
             {
                 var instance = NativeOpenCLDevice.GetKernelProfileRecord(records, i);
                 var record = OpenCLKernelProfileRecord.CreateInstance(instance);
@@ -74,7 +73,7 @@ public sealed partial class OpenCLDevice : IOpenCLDevice
     /// Gets the name of the device.
     /// </summary>
     public string Name
-        => _instance.Name;
+        => _instance.Name_Get();
 
     /// <summary>
     /// Gets or sets a value indicating whether kernel profiling is enabled.
@@ -94,7 +93,7 @@ public sealed partial class OpenCLDevice : IOpenCLDevice
     /// Gets the OpenCL version supported by the device.
     /// </summary>
     public string Version
-        => _instance.Version;
+        => _instance.Version_Get();
 
     internal static OpenCLDevice? CreateInstance(IntPtr instance)
     {

@@ -44,7 +44,7 @@ public partial class OpenCL : IOpenCL
             if (devices == IntPtr.Zero)
                 return result;
 
-            for (var i = 0; i < (int)length; i++)
+            for (var i = 0U; i < length; i++)
             {
                 var instance = NativeOpenCL.GetDevice(devices, i);
                 var device = OpenCLDevice.CreateInstance(instance);
