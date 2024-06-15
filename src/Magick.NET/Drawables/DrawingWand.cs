@@ -20,9 +20,7 @@ namespace ImageMagick;
 internal sealed partial class DrawingWand : IDisposable
 {
     public DrawingWand(IMagickImage<QuantumType> image)
-    {
-        _nativeInstance = new NativeDrawingWand(image, MagickImage.GetSettings(image).Drawing);
-    }
+        => _nativeInstance = new NativeDrawingWand(image, MagickImage.GetSettings(image).Drawing);
 
     public void Draw(IEnumerable<IDrawable> drawables)
     {
