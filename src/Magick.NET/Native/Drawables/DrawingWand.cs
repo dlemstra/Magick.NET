@@ -81,7 +81,7 @@ internal partial class DrawingWand : IDisposable
 
         [Throws]
         [Instance(SetsInstance = false)]
-        public partial void FillColor(IMagickColor<QuantumType>? value);
+        public partial void FillColor(IMagickColor<QuantumType> value);
 
         [Throws]
         [Instance(SetsInstance = false)]
