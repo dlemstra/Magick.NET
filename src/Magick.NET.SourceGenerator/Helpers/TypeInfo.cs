@@ -81,6 +81,7 @@ internal sealed class TypeInfo
             "QuantumType[]" => "QuantumType*",
             "ReadOnlySpan<byte>" => "byte*",
             "ReadOnlySpan<QuantumType>" => "QuantumType*",
+            "ReadWriteStreamDelegate" => "ReadWriteStreamDelegate",
             "uint" => "uint",
             "ulong" => "ulong",
             _ => IsEnum ? "UIntPtr" : "IntPtr",

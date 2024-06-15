@@ -138,10 +138,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
         => DoCompress(stream, true, 0);
 
     private static void DoNativeCompress(string filename, string outputFilename, bool progressive, bool lossless, int quality)
-    {
-        var nativeJpegOptimizer = new NativeJpegOptimizer();
-        nativeJpegOptimizer.CompressFile(filename, outputFilename, progressive, lossless, quality);
-    }
+        => NativeJpegOptimizer.CompressFile(filename, outputFilename, progressive, lossless, quality);
 
     private static void DoNativeCompress(Stream input, Stream output, bool progressive, bool lossless, int quality)
     {
@@ -150,8 +147,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
         var reader = new ReadWriteStreamDelegate(readWrapper.Read);
         var writer = new ReadWriteStreamDelegate(writeWrapper.Write);
 
-        var nativeJpegOptimizer = new NativeJpegOptimizer();
-        nativeJpegOptimizer.CompressStream(reader, writer, progressive, lossless, quality);
+        NativeJpegOptimizer.CompressStream(reader, writer, progressive, lossless, quality);
     }
 
     private bool DoCompress(FileInfo file, bool lossless, int quality)
