@@ -17,11 +17,11 @@ public sealed partial class ChannelMoments : IChannelMoments
         Channel = channel;
 
         var nativeInstance = new NativeChannelMoments(instance);
-        Centroid = nativeInstance.Centroid.ToPointD();
-        EllipseAngle = nativeInstance.EllipseAngle;
-        EllipseAxis = nativeInstance.EllipseAxis.ToPointD();
-        EllipseEccentricity = nativeInstance.EllipseEccentricity;
-        EllipseIntensity = nativeInstance.EllipseIntensity;
+        Centroid = nativeInstance.Centroid_Get().ToPointD();
+        EllipseAngle = nativeInstance.EllipseAngle_Get();
+        EllipseAxis = nativeInstance.EllipseAxis_Get().ToPointD();
+        EllipseEccentricity = nativeInstance.EllipseEccentricity_Get();
+        EllipseIntensity = nativeInstance.EllipseIntensity_Get();
         _huInvariants = GetHuInvariants(nativeInstance);
     }
 
@@ -79,7 +79,7 @@ public sealed partial class ChannelMoments : IChannelMoments
     {
         var huInvariants = new double[8];
 
-        for (var i = 0; i < 8; i++)
+        for (var i = 0U; i < 8U; i++)
             huInvariants[i] = nativeInstance.GetHuInvariants(i);
 
         return huInvariants;
