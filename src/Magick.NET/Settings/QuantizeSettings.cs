@@ -45,11 +45,11 @@ public sealed partial class QuantizeSettings : IQuantizeSettings
     private static INativeInstance CreateNativeInstance(IQuantizeSettings settings)
     {
         var instance = new NativeQuantizeSettings();
-        instance.SetColors(settings.Colors);
+        instance.SetColors((uint)settings.Colors);
         instance.SetColorSpace(settings.ColorSpace);
         instance.SetDitherMethod(settings.DitherMethod ?? ImageMagick.DitherMethod.No);
         instance.SetMeasureErrors(settings.MeasureErrors);
-        instance.SetTreeDepth(settings.TreeDepth);
+        instance.SetTreeDepth((uint)settings.TreeDepth);
 
         return instance;
     }
