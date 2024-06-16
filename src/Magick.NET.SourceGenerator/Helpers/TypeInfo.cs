@@ -77,6 +77,7 @@ internal sealed class TypeInfo
             "double" => "double",
             "double[]" => "double*",
             "int" => "int",
+            "LogDelegate?" => "LogDelegate?",
             "QuantumType" => "QuantumType",
             "QuantumType[]" => "QuantumType*",
             "ReadOnlySpan<byte>" => "byte*",

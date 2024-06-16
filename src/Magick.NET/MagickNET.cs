@@ -63,13 +63,13 @@ public partial class MagickNET : IMagickNET
     /// Gets the ImageMagick delegate libraries.
     /// </summary>
     public static string Delegates
-        => NativeMagickNET.Delegates;
+        => NativeMagickNET.Delegates_Get();
 
     /// <summary>
     /// Gets the ImageMagick features.
     /// </summary>
     public static string Features
-        => NativeMagickNET.Features;
+        => NativeMagickNET.Features_Get();
 
     /// <summary>
     /// Gets the information about the supported formats.
@@ -87,14 +87,13 @@ public partial class MagickNET : IMagickNET
             var result = new List<string>();
 
             var list = IntPtr.Zero;
-            var length = (UIntPtr)0;
 
             try
             {
-                list = NativeMagickNET.GetFonts(out length);
+                list = NativeMagickNET.GetFonts(out var length);
                 result.Capacity = (int)length;
 
-                for (var i = 0; i < (int)length; i++)
+                for (var i = 0U; i < (int)length; i++)
                 {
                     var fontFamily = NativeMagickNET.GetFontFamily(list, i);
                     if (fontFamily is not null && fontFamily.Length > 0 && !result.Contains(fontFamily))
@@ -121,14 +120,13 @@ public partial class MagickNET : IMagickNET
             var result = new List<string>();
 
             var list = IntPtr.Zero;
-            var length = (UIntPtr)0;
 
             try
             {
-                list = NativeMagickNET.GetFonts(out length);
+                list = NativeMagickNET.GetFonts(out var length);
                 result.Capacity = (int)length;
 
-                for (var i = 0; i < (int)length; i++)
+                for (var i = 0U; i < (int)length; i++)
                 {
                     var fontName = NativeMagickNET.GetFontName(list, i);
                     if (fontName is not null && fontName.Length > 0)
@@ -149,7 +147,7 @@ public partial class MagickNET : IMagickNET
     /// Gets the version of ImageMagick.
     /// </summary>
     public static string ImageMagickVersion
-        => NativeMagickNET.ImageMagickVersion;
+        => NativeMagickNET.ImageMagickVersion_Get();
 
     /// <summary>
     /// Gets the version of Magick.NET.
@@ -274,7 +272,7 @@ public partial class MagickNET : IMagickNET
     /// Resets the pseudo-random number generator secret key.
     /// </summary>
     public static void ResetRandomSeed()
-        => NativeMagickNET.SetRandomSeed(-1);
+        => NativeMagickNET.SetRandomSeed(ulong.MaxValue);
 
     /// <summary>
     /// Set the path to the default font file.
@@ -372,7 +370,7 @@ public partial class MagickNET : IMagickNET
     /// </summary>
     /// <param name="seed">The secret key.</param>
     public static void SetRandomSeed(int seed)
-        => NativeMagickNET.SetRandomSeed(seed);
+        => NativeMagickNET.SetRandomSeed((ulong)seed);
 
     /// <summary>
     /// Gets the environment variable with the specified name.

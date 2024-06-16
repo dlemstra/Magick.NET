@@ -28,6 +28,7 @@ internal class NativeInteropInfo
 
         var parentClass = (ClassDeclarationSyntax)_class.Parent!;
         ParentClassName = parentClass.Identifier.Text;
+        EntryPointClassName = ParentClassName == "MagickNET" ? "Magick" : ParentClassName;
         IsInternal = parentClass.Modifiers.Any(modifier => modifier.IsKind(SyntaxKind.InternalKeyword));
         Namespace = ((FileScopedNamespaceDeclarationSyntax)parentClass.Parent!).Name.ToString();
 
@@ -56,6 +57,8 @@ internal class NativeInteropInfo
 
     public string ClassName
         => _class.Identifier.Text;
+
+    public string EntryPointClassName { get; }
 
     public bool HasDispose { get; }
 

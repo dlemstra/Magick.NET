@@ -115,9 +115,9 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         {
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
-            codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = nameof(");
-            codeBuilder.Append(info.ParentClassName);
-            codeBuilder.AppendLine("_Dispose))]");
+            codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = \"");
+            codeBuilder.Append(info.EntryPointClassName);
+            codeBuilder.AppendLine("_Dispose\")]");
             codeBuilder.Append("public static extern void ");
             codeBuilder.Append(info.ParentClassName);
             codeBuilder.AppendLine("_Dispose(IntPtr instance);");
@@ -130,11 +130,11 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
-            codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = nameof(");
-            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = \"");
+            codeBuilder.Append(info.EntryPointClassName);
             codeBuilder.Append("_");
             codeBuilder.Append(method.Name);
-            codeBuilder.AppendLine("))]");
+            codeBuilder.AppendLine("\")]");
             codeBuilder.Append("public static extern ");
             if (method.SetsInstance)
                 codeBuilder.Append("IntPtr");
@@ -299,7 +299,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         if (method.Throws)
         {
-            codeBuilder.AppendLine("IntPtr exception = IntPtr.Zero;");
+            codeBuilder.AppendLine("var exception = IntPtr.Zero;");
         }
 
         foreach (var parameter in method.Parameters)
