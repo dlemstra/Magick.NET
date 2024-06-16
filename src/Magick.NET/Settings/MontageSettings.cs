@@ -103,7 +103,7 @@ public sealed partial class MontageSettings : IMontageSettings<QuantumType>
         var result = new NativeMontageSettings();
         result.SetBackgroundColor(instance.BackgroundColor);
         result.SetBorderColor(instance.BorderColor);
-        result.SetBorderWidth(instance.BorderWidth);
+        result.SetBorderWidth((uint)instance.BorderWidth);
         result.SetFillColor(instance.FillColor);
         result.SetFont(instance.Font);
         result.SetFontPointsize(instance.FontPointsize);
