@@ -19,7 +19,7 @@ namespace ImageMagick;
 internal partial class DrawingSettings
 {
     [NativeInterop(QuantumType = true, ManagedToNative = true)]
-    private unsafe sealed partial class NativeDrawingSettings : NativeInstance
+    private partial class NativeDrawingSettings : NativeInstance
     {
         public NativeDrawingSettings()
             => Instance = Create();
