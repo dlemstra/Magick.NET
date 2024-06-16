@@ -12,6 +12,7 @@ internal static partial class Environment
     {
         public static partial void Initialize();
 
+        [Cleanup]
         public static partial string? GetEnv(string name);
 
         public static partial void SetEnv(string name, string value);

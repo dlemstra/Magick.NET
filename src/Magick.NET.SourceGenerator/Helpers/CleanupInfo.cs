@@ -7,11 +7,11 @@ internal sealed class CleanupInfo
 {
     public CleanupInfo(string? name, string? arguments)
     {
-        Name = name is null ? "UnknownName" : name;
+        Name = name;
         Arguments = arguments;
     }
 
-    public string Name { get; }
+    public string? Name { get; }
 
     public string? Arguments { get; }
 }

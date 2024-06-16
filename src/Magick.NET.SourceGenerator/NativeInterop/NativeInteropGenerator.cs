@@ -345,7 +345,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendLine("#endif");
         AppendMethodImplementation(codeBuilder, info, method, "x86");
 
-        if (method.Cleanup is not null)
+        if (method.Cleanup is not null && method.Cleanup.Name is not null)
         {
             codeBuilder.AppendLine("var magickException = MagickExceptionHelper.Create(exception);");
             codeBuilder.AppendLine("if (magickException is MagickErrorException)");
@@ -381,27 +381,26 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         }
         else if (!method.IsVoid)
         {
-            switch (method.ReturnType.Name)
+            if (method.ReturnType.ClassName == "string")
             {
-                case "string":
-                    codeBuilder.AppendLine("return UTF8Marshaler.CreateInstance(result);");
-                    break;
-                case "string?":
+                if (method.Cleanup is not null)
+                    codeBuilder.AppendLine("return UTF8Marshaler.CreateInstanceAndRelinquish(result);");
+                else if (method.ReturnType.Name == "string?")
                     codeBuilder.AppendLine("return UTF8Marshaler.CreateNullableInstance(result);");
-                    break;
-                case "void":
-                    break;
-                default:
-                    codeBuilder.Append("return");
-                    if (method.ReturnType.IsEnum)
-                    {
-                        codeBuilder.Append(" (");
-                        codeBuilder.Append(method.ReturnType.Name);
-                        codeBuilder.Append(")");
-                    }
+                else
+                    codeBuilder.AppendLine("return UTF8Marshaler.CreateInstance(result);");
+            }
+            else
+            {
+                codeBuilder.Append("return");
+                if (method.ReturnType.IsEnum)
+                {
+                    codeBuilder.Append(" (");
+                    codeBuilder.Append(method.ReturnType.Name);
+                    codeBuilder.Append(")");
+                }
 
-                    codeBuilder.AppendLine(" result;");
-                    break;
+                codeBuilder.AppendLine(" result;");
             }
         }
 
