@@ -37,7 +37,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
         var nativeInstance = new NativeChannelPerceptualHash(instance);
         for (var i = 0; i < colorSpaces.Length; i++)
         {
-            AddHuPhash(nativeInstance, colorSpaces[i], i);
+            AddHuPhash(nativeInstance, colorSpaces[i], (uint)i);
         }
     }
 
@@ -195,12 +195,12 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
         }
     }
 
-    private void AddHuPhash(NativeChannelPerceptualHash instance, ColorSpace colorSpace, int colorSpaceIndex)
+    private void AddHuPhash(NativeChannelPerceptualHash instance, ColorSpace colorSpace, uint colorSpaceIndex)
     {
         var huPhashList = new HuPhashList();
 
         for (var i = 0; i < 7; i++)
-            huPhashList[i] = instance.GetHuPhash(colorSpaceIndex, i);
+            huPhashList[i] = instance.GetHuPhash(colorSpaceIndex, (uint)i);
 
         _huPhashes[colorSpace] = huPhashList;
     }

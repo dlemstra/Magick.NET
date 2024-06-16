@@ -464,7 +464,9 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Indent++;
             codeBuilder.AppendLine("return null;");
             codeBuilder.Indent--;
-            codeBuilder.Append("using var nativeInstance = new ");
+            if (info.HasDispose)
+                codeBuilder.Append("using ");
+            codeBuilder.Append("var nativeInstance = new ");
             codeBuilder.Append(info.ClassName);
             codeBuilder.AppendLine("(instance);");
             codeBuilder.Append("return new ");
