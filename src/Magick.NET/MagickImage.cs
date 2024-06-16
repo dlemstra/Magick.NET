@@ -7574,8 +7574,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         if (_progress is null)
             return true;
 
-        var managedOrigin = UTF8Marshaler.NativeToManaged(origin);
-        var eventArgs = new ProgressEventArgs(managedOrigin, (int)offset, (int)extent);
+        var instance = UTF8Marshaler.CreateInstance(origin);
+        var eventArgs = new ProgressEventArgs(instance, (int)offset, (int)extent);
         _progress(this, eventArgs);
         return !eventArgs.Cancel;
     }

@@ -670,7 +670,7 @@ public partial class MagickSettings
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickSettings_Density_Get(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
+                return UTF8Marshaler.CreateNullableInstance(result);
             }
             set
             {
@@ -812,7 +812,7 @@ public partial class MagickSettings
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickSettings_Extract_Get(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
+                return UTF8Marshaler.CreateNullableInstance(result);
             }
             set
             {
@@ -860,7 +860,7 @@ public partial class MagickSettings
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickSettings_Format_Get(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
+                return UTF8Marshaler.CreateNullableInstance(result);
             }
             set
             {
@@ -1138,7 +1138,7 @@ public partial class MagickSettings
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.MagickSettings_SetFont(Instance, valueNative.Instance);
             #endif
-            return UTF8Marshaler.NativeToManagedNullable(result);
+            return UTF8Marshaler.CreateNullableInstance(result);
         }
         public void SetNumberScenes(int value)
         {

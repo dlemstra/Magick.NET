@@ -384,10 +384,10 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             switch (method.ReturnType.Name)
             {
                 case "string":
-                    codeBuilder.AppendLine("return UTF8Marshaler.NativeToManaged(result);");
+                    codeBuilder.AppendLine("return UTF8Marshaler.CreateInstance(result);");
                     break;
                 case "string?":
-                    codeBuilder.AppendLine("return UTF8Marshaler.NativeToManagedNullable(result);");
+                    codeBuilder.AppendLine("return UTF8Marshaler.CreateNullableInstance(result);");
                     break;
                 case "void":
                     break;

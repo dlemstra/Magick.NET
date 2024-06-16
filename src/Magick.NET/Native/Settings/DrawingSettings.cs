@@ -584,7 +584,7 @@ internal partial class DrawingSettings
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.DrawingSettings_Font_Get(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
+                return UTF8Marshaler.CreateNullableInstance(result);
             }
             set
             {
@@ -632,7 +632,7 @@ internal partial class DrawingSettings
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.DrawingSettings_FontFamily_Get(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
+                return UTF8Marshaler.CreateNullableInstance(result);
             }
             set
             {
@@ -1245,7 +1245,7 @@ internal partial class DrawingSettings
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.DrawingSettings_TextEncoding_Get(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
+                return UTF8Marshaler.CreateNullableInstance(result);
             }
             set
             {

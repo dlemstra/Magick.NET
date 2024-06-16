@@ -524,8 +524,8 @@ public partial class MagickNET : IMagickNET
         if (_log is null)
             return;
 
-        var managedText = UTF8Marshaler.NativeToManaged(text);
-        _log(null, new LogEventArgs((LogEvents)type, managedText));
+        var instance = UTF8Marshaler.CreateInstance(text);
+        _log(null, new LogEventArgs((LogEvents)type, instance));
     }
 
     private static void SetLogEvents()

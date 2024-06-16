@@ -124,7 +124,7 @@ public partial class MagickNET
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.Magick_Delegates_Get();
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.CreateInstance(result);
             }
         }
         public static string Features
@@ -150,7 +150,7 @@ public partial class MagickNET
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.Magick_Features_Get();
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.CreateInstance(result);
             }
         }
         public static string ImageMagickVersion
@@ -176,7 +176,7 @@ public partial class MagickNET
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.Magick_ImageMagickVersion_Get();
                 #endif
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.CreateInstance(result);
             }
         }
         public static IntPtr GetFonts(out UIntPtr length)
@@ -233,7 +233,7 @@ public partial class MagickNET
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.Magick_GetFontName(instance, (UIntPtr)index);
             #endif
-            return UTF8Marshaler.NativeToManagedNullable(result);
+            return UTF8Marshaler.CreateNullableInstance(result);
         }
         public static string? GetFontFamily(IntPtr instance, int index)
         {
@@ -256,7 +256,7 @@ public partial class MagickNET
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.Magick_GetFontFamily(instance, (UIntPtr)index);
             #endif
-            return UTF8Marshaler.NativeToManagedNullable(result);
+            return UTF8Marshaler.CreateNullableInstance(result);
         }
         public static void DisposeFonts(IntPtr instance)
         {

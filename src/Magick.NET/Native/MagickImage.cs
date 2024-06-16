@@ -2856,7 +2856,7 @@ public partial class MagickImage : IDisposable
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_EncodingGeometry_Get(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
+                return UTF8Marshaler.CreateNullableInstance(result);
             }
         }
         public string? FileName
@@ -2882,7 +2882,7 @@ public partial class MagickImage : IDisposable
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_FileName_Get(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
+                return UTF8Marshaler.CreateNullableInstance(result);
             }
             set
             {
@@ -2977,7 +2977,7 @@ public partial class MagickImage : IDisposable
                 #if PLATFORM_x86 || PLATFORM_AnyCPU
                 result = NativeMethods.X86.MagickImage_Format_Get(Instance);
                 #endif
-                return UTF8Marshaler.NativeToManagedNullable(result);
+                return UTF8Marshaler.CreateNullableInstance(result);
             }
             set
             {
@@ -3806,7 +3806,7 @@ public partial class MagickImage : IDisposable
                 result = NativeMethods.X86.MagickImage_Signature_Get(Instance, out exception);
                 #endif
                 CheckException(exception);
-                return UTF8Marshaler.NativeToManaged(result);
+                return UTF8Marshaler.CreateInstance(result);
             }
         }
         public int TotalColors
@@ -5590,7 +5590,7 @@ public partial class MagickImage : IDisposable
             result = NativeMethods.X86.MagickImage_FormatExpression(Instance, settingsNative.Instance, expressionNative.Instance, out exception);
             #endif
             CheckException(exception);
-            return UTF8Marshaler.NativeToManagedAndRelinquish(result);
+            return UTF8Marshaler.CreateInstanceAndRelinquish(result);
         }
         public void Frame(MagickRectangle geometry)
         {
@@ -5717,7 +5717,7 @@ public partial class MagickImage : IDisposable
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.MagickImage_GetArtifact(Instance, nameNative.Instance);
             #endif
-            return UTF8Marshaler.NativeToManagedNullable(result);
+            return UTF8Marshaler.CreateNullableInstance(result);
         }
         public string? GetAttribute(string name)
         {
@@ -5743,7 +5743,7 @@ public partial class MagickImage : IDisposable
             result = NativeMethods.X86.MagickImage_GetAttribute(Instance, nameNative.Instance, out exception);
             #endif
             CheckException(exception);
-            return UTF8Marshaler.NativeToManagedNullable(result);
+            return UTF8Marshaler.CreateNullableInstance(result);
         }
         public IMagickColor<QuantumType>? GetColormapColor(int index)
         {
@@ -5812,7 +5812,7 @@ public partial class MagickImage : IDisposable
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.MagickImage_GetNextArtifactName(Instance);
             #endif
-            return UTF8Marshaler.NativeToManagedNullable(result);
+            return UTF8Marshaler.CreateNullableInstance(result);
         }
         public string? GetNextAttributeName()
         {
@@ -5835,7 +5835,7 @@ public partial class MagickImage : IDisposable
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.MagickImage_GetNextAttributeName(Instance);
             #endif
-            return UTF8Marshaler.NativeToManagedNullable(result);
+            return UTF8Marshaler.CreateNullableInstance(result);
         }
         public string? GetNextProfileName()
         {
@@ -5858,7 +5858,7 @@ public partial class MagickImage : IDisposable
             #if PLATFORM_x86 || PLATFORM_AnyCPU
             result = NativeMethods.X86.MagickImage_GetNextProfileName(Instance);
             #endif
-            return UTF8Marshaler.NativeToManagedNullable(result);
+            return UTF8Marshaler.CreateNullableInstance(result);
         }
         public StringInfo? GetProfile(string name)
         {
