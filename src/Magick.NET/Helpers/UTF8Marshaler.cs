@@ -37,7 +37,7 @@ internal sealed class UTF8Marshaler : INativeInstance
         Instance = IntPtr.Zero;
     }
 
-    internal static INativeInstance CreateInstance(string? value)
+    internal static UTF8Marshaler CreateInstance(string? value)
         => new UTF8Marshaler(value);
 
     internal static string CreateInstance(IntPtr nativeData)

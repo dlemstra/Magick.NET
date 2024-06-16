@@ -295,8 +295,8 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// </summary>
     public int StrokeMiterLimit
     {
-        get => Drawing.StrokeMiterLimit;
-        set => Drawing.StrokeMiterLimit = value;
+        get => (int)Drawing.StrokeMiterLimit;
+        set => Drawing.StrokeMiterLimit = (uint)value;
     }
 
     /// <summary>

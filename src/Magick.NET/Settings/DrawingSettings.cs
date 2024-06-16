@@ -24,29 +24,29 @@ internal sealed partial class DrawingSettings
     internal DrawingSettings()
     {
         using var instance = new NativeDrawingSettings();
-        BorderColor = instance.BorderColor;
-        FillColor = instance.FillColor;
-        FillRule = instance.FillRule;
-        Font = instance.Font;
-        FontFamily = instance.FontFamily;
-        FontPointsize = instance.FontPointsize;
-        FontStyle = instance.FontStyle;
-        FontWeight = instance.FontWeight;
-        StrokeAntiAlias = instance.StrokeAntiAlias;
-        StrokeColor = instance.StrokeColor;
-        StrokeDashOffset = instance.StrokeDashOffset;
-        StrokeLineCap = instance.StrokeLineCap;
-        StrokeLineJoin = instance.StrokeLineJoin;
-        StrokeMiterLimit = instance.StrokeMiterLimit;
-        StrokeWidth = instance.StrokeWidth;
-        TextAntiAlias = instance.TextAntiAlias;
-        TextDirection = instance.TextDirection;
+        BorderColor = instance.BorderColor_Get();
+        FillColor = instance.FillColor_Get();
+        FillRule = instance.FillRule_Get();
+        Font = instance.Font_Get();
+        FontFamily = instance.FontFamily_Get();
+        FontPointsize = instance.FontPointsize_Get();
+        FontStyle = instance.FontStyle_Get();
+        FontWeight = (FontWeight)instance.FontWeight_Get();
+        StrokeAntiAlias = instance.StrokeAntiAlias_Get();
+        StrokeColor = instance.StrokeColor_Get();
+        StrokeDashOffset = instance.StrokeDashOffset_Get();
+        StrokeLineCap = instance.StrokeLineCap_Get();
+        StrokeLineJoin = instance.StrokeLineJoin_Get();
+        StrokeMiterLimit = instance.StrokeMiterLimit_Get();
+        StrokeWidth = instance.StrokeWidth_Get();
+        TextAntiAlias = instance.TextAntiAlias_Get();
+        TextDirection = instance.TextDirection_Get();
         TextEncoding = GetTextEncoding(instance);
-        TextGravity = instance.TextGravity;
-        TextInterlineSpacing = instance.TextInterlineSpacing;
-        TextInterwordSpacing = instance.TextInterwordSpacing;
-        TextKerning = instance.TextKerning;
-        TextUnderColor = instance.TextUnderColor;
+        TextGravity = instance.TextGravity_Get();
+        TextInterlineSpacing = instance.TextInterlineSpacing_Get();
+        TextInterwordSpacing = instance.TextInterwordSpacing_Get();
+        TextKerning = instance.TextKerning_Get();
+        TextUnderColor = instance.TextUnderColor_Get();
     }
 
     public IDrawableAffine? Affine { get; set; }
@@ -89,7 +89,7 @@ internal sealed partial class DrawingSettings
 
     public LineJoin StrokeLineJoin { get; set; }
 
-    public int StrokeMiterLimit { get; set; }
+    public uint StrokeMiterLimit { get; set; }
 
     public IMagickImage<QuantumType>? StrokePattern { get; set; }
 
@@ -151,7 +151,7 @@ internal sealed partial class DrawingSettings
 
     private static Encoding? GetTextEncoding(NativeDrawingSettings instance)
     {
-        var name = instance.TextEncoding;
+        var name = instance.TextEncoding_Get();
         if (name is null || name.Length == 0)
             return null;
 
@@ -165,40 +165,40 @@ internal sealed partial class DrawingSettings
         }
     }
 
-    private INativeInstance CreateNativeInstance()
+    private NativeDrawingSettings CreateNativeInstance()
     {
         var instance = new NativeDrawingSettings();
-        instance.BorderColor = BorderColor;
-        instance.FillColor = FillColor;
-        instance.FillRule = FillRule;
-        instance.Font = Font;
-        instance.FontFamily = FontFamily;
-        instance.FontPointsize = FontPointsize;
-        instance.FontStyle = FontStyle;
-        instance.FontWeight = FontWeight;
-        instance.StrokeAntiAlias = StrokeAntiAlias;
-        instance.StrokeColor = StrokeColor;
-        instance.StrokeDashOffset = StrokeDashOffset;
-        instance.StrokeLineCap = StrokeLineCap;
-        instance.StrokeLineJoin = StrokeLineJoin;
-        instance.StrokeMiterLimit = StrokeMiterLimit;
-        instance.StrokeWidth = StrokeWidth;
-        instance.TextAntiAlias = TextAntiAlias;
-        instance.TextDirection = TextDirection;
+        instance.BorderColor_Set(BorderColor);
+        instance.FillColor_Set(FillColor);
+        instance.FillRule_Set(FillRule);
+        instance.Font_Set(Font);
+        instance.FontFamily_Set(FontFamily);
+        instance.FontPointsize_Set(FontPointsize);
+        instance.FontStyle_Set(FontStyle);
+        instance.FontWeight_Set((uint)FontWeight);
+        instance.StrokeAntiAlias_Set(StrokeAntiAlias);
+        instance.StrokeColor_Set(StrokeColor);
+        instance.StrokeDashOffset_Set(StrokeDashOffset);
+        instance.StrokeLineCap_Set(StrokeLineCap);
+        instance.StrokeLineJoin_Set(StrokeLineJoin);
+        instance.StrokeMiterLimit_Set(StrokeMiterLimit);
+        instance.StrokeWidth_Set(StrokeWidth);
+        instance.TextAntiAlias_Set(TextAntiAlias);
+        instance.TextDirection_Set(TextDirection);
         if (TextEncoding is not null)
-            instance.TextEncoding = TextEncoding.WebName;
-        instance.TextGravity = TextGravity;
-        instance.TextInterlineSpacing = TextInterlineSpacing;
-        instance.TextInterwordSpacing = TextInterwordSpacing;
-        instance.TextKerning = TextKerning;
-        instance.TextUnderColor = TextUnderColor;
+            instance.TextEncoding_Set(TextEncoding.WebName);
+        instance.TextGravity_Set(TextGravity);
+        instance.TextInterlineSpacing_Set(TextInterlineSpacing);
+        instance.TextInterwordSpacing_Set(TextInterwordSpacing);
+        instance.TextKerning_Set(TextKerning);
+        instance.TextUnderColor_Set(TextUnderColor);
 
         if (Affine is not null)
             instance.SetAffine(Affine.ScaleX, Affine.ScaleY, Affine.ShearX, Affine.ShearY, Affine.TranslateX, Affine.TranslateY);
         if (FillPattern is not null)
             instance.SetFillPattern(FillPattern);
         if (_strokeDashArray is not null)
-            instance.SetStrokeDashArray(_strokeDashArray, _strokeDashArray.Length);
+            instance.SetStrokeDashArray(_strokeDashArray, (uint)_strokeDashArray.Length);
         if (StrokePattern is not null)
             instance.SetStrokePattern(StrokePattern);
         if (Text is not null && Text.Length > 0)

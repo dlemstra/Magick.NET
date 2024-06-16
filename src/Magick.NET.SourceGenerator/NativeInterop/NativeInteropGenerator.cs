@@ -381,26 +381,31 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         }
         else if (!method.IsVoid)
         {
+            codeBuilder.Append("return ");
             if (method.ReturnType.ClassName == "string")
             {
                 if (method.Cleanup is not null)
-                    codeBuilder.AppendLine("return UTF8Marshaler.CreateInstanceAndRelinquish(result);");
+                    codeBuilder.AppendLine("UTF8Marshaler.CreateInstanceAndRelinquish(result);");
                 else if (method.ReturnType.Name == "string?")
-                    codeBuilder.AppendLine("return UTF8Marshaler.CreateNullableInstance(result);");
+                    codeBuilder.AppendLine("UTF8Marshaler.CreateNullableInstance(result);");
                 else
-                    codeBuilder.AppendLine("return UTF8Marshaler.CreateInstance(result);");
+                    codeBuilder.AppendLine("UTF8Marshaler.CreateInstance(result);");
+            }
+            else if (method.ReturnType.HasCreateInstance)
+            {
+                codeBuilder.Append(method.ReturnType.ClassName);
+                codeBuilder.AppendLine(".CreateInstance(result);");
             }
             else
             {
-                codeBuilder.Append("return");
                 if (method.ReturnType.IsEnum)
                 {
-                    codeBuilder.Append(" (");
+                    codeBuilder.Append("(");
                     codeBuilder.Append(method.ReturnType.Name);
                     codeBuilder.Append(")");
                 }
 
-                codeBuilder.AppendLine(" result;");
+                codeBuilder.AppendLine("result;");
             }
         }
 
@@ -424,16 +429,27 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         {
             codeBuilder.AppendLine();
             codeBuilder.Append("internal static INativeInstance CreateInstance(");
-            codeBuilder.Append(info.InterfaceName);
+            if (info.IsInternal)
+                codeBuilder.Append(info.ParentClassName);
+            else
+                codeBuilder.Append(info.InterfaceName);
             codeBuilder.AppendLine("? instance)");
             codeBuilder.AppendOpenBrace();
             codeBuilder.AppendLine("if (instance is null)");
             codeBuilder.Indent++;
             codeBuilder.AppendLine("return NativeInstance.Zero;");
             codeBuilder.Indent--;
-            codeBuilder.Append("return ");
-            codeBuilder.Append(info.ParentClassName);
-            codeBuilder.AppendLine(".CreateNativeInstance(instance);");
+            if (info.IsInternal)
+            {
+                codeBuilder.AppendLine("return instance.CreateNativeInstance();");
+            }
+            else
+            {
+                codeBuilder.Append("return ");
+                codeBuilder.Append(info.ParentClassName);
+                codeBuilder.AppendLine(".CreateNativeInstance(instance);");
+            }
+
             codeBuilder.AppendCloseBrace();
         }
 
