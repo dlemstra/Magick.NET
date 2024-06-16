@@ -30,21 +30,21 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     internal MagickSettings()
     {
         using var instance = new NativeMagickSettings();
-        AntiAlias = instance.AntiAlias;
-        BackgroundColor = instance.BackgroundColor;
-        ColorSpace = instance.ColorSpace;
-        ColorType = instance.ColorType;
-        Compression = instance.Compression;
-        Debug = instance.Debug;
-        Density = CreateDensity(instance.Density);
-        Depth = instance.Depth;
-        Endian = instance.Endian;
-        Extract = MagickGeometry.FromString(instance.Extract);
-        _fontPointsize = instance.FontPointsize;
-        Format = EnumHelper.Parse(instance.Format, MagickFormat.Unknown);
-        Interlace = instance.Interlace;
-        Monochrome = instance.Monochrome;
-        Verbose = instance.Verbose;
+        AntiAlias = instance.AntiAlias_Get();
+        BackgroundColor = instance.BackgroundColor_Get();
+        ColorSpace = instance.ColorSpace_Get();
+        ColorType = instance.ColorType_Get();
+        Compression = instance.Compression_Get();
+        Debug = instance.Debug_Get();
+        Density = CreateDensity(instance.Density_Get());
+        Depth = (int)instance.Depth_Get();
+        Endian = instance.Endian_Get();
+        Extract = MagickGeometry.FromString(instance.Extract_Get());
+        _fontPointsize = instance.FontPointsize_Get();
+        Format = EnumHelper.Parse(instance.Format_Get(), MagickFormat.Unknown);
+        Interlace = instance.Interlace_Get();
+        Monochrome = instance.Monochrome_Get();
+        Verbose = instance.Verbose_Get();
         Drawing = new DrawingSettings();
     }
 
@@ -672,7 +672,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
         return new Density(density.X, density.Y, density.Units);
     }
 
-    private static INativeInstance CreateNativeInstance(IMagickSettings<QuantumType> instance)
+    private static NativeMagickSettings CreateNativeInstance(IMagickSettings<QuantumType> instance)
     {
         var settings = (MagickSettings)instance;
 
@@ -681,33 +681,31 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
         if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(format))
             fileName = format + ":" + fileName;
 
-        var result = new NativeMagickSettings
-        {
-            AntiAlias = settings.AntiAlias,
-            BackgroundColor = settings.BackgroundColor,
-            ColorSpace = settings.ColorSpace,
-            ColorType = settings.ColorType,
-            Compression = settings.Compression,
-            Debug = settings.Debug,
-            Density = settings.Density?.ToString(DensityUnit.Undefined),
-            Depth = settings.Depth,
-            Endian = settings.Endian,
-            Extract = settings.Extract?.ToString(),
-            FontPointsize = settings._fontPointsize,
-            Format = format,
-            Interlace = settings.Interlace,
-            Monochrome = settings.Monochrome,
-            Verbose = settings.Verbose,
-        };
+        var result = new NativeMagickSettings();
+        result.AntiAlias_Set(settings.AntiAlias);
+        result.BackgroundColor_Set(settings.BackgroundColor);
+        result.ColorSpace_Set(settings.ColorSpace);
+        result.ColorType_Set(settings.ColorType);
+        result.Compression_Set(settings.Compression);
+        result.Debug_Set(settings.Debug);
+        result.Density_Set(settings.Density?.ToString(DensityUnit.Undefined));
+        result.Depth_Set((uint)settings.Depth);
+        result.Endian_Set(settings.Endian);
+        result.Extract_Set(settings.Extract?.ToString());
+        result.FontPointsize_Set(settings._fontPointsize);
+        result.Format_Set(format);
+        result.Interlace_Set(settings.Interlace);
+        result.Monochrome_Set(settings.Monochrome);
+        result.Verbose_Set(settings.Verbose);
 
         result.SetColorFuzz(settings.ColorFuzz);
         result.SetFileName(fileName);
         result.SetFont(settings.Font);
-        result.SetNumberScenes(settings.NumberScenes);
+        result.SetNumberScenes((uint)settings.NumberScenes);
         result.SetPage(settings.Page?.ToString());
         result.SetPing(settings.Ping);
-        result.SetQuality(settings.Quality);
-        result.SetScene(settings.Scene);
+        result.SetQuality((uint)settings.Quality);
+        result.SetScene((uint)settings.Scene);
         result.SetScenes(settings.Scenes);
         result.SetSize(settings.Size);
 
