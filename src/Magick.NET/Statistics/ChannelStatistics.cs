@@ -12,14 +12,14 @@ internal sealed partial class ChannelStatistics : IChannelStatistics
         Channel = channel;
 
         var nativeInstance = new NativeChannelStatistics(instance);
-        Depth = nativeInstance.Depth;
-        Entropy = nativeInstance.Entropy;
-        Kurtosis = nativeInstance.Kurtosis;
-        Maximum = nativeInstance.Maximum;
-        Mean = nativeInstance.Mean;
-        Minimum = nativeInstance.Minimum;
-        Skewness = nativeInstance.Skewness;
-        StandardDeviation = nativeInstance.StandardDeviation;
+        Depth = (int)nativeInstance.Depth_Get();
+        Entropy = nativeInstance.Entropy_Get();
+        Kurtosis = nativeInstance.Kurtosis_Get();
+        Maximum = nativeInstance.Maximum_Get();
+        Mean = nativeInstance.Mean_Get();
+        Minimum = nativeInstance.Minimum_Get();
+        Skewness = nativeInstance.Skewness_Get();
+        StandardDeviation = nativeInstance.StandardDeviation_Get();
     }
 
     public PixelChannel Channel { get; }
