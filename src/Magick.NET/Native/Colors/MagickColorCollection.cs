@@ -13,6 +13,6 @@ internal static partial class MagickColorCollection
     {
         public static partial void DisposeList(IntPtr list);
 
-        public static partial IntPtr GetInstance(IntPtr list, uint index);
+        public static partial IntPtr GetInstance(IntPtr list, nuint index);
     }
 }

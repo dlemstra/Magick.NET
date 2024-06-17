@@ -25,6 +25,6 @@ public partial class ChannelMoments
 
         public partial double EllipseIntensity_Get();
 
-        public partial double GetHuInvariants(uint index);
+        public partial double GetHuInvariants(nuint index);
     }
 }

@@ -21,7 +21,7 @@ public partial class Quantum
     [NativeInterop]
     private static partial class NativeQuantum
     {
-        public static partial int Depth_Get();
+        public static partial nuint Depth_Get();
 
         public static partial QuantumType Max_Get();
 

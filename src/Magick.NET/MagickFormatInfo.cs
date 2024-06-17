@@ -118,7 +118,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
         Throw.IfNullOrEmpty(nameof(data), data);
 
         var instance = new NativeMagickFormatInfo();
-        instance.GetInfoWithBlob(data, data.Length);
+        instance.GetInfoWithBlob(data, (uint)data.Length);
 
         return Create(instance);
     }
@@ -217,7 +217,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
         var formats = new Dictionary<MagickFormat, IMagickFormatInfo>();
 
         var list = IntPtr.Zero;
-        var length = 0;
+        nuint length = 0;
         try
         {
             list = NativeMagickFormatInfo.CreateList(out length);
@@ -225,7 +225,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
             var instance = new NativeMagickFormatInfo();
 
             var ptr = list;
-            for (var i = 0; i < length; i++)
+            for (var i = 0U; i < length; i++)
             {
                 instance.GetInfo(list, i);
 

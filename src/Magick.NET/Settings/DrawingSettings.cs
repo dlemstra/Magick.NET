@@ -37,7 +37,7 @@ internal sealed partial class DrawingSettings
         StrokeDashOffset = instance.StrokeDashOffset_Get();
         StrokeLineCap = instance.StrokeLineCap_Get();
         StrokeLineJoin = instance.StrokeLineJoin_Get();
-        StrokeMiterLimit = instance.StrokeMiterLimit_Get();
+        StrokeMiterLimit = (uint)instance.StrokeMiterLimit_Get();
         StrokeWidth = instance.StrokeWidth_Get();
         TextAntiAlias = instance.TextAntiAlias_Get();
         TextDirection = instance.TextDirection_Get();

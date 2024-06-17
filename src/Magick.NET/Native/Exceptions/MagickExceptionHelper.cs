@@ -18,10 +18,10 @@ internal static partial class MagickExceptionHelper
 
         public static partial string? Message(IntPtr exception);
 
-        public static partial IntPtr Related(IntPtr exception, int index);
+        public static partial IntPtr Related(IntPtr exception, nuint index);
 
-        public static partial int RelatedCount(IntPtr exception);
+        public static partial nuint RelatedCount(IntPtr exception);
 
-        public static partial int Severity(IntPtr exception);
+        public static partial ExceptionSeverity Severity(IntPtr exception);
     }
 }

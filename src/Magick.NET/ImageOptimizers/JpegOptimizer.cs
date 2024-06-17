@@ -51,7 +51,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     {
         Throw.IfNull(nameof(file), file);
 
-        return DoCompress(file, false, quality);
+        return DoCompress(file, false, (uint)quality);
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
         Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-        return DoCompress(new FileInfo(fileName), false, quality);
+        return DoCompress(new FileInfo(fileName), false, (uint)quality);
     }
 
     /// <summary>
@@ -99,7 +99,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     /// <param name="quality">The jpeg quality.</param>
     /// <returns>True when the image could be compressed otherwise false.</returns>
     public bool Compress(Stream stream, int quality)
-        => DoCompress(stream, false, quality);
+        => DoCompress(stream, false, (uint)quality);
 
     /// <summary>
     /// Performs lossless compression on the specified file. If the new file size is not smaller
@@ -137,10 +137,10 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     public bool LosslessCompress(Stream stream)
         => DoCompress(stream, true, 0);
 
-    private static void DoNativeCompress(string filename, string outputFilename, bool progressive, bool lossless, int quality)
+    private static void DoNativeCompress(string filename, string outputFilename, bool progressive, bool lossless, uint quality)
         => NativeJpegOptimizer.CompressFile(filename, outputFilename, progressive, lossless, quality);
 
-    private static void DoNativeCompress(Stream input, Stream output, bool progressive, bool lossless, int quality)
+    private static void DoNativeCompress(Stream input, Stream output, bool progressive, bool lossless, uint quality)
     {
         using var readWrapper = StreamWrapper.CreateForReading(input);
         using var writeWrapper = StreamWrapper.CreateForWriting(output);
@@ -150,7 +150,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
         NativeJpegOptimizer.CompressStream(reader, writer, progressive, lossless, quality);
     }
 
-    private bool DoCompress(FileInfo file, bool lossless, int quality)
+    private bool DoCompress(FileInfo file, bool lossless, uint quality)
     {
         using var tempFile = new TemporaryFile();
         DoNativeCompress(file.FullName, tempFile.FullName, Progressive, lossless, quality);
@@ -171,7 +171,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
         return true;
     }
 
-    private bool DoCompress(Stream stream, bool lossless, int quality)
+    private bool DoCompress(Stream stream, bool lossless, uint quality)
     {
         ImageOptimizerHelper.CheckStream(stream);
 

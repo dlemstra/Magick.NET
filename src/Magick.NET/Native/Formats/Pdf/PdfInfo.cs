@@ -12,6 +12,6 @@ public partial class PdfInfo
     private partial class NativePdfInfo
     {
         [Throws]
-        public static partial int PageCount(string fileName, string password);
+        public static partial nuint PageCount(string fileName, string password);
     }
 }

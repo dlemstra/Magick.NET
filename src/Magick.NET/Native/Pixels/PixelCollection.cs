@@ -28,25 +28,25 @@ internal partial class PixelCollection
         public static partial IntPtr Create(IMagickImage image);
 
         [Throws]
-        public partial IntPtr GetArea(int x, int y, uint width, uint height);
+        public partial IntPtr GetArea(nint x, nint y, nuint width, nuint height);
 
         [Throws]
-        public partial IntPtr GetReadOnlyArea(int x, int y, uint width, uint height);
+        public partial IntPtr GetReadOnlyArea(nint x, nint y, nuint width, nuint height);
 
         [Throws]
-        public partial void SetArea(int x, int y, uint width, uint height, QuantumType[] values, uint length);
+        public partial void SetArea(nint x, nint y, nuint width, nuint height, QuantumType[] values, nuint length);
 
 #if NETSTANDARD2_1
         [Throws]
-        public partial void SetArea(int x, int y, uint width, uint height, ReadOnlySpan<QuantumType> values, uint length);
+        public partial void SetArea(nint x, nint y, nuint width, nuint height, ReadOnlySpan<QuantumType> values, nuint length);
 #endif
 
         [Throws]
         [Cleanup(Name = "MagickMemory.Relinquish")]
-        public partial IntPtr ToByteArray(int x, int y, uint width, uint height, string mapping);
+        public partial IntPtr ToByteArray(nint x, nint y, nuint width, nuint height, string mapping);
 
         [Throws]
         [Cleanup(Name = "MagickMemory.Relinquish")]
-        public partial IntPtr ToShortArray(int x, int y, uint width, uint height, string mapping);
+        public partial IntPtr ToShortArray(nint x, nint y, nuint width, nuint height, string mapping);
     }
 }

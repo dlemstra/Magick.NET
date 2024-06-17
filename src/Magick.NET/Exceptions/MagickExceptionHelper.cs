@@ -34,7 +34,7 @@ internal static partial class MagickExceptionHelper
 
     public static MagickException CreateException(IntPtr exception)
     {
-        var severity = (ExceptionSeverity)NativeMagickExceptionHelper.Severity(exception);
+        var severity = NativeMagickExceptionHelper.Severity(exception);
         var message = NativeMagickExceptionHelper.Message(exception);
         var description = NativeMagickExceptionHelper.Description(exception);
 
@@ -59,8 +59,8 @@ internal static partial class MagickExceptionHelper
         if (nestedCount == 0)
             return null;
 
-        var result = new List<MagickException>(nestedCount);
-        for (var i = 0; i < nestedCount; i++)
+        var result = new List<MagickException>((int)nestedCount);
+        for (var i = 0U; i < nestedCount; i++)
         {
             var nested = NativeMagickExceptionHelper.Related(exception, i);
             result.Add(CreateException(nested));

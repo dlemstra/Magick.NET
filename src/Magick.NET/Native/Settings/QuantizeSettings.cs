@@ -18,7 +18,7 @@ public partial class QuantizeSettings
         public static partial IntPtr Create();
 
         [Instance(SetsInstance = false)]
-        public partial void SetColors(uint value);
+        public partial void SetColors(nuint value);
 
         [Instance(SetsInstance = false)]
         public partial void SetColorSpace(ColorSpace value);
@@ -30,6 +30,6 @@ public partial class QuantizeSettings
         public partial void SetMeasureErrors(bool value);
 
         [Instance(SetsInstance = false)]
-        public partial void SetTreeDepth(uint value);
+        public partial void SetTreeDepth(nuint value);
     }
 }

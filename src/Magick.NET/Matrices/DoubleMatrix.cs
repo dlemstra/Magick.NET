@@ -107,7 +107,7 @@ public abstract partial class DoubleMatrix
         => _values;
 
     private static INativeInstance CreateNativeInstance(IDoubleMatrix instance)
-        => new NativeDoubleMatrix(instance.ToArray(), instance.Order);
+        => new NativeDoubleMatrix(instance.ToArray(), (uint)instance.Order);
 
     private int GetIndex(int x, int y)
     {

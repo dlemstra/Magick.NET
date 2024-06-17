@@ -54,9 +54,9 @@ internal partial class DrawingSettings
 
         public partial void FontStyle_Set(FontStyleType value);
 
-        public partial uint FontWeight_Get();
+        public partial nuint FontWeight_Get();
 
-        public partial void FontWeight_Set(uint value);
+        public partial void FontWeight_Set(nuint value);
 
         public partial bool StrokeAntiAlias_Get();
 
@@ -78,9 +78,9 @@ internal partial class DrawingSettings
 
         public partial void StrokeLineJoin_Set(LineJoin value);
 
-        public partial uint StrokeMiterLimit_Get();
+        public partial nuint StrokeMiterLimit_Get();
 
-        public partial void StrokeMiterLimit_Set(uint value);
+        public partial void StrokeMiterLimit_Set(nuint value);
 
         public partial double StrokeWidth_Get();
 
@@ -126,7 +126,7 @@ internal partial class DrawingSettings
         public partial void SetFillPattern(IMagickImage value);
 
         [Instance(SetsInstance = false)]
-        public partial void SetStrokeDashArray(double[] dash, uint length);
+        public partial void SetStrokeDashArray(double[] dash, nuint length);
 
         [Throws]
         [Instance(SetsInstance = false)]

@@ -250,7 +250,7 @@ internal sealed partial class DrawingWand : IDisposable
         => _nativeInstance.StrokeColor(color);
 
     public void StrokeDashArray(double[] dash)
-        => _nativeInstance.StrokeDashArray(dash, dash.Length);
+        => _nativeInstance.StrokeDashArray(dash, (uint)dash.Length);
 
     public void StrokeDashOffset(double value)
         => _nativeInstance.StrokeDashOffset(value);

@@ -17,9 +17,9 @@ public partial class JpegOptimizer
     private partial class NativeJpegOptimizer : NativeHelper
     {
         [Throws]
-        public static partial void CompressFile(string input, string output, bool progressive, bool lossless, int quality);
+        public static partial void CompressFile(string input, string output, bool progressive, bool lossless, nuint quality);
 
         [Throws]
-        public static partial void CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, bool progressive, bool lossless, int quality);
+        public static partial void CompressStream(ReadWriteStreamDelegate reader, ReadWriteStreamDelegate writer, bool progressive, bool lossless, nuint quality);
     }
 }

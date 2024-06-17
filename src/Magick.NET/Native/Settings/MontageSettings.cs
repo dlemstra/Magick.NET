@@ -34,7 +34,7 @@ public partial class MontageSettings
         public partial void SetBorderColor(IMagickColor<QuantumType>? value);
 
         [Instance(SetsInstance = false)]
-        public partial void SetBorderWidth(uint value);
+        public partial void SetBorderWidth(nuint value);
 
         [Instance(SetsInstance = false)]
         public partial void SetFillColor(IMagickColor<QuantumType>? value);

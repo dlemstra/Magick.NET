@@ -25,11 +25,11 @@ public partial class MagickNET
         [Throws]
         [Cleanup(Name = nameof(DisposeFonts))]
 
-        public static partial IntPtr GetFonts(out uint length);
+        public static partial IntPtr GetFonts(out nuint length);
 
-        public static partial string? GetFontFamily(IntPtr instance, uint index);
+        public static partial string? GetFontFamily(IntPtr instance, nuint index);
 
-        public static partial string? GetFontName(IntPtr instance, uint index);
+        public static partial string? GetFontName(IntPtr instance, nuint index);
 
         public static partial void DisposeFonts(IntPtr instance);
 

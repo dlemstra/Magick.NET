@@ -22,7 +22,7 @@ public sealed partial class MagickFormatInfo
         Throw.IfEmpty(nameof(data), data);
 
         var instance = new NativeMagickFormatInfo();
-        instance.GetInfoWithBlob(data, data.Length);
+        instance.GetInfoWithBlob(data, (nuint)data.Length);
 
         return Create(instance);
     }

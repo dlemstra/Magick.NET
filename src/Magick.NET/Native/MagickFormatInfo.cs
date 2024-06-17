@@ -14,9 +14,9 @@ public partial class MagickFormatInfo
     {
         [Throws]
         [Cleanup(Name = nameof(DisposeList), Arguments = "length")]
-        public static partial IntPtr CreateList(out int length);
+        public static partial IntPtr CreateList(out nuint length);
 
-        public static partial void DisposeList(IntPtr instance, int length);
+        public static partial void DisposeList(IntPtr instance, nuint length);
 
         public static partial bool Unregister(string name);
 
@@ -40,7 +40,7 @@ public partial class MagickFormatInfo
 
         [Throws]
         [Instance(UsesInstance = false)]
-        public partial void GetInfo(IntPtr list, int index);
+        public partial void GetInfo(IntPtr list, nuint index);
 
         [Throws]
         [Instance(UsesInstance = false)]
@@ -48,12 +48,12 @@ public partial class MagickFormatInfo
 
         [Throws]
         [Instance(UsesInstance = false)]
-        public partial void GetInfoWithBlob(byte[] data, int length);
+        public partial void GetInfoWithBlob(byte[] data, nuint length);
 
 #if NETSTANDARD2_1
         [Throws]
         [Instance(UsesInstance = false)]
-        public partial void GetInfoWithBlob(ReadOnlySpan<byte> data, int length);
+        public partial void GetInfoWithBlob(ReadOnlySpan<byte> data, nuint length);
 #endif
     }
 }

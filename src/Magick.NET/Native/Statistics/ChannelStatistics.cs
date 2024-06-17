@@ -14,7 +14,7 @@ internal partial class ChannelStatistics
         public NativeChannelStatistics(IntPtr instance)
             => Instance = instance;
 
-        public partial uint Depth_Get();
+        public partial nuint Depth_Get();
 
         public partial double Entropy_Get();
 

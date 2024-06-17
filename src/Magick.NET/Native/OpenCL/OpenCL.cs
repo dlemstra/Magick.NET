@@ -12,9 +12,9 @@ public partial class OpenCL
     [NativeInterop]
     private static partial class NativeOpenCL
     {
-        public static partial IntPtr GetDevices(out uint length);
+        public static partial IntPtr GetDevices(out nuint length);
 
-        public static partial IntPtr GetDevice(IntPtr list, uint index);
+        public static partial IntPtr GetDevice(IntPtr list, nuint index);
 
         public static partial bool GetEnabled();
 

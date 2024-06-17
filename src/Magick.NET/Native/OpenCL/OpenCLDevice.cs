@@ -12,7 +12,7 @@ public partial class OpenCLDevice
     [NativeInterop]
     private partial class NativeOpenCLDevice : ConstNativeInstance
     {
-        public static partial IntPtr GetKernelProfileRecord(IntPtr list, uint index);
+        public static partial IntPtr GetKernelProfileRecord(IntPtr list, nuint index);
 
         public partial double BenchmarkScore_Get();
 
@@ -26,7 +26,7 @@ public partial class OpenCLDevice
 
         public partial string Version_Get();
 
-        public partial IntPtr GetKernelProfileRecords(out uint length);
+        public partial IntPtr GetKernelProfileRecords(out nuint length);
 
         public partial void SetProfileKernels(bool value);
     }

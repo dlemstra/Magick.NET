@@ -55,9 +55,9 @@ public partial class MagickSettings
 
         public partial void Density_Set(string? value);
 
-        public partial uint Depth_Get();
+        public partial nuint Depth_Get();
 
-        public partial void Depth_Set(uint value);
+        public partial void Depth_Set(nuint value);
 
         public partial Endian Endian_Get();
 
@@ -97,7 +97,7 @@ public partial class MagickSettings
         public partial string? SetFont(string? value);
 
         [Instance(SetsInstance = false)]
-        public partial void SetNumberScenes(uint value);
+        public partial void SetNumberScenes(nuint value);
 
         [Instance(SetsInstance = false)]
         public partial void SetOption(string key, string? value);
@@ -109,10 +109,10 @@ public partial class MagickSettings
         public partial void SetPing(bool value);
 
         [Instance(SetsInstance = false)]
-        public partial void SetQuality(uint value);
+        public partial void SetQuality(nuint value);
 
         [Instance(SetsInstance = false)]
-        public partial void SetScene(uint value);
+        public partial void SetScene(nuint value);
 
         [Instance(SetsInstance = false)]
         public partial void SetScenes(string? value);

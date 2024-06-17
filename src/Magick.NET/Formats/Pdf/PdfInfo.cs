@@ -10,9 +10,9 @@ namespace ImageMagick.Formats;
 /// </summary>
 public sealed partial class PdfInfo
 {
-    private PdfInfo(int pageCount)
+    private PdfInfo(uint pageCount)
     {
-        PageCount = pageCount;
+        PageCount = (int)pageCount;
     }
 
     /// <summary>
@@ -66,6 +66,6 @@ public sealed partial class PdfInfo
         if (pageCount == 0)
             throw new MagickErrorException("Unable to determine the page count.");
 
-        return new PdfInfo(pageCount);
+        return new PdfInfo((uint)pageCount);
     }
 }

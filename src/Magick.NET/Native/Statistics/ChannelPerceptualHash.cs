@@ -15,6 +15,6 @@ public partial class ChannelPerceptualHash
         public NativeChannelPerceptualHash(IntPtr instance)
             => Instance = instance;
 
-        public partial double GetHuPhash(uint colorSpaceIndex, uint index);
+        public partial double GetHuPhash(nuint colorSpaceIndex, nuint index);
     }
 }
