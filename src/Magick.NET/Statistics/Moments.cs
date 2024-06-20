@@ -11,12 +11,10 @@ namespace ImageMagick;
 /// </summary>
 public sealed partial class Moments : IMoments
 {
-    private readonly Dictionary<PixelChannel, ChannelMoments> _channels;
+    private readonly Dictionary<PixelChannel, ChannelMoments> _channels = new();
 
     internal Moments(MagickImage image, IntPtr list)
     {
-        _channels = new Dictionary<PixelChannel, ChannelMoments>();
-
         if (list == IntPtr.Zero)
             return;
 
