@@ -24,14 +24,14 @@ public sealed partial class ConnectedComponent : IConnectedComponent<QuantumType
 {
     private ConnectedComponent(IntPtr instance)
     {
-        Area = NativeConnectedComponent.GetArea(instance);
+        Area = (int)NativeConnectedComponent.GetArea(instance);
         Centroid = NativeConnectedComponent.GetCentroid(instance).ToPointD();
         Color = NativeConnectedComponent.GetColor(instance);
-        Height = NativeConnectedComponent.GetHeight(instance);
-        Id = NativeConnectedComponent.GetId(instance);
-        Width = NativeConnectedComponent.GetWidth(instance);
-        X = NativeConnectedComponent.GetX(instance);
-        Y = NativeConnectedComponent.GetY(instance);
+        Height = (int)NativeConnectedComponent.GetHeight(instance);
+        Id = (int)NativeConnectedComponent.GetId(instance);
+        Width = (int)NativeConnectedComponent.GetWidth(instance);
+        X = (int)NativeConnectedComponent.GetX(instance);
+        Y = (int)NativeConnectedComponent.GetY(instance);
     }
 
     /// <summary>
@@ -104,7 +104,7 @@ public sealed partial class ConnectedComponent : IConnectedComponent<QuantumType
         if (list == IntPtr.Zero)
             return result;
 
-        for (var i = 0; i < length; i++)
+        for (var i = 0U; i < length; i++)
         {
             var instance = NativeConnectedComponent.GetInstance(list, i);
             if (instance == IntPtr.Zero)
