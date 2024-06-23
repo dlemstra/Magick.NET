@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-
 namespace ImageMagick;
 
 /// <summary>
@@ -10,15 +8,6 @@ namespace ImageMagick;
 /// </summary>
 public sealed partial class OpenCLKernelProfileRecord : IOpenCLKernelProfileRecord
 {
-    private OpenCLKernelProfileRecord(NativeOpenCLKernelProfileRecord instance)
-    {
-        Name = instance.Name_Get();
-        Count = (long)instance.Count_Get();
-        MaximumDuration = (long)instance.MaximumDuration_Get();
-        MinimumDuration = (long)instance.MinimumDuration_Get();
-        TotalDuration = (long)instance.TotalDuration_Get();
-    }
-
     /// <summary>
     /// Gets the average duration of all executions in microseconds.
     /// </summary>
@@ -57,15 +46,4 @@ public sealed partial class OpenCLKernelProfileRecord : IOpenCLKernelProfileReco
     /// Gets the total duration of all executions in microseconds.
     /// </summary>
     public long TotalDuration { get; }
-
-    internal static OpenCLKernelProfileRecord? CreateInstance(IntPtr instance)
-    {
-        if (instance == IntPtr.Zero)
-            return null;
-
-        var nativeInstance = new NativeOpenCLKernelProfileRecord();
-        nativeInstance.Instance = instance;
-
-        return new OpenCLKernelProfileRecord(nativeInstance);
-    }
 }
