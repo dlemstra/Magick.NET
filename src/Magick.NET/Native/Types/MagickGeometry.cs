@@ -12,10 +12,10 @@ public partial class MagickGeometry
     [NativeInterop]
     private partial class NativeMagickGeometry : NativeInstance
     {
-        public NativeMagickGeometry()
-            => Instance = Create();
+        public NativeMagickGeometry(IntPtr instance)
+            => Instance = instance;
 
-        public static partial IntPtr Create();
+        public static partial NativeMagickGeometry Create();
 
         public partial nint X_Get();
 

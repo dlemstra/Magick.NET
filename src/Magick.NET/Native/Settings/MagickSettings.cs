@@ -22,10 +22,10 @@ public partial class MagickSettings
     [NativeInterop(QuantumType = true, ManagedToNative = true)]
     private unsafe sealed partial class NativeMagickSettings : NativeInstance
     {
-        public NativeMagickSettings()
-            => Instance = Create();
+        public NativeMagickSettings(IntPtr instance)
+            => Instance = instance;
 
-        public static partial IntPtr Create();
+        public static partial NativeMagickSettings Create();
 
         public partial bool AntiAlias_Get();
 

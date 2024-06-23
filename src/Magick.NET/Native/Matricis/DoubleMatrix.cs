@@ -12,9 +12,9 @@ public partial class DoubleMatrix
     [NativeInterop(ManagedToNative = true)]
     private partial class NativeDoubleMatrix : NativeInstance
     {
-        public NativeDoubleMatrix(double[] values, uint order)
-            => Instance = Create(values, order);
+        public NativeDoubleMatrix(IntPtr instance)
+            => Instance = instance;
 
-        public static partial IntPtr Create(double[] values, nuint order);
+        public static partial NativeDoubleMatrix Create(double[] values, nuint order);
     }
 }

@@ -54,7 +54,7 @@ internal sealed partial class MagickRectangle
     }
 
     internal static INativeInstance CreateInstance()
-        => new NativeMagickRectangle();
+        => NativeMagickRectangle.Create();
 
     internal static MagickRectangle CreateInstance(INativeInstance nativeInstance)
     {

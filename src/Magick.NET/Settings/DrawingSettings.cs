@@ -23,7 +23,7 @@ internal sealed partial class DrawingSettings
 
     internal DrawingSettings()
     {
-        using var instance = new NativeDrawingSettings();
+        using var instance = NativeDrawingSettings.Create();
         BorderColor = instance.BorderColor_Get();
         FillColor = instance.FillColor_Get();
         FillRule = instance.FillRule_Get();
@@ -167,7 +167,7 @@ internal sealed partial class DrawingSettings
 
     private NativeDrawingSettings CreateNativeInstance()
     {
-        var instance = new NativeDrawingSettings();
+        var instance = NativeDrawingSettings.Create();
         instance.BorderColor_Set(BorderColor);
         instance.FillColor_Set(FillColor);
         instance.FillRule_Set(FillRule);

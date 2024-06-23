@@ -45,7 +45,7 @@ public partial class MagickColor
 
     private static NativeMagickColor CreateNativeInstance(IMagickColor<QuantumType> instance)
     {
-        var color = new NativeMagickColor();
+        var color = NativeMagickColor.Create();
         color.Red_Set(instance.R);
         color.Green_Set(instance.G);
         color.Blue_Set(instance.B);
@@ -70,13 +70,10 @@ public partial class MagickColor
     [NativeInterop(QuantumType = true, ManagedToNative = true)]
     private sealed partial class NativeMagickColor : NativeInstance
     {
-        public NativeMagickColor()
-            => Instance = Create();
-
         public NativeMagickColor(IntPtr instance)
             => Instance = instance;
 
-        public static partial IntPtr Create();
+        public static partial NativeMagickColor Create();
 
         public partial ulong Count_Get();
 

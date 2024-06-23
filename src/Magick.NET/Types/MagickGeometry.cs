@@ -69,7 +69,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     {
         Throw.IfNullOrEmpty(nameof(value), value);
 
-        using var instance = new NativeMagickGeometry();
+        using var instance = NativeMagickGeometry.Create();
         var flags = instance.Initialize(value);
 
         if (!EnumHelper.HasFlag(flags, GeometryFlags.AspectRatio))

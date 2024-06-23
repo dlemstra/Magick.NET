@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -349,6 +350,14 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Indent++;
             codeBuilder.AppendLine("Instance = result;");
             codeBuilder.Indent--;
+        }
+        else if (method.ReturnType.Name == info.ClassName)
+        {
+            codeBuilder.AppendLine("if (result == IntPtr.Zero)");
+            codeBuilder.Indent++;
+            codeBuilder.AppendLine("throw new InvalidOperationException();");
+            codeBuilder.Indent--;
+            codeBuilder.AppendLine("return new(result);");
         }
         else if (!method.IsVoid)
         {

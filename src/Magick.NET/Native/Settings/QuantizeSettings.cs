@@ -12,10 +12,10 @@ public partial class QuantizeSettings
     [NativeInterop(ManagedToNative = true)]
     private unsafe sealed partial class NativeQuantizeSettings : NativeInstance
     {
-        public NativeQuantizeSettings()
-            => Instance = Create();
+        public NativeQuantizeSettings(IntPtr instance)
+            => Instance = instance;
 
-        public static partial IntPtr Create();
+        public static partial NativeQuantizeSettings Create();
 
         [Instance(SetsInstance = false)]
         public partial void SetColors(nuint value);

@@ -29,7 +29,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
 
     internal MagickSettings()
     {
-        using var instance = new NativeMagickSettings();
+        using var instance = NativeMagickSettings.Create();
         AntiAlias = instance.AntiAlias_Get();
         BackgroundColor = instance.BackgroundColor_Get();
         ColorSpace = instance.ColorSpace_Get();
@@ -681,7 +681,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
         if (!string.IsNullOrEmpty(fileName) && !string.IsNullOrEmpty(format))
             fileName = format + ":" + fileName;
 
-        var result = new NativeMagickSettings();
+        var result = NativeMagickSettings.Create();
         result.AntiAlias_Set(settings.AntiAlias);
         result.BackgroundColor_Set(settings.BackgroundColor);
         result.ColorSpace_Set(settings.ColorSpace);

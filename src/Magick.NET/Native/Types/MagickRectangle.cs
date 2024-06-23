@@ -19,7 +19,7 @@ internal partial class MagickRectangle
 
     private NativeMagickRectangle CreateNativeInstance()
     {
-        var nativeInstance = new NativeMagickRectangle();
+        var nativeInstance = NativeMagickRectangle.Create();
         nativeInstance.X_Set(X);
         nativeInstance.Y_Set(Y);
         nativeInstance.Width_Set((uint)Width);
@@ -31,13 +31,10 @@ internal partial class MagickRectangle
     [NativeInterop(ManagedToNative = true)]
     private partial class NativeMagickRectangle : NativeInstance
     {
-        public NativeMagickRectangle()
-            => Instance = Create();
-
         public NativeMagickRectangle(IntPtr instance)
             => Instance = instance;
 
-        public static partial IntPtr Create();
+        public static partial NativeMagickRectangle Create();
 
         public static partial MagickRectangle? FromPageSize(string value);
 

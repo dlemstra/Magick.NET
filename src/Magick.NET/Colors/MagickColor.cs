@@ -133,7 +133,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
             return;
         }
 
-        using var instance = new NativeMagickColor();
+        using var instance = NativeMagickColor.Create();
         Throw.IfFalse(nameof(color), instance.Initialize(color), "Invalid color specified");
         Initialize(instance);
     }

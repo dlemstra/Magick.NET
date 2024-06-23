@@ -44,7 +44,7 @@ public sealed partial class QuantizeSettings : IQuantizeSettings
 
     private static INativeInstance CreateNativeInstance(IQuantizeSettings settings)
     {
-        var instance = new NativeQuantizeSettings();
+        var instance = NativeQuantizeSettings.Create();
         instance.SetColors((uint)settings.Colors);
         instance.SetColorSpace(settings.ColorSpace);
         instance.SetDitherMethod(settings.DitherMethod ?? ImageMagick.DitherMethod.No);

@@ -33,7 +33,7 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
     {
         get
         {
-            _nativeInstance ??= new NativePixelCollection(Image);
+            _nativeInstance ??= NativePixelCollection.Create(Image);
 
             return _nativeInstance;
         }

@@ -21,11 +21,11 @@ internal partial class PixelCollection
     [NativeInterop(CustomInstance = true)]
     private partial class NativePixelCollection : NativeInstance
     {
-        public NativePixelCollection(IMagickImage image)
-            => Instance = Create(image);
+        public NativePixelCollection(IntPtr instance)
+            => Instance = instance;
 
         [Throws]
-        public static partial IntPtr Create(IMagickImage image);
+        public static partial NativePixelCollection Create(IMagickImage image);
 
         [Throws]
         public partial IntPtr GetArea(nint x, nint y, nuint width, nuint height);

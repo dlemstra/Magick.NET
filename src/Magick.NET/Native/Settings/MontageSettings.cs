@@ -22,10 +22,10 @@ public partial class MontageSettings
     [NativeInterop(QuantumType = true, ManagedToNative = true)]
     private partial class NativeMontageSettings : NativeInstance
     {
-        public NativeMontageSettings()
-            => Instance = Create();
+        public NativeMontageSettings(IntPtr instance)
+            => Instance = instance;
 
-        public static partial IntPtr Create();
+        public static partial NativeMontageSettings Create();
 
         [Instance(SetsInstance = false)]
         public partial void SetBackgroundColor(IMagickColor<QuantumType>? value);

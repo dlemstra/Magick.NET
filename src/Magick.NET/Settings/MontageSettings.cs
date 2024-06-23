@@ -100,7 +100,7 @@ public sealed partial class MontageSettings : IMontageSettings<QuantumType>
 
     private static INativeInstance CreateNativeInstance(IMontageSettings<QuantumType> instance)
     {
-        var result = new NativeMontageSettings();
+        var result = NativeMontageSettings.Create();
         result.SetBackgroundColor(instance.BackgroundColor);
         result.SetBorderColor(instance.BorderColor);
         result.SetBorderWidth((uint)instance.BorderWidth);
