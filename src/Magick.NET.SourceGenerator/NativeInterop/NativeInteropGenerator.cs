@@ -99,7 +99,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             .GroupBy(method => method.Name)
             .Select(group => group.First());
 
-        if (info.HasDispose)
+        if (info.HasInstance)
         {
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
@@ -204,7 +204,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Indent--;
         }
 
-        if (info.HasDispose)
+        if (info.HasInstance)
         {
             codeBuilder.AppendLine();
             codeBuilder.Append("public ");
