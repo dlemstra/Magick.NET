@@ -207,6 +207,14 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         if (info.HasDispose)
         {
             codeBuilder.AppendLine();
+            codeBuilder.Append("public ");
+            codeBuilder.Append(info.ClassName);
+            codeBuilder.AppendLine("(IntPtr instance)");
+            codeBuilder.Indent++;
+            codeBuilder.AppendLine("=> Instance = instance;");
+            codeBuilder.Indent--;
+
+            codeBuilder.AppendLine();
             codeBuilder.AppendLine("protected override void Dispose(IntPtr instance)");
             codeBuilder.AppendOpenBrace();
             codeBuilder.AppendLine("#if PLATFORM_AnyCPU");

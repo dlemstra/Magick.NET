@@ -31,9 +31,6 @@ internal partial class MagickRectangle
     [NativeInterop(ManagedToNative = true)]
     private partial class NativeMagickRectangle : NativeInstance
     {
-        public NativeMagickRectangle(IntPtr instance)
-            => Instance = instance;
-
         public static partial NativeMagickRectangle Create();
 
         public static partial MagickRectangle? FromPageSize(string value);

@@ -70,9 +70,6 @@ public partial class MagickColor
     [NativeInterop(QuantumType = true, ManagedToNative = true)]
     private sealed partial class NativeMagickColor : NativeInstance
     {
-        public NativeMagickColor(IntPtr instance)
-            => Instance = instance;
-
         public static partial NativeMagickColor Create();
 
         public partial ulong Count_Get();

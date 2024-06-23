@@ -22,9 +22,6 @@ public partial class MontageSettings
     [NativeInterop(QuantumType = true, ManagedToNative = true)]
     private partial class NativeMontageSettings : NativeInstance
     {
-        public NativeMontageSettings(IntPtr instance)
-            => Instance = instance;
-
         public static partial NativeMontageSettings Create();
 
         [Instance(SetsInstance = false)]

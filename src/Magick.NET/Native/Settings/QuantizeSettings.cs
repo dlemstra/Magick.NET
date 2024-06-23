@@ -12,9 +12,6 @@ public partial class QuantizeSettings
     [NativeInterop(ManagedToNative = true)]
     private unsafe sealed partial class NativeQuantizeSettings : NativeInstance
     {
-        public NativeQuantizeSettings(IntPtr instance)
-            => Instance = instance;
-
         public static partial NativeQuantizeSettings Create();
 
         [Instance(SetsInstance = false)]

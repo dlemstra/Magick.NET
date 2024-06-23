@@ -24,9 +24,6 @@ internal partial class DrawingWand : IDisposable
     [NativeInterop]
     private partial class NativeDrawingWand : NativeInstance
     {
-        public NativeDrawingWand(IntPtr instance)
-            => Instance = instance;
-
         public static partial NativeDrawingWand Create(IMagickImage image, DrawingSettings settings);
 
         [Throws]

@@ -21,9 +21,6 @@ internal partial class PixelCollection
     [NativeInterop(CustomInstance = true)]
     private partial class NativePixelCollection : NativeInstance
     {
-        public NativePixelCollection(IntPtr instance)
-            => Instance = instance;
-
         [Throws]
         public static partial NativePixelCollection Create(IMagickImage image);
 

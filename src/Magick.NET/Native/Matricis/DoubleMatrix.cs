@@ -12,9 +12,6 @@ public partial class DoubleMatrix
     [NativeInterop(ManagedToNative = true)]
     private partial class NativeDoubleMatrix : NativeInstance
     {
-        public NativeDoubleMatrix(IntPtr instance)
-            => Instance = instance;
-
         public static partial NativeDoubleMatrix Create(double[] values, nuint order);
     }
 }

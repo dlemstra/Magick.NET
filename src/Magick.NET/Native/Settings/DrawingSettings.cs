@@ -21,9 +21,6 @@ internal partial class DrawingSettings
     [NativeInterop(QuantumType = true, ManagedToNative = true)]
     private partial class NativeDrawingSettings : NativeInstance
     {
-        public NativeDrawingSettings(IntPtr instance)
-            => Instance = instance;
-
         public static partial NativeDrawingSettings Create();
 
         public partial IMagickColor<QuantumType>? BorderColor_Get();
