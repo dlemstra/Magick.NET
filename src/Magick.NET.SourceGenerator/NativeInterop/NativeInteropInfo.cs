@@ -49,10 +49,6 @@ internal class NativeInteropInfo
         NativeToManaged = nativeInteropAttribute
             .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.NativeToManaged)))
             .FirstOrDefault() == "true";
-
-        HasInstanceField = isNativeInstance && !(ManagedToNative || NativeToManaged || nativeInteropAttribute
-            .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.CustomInstance)))
-            .FirstOrDefault() == "true");
     }
 
     public string ClassName
@@ -61,8 +57,6 @@ internal class NativeInteropInfo
     public string EntryPointClassName { get; }
 
     public bool HasDispose { get; }
-
-    public bool HasInstanceField { get; }
 
     public bool HasTypeName { get; }
 

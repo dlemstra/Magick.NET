@@ -61,8 +61,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendLine(info.ParentClassName);
         codeBuilder.AppendOpenBrace();
 
-        AppendInstance(info, codeBuilder);
-
         AppendNativeInterop(codeBuilder, info);
 
         AppendNativeClass(codeBuilder, info);
@@ -72,17 +70,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.AppendCloseBrace();
 
         context.AddSource($"{info.ParentClassName}.g.cs", SourceText.From(codeBuilder.ToString(), Encoding.UTF8));
-    }
-
-    private static void AppendInstance(NativeInteropInfo info, CodeBuilder codeBuilder)
-    {
-        if (info.HasInstanceField)
-        {
-            codeBuilder.Append("private readonly ");
-            codeBuilder.Append(info.ClassName);
-            codeBuilder.AppendLine(" _nativeInstance;");
-            codeBuilder.AppendLine();
-        }
     }
 
     private static void AppendNativeInterop(CodeBuilder codeBuilder, NativeInteropInfo info)

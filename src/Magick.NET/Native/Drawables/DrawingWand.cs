@@ -19,6 +19,8 @@ namespace ImageMagick;
 /// <content />
 internal partial class DrawingWand : IDisposable
 {
+    private readonly NativeDrawingWand _nativeInstance;
+
     [NativeInterop]
     private partial class NativeDrawingWand : NativeInstance
     {
