@@ -10,7 +10,7 @@ namespace ImageMagick;
 public partial class MagickFormatInfo
 {
     [NativeInterop]
-    private sealed partial class NativeMagickFormatInfo : ConstNativeInstance
+    private partial class NativeMagickFormatInfo : ConstNativeInstance
     {
         [Throws]
         [Cleanup(Name = nameof(DisposeList), Arguments = "length")]
