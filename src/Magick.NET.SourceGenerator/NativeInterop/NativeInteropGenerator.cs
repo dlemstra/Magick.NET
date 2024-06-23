@@ -65,7 +65,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         AppendNativeClass(codeBuilder, info);
 
-        AppendCreateMethods(context, codeBuilder, info);
+        AppendManagedToNativeMethod(context, codeBuilder, info);
 
         codeBuilder.AppendCloseBrace();
 
@@ -394,35 +394,37 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine("#endif");
     }
 
-    private static void AppendCreateMethods(SourceProductionContext context, CodeBuilder codeBuilder, NativeInteropInfo info)
+    private static void AppendManagedToNativeMethod(SourceProductionContext context, CodeBuilder codeBuilder, NativeInteropInfo info)
     {
-        if (info.ManagedToNative)
+        if (!info.ManagedToNative)
         {
-            codeBuilder.AppendLine();
-            codeBuilder.Append("internal static INativeInstance CreateInstance(");
-            if (info.IsInternal)
-                codeBuilder.Append(info.ParentClassName);
-            else
-                codeBuilder.Append(info.InterfaceName);
-            codeBuilder.AppendLine("? instance)");
-            codeBuilder.AppendOpenBrace();
-            codeBuilder.AppendLine("if (instance is null)");
-            codeBuilder.Indent++;
-            codeBuilder.AppendLine("return NativeInstance.Zero;");
-            codeBuilder.Indent--;
-            if (info.IsInternal)
-            {
-                codeBuilder.AppendLine("return instance.CreateNativeInstance();");
-            }
-            else
-            {
-                codeBuilder.Append("return ");
-                codeBuilder.Append(info.ParentClassName);
-                codeBuilder.AppendLine(".CreateNativeInstance(instance);");
-            }
-
-            codeBuilder.AppendCloseBrace();
+            return;
         }
+
+        codeBuilder.AppendLine();
+        codeBuilder.Append("internal static INativeInstance CreateInstance(");
+        if (info.IsInternal)
+            codeBuilder.Append(info.ParentClassName);
+        else
+            codeBuilder.Append(info.InterfaceName);
+        codeBuilder.AppendLine("? instance)");
+        codeBuilder.AppendOpenBrace();
+        codeBuilder.AppendLine("if (instance is null)");
+        codeBuilder.Indent++;
+        codeBuilder.AppendLine("return NativeInstance.Zero;");
+        codeBuilder.Indent--;
+        if (info.IsInternal)
+        {
+            codeBuilder.AppendLine("return instance.CreateNativeInstance();");
+        }
+        else
+        {
+            codeBuilder.Append("return ");
+            codeBuilder.Append(info.ParentClassName);
+            codeBuilder.AppendLine(".CreateNativeInstance(instance);");
+        }
+
+        codeBuilder.AppendCloseBrace();
     }
 
     private static void AppendDisposeCall(CodeBuilder codeBuilder, NativeInteropInfo info, string platform)
