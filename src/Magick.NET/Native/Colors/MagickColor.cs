@@ -19,6 +19,30 @@ namespace ImageMagick;
 /// <content />
 public partial class MagickColor
 {
+    private MagickColor(NativeMagickColor nativeInstance)
+        => Initialize(nativeInstance);
+
+    internal static MagickColor? CreateInstance(IntPtr instance)
+    {
+        if (instance == IntPtr.Zero)
+            return null;
+
+        using var nativeInstance = new NativeMagickColor(instance);
+        return new MagickColor(nativeInstance);
+    }
+
+    internal static MagickColor? CreateInstance(IntPtr instance, out int count)
+    {
+        count = 0;
+
+        if (instance == IntPtr.Zero)
+            return null;
+
+        using var nativeInstance = new NativeMagickColor(instance);
+        count = (int)nativeInstance.Count_Get();
+        return new MagickColor(nativeInstance);
+    }
+
     private static NativeMagickColor CreateNativeInstance(IMagickColor<QuantumType> instance)
     {
         var color = new NativeMagickColor();
@@ -32,11 +56,25 @@ public partial class MagickColor
         return color;
     }
 
-    [NativeInterop(QuantumType = true, ManagedToNative = true, NativeToManaged = true)]
+    private void Initialize(NativeMagickColor instance)
+    {
+        R = instance.Red_Get();
+        G = instance.Green_Get();
+        B = instance.Blue_Get();
+        A = instance.Alpha_Get();
+        K = instance.Black_Get();
+
+        IsCmyk = instance.IsCMYK_Get();
+    }
+
+    [NativeInterop(QuantumType = true, ManagedToNative = true)]
     private sealed partial class NativeMagickColor : NativeInstance
     {
         public NativeMagickColor()
             => Instance = Create();
+
+        public NativeMagickColor(IntPtr instance)
+            => Instance = instance;
 
         public static partial IntPtr Create();
 

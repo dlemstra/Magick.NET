@@ -29,6 +29,7 @@ internal sealed class TypeInfo
         {
             "DrawingSettings" => true,
             "MagickColor" => true,
+            "MagickRectangle" => true,
             "PointInfo" => true,
             "string" => true,
             _ => false,

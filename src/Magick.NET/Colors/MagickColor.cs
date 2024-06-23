@@ -138,9 +138,6 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
         Initialize(instance);
     }
 
-    private MagickColor(NativeMagickColor instance)
-        => Initialize(instance);
-
     /// <summary>
     /// Gets or sets the alpha component value of this color.
     /// </summary>
@@ -513,28 +510,6 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
             K = value.K,
             IsCmyk = value.IsCmyk,
         };
-    }
-
-    internal static IMagickColor<QuantumType>? CreateInstance(IntPtr instance, out int count)
-    {
-        count = 0;
-        if (instance == IntPtr.Zero)
-            return null;
-
-        using var nativeInstance = new NativeMagickColor(instance);
-        count = (int)nativeInstance.Count_Get();
-        return new MagickColor(nativeInstance);
-    }
-
-    private void Initialize(NativeMagickColor instance)
-    {
-        R = instance.Red_Get();
-        G = instance.Green_Get();
-        B = instance.Blue_Get();
-        A = instance.Alpha_Get();
-        K = instance.Black_Get();
-
-        IsCmyk = instance.IsCMYK_Get();
     }
 
     private void Initialize(QuantumType red, QuantumType green, QuantumType blue, QuantumType alpha)

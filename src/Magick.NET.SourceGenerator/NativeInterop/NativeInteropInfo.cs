@@ -45,10 +45,6 @@ internal class NativeInteropInfo
         ManagedToNative = nativeInteropAttribute
             .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.ManagedToNative)))
             .FirstOrDefault() == "true";
-
-        NativeToManaged = nativeInteropAttribute
-            .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.NativeToManaged)))
-            .FirstOrDefault() == "true";
     }
 
     public string ClassName
@@ -69,8 +65,6 @@ internal class NativeInteropInfo
     public List<MethodInfo> Methods { get; }
 
     public string Namespace { get; }
-
-    public bool NativeToManaged { get; }
 
     public string ParentClassName { get; }
 

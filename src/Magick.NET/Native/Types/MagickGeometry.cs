@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// <content />
 public partial class MagickGeometry
 {
-    [NativeInterop(NativeToManaged = true)]
+    [NativeInterop]
     private partial class NativeMagickGeometry : NativeInstance
     {
         public NativeMagickGeometry()

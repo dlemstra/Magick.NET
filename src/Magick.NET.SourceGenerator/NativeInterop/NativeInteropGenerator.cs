@@ -180,8 +180,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine("() { Environment.Initialize(); }");
         }
 
-        AppendNativeConstructor(codeBuilder, info);
-
         AppendNativeClassInstanceMethods(codeBuilder, info);
 
         foreach (var method in info.Methods)
@@ -190,20 +188,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         }
 
         codeBuilder.AppendCloseBrace();
-    }
-
-    private static void AppendNativeConstructor(CodeBuilder codeBuilder, NativeInteropInfo info)
-    {
-        if (info.NativeToManaged)
-        {
-            codeBuilder.AppendLine();
-            codeBuilder.Append("public ");
-            codeBuilder.Append(info.ClassName);
-            codeBuilder.AppendLine("(IntPtr nativeInstance)");
-            codeBuilder.Indent++;
-            codeBuilder.AppendLine("=> Instance = nativeInstance;");
-            codeBuilder.Indent--;
-        }
     }
 
     private static void AppendNativeClassInstanceMethods(CodeBuilder codeBuilder, NativeInteropInfo info)
@@ -437,28 +421,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
                 codeBuilder.AppendLine(".CreateNativeInstance(instance);");
             }
 
-            codeBuilder.AppendCloseBrace();
-        }
-
-        if (info.NativeToManaged)
-        {
-            codeBuilder.AppendLine();
-            codeBuilder.Append("internal static ");
-            codeBuilder.Append(info.InterfaceName);
-            codeBuilder.AppendLine("? CreateInstance(IntPtr instance)");
-            codeBuilder.AppendOpenBrace();
-            codeBuilder.AppendLine("if (instance == IntPtr.Zero)");
-            codeBuilder.Indent++;
-            codeBuilder.AppendLine("return null;");
-            codeBuilder.Indent--;
-            if (info.HasDispose)
-                codeBuilder.Append("using ");
-            codeBuilder.Append("var nativeInstance = new ");
-            codeBuilder.Append(info.ClassName);
-            codeBuilder.AppendLine("(instance);");
-            codeBuilder.Append("return new ");
-            codeBuilder.Append(info.ParentClassName);
-            codeBuilder.AppendLine("(nativeInstance);");
             codeBuilder.AppendCloseBrace();
         }
     }
