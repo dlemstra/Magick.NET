@@ -11,7 +11,7 @@ namespace ImageMagick.Formats;
 public sealed class DngReadDefines : IReadDefines
 {
     /// <summary>
-    /// Gets or sets a value indicating wether auto brightness should be used (dng:no-auto-bright).
+    /// Gets or sets a value indicating whether auto brightness should be used (dng:no-auto-bright).
     /// </summary>
     public bool? DisableAutoBrightness { get; set; }
 
@@ -32,18 +32,18 @@ public sealed class DngReadDefines : IReadDefines
     public DngOutputColor? OutputColor { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether the embedded thumbnail should be read (dng:read-thumbnail). This profile can be
+    /// Gets or sets a value indicating whether the embedded thumbnail should be read (dng:read-thumbnail). This profile can be
     /// read by calling <see cref="IMagickImage.GetProfile(string)"/> with dng:thumbnail as the name of the profile.
     /// </summary>
     public bool? ReadThumbnail { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether auto whitebalance should be used (dng:use-auto-wb).
+    /// Gets or sets a value indicating whether auto white balance should be used (dng:use-auto-wb).
     /// </summary>
     public bool? UseAutoWhitebalance { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether the whitebalance of the camera should be used (dng:use-camera-wb).
+    /// Gets or sets a value indicating whether the white balance of the camera should be used (dng:use-camera-wb).
     /// </summary>
     public bool? UseCameraWhitebalance { get; set; }
 

@@ -17,7 +17,7 @@ public sealed class DdsReadDefines : IReadDefines
         => MagickFormat.Dds;
 
     /// <summary>
-    /// Gets or sets a value indicating wether mipmaps should be skipped (dds:skip-mipmaps).
+    /// Gets or sets a value indicating whether mipmaps should be skipped (dds:skip-mipmaps).
     /// </summary>
     public bool? SkipMipmaps { get; set; }
 
