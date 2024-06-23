@@ -59,7 +59,7 @@ public sealed class PdfWriteDefines : IWriteDefines
     public string? Subject { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether a thumbnail should be added to the pdf document (pdf:thumbnail).
+    /// Gets or sets a value indicating whether a thumbnail should be added to the pdf document (pdf:thumbnail).
     /// </summary>
     public bool? Thumbnail { get; set; }
 

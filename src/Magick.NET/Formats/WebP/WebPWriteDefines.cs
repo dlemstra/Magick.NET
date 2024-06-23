@@ -27,17 +27,17 @@ public sealed class WebPWriteDefines : IWriteDefines
     public int? AlphaQuality { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether the algorithm should spend additional time optimizing the filtering strength to reach a well-balanced quality (webp:auto-filter).
+    /// Gets or sets a value indicating whether the algorithm should spend additional time optimizing the filtering strength to reach a well-balanced quality (webp:auto-filter).
     /// </summary>
     public bool? AutoFilter { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether a similar compression to that of JPEG but with less degradation should be used. (webp:emulate-jpeg-size).
+    /// Gets or sets a value indicating whether a similar compression to that of JPEG but with less degradation should be used. (webp:emulate-jpeg-size).
     /// </summary>
     public bool? EmulateJpegSize { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether RGB values should be preserved in transparent area. It's disabled by default to help compressibility.
+    /// Gets or sets a value indicating whether RGB values should be preserved in transparent area. It's disabled by default to help compressibility.
     /// </summary>
     public bool? Exact { get; set; }
 
@@ -68,12 +68,12 @@ public sealed class WebPWriteDefines : IWriteDefines
     public WebPImageHint? ImageHint { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether the image should be encoded without any loss (webp:lossless).
+    /// Gets or sets a value indicating whether the image should be encoded without any loss (webp:lossless).
     /// </summary>
     public bool? Lossless { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether the memory usage should be reduced (webp:low-memory).
+    /// Gets or sets a value indicating whether the memory usage should be reduced (webp:low-memory).
     /// </summary>
     public bool? LowMemory { get; set; }
 
@@ -114,7 +114,7 @@ public sealed class WebPWriteDefines : IWriteDefines
     public int? Segment { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether the compressed picture should be exported back (webp:show-compressed).
+    /// Gets or sets a value indicating whether the compressed picture should be exported back (webp:show-compressed).
     /// </summary>
     public bool? ShowCompressed { get; set; }
 
@@ -134,12 +134,12 @@ public sealed class WebPWriteDefines : IWriteDefines
     public int? TargetSize { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether multi-threaded encoding should be enabled (webp:thread-level).
+    /// Gets or sets a value indicating whether multi-threaded encoding should be enabled (webp:thread-level).
     /// </summary>
     public bool? ThreadLevel { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating wether sharp (and slow) RGB->YUV conversion should be used. (webp:use-sharp-yuv).
+    /// Gets or sets a value indicating whether sharp (and slow) RGB->YUV conversion should be used. (webp:use-sharp-yuv).
     /// </summary>
     public bool? UseSharpYuv { get; set; }
 
