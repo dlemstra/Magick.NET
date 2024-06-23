@@ -424,10 +424,10 @@ public sealed partial class MagickGeometry : IMagickGeometry
 
     private void Initialize(NativeMagickGeometry instance)
     {
-        X = (int)instance.X;
-        Y = (int)instance.Y;
-        Width = (int)instance.Width;
-        Height = (int)instance.Height;
+        X = (int)instance.X_Get();
+        Y = (int)instance.Y_Get();
+        Width = (int)instance.Width_Get();
+        Height = (int)instance.Height_Get();
     }
 
     private void Initialize(NativeMagickGeometry instance, GeometryFlags flags)
@@ -452,7 +452,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
         Width = ParseInt(ratio[0]);
         Height = ParseInt(ratio[1]);
 
-        X = (int)instance.X;
-        Y = (int)instance.Y;
+        X = (int)instance.X_Get();
+        Y = (int)instance.Y_Get();
     }
 }
