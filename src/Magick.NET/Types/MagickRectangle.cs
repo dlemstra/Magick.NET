@@ -20,10 +20,10 @@ internal sealed partial class MagickRectangle
 
     private MagickRectangle(NativeMagickRectangle instance)
     {
-        X = instance.X;
-        Y = instance.Y;
-        Width = instance.Width;
-        Height = instance.Height;
+        X = (int)instance.X_Get();
+        Y = (int)instance.Y_Get();
+        Width = (int)instance.Width_Get();
+        Height = (int)instance.Height_Get();
     }
 
     public int Height { get; set; }
@@ -63,13 +63,4 @@ internal sealed partial class MagickRectangle
 
         return new MagickRectangle(instance);
     }
-
-    private NativeMagickRectangle CreateNativeInstance()
-        => new NativeMagickRectangle
-        {
-            X = X,
-            Y = Y,
-            Width = Width,
-            Height = Height,
-        };
 }
