@@ -14,7 +14,7 @@ internal sealed partial class PointInfoCollection : INativeInstance
         for (var i = 0; i < coordinates.Count; i++)
         {
             var point = coordinates[i];
-            _nativeInstance.Set(i, point.X, point.Y);
+            _nativeInstance.Set((nuint)i, point.X, point.Y);
         }
     }
 
@@ -26,7 +26,7 @@ internal sealed partial class PointInfoCollection : INativeInstance
 
     private PointInfoCollection(uint count)
     {
-        _nativeInstance = new NativePointInfoCollection((int)count);
+        _nativeInstance = NativePointInfoCollection.Create(count);
         Count = count;
     }
 
