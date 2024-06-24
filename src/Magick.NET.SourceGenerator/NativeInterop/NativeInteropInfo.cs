@@ -18,6 +18,7 @@ internal class NativeInteropInfo
         _class = (ClassDeclarationSyntax)syntaxNode;
         Methods = _class.Members
             .OfType<MethodDeclarationSyntax>()
+            .Where(method => method.Modifiers.Any(modifier => modifier.IsKind(SyntaxKind.PartialKeyword)))
             .Select(method => new MethodInfo(semanticModel, method))
             .ToList();
 
