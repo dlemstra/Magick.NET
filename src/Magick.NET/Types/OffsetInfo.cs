@@ -17,7 +17,7 @@ internal partial class OffsetInfo
 
     public INativeInstance CreateNativeInstance()
     {
-        var offsetInfo = new NativeOffsetInfo();
+        var offsetInfo = NativeOffsetInfo.Create();
         offsetInfo.SetX(X);
         offsetInfo.SetY(Y);
         return offsetInfo;
