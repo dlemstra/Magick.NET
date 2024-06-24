@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 
 namespace ImageMagick.Formats;
@@ -40,12 +41,32 @@ public sealed class DngReadDefines : IReadDefines
     /// <summary>
     /// Gets or sets a value indicating whether auto white balance should be used (dng:use-auto-wb).
     /// </summary>
-    public bool? UseAutoWhitebalance { get; set; }
+    [Obsolete($"This property will be removed in the next major release, use {nameof(UseAutoWhiteBalance)} instead.")]
+    public bool? UseAutoWhitebalance
+    {
+        get => UseAutoWhiteBalance;
+        set => UseAutoWhiteBalance = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether auto white balance should be used (dng:use-auto-wb).
+    /// </summary>
+    public bool? UseAutoWhiteBalance { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the white balance of the camera should be used (dng:use-camera-wb).
     /// </summary>
-    public bool? UseCameraWhitebalance { get; set; }
+    [Obsolete($"This property will be removed in the next major release, use {nameof(UseCameraWhiteBalance)} instead.")]
+    public bool? UseCameraWhitebalance
+    {
+        get => UseCameraWhiteBalance;
+        set => UseCameraWhiteBalance = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the white balance of the camera should be used (dng:use-camera-wb).
+    /// </summary>
+    public bool? UseCameraWhiteBalance { get; set; }
 
     /// <summary>
     /// Gets the defines that should be set as a define on an image.
@@ -66,11 +87,11 @@ public sealed class DngReadDefines : IReadDefines
             if (ReadThumbnail.HasValue)
                 yield return new MagickDefine(Format, "read-thumbnail", ReadThumbnail.Value);
 
-            if (UseCameraWhitebalance.HasValue)
-                yield return new MagickDefine(Format, "use-camera-wb", UseCameraWhitebalance.Value);
+            if (UseCameraWhiteBalance.HasValue)
+                yield return new MagickDefine(Format, "use-camera-wb", UseCameraWhiteBalance.Value);
 
-            if (UseAutoWhitebalance.HasValue)
-                yield return new MagickDefine(Format, "use-auto-wb", UseAutoWhitebalance.Value);
+            if (UseAutoWhiteBalance.HasValue)
+                yield return new MagickDefine(Format, "use-auto-wb", UseAutoWhiteBalance.Value);
         }
     }
 }
