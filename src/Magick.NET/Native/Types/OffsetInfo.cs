@@ -7,6 +7,14 @@ namespace ImageMagick;
 
 internal partial class OffsetInfo
 {
+    private NativeOffsetInfo CreateNativeInstance()
+    {
+        var offsetInfo = NativeOffsetInfo.Create();
+        offsetInfo.SetX(X);
+        offsetInfo.SetY(Y);
+        return offsetInfo;
+    }
+
     [NativeInterop(ManagedToNative = true)]
     private partial class NativeOffsetInfo : NativeInstance
     {
