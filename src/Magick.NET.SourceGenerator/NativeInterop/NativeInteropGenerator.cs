@@ -99,7 +99,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             .GroupBy(method => method.Name)
             .Select(group => group.First());
 
-        if (info.HasInstance)
+        if (info.HasDispose)
         {
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
