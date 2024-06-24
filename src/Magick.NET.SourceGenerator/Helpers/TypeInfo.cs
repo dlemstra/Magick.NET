@@ -29,7 +29,10 @@ internal sealed class TypeInfo
         {
             "DrawingSettings" => true,
             "MagickColor" => true,
+            "MagickFormatInfo" => true,
             "MagickRectangle" => true,
+            "OpenCLDevice" => true,
+            "OpenCLKernelProfileRecord" => true,
             "PointInfo" => true,
             "string" => true,
             _ => false,

@@ -116,9 +116,6 @@ public sealed partial class PerceptualHash : IPerceptualHash
     private static ChannelPerceptualHash? CreateChannelPerceptualHash(IMagickImage image, ColorSpace[] colorSpaces, IntPtr list, PixelChannel channel)
     {
         var instance = NativePerceptualHash.GetInstance(image, list, channel);
-        if (instance == IntPtr.Zero)
-            return null;
-
         return new ChannelPerceptualHash(channel, colorSpaces, instance);
     }
 

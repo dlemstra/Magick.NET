@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-
 namespace ImageMagick;
 
 /// <summary>
@@ -12,17 +10,16 @@ public sealed partial class ChannelMoments : IChannelMoments
 {
     private double[] _huInvariants;
 
-    private ChannelMoments(PixelChannel channel, IntPtr instance)
+    private ChannelMoments(PixelChannel channel, NativeChannelMoments instance)
     {
         Channel = channel;
 
-        var nativeInstance = new NativeChannelMoments(instance);
-        Centroid = nativeInstance.Centroid_Get().ToPointD();
-        EllipseAngle = nativeInstance.EllipseAngle_Get();
-        EllipseAxis = nativeInstance.EllipseAxis_Get().ToPointD();
-        EllipseEccentricity = nativeInstance.EllipseEccentricity_Get();
-        EllipseIntensity = nativeInstance.EllipseIntensity_Get();
-        _huInvariants = GetHuInvariants(nativeInstance);
+        Centroid = instance.Centroid_Get().ToPointD();
+        EllipseAngle = instance.EllipseAngle_Get();
+        EllipseAxis = instance.EllipseAxis_Get().ToPointD();
+        EllipseEccentricity = instance.EllipseEccentricity_Get();
+        EllipseIntensity = instance.EllipseIntensity_Get();
+        _huInvariants = GetHuInvariants(instance);
     }
 
     /// <summary>
@@ -65,14 +62,6 @@ public sealed partial class ChannelMoments : IChannelMoments
         Throw.IfOutOfRange(nameof(index), index, 8);
 
         return _huInvariants[index];
-    }
-
-    internal static ChannelMoments? Create(PixelChannel channel, IntPtr instance)
-    {
-        if (instance == IntPtr.Zero)
-            return null;
-
-        return new ChannelMoments(channel, instance);
     }
 
     private static double[] GetHuInvariants(NativeChannelMoments nativeInstance)

@@ -117,10 +117,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     {
         Throw.IfNullOrEmpty(nameof(data), data);
 
-        var instance = new NativeMagickFormatInfo();
-        instance.GetInfoWithBlob(data, (uint)data.Length);
-
-        return Create(instance);
+        return NativeMagickFormatInfo.GetInfoWithBlob(data, (uint)data.Length);
     }
 
     /// <summary>
@@ -182,20 +179,6 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     public bool Unregister()
         => NativeMagickFormatInfo.Unregister(Enum.GetName(Format.GetType(), Format));
 
-    private static MagickFormatInfo? Create(NativeMagickFormatInfo instance)
-    {
-        if (!instance.HasInstance)
-            return null;
-
-        return new MagickFormatInfo(instance);
-    }
-
-    private static MagickFormatInfo? Create(NativeMagickFormatInfo instance, string name)
-    {
-        instance.GetInfoByName(name);
-        return Create(instance);
-    }
-
     private static MagickFormat GetFormat(string? format)
     {
         if (format is null)
@@ -222,21 +205,15 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
         {
             list = NativeMagickFormatInfo.CreateList(out length);
 
-            var instance = new NativeMagickFormatInfo();
-
             var ptr = list;
             for (var i = 0U; i < length; i++)
             {
-                instance.GetInfo(list, i);
-
-                var formatInfo = Create(instance);
+                var formatInfo = NativeMagickFormatInfo.GetInfo(list, i);
                 if (formatInfo is not null)
                     formats[formatInfo.Format] = formatInfo;
 
                 ptr = new IntPtr(ptr.ToInt64() + i);
             }
-
-            AddStealthCoders(instance, formats);
         }
         finally
         {
@@ -244,16 +221,18 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
                 NativeMagickFormatInfo.DisposeList(list, length);
         }
 
+        AddStealthCoders(formats);
+
         return formats;
     }
 
-    private static void AddStealthCoders(NativeMagickFormatInfo instance, Dictionary<MagickFormat, IMagickFormatInfo> formats)
+    private static void AddStealthCoders(Dictionary<MagickFormat, IMagickFormatInfo> formats)
     {
-        var formatInfo = Create(instance, "DIB");
+        var formatInfo = NativeMagickFormatInfo.GetInfoByName("DIB");
         if (formatInfo is not null)
             formats[formatInfo.Format] = formatInfo;
 
-        formatInfo = Create(instance, "TIF");
+        formatInfo = NativeMagickFormatInfo.GetInfoByName("TIF");
         if (formatInfo is not null)
             formats[formatInfo.Format] = formatInfo;
     }

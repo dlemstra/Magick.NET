@@ -9,12 +9,15 @@ namespace ImageMagick;
 /// <content />
 public partial class ChannelMoments
 {
+    internal static ChannelMoments? Create(PixelChannel channel, IntPtr instance)
+    {
+        var nativeInstance = new NativeChannelMoments(instance);
+        return new ChannelMoments(channel, nativeInstance);
+    }
+
     [NativeInterop]
     private partial class NativeChannelMoments : ConstNativeInstance
     {
-        public NativeChannelMoments(IntPtr instance)
-            => Instance = instance;
-
         public partial PointInfo Centroid_Get();
 
         public partial double EllipseAngle_Get();

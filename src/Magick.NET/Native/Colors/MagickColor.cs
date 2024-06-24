@@ -19,9 +19,6 @@ namespace ImageMagick;
 /// <content />
 public partial class MagickColor
 {
-    private MagickColor(NativeMagickColor nativeInstance)
-        => Initialize(nativeInstance);
-
     internal static MagickColor? CreateInstance(IntPtr instance)
     {
         if (instance == IntPtr.Zero)

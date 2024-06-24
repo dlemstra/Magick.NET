@@ -15,10 +15,9 @@ public sealed partial class OpenCLDevice : IOpenCLDevice
     private readonly NativeOpenCLDevice _instance;
     private bool _profileKernels;
 
-    private OpenCLDevice(IntPtr instance)
+    private OpenCLDevice(NativeOpenCLDevice instance)
     {
-        _instance = new NativeOpenCLDevice();
-        _instance.Instance = instance;
+        _instance = instance;
         _profileKernels = false;
     }
 
@@ -59,10 +58,8 @@ public sealed partial class OpenCLDevice : IOpenCLDevice
 
             for (var i = 0U; i < length; i++)
             {
-                var instance = NativeOpenCLDevice.GetKernelProfileRecord(records, i);
-                var record = OpenCLKernelProfileRecord.CreateInstance(instance);
-                if (record is not null)
-                    result.Add(record);
+                var record = NativeOpenCLDevice.GetKernelProfileRecord(records, i);
+                result.Add(record);
             }
 
             return result;
@@ -94,12 +91,4 @@ public sealed partial class OpenCLDevice : IOpenCLDevice
     /// </summary>
     public string Version
         => _instance.Version_Get();
-
-    internal static OpenCLDevice? CreateInstance(IntPtr instance)
-    {
-        if (instance == IntPtr.Zero)
-            return null;
-
-        return new OpenCLDevice(instance);
-    }
 }

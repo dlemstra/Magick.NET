@@ -12,9 +12,6 @@ public partial class ChannelPerceptualHash
     [NativeInterop]
     private partial class NativeChannelPerceptualHash : ConstNativeInstance
     {
-        public NativeChannelPerceptualHash(IntPtr instance)
-            => Instance = instance;
-
         public partial double GetHuPhash(nuint colorSpaceIndex, nuint index);
     }
 }

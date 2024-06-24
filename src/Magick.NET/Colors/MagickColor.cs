@@ -138,6 +138,9 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
         Initialize(instance);
     }
 
+    private MagickColor(NativeMagickColor nativeInstance)
+        => Initialize(nativeInstance);
+
     /// <summary>
     /// Gets or sets the alpha component value of this color.
     /// </summary>

@@ -21,10 +21,7 @@ public sealed partial class MagickFormatInfo
     {
         Throw.IfEmpty(nameof(data), data);
 
-        var instance = new NativeMagickFormatInfo();
-        instance.GetInfoWithBlob(data, (nuint)data.Length);
-
-        return Create(instance);
+        return NativeMagickFormatInfo.GetInfoWithBlob(data, (nuint)data.Length);
     }
 
     /// <summary>

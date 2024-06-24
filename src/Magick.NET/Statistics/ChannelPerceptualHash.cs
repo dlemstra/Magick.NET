@@ -31,6 +31,12 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
         _hash = hash;
     }
 
+    internal ChannelPerceptualHash(PixelChannel channel, ColorSpace[] colorSpaces, string hash)
+    {
+        Channel = channel;
+        ParseHash(colorSpaces, hash);
+    }
+
     internal ChannelPerceptualHash(PixelChannel channel, ColorSpace[] colorSpaces, IntPtr instance)
     {
         Channel = channel;
@@ -39,12 +45,6 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
         {
             AddHuPhash(nativeInstance, colorSpaces[i], (uint)i);
         }
-    }
-
-    internal ChannelPerceptualHash(PixelChannel channel, ColorSpace[] colorSpaces, string hash)
-    {
-        Channel = channel;
-        ParseHash(colorSpaces, hash);
     }
 
     /// <summary>

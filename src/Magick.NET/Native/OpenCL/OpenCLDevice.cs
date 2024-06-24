@@ -9,10 +9,16 @@ namespace ImageMagick;
 /// <content />
 public partial class OpenCLDevice
 {
+    internal static OpenCLDevice CreateInstance(IntPtr instance)
+    {
+        var nativeInstance = new NativeOpenCLDevice(instance);
+        return new OpenCLDevice(nativeInstance);
+    }
+
     [NativeInterop]
     private partial class NativeOpenCLDevice : ConstNativeInstance
     {
-        public static partial IntPtr GetKernelProfileRecord(IntPtr list, nuint index);
+        public static partial OpenCLKernelProfileRecord GetKernelProfileRecord(IntPtr list, nuint index);
 
         public partial double BenchmarkScore_Get();
 

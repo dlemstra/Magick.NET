@@ -14,7 +14,7 @@ public partial class OpenCL
     {
         public static partial IntPtr GetDevices(out nuint length);
 
-        public static partial IntPtr GetDevice(IntPtr list, nuint index);
+        public static partial OpenCLDevice GetDevice(IntPtr list, nuint index);
 
         public static partial bool GetEnabled();
 

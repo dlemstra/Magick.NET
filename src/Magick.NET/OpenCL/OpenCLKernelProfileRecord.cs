@@ -8,6 +8,15 @@ namespace ImageMagick;
 /// </summary>
 public sealed partial class OpenCLKernelProfileRecord : IOpenCLKernelProfileRecord
 {
+    private OpenCLKernelProfileRecord(NativeOpenCLKernelProfileRecord instance)
+    {
+        Name = instance.Name_Get();
+        Count = (long)instance.Count_Get();
+        MaximumDuration = (long)instance.MaximumDuration_Get();
+        MinimumDuration = (long)instance.MinimumDuration_Get();
+        TotalDuration = (long)instance.TotalDuration_Get();
+    }
+
     /// <summary>
     /// Gets the average duration of all executions in microseconds.
     /// </summary>

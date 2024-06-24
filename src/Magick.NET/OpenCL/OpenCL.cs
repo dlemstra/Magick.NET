@@ -46,10 +46,8 @@ public partial class OpenCL : IOpenCL
 
             for (var i = 0U; i < length; i++)
             {
-                var instance = NativeOpenCL.GetDevice(devices, i);
-                var device = OpenCLDevice.CreateInstance(instance);
-                if (device is not null)
-                    result.Add(device);
+                var device = NativeOpenCL.GetDevice(devices, i);
+                result.Add(device);
             }
 
             return result;
