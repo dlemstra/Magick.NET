@@ -9,6 +9,4 @@ namespace ImageMagick.SourceGenerator;
 internal sealed class InstanceAttribute : Attribute
 {
     public bool SetsInstance { get; set; } = true;
-
-    public bool UsesInstance { get; set; } = true;
 }

@@ -44,7 +44,6 @@ internal sealed class MethodInfo
 
         if (instanceAttribute is not null)
         {
-            UsesInstance = instanceAttribute.GetArgumentValue(nameof(InstanceAttribute.UsesInstance)) != "false";
             SetsInstance = instanceAttribute.GetArgumentValue(nameof(InstanceAttribute.SetsInstance)) != "false";
         }
     }
