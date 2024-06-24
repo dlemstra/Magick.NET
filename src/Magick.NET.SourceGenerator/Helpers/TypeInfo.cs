@@ -34,6 +34,7 @@ internal sealed class TypeInfo
             "OpenCLDevice" => true,
             "OpenCLKernelProfileRecord" => true,
             "PointInfo" => true,
+            "PrimaryInfo" => true,
             "string" => true,
             _ => false,
         };

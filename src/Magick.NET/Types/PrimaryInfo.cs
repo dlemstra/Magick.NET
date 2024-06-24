@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
+
 namespace ImageMagick;
 
 /// <summary>
@@ -21,11 +23,12 @@ public partial class PrimaryInfo : IPrimaryInfo
         Z = z;
     }
 
-    private PrimaryInfo(NativePrimaryInfo instance)
+    private PrimaryInfo(IntPtr instance)
     {
-        X = instance.X;
-        Y = instance.Y;
-        Z = instance.Z;
+        var nativeInstance = new NativePrimaryInfo(instance);
+        X = nativeInstance.X_Get();
+        Y = nativeInstance.Y_Get();
+        Z = nativeInstance.Z_Get();
     }
 
     /// <summary>
@@ -72,15 +75,5 @@ public partial class PrimaryInfo : IPrimaryInfo
           X.GetHashCode() ^
           Y.GetHashCode() ^
           Z.GetHashCode();
-    }
-
-    private static INativeInstance CreateNativeInstance(IPrimaryInfo instance)
-    {
-        return new NativePrimaryInfo
-        {
-            X = instance.X,
-            Y = instance.Y,
-            Z = instance.Z,
-        };
     }
 }
