@@ -10,16 +10,13 @@ internal partial class PointInfo
     private PointInfo(IntPtr instance)
     {
         var nativeInstance = new NativePointInfo(instance);
-        X = nativeInstance.X;
-        Y = nativeInstance.Y;
+        X = nativeInstance.X_Get();
+        Y = nativeInstance.Y_Get();
     }
 
     public double X { get; }
 
     public double Y { get; }
-
-    public static PointInfo CreateInstance(IntPtr instance)
-        => new PointInfo(instance);
 
     public PointD ToPointD()
         => new PointD(X, Y);
