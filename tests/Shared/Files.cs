@@ -97,7 +97,6 @@ public static class Files
         {
             @"../../../../",
             @"../../../../../Magick.NET.Tests/", // Other tests projects
-            @"../../../../../Tests/Magick.NET.Tests/", // Code coverage
         };
 
         foreach (var path in paths)
@@ -107,7 +106,7 @@ public static class Files
                 return directory;
         }
 
-        throw new InvalidOperationException("Unable to find the images folder, current directory is: " + Path.GetFullPath("."));
+        throw new InvalidOperationException($"Unable to find the images folder, current directory is: {Path.GetFullPath(".")}");
     }
 
     public static class Builtin
