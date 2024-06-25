@@ -91,6 +91,7 @@ internal sealed class TypeInfo
             "ReadOnlySpan<QuantumType>" => "QuantumType*",
             "ReadWriteStreamDelegate" => "ReadWriteStreamDelegate",
             "ulong" => "ulong",
+            "void" => "void",
             _ => IsEnum ? "UIntPtr" : "IntPtr",
         };
 }
