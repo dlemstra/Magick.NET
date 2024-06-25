@@ -21,7 +21,7 @@ internal partial class StringInfo
 
         var native = new NativeStringInfo(instance);
 
-        var datum = ByteConverter.ToArray(native.Datum, native.Length);
+        var datum = ByteConverter.ToArray(native.Datum_Get(), (int)native.Length_Get());
         if (datum is null)
             return null;
 
