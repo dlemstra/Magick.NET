@@ -35,6 +35,7 @@ internal sealed class TypeInfo
             "OpenCLKernelProfileRecord" => true,
             "PointInfo" => true,
             "PrimaryInfo" => true,
+            "TypeMetric" => true,
             "string" => true,
             _ => false,
         };

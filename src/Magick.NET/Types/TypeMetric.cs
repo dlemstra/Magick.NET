@@ -12,13 +12,13 @@ public sealed partial class TypeMetric : ITypeMetric
 {
     private TypeMetric(NativeTypeMetric instance)
     {
-        Ascent = instance.Ascent;
-        Descent = instance.Descent;
-        MaxHorizontalAdvance = instance.MaxHorizontalAdvance;
-        TextHeight = instance.TextHeight;
-        TextWidth = instance.TextWidth;
-        UnderlinePosition = instance.UnderlinePosition;
-        UnderlineThickness = instance.UnderlineThickness;
+        Ascent = instance.Ascent_Get();
+        Descent = instance.Descent_Get();
+        MaxHorizontalAdvance = instance.MaxHorizontalAdvance_Get();
+        TextHeight = instance.TextHeight_Get();
+        TextWidth = instance.TextWidth_Get();
+        UnderlinePosition = instance.UnderlinePosition_Get();
+        UnderlineThickness = instance.UnderlineThickness_Get();
     }
 
     /// <summary>
@@ -59,7 +59,5 @@ public sealed partial class TypeMetric : ITypeMetric
     public double UnderlineThickness { get; }
 
     internal static void Dispose(IntPtr instance)
-    {
-        NativeTypeMetric.DisposeInstance(instance);
-    }
+        => NativeTypeMetric.DisposeInstance(instance);
 }

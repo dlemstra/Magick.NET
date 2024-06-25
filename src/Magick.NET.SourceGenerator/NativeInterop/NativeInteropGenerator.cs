@@ -230,6 +230,26 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine("#endif");
             AppendDisposeCall(codeBuilder, info, "x86");
             codeBuilder.AppendCloseBrace();
+
+            if (info.HasStaticDispose)
+            {
+                codeBuilder.AppendLine();
+                codeBuilder.AppendLine("public static void DisposeInstance(IntPtr instance)");
+                codeBuilder.AppendOpenBrace();
+                codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+                codeBuilder.AppendLine("if (Runtime.IsArm64)");
+                codeBuilder.AppendLine("#endif");
+                AppendDisposeCall(codeBuilder, info, "arm64");
+                codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+                codeBuilder.AppendLine("else if (Runtime.Is64Bit)");
+                codeBuilder.AppendLine("#endif");
+                AppendDisposeCall(codeBuilder, info, "x64");
+                codeBuilder.AppendLine("#if PLATFORM_AnyCPU");
+                codeBuilder.AppendLine("else");
+                codeBuilder.AppendLine("#endif");
+                AppendDisposeCall(codeBuilder, info, "x86");
+                codeBuilder.AppendCloseBrace();
+            }
         }
     }
 

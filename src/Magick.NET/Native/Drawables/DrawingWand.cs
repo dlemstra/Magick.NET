@@ -17,7 +17,7 @@ using QuantumType = System.Single;
 namespace ImageMagick;
 
 /// <content />
-internal partial class DrawingWand : IDisposable
+internal partial class DrawingWand
 {
     private readonly NativeDrawingWand _nativeInstance;
 
@@ -107,7 +107,8 @@ internal partial class DrawingWand : IDisposable
         public partial void FontPointSize(double value);
 
         [Throws]
-        public partial IntPtr FontTypeMetrics(string text, bool ignoreNewLines);
+        [Cleanup(Name = "TypeMetric.Dispose")]
+        public partial TypeMetric? FontTypeMetrics(string text, bool ignoreNewLines);
 
         [Throws]
         [Instance(SetsInstance = false)]

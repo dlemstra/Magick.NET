@@ -13,4 +13,6 @@ internal sealed class NativeInteropAttribute : Attribute
     public bool ManagedToNative { get; set; } = false;
 
     public bool QuantumType { get; set; } = false;
+
+    public bool StaticDispose { get; set; } = false;
 }

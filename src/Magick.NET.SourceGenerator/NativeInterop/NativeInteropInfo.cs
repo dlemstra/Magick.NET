@@ -46,6 +46,10 @@ internal class NativeInteropInfo
         ManagedToNative = nativeInteropAttribute
             .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.ManagedToNative)))
             .FirstOrDefault() == "true";
+
+        HasStaticDispose = HasDispose && nativeInteropAttribute
+            .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.StaticDispose)))
+            .FirstOrDefault() == "true";
     }
 
     public string ClassName
@@ -56,6 +60,8 @@ internal class NativeInteropInfo
     public bool HasDispose { get; }
 
     public bool HasInstance { get; }
+
+    public bool HasStaticDispose { get; }
 
     public string? InterfaceName { get; }
 

@@ -99,10 +99,7 @@ internal sealed partial class DrawingWand : IDisposable
         => _nativeInstance.FontPointSize(value);
 
     public ITypeMetric? FontTypeMetrics(string text, bool ignoreNewlines)
-    {
-        var result = _nativeInstance.FontTypeMetrics(text, ignoreNewlines);
-        return TypeMetric.CreateInstance(result);
-    }
+        => _nativeInstance.FontTypeMetrics(text, ignoreNewlines);
 
     public void Gravity(Gravity value)
         => _nativeInstance.Gravity(value);
