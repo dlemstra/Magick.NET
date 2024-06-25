@@ -6,7 +6,10 @@
 public static void MagickNET_Log(object sender, LogEventArgs arguments)
 {
     // Write log message
-    WriteLogMessage(arguments.Message);
+    if (arguments.Message is not null)
+    {
+        WriteLogMessage(arguments.Message);
+    }
 }
 
 public static void ReadImage()

@@ -33,12 +33,15 @@ using var image = new MagickImage(SampleFiles.FujiFilmFinePixS1ProJpg);
 // Retrieve the exif information
 var profile = image.GetExifProfile();
 
-// Create thumbnail from exif information
-using var thumbnail = profile.CreateThumbnail();
-
-// Check if exif profile contains thumbnail and save it
-if (thumbnail is not null)
+if (profile is not null)
 {
-    thumbnail.Write("FujiFilmFinePixS1Pro.thumb.jpg");
+    // Create thumbnail from exif information
+    using var thumbnail = profile.CreateThumbnail();
+
+    // Check if exif profile contains thumbnail and save it
+    if (thumbnail is not null)
+    {
+        thumbnail.Write(SampleFiles.OutputDirectory + "FujiFilmFinePixS1Pro.thumb.jpg");
+    }
 }
 ```

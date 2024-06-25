@@ -8,13 +8,13 @@ namespace Magick.NET.Samples;
 
 public static class DetailedDebugInformationSamples
 {
-    private static void WriteLogMessage(string message)
-        => Console.WriteLine(message);
-
     public static void MagickNET_Log(object sender, LogEventArgs arguments)
     {
         // Write log message
-        WriteLogMessage(arguments.Message);
+        if (arguments.Message is not null)
+        {
+            Console.WriteLine(arguments.Message);
+        }
     }
 
     public static void ReadImage()

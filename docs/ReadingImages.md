@@ -53,9 +53,12 @@ Console.WriteLine(info.Width);
 Console.WriteLine(info.Height);
 Console.WriteLine(info.ColorSpace);
 Console.WriteLine(info.Format);
-Console.WriteLine(info.Density.X);
-Console.WriteLine(info.Density.Y);
-Console.WriteLine(info.Density.Units);
+if (info.Density is not null)
+{
+    Console.WriteLine(info.Density.X);
+    Console.WriteLine(info.Density.Y);
+    Console.WriteLine(info.Density.Units);
+}
 ```
 
 ## Read image with multiple layers/frames:
