@@ -43,10 +43,12 @@ public partial class TheEpsCoder
         Assert.Single(clipPaths);
 
         var clipPath = clipPaths.ElementAt(0).Path.CreateNavigator().OuterXml;
-        Assert.Equal(@"<svg width=""447"" height=""420"">
+
+        var expected = @"<svg width=""447"" height=""420"">
   <g>
     <path fill=""#00000000"" stroke=""#00000000"" stroke-width=""0"" stroke-antialiasing=""false"" d=""M 130 24&#xA;C 177.197 22.997 198.698 39.3 224 59&#xA;C 226.333 56.667 228.667 54.333 231 52&#xA;C 252.311 41.657 267.075 28.759 297 24&#xA;C 376.672 11.329 446.714 100.194 419 180&#xA;C 405.782 218.063 373.582 241.858 348 268&#xA;C 306.671 310.996 265.329 354.004 224 397&#xA;C 223 396.333 222 395.667 221 395&#xA;C 208.335 382.001 195.665 368.999 183 356&#xA;C 156.003 327.336 128.997 298.664 102 270&#xA;C 81.254 247.261 53.218 227.821 38 200&#xA;C 12.841 154.003 26.357 90.226 56 60&#xA;C 80.776 34.737 95.296 37.972 130 24 Z&#xA;"" />
   </g>
-</svg>", clipPath);
+</svg>";
+        Assert.Equal(expected, clipPath);
     }
 }

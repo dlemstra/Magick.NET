@@ -57,6 +57,4 @@
     <ProjectReference Include="../../src/Magick.NET/Magick.NET.csproj" />
     <ProjectReference Include="../../src/Magick.NET.SystemWindowsMedia/Magick.NET.SystemWindowsMedia.csproj" />
   </ItemGroup>
-
-  <Import Project="../Magick.NET.props" />
 </Project>

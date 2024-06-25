@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Magick.NET" ToolsVersion="14.0">
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA1101" Action="None" />    <!-- SA1101PrefixLocalCallsWithThis -->
+    <Rule Id="SA1121" Action="None" />    <!-- SA1121UseBuiltInTypeAlias -->
+    <Rule Id="SA1309" Action="None" />    <!-- SA1309FieldNamesMustNotBeginWithUnderscore -->
+    <Rule Id="SA1503" Action="None" />    <!-- SA1503BracesMustNotBeOmitted -->
+    <Rule Id="SA1520" Action="None" />    <!-- SA1520UseBracesConsistently -->
+    <Rule Id="SX1101" Action="Warning" /> <!-- SX1101DoNotPrefixLocalMembersWithThis -->
+    <Rule Id="SX1309" Action="Warning" /> <!-- SX1309FieldNamesMustBeginWithUnderscore -->
+  </Rules>
+</RuleSet>

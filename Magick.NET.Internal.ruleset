@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="Magick.NET" ToolsVersion="14.0">
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <Rule Id="SA1101" Action="None" />    <!-- SA1101PrefixLocalCallsWithThis -->
+    <Rule Id="SA1121" Action="None" />    <!-- SA1121UseBuiltInTypeAlias -->
+    <Rule Id="SA1309" Action="None" />    <!-- SA1309FieldNamesMustNotBeginWithUnderscore -->
+    <Rule Id="SA1503" Action="None" />    <!-- SA1503BracesMustNotBeOmitted -->
+    <Rule Id="SA1520" Action="None" />    <!-- SA1520UseBracesConsistently -->
+    <Rule Id="SX1101" Action="Warning" /> <!-- SX1101DoNotPrefixLocalMembersWithThis -->
+    <Rule Id="SX1309" Action="Warning" /> <!-- SX1309FieldNamesMustBeginWithUnderscore -->
+    <!-- These rules are only for projects that are not published as a NuGet package -->
+    <Rule Id="SA0001" Action="None" />    <!-- SA0001XmlCommentAnalysisDisabled -->
+    <Rule Id="SA1131" Action="None" />    <!-- SA1131UseReadableConditions -->
+    <Rule Id="SA1600" Action="None" />    <!-- SA1600ElementsMustBeDocumented -->
+    <Rule Id="SA1601" Action="None" />    <!-- SA1601PartialElementsMustBeDocumented -->
+    <Rule Id="SA1602" Action="None" />    <!-- SA1602EnumerationItemsMustBeDocumented -->
+  </Rules>
+</RuleSet>
