@@ -5,7 +5,7 @@
     <Copyright>Copyright 2013-2024 Dirk Lemstra</Copyright>
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
-  
+
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">
     <Optimize>false</Optimize>
     <DebugType>full</DebugType>

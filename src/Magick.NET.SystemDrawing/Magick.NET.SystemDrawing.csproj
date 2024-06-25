@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard21;netstandard20;net462</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
@@ -31,4 +31,6 @@
   <ItemGroup>
     <ProjectReference Include="../Magick.NET.Core/Magick.NET.Core.csproj" />
   </ItemGroup>
+
+  <Import Project="../Magick.props" />
 </Project>

@@ -46,13 +46,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{6D1DE15B-E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{61345F8D-8813-4CA8-B037-2DE221FFB5D2}"
 	ProjectSection(SolutionItems) = preProject
-		src\Directory.Build.props = src\Directory.Build.props
-		src\Directory.Build.targets = src\Directory.Build.targets
+		src\Magick.props = src\Magick.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CADB374F-AC1D-4456-940E-2317DF1372C2}"
 	ProjectSection(SolutionItems) = preProject
-		tests\Directory.Build.props = tests\Directory.Build.props
+		tests\Magick.props = tests\Magick.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{4D648A8A-59E2-45A4-BEFD-44602709E044}"
@@ -78,15 +77,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{D6C3708D
 		Building.md = Building.md
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		Copyright.txt = Copyright.txt
-		Directory.Build.props = Directory.Build.props
 		License.txt = License.txt
 		Readme.md = Readme.md
+		Magick.NET.props = Magick.NET.props
 		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{E1CFAF8C-261F-4536-ABE9-D8613FA4929F}"
 	ProjectSection(SolutionItems) = preProject
-		samples\Directory.Build.props = samples\Directory.Build.props
+		samples\Magick.props = samples\Magick.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Magick.NET.Samples", "samples\Magick.NET.Samples\Magick.NET.Samples.csproj", "{F5A76C84-4735-4741-8534-8D38EBD3B844}"
@@ -120,10 +119,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Nat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC-32B2-4BA2-93DC-FC990B26D51E}"
 	ProjectSection(SolutionItems) = preProject
-		tools\Directory.Build.props = tools\Directory.Build.props
 		tools\Generate.Drawables.cmd = tools\Generate.Drawables.cmd
 		tools\Generate.MagickColors.cmd = tools\Generate.MagickColors.cmd
 		tools\Generate.Native.cmd = tools\Generate.Native.cmd
+		tools\Magick.props = tools\Magick.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{BE60093C-A01F-454E-A0FC-2812D290CD6A}"

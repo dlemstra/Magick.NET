@@ -1,6 +1,4 @@
 <Project>
-  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
-  
   <PropertyGroup>
     <Nullable>enable</Nullable>
   </PropertyGroup>
@@ -12,4 +10,6 @@
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)../Magick.NET.Internal.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+
+  <Import Project="../Magick.NET.props" />
 </Project>

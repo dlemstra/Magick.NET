@@ -52,4 +52,6 @@
   <ItemGroup>
     <ProjectReference Include="../../tools/Magick.NET.SourceGenerator/Magick.NET.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
+
+  <Import Project="../Magick.props" />
 </Project>
