@@ -119,8 +119,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Nat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC-32B2-4BA2-93DC-FC990B26D51E}"
 	ProjectSection(SolutionItems) = preProject
-		tools\Generate.Drawables.cmd = tools\Generate.Drawables.cmd
-		tools\Generate.MagickColors.cmd = tools\Generate.MagickColors.cmd
 		tools\Generate.Native.cmd = tools\Generate.Native.cmd
 		tools\Magick.props = tools\Magick.props
 	EndProjectSection
