@@ -17,6 +17,11 @@ public sealed class PngWriteDefines : IWriteDefines
     public uint? BitDepth { get; set; }
 
     /// <summary>
+    /// Gets or sets the color type of the image.
+    /// </summary>
+    public ColorType? ColorType { get; set; }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
@@ -31,6 +36,9 @@ public sealed class PngWriteDefines : IWriteDefines
         {
             if (BitDepth.HasValue)
                 yield return new MagickDefine(Format, "bit-depth", BitDepth.Value);
+
+            if (ColorType.HasValue)
+                yield return new MagickDefine(Format, "color-type", ColorType.Value);
          }
     }
 }
