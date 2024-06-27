@@ -59,9 +59,8 @@ public sealed class PngWriteDefines : IWriteDefines
     /// </summary>
     public bool PreserveiCCP { get; set; }
 
-
     /// <summary>
-    /// Gets or sets the whether ColorMap should be preserve when writing the image.
+    ///  Gets or sets a value indicating whether ColorMap should be preserve when writing the image.
     /// </summary>
     public bool PreserveColorMap { get; set; }
 
