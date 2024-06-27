@@ -45,6 +45,11 @@ public sealed class PngWriteDefines : IWriteDefines
     public PngChunkFlags? ExcludeChunks { get; set; }
 
     /// <summary>
+    /// Gets or sets the chunks to be included.
+    /// </summary>
+    public PngChunkFlags? IncludeChunks { get; set; }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
@@ -74,6 +79,9 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (ExcludeChunks.HasValue)
                 yield return new MagickDefine(Format, "exclude-chunks", EnumHelper.ConvertFlags(ExcludeChunks.Value));
+
+            if (IncludeChunks.HasValue)
+                yield return new MagickDefine(Format, "include-chunks", EnumHelper.ConvertFlags(IncludeChunks.Value));
         }
     }
 }
