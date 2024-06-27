@@ -15,6 +15,11 @@ namespace ImageMagick.Formats
         None = 0,
 
         /// <summary>
+        /// Include or exclude all chunks.
+        /// </summary>
+        All = bKGD | cHRM | EXIF | gAMA | iCCP | iTXt | sRGB | tEXt | zCCP | zTXt | date,
+
+        /// <summary>
         /// Include or exclude bKGD chunk.
         /// </summary>
         bKGD = 1 << 0, // 0000 0001
@@ -67,6 +72,6 @@ namespace ImageMagick.Formats
         /// <summary>
         /// Include or exclude date chunk.
         /// </summary>
-        date = 1 << 10 // 100 0000 0000
+        date = 1 << 10, // 100 0000 0000
     }
 }
