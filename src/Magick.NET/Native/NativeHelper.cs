@@ -11,15 +11,8 @@ internal abstract class NativeHelper
 
     public event EventHandler<WarningEventArgs> Warning
     {
-        add
-        {
-            _warningEvent += value;
-        }
-
-        remove
-        {
-            _warningEvent -= value;
-        }
+        add => _warningEvent += value;
+        remove => _warningEvent -= value;
     }
 
     protected void CheckException(IntPtr exception)
