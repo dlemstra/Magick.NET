@@ -7,6 +7,7 @@ namespace ImageMagick.Formats
     /// This is a flags enumeration, allowing a bitwise combination of its member values.
     /// </summary>
     [Flags]
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element should begin with upper-case letter", Justification = "<Pending>")]
     public enum PngChunkFlags
     {
         /// <summary>
