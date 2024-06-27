@@ -50,6 +50,11 @@ public sealed class PngWriteDefines : IWriteDefines
     public PngChunkFlags? IncludeChunks { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the PNG decoder should ignore the CRC when writing the image.
+    /// </summary>
+    public bool IgnoreCrc { get; set; }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
@@ -82,6 +87,9 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (IncludeChunks.HasValue)
                 yield return new MagickDefine(Format, "include-chunks", EnumHelper.ConvertFlags(IncludeChunks.Value));
+
+            if (IgnoreCrc)
+                yield return new MagickDefine(Format, "ignore-crc", IgnoreCrc);
         }
     }
 }
