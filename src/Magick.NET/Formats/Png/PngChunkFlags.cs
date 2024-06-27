@@ -9,7 +9,7 @@ namespace ImageMagick.Formats;
 /// Specifies the chunks to be included or excluded in the PNG image.
 /// This is a flags enumeration, allowing a bitwise combination of its member values.
 /// </summary>
- [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element should begin with upper-case letter", Justification = "The lowercase names are consistent with the naming conventions of PNG chunk types as defined in the PNG specification.")]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.NamingRules", "SA1300:Element should begin with upper-case letter", Justification = "The lowercase names are consistent with the naming conventions of PNG chunk types as defined in the PNG specification.")]
 [Flags]
 public enum PngChunkFlags
 {
