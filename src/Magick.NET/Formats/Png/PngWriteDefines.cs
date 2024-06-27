@@ -59,6 +59,12 @@ public sealed class PngWriteDefines : IWriteDefines
     /// </summary>
     public bool PreserveiCCP { get; set; }
 
+
+    /// <summary>
+    /// Gets or sets the whether ColorMap should be preserve when writing the image.
+    /// </summary>
+    public bool PreserveColorMap { get; set; }
+
     /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
@@ -98,6 +104,9 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (PreserveiCCP)
                 yield return new MagickDefine(Format, "preserve-iCCP", PreserveiCCP);
+
+            if (PreserveColorMap)
+                yield return new MagickDefine(Format, "preserve-colormap", PreserveColorMap);
         }
     }
 }
