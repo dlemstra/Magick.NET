@@ -55,6 +55,11 @@ public sealed class PngWriteDefines : IWriteDefines
     public bool IgnoreCrc { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether the iCCP chunk should be preserved when writing the image.
+    /// </summary>
+    public bool PreserveiCCP { get; set; }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
@@ -90,6 +95,9 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (IgnoreCrc)
                 yield return new MagickDefine(Format, "ignore-crc", IgnoreCrc);
+
+            if (PreserveiCCP)
+                yield return new MagickDefine(Format, "preserve-iCCP", PreserveiCCP);
         }
     }
 }
