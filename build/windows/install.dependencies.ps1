@@ -15,3 +15,6 @@ Write-Host "Downloading FFmpeg 4.2.3"
 $sourceFFmpegExe = "https://github.com/ImageMagick/ImageMagick-Windows/releases/download/20200615/ffmpeg-4.2.3-win64.exe"
 $targetFFmpegExe = "c:\vcpkg\ffmpeg.exe"
 Invoke-WebRequest $sourceFFmpegExe -OutFile $targetFFmpegExe
+
+Write-Host "Installing dotnet sign"
+dotnet tool install --global sign --prerelease
