@@ -35,6 +35,11 @@ public sealed class PngWriteDefines : IWriteDefines
     public uint? CompressionLevel { get; set; }
 
     /// <summary>
+    /// Gets or sets the compression strategy for the PNG image.
+    /// </summary>
+    public PngCompressionStrategy? CompressionStrategy { get; set; }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
@@ -58,6 +63,9 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (CompressionFilter.HasValue)
                 yield return new MagickDefine(Format, "compression-filter", CompressionFilter.Value);
+
+            if (CompressionStrategy.HasValue)
+                yield return new MagickDefine(Format, "compression-strategy", CompressionStrategy.Value);
          }
     }
 }
