@@ -50,6 +50,10 @@ internal class NativeInteropInfo
         HasStaticDispose = HasDispose && nativeInteropAttribute
             .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.StaticDispose)))
             .FirstOrDefault() == "true";
+
+        RaiseWarnings = nativeInteropAttribute
+            .Select(attribute => attribute.GetArgumentValue(nameof(NativeInteropAttribute.RaiseWarnings)))
+            .FirstOrDefault() == "true";
     }
 
     public string ClassName
@@ -74,6 +78,8 @@ internal class NativeInteropInfo
     public string Namespace { get; }
 
     public string ParentClassName { get; }
+
+    public bool RaiseWarnings { get; }
 
     public bool UsesQuantumType
         => Methods.Any(method => method.UsesQuantumType);

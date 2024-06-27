@@ -15,4 +15,6 @@ internal sealed class NativeInteropAttribute : Attribute
     public bool QuantumType { get; set; } = false;
 
     public bool StaticDispose { get; set; } = false;
+
+    public bool RaiseWarnings { get; set; } = false;
 }

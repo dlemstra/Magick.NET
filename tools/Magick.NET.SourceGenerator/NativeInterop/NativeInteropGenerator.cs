@@ -113,6 +113,8 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         foreach (var method in uniqueMethods)
         {
+            var useInstance = info.HasInstance && method.UsesInstance;
+
             if (method.OnlySupportedInNetstandard21)
                 codeBuilder.AppendLine("#if NETSTANDARD2_1");
 
@@ -133,13 +135,13 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Append("_");
             codeBuilder.Append(method.Name);
             codeBuilder.Append("(");
-            if (method.UsesInstance)
+            if (useInstance)
                 codeBuilder.Append("IntPtr instance");
 
             for (var i = 0; i < method.Parameters.Count; i++)
             {
                 var parameter = method.Parameters[i];
-                if (method.UsesInstance ? i >= 0 : i > 0)
+                if (useInstance ? i >= 0 : i > 0)
                     codeBuilder.Append(", ");
 
                 if (parameter.IsOut)
@@ -151,7 +153,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
             if (method.Throws)
             {
-                if (method.UsesInstance || method.Parameters.Count > 0)
+                if (useInstance || method.Parameters.Count > 0)
                     codeBuilder.Append(", ");
 
                 codeBuilder.Append("out IntPtr exception");
@@ -364,12 +366,15 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Indent--;
             codeBuilder.AppendLine("throw magickException;");
             codeBuilder.AppendCloseBrace();
-            if (!method.IsStatic)
+            if (info.RaiseWarnings)
                 codeBuilder.AppendLine("RaiseWarning(magickException);");
         }
         else if (method.Throws)
         {
-            codeBuilder.AppendLine("MagickExceptionHelper.Check(exception);");
+            if (info.RaiseWarnings)
+                codeBuilder.AppendLine("CheckException(exception);");
+            else
+                codeBuilder.AppendLine("MagickExceptionHelper.Check(exception);");
         }
 
         if (method.SetsInstance)
@@ -479,6 +484,8 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
     private static void AppendMethodImplementation(CodeBuilder codeBuilder, NativeInteropInfo info, MethodInfo method, string platform)
     {
+        var useInstance = info.HasInstance && method.UsesInstance;
+
         codeBuilder.Append("#if PLATFORM_");
         codeBuilder.Append(platform);
         codeBuilder.AppendLine(" || PLATFORM_AnyCPU");
@@ -491,12 +498,12 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         codeBuilder.Append("_");
         codeBuilder.Append(method.Name);
         codeBuilder.Append("(");
-        if (method.UsesInstance)
+        if (useInstance)
             codeBuilder.Append("Instance");
         for (var i = 0; i < method.Parameters.Count; i++)
         {
             var parameter = method.Parameters[i];
-            if (method.UsesInstance ? i >= 0 : i > 0)
+            if (useInstance ? i >= 0 : i > 0)
                 codeBuilder.Append(", ");
 
             if (parameter.Type.HasGetInstance)
@@ -523,7 +530,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         if (method.Throws)
         {
-            if (method.UsesInstance || method.Parameters.Count > 0)
+            if (useInstance || method.Parameters.Count > 0)
                 codeBuilder.Append(", ");
 
             codeBuilder.Append("out exception");

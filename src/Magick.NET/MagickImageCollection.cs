@@ -663,7 +663,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         ThrowIfCountLowerThan(2);
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
-        var images = _nativeInstance.Morph(_images[0], frames);
+        var images = _nativeInstance.Morph(_images[0], (nuint)frames);
         ReplaceImages(images);
     }
 
@@ -837,7 +837,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         Throw.IfNullOrEmpty(nameof(terms), terms);
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
-        var image = _nativeInstance.Polynomial(_images[0], terms, terms.Length);
+        var image = _nativeInstance.Polynomial(_images[0], terms, (nuint)terms.Length);
         return MagickImage.Create(image, GetSettings());
     }
 
@@ -1791,7 +1791,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         settings.Ping = ping;
         settings.FileName = fileName;
 
-        var result = _nativeInstance.ReadBlob(settings, data, offset, count);
+        var result = _nativeInstance.ReadBlob(settings, data, (nuint)offset, (nuint)count);
         AddImages(result, settings);
     }
 
@@ -1901,7 +1901,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     private IMagickImage<QuantumType> Smush(int offset, bool stack)
     {
         using var imageAttacher = new TemporaryImageAttacher(_images);
-        var image = _nativeInstance.Smush(_images[0], offset, stack);
+        var image = _nativeInstance.Smush(_images[0], (nuint)offset, stack);
         return MagickImage.Create(image, GetSettings());
     }
 

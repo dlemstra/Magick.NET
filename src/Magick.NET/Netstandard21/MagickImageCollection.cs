@@ -260,7 +260,7 @@ public sealed partial class MagickImageCollection
         settings.Ping = ping;
         settings.FileName = fileName;
 
-        var result = _nativeInstance.ReadBlob(settings, data, 0, data.Length);
+        var result = _nativeInstance.ReadBlob(settings, data, 0, (nuint)data.Length);
         AddImages(result, settings);
     }
 }
