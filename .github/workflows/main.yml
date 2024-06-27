@@ -191,25 +191,6 @@ jobs:
       run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release'
       working-directory: build/windows
 
-    - name: 'Azure CLI login with federated credential'
-      if: github.event_name != 'pull_request'
-      uses: azure/login@v2
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-    - name: Sign binaries
-      if: github.event_name != 'pull_request'
-      uses: azure/trusted-signing-action@v0.3.20
-      with:
-        endpoint: https://eus.codesigning.azure.net/
-        trusted-signing-account-name: ImageMagick
-        certificate-profile-name: ImageMagick
-        files-folder: 'src/Magick.NET/bin'
-        files-folder-filter: dll
-        files-folder-recurse: true
-
     - name: Set NuGet version
       run: ./set.version.ps1
       working-directory: publish
@@ -217,6 +198,19 @@ jobs:
     - name: Create NuGet package
       run: './publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
       working-directory: publish
+
+    - name: Azure CLI login with federated credential
+      if: github.event_name != 'pull_request'
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Sign NuGet package
+      if: ${{ github.event_name != 'pull_request' }}
+      run: sign code trusted-signing --trusted-signing-account ImageMagick --trusted-signing-certificate-profile ImageMagick --trusted-signing-endpoint https://eus.codesigning.azure.net --verbosity information *.nupkg
+      working-directory: publish/output
 
     - name: Upload library
       uses: actions/upload-artifact@v4
@@ -260,25 +254,6 @@ jobs:
       run: './build.Magick.NET.cmd "Q8" "Any CPU" Release'
       working-directory: build/windows
 
-    - name: 'Azure CLI login with federated credential'
-      if: github.event_name != 'pull_request'
-      uses: azure/login@v2
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-    - name: Sign binaries
-      if: github.event_name != 'pull_request'
-      uses: azure/trusted-signing-action@v0.3.20
-      with:
-        endpoint: https://eus.codesigning.azure.net/
-        trusted-signing-account-name: ImageMagick
-        certificate-profile-name: ImageMagick
-        files-folder: 'src/Magick.NET.${{ matrix.libraryName }}/bin'
-        files-folder-filter: dll
-        files-folder-recurse: true
-
     - name: Set NuGet version
       run: ./set.version.ps1
       working-directory: publish
@@ -286,6 +261,19 @@ jobs:
     - name: Create NuGet package
       run: './publish.library.cmd "Magick.NET.${{ matrix.libraryName }}"'
       working-directory: publish
+
+    - name: Azure CLI login with federated credential
+      if: github.event_name != 'pull_request'
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Sign NuGet package
+      if: ${{ github.event_name != 'pull_request' }}
+      run: sign code trusted-signing --trusted-signing-account ImageMagick --trusted-signing-certificate-profile ImageMagick --trusted-signing-endpoint https://eus.codesigning.azure.net --verbosity information *.nupkg
+      working-directory: publish/output
 
     - name: Upload library
       uses: actions/upload-artifact@v4
