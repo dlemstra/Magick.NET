@@ -40,6 +40,11 @@ public sealed class PngWriteDefines : IWriteDefines
     public PngCompressionStrategy? CompressionStrategy { get; set; }
 
     /// <summary>
+    /// Gets or sets the chunks to be excluded.
+    /// </summary>
+    public PngChunkFlags? ExcludeChunks { get; set; }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
@@ -66,6 +71,9 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (CompressionStrategy.HasValue)
                 yield return new MagickDefine(Format, "compression-strategy", CompressionStrategy.Value);
-         }
+
+            if (ExcludeChunks.HasValue)
+                yield return new MagickDefine(Format, "exclude-chunks", EnumHelper.ConvertFlags(ExcludeChunks.Value));
+        }
     }
 }
