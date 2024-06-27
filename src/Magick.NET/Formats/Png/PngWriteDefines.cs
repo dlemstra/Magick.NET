@@ -22,6 +22,12 @@ public sealed class PngWriteDefines : IWriteDefines
     public ColorType? ColorType { get; set; }
 
     /// <summary>
+    /// Gets or sets the compression filter for the PNG image.
+    /// For compression level 0 (quality value less than 10), the Huffman-only strategy is used, which is fastest but not necessarily the worst compression.
+    /// </summary>
+    public PngCompressionFilter? CompressionFilter { get; set; }
+
+    /// <summary>
     /// Gets or sets the compression level for the PNG image.
     /// The compression level ranges from 0 to 9, where 0 indicates no compression and 9 indicates maximum compression.
     /// For compression level 0 (quality value less than 10), the Huffman-only strategy is used, which is the fastest but not necessarily the worst compression.
@@ -49,6 +55,9 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (CompressionLevel.HasValue)
                 yield return new MagickDefine(Format, "compression-level", CompressionLevel.Value);
+
+            if (CompressionFilter.HasValue)
+                yield return new MagickDefine(Format, "compression-filter", CompressionFilter.Value);
          }
     }
 }
