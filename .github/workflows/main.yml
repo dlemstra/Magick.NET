@@ -209,7 +209,11 @@ jobs:
 
     - name: Sign NuGet package
       if: ${{ github.event_name != 'pull_request' }}
-      run: sign code trusted-signing --trusted-signing-account ImageMagick --trusted-signing-certificate-profile ImageMagick --trusted-signing-endpoint https://eus.codesigning.azure.net --verbosity information *.nupkg
+      run: sign code trusted-signing *.nupkg `
+        --trusted-signing-account ImageMagick `
+        --trusted-signing-certificate-profile ImageMagick `
+        --trusted-signing-endpoint https://eus.codesigning.azure.net `
+        --verbosity information 
       working-directory: publish/output
 
     - name: Upload library
@@ -272,7 +276,11 @@ jobs:
 
     - name: Sign NuGet package
       if: ${{ github.event_name != 'pull_request' }}
-      run: sign code trusted-signing --trusted-signing-account ImageMagick --trusted-signing-certificate-profile ImageMagick --trusted-signing-endpoint https://eus.codesigning.azure.net --verbosity information *.nupkg
+      run: sign code trusted-signing *.nupkg `
+        --trusted-signing-account ImageMagick `
+        --trusted-signing-certificate-profile ImageMagick `
+        --trusted-signing-endpoint https://eus.codesigning.azure.net `
+        --verbosity information 
       working-directory: publish/output
 
     - name: Upload library
