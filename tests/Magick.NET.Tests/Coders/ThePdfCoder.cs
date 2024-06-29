@@ -38,22 +38,6 @@ public partial class ThePdfCoder
     }
 
     [Fact]
-    public void ShouldWriteTiffImageInCorrectColor()
-    {
-        if (!Ghostscript.IsAvailable)
-            return;
-
-        using var input = new MagickImage(Files.Coders.PixelTIF);
-        using var memorystream = new MemoryStream();
-        input.Write(memorystream, MagickFormat.Tiff);
-        memorystream.Position = 0;
-
-        using var output = new MagickImage(memorystream);
-
-        ColorAssert.Equal(MagickColors.White, output, 0, 0);
-    }
-
-    [Fact]
     public void ShouldReturnTheCorrectFormatForAiFile()
     {
         if (!Ghostscript.IsAvailable)

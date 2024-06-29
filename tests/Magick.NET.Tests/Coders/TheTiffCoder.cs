@@ -119,6 +119,19 @@ public partial class TheTiffCoder
         ColorAssert.Equal(new MagickColor("#a8dff8ff"), image, 55, 70);
     }
 
+    [Fact]
+    public void ShouldWriteTiffImageInCorrectColor()
+    {
+        using var input = new MagickImage(Files.Coders.PixelTIF);
+        using var memorystream = new MemoryStream();
+        input.Write(memorystream, MagickFormat.Tiff);
+        memorystream.Position = 0;
+
+        using var output = new MagickImage(memorystream);
+
+        ColorAssert.Equal(MagickColors.White, output, 0, 0);
+    }
+
     private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
     {
         var value = profile.GetValue(tag);
