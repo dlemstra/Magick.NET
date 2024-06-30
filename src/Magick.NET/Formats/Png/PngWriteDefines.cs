@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 
 namespace ImageMagick.Formats;
@@ -19,6 +20,7 @@ public sealed class PngWriteDefines : IWriteDefines
     /// <summary>
     /// Gets or sets the color type of the image.
     /// </summary>
+    /// <exception cref="ArgumentException">Thrown when the color type is invalid or unsupported.</exception>
     public ColorType? ColorType { get; set; }
 
     /// <summary>
@@ -81,7 +83,10 @@ public sealed class PngWriteDefines : IWriteDefines
                 yield return new MagickDefine(Format, "bit-depth", BitDepth.Value);
 
             if (ColorType.HasValue)
-                yield return new MagickDefine(Format, "color-type", ColorType.Value);
+            {
+                var colorTypeValue = GetPngColorTypeValue(ColorType.Value);
+                yield return new MagickDefine(Format, "color-type", (int)colorTypeValue);
+            }
 
             if (CompressionLevel.HasValue)
                 yield return new MagickDefine(Format, "compression-level", CompressionLevel.Value);
@@ -107,5 +112,18 @@ public sealed class PngWriteDefines : IWriteDefines
             if (PreserveColorMap)
                 yield return new MagickDefine(Format, "preserve-colormap", PreserveColorMap);
         }
+    }
+
+    private PngColorType GetPngColorTypeValue(ColorType colorType)
+    {
+        return colorType switch
+        {
+            ImageMagick.ColorType.Grayscale => PngColorType.Grayscale,
+            ImageMagick.ColorType.TrueColor => PngColorType.RGB,
+            ImageMagick.ColorType.Palette or ImageMagick.ColorType.PaletteAlpha => PngColorType.Indexed,
+            ImageMagick.ColorType.GrayscaleAlpha => PngColorType.GrayMatte,
+            ImageMagick.ColorType.TrueColorAlpha => PngColorType.RGBMatte,
+            _ => throw new ArgumentException($"Unsupported color type: {colorType}"),
+        };
     }
 }
