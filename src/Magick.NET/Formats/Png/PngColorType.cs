@@ -30,7 +30,7 @@ internal enum PngColorType
     GrayMatte = 4,
 
     /// <summary>
-    /// 
+    /// RGB with alpha color type.
+    /// </summary>
     RGBMatte = 6,
 }
-
