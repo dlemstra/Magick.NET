@@ -36,14 +36,9 @@ internal sealed class MethodInfo
             .FirstOrDefault();
 
         UsesInstance = !IsStatic;
-        SetsInstance = !IsStatic && IsVoid && !Name.EndsWith("_Set");
-
-        if (SetsInstance)
-        {
-            SetsInstance = !method.AttributeLists
-                .SelectMany(list => list.Attributes)
-                .Any(attribute => attribute.Name + "Attribute" == nameof(ReturnsVoidAttribute));
-        }
+        SetsInstance = method.AttributeLists
+            .SelectMany(list => list.Attributes)
+            .Any(attribute => attribute.Name + "Attribute" == nameof(SetInstanceAttribute));
     }
 
     public CleanupInfo? Cleanup { get; }

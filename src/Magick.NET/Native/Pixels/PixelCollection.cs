@@ -31,10 +31,12 @@ internal partial class PixelCollection
         public partial IntPtr GetReadOnlyArea(nint x, nint y, nuint width, nuint height);
 
         [Throws]
+        [SetInstance]
         public partial void SetArea(nint x, nint y, nuint width, nuint height, QuantumType[] values, nuint length);
 
 #if NETSTANDARD2_1
         [Throws]
+        [SetInstance]
         public partial void SetArea(nint x, nint y, nuint width, nuint height, ReadOnlySpan<QuantumType> values, nuint length);
 #endif
 

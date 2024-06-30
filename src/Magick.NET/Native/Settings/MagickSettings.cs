@@ -84,37 +84,26 @@ public partial class MagickSettings
 
         public partial void Verbose_Set(bool value);
 
-        [ReturnsVoid]
         public partial void SetColorFuzz(double value);
 
-        [ReturnsVoid]
         public partial void SetFileName(string? value);
 
-        [ReturnsVoid]
-        public partial string? SetFont(string? value);
+        public partial void SetFont(string? value);
 
-        [ReturnsVoid]
         public partial void SetNumberScenes(nuint value);
 
-        [ReturnsVoid]
         public partial void SetOption(string key, string? value);
 
-        [ReturnsVoid]
         public partial void SetPage(string? value);
 
-        [ReturnsVoid]
         public partial void SetPing(bool value);
 
-        [ReturnsVoid]
         public partial void SetQuality(nuint value);
 
-        [ReturnsVoid]
         public partial void SetScene(nuint value);
 
-        [ReturnsVoid]
         public partial void SetScenes(string? value);
 
-        [ReturnsVoid]
         public partial void SetSize(string? value);
     }
 }

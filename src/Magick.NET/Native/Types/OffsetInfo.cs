@@ -20,10 +20,8 @@ internal partial class OffsetInfo
     {
         public static partial NativeOffsetInfo Create();
 
-        [ReturnsVoid]
         public partial void SetX(nint value);
 
-        [ReturnsVoid]
         public partial void SetY(nint value);
     }
 }

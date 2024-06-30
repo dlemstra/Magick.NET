@@ -59,7 +59,6 @@ public partial class MagickImageCollection
         public partial IntPtr Evaluate(IMagickImage image, EvaluateOperator evaluateOperator);
 
         [Throws]
-        [ReturnsVoid]
         public partial void Map(IMagickImage image, IQuantizeSettings settings, IMagickImage remapImage);
 
         [Throws]
@@ -83,7 +82,6 @@ public partial class MagickImageCollection
         public partial IntPtr OptimizePlus(IMagickImage image);
 
         [Throws]
-        [ReturnsVoid]
         public partial void OptimizeTransparency(IMagickImage image);
 
         [Throws]
@@ -91,7 +89,6 @@ public partial class MagickImageCollection
         public partial IntPtr Polynomial(IMagickImage image, double[] terms, nuint length);
 
         [Throws]
-        [ReturnsVoid]
         public partial void Quantize(IMagickImage image, IQuantizeSettings settings);
 
         [Throws]
@@ -117,11 +114,9 @@ public partial class MagickImageCollection
         public partial IntPtr Smush(IMagickImage image, nuint offset, bool stack);
 
         [Throws]
-        [ReturnsVoid]
         public partial void WriteFile(IMagickImage image, IMagickSettings<QuantumType>? settings);
 
         [Throws]
-        [ReturnsVoid]
         public partial void WriteStream(IMagickImage image, IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, void* data);
     }
 }

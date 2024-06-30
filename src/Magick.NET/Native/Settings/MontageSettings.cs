@@ -24,46 +24,32 @@ public partial class MontageSettings
     {
         public static partial NativeMontageSettings Create();
 
-        [ReturnsVoid]
         public partial void SetBackgroundColor(IMagickColor<QuantumType>? value);
 
-        [ReturnsVoid]
         public partial void SetBorderColor(IMagickColor<QuantumType>? value);
 
-        [ReturnsVoid]
         public partial void SetBorderWidth(nuint value);
 
-        [ReturnsVoid]
         public partial void SetFillColor(IMagickColor<QuantumType>? value);
 
-        [ReturnsVoid]
         public partial void SetFont(string? value);
 
-        [ReturnsVoid]
         public partial void SetFontPointsize(double value);
 
-        [ReturnsVoid]
         public partial void SetFrameGeometry(string? value);
 
-        [ReturnsVoid]
         public partial void SetGeometry(string? value);
 
-        [ReturnsVoid]
         public partial void SetGravity(Gravity value);
 
-        [ReturnsVoid]
         public partial void SetShadow(bool value);
 
-        [ReturnsVoid]
         public partial void SetStrokeColor(IMagickColor<QuantumType>? value);
 
-        [ReturnsVoid]
         public partial void SetTextureFileName(string? value);
 
-        [ReturnsVoid]
         public partial void SetTileGeometry(string? value);
 
-        [ReturnsVoid]
         public partial void SetTitle(string? value);
     }
 }

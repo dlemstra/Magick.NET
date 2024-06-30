@@ -15,7 +15,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<CleanupAttribute>());
-        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<ReturnsVoidAttribute>());
+        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<SetInstanceAttribute>());
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<NativeInteropAttribute>());
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<ThrowsAttribute>());
         context.RegisterAttributeCodeGenerator<NativeInteropAttribute, NativeInteropInfo>(GetClass, GenerateCode);
