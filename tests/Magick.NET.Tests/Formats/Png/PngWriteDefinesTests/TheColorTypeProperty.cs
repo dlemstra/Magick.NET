@@ -23,7 +23,7 @@ public partial class PngWriteDefinesTests
         }
 
         [Fact]
-        public void ShouldSetTheDefineNull()
+        public void ShouldNotSetTheDefineWhenNull()
         {
             using var image = new MagickImage();
             image.Settings.SetDefines(new PngWriteDefines
