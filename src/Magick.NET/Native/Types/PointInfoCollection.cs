@@ -19,7 +19,7 @@ internal partial class PointInfoCollection : IDisposable
 
         public partial double GetY(nint index);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void Set(nuint index, double x, double y);
     }
 }

@@ -38,13 +38,11 @@ internal sealed class MethodInfo
         UsesInstance = !IsStatic;
         SetsInstance = !IsStatic && IsVoid && !Name.EndsWith("_Set");
 
-        var instanceAttribute = method.AttributeLists
-            .SelectMany(list => list.Attributes)
-            .FirstOrDefault(attribute => attribute.Name + "Attribute" == nameof(InstanceAttribute));
-
-        if (instanceAttribute is not null)
+        if (SetsInstance)
         {
-            SetsInstance = instanceAttribute.GetArgumentValue(nameof(InstanceAttribute.SetsInstance)) != "false";
+            SetsInstance = !method.AttributeLists
+                .SelectMany(list => list.Attributes)
+                .Any(attribute => attribute.Name + "Attribute" == nameof(ReturnsVoidAttribute));
         }
     }
 

@@ -14,19 +14,19 @@ public partial class QuantizeSettings
     {
         public static partial NativeQuantizeSettings Create();
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetColors(nuint value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetColorSpace(ColorSpace value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetDitherMethod(DitherMethod value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetMeasureErrors(bool value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetTreeDepth(nuint value);
     }
 }

@@ -6,7 +6,6 @@ using System;
 namespace ImageMagick.SourceGenerator;
 
 [AttributeUsage(AttributeTargets.Method)]
-internal sealed class InstanceAttribute : Attribute
+internal sealed class ReturnsVoidAttribute : Attribute
 {
-    public bool SetsInstance { get; set; } = true;
 }

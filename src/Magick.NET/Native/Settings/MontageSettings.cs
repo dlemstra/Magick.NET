@@ -24,46 +24,46 @@ public partial class MontageSettings
     {
         public static partial NativeMontageSettings Create();
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetBackgroundColor(IMagickColor<QuantumType>? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetBorderColor(IMagickColor<QuantumType>? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetBorderWidth(nuint value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetFillColor(IMagickColor<QuantumType>? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetFont(string? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetFontPointsize(double value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetFrameGeometry(string? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetGeometry(string? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetGravity(Gravity value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetShadow(bool value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetStrokeColor(IMagickColor<QuantumType>? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetTextureFileName(string? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetTileGeometry(string? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetTitle(string? value);
     }
 }

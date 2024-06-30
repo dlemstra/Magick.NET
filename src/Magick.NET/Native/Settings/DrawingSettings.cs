@@ -115,21 +115,21 @@ internal partial class DrawingSettings
 
         public partial void TextUnderColor_Set(IMagickColor<QuantumType>? value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetAffine(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
 
         [Throws]
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetFillPattern(IMagickImage value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetStrokeDashArray(double[] dash, nuint length);
 
         [Throws]
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetStrokePattern(IMagickImage value);
 
-        [Instance(SetsInstance = false)]
+        [ReturnsVoid]
         public partial void SetText(string value);
     }
 }
