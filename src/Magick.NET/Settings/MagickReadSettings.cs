@@ -112,7 +112,8 @@ public sealed class MagickReadSettings : MagickSettings, IMagickReadSettings<Qua
 
     /// <summary>
     /// Gets or sets a value indicating whether the monochrome reader shoul be used. This is
-    /// supported by: PCL, PDF, PS and XPS.
+    /// supported by: <see cref="MagickFormat.Pcl"/>, <see cref="MagickFormat.Pdf"/> ,
+    /// <see cref="MagickFormat.Ps"/>  and <see cref="MagickFormat.Xps"/>.
     /// </summary>
     public bool UseMonochrome
     {
