@@ -9,7 +9,7 @@ namespace Magick.NET.Tests;
 
 public partial class PngWriteDefinesTests
 {
-    public class ThreCompressionStrategy
+    public class ThreCompressionStrategyProperty
     {
         [Fact]
         public void ShouldSetTheDefine()
