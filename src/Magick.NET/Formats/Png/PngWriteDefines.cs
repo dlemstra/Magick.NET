@@ -89,14 +89,14 @@ public sealed class PngWriteDefines : IWriteDefines
                 yield return new MagickDefine(Format, "color-type", (int)colorTypeValue);
             }
 
+            if (CompressionFilter.HasValue)
+                yield return new MagickDefine(Format, "compression-filter", (int)CompressionFilter.Value);
+
             if (CompressionLevel.HasValue)
                 yield return new MagickDefine(Format, "compression-level", CompressionLevel.Value);
 
-            if (CompressionFilter.HasValue)
-                yield return new MagickDefine(Format, "compression-filter", CompressionFilter.Value);
-
             if (CompressionStrategy.HasValue)
-                yield return new MagickDefine(Format, "compression-strategy", CompressionStrategy.Value);
+                yield return new MagickDefine(Format, "compression-strategy", (int)CompressionStrategy.Value);
 
             if (ExcludeChunks.HasValue)
                 yield return new MagickDefine(Format, "exclude-chunks", EnumHelper.ConvertFlags(ExcludeChunks.Value));
