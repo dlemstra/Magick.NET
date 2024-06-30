@@ -19,7 +19,7 @@ public partial class PngWriteDefinesTests
             {
                 ColorType = ColorType.Grayscale,
             });
-            Assert.Equal("grayscale", image.Settings.GetDefine(MagickFormat.Png, "color-type"));
+            Assert.Equal("0", image.Settings.GetDefine(MagickFormat.Png, "color-type"));
         }
 
         [Fact]

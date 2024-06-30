@@ -20,7 +20,7 @@ public partial class PngWriteDefinesTests
                 CompressionStrategy = PngCompressionStrategy.HuffmanOnly,
             });
 
-            Assert.Equal("huffmanonly", image.Settings.GetDefine(MagickFormat.Png, "compression-strategy"));
+            Assert.Equal("0", image.Settings.GetDefine(MagickFormat.Png, "compression-strategy"));
         }
 
         [Fact]

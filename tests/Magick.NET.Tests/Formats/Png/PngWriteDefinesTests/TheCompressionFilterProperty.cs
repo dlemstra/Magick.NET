@@ -20,7 +20,7 @@ public partial class PngWriteDefinesTests
                 CompressionFilter = PngCompressionFilter.Paeth,
             });
 
-            Assert.Equal("paeth", image.Settings.GetDefine(MagickFormat.Png, "compression-filter"));
+            Assert.Equal("4", image.Settings.GetDefine(MagickFormat.Png, "compression-filter"));
         }
 
         [Fact]
