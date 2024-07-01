@@ -277,7 +277,7 @@ public sealed partial class MagickImage
         var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
-        _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0);
+        _nativeInstance.ReadPixels((nuint)settings.ReadSettings.Width!.Value, (nuint)settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0U);
     }
 #endif
 
@@ -386,7 +386,7 @@ public sealed partial class MagickImage
             }
         }
 
-        public void ReadPixels(nuint width, int nuheight, string map, StorageType storageType, ReadOnlySpan<QuantumType> data, nuint offsetInBytes)
+        public void ReadPixels(nuint width, nuint height, string map, StorageType storageType, ReadOnlySpan<QuantumType> data, nuint offsetInBytes)
         {
             fixed (QuantumType* dataFixed = data)
             {

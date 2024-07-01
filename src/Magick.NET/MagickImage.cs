@@ -3425,7 +3425,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", data.Length, expectedLength + offset);
 
-        _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
+        _nativeInstance.ImportPixels(settings.X, settings.Y, (nuint)settings.Width, (nuint)settings.Height, settings.Mapping, settings.StorageType, data, (nuint)offset);
     }
 #endif
 
@@ -5234,9 +5234,9 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(count), count < expectedLength, "The count is {0} but should be at least {1}.", count, expectedLength);
 
-        var offsetInBytes = ToByteCount(settings.StorageType, offset);
+        var offsetInBytes = ToByteCount(settings.StorageType, (uint)offset);
 
-        _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, offsetInBytes);
+        _nativeInstance.ReadPixels((nuint)settings.ReadSettings.Width!.Value, (nuint)settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, offsetInBytes);
     }
 #endif
 
@@ -7368,27 +7368,27 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         return new MagickImage(instance, new MagickSettings());
     }
 
-    private static int GetExpectedByteLength(IPixelReadSettings<QuantumType> settings)
+    private static uint GetExpectedByteLength(IPixelReadSettings<QuantumType> settings)
     {
         var length = GetExpectedLength(settings);
         return ToByteCount(settings.StorageType, length);
     }
 
-    private static int GetExpectedByteLength(IPixelImportSettings settings)
+    private static uint GetExpectedByteLength(IPixelImportSettings settings)
     {
         var length = GetExpectedLength(settings);
         return ToByteCount(settings.StorageType, length);
     }
 
-    private static int GetExpectedLength(IPixelImportSettings settings)
-        => settings.Width * settings.Height * settings.Mapping!.Length;
+    private static uint GetExpectedLength(IPixelImportSettings settings)
+        => (uint)settings.Width * (uint)settings.Height * (uint)settings.Mapping!.Length;
 
-    private static int GetExpectedLength(IPixelReadSettings<QuantumType> settings)
+    private static uint GetExpectedLength(IPixelReadSettings<QuantumType> settings)
     {
         Throw.IfNull(nameof(settings), settings.ReadSettings.Width, "ReadSettings.Width should be defined");
         Throw.IfNull(nameof(settings), settings.ReadSettings.Height, "ReadSettings.Height should be defined.");
 
-        return settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * settings.Mapping!.Length;
+        return (uint)settings.ReadSettings.Width.Value * (uint)settings.ReadSettings.Height.Value * (uint)settings.Mapping!.Length;
     }
 
     private static string ToBase64(byte[] bytes)
@@ -7399,7 +7399,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         return Convert.ToBase64String(bytes);
     }
 
-    private static int ToByteCount(StorageType storageType, int length)
+    private static uint ToByteCount(StorageType storageType, uint length)
         => storageType switch
         {
             StorageType.Char => length,
@@ -7698,7 +7698,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         }
 
 #if !Q8
-        public void ReadPixels(int width, int height, string map, StorageType storageType, QuantumType[] data, int offsetInBytes)
+        public void ReadPixels(nuint width, nuint height, string map, StorageType storageType, QuantumType[] data, nuint offsetInBytes)
         {
             fixed (QuantumType* dataFixed = data)
             {
