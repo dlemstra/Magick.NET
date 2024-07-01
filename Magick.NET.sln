@@ -78,8 +78,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{D6C3708D
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
 		Copyright.txt = Copyright.txt
 		License.txt = License.txt
-		Readme.md = Readme.md
 		Magick.NET.props = Magick.NET.props
+		Readme.md = Readme.md
 		stylecop.json = stylecop.json
 	EndProjectSection
 EndProject
@@ -119,7 +119,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Nat
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC-32B2-4BA2-93DC-FC990B26D51E}"
 	ProjectSection(SolutionItems) = preProject
-		tools\Generate.Native.cmd = tools\Generate.Native.cmd
 		tools\Magick.props = tools\Magick.props
 	EndProjectSection
 EndProject
