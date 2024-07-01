@@ -28,16 +28,19 @@ internal sealed class TypeInfo
         => ClassName switch
         {
             "DrawingSettings" => true,
+            "DoubleMatrix" => true,
             "MagickColor" => true,
             "MagickFormatInfo" => true,
             "MagickRectangle" => true,
             "MagickSettings" => true,
             "MontageSettings" => true,
+            "OffsetInfo" => true,
             "OpenCLDevice" => true,
             "OpenCLKernelProfileRecord" => true,
             "PointInfo" => true,
             "PrimaryInfo" => true,
             "QuantizeSettings" => true,
+            "StringInfo" => true,
             "TypeMetric" => true,
             "string" => true,
             _ => false,
@@ -50,6 +53,9 @@ internal sealed class TypeInfo
             "MagickImage" => true,
             _ => false,
         };
+
+    public bool IsChannel
+        => ClassName.Equals("Channels");
 
     public bool IsEnum { get; } = false;
 
@@ -84,11 +90,13 @@ internal sealed class TypeInfo
             "bool" => "bool",
             "byte" => "byte",
             "byte[]" => "byte*",
+            "Channels" => "NativeChannelsType",
             "double" => "double",
             "double[]" => "double*",
             "LogDelegate?" => "LogDelegate?",
             "nint" => "nint",
             "nuint" => "nuint",
+            "ProgressDelegate?" => "ProgressDelegate?",
             "QuantumType" => "QuantumType",
             "QuantumType[]" => "QuantumType*",
             "ReadOnlySpan<byte>" => "byte*",
@@ -100,6 +108,6 @@ internal sealed class TypeInfo
             "ulong" => "ulong",
             "void" => "void",
             "void*" => "void*",
-            _ => IsEnum ? "UIntPtr" : "IntPtr",
+            _ => "IntPtr",
         };
 }

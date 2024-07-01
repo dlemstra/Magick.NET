@@ -81,6 +81,9 @@ internal class NativeInteropInfo
 
     public bool RaiseWarnings { get; }
 
+    public bool UsesChannels
+        => Methods.Any(method => method.UsesChannels);
+
     public bool UsesQuantumType
         => Methods.Any(method => method.UsesQuantumType);
 }

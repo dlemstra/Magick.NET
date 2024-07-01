@@ -15,8 +15,9 @@ internal class NativeInteropGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<CleanupAttribute>());
-        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<SetInstanceAttribute>());
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<NativeInteropAttribute>());
+        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<ReadInstanceAttribute>());
+        context.RegisterPostInitializationOutput(context => context.AddAttributeSource<SetInstanceAttribute>());
         context.RegisterPostInitializationOutput(context => context.AddAttributeSource<ThrowsAttribute>());
         context.RegisterAttributeCodeGenerator<NativeInteropAttribute, NativeInteropInfo>(GetClass, GenerateCode);
     }
@@ -49,6 +50,16 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.AppendLine("using QuantumType = System.Single;");
             codeBuilder.AppendLine("#else");
             codeBuilder.AppendLine("#error Not implemented!");
+            codeBuilder.AppendLine("#endif");
+            codeBuilder.AppendLine();
+        }
+
+        if (info.UsesChannels)
+        {
+            codeBuilder.AppendLine("#if PLATFORM_x86 || PLATFORM_AnyCPU");
+            codeBuilder.AppendLine("using NativeChannelsType = ImageMagick.NativeChannels;");
+            codeBuilder.AppendLine("#else");
+            codeBuilder.AppendLine("using NativeChannelsType = System.UIntPtr;");
             codeBuilder.AppendLine("#endif");
             codeBuilder.AppendLine();
         }
@@ -144,7 +155,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
                 if (useInstance ? i >= 0 : i > 0)
                     codeBuilder.Append(", ");
 
-                if (parameter.IsOut)
+                if (parameter.IsOut && !parameter.Type.HasCreateInstance)
                     codeBuilder.Append("out ");
                 codeBuilder.Append(parameter.Type.NativeName);
                 codeBuilder.Append(" ");
@@ -329,8 +340,18 @@ internal class NativeInteropGenerator : IIncrementalGenerator
                     codeBuilder.Append(parameter.Type.ClassName);
 
                 codeBuilder.Append(".CreateInstance(");
-                codeBuilder.Append(parameter.Name);
+                if (!parameter.IsOut)
+                    codeBuilder.Append(parameter.Name);
                 codeBuilder.AppendLine(");");
+
+                if (parameter.IsOut)
+                {
+                    codeBuilder.Append("IntPtr ");
+                    codeBuilder.Append(parameter.Name);
+                    codeBuilder.Append("NativeOut = ");
+                    codeBuilder.Append(parameter.Name);
+                    codeBuilder.AppendLine("Native.Instance;");
+                }
             }
         }
 
@@ -366,15 +387,33 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Indent--;
             codeBuilder.AppendLine("throw magickException;");
             codeBuilder.AppendCloseBrace();
-            if (info.RaiseWarnings)
+            if (info.RaiseWarnings && !method.IsStatic)
                 codeBuilder.AppendLine("RaiseWarning(magickException);");
         }
         else if (method.Throws)
         {
-            if (info.RaiseWarnings)
-                codeBuilder.AppendLine("CheckException(exception);");
+            if (info.RaiseWarnings && !method.IsStatic)
+            {
+                if (method.SetsInstance || method.ReturnType.Name == info.ClassName)
+                    codeBuilder.AppendLine("CheckException(exception, result);");
+                else
+                    codeBuilder.AppendLine("CheckException(exception);");
+            }
             else
                 codeBuilder.AppendLine("MagickExceptionHelper.Check(exception);");
+        }
+
+        foreach (var paramater in method.Parameters)
+        {
+            if (paramater.IsOut && paramater.Type.HasCreateInstance)
+            {
+                codeBuilder.Append(paramater.Name);
+                codeBuilder.Append(" = ");
+                codeBuilder.Append(paramater.Type.ClassName);
+                codeBuilder.Append(".CreateInstance(");
+                codeBuilder.Append(paramater.Name);
+                codeBuilder.AppendLine("Native);");
+            }
         }
 
         if (method.SetsInstance)
@@ -515,15 +554,22 @@ internal class NativeInteropGenerator : IIncrementalGenerator
                 continue;
             }
 
-            if (parameter.IsOut)
+            if (parameter.IsOut && !parameter.Type.HasCreateInstance)
                 codeBuilder.Append("out ");
 
-            if (parameter.Type.IsEnum)
-                codeBuilder.Append("(UIntPtr)");
+            if (parameter.Type.IsChannel)
+                codeBuilder.Append("(NativeChannelsType)");
+            else if (parameter.Type.IsEnum)
+                codeBuilder.Append("(IntPtr)");
 
             codeBuilder.Append(parameter.Name);
             if (parameter.Type.HasCreateInstance)
-                codeBuilder.Append("Native.Instance");
+            {
+                if (parameter.IsOut)
+                    codeBuilder.Append("NativeOut");
+                else
+                    codeBuilder.Append("Native.Instance");
+            }
             else if (parameter.Type.IsFixed)
                 codeBuilder.Append("Fixed");
         }

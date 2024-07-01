@@ -88,7 +88,7 @@ internal partial class DrawingWand
 
         [Throws]
         [Cleanup(Name = "TypeMetric.Dispose")]
-        public partial TypeMetric? FontTypeMetrics(string text, bool ignoreNewLines);
+        public partial TypeMetric FontTypeMetrics(string text, bool ignoreNewLines);
 
         [Throws]
         public partial void Gravity(Gravity value);

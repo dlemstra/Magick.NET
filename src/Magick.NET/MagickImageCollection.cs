@@ -1769,6 +1769,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         return WriteAsyncInternal(filePath, format, cancellationToken);
     }
 
+    internal static void DisposeList(IntPtr value)
+        => NativeMagickImageCollection.Dispose(value);
+
     private static MagickSettings CreateSettings(IMagickReadSettings<QuantumType>? readSettings)
     {
         if (readSettings is null)

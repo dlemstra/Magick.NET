@@ -9,11 +9,8 @@ namespace ImageMagick;
 /// <content />
 public partial class TypeMetric
 {
-    internal static TypeMetric? CreateInstance(IntPtr instance)
+    internal static TypeMetric CreateInstance(IntPtr instance)
     {
-        if (instance == IntPtr.Zero)
-            return null;
-
         var nativeInstance = new NativeTypeMetric(instance);
         return new TypeMetric(nativeInstance);
     }

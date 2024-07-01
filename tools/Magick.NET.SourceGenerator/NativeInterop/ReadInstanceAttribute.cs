@@ -6,4 +6,4 @@ using System;
 namespace ImageMagick.SourceGenerator;
 
 [AttributeUsage(AttributeTargets.Method)]
-internal sealed class SetInstanceAttribute : Attribute;
+internal sealed class ReadInstanceAttribute : Attribute;

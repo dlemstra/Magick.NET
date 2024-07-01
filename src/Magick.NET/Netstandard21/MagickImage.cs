@@ -106,7 +106,7 @@ public sealed partial class MagickImage
         var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
-        _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0);
+        _nativeInstance.ImportPixels(settings.X, settings.Y, (nuint)settings.Width, (nuint)settings.Height, settings.Mapping, settings.StorageType, data, 0U);
     }
 
 #if !Q8
@@ -127,7 +127,7 @@ public sealed partial class MagickImage
         var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
-        _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0);
+        _nativeInstance.ImportPixels(settings.X, settings.Y, (nuint)settings.Width, (nuint)settings.Height, settings.Mapping, settings.StorageType, data, 0U);
     }
 #endif
 
@@ -253,7 +253,7 @@ public sealed partial class MagickImage
         var expectedLength = GetExpectedByteLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
-        _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0);
+        _nativeInstance.ReadPixels((nuint)settings.ReadSettings.Width!.Value, (nuint)settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0U);
     }
 
 #if !Q8
@@ -354,14 +354,14 @@ public sealed partial class MagickImage
         _settings.Ping = ping;
         _settings.FileName = fileName;
 
-        _nativeInstance.ReadBlob(_settings, data, 0, data.Length);
+        _nativeInstance.ReadBlob(_settings, data, 0U, (nuint)data.Length);
 
         ResetSettings();
     }
 
     private unsafe sealed partial class NativeMagickImage : NativeInstance
     {
-        public void ImportPixels(int x, int y, int width, int height, string map, StorageType storageType, ReadOnlySpan<byte> data, int offsetInBytes)
+        public void ImportPixels(nint x, nint y, nuint width, nuint height, string map, StorageType storageType, ReadOnlySpan<byte> data, nuint offsetInBytes)
         {
             fixed (byte* dataFixed = data)
             {
@@ -369,7 +369,7 @@ public sealed partial class MagickImage
             }
         }
 
-        public void ReadPixels(int width, int height, string map, StorageType storageType, ReadOnlySpan<byte> data, int offsetInBytes)
+        public void ReadPixels(nuint width, nuint height, string map, StorageType storageType, ReadOnlySpan<byte> data, nuint offsetInBytes)
         {
             fixed (byte* dataFixed = data)
             {
@@ -378,7 +378,7 @@ public sealed partial class MagickImage
         }
 
 #if !Q8
-        public void ImportPixels(int x, int y, int width, int height, string map, StorageType storageType, ReadOnlySpan<QuantumType> data, int offsetInBytes)
+        public void ImportPixels(nint x, nint y, nuint width, nuint height, string map, StorageType storageType, ReadOnlySpan<QuantumType> data, nuint offsetInBytes)
         {
             fixed (QuantumType* dataFixed = data)
             {
@@ -386,7 +386,7 @@ public sealed partial class MagickImage
             }
         }
 
-        public void ReadPixels(int width, int height, string map, StorageType storageType, ReadOnlySpan<QuantumType> data, int offsetInBytes)
+        public void ReadPixels(nuint width, int nuheight, string map, StorageType storageType, ReadOnlySpan<QuantumType> data, nuint offsetInBytes)
         {
             fixed (QuantumType* dataFixed = data)
             {

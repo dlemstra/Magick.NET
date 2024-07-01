@@ -930,7 +930,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="image">The image to search for.</param>
     /// <returns>The result of the search action.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickSearchResult<TQuantumType> SubImageSearch(IMagickImage<TQuantumType> image);
+    IMagickSearchResult<TQuantumType>? SubImageSearch(IMagickImage<TQuantumType> image);
 
     /// <summary>
     /// Search for the specified image at EVERY possible location in this image. This is slow!
@@ -941,7 +941,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="metric">The metric to use.</param>
     /// <returns>The result of the search action.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickSearchResult<TQuantumType> SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric);
+    IMagickSearchResult<TQuantumType>? SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric);
 
     /// <summary>
     /// Search for the specified image at EVERY possible location in this image. This is slow!
@@ -953,7 +953,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="similarityThreshold">Minimum distortion for (sub)image match.</param>
     /// <returns>The result of the search action.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickSearchResult<TQuantumType> SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric, double similarityThreshold);
+    IMagickSearchResult<TQuantumType>? SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric, double similarityThreshold);
 
     /// <summary>
     /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black

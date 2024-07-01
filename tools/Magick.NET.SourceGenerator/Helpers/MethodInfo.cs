@@ -35,8 +35,12 @@ internal sealed class MethodInfo
             .Select(attribute => new CleanupInfo(attribute.GetArgumentValue(nameof(CleanupAttribute.Name)), attribute.GetArgumentValue(nameof(CleanupAttribute.Arguments))))
             .FirstOrDefault();
 
-        UsesInstance = !IsStatic;
-        SetsInstance = method.AttributeLists
+        var readsInstance = method.AttributeLists
+            .SelectMany(list => list.Attributes)
+            .Any(attribute => attribute.Name + "Attribute" == nameof(ReadInstanceAttribute));
+
+        UsesInstance = !IsStatic && !readsInstance;
+        SetsInstance = readsInstance || method.AttributeLists
             .SelectMany(list => list.Attributes)
             .Any(attribute => attribute.Name + "Attribute" == nameof(SetInstanceAttribute));
     }
@@ -64,6 +68,10 @@ internal sealed class MethodInfo
     public bool Throws { get; }
 
     public bool UsesInstance { get; }
+
+    public bool UsesChannels
+        => ReturnType.IsChannel ||
+           Parameters.Any(parameter => parameter.Type.IsChannel);
 
     public bool UsesQuantumType
         => ReturnType.Name.Contains("QuantumType") ||
