@@ -12,7 +12,7 @@ public partial class PngWriteDefinesTests
     public class ThePreserveColorMapPropety
     {
         [Fact]
-        public void ShouldSetTheDefine()
+        public void ShouldSetTheDefineWhenSetToTrue()
         {
             using var image = new MagickImage();
             image.Settings.SetDefines(new PngWriteDefines

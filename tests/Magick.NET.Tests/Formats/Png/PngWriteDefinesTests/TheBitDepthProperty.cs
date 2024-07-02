@@ -17,7 +17,7 @@ public partial class PngWriteDefinesTests
             using var image = new MagickImage();
             image.Settings.SetDefines(new PngWriteDefines
             {
-                BitDepth = 8u,
+                BitDepth = 8U,
             });
 
             Assert.Equal("8", image.Settings.GetDefine(MagickFormat.Png, "bit-depth"));
