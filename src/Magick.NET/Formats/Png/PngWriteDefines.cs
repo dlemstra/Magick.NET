@@ -104,9 +104,6 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (PreserveColorMap)
                 yield return new MagickDefine(Format, "preserve-colormap", PreserveColorMap);
-
-            if (BitDepth.HasValue && ColorType.HasValue)
-                ValidateBitDepth(GetPngColorTypeValue(ColorType.Value), (int)BitDepth.Value);
         }
     }
 
@@ -121,31 +118,5 @@ public sealed class PngWriteDefines : IWriteDefines
             ImageMagick.ColorType.TrueColorAlpha => PngColorType.RGBMatte,
             _ => throw new ArgumentException($"Unsupported color type: {colorType}"),
         };
-    }
-
-    private void ValidateBitDepth(PngColorType colorTypeValue, int bitDepth)
-    {
-        switch (colorTypeValue)
-        {
-            case PngColorType.Grayscale:
-                if (bitDepth != 1 && bitDepth != 2 && bitDepth != 4 && bitDepth != 8 && bitDepth != 16)
-                    throw new ArgumentException("Invalid bit-depth for Grayscale. Valid values are 1, 2, 4, 8, or 16.");
-                break;
-            case PngColorType.RGB:
-                if (bitDepth != 8 && bitDepth != 16)
-                    throw new ArgumentException("Invalid bit-depth for RGB. Valid values are 8 or 16.");
-                break;
-            case PngColorType.Indexed:
-                if (bitDepth != 1 && bitDepth != 2 && bitDepth != 4 && bitDepth != 8)
-                    throw new ArgumentException("Invalid bit-depth for Indexed. Valid values are 1, 2, 4, or 8.");
-                break;
-            case PngColorType.GrayMatte:
-            case PngColorType.RGBMatte:
-                if (bitDepth != 8 && bitDepth != 16)
-                    throw new ArgumentException("Invalid bit-depth for Gray-Matte or RGB-Matte. Valid values are 8 or 16.");
-                break;
-            default:
-                throw new ArgumentException($"Unknown color type value: {colorTypeValue}");
-        }
     }
 }
