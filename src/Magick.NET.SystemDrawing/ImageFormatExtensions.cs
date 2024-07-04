@@ -8,7 +8,7 @@ namespace ImageMagick;
 
 internal static class ImageFormatExtensions
 {
-    public static MagickFormat ToFormat(this ImageFormat self)
+    public static MagickFormat ToMagickFormat(this ImageFormat self)
     {
         if (self.Guid == ImageFormat.Bmp.Guid || self.Guid == ImageFormat.MemoryBmp.Guid)
             return MagickFormat.Bmp;

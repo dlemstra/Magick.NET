@@ -44,7 +44,7 @@ public static class IMagickImageCollectionExtensions
         Throw.IfNull(nameof(self), self);
         Throw.IfNull(nameof(imageFormat), imageFormat);
 
-        var format = imageFormat.ToFormat();
+        var format = imageFormat.ToMagickFormat();
 
         foreach (var image in self)
         {

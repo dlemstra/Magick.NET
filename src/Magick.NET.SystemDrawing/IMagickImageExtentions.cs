@@ -136,7 +136,7 @@ public static partial class IMagickImageExtentions
         Throw.IfNull(nameof(self), self);
         Throw.IfNull(nameof(imageFormat), imageFormat);
 
-        var format = imageFormat.ToFormat();
+        var format = imageFormat.ToMagickFormat();
 
         var memStream = new MemoryStream();
         self.Write(memStream, format);
