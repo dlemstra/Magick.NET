@@ -29,6 +29,27 @@ public partial class TheEpsCoder
     }
 
     [Fact]
+    public void ShouldReadMonoChromeImageWhenUseMonochromeIsTrue()
+    {
+        if (!Ghostscript.IsAvailable)
+            return;
+
+        var settings = new MagickReadSettings
+        {
+            UseMonochrome = true,
+        };
+
+        using var image = new MagickImage(Files.Coders.SwedenHeartEPS, settings);
+
+        Assert.Equal(447, image.Width);
+        Assert.Equal(420, image.Height);
+        ColorAssert.Equal(MagickColors.Black, image, 223, 61);
+        ColorAssert.Equal(MagickColors.Black, image, 263, 255);
+        ColorAssert.Equal(MagickColors.White, image, 223, 62);
+        ColorAssert.Equal(MagickColors.White, image, 193, 254);
+    }
+
+    [Fact]
     public void ShouldReadClipPathsInTiffPreview()
     {
         if (!Ghostscript.IsAvailable)
