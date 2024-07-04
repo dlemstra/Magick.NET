@@ -10,19 +10,19 @@ internal static class ImageFormatExtensions
 {
     public static MagickFormat ToFormat(this ImageFormat self)
     {
-        if (self == ImageFormat.Bmp || self == ImageFormat.MemoryBmp)
+        if (self.Guid == ImageFormat.Bmp.Guid || self.Guid == ImageFormat.MemoryBmp.Guid)
             return MagickFormat.Bmp;
-        else if (self == ImageFormat.Gif)
+        else if (self.Guid == ImageFormat.Gif.Guid)
             return MagickFormat.Gif;
-        else if (self == ImageFormat.Icon)
+        else if (self.Guid == ImageFormat.Icon.Guid)
             return MagickFormat.Icon;
-        else if (self == ImageFormat.Jpeg)
+        else if (self.Guid == ImageFormat.Jpeg.Guid)
             return MagickFormat.Jpeg;
-        else if (self == ImageFormat.Png)
+        else if (self.Guid == ImageFormat.Png.Guid)
             return MagickFormat.Png;
-        else if (self == ImageFormat.Tiff)
+        else if (self.Guid == ImageFormat.Tiff.Guid)
             return MagickFormat.Tiff;
         else
-            throw new NotSupportedException("Unsupported image format: " + self.ToString());
+            throw new NotSupportedException($"Unsupported image format: {self}");
     }
 }
