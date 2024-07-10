@@ -56,4 +56,13 @@ public class TheDngCoder
 
         Assert.Equal("b68a4fcd77c02b98b22707db20bdbdd55a310fc0b96e91d174c0d7f1139033bf", thumbnail.Signature);
     }
+
+    [Fact]
+    public void ShouldReadMetadatawhenPingingImage()
+    {
+        using var image = new MagickImage();
+        image.Ping(Files.Coders.RawKodakDC50KDC);
+
+        Assert.Equal("DC50", image.GetAttribute("dng:camera.model.name"));
+    }
 }
