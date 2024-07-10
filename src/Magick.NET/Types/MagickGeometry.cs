@@ -78,9 +78,6 @@ public sealed partial class MagickGeometry : IMagickGeometry
             InitializeFromAspectRation(instance, value);
     }
 
-    private MagickGeometry(NativeMagickGeometry instance)
-        => Initialize(instance);
-
     /// <summary>
     /// Gets a value indicating whether the value is an aspect ratio.
     /// </summary>
@@ -287,20 +284,17 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// </summary>
     /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
-    {
-        return
-            Width.GetHashCode() ^
-            Height.GetHashCode() ^
-            X.GetHashCode() ^
-            Y.GetHashCode() ^
-            AspectRatio.GetHashCode() ^
-            IsPercentage.GetHashCode() ^
-            IgnoreAspectRatio.GetHashCode() ^
-            Less.GetHashCode() ^
-            Greater.GetHashCode() ^
-            FillArea.GetHashCode() ^
-            LimitPixels.GetHashCode();
-    }
+        => Width.GetHashCode() ^
+           Height.GetHashCode() ^
+           X.GetHashCode() ^
+           Y.GetHashCode() ^
+           AspectRatio.GetHashCode() ^
+           IsPercentage.GetHashCode() ^
+           IgnoreAspectRatio.GetHashCode() ^
+           Less.GetHashCode() ^
+           Greater.GetHashCode() ^
+           FillArea.GetHashCode() ^
+           LimitPixels.GetHashCode();
 
     /// <summary>
     /// Initializes the geometry using the specified value.
@@ -422,20 +416,14 @@ public sealed partial class MagickGeometry : IMagickGeometry
         IsPercentage = true;
     }
 
-    private void Initialize(NativeMagickGeometry instance)
-    {
-        X = (int)instance.X_Get();
-        Y = (int)instance.Y_Get();
-        Width = (int)instance.Width_Get();
-        Height = (int)instance.Height_Get();
-    }
-
     private void Initialize(NativeMagickGeometry instance, GeometryFlags flags)
     {
         Throw.IfTrue(nameof(flags), flags == GeometryFlags.NoValue, "Invalid geometry specified.");
 
-        Initialize(instance);
-
+        X = (int)instance.X_Get();
+        Y = (int)instance.Y_Get();
+        Width = (int)instance.Width_Get();
+        Height = (int)instance.Height_Get();
         IsPercentage = EnumHelper.HasFlag(flags, GeometryFlags.PercentValue);
         IgnoreAspectRatio = EnumHelper.HasFlag(flags, GeometryFlags.IgnoreAspectRatio);
         FillArea = EnumHelper.HasFlag(flags, GeometryFlags.FillArea);
