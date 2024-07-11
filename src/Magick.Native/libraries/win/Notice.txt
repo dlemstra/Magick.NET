@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-35 beta (2024-06-30) ] copyright:
+[ ImageMagick 7.1.1-35 beta (2024-07-11) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -125,7 +125,7 @@ To apply the ImageMagick License to your work, attach the following boilerplate 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ aom 3.9.0 (2024-04-23) ] copyright:
+[ aom 3.9.1 (2024-06-10) ] copyright:
 
 Copyright (c) 2016, Alliance for Open Media. All rights reserved.
 
@@ -3377,7 +3377,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 8.5.0 (2024-05-13) ] copyright:
+[ harfbuzz 9.0.0 (2024-06-27) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -3424,7 +3424,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.17.6 (2023-12-20) ] copyright:
+[ heif 1.18.0 (2024-07-10) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -4645,7 +4645,7 @@ that were granted to the IJG for code derived from their software.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ jpeg-xl 0.10.2 (2024-03-08) ] copyright:
+[ jpeg-xl 0.10.3 (2024-06-27) ] copyright:
 
 Copyright (c) the JPEG XL Project Authors.
 All rights reserved.
@@ -6707,11 +6707,11 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ xml 2.12.7 (2024-05-13) ] copyright:
+[ xml 2.13.2 (2024-07-04) ] copyright:
 
-Except where otherwise noted in the source code (e.g. the files dict.c,
-list.c and the trio files, which are covered by a similar licence but
-with different Copyright notices) all the files are:
+Except where otherwise noted in the source code (e.g. the files dict.c and
+list.c, which are covered by a similar licence but with different Copyright
+notices) all the files are:
 
  Copyright (C) 1998-2012 Daniel Veillard.  All Rights Reserved.
 
