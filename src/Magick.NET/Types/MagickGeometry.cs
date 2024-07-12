@@ -11,18 +11,26 @@ namespace ImageMagick;
 /// </summary>
 public sealed partial class MagickGeometry : IMagickGeometry
 {
+    private readonly bool _includeXyInToString;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
     /// </summary>
     public MagickGeometry()
-        => Initialize(0, 0, 0, 0);
+    {
+        Initialize(0, 0, 0, 0);
+        _includeXyInToString = false;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
     /// </summary>
     /// <param name="widthAndHeight">The width and height.</param>
     public MagickGeometry(int widthAndHeight)
-        => Initialize(0, 0, widthAndHeight, widthAndHeight);
+    {
+        Initialize(0, 0, widthAndHeight, widthAndHeight);
+        _includeXyInToString = false;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
@@ -30,7 +38,10 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     public MagickGeometry(int width, int height)
-        => Initialize(0, 0, width, height);
+    {
+        Initialize(0, 0, width, height);
+        _includeXyInToString = false;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
@@ -40,7 +51,10 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     public MagickGeometry(int x, int y, int width, int height)
-        => Initialize(x, y, width, height);
+    {
+        Initialize(x, y, width, height);
+        _includeXyInToString = true;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
@@ -48,7 +62,10 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="percentageWidth">The percentage of the width.</param>
     /// <param name="percentageHeight">The percentage of the height.</param>
     public MagickGeometry(Percentage percentageWidth, Percentage percentageHeight)
-        => InitializeFromPercentage(0, 0, percentageWidth, percentageHeight);
+    {
+        InitializeFromPercentage(0, 0, percentageWidth, percentageHeight);
+        _includeXyInToString = false;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
@@ -58,7 +75,10 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="percentageWidth">The percentage of the width.</param>
     /// <param name="percentageHeight">The percentage of the height.</param>
     public MagickGeometry(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
-        => InitializeFromPercentage(x, y, percentageWidth, percentageHeight);
+    {
+        InitializeFromPercentage(x, y, percentageWidth, percentageHeight);
+        _includeXyInToString = true;
+    }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified geometry.
@@ -76,6 +96,8 @@ public sealed partial class MagickGeometry : IMagickGeometry
             Initialize(instance, flags);
         else
             InitializeFromAspectRation(instance, value);
+
+        _includeXyInToString = value.IndexOf("+") >= 0 || value.IndexOf("-") >= 0;
     }
 
     /// <summary>
@@ -325,15 +347,22 @@ public sealed partial class MagickGeometry : IMagickGeometry
 
         var result = string.Empty;
 
-        if (Width > 0)
-            result += Width;
+        if (Width == 0 && Height == 0)
+        {
+            result = "0x0";
+        }
+        else
+        {
+            if (Width > 0)
+                result += Width;
 
-        if (Height > 0)
-            result += "x" + Height;
-        else if (!IsPercentage)
-            result += "x";
+            if (Height > 0)
+                result += "x" + Height;
+            else if (!IsPercentage)
+                result += "x";
+        }
 
-        if (X != 0 || Y != 0)
+        if (X != 0 || Y != 0 || _includeXyInToString)
         {
             if (X >= 0)
                 result += '+';

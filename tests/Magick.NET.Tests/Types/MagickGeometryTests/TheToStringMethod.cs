@@ -110,5 +110,41 @@ public partial class MagickGeometryTests
 
             Assert.Equal("50%>", geometry.ToString());
         }
+
+        [Fact]
+        public void ShouldIncludeZeroXYWhenSpecified()
+        {
+            var geometry = new MagickGeometry(0, 0, 5, 10);
+
+            Assert.Equal("5x10+0+0", geometry.ToString());
+        }
+
+        [Fact]
+        public void ShouldReturnTheCorrectStringWhenBothWidthAndHeightAreZero()
+        {
+            var geometry = new MagickGeometry(0, 0);
+
+            Assert.Equal("0x0", geometry.ToString());
+        }
+
+        [Fact]
+        public void ShouldCreateTheCorrectStringWhenAllValuesAreZero()
+        {
+            var geometry = new MagickGeometry(0, 0, 0, 0);
+
+            Assert.Equal("0x0+0+0", geometry.ToString());
+        }
+
+        [Theory]
+        [InlineData("0x0+0+0")]
+        [InlineData("0x0-0+0")]
+        [InlineData("0x0+0-0")]
+        [InlineData("0x0-0-0")]
+        public void ShouldIncludeZeroXYWhenSpecifiedInStringConstructor(string value)
+        {
+            var geometry = new MagickGeometry(value);
+
+            Assert.Equal("0x0+0+0", geometry.ToString());
+        }
     }
 }
