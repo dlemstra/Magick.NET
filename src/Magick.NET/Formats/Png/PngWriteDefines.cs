@@ -48,6 +48,11 @@ public sealed class PngWriteDefines : IWriteDefines
     public PngChunkFlags? ExcludeChunks { get; set; }
 
     /// <summary>
+    /// Gets or sets the chunks to be included.
+    /// </summary>
+    public PngChunkFlags? IncludeChunks { get; set; }
+ 
+    /// <summary>
     /// Gets or sets a value indicating whether the iCCP chunk should be preserved when writing the image.
     /// </summary>
     public bool PreserveiCCP { get; set; }
@@ -90,6 +95,9 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (ExcludeChunks.HasValue)
                 yield return new MagickDefine(Format, "exclude-chunks", EnumHelper.ConvertFlags(ExcludeChunks.Value));
+
+            if (IncludeChunks.HasValue)
+                yield return new MagickDefine(Format, "include-chunks", EnumHelper.ConvertFlags(IncludeChunks.Value));
 
             if (PreserveiCCP)
                 yield return new MagickDefine(Format, "preserve-iCCP", PreserveiCCP);
