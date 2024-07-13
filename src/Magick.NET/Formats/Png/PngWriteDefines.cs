@@ -48,11 +48,6 @@ public sealed class PngWriteDefines : IWriteDefines
     public PngChunkFlags? ExcludeChunks { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the PNG decoder should ignore the CRC when writing the image.
-    /// </summary>
-    public bool IgnoreCrc { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether the iCCP chunk should be preserved when writing the image.
     /// </summary>
     public bool PreserveiCCP { get; set; }
@@ -95,9 +90,6 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (ExcludeChunks.HasValue)
                 yield return new MagickDefine(Format, "exclude-chunks", EnumHelper.ConvertFlags(ExcludeChunks.Value));
-
-            if (IgnoreCrc)
-                yield return new MagickDefine(Format, "ignore-crc", IgnoreCrc);
 
             if (PreserveiCCP)
                 yield return new MagickDefine(Format, "preserve-iCCP", PreserveiCCP);
