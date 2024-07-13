@@ -398,9 +398,9 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// </summary>
     /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
+    /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseLevel(TQuantumType blackPoint, TQuantumType whitePoint, double midpoint);
+    void InverseLevel(TQuantumType blackPoint, TQuantumType whitePoint, double gamma);
 
     /// <summary>
     /// Applies the reversed level operation to just the specific channels specified. It compresses
@@ -409,10 +409,10 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// </summary>
     /// <param name="blackPoint">The darkest color in the image. Colors darker are set to zero.</param>
     /// <param name="whitePoint">The lightest color in the image. Colors brighter are set to the maximum quantum value.</param>
-    /// <param name="midpoint">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
+    /// <param name="gamma">The gamma correction to apply to the image. (Useful range of 0 to 10).</param>
     /// <param name="channels">The channel(s) to level.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseLevel(TQuantumType blackPoint, TQuantumType whitePoint, double midpoint, Channels channels);
+    void InverseLevel(TQuantumType blackPoint, TQuantumType whitePoint, double gamma, Channels channels);
 
     /// <summary>
     /// Maps the given color to "black" and "white" values, linearly spreading out the colors, and
