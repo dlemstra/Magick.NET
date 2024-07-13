@@ -3,6 +3,7 @@
 
 using ImageMagick;
 using ImageMagick.Formats;
+using System;
 using Xunit;
 
 namespace Magick.NET.Tests;
@@ -32,6 +33,24 @@ public partial class PngWriteDefinesTests
             });
 
             Assert.Null(image.Settings.GetDefine(MagickFormat.Png, "color-type"));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenColorTypeIsInvalid()
+        {
+            using var image = new MagickImage();
+            var optimizeException = Assert.Throws<ArgumentException>(() => image.Settings.SetDefines(new PngWriteDefines
+            {
+                ColorType = ColorType.Optimize,
+            }));
+
+            var invalidColorTypeException = Assert.Throws<ArgumentException>(() => image.Settings.SetDefines(new PngWriteDefines
+            {
+                ColorType = (ColorType)999,
+            }));
+
+            Assert.Equal($"Unsupported color type: {ColorType.Optimize}", optimizeException.Message);
+            Assert.Equal($"Unsupported color type: 999", invalidColorTypeException.Message);
         }
     }
 }
