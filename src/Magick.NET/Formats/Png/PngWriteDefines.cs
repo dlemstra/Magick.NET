@@ -51,7 +51,7 @@ public sealed class PngWriteDefines : IWriteDefines
     /// Gets or sets the chunks to be included.
     /// </summary>
     public PngChunkFlags? IncludeChunks { get; set; }
- 
+
     /// <summary>
     /// Gets or sets a value indicating whether the iCCP chunk should be preserved when writing the image.
     /// </summary>
@@ -107,15 +107,21 @@ public sealed class PngWriteDefines : IWriteDefines
         }
     }
 
-    private PngColorType GetPngColorTypeValue(ColorType colorType)
+    private int GetPngColorTypeValue(ColorType colorType)
     {
+        // PNG color type values:
+        // 0 - Grayscale
+        // 2 - RGB (TrueColor)
+        // 3 - Indexed color type (Palette or PaletteAlpha)
+        // 4 - Grayscale with alpha (GrayscaleAlpha)
+        // 6 - RGB with alpha (TrueColorAlpha)
         return colorType switch
         {
-            ImageMagick.ColorType.Grayscale => PngColorType.Grayscale,
-            ImageMagick.ColorType.TrueColor => PngColorType.RGB,
-            ImageMagick.ColorType.Palette or ImageMagick.ColorType.PaletteAlpha => PngColorType.Indexed,
-            ImageMagick.ColorType.GrayscaleAlpha => PngColorType.GrayMatte,
-            ImageMagick.ColorType.TrueColorAlpha => PngColorType.RGBMatte,
+            ImageMagick.ColorType.Grayscale => 0,
+            ImageMagick.ColorType.TrueColor => 2,
+            ImageMagick.ColorType.Palette or ImageMagick.ColorType.PaletteAlpha => 2,
+            ImageMagick.ColorType.GrayscaleAlpha => 4,
+            ImageMagick.ColorType.TrueColorAlpha => 6,
             _ => throw new ArgumentException($"Unsupported color type: {colorType}"),
         };
     }
