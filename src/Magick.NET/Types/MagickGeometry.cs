@@ -97,7 +97,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
         else
             InitializeFromAspectRation(instance, value);
 
-        _includeXyInToString = value.IndexOf("+") >= 0 || value.IndexOf("-") >= 0;
+        _includeXyInToString = value.Contains("+") || value.Contains("-");
     }
 
     /// <summary>
