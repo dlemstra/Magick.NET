@@ -2976,9 +2976,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The geometry of the frame.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Frame(IMagickGeometry geometry)
-    {
-        _nativeInstance.Frame(MagickRectangle.FromGeometry(geometry, this));
-    }
+        => _nativeInstance.Frame(MagickRectangle.FromGeometry(geometry, this));
 
     /// <summary>
     /// Frame image with the specified with and height.
