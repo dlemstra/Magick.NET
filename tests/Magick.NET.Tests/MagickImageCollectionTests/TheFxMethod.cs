@@ -52,8 +52,8 @@ public partial class MagickImageCollectionTests
 
             using var result = images.Fx("(u+v)/2", Channels.Green);
 
-            ColorAssert.Equal(new MagickColor("#ff9fff"), result, 250, 375);
-            ColorAssert.Equal(new MagickColor("#229f92"), result, 375, 375);
+            ColorAssert.Equal(new MagickColor("#ffff9f1fffff"), result, 250, 375);
+            ColorAssert.Equal(new MagickColor("#22229f1f9292"), result, 375, 375);
         }
     }
 }
