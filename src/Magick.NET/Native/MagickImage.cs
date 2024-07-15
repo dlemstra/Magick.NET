@@ -41,6 +41,10 @@ public partial class MagickImage : IDisposable
         [Cleanup(Name = nameof(DisposeInstance))]
         public static partial NativeMagickImage Create(IMagickSettings<QuantumType>? settings);
 
+        [Throws]
+        [Cleanup(Name = nameof(DisposeInstance))]
+        public static partial IntPtr Fx(IntPtr image, string expression, Channels channels);
+
         public static partial IntPtr GetNext(IntPtr image);
 
         public partial nuint AnimationDelay_Get();
@@ -458,10 +462,6 @@ public partial class MagickImage : IDisposable
         [Throws]
         [SetInstance]
         public partial void Frame(MagickRectangle geometry);
-
-        [Throws]
-        [SetInstance]
-        public partial void Fx(string expression, Channels channels);
 
         [Throws]
         public partial void GammaCorrect(double gamma, Channels channels);

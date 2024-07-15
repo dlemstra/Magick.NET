@@ -3016,7 +3016,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNullOrEmpty(nameof(expression), expression);
 
-        _nativeInstance.Fx(expression, channels);
+        _nativeInstance.Instance = NativeMagickImage.Fx(_nativeInstance.Instance, expression, channels);
     }
 
     /// <summary>
@@ -7325,6 +7325,12 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         }
 
         return result;
+    }
+
+    internal static IMagickImage<QuantumType> Fx(IMagickImage<QuantumType> image, string expression, Channels channels)
+    {
+        var result = NativeMagickImage.Fx(GetInstance(image), expression, channels);
+        return Create(result, GetSettings(image));
     }
 
     internal static IntPtr GetInstance(IMagickImage? image)

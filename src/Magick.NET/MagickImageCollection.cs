@@ -557,6 +557,30 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     }
 
     /// <summary>
+    /// Applies a mathematical expression to the images and returns the result.
+    /// </summary>
+    /// <param name="expression">The expression to apply.</param>
+    /// <returns>The resulting image of the fx operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickImage<QuantumType> Fx(string expression)
+        => Fx(expression, Channels.Undefined);
+
+    /// <summary>
+    /// Applies a mathematical expression to the images and returns the result.
+    /// </summary>
+    /// <param name="expression">The expression to apply.</param>
+    /// <param name="channels">The channel(s) to apply the expression to.</param>
+    /// <returns>The resulting image of the fx operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickImage<QuantumType> Fx(string expression, Channels channels)
+    {
+        Throw.IfNullOrEmpty(nameof(expression), expression);
+
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        return MagickImage.Fx(_images[0], expression, channels);
+    }
+
+    /// <summary>
     /// Returns an enumerator that iterates through the images.
     /// </summary>
     /// <returns>An enumerator that iterates through the images.</returns>

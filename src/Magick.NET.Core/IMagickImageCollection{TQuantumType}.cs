@@ -113,6 +113,23 @@ public partial interface IMagickImageCollection<TQuantumType> : IMagickImageColl
     IMagickImage<TQuantumType> Flatten(IMagickColor<TQuantumType> backgroundColor);
 
     /// <summary>
+    /// Applies a mathematical expression to the images and returns the result.
+    /// </summary>
+    /// <param name="expression">The expression to apply.</param>
+    /// <returns>The resulting image of the fx operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    IMagickImage<TQuantumType> Fx(string expression);
+
+    /// <summary>
+    /// Applies a mathematical expression to the images and returns the result.
+    /// </summary>
+    /// <param name="expression">The expression to apply.</param>
+    /// <param name="channels">The channel(s) to apply the expression to.</param>
+    /// <returns>The resulting image of the fx operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    IMagickImage<TQuantumType> Fx(string expression, Channels channels);
+
+    /// <summary>
     /// Remap image colors with closest color from reference image.
     /// </summary>
     /// <param name="image">The image to use.</param>
