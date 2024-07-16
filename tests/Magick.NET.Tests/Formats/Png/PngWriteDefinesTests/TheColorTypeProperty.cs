@@ -36,7 +36,7 @@ public partial class PngWriteDefinesTests
         }
 
         [Fact]
-        public void ShouldThrowExceptionWhenColorTypeIsInvalid()
+        public void ShouldThrowExceptionWhenColorTypeIsOptimize()
         {
             using var image = new MagickImage();
             var optimizeException = Assert.Throws<ArgumentException>(() => image.Settings.SetDefines(new PngWriteDefines
@@ -44,12 +44,18 @@ public partial class PngWriteDefinesTests
                 ColorType = ColorType.Optimize,
             }));
 
+            Assert.Equal($"Unsupported color type: {ColorType.Optimize}", optimizeException.Message);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenColorTypeIsInvalid()
+        {
+            using var image = new MagickImage();
             var invalidColorTypeException = Assert.Throws<ArgumentException>(() => image.Settings.SetDefines(new PngWriteDefines
             {
                 ColorType = (ColorType)999,
             }));
 
-            Assert.Equal($"Unsupported color type: {ColorType.Optimize}", optimizeException.Message);
             Assert.Equal($"Unsupported color type: 999", invalidColorTypeException.Message);
         }
     }
