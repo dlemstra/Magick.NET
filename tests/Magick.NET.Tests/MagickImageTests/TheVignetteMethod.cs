@@ -17,8 +17,8 @@ public partial class MagickImageTests
             image.BackgroundColor = MagickColors.Aqua;
             image.Vignette();
 
-            ColorAssert.Equal(new MagickColor("#6480ffffffff"), image, 292, 0);
-            ColorAssert.Equal(new MagickColor("#91acffffffff"), image, 358, 479);
+            ColorAssert.Equal(new MagickColor("#641affffffff"), image, 292, 0);
+            ColorAssert.Equal(new MagickColor("#91bdffffffff"), image, 358, 479);
         }
 
         [Fact]
