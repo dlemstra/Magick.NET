@@ -118,7 +118,7 @@ public sealed class PngWriteDefines : IWriteDefines
         {
             ImageMagick.ColorType.Grayscale => 0,
             ImageMagick.ColorType.TrueColor => 2,
-            ImageMagick.ColorType.Palette or ImageMagick.ColorType.PaletteAlpha => 2,
+            ImageMagick.ColorType.Palette or ImageMagick.ColorType.PaletteAlpha => 3,
             ImageMagick.ColorType.GrayscaleAlpha => 4,
             ImageMagick.ColorType.TrueColorAlpha => 6,
             _ => throw new ArgumentException($"Unsupported color type: {colorType}"),
