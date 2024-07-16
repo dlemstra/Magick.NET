@@ -109,7 +109,6 @@ public sealed class PngWriteDefines : IWriteDefines
 
     private int GetPngColorTypeValue(ColorType colorType)
     {
-        // PNG color type values:
         // 0 - Grayscale
         // 2 - RGB (TrueColor)
         // 3 - Indexed color type (Palette or PaletteAlpha)
