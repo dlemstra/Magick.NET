@@ -39,7 +39,7 @@ public partial class PngWriteDefinesTests
         public void ShouldThrowExceptionWhenColorTypeIsOptimize()
         {
             using var image = new MagickImage();
-            var optimizeException = Assert.Throws<ArgumentException>(() => image.Settings.SetDefines(new PngWriteDefines
+            var optimizeException = Assert.Throws<InvalidOperationException>(() => image.Settings.SetDefines(new PngWriteDefines
             {
                 ColorType = ColorType.Optimize,
             }));
@@ -51,7 +51,7 @@ public partial class PngWriteDefinesTests
         public void ShouldThrowExceptionWhenColorTypeIsInvalid()
         {
             using var image = new MagickImage();
-            var invalidColorTypeException = Assert.Throws<ArgumentException>(() => image.Settings.SetDefines(new PngWriteDefines
+            var invalidColorTypeException = Assert.Throws<InvalidOperationException>(() => image.Settings.SetDefines(new PngWriteDefines
             {
                 ColorType = (ColorType)999,
             }));

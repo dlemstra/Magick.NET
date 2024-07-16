@@ -108,20 +108,13 @@ public sealed class PngWriteDefines : IWriteDefines
     }
 
     private int GetPngColorTypeValue(ColorType colorType)
-    {
-        // 0 - Grayscale
-        // 2 - RGB (TrueColor)
-        // 3 - Indexed color type (Palette or PaletteAlpha)
-        // 4 - Grayscale with alpha (GrayscaleAlpha)
-        // 6 - RGB with alpha (TrueColorAlpha)
-        return colorType switch
+        => colorType switch
         {
             ImageMagick.ColorType.Grayscale => 0,
             ImageMagick.ColorType.TrueColor => 2,
             ImageMagick.ColorType.Palette or ImageMagick.ColorType.PaletteAlpha => 3,
             ImageMagick.ColorType.GrayscaleAlpha => 4,
             ImageMagick.ColorType.TrueColorAlpha => 6,
-            _ => throw new ArgumentException($"Unsupported color type: {colorType}"),
+            _ => throw new InvalidOperationException($"Unsupported color type: {colorType}"),
         };
-    }
 }
