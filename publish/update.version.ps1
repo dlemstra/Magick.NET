@@ -59,7 +59,7 @@ function updateAssemblyVersion($library, $version, $checkAssemblyVersion) {
 }
 
 function updateMagickNETProps() {
-    $fileName = fullPath "src\Magick.NET.props"
+    $fileName = fullPath "Magick.NET.props"
     $content = [IO.File]::ReadAllText($fileName, [System.Text.Encoding]::Default)
 
     $content = setValue $content "`<Copyright`>" "`<" "Copyright 2013-$((Get-Date).year) Dirk Lemstra"
