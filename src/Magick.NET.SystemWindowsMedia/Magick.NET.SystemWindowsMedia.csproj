@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
     <TargetFrameworks>netcoreapp3.1;net462</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
-    <AssemblyVersion>7.2.0</AssemblyVersion>
-    <FileVersion>7.2.6</FileVersion>
-    <Version>7.2.6</Version>
+    <AssemblyVersion>7.3.0</AssemblyVersion>
+    <FileVersion>7.3.0</FileVersion>
+    <Version>7.3.0</Version>
     <Configurations>Debug;Test;Release</Configurations>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
