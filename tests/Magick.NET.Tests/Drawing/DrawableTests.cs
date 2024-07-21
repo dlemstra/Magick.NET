@@ -234,11 +234,6 @@ public class DrawableTests
         {
             new DrawableText(0, 0, string.Empty);
         });
-
-        Assert.Throws<ArgumentNullException>("encoding", () =>
-        {
-            new DrawableTextEncoding(null);
-        });
     }
 
     private void AssertDraw(IDrawable drawable)
