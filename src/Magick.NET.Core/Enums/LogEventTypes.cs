@@ -9,7 +9,7 @@ namespace ImageMagick;
 /// Specifies log event types.
 /// </summary>
 [Flags]
-public enum LogEvents
+public enum LogEventTypes
 {
     /// <summary>
     /// None.

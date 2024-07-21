@@ -10,12 +10,12 @@ namespace ImageMagick;
 /// </summary>
 /// <param name="eventType">The type of the log message.</param>
 /// <param name="message">The log message.</param>
-public sealed class LogEventArgs(LogEvents eventType, string message) : EventArgs
+public sealed class LogEventArgs(LogEventTypes eventType, string message) : EventArgs
 {
     /// <summary>
     /// Gets the type of the log message.
     /// </summary>
-    public LogEvents EventType { get; } = eventType;
+    public LogEventTypes EventType { get; } = eventType;
 
     /// <summary>
     /// Gets the log message.

@@ -18,7 +18,7 @@ public partial class MagickNET : IMagickNET
 {
     private static LogDelegate? _nativeLog;
     private static EventHandler<LogEventArgs>? _log;
-    private static LogEvents _logEvents = LogEvents.None;
+    private static LogEventTypes _logEvents = LogEventTypes.None;
 
     /// <summary>
     /// Event that will be raised when something is logged by ImageMagick.
@@ -336,7 +336,7 @@ public partial class MagickNET : IMagickNET
     /// should be used.
     /// </summary>
     /// <param name="events">The events that should be logged.</param>
-    public static void SetLogEvents(LogEvents events)
+    public static void SetLogEvents(LogEventTypes events)
     {
         _logEvents = events;
 
@@ -467,7 +467,7 @@ public partial class MagickNET : IMagickNET
     /// log.xml file.
     /// </summary>
     /// <param name="events">The events that will be logged.</param>
-    void IMagickNET.SetLogEvents(LogEvents events)
+    void IMagickNET.SetLogEvents(LogEventTypes events)
         => SetLogEvents(events);
 
     /// <summary>
@@ -523,16 +523,16 @@ public partial class MagickNET : IMagickNET
             return;
 
         var instance = UTF8Marshaler.CreateInstance(text);
-        _log(null, new LogEventArgs((LogEvents)type, instance));
+        _log(null, new LogEventArgs((LogEventTypes)type, instance));
     }
 
     private static void SetLogEvents()
     {
         string eventFlags;
 
-        if (_logEvents == LogEvents.All)
+        if (_logEvents == LogEventTypes.All)
             eventFlags = "All,Trace";
-        else if (_logEvents == LogEvents.Detailed)
+        else if (_logEvents == LogEventTypes.Detailed)
             eventFlags = "All";
         else
             eventFlags = EnumHelper.ConvertFlags(_logEvents);

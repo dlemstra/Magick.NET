@@ -48,7 +48,7 @@ public partial class MagickNETTests
             {
                 Assert.Null(sender);
                 Assert.NotNull(arguments);
-                Assert.NotEqual(LogEvents.None, arguments.EventType);
+                Assert.NotEqual(LogEventTypes.None, arguments.EventType);
                 Assert.NotNull(arguments.Message);
                 Assert.NotEqual(0, arguments.Message.Length);
 
@@ -57,7 +57,7 @@ public partial class MagickNETTests
 
             MagickNET.Log += LogDelegate;
 
-            MagickNET.SetLogEvents(LogEvents.Detailed);
+            MagickNET.SetLogEvents(LogEventTypes.Detailed);
 
             using var image = new MagickImage(Files.SnakewarePNG);
             image.Flip();
@@ -77,11 +77,11 @@ public partial class MagickNETTests
             var traceEvents = 0;
             void LogDelegate(object sender, LogEventArgs arguments)
             {
-                if (arguments.EventType == LogEvents.Trace)
+                if (arguments.EventType == LogEventTypes.Trace)
                     traceEvents++;
             }
 
-            MagickNET.SetLogEvents(LogEvents.All);
+            MagickNET.SetLogEvents(LogEventTypes.All);
 
             MagickNET.Log += LogDelegate;
 
@@ -102,7 +102,7 @@ public partial class MagickNETTests
 
             MagickNET.Log += LogDelegate;
 
-            MagickNET.SetLogEvents(LogEvents.Detailed);
+            MagickNET.SetLogEvents(LogEventTypes.Detailed);
 
             MagickNET.Log -= LogDelegate;
 

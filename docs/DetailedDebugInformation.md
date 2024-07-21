@@ -12,7 +12,7 @@ public static void MagickNET_Log(object sender, LogEventArgs arguments)
 public static void ReadImage()
 {
     // Log all events
-    MagickNET.SetLogEvents(LogEvents.All);
+    MagickNET.SetLogEvents(LogEventTypes.All);
 
     // Set the log handler (all threads use the same handler)
     MagickNET.Log += MagickNET_Log;

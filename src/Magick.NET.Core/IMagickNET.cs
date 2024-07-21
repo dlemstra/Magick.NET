@@ -136,7 +136,7 @@ public interface IMagickNET
     /// log.xml file.
     /// </summary>
     /// <param name="events">The events that will be logged.</param>
-    void SetLogEvents(LogEvents events);
+    void SetLogEvents(LogEventTypes events);
 
     /// <summary>
     /// Sets the directory that contains the Native library. This currently only works on Windows.
