@@ -87,30 +87,6 @@ public partial interface IMagickImage : IDisposable
     IChromaticityInfo Chromaticity { get; set; }
 
     /// <summary>
-    /// Gets or sets the chromaticity blue primary point.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
-    IPrimaryInfo ChromaBluePrimary { get; set; }
-
-    /// <summary>
-    /// Gets or sets the chromaticity green primary point.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
-    IPrimaryInfo ChromaGreenPrimary { get; set; }
-
-    /// <summary>
-    /// Gets or sets the chromaticity red primary point.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
-    IPrimaryInfo ChromaRedPrimary { get; set; }
-
-    /// <summary>
-    /// Gets or sets the chromaticity white primary point.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(Chromaticity)} instead.")]
-    IPrimaryInfo ChromaWhitePoint { get; set; }
-
-    /// <summary>
     /// Gets or sets the image class (DirectClass or PseudoClass)
     /// NOTE: Setting a DirectClass image to PseudoClass will result in the loss of color information
     /// if the number of colors in the image is greater than the maximum palette size (either 256 (Q8)
@@ -164,13 +140,6 @@ public partial interface IMagickImage : IDisposable
     int Depth { get; set; }
 
     /// <summary>
-    /// Gets the preferred size of the image when encoding.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [Obsolete("Will be removed in the next major release.")]
-    IMagickGeometry? EncodingGeometry { get; }
-
-    /// <summary>
     /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
     /// endian-specific options.
     /// </summary>
@@ -190,12 +159,6 @@ public partial interface IMagickImage : IDisposable
     /// Gets or sets the format of the image.
     /// </summary>
     MagickFormat Format { get; set; }
-
-    /// <summary>
-    /// Gets the information about the format of the image.
-    /// </summary>
-    [Obsolete("Will be removed in the next major release, use MagickFormatInfo.Create(image.Format) instead.")]
-    IMagickFormatInfo? FormatInfo { get; }
 
     /// <summary>
     /// Gets the gamma level of the image.
@@ -231,12 +194,6 @@ public partial interface IMagickImage : IDisposable
     /// Gets or sets the pixel color interpolate method to use.
     /// </summary>
     PixelInterpolateMethod Interpolate { get; set; }
-
-    /// <summary>
-    /// Gets a value indicating whether the instance is disposed.
-    /// </summary>
-    [Obsolete("Will be removed in the next major release.")]
-    bool IsDisposed { get; }
 
     /// <summary>
     /// Gets a value indicating whether none of the pixels in the image have an alpha value other

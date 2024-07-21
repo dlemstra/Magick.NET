@@ -604,14 +604,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
-    /// Gets the preferred size of the image when encoding.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [Obsolete("Will be removed in the next major release.")]
-    public IMagickGeometry? EncodingGeometry
-        => MagickGeometry.FromString(_nativeInstance.EncodingGeometry_Get());
-
-    /// <summary>
     /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
     /// endian-specific options.
     /// </summary>
@@ -648,13 +640,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
             _settings.Format = value;
         }
     }
-
-    /// <summary>
-    /// Gets the information about the format of the image.
-    /// </summary>
-    [Obsolete("Will be removed in the next major release, use MagickFormatInfo.Create(image.Format) instead.")]
-    public IMagickFormatInfo? FormatInfo
-        => MagickFormatInfo.Create(Format);
 
     /// <summary>
     /// Gets the gamma level of the image.
@@ -716,13 +701,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         get => _nativeInstance.Interpolate_Get();
         set => _nativeInstance.Interpolate_Set(value);
     }
-
-    /// <summary>
-    /// Gets a value indicating whether the instance is disposed.
-    /// </summary>
-    [Obsolete("Will be removed in the next major release.")]
-    public bool IsDisposed
-        => _nativeInstance.IsDisposed;
 
     /// <summary>
     /// Gets a value indicating whether none of the pixels in the image have an alpha value other
