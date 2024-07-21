@@ -3,10 +3,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
 using ImageMagick.SourceGenerator;
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 /// <summary>
 /// Class that can be used to chain draw actions.

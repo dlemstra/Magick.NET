@@ -3,7 +3,7 @@
 
 using System;
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 /// <summary>
 /// Adjusts the current affine transformation matrix with the specified affine transformation

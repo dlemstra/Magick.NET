@@ -3,7 +3,7 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 /// <summary>
 /// Draws a polygon using the current stroke, stroke width, and fill color or texture, using the

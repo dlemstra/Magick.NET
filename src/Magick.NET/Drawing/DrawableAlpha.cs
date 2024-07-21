@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 /// <summary>
 /// Paints on the image's alpha channel in order to set effected pixels to transparent.

@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using ImageMagick.Configuration;
+using ImageMagick.Drawing;
 
 #if Q8
 using QuantumType = System.Byte;

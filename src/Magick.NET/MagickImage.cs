@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using ImageMagick.Drawing;
 
 #if Q8
 using QuantumType = System.Byte;

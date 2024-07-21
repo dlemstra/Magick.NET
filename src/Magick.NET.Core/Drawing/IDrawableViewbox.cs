@@ -1,7 +1,7 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 /// <summary>
 /// Sets the overall canvas size to be recorded with the drawing vector data. Usually this will

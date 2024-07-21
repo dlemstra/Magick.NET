@@ -3,9 +3,9 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
-internal class PathArcCoordinates : DrawableCoordinates<PathArc>
+internal sealed class PathArcCoordinates : DrawableCoordinates<PathArc>
 {
     public PathArcCoordinates(IEnumerable<PathArc> coordinates)
       : base(coordinates, 0)

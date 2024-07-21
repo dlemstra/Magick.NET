@@ -3,7 +3,7 @@
 
 using System;
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 /// <summary>
 /// Sets the font family, style, weight and stretch to use when annotating with text.

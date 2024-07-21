@@ -3,9 +3,9 @@
 
 using System.Collections.Generic;
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
-internal class PointDCoordinates : DrawableCoordinates<PointD>
+internal sealed class PointDCoordinates : DrawableCoordinates<PointD>
 {
     public PointDCoordinates(IEnumerable<PointD> coordinates)
       : this(coordinates, 0)

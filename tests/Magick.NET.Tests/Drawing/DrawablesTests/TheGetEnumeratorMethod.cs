@@ -1,11 +1,11 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using ImageMagick;
+using ImageMagick.Drawing;
 using Xunit;
 
 namespace Magick.NET.Tests;

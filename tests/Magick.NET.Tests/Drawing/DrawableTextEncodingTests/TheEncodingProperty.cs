@@ -3,6 +3,7 @@
 
 using System.Text;
 using ImageMagick;
+using ImageMagick.Drawing;
 
 namespace Magick.NET.Tests;
 

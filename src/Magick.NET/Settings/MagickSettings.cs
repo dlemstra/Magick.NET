@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
+using ImageMagick.Drawing;
 
 #if Q8
 using QuantumType = System.Byte;

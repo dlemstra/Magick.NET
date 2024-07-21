@@ -26,7 +26,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
         var generateInterface = context.TargetNode.IsKind(SyntaxKind.InterfaceDeclaration);
         var assembly = context.TargetSymbol.ContainingAssembly;
         var interfaces = assembly.GlobalNamespace.GetNamespaceMembers()
-            .SelectMany(ns => ns.GetTypeMembers())
+            .SelectMany(ns => ns.GetTypeMembersRecursive())
             .Where(type => type.AllInterfaces.Any(i => i.Name == "IDrawable"))
             .ToImmutableArray();
         return (generateInterface, interfaces);
@@ -198,7 +198,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
         }
 
         codeBuilder.AppendLine();
-        codeBuilder.AppendLine("namespace ImageMagick;");
+        codeBuilder.AppendLine("namespace ImageMagick.Drawing;");
         codeBuilder.AppendLine();
 
         codeBuilder.Append("public partial ");

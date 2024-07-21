@@ -3,7 +3,7 @@
 
 using System;
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 /// <summary>
 /// Specifies the color of a background rectangle to place under text annotations.

@@ -5,7 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 internal abstract class DrawableCoordinates<TCoordinateType> : IReadOnlyList<TCoordinateType>
 {

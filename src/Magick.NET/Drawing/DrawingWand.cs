@@ -15,7 +15,7 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 internal sealed partial class DrawingWand : IDisposable
 {

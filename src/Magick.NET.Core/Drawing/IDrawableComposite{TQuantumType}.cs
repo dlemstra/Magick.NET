@@ -3,7 +3,7 @@
 
 using System;
 
-namespace ImageMagick;
+namespace ImageMagick.Drawing;
 
 /// <summary>
 /// Encapsulation of the DrawableCompositeImage object.
