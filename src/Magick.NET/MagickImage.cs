@@ -680,18 +680,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => (int)_nativeInstance.Height_Get();
 
     /// <summary>
-    /// Gets or sets the type of interlacing to use.
+    /// Gets the type of interlacing to use.
     /// </summary>
     public Interlace Interlace
-    {
-        get => _nativeInstance.Interlace_Get();
-        [Obsolete($"The setter will be removed in the next major release, use Settings.{nameof(Interlace)} instead.")]
-        set
-        {
-            _nativeInstance.Interlace_Set(value);
-            _settings.Interlace = value;
-        }
-    }
+        => _nativeInstance.Interlace_Get();
 
     /// <summary>
     /// Gets or sets the pixel color interpolate method to use.

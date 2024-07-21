@@ -181,14 +181,9 @@ public partial interface IMagickImage : IDisposable
     int Height { get; }
 
     /// <summary>
-    /// Gets or sets the type of interlacing to use.
+    /// Gets the type of interlacing to use.
     /// </summary>
-    Interlace Interlace
-    {
-        get;
-        [Obsolete($"The setter will be removed in the next major release, use Settings.{nameof(Interlace)} instead.")]
-        set;
-    }
+    Interlace Interlace { get; }
 
     /// <summary>
     /// Gets or sets the pixel color interpolate method to use.
