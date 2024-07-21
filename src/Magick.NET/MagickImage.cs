@@ -536,14 +536,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     public ColorType ColorType
     {
-        get
-        {
-            if (_settings.ColorType != ColorType.Undefined)
-                return _settings.ColorType;
-
-            return _nativeInstance.ColorType_Get();
-        }
-
+        get => _nativeInstance.ColorType_Get();
         set => _nativeInstance.ColorType_Set(value);
     }
 
