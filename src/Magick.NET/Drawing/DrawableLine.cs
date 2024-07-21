@@ -24,24 +24,24 @@ public sealed class DrawableLine : IDrawableLine, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the starting X coordinate.
+    /// Gets the starting X coordinate.
     /// </summary>
-    public double StartX { get; set; }
+    public double StartX { get; }
 
     /// <summary>
-    /// Gets or sets the starting Y coordinate.
+    /// Gets the starting Y coordinate.
     /// </summary>
-    public double StartY { get; set; }
+    public double StartY { get; }
 
     /// <summary>
-    /// Gets or sets the ending X coordinate.
+    /// Gets the ending X coordinate.
     /// </summary>
-    public double EndX { get; set; }
+    public double EndX { get; }
 
     /// <summary>
-    /// Gets or sets the ending Y coordinate.
+    /// Gets the ending Y coordinate.
     /// </summary>
-    public double EndY { get; set; }
+    public double EndY { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

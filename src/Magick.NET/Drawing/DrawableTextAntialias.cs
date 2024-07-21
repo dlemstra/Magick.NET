@@ -26,9 +26,9 @@ public sealed class DrawableTextAntialias : IDrawableTextAntialias, IDrawingWand
         => new DrawableTextAntialias(true);
 
     /// <summary>
-    /// Gets or sets a value indicating whether text antialiasing is enabled or disabled.
+    /// Gets a value indicating whether text antialiasing is enabled or disabled.
     /// </summary>
-    public bool IsEnabled { get; set; }
+    public bool IsEnabled { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

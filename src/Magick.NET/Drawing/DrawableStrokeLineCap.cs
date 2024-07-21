@@ -18,9 +18,9 @@ public sealed class DrawableStrokeLineCap : IDrawableStrokeLineCap, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the line cap.
+    /// Gets the line cap.
     /// </summary>
-    public LineCap LineCap { get; set; }
+    public LineCap LineCap { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

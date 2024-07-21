@@ -18,9 +18,9 @@ public sealed class DrawableClipRule : IDrawableClipRule, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the rule to use when filling drawn objects.
+    /// Gets the rule to use when filling drawn objects.
     /// </summary>
-    public FillRule FillRule { get; set; }
+    public FillRule FillRule { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

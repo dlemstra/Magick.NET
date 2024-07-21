@@ -18,9 +18,9 @@ public sealed class DrawableTextAlignment : IDrawableTextAlignment, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets text alignment.
+    /// Gets the text alignment.
     /// </summary>
-    public TextAlignment Alignment { get; set; }
+    public TextAlignment Alignment { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

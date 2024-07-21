@@ -18,9 +18,9 @@ public sealed class DrawableTextKerning : IDrawableTextKerning, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the text kerning to use.
+    /// Gets the text kerning to use.
     /// </summary>
-    public double Kerning { get; set; }
+    public double Kerning { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

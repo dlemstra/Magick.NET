@@ -18,9 +18,9 @@ public sealed class DrawableClipUnits : IDrawableClipUnits, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the clip path units.
+    /// Gets the clip path units.
     /// </summary>
-    public ClipPathUnit Units { get; set; }
+    public ClipPathUnit Units { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

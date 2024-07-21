@@ -20,9 +20,9 @@ public sealed class DrawableStrokePatternUrl : IDrawableStrokePatternUrl, IDrawi
     }
 
     /// <summary>
-    /// Gets or sets the url specifying pattern ID (e.g. "#pattern_id").
+    /// Gets the url specifying pattern ID (e.g. "#pattern_id").
     /// </summary>
-    public string Url { get; set; }
+    public string Url { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

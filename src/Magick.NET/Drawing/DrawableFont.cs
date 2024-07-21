@@ -39,24 +39,24 @@ public sealed class DrawableFont : IDrawableFont, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the font family or the full path to the font file.
+    /// Gets the font family or the full path to the font file.
     /// </summary>
-    public string Family { get; set; }
+    public string Family { get; }
 
     /// <summary>
-    /// Gets or sets the style of the font.
+    /// Gets the style of the font.
     /// </summary>
-    public FontStyleType Style { get; set; }
+    public FontStyleType Style { get; }
 
     /// <summary>
-    /// Gets or sets the weight of the font.
+    /// Gets the weight of the font.
     /// </summary>
-    public FontWeight Weight { get; set; }
+    public FontWeight Weight { get; }
 
     /// <summary>
-    /// Gets or sets the font stretching.
+    /// Gets the font stretching.
     /// </summary>
-    public FontStretch Stretch { get; set; }
+    public FontStretch Stretch { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

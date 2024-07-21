@@ -286,10 +286,7 @@ internal sealed partial class DrawingWand : IDisposable
         => _nativeInstance.TextDirection(value);
 
     public void TextEncoding(Encoding value)
-    {
-        if (value is not null)
-            _nativeInstance.TextEncoding(value.WebName);
-    }
+        => _nativeInstance.TextEncoding(value.WebName);
 
     public void TextInterlineSpacing(double spacing)
         => _nativeInstance.TextInterlineSpacing(spacing);

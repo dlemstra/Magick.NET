@@ -23,9 +23,9 @@ public sealed class DrawableDensity : IDrawableDensity, IDrawingWand
         => Density = pointDensity;
 
     /// <summary>
-    /// Gets or sets the vertical and horizontal resolution.
+    /// Gets the vertical and horizontal resolution.
     /// </summary>
-    public PointD Density { get; set; }
+    public PointD Density { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

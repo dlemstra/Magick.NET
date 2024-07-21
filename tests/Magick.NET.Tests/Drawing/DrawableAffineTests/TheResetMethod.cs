@@ -13,14 +13,7 @@ public partial class DrawableAffineTests
         [Fact]
         public void ShouldSetThePropertiesToTheDefaultValue()
         {
-            var affine = new DrawableAffine();
-
-            affine.ScaleX = 2.0;
-            affine.ScaleY = 3.0;
-            affine.ShearX = 4.0;
-            affine.ShearY = 5.0;
-            affine.TranslateX = 6.0;
-            affine.TranslateY = 7.0;
+            var affine = new DrawableAffine(2.0, 4.0, 4.0, 5.0, 6.0, 7.0);
 
             affine.Reset();
 

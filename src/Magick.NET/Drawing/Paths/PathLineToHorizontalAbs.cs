@@ -19,9 +19,9 @@ public sealed class PathLineToHorizontalAbs : IPathLineToHorizontal, IDrawingWan
     }
 
     /// <summary>
-    /// Gets or sets the X coordinate.
+    /// Gets the X coordinate.
     /// </summary>
-    public double X { get; set; }
+    public double X { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

@@ -19,9 +19,9 @@ public sealed class PathLineToVerticalAbs : IPathLineToVertical, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the Y coordinate.
+    /// Gets the Y coordinate.
     /// </summary>
-    public double Y { get; set; }
+    public double Y { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

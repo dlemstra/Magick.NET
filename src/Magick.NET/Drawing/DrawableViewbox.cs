@@ -27,24 +27,24 @@ public sealed partial class DrawableViewbox : IDrawableViewbox, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the upper left X coordinate.
+    /// Gets the upper left X coordinate.
     /// </summary>
-    public double UpperLeftX { get; set; }
+    public double UpperLeftX { get; }
 
     /// <summary>
-    /// Gets or sets the upper left Y coordinate.
+    /// Gets the upper left Y coordinate.
     /// </summary>
-    public double UpperLeftY { get; set; }
+    public double UpperLeftY { get; }
 
     /// <summary>
-    /// Gets or sets the upper left X coordinate.
+    /// Gets the upper left X coordinate.
     /// </summary>
-    public double LowerRightX { get; set; }
+    public double LowerRightX { get; }
 
     /// <summary>
-    /// Gets or sets the upper left Y coordinate.
+    /// Gets the upper left Y coordinate.
     /// </summary>
-    public double LowerRightY { get; set; }
+    public double LowerRightY { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

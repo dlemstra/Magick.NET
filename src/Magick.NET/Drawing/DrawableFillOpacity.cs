@@ -18,9 +18,9 @@ public sealed class DrawableFillOpacity : IDrawableFillOpacity, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the alpha.
+    /// Gets the alpha.
     /// </summary>
-    public Percentage Opacity { get; set; }
+    public Percentage Opacity { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

@@ -18,9 +18,9 @@ public sealed class DrawableTextInterwordSpacing : IDrawableTextInterwordSpacing
     }
 
     /// <summary>
-    /// Gets or sets the spacing to use.
+    /// Gets the spacing to use.
     /// </summary>
-    public double Spacing { get; set; }
+    public double Spacing { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

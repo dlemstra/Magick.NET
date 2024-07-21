@@ -31,29 +31,29 @@ public sealed class DrawablePushPattern : IDrawablePushPattern, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the ID of the pattern.
+    /// Gets the ID of the pattern.
     /// </summary>
-    public string Id { get; set; }
+    public string Id { get; }
 
     /// <summary>
-    /// Gets or sets the X coordinate.
+    /// Gets the X coordinate.
     /// </summary>
-    public double X { get; set; }
+    public double X { get; }
 
     /// <summary>
-    /// Gets or sets the Y coordinate.
+    /// Gets the Y coordinate.
     /// </summary>
-    public double Y { get; set; }
+    public double Y { get; }
 
     /// <summary>
-    /// Gets or sets the width.
+    /// Gets the width.
     /// </summary>
-    public double Width { get; set; }
+    public double Width { get; }
 
     /// <summary>
-    /// Gets or sets the height.
+    /// Gets the height.
     /// </summary>
-    public double Height { get; set; }
+    public double Height { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

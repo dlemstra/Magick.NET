@@ -18,9 +18,9 @@ public sealed class DrawableStrokeDashOffset : IDrawableStrokeDashOffset, IDrawi
     }
 
     /// <summary>
-    /// Gets or sets the dash offset.
+    /// Gets the dash offset.
     /// </summary>
-    public double Offset { get; set; }
+    public double Offset { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

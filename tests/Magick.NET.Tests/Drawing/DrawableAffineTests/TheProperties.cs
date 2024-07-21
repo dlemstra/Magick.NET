@@ -11,64 +11,28 @@ public partial class DrawableAffineTests
     public class TheProperties
     {
         [Fact]
-        public void ShouldSetTheCorrectValue()
+        public void ShouldHaveTheCorrectDefaultValues()
         {
             var affine = new DrawableAffine();
-
             Assert.Equal(1.0, affine.ScaleX);
             Assert.Equal(1.0, affine.ScaleY);
             Assert.Equal(0.0, affine.ShearX);
             Assert.Equal(0.0, affine.ShearY);
             Assert.Equal(0.0, affine.TranslateX);
             Assert.Equal(0.0, affine.TranslateY);
+        }
 
-            affine.ScaleX = 2.0;
-            Assert.Equal(2.0, affine.ScaleX);
-            Assert.Equal(1.0, affine.ScaleY);
-            Assert.Equal(0.0, affine.ShearX);
-            Assert.Equal(0.0, affine.ShearY);
-            Assert.Equal(0.0, affine.TranslateX);
-            Assert.Equal(0.0, affine.TranslateY);
+        [Fact]
+        public void ShouldSetTheCorrectValue()
+        {
+            var affine = new DrawableAffine(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
 
-            affine.ScaleY = 3.0;
-            Assert.Equal(2.0, affine.ScaleX);
-            Assert.Equal(3.0, affine.ScaleY);
-            Assert.Equal(0.0, affine.ShearX);
-            Assert.Equal(0.0, affine.ShearY);
-            Assert.Equal(0.0, affine.TranslateX);
-            Assert.Equal(0.0, affine.TranslateY);
-
-            affine.ShearX = 4.0;
-            Assert.Equal(2.0, affine.ScaleX);
-            Assert.Equal(3.0, affine.ScaleY);
-            Assert.Equal(4.0, affine.ShearX);
-            Assert.Equal(0.0, affine.ShearY);
-            Assert.Equal(0.0, affine.TranslateX);
-            Assert.Equal(0.0, affine.TranslateY);
-
-            affine.ShearY = 5.0;
-            Assert.Equal(2.0, affine.ScaleX);
-            Assert.Equal(3.0, affine.ScaleY);
-            Assert.Equal(4.0, affine.ShearX);
-            Assert.Equal(5.0, affine.ShearY);
-            Assert.Equal(0.0, affine.TranslateX);
-            Assert.Equal(0.0, affine.TranslateY);
-
-            affine.TranslateX = 6.0;
-            Assert.Equal(2.0, affine.ScaleX);
-            Assert.Equal(3.0, affine.ScaleY);
-            Assert.Equal(4.0, affine.ShearX);
-            Assert.Equal(5.0, affine.ShearY);
-            Assert.Equal(6.0, affine.TranslateX);
-            Assert.Equal(0.0, affine.TranslateY);
-
-            affine.TranslateY = 7.0;
-            Assert.Equal(2.0, affine.ScaleX);
-            Assert.Equal(3.0, affine.ScaleY);
-            Assert.Equal(4.0, affine.ShearX);
-            Assert.Equal(5.0, affine.ShearY);
-            Assert.Equal(6.0, affine.TranslateX);
-            Assert.Equal(7.0, affine.TranslateY);
+            Assert.Equal(1.0, affine.ScaleX);
+            Assert.Equal(2.0, affine.ScaleY);
+            Assert.Equal(3.0, affine.ShearX);
+            Assert.Equal(4.0, affine.ShearY);
+            Assert.Equal(5.0, affine.TranslateX);
+            Assert.Equal(6.0, affine.TranslateY);
         }
     }
 }

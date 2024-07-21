@@ -18,9 +18,9 @@ public sealed class DrawableStrokeOpacity : IDrawableStrokeOpacity, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the opacity.
+    /// Gets the opacity.
     /// </summary>
-    public Percentage Opacity { get; set; }
+    public Percentage Opacity { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

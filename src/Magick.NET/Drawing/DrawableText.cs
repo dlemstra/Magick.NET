@@ -24,19 +24,19 @@ public sealed class DrawableText : IDrawableText, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the X coordinate.
+    /// Gets the X coordinate.
     /// </summary>
-    public double X { get; set; }
+    public double X { get; }
 
     /// <summary>
-    /// Gets or sets the Y coordinate.
+    /// Gets the Y coordinate.
     /// </summary>
-    public double Y { get; set; }
+    public double Y { get; }
 
     /// <summary>
-    /// Gets or sets the text to draw.
+    /// Gets the text to draw.
     /// </summary>
-    public string Value { get; set; }
+    public string Value { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

@@ -30,9 +30,9 @@ public sealed partial class DrawableBorderColor : IDrawableBorderColor<QuantumTy
     }
 
     /// <summary>
-    /// Gets or sets the color to use.
+    /// Gets the color to use.
     /// </summary>
-    public IMagickColor<QuantumType> Color { get; set; }
+    public IMagickColor<QuantumType> Color { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

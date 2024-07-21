@@ -37,34 +37,34 @@ public sealed partial class DrawableAffine : IDrawableAffine, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the X coordinate scaling element.
+    /// Gets the X coordinate scaling element.
     /// </summary>
-    public double ScaleX { get; set; }
+    public double ScaleX { get; private set; }
 
     /// <summary>
-    /// Gets or sets the Y coordinate scaling element.
+    /// Gets the Y coordinate scaling element.
     /// </summary>
-    public double ScaleY { get; set; }
+    public double ScaleY { get; private set; }
 
     /// <summary>
-    /// Gets or sets the X coordinate shearing element.
+    /// Gets the X coordinate shearing element.
     /// </summary>
-    public double ShearX { get; set; }
+    public double ShearX { get; private set; }
 
     /// <summary>
-    /// Gets or sets the Y coordinate shearing element.
+    /// Gets the Y coordinate shearing element.
     /// </summary>
-    public double ShearY { get; set; }
+    public double ShearY { get; private set; }
 
     /// <summary>
-    /// Gets or sets the X coordinate of the translation element.
+    /// Gets the X coordinate of the translation element.
     /// </summary>
-    public double TranslateX { get; set; }
+    public double TranslateX { get; private set; }
 
     /// <summary>
-    /// Gets or sets the Y coordinate of the translation element.
+    /// Gets the Y coordinate of the translation element.
     /// </summary>
-    public double TranslateY { get; set; }
+    public double TranslateY { get; private set; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

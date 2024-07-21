@@ -22,9 +22,9 @@ public sealed class DrawableTextEncoding : IDrawableTextEncoding, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the encoding of the text.
+    /// Gets the encoding of the text.
     /// </summary>
-    public Encoding Encoding { get; set; }
+    public Encoding Encoding { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

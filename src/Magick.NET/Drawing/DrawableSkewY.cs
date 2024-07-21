@@ -18,9 +18,9 @@ public sealed class DrawableSkewY : IDrawableSkewY, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the angle.
+    /// Gets the angle.
     /// </summary>
-    public double Angle { get; set; }
+    public double Angle { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

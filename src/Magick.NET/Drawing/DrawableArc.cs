@@ -28,34 +28,34 @@ public sealed class DrawableArc : IDrawableArc, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the starting X coordinate of the bounding rectangle.
+    /// Gets the starting X coordinate of the bounding rectangle.
     /// </summary>
-    public double StartX { get; set; }
+    public double StartX { get; }
 
     /// <summary>
-    /// Gets or sets the starting Y coordinate of the bounding rectangle.
+    /// Gets the starting Y coordinate of the bounding rectangle.
     /// </summary>
-    public double StartY { get; set; }
+    public double StartY { get; }
 
     /// <summary>
-    /// Gets or sets the ending X coordinate of the bounding rectangle.
+    /// Gets the ending X coordinate of the bounding rectangle.
     /// </summary>
-    public double EndX { get; set; }
+    public double EndX { get; }
 
     /// <summary>
-    /// Gets or sets the ending Y coordinate of the bounding rectangle.
+    /// Gets the ending Y coordinate of the bounding rectangle.
     /// </summary>
-    public double EndY { get; set; }
+    public double EndY { get; }
 
     /// <summary>
-    /// Gets or sets the starting degrees of rotation.
+    /// Gets the starting degrees of rotation.
     /// </summary>
-    public double StartDegrees { get; set; }
+    public double StartDegrees { get; }
 
     /// <summary>
-    /// Gets or sets the ending degrees of rotation.
+    /// Gets the ending degrees of rotation.
     /// </summary>
-    public double EndDegrees { get; set; }
+    public double EndDegrees { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

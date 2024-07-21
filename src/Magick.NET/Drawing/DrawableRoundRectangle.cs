@@ -29,34 +29,34 @@ public sealed class DrawableRoundRectangle : IDrawableRoundRectangle, IDrawingWa
     }
 
     /// <summary>
-    /// Gets or sets the upper left X coordinate.
+    /// Gets the upper left X coordinate.
     /// </summary>
-    public double UpperLeftX { get; set; }
+    public double UpperLeftX { get; }
 
     /// <summary>
-    /// Gets or sets the upper left Y coordinate.
+    /// Gets the upper left Y coordinate.
     /// </summary>
-    public double UpperLeftY { get; set; }
+    public double UpperLeftY { get; }
 
     /// <summary>
-    /// Gets or sets the lower right X coordinate.
+    /// Gets the lower right X coordinate.
     /// </summary>
-    public double LowerRightX { get; set; }
+    public double LowerRightX { get; }
 
     /// <summary>
-    /// Gets or sets the lower right Y coordinate.
+    /// Gets the lower right Y coordinate.
     /// </summary>
-    public double LowerRightY { get; set; }
+    public double LowerRightY { get; }
 
     /// <summary>
-    /// Gets or sets the corner width.
+    /// Gets the corner width.
     /// </summary>
-    public double CornerWidth { get; set; }
+    public double CornerWidth { get; }
 
     /// <summary>
-    /// Gets or sets the corner height.
+    /// Gets the corner height.
     /// </summary>
-    public double CornerHeight { get; set; }
+    public double CornerHeight { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

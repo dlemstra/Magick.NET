@@ -18,9 +18,9 @@ public sealed class DrawableTextDirection : IDrawableTextDirection, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the direction to use.
+    /// Gets the direction to use.
     /// </summary>
-    public TextDirection Direction { get; set; }
+    public TextDirection Direction { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

@@ -18,9 +18,9 @@ public sealed class DrawableGravity : IDrawableGravity, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the gravity.
+    /// Gets the gravity.
     /// </summary>
-    public Gravity Gravity { get; set; }
+    public Gravity Gravity { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

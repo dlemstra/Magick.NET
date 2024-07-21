@@ -19,9 +19,9 @@ public sealed class DrawableStrokeLineJoin : IDrawableStrokeLineJoin, IDrawingWa
     }
 
     /// <summary>
-    /// Gets or sets the line join.
+    /// Gets the line join.
     /// </summary>
-    public LineJoin LineJoin { get; set; }
+    public LineJoin LineJoin { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

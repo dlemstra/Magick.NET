@@ -18,9 +18,9 @@ public sealed class DrawableTextDecoration : IDrawableTextDecoration, IDrawingWa
     }
 
     /// <summary>
-    /// Gets or sets the text decoration.
+    /// Gets the text decoration.
     /// </summary>
-    public TextDecoration Decoration { get; set; }
+    public TextDecoration Decoration { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

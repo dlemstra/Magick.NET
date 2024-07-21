@@ -18,9 +18,9 @@ public sealed class DrawableStrokeWidth : IDrawableStrokeWidth, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the width.
+    /// Gets the width.
     /// </summary>
-    public double Width { get; set; }
+    public double Width { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

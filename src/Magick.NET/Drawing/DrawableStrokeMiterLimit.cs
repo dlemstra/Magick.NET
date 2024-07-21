@@ -21,9 +21,9 @@ public sealed class DrawableStrokeMiterLimit : IDrawableStrokeMiterLimit, IDrawi
     }
 
     /// <summary>
-    /// Gets or sets the miter limit.
+    /// Gets the miter limit.
     /// </summary>
-    public int Miterlimit { get; set; }
+    public int Miterlimit { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

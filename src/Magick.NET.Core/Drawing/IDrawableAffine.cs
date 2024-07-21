@@ -10,34 +10,34 @@ namespace ImageMagick.Drawing;
 public interface IDrawableAffine : IDrawable
 {
     /// <summary>
-    /// Gets or sets the X coordinate scaling element.
+    /// Gets the X coordinate scaling element.
     /// </summary>
-    double ScaleX { get; set; }
+    double ScaleX { get; }
 
     /// <summary>
-    /// Gets or sets the Y coordinate scaling element.
+    /// Gets the Y coordinate scaling element.
     /// </summary>
-    double ScaleY { get; set; }
+    double ScaleY { get; }
 
     /// <summary>
-    /// Gets or sets the X coordinate shearing element.
+    /// Gets the X coordinate shearing element.
     /// </summary>
-    double ShearX { get; set; }
+    double ShearX { get; }
 
     /// <summary>
-    /// Gets or sets the Y coordinate shearing element.
+    /// Gets the Y coordinate shearing element.
     /// </summary>
-    double ShearY { get; set; }
+    double ShearY { get; }
 
     /// <summary>
-    /// Gets or sets the X coordinate of the translation element.
+    /// Gets the X coordinate of the translation element.
     /// </summary>
-    double TranslateX { get; set; }
+    double TranslateX { get; }
 
     /// <summary>
-    /// Gets or sets the Y coordinate of the translation element.
+    /// Gets the Y coordinate of the translation element.
     /// </summary>
-    double TranslateY { get; set; }
+    double TranslateY { get; }
 
     /// <summary>
     /// Reset to default.

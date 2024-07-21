@@ -18,9 +18,9 @@ public sealed class DrawableFontPointSize : IDrawableFontPointSize, IDrawingWand
     }
 
     /// <summary>
-    /// Gets or sets the point size.
+    /// Gets the point size.
     /// </summary>
-    public double PointSize { get; set; }
+    public double PointSize { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
