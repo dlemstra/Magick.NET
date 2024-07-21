@@ -90,7 +90,6 @@ internal static partial class ExifValues
             ExifTagValue.JPEGACTables => new ExifLongArray(ExifTag.JPEGACTables),
             ExifTagValue.StripRowCounts => new ExifLongArray(ExifTag.StripRowCounts),
             ExifTagValue.IntergraphRegisters => new ExifLongArray(ExifTag.IntergraphRegisters),
-            ExifTagValue.TimeZoneOffset => new ExifLongArray(ExifTag.TimeZoneOffset),
 
             ExifTagValue.ImageWidth => new ExifNumber(ExifTag.ImageWidth),
             ExifTagValue.ImageLength => new ExifNumber(ExifTag.ImageLength),
@@ -227,6 +226,8 @@ internal static partial class ExifValues
             ExifTagValue.WaterDepth => new ExifSignedRational(ExifTag.WaterDepth),
             ExifTagValue.CameraElevationAngle => new ExifSignedRational(ExifTag.CameraElevationAngle),
             ExifTagValue.Decode => new ExifSignedRationalArray(ExifTag.Decode),
+
+            ExifTagValue.TimeZoneOffset => new ExifSignedShortArray(ExifTag.TimeZoneOffset),
 
             ExifTagValue.ImageDescription => new ExifString(ExifTag.ImageDescription),
             ExifTagValue.Make => new ExifString(ExifTag.Make),

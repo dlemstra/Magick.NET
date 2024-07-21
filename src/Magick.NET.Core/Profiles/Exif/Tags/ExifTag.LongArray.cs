@@ -60,9 +60,4 @@ public abstract partial class ExifTag
     /// Gets the TileOffsets exif tag.
     /// </summary>
     public static ExifTag<uint[]> TileOffsets { get; } = new ExifTag<uint[]>(ExifTagValue.TileOffsets);
-
-    /// <summary>
-    /// Gets the TimeZoneOffset exif tag.
-    /// </summary>
-    public static ExifTag<uint[]> TimeZoneOffset { get; } = new ExifTag<uint[]>(ExifTagValue.TimeZoneOffset);
 }
