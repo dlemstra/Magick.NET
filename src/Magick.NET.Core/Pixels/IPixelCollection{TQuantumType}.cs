@@ -50,14 +50,6 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     int GetChannelIndex(PixelChannel channel);
 
     /// <summary>
-    /// Returns the index of the specified channel. Returns -1 if not found.
-    /// </summary>
-    /// <param name="channel">The channel to get the index of.</param>
-    /// <returns>The index of the specified channel. Returns -1 if not found.</returns>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(GetChannelIndex)} instead.")]
-    int GetIndex(PixelChannel channel);
-
-    /// <summary>
     /// Returns the <see cref="IPixel{TQuantumType}"/> at the specified coordinate.
     /// </summary>
     /// <param name="x">The X coordinate of the pixel.</param>

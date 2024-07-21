@@ -217,8 +217,8 @@ public sealed class Pixel : IPixel<QuantumType>
         if (value.Length == 2)
             return new MagickColor(value[0], value[0], value[0], value[1]);
 
-        var hasBlackChannel = _collection is not null && _collection.GetIndex(PixelChannel.Black) != -1;
-        var hasAlphaChannel = _collection is not null && _collection.GetIndex(PixelChannel.Alpha) != -1;
+        var hasBlackChannel = _collection is not null && _collection.GetChannelIndex(PixelChannel.Black) != -1;
+        var hasAlphaChannel = _collection is not null && _collection.GetChannelIndex(PixelChannel.Alpha) != -1;
 
         if (hasBlackChannel)
         {
@@ -245,7 +245,7 @@ public sealed class Pixel : IPixel<QuantumType>
         if (_collection is null)
             return _value;
 
-        var index = _collection.GetIndex(PixelChannel.Index);
+        var index = _collection.GetChannelIndex(PixelChannel.Index);
         if (index == -1)
             return _value;
 

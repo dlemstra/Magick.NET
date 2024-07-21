@@ -68,9 +68,6 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
     public int GetChannelIndex(PixelChannel channel)
         => Image.ChannelOffset(channel);
 
-    public int GetIndex(PixelChannel channel)
-        => Image.ChannelOffset(channel);
-
     public virtual IPixel<QuantumType> GetPixel(int x, int y)
         => Pixel.Create(this, x, y, GetAreaUnchecked(x, y, 1, 1)!);
 
