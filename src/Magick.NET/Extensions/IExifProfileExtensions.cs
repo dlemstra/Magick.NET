@@ -46,7 +46,7 @@ public static class IExifProfileExtensions
 
         return new MagickImage(data.Slice(thumbnailOffset, thumbnailLength));
 #else
-        var data = self.GetData();
+        var data = self.ToByteArray();
 
         if (data is null || data.Length < (thumbnailOffset + thumbnailLength))
             return null;
