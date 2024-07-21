@@ -4,7 +4,7 @@
 using System;
 using System.IO;
 
-namespace ImageMagick;
+namespace ImageMagick.Factories;
 
 /// <summary>
 /// Class that can be used to create <see cref="IMagickImageInfo"/> instances.

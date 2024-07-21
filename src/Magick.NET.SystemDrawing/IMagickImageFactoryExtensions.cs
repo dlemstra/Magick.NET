@@ -4,7 +4,7 @@
 using System;
 using System.Drawing;
 
-namespace ImageMagick;
+namespace ImageMagick.Factories;
 
 /// <summary>
 /// Extension methods for the <see cref="IMagickImageFactory{QuantumType}"/> interface.

@@ -7,6 +7,7 @@ using System;
 using System.Buffers;
 using System.IO;
 using ImageMagick;
+using ImageMagick.Factories;
 using Xunit;
 
 namespace Magick.NET.Tests;

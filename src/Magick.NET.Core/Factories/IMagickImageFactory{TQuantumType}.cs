@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ImageMagick;
+namespace ImageMagick.Factories;
 
 /// <summary>
 /// Class that can be used to create <see cref="IMagickImage{TQuantumType}"/> instances.

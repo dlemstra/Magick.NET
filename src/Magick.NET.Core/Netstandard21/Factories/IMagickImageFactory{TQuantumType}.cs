@@ -6,7 +6,7 @@
 using System;
 using System.Buffers;
 
-namespace ImageMagick;
+namespace ImageMagick.Factories;
 
 /// <content />
 public partial interface IMagickImageFactory<TQuantumType>

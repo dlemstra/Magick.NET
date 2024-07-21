@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using ImageMagick;
+using ImageMagick.Factories;
 using ImageMagick.Formats;
 using Xunit;
 

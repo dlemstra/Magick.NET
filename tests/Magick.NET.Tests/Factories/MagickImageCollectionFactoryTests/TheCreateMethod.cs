@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using ImageMagick;
+using ImageMagick.Factories;
 using Xunit;
 
 namespace Magick.NET.Tests;

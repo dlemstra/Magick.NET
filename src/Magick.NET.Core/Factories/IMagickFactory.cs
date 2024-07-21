@@ -3,7 +3,7 @@
 
 using ImageMagick.Configuration;
 
-namespace ImageMagick;
+namespace ImageMagick.Factories;
 
 /// <summary>
 /// Class that can be used to create various instances.
