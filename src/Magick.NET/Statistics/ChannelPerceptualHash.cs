@@ -15,22 +15,6 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     private readonly Dictionary<ColorSpace, HuPhashList> _huPhashes = new();
     private string _hash = string.Empty;
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ChannelPerceptualHash"/> class.
-    /// </summary>
-    /// <param name="channel">The channel.</param>
-    /// <param name="srgbHuPhash">SRGB hu perceptual hash.</param>
-    /// <param name="hclpHuPhash">Hclp hu perceptual hash.</param>
-    /// <param name="hash">A string representation of this hash.</param>
-    [Obsolete("Will be removed in the next major release.")]
-    public ChannelPerceptualHash(PixelChannel channel, double[] srgbHuPhash, double[] hclpHuPhash, string hash)
-    {
-        Channel = channel;
-        _huPhashes[ColorSpace.sRGB] = new HuPhashList(srgbHuPhash);
-        _huPhashes[ColorSpace.HCLp] = new HuPhashList(hclpHuPhash);
-        _hash = hash;
-    }
-
     internal ChannelPerceptualHash(PixelChannel channel, ColorSpace[] colorSpaces, string hash)
     {
         Channel = channel;
@@ -51,24 +35,6 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// Gets the channel.
     /// </summary>
     public PixelChannel Channel { get; }
-
-    /// <summary>
-    /// SRGB hu perceptual hash.
-    /// </summary>
-    /// <param name="index">The index to use.</param>
-    /// <returns>The SRGB hu perceptual hash.</returns>
-    [Obsolete("Will be removed in the next major release, use HuPhash(ColorSpace.sRGB, index) instead.")]
-    public double SrgbHuPhash(int index)
-        => HuPhash(ColorSpace.sRGB, index);
-
-    /// <summary>
-    /// Hclp hu perceptual hash.
-    /// </summary>
-    /// <param name="index">The index to use.</param>
-    /// <returns>The Hclp hu perceptual hash.</returns>
-    [Obsolete("Will be removed in the next major releas, use HuPhash(ColorSpace.HCLp, index) instead.")]
-    public double HclpHuPhash(int index)
-        => HuPhash(ColorSpace.HCLp, index);
 
     /// <summary>
     /// Returns the hu perceptual hash for the specified colorspace.

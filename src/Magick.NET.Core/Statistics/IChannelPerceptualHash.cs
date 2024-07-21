@@ -16,22 +16,6 @@ public interface IChannelPerceptualHash
     PixelChannel Channel { get; }
 
     /// <summary>
-    /// SRGB hu perceptual hash.
-    /// </summary>
-    /// <param name="index">The index to use.</param>
-    /// <returns>The SRGB hu perceptual hash.</returns>
-    [Obsolete($"Will be removed in the next major release, use {nameof(HuPhash)}(ColorSpace.sRGB, index) instead.")]
-    double SrgbHuPhash(int index);
-
-    /// <summary>
-    /// Hclp hu perceptual hash.
-    /// </summary>
-    /// <param name="index">The index to use.</param>
-    /// <returns>The Hclp hu perceptual hash.</returns>
-    [Obsolete($"Will be removed in the next major release, use {nameof(HuPhash)}(ColorSpace.HCLp, index) instead.")]
-    double HclpHuPhash(int index);
-
-    /// <summary>
     /// Returns the hu perceptual hash for the specified colorspace.
     /// </summary>
     /// <param name="colorSpace">The colorspace to use.</param>
