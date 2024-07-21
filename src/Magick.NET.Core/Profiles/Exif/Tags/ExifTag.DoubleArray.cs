@@ -7,11 +7,6 @@ namespace ImageMagick;
 public abstract partial class ExifTag
 {
     /// <summary>
-    /// Gets the PixelScale exif tag.
-    /// </summary>
-    public static ExifTag<double[]> PixelScale { get; } = new ExifTag<double[]>(ExifTagValue.PixelScale);
-
-    /// <summary>
     /// Gets the IntergraphMatrix exif tag.
     /// </summary>
     public static ExifTag<double[]> IntergraphMatrix { get; } = new ExifTag<double[]>(ExifTagValue.IntergraphMatrix);
@@ -25,4 +20,9 @@ public abstract partial class ExifTag
     /// Gets the ModelTransform exif tag.
     /// </summary>
     public static ExifTag<double[]> ModelTransform { get; } = new ExifTag<double[]>(ExifTagValue.ModelTransform);
+
+    /// <summary>
+    /// Gets the PixelScale exif tag.
+    /// </summary>
+    public static ExifTag<double[]> PixelScale { get; } = new ExifTag<double[]>(ExifTagValue.PixelScale);
 }

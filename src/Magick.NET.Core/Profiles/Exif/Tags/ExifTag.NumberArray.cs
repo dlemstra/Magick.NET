@@ -7,6 +7,11 @@ namespace ImageMagick;
 public abstract partial class ExifTag
 {
     /// <summary>
+    /// Gets the ImageLayer exif tag.
+    /// </summary>
+    public static ExifTag<Number[]> ImageLayer { get; } = new ExifTag<Number[]>(ExifTagValue.ImageLayer);
+
+    /// <summary>
     /// Gets the StripOffsets exif tag.
     /// </summary>
     public static ExifTag<Number[]> StripOffsets { get; } = new ExifTag<Number[]>(ExifTagValue.StripOffsets);
@@ -15,9 +20,4 @@ public abstract partial class ExifTag
     /// Gets the TileByteCounts exif tag.
     /// </summary>
     public static ExifTag<Number[]> TileByteCounts { get; } = new ExifTag<Number[]>(ExifTagValue.TileByteCounts);
-
-    /// <summary>
-    /// Gets the ImageLayer exif tag.
-    /// </summary>
-    public static ExifTag<Number[]> ImageLayer { get; } = new ExifTag<Number[]>(ExifTagValue.ImageLayer);
 }

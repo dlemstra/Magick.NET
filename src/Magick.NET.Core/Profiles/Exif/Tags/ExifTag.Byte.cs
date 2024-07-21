@@ -12,12 +12,12 @@ public abstract partial class ExifTag
     public static ExifTag<byte> FaxProfile { get; } = new ExifTag<byte>(ExifTagValue.FaxProfile);
 
     /// <summary>
-    /// Gets the ModeNumber exif tag.
-    /// </summary>
-    public static ExifTag<byte> ModeNumber { get; } = new ExifTag<byte>(ExifTagValue.ModeNumber);
-
-    /// <summary>
     /// Gets the GPSAltitudeRef exif tag.
     /// </summary>
     public static ExifTag<byte> GPSAltitudeRef { get; } = new ExifTag<byte>(ExifTagValue.GPSAltitudeRef);
+
+    /// <summary>
+    /// Gets the ModeNumber exif tag.
+    /// </summary>
+    public static ExifTag<byte> ModeNumber { get; } = new ExifTag<byte>(ExifTagValue.ModeNumber);
 }
