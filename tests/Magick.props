@@ -3,6 +3,10 @@
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)../Magick.NET.Internal.ruleset" Link="Magick.NET.Internal.ruleset" />
   </ItemGroup>
 
+  <PropertyGroup Condition="$(Configuration.Contains('Test'))">
+    <TreatWarningsAsErrors Condition="'$(OS)' == 'Windows_NT'">true</TreatWarningsAsErrors>
+  </PropertyGroup>
+
   <PropertyGroup>
     <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)../Magick.NET.Internal.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
