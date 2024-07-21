@@ -26,13 +26,6 @@ public sealed class EightBimValue : IEightBimValue
     public short Id { get; }
 
     /// <summary>
-    /// Gets the id of the 8bim value.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(Id)} instead.")]
-    public short ID
-       => Id;
-
-    /// <summary>
     /// Gets the name of the 8bim value.
     /// </summary>
     public string? Name { get; }

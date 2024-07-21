@@ -36,16 +36,6 @@ public sealed class DrawablePushPattern : IDrawablePushPattern, IDrawingWand
     public string Id { get; set; }
 
     /// <summary>
-    /// Gets or sets the ID of the pattern.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(Id)} instead.")]
-    public string ID
-    {
-        get => Id;
-        set => Id = value;
-    }
-
-    /// <summary>
     /// Gets or sets the X coordinate.
     /// </summary>
     public double X { get; set; }
