@@ -25,16 +25,6 @@ public sealed class TiffReadDefines : IReadDefines
     /// <summary>
     /// Gets or sets a value indicating whether the exif profile should be ignored (tiff:exif-properties).
     /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(IgnoreExifProperties)} instead.")]
-    public bool? IgnoreExifPoperties
-    {
-        get => IgnoreExifProperties;
-        set => IgnoreExifProperties = value;
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the exif profile should be ignored (tiff:exif-properties).
-    /// </summary>
     public bool? IgnoreExifProperties { get; set; }
 
     /// <summary>
