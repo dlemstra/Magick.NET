@@ -54,10 +54,4 @@ public enum OrientationType
     /// Left bottom.
     /// </summary>
     LeftBottom,
-
-    /// <summary>
-    /// Left bottom.
-    /// </summary>
-    [Obsolete($"This value will be removed in the next major release, use {nameof(LeftBottom)} instead.")]
-    LeftBotom = LeftBottom,
 }
