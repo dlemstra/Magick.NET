@@ -143,7 +143,7 @@ public partial class ImageProfile : IImageProfile
     /// Converts this instance to a <see cref="byte"/> array.
     /// </summary>
     /// <returns>A <see cref="byte"/> array.</returns>
-    public byte[]? ToByteArray()
+    public byte[] ToByteArray()
     {
         UpdateData();
         return Copy(_data);

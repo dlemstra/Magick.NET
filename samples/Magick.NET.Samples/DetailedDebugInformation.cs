@@ -11,10 +11,7 @@ public static class DetailedDebugInformationSamples
     public static void MagickNET_Log(object sender, LogEventArgs arguments)
     {
         // Write log message
-        if (arguments.Message is not null)
-        {
-            Console.WriteLine(arguments.Message);
-        }
+        Console.WriteLine(arguments.Message);
     }
 
     public static void ReadImage()

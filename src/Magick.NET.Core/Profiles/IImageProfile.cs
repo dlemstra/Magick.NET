@@ -19,5 +19,5 @@ public partial interface IImageProfile : IEquatable<IImageProfile?>
     /// Converts this instance to a byte array.
     /// </summary>
     /// <returns>A <see cref="byte"/> array.</returns>
-    byte[]? ToByteArray();
+    byte[] ToByteArray();
 }
