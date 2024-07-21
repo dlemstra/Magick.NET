@@ -29,7 +29,7 @@ public sealed class DrawablePath : IDrawablePath, IDrawingWand
     /// <summary>
     /// Gets the paths to use.
     /// </summary>
-    public IReadOnlyCollection<IPath> Paths
+    public IReadOnlyList<IPath> Paths
         => _paths;
 
     /// <summary>

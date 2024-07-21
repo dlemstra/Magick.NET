@@ -46,7 +46,7 @@ public sealed partial class OpenCLDevice : IOpenCLDevice
     /// Gets all the kernel profile records for this devices.
     /// </summary>
     /// <returns>A <see cref="IEnumerable{OpenCLKernelProfileRecord}"/>.</returns>
-    public IReadOnlyCollection<IOpenCLKernelProfileRecord> KernelProfileRecords
+    public IReadOnlyList<IOpenCLKernelProfileRecord> KernelProfileRecords
     {
         get
         {

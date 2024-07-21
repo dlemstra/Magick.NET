@@ -2107,7 +2107,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="connectivity">How many neighbors to visit, choose from 4 or 8.</param>
     /// <returns>The connected-components of the image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IReadOnlyCollection<IConnectedComponent<QuantumType>> ConnectedComponents(int connectivity)
+    public IReadOnlyList<IConnectedComponent<QuantumType>> ConnectedComponents(int connectivity)
     {
         var settings = new ConnectedComponentsSettings
         {
@@ -2122,7 +2122,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="settings">The settings for this operation.</param>
     /// <returns>The connected-components of the image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IReadOnlyCollection<IConnectedComponent<QuantumType>> ConnectedComponents(IConnectedComponentsSettings settings)
+    public IReadOnlyList<IConnectedComponent<QuantumType>> ConnectedComponents(IConnectedComponentsSettings settings)
     {
         Throw.IfNull(nameof(settings), settings);
 
@@ -2351,7 +2351,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="width">The width of the tiles.</param>
     /// <param name="height">The height of the tiles.</param>
     /// <returns>New title of the current image.</returns>
-    public IReadOnlyCollection<IMagickImage<QuantumType>> CropToTiles(int width, int height)
+    public IReadOnlyList<IMagickImage<QuantumType>> CropToTiles(int width, int height)
         => CropToTiles(new MagickGeometry(width, height));
 
     /// <summary>
@@ -2359,7 +2359,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <param name="geometry">The dimension of the tiles.</param>
     /// <returns>New title of the current image.</returns>
-    public IReadOnlyCollection<IMagickImage<QuantumType>> CropToTiles(IMagickGeometry geometry)
+    public IReadOnlyList<IMagickImage<QuantumType>> CropToTiles(IMagickGeometry geometry)
     {
         Throw.IfNull(nameof(geometry), geometry);
 
@@ -5586,7 +5586,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <returns>The channels from the image as grayscale images.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IReadOnlyCollection<IMagickImage<QuantumType>> Separate()
+    public IReadOnlyList<IMagickImage<QuantumType>> Separate()
         => Separate(ImageMagick.Channels.Undefined);
 
     /// <summary>
@@ -5595,7 +5595,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to separates.</param>
     /// <returns>The channels from the image as grayscale images.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IReadOnlyCollection<IMagickImage<QuantumType>> Separate(Channels channels)
+    public IReadOnlyList<IMagickImage<QuantumType>> Separate(Channels channels)
     {
         var images = _nativeInstance.Separate(channels);
         return CreateList(images);
@@ -7199,7 +7199,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     internal static IMagickErrorInfo CreateErrorInfo(MagickImage image)
         => new MagickErrorInfo(image._nativeInstance.MeanErrorPerPixel_Get(), image._nativeInstance.NormalizedMeanError_Get(), image._nativeInstance.NormalizedMaximumError_Get());
 
-    internal static IReadOnlyCollection<IMagickImage<QuantumType>> CreateList(IntPtr images, MagickSettings settings)
+    internal static IReadOnlyList<IMagickImage<QuantumType>> CreateList(IntPtr images, MagickSettings settings)
     {
         var result = new Collection<IMagickImage<QuantumType>>();
 
@@ -7320,7 +7320,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         return new PointD(x, y);
     }
 
-    private IReadOnlyCollection<IMagickImage<QuantumType>> CreateList(IntPtr images)
+    private IReadOnlyList<IMagickImage<QuantumType>> CreateList(IntPtr images)
         => CreateList(images, _settings.Clone());
 
     private MagickReadSettings CreateReadSettings(IMagickReadSettings<QuantumType>? readSettings)

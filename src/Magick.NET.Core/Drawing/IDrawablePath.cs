@@ -13,5 +13,5 @@ public interface IDrawablePath : IDrawable
     /// <summary>
     /// Gets the paths to use.
     /// </summary>
-    IReadOnlyCollection<IPath> Paths { get; }
+    IReadOnlyList<IPath> Paths { get; }
 }

@@ -56,7 +56,7 @@ public sealed class IptcProfile : ImageProfile, IIptcProfile
     /// <summary>
     /// Gets the values of this iptc profile.
     /// </summary>
-    public IReadOnlyCollection<IIptcValue> Values
+    public IReadOnlyList<IIptcValue> Values
     {
         get
         {

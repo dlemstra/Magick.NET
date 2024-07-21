@@ -25,7 +25,7 @@ public abstract class MagickException : Exception
     /// <summary>
     /// Gets the exceptions that are related to this exception.
     /// </summary>
-    public IReadOnlyCollection<MagickException> RelatedExceptions
+    public IReadOnlyList<MagickException> RelatedExceptions
     {
         get
         {

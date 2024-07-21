@@ -28,7 +28,7 @@ public sealed class DrawableBezier : IDrawableBezier, IDrawingWand
     /// <summary>
     /// Gets the coordinates.
     /// </summary>
-    public IReadOnlyCollection<PointD> Coordinates { get; }
+    public IReadOnlyList<PointD> Coordinates { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.

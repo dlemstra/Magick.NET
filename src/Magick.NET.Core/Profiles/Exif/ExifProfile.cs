@@ -59,7 +59,7 @@ public sealed class ExifProfile : ImageProfile, IExifProfile
     /// <summary>
     /// Gets the tags that where found but contained an invalid value.
     /// </summary>
-    public IReadOnlyCollection<ExifTag> InvalidTags
+    public IReadOnlyList<ExifTag> InvalidTags
     {
         get
         {
@@ -95,7 +95,7 @@ public sealed class ExifProfile : ImageProfile, IExifProfile
     /// <summary>
     /// Gets the values of this exif profile.
     /// </summary>
-    public IReadOnlyCollection<IExifValue> Values
+    public IReadOnlyList<IExifValue> Values
     {
         get
         {

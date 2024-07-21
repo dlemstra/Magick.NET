@@ -80,7 +80,7 @@ public partial class MagickNET : IMagickNET
     /// <summary>
     /// Gets the font families that are known by ImageMagick.
     /// </summary>
-    public static IReadOnlyCollection<string> FontFamilies
+    public static IReadOnlyList<string> FontFamilies
     {
         get
         {
@@ -113,7 +113,7 @@ public partial class MagickNET : IMagickNET
     /// <summary>
     /// Gets the font names that are known by ImageMagick.
     /// </summary>
-    public static IReadOnlyCollection<string> FontNames
+    public static IReadOnlyList<string> FontNames
     {
         get
         {
@@ -177,13 +177,13 @@ public partial class MagickNET : IMagickNET
     /// <summary>
     /// Gets the font families that are known by ImageMagick.
     /// </summary>
-    IReadOnlyCollection<string> IMagickNET.FontFamilies
+    IReadOnlyList<string> IMagickNET.FontFamilies
         => FontFamilies;
 
     /// <summary>
     /// Gets the font names that are known by ImageMagick.
     /// </summary>
-    IReadOnlyCollection<string> IMagickNET.FontNames
+    IReadOnlyList<string> IMagickNET.FontNames
         => FontNames;
 
     /// <summary>

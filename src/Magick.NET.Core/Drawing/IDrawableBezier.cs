@@ -13,5 +13,5 @@ public interface IDrawableBezier : IDrawable
     /// <summary>
     /// Gets the coordinates.
     /// </summary>
-    IReadOnlyCollection<PointD> Coordinates { get; }
+    IReadOnlyList<PointD> Coordinates { get; }
 }

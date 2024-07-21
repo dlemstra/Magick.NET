@@ -46,7 +46,7 @@ public sealed partial class MagickImageInfo
     /// <param name="data">The sequence of bytes to read the information from.</param>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IReadOnlyCollection<IMagickImageInfo> ReadCollection(ReadOnlySequence<byte> data)
+    public static IReadOnlyList<IMagickImageInfo> ReadCollection(ReadOnlySequence<byte> data)
     {
         using var images = new MagickImageCollection();
         images.Ping(data);
@@ -68,7 +68,7 @@ public sealed partial class MagickImageInfo
     /// <param name="data">The span of bytes to read the information from.</param>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IReadOnlyCollection<IMagickImageInfo> ReadCollection(ReadOnlySpan<byte> data)
+    public static IReadOnlyList<IMagickImageInfo> ReadCollection(ReadOnlySpan<byte> data)
     {
         using var images = new MagickImageCollection();
         images.Ping(data);

@@ -31,12 +31,12 @@ public interface IMagickNET
     /// <summary>
     /// Gets the font families that are known by ImageMagick.
     /// </summary>
-    IReadOnlyCollection<string> FontFamilies { get; }
+    IReadOnlyList<string> FontFamilies { get; }
 
     /// <summary>
     /// Gets the font names that are known by ImageMagick.
     /// </summary>
-    IReadOnlyCollection<string> FontNames { get; }
+    IReadOnlyList<string> FontNames { get; }
 
     /// <summary>
     /// Gets the version of ImageMagick.

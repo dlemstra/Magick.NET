@@ -19,7 +19,7 @@ public interface IOpenCL
     /// Gets all the OpenCL devices.
     /// </summary>
     /// <returns>A <see cref="IOpenCLDevice"/> iteration.</returns>
-    IReadOnlyCollection<IOpenCLDevice> Devices { get; }
+    IReadOnlyList<IOpenCLDevice> Devices { get; }
 
     /// <summary>
     /// Sets the directory that will be used by ImageMagick to store OpenCL cache files.

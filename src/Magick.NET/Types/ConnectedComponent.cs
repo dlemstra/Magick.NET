@@ -97,7 +97,7 @@ public sealed partial class ConnectedComponent : IConnectedComponent<QuantumType
         return new MagickGeometry(X - extent, Y - extent, Width + extra, Height + extra);
     }
 
-    internal static IReadOnlyCollection<IConnectedComponent<QuantumType>> Create(IntPtr list, int length)
+    internal static IReadOnlyList<IConnectedComponent<QuantumType>> Create(IntPtr list, int length)
     {
         var result = new Collection<IConnectedComponent<QuantumType>>();
 

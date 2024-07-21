@@ -128,7 +128,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="connectivity">How many neighbors to visit, choose from 4 or 8.</param>
     /// <returns>The connected-components of the image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IReadOnlyCollection<IConnectedComponent<TQuantumType>> ConnectedComponents(int connectivity);
+    IReadOnlyList<IConnectedComponent<TQuantumType>> ConnectedComponents(int connectivity);
 
     /// <summary>
     /// Determines the connected-components of the image.
@@ -136,7 +136,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="settings">The settings for this operation.</param>
     /// <returns>The connected-components of the image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IReadOnlyCollection<IConnectedComponent<TQuantumType>> ConnectedComponents(IConnectedComponentsSettings settings);
+    IReadOnlyList<IConnectedComponent<TQuantumType>> ConnectedComponents(IConnectedComponentsSettings settings);
 
     /// <summary>
     /// Creates tiles of the current image in the specified dimension.
@@ -144,14 +144,14 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="width">The width of the tile.</param>
     /// <param name="height">The height of the tile.</param>
     /// <returns>New title of the current image.</returns>
-    IReadOnlyCollection<IMagickImage<TQuantumType>> CropToTiles(int width, int height);
+    IReadOnlyList<IMagickImage<TQuantumType>> CropToTiles(int width, int height);
 
     /// <summary>
     /// Creates tiles of the current image in the specified dimension.
     /// </summary>
     /// <param name="geometry">The size of the tile.</param>
     /// <returns>New title of the current image.</returns>
-    IReadOnlyCollection<IMagickImage<TQuantumType>> CropToTiles(IMagickGeometry geometry);
+    IReadOnlyList<IMagickImage<TQuantumType>> CropToTiles(IMagickGeometry geometry);
 
     /// <summary>
     /// Draw on image using one or more drawables.
@@ -848,7 +848,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// </summary>
     /// <returns>The channels from the image as grayscale images.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IReadOnlyCollection<IMagickImage<TQuantumType>> Separate();
+    IReadOnlyList<IMagickImage<TQuantumType>> Separate();
 
     /// <summary>
     /// Separates the specified channels from the image and returns it as grayscale images.
@@ -856,7 +856,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="channels">The channel(s) to separates.</param>
     /// <returns>The channels from the image as grayscale images.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IReadOnlyCollection<IMagickImage<TQuantumType>> Separate(Channels channels);
+    IReadOnlyList<IMagickImage<TQuantumType>> Separate(Channels channels);
 
     /// <summary>
     /// Set color at colormap position index.

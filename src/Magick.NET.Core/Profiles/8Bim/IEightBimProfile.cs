@@ -13,12 +13,12 @@ public interface IEightBimProfile : IImageProfile
     /// <summary>
     /// Gets the clipping paths this image contains.
     /// </summary>
-    IReadOnlyCollection<IClipPath> ClipPaths { get; }
+    IReadOnlyList<IClipPath> ClipPaths { get; }
 
     /// <summary>
     /// Gets the values of this 8bim profile.
     /// </summary>
-    IReadOnlyCollection<IEightBimValue> Values { get; }
+    IReadOnlyList<IEightBimValue> Values { get; }
 
     /// <summary>
     /// Gets the exif profile inside the 8bim profile.

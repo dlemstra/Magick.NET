@@ -34,7 +34,7 @@ public partial class OpenCL : IOpenCL
     /// Gets all the OpenCL devices.
     /// </summary>
     /// <returns>A <see cref="IOpenCLDevice"/> iteration.</returns>
-    public static IReadOnlyCollection<IOpenCLDevice> Devices
+    public static IReadOnlyList<IOpenCLDevice> Devices
     {
         get
         {
@@ -67,7 +67,7 @@ public partial class OpenCL : IOpenCL
     /// Gets all the OpenCL devices.
     /// </summary>
     /// <returns>A <see cref="IOpenCLDevice"/> iteration.</returns>
-    IReadOnlyCollection<IOpenCLDevice> IOpenCL.Devices
+    IReadOnlyList<IOpenCLDevice> IOpenCL.Devices
         => Devices;
 
     /// <summary>

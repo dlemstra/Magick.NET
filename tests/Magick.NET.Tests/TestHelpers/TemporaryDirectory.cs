@@ -29,6 +29,9 @@ public class TemporaryDirectory : IDisposable
     public void Dispose()
         => Cleanup.DeleteDirectory(_tempDirectory);
 
-    public IReadOnlyCollection<string> GetFileNames()
-        => _tempDirectory.GetFiles().Select(f => f.Name).ToList();
+    public IReadOnlyList<string> GetFileNames()
+        => _tempDirectory
+            .GetFiles()
+            .Select(f => f.Name)
+            .ToList();
 }

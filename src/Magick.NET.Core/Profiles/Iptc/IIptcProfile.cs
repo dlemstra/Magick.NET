@@ -14,7 +14,7 @@ public interface IIptcProfile : IImageProfile
     /// <summary>
     /// Gets the values of this iptc profile.
     /// </summary>
-    IReadOnlyCollection<IIptcValue> Values { get; }
+    IReadOnlyList<IIptcValue> Values { get; }
 
     /// <summary>
     /// Returns the first occurrence of a iptc value with the specified tag.

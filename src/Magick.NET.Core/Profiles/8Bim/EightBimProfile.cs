@@ -68,7 +68,7 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     /// <summary>
     /// Gets the clipping paths this image contains.
     /// </summary>
-    public IReadOnlyCollection<IClipPath> ClipPaths
+    public IReadOnlyList<IClipPath> ClipPaths
     {
         get
         {
@@ -89,7 +89,7 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     /// <summary>
     /// Gets the values of this 8bim profile.
     /// </summary>
-    public IReadOnlyCollection<IEightBimValue> Values
+    public IReadOnlyList<IEightBimValue> Values
     {
         get
         {
