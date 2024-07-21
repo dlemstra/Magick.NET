@@ -3,6 +3,7 @@
 
 using System;
 using ImageMagick;
+using ImageMagick.Colors;
 using Xunit;
 
 #if Q8

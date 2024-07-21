@@ -13,7 +13,7 @@ using QuantumType = System.Single;
 #error Not implemented!
 #endif
 
-namespace ImageMagick;
+namespace ImageMagick.Colors;
 
 /// <summary>
 /// Class that represents a HSL color.
