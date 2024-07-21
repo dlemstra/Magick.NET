@@ -25,10 +25,6 @@ public class DrawableTests
         image.Draw(new DrawableAlpha(0, 0, PaintMethod.Floodfill));
         image.Draw(new DrawableArc(0, 0, 10, 10, 45, 90));
 
-        var bezier = new DrawableBezier(coordinates.ToList());
-        Assert.Equal(3, bezier.Coordinates.Count());
-        image.Draw(bezier);
-
         image.Draw(new DrawableBorderColor(MagickColors.Fuchsia));
         image.Draw(new DrawableCircle(0, 0, 50, 50));
         image.Draw(new DrawableClipPath("foo"));
@@ -178,21 +174,6 @@ public class DrawableTests
     [Fact]
     public void Test_Drawables_Exceptions()
     {
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new DrawableBezier();
-        });
-
-        Assert.Throws<ArgumentNullException>("coordinates", () =>
-        {
-            new DrawableBezier(null);
-        });
-
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new DrawableBezier(Array.Empty<PointD>());
-        });
-
         Assert.Throws<ArgumentNullException>("clipPath", () =>
         {
             new DrawableClipPath(null);
