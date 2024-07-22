@@ -644,7 +644,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
             return name;
 
         var module = GetModule(format);
-        return Enum.GetName(module.GetType(), module) + ":" + name;
+        return EnumHelper.GetName(module) + ":" + name;
     }
 
     private static MagickFormat GetModule(MagickFormat format)
@@ -724,14 +724,14 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
             MagickFormat.ThreeGp => "3GP",
             MagickFormat.RadialGradient => "RADIAL-GRADIENT",
             MagickFormat.SparseColor => "SPARSE-COLOR",
-            _ => Enum.GetName(Format.GetType(), Format).ToUpperInvariant(),
+            _ => EnumHelper.GetName(Format).ToUpperInvariant(),
         };
 
     private void SetOptionAndArtifact(string key, double value)
         => SetOptionAndArtifact(key, value.ToString(CultureInfo.InvariantCulture));
 
     private void SetOptionAndArtifact(string key, Enum value)
-        => SetOptionAndArtifact(key, Enum.GetName(value.GetType(), value).ToLowerInvariant());
+        => SetOptionAndArtifact(key, EnumHelper.GetName(value).ToLowerInvariant());
 
     private void SetOptionAndArtifact(string key, string? value)
     {

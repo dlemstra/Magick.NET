@@ -137,7 +137,7 @@ public sealed class MagickReadSettings : MagickSettings, IMagickReadSettings<Qua
         if (define.Format == MagickFormat.Unknown)
             return define.Name;
 
-        return Enum.GetName(define.Format.GetType(), define.Format) + ":" + define.Name;
+        return EnumHelper.GetName(define.Format) + ":" + define.Name;
     }
 
     private string? GetScenes()

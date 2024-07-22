@@ -177,7 +177,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     /// </summary>
     /// <returns>True when the format was found and unregistered.</returns>
     public bool Unregister()
-        => NativeMagickFormatInfo.Unregister(Enum.GetName(Format.GetType(), Format));
+        => NativeMagickFormatInfo.Unregister(EnumHelper.GetName(Format));
 
     private static MagickFormat GetFormat(string? format)
     {

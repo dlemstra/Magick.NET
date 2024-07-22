@@ -716,7 +716,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         get => EnumHelper.Parse(_nativeInstance.Format_Get(), MagickFormat.Unknown);
         set
         {
-            _nativeInstance.Format_Set(Enum.GetName(value.GetType(), value));
+            _nativeInstance.Format_Set(EnumHelper.GetName(value));
             _settings.Format = value;
         }
     }
@@ -4232,7 +4232,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, Channels channels, int iterations)
     {
-        var newKernel = Enum.GetName(kernel.GetType(), kernel).ToLowerInvariant() + ":" + arguments;
+        var newKernel = EnumHelper.GetName(kernel).ToLowerInvariant() + ":" + arguments;
 
         Morphology(method, newKernel, channels, iterations);
     }

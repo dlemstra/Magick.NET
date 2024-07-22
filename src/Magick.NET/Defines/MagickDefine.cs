@@ -63,7 +63,7 @@ public sealed class MagickDefine : IDefine
     /// <param name="name">The name of the define.</param>
     /// <param name="value">The value of the define.</param>
     public MagickDefine(MagickFormat format, string name, Enum value)
-        : this(format, name, Enum.GetName(value.GetType(), value).ToLowerInvariant())
+        : this(format, name, EnumHelper.GetName(value).ToLowerInvariant())
     {
     }
 
