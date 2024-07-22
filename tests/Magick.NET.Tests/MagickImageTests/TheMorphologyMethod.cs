@@ -22,20 +22,25 @@ public partial class MagickImageTests
     public class TheMorphologyMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenKernelCannotBeParsed()
-        {
-            using var image = new MagickImage();
-
-            var exception = Assert.Throws<MagickOptionErrorException>(() => image.Morphology(MorphologyMethod.Smooth, "Magick"));
-            Assert.Contains("Unable to parse kernel.", exception.Message);
-        }
-
-        [Fact]
         public void ShouldThrowExceptionWhenSettingsIsNull()
         {
             using var image = new MagickImage();
 
             Assert.Throws<ArgumentNullException>("settings", () => image.Morphology(null));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenKernelCannotBeParsed()
+        {
+            using var image = new MagickImage();
+            var settings = new MorphologySettings
+            {
+                Method = MorphologyMethod.Smooth,
+                UserKernel = "Magick",
+            };
+
+            var exception = Assert.Throws<MagickOptionErrorException>(() => image.Morphology(settings));
+            Assert.Contains("Unable to parse kernel.", exception.Message);
         }
 
         [Fact]
@@ -45,7 +50,7 @@ public partial class MagickImageTests
             var settings = new MorphologySettings();
             settings.Iterations = -2;
 
-            Assert.Throws<ArgumentException>("iterations", () => image.Morphology(settings));
+            Assert.Throws<ArgumentException>("settings", () => image.Morphology(settings));
         }
 
         [Fact]
@@ -69,7 +74,13 @@ public partial class MagickImageTests
         {
             using var original = new MagickImage(Files.Builtin.Logo);
             using var image = new MagickImage(Files.Builtin.Logo);
-            image.Morphology(MorphologyMethod.Dilate, Kernel.Square, "1");
+            var settings = new MorphologySettings
+            {
+                Method = MorphologyMethod.Dilate,
+                Kernel = Kernel.Square,
+                Iterations = 1,
+            };
+            image.Morphology(settings);
 
             var distortion = image.Compare(original, ErrorMetric.RootMeanSquared);
             Assert.InRange(distortion, 0.12, 0.13);
@@ -80,7 +91,13 @@ public partial class MagickImageTests
         {
             using var original = new MagickImage(Files.Builtin.Logo);
             using var image = new MagickImage(Files.Builtin.Logo);
-            image.Morphology(MorphologyMethod.Convolve, "3: 0.3,0.6,0.3 0.6,1.0,0.6 0.3,0.6,0.3");
+            var settings = new MorphologySettings
+            {
+                Method = MorphologyMethod.Convolve,
+                UserKernel = "3: 0.3,0.6,0.3 0.6,1.0,0.6 0.3,0.6,0.3",
+            };
+
+            image.Morphology(settings);
             image.Clamp();
 
             var distortion = image.Compare(original, ErrorMetric.RootMeanSquared);

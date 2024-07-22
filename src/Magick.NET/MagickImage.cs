@@ -630,7 +630,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         get => EnumHelper.Parse(_nativeInstance.Format_Get(), MagickFormat.Unknown);
         set
         {
-            _nativeInstance.Format_Set(EnumHelper.GetName(value));
+            _nativeInstance.Format_Set(Enum.GetName(value.GetType(), value));
             _settings.Format = value;
         }
     }
@@ -4053,138 +4053,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="kernel">Built-in kernel.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, Kernel kernel)
-        => Morphology(method, kernel, string.Empty);
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="kernel">Built-in kernel.</param>
-    /// <param name="channels">The channels to apply the kernel to.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, Kernel kernel, Channels channels)
-        => Morphology(method, kernel, string.Empty, channels);
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="kernel">Built-in kernel.</param>
-    /// <param name="channels">The channels to apply the kernel to.</param>
-    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, Kernel kernel, Channels channels, int iterations)
-        => Morphology(method, kernel, string.Empty, channels, iterations);
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="kernel">Built-in kernel.</param>
-    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, Kernel kernel, int iterations)
-        => Morphology(method, kernel, string.Empty, ImageMagick.Channels.Undefined, iterations);
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="kernel">Built-in kernel.</param>
-    /// <param name="arguments">Kernel arguments.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments)
-        => Morphology(method, kernel, arguments, ImageMagick.Channels.Undefined);
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="kernel">Built-in kernel.</param>
-    /// <param name="arguments">Kernel arguments.</param>
-    /// <param name="channels">The channels to apply the kernel to.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, Channels channels)
-        => Morphology(method, kernel, arguments, channels, 1);
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="kernel">Built-in kernel.</param>
-    /// <param name="arguments">Kernel arguments.</param>
-    /// <param name="channels">The channels to apply the kernel to.</param>
-    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, Channels channels, int iterations)
-    {
-        var newKernel = EnumHelper.GetName(kernel).ToLowerInvariant() + ":" + arguments;
-
-        Morphology(method, newKernel, channels, iterations);
-    }
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="kernel">Built-in kernel.</param>
-    /// <param name="arguments">Kernel arguments.</param>
-    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, Kernel kernel, string? arguments, int iterations)
-        => Morphology(method, kernel, arguments, ImageMagick.Channels.Undefined, iterations);
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="userKernel">User suplied kernel.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, string userKernel)
-        => Morphology(method, userKernel, ImageMagick.Channels.Undefined);
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="userKernel">User suplied kernel.</param>
-    /// <param name="channels">The channels to apply the kernel to.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, string userKernel, Channels channels)
-        => Morphology(method, userKernel, channels, 1);
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="userKernel">User suplied kernel.</param>
-    /// <param name="channels">The channels to apply the kernel to.</param>
-    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, string userKernel, Channels channels, int iterations)
-    {
-        Throw.IfTrue(nameof(iterations), iterations < -1, "The number of iterations must be unlimited (-1) or positive");
-
-        _nativeInstance.Morphology(method, userKernel, channels, iterations);
-    }
-
-    /// <summary>
-    /// Applies a kernel to the image according to the given mophology method.
-    /// </summary>
-    /// <param name="method">The morphology method.</param>
-    /// <param name="userKernel">User suplied kernel.</param>
-    /// <param name="iterations">The number of iterations. A value of -1 means loop until no change found.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morphology(MorphologyMethod method, string userKernel, int iterations)
-        => Morphology(method, userKernel, ImageMagick.Channels.Undefined, iterations);
-
-    /// <summary>
     /// Applies a kernel to the image according to the given mophology settings.
     /// </summary>
     /// <param name="settings">The morphology settings.</param>
@@ -4192,15 +4060,21 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public void Morphology(IMorphologySettings settings)
     {
         Throw.IfNull(nameof(settings), settings);
+        Throw.IfTrue(nameof(settings), settings.Iterations < -1, "The number of iterations must be unlimited (-1) or positive");
 
         using var temporaryDefines = new TemporaryDefines(this);
         temporaryDefines.SetArtifact("convolve:bias", settings.ConvolveBias);
         temporaryDefines.SetArtifact("convolve:scale", settings.ConvolveScale);
 
         if (settings.UserKernel is not null && settings.UserKernel.Length > 0)
-            Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
+        {
+            _nativeInstance.Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
+        }
         else
-            Morphology(settings.Method, settings.Kernel, settings.KernelArguments, settings.Channels, settings.Iterations);
+        {
+            var kernel = EnumHelper.GetName(settings.Kernel).ToLowerInvariant() + ":" + settings.KernelArguments;
+            _nativeInstance.Morphology(settings.Method, kernel, settings.Channels, settings.Iterations);
+        }
     }
 
     /// <summary>
