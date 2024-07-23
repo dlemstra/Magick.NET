@@ -88,3 +88,13 @@ If you prefer to use PayPal then [click here](https://www.paypal.me/DirkLemstra)
 
 ----
 _A special thanks goes out to [Snakeware](https://www.snakeware.nl) who let me spend company time on this project._
+
+## Sponsors
+
+<img src="https://github.com/dlemstra/dlemstra/raw/main/sponsors/microsoft.svg" width="128" height="128" alt="Microsoft" title="Microsoft" />
+
+[Microsoft's Free and Open Source Software Fund (FOSS Fund #20 June, 2024)](https://github.com/microsoft/foss-fund)
+
+<img src="https://github.com/dlemstra/dlemstra/raw/main/sponsors/aws.svg" width="128" height="128" alt="Amazon Web Services" title="Amazon Web Services" />
+
+[.NET on AWS Open Source Software Fund (July 2024)](https://github.com/aws/dotnet-foss)
