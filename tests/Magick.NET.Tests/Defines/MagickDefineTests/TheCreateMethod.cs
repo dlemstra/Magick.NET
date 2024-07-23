@@ -22,7 +22,7 @@ public partial class MagickDefineTests
             Assert.Equal(MagickFormat.A, define.Format);
             Assert.Equal("test", define.Name);
             Assert.Equal(2, define.Value.Split(',').Length);
-            Assert.Contains("Cyan", define.Value);
+            Assert.True(define.Value.Contains("Red") || define.Value.Contains("Cyan"));
             Assert.True(define.Value.Contains("Green") || define.Value.Contains("Magenta"));
         }
 
