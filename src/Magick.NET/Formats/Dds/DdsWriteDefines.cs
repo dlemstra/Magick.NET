@@ -36,16 +36,6 @@ public sealed class DdsWriteDefines : IWriteDefines
     /// <summary>
     /// Gets or sets the the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
     /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(MipmapCount)} instead.")]
-    public int? Mipmaps
-    {
-        get => MipmapCount;
-        set => MipmapCount = value;
-    }
-
-    /// <summary>
-    /// Gets or sets the the number of mipmaps, zero will disable writing mipmaps (dds:mipmaps).
-    /// </summary>
     public int? MipmapCount { get; set; }
 
     /// <summary>
