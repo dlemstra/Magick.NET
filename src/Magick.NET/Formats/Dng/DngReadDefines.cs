@@ -41,27 +41,7 @@ public sealed class DngReadDefines : IReadDefines
     /// <summary>
     /// Gets or sets a value indicating whether auto white balance should be used (dng:use-auto-wb).
     /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(UseAutoWhiteBalance)} instead.")]
-    public bool? UseAutoWhitebalance
-    {
-        get => UseAutoWhiteBalance;
-        set => UseAutoWhiteBalance = value;
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether auto white balance should be used (dng:use-auto-wb).
-    /// </summary>
     public bool? UseAutoWhiteBalance { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the white balance of the camera should be used (dng:use-camera-wb).
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(UseCameraWhiteBalance)} instead.")]
-    public bool? UseCameraWhitebalance
-    {
-        get => UseCameraWhiteBalance;
-        set => UseCameraWhiteBalance = value;
-    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the white balance of the camera should be used (dng:use-camera-wb).
