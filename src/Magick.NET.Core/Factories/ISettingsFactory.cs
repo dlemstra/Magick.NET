@@ -31,12 +31,6 @@ public interface ISettingsFactory<TQuantumType>
     IConnectedComponentsSettings CreateConnectedComponentsSettings();
 
     /// <summary>
-    /// Initializes a new instance that implements <see cref="IDeskewSettings"/>.
-    /// </summary>
-    /// <returns>A new <see cref="IDeskewSettings"/> instance.</returns>
-    IDeskewSettings CreateDeskewSettings();
-
-    /// <summary>
     /// Initializes a new instance that implements <see cref="IDistortSettings"/>.
     /// </summary>
     /// <param name="method">The distort method to use.</param>

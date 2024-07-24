@@ -9,7 +9,7 @@ namespace Magick.NET.Tests;
 
 public partial class MagickImageTests
 {
-    public class TheDeskewMethod
+    public class TheDeskewAndCropMethod
     {
 #if !Q16HDRI
 
@@ -18,32 +18,30 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentException>("threshold", () => image.Deskew(new Percentage(-1)));
+            Assert.Throws<ArgumentException>("threshold", () => image.DeskewAndCrop(new Percentage(-1)));
         }
 #endif
 
         [Fact]
-        public void ShouldDeskewTheImage()
+        public void ShouldUseAutoCrop()
         {
             using var image = new MagickImage(Files.LetterJPG);
-            image.ColorType = ColorType.Bilevel;
+            var angle = image.DeskewAndCrop(new Percentage(10));
 
-            ColorAssert.Equal(MagickColors.White, image, 471, 92);
-
-            image.Deskew(new Percentage(10));
-
-            ColorAssert.Equal(new MagickColor("#007400740074ffff"), image, 471, 92);
+            Assert.InRange(angle, 7.01, 7.02);
+            Assert.Equal(480, image.Width);
+            Assert.Equal(577, image.Height);
         }
 
         [Fact]
         public void ShouldReturnTheAngle()
         {
             using var image = new MagickImage(Files.LetterJPG);
-            var angle = image.Deskew(new Percentage(10));
+            var angle = image.DeskewAndCrop(new Percentage(10));
 
             Assert.InRange(angle, 7.01, 7.02);
-            Assert.Equal(546, image.Width);
-            Assert.Equal(579, image.Height);
+            Assert.Equal(480, image.Width);
+            Assert.Equal(577, image.Height);
         }
     }
 }

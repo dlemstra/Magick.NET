@@ -40,13 +40,6 @@ public sealed class SettingsFactory : ISettingsFactory<QuantumType>
         => new ConnectedComponentsSettings();
 
     /// <summary>
-    /// Initializes a new instance that implements <see cref="IDeskewSettings"/>.
-    /// </summary>
-    /// <returns>A new <see cref="IDeskewSettings"/> instance.</returns>
-    public IDeskewSettings CreateDeskewSettings()
-        => new DeskewSettings();
-
-    /// <summary>
     /// Initializes a new instance that implements <see cref="IDistortSettings"/>.
     /// </summary>
     /// <param name="method">The distort method to use.</param>
