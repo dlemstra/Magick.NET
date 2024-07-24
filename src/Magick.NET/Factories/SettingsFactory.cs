@@ -49,9 +49,10 @@ public sealed class SettingsFactory : ISettingsFactory<QuantumType>
     /// <summary>
     /// Initializes a new instance that implements <see cref="IDistortSettings"/>.
     /// </summary>
+    /// <param name="method">The distort method to use.</param>
     /// <returns>A new <see cref="IDistortSettings"/> instance.</returns>
-    public IDistortSettings CreateDistortSettings()
-        => new DistortSettings();
+    public IDistortSettings CreateDistortSettings(DistortMethod method)
+        => new DistortSettings(method);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IKmeansSettings"/>.

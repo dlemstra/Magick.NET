@@ -9,9 +9,23 @@ namespace ImageMagick;
 public sealed class DistortSettings : IDistortSettings
 {
     /// <summary>
+    /// Initializes a new instance of the <see cref="DistortSettings"/> class.
+    /// </summary>
+    /// <param name="method">The distort method to use.</param>
+    public DistortSettings(DistortMethod method)
+    {
+        Method = method;
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether distort attempt to 'bestfit' the size of the resulting image.
     /// </summary>
     public bool Bestfit { get; set; }
+
+    /// <summary>
+    /// Gets the distort method to use.
+    /// </summary>
+    public DistortMethod Method { get; }
 
     /// <summary>
     /// Gets or sets a value to scale the size of the output canvas by this amount to provide a method of

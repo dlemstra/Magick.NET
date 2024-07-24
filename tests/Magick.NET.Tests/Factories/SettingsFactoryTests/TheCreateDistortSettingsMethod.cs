@@ -16,7 +16,7 @@ public partial class SettingsFactoryTests
         {
             var factory = new SettingsFactory();
 
-            var settings = factory.CreateDistortSettings();
+            var settings = factory.CreateDistortSettings(DistortMethod.DePolar);
 
             Assert.NotNull(settings);
             Assert.IsType<DistortSettings>(settings);

@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("arguments", () => image.Distort(DistortMethod.Perspective, (double[])null));
+            Assert.Throws<ArgumentNullException>("arguments", () => image.Distort(DistortMethod.Perspective, null));
         }
 
         [Fact]
@@ -24,7 +24,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("arguments", () => image.Distort(DistortMethod.Perspective, new DistortSettings(), null));
+            Assert.Throws<ArgumentNullException>("arguments", () => image.Distort(new DistortSettings(DistortMethod.Perspective), null));
         }
 
         [Fact]
@@ -40,7 +40,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentException>("arguments", () => image.Distort(DistortMethod.Perspective, new DistortSettings(), Array.Empty<double>()));
+            Assert.Throws<ArgumentException>("arguments", () => image.Distort(new DistortSettings(DistortMethod.Perspective), Array.Empty<double>()));
         }
 
         [Fact]
@@ -48,7 +48,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("settings", () => image.Distort(DistortMethod.Perspective, null, new double[] { 0 }));
+            Assert.Throws<ArgumentNullException>("settings", () => image.Distort(null, [0]));
         }
 
         [Fact]
@@ -57,7 +57,7 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.MagickNETIconPNG);
             image.BackgroundColor = MagickColors.Cornsilk;
             image.VirtualPixelMethod = VirtualPixelMethod.Background;
-            image.Distort(DistortMethod.Perspective, new double[] { 0, 0, 0, 0, 0, 90, 0, 90, 90, 0, 90, 25, 90, 90, 90, 65 });
+            image.Distort(DistortMethod.Perspective, [0, 0, 0, 0, 0, 90, 0, 90, 90, 0, 90, 25, 90, 90, 90, 65]);
             image.Clamp();
 
             ColorAssert.Equal(new MagickColor("#0000"), image, 1, 64);

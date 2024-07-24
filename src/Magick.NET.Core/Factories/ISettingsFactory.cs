@@ -39,8 +39,9 @@ public interface ISettingsFactory<TQuantumType>
     /// <summary>
     /// Initializes a new instance that implements <see cref="IDistortSettings"/>.
     /// </summary>
+    /// <param name="method">The distort method to use.</param>
     /// <returns>A new <see cref="IDistortSettings"/> instance.</returns>
-    IDistortSettings CreateDistortSettings();
+    IDistortSettings CreateDistortSettings(DistortMethod method);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IKmeansSettings"/>.

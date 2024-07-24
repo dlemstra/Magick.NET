@@ -14,6 +14,11 @@ public interface IDistortSettings
     bool Bestfit { get; set; }
 
     /// <summary>
+    /// Gets the distort method to use.
+    /// </summary>
+    DistortMethod Method { get; }
+
+    /// <summary>
     /// Gets or sets a value to scale the size of the output canvas by this amount to provide a method of
     /// Zooming, and for super-sampling the results.
     /// </summary>

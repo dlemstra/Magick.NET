@@ -1322,11 +1322,10 @@ public partial interface IMagickImage : IDisposable
     /// image to a new destination image usually of the same size as the source image, unless
     /// 'bestfit' is set to true.
     /// </summary>
-    /// <param name="method">The distortion method to use.</param>
     /// <param name="settings">The settings for the distort operation.</param>
     /// <param name="arguments">An array containing the arguments for the distortion.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Distort(DistortMethod method, IDistortSettings settings, params double[] arguments);
+    void Distort(IDistortSettings settings, params double[] arguments);
 
     /// <summary>
     /// Draw on image using one or more drawables.

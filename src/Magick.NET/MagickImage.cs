@@ -2476,18 +2476,17 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="arguments">An array containing the arguments for the distortion.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Distort(DistortMethod method, params double[] arguments)
-        => Distort(method, new DistortSettings(), arguments);
+        => Distort(new DistortSettings(method), arguments);
 
     /// <summary>
     /// Distorts an image using various distortion methods, by mapping color lookups of the source
     /// image to a new destination image usually of the same size as the source image, unless
     /// 'bestfit' is set to true.
     /// </summary>
-    /// <param name="method">The distortion method to use.</param>
     /// <param name="settings">The settings for the distort operation.</param>
     /// <param name="arguments">An array containing the arguments for the distortion.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Distort(DistortMethod method, IDistortSettings settings, params double[] arguments)
+    public void Distort(IDistortSettings settings, params double[] arguments)
     {
         Throw.IfNull(nameof(settings), settings);
         Throw.IfNullOrEmpty(nameof(arguments), arguments);
@@ -2496,7 +2495,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         temporaryDefines.SetArtifact("distort:scale", settings.Scale);
         temporaryDefines.SetArtifact("distort:viewport", settings.Viewport);
 
-        _nativeInstance.Distort(method, settings.Bestfit, arguments, (nuint)arguments.Length);
+        _nativeInstance.Distort(settings.Method, settings.Bestfit, arguments, (nuint)arguments.Length);
     }
 
     /// <summary>
