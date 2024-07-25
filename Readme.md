@@ -93,7 +93,7 @@ _A special thanks goes out to [Snakeware](https://www.snakeware.nl) who let me s
 
 <img src="https://github.com/dlemstra/dlemstra/raw/main/sponsors/microsoft.svg" width="128" height="128" alt="Microsoft" title="Microsoft" />
 
-[Microsoft's Free and Open Source Software Fund (FOSS Fund #20 June, 2024)](https://github.com/microsoft/foss-fund)
+[Microsoft's Free and Open Source Software Fund (FOSS Fund #20 June, 2024)](https://aka.ms/microsoftfossfund)
 
 <img src="https://github.com/dlemstra/dlemstra/raw/main/sponsors/aws.svg" width="128" height="128" alt="Amazon Web Services" title="Amazon Web Services" />
 
