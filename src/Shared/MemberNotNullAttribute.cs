@@ -8,7 +8,7 @@ namespace System.Diagnostics.CodeAnalysis;
 internal sealed class MemberNotNullAttribute : Attribute
 {
     public MemberNotNullAttribute(string member)
-        => Members = new[] { member };
+        => Members = [member];
 
     public MemberNotNullAttribute(params string[] members)
         => Members = members;

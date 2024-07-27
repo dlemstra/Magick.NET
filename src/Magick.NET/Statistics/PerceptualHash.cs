@@ -51,7 +51,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
         AddChannel(image, colorSpaces, list, PixelChannel.Blue);
     }
 
-    internal static ColorSpace[] DefaultColorSpaces { get; } = new[] { ColorSpace.sRGB, ColorSpace.HCLp };
+    internal static ColorSpace[] DefaultColorSpaces { get; } = [ColorSpace.sRGB, ColorSpace.HCLp];
 
     internal bool Isvalid
         => _channels.ContainsKey(PixelChannel.Red) &&

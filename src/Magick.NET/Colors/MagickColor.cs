@@ -423,9 +423,9 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     public byte[] ToByteArray()
     {
         if (IsCmyk)
-            return new[] { Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B), Quantum.ScaleToByte(K), Quantum.ScaleToByte(A) };
+            return [Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B), Quantum.ScaleToByte(K), Quantum.ScaleToByte(A)];
         else
-            return new[] { Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B), Quantum.ScaleToByte(A) };
+            return [Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B), Quantum.ScaleToByte(A)];
     }
 
     /// <summary>

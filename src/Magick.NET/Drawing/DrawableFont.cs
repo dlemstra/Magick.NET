@@ -10,7 +10,7 @@ namespace ImageMagick.Drawing;
 /// </summary>
 public sealed class DrawableFont : IDrawableFont, IDrawingWand
 {
-    private static readonly string[] _fontExtensions = new string[] { ".ttf", ".ttc", ".pfb", ".pfm", ".otf" };
+    private static readonly string[] _fontExtensions = [".ttf", ".ttc", ".pfb", ".pfm", ".otf"];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawableFont"/> class.

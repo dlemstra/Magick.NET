@@ -176,7 +176,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
         private readonly double[] _values;
 
         public HuPhashList()
-            : this(new double[] { 0, 0, 0, 0, 0, 0, 0 })
+            : this([0, 0, 0, 0, 0, 0, 0])
         {
         }
 

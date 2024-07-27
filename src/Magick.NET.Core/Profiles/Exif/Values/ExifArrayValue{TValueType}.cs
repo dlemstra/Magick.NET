@@ -8,13 +8,13 @@ internal abstract class ExifArrayValue<TValueType> : ExifValue, IExifValue<TValu
     public ExifArrayValue(ExifTag<TValueType[]> tag)
         : base(tag)
     {
-        Value = new TValueType[] { };
+        Value = [];
     }
 
     public ExifArrayValue(ExifTagValue tag)
         : base(tag)
     {
-        Value = new TValueType[] { };
+        Value = [];
     }
 
     public override bool IsArray => true;
@@ -37,7 +37,7 @@ internal abstract class ExifArrayValue<TValueType> : ExifValue, IExifValue<TValu
 
         if (value is TValueType typeValue)
         {
-            Value = new TValueType[] { typeValue };
+            Value = [typeValue];
             return true;
         }
 
