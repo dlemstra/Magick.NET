@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System.Linq;
 using ImageMagick;
 using Xunit;
 
@@ -16,7 +15,7 @@ public partial class IptcValueTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.GetIptcProfile();
-            var value = profile.Values.ElementAt(1);
+            var value = profile.Values[1];
 
             Assert.Equal(IptcTag.Caption, value.Tag);
             Assert.Equal("Communications", value.ToString());

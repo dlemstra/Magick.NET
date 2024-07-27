@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System.Linq;
 using ImageMagick;
 using Xunit;
 
@@ -63,7 +62,7 @@ public partial class TheEpsCoder
 
         Assert.Single(clipPaths);
 
-        var clipPath = clipPaths.ElementAt(0).Path.CreateNavigator().OuterXml;
+        var clipPath = clipPaths[0].Path.CreateNavigator().OuterXml;
 
         var expected = @"<svg width=""447"" height=""420"">
   <g>
