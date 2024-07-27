@@ -14,8 +14,4 @@ namespace ImageMagick;
 public partial interface IMagickColors<TQuantumType>
     where TQuantumType : struct, IConvertible
 {
-    /// <summary>
-    /// Gets a system-defined color that has an RGBA value of #663399FF.
-    /// </summary>
-    IMagickColor<TQuantumType> RebeccaPurple { get; }
 }

@@ -21,15 +21,4 @@ namespace ImageMagick;
 [MagickColors]
 public partial class MagickColors : IMagickColors<QuantumType>
 {
-    /// <summary>
-    /// Gets a system-defined color that has an RGBA value of #663399FF.
-    /// </summary>
-    public static MagickColor RebeccaPurple
-        => MagickColor.FromRgba(102, 51, 153, 255);
-
-    /// <summary>
-    /// Gets a system-defined color that has an RGBA value of #663399FF.
-    /// </summary>
-    IMagickColor<QuantumType> IMagickColors<QuantumType>.RebeccaPurple
-        => RebeccaPurple;
 }

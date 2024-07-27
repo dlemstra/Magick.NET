@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Linq;
 using System.Reflection;
 using ImageMagick;
@@ -21,7 +20,7 @@ public partial class MagickColorsTests
                 .Where(property => property.PropertyType == typeof(MagickColor))
                 .Count();
 
-            Assert.Equal(143, colorCount);
+            Assert.Equal(142, colorCount);
         }
     }
 }
