@@ -469,7 +469,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
 #if Q8
         return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", R, G, B);
 #elif Q16 || Q16HDRI
-        return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}", R, G, B);
+        return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}", (ushort)R, (ushort)G, (ushort)B);
 #else
 #error Not implemented!
 #endif
@@ -493,7 +493,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
 #if Q8
         return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", R, G, B, A);
 #elif Q16 || Q16HDRI
-        return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}", R, G, B, A);
+        return string.Format(CultureInfo.InvariantCulture, "#{0:X4}{1:X4}{2:X4}{3:X4}", (ushort)R, (ushort)G, (ushort)B, (ushort)A);
 #else
 #error Not implemented!
 #endif
