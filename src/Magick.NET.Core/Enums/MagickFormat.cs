@@ -354,6 +354,11 @@ public enum MagickFormat
     Ff,
 
     /// <summary>
+    /// Hasselblad CFV/H3D39II Raw Format.
+    /// </summary>
+    Fff,
+
+    /// <summary>
     /// Uniform Resource Locator (file://).
     /// </summary>
     File,
@@ -664,6 +669,11 @@ public enum MagickFormat
     Matte,
 
     /// <summary>
+    /// Minolta Digital Camera Raw Format.
+    /// </summary>
+    Mdc,
+
+    /// <summary>
     /// Mamiya Raw Format.
     /// </summary>
     Mef,
@@ -689,6 +699,11 @@ public enum MagickFormat
     Mono,
 
     /// <summary>
+    /// Aptus Leaf Raw Format.
+    /// </summary>
+    Mos,
+
+    /// <summary>
     /// MPEG Video Stream.
     /// </summary>
     Mov,
@@ -712,6 +727,11 @@ public enum MagickFormat
     /// MPEG Video Stream.
     /// </summary>
     Mpg,
+
+    /// <summary>
+    /// Joint Photographic Experts Group JFIF format (Jpeg).
+    /// </summary>
+    Mpo,
 
     /// <summary>
     /// Sony (Minolta) Raw Format.
@@ -1079,6 +1099,11 @@ public enum MagickFormat
     Rw2,
 
     /// <summary>
+    /// Leica Raw Format.
+    /// </summary>
+    Rwl,
+
+    /// <summary>
     /// ZX-Spectrum SCREEN$.
     /// </summary>
     Scr,
@@ -1134,9 +1159,19 @@ public enum MagickFormat
     Srf,
 
     /// <summary>
+    /// Samsung Raw Format.
+    /// </summary>
+    Srw,
+
+    /// <summary>
     /// Steganographic image.
     /// </summary>
     Stegano,
+
+    /// <summary>
+    /// Sinar CaptureShop Raw Format.
+    /// </summary>
+    Sti,
 
     /// <summary>
     /// String to image and back.
@@ -1357,39 +1392,4 @@ public enum MagickFormat
     /// CCIR 601 4:1:1 or 4:2:2.
     /// </summary>
     Yuv,
-
-    /// <summary>
-    /// Joint Photographic Experts Group JFIF format (Jpeg).
-    /// </summary>
-    Mpo,
-
-    /// <summary>
-    /// Hasselblad CFV/H3D39II Raw Format.
-    /// </summary>
-    Fff,
-
-    /// <summary>
-    /// Minolta Digital Camera Raw Format.
-    /// </summary>
-    Mdc,
-
-    /// <summary>
-    /// Aptus Leaf Raw Format.
-    /// </summary>
-    Mos,
-
-    /// <summary>
-    /// Leica Raw Format.
-    /// </summary>
-    Rwl,
-
-    /// <summary>
-    /// Samsung Raw Format.
-    /// </summary>
-    Srw,
-
-    /// <summary>
-    /// Sinar CaptureShop Raw Format.
-    /// </summary>
-    Sti,
 }
