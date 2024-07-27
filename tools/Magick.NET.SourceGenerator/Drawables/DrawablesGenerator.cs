@@ -41,9 +41,7 @@ internal class DrawablesGenerator : IIncrementalGenerator
             return;
         }
 
-        var readOnlyListProperty = properties.SingleOrDefault(property =>
-            property.Type.StartsWith("System.Collections.Generic.IReadOnlyCollection<", StringComparison.Ordinal) ||
-            property.Type.StartsWith("System.Collections.Generic.IReadOnlyList<", StringComparison.Ordinal));
+        var readOnlyListProperty = properties.SingleOrDefault(property => property.Type.StartsWith("System.Collections.Generic.IReadOnlyList<", StringComparison.Ordinal));
         if (readOnlyListProperty is not null)
         {
             AppendReadOnlyListMethod(codeBuilder, type, name, readOnlyListProperty, generateInterface);
@@ -183,7 +181,6 @@ internal class DrawablesGenerator : IIncrementalGenerator
         {
             allProperties[type] = type.GetMembers()
                 .OfType<IPropertySymbol>()
-                .Where(property => !property.GetAttributes().Any(attribute => attribute.AttributeClass?.Name == nameof(ObsoleteAttribute)))
                 .Select(property => new PropertyInfo(property))
                 .ToImmutableArray();
         }
