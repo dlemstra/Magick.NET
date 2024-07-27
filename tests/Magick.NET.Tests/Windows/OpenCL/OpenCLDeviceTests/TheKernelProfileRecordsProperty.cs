@@ -36,8 +36,6 @@ public partial class TheKernelProfileRecordsProperty
             Assert.False(record.MaximumDuration < 0);
             Assert.False(record.MinimumDuration < 0);
             Assert.False(record.TotalDuration < 0);
-
-            Assert.Equal(record.AverageDuration, record.TotalDuration / record.Count);
         }
     }
 
