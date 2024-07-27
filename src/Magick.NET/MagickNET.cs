@@ -369,8 +369,8 @@ public partial class MagickNET : IMagickNET
     /// Sets the pseudo-random number generator secret key.
     /// </summary>
     /// <param name="seed">The secret key.</param>
-    public static void SetRandomSeed(int seed)
-        => NativeMagickNET.SetRandomSeed((ulong)seed);
+    public static void SetRandomSeed(ulong seed)
+        => NativeMagickNET.SetRandomSeed(seed);
 
     /// <summary>
     /// Gets the environment variable with the specified name.
@@ -489,7 +489,7 @@ public partial class MagickNET : IMagickNET
     /// Sets the pseudo-random number generator secret key.
     /// </summary>
     /// <param name="seed">The secret key.</param>
-    void IMagickNET.SetRandomSeed(int seed)
+    void IMagickNET.SetRandomSeed(ulong seed)
         => SetRandomSeed(seed);
 
     private static void CheckImageMagickFiles(string path)

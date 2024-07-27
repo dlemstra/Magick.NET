@@ -155,5 +155,5 @@ public interface IMagickNET
     /// Sets the pseudo-random number generator secret key.
     /// </summary>
     /// <param name="seed">The secret key.</param>
-    void SetRandomSeed(int seed);
+    void SetRandomSeed(ulong seed);
 }
