@@ -22,8 +22,10 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldThrowExceptionWhenCollectionContainsSingleImage()
         {
-            using var images = new MagickImageCollection();
-            images.Add(new MagickImage(MagickColors.Red, 1, 1));
+            using var images = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Red, 1, 1),
+            };
 
             Assert.Throws<InvalidOperationException>(() => { images.Morph(10); });
         }
@@ -31,8 +33,10 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldMorphTheImages()
         {
-            using var images = new MagickImageCollection();
-            images.Add(Files.Builtin.Logo);
+            using var images = new MagickImageCollection
+            {
+                Files.Builtin.Logo,
+            };
             images.AddRange(Files.Builtin.Wizard);
 
             images.Morph(4);

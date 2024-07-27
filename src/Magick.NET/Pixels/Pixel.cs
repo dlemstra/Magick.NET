@@ -47,9 +47,9 @@ public sealed class Pixel : IPixel<QuantumType>
     /// <param name="x">The X coordinate of the pixel.</param>
     /// <param name="y">The Y coordinate of the pixel.</param>
     /// <param name="channels">The number of channels.</param>
-    public Pixel(int x, int y, int channels)
+    public Pixel(int x, int y, uint channels)
     {
-        CheckChannels(channels);
+        CheckChannels((int)channels);
 
         X = x;
         Y = y;
@@ -68,8 +68,8 @@ public sealed class Pixel : IPixel<QuantumType>
     /// <summary>
     /// Gets the number of channels that the pixel contains.
     /// </summary>
-    public int Channels
-        => _value.Length;
+    public uint Channels
+        => (uint)_value.Length;
 
     /// <summary>
     /// Gets the X coordinate of the pixel.
@@ -85,7 +85,7 @@ public sealed class Pixel : IPixel<QuantumType>
     /// Returns the value of the specified channel.
     /// </summary>
     /// <param name="channel">The channel to get the value for.</param>
-    public QuantumType this[int channel]
+    public QuantumType this[uint channel]
     {
         get => GetChannel(channel);
         set => SetChannel(channel, value);
@@ -151,9 +151,9 @@ public sealed class Pixel : IPixel<QuantumType>
     /// </summary>
     /// <param name="channel">The channel to get the value of.</param>
     /// <returns>The value of the specified channel.</returns>
-    public QuantumType GetChannel(int channel)
+    public QuantumType GetChannel(uint channel)
     {
-        if (channel < 0 || channel >= _value.Length)
+        if (channel >= _value.Length)
             return 0;
 
         return _value[channel];
@@ -171,9 +171,9 @@ public sealed class Pixel : IPixel<QuantumType>
     /// </summary>
     /// <param name="channel">The channel to set the value of.</param>
     /// <param name="value">The value.</param>
-    public void SetChannel(int channel, QuantumType value)
+    public void SetChannel(uint channel, QuantumType value)
     {
-        if (channel < 0 || channel >= _value.Length)
+        if (channel >= _value.Length)
             return;
 
         _value[channel] = value;
@@ -217,8 +217,8 @@ public sealed class Pixel : IPixel<QuantumType>
         if (value.Length == 2)
             return new MagickColor(value[0], value[0], value[0], value[1]);
 
-        var hasBlackChannel = _collection is not null && _collection.GetChannelIndex(PixelChannel.Black) != -1;
-        var hasAlphaChannel = _collection is not null && _collection.GetChannelIndex(PixelChannel.Alpha) != -1;
+        var hasBlackChannel = _collection is not null && _collection.GetChannelIndex(PixelChannel.Black) is not null;
+        var hasAlphaChannel = _collection is not null && _collection.GetChannelIndex(PixelChannel.Alpha) is not null;
 
         if (hasBlackChannel)
         {
@@ -246,11 +246,11 @@ public sealed class Pixel : IPixel<QuantumType>
             return _value;
 
         var index = _collection.GetChannelIndex(PixelChannel.Index);
-        if (index == -1)
+        if (index is null)
             return _value;
 
         var newValue = new List<QuantumType>(_value);
-        newValue.RemoveAt(index);
+        newValue.RemoveAt((int)index);
 
         return newValue.ToArray();
     }

@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick;
 using Xunit;
 
@@ -11,13 +10,6 @@ public partial class MagickImageTests
 {
     public class TheLowerMethod
     {
-        [Fact]
-        public void ShouldThrowExceptionWhenSizeIsNegative()
-        {
-            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
-            Assert.Throws<ArgumentException>("size", () => image.Lower(-1));
-        }
-
         [Fact]
         public void ShouldDarkenTheEdges()
         {

@@ -28,7 +28,7 @@ public partial class MagickColor
         return new MagickColor(nativeInstance);
     }
 
-    internal static MagickColor? CreateInstance(IntPtr instance, out int count)
+    internal static MagickColor? CreateInstance(IntPtr instance, out uint count)
     {
         count = 0;
 
@@ -36,7 +36,7 @@ public partial class MagickColor
             return null;
 
         using var nativeInstance = new NativeMagickColor(instance);
-        count = (int)nativeInstance.Count_Get();
+        count = (uint)nativeInstance.Count_Get();
         return new MagickColor(nativeInstance);
     }
 
@@ -69,7 +69,7 @@ public partial class MagickColor
     {
         public static partial NativeMagickColor Create();
 
-        public partial ulong Count_Get();
+        public partial nuint Count_Get();
 
         public partial QuantumType Red_Get();
 

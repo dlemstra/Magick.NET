@@ -23,7 +23,7 @@ public partial class MagickImageTests
 
             Assert.NotNull(red);
 
-            Assert.Equal(8, red.Depth);
+            Assert.Equal(8U, red.Depth);
             Assert.InRange(red.Entropy, 0.98, 0.99);
             Assert.InRange(red.Kurtosis, -1.90, -1.89);
             Assert.Equal(0, red.Minimum);

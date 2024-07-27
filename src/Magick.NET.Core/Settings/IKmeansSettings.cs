@@ -16,12 +16,12 @@ public interface IKmeansSettings
     /// <summary>
     /// Gets or sets the number of colors to use as seeds.
     /// </summary>
-    int NumberColors { get; set; }
+    uint NumberColors { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum number of iterations while converging.
     /// </summary>
-    int MaxIterations { get; set; }
+    uint MaxIterations { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum tolerance.

@@ -35,7 +35,7 @@ public partial class UnsafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
 
-            Assert.Throws<MagickCacheErrorException>(() => pixels.SetPixel(new Pixel(image.Width + 1, 0, 3)));
+            Assert.Throws<MagickCacheErrorException>(() => pixels.SetPixel(new Pixel((int)image.Width + 1, 0, 3)));
         }
 
         [Fact]
@@ -44,7 +44,7 @@ public partial class UnsafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
 
-            Assert.Throws<MagickCacheErrorException>(() => pixels.SetPixel(new Pixel(0, image.Height + 1, 3)));
+            Assert.Throws<MagickCacheErrorException>(() => pixels.SetPixel(new Pixel(0, (int)image.Height + 1, 3)));
         }
 
         [Fact]
@@ -136,7 +136,7 @@ public partial class UnsafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
 
-            Assert.Throws<MagickCacheErrorException>(() => pixels.SetPixel(image.Width + 1, 0, new QuantumType[] { 0 }));
+            Assert.Throws<MagickCacheErrorException>(() => pixels.SetPixel((int)image.Width + 1, 0, new QuantumType[] { 0 }));
         }
 
         [Fact]
@@ -145,7 +145,7 @@ public partial class UnsafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
 
-            Assert.Throws<MagickCacheErrorException>(() => pixels.SetPixel(0, image.Height + 1, new QuantumType[] { 0 }));
+            Assert.Throws<MagickCacheErrorException>(() => pixels.SetPixel(0, (int)image.Height + 1, new QuantumType[] { 0 }));
         }
 
         [Fact]

@@ -28,7 +28,7 @@ public interface IMagickGeometry : IEquatable<IMagickGeometry?>, IComparable<IMa
     /// <summary>
     /// Gets or sets the height of the geometry.
     /// </summary>
-    int Height { get; set; }
+    uint Height { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the image is resized without preserving aspect ratio (!).
@@ -53,7 +53,7 @@ public interface IMagickGeometry : IEquatable<IMagickGeometry?>, IComparable<IMa
     /// <summary>
     /// Gets or sets the width of the geometry.
     /// </summary>
-    int Width { get; set; }
+    uint Width { get; set; }
 
     /// <summary>
     /// Gets or sets the X offset from origin.
@@ -72,7 +72,7 @@ public interface IMagickGeometry : IEquatable<IMagickGeometry?>, IComparable<IMa
     /// <param name="y">The Y offset from origin.</param>
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
-    void Initialize(int x, int y, int width, int height);
+    void Initialize(int x, int y, uint width, uint height);
 
     /// <summary>
     /// Returns a string that represents the current <see cref="IMagickGeometry"/>.

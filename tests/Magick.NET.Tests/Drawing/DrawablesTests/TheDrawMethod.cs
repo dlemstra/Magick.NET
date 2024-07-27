@@ -54,8 +54,8 @@ public partial class DrawablesTests
 
             image.Trim();
 
-            Assert.Equal(108, image.Width);
-            Assert.Equal(19, image.Height);
+            Assert.Equal(108U, image.Width);
+            Assert.Equal(19U, image.Height);
         }
 
         [Fact]
@@ -69,8 +69,8 @@ public partial class DrawablesTests
 
             image.Trim();
 
-            Assert.Equal(144, image.Width);
-            Assert.Equal(24, image.Height);
+            Assert.Equal(144U, image.Width);
+            Assert.Equal(24U, image.Height);
         }
     }
 }

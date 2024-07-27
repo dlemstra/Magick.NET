@@ -14,5 +14,5 @@ public interface IDrawableStrokeMiterLimit : IDrawable
     /// <summary>
     /// Gets the miter limit.
     /// </summary>
-    int Miterlimit { get; }
+    uint Miterlimit { get; }
 }

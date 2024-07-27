@@ -12,13 +12,13 @@ public sealed partial class PdfInfo
 {
     private PdfInfo(uint pageCount)
     {
-        PageCount = (int)pageCount;
+        PageCount = pageCount;
     }
 
     /// <summary>
     /// Gets the page count of the file.
     /// </summary>
-    public int PageCount { get; }
+    public uint PageCount { get; }
 
     /// <summary>
     /// Creates info from a <see cref="MagickFormat.Pdf"/> file.

@@ -146,7 +146,10 @@ public sealed class IcoOptimizer : IImageOptimizer
     {
         using var pixels = image.GetPixelsUnsafe();
         var alphaIndex = pixels.GetChannelIndex(PixelChannel.Alpha);
-        var channels = pixels.Channels;
+        if (alphaIndex is null)
+            return;
+
+        var channels = (int)pixels.Channels;
 
         for (var y = 0; y < image.Height; y++)
         {
@@ -154,7 +157,7 @@ public sealed class IcoOptimizer : IImageOptimizer
             if (row is null)
                 continue;
 
-            for (var i = alphaIndex; i < row.Length; i += channels)
+            for (var i = (int)alphaIndex; i < row.Length; i += channels)
             {
                 if (row[i] <= min)
                     row[i] = 0;

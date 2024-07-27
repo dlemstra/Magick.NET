@@ -55,8 +55,8 @@ public partial class MagickImageTests
 
             image.Read(Files.Logos.MagickNETSVG);
             Assert.Equal(new Density(100, DensityUnit.Undefined), image.Density);
-            Assert.Equal(524, image.Width);
-            Assert.Equal(252, image.Height);
+            Assert.Equal(524U, image.Width);
+            Assert.Equal(252U, image.Height);
         }
 
         [Fact]

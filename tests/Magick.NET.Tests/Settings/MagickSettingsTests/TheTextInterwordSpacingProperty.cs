@@ -25,14 +25,14 @@ public partial class MagickSettingsTests
             image.Settings.TextInterwordSpacing = 10;
             image.Read("label:First second");
 
-            Assert.Equal(74, image.Width);
-            Assert.Equal(15, image.Height);
+            Assert.Equal(74U, image.Width);
+            Assert.Equal(15U, image.Height);
 
             image.Settings.TextInterwordSpacing = 20;
             image.Read("label:First second");
 
-            Assert.Equal(84, image.Width);
-            Assert.Equal(15, image.Height);
+            Assert.Equal(84U, image.Width);
+            Assert.Equal(15U, image.Height);
         }
     }
 }

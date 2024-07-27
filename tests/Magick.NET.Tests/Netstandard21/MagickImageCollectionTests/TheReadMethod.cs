@@ -48,8 +48,8 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
                 images.Read(sequence);
 
-                Assert.Equal(286, images[0].Width);
-                Assert.Equal(67, images[0].Height);
+                Assert.Equal(286U, images[0].Width);
+                Assert.Equal(67U, images[0].Height);
             }
         }
 

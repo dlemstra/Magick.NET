@@ -16,7 +16,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <summary>
     /// Gets the number of channels that the image contains.
     /// </summary>
-    int Channels { get; }
+    uint Channels { get; }
 
     /// <summary>
     /// Gets the pixel at the specified coordinate.
@@ -33,7 +33,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
-    TQuantumType[]? GetArea(int x, int y, int width, int height);
+    TQuantumType[]? GetArea(int x, int y, uint width, uint height);
 
     /// <summary>
     /// Returns the pixels of the specified area.
@@ -43,11 +43,11 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     TQuantumType[]? GetArea(IMagickGeometry geometry);
 
     /// <summary>
-    /// Returns the index of the specified channel. Returns -1 if not found.
+    /// Returns the index of the specified channel. Returns null if not found.
     /// </summary>
     /// <param name="channel">The channel to get the index of.</param>
-    /// <returns>The index of the specified channel. Returns -1 if not found.</returns>
-    int GetChannelIndex(PixelChannel channel);
+    /// <returns>The index of the specified channel. Returns null if not found.</returns>
+    uint? GetChannelIndex(PixelChannel channel);
 
     /// <summary>
     /// Returns the <see cref="IPixel{TQuantumType}"/> at the specified coordinate.
@@ -79,7 +79,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <param name="values">The values of the pixels.</param>
-    void SetArea(int x, int y, int width, int height, TQuantumType[] values);
+    void SetArea(int x, int y, uint width, uint height, TQuantumType[] values);
 
     /// <summary>
     /// Changes the values of the specified pixels.
@@ -96,7 +96,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <param name="values">The values of the pixels.</param>
-    void SetByteArea(int x, int y, int width, int height, byte[] values);
+    void SetByteArea(int x, int y, uint width, uint height, byte[] values);
 
     /// <summary>
     /// Changes the values of the specified pixels.
@@ -119,7 +119,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <param name="values">The values of the pixels.</param>
-    void SetDoubleArea(int x, int y, int width, int height, double[] values);
+    void SetDoubleArea(int x, int y, uint width, uint height, double[] values);
 
     /// <summary>
     /// Changes the values of the specified pixels.
@@ -142,7 +142,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <param name="values">The values of the pixels.</param>
-    void SetIntArea(int x, int y, int width, int height, int[] values);
+    void SetIntArea(int x, int y, uint width, uint height, int[] values);
 
     /// <summary>
     /// Changes the values of the specified pixels.
@@ -198,7 +198,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <param name="height">The height of the area.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     /// <returns>A <see cref="byte"/> array.</returns>
-    byte[]? ToByteArray(int x, int y, int width, int height, string mapping);
+    byte[]? ToByteArray(int x, int y, uint width, uint height, string mapping);
 
     /// <summary>
     /// Returns the values of the pixels as an array.
@@ -209,7 +209,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <param name="height">The height of the area.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     /// <returns>A <see cref="byte"/> array.</returns>
-    byte[]? ToByteArray(int x, int y, int width, int height, PixelMapping mapping);
+    byte[]? ToByteArray(int x, int y, uint width, uint height, PixelMapping mapping);
 
     /// <summary>
     /// Returns the values of the pixels as an array.
@@ -250,7 +250,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <param name="height">The height of the area.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     /// <returns>An <see cref="ushort"/> array.</returns>
-    ushort[]? ToShortArray(int x, int y, int width, int height, string mapping);
+    ushort[]? ToShortArray(int x, int y, uint width, uint height, string mapping);
 
     /// <summary>
     /// Returns the values of the pixels as an array.
@@ -261,7 +261,7 @@ public partial interface IPixelCollection<TQuantumType> : IEnumerable<IPixel<TQu
     /// <param name="height">The height of the area.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
     /// <returns>An <see cref="ushort"/> array.</returns>
-    ushort[]? ToShortArray(int x, int y, int width, int height, PixelMapping mapping);
+    ushort[]? ToShortArray(int x, int y, uint width, uint height, PixelMapping mapping);
 
     /// <summary>
     /// Returns the values of the pixels as an array.

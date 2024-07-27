@@ -12,20 +12,6 @@ public partial class MagickImageTests
     public class TheAdaptiveThresholdMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenWidthIsNegative()
-        {
-            using var image = new MagickImage(Files.MagickNETIconPNG);
-            Assert.Throws<ArgumentException>("width", () => image.AdaptiveThreshold(-1, 10, 0.0, Channels.Red));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenHeightIsNegative()
-        {
-            using var image = new MagickImage(Files.MagickNETIconPNG);
-            Assert.Throws<ArgumentException>("height", () => image.AdaptiveThreshold(10, -1, 0.0, Channels.Red));
-        }
-
-        [Fact]
         public void ShouldThrowExceptionWhenBiasIsNegative()
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
@@ -37,7 +23,7 @@ public partial class MagickImageTests
         public void ShouldThrowExceptionWhenBiasPercentagetIsNegative()
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
-            Assert.Throws<ArgumentException>("biasPercentage", () => image.AdaptiveThreshold(10, -1, new Percentage(-1), Channels.Red));
+            Assert.Throws<ArgumentException>("biasPercentage", () => image.AdaptiveThreshold(10, 10, new Percentage(-1), Channels.Red));
         }
 #endif
 

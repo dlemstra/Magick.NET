@@ -24,12 +24,12 @@ public sealed partial class ConnectedComponent : IConnectedComponent<QuantumType
 {
     private ConnectedComponent(IntPtr instance)
     {
-        Area = (int)NativeConnectedComponent.GetArea(instance);
+        Area = (uint)NativeConnectedComponent.GetArea(instance);
         Centroid = NativeConnectedComponent.GetCentroid(instance).ToPointD();
         Color = NativeConnectedComponent.GetColor(instance);
-        Height = (int)NativeConnectedComponent.GetHeight(instance);
+        Height = (uint)NativeConnectedComponent.GetHeight(instance);
         Id = (int)NativeConnectedComponent.GetId(instance);
-        Width = (int)NativeConnectedComponent.GetWidth(instance);
+        Width = (uint)NativeConnectedComponent.GetWidth(instance);
         X = (int)NativeConnectedComponent.GetX(instance);
         Y = (int)NativeConnectedComponent.GetY(instance);
     }
@@ -37,7 +37,7 @@ public sealed partial class ConnectedComponent : IConnectedComponent<QuantumType
     /// <summary>
     /// Gets the pixel count of the area.
     /// </summary>
-    public int Area { get; }
+    public uint Area { get; }
 
     /// <summary>
     /// Gets the centroid of the area.
@@ -52,7 +52,7 @@ public sealed partial class ConnectedComponent : IConnectedComponent<QuantumType
     /// <summary>
     /// Gets the height of the area.
     /// </summary>
-    public int Height { get; }
+    public uint Height { get; }
 
     /// <summary>
     /// Gets the id of the area.
@@ -62,7 +62,7 @@ public sealed partial class ConnectedComponent : IConnectedComponent<QuantumType
     /// <summary>
     /// Gets the width of the area.
     /// </summary>
-    public int Width { get; }
+    public uint Width { get; }
 
     /// <summary>
     /// Gets the X offset from origin.
@@ -86,15 +86,15 @@ public sealed partial class ConnectedComponent : IConnectedComponent<QuantumType
     /// </summary>
     /// <param name="extent">The number of pixels to extent the image with.</param>
     /// <returns>The geometry of the area of this connected component.</returns>
-    public IMagickGeometry ToGeometry(int extent)
+    public IMagickGeometry ToGeometry(uint extent)
     {
-        int extra;
+        uint extra;
         checked
         {
             extra = extent * 2;
         }
 
-        return new MagickGeometry(X - extent, Y - extent, Width + extra, Height + extra);
+        return new MagickGeometry(X - (int)extent, Y - (int)extent, Width + extra, Height + extra);
     }
 
     internal static IReadOnlyList<IConnectedComponent<QuantumType>> Create(IntPtr list, int length)

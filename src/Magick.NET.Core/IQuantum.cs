@@ -11,5 +11,5 @@ public interface IQuantum
     /// <summary>
     /// Gets the quantum depth.
     /// </summary>
-    int Depth { get; }
+    uint Depth { get; }
 }

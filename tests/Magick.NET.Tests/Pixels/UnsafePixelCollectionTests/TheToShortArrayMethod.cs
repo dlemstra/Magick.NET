@@ -127,7 +127,7 @@ public partial class UnsafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
             var values = pixels.ToShortArray("RG");
-            var length = image.Width * image.Height * 2;
+            var length = (int)image.Width * image.Height * 2;
 
             Assert.Equal(length, values.Length);
         }
@@ -138,7 +138,7 @@ public partial class UnsafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
             var values = pixels.ToShortArray(PixelMapping.RGB);
-            var length = image.Width * image.Height * 3;
+            var length = (int)image.Width * image.Height * 3;
 
             Assert.Equal(length, values.Length);
         }

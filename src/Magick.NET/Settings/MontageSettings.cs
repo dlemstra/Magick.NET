@@ -31,7 +31,7 @@ public sealed partial class MontageSettings : IMontageSettings<QuantumType>
     /// <summary>
     /// Gets or sets the pixels between thumbnail and surrounding frame.
     /// </summary>
-    public int BorderWidth { get; set; }
+    public uint BorderWidth { get; set; }
 
     /// <summary>
     /// Gets or sets the fill color.
@@ -46,7 +46,7 @@ public sealed partial class MontageSettings : IMontageSettings<QuantumType>
     /// <summary>
     /// Gets or sets the font point size.
     /// </summary>
-    public int FontPointsize { get; set; }
+    public uint FontPointsize { get; set; }
 
     /// <summary>
     /// Gets or sets the frame geometry (width &amp; height frame thickness).
@@ -103,7 +103,7 @@ public sealed partial class MontageSettings : IMontageSettings<QuantumType>
         var result = NativeMontageSettings.Create();
         result.SetBackgroundColor(instance.BackgroundColor);
         result.SetBorderColor(instance.BorderColor);
-        result.SetBorderWidth((uint)instance.BorderWidth);
+        result.SetBorderWidth(instance.BorderWidth);
         result.SetFillColor(instance.FillColor);
         result.SetFont(instance.Font);
         result.SetFontPointsize(instance.FontPointsize);

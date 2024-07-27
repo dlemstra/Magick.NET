@@ -25,14 +25,14 @@ public partial class MagickSettingsTests
             image.Settings.TextKerning = 10;
             image.Read("label:First");
 
-            Assert.Equal(65, image.Width);
-            Assert.Equal(15, image.Height);
+            Assert.Equal(65U, image.Width);
+            Assert.Equal(15U, image.Height);
 
             image.Settings.TextKerning = 20;
             image.Read("label:First");
 
-            Assert.Equal(105, image.Width);
-            Assert.Equal(15, image.Height);
+            Assert.Equal(105U, image.Width);
+            Assert.Equal(15U, image.Height);
         }
     }
 }

@@ -24,8 +24,8 @@ public partial class TheLabelCoder
 
         using var image = new MagickImage("label:Masai Mara", settings);
 
-        Assert.Equal(93, image.Width);
-        Assert.Equal(21, image.Height);
+        Assert.Equal(93U, image.Width);
+        Assert.Equal(21U, image.Height);
     }
 
     [Fact]
@@ -42,7 +42,7 @@ public partial class TheLabelCoder
 
         using var image = new MagickImage("label:1", settings);
 
-        Assert.Equal(119, image.Height);
+        Assert.Equal(119U, image.Height);
         ColorAssert.Equal(MagickColors.Green, image, 40, 60);
         ColorAssert.Equal(MagickColors.Red, image, 38, 60);
         ColorAssert.Equal(MagickColors.Red, image, 34, 21);
@@ -63,7 +63,7 @@ public partial class TheLabelCoder
 
         using var image = new MagickImage("label:1\n2", settings);
 
-        Assert.Equal(237, image.Height);
+        Assert.Equal(237U, image.Height);
         ColorAssert.Equal(MagickColors.Green, image, 42, 158);
         ColorAssert.Equal(MagickColors.Red, image, 44, 158);
         ColorAssert.Equal(MagickColors.Green, image, 34, 137);

@@ -106,7 +106,7 @@ public sealed partial class MagickImage
         var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
-        _nativeInstance.ImportPixels(settings.X, settings.Y, (nuint)settings.Width, (nuint)settings.Height, settings.Mapping, settings.StorageType, data, 0U);
+        _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0U);
     }
 
 #if !Q8
@@ -127,7 +127,7 @@ public sealed partial class MagickImage
         var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
-        _nativeInstance.ImportPixels(settings.X, settings.Y, (nuint)settings.Width, (nuint)settings.Height, settings.Mapping, settings.StorageType, data, 0U);
+        _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, 0U);
     }
 #endif
 
@@ -253,7 +253,7 @@ public sealed partial class MagickImage
         var expectedLength = GetExpectedByteLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
-        _nativeInstance.ReadPixels((nuint)settings.ReadSettings.Width!.Value, (nuint)settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0U);
+        _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0U);
     }
 
 #if !Q8
@@ -277,7 +277,7 @@ public sealed partial class MagickImage
         var expectedLength = GetExpectedLength(settings);
         Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", length, expectedLength);
 
-        _nativeInstance.ReadPixels((nuint)settings.ReadSettings.Width!.Value, (nuint)settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0U);
+        _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, 0U);
     }
 #endif
 

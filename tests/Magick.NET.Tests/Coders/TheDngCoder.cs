@@ -46,8 +46,8 @@ public class TheDngCoder
         var colors = int.Parse(image.GetAttribute("dng:thumbnail.colors"));
 
         Assert.Equal("bitmap", type);
-        Assert.Equal(768, image.Width);
-        Assert.Equal(512, image.Height);
+        Assert.Equal(768U, image.Width);
+        Assert.Equal(512U, image.Height);
         Assert.Equal(8, bits);
         Assert.Equal(3, colors);
 

@@ -83,7 +83,7 @@ public partial class MagickImageTests
 #endif
         }
 
-        private void AssertComponent(IMagickImage<QuantumType> image, IConnectedComponent<QuantumType> component, int id, int x, int y, int width, int height, int area, IMagickColor<QuantumType> color, int centroidX, int centroidY)
+        private void AssertComponent(IMagickImage<QuantumType> image, IConnectedComponent<QuantumType> component, int id, int x, int y, uint width, uint height, int area, IMagickColor<QuantumType> color, int centroidX, int centroidY)
         {
             var delta = 2;
 

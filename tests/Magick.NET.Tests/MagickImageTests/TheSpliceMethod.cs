@@ -26,8 +26,8 @@ public partial class MagickImageTests
             image.BackgroundColor = MagickColors.Fuchsia;
             image.Splice(new MagickGeometry(105, 50, 10, 20));
 
-            Assert.Equal(296, image.Width);
-            Assert.Equal(87, image.Height);
+            Assert.Equal(296U, image.Width);
+            Assert.Equal(87U, image.Height);
             ColorAssert.Equal(MagickColors.Fuchsia, image, 105, 50);
             ColorAssert.Equal(new MagickColor("#0000"), image, 115, 70);
         }

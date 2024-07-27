@@ -64,17 +64,17 @@ public sealed class MagickReadSettings : MagickSettings, IMagickReadSettings<Qua
     /// <summary>
     /// Gets or sets the index of the image to read from a multi layer/frame image.
     /// </summary>
-    public int? FrameIndex { get; set; }
+    public uint? FrameIndex { get; set; }
 
     /// <summary>
     /// Gets or sets the number of images to read from a multi layer/frame image.
     /// </summary>
-    public int? FrameCount { get; set; }
+    public uint? FrameCount { get; set; }
 
     /// <summary>
     /// Gets or sets the height.
     /// </summary>
-    public int? Height { get; set; }
+    public uint? Height { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the exif profile should be used to update some of the
@@ -124,7 +124,7 @@ public sealed class MagickReadSettings : MagickSettings, IMagickReadSettings<Qua
     /// <summary>
     /// Gets or sets the width.
     /// </summary>
-    public int? Width { get; set; }
+    public uint? Width { get; set; }
 
     internal void ForceSingleFrame()
     {

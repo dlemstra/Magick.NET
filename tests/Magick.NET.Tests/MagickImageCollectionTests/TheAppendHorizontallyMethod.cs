@@ -22,8 +22,8 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldAppendTheImagesHorizontally()
         {
-            var width = 70;
-            var height = 46;
+            var width = 70U;
+            var height = 46U;
 
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);
@@ -33,7 +33,7 @@ public partial class MagickImageCollectionTests
 
             using var image = images.AppendHorizontally();
 
-            Assert.Equal(width * 3, image.Width);
+            Assert.Equal(width * 3U, image.Width);
             Assert.Equal(height, image.Height);
         }
     }

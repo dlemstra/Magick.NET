@@ -41,7 +41,7 @@ public partial class SafePixelCollectionTests
             Assert.NotNull(pixel);
             Assert.Equal(350, pixel.X);
             Assert.Equal(196, pixel.Y);
-            Assert.Equal(2, pixel.Channels);
+            Assert.Equal(2U, pixel.Channels);
         }
 
         [Fact]

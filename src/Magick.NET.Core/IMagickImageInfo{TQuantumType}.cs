@@ -29,7 +29,7 @@ public partial interface IMagickImageInfo<TQuantumType> : IMagickImageInfo
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(byte[] data, int offset, int count, IMagickReadSettings<TQuantumType>? readSettings);
+    void Read(byte[] data, uint offset, uint count, IMagickReadSettings<TQuantumType>? readSettings);
 
     /// <summary>
     /// Read basic information about an image.

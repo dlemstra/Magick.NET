@@ -19,7 +19,7 @@ namespace ImageMagick;
 
 internal sealed partial class SafePixelCollection
 {
-    public override ReadOnlySpan<QuantumType> GetReadOnlyArea(int x, int y, int width, int height)
+    public override ReadOnlySpan<QuantumType> GetReadOnlyArea(int x, int y, uint width, uint height)
     {
         CheckArea(x, y, width, height);
 
@@ -33,7 +33,7 @@ internal sealed partial class SafePixelCollection
         return base.GetReadOnlyArea(geometry);
     }
 
-    public override void SetArea(int x, int y, int width, int height, ReadOnlySpan<QuantumType> values)
+    public override void SetArea(int x, int y, uint width, uint height, ReadOnlySpan<QuantumType> values)
     {
         CheckValues(x, y, width, height, values);
 
@@ -60,7 +60,7 @@ internal sealed partial class SafePixelCollection
     private void CheckValues<T>(int x, int y, ReadOnlySpan<T> values)
         => CheckValues(x, y, Image.Width, Image.Height, values);
 
-    private void CheckValues<T>(int x, int y, int width, int height, ReadOnlySpan<T> values)
+    private void CheckValues<T>(int x, int y, uint width, uint height, ReadOnlySpan<T> values)
     {
         CheckIndex(x, y);
         Throw.IfEmpty(nameof(values), values);
@@ -70,7 +70,7 @@ internal sealed partial class SafePixelCollection
         var max = width * height * Channels;
         Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
 
-        length = (x * y * Channels) + length;
+        length = (x * y * (int)Channels) + length;
         max = Image.Width * Image.Height * Channels;
         Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
     }

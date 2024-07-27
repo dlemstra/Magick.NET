@@ -29,8 +29,8 @@ public partial class IMagickImageExtensionsTests
             using var image = new MagickImage();
             image.Read(bitmap);
 
-            Assert.Equal(286, image.Width);
-            Assert.Equal(67, image.Height);
+            Assert.Equal(286U, image.Width);
+            Assert.Equal(67U, image.Height);
             Assert.Equal(MagickFormat.Png, image.Format);
         }
 
@@ -43,8 +43,8 @@ public partial class IMagickImageExtensionsTests
             using var image = new MagickImage();
             image.Read(bitmap);
 
-            Assert.Equal(100, image.Width);
-            Assert.Equal(50, image.Height);
+            Assert.Equal(100U, image.Width);
+            Assert.Equal(50U, image.Height);
             Assert.Equal(MagickFormat.Bmp3, image.Format);
         }
 

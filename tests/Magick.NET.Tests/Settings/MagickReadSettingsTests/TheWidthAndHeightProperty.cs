@@ -21,8 +21,8 @@ public partial class MagickReadSettingsTests
 
             image.Read("xc:fuchsia", settings);
 
-            Assert.Equal(10, image.Width);
-            Assert.Equal(1, image.Height);
+            Assert.Equal(10U, image.Width);
+            Assert.Equal(1U, image.Height);
         }
 
         [Fact]
@@ -37,8 +37,8 @@ public partial class MagickReadSettingsTests
 
             image.Read("xc:fuchsia", settings);
 
-            Assert.Equal(1, image.Width);
-            Assert.Equal(20, image.Height);
+            Assert.Equal(1U, image.Width);
+            Assert.Equal(20U, image.Height);
         }
 
         [Fact]
@@ -53,8 +53,8 @@ public partial class MagickReadSettingsTests
 
             image.Read("xc:fuchsia", settings);
 
-            Assert.Equal(30, image.Width);
-            Assert.Equal(40, image.Height);
+            Assert.Equal(30U, image.Width);
+            Assert.Equal(40U, image.Height);
         }
     }
 }

@@ -28,7 +28,7 @@ public class TheRgbCoder
         using var pixels = image.GetPixels();
 
         var pixel = pixels.GetPixel(0, 0);
-        Assert.Equal(4, pixel.Channels);
+        Assert.Equal(4U, pixel.Channels);
         Assert.Equal(1, pixel.GetChannel(0));
         Assert.Equal(2, pixel.GetChannel(1));
         Assert.Equal(3, pixel.GetChannel(2));
@@ -43,7 +43,7 @@ public class TheRgbCoder
         using var pixels = image.GetPixels();
 
         var pixel = pixels.GetPixel(0, 0);
-        Assert.Equal(4, pixel.Channels);
+        Assert.Equal(4U, pixel.Channels);
         Assert.Equal(1, pixel.GetChannel(0));
         Assert.Equal(2, pixel.GetChannel(1));
         Assert.Equal(3, pixel.GetChannel(2));

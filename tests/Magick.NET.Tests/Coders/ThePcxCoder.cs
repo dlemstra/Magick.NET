@@ -22,7 +22,7 @@ public class ThePcxCoder
 
         using var output = new MagickImage(memoryStream);
 
-        Assert.Equal(1, output.Depth);
+        Assert.Equal(1U, output.Depth);
         Assert.Equal(ClassType.Pseudo, output.ClassType);
     }
 }

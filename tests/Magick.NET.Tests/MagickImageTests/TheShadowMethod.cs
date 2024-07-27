@@ -32,8 +32,8 @@ public partial class MagickImageTests
 
             image.Shadow(2, 2, 5, new Percentage(50), MagickColors.Red);
 
-            Assert.Equal(width + 20, image.Width);
-            Assert.Equal(height + 20, image.Height);
+            Assert.Equal(width + 20U, image.Width);
+            Assert.Equal(height + 20U, image.Height);
 
             using var pixels = image.GetPixels();
             var pixel = pixels.GetPixel(90, 9);

@@ -48,14 +48,14 @@ public partial class MagickImageCollectionTests
 
             Assert.Equal(3, images.Count);
 
-            Assert.Equal(1, images[1].Width);
-            Assert.Equal(1, images[1].Height);
+            Assert.Equal(1U, images[1].Width);
+            Assert.Equal(1U, images[1].Height);
             Assert.Equal(-1, images[1].Page.X);
             Assert.Equal(-1, images[1].Page.Y);
             ColorAssert.Equal(new MagickColor("#FF000000"), images[1], 0, 0);
 
-            Assert.Equal(1, images[2].Width);
-            Assert.Equal(1, images[2].Height);
+            Assert.Equal(1U, images[2].Width);
+            Assert.Equal(1U, images[2].Height);
             Assert.Equal(5, images[2].Page.X);
             Assert.Equal(5, images[2].Page.Y);
             ColorAssert.Equal(MagickColors.Lime, images[2], 0, 0);

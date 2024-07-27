@@ -15,7 +15,7 @@ public interface IPixel<TQuantumType> : IEquatable<IPixel<TQuantumType>?>, IEqua
     /// <summary>
     /// Gets the number of channels that the pixel contains.
     /// </summary>
-    int Channels { get; }
+    uint Channels { get; }
 
     /// <summary>
     /// Gets the X coordinate of the pixel.
@@ -31,21 +31,21 @@ public interface IPixel<TQuantumType> : IEquatable<IPixel<TQuantumType>?>, IEqua
     /// Returns the value of the specified channel.
     /// </summary>
     /// <param name="channel">The channel to get the value for.</param>
-    TQuantumType this[int channel] { get; set; }
+    TQuantumType this[uint channel] { get; set; }
 
     /// <summary>
     /// Returns the value of the specified channel.
     /// </summary>
     /// <param name="channel">The channel to get the value of.</param>
     /// <returns>The value of the specified channel.</returns>
-    TQuantumType GetChannel(int channel);
+    TQuantumType GetChannel(uint channel);
 
     /// <summary>
     /// Set the value of the specified channel.
     /// </summary>
     /// <param name="channel">The channel to set the value of.</param>
     /// <param name="value">The value.</param>
-    void SetChannel(int channel, TQuantumType value);
+    void SetChannel(uint channel, TQuantumType value);
 
     /// <summary>
     /// Sets the values of this pixel.

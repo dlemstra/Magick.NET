@@ -42,8 +42,8 @@ public partial class MagickGeometryFactoryTests
             var factory = new MagickGeometryFactory();
             var geometry = factory.CreateFromPageSize("a4");
 
-            Assert.Equal(595, geometry.Width);
-            Assert.Equal(842, geometry.Height);
+            Assert.Equal(595U, geometry.Width);
+            Assert.Equal(842U, geometry.Height);
             Assert.Equal(0, geometry.X);
             Assert.Equal(0, geometry.Y);
         }
@@ -54,8 +54,8 @@ public partial class MagickGeometryFactoryTests
             var factory = new MagickGeometryFactory();
             var geometry = factory.CreateFromPageSize("a4+3+2");
 
-            Assert.Equal(595, geometry.Width);
-            Assert.Equal(842, geometry.Height);
+            Assert.Equal(595U, geometry.Width);
+            Assert.Equal(842U, geometry.Height);
             Assert.Equal(3, geometry.X);
             Assert.Equal(2, geometry.Y);
         }

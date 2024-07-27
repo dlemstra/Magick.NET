@@ -25,7 +25,7 @@ public interface IMontageSettings<TQuantumType>
     /// <summary>
     /// Gets or sets the pixels between thumbnail and surrounding frame.
     /// </summary>
-    int BorderWidth { get; set; }
+    uint BorderWidth { get; set; }
 
     /// <summary>
     /// Gets or sets the fill color.
@@ -40,7 +40,7 @@ public interface IMontageSettings<TQuantumType>
     /// <summary>
     /// Gets or sets the font point size.
     /// </summary>
-    int FontPointsize { get; set; }
+    uint FontPointsize { get; set; }
 
     /// <summary>
     /// Gets or sets the frame geometry (width &amp; height frame thickness).

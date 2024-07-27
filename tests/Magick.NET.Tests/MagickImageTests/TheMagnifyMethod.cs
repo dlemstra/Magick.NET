@@ -16,8 +16,8 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.MagickNETIconPNG);
             image.Magnify();
 
-            Assert.Equal(256, image.Width);
-            Assert.Equal(256, image.Height);
+            Assert.Equal(256U, image.Width);
+            Assert.Equal(256U, image.Height);
         }
     }
 }

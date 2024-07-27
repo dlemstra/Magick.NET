@@ -56,8 +56,8 @@ public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percenta
     /// Converts the <see cref="Percentage"/> to a quantum type.
     /// </summary>
     /// <param name="percentage">The <see cref="Percentage"/> to convert.</param>
-    public static explicit operator int(Percentage percentage)
-        => percentage.ToInt32();
+    public static explicit operator uint(Percentage percentage)
+        => percentage.ToUInt32();
 
     /// <summary>
     /// Determines whether the specified <see cref="Percentage"/> instances are considered equal.
@@ -197,6 +197,13 @@ public readonly struct Percentage : IEquatable<Percentage>, IComparable<Percenta
     /// <returns>An integer that represents the current percentage.</returns>
     public int ToInt32()
         => (int)Math.Round(_value, MidpointRounding.AwayFromZero);
+
+    /// <summary>
+    /// Returns an integer that represents the current percentage.
+    /// </summary>
+    /// <returns>An integer that represents the current percentage.</returns>
+    public uint ToUInt32()
+        => (uint)Math.Round(_value, MidpointRounding.AwayFromZero);
 
     /// <summary>
     /// Returns a string that represents the current percentage.

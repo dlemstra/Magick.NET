@@ -21,8 +21,8 @@ public partial class TheCaptionCoder
         using var image = new MagickImage("caption:Нуорунен в Карелии", settings);
         image.Trim();
 
-        Assert.Equal(88, image.Width);
-        Assert.Equal(41, image.Height);
+        Assert.Equal(88U, image.Width);
+        Assert.Equal(41U, image.Height);
     }
 
     [Fact]
@@ -38,8 +38,8 @@ public partial class TheCaptionCoder
         using var image = new MagickImage("caption:Нуорунен в Карелии", settings);
         image.Trim();
 
-        Assert.Equal(99, image.Width);
-        Assert.Equal(41, image.Height);
+        Assert.Equal(99U, image.Width);
+        Assert.Equal(41U, image.Height);
     }
 
     [Fact]
@@ -55,8 +55,8 @@ public partial class TheCaptionCoder
         using var image = new MagickImage("caption:НуоруненвКарелии", settings);
         image.Trim();
 
-        Assert.Equal(157, image.Width);
-        Assert.Equal(37, image.Height);
+        Assert.Equal(157U, image.Width);
+        Assert.Equal(37U, image.Height);
     }
 
     [Fact]
@@ -71,8 +71,8 @@ public partial class TheCaptionCoder
         using var image = new MagickImage("label:find fly", settings);
         image.Trim();
 
-        Assert.Equal(635, image.Width);
-        Assert.Equal(204, image.Height);
+        Assert.Equal(635U, image.Width);
+        Assert.Equal(204U, image.Height);
 
         ColorAssert.Equal(MagickColors.Black, image, 50, 58);
         ColorAssert.Equal(MagickColors.Black, image, 475, 3);

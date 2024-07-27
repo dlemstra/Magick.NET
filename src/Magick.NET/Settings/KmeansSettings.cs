@@ -16,12 +16,12 @@ public sealed class KmeansSettings : IKmeansSettings
     /// <summary>
     /// Gets or sets the number of colors to use as seeds.
     /// </summary>
-    public int NumberColors { get; set; }
+    public uint NumberColors { get; set; }
 
     /// <summary>
     /// Gets or sets the maximum number of iterations while converging.
     /// </summary>
-    public int MaxIterations { get; set; } = 100;
+    public uint MaxIterations { get; set; } = 100;
 
     /// <summary>
     /// Gets or sets the maximum tolerance.

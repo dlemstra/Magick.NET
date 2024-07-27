@@ -18,8 +18,8 @@ public class TheSvgCoder
         var info = new MagickImageInfo(data);
 
         Assert.Equal(MagickFormat.Svg, info.Format);
-        Assert.Equal(0, info.Width);
-        Assert.Equal(0, info.Height);
+        Assert.Equal(0U, info.Width);
+        Assert.Equal(0U, info.Height);
     }
 
     [Fact]
@@ -30,8 +30,8 @@ public class TheSvgCoder
         var info = new MagickImageInfo(data);
 
         Assert.Equal(MagickFormat.Svg, info.Format);
-        Assert.Equal(1000, info.Width);
-        Assert.Equal(716, info.Height);
+        Assert.Equal(1000U, info.Width);
+        Assert.Equal(716U, info.Height);
     }
 
     [Fact]
@@ -45,8 +45,8 @@ public class TheSvgCoder
         using var image = new MagickImage();
         image.Read(Files.Logos.MagickNETSVG, settings);
 
-        Assert.Equal(100, image.Width);
-        Assert.Equal(48, image.Height);
+        Assert.Equal(100U, image.Width);
+        Assert.Equal(48U, image.Height);
     }
 
     [Fact]
@@ -60,8 +60,8 @@ public class TheSvgCoder
         using var image = new MagickImage();
         image.Read(Files.Logos.MagickNETSVG, settings);
 
-        Assert.Equal(416, image.Width);
-        Assert.Equal(200, image.Height);
+        Assert.Equal(416U, image.Width);
+        Assert.Equal(200U, image.Height);
     }
 
     [Fact]
@@ -76,13 +76,13 @@ public class TheSvgCoder
         using var image = new MagickImage();
         image.Read(Files.Logos.MagickNETSVG, settings);
 
-        Assert.Equal(300, image.Width);
-        Assert.Equal(144, image.Height);
+        Assert.Equal(300U, image.Width);
+        Assert.Equal(144U, image.Height);
 
         image.Ping(Files.Logos.MagickNETSVG, settings);
 
-        Assert.Equal(300, image.Width);
-        Assert.Equal(144, image.Height);
+        Assert.Equal(300U, image.Width);
+        Assert.Equal(144U, image.Height);
     }
 
     [Fact]
@@ -105,8 +105,8 @@ public class TheSvgCoder
         var bytes = Encoding.ASCII.GetBytes(svg);
         using var image = new MagickImage(bytes);
 
-        Assert.Equal(220, image.Width);
-        Assert.Equal(80, image.Height);
+        Assert.Equal(220U, image.Width);
+        Assert.Equal(80U, image.Height);
 
         ColorAssert.Equal(MagickColors.White, image, 118, 6);
         ColorAssert.Equal(MagickColors.Black, image, 120, 6);

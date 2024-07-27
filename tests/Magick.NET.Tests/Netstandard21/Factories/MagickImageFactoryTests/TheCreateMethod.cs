@@ -34,7 +34,7 @@ public partial class MagickImageFactoryTests
                 using var image = factory.Create(new ReadOnlySequence<byte>(data));
 
                 Assert.IsType<MagickImage>(image);
-                Assert.Equal(123, image.Width);
+                Assert.Equal(123U, image.Width);
             }
         }
 
@@ -70,7 +70,7 @@ public partial class MagickImageFactoryTests
                 using var image = factory.Create(new ReadOnlySequence<byte>(data), settings);
 
                 Assert.IsType<MagickImage>(image);
-                Assert.Equal(123, image.Width);
+                Assert.Equal(123U, image.Width);
                 Assert.Equal(MagickColors.Goldenrod, image.Settings.BackgroundColor);
             }
         }
@@ -93,7 +93,7 @@ public partial class MagickImageFactoryTests
                 using var image = factory.Create(new Span<byte>(data));
 
                 Assert.IsType<MagickImage>(image);
-                Assert.Equal(123, image.Width);
+                Assert.Equal(123U, image.Width);
             }
         }
 
@@ -129,7 +129,7 @@ public partial class MagickImageFactoryTests
                 using var image = factory.Create(new Span<byte>(data), settings);
 
                 Assert.IsType<MagickImage>(image);
-                Assert.Equal(123, image.Width);
+                Assert.Equal(123U, image.Width);
                 Assert.Equal(MagickColors.Goldenrod, image.Settings.BackgroundColor);
             }
         }
@@ -174,7 +174,7 @@ public partial class MagickImageFactoryTests
                 using var image = factory.Create(new Span<byte>(data), settings);
 
                 Assert.IsType<MagickImage>(image);
-                Assert.Equal(2, image.Width);
+                Assert.Equal(2U, image.Width);
             }
         }
     }

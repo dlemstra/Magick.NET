@@ -25,14 +25,14 @@ public partial class MagickSettingsTests
             image.Settings.TextInterlineSpacing = 10;
             image.Read("label:First\nSecond");
 
-            Assert.Equal(42, image.Width);
-            Assert.Equal(39, image.Height);
+            Assert.Equal(42U, image.Width);
+            Assert.Equal(39U, image.Height);
 
             image.Settings.TextInterlineSpacing = 20;
             image.Read("label:First\nSecond");
 
-            Assert.Equal(42, image.Width);
-            Assert.Equal(49, image.Height);
+            Assert.Equal(42U, image.Width);
+            Assert.Equal(49U, image.Height);
         }
     }
 }

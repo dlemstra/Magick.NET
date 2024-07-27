@@ -20,7 +20,7 @@ public interface IUnsafePixelCollection<TQuantumType> : IPixelCollection<TQuantu
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <returns>A pointer to the pixels of the specified area.</returns>
-    IntPtr GetAreaPointer(int x, int y, int width, int height);
+    IntPtr GetAreaPointer(int x, int y, uint width, uint height);
 
     /// <summary>
     /// Returns a pointer to the pixels of the specified area.

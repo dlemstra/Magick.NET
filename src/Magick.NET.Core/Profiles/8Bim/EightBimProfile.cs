@@ -18,8 +18,8 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     private static readonly short IptcProfileId = 1028;
     private static readonly short XmpProfileId = 1060;
 
-    private readonly int _height;
-    private readonly int _width;
+    private readonly uint _height;
+    private readonly uint _width;
 
     private Collection<IEightBimValue>? _values;
 

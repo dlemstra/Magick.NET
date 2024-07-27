@@ -57,7 +57,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="width">The width of the area to clone.</param>
     /// <param name="height">The height of the area to clone.</param>
     /// <returns>A clone of the current image.</returns>
-    IMagickImage<TQuantumType> Clone(int width, int height);
+    IMagickImage<TQuantumType> Clone(uint width, uint height);
 
     /// <summary>
     /// Creates a clone of the current image.
@@ -67,7 +67,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="width">The width of the area to clone.</param>
     /// <param name="height">The height of the area to clone.</param>
     /// <returns>A clone of the current image.</returns>
-    IMagickImage<TQuantumType> Clone(int x, int y, int width, int height);
+    IMagickImage<TQuantumType> Clone(int x, int y, uint width, uint height);
 
     /// <summary>
     /// Sets the alpha channel to the specified color.
@@ -129,7 +129,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="connectivity">How many neighbors to visit, choose from 4 or 8.</param>
     /// <returns>The connected-components of the image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IReadOnlyList<IConnectedComponent<TQuantumType>> ConnectedComponents(int connectivity);
+    IReadOnlyList<IConnectedComponent<TQuantumType>> ConnectedComponents(uint connectivity);
 
     /// <summary>
     /// Determines the connected-components of the image.
@@ -145,7 +145,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="width">The width of the tile.</param>
     /// <param name="height">The height of the tile.</param>
     /// <returns>New title of the current image.</returns>
-    IReadOnlyList<IMagickImage<TQuantumType>> CropToTiles(int width, int height);
+    IReadOnlyList<IMagickImage<TQuantumType>> CropToTiles(uint width, uint height);
 
     /// <summary>
     /// Creates tiles of the current image in the specified dimension.
@@ -168,7 +168,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="height">The height to extend the image to.</param>
     /// <param name="backgroundColor">The background color to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(int width, int height, IMagickColor<TQuantumType> backgroundColor);
+    void Extent(uint width, uint height, IMagickColor<TQuantumType> backgroundColor);
 
     /// <summary>
     /// Extend the image as defined by the width and height.
@@ -178,7 +178,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="gravity">The placement gravity.</param>
     /// <param name="backgroundColor">The background color to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(int width, int height, Gravity gravity, IMagickColor<TQuantumType> backgroundColor);
+    void Extent(uint width, uint height, Gravity gravity, IMagickColor<TQuantumType> backgroundColor);
 
     /// <summary>
     /// Extend the image as defined by the geometry.
@@ -291,7 +291,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// </summary>
     /// <returns>A color histogram.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IReadOnlyDictionary<IMagickColor<TQuantumType>, int> Histogram();
+    IReadOnlyDictionary<IMagickColor<TQuantumType>, uint> Histogram();
 
 #if !Q8
     /// <summary>
@@ -309,7 +309,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="settings">The import settings to use when importing the pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ImportPixels(TQuantumType[] data, int offset, IPixelImportSettings settings);
+    void ImportPixels(TQuantumType[] data, uint offset, IPixelImportSettings settings);
 #endif
 
     /// <summary>
@@ -554,7 +554,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Ping(byte[] data, int offset, int count, IMagickReadSettings<TQuantumType>? readSettings);
+    void Ping(byte[] data, uint offset, uint count, IMagickReadSettings<TQuantumType>? readSettings);
 
     /// <summary>
     /// Reads only metadata and not the pixel data.
@@ -625,7 +625,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(byte[] data, int offset, int count, IMagickReadSettings<TQuantumType>? readSettings);
+    void Read(byte[] data, uint offset, uint count, IMagickReadSettings<TQuantumType>? readSettings);
 
     /// <summary>
     /// Read single image frame.
@@ -650,7 +650,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(IMagickColor<TQuantumType> color, int width, int height);
+    void Read(IMagickColor<TQuantumType> color, uint width, uint height);
 
     /// <summary>
     /// Read single image frame.
@@ -741,7 +741,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="settings">The pixel settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ReadPixels(byte[] data, int offset, int count, IPixelReadSettings<TQuantumType> settings);
+    void ReadPixels(byte[] data, uint offset, uint count, IPixelReadSettings<TQuantumType> settings);
 
 #if !Q8
     /// <summary>
@@ -760,7 +760,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="count">The maximum number of items to read.</param>
     /// <param name="settings">The pixel settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ReadPixels(TQuantumType[] data, int offset, int count, IPixelReadSettings<TQuantumType> settings);
+    void ReadPixels(TQuantumType[] data, uint offset, uint count, IPixelReadSettings<TQuantumType> settings);
 #endif
 
     /// <summary>

@@ -23,7 +23,7 @@ public partial class MagickImageInfoFactoryTests
                 var info = factory.Create();
 
                 Assert.IsType<MagickImageInfo>(info);
-                Assert.Equal(0, info.Width);
+                Assert.Equal(0U, info.Width);
             }
         }
 
@@ -54,7 +54,7 @@ public partial class MagickImageInfoFactoryTests
                 var info = factory.Create(data);
 
                 Assert.IsType<MagickImageInfo>(info);
-                Assert.Equal(123, info.Width);
+                Assert.Equal(123U, info.Width);
             }
         }
 
@@ -77,27 +77,11 @@ public partial class MagickImageInfoFactoryTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNegative()
-            {
-                var factory = new MagickImageInfoFactory();
-
-                Assert.Throws<ArgumentException>("offset", () => factory.Create(new byte[] { 215 }, -1, 0));
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 var factory = new MagickImageInfoFactory();
 
                 Assert.Throws<ArgumentException>("count", () => factory.Create(new byte[] { 215 }, 0, 0));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCountIsNegative()
-            {
-                var factory = new MagickImageInfoFactory();
-
-                Assert.Throws<ArgumentException>("count", () => factory.Create(new byte[] { 215 }, 0, -1));
             }
         }
 
@@ -120,7 +104,7 @@ public partial class MagickImageInfoFactoryTests
                 var info = factory.Create(file);
 
                 Assert.IsType<MagickImageInfo>(info);
-                Assert.Equal(123, info.Width);
+                Assert.Equal(123U, info.Width);
             }
         }
 
@@ -150,7 +134,7 @@ public partial class MagickImageInfoFactoryTests
                 var info = factory.Create(Files.ImageMagickJPG);
 
                 Assert.IsType<MagickImageInfo>(info);
-                Assert.Equal(123, info.Width);
+                Assert.Equal(123U, info.Width);
             }
         }
 
@@ -168,7 +152,7 @@ public partial class MagickImageInfoFactoryTests
                 var info = factory.Create(Files.Coders.InvalidCrcBMP, settings);
 
                 Assert.IsType<MagickImageInfo>(info);
-                Assert.Equal(1, info.Width);
+                Assert.Equal(1U, info.Width);
             }
         }
 
@@ -199,7 +183,7 @@ public partial class MagickImageInfoFactoryTests
                 var info = factory.Create(stream);
 
                 Assert.IsType<MagickImageInfo>(info);
-                Assert.Equal(123, info.Width);
+                Assert.Equal(123U, info.Width);
             }
         }
     }

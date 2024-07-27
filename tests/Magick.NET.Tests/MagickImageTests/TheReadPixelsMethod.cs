@@ -113,13 +113,13 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.ReadPixels(data, settings);
 
-                Assert.Equal(2, image.Width);
-                Assert.Equal(1, image.Height);
+                Assert.Equal(2U, image.Width);
+                Assert.Equal(1U, image.Height);
 
                 using var pixels = image.GetPixels();
                 var pixel = pixels.GetPixel(0, 0);
 
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 Assert.Equal(0, pixel.GetChannel(0));
                 Assert.Equal(0, pixel.GetChannel(1));
                 Assert.Equal(0, pixel.GetChannel(2));
@@ -127,7 +127,7 @@ public partial class MagickImageTests
 
                 pixel = pixels.GetPixel(1, 0);
 
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 Assert.Equal(0, pixel.GetChannel(0));
                 Assert.Equal(Quantum.Max, pixel.GetChannel(1));
                 Assert.Equal(0, pixel.GetChannel(2));
@@ -165,16 +165,6 @@ public partial class MagickImageTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNegative()
-            {
-                var settings = new PixelReadSettings();
-                using var image = new MagickImage();
-
-                var exception = Assert.Throws<ArgumentException>("offset", () => image.ReadPixels(new byte[] { 215 }, -1, 0, settings));
-                Assert.Contains("The offset should be positive.", exception.Message);
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 var settings = new PixelReadSettings();
@@ -192,16 +182,6 @@ public partial class MagickImageTests
 
                 var exception = Assert.Throws<ArgumentException>("offset", () => image.ReadPixels(new byte[] { 215 }, 1, 1, settings));
                 Assert.Contains("The offset should not exceed the length of the array.", exception.Message);
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCountIsNegative()
-            {
-                var settings = new PixelReadSettings();
-                using var image = new MagickImage();
-
-                var exception = Assert.Throws<ArgumentException>("count", () => image.ReadPixels(new byte[] { 215 }, 0, -1, settings));
-                Assert.Contains("The number of bytes should be at least 1.", exception.Message);
             }
 
             [Fact]
@@ -306,13 +286,13 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.ReadPixels(data, settings);
 
-                Assert.Equal(2, image.Width);
-                Assert.Equal(1, image.Height);
+                Assert.Equal(2U, image.Width);
+                Assert.Equal(1U, image.Height);
 
                 using var pixels = image.GetPixels();
                 var pixel = pixels.GetPixel(0, 0);
 
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 Assert.Equal(0, pixel.GetChannel(0));
                 Assert.Equal(0, pixel.GetChannel(1));
                 Assert.Equal(0, pixel.GetChannel(2));
@@ -320,7 +300,7 @@ public partial class MagickImageTests
 
                 pixel = pixels.GetPixel(1, 0);
 
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 Assert.Equal(0, pixel.GetChannel(0));
                 Assert.Equal(Quantum.Max, pixel.GetChannel(1));
                 Assert.Equal(0, pixel.GetChannel(2));
@@ -358,32 +338,12 @@ public partial class MagickImageTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNegative()
-            {
-                var settings = new PixelReadSettings();
-                using var image = new MagickImage();
-
-                var exception = Assert.Throws<ArgumentException>("offset", () => image.ReadPixels(new QuantumType[] { 215 }, -1, 0, settings));
-                Assert.Contains("The offset should be positive.", exception.Message);
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 var settings = new PixelReadSettings();
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("count", () => image.ReadPixels(new QuantumType[] { 215 }, 0, 0, settings));
-                Assert.Contains("The number of items should be at least 1.", exception.Message);
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCountIsNegative()
-            {
-                var settings = new PixelReadSettings();
-                using var image = new MagickImage();
-
-                var exception = Assert.Throws<ArgumentException>("count", () => image.ReadPixels(new QuantumType[] { 215 }, 0, -1, settings));
                 Assert.Contains("The number of items should be at least 1.", exception.Message);
             }
 
@@ -428,8 +388,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.ReadPixels(tempFile.File, settings);
 
-                Assert.Equal(1, image.Width);
-                Assert.Equal(1, image.Height);
+                Assert.Equal(1U, image.Width);
+                Assert.Equal(1U, image.Height);
                 ColorAssert.Equal(MagickColors.White, image, 0, 0);
             }
         }
@@ -513,8 +473,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.ReadPixels(tempFile.File.FullName, settings);
 
-                Assert.Equal(1, image.Width);
-                Assert.Equal(1, image.Height);
+                Assert.Equal(1U, image.Width);
+                Assert.Equal(1U, image.Height);
                 ColorAssert.Equal(MagickColors.White, image, 0, 0);
             }
         }
@@ -556,8 +516,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.ReadPixels(memoryStream, settings);
 
-                Assert.Equal(1, image.Width);
-                Assert.Equal(1, image.Height);
+                Assert.Equal(1U, image.Width);
+                Assert.Equal(1U, image.Height);
                 ColorAssert.Equal(MagickColors.White, image, 0, 0);
             }
 
@@ -570,8 +530,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.ReadPixels(memoryStream, settings);
 
-                Assert.Equal(1, image.Width);
-                Assert.Equal(1, image.Height);
+                Assert.Equal(1U, image.Width);
+                Assert.Equal(1U, image.Height);
                 ColorAssert.Equal(MagickColors.White, image, 0, 0);
             }
         }

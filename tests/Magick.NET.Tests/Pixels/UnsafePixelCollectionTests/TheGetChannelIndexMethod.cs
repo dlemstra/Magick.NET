@@ -17,7 +17,7 @@ public partial class UnsafePixelCollectionTests
             using var pixels = image.GetPixelsUnsafe();
             var index = pixels.GetChannelIndex(PixelChannel.Black);
 
-            Assert.Equal(-1, index);
+            Assert.Null(index);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ public partial class UnsafePixelCollectionTests
             using var pixels = image.GetPixelsUnsafe();
             var index = pixels.GetChannelIndex(PixelChannel.Green);
 
-            Assert.Equal(1, index);
+            Assert.Equal(1U, index);
         }
     }
 }

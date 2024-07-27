@@ -22,8 +22,8 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldAppendTheImagesVertically()
         {
-            var width = 70;
-            var height = 46;
+            var width = 70U;
+            var height = 46U;
 
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);

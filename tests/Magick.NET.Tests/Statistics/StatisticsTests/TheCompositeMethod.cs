@@ -18,7 +18,7 @@ public partial class StatisticsTests
 
             Assert.NotNull(statistics);
 
-            Assert.Equal(8, statistics.Depth);
+            Assert.Equal(8U, statistics.Depth);
             Assert.InRange(statistics.Entropy, 0.19, 0.20);
             Assert.InRange(statistics.Kurtosis, 0.044, 0.045);
             Assert.Equal(0, statistics.Minimum);

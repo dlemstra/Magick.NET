@@ -16,12 +16,12 @@ public partial class MagickImageTests
         {
             using var imageA = new MagickImage(MagickColors.Purple, 1, 1);
             imageA.Grayscale();
-            Assert.Equal(1, imageA.ChannelCount);
+            Assert.Equal(1U, imageA.ChannelCount);
             Assert.Equal(PixelChannel.Red, imageA.Channels.First());
 
             using var imageB = new MagickImage(MagickColors.Purple, 1, 1);
             imageB.Grayscale(PixelIntensityMethod.Brightness);
-            Assert.Equal(1, imageB.ChannelCount);
+            Assert.Equal(1U, imageB.ChannelCount);
             Assert.Equal(PixelChannel.Red, imageB.Channels.First());
 
             Assert.NotEqual(0.0, imageA.Compare(imageB, ErrorMetric.RootMeanSquared));

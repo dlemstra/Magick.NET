@@ -28,16 +28,8 @@ public partial class SafePixelCollectionTests
             => ThrowsArgumentException("y", 0, 11, 1, 1);
 
         [Fact]
-        public void ShouldThrowExceptionWhenWidthTooLow()
-            => ThrowsArgumentException("width", 0, 0, -1, 1);
-
-        [Fact]
         public void ShouldThrowExceptionWhenWidthZero()
             => ThrowsArgumentException("width", 0, 0, 0, 1);
-
-        [Fact]
-        public void ShouldThrowExceptionWhenHeightTooLow()
-            => ThrowsArgumentException("height", 0, 0, 1, -1);
 
         [Fact]
         public void ShouldThrowExceptionWhenHeightZero()
@@ -86,7 +78,7 @@ public partial class SafePixelCollectionTests
             ColorAssert.Equal(MagickColors.Red, color);
         }
 
-        private static void ThrowsArgumentException(string paramName, int x, int y, int width, int height)
+        private static void ThrowsArgumentException(string paramName, int x, int y, uint width, uint height)
         {
             using var image = new MagickImage(MagickColors.Red, 5, 10);
             using var pixels = image.GetPixels();

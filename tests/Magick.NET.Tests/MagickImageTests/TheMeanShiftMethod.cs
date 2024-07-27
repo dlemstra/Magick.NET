@@ -11,22 +11,6 @@ public partial class MagickImageTests
 {
     public class TheMeanShiftMethod
     {
-        [Fact]
-        public void ShouldThrowExceptionWhenWidthIsNegative()
-        {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("width", () => image.MeanShift(-1, 1));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenHeightIsNegative()
-        {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("height", () => image.MeanShift(1, -1));
-        }
-
 #if !Q16HDRI
         [Fact]
         public void ShouldThrowExceptionWhenColorDistanceIsNegative()

@@ -89,7 +89,7 @@ public partial class UnsafePixelCollectionTests
             ColorAssert.Equal(MagickColors.Red, color);
         }
 
-        private static void ThrowsNoException(int x, int y, int width, int height)
+        private static void ThrowsNoException(int x, int y, uint width, uint height)
         {
             using var image = new MagickImage(MagickColors.Red, 5, 10);
             using var pixels = image.GetPixelsUnsafe();

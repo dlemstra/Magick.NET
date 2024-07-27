@@ -24,8 +24,8 @@ public partial class TheCaptionCoder
 
         using var image = new MagickImage(caption, settings);
 
-        Assert.Equal(180, image.Width);
-        Assert.Equal(85, image.Height);
+        Assert.Equal(180U, image.Width);
+        Assert.Equal(85U, image.Height);
         ColorAssert.Equal(MagickColors.Blue, image, 55, 20);
     }
 
@@ -45,8 +45,8 @@ public partial class TheCaptionCoder
 
         using var image = new MagickImage(caption, settings);
 
-        Assert.Equal(450, image.Width);
-        Assert.Equal(138, image.Height);
+        Assert.Equal(450U, image.Width);
+        Assert.Equal(138U, image.Height);
         ColorAssert.Equal(MagickColors.Green, image, 155, 57);
         ColorAssert.Equal(MagickColors.Green, image, 178, 80);
         ColorAssert.Equal(MagickColors.Red, image, 441, 26);
@@ -68,8 +68,8 @@ public partial class TheCaptionCoder
 
         using var image = new MagickImage(caption, settings);
 
-        Assert.Equal(465, image.Width);
-        Assert.Equal(101, image.Height);
+        Assert.Equal(465U, image.Width);
+        Assert.Equal(101U, image.Height);
         ColorAssert.Equal(MagickColors.Black, image, 14, 73);
         ColorAssert.Equal(MagickColors.Black, image, 220, 49);
         ColorAssert.Equal(MagickColors.White, image, 307, 49);
@@ -89,8 +89,8 @@ public partial class TheCaptionCoder
 
         using var image = new MagickImage(caption, settings);
 
-        Assert.Equal(400, image.Width);
-        Assert.Equal(116, image.Height);
+        Assert.Equal(400U, image.Width);
+        Assert.Equal(116U, image.Height);
         ColorAssert.Equal(MagickColors.White, image, 321, 30);
         ColorAssert.Equal(MagickColors.Black, image, 86, 86);
     }
@@ -110,8 +110,8 @@ public partial class TheCaptionCoder
 
         using var image = new MagickImage(caption, settings);
 
-        Assert.Equal(40, image.Width);
-        Assert.Equal(83, image.Height);
+        Assert.Equal(40U, image.Width);
+        Assert.Equal(83U, image.Height);
         ColorAssert.Equal(MagickColors.Black, image, 39, 46);
         ColorAssert.Equal(new MagickColor("#0000"), image, 39, 65);
     }
@@ -131,8 +131,8 @@ public partial class TheCaptionCoder
 
         using var image = new MagickImage(caption, settings);
 
-        Assert.Equal(40, image.Width);
-        Assert.Equal(249, image.Height);
+        Assert.Equal(40U, image.Width);
+        Assert.Equal(249U, image.Height);
         ColorAssert.Equal(MagickColors.Black, image, 39, 47);
         ColorAssert.Equal(new MagickColor("#0000"), image, 39, 66);
         ColorAssert.Equal(MagickColors.Black, image, 39, 129);

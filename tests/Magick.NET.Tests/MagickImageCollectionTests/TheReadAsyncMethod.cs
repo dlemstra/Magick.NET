@@ -108,14 +108,14 @@ public partial class MagickImageCollectionTests
                 await images.ReadAsync(Files.ImageMagickICO);
 
                 Assert.Equal(3, images.Count);
-                Assert.Equal(64, images[0].Width);
-                Assert.Equal(64, images[0].Height);
+                Assert.Equal(64U, images[0].Width);
+                Assert.Equal(64U, images[0].Height);
                 Assert.Equal(MagickFormat.Ico, images[0].Format);
-                Assert.Equal(32, images[1].Width);
-                Assert.Equal(32, images[1].Height);
+                Assert.Equal(32U, images[1].Width);
+                Assert.Equal(32U, images[1].Height);
                 Assert.Equal(MagickFormat.Ico, images[1].Format);
-                Assert.Equal(16, images[2].Width);
-                Assert.Equal(16, images[2].Height);
+                Assert.Equal(16U, images[2].Width);
+                Assert.Equal(16U, images[2].Height);
                 Assert.Equal(MagickFormat.Ico, images[2].Format);
             }
         }

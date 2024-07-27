@@ -47,7 +47,7 @@ public partial class SafePixelCollectionTests
             var values = new byte[image.Width * image.Height * image.ChannelCount];
             pixels.SetBytePixels(values);
 
-            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+            ColorAssert.Equal(MagickColors.Black, image, (int)image.Width - 1, (int)image.Height - 1);
         }
     }
 }

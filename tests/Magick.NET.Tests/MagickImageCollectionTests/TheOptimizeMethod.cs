@@ -44,8 +44,8 @@ public partial class MagickImageCollectionTests
             images.Add(image);
             images.Optimize();
 
-            Assert.Equal(1, images[1].Width);
-            Assert.Equal(1, images[1].Height);
+            Assert.Equal(1U, images[1].Width);
+            Assert.Equal(1U, images[1].Height);
             Assert.Equal(5, images[1].Page.X);
             Assert.Equal(5, images[1].Page.Y);
             ColorAssert.Equal(MagickColors.Lime, images[1], 0, 0);
@@ -66,8 +66,8 @@ public partial class MagickImageCollectionTests
             Assert.Equal(3, images.Count);
             var secondFrame = images[1];
 
-            Assert.Equal(1, secondFrame.Width);
-            Assert.Equal(1, secondFrame.Height);
+            Assert.Equal(1U, secondFrame.Width);
+            Assert.Equal(1U, secondFrame.Height);
             ColorAssert.Equal(new MagickColor("#fff0"), secondFrame, 0, 0);
         }
     }

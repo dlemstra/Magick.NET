@@ -15,7 +15,7 @@ public partial class UnsafePixelCollectionTests
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
-            var pixel = pixels.GetPixel(image.Width + 1, 0);
+            var pixel = pixels.GetPixel((int)image.Width + 1, 0);
         }
 
         [Fact]
@@ -23,7 +23,7 @@ public partial class UnsafePixelCollectionTests
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
-            var pixel = pixels.GetPixel(0, image.Height + 1);
+            var pixel = pixels.GetPixel(0, (int)image.Height + 1);
         }
 
         [Fact]

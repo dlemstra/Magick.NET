@@ -17,7 +17,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentOutOfRangeException>("x", () => pixels.GetPixel(image.Width + 1, 0));
+            Assert.Throws<ArgumentOutOfRangeException>("x", () => pixels.GetPixel((int)image.Width + 1, 0));
         }
 
         [Fact]
@@ -26,7 +26,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentOutOfRangeException>("y", () => pixels.GetPixel(0, image.Height + 1));
+            Assert.Throws<ArgumentOutOfRangeException>("y", () => pixels.GetPixel(0, (int)image.Height + 1));
         }
 
         [Fact]

@@ -15,7 +15,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Equal(0, image.TotalColors);
+            Assert.Equal(0U, image.TotalColors);
         }
 
         [Fact]
@@ -23,7 +23,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Logo);
 
-            Assert.Equal(256, image.TotalColors);
+            Assert.Equal(256U, image.TotalColors);
         }
     }
 }

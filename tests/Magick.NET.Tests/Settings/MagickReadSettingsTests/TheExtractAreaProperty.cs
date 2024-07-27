@@ -28,8 +28,8 @@ public partial class MagickReadSettingsTests
             };
 
             using var image = new MagickImage(Files.Coders.GrimJP2, settings);
-            Assert.Equal(20, image.Width);
-            Assert.Equal(30, image.Height);
+            Assert.Equal(20U, image.Width);
+            Assert.Equal(30U, image.Height);
 
             using var area = new MagickImage(Files.Coders.GrimJP2);
             area.Crop(extractArea);

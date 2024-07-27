@@ -16,7 +16,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
             var values = pixels.ToArray();
-            var length = image.Width * image.Height * image.ChannelCount;
+            var length = (int)image.Width * image.Height * image.ChannelCount;
 
             Assert.Equal(length, values.Length);
         }

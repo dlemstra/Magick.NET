@@ -48,8 +48,8 @@ public partial class MagickImageCollectionTests
             using var montageResult = images.Montage(settings);
 
             Assert.NotNull(montageResult);
-            Assert.Equal(400, montageResult.Width);
-            Assert.Equal(1000, montageResult.Height);
+            Assert.Equal(400U, montageResult.Width);
+            Assert.Equal(1000U, montageResult.Height);
         }
     }
 }

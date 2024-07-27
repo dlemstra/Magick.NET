@@ -20,8 +20,8 @@ public partial class ExifProfileTests
 
             profile.RemoveThumbnail();
 
-            Assert.Equal(0, profile.ThumbnailLength);
-            Assert.Equal(0, profile.ThumbnailOffset);
+            Assert.Equal(0U, profile.ThumbnailLength);
+            Assert.Equal(0U, profile.ThumbnailOffset);
         }
     }
 }

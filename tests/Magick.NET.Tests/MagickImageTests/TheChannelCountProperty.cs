@@ -14,17 +14,17 @@ public partial class MagickImageTests
         public void ShouldReturnTheCorrectNumberOfChannelsForRgbaImage()
         {
             using var image = new MagickImage(Files.RoseSparkleGIF);
-            Assert.Equal(5, image.ChannelCount);
+            Assert.Equal(5U, image.ChannelCount);
         }
 
         [Fact]
         public void ShouldReturnTheCorrectChannelsForCmykaImage()
         {
             using var image = new MagickImage(Files.SnakewarePNG);
-            Assert.Equal(2, image.ChannelCount);
+            Assert.Equal(2U, image.ChannelCount);
 
             image.ColorSpace = ColorSpace.CMYK;
-            Assert.Equal(5, image.ChannelCount);
+            Assert.Equal(5U, image.ChannelCount);
         }
     }
 }

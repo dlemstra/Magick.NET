@@ -20,32 +20,6 @@ public partial class MagickImageTests
         }
 
         [Fact]
-        public void ShouldThrowExceptionWhenNumberColorsIsNegative()
-        {
-            var settings = new KmeansSettings
-            {
-                NumberColors = -1,
-            };
-
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenMaxIterationsIsNegative()
-        {
-            var settings = new KmeansSettings
-            {
-                MaxIterations = -1,
-            };
-
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("settings", () => image.Kmeans(settings));
-        }
-
-        [Fact]
         public void ShouldReduceTheNumberOfColors()
         {
             var settings = new KmeansSettings

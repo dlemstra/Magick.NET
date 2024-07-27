@@ -76,11 +76,11 @@ public partial class MagickImageCollectionTests
             Assert.Null(array[0]);
 
             Assert.NotNull(array[1]);
-            Assert.Equal(1, array[1].Width);
+            Assert.Equal(1U, array[1].Width);
             Assert.False(ReferenceEquals(array[1], images[0]));
 
             Assert.NotNull(array[2]);
-            Assert.Equal(2, array[2].Width);
+            Assert.Equal(2U, array[2].Width);
             Assert.False(ReferenceEquals(array[2], images[0]));
 
             Assert.Null(array[3]);

@@ -15,11 +15,11 @@ public partial class QuantizeSettingsTests
         {
             var settings = new QuantizeSettings();
 
-            Assert.Equal(256, settings.Colors);
+            Assert.Equal(256U, settings.Colors);
             Assert.Equal(ColorSpace.Undefined, settings.ColorSpace);
             Assert.Equal(DitherMethod.Riemersma, settings.DitherMethod);
             Assert.False(settings.MeasureErrors);
-            Assert.Equal(0, settings.TreeDepth);
+            Assert.Equal(0U, settings.TreeDepth);
         }
     }
 }

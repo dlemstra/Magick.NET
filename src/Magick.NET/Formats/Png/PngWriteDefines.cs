@@ -81,7 +81,7 @@ public sealed class PngWriteDefines : IWriteDefines
             if (ColorType.HasValue)
             {
                 var colorTypeValue = GetPngColorTypeValue(ColorType.Value);
-                yield return new MagickDefine(Format, "color-type", (int)colorTypeValue);
+                yield return new MagickDefine(Format, "color-type", colorTypeValue);
             }
 
             if (CompressionFilter.HasValue)

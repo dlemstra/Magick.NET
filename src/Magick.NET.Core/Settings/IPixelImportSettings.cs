@@ -11,12 +11,12 @@ public interface IPixelImportSettings
     /// <summary>
     /// Gets the height of the pixel area.
     /// </summary>
-    int Height { get; }
+    uint Height { get; }
 
     /// <summary>
     /// Gets the width of the pixel area.
     /// </summary>
-    int Width { get; }
+    uint Width { get; }
 
     /// <summary>
     /// Gets the X offset from origin.

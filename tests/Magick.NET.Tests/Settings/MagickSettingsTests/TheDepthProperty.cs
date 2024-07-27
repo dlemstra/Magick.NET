@@ -15,7 +15,7 @@ public partial class MagickSettingsTests
         {
             using var image = new MagickImage();
 
-            Assert.Equal(0, image.Settings.Depth);
+            Assert.Equal(0U, image.Settings.Depth);
         }
 
         [Fact]
@@ -28,7 +28,7 @@ public partial class MagickSettingsTests
 
             using var output = new MagickImage(bytes, MagickFormat.Tga);
 
-            Assert.Equal(5, output.Depth);
+            Assert.Equal(5U, output.Depth);
         }
     }
 }

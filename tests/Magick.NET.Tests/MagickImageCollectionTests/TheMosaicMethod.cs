@@ -16,20 +16,22 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection();
 
-            Assert.Throws<InvalidOperationException>(() => images.Mosaic());
+            Assert.Throws<InvalidOperationException>(images.Mosaic);
         }
 
         [Fact]
         public void ShouldMergeTheImages()
         {
-            using var images = new MagickImageCollection();
-            images.Add(Files.SnakewarePNG);
-            images.Add(Files.ImageMagickJPG);
+            using var images = new MagickImageCollection
+            {
+                Files.SnakewarePNG,
+                Files.ImageMagickJPG,
+            };
 
             using var mosaic = images.Mosaic();
 
-            Assert.Equal(286, mosaic.Width);
-            Assert.Equal(118, mosaic.Height);
+            Assert.Equal(286U, mosaic.Width);
+            Assert.Equal(118U, mosaic.Height);
         }
     }
 }

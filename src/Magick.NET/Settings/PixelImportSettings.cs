@@ -25,7 +25,7 @@ public sealed class PixelImportSettings : IPixelImportSettings
     /// <param name="height">The height.</param>
     /// <param name="storageType">The pixel storage type.</param>
     /// <param name="mapping">The mapping of the pixels.</param>
-    public PixelImportSettings(int width, int height, StorageType storageType, PixelMapping mapping)
+    public PixelImportSettings(uint width, uint height, StorageType storageType, PixelMapping mapping)
         : this(width, height, storageType, mapping.ToString())
     {
     }
@@ -37,7 +37,7 @@ public sealed class PixelImportSettings : IPixelImportSettings
     /// <param name="height">The height.</param>
     /// <param name="storageType">The pixel storage type.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-    public PixelImportSettings(int width, int height, StorageType storageType, string mapping)
+    public PixelImportSettings(uint width, uint height, StorageType storageType, string mapping)
         : this(0, 0, width, height, storageType, mapping)
     {
     }
@@ -51,7 +51,7 @@ public sealed class PixelImportSettings : IPixelImportSettings
     /// <param name="height">The height.</param>
     /// <param name="storageType">The pixel storage type.</param>
     /// <param name="mapping">The mapping of the pixels.</param>
-    public PixelImportSettings(int x, int y, int width, int height, StorageType storageType, PixelMapping mapping)
+    public PixelImportSettings(int x, int y, uint width, uint height, StorageType storageType, PixelMapping mapping)
         : this(x, y, width, height, storageType, mapping.ToString())
     {
     }
@@ -65,7 +65,7 @@ public sealed class PixelImportSettings : IPixelImportSettings
     /// <param name="height">The height.</param>
     /// <param name="storageType">The pixel storage type.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-    public PixelImportSettings(int x, int y, int width, int height, StorageType storageType, string mapping)
+    public PixelImportSettings(int x, int y, uint width, uint height, StorageType storageType, string mapping)
     {
         X = x;
         Y = y;
@@ -78,12 +78,12 @@ public sealed class PixelImportSettings : IPixelImportSettings
     /// <summary>
     /// Gets the height of the pixel area.
     /// </summary>
-    public int Height { get; }
+    public uint Height { get; }
 
     /// <summary>
     /// Gets the width of the pixel area.
     /// </summary>
-    public int Width { get; }
+    public uint Width { get; }
 
     /// <summary>
     /// Gets the X offset from origin.

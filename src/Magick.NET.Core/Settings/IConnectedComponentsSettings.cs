@@ -26,7 +26,7 @@ public interface IConnectedComponentsSettings
     /// <summary>
     /// Gets or sets how many neighbors to visit, choose from 4 or 8.
     /// </summary>
-    int Connectivity { get; set; }
+    uint Connectivity { get; set; }
 
     /// <summary>
     /// Gets or sets the threshold that merges any object not within the min and max diameter threshold.

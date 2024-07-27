@@ -38,7 +38,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
         Compression = instance.Compression_Get();
         Debug = instance.Debug_Get();
         Density = CreateDensity(instance.Density_Get());
-        Depth = (int)instance.Depth_Get();
+        Depth = (uint)instance.Depth_Get();
         Endian = instance.Endian_Get();
         Extract = MagickGeometry.FromString(instance.Extract_Get());
         _fontPointsize = instance.FontPointsize_Get();
@@ -107,7 +107,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <summary>
     /// Gets or sets the depth (bits allocated to red/green/blue components).
     /// </summary>
-    public int Depth { get; set; }
+    public uint Depth { get; set; }
 
     /// <summary>
     /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
@@ -294,10 +294,10 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// of the line stroking the path. The miterLimit' imposes a limit on the ratio of the miter
     /// length to the 'lineWidth'. The default value is 4.
     /// </summary>
-    public int StrokeMiterLimit
+    public uint StrokeMiterLimit
     {
-        get => (int)Drawing.StrokeMiterLimit;
-        set => Drawing.StrokeMiterLimit = (uint)value;
+        get => Drawing.StrokeMiterLimit;
+        set => Drawing.StrokeMiterLimit = value;
     }
 
     /// <summary>
@@ -427,7 +427,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
 
     internal bool Ping { get; set; }
 
-    internal int Quality { get; set; }
+    internal uint Quality { get; set; }
 
     /// <summary>
     /// Gets or sets the specified area to extract from the image.
@@ -437,7 +437,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <summary>
     /// Gets or sets the number of scenes.
     /// </summary>
-    protected int NumberScenes { get; set; }
+    protected uint NumberScenes { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether a monochrome reader should be used.
@@ -452,7 +452,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <summary>
     /// Gets or sets the active scene.
     /// </summary>
-    protected int Scene { get; set; }
+    protected uint Scene { get; set; }
 
     /// <summary>
     /// Gets or sets scenes of the image.
@@ -690,7 +690,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
         result.Compression_Set(settings.Compression);
         result.Debug_Set(settings.Debug);
         result.Density_Set(settings.Density?.ToString(DensityUnit.Undefined));
-        result.Depth_Set((uint)settings.Depth);
+        result.Depth_Set(settings.Depth);
         result.Endian_Set(settings.Endian);
         result.Extract_Set(settings.Extract?.ToString());
         result.FontPointsize_Set(settings._fontPointsize);
@@ -702,11 +702,11 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
         result.SetColorFuzz(settings.ColorFuzz);
         result.SetFileName(fileName);
         result.SetFont(settings.Font);
-        result.SetNumberScenes((uint)settings.NumberScenes);
+        result.SetNumberScenes(settings.NumberScenes);
         result.SetPage(settings.Page?.ToString());
         result.SetPing(settings.Ping);
-        result.SetQuality((uint)settings.Quality);
-        result.SetScene((uint)settings.Scene);
+        result.SetQuality(settings.Quality);
+        result.SetScene(settings.Scene);
         result.SetScenes(settings.Scenes);
         result.SetSize(settings.Size);
 

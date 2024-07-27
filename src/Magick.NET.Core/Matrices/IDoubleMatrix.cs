@@ -11,7 +11,7 @@ public interface IDoubleMatrix
     /// <summary>
     /// Gets the order of the matrix.
     /// </summary>
-    int Order { get; }
+    uint Order { get; }
 
     /// <summary>
     /// Get or set the value at the specified x/y position.

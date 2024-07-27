@@ -65,12 +65,12 @@ public static partial class IMagickImageExtentions
             }
 
             var step = format.BitsPerPixel / 8;
-            var stride = image.Width * step;
+            var stride = (int)image.Width * step;
 
             using var pixels = image.GetPixelsUnsafe();
             var bytes = pixels.ToByteArray(mapping);
             var dpi = GetDefaultDensity(image, useDensity ? DensityUnit.PixelsPerInch : DensityUnit.Undefined);
-            return BitmapSource.Create(image.Width, image.Height, dpi.X, dpi.Y, format, null, bytes, stride);
+            return BitmapSource.Create((int)image.Width, (int)image.Height, dpi.X, dpi.Y, format, null, bytes, stride);
         }
         finally
         {

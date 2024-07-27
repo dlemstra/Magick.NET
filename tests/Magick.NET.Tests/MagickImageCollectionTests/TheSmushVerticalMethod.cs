@@ -27,8 +27,8 @@ public partial class MagickImageCollectionTests
 
             using var image = images.SmushVertical(40);
 
-            Assert.Equal(70, image.Width);
-            Assert.Equal((46 * 3) + (40 * 2), image.Height);
+            Assert.Equal(70U, image.Width);
+            Assert.Equal((46U * 3U) + (40U * 2U), image.Height);
         }
     }
 }

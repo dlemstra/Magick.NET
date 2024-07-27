@@ -34,9 +34,9 @@ public partial class MagickImageTests
             var halfAlphaRed = new MagickColor("#FF000080");
 
             Assert.Equal(3, histogram.Count);
-            Assert.Equal(50000, histogram[red]);
-            Assert.Equal(30000, histogram[alphaRed]);
-            Assert.Equal(40000, histogram[halfAlphaRed]);
+            Assert.Equal(50000U, histogram[red]);
+            Assert.Equal(30000U, histogram[alphaRed]);
+            Assert.Equal(40000U, histogram[halfAlphaRed]);
         }
     }
 }

@@ -47,11 +47,11 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     /// <param name="file">The jpeg file to compress.</param>
     /// <param name="quality">The jpeg quality.</param>
     /// <returns>True when the image could be compressed otherwise false.</returns>
-    public bool Compress(FileInfo file, int quality)
+    public bool Compress(FileInfo file, uint quality)
     {
         Throw.IfNull(nameof(file), file);
 
-        return DoCompress(file, false, (uint)quality);
+        return DoCompress(file, false, quality);
     }
 
     /// <summary>
@@ -72,12 +72,12 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     /// <param name="fileName">The file name of the jpeg image to compress.</param>
     /// <param name="quality">The jpeg quality.</param>
     /// <returns>True when the image could be compressed otherwise false.</returns>
-    public bool Compress(string fileName, int quality)
+    public bool Compress(string fileName, uint quality)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
         Throw.IfNullOrEmpty(nameof(fileName), filePath);
 
-        return DoCompress(new FileInfo(fileName), false, (uint)quality);
+        return DoCompress(new FileInfo(fileName), false, quality);
     }
 
     /// <summary>
@@ -98,8 +98,8 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     /// <param name="stream">The stream of the jpeg image to compress.</param>
     /// <param name="quality">The jpeg quality.</param>
     /// <returns>True when the image could be compressed otherwise false.</returns>
-    public bool Compress(Stream stream, int quality)
-        => DoCompress(stream, false, (uint)quality);
+    public bool Compress(Stream stream, uint quality)
+        => DoCompress(stream, false, quality);
 
     /// <summary>
     /// Performs lossless compression on the specified file. If the new file size is not smaller

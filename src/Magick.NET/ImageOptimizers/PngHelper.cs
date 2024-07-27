@@ -25,7 +25,7 @@ internal sealed class PngHelper
         _optimalCompression = optimizer.OptimalCompression;
     }
 
-    public TemporaryFile? FindBestFileQuality(IMagickImage<QuantumType> image, out int bestQuality)
+    public TemporaryFile? FindBestFileQuality(IMagickImage<QuantumType> image, out uint bestQuality)
     {
         bestQuality = 0;
 
@@ -64,7 +64,7 @@ internal sealed class PngHelper
         return bestFile;
     }
 
-    public MemoryStream? FindBestStreamQuality(IMagickImage<QuantumType> image, out int bestQuality)
+    public MemoryStream? FindBestStreamQuality(IMagickImage<QuantumType> image, out uint bestQuality)
     {
         bestQuality = 0;
 
@@ -110,11 +110,11 @@ internal sealed class PngHelper
             image.HasAlpha = false;
     }
 
-    private int[] GetQualityList()
+    private uint[] GetQualityList()
     {
         if (_optimalCompression)
-            return new[] { 91, 94, 95, 97 };
+            return [91, 94, 95, 97];
         else
-            return new[] { 90 };
+            return [90];
     }
 }

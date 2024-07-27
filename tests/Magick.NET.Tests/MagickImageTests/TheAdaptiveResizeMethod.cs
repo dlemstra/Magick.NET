@@ -12,26 +12,12 @@ public partial class MagickImageTests
     public class TheAdaptiveResizeMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenWidthIsNegative()
-        {
-            using var image = new MagickImage(Files.MagickNETIconPNG);
-            Assert.Throws<ArgumentException>("width", () => image.AdaptiveResize(-1, 512));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenHeightIsNegative()
-        {
-            using var image = new MagickImage(Files.MagickNETIconPNG);
-            Assert.Throws<ArgumentException>("height", () => image.AdaptiveResize(512, -1));
-        }
-
-        [Fact]
         public void ShouldNotEnlargeTheImage()
         {
             using var image = new MagickImage(MagickColors.Black, 512, 1);
             image.AdaptiveResize(512, 512);
 
-            Assert.Equal(1, image.Height);
+            Assert.Equal(1U, image.Height);
         }
 
         [Fact]
@@ -45,7 +31,7 @@ public partial class MagickImageTests
 
             image.AdaptiveResize(geometry);
 
-            Assert.Equal(512, image.Height);
+            Assert.Equal(512U, image.Height);
         }
 
         [Fact]
@@ -54,8 +40,8 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.MagickNETIconPNG);
             image.AdaptiveResize(100, 80);
 
-            Assert.Equal(80, image.Width);
-            Assert.Equal(80, image.Height);
+            Assert.Equal(80U, image.Width);
+            Assert.Equal(80U, image.Height);
 
             ColorAssert.Equal(new MagickColor("#347bbd"), image, 23, 42);
             ColorAssert.Equal(new MagickColor("#a8dff8"), image, 42, 42);

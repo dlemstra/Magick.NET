@@ -22,8 +22,8 @@ internal partial class MagickRectangle
         var nativeInstance = NativeMagickRectangle.Create();
         nativeInstance.X_Set(X);
         nativeInstance.Y_Set(Y);
-        nativeInstance.Width_Set((uint)Width);
-        nativeInstance.Height_Set((uint)Height);
+        nativeInstance.Width_Set(Width);
+        nativeInstance.Height_Set(Height);
 
         return nativeInstance;
     }

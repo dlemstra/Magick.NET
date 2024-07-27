@@ -18,8 +18,8 @@ public partial class MagickImageTests
 
             Assert.Equal(300, image.Density.X);
             Assert.Equal(300, image.Density.Y);
-            Assert.NotEqual(100, image.Width);
-            Assert.NotEqual(100, image.Height);
+            Assert.NotEqual(100U, image.Width);
+            Assert.NotEqual(100U, image.Height);
         }
 
         [Fact]
@@ -30,8 +30,8 @@ public partial class MagickImageTests
 
             Assert.Equal(300, image.Density.X);
             Assert.Equal(150, image.Density.Y);
-            Assert.NotEqual(100, image.Width);
-            Assert.NotEqual(100, image.Height);
+            Assert.NotEqual(100U, image.Width);
+            Assert.NotEqual(100U, image.Height);
         }
     }
 }

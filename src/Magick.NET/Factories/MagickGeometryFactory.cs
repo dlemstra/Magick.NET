@@ -20,7 +20,7 @@ public sealed class MagickGeometryFactory : IMagickGeometryFactory
     /// </summary>
     /// <param name="widthAndHeight">The width and height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
-    public IMagickGeometry Create(int widthAndHeight)
+    public IMagickGeometry Create(uint widthAndHeight)
         => new MagickGeometry(widthAndHeight);
 
     /// <summary>
@@ -29,7 +29,7 @@ public sealed class MagickGeometryFactory : IMagickGeometryFactory
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
-    public IMagickGeometry Create(int width, int height)
+    public IMagickGeometry Create(uint width, uint height)
         => new MagickGeometry(width, height);
 
     /// <summary>
@@ -40,7 +40,7 @@ public sealed class MagickGeometryFactory : IMagickGeometryFactory
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
-    public IMagickGeometry Create(int x, int y, int width, int height)
+    public IMagickGeometry Create(int x, int y, uint width, uint height)
         => new MagickGeometry(x, y, width, height);
 
     /// <summary>

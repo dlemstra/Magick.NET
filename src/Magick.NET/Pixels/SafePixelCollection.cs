@@ -29,7 +29,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
         return base.GetArea(geometry);
     }
 
-    public override QuantumType[]? GetArea(int x, int y, int width, int height)
+    public override QuantumType[]? GetArea(int x, int y, uint width, uint height)
     {
         CheckArea(x, y, width, height);
 
@@ -50,7 +50,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
         return base.GetValue(x, y);
     }
 
-    public override void SetArea(int x, int y, int width, int height, QuantumType[] values)
+    public override void SetArea(int x, int y, uint width, uint height, QuantumType[] values)
     {
         CheckValues(x, y, width, height, values);
         base.SetArea(x, y, width, height, values);
@@ -63,7 +63,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
         base.SetArea(geometry, values);
     }
 
-    public override void SetByteArea(int x, int y, int width, int height, byte[] values)
+    public override void SetByteArea(int x, int y, uint width, uint height, byte[] values)
     {
         CheckValues(x, y, width, height, values);
         base.SetByteArea(x, y, width, height, values);
@@ -82,7 +82,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
         base.SetBytePixels(values);
     }
 
-    public override void SetDoubleArea(int x, int y, int width, int height, double[] values)
+    public override void SetDoubleArea(int x, int y, uint width, uint height, double[] values)
     {
         CheckValues(x, y, width, height, values);
         base.SetDoubleArea(x, y, width, height, values);
@@ -101,7 +101,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
         base.SetDoublePixels(values);
     }
 
-    public override void SetIntArea(int x, int y, int width, int height, int[] values)
+    public override void SetIntArea(int x, int y, uint width, uint height, int[] values)
     {
         CheckValues(x, y, width, height, values);
         base.SetIntArea(x, y, width, height, values);
@@ -161,7 +161,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
         return base.ToByteArray(geometry, mapping.ToString());
     }
 
-    public override byte[]? ToByteArray(int x, int y, int width, int height, string mapping)
+    public override byte[]? ToByteArray(int x, int y, uint width, uint height, string mapping)
     {
         Throw.IfNullOrEmpty(nameof(mapping), mapping);
 
@@ -176,7 +176,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
         return base.ToShortArray(geometry, mapping);
     }
 
-    public override ushort[]? ToShortArray(int x, int y, int width, int height, string mapping)
+    public override ushort[]? ToShortArray(int x, int y, uint width, uint height, string mapping)
     {
         Throw.IfNullOrEmpty(nameof(mapping), mapping);
 
@@ -184,17 +184,17 @@ internal sealed partial class SafePixelCollection : PixelCollection
         return base.ToShortArray(x, y, width, height, mapping);
     }
 
-    private void CheckArea(int x, int y, int width, int height)
+    private void CheckArea(int x, int y, uint width, uint height)
     {
         CheckIndex(x, y);
-        Throw.IfOutOfRange(nameof(width), 1, Image.Width - x, width, "Invalid width: {0}.", width);
-        Throw.IfOutOfRange(nameof(height), 1, Image.Height - y, height, "Invalid height: {0}.", height);
+        Throw.IfOutOfRange(nameof(width), 1, (int)Image.Width - x, (int)width, "Invalid width: {0}.", width);
+        Throw.IfOutOfRange(nameof(height), 1, (int)Image.Height - y, (int)height, "Invalid height: {0}.", height);
     }
 
     private void CheckIndex(int x, int y)
     {
-        Throw.IfOutOfRange(nameof(x), 0, Image.Width - 1, x, "Invalid X coordinate: {0}.", x);
-        Throw.IfOutOfRange(nameof(y), 0, Image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
+        Throw.IfOutOfRange(nameof(x), 0, (int)Image.Width - 1, x, "Invalid X coordinate: {0}.", x);
+        Throw.IfOutOfRange(nameof(y), 0, (int)Image.Height - 1, y, "Invalid Y coordinate: {0}.", y);
     }
 
     private void CheckValues<T>(T[] values)
@@ -203,7 +203,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
     private void CheckValues<T>(int x, int y, T[] values)
         => CheckValues(x, y, Image.Width, Image.Height, values);
 
-    private void CheckValues<T>(int x, int y, int width, int height, T[] values)
+    private void CheckValues<T>(int x, int y, uint width, uint height, T[] values)
     {
         CheckIndex(x, y);
         Throw.IfNullOrEmpty(nameof(values), values);
@@ -213,7 +213,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
         var max = width * height * Channels;
         Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
 
-        length = (x * y * Channels) + length;
+        length = (x * y * (int)Channels) + length;
         max = Image.Width * Image.Height * Channels;
         Throw.IfTrue(nameof(values), length > max, "Too many values specified.");
     }

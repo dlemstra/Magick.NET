@@ -50,14 +50,14 @@ public partial class JpegOptimizerTests
                 optimizer.Compress(tempFile.File);
 
                 var info = new MagickImageInfo(tempFile.File);
-                Assert.Equal(85, info.Quality);
+                Assert.Equal(85U, info.Quality);
 
                 FileHelper.Copy(Files.ImageMagickJPG, tempFile.File.FullName);
 
                 optimizer.Compress(tempFile.File, 40);
 
                 info = new MagickImageInfo(tempFile.File);
-                Assert.Equal(40, info.Quality);
+                Assert.Equal(40U, info.Quality);
             }
 
             [Fact]

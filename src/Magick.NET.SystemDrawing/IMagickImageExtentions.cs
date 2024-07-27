@@ -104,10 +104,10 @@ public static partial class IMagickImageExtentions
             using var pixels = image.GetPixelsUnsafe();
             var mapping = GetMapping(format);
 
-            var bitmap = new Bitmap(image.Width, image.Height, format);
+            var bitmap = new Bitmap((int)image.Width, (int)image.Height, format);
             for (var y = 0; y < image.Height; y++)
             {
-                var row = new Rectangle(0, y, image.Width, 1);
+                var row = new Rectangle(0, y, (int)image.Width, 1);
                 var data = bitmap.LockBits(row, ImageLockMode.WriteOnly, format);
                 var destination = data.Scan0;
 

@@ -19,7 +19,7 @@ namespace ImageMagick;
 
 internal abstract partial class PixelCollection
 {
-    public virtual unsafe ReadOnlySpan<QuantumType> GetReadOnlyArea(int x, int y, int width, int height)
+    public virtual unsafe ReadOnlySpan<QuantumType> GetReadOnlyArea(int x, int y, uint width, uint height)
     {
         var area = GetAreaPointer(x, y, width, height);
         if (area == IntPtr.Zero)
@@ -27,7 +27,7 @@ internal abstract partial class PixelCollection
             return default;
         }
 
-        var length = width * height * Image.ChannelCount;
+        var length = (int)(width * height * Image.ChannelCount);
 
 #if Q8
         return new ReadOnlySpan<QuantumType>((byte*)area, length);
@@ -43,8 +43,8 @@ internal abstract partial class PixelCollection
     public virtual ReadOnlySpan<QuantumType> GetReadOnlyArea(IMagickGeometry geometry)
         => GetReadOnlyArea(geometry.X, geometry.Y, geometry.Width, geometry.Height);
 
-    public virtual void SetArea(int x, int y, int width, int height, ReadOnlySpan<QuantumType> values)
-        => SetAreaUnchecked(x, y, (uint)width, (uint)height, values);
+    public virtual void SetArea(int x, int y, uint width, uint height, ReadOnlySpan<QuantumType> values)
+        => SetAreaUnchecked(x, y, width, height, values);
 
     public virtual void SetArea(IMagickGeometry geometry, ReadOnlySpan<QuantumType> values)
         => SetArea(geometry.X, geometry.Y, geometry.Width, geometry.Height, values);
@@ -53,7 +53,7 @@ internal abstract partial class PixelCollection
         => SetPixelUnchecked(x, y, value);
 
     public virtual void SetPixels(ReadOnlySpan<QuantumType> values)
-        => SetAreaUnchecked(0, 0, (uint)Image.Width, (uint)Image.Height, values);
+        => SetAreaUnchecked(0, 0, Image.Width, Image.Height, values);
 
     private void SetPixelUnchecked(int x, int y, ReadOnlySpan<QuantumType> value)
         => SetAreaUnchecked(x, y, 1, 1, value);

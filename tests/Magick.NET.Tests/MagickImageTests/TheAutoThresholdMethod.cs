@@ -19,8 +19,8 @@ public partial class MagickImageTests
             var colors = image.Histogram();
 
             Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
-            Assert.Equal(236359, colors[MagickColors.Black]);
-            Assert.Equal(3641, colors[MagickColors.White]);
+            Assert.Equal(236359U, colors[MagickColors.Black]);
+            Assert.Equal(3641U, colors[MagickColors.White]);
         }
 
         [Fact]
@@ -32,8 +32,8 @@ public partial class MagickImageTests
             var colors = image.Histogram();
 
             Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
-            Assert.Equal(67844, colors[MagickColors.Black]);
-            Assert.Equal(172156, colors[MagickColors.White]);
+            Assert.Equal(67844U, colors[MagickColors.Black]);
+            Assert.Equal(172156U, colors[MagickColors.White]);
         }
 
         [Fact]
@@ -45,8 +45,8 @@ public partial class MagickImageTests
             var colors = image.Histogram();
 
             Assert.Equal(ColorType.Bilevel, image.DetermineColorType());
-            Assert.Equal(210553, colors[MagickColors.Black]);
-            Assert.Equal(29447, colors[MagickColors.White]);
+            Assert.Equal(210553U, colors[MagickColors.Black]);
+            Assert.Equal(29447U, colors[MagickColors.White]);
         }
     }
 }

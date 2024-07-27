@@ -54,7 +54,7 @@ public sealed partial class MagickImageInfoFactory : IMagickImageInfoFactory<Qua
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickImageInfo Create(byte[] data, int offset, int count)
+    public IMagickImageInfo Create(byte[] data, uint offset, uint count)
         => Create(data, offset, count, null);
 
     /// <summary>
@@ -66,7 +66,7 @@ public sealed partial class MagickImageInfoFactory : IMagickImageInfoFactory<Qua
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickImageInfo Create(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
+    public IMagickImageInfo Create(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
         => new MagickImageInfo(data, offset, count, readSettings);
 
     /// <summary>

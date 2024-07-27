@@ -16,17 +16,7 @@ public partial class MagickImageTests
             using var image = new MagickImage();
             image.AnimationDelay = 60;
 
-            Assert.Equal(60, image.AnimationDelay);
-        }
-
-        [Fact]
-        public void ShouldNotAllowNegativeValue()
-        {
-            using var image = new MagickImage();
-            image.AnimationDelay = 60;
-            image.AnimationDelay = -1;
-
-            Assert.Equal(60, image.AnimationDelay);
+            Assert.Equal(60U, image.AnimationDelay);
         }
 
         [Fact]
@@ -36,7 +26,7 @@ public partial class MagickImageTests
             image.AnimationDelay = 60;
             image.AnimationDelay = 0;
 
-            Assert.Equal(0, image.AnimationDelay);
+            Assert.Equal(0U, image.AnimationDelay);
         }
     }
 }

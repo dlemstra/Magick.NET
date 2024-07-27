@@ -67,12 +67,6 @@ internal static partial class Throw
             throw new ArgumentException("Value cannot be empty.", paramName);
     }
 
-    public static void IfNegative(string paramName, int value)
-    {
-        if (value < 0)
-            throw new ArgumentException("Value should not be negative.", paramName);
-    }
-
     public static void IfNegative(string paramName, double value)
     {
         if (value < 0.0)
@@ -85,7 +79,7 @@ internal static partial class Throw
             throw new ArgumentException("Value should not be negative.", paramName);
     }
 
-    public static void IfOutOfRange(string paramName, int index, int length)
+    public static void IfOutOfRange(string paramName, int index, uint length)
     {
         if (index < 0 || index >= length)
             throw new ArgumentOutOfRangeException(paramName);
@@ -118,6 +112,12 @@ internal static partial class Throw
     {
         if (condition)
             throw new ArgumentException(message, paramName);
+    }
+
+    public static void IfTrue<T0>(string paramName, bool condition, string message, T0 arg0)
+    {
+        if (condition)
+            throw new ArgumentException(FormatMessage(message, arg0), paramName);
     }
 
     public static void IfTrue<T0, T1>(string paramName, bool condition, string message, T0 arg0, T1 arg1)

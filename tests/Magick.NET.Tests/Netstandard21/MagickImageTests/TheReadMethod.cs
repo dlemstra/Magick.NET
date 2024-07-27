@@ -33,8 +33,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.Read(new ReadOnlySequence<byte>(bytes));
 
-                Assert.Equal(286, image.Width);
-                Assert.Equal(67, image.Height);
+                Assert.Equal(286U, image.Width);
+                Assert.Equal(67U, image.Height);
             }
         }
 
@@ -77,8 +77,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.Read(sequence);
 
-                Assert.Equal(286, image.Width);
-                Assert.Equal(67, image.Height);
+                Assert.Equal(286U, image.Width);
+                Assert.Equal(67U, image.Height);
             }
         }
 
@@ -148,8 +148,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.Read(new Span<byte>(bytes));
 
-                Assert.Equal(286, image.Width);
-                Assert.Equal(67, image.Height);
+                Assert.Equal(286U, image.Width);
+                Assert.Equal(67U, image.Height);
             }
         }
 

@@ -103,25 +103,25 @@ public partial class MagickImageTests
                 image.Alpha(AlphaOption.On);
                 image.ImportPixels(data, settings);
 
-                Assert.Equal(2, image.Width);
-                Assert.Equal(2, image.Height);
+                Assert.Equal(2U, image.Width);
+                Assert.Equal(2U, image.Height);
 
                 using var pixels = image.GetPixels();
                 var pixel = pixels.GetPixel(0, 0);
 
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.Black);
 
                 pixel = pixels.GetPixel(0, 1);
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(new MagickColor("#00ff0000"));
 
                 pixel = pixels.GetPixel(1, 0);
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.Green);
 
                 pixel = pixels.GetPixel(1, 1);
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.Green);
             }
         }
@@ -191,25 +191,25 @@ public partial class MagickImageTests
                 image.Alpha(AlphaOption.On);
                 image.ImportPixels(new Span<QuantumType>(data), settings);
 
-                Assert.Equal(2, image.Width);
-                Assert.Equal(2, image.Height);
+                Assert.Equal(2U, image.Width);
+                Assert.Equal(2U, image.Height);
 
                 using var pixels = image.GetPixels();
                 var pixel = pixels.GetPixel(0, 0);
 
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.Black);
 
                 pixel = pixels.GetPixel(0, 1);
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(new MagickColor("#00ff0000"));
 
                 pixel = pixels.GetPixel(1, 0);
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.Green);
 
                 pixel = pixels.GetPixel(1, 1);
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.Green);
             }
         }

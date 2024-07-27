@@ -25,8 +25,8 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.Builtin.Wizard);
             image.Chop(new MagickGeometry(new Percentage(50), new Percentage(50)));
 
-            Assert.Equal(240, image.Width);
-            Assert.Equal(320, image.Height);
+            Assert.Equal(240U, image.Width);
+            Assert.Equal(320U, image.Height);
         }
     }
 }

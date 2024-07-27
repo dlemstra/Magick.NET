@@ -27,8 +27,8 @@ public partial class MagickImageFactoryTests
             using var bitmap = new Bitmap(Files.SnakewarePNG);
             using var image = factory.Create(bitmap);
 
-            Assert.Equal(286, image.Width);
-            Assert.Equal(67, image.Height);
+            Assert.Equal(286U, image.Width);
+            Assert.Equal(67U, image.Height);
             Assert.Equal(MagickFormat.Png, image.Format);
         }
     }

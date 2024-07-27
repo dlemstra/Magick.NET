@@ -15,11 +15,11 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.RoseSparkleGIF);
 
-            Assert.Equal(8, image.DetermineBitDepth());
+            Assert.Equal(8U, image.DetermineBitDepth());
 
             image.Threshold((Percentage)50);
 
-            Assert.Equal(1, image.DetermineBitDepth());
+            Assert.Equal(1U, image.DetermineBitDepth());
         }
 
         [Fact]
@@ -27,7 +27,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.RoseSparkleGIF);
 
-            Assert.Equal(1, image.DetermineBitDepth(Channels.Alpha));
+            Assert.Equal(1U, image.DetermineBitDepth(Channels.Alpha));
         }
     }
 }

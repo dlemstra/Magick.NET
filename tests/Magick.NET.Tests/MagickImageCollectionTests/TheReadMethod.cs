@@ -67,27 +67,11 @@ public partial class MagickImageCollectionTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNegative()
-            {
-                using var images = new MagickImageCollection();
-
-                Assert.Throws<ArgumentException>("offset", () => images.Read(new byte[] { 215 }, -1, 0));
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 using var images = new MagickImageCollection();
 
                 Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, 0));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCountIsNegative()
-            {
-                using var images = new MagickImageCollection();
-
-                Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, -1));
             }
 
             [Fact]
@@ -98,7 +82,7 @@ public partial class MagickImageCollectionTests
                 var bytes = new byte[fileBytes.Length + 10];
                 fileBytes.CopyTo(bytes, 10);
 
-                images.Read(bytes, 10, bytes.Length - 10);
+                images.Read(bytes, 10, (uint)bytes.Length - 10);
                 Assert.Single(images);
             }
         }
@@ -122,27 +106,11 @@ public partial class MagickImageCollectionTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNegative()
-            {
-                using var images = new MagickImageCollection();
-
-                Assert.Throws<ArgumentException>("offset", () => images.Read(new byte[] { 215 }, -1, 0, MagickFormat.Png));
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 using var images = new MagickImageCollection();
 
                 Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, 0, MagickFormat.Png));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCountIsNegative()
-            {
-                using var images = new MagickImageCollection();
-
-                Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, -1, MagickFormat.Png));
             }
 
             [Fact]
@@ -153,7 +121,7 @@ public partial class MagickImageCollectionTests
                 fileBytes.CopyTo(bytes, 10);
 
                 using var images = new MagickImageCollection();
-                images.Read(bytes, 10, bytes.Length - 10, MagickFormat.Png);
+                images.Read(bytes, 10, (uint)bytes.Length - 10, MagickFormat.Png);
 
                 Assert.Single(images);
             }
@@ -180,30 +148,12 @@ public partial class MagickImageCollectionTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNegative()
-            {
-                var settings = new MagickReadSettings();
-                using var images = new MagickImageCollection();
-
-                Assert.Throws<ArgumentException>("offset", () => images.Read(new byte[] { 215 }, -1, 0, settings));
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
                 Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, 0, settings));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCountIsNegative()
-            {
-                var settings = new MagickReadSettings();
-                using var images = new MagickImageCollection();
-
-                Assert.Throws<ArgumentException>("count", () => images.Read(new byte[] { 215 }, 0, -1, settings));
             }
 
             [Fact]
@@ -216,7 +166,7 @@ public partial class MagickImageCollectionTests
                 fileBytes.CopyTo(bytes, 10);
 
                 using var images = new MagickImageCollection();
-                images.Read(bytes, 10, bytes.Length - 10, settings);
+                images.Read(bytes, 10, (uint)bytes.Length - 10, settings);
 
                 Assert.Single(images);
             }
@@ -226,7 +176,7 @@ public partial class MagickImageCollectionTests
             {
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
                 using var image = new MagickImageCollection();
-                image.Read(bytes, 0, bytes.Length, null);
+                image.Read(bytes, 0, (uint)bytes.Length, null);
             }
         }
 

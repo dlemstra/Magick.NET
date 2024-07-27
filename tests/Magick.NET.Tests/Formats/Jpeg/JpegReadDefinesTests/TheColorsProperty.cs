@@ -42,7 +42,7 @@ public partial class JpegReadDefinesTests
             using var image = new MagickImage();
             image.Read(Files.ImageMagickJPG, settings);
 
-            Assert.InRange(image.TotalColors, 99, 100);
+            Assert.InRange(image.TotalColors, 99U, 100U);
         }
     }
 }

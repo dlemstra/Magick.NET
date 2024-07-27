@@ -14,20 +14,6 @@ public partial class MagickImageTests
         public class WithWidthAndHeight
         {
             [Fact]
-            public void ShouldThrowExceptionWhenWidthIsNegative()
-            {
-                using var image = new MagickImage(Files.MagickNETIconPNG);
-                Assert.Throws<ArgumentException>("width", () => image.Frame(-1, 100));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenHeightIsNegative()
-            {
-                using var image = new MagickImage(Files.MagickNETIconPNG);
-                Assert.Throws<ArgumentException>("height", () => image.Frame(100, -1));
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenFrameIsLessThanImageSize()
             {
                 using var image = new MagickImage(Files.MagickNETIconPNG);
@@ -39,7 +25,7 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldFrameTheImage()
             {
-                var frameSize = 100;
+                var frameSize = 100U;
 
                 using var image = new MagickImage(Files.MagickNETIconPNG);
                 var expectedWidth = frameSize + image.Width + frameSize;
@@ -54,23 +40,9 @@ public partial class MagickImageTests
         public class WithWidthAndHeightAndBevel
         {
             [Fact]
-            public void ShouldThrowExceptionWhenWidthIsNegative()
-            {
-                using var image = new MagickImage(Files.MagickNETIconPNG);
-                Assert.Throws<ArgumentException>("width", () => image.Frame(-1, 100, 6, 6));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenHeightIsNegative()
-            {
-                using var image = new MagickImage(Files.MagickNETIconPNG);
-                Assert.Throws<ArgumentException>("height", () => image.Frame(100, -1, 6, 6));
-            }
-
-            [Fact]
             public void ShouldNotMakeImageLarger()
             {
-                var frameSize = 100;
+                var frameSize = 100U;
 
                 using var image = new MagickImage(Files.MagickNETIconPNG);
                 var expectedWidth = frameSize + image.Width + frameSize;

@@ -15,15 +15,15 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
 
-            Assert.Equal(600, image.Width);
-            Assert.Equal(400, image.Height);
+            Assert.Equal(600U, image.Width);
+            Assert.Equal(400U, image.Height);
             Assert.Equal(OrientationType.TopLeft, image.Orientation);
 
             image.Orientation = OrientationType.RightTop;
             image.AutoOrient();
 
-            Assert.Equal(400, image.Width);
-            Assert.Equal(600, image.Height);
+            Assert.Equal(400U, image.Width);
+            Assert.Equal(600U, image.Height);
             Assert.Equal(OrientationType.TopLeft, image.Orientation);
         }
     }

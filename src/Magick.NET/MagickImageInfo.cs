@@ -55,7 +55,7 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImageInfo(byte[] data, int offset, int count)
+    public MagickImageInfo(byte[] data, uint offset, uint count)
         : this(data, offset, count, null)
     {
     }
@@ -68,7 +68,7 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImageInfo(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
+    public MagickImageInfo(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
         : this()
         => Read(data, offset, count, readSettings);
 
@@ -160,7 +160,7 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <summary>
     /// Gets the height of the image.
     /// </summary>
-    public int Height { get; private set; }
+    public uint Height { get; private set; }
 
     /// <summary>
     /// Gets the type of interlacing.
@@ -175,12 +175,12 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <summary>
     /// Gets the JPEG/MIFF/PNG compression level.
     /// </summary>
-    public int Quality { get; private set; }
+    public uint Quality { get; private set; }
 
     /// <summary>
     /// Gets the width of the image.
     /// </summary>
-    public int Width { get; private set; }
+    public uint Width { get; private set; }
 
     /// <summary>
     /// Read basic information about an image with multiple frames/pages.
@@ -219,7 +219,7 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, int offset, int count)
+    public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, uint offset, uint count)
         => ReadCollection(data, offset, count, null);
 
     /// <summary>
@@ -231,7 +231,7 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
+    public static IEnumerable<IMagickImageInfo> ReadCollection(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var images = new MagickImageCollection();
         images.Ping(data, offset, count, readSettings);
@@ -352,7 +352,7 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Read(byte[] data, int offset, int count)
+    public void Read(byte[] data, uint offset, uint count)
         => Read(data, offset, count, null);
 
     /// <summary>
@@ -363,7 +363,7 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Read(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
+    public void Read(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
     {
         using var image = new MagickImage();
         image.Ping(data, offset, count, readSettings);

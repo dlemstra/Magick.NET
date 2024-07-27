@@ -23,6 +23,6 @@ public class TheGifCoder
         images.Write(tempFile.File);
 
         images.Read(tempFile.File);
-        Assert.Equal(1, images[0].AnimationIterations);
+        Assert.Equal(1U, images[0].AnimationIterations);
     }
 }

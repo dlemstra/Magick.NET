@@ -47,7 +47,7 @@ public sealed partial class MagickImageFactory : IMagickImageFactory<QuantumType
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <returns>A new <see cref="IMagickImage{QuantumType}"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickImage<QuantumType> Create(byte[] data, int offset, int count)
+    public IMagickImage<QuantumType> Create(byte[] data, uint offset, uint count)
         => new MagickImage(data, offset, count);
 
     /// <summary>
@@ -59,7 +59,7 @@ public sealed partial class MagickImageFactory : IMagickImageFactory<QuantumType
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickImage<QuantumType> Create(byte[] data, int offset, int count, IMagickReadSettings<QuantumType> readSettings)
+    public IMagickImage<QuantumType> Create(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType> readSettings)
         => new MagickImage(data, offset, count, readSettings);
 
     /// <summary>
@@ -98,7 +98,7 @@ public sealed partial class MagickImageFactory : IMagickImageFactory<QuantumType
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
-    public IMagickImage<QuantumType> Create(IMagickColor<QuantumType> color, int width, int height)
+    public IMagickImage<QuantumType> Create(IMagickColor<QuantumType> color, uint width, uint height)
         => new MagickImage(color, width, height);
 
     /// <summary>
@@ -137,7 +137,7 @@ public sealed partial class MagickImageFactory : IMagickImageFactory<QuantumType
     /// <param name="height">The height.</param>
     /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickImage<QuantumType> Create(string fileName, int width, int height)
+    public IMagickImage<QuantumType> Create(string fileName, uint width, uint height)
         => new MagickImage(fileName, width, height);
 
     /// <summary>

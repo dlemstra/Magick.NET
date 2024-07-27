@@ -16,8 +16,8 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.Builtin.Logo);
             using var uniqueColors = image.UniqueColors();
 
-            Assert.Equal(1, uniqueColors.Height);
-            Assert.Equal(256, uniqueColors.Width);
+            Assert.Equal(1U, uniqueColors.Height);
+            Assert.Equal(256U, uniqueColors.Width);
         }
     }
 }

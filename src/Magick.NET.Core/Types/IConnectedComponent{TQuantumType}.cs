@@ -15,7 +15,7 @@ public interface IConnectedComponent<TQuantumType>
     /// <summary>
     /// Gets the pixel count of the area.
     /// </summary>
-    int Area { get; }
+    uint Area { get; }
 
     /// <summary>
     /// Gets the centroid of the area.
@@ -30,7 +30,7 @@ public interface IConnectedComponent<TQuantumType>
     /// <summary>
     /// Gets the height of the area.
     /// </summary>
-    int Height { get; }
+    uint Height { get; }
 
     /// <summary>
     /// Gets the id of the area.
@@ -40,7 +40,7 @@ public interface IConnectedComponent<TQuantumType>
     /// <summary>
     /// Gets the width of the area.
     /// </summary>
-    int Width { get; }
+    uint Width { get; }
 
     /// <summary>
     /// Gets the X offset from origin.
@@ -63,5 +63,5 @@ public interface IConnectedComponent<TQuantumType>
     /// </summary>
     /// <param name="extent">The number of pixels to extent the image with.</param>
     /// <returns>The geometry of the area of this connected component.</returns>
-    IMagickGeometry ToGeometry(int extent);
+    IMagickGeometry ToGeometry(uint extent);
 }

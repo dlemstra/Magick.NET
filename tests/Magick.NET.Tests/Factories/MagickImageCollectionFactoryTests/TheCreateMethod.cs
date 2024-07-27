@@ -73,27 +73,11 @@ public partial class MagickImageCollectionFactoryTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNegative()
-            {
-                var factory = new MagickImageCollectionFactory();
-
-                Assert.Throws<ArgumentException>("offset", () => factory.Create(new byte[] { 215 }, -1, 0));
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 var factory = new MagickImageCollectionFactory();
 
                 Assert.Throws<ArgumentException>("count", () => factory.Create(new byte[] { 215 }, 0, 0));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCountIsNegative()
-            {
-                var factory = new MagickImageCollectionFactory();
-
-                Assert.Throws<ArgumentException>("count", () => factory.Create(new byte[] { 215 }, 0, -1));
             }
 
             [Fact]
@@ -104,7 +88,7 @@ public partial class MagickImageCollectionFactoryTests
                 var bytes = new byte[fileBytes.Length + 10];
                 fileBytes.CopyTo(bytes, 10);
 
-                using var images = factory.Create(bytes, 10, bytes.Length - 10);
+                using var images = factory.Create(bytes, 10, (uint)bytes.Length - 10);
                 Assert.Single(images);
             }
         }
@@ -130,30 +114,12 @@ public partial class MagickImageCollectionFactoryTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNegative()
-            {
-                var factory = new MagickImageCollectionFactory();
-                var settings = new MagickReadSettings();
-
-                Assert.Throws<ArgumentException>("offset", () => factory.Create(new byte[] { 215 }, -1, 0, settings));
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 var factory = new MagickImageCollectionFactory();
                 var settings = new MagickReadSettings();
 
                 Assert.Throws<ArgumentException>("count", () => factory.Create(new byte[] { 215 }, 0, 0, settings));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCountIsNegative()
-            {
-                var factory = new MagickImageCollectionFactory();
-                var settings = new MagickReadSettings();
-
-                Assert.Throws<ArgumentException>("count", () => factory.Create(new byte[] { 215 }, 0, -1, settings));
             }
 
             [Fact]
@@ -166,7 +132,7 @@ public partial class MagickImageCollectionFactoryTests
                 var bytes = new byte[fileBytes.Length + 10];
                 fileBytes.CopyTo(bytes, 10);
 
-                using var images = factory.Create(bytes, 10, bytes.Length - 10, settings);
+                using var images = factory.Create(bytes, 10, (uint)bytes.Length - 10, settings);
                 Assert.Single(images);
             }
 
@@ -176,7 +142,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                using var image = factory.Create(bytes, 0, bytes.Length, null);
+                using var image = factory.Create(bytes, 0, (uint)bytes.Length, null);
             }
         }
 

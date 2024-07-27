@@ -22,14 +22,14 @@ public partial class Quantum : IQuantum<QuantumType>
 {
     static Quantum()
     {
-        Depth = (int)NativeQuantum.Depth_Get();
+        Depth = (uint)NativeQuantum.Depth_Get();
         Max = NativeQuantum.Max_Get();
     }
 
     /// <summary>
     /// Gets the quantum depth.
     /// </summary>
-    public static int Depth { get; }
+    public static uint Depth { get; }
 
     /// <summary>
     /// Gets the maximum value of the quantum.
@@ -39,7 +39,7 @@ public partial class Quantum : IQuantum<QuantumType>
     /// <summary>
     /// Gets the quantum depth.
     /// </summary>
-    int IQuantum.Depth
+    uint IQuantum.Depth
         => Depth;
 
     /// <summary>

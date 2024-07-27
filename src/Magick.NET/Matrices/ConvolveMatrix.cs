@@ -12,7 +12,7 @@ public sealed class ConvolveMatrix : DoubleMatrix, IConvolveMatrix
     /// Initializes a new instance of the <see cref="ConvolveMatrix"/> class.
     /// </summary>
     /// <param name="order">The order (odd number).</param>
-    public ConvolveMatrix(int order)
+    public ConvolveMatrix(uint order)
       : base(order, null)
     {
         CheckOrder(order);
@@ -23,14 +23,12 @@ public sealed class ConvolveMatrix : DoubleMatrix, IConvolveMatrix
     /// </summary>
     /// <param name="order">The order (odd number).</param>
     /// <param name="values">The values to initialize the matrix with.</param>
-    public ConvolveMatrix(int order, params double[] values)
+    public ConvolveMatrix(uint order, params double[] values)
       : base(order, values)
     {
         CheckOrder(order);
     }
 
-    private static void CheckOrder(int order)
-    {
-        Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
-    }
+    private static void CheckOrder(uint order)
+        => Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
 }

@@ -31,7 +31,7 @@ public partial interface IMagickImageInfoFactory<TQuantumType> : IMagickImageInf
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickImageInfo Create(byte[] data, int offset, int count, IMagickReadSettings<TQuantumType>? readSettings);
+    IMagickImageInfo Create(byte[] data, uint offset, uint count, IMagickReadSettings<TQuantumType>? readSettings);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.

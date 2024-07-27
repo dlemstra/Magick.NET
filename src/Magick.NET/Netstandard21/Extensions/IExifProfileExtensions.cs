@@ -29,8 +29,8 @@ public static class IExifProfileExtensions
     {
         Throw.IfNull(nameof(self), self);
 
-        var thumbnailLength = self.ThumbnailLength;
-        var thumbnailOffset = self.ThumbnailOffset;
+        var thumbnailLength = (int)self.ThumbnailLength;
+        var thumbnailOffset = (int)self.ThumbnailOffset;
 
         if (thumbnailLength == 0 || thumbnailOffset == 0)
             return null;

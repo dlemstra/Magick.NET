@@ -45,8 +45,8 @@ public partial class MagickSettingsTests
             image.Settings.FillColor = MagickColors.Red;
             image.Read("caption:Magick.NET");
 
-            Assert.Equal(100, image.Width);
-            Assert.Equal(100, image.Height);
+            Assert.Equal(100U, image.Width);
+            Assert.Equal(100U, image.Height);
 
             using var pixelsA = image.GetPixels();
             pixelA = pixelsA.GetPixel(63, 6);

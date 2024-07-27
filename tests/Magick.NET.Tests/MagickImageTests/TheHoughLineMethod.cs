@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick;
 using Xunit;
 
@@ -11,29 +10,6 @@ public partial class MagickImageTests
 {
     public class TheHoughLineMethod
     {
-        [Fact]
-        public void ShouldThrowExceptionWhenWidthIsNegative()
-        {
-            using var image = new MagickImage(Files.ConnectedComponentsPNG);
-            Assert.Throws<ArgumentException>("width", () => image.HoughLine(-1, 0, 0));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenHeightIsNegative()
-        {
-            using var image = new MagickImage(Files.ConnectedComponentsPNG);
-            Assert.Throws<ArgumentException>("height", () => image.HoughLine(0, -1, 0));
-        }
-
-#if !Q16HDRI
-        [Fact]
-        public void ShouldThrowExceptionWhenThresholdIsNegative()
-        {
-            using var image = new MagickImage(Files.ConnectedComponentsPNG);
-            Assert.Throws<ArgumentException>("threshold", () => image.HoughLine(0, 0, -1));
-        }
-#endif
-
         [Fact]
         public void ShouldIdentifyLinesInImage()
         {

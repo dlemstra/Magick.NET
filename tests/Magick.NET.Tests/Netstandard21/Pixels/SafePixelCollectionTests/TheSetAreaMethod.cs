@@ -50,7 +50,7 @@ public partial class SafePixelCollectionTests
             var values = new QuantumType[113 * 108 * image.ChannelCount];
             pixels.SetArea(10, 10, 113, 108, new Span<QuantumType>(values));
 
-            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+            ColorAssert.Equal(MagickColors.Black, image, (int)image.Width - 1, (int)image.Height - 1);
         }
 
         [Fact]
@@ -70,7 +70,7 @@ public partial class SafePixelCollectionTests
             var values = new QuantumType[113 * 108 * image.ChannelCount];
             pixels.SetArea(new MagickGeometry(10, 10, 113, 108), new Span<QuantumType>(values));
 
-            ColorAssert.Equal(MagickColors.Black, image, image.Width - 1, image.Height - 1);
+            ColorAssert.Equal(MagickColors.Black, image, (int)image.Width - 1, (int)image.Height - 1);
         }
     }
 }

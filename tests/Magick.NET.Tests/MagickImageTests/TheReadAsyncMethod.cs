@@ -79,8 +79,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 await image.ReadAsync(Files.SnakewarePNG);
 
-                Assert.Equal(286, image.Width);
-                Assert.Equal(67, image.Height);
+                Assert.Equal(286U, image.Width);
+                Assert.Equal(67U, image.Height);
                 Assert.Equal(MagickFormat.Png, image.Format);
             }
 
@@ -90,8 +90,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 await image.ReadAsync(Files.ImageMagickICO);
 
-                Assert.Equal(64, image.Width);
-                Assert.Equal(64, image.Height);
+                Assert.Equal(64U, image.Width);
+                Assert.Equal(64U, image.Height);
                 Assert.Equal(MagickFormat.Ico, image.Format);
             }
 
@@ -220,8 +220,8 @@ public partial class MagickImageTests
                 using var fileStream = File.OpenRead(Files.SnakewarePNG);
                 await image.ReadAsync(fileStream);
 
-                Assert.Equal(286, image.Width);
-                Assert.Equal(67, image.Height);
+                Assert.Equal(286U, image.Width);
+                Assert.Equal(67U, image.Height);
                 Assert.Equal(MagickFormat.Png, image.Format);
             }
 

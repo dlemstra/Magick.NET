@@ -80,7 +80,7 @@ public partial interface IMagickImageCollection : IDisposable
     /// </summary>
     /// <param name="frames">The number of in-between images to generate.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Morph(int frames);
+    void Morph(uint frames);
 
     /// <summary>
     /// Compares each image the GIF disposed forms of the previous image in the sequence. From
@@ -118,7 +118,7 @@ public partial interface IMagickImageCollection : IDisposable
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Ping(byte[] data, int offset, int count);
+    void Ping(byte[] data, uint offset, uint count);
 
     /// <summary>
     /// Read only metadata and not the pixel data from all image frames.
@@ -170,7 +170,7 @@ public partial interface IMagickImageCollection : IDisposable
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(byte[] data, int offset, int count);
+    void Read(byte[] data, uint offset, uint count);
 
     /// <summary>
     /// Read all image frames.
@@ -180,7 +180,7 @@ public partial interface IMagickImageCollection : IDisposable
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(byte[] data, int offset, int count, MagickFormat format);
+    void Read(byte[] data, uint offset, uint count, MagickFormat format);
 
     /// <summary>
     /// Read all image frames.

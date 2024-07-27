@@ -7,11 +7,8 @@ namespace ImageMagick;
 
 internal sealed partial class MagickRectangle
 {
-    public MagickRectangle(int x, int y, int width, int height)
+    public MagickRectangle(int x, int y, uint width, uint height)
     {
-        Throw.IfNegative(nameof(width), width);
-        Throw.IfNegative(nameof(height), height);
-
         X = x;
         Y = y;
         Width = width;
@@ -22,13 +19,13 @@ internal sealed partial class MagickRectangle
     {
         X = (int)instance.X_Get();
         Y = (int)instance.Y_Get();
-        Width = (int)instance.Width_Get();
-        Height = (int)instance.Height_Get();
+        Width = (uint)instance.Width_Get();
+        Height = (uint)instance.Height_Get();
     }
 
-    public int Height { get; set; }
+    public uint Height { get; set; }
 
-    public int Width { get; set; }
+    public uint Width { get; set; }
 
     public int X { get; set; }
 
@@ -46,8 +43,8 @@ internal sealed partial class MagickRectangle
 
         if (geometry.IsPercentage)
         {
-            width = image.Width * new Percentage(geometry.Width);
-            height = image.Height * new Percentage(geometry.Height);
+            width = (uint)(image.Width * new Percentage(geometry.Width));
+            height = (uint)(image.Height * new Percentage(geometry.Height));
         }
 
         return new MagickRectangle(geometry.X, geometry.Y, width, height);

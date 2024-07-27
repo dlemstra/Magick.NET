@@ -49,8 +49,8 @@ public partial class MagickImageCollectionTests
                 images.Ping(sequence);
 
                 Assert.Single(images);
-                Assert.Equal(286, images[0].Width);
-                Assert.Equal(67, images[0].Height);
+                Assert.Equal(286U, images[0].Width);
+                Assert.Equal(67U, images[0].Height);
                 Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
         }

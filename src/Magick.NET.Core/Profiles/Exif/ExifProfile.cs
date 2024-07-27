@@ -71,24 +71,24 @@ public sealed class ExifProfile : ImageProfile, IExifProfile
     /// <summary>
     /// Gets the length of the thumbnail data in the <see cref="byte"/> array of the profile.
     /// </summary>
-    public int ThumbnailLength
+    public uint ThumbnailLength
     {
         get
         {
             InitializeValues();
-            return (int)_data.ThumbnailLength;
+            return _data.ThumbnailLength;
         }
     }
 
     /// <summary>
     /// Gets the offset of the thumbnail data in the <see cref="byte"/> array of the profile.
     /// </summary>
-    public int ThumbnailOffset
+    public uint ThumbnailOffset
     {
         get
         {
             InitializeValues();
-            return (int)_data.ThumbnailOffset;
+            return _data.ThumbnailOffset;
         }
     }
 

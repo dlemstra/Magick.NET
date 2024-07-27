@@ -42,8 +42,8 @@ public partial class MagickImageTests
             var angle = image.Deskew(new Percentage(10));
 
             Assert.InRange(angle, 7.01, 7.02);
-            Assert.Equal(546, image.Width);
-            Assert.Equal(579, image.Height);
+            Assert.Equal(546U, image.Width);
+            Assert.Equal(579U, image.Height);
         }
     }
 }

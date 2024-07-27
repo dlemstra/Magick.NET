@@ -33,7 +33,7 @@ public partial class MagickImageTests
             image.Transparent(red);
 
             ColorAssert.Equal(transparentRed, image, 0, 0);
-            ColorAssert.NotEqual(transparentRed, image, image.Width - 1, 0);
+            ColorAssert.NotEqual(transparentRed, image, (int)image.Width - 1, 0);
         }
     }
 }

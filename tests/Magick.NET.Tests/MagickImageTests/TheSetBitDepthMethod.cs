@@ -12,20 +12,12 @@ public partial class MagickImageTests
     public class TheSetBitDepthMethod
     {
         [Fact]
-        public void ShouldThrowExceptionWhenValueIsNegative()
-        {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("value", () => image.SetBitDepth(-1));
-        }
-
-        [Fact]
         public void ShouldChangeTheBitDepth()
         {
             using var image = new MagickImage(Files.RoseSparkleGIF);
             image.SetBitDepth(1);
 
-            Assert.Equal(1, image.DetermineBitDepth());
+            Assert.Equal(1U, image.DetermineBitDepth());
         }
 
         [Fact]
@@ -34,9 +26,9 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.RoseSparkleGIF);
             image.SetBitDepth(1, Channels.Red);
 
-            Assert.Equal(1, image.DetermineBitDepth(Channels.Red));
-            Assert.Equal(8, image.DetermineBitDepth(Channels.Green));
-            Assert.Equal(8, image.DetermineBitDepth(Channels.Blue));
+            Assert.Equal(1U, image.DetermineBitDepth(Channels.Red));
+            Assert.Equal(8U, image.DetermineBitDepth(Channels.Green));
+            Assert.Equal(8U, image.DetermineBitDepth(Channels.Blue));
         }
     }
 }

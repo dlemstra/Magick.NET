@@ -18,7 +18,7 @@ public partial interface IPixelCollection<TQuantumType>
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <returns>A <typeparamref name="TQuantumType"/> array.</returns>
-    ReadOnlySpan<TQuantumType> GetReadOnlyArea(int x, int y, int width, int height);
+    ReadOnlySpan<TQuantumType> GetReadOnlyArea(int x, int y, uint width, uint height);
 
     /// <summary>
     /// Returns the pixels of the specified area.
@@ -35,7 +35,7 @@ public partial interface IPixelCollection<TQuantumType>
     /// <param name="width">The width of the area.</param>
     /// <param name="height">The height of the area.</param>
     /// <param name="values">The values of the pixels.</param>
-    void SetArea(int x, int y, int width, int height, ReadOnlySpan<TQuantumType> values);
+    void SetArea(int x, int y, uint width, uint height, ReadOnlySpan<TQuantumType> values);
 
     /// <summary>
     /// Changes the values of the specified pixels.

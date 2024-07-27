@@ -113,7 +113,7 @@ public partial class MagickGeometryTests
         [InlineData("quarto", 610, 780)]
         [InlineData("statement", 396, 612)]
         [InlineData("tabloid", 792, 1224)]
-        public void ShouldReturnTheCorrectValues(string pageSize, int expectedWidth, int expectedHeight)
+        public void ShouldReturnTheCorrectValues(string pageSize, uint expectedWidth, uint expectedHeight)
         {
             var geometry = MagickGeometry.FromPageSize(pageSize);
 
@@ -128,8 +128,8 @@ public partial class MagickGeometryTests
         {
             var geometry = MagickGeometry.FromPageSize("a4+3+2");
 
-            Assert.Equal(595, geometry.Width);
-            Assert.Equal(842, geometry.Height);
+            Assert.Equal(595U, geometry.Width);
+            Assert.Equal(842U, geometry.Height);
             Assert.Equal(3, geometry.X);
             Assert.Equal(2, geometry.Y);
         }

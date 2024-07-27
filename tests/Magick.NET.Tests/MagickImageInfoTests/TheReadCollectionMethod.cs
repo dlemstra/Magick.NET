@@ -43,21 +43,9 @@ public partial class MagickImageInfoTests
             }
 
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNegative()
-            {
-                Assert.Throws<ArgumentException>("offset", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, -1, 0).ToArray());
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenCountIsZero()
             {
                 Assert.Throws<ArgumentException>("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, 0).ToArray());
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenCountIsNegative()
-            {
-                Assert.Throws<ArgumentException>("count", () => MagickImageInfo.ReadCollection(new byte[] { 215 }, 0, -1).ToArray());
             }
         }
 
@@ -112,13 +100,13 @@ public partial class MagickImageInfoTests
                 Assert.Equal(CompressionMethod.Zip, first.Compression);
                 Assert.EndsWith("Invitation.tif", first.FileName);
                 Assert.Equal(MagickFormat.Tiff, first.Format);
-                Assert.Equal(700, first.Height);
+                Assert.Equal(700U, first.Height);
                 Assert.Equal(350, first.Density.X);
                 Assert.Equal(350, first.Density.Y);
                 Assert.Equal(DensityUnit.PixelsPerInch, first.Density.Units);
                 Assert.Equal(Interlace.NoInterlace, first.Interlace);
-                Assert.Equal(827, first.Width);
-                Assert.Equal(0, first.Quality);
+                Assert.Equal(827U, first.Width);
+                Assert.Equal(0U, first.Quality);
                 Assert.Equal(OrientationType.TopLeft, first.Orientation);
             }
         }

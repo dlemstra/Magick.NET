@@ -32,18 +32,20 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldCorrectlyOptimizeTheImages()
         {
-            using var images = new MagickImageCollection();
-            images.Add(new MagickImage(MagickColors.Red, 11, 11));
+            using var images = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Red, 11, 11),
+            };
 
             var image = new MagickImage(MagickColors.Red, 11, 11);
             using var pixels = image.GetPixels();
-            pixels.SetPixel(5, 5, new QuantumType[] { 0, Quantum.Max, 0 });
+            pixels.SetPixel(5, 5, [0, Quantum.Max, 0]);
 
             images.Add(image);
             images.OptimizeTransparency();
 
-            Assert.Equal(11, images[1].Width);
-            Assert.Equal(11, images[1].Height);
+            Assert.Equal(11U, images[1].Width);
+            Assert.Equal(11U, images[1].Height);
             Assert.Equal(0, images[1].Page.X);
             Assert.Equal(0, images[1].Page.Y);
             ColorAssert.Equal(MagickColors.Lime, images[1], 5, 5);

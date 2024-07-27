@@ -44,7 +44,7 @@ public partial class MagickColorMatrixTests
         {
             var matrix = new MagickColorMatrix(2, 0.0, 1.0, 0.1, 1.1);
 
-            Assert.Equal(2, matrix.Order);
+            Assert.Equal(2U, matrix.Order);
             Assert.Equal(0.0, matrix.GetValue(0, 0));
             Assert.Equal(1.0, matrix.GetValue(1, 0));
             Assert.Equal(0.1, matrix.GetValue(0, 1));

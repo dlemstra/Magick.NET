@@ -34,7 +34,7 @@ public partial class MagickImageInfoFactoryTests
                 var info = factory.Create(new ReadOnlySequence<byte>(data));
 
                 Assert.IsType<MagickImageInfo>(info);
-                Assert.Equal(123, info.Width);
+                Assert.Equal(123U, info.Width);
             }
         }
 
@@ -56,7 +56,7 @@ public partial class MagickImageInfoFactoryTests
                 var info = factory.Create(new Span<byte>(data));
 
                 Assert.IsType<MagickImageInfo>(info);
-                Assert.Equal(123, info.Width);
+                Assert.Equal(123U, info.Width);
             }
         }
     }

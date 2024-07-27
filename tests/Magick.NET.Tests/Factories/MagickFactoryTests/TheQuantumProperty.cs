@@ -15,9 +15,9 @@ public partial class MagickFactoryTests
         {
             var factory = new MagickFactory();
 #if Q8
-            Assert.Equal(8, factory.Quantum.Depth);
+            Assert.Equal(8U, factory.Quantum.Depth);
 #else
-            Assert.Equal(16, factory.Quantum.Depth);
+            Assert.Equal(16U, factory.Quantum.Depth);
 #endif
         }
 

@@ -28,9 +28,9 @@ public class TheMapCoder
 
     [Theory]
     [InlineData(null, null)]
-    [InlineData(null, 1)]
-    [InlineData(1, null)]
-    public void ShouldThrowExceptionWhenDimensionsNotSpecified(int? width, int? height)
+    [InlineData(null, 1U)]
+    [InlineData(1U, null)]
+    public void ShouldThrowExceptionWhenDimensionsNotSpecified(uint? width, uint? height)
     {
         var settings = new MagickReadSettings
         {

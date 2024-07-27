@@ -22,24 +22,28 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldDeconstructTheImages()
         {
-            using var images = new MagickImageCollection();
-            images.Add(new MagickImage(MagickColors.Red, 20, 20));
+            using var images = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Red, 20, 20),
+            };
 
-            using var frames = new MagickImageCollection();
-            frames.Add(new MagickImage(MagickColors.Red, 10, 20));
-            frames.Add(new MagickImage(MagickColors.Purple, 10, 20));
+            using var frames = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Red, 10, 20),
+                new MagickImage(MagickColors.Purple, 10, 20),
+            };
 
             images.Add(frames.AppendHorizontally());
 
-            Assert.Equal(20, images[1].Width);
-            Assert.Equal(20, images[1].Height);
+            Assert.Equal(20U, images[1].Width);
+            Assert.Equal(20U, images[1].Height);
             Assert.Equal(new MagickGeometry(0, 0, 10, 20), images[1].Page);
             ColorAssert.Equal(MagickColors.Red, images[1], 3, 3);
 
             images.Deconstruct();
 
-            Assert.Equal(10, images[1].Width);
-            Assert.Equal(20, images[1].Height);
+            Assert.Equal(10U, images[1].Width);
+            Assert.Equal(20U, images[1].Height);
             Assert.Equal(new MagickGeometry(10, 0, 10, 20), images[1].Page);
             ColorAssert.Equal(MagickColors.Purple, images[1], 3, 3);
         }

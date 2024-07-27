@@ -29,8 +29,8 @@ public partial class MagickImageTests
             using var mask = image.GetWriteMask();
 
             Assert.NotNull(mask);
-            Assert.Equal(640, mask.Width);
-            Assert.Equal(480, mask.Height);
+            Assert.Equal(640U, mask.Width);
+            Assert.Equal(480U, mask.Height);
             ColorAssert.Equal(MagickColors.White, mask, 9, 14);
             ColorAssert.Equal(MagickColors.Black, mask, 10, 15);
         }

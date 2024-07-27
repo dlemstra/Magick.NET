@@ -16,7 +16,7 @@ public static class IMagickGeometryExtensions
     /// /// <param name="self">The geometry.</param>
     /// <param name="rectangle">The <see cref="Rectangle"/> to convert.</param>
     public static void SetFromRectangle(this IMagickGeometry self, Rectangle rectangle)
-        => self?.Initialize(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
+        => self?.Initialize(rectangle.X, rectangle.Y, (uint)rectangle.Width, (uint)rectangle.Height);
 
     /// <summary>
     /// Converts the value of this instance to an equivalent <see cref="Rectangle"/>.
@@ -28,6 +28,6 @@ public static class IMagickGeometryExtensions
         if (self is null)
             return default;
 
-        return new Rectangle(self.X, self.Y, self.Width, self.Height);
+        return new Rectangle(self.X, self.Y, (int)self.Width, (int)self.Height);
     }
 }

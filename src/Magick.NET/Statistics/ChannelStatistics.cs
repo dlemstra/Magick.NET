@@ -12,7 +12,7 @@ internal sealed partial class ChannelStatistics : IChannelStatistics
         Channel = channel;
 
         var nativeInstance = new NativeChannelStatistics(instance);
-        Depth = (int)nativeInstance.Depth_Get();
+        Depth = (uint)nativeInstance.Depth_Get();
         Entropy = nativeInstance.Entropy_Get();
         Kurtosis = nativeInstance.Kurtosis_Get();
         Maximum = nativeInstance.Maximum_Get();
@@ -24,7 +24,7 @@ internal sealed partial class ChannelStatistics : IChannelStatistics
 
     public PixelChannel Channel { get; }
 
-    public int Depth { get; }
+    public uint Depth { get; }
 
     public double Entropy { get; }
 

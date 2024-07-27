@@ -24,8 +24,8 @@ public partial class PixelReadSettingsTests
             var settings = new PixelReadSettings(1, 2, StorageType.Int64, PixelMapping.CMYK);
 
             Assert.NotNull(settings.ReadSettings);
-            Assert.Equal(1, settings.ReadSettings.Width);
-            Assert.Equal(2, settings.ReadSettings.Height);
+            Assert.Equal(1U, settings.ReadSettings.Width);
+            Assert.Equal(2U, settings.ReadSettings.Height);
             Assert.Equal(StorageType.Int64, settings.StorageType);
             Assert.Equal("CMYK", settings.Mapping);
         }
@@ -36,8 +36,8 @@ public partial class PixelReadSettingsTests
             var settings = new PixelReadSettings(3, 4, StorageType.Quantum, "CMY");
 
             Assert.NotNull(settings.ReadSettings);
-            Assert.Equal(3, settings.ReadSettings.Width);
-            Assert.Equal(4, settings.ReadSettings.Height);
+            Assert.Equal(3U, settings.ReadSettings.Width);
+            Assert.Equal(4U, settings.ReadSettings.Height);
             Assert.Equal(StorageType.Quantum, settings.StorageType);
             Assert.Equal("CMY", settings.Mapping);
         }

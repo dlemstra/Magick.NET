@@ -24,8 +24,8 @@ public partial class ThePdfCoder
                 using var image = new MagickImage();
                 image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
 
-                Assert.Equal(765, image.Width);
-                Assert.Equal(361, image.Height);
+                Assert.Equal(765U, image.Width);
+                Assert.Equal(361U, image.Height);
                 Assert.Equal(MagickFormat.Ai, image.Format);
             });
         }
@@ -44,8 +44,8 @@ public partial class ThePdfCoder
 
         using var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI);
 
-        Assert.Equal(765, image.Width);
-        Assert.Equal(361, image.Height);
+        Assert.Equal(765U, image.Width);
+        Assert.Equal(361U, image.Height);
         Assert.Equal(MagickFormat.Ai, image.Format);
     }
 }

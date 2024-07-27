@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick;
 using Xunit;
 
@@ -11,22 +10,6 @@ public partial class MagickImageTests
 {
     public class TheStatisticMethod
     {
-        [Fact]
-        public void ShouldThrowExceptionWhenWidthIsNegative()
-        {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("width", () => image.Statistic(StatisticType.Minimum, -1, 1));
-        }
-
-        [Fact]
-        public void ShouldThrowExceptionWhenHeightIsNegative()
-        {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentException>("height", () => image.Statistic(StatisticType.Minimum, 10, -1));
-        }
-
         [Fact]
         public void ShouldChangePixels()
         {

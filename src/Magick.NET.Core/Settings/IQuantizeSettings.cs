@@ -11,7 +11,7 @@ public interface IQuantizeSettings
     /// <summary>
     /// Gets or sets the maximum number of colors to quantize to.
     /// </summary>
-    int Colors { get; set; }
+    uint Colors { get; set; }
 
     /// <summary>
     /// Gets or sets the colorspace to quantize in.
@@ -31,5 +31,5 @@ public interface IQuantizeSettings
     /// <summary>
     /// Gets or sets the quantization tree-depth.
     /// </summary>
-    int TreeDepth { get; set; }
+    uint TreeDepth { get; set; }
 }

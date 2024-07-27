@@ -14,9 +14,9 @@ public partial class QuantumTests
         public void ShouldHaveTheCorrectValue()
         {
 #if Q8
-            Assert.Equal(8, Quantum.Depth);
+            Assert.Equal(8U, Quantum.Depth);
 #else
-            Assert.Equal(16, Quantum.Depth);
+            Assert.Equal(16U, Quantum.Depth);
 #endif
         }
     }

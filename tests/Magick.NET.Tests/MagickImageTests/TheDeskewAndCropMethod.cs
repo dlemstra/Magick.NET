@@ -29,8 +29,8 @@ public partial class MagickImageTests
             var angle = image.DeskewAndCrop(new Percentage(10));
 
             Assert.InRange(angle, 7.01, 7.02);
-            Assert.Equal(480, image.Width);
-            Assert.Equal(577, image.Height);
+            Assert.Equal(480U, image.Width);
+            Assert.Equal(577U, image.Height);
         }
 
         [Fact]
@@ -40,8 +40,8 @@ public partial class MagickImageTests
             var angle = image.DeskewAndCrop(new Percentage(10));
 
             Assert.InRange(angle, 7.01, 7.02);
-            Assert.Equal(480, image.Width);
-            Assert.Equal(577, image.Height);
+            Assert.Equal(480U, image.Width);
+            Assert.Equal(577U, image.Height);
         }
     }
 }

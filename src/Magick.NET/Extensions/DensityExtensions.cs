@@ -20,8 +20,8 @@ public static class DensityExtensions
         if (self is null)
             return null;
 
-        var pixelWidth = (int)(width * self.X);
-        var pixelHeight = (int)(height * self.Y);
+        var pixelWidth = (uint)(width * self.X);
+        var pixelHeight = (uint)(height * self.Y);
 
         return new MagickGeometry(pixelWidth, pixelHeight);
     }

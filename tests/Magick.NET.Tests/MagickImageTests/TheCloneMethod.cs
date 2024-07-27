@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick;
 using Xunit;
 
@@ -36,28 +35,14 @@ public partial class MagickImageTests
         public class WithWidthAndHeight
         {
             [Fact]
-            public void ShouldThrowExceptionWhenWidthIsNegative()
-            {
-                using var image = new MagickImage(Files.MagickNETIconPNG);
-                Assert.Throws<ArgumentException>("width", () => image.Clone(-1, 64));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenHeightIsNegative()
-            {
-                using var image = new MagickImage(Files.MagickNETIconPNG);
-                Assert.Throws<ArgumentException>("height", () => image.Clone(32, -1));
-            }
-
-            [Fact]
             public void ShouldClonePartOfTheImageWhenWidthAndHeightAreSpecified()
             {
                 using var icon = new MagickImage(Files.MagickNETIconPNG);
                 using var area = icon.Clone();
                 area.Crop(32, 64, Gravity.Northwest);
 
-                Assert.Equal(32, area.Width);
-                Assert.Equal(64, area.Height);
+                Assert.Equal(32U, area.Width);
+                Assert.Equal(64U, area.Height);
 
                 using var part = icon.Clone(32, 64);
 
@@ -70,20 +55,6 @@ public partial class MagickImageTests
 
         public class WithWidthAndHeightAndOffset
         {
-            [Fact]
-            public void ShouldThrowExceptionWhenWidthIsNegative()
-            {
-                using var image = new MagickImage(Files.MagickNETIconPNG);
-                Assert.Throws<ArgumentException>("width", () => image.Clone(0, 0, -1, 64));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenHeightIsNegative()
-            {
-                using var image = new MagickImage(Files.MagickNETIconPNG);
-                Assert.Throws<ArgumentException>("height", () => image.Clone(0, 0, 32, -1));
-            }
-
             [Fact]
             public void ShouldCloneUsingTheSpecifiedOffset()
             {

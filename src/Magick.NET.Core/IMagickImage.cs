@@ -29,12 +29,12 @@ public partial interface IMagickImage : IDisposable
     /// Gets or sets the time in 1/100ths of a second which must expire before splaying the next image in an
     /// animated sequence.
     /// </summary>
-    int AnimationDelay { get; set; }
+    uint AnimationDelay { get; set; }
 
     /// <summary>
     /// Gets or sets the number of iterations to loop an animation (e.g. Netscape loop extension) for.
     /// </summary>
-    int AnimationIterations { get; set; }
+    uint AnimationIterations { get; set; }
 
     /// <summary>
     /// Gets or sets the ticks per seconds for the animation delay.
@@ -54,12 +54,12 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets the height of the image before transformations.
     /// </summary>
-    int BaseHeight { get; }
+    uint BaseHeight { get; }
 
     /// <summary>
     /// Gets the width of the image before transformations.
     /// </summary>
-    int BaseWidth { get; }
+    uint BaseWidth { get; }
 
     /// <summary>
     /// Gets or sets a value indicating whether black point compensation should be used.
@@ -75,7 +75,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets the number of channels that the image contains.
     /// </summary>
-    int ChannelCount { get; }
+    uint ChannelCount { get; }
 
     /// <summary>
     /// Gets the channels of the image.
@@ -138,7 +138,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets or sets the depth (bits allocated to red/green/blue components).
     /// </summary>
-    int Depth { get; set; }
+    uint Depth { get; set; }
 
     /// <summary>
     /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
@@ -179,7 +179,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets the height of the image.
     /// </summary>
-    int Height { get; }
+    uint Height { get; }
 
     /// <summary>
     /// Gets the type of interlacing to use.
@@ -205,7 +205,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets or sets the number of meta channels that the image contains.
     /// </summary>
-    int MetaChannelCount { get; set; }
+    uint MetaChannelCount { get; set; }
 
     /// <summary>
     /// Gets or sets the photo orientation of the image.
@@ -225,7 +225,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets or sets the JPEG/MIFF/PNG compression level (default 75).
     /// </summary>
-    int Quality { get; set; }
+    uint Quality { get; set; }
 
     /// <summary>
     /// Gets or sets the type of rendering intent.
@@ -241,7 +241,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets the number of colors in the image.
     /// </summary>
-    int TotalColors { get; }
+    uint TotalColors { get; }
 
     /// <summary>
     /// Gets or sets the virtual pixel method.
@@ -251,7 +251,7 @@ public partial interface IMagickImage : IDisposable
     /// <summary>
     /// Gets the width of the image.
     /// </summary>
-    int Width { get; }
+    uint Width { get; }
 
     /// <summary>
     /// Adaptive-blur image with the default blur factor (0x1).
@@ -285,7 +285,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The new width.</param>
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AdaptiveResize(int width, int height);
+    void AdaptiveResize(uint width, uint height);
 
     /// <summary>
     /// Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
@@ -336,7 +336,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width of the pixel neighborhood.</param>
     /// <param name="height">The height of the pixel neighborhood.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AdaptiveThreshold(int width, int height);
+    void AdaptiveThreshold(uint width, uint height);
 
     /// <summary>
     /// Local adaptive threshold image.
@@ -346,7 +346,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="height">The height of the pixel neighborhood.</param>
     /// <param name="channels">The channel(s) that should be thresholded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AdaptiveThreshold(int width, int height, Channels channels);
+    void AdaptiveThreshold(uint width, uint height, Channels channels);
 
     /// <summary>
     /// Local adaptive threshold image.
@@ -356,7 +356,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="height">The height of the pixel neighborhood.</param>
     /// <param name="bias">Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AdaptiveThreshold(int width, int height, double bias);
+    void AdaptiveThreshold(uint width, uint height, double bias);
 
     /// <summary>
     /// Local adaptive threshold image.
@@ -367,7 +367,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="bias">Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).</param>
     /// <param name="channels">The channel(s) that should be thresholded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AdaptiveThreshold(int width, int height, double bias, Channels channels);
+    void AdaptiveThreshold(uint width, uint height, double bias, Channels channels);
 
     /// <summary>
     /// Local adaptive threshold image.
@@ -377,7 +377,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="height">The height of the pixel neighborhood.</param>
     /// <param name="biasPercentage">Constant to subtract from pixel neighborhood mean.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AdaptiveThreshold(int width, int height, Percentage biasPercentage);
+    void AdaptiveThreshold(uint width, uint height, Percentage biasPercentage);
 
     /// <summary>
     /// Local adaptive threshold image.
@@ -388,7 +388,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="biasPercentage">Constant to subtract from pixel neighborhood mean.</param>
     /// <param name="channels">The channel(s) that should be thresholded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AdaptiveThreshold(int width, int height, Percentage biasPercentage, Channels channels);
+    void AdaptiveThreshold(uint width, uint height, Percentage biasPercentage, Channels channels);
 
     /// <summary>
     /// Add noise to image with the specified noise type.
@@ -519,7 +519,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width of the neighborhood in pixels.</param>
     /// <param name="height">The height of the neighborhood in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void BilateralBlur(int width, int height);
+    void BilateralBlur(uint width, uint height);
 
     /// <summary>
     /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
@@ -529,7 +529,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="intensitySigma">The sigma in the intensity space.</param>
     /// <param name="spatialSigma">The sigma in the coordinate space.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void BilateralBlur(int width, int height, double intensitySigma, double spatialSigma);
+    void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma);
 
     /// <summary>
     /// Forces all pixels below the threshold into black while leaving all pixels at or above
@@ -596,7 +596,7 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="size">The size of the border.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Border(int size);
+    void Border(uint size);
 
     /// <summary>
     /// Add a border to the image.
@@ -604,7 +604,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width of the border.</param>
     /// <param name="height">The height of the border.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Border(int width, int height);
+    void Border(uint width, uint height);
 
     /// <summary>
     /// Add a border to the image.
@@ -677,7 +677,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="offset">The X offset from origin.</param>
     /// <param name="width">The width of the part to chop horizontally.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ChopHorizontal(int offset, int width);
+    void ChopHorizontal(int offset, uint width);
 
     /// <summary>
     /// Chop image (remove horizontal subregion of image).
@@ -685,7 +685,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="offset">The Y offset from origin.</param>
     /// <param name="height">The height of the part to chop vertically.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ChopVertical(int offset, int height);
+    void ChopVertical(int offset, uint height);
 
     /// <summary>
     /// A variant of adaptive histogram equalization in which the contrast amplification is limited,
@@ -697,7 +697,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="clipLimit">The contrast limit for localised changes in contrast. A limit less than 1
     /// results in standard non-contrast limited AHE.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Clahe(Percentage xTiles, Percentage yTiles, int numberBins, double clipLimit);
+    void Clahe(Percentage xTiles, Percentage yTiles, uint numberBins, double clipLimit);
 
     /// <summary>
     /// A variant of adaptive histogram equalization in which the contrast amplification is limited,
@@ -709,7 +709,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="clipLimit">The contrast limit for localised changes in contrast. A limit less than 1
     /// results in standard non-contrast limited AHE.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Clahe(int xTiles, int yTiles, int numberBins, double clipLimit);
+    void Clahe(uint xTiles, uint yTiles, uint numberBins, double clipLimit);
 
     /// <summary>
     /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
@@ -1213,7 +1213,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width of the subregion to crop.</param>
     /// <param name="height">The height of the subregion to crop.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Crop(int width, int height);
+    void Crop(uint width, uint height);
 
     /// <summary>
     /// Crop image (subregion of original image). RePage should be called unless the Page information
@@ -1223,7 +1223,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="height">The height of the subregion to crop.</param>
     /// <param name="gravity">The position where the cropping should start from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Crop(int width, int height, Gravity gravity);
+    void Crop(uint width, uint height, Gravity gravity);
 
     /// <summary>
     /// Crop image (subregion of original image). RePage should be called unless the Page information
@@ -1290,7 +1290,7 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     /// <returns>The bit depth (bits allocated to red/green/blue components).</returns>
-    int DetermineBitDepth();
+    uint DetermineBitDepth();
 
     /// <summary>
     /// Determines the bit depth (bits allocated to red/green/blue components) of the specified channel.
@@ -1298,7 +1298,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="channels">The channel to get the depth for.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     /// <returns>The bit depth (bits allocated to red/green/blue components) of the specified channel.</returns>
-    int DetermineBitDepth(Channels channels);
+    uint DetermineBitDepth(Channels channels);
 
     /// <summary>
     /// Determines the color type of the image. This method can be used to automatically make the
@@ -1441,7 +1441,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width to extend the image to.</param>
     /// <param name="height">The height to extend the image to.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(int width, int height);
+    void Extent(uint width, uint height);
 
     /// <summary>
     /// Extend the image as defined by the width and height.
@@ -1451,7 +1451,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width to extend the image to.</param>
     /// <param name="height">The height to extend the image to.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(int x, int y, int width, int height);
+    void Extent(int x, int y, uint width, uint height);
 
     /// <summary>
     /// Extend the image as defined by the width and height.
@@ -1460,7 +1460,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="height">The height to extend the image to.</param>
     /// <param name="gravity">The placement gravity.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(int width, int height, Gravity gravity);
+    void Extent(uint width, uint height, Gravity gravity);
 
     /// <summary>
     /// Extend the image as defined by the rectangle.
@@ -1533,7 +1533,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width of the frame.</param>
     /// <param name="height">The height of the frame.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Frame(int width, int height);
+    void Frame(uint width, uint height);
 
     /// <summary>
     /// Frame image with the specified with, height, innerBevel and outerBevel.
@@ -1543,7 +1543,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="innerBevel">The inner bevel of the frame.</param>
     /// <param name="outerBevel">The outer bevel of the frame.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Frame(int width, int height, int innerBevel, int outerBevel);
+    void Frame(uint width, uint height, int innerBevel, int outerBevel);
 
     /// <summary>
     /// Applies a mathematical expression to the image.
@@ -1728,7 +1728,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="height">The height of the neighborhood.</param>
     /// <param name="threshold">The line count threshold.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void HoughLine(int width, int height, int threshold);
+    void HoughLine(uint width, uint height, uint threshold);
 
     /// <summary>
     /// Implode image (special effect).
@@ -1753,7 +1753,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="settings">The import settings to use when importing the pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ImportPixels(byte[] data, int offset, IPixelImportSettings settings);
+    void ImportPixels(byte[] data, uint offset, IPixelImportSettings settings);
 
     /// <summary>
     /// Resize image to specified size using the specified interpolation method.
@@ -1762,7 +1762,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="height">The new height.</param>
     /// <param name="method">Pixel interpolate method.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InterpolativeResize(int width, int height, PixelInterpolateMethod method);
+    void InterpolativeResize(uint width, uint height, PixelInterpolateMethod method);
 
     /// <summary>
     /// Resize image to specified size using the specified interpolation method.
@@ -1942,7 +1942,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The new width.</param>
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void LiquidRescale(int width, int height);
+    void LiquidRescale(uint width, uint height);
 
     /// <summary>
     /// Rescales image with seam carving.
@@ -1952,7 +1952,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="deltaX">Maximum seam transversal step (0 means straight seams).</param>
     /// <param name="rigidity">Introduce a bias for non-straight seams (typically 0).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void LiquidRescale(int width, int height, double deltaX, double rigidity);
+    void LiquidRescale(uint width, uint height, double deltaX, double rigidity);
 
     /// <summary>
     /// Rescales image with seam carving.
@@ -2008,7 +2008,7 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="size">The size of the edges.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Lower(int size);
+    void Lower(uint size);
 
     /// <summary>
     /// Magnify image by integral size.
@@ -2037,21 +2037,21 @@ public partial interface IMagickImage : IDisposable
     /// Delineate arbitrarily shaped clusters in the image.
     /// </summary>
     /// <param name="size">The width and height of the pixels neighborhood.</param>
-    void MeanShift(int size);
+    void MeanShift(uint size);
 
     /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.
     /// </summary>
     /// <param name="size">The width and height of the pixels neighborhood.</param>
     /// <param name="colorDistance">The color distance.</param>
-    void MeanShift(int size, Percentage colorDistance);
+    void MeanShift(uint size, Percentage colorDistance);
 
     /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.
     /// </summary>
     /// <param name="width">The width of the pixels neighborhood.</param>
     /// <param name="height">The height of the pixels neighborhood.</param>
-    void MeanShift(int width, int height);
+    void MeanShift(uint width, uint height);
 
     /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.
@@ -2059,7 +2059,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width of the pixels neighborhood.</param>
     /// <param name="height">The height of the pixels neighborhood.</param>
     /// <param name="colorDistance">The color distance.</param>
-    void MeanShift(int width, int height, Percentage colorDistance);
+    void MeanShift(uint width, uint height, Percentage colorDistance);
 
     /// <summary>
     /// Filter image by replacing each pixel component with the median color in a circular neighborhood.
@@ -2072,7 +2072,7 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="radius">The radius of the pixel neighborhood.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void MedianFilter(int radius);
+    void MedianFilter(uint radius);
 
     /// <summary>
     /// Reduce image by integral size.
@@ -2249,7 +2249,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Ping(byte[] data, int offset, int count);
+    void Ping(byte[] data, uint offset, uint count);
 
     /// <summary>
     /// Reads only metadata and not the pixel data.
@@ -2377,7 +2377,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(byte[] data, int offset, int count);
+    void Read(byte[] data, uint offset, uint count);
 
     /// <summary>
     /// Read single image frame.
@@ -2387,7 +2387,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(byte[] data, int offset, int count, MagickFormat format);
+    void Read(byte[] data, uint offset, uint count, MagickFormat format);
 
     /// <summary>
     /// Read single image frame.
@@ -2411,7 +2411,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(FileInfo file, int width, int height);
+    void Read(FileInfo file, uint width, uint height);
 
     /// <summary>
     /// Read single image frame.
@@ -2450,7 +2450,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Read(string fileName, int width, int height);
+    void Read(string fileName, uint width, uint height);
 
     /// <summary>
     /// Read single image frame.
@@ -2579,7 +2579,7 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="order">The order to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ReduceNoise(int order);
+    void ReduceNoise(uint order);
 
     /// <summary>
     /// Associates a mask with the image as defined by the specified region.
@@ -2658,7 +2658,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The new width.</param>
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Resize(int width, int height);
+    void Resize(uint width, uint height);
 
     /// <summary>
     /// Resize image to specified geometry.
@@ -2722,7 +2722,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The new width.</param>
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Sample(int width, int height);
+    void Sample(uint width, uint height);
 
     /// <summary>
     /// Resize image by using pixel sampling algorithm.
@@ -2755,7 +2755,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The new width.</param>
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Scale(int width, int height);
+    void Scale(uint width, uint height);
 
     /// <summary>
     /// Resize image by using simple ratio algorithm.
@@ -2901,7 +2901,7 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="value">The depth.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void SetBitDepth(int value);
+    void SetBitDepth(uint value);
 
     /// <summary>
     /// Set the bit depth (bits allocated to red/green/blue components) of the specified channel.
@@ -2909,7 +2909,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="value">The depth.</param>
     /// <param name="channels">The channel to set the depth for.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void SetBitDepth(int value, Channels channels);
+    void SetBitDepth(uint value, Channels channels);
 
     /// <summary>
     /// Sets the default clipping path.
@@ -3068,7 +3068,7 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="size">The size of to shave of the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Shave(int size);
+    void Shave(uint size);
 
     /// <summary>
     /// Shave pixels from image edges.
@@ -3076,7 +3076,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="leftRight">The number of pixels to shave left and right.</param>
     /// <param name="topBottom">The number of pixels to shave top and bottom.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Shave(int leftRight, int topBottom);
+    void Shave(uint leftRight, uint topBottom);
 
     /// <summary>
     /// Shear image (create parallelogram by sliding image by X or Y axis).
@@ -3200,7 +3200,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The width of the pixel neighborhood.</param>
     /// <param name="height">The height of the pixel neighborhood.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Statistic(StatisticType type, int width, int height);
+    void Statistic(StatisticType type, uint width, uint height);
 
     /// <summary>
     /// Returns the image statistics.
@@ -3284,7 +3284,7 @@ public partial interface IMagickImage : IDisposable
     /// <param name="width">The new width.</param>
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Thumbnail(int width, int height);
+    void Thumbnail(uint width, uint height);
 
     /// <summary>
     /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.

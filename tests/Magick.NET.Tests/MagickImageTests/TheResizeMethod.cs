@@ -27,8 +27,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage(Files.RedPNG);
                 image.Resize(new MagickGeometry(64, 64));
 
-                Assert.Equal(64, image.Width);
-                Assert.Equal(21, image.Height);
+                Assert.Equal(64U, image.Width);
+                Assert.Equal(21U, image.Height);
             }
 
             [Fact]
@@ -37,8 +37,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage(Files.MagickNETIconPNG);
                 image.Resize(new MagickGeometry("5x10!"));
 
-                Assert.Equal(5, image.Width);
-                Assert.Equal(10, image.Height);
+                Assert.Equal(5U, image.Width);
+                Assert.Equal(10U, image.Height);
             }
 
             [Fact]
@@ -47,8 +47,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage(Files.MagickNETIconPNG);
                 image.Resize(new MagickGeometry("32x32<"));
 
-                Assert.Equal(128, image.Width);
-                Assert.Equal(128, image.Height);
+                Assert.Equal(128U, image.Width);
+                Assert.Equal(128U, image.Height);
             }
 
             [Fact]
@@ -57,8 +57,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage(Files.MagickNETIconPNG);
                 image.Resize(new MagickGeometry("256x256<"));
 
-                Assert.Equal(256, image.Width);
-                Assert.Equal(256, image.Height);
+                Assert.Equal(256U, image.Width);
+                Assert.Equal(256U, image.Height);
             }
 
             [Fact]
@@ -67,8 +67,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage(Files.MagickNETIconPNG);
                 image.Resize(new MagickGeometry("256x256>"));
 
-                Assert.Equal(128, image.Width);
-                Assert.Equal(128, image.Height);
+                Assert.Equal(128U, image.Width);
+                Assert.Equal(128U, image.Height);
             }
 
             [Fact]
@@ -77,8 +77,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage(Files.MagickNETIconPNG);
                 image.Resize(new MagickGeometry("32x32>"));
 
-                Assert.Equal(32, image.Width);
-                Assert.Equal(32, image.Height);
+                Assert.Equal(32U, image.Width);
+                Assert.Equal(32U, image.Height);
             }
 
             [Fact]
@@ -128,35 +128,21 @@ public partial class MagickImageTests
                 using var image = new MagickImage(Files.MagickNETIconPNG);
                 image.Resize((Percentage)200);
 
-                Assert.Equal(256, image.Width);
-                Assert.Equal(256, image.Height);
+                Assert.Equal(256U, image.Width);
+                Assert.Equal(256U, image.Height);
             }
         }
 
         public class WithWidthAndHeight
         {
             [Fact]
-            public void ShouldThrowExceptionWhenWidthIsNegative()
-            {
-                using var image = new MagickImage(Files.RedPNG);
-                Assert.Throws<ArgumentException>("width", () => image.Resize(-1, 32));
-            }
-
-            [Fact]
-            public void ShouldThrowExceptionWhenHeightIsNegative()
-            {
-                using var image = new MagickImage(Files.RedPNG);
-                Assert.Throws<ArgumentException>("height", () => image.Resize(32, -1));
-            }
-
-            [Fact]
             public void ShouldResizeTheImage()
             {
                 using var image = new MagickImage(Files.RedPNG);
                 image.Resize(32, 32);
 
-                Assert.Equal(32, image.Width);
-                Assert.Equal(11, image.Height);
+                Assert.Equal(32U, image.Width);
+                Assert.Equal(11U, image.Height);
             }
         }
     }

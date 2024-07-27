@@ -18,12 +18,12 @@ public partial class TheEpsCoder
 
         Assert.Equal(2, images.Count);
 
-        Assert.Equal(447, images[0].Width);
-        Assert.Equal(420, images[0].Height);
+        Assert.Equal(447U, images[0].Width);
+        Assert.Equal(420U, images[0].Height);
         Assert.Equal(MagickFormat.Ept, images[0].Format);
 
-        Assert.Equal(447, images[1].Width);
-        Assert.Equal(420, images[1].Height);
+        Assert.Equal(447U, images[1].Width);
+        Assert.Equal(420U, images[1].Height);
         Assert.Equal(MagickFormat.Tiff, images[1].Format);
     }
 
@@ -40,8 +40,8 @@ public partial class TheEpsCoder
 
         using var image = new MagickImage(Files.Coders.SwedenHeartEPS, settings);
 
-        Assert.Equal(447, image.Width);
-        Assert.Equal(420, image.Height);
+        Assert.Equal(447U, image.Width);
+        Assert.Equal(420U, image.Height);
         ColorAssert.Equal(MagickColors.Black, image, 223, 61);
         ColorAssert.Equal(MagickColors.Black, image, 263, 255);
         ColorAssert.Equal(MagickColors.White, image, 223, 62);

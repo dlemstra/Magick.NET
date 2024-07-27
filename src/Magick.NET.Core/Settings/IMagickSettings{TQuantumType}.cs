@@ -63,7 +63,7 @@ public interface IMagickSettings<TQuantumType>
     /// <summary>
     /// Gets or sets the depth (bits allocated to red/green/blue components).
     /// </summary>
-    int Depth { get; set; }
+    uint Depth { get; set; }
 
     /// <summary>
     /// Gets or sets the endianness (little like Intel or big like SPARC) for image formats which support
@@ -167,7 +167,7 @@ public interface IMagickSettings<TQuantumType>
     /// of the line stroking the path. The miterLimit' imposes a limit on the ratio of the miter
     /// length to the 'lineWidth'. The default value is 4.
     /// </summary>
-    int StrokeMiterLimit { get; set; }
+    uint StrokeMiterLimit { get; set; }
 
     /// <summary>
     /// Gets or sets the pattern image to use while stroking object outlines.

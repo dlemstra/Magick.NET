@@ -43,7 +43,7 @@ public partial class ConvolveMatrixTests
         {
             var matrix = new ConvolveMatrix(3, 0.0, 1.0, 2.0, 0.1, 1.1, 2.1, 0.2, 1.2, 2.2);
 
-            Assert.Equal(3, matrix.Order);
+            Assert.Equal(3U, matrix.Order);
             Assert.Equal(0.0, matrix.GetValue(0, 0));
             Assert.Equal(1.0, matrix.GetValue(1, 0));
             Assert.Equal(2.0, matrix.GetValue(2, 0));

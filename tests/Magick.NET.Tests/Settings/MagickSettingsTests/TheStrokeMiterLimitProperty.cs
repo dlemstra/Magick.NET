@@ -16,7 +16,7 @@ public partial class MagickSettingsTests
         {
             using var image = new MagickImage();
 
-            Assert.Equal(10, image.Settings.StrokeMiterLimit);
+            Assert.Equal(10U, image.Settings.StrokeMiterLimit);
         }
 
         [Fact]

@@ -42,8 +42,8 @@ public partial class JpegReadDefinesTests
             using var image = new MagickImage();
             image.Read(Files.ImageMagickJPG, settings);
 
-            Assert.Equal(62, image.Width);
-            Assert.Equal(59, image.Height);
+            Assert.Equal(62U, image.Width);
+            Assert.Equal(59U, image.Height);
         }
     }
 }

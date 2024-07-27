@@ -42,14 +42,14 @@ public partial class MagickImageTests
 
             using var pixels = mask.GetPixels();
             var pixelA = pixels.GetPixel(0, 0).ToColor();
-            var pixelB = pixels.GetPixel(mask.Width - 1, mask.Height - 1).ToColor();
+            var pixelB = pixels.GetPixel((int)mask.Width - 1, (int)mask.Height - 1).ToColor();
 
             Assert.Equal(pixelA, pixelB);
             Assert.Equal(Quantum.Max, pixelA.R);
             Assert.Equal(Quantum.Max, pixelA.G);
             Assert.Equal(Quantum.Max, pixelA.B);
 
-            var pixelC = pixels.GetPixel(mask.Width / 2, mask.Height / 2).ToColor();
+            var pixelC = pixels.GetPixel((int)mask.Width / 2, (int)mask.Height / 2).ToColor();
             Assert.Equal(0, pixelC.R);
             Assert.Equal(0, pixelC.G);
             Assert.Equal(0, pixelC.B);

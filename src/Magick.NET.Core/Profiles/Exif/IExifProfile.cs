@@ -23,12 +23,12 @@ public interface IExifProfile : IImageProfile
     /// <summary>
     /// Gets the length of the thumbnail data in the <see cref="byte"/> array of the profile.
     /// </summary>
-    int ThumbnailLength { get; }
+    uint ThumbnailLength { get; }
 
     /// <summary>
     /// Gets the offset of the thumbnail in the <see cref="byte"/> array of the profile.
     /// </summary>
-    int ThumbnailOffset { get; }
+    uint ThumbnailOffset { get; }
 
     /// <summary>
     /// Gets the values of this exif profile.

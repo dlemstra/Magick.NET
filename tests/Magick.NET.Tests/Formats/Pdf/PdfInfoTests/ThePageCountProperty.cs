@@ -17,7 +17,7 @@ public partial class PdfInfoTests
                 return;
 
             var pdfInfo = PdfInfo.Create(Files.Coders.SamplePDF);
-            Assert.Equal(2, pdfInfo.PageCount);
+            Assert.Equal(2U, pdfInfo.PageCount);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ public partial class PdfInfoTests
                 return;
 
             var pdfInfo = PdfInfo.Create(Files.Coders.PdfExamplePasswordOriginalPDF, "test");
-            Assert.Equal(4, pdfInfo.PageCount);
+            Assert.Equal(4U, pdfInfo.PageCount);
         }
     }
 }

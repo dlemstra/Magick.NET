@@ -18,7 +18,7 @@ public partial class MagickImageTests
                 Quality = 0,
             };
 
-            Assert.Equal(1, image.Quality);
+            Assert.Equal(1U, image.Quality);
         }
 
         [Fact]
@@ -29,7 +29,7 @@ public partial class MagickImageTests
                 Quality = 101,
             };
 
-            Assert.Equal(100, image.Quality);
+            Assert.Equal(100U, image.Quality);
         }
 
         [Fact]
@@ -37,7 +37,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.CMYKJPG);
 
-            Assert.Equal(91, image.Quality);
+            Assert.Equal(91U, image.Quality);
         }
     }
 }

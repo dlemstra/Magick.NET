@@ -17,7 +17,7 @@ public abstract partial class DoubleMatrix
     /// </summary>
     /// <param name="order">The order.</param>
     /// <param name="values">The values to initialize the matrix with.</param>
-    protected DoubleMatrix(int order, double[]? values)
+    protected DoubleMatrix(uint order, double[]? values)
     {
         Throw.IfTrue(nameof(order), order < 1, "Invalid order specified, value has to be at least 1.");
 
@@ -34,7 +34,7 @@ public abstract partial class DoubleMatrix
     /// <summary>
     /// Gets the order of the matrix.
     /// </summary>
-    public int Order { get; }
+    public uint Order { get; }
 
     /// <summary>
     /// Get or set the value at the specified x/y position.
@@ -107,13 +107,13 @@ public abstract partial class DoubleMatrix
         => _values;
 
     private static INativeInstance CreateNativeInstance(IDoubleMatrix instance)
-        => NativeDoubleMatrix.Create(instance.ToArray(), (uint)instance.Order);
+        => NativeDoubleMatrix.Create(instance.ToArray(), instance.Order);
 
     private int GetIndex(int x, int y)
     {
         Throw.IfOutOfRange(nameof(x), x, Order);
         Throw.IfOutOfRange(nameof(y), y, Order);
 
-        return (y * Order) + x;
+        return (y * (int)Order) + x;
     }
 }

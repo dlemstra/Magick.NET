@@ -25,7 +25,7 @@ public sealed class PixelReadSettings : IPixelReadSettings<QuantumType>
     /// <param name="height">The height.</param>
     /// <param name="storageType">The pixel storage type.</param>
     /// <param name="mapping">The mapping of the pixels.</param>
-    public PixelReadSettings(int width, int height, StorageType storageType, PixelMapping mapping)
+    public PixelReadSettings(uint width, uint height, StorageType storageType, PixelMapping mapping)
         : this(width, height, storageType, mapping.ToString())
     {
     }
@@ -37,7 +37,7 @@ public sealed class PixelReadSettings : IPixelReadSettings<QuantumType>
     /// <param name="height">The height.</param>
     /// <param name="storageType">The pixel storage type.</param>
     /// <param name="mapping">The mapping of the pixels (e.g. RGB/RGBA/ARGB).</param>
-    public PixelReadSettings(int width, int height, StorageType storageType, string mapping)
+    public PixelReadSettings(uint width, uint height, StorageType storageType, string mapping)
     {
         ReadSettings = new MagickReadSettings
         {

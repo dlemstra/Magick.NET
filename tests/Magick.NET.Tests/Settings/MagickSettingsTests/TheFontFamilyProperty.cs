@@ -29,8 +29,8 @@ public partial class MagickSettingsTests
             image.Settings.FontWeight = FontWeight.ExtraBold;
             image.Read("label:Test");
 
-            Assert.Contains(image.Width, new[] { 97, 98 });
-            Assert.Equal(48, image.Height);
+            Assert.Contains(image.Width, new[] { 97U, 98U });
+            Assert.Equal(48U, image.Height);
 
             // Different result on MacOS
             if (image.Width != 97)

@@ -27,7 +27,7 @@ public partial class Jp2ReadDefinesTests
 
             Assert.Equal("true", image.Settings.GetDefine(MagickFormat.Jp2, "assume-alpha"));
             Assert.True(image.HasAlpha);
-            Assert.Equal(4, image.ChannelCount);
+            Assert.Equal(4U, image.ChannelCount);
             Assert.Contains(PixelChannel.Alpha, image.Channels);
         }
     }

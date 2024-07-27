@@ -35,7 +35,7 @@ public partial class PerceptualHashTests
             using var other = new MagickImage(Files.MagickNETIconPNG);
             other.HasAlpha = false;
 
-            Assert.Equal(3, other.ChannelCount);
+            Assert.Equal(3U, other.ChannelCount);
 
             var otherPhash = other.PerceptualHash();
 

@@ -38,7 +38,7 @@ public partial interface IMagickImageCollectionFactory<TQuantumType>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickImageCollection<TQuantumType> Create(byte[] data, int offset, int count);
+    IMagickImageCollection<TQuantumType> Create(byte[] data, uint offset, uint count);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.
@@ -49,7 +49,7 @@ public partial interface IMagickImageCollectionFactory<TQuantumType>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <returns>A new <see cref="IMagickImageCollection{TQuantumType}"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickImageCollection<TQuantumType> Create(byte[] data, int offset, int count, IMagickReadSettings<TQuantumType> readSettings);
+    IMagickImageCollection<TQuantumType> Create(byte[] data, uint offset, uint count, IMagickReadSettings<TQuantumType> readSettings);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IMagickImageCollection{TQuantumType}"/>.

@@ -15,13 +15,13 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Logo);
 
-            Assert.Equal(640, image.Width);
-            Assert.Equal(480, image.Height);
+            Assert.Equal(640U, image.Width);
+            Assert.Equal(480U, image.Height);
 
             image.Rotate(90);
 
-            Assert.Equal(480, image.Width);
-            Assert.Equal(640, image.Height);
+            Assert.Equal(480U, image.Width);
+            Assert.Equal(640U, image.Height);
         }
     }
 }

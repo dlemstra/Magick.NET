@@ -16,17 +16,7 @@ public partial class MagickImageTests
             using var image = new MagickImage();
             image.AnimationIterations = 60;
 
-            Assert.Equal(60, image.AnimationIterations);
-        }
-
-        [Fact]
-        public void ShouldNotAllowNegativeValue()
-        {
-            using var image = new MagickImage();
-            image.AnimationIterations = 60;
-            image.AnimationIterations = -1;
-
-            Assert.Equal(60, image.AnimationIterations);
+            Assert.Equal(60U, image.AnimationIterations);
         }
 
         [Fact]
@@ -36,7 +26,7 @@ public partial class MagickImageTests
             image.AnimationIterations = 60;
             image.AnimationIterations = 0;
 
-            Assert.Equal(0, image.AnimationIterations);
+            Assert.Equal(0U, image.AnimationIterations);
         }
     }
 }

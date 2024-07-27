@@ -19,7 +19,7 @@ public interface IMagickGeometryFactory
     /// </summary>
     /// <param name="widthAndHeight">The width and height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
-    IMagickGeometry Create(int widthAndHeight);
+    IMagickGeometry Create(uint widthAndHeight);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IMagickGeometry"/>.
@@ -27,7 +27,7 @@ public interface IMagickGeometryFactory
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
-    IMagickGeometry Create(int width, int height);
+    IMagickGeometry Create(uint width, uint height);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IMagickGeometry"/>.
@@ -37,7 +37,7 @@ public interface IMagickGeometryFactory
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     /// <returns>A new <see cref="IMagickGeometry"/> instance.</returns>
-    IMagickGeometry Create(int x, int y, int width, int height);
+    IMagickGeometry Create(int x, int y, uint width, uint height);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IMagickGeometry"/>.

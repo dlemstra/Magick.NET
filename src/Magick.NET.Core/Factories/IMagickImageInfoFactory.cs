@@ -32,7 +32,7 @@ public partial interface IMagickImageInfoFactory
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <returns>A new <see cref="IMagickImageInfo"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickImageInfo Create(byte[] data, int offset, int count);
+    IMagickImageInfo Create(byte[] data, uint offset, uint count);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IMagickImageInfo"/>.

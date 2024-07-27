@@ -11,13 +11,13 @@ public partial class SafePixelCollectionTests
     public class TheGetChannelIndexMethod
     {
         [Fact]
-        public void ShouldReturnMinusOneForInvalidChannel()
+        public void ShouldReturnNullForInvalidChannel()
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
             using var pixels = image.GetPixels();
             var index = pixels.GetChannelIndex(PixelChannel.Black);
 
-            Assert.Equal(-1, index);
+            Assert.Null(index);
         }
 
         [Fact]
@@ -27,7 +27,7 @@ public partial class SafePixelCollectionTests
             using var pixels = image.GetPixels();
             var index = pixels.GetChannelIndex(PixelChannel.Green);
 
-            Assert.Equal(1, index);
+            Assert.Equal(1U, index);
         }
     }
 }

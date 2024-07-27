@@ -113,20 +113,20 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.ReadPixels(new Span<byte>(data), settings);
 
-                Assert.Equal(2, image.Width);
-                Assert.Equal(1, image.Height);
+                Assert.Equal(2U, image.Width);
+                Assert.Equal(1U, image.Height);
 
                 using var pixels = image.GetPixels();
                 var pixel = pixels.GetPixel(0, 0);
 
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 Assert.Equal(0, pixel.GetChannel(0));
                 Assert.Equal(0, pixel.GetChannel(1));
                 Assert.Equal(0, pixel.GetChannel(2));
                 Assert.Equal(Quantum.Max, pixel.GetChannel(3));
 
                 pixel = pixels.GetPixel(1, 0);
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 Assert.Equal(0, pixel.GetChannel(0));
                 Assert.Equal(Quantum.Max, pixel.GetChannel(1));
                 Assert.Equal(0, pixel.GetChannel(2));
@@ -208,20 +208,20 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.ReadPixels(new Span<QuantumType>(data), settings);
 
-                Assert.Equal(2, image.Width);
-                Assert.Equal(1, image.Height);
+                Assert.Equal(2U, image.Width);
+                Assert.Equal(1U, image.Height);
 
                 using var pixels = image.GetPixels();
                 var pixel = pixels.GetPixel(0, 0);
 
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 Assert.Equal(0, pixel.GetChannel(0));
                 Assert.Equal(0, pixel.GetChannel(1));
                 Assert.Equal(0, pixel.GetChannel(2));
                 Assert.Equal(Quantum.Max, pixel.GetChannel(3));
 
                 pixel = pixels.GetPixel(1, 0);
-                Assert.Equal(4, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 Assert.Equal(0, pixel.GetChannel(0));
                 Assert.Equal(Quantum.Max, pixel.GetChannel(1));
                 Assert.Equal(0, pixel.GetChannel(2));

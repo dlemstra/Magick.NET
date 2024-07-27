@@ -13,18 +13,18 @@ public class TheJp2Coder
     {
         using var image = new MagickImage(Files.Coders.GrimJP2);
 
-        Assert.Equal(2155, image.Width);
-        Assert.Equal(2687, image.Height);
+        Assert.Equal(2155U, image.Width);
+        Assert.Equal(2687U, image.Height);
 
         using var first = new MagickImage(Files.Coders.GrimJP2 + "[0]");
 
-        Assert.Equal(2155, first.Width);
-        Assert.Equal(2687, first.Height);
+        Assert.Equal(2155U, first.Width);
+        Assert.Equal(2687U, first.Height);
 
         using var second = new MagickImage(Files.Coders.GrimJP2 + "[1]");
 
-        Assert.Equal(256, second.Width);
-        Assert.Equal(256, second.Height);
+        Assert.Equal(256U, second.Width);
+        Assert.Equal(256U, second.Height);
     }
 
     [Fact]
@@ -32,10 +32,10 @@ public class TheJp2Coder
     {
         using var image = new MagickImage(Files.Coders.TestJP2);
 
-        Assert.Equal(1, image.Width);
-        Assert.Equal(1, image.Height);
+        Assert.Equal(1U, image.Width);
+        Assert.Equal(1U, image.Height);
         Assert.False(image.HasAlpha);
-        Assert.Equal(4, image.ChannelCount);
+        Assert.Equal(4U, image.ChannelCount);
         Assert.Contains(PixelChannel.Meta0, image.Channels);
     }
 }

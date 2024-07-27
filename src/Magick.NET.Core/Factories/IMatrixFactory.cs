@@ -13,7 +13,7 @@ public interface IMatrixFactory
     /// </summary>
     /// <returns>A new <see cref="IMagickColorMatrix"/> instance.</returns>
     /// <param name="order">The order (1 to 6).</param>
-    IMagickColorMatrix CreateColorMatrix(int order);
+    IMagickColorMatrix CreateColorMatrix(uint order);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IMagickColorMatrix"/>.
@@ -21,14 +21,14 @@ public interface IMatrixFactory
     /// <returns>A new <see cref="IMagickColorMatrix"/> instance.</returns>
     /// <param name="order">The order (1 to 6).</param>
     /// <param name="values">The values to initialize the matrix with.</param>
-    IMagickColorMatrix CreateColorMatrix(int order, params double[] values);
+    IMagickColorMatrix CreateColorMatrix(uint order, params double[] values);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IConvolveMatrix"/>.
     /// </summary>
     /// <returns>A new <see cref="IConvolveMatrix"/> instance.</returns>
     /// <param name="order">The order (odd number).</param>
-    IConvolveMatrix CreateConvolveMatrix(int order);
+    IConvolveMatrix CreateConvolveMatrix(uint order);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IConvolveMatrix"/>.
@@ -36,5 +36,5 @@ public interface IMatrixFactory
     /// <returns>A new <see cref="IConvolveMatrix"/> instance.</returns>
     /// <param name="order">The order (odd number).</param>
     /// <param name="values">The values to initialize the matrix with.</param>
-    IConvolveMatrix CreateConvolveMatrix(int order, params double[] values);
+    IConvolveMatrix CreateConvolveMatrix(uint order, params double[] values);
 }

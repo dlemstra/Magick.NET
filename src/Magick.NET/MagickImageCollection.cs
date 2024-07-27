@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Threading;
@@ -57,7 +58,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImageCollection(byte[] data, int offset, int count)
+    public MagickImageCollection(byte[] data, uint offset, uint count)
         : this()
         => Read(data, offset, count);
 
@@ -69,7 +70,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImageCollection(byte[] data, int offset, int count, MagickFormat format)
+    public MagickImageCollection(byte[] data, uint offset, uint count, MagickFormat format)
         : this()
         => Read(data, offset, count, format);
 
@@ -81,7 +82,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public MagickImageCollection(byte[] data, int offset, int count, IMagickReadSettings<QuantumType> readSettings)
+    public MagickImageCollection(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType> readSettings)
         : this()
         => Read(data, offset, count, readSettings);
 
@@ -293,7 +294,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     {
         Throw.IfNullOrEmpty(nameof(data), data);
 
-        AddImages(data, 0, data.Length, readSettings, false);
+        AddImages(data, 0, (uint)data.Length, readSettings, false);
     }
 
     /// <summary>
@@ -476,8 +477,8 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
             return;
 
         Throw.IfNull(nameof(array), array);
-        Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, _images.Count);
-        Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, array.Length);
+        Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, (uint)_images.Count);
+        Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, (uint)array.Length);
 
         var indexI = 0;
         var indexA = arrayIndex;
@@ -682,12 +683,13 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// </summary>
     /// <param name="frames">The number of in-between images to generate.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Morph(int frames)
+    public void Morph(uint frames)
     {
-        ThrowIfCountLowerThan(2);
+        if (_images.Count < 2)
+            throw new InvalidOperationException("Operation requires at least two images.");
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
-        var images = _nativeInstance.Morph(_images[0], (nuint)frames);
+        var images = _nativeInstance.Morph(_images[0], frames);
         ReplaceImages(images);
     }
 
@@ -751,7 +753,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Ping(byte[] data, int offset, int count)
+    public void Ping(byte[] data, uint offset, uint count)
         => Ping(data, offset, count, null);
 
     /// <summary>
@@ -762,10 +764,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Ping(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
+    public void Ping(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
     {
         Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
         Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
         Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
         Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
@@ -785,7 +786,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         Throw.IfNullOrEmpty(nameof(data), data);
 
         Clear();
-        AddImages(data, 0, data.Length, readSettings, true);
+        AddImages(data, 0, (uint)data.Length, readSettings, true);
     }
 
     /// <summary>
@@ -907,7 +908,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="offset">The offset at which to begin reading data.</param>
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Read(byte[] data, int offset, int count)
+    public void Read(byte[] data, uint offset, uint count)
         => Read(data, offset, count, null);
 
     /// <summary>
@@ -918,7 +919,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Read(byte[] data, int offset, int count, MagickFormat format)
+    public void Read(byte[] data, uint offset, uint count, MagickFormat format)
         => Read(data, offset, count, new MagickReadSettings { Format = format });
 
     /// <summary>
@@ -929,10 +930,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="count">The maximum number of bytes to read.</param>
     /// <param name="readSettings">The settings to use when reading the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Read(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings)
+    public void Read(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
     {
         Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(offset), offset < 0, "The offset should be positive.");
         Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
         Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
         Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
@@ -961,7 +961,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         Throw.IfNullOrEmpty(nameof(data), data);
 
         Clear();
-        AddImages(data, 0, data.Length, readSettings, false);
+        AddImages(data, 0, (uint)data.Length, readSettings, false);
     }
 
     /// <summary>
@@ -1163,7 +1163,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
 
         cancellationToken.ThrowIfCancellationRequested();
         Clear();
-        AddImages(bytes, 0, bytes.Length, readSettings, false, filePath);
+        AddImages(bytes, 0, (uint)bytes.Length, readSettings, false, filePath);
     }
 
     /// <summary>
@@ -1250,7 +1250,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         var bytes = await Bytes.CreateAsync(stream, cancellationToken).ConfigureAwait(false);
 
         Clear();
-        AddImages(bytes.GetData(), 0, bytes.Length, readSettings, false);
+        AddImages(bytes.GetData(), 0, (uint)bytes.Length, readSettings, false);
     }
 
     /// <summary>
@@ -1292,7 +1292,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="offset">Minimum distance in pixels between images.</param>
     /// <returns>The resulting image of the smush operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickImage<QuantumType> SmushHorizontal(int offset)
+    public IMagickImage<QuantumType> SmushHorizontal(uint offset)
         => Smush(offset, false);
 
     /// <summary>
@@ -1301,7 +1301,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="offset">Minimum distance in pixels between images.</param>
     /// <returns>The resulting image of the smush operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickImage<QuantumType> SmushVertical(int offset)
+    public IMagickImage<QuantumType> SmushVertical(uint offset)
         => Smush(offset, true);
 
     /// <summary>
@@ -1812,13 +1812,13 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         return Convert.ToBase64String(bytes);
     }
 
-    private void AddImages(byte[] data, int offset, int count, IMagickReadSettings<QuantumType>? readSettings, bool ping, string? fileName = null)
+    private void AddImages(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings, bool ping, string? fileName = null)
     {
         var settings = CreateSettings(readSettings);
         settings.Ping = ping;
         settings.FileName = fileName;
 
-        var result = _nativeInstance.ReadBlob(settings, data, (nuint)offset, (nuint)count);
+        var result = _nativeInstance.ReadBlob(settings, data, offset, count);
         AddImages(result, settings);
     }
 
@@ -1842,7 +1842,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         var bytes = Bytes.FromStreamBuffer(stream);
         if (bytes is not null)
         {
-            AddImages(bytes.GetData(), 0, bytes.Length, readSettings, ping);
+            AddImages(bytes.GetData(), 0, (uint)bytes.Length, readSettings, ping);
             return;
         }
 
@@ -1925,17 +1925,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         }
     }
 
-    private IMagickImage<QuantumType> Smush(int offset, bool stack)
+    private IMagickImage<QuantumType> Smush(uint offset, bool stack)
     {
         using var imageAttacher = new TemporaryImageAttacher(_images);
-        var image = _nativeInstance.Smush(_images[0], (nuint)offset, stack);
+        var image = _nativeInstance.Smush(_images[0], offset, stack);
         return MagickImage.Create(image, GetSettings());
-    }
-
-    private void ThrowIfCountLowerThan(int count)
-    {
-        if (_images.Count < count)
-            throw new InvalidOperationException("Operation requires at least " + count + " images.");
     }
 
     private async Task WriteAsyncInternal(string fileName, MagickFormat? format, CancellationToken cancellationToken)

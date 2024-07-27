@@ -8,8 +8,8 @@ namespace ImageMagick;
 
 internal sealed class ClipPathReader
 {
-    private readonly int _height;
-    private readonly int _width;
+    private readonly uint _height;
+    private readonly uint _width;
     private readonly PointD[] _first = new PointD[3];
     private readonly PointD[] _last = new PointD[3];
     private readonly StringBuilder _path = new StringBuilder();
@@ -18,7 +18,7 @@ internal sealed class ClipPathReader
     private bool _inSubpath = false;
     private int _knotCount = 0;
 
-    private ClipPathReader(int width, int height)
+    private ClipPathReader(uint width, uint height)
     {
         _width = width;
         _height = height;
@@ -26,7 +26,7 @@ internal sealed class ClipPathReader
         _index = 0;
     }
 
-    public static string Read(int width, int height, byte[] data)
+    public static string Read(uint width, uint height, byte[] data)
     {
         var reader = new ClipPathReader(width, height);
         return reader.Read(data);

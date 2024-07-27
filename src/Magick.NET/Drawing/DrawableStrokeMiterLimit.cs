@@ -15,7 +15,7 @@ public sealed class DrawableStrokeMiterLimit : IDrawableStrokeMiterLimit, IDrawi
     /// Initializes a new instance of the <see cref="DrawableStrokeMiterLimit"/> class.
     /// </summary>
     /// <param name="miterlimit">The miter limit.</param>
-    public DrawableStrokeMiterLimit(int miterlimit)
+    public DrawableStrokeMiterLimit(uint miterlimit)
     {
         Miterlimit = miterlimit;
     }
@@ -23,12 +23,12 @@ public sealed class DrawableStrokeMiterLimit : IDrawableStrokeMiterLimit, IDrawi
     /// <summary>
     /// Gets the miter limit.
     /// </summary>
-    public int Miterlimit { get; }
+    public uint Miterlimit { get; }
 
     /// <summary>
     /// Draws this instance with the drawing wand.
     /// </summary>
     /// <param name="wand">The want to draw on.</param>
     void IDrawingWand.Draw(DrawingWand wand)
-        => wand?.StrokeMiterLimit((uint)Miterlimit);
+        => wand?.StrokeMiterLimit(Miterlimit);
 }

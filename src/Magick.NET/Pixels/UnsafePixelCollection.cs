@@ -39,7 +39,7 @@ internal sealed partial class UnsafePixelCollection : PixelCollection, IUnsafePi
         return base.GetAreaPointer(geometry);
     }
 
-    public override void SetArea(int x, int y, int width, int height, QuantumType[] values)
+    public override void SetArea(int x, int y, uint width, uint height, QuantumType[] values)
     {
         if (values is not null)
             base.SetArea(x, y, width, height, values);
@@ -51,7 +51,7 @@ internal sealed partial class UnsafePixelCollection : PixelCollection, IUnsafePi
             base.SetArea(geometry, values);
     }
 
-    public override void SetByteArea(int x, int y, int width, int height, byte[] values)
+    public override void SetByteArea(int x, int y, uint width, uint height, byte[] values)
     {
         if (values is not null)
             base.SetByteArea(x, y, width, height, values);
@@ -69,7 +69,7 @@ internal sealed partial class UnsafePixelCollection : PixelCollection, IUnsafePi
             base.SetBytePixels(values);
     }
 
-    public override void SetDoubleArea(int x, int y, int width, int height, double[] values)
+    public override void SetDoubleArea(int x, int y, uint width, uint height, double[] values)
     {
         if (values is not null)
             base.SetDoubleArea(x, y, width, height, values);
@@ -87,7 +87,7 @@ internal sealed partial class UnsafePixelCollection : PixelCollection, IUnsafePi
             base.SetDoublePixels(values);
     }
 
-    public override void SetIntArea(int x, int y, int width, int height, int[] values)
+    public override void SetIntArea(int x, int y, uint width, uint height, int[] values)
     {
         if (values is not null)
             base.SetIntArea(x, y, width, height, values);
@@ -131,7 +131,7 @@ internal sealed partial class UnsafePixelCollection : PixelCollection, IUnsafePi
         return base.ToByteArray(geometry, mapping);
     }
 
-    public override byte[]? ToByteArray(int x, int y, int width, int height, string mapping)
+    public override byte[]? ToByteArray(int x, int y, uint width, uint height, string mapping)
     {
         if (mapping is null)
             return null;
@@ -147,7 +147,7 @@ internal sealed partial class UnsafePixelCollection : PixelCollection, IUnsafePi
         return base.ToShortArray(geometry, mapping);
     }
 
-    public override ushort[]? ToShortArray(int x, int y, int width, int height, string mapping)
+    public override ushort[]? ToShortArray(int x, int y, uint width, uint height, string mapping)
     {
         if (mapping is null)
             return null;

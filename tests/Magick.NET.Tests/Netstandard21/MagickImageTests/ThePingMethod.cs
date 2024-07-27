@@ -33,8 +33,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.Ping(new ReadOnlySequence<byte>(bytes));
 
-                Assert.Equal(286, image.Width);
-                Assert.Equal(67, image.Height);
+                Assert.Equal(286U, image.Width);
+                Assert.Equal(67U, image.Height);
                 Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
             }
 
@@ -46,8 +46,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.Ping(sequence);
 
-                Assert.Equal(286, image.Width);
-                Assert.Equal(67, image.Height);
+                Assert.Equal(286U, image.Width);
+                Assert.Equal(67U, image.Height);
                 Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
             }
         }
@@ -120,8 +120,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.Ping(new Span<byte>(bytes));
 
-                Assert.Equal(286, image.Width);
-                Assert.Equal(67, image.Height);
+                Assert.Equal(286U, image.Width);
+                Assert.Equal(67U, image.Height);
                 Assert.Throws<InvalidOperationException>(() => image.GetPixelsUnsafe());
             }
         }

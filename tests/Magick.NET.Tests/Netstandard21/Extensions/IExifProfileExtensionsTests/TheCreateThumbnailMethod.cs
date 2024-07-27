@@ -23,8 +23,8 @@ public partial class IExifProfileExtensionsTests
             using var thumbnail = profile.CreateThumbnail();
 
             Assert.NotNull(thumbnail);
-            Assert.Equal(128, thumbnail.Width);
-            Assert.Equal(85, thumbnail.Height);
+            Assert.Equal(128U, thumbnail.Width);
+            Assert.Equal(85U, thumbnail.Height);
             Assert.Equal(MagickFormat.Jpeg, thumbnail.Format);
         }
     }
