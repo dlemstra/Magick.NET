@@ -18,35 +18,6 @@ public partial interface IDrawables<TQuantumType> : IEnumerable<IDrawable>
     /// <summary>
     /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
     /// </summary>
-    /// <param name="offset">The offset from origin.</param>
-    /// <param name="image">The image to draw.</param>
-    /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
-    IDrawables<TQuantumType> Composite(IMagickGeometry offset, IMagickImage<TQuantumType> image);
-
-    /// <summary>
-    /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
-    /// </summary>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
-    /// <param name="image">The image to draw.</param>
-    /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, compose instead.")]
-    IDrawables<TQuantumType> Composite(double x, double y, IMagickImage<TQuantumType> image);
-
-    /// <summary>
-    /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
-    /// </summary>
-    /// <param name="offset">The offset from origin.</param>
-    /// <param name="compose">The algorithm to use.</param>
-    /// <param name="image">The image to draw.</param>
-    /// <returns>The <see cref="IDrawables{TQuantumType}" /> instance.</returns>
-    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
-    IDrawables<TQuantumType> Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<TQuantumType> image);
-
-    /// <summary>
-    /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.
-    /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
     /// <param name="compose">The algorithm to use.</param>

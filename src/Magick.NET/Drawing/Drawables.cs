@@ -38,47 +38,6 @@ public sealed partial class Drawables : IDrawables<QuantumType>
     /// <summary>
     /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
     /// </summary>
-    /// <param name="offset">The offset from origin.</param>
-    /// <param name="image">The image to draw.</param>
-    /// <returns>The <see cref="Drawables" /> instance.</returns>
-    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
-    public IDrawables<QuantumType> Composite(IMagickGeometry offset, IMagickImage<QuantumType> image)
-    {
-        _drawables.Add(new DrawableComposite(offset, image));
-        return this;
-    }
-
-    /// <summary>
-    /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
-    /// </summary>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
-    /// <param name="image">The image to draw.</param>
-    /// <returns>The <see cref="Drawables" /> instance.</returns>
-    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, compose instead.")]
-    public IDrawables<QuantumType> Composite(double x, double y, IMagickImage<QuantumType> image)
-    {
-        _drawables.Add(new DrawableComposite(x, y, image));
-        return this;
-    }
-
-    /// <summary>
-    /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
-    /// </summary>
-    /// <param name="offset">The offset from origin.</param>
-    /// <param name="compose">The algorithm to use.</param>
-    /// <param name="image">The image to draw.</param>
-    /// <returns>The <see cref="Drawables" /> instance.</returns>
-    [Obsolete($"This method will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
-    public IDrawables<QuantumType> Composite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<QuantumType> image)
-    {
-        _drawables.Add(new DrawableComposite(offset, compose, image));
-        return this;
-    }
-
-    /// <summary>
-    /// Applies the DrawableComposite operation to the <see cref="Drawables" />.
-    /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
     /// <param name="compose">The algorithm to use.</param>

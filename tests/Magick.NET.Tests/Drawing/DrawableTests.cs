@@ -35,11 +35,6 @@ public class DrawableTests
 
         using var compositeImage = new MagickImage(new MagickColor("red"), 50, 50);
 
-#pragma warning disable CS0618 // Type or member is obsolete
-        image.Draw(new DrawableComposite(0, 0, compositeImage));
-        image.Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), compositeImage));
-        image.Draw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), CompositeOperator.Over, compositeImage));
-#pragma warning restore CS0618 // Type or member is obsolete
         image.Draw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
         image.Draw(new DrawableComposite(50, 50, 10, 10, CompositeOperator.Over, compositeImage));
 
@@ -110,11 +105,6 @@ public class DrawableTests
 
         using var compositeImage = new MagickImage(new MagickColor("red"), 50, 50);
 
-#pragma warning disable CS0618 // Type or member is obsolete
-        AssertDraw(new DrawableComposite(0, 0, compositeImage));
-        AssertDraw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), compositeImage));
-        AssertDraw(new DrawableComposite(new MagickGeometry(50, 50, 10, 10), CompositeOperator.Over, compositeImage));
-#pragma warning restore CS0618 // Type or member is obsolete
         AssertDraw(new DrawableComposite(0, 0, CompositeOperator.Over, compositeImage));
         AssertDraw(new DrawableComposite(50, 50, 10, 10, CompositeOperator.Over, compositeImage));
 

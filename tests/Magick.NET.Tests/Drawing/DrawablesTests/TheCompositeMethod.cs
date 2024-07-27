@@ -16,20 +16,11 @@ public partial class DrawablesTests
         public class WithOffsetAndImage
         {
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("offset", () =>
-                {
-                    new Drawables().Composite(null, new MagickImage());
-                });
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenImageIsNull()
             {
                 Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    new Drawables().Composite(new MagickGeometry(), null);
+                    new Drawables().Composite(0, 0, CompositeOperator.In, null);
                 });
             }
 
@@ -39,7 +30,7 @@ public partial class DrawablesTests
                 using var image = new MagickImage(MagickColors.Green, 3, 1);
                 using var inner = new MagickImage(MagickColors.Purple, 2, 2);
                 new Drawables()
-                    .Composite(new MagickGeometry(1, 0, 1, 1), inner)
+                    .Composite(1, 0, 1, 1, CompositeOperator.In, inner)
                     .Draw(image);
 
                 ColorAssert.Equal(MagickColors.Green, image, 0, 0);
@@ -52,20 +43,11 @@ public partial class DrawablesTests
         public class WithGeometryOffsetAndCompositeOperatorAndImage
         {
             [Fact]
-            public void ShouldThrowExceptionWhenOffsetIsNull()
-            {
-                Assert.Throws<ArgumentNullException>("offset", () =>
-                {
-                    new Drawables().Composite(null, CompositeOperator.Over, new MagickImage());
-                });
-            }
-
-            [Fact]
             public void ShouldThrowExceptionWhenImageIsNull()
             {
                 Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    new Drawables().Composite(new MagickGeometry(), CompositeOperator.Over, null);
+                    new Drawables().Composite(0, 0, CompositeOperator.Over, null);
                 });
             }
 
@@ -75,7 +57,7 @@ public partial class DrawablesTests
                 using var image = new MagickImage(MagickColors.Green, 3, 1);
                 using var inner = new MagickImage(MagickColors.Purple, 2, 2);
                 new Drawables()
-                    .Composite(new MagickGeometry(1, 0, 1, 1), CompositeOperator.Plus, inner)
+                    .Composite(1, 0, 1, 1, CompositeOperator.Plus, inner)
                     .Draw(image);
 
                 ColorAssert.Equal(MagickColors.Green, image, 0, 0);
@@ -118,7 +100,7 @@ public partial class DrawablesTests
             {
                 Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    new Drawables().Composite(0, 0, null);
+                    new Drawables().Composite(0, 0, CompositeOperator.In, null);
                 });
             }
 
@@ -128,7 +110,7 @@ public partial class DrawablesTests
                 using var image = new MagickImage(MagickColors.Green, 3, 1);
                 using var inner = new MagickImage(MagickColors.Purple, 2, 2);
                 new Drawables()
-                    .Composite(1, 0, inner)
+                    .Composite(1, 0, CompositeOperator.In, inner)
                     .Draw(image);
 
                 ColorAssert.Equal(MagickColors.Green, image, 0, 0);

@@ -25,18 +25,6 @@ public sealed class DrawableComposite : IDrawableComposite<QuantumType>, IDrawin
     /// </summary>
     /// <param name="x">The X coordinate.</param>
     /// <param name="y">The Y coordinate.</param>
-    /// <param name="image">The image to draw.</param>
-    [Obsolete($"This constructor will be removed in the next major release, use the overload with x, y, compose instead.")]
-    public DrawableComposite(double x, double y, IMagickImage<QuantumType> image)
-      : this(x, y, CompositeOperator.In, image)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
-    /// </summary>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
     /// <param name="compose">The algorithm to use.</param>
     /// <param name="image">The image to draw.</param>
     public DrawableComposite(double x, double y, CompositeOperator compose, IMagickImage<QuantumType> image)
@@ -46,36 +34,6 @@ public sealed class DrawableComposite : IDrawableComposite<QuantumType>, IDrawin
         Y = y;
         Width = Image.Width;
         Height = Image.Height;
-        Compose = compose;
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
-    /// </summary>
-    /// <param name="offset">The offset from origin.</param>
-    /// <param name="image">The image to draw.</param>
-    [Obsolete($"This constructor will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
-    public DrawableComposite(IMagickGeometry offset, IMagickImage<QuantumType> image)
-      : this(offset, CompositeOperator.In, image)
-    {
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DrawableComposite"/> class.
-    /// </summary>
-    /// <param name="offset">The offset from origin.</param>
-    /// <param name="compose">The algorithm to use.</param>
-    /// <param name="image">The image to draw.</param>
-    [Obsolete($"This constructor will be removed in the next major release, use the overload with x, y, width, height, compose instead.")]
-    public DrawableComposite(IMagickGeometry offset, CompositeOperator compose, IMagickImage<QuantumType> image)
-      : this(image)
-    {
-        Throw.IfNull(nameof(offset), offset);
-
-        X = offset.X;
-        Y = offset.Y;
-        Width = offset.Width;
-        Height = offset.Height;
         Compose = compose;
     }
 
