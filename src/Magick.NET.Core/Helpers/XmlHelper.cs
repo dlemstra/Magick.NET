@@ -17,7 +17,7 @@ internal static partial class XmlHelper
 
     public static XmlElement CreateElement(XmlNode node, string name)
     {
-        var doc = node.GetType() == typeof(XmlDocument) ? (XmlDocument)node : node.OwnerDocument;
+        var doc = node.GetType() == typeof(XmlDocument) ? (XmlDocument)node : node.OwnerDocument!;
         var element = doc.CreateElement(name);
         node.AppendChild(element);
         return element;
@@ -34,7 +34,7 @@ internal static partial class XmlHelper
     {
         XmlAttribute attribute;
         if (element.HasAttribute(name))
-            attribute = element.Attributes[name];
+            attribute = element.Attributes[name]!;
         else
             attribute = element.Attributes.Append(element.OwnerDocument.CreateAttribute(name));
 

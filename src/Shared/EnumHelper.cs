@@ -13,7 +13,7 @@ internal static class EnumHelper
         => value.ToString();
 
     public static string GetName(Enum value)
-        => Enum.GetName(value.GetType(), value);
+        => Enum.GetName(value.GetType(), value)!;
 
     public static bool HasFlag<TEnum>(TEnum value, TEnum flag)
         where TEnum : struct, Enum

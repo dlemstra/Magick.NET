@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard21;netstandard20;net462</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows;netstandard20;net462</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>7.3.0</AssemblyVersion>
     <FileVersion>7.3.0</FileVersion>
@@ -8,11 +8,11 @@
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 
-  <ItemGroup Condition="!$(TargetFramework.StartsWith('netstandard'))">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
     <Reference Include="System.Drawing" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net462'">
     <!-- After an upgrade of this library the nuspec file should also be updated -->
     <PackageReference Include="System.Drawing.Common" Version="8.0.7" />
   </ItemGroup>

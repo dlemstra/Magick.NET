@@ -21,12 +21,12 @@
       <group targetFramework=".NETFramework4.6.2">
         <dependency id="Magick.NET.Core" version="13.10.0" />
       </group>
-      <group targetFramework=".NETCoreApp3.1">
+      <group targetFramework="net8.0-windows">
         <dependency id="Magick.NET.Core" version="13.10.0" />
       </group>
     </dependencies>
     <frameworkReferences>
-      <group targetFramework=".NETCoreApp3.1">
+      <group targetFramework="net8.0-windows">
         <frameworkReference name="Microsoft.WindowsDesktop.App.WPF" />
       </group>
     </frameworkReferences>

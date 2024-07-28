@@ -1911,7 +1911,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
             Add(image);
     }
 
-    private void OnWarning(object sender, WarningEventArgs arguments)
+    private void OnWarning(object? sender, WarningEventArgs arguments)
         => _warning?.Invoke(this, arguments);
 
     private void SetDefines(IWriteDefines defines)

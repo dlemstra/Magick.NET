@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard21</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <OutputPath>bin\$(Configuration)\$(Platform)\</OutputPath>
     <Authors>Dirk Lemstra</Authors>
     <Copyright>Copyright 2013-2022 Dirk Lemstra</Copyright>

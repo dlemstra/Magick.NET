@@ -25,7 +25,7 @@
         <dependency id="Magick.NET.Core" version="13.10.0" />
         <dependency id="System.Drawing.Common" version="6.0.0" />
       </group>
-      <group targetFramework=".NETStandard2.1">
+      <group targetFramework="net8.0-windows">
         <dependency id="Magick.NET.Core" version="13.10.0" />
         <dependency id="System.Drawing.Common" version="6.0.0" />
       </group>

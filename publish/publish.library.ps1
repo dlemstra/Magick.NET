@@ -17,13 +17,14 @@ function createMagickNetLibraryNuGetPackage($library, $version, $commit, $pfxPas
 
     if ($library -eq "Magick.NET.SystemWindowsMedia") {
         addLibrary $xml $library "" "AnyCPU" "net462"
-        addLibrary $xml $library "" "AnyCPU" "netcoreapp3.1"
-    } else {
-        if ($library -eq "Magick.NET.SystemDrawing") {
-            addLibrary $xml $library "" "AnyCPU" "net462"
-        }
+        addLibrary $xml $library "" "AnyCPU" "net8.0-windows"
+    } else if ($library -eq "Magick.NET.SystemDrawing") {
+        addLibrary $xml $library "" "AnyCPU" "net462"
         addLibrary $xml $library "" "AnyCPU" "netstandard20"
-        addLibrary $xml $library "" "AnyCPU" "netstandard21"
+        addLibrary $xml $library "" "AnyCPU" "net8.0-windows"
+    } else {
+        addLibrary $xml $library "" "AnyCPU" "netstandard20"
+        addLibrary $xml $library "" "AnyCPU" "net8.0"
     }
 
     createAndSignNuGetPackage $xml $library $version $pfxPassword

@@ -254,13 +254,13 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         XmlHelper.SetAttribute(path, "stroke-antialiasing", "false");
         XmlHelper.SetAttribute(path, "d", d);
 
-        return new ClipPath(value.Name, doc.CreateNavigator());
+        return new ClipPath(value.Name, doc.CreateNavigator()!);
     }
 
     private IEightBimValue? FindValue(int id)
     {
         return _values
-            .Where(value => value.Id == id)
+            ?.Where(value => value.Id == id)
             .FirstOrDefault();
     }
 

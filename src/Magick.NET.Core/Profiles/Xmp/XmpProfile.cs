@@ -33,11 +33,15 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
     {
         Throw.IfNull(nameof(document), document);
 
-        using var memStream = new MemoryStream();
-        using var writer = CreateXmlWriter(memStream);
-        document.CreateNavigator().WriteSubtree(writer);
-        writer.Flush();
-        SetData(memStream.ToArray());
+        var navigator = document.CreateNavigator();
+        if (navigator is not null)
+        {
+            using var memStream = new MemoryStream();
+            using var writer = CreateXmlWriter(memStream);
+            navigator.WriteSubtree(writer);
+            writer.Flush();
+            SetData(memStream.ToArray());
+        }
     }
 
     /// <summary>
@@ -111,9 +115,12 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
     /// Converts this instance to an IXPathNavigable.
     /// </summary>
     /// <returns>A <see cref="IXPathNavigable"/>.</returns>
-    public IXPathNavigable ToIXPathNavigable()
+    public IXPathNavigable? ToIXPathNavigable()
     {
         using var reader = CreateReader();
+        if (reader is null)
+            return null;
+
         var result = XmlHelper.CreateDocument();
         result.Load(reader);
         return result.CreateNavigator();
@@ -123,9 +130,12 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
     /// Converts this instance to a XDocument.
     /// </summary>
     /// <returns>A <see cref="XDocument"/>.</returns>
-    public XDocument ToXDocument()
+    public XDocument? ToXDocument()
     {
         using var reader = CreateReader();
+        if (reader is null)
+            return null;
+
         return XDocument.Load(reader);
     }
 

@@ -22,11 +22,11 @@ public interface IXmpProfile : IImageProfile
     /// Converts this instance to an IXPathNavigable.
     /// </summary>
     /// <returns>A <see cref="IXPathNavigable"/>.</returns>
-    IXPathNavigable ToIXPathNavigable();
+    IXPathNavigable? ToIXPathNavigable();
 
     /// <summary>
     /// Converts this instance to a XDocument.
     /// </summary>
     /// <returns>A <see cref="XDocument"/>.</returns>
-    XDocument ToXDocument();
+    XDocument? ToXDocument();
 }

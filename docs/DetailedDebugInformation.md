@@ -3,7 +3,7 @@
 ## Get detailed debug information from ImageMagick
 
 ```C#
-public static void MagickNET_Log(object sender, LogEventArgs arguments)
+public static void MagickNET_Log(object? sender, LogEventArgs arguments)
 {
     // Write log message
     WriteLogMessage(arguments.Message);

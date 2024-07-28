@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net462</TargetFrameworks>
+    <TargetFrameworks>net8.0-windows;net462</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>7.3.0</AssemblyVersion>
     <FileVersion>7.3.0</FileVersion>

@@ -8,7 +8,7 @@ namespace Magick.NET.Samples;
 
 public static class DetailedDebugInformationSamples
 {
-    public static void MagickNET_Log(object sender, LogEventArgs arguments)
+    public static void MagickNET_Log(object? sender, LogEventArgs arguments)
     {
         // Write log message
         Console.WriteLine(arguments.Message);

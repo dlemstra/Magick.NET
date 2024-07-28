@@ -13,5 +13,5 @@ internal static class TypeHelper
         => (T)type.Assembly.GetCustomAttributes(typeof(T), false)[0];
 
     public static Stream GetManifestResourceStream(Type type, string resourcePath, string resourceName)
-        => type.Assembly.GetManifestResourceStream(resourcePath + "." + resourceName);
+        => type.Assembly.GetManifestResourceStream(resourcePath + "." + resourceName)!;
 }

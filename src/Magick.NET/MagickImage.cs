@@ -7281,7 +7281,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         return new ColorProfile(name, info.Datum);
     }
 
-    private void OnArtifact(object sender, ArtifactEventArgs arguments)
+    private void OnArtifact(object? sender, ArtifactEventArgs arguments)
     {
         if (arguments.Value is null)
             RemoveArtifact(arguments.Key);
@@ -7300,7 +7300,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         return !eventArgs.Cancel;
     }
 
-    private void OnWarning(object sender, WarningEventArgs arguments)
+    private void OnWarning(object? sender, WarningEventArgs arguments)
         => _warning?.Invoke(this, arguments);
 
     private void Read(byte[] data, nuint offset, nuint length, IMagickReadSettings<QuantumType>? readSettings, bool ping, string? fileName = null)

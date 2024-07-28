@@ -151,7 +151,11 @@ public sealed class MagickDefine : IDefine
         foreach (var val in value)
         {
             if (val is not null)
-                values.Add(val.ToString());
+            {
+                var stringValue = val.ToString();
+                if (stringValue is not null)
+                    values.Add(stringValue);
+            }
         }
 
         if (values.Count == 0)

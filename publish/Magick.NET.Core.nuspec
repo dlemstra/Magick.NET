@@ -19,7 +19,7 @@
     <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
     <dependencies>
       <group targetFramework=".NETStandard2.0" />
-      <group targetFramework=".NETStandard2.1" />
+      <group targetFramework="net8.0" />
     </dependencies>
   </metadata>
   <files>

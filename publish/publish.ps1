@@ -15,7 +15,7 @@ param (
 
 function addMagickNetLibraries($xml, $quantumName, $platform) {
     addLibrary $xml "Magick.NET" $quantumName $platform "netstandard20"
-    addLibrary $xml "Magick.NET" $quantumName $platform "netstandard21"
+    addLibrary $xml "Magick.NET" $quantumName $platform "net8.0"
 }
 
 function addOpenMPLibrary($xml, $platform) {

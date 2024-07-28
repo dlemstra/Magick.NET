@@ -63,7 +63,7 @@ public readonly struct Threshold : IEquatable<Threshold>
     /// </summary>
     /// <param name="obj">The object to compare this <see cref="Threshold"/> with.</param>
     /// <returns>True when the specified object is equal to the current <see cref="Threshold"/>.</returns>
-    public override bool Equals(object obj)
+    public override bool Equals(object? obj)
     {
         if (obj is not Threshold other)
             return false;

@@ -8,7 +8,7 @@ namespace Magick.NET.Samples;
 
 public static class ExceptionHandlingSamples
 {
-    private static void MagickImage_Warning(object sender, WarningEventArgs arguments)
+    private static void MagickImage_Warning(object? sender, WarningEventArgs arguments)
         => Console.WriteLine(arguments.Message);
 
     public static void ExceptionHandling()
