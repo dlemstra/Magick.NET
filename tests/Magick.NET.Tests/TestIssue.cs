@@ -3,7 +3,12 @@
 
 using System;
 using ImageMagick;
+using ImageMagick.Colors;
+using ImageMagick.Configuration;
+using ImageMagick.Drawing;
+using ImageMagick.Factories;
 using ImageMagick.Formats;
+using ImageMagick.ImageOptimizers;
 using Xunit;
 
 namespace Magick.NET.Tests;
