@@ -36,7 +36,7 @@ public partial class MagickFormatInfo
         [Throws]
         public static partial MagickFormatInfo? GetInfoWithBlob(byte[] data, nuint length);
 
-#if NETSTANDARD2_1
+#if !NETSTANDARD2_0
         [Throws]
         public static partial MagickFormatInfo? GetInfoWithBlob(ReadOnlySpan<byte> data, nuint length);
 #endif

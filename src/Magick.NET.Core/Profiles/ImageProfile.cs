@@ -119,7 +119,7 @@ public partial class ImageProfile : IImageProfile
     /// Returns the <see cref="byte"/> array of this profile.
     /// </summary>
     /// <returns>A <see cref="byte"/> array.</returns>
-#if NETSTANDARD2_1
+#if !NETSTANDARD2_0
     [Obsolete($"This property will be removed in the next major release, use {nameof(ToByteArray)} or {nameof(ToReadOnlySpan)} instead.")]
 #else
     [Obsolete($"This property will be removed in the next major release, use {nameof(ToByteArray)} instead.")]

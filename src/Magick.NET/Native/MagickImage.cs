@@ -633,7 +633,7 @@ public partial class MagickImage : IDisposable
         [ReadInstance]
         public partial void ReadBlob(IMagickSettings<QuantumType>? settings, byte[] data, nuint offset, nuint length);
 
-#if NETSTANDARD2_1
+#if !NETSTANDARD2_0
         [Throws]
         [ReadInstance]
         public partial void ReadBlob(IMagickSettings<QuantumType>? settings, ReadOnlySpan<byte> data, nuint offset, nuint length);

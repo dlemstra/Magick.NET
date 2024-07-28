@@ -34,7 +34,7 @@ internal partial class PixelCollection
         [SetInstance]
         public partial void SetArea(nint x, nint y, nuint width, nuint height, QuantumType[] values, nuint length);
 
-#if NETSTANDARD2_1
+#if !NETSTANDARD2_0
         [Throws]
         [SetInstance]
         public partial void SetArea(nint x, nint y, nuint width, nuint height, ReadOnlySpan<QuantumType> values, nuint length);

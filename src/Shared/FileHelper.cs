@@ -33,7 +33,7 @@ internal static partial class FileHelper
 
     public static async Task<byte[]> ReadAllBytesAsync(string fileName, CancellationToken cancellationToken)
     {
-#if NETSTANDARD2_1
+#if !NETSTANDARD2_0
         return await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
 #else
         using var fileStream = File.OpenRead(fileName);
@@ -45,7 +45,7 @@ internal static partial class FileHelper
 
     internal static async Task WriteAllBytesAsync(string fileName, byte[] bytes, CancellationToken cancellationToken)
     {
-#if NETSTANDARD2_1
+#if !NETSTANDARD2_0
         await File.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
 #else
         using var fileStream = File.Open(fileName, FileMode.Create, FileAccess.Write);

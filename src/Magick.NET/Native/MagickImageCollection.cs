@@ -95,7 +95,7 @@ public partial class MagickImageCollection
         [Cleanup(Name = nameof(Dispose))]
         public partial IntPtr ReadBlob(IMagickSettings<QuantumType>? settings, byte[] data, nuint offset, nuint length);
 
-#if NETSTANDARD2_1
+#if !NETSTANDARD2_0
         [Throws]
         [Cleanup(Name = nameof(Dispose))]
         public partial IntPtr ReadBlob(IMagickSettings<QuantumType>? settings, ReadOnlySpan<byte> data, nuint offset, nuint length);
