@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Collections.Generic;
 
 namespace ImageMagick.Formats;
@@ -81,12 +80,6 @@ public sealed class WebPWriteDefines : IWriteDefines
     /// Gets or sets the compression method to use. It controls the trade off between encoding speed and the compressed file size and quality. Possible values range from 0 to 6. Default value is 4. When higher values are utilized, the encoder spends more time inspecting additional encoding possibilities and decide on the quality gain. Lower value might result in faster processing time at the expense of larger file size and lower compression quality (webp:method).
     /// </summary>
     public int? Method { get; set; }
-
-    /// <summary>
-    /// Gets or sets the near lossless encoding, between 0 (max-loss) and 100 (off) (webp:near-lossless).
-    /// </summary>
-    [Obsolete("This property will be removed in the next major release, this was removed from ImageMagick.")]
-    public int? NearLossless { get; set; }
 
     /// <summary>
     /// Gets or sets the partition limit. Choose 0 for no quality degradation and 100 for maximum degradation (webp:partition-limit).
