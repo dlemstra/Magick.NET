@@ -126,8 +126,8 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         {
             var useInstance = info.HasInstance && method.UsesInstance;
 
-            if (method.OnlySupportedInNetstandard21)
-                codeBuilder.AppendLine("#if NETSTANDARD2_1");
+            if (method.NotSupportedInNetstandard20)
+                codeBuilder.AppendLine("#if !NETSTANDARD2_0");
 
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
@@ -173,7 +173,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Append(")");
             codeBuilder.AppendLine(";");
 
-            if (method.OnlySupportedInNetstandard21)
+            if (method.NotSupportedInNetstandard20)
                 codeBuilder.AppendLine("#endif");
         }
 
@@ -269,8 +269,8 @@ internal class NativeInteropGenerator : IIncrementalGenerator
     private static void AppendNativeMethod(CodeBuilder codeBuilder, NativeInteropInfo info, MethodInfo method)
     {
         codeBuilder.AppendLine();
-        if (method.OnlySupportedInNetstandard21)
-            codeBuilder.AppendLine("#if NETSTANDARD2_1");
+        if (method.NotSupportedInNetstandard20)
+            codeBuilder.AppendLine("#if !NETSTANDARD2_0");
 
         codeBuilder.Append("public ");
         if (method.IsStatic)
@@ -471,7 +471,7 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         codeBuilder.AppendCloseBrace();
 
-        if (method.OnlySupportedInNetstandard21)
+        if (method.NotSupportedInNetstandard20)
             codeBuilder.AppendLine("#endif");
     }
 

@@ -52,9 +52,9 @@ internal sealed class MethodInfo
 
     public bool IsStatic { get; }
 
-    public bool OnlySupportedInNetstandard21
-        => ReturnType.OnlySupportedInNetstandard21 ||
-           Parameters.Any(parameter => parameter.Type.OnlySupportedInNetstandard21);
+    public bool NotSupportedInNetstandard20
+        => ReturnType.NotSupportedInNetstandard20 ||
+           Parameters.Any(parameter => parameter.Type.NotSupportedInNetstandard20);
 
     public string Name
         => _method.Identifier.Text;

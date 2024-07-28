@@ -70,7 +70,7 @@ internal sealed class TypeInfo
             _ => false,
         };
 
-    public bool OnlySupportedInNetstandard21
+    public bool NotSupportedInNetstandard20
         => Name switch
         {
             "ReadOnlySpan<byte>" => true,
