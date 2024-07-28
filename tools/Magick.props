@@ -1,8 +1,4 @@
-<Project>
-  <PropertyGroup>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
-  
+<Project>  
   <ItemGroup>
     <AdditionalFiles Include="$(MSBuildThisFileDirectory)../Magick.NET.Internal.ruleset" Link="Magick.NET.Internal.ruleset" />
   </ItemGroup>

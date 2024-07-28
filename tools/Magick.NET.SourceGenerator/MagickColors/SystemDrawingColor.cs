@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+#nullable enable
+
 using System.Drawing;
 
 namespace ImageMagick.SourceGenerator;
