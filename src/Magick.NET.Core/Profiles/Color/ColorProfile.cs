@@ -169,5 +169,5 @@ public sealed class ColorProfile : ImageProfile, IColorProfile
 
     [MemberNotNull(nameof(_data))]
     private void Initialize()
-        => _data = ColorProfileReader.Read(GetDataProtected());
+        => _data = ColorProfileReader.Read(GetData());
 }

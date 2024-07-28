@@ -219,7 +219,7 @@ public sealed class ExifProfile : ImageProfile, IExifProfile
         if (_data is not null)
             return;
 
-        var data = GetDataProtected();
+        var data = GetData();
         if (data is null)
         {
             _data = new ExifData();

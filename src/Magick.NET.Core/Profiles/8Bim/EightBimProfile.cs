@@ -218,7 +218,7 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     /// </summary>
     protected override void UpdateData()
     {
-        var data = GetDataProtected();
+        var data = GetData();
         if (data is not null)
             return;
 
@@ -278,6 +278,6 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         if (_values is not null)
             return;
 
-        _values = EightBimReader.Read(GetDataProtected());
+        _values = EightBimReader.Read(GetData());
     }
 }
