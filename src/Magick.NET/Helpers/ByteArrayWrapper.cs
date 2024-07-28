@@ -3,7 +3,6 @@
 
 using System;
 using System.IO;
-using ImageMagick.Helpers;
 
 namespace ImageMagick;
 

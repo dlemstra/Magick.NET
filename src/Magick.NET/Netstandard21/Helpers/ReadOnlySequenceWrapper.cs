@@ -6,7 +6,6 @@
 using System;
 using System.Buffers;
 using System.IO;
-using ImageMagick.Helpers;
 
 namespace ImageMagick;
 
