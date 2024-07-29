@@ -711,6 +711,12 @@ public partial class MagickColors : IMagickColors<QuantumType>
         => MagickColor.FromRgba(128, 0, 128, 255);
 
     /// <summary>
+    /// Gets a system-defined color that has an RGBA value of #663399FF.
+    /// </summary>
+    public static MagickColor RebeccaPurple
+        => MagickColor.FromRgba(102, 51, 153, 255);
+
+    /// <summary>
     /// Gets a system-defined color that has an RGBA value of #FF0000FF.
     /// </summary>
     public static MagickColor Red
@@ -1561,6 +1567,12 @@ public partial class MagickColors : IMagickColors<QuantumType>
     /// </summary>
     IMagickColor<QuantumType> IMagickColors<QuantumType>.Purple
         => Purple;
+
+    /// <summary>
+    /// Gets a system-defined color that has an RGBA value of #663399FF.
+    /// </summary>
+    IMagickColor<QuantumType> IMagickColors<QuantumType>.RebeccaPurple
+        => RebeccaPurple;
 
     /// <summary>
     /// Gets a system-defined color that has an RGBA value of #FF0000FF.

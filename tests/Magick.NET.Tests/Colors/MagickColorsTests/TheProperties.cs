@@ -20,7 +20,7 @@ public partial class MagickColorsTests
                 .Where(property => property.PropertyType == typeof(MagickColor))
                 .Count();
 
-            Assert.Equal(142, colorCount);
+            Assert.Equal(143, colorCount);
         }
     }
 }

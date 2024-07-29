@@ -588,6 +588,11 @@ public partial interface IMagickColors<TQuantumType>
     IMagickColor<TQuantumType> Purple { get; }
 
     /// <summary>
+    /// Gets a system-defined color that has an RGBA value of #663399FF.
+    /// </summary>
+    IMagickColor<TQuantumType> RebeccaPurple { get; }
+
+    /// <summary>
     /// Gets a system-defined color that has an RGBA value of #FF0000FF.
     /// </summary>
     IMagickColor<TQuantumType> Red { get; }
