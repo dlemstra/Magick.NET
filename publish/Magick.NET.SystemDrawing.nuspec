@@ -23,11 +23,11 @@
       </group>
       <group targetFramework=".NETStandard2.0">
         <dependency id="Magick.NET.Core" version="13.10.0" />
-        <dependency id="System.Drawing.Common" version="6.0.0" />
+        <dependency id="System.Drawing.Common" version="8.0.7" />
       </group>
       <group targetFramework="net8.0-windows">
         <dependency id="Magick.NET.Core" version="13.10.0" />
-        <dependency id="System.Drawing.Common" version="6.0.0" />
+        <dependency id="System.Drawing.Common" version="8.0.7" />
       </group>
     </dependencies>
     <frameworkAssemblies>

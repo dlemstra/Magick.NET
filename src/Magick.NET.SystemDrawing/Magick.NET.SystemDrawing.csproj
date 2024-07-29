@@ -13,7 +13,6 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'net462'">
-    <!-- After an upgrade of this library the nuspec file should also be updated -->
     <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
 
