@@ -20,9 +20,6 @@ internal sealed class PropertyInfo
         Documentation = symbol.GetDocumentation().Single();
     }
 
-    public INamedTypeSymbol ContainingType
-        => _symbol.ContainingType;
-
     public string Documentation { get; }
 
     public string ParameterName { get; }
