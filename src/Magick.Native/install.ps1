@@ -62,8 +62,6 @@ function copyToTestProjectFolder($source, $target, $quantum, $platform, $configu
     if ($platform -ne "AnyCPU") {
         [void](New-Item -ItemType directory -Force -Path "$target\$configuration$quantum\$platform\net8.0")
         Copy-Item "$source\$fileName" "$target\$configuration$quantum\$platform\net8.0\$fileName"
-        [void](New-Item -ItemType directory -Force -Path "$target\$configuration$quantum\$platform\net8.0-windows")
-        Copy-Item "$source\$fileName" "$target\$configuration$quantum\$platform\net8.0-windows\$fileName"
     }
 }
 
