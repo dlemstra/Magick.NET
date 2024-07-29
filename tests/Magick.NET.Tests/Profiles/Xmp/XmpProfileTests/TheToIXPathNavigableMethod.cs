@@ -23,5 +23,10 @@ public partial class XmpProfileTests
 
             Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", xml);
         }
+
+        [Fact]
+        public void ShouldReturnNullWhenTheProfileContainsNoData()
+        {
+        }
     }
 }
