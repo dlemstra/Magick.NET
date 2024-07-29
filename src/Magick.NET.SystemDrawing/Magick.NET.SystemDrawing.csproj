@@ -1,6 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0-windows;netstandard20;net462</TargetFrameworks>
+    <TargetFrameworks>net8.0;netstandard20;net462</TargetFrameworks>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>7.3.0</AssemblyVersion>
     <FileVersion>7.3.0</FileVersion>
