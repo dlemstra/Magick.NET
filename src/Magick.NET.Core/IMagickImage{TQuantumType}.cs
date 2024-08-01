@@ -106,22 +106,43 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// Returns the distortion based on the specified metric.
     /// </summary>
     /// <param name="image">The other image to compare with this image.</param>
-    /// <param name="settings">The settings to use.</param>
-    /// <param name="difference">The image that will contain the difference.</param>
-    /// <returns>The distortion based on the specified metric.</returns>
+    /// <param name="metric">The metric to use.</param>
+    /// <param name="distortion">The distortion based on the specified metric.</param>
+    /// <returns>The image that contains the difference.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    double Compare(IMagickImage image, ICompareSettings<TQuantumType> settings, IMagickImage difference);
+    IMagickImage<TQuantumType> Compare(IMagickImage image, ErrorMetric metric, out double distortion);
+
+    /// <summary>
+    /// Returns the distortion based on the specified metric.
+    /// </summary>
+    /// <param name="image">The other image to compare with this image.</param>
+    /// <param name="metric">The metric to use.</param>
+    /// <param name="channels">The channel(s) to compare.</param>
+    /// <param name="distortion">The distortion based on the specified metric.</param>
+    /// <returns>The image that contains the difference.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    IMagickImage<TQuantumType> Compare(IMagickImage image, ErrorMetric metric, Channels channels, out double distortion);
 
     /// <summary>
     /// Returns the distortion based on the specified metric.
     /// </summary>
     /// <param name="image">The other image to compare with this image.</param>
     /// <param name="settings">The settings to use.</param>
-    /// <param name="difference">The image that will contain the difference.</param>
-    /// <param name="channels">The channel(s) to compare.</param>
-    /// <returns>The distortion based on the specified metric.</returns>
+    /// <param name="distortion">The distortion based on the specified metric.</param>
+    /// <returns>The image that contains the difference.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    double Compare(IMagickImage image, ICompareSettings<TQuantumType> settings, IMagickImage difference, Channels channels);
+    IMagickImage<TQuantumType> Compare(IMagickImage image, ICompareSettings<TQuantumType> settings, out double distortion);
+
+    /// <summary>
+    /// Returns the distortion based on the specified metric.
+    /// </summary>
+    /// <param name="image">The other image to compare with this image.</param>
+    /// <param name="settings">The settings to use.</param>
+    /// <param name="channels">The channel(s) to compare.</param>
+    /// <param name="distortion">The distortion based on the specified metric.</param>
+    /// <returns>The image that contains the difference.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    IMagickImage<TQuantumType> Compare(IMagickImage image, ICompareSettings<TQuantumType> settings, Channels channels, out double distortion);
 
     /// <summary>
     /// Determines the connected-components of the image.

@@ -838,27 +838,6 @@ public partial interface IMagickImage : IDisposable
     double Compare(IMagickImage image, ErrorMetric metric, Channels channels);
 
     /// <summary>
-    /// Returns the distortion based on the specified metric.
-    /// </summary>
-    /// <param name="image">The other image to compare with this image.</param>
-    /// <param name="metric">The metric to use.</param>
-    /// <param name="difference">The image that will contain the difference.</param>
-    /// <returns>The distortion based on the specified metric.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference);
-
-    /// <summary>
-    /// Returns the distortion based on the specified metric.
-    /// </summary>
-    /// <param name="image">The other image to compare with this image.</param>
-    /// <param name="metric">The metric to use.</param>
-    /// <param name="difference">The image that will contain the difference.</param>
-    /// <param name="channels">The channel(s) to compare.</param>
-    /// <returns>The distortion based on the specified metric.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference, Channels channels);
-
-    /// <summary>
     /// Compose an image onto another at specified offset using the 'In' operator.
     /// </summary>
     /// <param name="image">The image to composite with this image.</param>

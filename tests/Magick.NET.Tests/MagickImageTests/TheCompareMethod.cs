@@ -43,35 +43,16 @@ public partial class MagickImageTests
         public void ShouldThrowAnExceptionWhenImageIsNullAndSettingsAreNotNull()
         {
             using var image = new MagickImage();
-            using var diff = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null, new CompareSettings(), diff));
+            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null, new CompareSettings(), out var distortion));
         }
 
         [Fact]
         public void ShouldThrowAnExceptionWhenSettingsIsNull()
         {
             using var image = new MagickImage();
-            using var diff = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("settings", () => image.Compare(image, null, diff));
-        }
-
-        [Fact]
-        public void ShouldThrowAnExceptionWhenDifferenceIsNull()
-        {
-            using var image = new MagickImage();
-
-            Assert.Throws<ArgumentNullException>("difference", () => image.Compare(image, new CompareSettings(), null));
-        }
-
-        [Fact]
-        public void ShouldThrowAnExceptionWhenDifferenceIsNotMagickImage()
-        {
-            using var image = new MagickImage();
-            var diff = Substitute.For<IMagickImage<QuantumType>>();
-
-            Assert.Throws<NotSupportedException>(() => image.Compare(image, new CompareSettings(), diff));
+            Assert.Throws<ArgumentNullException>("settings", () => image.Compare(image, null, out var distortion));
         }
 
         [Fact]
@@ -97,8 +78,7 @@ public partial class MagickImageTests
 
             using var image = new MagickImage(Files.Builtin.Logo);
             using var other = new MagickImage(Files.Builtin.Logo);
-            using var diff = new MagickImage();
-            var result = image.Compare(other, settings, diff);
+            using var diff = image.Compare(other, settings, out var result);
 
             Assert.Equal(0, result);
         }
@@ -108,8 +88,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Logo);
             using var other = new MagickImage(Files.Builtin.Logo);
-            using var diff = new MagickImage();
-            var result = image.Compare(other, ErrorMetric.RootMeanSquared, diff);
+            using var diff = image.Compare(other, ErrorMetric.RootMeanSquared, out var result);
 
             Assert.Equal(0, result);
         }
@@ -150,8 +129,7 @@ public partial class MagickImageTests
             using var other = new MagickImage(Files.Builtin.Logo);
             other.Rotate(180);
 
-            using var diff = new MagickImage();
-            var result = image.Compare(other, settings, diff);
+            using var diff = image.Compare(other, settings, out var result);
 
             Assert.InRange(result, 0.36, 0.37);
             ColorAssert.Equal(MagickColors.Yellow, diff, 150, 50);
@@ -164,9 +142,8 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(new MagickColor("#f1d3bc"), 1, 1);
             using var other = new MagickImage(new MagickColor("#24292e"), 1, 1);
-            using var diff = new MagickImage();
             image.ColorFuzz = new Percentage(81);
-            var result = image.Compare(other, ErrorMetric.Absolute, diff);
+            using var diff = image.Compare(other, ErrorMetric.Absolute, out var result);
 
             Assert.Equal(0, result);
             ColorAssert.Equal(new MagickColor("#fd2ff729f28b"), diff, 0, 0);

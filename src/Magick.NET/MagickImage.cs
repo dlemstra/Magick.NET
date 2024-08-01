@@ -1729,64 +1729,57 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// Returns the distortion based on the specified metric.
     /// </summary>
     /// <param name="image">The other image to compare with this image.</param>
-    /// <param name="settings">The settings to use.</param>
-    /// <param name="difference">The image that will contain the difference.</param>
-    /// <returns>The distortion based on the specified metric.</returns>
+    /// <param name="metric">The metric to use.</param>
+    /// <param name="distortion">The distortion based on the specified metric.</param>
+    /// <returns>The image that contains the difference.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public double Compare(IMagickImage image, ICompareSettings<QuantumType> settings, IMagickImage difference)
-        => Compare(image, settings, difference, ImageMagick.Channels.Undefined);
+    public IMagickImage<QuantumType> Compare(IMagickImage image, ErrorMetric metric, out double distortion)
+        => Compare(image, metric, ImageMagick.Channels.Undefined, out distortion);
 
     /// <summary>
     /// Returns the distortion based on the specified metric.
     /// </summary>
     /// <param name="image">The other image to compare with this image.</param>
     /// <param name="metric">The metric to use.</param>
-    /// <param name="difference">The image that will contain the difference.</param>
-    /// <returns>The distortion based on the specified metric.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference)
-        => Compare(image, metric, difference, ImageMagick.Channels.Undefined);
-
-    /// <summary>
-    /// Returns the distortion based on the specified metric.
-    /// </summary>
-    /// <param name="image">The other image to compare with this image.</param>
-    /// <param name="metric">The metric to use.</param>
-    /// <param name="difference">The image that will contain the difference.</param>
     /// <param name="channels">The channel(s) to compare.</param>
-    /// <returns>The distortion based on the specified metric.</returns>
+    /// <param name="distortion">The distortion based on the specified metric.</param>
+    /// <returns>The image that contains the difference.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public double Compare(IMagickImage image, ErrorMetric metric, IMagickImage difference, Channels channels)
-        => Compare(image, new CompareSettings { Metric = metric }, difference, channels);
+    public IMagickImage<QuantumType> Compare(IMagickImage image, ErrorMetric metric, Channels channels, out double distortion)
+        => Compare(image, new CompareSettings { Metric = metric }, channels, out distortion);
 
     /// <summary>
     /// Returns the distortion based on the specified metric.
     /// </summary>
     /// <param name="image">The other image to compare with this image.</param>
     /// <param name="settings">The settings to use.</param>
-    /// <param name="difference">The image that will contain the difference.</param>
-    /// <param name="channels">The channel(s) to compare.</param>
-    /// <returns>The distortion based on the specified metric.</returns>
+    /// <param name="distortion">The distortion based on the specified metric.</param>
+    /// <returns>The image that contains the difference.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public double Compare(IMagickImage image, ICompareSettings<QuantumType> settings, IMagickImage difference, Channels channels)
+    public IMagickImage<QuantumType> Compare(IMagickImage image, ICompareSettings<QuantumType> settings, out double distortion)
+        => Compare(image, settings, ImageMagick.Channels.Undefined, out distortion);
+
+    /// <summary>
+    /// Returns the distortion based on the specified metric.
+    /// </summary>
+    /// <param name="image">The other image to compare with this image.</param>
+    /// <param name="settings">The settings to use.</param>
+    /// <param name="channels">The channel(s) to compare.</param>
+    /// <param name="distortion">The distortion based on the specified metric.</param>
+    /// <returns>The image that contains the difference.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickImage<QuantumType> Compare(IMagickImage image, ICompareSettings<QuantumType> settings, Channels channels, out double distortion)
     {
         Throw.IfNull(nameof(image), image);
         Throw.IfNull(nameof(settings), settings);
-        Throw.IfNull(nameof(difference), difference);
-
-        if (difference is not MagickImage differenceImage)
-            throw new NotSupportedException();
 
         using var temporaryDefines = new TemporaryDefines(this);
         temporaryDefines.SetArtifact("compare:highlight-color", settings.HighlightColor);
         temporaryDefines.SetArtifact("compare:lowlight-color", settings.LowlightColor);
         temporaryDefines.SetArtifact("compare:masklight-color", settings.MasklightColor);
 
-        var result = _nativeInstance.Compare(image, settings.Metric, channels, out var distortion);
-        if (result != IntPtr.Zero)
-            differenceImage._nativeInstance.Instance = result;
-
-        return distortion;
+        var result = _nativeInstance.Compare(image, settings.Metric, channels, out distortion);
+        return Create(result, _settings);
     }
 
     /// <summary>
