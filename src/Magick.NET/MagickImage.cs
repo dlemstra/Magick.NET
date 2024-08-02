@@ -1746,7 +1746,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>The image that contains the difference.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> Compare(IMagickImage image, ErrorMetric metric, Channels channels, out double distortion)
-        => Compare(image, new CompareSettings { Metric = metric }, channels, out distortion);
+        => Compare(image, new CompareSettings(metric), channels, out distortion);
 
     /// <summary>
     /// Returns the distortion based on the specified metric.

@@ -13,9 +13,9 @@ public interface ICompareSettings<TQuantumType>
     where TQuantumType : struct, IConvertible
 {
     /// <summary>
-    /// Gets or sets the error metric to use.
+    /// Gets the error metric to use.
     /// </summary>
-    ErrorMetric Metric { get; set; }
+    ErrorMetric Metric { get; }
 
     /// <summary>
     /// Gets or sets the color that emphasize pixel differences.

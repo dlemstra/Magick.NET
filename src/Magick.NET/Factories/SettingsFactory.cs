@@ -21,9 +21,10 @@ public sealed class SettingsFactory : ISettingsFactory<QuantumType>
     /// <summary>
     /// Initializes a new instance that implements <see cref="ICompareSettings{TQuantumType}"/>.
     /// </summary>
+    /// <param name="metric">The error metric to use.</param>
     /// <returns>A new <see cref="ICompareSettings{TQuantumType}"/> instance.</returns>
-    public ICompareSettings<QuantumType> CreateCompareSettings()
-        => new CompareSettings();
+    public ICompareSettings<QuantumType> CreateCompareSettings(ErrorMetric metric)
+        => new CompareSettings(metric);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IComplexSettings"/>.

@@ -19,9 +19,16 @@ namespace ImageMagick;
 public sealed class CompareSettings : ICompareSettings<QuantumType>
 {
     /// <summary>
-    /// Gets or sets the error metric to use.
+    /// Initializes a new instance of the <see cref="CompareSettings"/> class.
     /// </summary>
-    public ErrorMetric Metric { get; set; }
+    /// <param name="metric">The error metric to use.</param>
+    public CompareSettings(ErrorMetric metric)
+        => Metric = metric;
+
+    /// <summary>
+    /// Gets the error metric to use.
+    /// </summary>
+    public ErrorMetric Metric { get; }
 
     /// <summary>
     /// Gets or sets the color that emphasize pixel differences.

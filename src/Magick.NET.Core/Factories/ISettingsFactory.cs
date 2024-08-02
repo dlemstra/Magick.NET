@@ -15,8 +15,9 @@ public interface ISettingsFactory<TQuantumType>
     /// <summary>
     /// Initializes a new instance that implements <see cref="ICompareSettings{TQuantumType}"/>.
     /// </summary>
+    /// <param name="metric">The error metric to use.</param>
     /// <returns>A new <see cref="ICompareSettings{TQuantumType}"/> instance.</returns>
-    ICompareSettings<TQuantumType> CreateCompareSettings();
+    ICompareSettings<TQuantumType> CreateCompareSettings(ErrorMetric metric);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IComplexSettings"/>.

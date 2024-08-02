@@ -16,10 +16,11 @@ public partial class SettingsFactoryTests
         {
             var factory = new SettingsFactory();
 
-            var settings = factory.CreateCompareSettings();
+            var settings = factory.CreateCompareSettings(ErrorMetric.NormalizedCrossCorrelation);
 
             Assert.NotNull(settings);
             Assert.IsType<CompareSettings>(settings);
+            Assert.Equal(ErrorMetric.NormalizedCrossCorrelation, settings.Metric);
         }
     }
 }

@@ -44,7 +44,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null, new CompareSettings(), out var distortion));
+            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null, new CompareSettings(ErrorMetric.PeakSignalToNoiseRatio), out var distortion));
         }
 
         [Fact]
@@ -71,10 +71,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnZeroWhenTheImagesAreEqual()
         {
-            var settings = new CompareSettings
-            {
-                Metric = ErrorMetric.RootMeanSquared,
-            };
+            var settings = new CompareSettings(ErrorMetric.RootMeanSquared);
 
             using var image = new MagickImage(Files.Builtin.Logo);
             using var other = new MagickImage(Files.Builtin.Logo);
@@ -114,9 +111,8 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnNonZeroValueWhenTheImagesAreNotEqual()
         {
-            var settings = new CompareSettings
+            var settings = new CompareSettings(ErrorMetric.RootMeanSquared)
             {
-                Metric = ErrorMetric.RootMeanSquared,
                 HighlightColor = MagickColors.Yellow,
                 LowlightColor = MagickColors.Red,
                 MasklightColor = MagickColors.Magenta,
