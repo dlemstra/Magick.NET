@@ -29,7 +29,7 @@ public enum ComplexOperator
     Divide,
 
     /// <summary>
-    /// MagnitudePhase.
+    /// Magnitude phase.
     /// </summary>
     MagnitudePhase,
 
@@ -39,7 +39,7 @@ public enum ComplexOperator
     Multiply,
 
     /// <summary>
-    /// RealImaginary.
+    /// Real imaginary.
     /// </summary>
     RealImaginary,
 
