@@ -9,9 +9,9 @@ namespace ImageMagick;
 public interface IComplexSettings
 {
     /// <summary>
-    /// Gets or sets the complex operator.
+    /// Gets the complex operator.
     /// </summary>
-    ComplexOperator ComplexOperator { get; set; }
+    ComplexOperator ComplexOperator { get; }
 
     /// <summary>
     /// Gets or sets the signal to noise ratio.

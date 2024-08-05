@@ -22,8 +22,9 @@ public interface ISettingsFactory<TQuantumType>
     /// <summary>
     /// Initializes a new instance that implements <see cref="IComplexSettings"/>.
     /// </summary>
+    /// <param name="complexOperator">The complex operator to use.</param>
     /// <returns>A new <see cref="IComplexSettings"/> instance.</returns>
-    IComplexSettings CreateComplexSettings();
+    IComplexSettings CreateComplexSettings(ComplexOperator complexOperator);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IConnectedComponentsSettings"/>.

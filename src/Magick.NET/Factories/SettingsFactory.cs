@@ -29,9 +29,10 @@ public sealed class SettingsFactory : ISettingsFactory<QuantumType>
     /// <summary>
     /// Initializes a new instance that implements <see cref="IComplexSettings"/>.
     /// </summary>
+    /// <param name="complexOperator">The complex operator to use.</param>
     /// <returns>A new <see cref="IComplexSettings"/> instance.</returns>
-    public IComplexSettings CreateComplexSettings()
-        => new ComplexSettings();
+    public IComplexSettings CreateComplexSettings(ComplexOperator complexOperator)
+        => new ComplexSettings(complexOperator);
 
     /// <summary>
     /// Initializes a new instance that implements <see cref="IConnectedComponentsSettings"/>.

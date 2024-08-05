@@ -15,8 +15,9 @@ public partial class MagickImageCollectionTests
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
         {
             using var images = new MagickImageCollection();
+            var settings = new ComplexSettings(ComplexOperator.RealImaginary);
 
-            Assert.Throws<InvalidOperationException>(() => images.Complex(new ComplexSettings()));
+            Assert.Throws<InvalidOperationException>(() => images.Complex(settings));
         }
 
         [Fact]
@@ -36,10 +37,8 @@ public partial class MagickImageCollectionTests
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);
 
-            images.Complex(new ComplexSettings
-            {
-                ComplexOperator = ComplexOperator.Conjugate,
-            });
+            var settings = new ComplexSettings(ComplexOperator.Conjugate);
+            images.Complex(settings);
 
             Assert.Equal(2, images.Count);
 

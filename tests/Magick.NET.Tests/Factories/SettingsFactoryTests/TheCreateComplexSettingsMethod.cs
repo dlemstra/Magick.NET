@@ -16,7 +16,7 @@ public partial class SettingsFactoryTests
         {
             var factory = new SettingsFactory();
 
-            var settings = factory.CreateComplexSettings();
+            var settings = factory.CreateComplexSettings(ComplexOperator.MagnitudePhase);
 
             Assert.NotNull(settings);
             Assert.IsType<ComplexSettings>(settings);

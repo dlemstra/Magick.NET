@@ -9,9 +9,18 @@ namespace ImageMagick;
 public sealed class ComplexSettings : IComplexSettings
 {
     /// <summary>
-    /// Gets or sets the complex operator.
+    /// Initializes a new instance of the <see cref="ComplexSettings"/> class.
     /// </summary>
-    public ComplexOperator ComplexOperator { get; set; }
+    /// <param name="complexOperator">The complex operator.</param>
+    public ComplexSettings(ComplexOperator complexOperator)
+    {
+        ComplexOperator = complexOperator;
+    }
+
+    /// <summary>
+    /// Gets the complex operator.
+    /// </summary>
+    public ComplexOperator ComplexOperator { get; }
 
     /// <summary>
     /// Gets or sets the signal to noise ratio.

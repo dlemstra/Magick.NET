@@ -442,12 +442,12 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     {
         Throw.IfNull(nameof(complexSettings), complexSettings);
 
+        using var imageAttacher = new TemporaryImageAttacher(_images);
         using var temporaryDefines = new TemporaryDefines(_images[0]);
 
         if (complexSettings.SignalToNoiseRatio is not null)
             temporaryDefines.SetArtifact("complex:snr", complexSettings.SignalToNoiseRatio.Value.ToString(CultureInfo.InvariantCulture));
 
-        using var imageAttacher = new TemporaryImageAttacher(_images);
         var images = _nativeInstance.Complex(_images[0], complexSettings.ComplexOperator);
         ReplaceImages(images);
     }
