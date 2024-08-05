@@ -9,10 +9,10 @@ namespace ImageMagick;
 
 internal sealed class TemporaryDefines : IDisposable
 {
-    private readonly MagickImage _image;
+    private readonly IMagickImage _image;
     private readonly List<string> _names = new();
 
-    public TemporaryDefines(MagickImage image)
+    public TemporaryDefines(IMagickImage image)
     {
         _image = image;
     }
