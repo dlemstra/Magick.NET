@@ -1186,8 +1186,8 @@ public partial interface IMagickImage : IDisposable
     void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y, Channels channels);
 
     /// <summary>
-    /// Crop image (subregion of original image). RePage should be called unless the Page information
-    /// is needed.
+    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
+    /// the <see cref="Page"/> information is needed.
     /// </summary>
     /// <param name="width">The width of the subregion to crop.</param>
     /// <param name="height">The height of the subregion to crop.</param>
@@ -1195,8 +1195,8 @@ public partial interface IMagickImage : IDisposable
     void Crop(uint width, uint height);
 
     /// <summary>
-    /// Crop image (subregion of original image). RePage should be called unless the Page information
-    /// is needed.
+    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
+    /// the <see cref="Page"/> information is needed.
     /// </summary>
     /// <param name="width">The width of the subregion to crop.</param>
     /// <param name="height">The height of the subregion to crop.</param>
@@ -1205,16 +1205,16 @@ public partial interface IMagickImage : IDisposable
     void Crop(uint width, uint height, Gravity gravity);
 
     /// <summary>
-    /// Crop image (subregion of original image). RePage should be called unless the Page information
-    /// is needed.
+    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
+    /// the <see cref="Page"/> information is needed.
     /// </summary>
     /// <param name="geometry">The subregion to crop.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Crop(IMagickGeometry geometry);
 
     /// <summary>
-    /// Crop image (subregion of original image). RePage should be called unless the Page information
-    /// is needed.
+    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
+    /// the <see cref="Page"/> information is needed.
     /// </summary>
     /// <param name="geometry">The subregion to crop.</param>
     /// <param name="gravity">The position where the cropping should start from.</param>
@@ -2608,12 +2608,6 @@ public partial interface IMagickImage : IDisposable
     void RemoveWriteMask();
 
     /// <summary>
-    /// Resets the page property of this image.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void RePage();
-
-    /// <summary>
     /// Resize image in terms of its pixel size.
     /// </summary>
     /// <param name="resolutionX">The new X resolution.</param>
@@ -2627,6 +2621,12 @@ public partial interface IMagickImage : IDisposable
     /// <param name="density">The density to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Resample(PointD density);
+
+    /// <summary>
+    /// Resets the page property of this image.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void ResetPage();
 
     /// <summary>
     /// Resize image to specified size.

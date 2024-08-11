@@ -61,7 +61,7 @@ public partial class MagickImageTests
                 using var icon = new MagickImage(Files.MagickNETIconPNG);
                 using var area = icon.Clone();
                 area.Crop(64, 64, Gravity.Southeast);
-                area.RePage();
+                area.ResetPage();
                 area.Crop(64, 32, Gravity.North);
 
                 using var part = icon.Clone(64, 64, 64, 32);
@@ -81,7 +81,7 @@ public partial class MagickImageTests
                 using var icon = new MagickImage(Files.MagickNETIconPNG);
                 using var area = icon.Clone();
                 area.Crop(64, 64, Gravity.Southeast);
-                area.RePage();
+                area.ResetPage();
                 area.Crop(64, 32, Gravity.North);
 
                 using var part = icon.Clone(new MagickGeometry(64, 64, 64, 32));

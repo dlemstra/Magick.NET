@@ -1266,11 +1266,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// Resets the page property of every image in the collection.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void RePage()
+    public void ResetPage()
     {
         foreach (var image in _images)
         {
-            image.RePage();
+            image.ResetPage();
         }
     }
 

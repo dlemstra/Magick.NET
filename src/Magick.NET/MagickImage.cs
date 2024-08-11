@@ -2280,8 +2280,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
-    /// Crop image (subregion of original image). RePage should be called unless the Page information
-    /// is needed.
+    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
+    /// the <see cref="Page"/> information is needed.
     /// </summary>
     /// <param name="width">The width of the subregion to crop.</param>
     /// <param name="height">The height of the subregion to crop.</param>
@@ -2290,8 +2290,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => Crop(width, height, Gravity.Undefined);
 
     /// <summary>
-    /// Crop image (subregion of original image). RePage should be called unless the Page information
-    /// is needed.
+    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
+    /// the <see cref="Page"/> information is needed.
     /// </summary>
     /// <param name="width">The width of the subregion to crop.</param>
     /// <param name="height">The height of the subregion to crop.</param>
@@ -2301,8 +2301,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => Crop(new MagickGeometry(0, 0, width, height), gravity);
 
     /// <summary>
-    /// Crop image (subregion of original image). RePage should be called unless the Page information
-    /// is needed.
+    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
+    /// the <see cref="Page"/> information is needed.
     /// </summary>
     /// <param name="geometry">The subregion to crop.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -2310,8 +2310,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => Crop(geometry, Gravity.Undefined);
 
     /// <summary>
-    /// Crop image (subregion of original image). RePage should be called unless the Page information
-    /// is needed.
+    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
+    /// the <see cref="Page"/> information is needed.
     /// </summary>
     /// <param name="geometry">The subregion to crop.</param>
     /// <param name="gravity">The position where the cropping should start from.</param>
@@ -5145,13 +5145,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => _nativeInstance.SetWriteMask(null);
 
     /// <summary>
-    /// Resets the page property of this image.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void RePage()
-        => Page = new MagickGeometry(0, 0, 0, 0);
-
-    /// <summary>
     /// Resize image in terms of its pixel size.
     /// </summary>
     /// <param name="resolutionX">The new X resolution.</param>
@@ -5167,6 +5160,13 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resample(PointD density)
         => Resample(density.X, density.Y);
+
+    /// <summary>
+    /// Resets the page property of this image.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void ResetPage()
+        => Page = new MagickGeometry(0, 0, 0, 0);
 
     /// <summary>
     /// Resize image to specified size.

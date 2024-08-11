@@ -362,7 +362,7 @@ public partial interface IMagickImageCollection : IDisposable
     /// Resets the page property of every image in the collection.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void RePage();
+    void ResetPage();
 
     /// <summary>
     /// Reverses the order of the images in the collection.

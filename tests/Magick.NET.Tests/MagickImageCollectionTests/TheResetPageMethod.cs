@@ -8,7 +8,7 @@ namespace Magick.NET.Tests;
 
 public partial class MagickImageCollectionTests
 {
-    public class TheRePageMethod
+    public class TheResetPageMethod
     {
         [Fact]
         public void ShouldResetThePagePropertyOfAllTheImages()
@@ -25,7 +25,7 @@ public partial class MagickImageCollectionTests
             Assert.Equal(50, images[2].Page.X);
             Assert.Equal(60, images[2].Page.Y);
 
-            images.RePage();
+            images.ResetPage();
 
             Assert.Equal(0, images[0].Page.X);
             Assert.Equal(0, images[0].Page.Y);
@@ -38,13 +38,15 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldNotChangeThePageSettings()
         {
-            using var images = new MagickImageCollection();
-            images.Add(new MagickImage(MagickColors.Purple, 1, 1));
+            using var images = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Purple, 1, 1),
+            };
 
             images[0].Page = new MagickGeometry("0x0+10+20");
             images[0].Settings.Page = new MagickGeometry("0x0+10+20");
 
-            images.RePage();
+            images.ResetPage();
 
             Assert.Equal(0, images[0].Page.X);
             Assert.Equal(0, images[0].Page.Y);
