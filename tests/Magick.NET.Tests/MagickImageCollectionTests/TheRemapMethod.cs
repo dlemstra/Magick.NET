@@ -9,7 +9,7 @@ namespace Magick.NET.Tests;
 
 public partial class MagickImageCollectionTests
 {
-    public class TheMapMethod
+    public class TheRemapMethod
     {
         [Fact]
         public void ShouldThrowExceptionWhenCollectionIsEmpty()
@@ -17,7 +17,7 @@ public partial class MagickImageCollectionTests
             using var remapImage = new MagickImage();
             using var images = new MagickImageCollection();
 
-            Assert.Throws<InvalidOperationException>(() => images.Map(remapImage));
+            Assert.Throws<InvalidOperationException>(() => images.Remap(remapImage));
         }
 
         [Fact]
@@ -32,7 +32,7 @@ public partial class MagickImageCollectionTests
             using var remapImage = colors.AppendHorizontally();
             using var images = new MagickImageCollection();
 
-            Assert.Throws<InvalidOperationException>(() => images.Map(remapImage));
+            Assert.Throws<InvalidOperationException>(() => images.Remap(remapImage));
         }
 
         [Fact]
@@ -41,7 +41,7 @@ public partial class MagickImageCollectionTests
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);
 
-            Assert.Throws<ArgumentNullException>("image", () => images.Map(null));
+            Assert.Throws<ArgumentNullException>("image", () => images.Remap(null));
         }
 
         [Fact]
@@ -50,15 +50,17 @@ public partial class MagickImageCollectionTests
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);
 
-            Assert.Throws<ArgumentNullException>("settings", () => images.Map(images[0], null));
+            Assert.Throws<ArgumentNullException>("settings", () => images.Remap(images[0], null));
         }
 
         [Fact]
         public void ShouldDitherWhenSpecifiedInSettings()
         {
-            using var colors = new MagickImageCollection();
-            colors.Add(new MagickImage(MagickColors.Red, 1, 1));
-            colors.Add(new MagickImage(MagickColors.Green, 1, 1));
+            using var colors = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Red, 1, 1),
+                new MagickImage(MagickColors.Green, 1, 1),
+            };
 
             using var remapImage = colors.AppendHorizontally();
             using var images = new MagickImageCollection();
@@ -69,7 +71,7 @@ public partial class MagickImageCollectionTests
                 DitherMethod = DitherMethod.FloydSteinberg,
             };
 
-            images.Map(remapImage, settings);
+            images.Remap(remapImage, settings);
 
             ColorAssert.Equal(MagickColors.Red, images[0], 60, 17);
             ColorAssert.Equal(MagickColors.Green, images[0], 37, 24);

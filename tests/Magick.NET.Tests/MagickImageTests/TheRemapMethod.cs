@@ -21,14 +21,14 @@ namespace Magick.NET.Tests;
 
 public partial class MagickImageTests
 {
-    public class TheMapMethod
+    public class TheRemapMethod
     {
         [Fact]
         public void ShouldThrowExceptionWhenImageIsNull()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
 
-            Assert.Throws<ArgumentNullException>("image", () => image.Map((IMagickImage<QuantumType>)null));
+            Assert.Throws<ArgumentNullException>("image", () => image.Remap((IMagickImage<QuantumType>)null));
         }
 
         [Fact]
@@ -36,7 +36,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Logo);
 
-            Assert.Throws<ArgumentNullException>("colors", () => image.Map((IEnumerable<MagickColor>)null));
+            Assert.Throws<ArgumentNullException>("colors", () => image.Remap((IEnumerable<MagickColor>)null));
         }
 
         [Fact]
@@ -44,7 +44,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Logo);
 
-            Assert.Throws<ArgumentException>("colors", () => image.Map(Enumerable.Empty<MagickColor>()));
+            Assert.Throws<ArgumentException>("colors", () => image.Remap(Enumerable.Empty<MagickColor>()));
         }
 
         [Fact]
@@ -52,7 +52,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Logo);
             using var colors = CreatePalleteImage();
-            image.Map(colors);
+            image.Remap(colors);
 
             ColorAssert.Equal(MagickColors.Blue, image, 0, 0);
             ColorAssert.Equal(MagickColors.Green, image, 455, 396);
@@ -69,7 +69,7 @@ public partial class MagickImageTests
                 MagickColors.Lime,
                 MagickColors.Fuchsia,
             };
-            image.Map(colors);
+            image.Remap(colors);
 
             ColorAssert.Equal(MagickColors.Fuchsia, image, 0, 0);
             ColorAssert.Equal(MagickColors.Lime, image, 455, 396);
@@ -78,10 +78,12 @@ public partial class MagickImageTests
 
         private static IMagickImage<QuantumType> CreatePalleteImage()
         {
-            using var images = new MagickImageCollection();
-            images.Add(new MagickImage(MagickColors.Red, 1, 1));
-            images.Add(new MagickImage(MagickColors.Blue, 1, 1));
-            images.Add(new MagickImage(MagickColors.Green, 1, 1));
+            using var images = new MagickImageCollection
+            {
+                new MagickImage(MagickColors.Red, 1, 1),
+                new MagickImage(MagickColors.Blue, 1, 1),
+                new MagickImage(MagickColors.Green, 1, 1),
+            };
 
             return images.AppendHorizontally();
         }

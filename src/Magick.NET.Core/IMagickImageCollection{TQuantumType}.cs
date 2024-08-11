@@ -130,21 +130,6 @@ public partial interface IMagickImageCollection<TQuantumType> : IMagickImageColl
     IMagickImage<TQuantumType> Fx(string expression, Channels channels);
 
     /// <summary>
-    /// Remap image colors with closest color from reference image.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Map(IMagickImage<TQuantumType> image);
-
-    /// <summary>
-    /// Remap image colors with closest color from reference image.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <param name="settings">Quantize settings.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Map(IMagickImage<TQuantumType> image, IQuantizeSettings settings);
-
-    /// <summary>
     /// Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
     /// canvas of the first image is preserved but otherwise ignored.
     /// </summary>

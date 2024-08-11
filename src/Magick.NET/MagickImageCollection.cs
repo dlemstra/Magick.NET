@@ -611,29 +611,6 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         => _images.Insert(index, new MagickImage(fileName));
 
     /// <summary>
-    /// Remap image colors with closest color from reference image.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Map(IMagickImage<QuantumType> image)
-        => Map(image, new QuantizeSettings());
-
-    /// <summary>
-    /// Remap image colors with closest color from reference image.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <param name="settings">Quantize settings.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Map(IMagickImage<QuantumType> image, IQuantizeSettings settings)
-    {
-        Throw.IfNull(nameof(image), image);
-        Throw.IfNull(nameof(settings), settings);
-
-        using var imageAttacher = new TemporaryImageAttacher(_images);
-        _nativeInstance.Map(_images[0], settings, image);
-    }
-
-    /// <summary>
     /// Merge all layers onto a canvas just large enough to hold all the actual images. The virtual
     /// canvas of the first image is preserved but otherwise ignored.
     /// </summary>
@@ -858,6 +835,29 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         using var imageAttacher = new TemporaryImageAttacher(_images);
         var image = _nativeInstance.Polynomial(_images[0], terms, (nuint)terms.Length);
         return MagickImage.Create(image, GetSettings());
+    }
+
+    /// <summary>
+    /// Remap image colors with closest color from reference image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Remap(IMagickImage image)
+        => Remap(image, new QuantizeSettings());
+
+    /// <summary>
+    /// Remap image colors with closest color from reference image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <param name="settings">Quantize settings.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Remap(IMagickImage image, IQuantizeSettings settings)
+    {
+        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(nameof(settings), settings);
+
+        using var imageAttacher = new TemporaryImageAttacher(_images);
+        _nativeInstance.Map(_images[0], settings, image);
     }
 
     /// <summary>

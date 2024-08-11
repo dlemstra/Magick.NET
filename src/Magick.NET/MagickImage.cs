@@ -3825,69 +3825,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => _nativeInstance.Magnify();
 
     /// <summary>
-    /// Remap image colors with closest color from the specified colors.
-    /// </summary>
-    /// <param name="colors">The colors to use.</param>
-    /// <returns>The error informaton.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors)
-    {
-        Throw.IfNull(nameof(colors), colors);
-
-        return Map(colors, new QuantizeSettings());
-    }
-
-    /// <summary>
-    /// Remap image colors with closest color from the specified colors.
-    /// </summary>
-    /// <param name="colors">The colors to use.</param>
-    /// <param name="settings">Quantize settings.</param>
-    /// <returns>The error informaton.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickErrorInfo Map(IEnumerable<IMagickColor<QuantumType>> colors, IQuantizeSettings settings)
-    {
-        Throw.IfNull(nameof(colors), colors);
-
-        var colorList = new List<IMagickColor<QuantumType>>(colors);
-        if (colorList.Count == 0)
-            throw new ArgumentException("Value cannot be empty.", nameof(colors));
-
-        using var images = new MagickImageCollection();
-        foreach (var color in colorList)
-            images.Add(new MagickImage(color, 1, 1));
-
-        using var image = images.AppendHorizontally();
-        return Map(image, settings);
-    }
-
-    /// <summary>
-    /// Remap image colors with closest color from reference image.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <returns>The error informaton.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickErrorInfo Map(IMagickImage image)
-        => Map(image, new QuantizeSettings());
-
-    /// <summary>
-    /// Remap image colors with closest color from reference image.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <param name="settings">Quantize settings.</param>
-    /// <returns>The error informaton.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IMagickErrorInfo Map(IMagickImage image, IQuantizeSettings settings)
-    {
-        Throw.IfNull(nameof(image), image);
-        Throw.IfNull(nameof(settings), settings);
-
-        if (_nativeInstance.Map(image, settings))
-            return new MagickErrorInfo();
-
-        return CreateErrorInfo(this);
-    }
-
-    /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.
     /// </summary>
     /// <param name="size">The width and height of the pixels neighborhood.</param>
@@ -5087,6 +5024,69 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The mask region.</param>
     public void RegionMask(IMagickGeometry geometry)
         => _nativeInstance.RegionMask(MagickRectangle.FromGeometry(geometry, this));
+
+    /// <summary>
+    /// Remap image colors with closest color from the specified colors.
+    /// </summary>
+    /// <param name="colors">The colors to use.</param>
+    /// <returns>The error informaton.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickErrorInfo Remap(IEnumerable<IMagickColor<QuantumType>> colors)
+    {
+        Throw.IfNull(nameof(colors), colors);
+
+        return Remap(colors, new QuantizeSettings());
+    }
+
+    /// <summary>
+    /// Remap image colors with closest color from the specified colors.
+    /// </summary>
+    /// <param name="colors">The colors to use.</param>
+    /// <param name="settings">Quantize settings.</param>
+    /// <returns>The error informaton.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickErrorInfo Remap(IEnumerable<IMagickColor<QuantumType>> colors, IQuantizeSettings settings)
+    {
+        Throw.IfNull(nameof(colors), colors);
+
+        var colorList = new List<IMagickColor<QuantumType>>(colors);
+        if (colorList.Count == 0)
+            throw new ArgumentException("Value cannot be empty.", nameof(colors));
+
+        using var images = new MagickImageCollection();
+        foreach (var color in colorList)
+            images.Add(new MagickImage(color, 1, 1));
+
+        using var image = images.AppendHorizontally();
+        return Remap(image, settings);
+    }
+
+    /// <summary>
+    /// Remap image colors with closest color from reference image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <returns>The error informaton.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickErrorInfo Remap(IMagickImage image)
+        => Remap(image, new QuantizeSettings());
+
+    /// <summary>
+    /// Remap image colors with closest color from reference image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <param name="settings">Quantize settings.</param>
+    /// <returns>The error informaton.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public IMagickErrorInfo Remap(IMagickImage image, IQuantizeSettings settings)
+    {
+        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(nameof(settings), settings);
+
+        if (_nativeInstance.Map(image, settings))
+            return new MagickErrorInfo();
+
+        return CreateErrorInfo(this);
+    }
 
     /// <summary>
     /// Removes the artifact with the specified name.

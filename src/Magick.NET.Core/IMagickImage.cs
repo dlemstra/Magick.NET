@@ -1996,23 +1996,6 @@ public partial interface IMagickImage : IDisposable
     void Magnify();
 
     /// <summary>
-    /// Remap image colors with closest color from reference image.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <returns>The error informaton.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickErrorInfo Map(IMagickImage image);
-
-    /// <summary>
-    /// Remap image colors with closest color from reference image.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <param name="settings">Quantize settings.</param>
-    /// <returns>The error informaton.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickErrorInfo Map(IMagickImage image, IQuantizeSettings settings);
-
-    /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.
     /// </summary>
     /// <param name="size">The width and height of the pixels neighborhood.</param>
@@ -2565,6 +2548,23 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <param name="region">The mask region.</param>
     void RegionMask(IMagickGeometry region);
+
+    /// <summary>
+    /// Remap image colors with closest color from reference image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <returns>The error informaton.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    IMagickErrorInfo Remap(IMagickImage image);
+
+    /// <summary>
+    /// Remap image colors with closest color from reference image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <param name="settings">Quantize settings.</param>
+    /// <returns>The error informaton.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    IMagickErrorInfo Remap(IMagickImage image, IQuantizeSettings settings);
 
     /// <summary>
     /// Removes the artifact with the specified name.

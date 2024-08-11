@@ -344,6 +344,21 @@ public partial interface IMagickImageCollection : IDisposable
     Task ReadAsync(string fileName, MagickFormat format, CancellationToken cancellationToken);
 
     /// <summary>
+    /// Remap image colors with closest color from reference image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Remap(IMagickImage image);
+
+    /// <summary>
+    /// Remap image colors with closest color from reference image.
+    /// </summary>
+    /// <param name="image">The image to use.</param>
+    /// <param name="settings">Quantize settings.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Remap(IMagickImage image, IQuantizeSettings settings);
+
+    /// <summary>
     /// Resets the page property of every image in the collection.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
