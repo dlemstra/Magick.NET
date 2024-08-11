@@ -2859,7 +2859,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="expression">The expression to apply.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Fx(string expression)
-        => Fx(expression, ImageMagick.Channels.Undefined);
+        => Fx(expression, ImageMagick.Channels.All);
 
     /// <summary>
     /// Applies a mathematical expression to the image.

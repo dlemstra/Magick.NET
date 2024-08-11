@@ -558,7 +558,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <returns>The resulting image of the fx operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> Fx(string expression)
-        => Fx(expression, Channels.Undefined);
+        => Fx(expression, Channels.All);
 
     /// <summary>
     /// Applies a mathematical expression to the images and returns the result.
