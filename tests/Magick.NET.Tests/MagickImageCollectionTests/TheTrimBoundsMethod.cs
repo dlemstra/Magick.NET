@@ -37,8 +37,8 @@ public partial class MagickImageCollectionTests
 
             Assert.Equal(640U, images[1].Page.Width);
             Assert.Equal(640U, images[1].Page.Height);
-            Assert.Equal(0, images[0].Page.X);
-            Assert.Equal(0, images[0].Page.Y);
+            Assert.Equal(0, images[1].Page.X);
+            Assert.Equal(0, images[1].Page.Y);
         }
     }
 }
