@@ -1387,6 +1387,8 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     public void TrimBounds()
     {
         using var imageAttacher = new TemporaryImageAttacher(_images);
+
+        // The return value is ignored because the return value always is IntPtr.Zero.
         _nativeInstance.Merge(_images[0], LayerMethod.Trimbounds);
     }
 
