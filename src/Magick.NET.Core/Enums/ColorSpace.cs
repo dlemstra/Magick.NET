@@ -186,4 +186,29 @@ public enum ColorSpace
     /// Jzazbz.
     /// </summary>
     Jzazbz,
+
+    /// <summary>
+    /// DisplayP3.
+    /// </summary>
+    DisplayP3,
+
+    /// <summary>
+    /// Adobe98.
+    /// </summary>
+    Adobe98,
+
+    /// <summary>
+    /// ProPhoto.
+    /// </summary>
+    ProPhoto,
+
+    /// <summary>
+    /// Oklab.
+    /// </summary>
+    Oklab,
+
+    /// <summary>
+    /// Oklch.
+    /// </summary>
+    Oklch,
 }
