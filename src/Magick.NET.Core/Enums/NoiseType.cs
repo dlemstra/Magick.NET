@@ -34,7 +34,7 @@ public enum NoiseType
     Impulse,
 
     /// <summary>
-    /// Poisson.
+    /// Laplacian.
     /// </summary>
     Laplacian,
 
