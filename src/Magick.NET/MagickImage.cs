@@ -5082,7 +5082,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfNull(nameof(image), image);
         Throw.IfNull(nameof(settings), settings);
 
-        if (_nativeInstance.Map(image, settings))
+        if (_nativeInstance.Remap(image, settings))
             return new MagickErrorInfo();
 
         return CreateErrorInfo(this);

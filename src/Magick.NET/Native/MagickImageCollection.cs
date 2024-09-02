@@ -59,9 +59,6 @@ public partial class MagickImageCollection
         public partial IntPtr Evaluate(IMagickImage image, EvaluateOperator evaluateOperator);
 
         [Throws]
-        public partial void Map(IMagickImage image, IQuantizeSettings settings, IMagickImage remapImage);
-
-        [Throws]
         [Cleanup(Name = nameof(Dispose))]
         public partial IntPtr Merge(IMagickImage image, LayerMethod method);
 
@@ -108,6 +105,9 @@ public partial class MagickImageCollection
         [Throws]
         [Cleanup(Name = nameof(Dispose))]
         public partial IntPtr ReadStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate reader, SeekStreamDelegate? seeker, TellStreamDelegate? teller, void* data);
+
+        [Throws]
+        public partial void Remap(IMagickImage image, IQuantizeSettings settings, IMagickImage remapImage);
 
         [Throws]
         [Cleanup(Name = nameof(Dispose))]

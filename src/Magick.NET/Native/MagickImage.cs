@@ -558,9 +558,6 @@ public partial class MagickImage : IDisposable
         public partial void Magnify();
 
         [Throws]
-        public partial bool Map(IMagickImage image, IQuantizeSettings settings);
-
-        [Throws]
         [SetInstance]
         public partial void MeanShift(nuint width, nuint height, double colorDistance);
 
@@ -653,6 +650,9 @@ public partial class MagickImage : IDisposable
 
         [Throws]
         public partial void RegionMask(MagickRectangle? region);
+
+        [Throws]
+        public partial bool Remap(IMagickImage image, IQuantizeSettings settings);
 
         public partial void RemoveArtifact(string name);
 

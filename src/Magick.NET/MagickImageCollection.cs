@@ -857,7 +857,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         Throw.IfNull(nameof(settings), settings);
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
-        _nativeInstance.Map(_images[0], settings, image);
+        _nativeInstance.Remap(_images[0], settings, image);
     }
 
     /// <summary>
