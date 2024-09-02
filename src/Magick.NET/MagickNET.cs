@@ -272,7 +272,7 @@ public partial class MagickNET : IMagickNET
     /// Resets the pseudo-random number generator secret key.
     /// </summary>
     public static void ResetRandomSeed()
-        => NativeMagickNET.SetRandomSeed(ulong.MaxValue);
+        => NativeMagickNET.ResetRandomSeed();
 
     /// <summary>
     /// Set the path to the default font file.

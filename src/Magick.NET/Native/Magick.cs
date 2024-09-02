@@ -33,6 +33,8 @@ public partial class MagickNET
 
         public static partial string? GetFontName(IntPtr instance, nuint index);
 
+        public static partial void ResetRandomSeed();
+
         [Throws]
         public static partial void SetDefaultFontFile(string fileName);
 
