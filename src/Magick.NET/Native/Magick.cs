@@ -22,6 +22,8 @@ public partial class MagickNET
 
         public static partial string ImageMagickVersion_Get();
 
+        public static partial void DisposeFonts(IntPtr instance);
+
         [Throws]
         [Cleanup(Name = nameof(DisposeFonts))]
 
@@ -30,8 +32,6 @@ public partial class MagickNET
         public static partial string? GetFontFamily(IntPtr instance, nuint index);
 
         public static partial string? GetFontName(IntPtr instance, nuint index);
-
-        public static partial void DisposeFonts(IntPtr instance);
 
         [Throws]
         public static partial void SetDefaultFontFile(string fileName);
