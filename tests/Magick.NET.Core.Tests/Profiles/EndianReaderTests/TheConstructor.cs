@@ -16,7 +16,7 @@ public partial class EndianReaderTests
         {
             Assert.Throws<ArgumentNullException>("data", () =>
             {
-                new EndianReader(null);
+                new EndianReader(null!);
             });
         }
 
@@ -25,7 +25,7 @@ public partial class EndianReaderTests
         {
             Assert.Throws<ArgumentException>("data", () =>
             {
-                new EndianReader(Array.Empty<byte>());
+                new EndianReader([]);
             });
         }
     }

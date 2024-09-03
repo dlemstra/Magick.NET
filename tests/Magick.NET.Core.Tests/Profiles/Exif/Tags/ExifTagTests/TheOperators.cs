@@ -15,10 +15,10 @@ public partial class ExifTagTests
         {
             var tag = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
 
-            Assert.False(tag == null);
-            Assert.True(tag != null);
-            Assert.False(null == tag);
-            Assert.True(null != tag);
+            Assert.False(tag == null!);
+            Assert.True(tag != null!);
+            Assert.False(null! == tag);
+            Assert.True(null! != tag);
         }
 
         [Fact]

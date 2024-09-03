@@ -24,14 +24,14 @@ public partial class ImageProfileTests
         {
             var profile = new ImageProfile("test", Array.Empty<byte>());
 
-            Assert.False(profile.Equals((object)null));
+            Assert.False(profile.Equals((object?)null!));
         }
 
         [Fact]
         public void ShouldReturnTrueWhenOtherIsEqual()
         {
-            var profile = new ImageProfile("test", new byte[] { 1, 2, 3 });
-            var other = new ImageProfile("test", new byte[] { 1, 2, 3 });
+            var profile = new ImageProfile("test", [1, 2, 3]);
+            var other = new ImageProfile("test", [1, 2, 3]);
 
             Assert.True(profile.Equals(other));
         }
@@ -39,8 +39,8 @@ public partial class ImageProfileTests
         [Fact]
         public void ShouldReturnTrueWhenOtherAsObjectIsEqual()
         {
-            var profile = new ImageProfile("test", new byte[] { 1, 2, 3 });
-            var other = new ImageProfile("test", new byte[] { 1, 2, 3 });
+            var profile = new ImageProfile("test", [1, 2, 3]);
+            var other = new ImageProfile("test", [1, 2, 3]);
 
             Assert.True(profile.Equals((object)other));
         }
@@ -48,8 +48,8 @@ public partial class ImageProfileTests
         [Fact]
         public void ShouldReturnFalseWhenOtherIsNotEqual()
         {
-            var profile = new ImageProfile("test", new byte[] { 1, 2, 3 });
-            var other = new ImageProfile("test", new byte[] { 3, 2, 1 });
+            var profile = new ImageProfile("test", [1, 2, 3]);
+            var other = new ImageProfile("test", [3, 2, 1]);
 
             Assert.False(profile.Equals(other));
         }

@@ -13,7 +13,7 @@ public partial class DensityTests
     {
         [Fact]
         public void ShouldThrowExceptionWhenValueIsNull()
-            => Assert.Throws<ArgumentNullException>("value", () => new Density(null));
+            => Assert.Throws<ArgumentNullException>("value", () => new Density(null!));
 
         [Fact]
         public void ShouldThrowExceptionWhenValueIsEmpty()

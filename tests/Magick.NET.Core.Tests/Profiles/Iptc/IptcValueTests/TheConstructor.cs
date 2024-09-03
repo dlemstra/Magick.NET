@@ -14,13 +14,13 @@ public partial class IptcValueTests
         [Fact]
         public void ShouldThrowExceptionWhenBytesIsNull()
         {
-            Assert.Throws<ArgumentNullException>("value", () => new IptcValue(IptcTag.Caption, (byte[])null));
+            Assert.Throws<ArgumentNullException>("value", () => new IptcValue(IptcTag.Caption, (byte[]?)null!));
         }
 
         [Fact]
         public void ShouldNotThrowExceptionWhenStringIsNull()
         {
-            var value = new IptcValue(IptcTag.Caption, (string)null);
+            var value = new IptcValue(IptcTag.Caption, (string?)null!);
         }
     }
 }

@@ -14,7 +14,7 @@ public partial class PointDTests
         [Fact]
         public void ShouldThrowExceptionWhenValueIsNull()
         {
-            Assert.Throws<ArgumentNullException>("value", () => { new PointD(null); });
+            Assert.Throws<ArgumentNullException>("value", () => { new PointD(null!); });
         }
 
         [Fact]

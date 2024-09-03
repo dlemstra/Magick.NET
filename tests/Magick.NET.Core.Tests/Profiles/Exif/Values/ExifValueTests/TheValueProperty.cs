@@ -16,8 +16,9 @@ public partial class ExifValueTests
             var profile = new ExifProfile();
             profile.SetValue(ExifTag.Software, "Magick.NET");
 
-            IExifValue value = profile.GetValue(ExifTag.Software);
+            IExifValue? value = profile.GetValue(ExifTag.Software);
 
+            Assert.NotNull(value);
             Assert.False(value.SetValue(10.5));
         }
 
@@ -27,8 +28,9 @@ public partial class ExifValueTests
             var profile = new ExifProfile();
             profile.SetValue(ExifTag.ShutterSpeedValue, new SignedRational(75.55));
 
-            IExifValue value = profile.GetValue(ExifTag.ShutterSpeedValue);
+            IExifValue? value = profile.GetValue(ExifTag.ShutterSpeedValue);
 
+            Assert.NotNull(value);
             Assert.False(value.SetValue(75));
         }
 
@@ -38,10 +40,10 @@ public partial class ExifValueTests
             var profile = new ExifProfile();
             profile.SetValue(ExifTag.XResolution, new Rational(150.0));
 
-            IExifValue value = profile.GetValue(ExifTag.XResolution);
+            IExifValue? value = profile.GetValue(ExifTag.XResolution);
+
             Assert.NotNull(value);
             Assert.Equal("150", value.ToString());
-
             Assert.False(value.SetValue("Magick.NET"));
         }
     }

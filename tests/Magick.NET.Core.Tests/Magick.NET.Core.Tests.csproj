@@ -2,6 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0;net462</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
+    <Nullable>enable</Nullable>
     <Configurations>Debug;Test</Configurations>
   </PropertyGroup>
 

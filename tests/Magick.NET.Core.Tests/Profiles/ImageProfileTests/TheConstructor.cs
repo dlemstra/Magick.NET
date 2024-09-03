@@ -15,7 +15,7 @@ public partial class ImageProfileTests
         [Fact]
         public void ShouldThrowExceptionWhenNameIsNull()
         {
-            Assert.Throws<ArgumentNullException>("name", () => new ImageProfile(null, "test"));
+            Assert.Throws<ArgumentNullException>("name", () => new ImageProfile(null!, "test"));
         }
 
         [Fact]
@@ -27,7 +27,7 @@ public partial class ImageProfileTests
         [Fact]
         public void ShouldThrowExceptionWhenByteArrayIsNull()
         {
-            Assert.Throws<ArgumentNullException>("data", () => new ImageProfile("name", (byte[])null));
+            Assert.Throws<ArgumentNullException>("data", () => new ImageProfile("name", (byte[]?)null!));
         }
 
         [Fact]
@@ -39,13 +39,13 @@ public partial class ImageProfileTests
         [Fact]
         public void ShouldThrowExceptionWhenStreamIsNull()
         {
-            Assert.Throws<ArgumentNullException>("stream", () => new ImageProfile("name", (Stream)null));
+            Assert.Throws<ArgumentNullException>("stream", () => new ImageProfile("name", (Stream?)null!));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenFileNameIsNull()
         {
-            Assert.Throws<ArgumentNullException>("fileName", () => new ImageProfile("name", (string)null));
+            Assert.Throws<ArgumentNullException>("fileName", () => new ImageProfile("name", (string?)null!));
         }
 
         [Fact]

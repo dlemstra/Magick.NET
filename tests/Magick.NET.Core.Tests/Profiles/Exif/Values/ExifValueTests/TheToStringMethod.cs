@@ -30,6 +30,8 @@ public partial class ExifValueTests
 
             exifProfile.SetValue(ExifTag.ResolutionUnit, input);
             var value = exifProfile.GetValue(ExifTag.ResolutionUnit);
+
+            Assert.NotNull(value);
             Assert.Equal(expected, value.ToString());
         }
     }
