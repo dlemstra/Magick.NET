@@ -17,7 +17,7 @@ public partial class MagickImageFactoryTests
         public void ShouldThrowExceptionWhenBitmapIsNull()
         {
             var factory = new MagickImageFactory();
-            Assert.Throws<ArgumentNullException>("bitmap", () => factory.Create((Bitmap)null));
+            Assert.Throws<ArgumentNullException>("bitmap", () => factory.Create((Bitmap)null!));
         }
 
         [Fact]

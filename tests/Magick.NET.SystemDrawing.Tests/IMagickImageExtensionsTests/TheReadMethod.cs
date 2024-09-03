@@ -19,7 +19,7 @@ public partial class IMagickImageExtensionsTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("bitmap", () => image.Read((Bitmap)null));
+            Assert.Throws<ArgumentNullException>("bitmap", () => image.Read((Bitmap)null!));
         }
 
         [Fact]

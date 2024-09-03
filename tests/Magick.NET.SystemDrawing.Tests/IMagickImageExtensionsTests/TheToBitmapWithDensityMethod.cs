@@ -119,7 +119,7 @@ public partial class IMagickImageExtensionsTests
         {
             using var image = new MagickImage(MagickColors.Red, 1, 1);
 
-            Assert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmapWithDensity(null));
+            Assert.Throws<ArgumentNullException>("imageFormat", () => image.ToBitmapWithDensity(null!));
         }
 
         [Fact]
