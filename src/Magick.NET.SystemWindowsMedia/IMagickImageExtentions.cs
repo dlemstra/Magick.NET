@@ -81,8 +81,6 @@ public static partial class IMagickImageExtentions
 
     private static Density GetDefaultDensity(IMagickImage image, DensityUnit units)
     {
-        Throw.IfNull(nameof(image), image);
-
         if (units == DensityUnit.Undefined || (image.Density.X <= 0 || image.Density.Y <= 0))
             return new Density(96);
 
