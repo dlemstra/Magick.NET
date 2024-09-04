@@ -12,7 +12,6 @@ public partial class DrawablesTests
 {
     public class TheCompositeMethod
     {
-        [Obsolete]
         public class WithOffsetAndImage
         {
             [Fact]
@@ -39,7 +38,6 @@ public partial class DrawablesTests
             }
         }
 
-        [Obsolete]
         public class WithGeometryOffsetAndCompositeOperatorAndImage
         {
             [Fact]
@@ -92,7 +90,6 @@ public partial class DrawablesTests
             }
         }
 
-        [Obsolete]
         public class WithXYAndImage
         {
             [Fact]
