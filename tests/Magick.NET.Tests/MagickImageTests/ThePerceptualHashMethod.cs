@@ -47,92 +47,92 @@ public partial class MagickImageTests
             var channel = phash.GetChannel(PixelChannel.Red);
 
 #if Q8
-            TestChannel(channel, 0, 0.6980, 0.6980, 0.0974, 0.0993);
-            TestChannel(channel, 1, 3.4388, 3.4390, 0.6582, 0.6685);
-            TestChannel(channel, 2, 3.9123, 3.9123, 0.9238, 0.9195);
-            TestChannel(channel, 3, 4.2922, 4.2920, 2.3627, 2.3354);
-            TestChannel(channel, 4, 8.7570, 8.7574, 4.9574, 5.2273);
-            TestChannel(channel, 5, 8.2422, 8.2149, 2.8422, 2.8360);
-            TestChannel(channel, 6, 8.4397, 8.4394, 4.0087, 3.9636);
+            TestChannel(channel, 0, 0.2609, 0.2609, 0.0975, 0.0993);
+            TestChannel(channel, 1, 3.2660, 3.2659, 0.6583, 0.6686);
+            TestChannel(channel, 2, 3.5858, 3.5854, 0.9238, 0.9196);
+            TestChannel(channel, 3, 3.6612, 3.6610, 2.3627, 2.3355);
+            TestChannel(channel, 4, 7.3919, 7.3918, 4.9577, 5.2277);
+            TestChannel(channel, 5, 6.1101, 6.1107, 2.8422, 2.8360);
+            TestChannel(channel, 6, 7.4893, 7.4885, 4.0087, 3.9636);
 #elif Q16
-            TestChannel(channel, 0, 0.6979, 0.6979, 0.2575, 0.2570);
-            TestChannel(channel, 1, 3.4385, 3.4385, 1.0621, 1.0552);
-            TestChannel(channel, 2, 3.9123, 3.9123, 1.3756, 1.3800);
-            TestChannel(channel, 3, 4.2920, 4.2920, 2.8341, 2.8360);
-            TestChannel(channel, 4, 8.7557, 8.7557, 5.1134, 5.1087);
-            TestChannel(channel, 5, 8.3019, 8.3018, 3.4791, 3.4733);
-            TestChannel(channel, 6, 8.4398, 8.4398, 5.0679, 5.0815);
+            TestChannel(channel, 0, 0.2600, 0.2600, 0.2576, 0.2570);
+            TestChannel(channel, 1, 3.2672, 3.2672, 1.0621, 1.0553);
+            TestChannel(channel, 2, 3.5845, 3.5845, 1.3757, 1.3801);
+            TestChannel(channel, 3, 3.6533, 3.6533, 2.8341, 2.8361);
+            TestChannel(channel, 4, 7.3710, 7.3710, 5.1136, 5.1087);
+            TestChannel(channel, 5, 6.0810, 6.0810, 3.4792, 3.4734);
+            TestChannel(channel, 6, 7.4909, 7.4909, 5.0677, 5.0815);
 #else
-            TestChannel(channel, 0, 0.6979, 0.6979, 0.2944, 0.2945);
-            TestChannel(channel, 1, 3.4385, 3.4385, 1.1850, 1.1834);
-            TestChannel(channel, 2, 3.9123, 3.9123, 1.5006, 1.5009);
-            TestChannel(channel, 3, 4.2920, 4.2920, 3.0480, 3.0419);
-            TestChannel(channel, 4, 8.7557, 8.7557, 5.3844, 5.3651);
-            TestChannel(channel, 5, 8.3018, 8.3018, 3.6804, 3.6675);
-            TestChannel(channel, 6, 8.4398, 8.4398, 5.6247, 5.6501);
+            TestChannel(channel, 0, 0.2600, 0.2600, 0.2948, 0.2946);
+            TestChannel(channel, 1, 3.2673, 3.2673, 1.1852, 1.1834);
+            TestChannel(channel, 2, 3.5845, 3.5845, 1.5017, 1.5010);
+            TestChannel(channel, 3, 3.6533, 3.6533, 3.0470, 3.0420);
+            TestChannel(channel, 4, 7.3708, 7.3708, 5.3762, 5.3652);
+            TestChannel(channel, 5, 6.0808, 6.0808, 3.6754, 3.6675);
+            TestChannel(channel, 6, 7.4910, 7.4910, 5.6470, 5.6501);
 #endif
 
             channel = phash.GetChannel(PixelChannel.Green);
 
 #if Q8
-            TestChannel(channel, 0, 0.6942, 0.6942, -0.0601, -0.0601);
-            TestChannel(channel, 1, 3.3993, 3.3995, 0.3090, 0.3093);
-            TestChannel(channel, 2, 4.1171, 4.1172, 0.6084, 0.6083);
-            TestChannel(channel, 3, 4.4847, 4.4847, 0.7559, 0.7566);
-            TestChannel(channel, 4, 8.8180, 8.8183, 1.7224, 1.7237);
-            TestChannel(channel, 5, 6.4829, 6.4832, 0.9413, 0.9421);
-            TestChannel(channel, 6, 9.2143, 9.2141, 1.5065, 1.5074);
+            TestChannel(channel, 0, 0.2623, 0.2623, 0.0637, 0.0637);
+            TestChannel(channel, 1, 2.9570, 2.9572, 0.6035, 0.6036);
+            TestChannel(channel, 2, 3.2478, 3.2475, 0.9510, 0.9508);
+            TestChannel(channel, 3, 3.5946, 3.5946, 1.1194, 1.1199);
+            TestChannel(channel, 4, 7.3861, 7.3853, 2.5013, 2.5020);
+            TestChannel(channel, 5, 5.7001, 5.6994, 1.4568, 1.4574);
+            TestChannel(channel, 6, 7.0594, 7.0594, 2.2038, 2.2044);
 #elif Q16
-            TestChannel(channel, 0, 0.6942, 0.6942, -0.0601, -0.0601);
-            TestChannel(channel, 1, 3.3989, 3.3989, 0.3092, 0.3092);
-            TestChannel(channel, 2, 4.1169, 4.1169, 0.6084, 0.6084);
-            TestChannel(channel, 3, 4.4844, 4.4844, 0.7559, 0.7559);
-            TestChannel(channel, 4, 8.8174, 8.8174, 1.7230, 1.7230);
-            TestChannel(channel, 5, 6.4821, 6.4821, 0.9413, 0.9413);
-            TestChannel(channel, 6, 9.2148, 9.2148, 1.5063, 1.5063);
+            TestChannel(channel, 0, 0.2620, 0.2620, 0.0635, 0.0635);
+            TestChannel(channel, 1, 2.9595, 2.9595, 0.6031, 0.6031);
+            TestChannel(channel, 2, 3.2481, 3.2481, 0.9501, 0.9501);
+            TestChannel(channel, 3, 3.5937, 3.5937, 1.1202, 1.1202);
+            TestChannel(channel, 4, 7.3773, 7.3773, 2.5015, 2.5015);
+            TestChannel(channel, 5, 5.6952, 5.6952, 1.4575, 1.4575);
+            TestChannel(channel, 6, 7.0599, 7.0599, 2.2046, 2.2046);
 #else
-            TestChannel(channel, 0, 0.6942, 0.6942, -0.0601, -0.0601);
-            TestChannel(channel, 1, 3.3989, 3.3989, 0.3092, 0.3092);
-            TestChannel(channel, 2, 4.1169, 4.1169, 0.6084, 0.6084);
-            TestChannel(channel, 3, 4.4844, 4.4844, 0.7559, 0.7559);
-            TestChannel(channel, 4, 8.8174, 8.8174, 1.7230, 1.7230);
-            TestChannel(channel, 5, 6.4821, 6.4821, 0.9413, 0.9413);
-            TestChannel(channel, 6, 9.2148, 9.2148, 1.5063, 1.5063);
+            TestChannel(channel, 0, 0.2620, 0.2620, 0.0635, 0.0635);
+            TestChannel(channel, 1, 2.9595, 2.9595, 0.6031, 0.6031);
+            TestChannel(channel, 2, 3.2481, 3.2481, 0.9501, 0.9501);
+            TestChannel(channel, 3, 3.5937, 3.5937, 1.1202, 1.1202);
+            TestChannel(channel, 4, 7.3771, 7.3771, 2.5015, 2.5015);
+            TestChannel(channel, 5, 5.6950, 5.6950, 1.4575, 1.4575);
+            TestChannel(channel, 6, 7.0599, 7.0599, 2.2046, 2.2046);
 #endif
 
             channel = phash.GetChannel(PixelChannel.Blue);
 
 #if Q8
-            TestChannel(channel, 0, 0.7223, 0.7223, 0.6984, 0.6984);
-            TestChannel(channel, 1, 3.8298, 3.8298, 3.4611, 3.4612);
-            TestChannel(channel, 2, 5.1301, 5.1301, 4.1312, 4.1312);
-            TestChannel(channel, 3, 5.0217, 5.0218, 4.4867, 4.4867);
-            TestChannel(channel, 4, 10.4769, 10.4761, 8.8669, 8.8670);
-            TestChannel(channel, 5, 6.9453, 6.9454, 6.6108, 6.6110);
-            TestChannel(channel, 6, 10.1394, 10.1396, 9.0725, 9.0722);
+            TestChannel(channel, 0, 0.6559, 0.6560, 0.7381, 0.7381);
+            TestChannel(channel, 1, 3.1032, 3.1035, 4.0987, 4.0989);
+            TestChannel(channel, 2, 3.7201, 3.7202, 4.9907, 4.9905);
+            TestChannel(channel, 3, 3.9978, 3.9979, 5.1225, 5.1225);
+            TestChannel(channel, 4, 7.8604, 7.8607, 10.1991, 10.1992);
+            TestChannel(channel, 5, 5.8126, 5.8133, 7.2674, 7.2678);
+            TestChannel(channel, 6, 8.7449, 8.7418, 10.7076, 10.7048);
 #elif Q16
-            TestChannel(channel, 0, 0.7222, 0.7222, 0.6984, 0.6984);
-            TestChannel(channel, 1, 3.8295, 3.8295, 3.4609, 3.4609);
-            TestChannel(channel, 2, 5.1304, 5.1304, 4.1314, 4.1314);
-            TestChannel(channel, 3, 5.0214, 5.0214, 4.4866, 4.4866);
-            TestChannel(channel, 4, 10.4771, 10.4772, 8.8663, 8.8663);
-            TestChannel(channel, 5, 6.9448, 6.9448, 6.6094, 6.6094);
-            TestChannel(channel, 6, 10.1388, 10.1388, 9.0737, 9.0737);
+            TestChannel(channel, 0, 0.6558, 0.6558, 0.7381, 0.7381);
+            TestChannel(channel, 1, 3.1021, 3.1021, 4.0982, 4.0982);
+            TestChannel(channel, 2, 3.7194, 3.7194, 4.9910, 4.9910);
+            TestChannel(channel, 3, 3.9968, 3.9968, 5.1224, 5.1224);
+            TestChannel(channel, 4, 7.8585, 7.8585, 10.1987, 10.1987);
+            TestChannel(channel, 5, 5.8103, 5.8103, 7.2667, 7.2667);
+            TestChannel(channel, 6, 8.7491, 8.7491, 10.7102, 10.7102);
 #else
-            TestChannel(channel, 0, 0.7222, 0.7222, 0.6984, 0.6984);
-            TestChannel(channel, 1, 3.8295, 3.8295, 3.4609, 3.4609);
-            TestChannel(channel, 2, 5.1304, 5.1304, 4.1314, 4.1314);
-            TestChannel(channel, 3, 5.0214, 5.0214, 4.4866, 4.4866);
-            TestChannel(channel, 4, 10.4772, 10.4772, 8.8663, 8.8663);
-            TestChannel(channel, 5, 6.9448, 6.9448, 6.6094, 6.6094);
-            TestChannel(channel, 6, 10.1388, 10.1388, 9.0737, 9.0737);
+            TestChannel(channel, 0, 0.6558, 0.6558, 0.7381, 0.7381);
+            TestChannel(channel, 1, 3.1021, 3.1021, 4.0982, 4.0982);
+            TestChannel(channel, 2, 3.7194, 3.7194, 4.9910, 4.9910);
+            TestChannel(channel, 3, 3.9968, 3.9968, 5.1224, 5.1224);
+            TestChannel(channel, 4, 7.8585, 7.8585, 10.1987, 10.1987);
+            TestChannel(channel, 5, 5.8103, 5.8103, 7.2667, 7.2667);
+            TestChannel(channel, 6, 8.7491, 8.7491, 10.7102, 10.7102);
 #endif
         }
 
-        private void TestChannel(IChannelPerceptualHash channel, int index, double srgbHuPhashWithOpenCL, double srgbHuPhashWithoutOpenCL, double hclpHuPhashWithOpenCL, double hclpHuPhashWithoutOpenCL)
+        private void TestChannel(IChannelPerceptualHash channel, int index, double xyyHuPhashWithOpenCL, double xyyHuPhashWithoutOpenCL, double hsbHuPhashWithOpenCL, double hsbHuPhashWithoutOpenCL)
         {
-            OpenCLValue.Assert(srgbHuPhashWithOpenCL, srgbHuPhashWithoutOpenCL, channel.HuPhash(ColorSpace.sRGB, index), 0.0001);
-            OpenCLValue.Assert(hclpHuPhashWithOpenCL, hclpHuPhashWithoutOpenCL, channel.HuPhash(ColorSpace.HCLp, index), 0.0001);
+            OpenCLValue.Assert(xyyHuPhashWithOpenCL, xyyHuPhashWithoutOpenCL, channel.HuPhash(ColorSpace.XyY, index));
+            OpenCLValue.Assert(hsbHuPhashWithOpenCL, hsbHuPhashWithoutOpenCL, channel.HuPhash(ColorSpace.HSB, index));
         }
     }
 }

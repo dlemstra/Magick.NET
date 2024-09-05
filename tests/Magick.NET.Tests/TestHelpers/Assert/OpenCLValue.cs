@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.Globalization;
 using ImageMagick;
 
 namespace Magick.NET.Tests;
@@ -24,12 +25,13 @@ internal static class OpenCLValue
         }
     }
 
-    public static void Assert(double expectedWith, double expectedWithout, double value, double delta)
+    public static void Assert(double expectedWith, double expectedWithout, double value)
     {
-        if (HasEnabledOpenCLDevices)
-            Xunit.Assert.InRange(value, expectedWith - delta, expectedWith + delta);
-        else
-            Xunit.Assert.InRange(value, expectedWithout - delta, expectedWithout + delta);
+        var expected = (HasEnabledOpenCLDevices ? expectedWith : expectedWithout).ToString(CultureInfo.InvariantCulture);
+        var fractionalLength = expected.Split('.')[1].Length;
+        var formattedValue = value.ToString($"F{fractionalLength}", CultureInfo.InvariantCulture);
+
+        Xunit.Assert.Equal(expected, formattedValue);
     }
 
     public static void Assert<T>(T expectedWith, T expectedWithout, T value)

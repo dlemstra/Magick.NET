@@ -2182,8 +2182,8 @@ public partial interface IMagickImage : IDisposable
     void Perceptible(double epsilon, Channels channels);
 
     /// <summary>
-    /// Returns the perceptual hash of this image with the colorspaces <see cref="ColorSpace.sRGB"/>
-    /// and <see cref="ColorSpace.HCLp"/>.
+    /// Returns the perceptual hash of this image with the colorspaces <see cref="ColorSpace.XyY"/>
+    /// and <see cref="ColorSpace.HSB"/>.
     /// </summary>
     /// <returns>The perceptual hash of this image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

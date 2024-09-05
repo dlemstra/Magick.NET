@@ -40,11 +40,11 @@ public partial class PerceptualHashTests
             var otherPhash = other.PerceptualHash();
 
 #if Q8
-            OpenCLValue.Assert(394.74, 394.90, phash.SumSquaredDistance(otherPhash), 0.01);
+            OpenCLValue.Assert(391.07, 390.34, phash.SumSquaredDistance(otherPhash));
 #elif Q16
-            OpenCLValue.Assert(395.35, 395.39, phash.SumSquaredDistance(otherPhash), 0.02);
+            OpenCLValue.Assert(365.65, 365.36, phash.SumSquaredDistance(otherPhash));
 #else
-            OpenCLValue.Assert(395.60, 395.68, phash.SumSquaredDistance(otherPhash), 0.02);
+            OpenCLValue.Assert(356.02, 356.02, phash.SumSquaredDistance(otherPhash));
 #endif
         }
     }
