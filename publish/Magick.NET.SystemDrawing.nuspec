@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>Magick.NET.SystemDrawing</id>
-    <version>7.3.0</version>
+    <version>8.0.0</version>
     <title>Magick.NET.SystemDrawing</title>
     <authors>Dirk Lemstra</authors>
     <owners>Dirk Lemstra</owners>
@@ -14,19 +14,19 @@
     <description>ImageMagick is a powerful image manipulation library that supports over 100 major file formats (not including sub-formats). With Magick.NET you can use ImageMagick without having to install ImageMagick on your server or desktop. Visit https://github.com/dlemstra/Magick.NET/tree/main/docs before installing to help you decide the best version.</description>
     <summary>A .NET API to the ImageMagick image-processing library for Desktop and Web.</summary>
     <readme>docs\Readme.md</readme>
-    <releaseNotes>https://github.com/dlemstra/Magick.NET/releases/tag/13.10.0</releaseNotes>
+    <releaseNotes>https://github.com/dlemstra/Magick.NET/releases/tag/14.0.0</releaseNotes>
     <copyright>Copyright 2013-2024 Dirk Lemstra</copyright>
     <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
     <dependencies>
       <group targetFramework=".NETFramework4.6.2">
-        <dependency id="Magick.NET.Core" version="13.10.0" />
+        <dependency id="Magick.NET.Core" version="14.0.0" />
       </group>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Magick.NET.Core" version="13.10.0" />
+        <dependency id="Magick.NET.Core" version="14.0.0" />
         <dependency id="System.Drawing.Common" version="8.0.7" />
       </group>
       <group targetFramework="net8.0">
-        <dependency id="Magick.NET.Core" version="13.10.0" />
+        <dependency id="Magick.NET.Core" version="14.0.0" />
         <dependency id="System.Drawing.Common" version="8.0.7" />
       </group>
     </dependencies>
