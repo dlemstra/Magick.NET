@@ -3,7 +3,7 @@
 ## Lossless compress JPEG logo
 
 ```C#
-var snakewareLogo = new FileInfo("c:\path\to\Snakeware.jpg");
+var snakewareLogo = new FileInfo(@"c:\path\to\Snakeware.jpg");
 
 Console.WriteLine("Bytes before: " + snakewareLogo.Length);
 
