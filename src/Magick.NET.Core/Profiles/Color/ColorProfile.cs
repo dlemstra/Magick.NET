@@ -12,8 +12,8 @@ namespace ImageMagick;
 /// </summary>
 public sealed class ColorProfile : ImageProfile, IColorProfile
 {
-    private static readonly object _SyncRoot = new object();
-    private static readonly Dictionary<string, ColorProfile> _profiles = new Dictionary<string, ColorProfile>();
+    private static readonly object _syncRoot = new object();
+    private static readonly Dictionary<string, ColorProfile> _profiles = [];
 
     private ColorProfileData? _data;
 
@@ -154,7 +154,7 @@ public sealed class ColorProfile : ImageProfile, IColorProfile
     {
         if (!_profiles.ContainsKey(resourceName))
         {
-            lock (_SyncRoot)
+            lock (_syncRoot)
             {
                 if (!_profiles.ContainsKey(resourceName))
                 {
