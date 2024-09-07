@@ -8,10 +8,6 @@ namespace ImageMagick;
 
 internal static class TypeHelper
 {
-    public static T GetCustomAttribute<T>(Type type)
-        where T : Attribute
-        => (T)type.Assembly.GetCustomAttributes(typeof(T), false)[0];
-
     public static Stream GetManifestResourceStream(Type type, string resourcePath, string resourceName)
         => type.Assembly.GetManifestResourceStream(resourcePath + "." + resourceName)!;
 }

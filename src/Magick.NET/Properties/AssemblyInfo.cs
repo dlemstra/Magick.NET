@@ -3,6 +3,8 @@
 
 using System;
 using System.Runtime.InteropServices;
+using ImageMagick.SourceGenerator;
 
+[assembly: MagickVersion]
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]

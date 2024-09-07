@@ -4,7 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using ImageMagick.Configuration;
@@ -153,14 +152,7 @@ public partial class MagickNET : IMagickNET
     /// Gets the version of Magick.NET.
     /// </summary>
     public static string Version
-    {
-        get
-        {
-            var title = TypeHelper.GetCustomAttribute<AssemblyTitleAttribute>(typeof(MagickNET));
-            var version = TypeHelper.GetCustomAttribute<AssemblyFileVersionAttribute>(typeof(MagickNET));
-            return title.Title + " " + version.Version;
-        }
-    }
+        => MagickVersion.Version;
 
     /// <summary>
     /// Gets the ImageMagick delegate libraries.
