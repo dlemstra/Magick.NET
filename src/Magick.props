@@ -29,6 +29,10 @@
     <CompilerGeneratedFilesOutputPath>Generated</CompilerGeneratedFilesOutputPath>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <EnableTrimAnalyzer>true</EnableTrimAnalyzer>
+  </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove="$(CompilerGeneratedFilesOutputPath)/**" />
     <None Include="$(CompilerGeneratedFilesOutputPath)/**" />
