@@ -41,11 +41,7 @@ public partial class MagickImageTests
             ColorAssert.Equal(new MagickColor("#167616"), image, 63, 67);
             ColorAssert.Equal(new MagickColor("#3131fc"), image, 125, 67);
 #else
-#if Q16HDRI
-            ColorAssert.Equal(new MagickColor(OpenCLValue.Get("#fb70fb70fb708000", "#fbf7fbf7fbf78000")), image, 10, 10);
-#else
             ColorAssert.Equal(new MagickColor("#fbf7fbf7fbf78000"), image, 10, 10);
-#endif
             ColorAssert.Equal(new MagickColor("#8b2102990299"), image, 13, 67);
             ColorAssert.Equal(new MagickColor("#159275f21592"), image, 63, 67);
             ColorAssert.Equal(new MagickColor("#31853185fd47"), image, 125, 67);
