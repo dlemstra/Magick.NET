@@ -37,7 +37,7 @@ public partial class MagickColorTests
         {
             var first = MagickColors.White;
 
-            Assert.False(first.FuzzyEquals(null, (Percentage)0));
+            Assert.False(first.FuzzyEquals(null!, (Percentage)0));
         }
 
         [Fact]

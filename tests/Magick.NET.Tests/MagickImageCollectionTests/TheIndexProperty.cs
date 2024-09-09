@@ -16,7 +16,7 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection();
 
-            var exception = Assert.Throws<InvalidOperationException>(() => images[0] = null);
+            var exception = Assert.Throws<InvalidOperationException>(() => images[0] = null!);
             Assert.Equal("Not allowed to set null value.", exception.Message);
         }
 

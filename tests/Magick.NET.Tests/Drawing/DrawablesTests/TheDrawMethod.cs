@@ -14,7 +14,7 @@ public partial class DrawablesTests
     {
         [Fact]
         public void ShouldThrowExceptionWhenImageIsNull()
-            => Assert.Throws<ArgumentNullException>("image", () => new Drawables().Draw(null));
+            => Assert.Throws<ArgumentNullException>("image", () => new Drawables().Draw(null!));
 
         [Fact]
         public void ShouldDrawTheDrawables()

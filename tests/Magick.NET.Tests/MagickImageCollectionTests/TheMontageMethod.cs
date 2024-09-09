@@ -28,7 +28,7 @@ public partial class MagickImageCollectionTests
                 new MagickImage(MagickColors.Magenta, 1, 1),
             };
 
-            Assert.Throws<ArgumentNullException>("settings", () => images.Montage(null));
+            Assert.Throws<ArgumentNullException>("settings", () => images.Montage(null!));
         }
 
         [Fact]

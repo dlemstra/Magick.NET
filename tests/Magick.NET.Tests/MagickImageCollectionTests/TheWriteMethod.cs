@@ -20,7 +20,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null!));
             }
 
             [Fact]
@@ -47,7 +47,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null, MagickFormat.Bmp));
+                Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null!, MagickFormat.Bmp));
             }
 
             [Fact]
@@ -74,7 +74,7 @@ public partial class MagickImageCollectionTests
                 var defines = new TiffWriteDefines();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null, defines));
+                Assert.Throws<ArgumentNullException>("file", () => images.Write((FileInfo)null!, defines));
             }
 
             [Fact]
@@ -83,7 +83,7 @@ public partial class MagickImageCollectionTests
                 var file = new FileInfo(Files.CirclePNG);
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("defines", () => images.Write(file, null));
+                Assert.Throws<ArgumentNullException>("defines", () => images.Write(file, null!));
             }
 
             [Fact]
@@ -114,7 +114,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null!));
             }
         }
 
@@ -125,7 +125,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null, MagickFormat.Bmp));
+                Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null!, MagickFormat.Bmp));
             }
 
             [Fact]
@@ -152,7 +152,7 @@ public partial class MagickImageCollectionTests
                 var defines = new TiffWriteDefines();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null, defines));
+                Assert.Throws<ArgumentNullException>("fileName", () => images.Write((string)null!, defines));
             }
 
             [Fact]
@@ -160,7 +160,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("defines", () => images.Write(Files.CirclePNG, null));
+                Assert.Throws<ArgumentNullException>("defines", () => images.Write(Files.CirclePNG, null!));
             }
 
             [Fact]
@@ -191,7 +191,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null!));
             }
         }
 
@@ -202,7 +202,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null, MagickFormat.Bmp));
+                Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null!, MagickFormat.Bmp));
             }
 
             [Fact]
@@ -240,7 +240,7 @@ public partial class MagickImageCollectionTests
                 var defines = new TiffWriteDefines();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null, defines));
+                Assert.Throws<ArgumentNullException>("stream", () => images.Write((Stream)null!, defines));
             }
 
             [Fact]
@@ -249,7 +249,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
                 using var stream = new MemoryStream();
 
-                Assert.Throws<ArgumentNullException>("defines", () => images.Write(stream, null));
+                Assert.Throws<ArgumentNullException>("defines", () => images.Write(stream, null!));
             }
 
             [Fact]

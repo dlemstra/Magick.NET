@@ -20,7 +20,7 @@ public partial class PerceptualHashTests
             Assert.NotNull(phash);
 
             var perceptualHash = Substitute.For<IPerceptualHash>();
-            perceptualHash.GetChannel(PixelChannel.Blue).Returns((IChannelPerceptualHash)null);
+            perceptualHash.GetChannel(PixelChannel.Blue).Returns((IChannelPerceptualHash)null!);
 
             var exception = Assert.Throws<NotSupportedException>(() => phash.SumSquaredDistance(perceptualHash));
             Assert.Equal("The other perceptual hash should contain a red, green and blue channel.", exception.Message);
@@ -31,6 +31,7 @@ public partial class PerceptualHashTests
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();
+            Assert.NotNull(phash);
 
             using var other = new MagickImage(Files.MagickNETIconPNG);
             other.HasAlpha = false;
@@ -38,6 +39,7 @@ public partial class PerceptualHashTests
             Assert.Equal(3U, other.ChannelCount);
 
             var otherPhash = other.PerceptualHash();
+            Assert.NotNull(otherPhash);
 
 #if Q8
             OpenCLValue.Assert(391.07, 390.34, phash.SumSquaredDistance(otherPhash));

@@ -19,6 +19,7 @@ public partial class MagickImageTests
 
             using var path = new MagickImage(Files.InvitationTIF);
             var clippingPath = path.GetClippingPath();
+            Assert.NotNull(clippingPath);
 
             image.SetClippingPath(clippingPath);
 
@@ -34,6 +35,7 @@ public partial class MagickImageTests
 
             using var path = new MagickImage(Files.InvitationTIF);
             var clippingPath = path.GetClippingPath();
+            Assert.NotNull(clippingPath);
 
             image.SetClippingPath(clippingPath, "test");
 

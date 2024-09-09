@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("colorLow", () => image.TransparentChroma(null, MagickColors.Red));
+            Assert.Throws<ArgumentNullException>("colorLow", () => image.TransparentChroma(null!, MagickColors.Red));
         }
 
         [Fact]
@@ -24,7 +24,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("colorHigh", () => image.TransparentChroma(MagickColors.Red, null));
+            Assert.Throws<ArgumentNullException>("colorHigh", () => image.TransparentChroma(MagickColors.Red, null!));
         }
 
         [Fact]

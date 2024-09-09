@@ -22,7 +22,7 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null!));
             }
 
             [Fact]
@@ -46,7 +46,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var settings = new MagickReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null!, settings));
             }
 
             [Fact]
@@ -54,7 +54,7 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                using var image = await factory.CreateAsync(new FileInfo(Files.CirclePNG), (MagickReadSettings)null);
+                using var image = await factory.CreateAsync(new FileInfo(Files.CirclePNG), (MagickReadSettings)null!);
 
                 Assert.IsType<MagickImage>(image);
             }
@@ -68,7 +68,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var settings = new PixelReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null!, settings));
             }
 
             [Fact]
@@ -76,7 +76,7 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => factory.CreateAsync(new FileInfo(Files.CirclePNG), (PixelReadSettings)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => factory.CreateAsync(new FileInfo(Files.CirclePNG), (PixelReadSettings)null!));
             }
 
             [Fact]
@@ -112,7 +112,7 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null!));
             }
 
             [Fact]
@@ -143,7 +143,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var settings = new MagickReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null!, settings));
             }
 
             [Fact]
@@ -160,7 +160,7 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                using var image = await factory.CreateAsync(Files.CirclePNG, (MagickReadSettings)null);
+                using var image = await factory.CreateAsync(Files.CirclePNG, (MagickReadSettings)null!);
 
                 Assert.IsType<MagickImage>(image);
             }
@@ -174,7 +174,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var settings = new PixelReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null!, settings));
             }
 
             [Fact]
@@ -192,7 +192,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var settings = new PixelReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => factory.CreateAsync(Files.CirclePNG, (PixelReadSettings)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => factory.CreateAsync(Files.CirclePNG, (PixelReadSettings)null!));
             }
 
             [Fact]
@@ -228,7 +228,7 @@ public partial class MagickImageFactoryTests
             {
                 var factory = new MagickImageFactory();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null!));
             }
 
             [Fact]
@@ -260,7 +260,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var settings = new MagickReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null!, settings));
             }
 
             [Fact]
@@ -278,7 +278,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
 
                 using var fileStream = File.OpenRead(Files.CirclePNG);
-                using var image = await factory.CreateAsync(fileStream, (MagickReadSettings)null);
+                using var image = await factory.CreateAsync(fileStream, (MagickReadSettings)null!);
 
                 Assert.IsType<MagickImage>(image);
             }
@@ -292,7 +292,7 @@ public partial class MagickImageFactoryTests
                 var factory = new MagickImageFactory();
                 var settings = new PixelReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null!, settings));
             }
 
             [Fact]
@@ -311,7 +311,7 @@ public partial class MagickImageFactoryTests
 
                 using var fileStream = File.OpenRead(Files.CirclePNG);
 
-                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => factory.CreateAsync(fileStream, (PixelReadSettings)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => factory.CreateAsync(fileStream, (PixelReadSettings)null!));
             }
 
             [Fact]

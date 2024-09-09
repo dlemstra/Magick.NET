@@ -30,7 +30,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.AddRange((byte[])null));
+                Assert.Throws<ArgumentNullException>("data", () => images.AddRange((byte[])null!));
             }
 
             [Fact]
@@ -60,7 +60,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("images", () => images.AddRange((IEnumerable<IMagickImage<QuantumType>>)null));
+                Assert.Throws<ArgumentNullException>("images", () => images.AddRange((IEnumerable<IMagickImage<QuantumType>>)null!));
             }
 
             [Fact]
@@ -132,7 +132,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => images.AddRange((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => images.AddRange((string)null!));
             }
 
             [Fact]
@@ -181,7 +181,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("stream", () => images.AddRange((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => images.AddRange((Stream)null!));
             }
 
             [Fact]

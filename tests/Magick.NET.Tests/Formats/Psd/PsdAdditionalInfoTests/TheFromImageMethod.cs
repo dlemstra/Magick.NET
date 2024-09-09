@@ -15,7 +15,7 @@ public partial class PsdAdditionalInfoTests
         [Fact]
         public void ShouldThrowExceptionWhenImageIsNull()
         {
-            Assert.Throws<ArgumentNullException>("image", () => PsdAdditionalInfo.FromImage(null));
+            Assert.Throws<ArgumentNullException>("image", () => PsdAdditionalInfo.FromImage(null!));
         }
 
         [Fact]

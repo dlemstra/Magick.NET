@@ -19,7 +19,7 @@ public partial class ImageOptimizerTests
             {
                 var optimizer = new ImageOptimizer();
 
-                Assert.Throws<ArgumentNullException>("file", () => optimizer.LosslessCompress((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => optimizer.LosslessCompress((FileInfo)null!));
             }
 
             [Fact]
@@ -122,7 +122,7 @@ public partial class ImageOptimizerTests
             {
                 var optimizer = new ImageOptimizer();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => optimizer.LosslessCompress((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => optimizer.LosslessCompress((string)null!));
             }
 
             [Fact]
@@ -232,7 +232,7 @@ public partial class ImageOptimizerTests
             {
                 var optimizer = new ImageOptimizer();
 
-                Assert.Throws<ArgumentNullException>("stream", () => optimizer.LosslessCompress((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => optimizer.LosslessCompress((Stream)null!));
             }
 
             [Fact]

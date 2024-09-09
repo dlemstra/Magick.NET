@@ -23,7 +23,7 @@ public partial class ColorRGBTests
         {
             var color = new ColorRGB(1, 2, 3);
 
-            Assert.False(color.Equals((object)null));
+            Assert.False(color.Equals((object)null!));
         }
 
         [Fact]

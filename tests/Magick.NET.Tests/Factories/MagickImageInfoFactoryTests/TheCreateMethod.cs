@@ -34,7 +34,7 @@ public partial class MagickImageInfoFactoryTests
             {
                 var factory = new MagickImageInfoFactory();
 
-                Assert.Throws<ArgumentNullException>("data", () => factory.Create((byte[])null));
+                Assert.Throws<ArgumentNullException>("data", () => factory.Create((byte[])null!));
             }
 
             [Fact]
@@ -65,7 +65,7 @@ public partial class MagickImageInfoFactoryTests
             {
                 var factory = new MagickImageInfoFactory();
 
-                Assert.Throws<ArgumentNullException>("data", () => factory.Create(null, 0, 0));
+                Assert.Throws<ArgumentNullException>("data", () => factory.Create(null!, 0, 0));
             }
 
             [Fact]
@@ -92,7 +92,7 @@ public partial class MagickImageInfoFactoryTests
             {
                 var factory = new MagickImageInfoFactory();
 
-                Assert.Throws<ArgumentNullException>("file", () => factory.Create((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => factory.Create((FileInfo)null!));
             }
 
             [Fact]
@@ -115,7 +115,7 @@ public partial class MagickImageInfoFactoryTests
             {
                 var factory = new MagickImageInfoFactory();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => factory.Create((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => factory.Create((string)null!));
             }
 
             [Fact]
@@ -163,7 +163,7 @@ public partial class MagickImageInfoFactoryTests
             {
                 var factory = new MagickImageInfoFactory();
 
-                Assert.Throws<ArgumentNullException>("stream", () => factory.Create((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => factory.Create((Stream)null!));
             }
 
             [Fact]

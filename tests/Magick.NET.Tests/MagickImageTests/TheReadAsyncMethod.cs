@@ -21,7 +21,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadAsync((FileInfo)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadAsync((FileInfo)null!));
             }
         }
 
@@ -32,7 +32,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadAsync((FileInfo)null, MagickFormat.Png));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadAsync((FileInfo)null!, MagickFormat.Png));
             }
         }
 
@@ -44,7 +44,7 @@ public partial class MagickImageTests
                 var settings = new MagickReadSettings();
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadAsync((FileInfo)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadAsync((FileInfo)null!, settings));
             }
 
             [Fact]
@@ -62,7 +62,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadAsync((string)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadAsync((string)null!));
             }
 
             [Fact]
@@ -112,7 +112,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadAsync((string)null, MagickFormat.Png));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadAsync((string)null!, MagickFormat.Png));
             }
 
             [Fact]
@@ -141,7 +141,7 @@ public partial class MagickImageTests
                 var settings = new MagickReadSettings();
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadAsync((string)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadAsync((string)null!, settings));
             }
 
             [Fact]
@@ -193,7 +193,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadAsync((Stream)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadAsync((Stream)null!));
             }
 
             [Fact]
@@ -269,7 +269,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadAsync((Stream)null, MagickFormat.Png));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadAsync((Stream)null!, MagickFormat.Png));
             }
 
             [Fact]
@@ -310,7 +310,7 @@ public partial class MagickImageTests
                 var settings = new MagickReadSettings();
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadAsync((Stream)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadAsync((Stream)null!, settings));
             }
 
             [Fact]

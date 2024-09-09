@@ -80,7 +80,7 @@ public partial class UnsafePixelCollectionTests
         {
             using var image = new MagickImage(Files.RedPNG);
             using var pixels = image.GetPixelsUnsafe();
-            var area = pixels.GetAreaPointer(null);
+            var area = pixels.GetAreaPointer(null!);
 
             Assert.Equal(area, IntPtr.Zero);
         }

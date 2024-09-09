@@ -28,7 +28,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => pixels.GetReadOnlyArea(null));
+            Assert.Throws<ArgumentNullException>("geometry", () => pixels.GetReadOnlyArea(null!));
         }
 
         [Fact]

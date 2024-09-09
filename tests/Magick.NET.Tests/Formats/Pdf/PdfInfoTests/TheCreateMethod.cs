@@ -19,7 +19,7 @@ public partial class PdfInfoTests
             [Fact]
             public void ShouldThrowExceptionWhenFileIsNull()
             {
-                Assert.Throws<ArgumentNullException>("file", () => PdfInfo.Create((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => PdfInfo.Create((FileInfo)null!));
             }
 
             [Fact]
@@ -27,7 +27,7 @@ public partial class PdfInfoTests
             {
                 using var tempFile = new TemporaryFile("foo.pdf");
 
-                Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(tempFile.File, null));
+                Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(tempFile.File, null!));
             }
         }
 
@@ -36,7 +36,7 @@ public partial class PdfInfoTests
             [Fact]
             public void ShouldThrowExceptionWhenFileNameIsNull()
             {
-                Assert.Throws<ArgumentNullException>("fileName", () => PdfInfo.Create((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => PdfInfo.Create((string)null!));
             }
 
             [Fact]
@@ -50,7 +50,7 @@ public partial class PdfInfoTests
             {
                 using var tempFile = new TemporaryFile("foo.pdf");
 
-                Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(tempFile.File.FullName, null));
+                Assert.Throws<ArgumentNullException>("password", () => PdfInfo.Create(tempFile.File.FullName, null!));
             }
 
             [Fact]
@@ -59,7 +59,7 @@ public partial class PdfInfoTests
                 if (!Ghostscript.IsAvailable)
                     return;
 
-                MagickErrorException exception = null;
+                MagickErrorException? exception = null;
 
                 try
                 {

@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(MagickColors.White, 2, 2);
 
-            Assert.Throws<ArgumentNullException>("color", () => image.FloodFill((MagickColor)null, 0, 0));
+            Assert.Throws<ArgumentNullException>("color", () => image.FloodFill((MagickColor)null!, 0, 0));
         }
 
         [Fact]
@@ -24,7 +24,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(MagickColors.White, 2, 2);
 
-            Assert.Throws<ArgumentNullException>("target", () => image.FloodFill(MagickColors.Purple, 0, 0, null));
+            Assert.Throws<ArgumentNullException>("target", () => image.FloodFill(MagickColors.Purple, 0, 0, null!));
         }
 
         [Fact]

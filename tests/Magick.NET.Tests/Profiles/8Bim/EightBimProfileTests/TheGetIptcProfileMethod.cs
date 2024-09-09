@@ -26,9 +26,12 @@ public partial class EightBimProfileTests
             using var image = new MagickImage(Files.EightBimJPG);
 
             var profile = image.Get8BimProfile();
+
+            Assert.NotNull(profile);
+
             var iptcProfile = profile.GetIptcProfile();
 
-            Assert.NotNull(profile.GetIptcProfile());
+            Assert.NotNull(iptcProfile);
             Assert.Equal(15, iptcProfile.ToByteArray().Length);
             Assert.Single(iptcProfile.Values);
         }

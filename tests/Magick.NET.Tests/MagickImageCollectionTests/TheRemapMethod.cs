@@ -41,7 +41,7 @@ public partial class MagickImageCollectionTests
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);
 
-            Assert.Throws<ArgumentNullException>("image", () => images.Remap(null));
+            Assert.Throws<ArgumentNullException>("image", () => images.Remap(null!));
         }
 
         [Fact]
@@ -50,7 +50,7 @@ public partial class MagickImageCollectionTests
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);
 
-            Assert.Throws<ArgumentNullException>("settings", () => images.Remap(images[0], null));
+            Assert.Throws<ArgumentNullException>("settings", () => images.Remap(images[0], null!));
         }
 
         [Fact]

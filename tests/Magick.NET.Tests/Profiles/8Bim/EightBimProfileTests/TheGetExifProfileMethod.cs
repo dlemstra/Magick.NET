@@ -26,6 +26,9 @@ public partial class EightBimProfileTests
             using var image = new MagickImage(Files.EightBimJPG);
 
             var profile = image.Get8BimProfile();
+
+            Assert.NotNull(profile);
+
             var exifProfile = profile.GetExifProfile();
 
             Assert.NotNull(exifProfile);

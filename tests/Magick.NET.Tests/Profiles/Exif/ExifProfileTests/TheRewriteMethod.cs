@@ -16,6 +16,8 @@ public partial class ExifProfileTests
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.GetExifProfile();
 
+            Assert.NotNull(profile);
+
             var before = profile.ToByteArray();
             profile.Rewrite();
 

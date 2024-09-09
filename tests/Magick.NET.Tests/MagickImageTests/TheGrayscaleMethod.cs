@@ -35,6 +35,7 @@ public partial class MagickImageTests
 
             using var pixels = image.GetPixels();
             var pixel = pixels.GetValue(0, 0);
+            Assert.NotNull(pixel);
 
             Assert.Equal(0, pixel[0]);
         }

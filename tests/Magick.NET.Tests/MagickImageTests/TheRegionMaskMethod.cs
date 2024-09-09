@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var green = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => green.RegionMask(null));
+            Assert.Throws<ArgumentNullException>("geometry", () => green.RegionMask(null!));
         }
 
         [Fact]

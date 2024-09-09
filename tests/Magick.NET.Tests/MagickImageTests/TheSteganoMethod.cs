@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("watermark", () => image.Stegano(null));
+            Assert.Throws<ArgumentNullException>("watermark", () => image.Stegano(null!));
         }
 
         [Fact]

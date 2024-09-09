@@ -30,7 +30,7 @@ public partial class MagickImageTests
 
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("data", () => image.ImportPixels((byte[])null, settings));
+                Assert.Throws<ArgumentNullException>("data", () => image.ImportPixels((byte[])null!, settings));
             }
 
             [Fact]
@@ -49,7 +49,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, null!));
             }
 
             [Fact]
@@ -126,7 +126,7 @@ public partial class MagickImageTests
 
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("data", () => image.ImportPixels((byte[])null, 0, settings));
+                Assert.Throws<ArgumentNullException>("data", () => image.ImportPixels((byte[])null!, 0, settings));
             }
 
             [Fact]
@@ -145,7 +145,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new byte[] { 215 }, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new byte[] { 215 }, null!));
             }
 
             [Fact]
@@ -224,7 +224,7 @@ public partial class MagickImageTests
 
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("data", () => image.ImportPixels((QuantumType[])null, settings));
+                Assert.Throws<ArgumentNullException>("data", () => image.ImportPixels((QuantumType[])null!, settings));
             }
 
             [Fact]
@@ -243,7 +243,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new QuantumType[] { 215 }, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new QuantumType[] { 215 }, null!));
             }
 
             [Fact]
@@ -325,7 +325,7 @@ public partial class MagickImageTests
 
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("data", () => image.ImportPixels((QuantumType[])null, 0, settings));
+                Assert.Throws<ArgumentNullException>("data", () => image.ImportPixels((QuantumType[])null!, 0, settings));
             }
 
             [Fact]
@@ -344,7 +344,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new QuantumType[] { 215 }, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new QuantumType[] { 215 }, null!));
             }
 
             [Fact]

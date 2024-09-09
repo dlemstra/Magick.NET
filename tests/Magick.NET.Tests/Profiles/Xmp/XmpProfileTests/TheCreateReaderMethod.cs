@@ -20,9 +20,11 @@ public partial class XmpProfileTests
             Assert.NotNull(profile);
 
             using var reader = profile.CreateReader();
+            Assert.NotNull(reader);
+
             var doc = new XmlDocument();
             doc.Load(reader);
-            var xml = doc.CreateNavigator().OuterXml;
+            var xml = doc.CreateNavigator()?.OuterXml;
 
             Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", xml);
         }

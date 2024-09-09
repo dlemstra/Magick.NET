@@ -62,7 +62,7 @@ public partial class ColorRGBTests
         public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
         {
             var expected = new ColorRGB(Quantum.Max, 0, 0);
-            var actual = (ColorRGB)new MagickColor(Quantum.Max, 0, 0);
+            var actual = (ColorRGB?)new MagickColor(Quantum.Max, 0, 0);
             Assert.Equal(expected, actual);
         }
     }

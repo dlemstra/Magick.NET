@@ -16,7 +16,7 @@ public partial class MagickNETTests
         {
             Assert.Throws<ArgumentNullException>("name", () =>
             {
-                MagickNET.SetEnvironmentVariable(null, "test");
+                MagickNET.SetEnvironmentVariable(null!, "test");
             });
         }
 

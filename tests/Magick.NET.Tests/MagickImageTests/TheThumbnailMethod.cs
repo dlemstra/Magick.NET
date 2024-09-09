@@ -17,7 +17,7 @@ public partial class MagickImageTests
             public void ShouldThrowExceptionWhenGeometryIsNull()
             {
                 using var image = new MagickImage();
-                Assert.Throws<ArgumentNullException>("geometry", () => image.Thumbnail(null));
+                Assert.Throws<ArgumentNullException>("geometry", () => image.Thumbnail(null!));
             }
 
             [Fact]

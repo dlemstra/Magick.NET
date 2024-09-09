@@ -21,7 +21,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null!));
             }
 
             public class WithFileInfoAndMagickFormat
@@ -31,7 +31,7 @@ public partial class MagickImageCollectionTests
                 {
                     using var images = new MagickImageCollection();
 
-                    await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null, MagickFormat.Png));
+                    await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null!, MagickFormat.Png));
                 }
 
                 [Fact]
@@ -55,7 +55,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null!, settings));
             }
 
             [Fact]
@@ -76,7 +76,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null!));
             }
 
             [Fact]
@@ -127,7 +127,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null, MagickFormat.Png));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null!, MagickFormat.Png));
             }
 
             [Fact]
@@ -147,7 +147,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null!, settings));
             }
 
             [Fact]
@@ -176,7 +176,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null!));
             }
 
             [Fact]
@@ -202,7 +202,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null, MagickFormat.Png));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null!, MagickFormat.Png));
             }
 
             [Fact]
@@ -235,7 +235,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null!, settings));
             }
 
             [Fact]

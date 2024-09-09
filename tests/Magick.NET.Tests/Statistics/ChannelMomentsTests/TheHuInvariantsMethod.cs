@@ -18,6 +18,7 @@ public partial class ChannelMomentsTests
             var moments = image.Moments();
             var redMoment = moments.GetChannel(PixelChannel.Red);
 
+            Assert.NotNull(redMoment);
             Assert.Throws<ArgumentOutOfRangeException>(() => redMoment.HuInvariants(9));
         }
     }

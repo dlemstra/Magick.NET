@@ -29,7 +29,7 @@ public partial class PngReadDefinesTests
             using var image = new MagickImage();
             var message = string.Empty;
 
-            image.Warning += (object sender, WarningEventArgs e) =>
+            image.Warning += (object? sender, WarningEventArgs e) =>
             {
                 message = e.Message;
             };

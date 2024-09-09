@@ -17,7 +17,7 @@ public partial class MagickNETTests
         {
             Assert.Throws<ArgumentNullException>("file", () =>
             {
-                MagickNET.SetDefaultFontFile((FileInfo)null);
+                MagickNET.SetDefaultFontFile((FileInfo)null!);
             });
         }
 
@@ -26,7 +26,7 @@ public partial class MagickNETTests
         {
             Assert.Throws<ArgumentNullException>("fileName", () =>
             {
-                MagickNET.SetDefaultFontFile((string)null);
+                MagickNET.SetDefaultFontFile((string)null!);
             });
         }
 

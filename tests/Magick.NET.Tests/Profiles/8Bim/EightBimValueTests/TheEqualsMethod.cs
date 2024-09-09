@@ -16,6 +16,8 @@ public partial class EightBimValueTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.Get8BimProfile();
+            Assert.NotNull(profile);
+
             var first = profile.Values.First();
             var second = profile.Values.First();
 

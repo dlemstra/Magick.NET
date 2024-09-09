@@ -48,11 +48,16 @@ public partial class MagickImageCollectionTests
 
             images.ResetPage();
 
-            Assert.Equal(0, images[0].Page.X);
-            Assert.Equal(0, images[0].Page.Y);
+            var page = images[0].Page;
 
-            Assert.Equal(10, images[0].Settings.Page.X);
-            Assert.Equal(20, images[0].Settings.Page.Y);
+            Assert.Equal(0, page.X);
+            Assert.Equal(0, page.Y);
+
+            page = images[0].Settings.Page;
+
+            Assert.NotNull(page);
+            Assert.Equal(10, page.X);
+            Assert.Equal(20, page.Y);
         }
     }
 }

@@ -26,7 +26,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("settings", () => image.Morphology(null));
+            Assert.Throws<ArgumentNullException>("settings", () => image.Morphology(null!));
         }
 
         [Fact]

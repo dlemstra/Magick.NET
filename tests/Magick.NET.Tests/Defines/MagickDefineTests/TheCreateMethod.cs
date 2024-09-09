@@ -19,6 +19,7 @@ public partial class MagickDefineTests
 
             var define = MagickDefine.Create(MagickFormat.A, "test", value);
 
+            Assert.NotNull(define);
             Assert.Equal(MagickFormat.A, define.Format);
             Assert.Equal("test", define.Name);
             Assert.Equal(2, define.Value.Split(',').Length);
@@ -29,7 +30,7 @@ public partial class MagickDefineTests
         [Fact]
         public void ShouldReturnNullWhenValueIsNull()
         {
-            var define = MagickDefine.Create(MagickFormat.A, "test", (IEnumerable<string>)null);
+            var define = MagickDefine.Create(MagickFormat.A, "test", (IEnumerable<string>)null!);
 
             Assert.Null(define);
         }
@@ -41,6 +42,7 @@ public partial class MagickDefineTests
 
             var define = MagickDefine.Create(MagickFormat.A, "test", value);
 
+            Assert.NotNull(define);
             Assert.Equal(MagickFormat.A, define.Format);
             Assert.Equal("test", define.Name);
             Assert.Equal("A,B", define.Value);

@@ -25,7 +25,7 @@ public partial class MagickImageCollectionTests
             using var images = new MagickImageCollection();
             images.Add(Files.FujiFilmFinePixS1ProJPG);
 
-            Assert.Throws<ArgumentNullException>("settings", () => images.Quantize(null));
+            Assert.Throws<ArgumentNullException>("settings", () => images.Quantize(null!));
         }
 
         [Fact]

@@ -56,7 +56,7 @@ internal class TestStream : Stream
         set => throw new NotImplementedException();
     }
 
-    protected Stream InnerStream { get; }
+    protected Stream? InnerStream { get; }
 
     public static TestStream ThatCannotRead()
         => new TestStream(canRead: false);
@@ -74,14 +74,14 @@ internal class TestStream : Stream
         => throw new NotImplementedException();
 
     public override int Read(byte[] buffer, int offset, int count)
-        => InnerStream.Read(buffer, offset, count);
+        => InnerStream?.Read(buffer, offset, count) ?? -1;
 
     public override long Seek(long offset, SeekOrigin origin)
-        => InnerStream.Seek(offset, origin);
+        => InnerStream?.Seek(offset, origin) ?? -1;
 
     public override void SetLength(long value)
         => _length = value;
 
     public override void Write(byte[] buffer, int offset, int count)
-        => InnerStream.Write(buffer, offset, count);
+        => InnerStream?.Write(buffer, offset, count);
 }

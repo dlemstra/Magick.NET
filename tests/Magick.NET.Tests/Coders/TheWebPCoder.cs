@@ -31,7 +31,6 @@ public partial class TheWebPCoder
         using var output = new MagickImage(data);
 
         var profile = output.GetXmpProfile();
-
         Assert.NotNull(profile);
 
         var expectedProfile = @"
@@ -45,7 +44,7 @@ public partial class TheWebPCoder
          </rdf:Description>
     </rdf:RDF>
 </x:xmpmeta>";
-        Assert.Equal(expectedProfile, Encoding.UTF8.GetString(output.GetXmpProfile().ToByteArray()));
+        Assert.Equal(expectedProfile, Encoding.UTF8.GetString(profile.ToByteArray()));
     }
 
     [Fact]
@@ -60,6 +59,9 @@ public partial class TheWebPCoder
         var data = input.ToByteArray(MagickFormat.WebP);
         using var output = new MagickImage(data);
 
+        var profile = output.GetXmpProfile();
+
+        Assert.NotNull(profile);
         Assert.Equal(1234.5678, output.Density.X);
         Assert.Equal(5, output.Density.Y);
         Assert.Equal(DensityUnit.PixelsPerCentimeter, output.Density.Units);
@@ -76,6 +78,6 @@ public partial class TheWebPCoder
          </rdf:Description>
     </rdf:RDF>
 </x:xmpmeta>";
-        Assert.Equal(expectedProfile, Encoding.UTF8.GetString(output.GetXmpProfile().ToByteArray()));
+        Assert.Equal(expectedProfile, Encoding.UTF8.GetString(profile.ToByteArray()));
     }
 }

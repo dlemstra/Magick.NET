@@ -15,7 +15,7 @@ public partial class DrawablePathTests
         {
             var path = new DrawablePath();
 
-            ((IDrawingWand)path).Draw(null);
+            ((IDrawingWand)path).Draw(null!);
         }
     }
 }

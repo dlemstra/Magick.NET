@@ -15,7 +15,7 @@ public partial class MagickImageTests
         public void ShouldThrowExceptionWhenColorSpacesIsNull()
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
-            Assert.Throws<ArgumentNullException>("colorSpaces", () => image.PerceptualHash(null));
+            Assert.Throws<ArgumentNullException>("colorSpaces", () => image.PerceptualHash(null!));
         }
 
         [Fact]
@@ -44,6 +44,8 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();
+            Assert.NotNull(phash);
+
             var channel = phash.GetChannel(PixelChannel.Red);
 
 #if Q8
@@ -129,8 +131,10 @@ public partial class MagickImageTests
 #endif
         }
 
-        private void TestChannel(IChannelPerceptualHash channel, int index, double xyyHuPhashWithOpenCL, double xyyHuPhashWithoutOpenCL, double hsbHuPhashWithOpenCL, double hsbHuPhashWithoutOpenCL)
+        private void TestChannel(IChannelPerceptualHash? channel, int index, double xyyHuPhashWithOpenCL, double xyyHuPhashWithoutOpenCL, double hsbHuPhashWithOpenCL, double hsbHuPhashWithoutOpenCL)
         {
+            Assert.NotNull(channel);
+
             OpenCLValue.Assert(xyyHuPhashWithOpenCL, xyyHuPhashWithoutOpenCL, channel.HuPhash(ColorSpace.XyY, index));
             OpenCLValue.Assert(hsbHuPhashWithOpenCL, hsbHuPhashWithoutOpenCL, channel.HuPhash(ColorSpace.HSB, index));
         }

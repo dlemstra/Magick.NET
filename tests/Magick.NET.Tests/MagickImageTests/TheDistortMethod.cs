@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("arguments", () => image.Distort(DistortMethod.Perspective, null));
+            Assert.Throws<ArgumentNullException>("arguments", () => image.Distort(DistortMethod.Perspective, null!));
         }
 
         [Fact]
@@ -24,7 +24,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("arguments", () => image.Distort(new DistortSettings(DistortMethod.Perspective), null));
+            Assert.Throws<ArgumentNullException>("arguments", () => image.Distort(new DistortSettings(DistortMethod.Perspective), null!));
         }
 
         [Fact]
@@ -48,7 +48,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("settings", () => image.Distort(null, [0]));
+            Assert.Throws<ArgumentNullException>("settings", () => image.Distort(null!, [0]));
         }
 
         [Fact]

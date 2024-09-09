@@ -16,6 +16,7 @@ public class TheJpegCoder
         using var pixels = image.GetPixels();
         var color = pixels.GetPixel(0, 0).ToColor();
 
+        Assert.NotNull(color);
         Assert.Equal(Quantum.Max, color.R);
         Assert.Equal(Quantum.Max, color.G);
         Assert.Equal(Quantum.Max, color.B);

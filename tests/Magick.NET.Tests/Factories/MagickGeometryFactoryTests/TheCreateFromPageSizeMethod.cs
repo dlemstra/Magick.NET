@@ -16,7 +16,7 @@ public partial class MagickGeometryFactoryTests
         {
             var factory = new MagickGeometryFactory();
 
-            Assert.Throws<ArgumentNullException>("pageSize", () => factory.CreateFromPageSize(null));
+            Assert.Throws<ArgumentNullException>("pageSize", () => factory.CreateFromPageSize(null!));
         }
 
         [Fact]

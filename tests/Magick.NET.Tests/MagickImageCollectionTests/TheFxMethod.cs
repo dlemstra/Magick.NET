@@ -16,7 +16,7 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection();
 
-            Assert.Throws<ArgumentNullException>("expression", () => images.Fx(null));
+            Assert.Throws<ArgumentNullException>("expression", () => images.Fx(null!));
         }
 
         [Fact]

@@ -15,6 +15,9 @@ public partial class IptcProfileTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.GetIptcProfile();
+
+            Assert.NotNull(profile);
+
             var result = profile.RemoveValue(IptcTag.Title);
 
             Assert.True(result);
@@ -29,6 +32,9 @@ public partial class IptcProfileTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.GetIptcProfile();
+
+            Assert.NotNull(profile);
+
             var result = profile.RemoveValue(IptcTag.ReferenceNumber);
 
             Assert.False(result);

@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("args", () => image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null));
+            Assert.Throws<ArgumentNullException>("args", () => image.SparseColor(Channels.Red, SparseColorMethod.Barycentric, null!));
         }
 
         [Fact]
@@ -48,8 +48,10 @@ public partial class MagickImageTests
 
             using var image = new MagickImage("xc:", settings);
             using var before = image.GetPixels();
+            var color = before.GetPixel(0, 0).ToColor();
+            Assert.NotNull(color);
 
-            ColorAssert.Equal(before.GetPixel(0, 0).ToColor(), before.GetPixel(599, 59).ToColor());
+            ColorAssert.Equal(color, before.GetPixel(599, 59).ToColor());
 
             var args = new[]
             {
@@ -61,8 +63,10 @@ public partial class MagickImageTests
             image.SparseColor(SparseColorMethod.Barycentric, args);
 
             using var after = image.GetPixels();
+            color = after.GetPixel(0, 0).ToColor();
+            Assert.NotNull(color);
 
-            ColorAssert.NotEqual(after.GetPixel(0, 0).ToColor(), after.GetPixel(599, 59).ToColor());
+            ColorAssert.NotEqual(color, after.GetPixel(599, 59).ToColor());
         }
     }
 }

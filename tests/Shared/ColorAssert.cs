@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-#nullable enable
-
 using ImageMagick;
 using Xunit;
 using Xunit.Sdk;
@@ -21,7 +19,7 @@ namespace Magick.NET;
 
 internal static class ColorAssert
 {
-    public static void Equal(IMagickColor<QuantumType> expected, IMagickColor<QuantumType> actual)
+    public static void Equal(IMagickColor<QuantumType> expected, IMagickColor<QuantumType>? actual)
         => Equal(expected, actual, null);
 
     public static void Equal(IMagickColor<QuantumType> expected, IMagickColor<QuantumType>? actual, string? messageSuffix)
@@ -47,7 +45,7 @@ internal static class ColorAssert
         Equal(expected, pixels.GetPixel(x, y), $"at position {x}x{y}");
     }
 
-    public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType> actual)
+    public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType>? actual)
         => NotEqual(notExpected, actual, null);
 
     public static void NotEqual(IMagickColor<QuantumType> notExpected, IMagickColor<QuantumType>? actual, string? messageSuffix)

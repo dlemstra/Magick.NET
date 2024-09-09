@@ -69,11 +69,11 @@ public partial class MagickDefineTests
             [Fact]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
-                IMagickGeometry value = null;
+                IMagickGeometry? value = null;
 
                 Assert.Throws<ArgumentNullException>("value", () =>
                 {
-                    new MagickDefine(MagickFormat.A, "test", value);
+                    new MagickDefine(MagickFormat.A, "test", value!);
                 });
             }
         }
@@ -122,9 +122,9 @@ public partial class MagickDefineTests
             [Fact]
             public void ShouldThrowExceptionWhenValueIsNull()
             {
-                string value = null;
+                string? value = null;
 
-                Assert.Throws<ArgumentNullException>("value", () => new MagickDefine(MagickFormat.A, "test", value));
+                Assert.Throws<ArgumentNullException>("value", () => new MagickDefine(MagickFormat.A, "test", value!));
             }
         }
     }

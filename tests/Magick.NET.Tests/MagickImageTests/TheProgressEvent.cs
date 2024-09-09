@@ -14,7 +14,7 @@ public partial class MagickImageTests
         public void ShouldStopMethodExecutionWhenCancelIsSetToTrue()
         {
             var progress = new Percentage(0);
-            void ProgressEvent(object sender, ProgressEventArgs arguments)
+            void ProgressEvent(object? sender, ProgressEventArgs arguments)
             {
                 Assert.NotNull(sender);
                 Assert.NotNull(arguments);
@@ -36,7 +36,7 @@ public partial class MagickImageTests
         public void ShouldNotStopMethodExecutionWhenCancelIsSetToFalse()
         {
             var progress = new Percentage(0);
-            void ProgressEvent(object sender, ProgressEventArgs arguments)
+            void ProgressEvent(object? sender, ProgressEventArgs arguments)
             {
                 Assert.NotNull(sender);
                 Assert.NotNull(arguments);

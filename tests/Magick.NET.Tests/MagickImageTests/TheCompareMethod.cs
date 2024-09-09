@@ -27,7 +27,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null));
+            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null!));
         }
 
         [Fact]
@@ -36,7 +36,7 @@ public partial class MagickImageTests
             using var image = new MagickImage();
             using var diff = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null, ErrorMetric.RootMeanSquared));
+            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null!, ErrorMetric.RootMeanSquared));
         }
 
         [Fact]
@@ -44,7 +44,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null, new CompareSettings(ErrorMetric.PeakSignalToNoiseRatio), out var distortion));
+            Assert.Throws<ArgumentNullException>("image", () => image.Compare(null!, new CompareSettings(ErrorMetric.PeakSignalToNoiseRatio), out var distortion));
         }
 
         [Fact]
@@ -52,7 +52,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("settings", () => image.Compare(image, null, out var distortion));
+            Assert.Throws<ArgumentNullException>("settings", () => image.Compare(image, null!, out var distortion));
         }
 
         [Fact]

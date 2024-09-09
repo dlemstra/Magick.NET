@@ -14,7 +14,7 @@ public partial class MagickGeometryTests
         [Fact]
         public void ShouldThrowExceptionWhenValueIsNull()
         {
-            Assert.Throws<ArgumentNullException>("value", () => new MagickGeometry(null));
+            Assert.Throws<ArgumentNullException>("value", () => new MagickGeometry(null!));
         }
 
         [Fact]

@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("color", () => image.Shadow(null));
+            Assert.Throws<ArgumentNullException>("color", () => image.Shadow(null!));
         }
 
         [Fact]
@@ -38,14 +38,20 @@ public partial class MagickImageTests
             using var pixels = image.GetPixels();
             var pixel = pixels.GetPixel(90, 9);
 
-            Assert.Equal(0, pixel.ToColor().A);
+            var color = pixel.ToColor();
+            Assert.NotNull(color);
+
+            Assert.Equal(0, color.A);
 
             pixel = pixels.GetPixel(34, 55);
 
+            color = pixel.ToColor();
+            Assert.NotNull(color);
+
 #if Q8
-            Assert.Equal(68, pixel.ToColor().A);
+            Assert.Equal(68, color.A);
 #else
-            Assert.InRange(pixel.ToColor().A, 17057, 17058);
+            Assert.InRange(color.A, 17057, 17058);
 #endif
         }
     }

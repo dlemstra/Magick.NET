@@ -24,7 +24,7 @@ public partial class ColorGrayTests
         [Fact]
         public void ShouldReturnNullWhenValueIsNull()
         {
-            var result = ColorGray.FromMagickColor(null);
+            var result = ColorGray.FromMagickColor(null!);
 
             Assert.Null(result);
         }
@@ -35,6 +35,7 @@ public partial class ColorGrayTests
             var color = new MagickColor(Quantum.Max, (QuantumType)(Quantum.Max * 0.25), (QuantumType)(Quantum.Max * 0.5));
             var grayColor = ColorGray.FromMagickColor(color);
 
+            Assert.NotNull(grayColor);
             Assert.InRange(grayColor.Shade, 0.41, 0.43);
         }
     }

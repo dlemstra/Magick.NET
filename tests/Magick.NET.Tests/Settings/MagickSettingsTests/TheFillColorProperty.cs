@@ -60,7 +60,11 @@ public partial class MagickSettingsTests
             pixelB = pixelsB.GetPixel(63, 6);
 
             ColorAssert.NotEqual(MagickColors.Transparent, pixelB.ToColor());
-            ColorAssert.NotEqual(pixelA.ToColor(), pixelB.ToColor());
+
+            var expected = pixelA.ToColor();
+
+            Assert.NotNull(expected);
+            ColorAssert.NotEqual(expected, pixelB.ToColor());
         }
     }
 }

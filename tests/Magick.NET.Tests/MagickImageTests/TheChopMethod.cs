@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => image.Chop(null));
+            Assert.Throws<ArgumentNullException>("geometry", () => image.Chop(null!));
         }
 
         [Fact]

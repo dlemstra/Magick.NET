@@ -40,13 +40,13 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), null!));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenMappingIsNull()
             {
-                var settings = new PixelImportSettings(1, 1, StorageType.Char, null);
+                var settings = new PixelImportSettings(1, 1, StorageType.Char, null!);
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings));
@@ -144,7 +144,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new Span<QuantumType>(new QuantumType[] { 215 }), null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new Span<QuantumType>(new QuantumType[] { 215 }), null!));
             }
 
             [Fact]

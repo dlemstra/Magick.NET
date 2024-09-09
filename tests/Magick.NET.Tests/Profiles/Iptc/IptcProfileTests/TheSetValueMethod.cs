@@ -15,14 +15,19 @@ public partial class IptcProfileTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.GetIptcProfile();
+
+            Assert.NotNull(profile);
+
             var value = profile.GetValue(IptcTag.Title);
 
             profile.SetValue(IptcTag.Title, "Magick.NET Title");
 
+            Assert.NotNull(value);
             Assert.Equal("Magick.NET Title", value.Value);
 
             value = profile.GetValue(IptcTag.Title);
 
+            Assert.NotNull(value);
             Assert.Equal("Magick.NET Title", value.Value);
         }
 
@@ -31,6 +36,9 @@ public partial class IptcProfileTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.GetIptcProfile();
+
+            Assert.NotNull(profile);
+
             var value = profile.GetValue(IptcTag.ReferenceNumber);
 
             Assert.Null(value);
@@ -39,6 +47,7 @@ public partial class IptcProfileTests
 
             value = profile.GetValue(IptcTag.Title);
 
+            Assert.NotNull(value);
             Assert.Equal("Magick.NET ReferenceNümber", value.Value);
         }
     }

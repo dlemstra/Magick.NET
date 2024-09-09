@@ -61,7 +61,7 @@ public class ThePngCoder
     {
         using var input = new MagickImage(MagickColors.YellowGreen, 1, 1);
 
-        IExifProfile exifProfile = new ExifProfile();
+        IExifProfile? exifProfile = new ExifProfile();
         exifProfile.SetValue(ExifTag.ImageUniqueID, "Have a nice day");
 
         input.SetProfile(exifProfile);
@@ -77,6 +77,8 @@ public class ThePngCoder
         Assert.NotNull(exifProfile);
 
         var value = exifProfile.GetValue(ExifTag.ImageUniqueID);
+
+        Assert.NotNull(value);
         Assert.Equal("Have a nice day", value.ToString());
     }
 
@@ -256,6 +258,6 @@ public class ThePngCoder
         return DateTime.Parse(content.Substring(offset + name.Length, 25));
     }
 
-    private void HandleWarning(object sender, WarningEventArgs e)
+    private void HandleWarning(object? sender, WarningEventArgs e)
         => throw new XunitException("Warning was raised: " + e.Message);
 }

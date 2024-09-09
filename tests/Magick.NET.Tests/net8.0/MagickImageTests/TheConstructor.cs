@@ -47,7 +47,7 @@ public partial class MagickImageTests
             public void ShouldNotThrowExceptionWhenSettingsIsNull()
             {
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
-                using var image = new MagickImage(new ReadOnlySequence<byte>(bytes), (MagickReadSettings)null);
+                using var image = new MagickImage(new ReadOnlySequence<byte>(bytes), (MagickReadSettings)null!);
             }
         }
 
@@ -83,7 +83,7 @@ public partial class MagickImageTests
             public void ShouldNotThrowExceptionWhenSettingsIsNull()
             {
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
-                using var image = new MagickImage(new Span<byte>(bytes), (MagickReadSettings)null);
+                using var image = new MagickImage(new Span<byte>(bytes), (MagickReadSettings)null!);
             }
         }
 
@@ -102,7 +102,7 @@ public partial class MagickImageTests
             {
                 var bytes = new byte[] { 215 };
 
-                Assert.Throws<ArgumentNullException>("settings", () => new MagickImage(new Span<byte>(bytes), (PixelReadSettings)null));
+                Assert.Throws<ArgumentNullException>("settings", () => new MagickImage(new Span<byte>(bytes), (PixelReadSettings)null!));
             }
 
             [Fact]

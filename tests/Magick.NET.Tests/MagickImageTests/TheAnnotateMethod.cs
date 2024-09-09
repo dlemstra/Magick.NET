@@ -18,7 +18,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, Gravity.Center));
+                Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null!, Gravity.Center));
             }
 
             [Fact]
@@ -50,7 +50,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4)));
+                Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null!, new MagickGeometry(1, 2, 3, 4)));
             }
 
             [Fact]
@@ -66,7 +66,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null));
+                Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null!));
             }
         }
 
@@ -77,7 +77,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4), Gravity.Center));
+                Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null!, new MagickGeometry(1, 2, 3, 4), Gravity.Center));
             }
 
             [Fact]
@@ -93,7 +93,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null, Gravity.Center));
+                Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null!, Gravity.Center));
             }
         }
 
@@ -104,7 +104,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null, new MagickGeometry(1, 2, 3, 4), Gravity.Center, 2.0));
+                Assert.Throws<ArgumentNullException>("text", () => image.Annotate(null!, new MagickGeometry(1, 2, 3, 4), Gravity.Center, 2.0));
             }
 
             [Fact]
@@ -120,7 +120,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null, Gravity.Center, 2.0));
+                Assert.Throws<ArgumentNullException>("boundingArea", () => image.Annotate("test", null!, Gravity.Center, 2.0));
             }
 
             [Fact]

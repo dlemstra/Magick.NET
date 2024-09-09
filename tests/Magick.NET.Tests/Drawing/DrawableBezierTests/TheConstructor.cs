@@ -25,28 +25,19 @@ public partial class DrawableBezierTests
         [Fact]
         public void ShouldThrowExceptionWhenCoordinatesAreNotSpecified()
         {
-            Assert.Throws<ArgumentException>("coordinates", () =>
-            {
-                new DrawableBezier();
-            });
+            Assert.Throws<ArgumentException>("coordinates", () => { new DrawableBezier(); });
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenCoordinatesAreNull()
         {
-            Assert.Throws<ArgumentNullException>("coordinates", () =>
-            {
-                new DrawableBezier(null);
-            });
+            Assert.Throws<ArgumentNullException>("coordinates", () => { new DrawableBezier(null!); });
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenCoordinatesAreEmpty()
         {
-            Assert.Throws<ArgumentException>("coordinates", () =>
-            {
-                new DrawableBezier([]);
-            });
+            Assert.Throws<ArgumentException>("coordinates", () => { new DrawableBezier([]); });
         }
     }
 }

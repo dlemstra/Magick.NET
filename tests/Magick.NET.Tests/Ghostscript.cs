@@ -22,7 +22,7 @@ public static class Ghostscript
             MagickNET.SetGhostscriptDirectory(directory);
     }
 
-    private static string GetGhostscriptDirectory()
+    private static string? GetGhostscriptDirectory()
     {
         if (!Runtime.IsWindows)
             return null;

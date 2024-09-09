@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("expression", () => image.FormatExpression(null));
+            Assert.Throws<ArgumentNullException>("expression", () => image.FormatExpression(null!));
         }
 
         [Fact]

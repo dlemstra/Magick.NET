@@ -61,7 +61,9 @@ public partial class ColorMonoTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
         {
-            var actual = (ColorMono)MagickColors.White;
+            var actual = (ColorMono?)MagickColors.White;
+
+            Assert.NotNull(actual);
             Assert.False(actual.IsBlack);
         }
     }

@@ -15,6 +15,9 @@ public partial class IptcValueTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.GetIptcProfile();
+
+            Assert.NotNull(profile);
+
             var first = profile.Values[1];
             var second = profile.Values[1];
 

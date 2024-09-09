@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("settings", () => image.Kmeans(null));
+            Assert.Throws<ArgumentNullException>("settings", () => image.Kmeans(null!));
         }
 
         [Fact]

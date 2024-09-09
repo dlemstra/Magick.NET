@@ -23,7 +23,7 @@ public partial class ColorHSVTests
         {
             var color = new ColorHSV(1, 1, 1);
 
-            Assert.False(color.Equals((object)null));
+            Assert.False(color.Equals((object)null!));
         }
 
         [Fact]

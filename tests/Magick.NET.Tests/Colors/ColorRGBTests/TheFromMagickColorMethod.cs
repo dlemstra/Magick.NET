@@ -24,7 +24,7 @@ public partial class ColorRGBTests
         [Fact]
         public void ShouldReturnNullWhenValueIsNull()
         {
-            var result = ColorRGB.FromMagickColor(null);
+            var result = ColorRGB.FromMagickColor(null!);
 
             Assert.Null(result);
         }
@@ -35,6 +35,7 @@ public partial class ColorRGBTests
             var color = new MagickColor(Quantum.Max, (QuantumType)(Quantum.Max * 0.75), (QuantumType)(Quantum.Max * 0.5));
             var rgbColor = ColorRGB.FromMagickColor(color);
 
+            Assert.NotNull(rgbColor);
             Assert.Equal(Quantum.Max, rgbColor.R);
             Assert.Equal((QuantumType)(Quantum.Max * 0.75), rgbColor.G);
             Assert.Equal((QuantumType)(Quantum.Max * 0.5), rgbColor.B);

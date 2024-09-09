@@ -14,7 +14,7 @@ public partial class MagickGeometryTests
         [Fact]
         public void ShouldThrowExceptionWhenPageSizeIsNull()
         {
-            Assert.Throws<ArgumentNullException>("pageSize", () => MagickGeometry.FromPageSize(null));
+            Assert.Throws<ArgumentNullException>("pageSize", () => MagickGeometry.FromPageSize(null!));
         }
 
         [Fact]

@@ -28,6 +28,7 @@ public partial class SafePixelCollectionTests
             var values = pixels.ToByteArray(60, 60, 63, 58, "RGBA");
             var length = 63 * 58 * 4;
 
+            Assert.NotNull(values);
             Assert.Equal(length, values.Length);
         }
 
@@ -39,6 +40,7 @@ public partial class SafePixelCollectionTests
             var values = pixels.ToByteArray(60, 60, 63, 58, PixelMapping.RGBA);
             var length = 63 * 58 * 4;
 
+            Assert.NotNull(values);
             Assert.Equal(length, values.Length);
         }
 
@@ -48,7 +50,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => pixels.ToByteArray(null, "RGB"));
+            Assert.Throws<ArgumentNullException>("geometry", () => pixels.ToByteArray(null!, "RGB"));
         }
 
         [Fact]
@@ -57,7 +59,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => pixels.ToByteArray(null, PixelMapping.RGB));
+            Assert.Throws<ArgumentNullException>("geometry", () => pixels.ToByteArray(null!, PixelMapping.RGB));
         }
 
         [Fact]
@@ -66,7 +68,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("mapping", () => pixels.ToByteArray(new MagickGeometry(1, 2, 3, 4), null));
+            Assert.Throws<ArgumentNullException>("mapping", () => pixels.ToByteArray(new MagickGeometry(1, 2, 3, 4), null!));
         }
 
         [Fact]
@@ -86,6 +88,7 @@ public partial class SafePixelCollectionTests
             var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), "RG");
             var length = 113 * 108 * 2;
 
+            Assert.NotNull(values);
             Assert.Equal(length, values.Length);
         }
 
@@ -97,6 +100,7 @@ public partial class SafePixelCollectionTests
             var values = pixels.ToByteArray(new MagickGeometry(10, 10, 113, 108), PixelMapping.RGB);
             var length = 113 * 108 * 3;
 
+            Assert.NotNull(values);
             Assert.Equal(length, values.Length);
         }
 
@@ -106,7 +110,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("mapping", () => pixels.ToByteArray(null));
+            Assert.Throws<ArgumentNullException>("mapping", () => pixels.ToByteArray(null!));
         }
 
         [Fact]
@@ -135,6 +139,7 @@ public partial class SafePixelCollectionTests
             var values = pixels.ToByteArray("RG");
             var length = (int)image.Width * image.Height * 2;
 
+            Assert.NotNull(values);
             Assert.Equal(length, values.Length);
         }
 
@@ -146,6 +151,7 @@ public partial class SafePixelCollectionTests
             var values = pixels.ToByteArray(PixelMapping.RGB);
             var length = (int)image.Width * image.Height * 3;
 
+            Assert.NotNull(values);
             Assert.Equal(length, values.Length);
         }
     }

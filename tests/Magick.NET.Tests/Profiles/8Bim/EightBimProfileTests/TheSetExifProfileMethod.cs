@@ -17,9 +17,13 @@ public partial class EightBimProfileTests
             using var image = new MagickImage(Files.EightBimJPG);
 
             var exifProfile = image.GetExifProfile();
+            Assert.NotNull(exifProfile);
+
             image.RemoveProfile(exifProfile);
 
             var profile = image.Get8BimProfile();
+            Assert.NotNull(profile);
+
             profile.SetExifProfile(null);
 
             image.SetProfile(profile);
@@ -40,8 +44,9 @@ public partial class EightBimProfileTests
             using var image = new MagickImage(Files.EightBimTIF);
 
             var profile = image.Get8BimProfile();
+            Assert.NotNull(profile);
 
-            IExifProfile exifProfile = new ExifProfile();
+            IExifProfile? exifProfile = new ExifProfile();
             exifProfile.SetValue(ExifTag.Copyright, "Magick.NET");
             profile.SetExifProfile(exifProfile);
 
@@ -56,6 +61,7 @@ public partial class EightBimProfileTests
             profile = image.Get8BimProfile();
             exifProfile = image.GetExifProfile();
 
+            Assert.NotNull(profile);
             Assert.NotNull(profile.GetExifProfile());
             Assert.NotNull(exifProfile);
             Assert.Single(exifProfile.Values);

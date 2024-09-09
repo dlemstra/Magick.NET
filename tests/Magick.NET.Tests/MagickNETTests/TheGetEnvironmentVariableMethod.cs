@@ -14,19 +14,13 @@ public partial class MagickNETTests
         [Fact]
         public void ShouldThrowExceptionWhenNameIsNull()
         {
-            Assert.Throws<ArgumentNullException>("name", () =>
-            {
-                MagickNET.GetEnvironmentVariable(null);
-            });
+            Assert.Throws<ArgumentNullException>("name", () => { MagickNET.GetEnvironmentVariable(null!); });
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenNameIsEmpty()
         {
-            Assert.Throws<ArgumentException>("name", () =>
-            {
-                MagickNET.GetEnvironmentVariable(string.Empty);
-            });
+            Assert.Throws<ArgumentException>("name", () => { MagickNET.GetEnvironmentVariable(string.Empty); });
         }
     }
 }

@@ -65,7 +65,7 @@ public partial class MagickColorTests
             [Fact]
             public void ShouldReturnNullWhenValueIsNull()
             {
-                MagickColor color = null;
+                MagickColor color = null!;
                 var percentage = new Percentage(50);
 
                 var result = color * percentage;

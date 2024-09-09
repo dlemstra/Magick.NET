@@ -28,6 +28,8 @@ public partial class MagickImageCollectionTests
             using var pixels = images[1].GetPixels();
 
             var color = pixels.GetPixel(53, 3).ToColor();
+
+            Assert.NotNull(color);
             Assert.Equal(0, color.A);
 
             images.Coalesce();
@@ -35,6 +37,7 @@ public partial class MagickImageCollectionTests
             using var coalescePixels = images[1].GetPixels();
             color = coalescePixels.GetPixel(53, 3).ToColor();
 
+            Assert.NotNull(color);
             Assert.Equal(Quantum.Max, color.A);
         }
     }

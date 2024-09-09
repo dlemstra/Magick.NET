@@ -22,7 +22,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<byte>)null));
+                Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<byte>)null!));
             }
         }
 
@@ -33,7 +33,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<byte>)null, MagickFormat.Bmp));
+                Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<byte>)null!, MagickFormat.Bmp));
             }
 
             [Fact]
@@ -59,7 +59,7 @@ public partial class MagickImageTests
                 var defines = new JpegWriteDefines();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<byte>)null, defines));
+                Assert.Throws<ArgumentNullException>("bufferWriter", () => image.Write((IBufferWriter<byte>)null!, defines));
             }
 
             [Fact]
@@ -68,7 +68,7 @@ public partial class MagickImageTests
                 var bufferWriter = new ArrayBufferWriter<byte>();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("defines", () => image.Write(bufferWriter, null));
+                Assert.Throws<ArgumentNullException>("defines", () => image.Write(bufferWriter, null!));
             }
 
             [Fact]

@@ -22,7 +22,7 @@ public partial class MagickImageTests
 
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadPixelsAsync((FileInfo)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => image.ReadPixelsAsync((FileInfo)null!, settings));
             }
 
             [Fact]
@@ -30,7 +30,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(new FileInfo(Files.CirclePNG), null));
+                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(new FileInfo(Files.CirclePNG), null!));
             }
 
             [Fact]
@@ -58,7 +58,7 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings();
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadPixelsAsync((string)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => image.ReadPixelsAsync((string)null!, settings));
             }
 
             [Fact]
@@ -75,13 +75,13 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, null));
+                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, null!));
             }
 
             [Fact]
             public async Task ShouldThrowExceptionWhenMappingIsNull()
             {
-                var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
+                var settings = new PixelReadSettings(1, 1, StorageType.Char, null!);
 
                 using var image = new MagickImage();
 
@@ -149,7 +149,7 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings();
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadPixelsAsync((Stream)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadPixelsAsync((Stream)null!, settings));
             }
 
             [Fact]
@@ -166,7 +166,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(new MemoryStream(new byte[] { 215 }), null));
+                await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(new MemoryStream(new byte[] { 215 }), null!));
             }
 
             [Fact]

@@ -93,15 +93,19 @@ public partial class ExifProfileTests
             Assert.Equal(double.PositiveInfinity, value.Value.ToDouble());
         }
 
-        private static IExifValue<TValueType> SetValueAndReturnValueFromNewImage<TValueType>(MagickImage image, ExifTag<TValueType> tag, TValueType value)
+        private static IExifValue<TValueType>? SetValueAndReturnValueFromNewImage<TValueType>(MagickImage image, ExifTag<TValueType> tag, TValueType value)
         {
             var profile = image.GetExifProfile();
+            Assert.NotNull(profile);
+
             profile.SetValue(tag, value);
             image.SetProfile(profile);
 
             var bytes = image.ToByteArray();
             using var output = new MagickImage(bytes);
             profile = output.GetExifProfile();
+            Assert.NotNull(profile);
+
             return profile.GetValue(tag);
         }
     }

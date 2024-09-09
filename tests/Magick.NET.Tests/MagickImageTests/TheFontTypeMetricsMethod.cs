@@ -18,7 +18,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("text", () => image.FontTypeMetrics(null));
+                Assert.Throws<ArgumentNullException>("text", () => image.FontTypeMetrics(null!));
             }
 
             [Fact]
@@ -75,7 +75,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("text", () => image.FontTypeMetrics(null, true));
+                Assert.Throws<ArgumentNullException>("text", () => image.FontTypeMetrics(null!, true));
             }
 
             [Fact]

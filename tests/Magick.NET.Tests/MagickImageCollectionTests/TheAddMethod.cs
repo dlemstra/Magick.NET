@@ -26,7 +26,7 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection();
 
-            Assert.Throws<ArgumentNullException>("item", () => images.Add((IMagickImage<QuantumType>)null));
+            Assert.Throws<ArgumentNullException>("item", () => images.Add((IMagickImage<QuantumType>)null!));
         }
 
         [Fact]
@@ -34,7 +34,7 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection();
 
-            Assert.Throws<ArgumentNullException>("fileName", () => images.Add((string)null));
+            Assert.Throws<ArgumentNullException>("fileName", () => images.Add((string)null!));
         }
 
         [Fact]

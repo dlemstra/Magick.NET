@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("startColor", () => image.ColorThreshold(null, new MagickColor()));
+            Assert.Throws<ArgumentNullException>("startColor", () => image.ColorThreshold(null!, new MagickColor()));
         }
 
         [Fact]
@@ -24,7 +24,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("stopColor", () => image.ColorThreshold(new MagickColor(), null));
+            Assert.Throws<ArgumentNullException>("stopColor", () => image.ColorThreshold(new MagickColor(), null!));
         }
 
         [Fact]

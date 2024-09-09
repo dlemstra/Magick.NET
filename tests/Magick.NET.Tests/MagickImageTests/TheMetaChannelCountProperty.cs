@@ -31,6 +31,8 @@ public partial class MagickImageTests
             using var pixels = image.GetPixelsUnsafe();
             var pixel = pixels.GetPixel(0, 0);
             var channel = pixels.GetChannelIndex(PixelChannel.Meta0);
+            Assert.NotNull(channel);
+
             pixel.SetChannel((uint)channel, Quantum.Max);
 
             using var stream = new MemoryStream();

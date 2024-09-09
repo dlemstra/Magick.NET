@@ -16,6 +16,7 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.Builtin.Logo);
             var boundingBox = image.BoundingBox;
 
+            Assert.NotNull(boundingBox);
             Assert.Equal(458U, boundingBox.Width);
             Assert.Equal(473U, boundingBox.Height);
             Assert.Equal(92, boundingBox.X);

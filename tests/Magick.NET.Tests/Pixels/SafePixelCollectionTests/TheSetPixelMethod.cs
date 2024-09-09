@@ -30,7 +30,7 @@ public partial class SafePixelCollectionTests
                 using var image = new MagickImage(Files.ImageMagickJPG);
                 using var pixels = image.GetPixels();
 
-                Assert.Throws<ArgumentNullException>("pixel", () => pixels.SetPixel((Pixel)null));
+                Assert.Throws<ArgumentNullException>("pixel", () => pixels.SetPixel((Pixel)null!));
             }
 
             [Fact]
@@ -93,7 +93,7 @@ public partial class SafePixelCollectionTests
                 using var image = new MagickImage(Files.ImageMagickJPG);
                 using var pixels = image.GetPixels();
 
-                Assert.Throws<ArgumentNullException>("pixels", () => pixels.SetPixel((IEnumerable<Pixel>)null));
+                Assert.Throws<ArgumentNullException>("pixels", () => pixels.SetPixel((IEnumerable<Pixel>)null!));
             }
 
             [Fact]
@@ -131,7 +131,7 @@ public partial class SafePixelCollectionTests
                 using var image = new MagickImage(Files.ImageMagickJPG);
                 using var pixels = image.GetPixels();
 
-                Assert.Throws<ArgumentNullException>("value", () => pixels.SetPixel(0, 0, null));
+                Assert.Throws<ArgumentNullException>("value", () => pixels.SetPixel(0, 0, null!));
             }
 
             [Fact]

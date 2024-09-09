@@ -32,7 +32,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                Assert.Throws<ArgumentNullException>("data", () => factory.Create((byte[])null));
+                Assert.Throws<ArgumentNullException>("data", () => factory.Create((byte[])null!));
             }
 
             [Fact]
@@ -61,7 +61,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                Assert.Throws<ArgumentNullException>("data", () => factory.Create(null, 0, 0));
+                Assert.Throws<ArgumentNullException>("data", () => factory.Create(null!, 0, 0));
             }
 
             [Fact]
@@ -101,7 +101,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var settings = new MagickReadSettings();
 
-                Assert.Throws<ArgumentNullException>("data", () => factory.Create(null, 0, 0, settings));
+                Assert.Throws<ArgumentNullException>("data", () => factory.Create(null!, 0, 0, settings));
             }
 
             [Fact]
@@ -142,7 +142,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
-                using var image = factory.Create(bytes, 0, (uint)bytes.Length, null);
+                using var image = factory.Create(bytes, 0, (uint)bytes.Length, null!);
             }
         }
 
@@ -154,7 +154,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var settings = new MagickReadSettings();
 
-                Assert.Throws<ArgumentNullException>("data", () => factory.Create((byte[])null, settings));
+                Assert.Throws<ArgumentNullException>("data", () => factory.Create((byte[])null!, settings));
             }
 
             [Fact]
@@ -172,7 +172,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
 
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
-                using var images = factory.Create(bytes, null);
+                using var images = factory.Create(bytes, null!);
             }
 
             [Fact]
@@ -197,7 +197,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                Assert.Throws<ArgumentNullException>("file", () => factory.Create((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => factory.Create((FileInfo)null!));
             }
 
             [Fact]
@@ -219,7 +219,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var settings = new MagickReadSettings();
 
-                Assert.Throws<ArgumentNullException>("file", () => factory.Create((FileInfo)null, settings));
+                Assert.Throws<ArgumentNullException>("file", () => factory.Create((FileInfo)null!, settings));
             }
 
             [Fact]
@@ -227,7 +227,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                using var images = factory.Create(new FileInfo(Files.CirclePNG), null);
+                using var images = factory.Create(new FileInfo(Files.CirclePNG), null!);
                 Assert.IsType<MagickImageCollection>(images);
             }
         }
@@ -239,7 +239,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => factory.Create((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => factory.Create((string)null!));
             }
 
             [Fact]
@@ -268,7 +268,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var settings = new MagickReadSettings();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => factory.Create((string)null, settings));
+                Assert.Throws<ArgumentNullException>("fileName", () => factory.Create((string)null!, settings));
             }
 
             [Fact]
@@ -285,7 +285,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                using var images = factory.Create(Files.CirclePNG, null);
+                using var images = factory.Create(Files.CirclePNG, null!);
                 Assert.IsType<MagickImageCollection>(images);
             }
         }
@@ -297,7 +297,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                Assert.Throws<ArgumentNullException>("stream", () => factory.Create((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => factory.Create((Stream)null!));
             }
 
             [Fact]
@@ -327,7 +327,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var settings = new MagickReadSettings();
 
-                Assert.Throws<ArgumentNullException>("stream", () => factory.Create((Stream)null, settings));
+                Assert.Throws<ArgumentNullException>("stream", () => factory.Create((Stream)null!, settings));
             }
 
             [Fact]
@@ -345,7 +345,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
 
                 using var fileStream = File.OpenRead(Files.CirclePNG);
-                using var images = factory.Create(fileStream, null);
+                using var images = factory.Create(fileStream, null!);
                 Assert.IsType<MagickImageCollection>(images);
             }
         }

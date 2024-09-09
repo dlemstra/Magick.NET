@@ -21,7 +21,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null!));
             }
 
             [Fact]
@@ -43,7 +43,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var settings = new MagickReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => factory.CreateAsync((FileInfo)null!, settings));
             }
 
             [Fact]
@@ -51,7 +51,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                using var images = await factory.CreateAsync(new FileInfo(Files.CirclePNG), null);
+                using var images = await factory.CreateAsync(new FileInfo(Files.CirclePNG), null!);
                 Assert.IsType<MagickImageCollection>(images);
             }
         }
@@ -63,7 +63,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null!));
             }
 
             [Fact]
@@ -92,7 +92,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var settings = new MagickReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => factory.CreateAsync((string)null!, settings));
             }
 
             [Fact]
@@ -109,7 +109,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                using var images = await factory.CreateAsync(Files.CirclePNG, null);
+                using var images = await factory.CreateAsync(Files.CirclePNG, null!);
                 Assert.IsType<MagickImageCollection>(images);
             }
         }
@@ -121,7 +121,7 @@ public partial class MagickImageCollectionFactoryTests
             {
                 var factory = new MagickImageCollectionFactory();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null!));
             }
 
             [Fact]
@@ -151,7 +151,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
                 var settings = new MagickReadSettings();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => factory.CreateAsync((Stream)null!, settings));
             }
 
             [Fact]
@@ -169,7 +169,7 @@ public partial class MagickImageCollectionFactoryTests
                 var factory = new MagickImageCollectionFactory();
 
                 using var fileStream = File.OpenRead(Files.CirclePNG);
-                using var images = await factory.CreateAsync(fileStream, null);
+                using var images = await factory.CreateAsync(fileStream, null!);
                 Assert.IsType<MagickImageCollection>(images);
             }
         }

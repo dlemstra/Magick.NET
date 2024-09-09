@@ -77,79 +77,37 @@ public class PathTests
     [Fact]
     public void Test_Path_Exceptions()
     {
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new PathArcAbs();
-        });
+        Assert.Throws<ArgumentException>("coordinates", () => { new PathArcAbs(); });
 
-        Assert.Throws<ArgumentNullException>("coordinates", () =>
-        {
-            new PathArcAbs(null);
-        });
+        Assert.Throws<ArgumentNullException>("coordinates", () => { new PathArcAbs(null!); });
 
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new PathArcAbs(Array.Empty<PathArc>());
-        });
+        Assert.Throws<ArgumentException>("coordinates", () => { new PathArcAbs(Array.Empty<PathArc>()); });
 
-        Assert.Throws<ArgumentNullException>("coordinates", () =>
-        {
-            new PathArcAbs(new PathArc[] { null });
-        });
+        Assert.Throws<ArgumentNullException>("coordinates", () => { new PathArcAbs(new PathArc[] { null! }); });
 
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new PathArcRel();
-        });
+        Assert.Throws<ArgumentException>("coordinates", () => { new PathArcRel(); });
 
-        Assert.Throws<ArgumentNullException>("coordinates", () =>
-        {
-            new PathArcRel(null);
-        });
+        Assert.Throws<ArgumentNullException>("coordinates", () => { new PathArcRel(null!); });
 
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new PathArcRel(Array.Empty<PathArc>());
-        });
+        Assert.Throws<ArgumentException>("coordinates", () => { new PathArcRel(Array.Empty<PathArc>()); });
 
-        Assert.Throws<ArgumentNullException>("coordinates", () =>
-        {
-            new PathArcRel(new PathArc[] { null });
-        });
+        Assert.Throws<ArgumentNullException>("coordinates", () => { new PathArcRel(new PathArc[] { null! }); });
 
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new PathLineToAbs();
-        });
+        Assert.Throws<ArgumentException>("coordinates", () => { new PathLineToAbs(); });
 
-        Assert.Throws<ArgumentNullException>("coordinates", () =>
-        {
-            new PathLineToAbs(null);
-        });
+        Assert.Throws<ArgumentNullException>("coordinates", () => { new PathLineToAbs(null!); });
 
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new PathLineToAbs(Array.Empty<PointD>());
-        });
+        Assert.Throws<ArgumentException>("coordinates", () => { new PathLineToAbs(Array.Empty<PointD>()); });
 
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new PathLineToRel();
-        });
+        Assert.Throws<ArgumentException>("coordinates", () => { new PathLineToRel(); });
 
-        Assert.Throws<ArgumentNullException>("coordinates", () =>
-        {
-            new PathLineToRel(null);
-        });
+        Assert.Throws<ArgumentNullException>("coordinates", () => { new PathLineToRel(null!); });
 
-        Assert.Throws<ArgumentException>("coordinates", () =>
-        {
-            new PathLineToRel(Array.Empty<PointD>());
-        });
+        Assert.Throws<ArgumentException>("coordinates", () => { new PathLineToRel(Array.Empty<PointD>()); });
     }
 
     private void AssertDraw(IPath path)
     {
-        ((IDrawingWand)path).Draw(null);
+        ((IDrawingWand)path).Draw(null!);
     }
 }

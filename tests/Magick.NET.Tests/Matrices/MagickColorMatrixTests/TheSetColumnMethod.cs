@@ -24,10 +24,7 @@ public partial class MagickColorMatrixTests
         {
             var matrix = new MagickColorMatrix(2);
 
-            Assert.Throws<ArgumentNullException>("values", () =>
-            {
-                matrix.SetColumn(0, null);
-            });
+            Assert.Throws<ArgumentNullException>("values", () => { matrix.SetColumn(0, null!); });
         }
 
         [Fact]

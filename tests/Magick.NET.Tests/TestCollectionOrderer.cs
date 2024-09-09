@@ -13,7 +13,7 @@ namespace Magick.NET.Tests;
 
 public sealed class TestCollectionOrderer : ITestCollectionOrderer
 {
-    public IEnumerable<ITestCollection> OrderTestCollections(IEnumerable<ITestCollection> testCollections)
+    public IEnumerable<ITestCollection>? OrderTestCollections(IEnumerable<ITestCollection> testCollections)
     {
         if (!TestInitializer.Initialize())
             return null;

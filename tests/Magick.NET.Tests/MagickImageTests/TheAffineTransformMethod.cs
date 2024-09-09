@@ -28,7 +28,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(MagickColors.Purple, 1, 1);
 
-            Assert.Throws<ArgumentNullException>("affineMatrix", () => image.AffineTransform(null));
+            Assert.Throws<ArgumentNullException>("affineMatrix", () => image.AffineTransform(null!));
         }
     }
 }

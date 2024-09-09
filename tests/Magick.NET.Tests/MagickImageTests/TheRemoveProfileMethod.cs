@@ -18,7 +18,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(MagickColors.Red, 1, 1);
 
-                Assert.Throws<ArgumentNullException>("profile", () => image.RemoveProfile((IImageProfile)null));
+                Assert.Throws<ArgumentNullException>("profile", () => image.RemoveProfile((IImageProfile)null!));
             }
 
             [Fact]
@@ -59,7 +59,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(MagickColors.Red, 1, 1);
 
-                Assert.Throws<ArgumentNullException>("name", () => image.RemoveProfile((string)null));
+                Assert.Throws<ArgumentNullException>("name", () => image.RemoveProfile((string)null!));
             }
 
             [Fact]

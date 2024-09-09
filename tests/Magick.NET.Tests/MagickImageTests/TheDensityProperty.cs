@@ -18,7 +18,7 @@ public partial class MagickImageTests
 
             Assert.Equal(300, image.Density.X);
 
-            image.Density = null;
+            image.Density = null!;
 
             Assert.Equal(300, image.Density.X);
         }
@@ -28,8 +28,12 @@ public partial class MagickImageTests
         {
             using var memStream = new MemoryStream();
             using var input = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+
             var profile = input.GetExifProfile();
+            Assert.NotNull(profile);
+
             var value = profile.GetValue(ExifTag.XResolution);
+            Assert.NotNull(value);
 
             Assert.Equal("300", value.ToString());
 
@@ -38,8 +42,12 @@ public partial class MagickImageTests
 
             memStream.Position = 0;
             using var output = new MagickImage(memStream);
+
             profile = output.GetExifProfile();
+            Assert.NotNull(profile);
+
             value = profile.GetValue(ExifTag.XResolution);
+            Assert.NotNull(value);
 
             Assert.Equal("72", value.ToString());
         }
@@ -69,7 +77,10 @@ public partial class MagickImageTests
             input.Write(stream);
 
             var profile = input.GetExifProfile();
+            Assert.NotNull(profile);
+
             var value = profile.GetValue(ExifTag.XResolution);
+            Assert.NotNull(value);
 
             Assert.Equal(96.0, value.Value.ToDouble());
 
@@ -81,7 +92,10 @@ public partial class MagickImageTests
             Assert.Equal(96.0, input.Density.X);
 
             profile = output.GetExifProfile();
+            Assert.NotNull(profile);
+
             value = profile.GetValue(ExifTag.XResolution);
+            Assert.NotNull(value);
 
             Assert.Equal(96.0, value.Value.ToDouble());
         }

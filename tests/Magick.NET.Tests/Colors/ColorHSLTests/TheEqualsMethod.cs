@@ -23,7 +23,7 @@ public partial class ColorHSLTests
         {
             var color = new ColorHSL(1, 2, 3);
 
-            Assert.False(color.Equals((object)null));
+            Assert.False(color.Equals((object)null!));
         }
 
         [Fact]

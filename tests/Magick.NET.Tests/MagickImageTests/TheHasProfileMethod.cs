@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("name", () => image.HasProfile(null));
+            Assert.Throws<ArgumentNullException>("name", () => image.HasProfile(null!));
         }
 
         [Fact]

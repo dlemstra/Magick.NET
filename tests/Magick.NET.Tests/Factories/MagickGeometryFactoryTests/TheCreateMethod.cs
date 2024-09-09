@@ -17,7 +17,7 @@ public partial class MagickGeometryFactoryTests
         {
             var factory = new MagickGeometryFactory();
 
-            Assert.Throws<ArgumentNullException>("value", () => factory.Create(null));
+            Assert.Throws<ArgumentNullException>("value", () => factory.Create(null!));
         }
 
         [Fact]

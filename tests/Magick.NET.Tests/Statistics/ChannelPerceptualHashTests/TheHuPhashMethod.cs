@@ -16,8 +16,12 @@ public partial class ChannelPerceptualHashTests
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();
+
+            Assert.NotNull(phash);
+
             var channel = phash.GetChannel(PixelChannel.Red);
 
+            Assert.NotNull(channel);
             Assert.Throws<ArgumentOutOfRangeException>(() => channel.HuPhash(ColorSpace.HCLp, 7));
         }
     }

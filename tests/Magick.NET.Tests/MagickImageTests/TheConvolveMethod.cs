@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("matrix", () => image.Convolve(null));
+            Assert.Throws<ArgumentNullException>("matrix", () => image.Convolve(null!));
         }
 
         [Fact]

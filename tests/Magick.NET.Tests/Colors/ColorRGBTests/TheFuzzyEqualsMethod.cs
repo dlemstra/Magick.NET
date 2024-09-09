@@ -41,7 +41,7 @@ public partial class ColorRGBTests
         public void ShouldReturnTrueWhenOtherIsEqual()
         {
             var first = new ColorRGB(Quantum.Max, Quantum.Max, Quantum.Max);
-            var second = (ColorRGB)new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
+            var second = (ColorRGB?)new MagickColor(Quantum.Max, Quantum.Max, Quantum.Max);
 
             Assert.True(first.FuzzyEquals(second, (Percentage)0));
         }

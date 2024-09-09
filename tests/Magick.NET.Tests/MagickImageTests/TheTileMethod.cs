@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("image", () => image.Tile(null, CompositeOperator.Undefined));
+            Assert.Throws<ArgumentNullException>("image", () => image.Tile(null!, CompositeOperator.Undefined));
         }
 
         [Fact]

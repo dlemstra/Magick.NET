@@ -39,7 +39,7 @@ public partial class IcoOptimizerTests
         {
             [Fact]
             public void ShouldThrowExceptionWhenFileIsNull()
-                => Assert.Throws<ArgumentNullException>("file", () => Optimizer.LosslessCompress((FileInfo)null));
+                => Assert.Throws<ArgumentNullException>("file", () => Optimizer.LosslessCompress((FileInfo)null!));
 
             [Fact]
             public void ShouldNotOptimizeAnimatedPNG()
@@ -56,7 +56,7 @@ public partial class IcoOptimizerTests
         {
             [Fact]
             public void ShouldThrowExceptionWhenFileNameIsNull()
-                => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.LosslessCompress((string)null));
+                => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.LosslessCompress((string)null!));
 
             [Fact]
             public void ShouldThrowExceptionWhenFileNameIsEmpty()
@@ -75,7 +75,7 @@ public partial class IcoOptimizerTests
         {
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()
-                => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.LosslessCompress((Stream)null));
+                => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.LosslessCompress((Stream)null!));
 
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNotReadable()

@@ -18,9 +18,13 @@ public partial class EightBimProfileTests
             using var image = new MagickImage(Files.EightBimJPG);
 
             var iptcProfile = image.GetIptcProfile();
+            Assert.NotNull(iptcProfile);
+
             image.RemoveProfile(iptcProfile);
 
             var profile = image.Get8BimProfile();
+            Assert.NotNull(profile);
+
             profile.SetIptcProfile(null);
 
             image.SetProfile(profile);
@@ -41,6 +45,8 @@ public partial class EightBimProfileTests
             using var image = new MagickImage(Files.EightBimTIF);
 
             var profile = image.Get8BimProfile();
+            Assert.NotNull(profile);
+
             var bytes = new byte[] { 0x1c, 0x02, 0, 0, 0 };
             profile.SetIptcProfile(new IptcProfile(bytes));
 
@@ -53,6 +59,8 @@ public partial class EightBimProfileTests
             image.Read(stream);
 
             profile = image.Get8BimProfile();
+            Assert.NotNull(profile);
+
             var iptcProfile = image.GetIptcProfile();
 
             Assert.NotNull(profile.GetIptcProfile());

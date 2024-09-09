@@ -17,7 +17,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("values", () => pixels.SetIntArea(10, 10, 1000, 1000, null));
+            Assert.Throws<ArgumentNullException>("values", () => pixels.SetIntArea(10, 10, 1000, 1000, null!));
         }
 
         [Fact]
@@ -56,7 +56,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => pixels.SetIntArea(null, new int[] { 0 }));
+            Assert.Throws<ArgumentNullException>("geometry", () => pixels.SetIntArea(null!, new int[] { 0 }));
         }
 
         [Fact]

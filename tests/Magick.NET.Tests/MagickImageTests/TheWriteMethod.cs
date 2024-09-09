@@ -20,7 +20,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("file", () => image.Write((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => image.Write((FileInfo)null!));
             }
 
             [Fact]
@@ -48,7 +48,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("file", () => image.Write((FileInfo)null, MagickFormat.Bmp));
+                Assert.Throws<ArgumentNullException>("file", () => image.Write((FileInfo)null!, MagickFormat.Bmp));
             }
 
             [Fact]
@@ -75,7 +75,7 @@ public partial class MagickImageTests
                 var defines = new JpegWriteDefines();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("file", () => image.Write((FileInfo)null, defines));
+                Assert.Throws<ArgumentNullException>("file", () => image.Write((FileInfo)null!, defines));
             }
 
             [Fact]
@@ -84,7 +84,7 @@ public partial class MagickImageTests
                 var file = new FileInfo(Files.CirclePNG);
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("defines", () => image.Write(file, null));
+                Assert.Throws<ArgumentNullException>("defines", () => image.Write(file, null!));
             }
 
             [Fact]
@@ -114,7 +114,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => image.Write((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => image.Write((string)null!));
             }
 
             [Fact]
@@ -161,7 +161,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => image.Write((string)null, MagickFormat.Bmp));
+                Assert.Throws<ArgumentNullException>("fileName", () => image.Write((string)null!, MagickFormat.Bmp));
             }
 
             [Fact]
@@ -195,7 +195,7 @@ public partial class MagickImageTests
                 var defines = new JpegWriteDefines();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => image.Write((string)null, defines));
+                Assert.Throws<ArgumentNullException>("fileName", () => image.Write((string)null!, defines));
             }
 
             [Fact]
@@ -212,7 +212,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("defines", () => image.Write(Files.CirclePNG, null));
+                Assert.Throws<ArgumentNullException>("defines", () => image.Write(Files.CirclePNG, null!));
             }
 
             [Fact]
@@ -241,7 +241,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null!));
             }
 
             [Fact]
@@ -269,7 +269,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null, MagickFormat.Bmp));
+                Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null!, MagickFormat.Bmp));
             }
 
             [Fact]
@@ -297,7 +297,7 @@ public partial class MagickImageTests
                 var defines = new JpegWriteDefines();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null, defines));
+                Assert.Throws<ArgumentNullException>("stream", () => image.Write((Stream)null!, defines));
             }
 
             [Fact]
@@ -306,7 +306,7 @@ public partial class MagickImageTests
                 using var stream = new MemoryStream();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("defines", () => image.Write(stream, null));
+                Assert.Throws<ArgumentNullException>("defines", () => image.Write(stream, null!));
             }
 
             [Fact]

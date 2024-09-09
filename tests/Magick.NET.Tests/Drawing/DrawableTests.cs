@@ -165,35 +165,20 @@ public class DrawableTests
     [Fact]
     public void Test_Drawables_Exceptions()
     {
-        Assert.Throws<ArgumentNullException>("clipPath", () =>
-        {
-            new DrawableClipPath(null);
-        });
+        Assert.Throws<ArgumentNullException>("clipPath", () => { new DrawableClipPath(null!); });
 
-        Assert.Throws<ArgumentException>("clipPath", () =>
-        {
-            new DrawableClipPath(string.Empty);
-        });
+        Assert.Throws<ArgumentException>("clipPath", () => { new DrawableClipPath(string.Empty); });
 
         Assert.Throws<ArgumentNullException>("image", () =>
         {
-            new DrawableComposite(1, 2, 3, 4, CompositeOperator.In, null);
+            new DrawableComposite(1, 2, 3, 4, CompositeOperator.In, null!);
         });
 
-        Assert.Throws<ArgumentNullException>("color", () =>
-        {
-            new DrawableFillColor(null);
-        });
+        Assert.Throws<ArgumentNullException>("color", () => { new DrawableFillColor(null!); });
 
-        Assert.Throws<ArgumentNullException>("family", () =>
-        {
-            new DrawableFont(null);
-        });
+        Assert.Throws<ArgumentNullException>("family", () => { new DrawableFont(null!); });
 
-        Assert.Throws<ArgumentException>("family", () =>
-        {
-            new DrawableFont(string.Empty);
-        });
+        Assert.Throws<ArgumentException>("family", () => { new DrawableFont(string.Empty); });
 
         Assert.Throws<MagickDrawErrorException>(() =>
         {
@@ -211,24 +196,15 @@ public class DrawableTests
             new DrawablePolyline(new PointD[] { new PointD(0, 0), new PointD(0, 0) });
         });
 
-        Assert.Throws<ArgumentNullException>("color", () =>
-        {
-            new DrawableStrokeColor(null);
-        });
+        Assert.Throws<ArgumentNullException>("color", () => { new DrawableStrokeColor(null!); });
 
-        Assert.Throws<ArgumentNullException>("value", () =>
-        {
-            new DrawableText(0, 0, null);
-        });
+        Assert.Throws<ArgumentNullException>("value", () => { new DrawableText(0, 0, null!); });
 
-        Assert.Throws<ArgumentException>("value", () =>
-        {
-            new DrawableText(0, 0, string.Empty);
-        });
+        Assert.Throws<ArgumentException>("value", () => { new DrawableText(0, 0, string.Empty); });
     }
 
     private void AssertDraw(IDrawable drawable)
     {
-        ((IDrawingWand)drawable).Draw(null);
+        ((IDrawingWand)drawable).Draw(null!);
     }
 }

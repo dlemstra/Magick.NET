@@ -18,6 +18,7 @@ public partial class SafePixelCollectionTests
             var values = pixels.GetValues();
             var length = 4 * 2 * 3;
 
+            Assert.NotNull(values);
             Assert.Equal(length, values.Length);
         }
     }

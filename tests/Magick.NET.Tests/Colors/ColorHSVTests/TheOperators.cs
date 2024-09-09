@@ -61,7 +61,9 @@ public partial class ColorHSVTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
         {
-            var actual = (ColorHSV)new MagickColor("#BFFFDFFF9FFFFFFF");
+            var actual = (ColorHSV?)new MagickColor("#BFFFDFFF9FFFFFFF");
+
+            Assert.NotNull(actual);
             Assert.InRange(actual.Hue, 0.24, 0.26);
             Assert.InRange(actual.Saturation, 0.28, 0.29);
             Assert.InRange(actual.Value, 0.87, 0.88);

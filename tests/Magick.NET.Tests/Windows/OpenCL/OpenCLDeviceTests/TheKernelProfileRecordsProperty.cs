@@ -39,7 +39,7 @@ public partial class TheKernelProfileRecordsProperty
         }
     }
 
-    private IOpenCLDevice GetEnabledDevice()
+    private IOpenCLDevice? GetEnabledDevice()
     {
         foreach (var device in OpenCL.Devices)
         {

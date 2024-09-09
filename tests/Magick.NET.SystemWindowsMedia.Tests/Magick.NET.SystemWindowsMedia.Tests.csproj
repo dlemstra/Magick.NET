@@ -3,7 +3,6 @@
     <TargetFrameworks>net8.0;net462</TargetFrameworks>
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <Platforms>x86;x64;arm64;AnyCPU</Platforms>
-    <Nullable>enable</Nullable>
     <Configurations>DebugQ8;DebugQ16;DebugQ16-HDRI;TestQ8;TestQ16;TestQ16-HDRI;TestQ8-OpenMP;TestQ16-OpenMP;TestQ16-HDRI-OpenMP</Configurations>
   </PropertyGroup>
 

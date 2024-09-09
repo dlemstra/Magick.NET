@@ -15,8 +15,11 @@ public partial class MagickImageTests
         public void ShouldOverwriteTheExifOrientation()
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+
             var profile = image.GetExifProfile();
-            var exifOrientation = profile.GetValue(ExifTag.Orientation).Value;
+            Assert.NotNull(profile);
+
+            var exifOrientation = profile.GetValue(ExifTag.Orientation)?.Value;
 
             Assert.Equal((ushort)1, exifOrientation);
 
@@ -32,8 +35,11 @@ public partial class MagickImageTests
 
             stream.Position = 0;
             using var output = new MagickImage(stream);
+
             profile = output.GetExifProfile();
-            exifOrientation = profile.GetValue(ExifTag.Orientation).Value;
+            Assert.NotNull(profile);
+
+            exifOrientation = profile.GetValue(ExifTag.Orientation)?.Value;
 
             Assert.Equal((ushort)8, exifOrientation);
             Assert.Equal(OrientationType.LeftBottom, image.Orientation);

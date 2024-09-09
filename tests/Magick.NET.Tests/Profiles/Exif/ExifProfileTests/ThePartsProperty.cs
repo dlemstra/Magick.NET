@@ -19,6 +19,8 @@ public partial class ExifProfileTests
             using var input = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = input.GetExifProfile();
 
+            Assert.NotNull(profile);
+
             Assert.Equal(44, profile.Values.Count());
 
             profile.Parts = ExifParts.ExifTags;
@@ -29,6 +31,7 @@ public partial class ExifProfileTests
             using var output = new MagickImage(memStream);
             profile = output.GetExifProfile();
 
+            Assert.NotNull(profile);
             Assert.Equal(24, profile.Values.Count());
         }
     }

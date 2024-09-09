@@ -74,7 +74,7 @@ public static class TestInitializer
         SetAttribute(policy, "rights", rights);
         SetAttribute(policy, "pattern", pattern);
 
-        doc.DocumentElement.AppendChild(policy);
+        doc.DocumentElement?.AppendChild(policy);
     }
 
     private static void SetAttribute(XmlElement element, string name, string value)

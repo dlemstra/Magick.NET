@@ -16,7 +16,7 @@ public partial class MagickNETTests
         {
             Assert.Throws<ArgumentNullException>("path", () =>
             {
-                MagickNET.SetFontConfigDirectory(null);
+                MagickNET.SetFontConfigDirectory(null!);
             });
         }
 

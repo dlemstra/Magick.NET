@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("settings", () => image.Quantize(null));
+            Assert.Throws<ArgumentNullException>("settings", () => image.Quantize(null!));
         }
 
         [Fact]
@@ -32,6 +32,7 @@ public partial class MagickImageTests
 
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var errorInfo = image.Quantize(settings);
+            Assert.NotNull(errorInfo);
 
 #if Q8
             Assert.InRange(errorInfo.MeanErrorPerPixel, 7.066, 7.067);

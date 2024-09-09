@@ -21,7 +21,7 @@ public partial class MagickNETTests
             {
                 Assert.Throws<ArgumentNullException>("path", () =>
                 {
-                    MagickNET.Initialize((string)null);
+                    MagickNET.Initialize((string)null!);
                 });
             }
 
@@ -79,14 +79,14 @@ public partial class MagickNETTests
             {
                 Assert.Throws<ArgumentNullException>("configFiles", () =>
                 {
-                    MagickNET.Initialize((ConfigurationFiles)null);
+                    MagickNET.Initialize((ConfigurationFiles)null!);
                 });
             }
 
             [Fact]
             public void ShouldWriteAllFilesInTheReturnedPath()
             {
-                string path = null;
+                string? path = null;
                 try
                 {
                     path = MagickNET.Initialize(ConfigurationFiles.Default);
@@ -95,7 +95,8 @@ public partial class MagickNETTests
                 }
                 finally
                 {
-                    Cleanup.DeleteDirectory(path);
+                    if (path is not null)
+                        Cleanup.DeleteDirectory(path);
                 }
             }
 
@@ -104,7 +105,7 @@ public partial class MagickNETTests
             {
                 var policy = @"<test/>";
 
-                string path = null;
+                string? path = null;
                 try
                 {
                     var configFiles = ConfigurationFiles.Default;
@@ -116,7 +117,8 @@ public partial class MagickNETTests
                 }
                 finally
                 {
-                    Cleanup.DeleteDirectory(path);
+                    if (path is not null)
+                        Cleanup.DeleteDirectory(path);
                 }
             }
         }
@@ -129,7 +131,7 @@ public partial class MagickNETTests
             {
                 Assert.Throws<ArgumentNullException>("configFiles", () =>
                 {
-                    MagickNET.Initialize(null, Path.GetTempPath());
+                    MagickNET.Initialize(null!, Path.GetTempPath());
                 });
             }
 
@@ -138,7 +140,7 @@ public partial class MagickNETTests
             {
                 Assert.Throws<ArgumentNullException>("path", () =>
                 {
-                    MagickNET.Initialize(ConfigurationFiles.Default, null);
+                    MagickNET.Initialize(ConfigurationFiles.Default, null!);
                 });
             }
 

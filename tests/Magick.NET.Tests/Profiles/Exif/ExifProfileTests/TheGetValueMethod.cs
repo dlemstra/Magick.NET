@@ -25,6 +25,9 @@ public partial class ExifProfileTests
         {
             var image = new MagickImage(Files.ExifUndefTypeJPG);
             var profile = image.GetExifProfile();
+
+            Assert.NotNull(profile);
+
             var value = profile.GetValue(ExifTag.ExifVersion);
 
             Assert.NotNull(value);

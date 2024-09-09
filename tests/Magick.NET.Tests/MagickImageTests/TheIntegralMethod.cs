@@ -15,6 +15,8 @@ public partial class MagickImageTests
         {
             using var input = new MagickImage(Files.TestPNG);
             using var integral = input.Integral();
+            Assert.NotNull(integral);
+
             var distortion = input.Compare(integral, ErrorMetric.MeanAbsolute);
 
 #if Q16HDRI

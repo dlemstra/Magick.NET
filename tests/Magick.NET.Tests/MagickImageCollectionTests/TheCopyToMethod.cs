@@ -16,7 +16,7 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection();
 
-            images.CopyTo(null, -1);
+            images.CopyTo(null!, -1);
         }
 
         [Fact]
@@ -25,7 +25,7 @@ public partial class MagickImageCollectionTests
             using var images = new MagickImageCollection();
             images.Add(new MagickImage(MagickColors.Red, 1, 1));
 
-            Assert.Throws<ArgumentNullException>("array", () => images.CopyTo(null, -1));
+            Assert.Throws<ArgumentNullException>("array", () => images.CopyTo(null!, -1));
         }
 
         [Fact]

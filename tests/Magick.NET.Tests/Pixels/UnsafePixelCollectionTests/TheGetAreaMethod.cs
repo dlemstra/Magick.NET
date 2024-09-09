@@ -58,6 +58,9 @@ public partial class UnsafePixelCollectionTests
             using var image = new MagickImage(Files.CirclePNG);
             using var pixels = image.GetPixelsUnsafe();
             var area = pixels.GetArea(28, 28, 2, 3);
+
+            Assert.NotNull(area);
+
             var length = 2 * 3 * 4; // width * height * channelCount
             var color = new MagickColor(area[0], area[1], area[2], area[3]);
 
@@ -70,7 +73,7 @@ public partial class UnsafePixelCollectionTests
         {
             using var image = new MagickImage(Files.RedPNG);
             using var pixels = image.GetPixelsUnsafe();
-            var area = pixels.GetArea(null);
+            var area = pixels.GetArea(null!);
 
             Assert.Null(area);
         }
@@ -81,6 +84,9 @@ public partial class UnsafePixelCollectionTests
             using var image = new MagickImage(Files.RedPNG);
             using var pixels = image.GetPixelsUnsafe();
             var area = pixels.GetArea(new MagickGeometry(0, 0, 6, 5));
+
+            Assert.NotNull(area);
+
             var length = 6 * 5 * 4; // width * height * channelCount
             var color = new MagickColor(area[0], area[1], area[2], area[3]);
 

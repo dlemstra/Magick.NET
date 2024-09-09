@@ -16,6 +16,8 @@ public partial class ExifProfileTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.GetExifProfile();
+            Assert.NotNull(profile);
+
             AssertProfile(profile);
 
             using var emptyImage = new MagickImage(Files.ImageMagickJPG);
@@ -26,7 +28,7 @@ public partial class ExifProfileTests
             AssertProfile(profile);
         }
 
-        private static void AssertProfile(IExifProfile profile)
+        private static void AssertProfile(IExifProfile? profile)
         {
             Assert.NotNull(profile);
 

@@ -28,7 +28,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Logo);
 
-            Assert.Throws<ArgumentNullException>("image", () => image.Remap((IMagickImage<QuantumType>)null));
+            Assert.Throws<ArgumentNullException>("image", () => image.Remap((IMagickImage<QuantumType>)null!));
         }
 
         [Fact]
@@ -36,7 +36,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Logo);
 
-            Assert.Throws<ArgumentNullException>("colors", () => image.Remap((IEnumerable<MagickColor>)null));
+            Assert.Throws<ArgumentNullException>("colors", () => image.Remap((IEnumerable<MagickColor>)null!));
         }
 
         [Fact]

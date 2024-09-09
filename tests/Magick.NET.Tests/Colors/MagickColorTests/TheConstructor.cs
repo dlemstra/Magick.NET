@@ -26,7 +26,7 @@ public partial class MagickColorTests
         {
             Assert.Throws<ArgumentNullException>("color", () =>
             {
-                new MagickColor((string)null);
+                new MagickColor((string)null!);
             });
         }
 

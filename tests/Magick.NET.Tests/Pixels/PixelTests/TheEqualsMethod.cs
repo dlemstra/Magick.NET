@@ -28,7 +28,7 @@ public partial class PixelTests
             {
                 var pixel = new Pixel(0, 0, 3);
 
-                Assert.False(pixel.Equals((object)null));
+                Assert.False(pixel.Equals((object)null!));
             }
 
             [Fact]
@@ -75,7 +75,7 @@ public partial class PixelTests
             {
                 var pixel = new Pixel(0, 0, 3);
 
-                Assert.False(pixel.Equals((Pixel)null));
+                Assert.False(pixel.Equals((Pixel)null!));
             }
 
             [Fact]
@@ -122,7 +122,7 @@ public partial class PixelTests
             {
                 var pixel = new Pixel(0, 0, 3);
 
-                Assert.False(pixel.Equals((MagickColor)null));
+                Assert.False(pixel.Equals((MagickColor)null!));
             }
 
             [Fact]
@@ -132,7 +132,7 @@ public partial class PixelTests
                 using var pixels = new UnsafePixelCollection(image);
                 var pixel = Pixel.Create(pixels, 0, 0, Array.Empty<QuantumType>());
 
-                Assert.True(pixel.Equals((MagickColor)null));
+                Assert.True(pixel.Equals((MagickColor)null!));
             }
 
             [Fact]

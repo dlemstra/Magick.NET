@@ -24,7 +24,7 @@ public partial class ColorHSLTests
         [Fact]
         public void ShouldReturnNullWhenValueIsNull()
         {
-            var result = ColorHSL.FromMagickColor(null);
+            var result = ColorHSL.FromMagickColor(null!);
 
             Assert.Null(result);
         }
@@ -35,6 +35,7 @@ public partial class ColorHSLTests
             var color = new MagickColor(Quantum.Max, Quantum.Max, (QuantumType)(Quantum.Max * 0.02));
             var hslColor = ColorHSL.FromMagickColor(color);
 
+            Assert.NotNull(hslColor);
             Assert.InRange(hslColor.Hue, 0.16, 0.17);
             Assert.InRange(hslColor.Lightness, 0.5, 0.6);
             Assert.InRange(hslColor.Saturation, 0.99, 1.01);

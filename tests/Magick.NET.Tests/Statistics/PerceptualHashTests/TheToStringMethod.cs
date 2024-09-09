@@ -15,6 +15,9 @@ public partial class PerceptualHashTests
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();
+
+            Assert.NotNull(phash);
+
             var hash = phash.ToString();
 
             Assert.Equal(210, hash.Length);

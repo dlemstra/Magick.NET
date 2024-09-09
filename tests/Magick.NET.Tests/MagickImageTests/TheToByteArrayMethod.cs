@@ -17,7 +17,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("defines", () => image.ToByteArray(null));
+            Assert.Throws<ArgumentNullException>("defines", () => image.ToByteArray(null!));
         }
 
         [Fact]

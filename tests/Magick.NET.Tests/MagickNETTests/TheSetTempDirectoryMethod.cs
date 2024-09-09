@@ -17,7 +17,7 @@ public partial class MagickNETTests
         {
             Assert.Throws<ArgumentNullException>("path", () =>
             {
-                MagickNET.SetTempDirectory(null);
+                MagickNET.SetTempDirectory(null!);
             });
         }
 

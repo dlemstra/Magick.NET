@@ -49,7 +49,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.RedPNG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => pixels.GetArea(null));
+            Assert.Throws<ArgumentNullException>("geometry", () => pixels.GetArea(null!));
         }
 
         [Fact]
@@ -57,7 +57,10 @@ public partial class SafePixelCollectionTests
         {
             using var image = new MagickImage(Files.CirclePNG);
             using var pixels = image.GetPixels();
+
             var area = pixels.GetArea(28, 28, 2, 3);
+            Assert.NotNull(area);
+
             var length = 2 * 3 * 4; // width * height * channelCount
             var color = new MagickColor(area[0], area[1], area[2], area[3]);
 
@@ -70,7 +73,10 @@ public partial class SafePixelCollectionTests
         {
             using var image = new MagickImage(Files.RedPNG);
             using var pixels = image.GetPixels();
+
             var area = pixels.GetArea(new MagickGeometry(0, 0, 6, 5));
+            Assert.NotNull(area);
+
             var length = 6 * 5 * 4; // width * height * channelCount
             var color = new MagickColor(area[0], area[1], area[2], area[3]);
 

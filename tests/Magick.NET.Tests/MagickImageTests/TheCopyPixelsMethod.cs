@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null));
+            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null!));
         }
 
         [Fact]
@@ -24,7 +24,7 @@ public partial class MagickImageTests
         {
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null, Channels.Red));
+            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null!, Channels.Red));
         }
 
         [Fact]
@@ -33,7 +33,7 @@ public partial class MagickImageTests
             using var source = new MagickImage();
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null, new MagickGeometry(10, 10)));
+            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null!, new MagickGeometry(10, 10)));
         }
 
         [Fact]
@@ -42,7 +42,7 @@ public partial class MagickImageTests
             using var source = new MagickImage();
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null, new MagickGeometry(10, 10), Channels.Black));
+            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null!, new MagickGeometry(10, 10), Channels.Black));
         }
 
         [Fact]
@@ -51,7 +51,7 @@ public partial class MagickImageTests
             using var source = new MagickImage();
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0));
+            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null!, new MagickGeometry(10, 10), 0, 0));
         }
 
         [Fact]
@@ -60,7 +60,7 @@ public partial class MagickImageTests
             using var source = new MagickImage();
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null, new MagickGeometry(10, 10), 0, 0, Channels.Black));
+            Assert.Throws<ArgumentNullException>("source", () => destination.CopyPixels(null!, new MagickGeometry(10, 10), 0, 0, Channels.Black));
         }
 
         [Fact]
@@ -69,7 +69,7 @@ public partial class MagickImageTests
             using var source = new MagickImage();
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => destination.CopyPixels(source, null));
+            Assert.Throws<ArgumentNullException>("geometry", () => destination.CopyPixels(source, null!));
         }
 
         [Fact]
@@ -78,7 +78,7 @@ public partial class MagickImageTests
             using var source = new MagickImage();
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => destination.CopyPixels(source, null, Channels.Green));
+            Assert.Throws<ArgumentNullException>("geometry", () => destination.CopyPixels(source, null!, Channels.Green));
         }
 
         [Fact]
@@ -87,7 +87,7 @@ public partial class MagickImageTests
             using var source = new MagickImage();
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => destination.CopyPixels(source, null, 0, 0));
+            Assert.Throws<ArgumentNullException>("geometry", () => destination.CopyPixels(source, null!, 0, 0));
         }
 
         [Fact]
@@ -96,7 +96,7 @@ public partial class MagickImageTests
             using var source = new MagickImage();
             using var destination = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => destination.CopyPixels(source, null, 0, 0, Channels.Green));
+            Assert.Throws<ArgumentNullException>("geometry", () => destination.CopyPixels(source, null!, 0, 0, Channels.Green));
         }
 
         [Fact]

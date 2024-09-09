@@ -17,7 +17,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("thresholdMap", () => image.OrderedDither(null));
+            Assert.Throws<ArgumentNullException>("thresholdMap", () => image.OrderedDither(null!));
         }
 
         [Fact]

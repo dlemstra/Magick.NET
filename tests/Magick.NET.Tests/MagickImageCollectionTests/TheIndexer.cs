@@ -16,7 +16,7 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection(Files.CirclePNG);
 
-            Assert.Throws<InvalidOperationException>(() => images[0] = null);
+            Assert.Throws<InvalidOperationException>(() => images[0] = null!);
         }
 
         [Fact]

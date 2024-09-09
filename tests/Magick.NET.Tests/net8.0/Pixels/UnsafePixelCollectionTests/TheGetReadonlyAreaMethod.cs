@@ -27,7 +27,7 @@ public partial class UnsafePixelCollectionTests
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
-            var area = pixels.GetReadOnlyArea(null);
+            var area = pixels.GetReadOnlyArea(null!);
 
             Assert.Equal(0, area.Length);
         }

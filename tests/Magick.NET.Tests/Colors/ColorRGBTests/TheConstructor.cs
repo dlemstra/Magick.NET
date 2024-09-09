@@ -14,10 +14,7 @@ public partial class ColorRGBTests
         [Fact]
         public void ShouldThrowExceptionWhenColorIsNull()
         {
-            Assert.Throws<ArgumentNullException>("color", () =>
-            {
-                new ColorRGB(null);
-            });
+            Assert.Throws<ArgumentNullException>("color", () => { new ColorRGB(null!); });
         }
     }
 }

@@ -18,7 +18,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("geometry", () => image.Resize(null));
+                Assert.Throws<ArgumentNullException>("geometry", () => image.Resize(null!));
             }
 
             [Fact]

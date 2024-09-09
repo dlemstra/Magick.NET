@@ -19,7 +19,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("profile", () => image.SetProfile(null));
+                Assert.Throws<ArgumentNullException>("profile", () => image.SetProfile(null!));
             }
 
             [Fact]
@@ -105,14 +105,14 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("profile", () => image.SetProfile((IImageProfile)null));
+                Assert.Throws<ArgumentNullException>("profile", () => image.SetProfile((IImageProfile)null!));
             }
 
             [Fact]
             public void ShouldNotSetTheProfileWhenArrayIsNull()
             {
                 using var image = new MagickImage(Files.SnakewarePNG);
-                image.SetProfile(new TestImageProfile("foo", null));
+                image.SetProfile(new TestImageProfile("foo", null!));
 
                 Assert.False(image.HasProfile("foo"));
             }
@@ -147,6 +147,7 @@ public partial class MagickImageTests
             {
                 using var input = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
                 var profile = input.GetIptcProfile();
+                Assert.NotNull(profile);
 
                 profile.SetValue(IptcTag.ReferenceDate, new DateTimeOffset(2020, 1, 2, 3, 4, 5, TimeSpan.Zero));
 
@@ -162,7 +163,7 @@ public partial class MagickImageTests
                 profile = input.GetIptcProfile();
 
                 Assert.NotNull(profile);
-                Assert.Equal("20200102", profile.GetValue(IptcTag.ReferenceDate).Value);
+                Assert.Equal("20200102", profile.GetValue(IptcTag.ReferenceDate)?.Value);
             }
         }
     }

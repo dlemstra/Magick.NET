@@ -20,11 +20,25 @@ public partial class MagickImageTests
             using var pixels = image.GetPixelsUnsafe();
             var pixel = pixels.GetPixel(0, 0);
 
-            Assert.Equal(Quantum.Max, pixel.GetChannel(image.ChannelOffset(PixelChannel.Cyan).Value));
-            Assert.Equal(Quantum.Max, pixel.GetChannel(image.ChannelOffset(PixelChannel.Magenta).Value));
-            Assert.Equal(Quantum.Max, pixel.GetChannel(image.ChannelOffset(PixelChannel.Yellow).Value));
-            Assert.Equal(Quantum.Max, pixel.GetChannel(image.ChannelOffset(PixelChannel.Black).Value));
-            Assert.Equal(Quantum.Max, pixel.GetChannel(image.ChannelOffset(PixelChannel.Alpha).Value));
+            var cyanOffset = image.ChannelOffset(PixelChannel.Cyan);
+            Assert.NotNull(cyanOffset);
+            Assert.Equal(Quantum.Max, pixel.GetChannel(cyanOffset.Value));
+
+            var magentaOffset = image.ChannelOffset(PixelChannel.Magenta);
+            Assert.NotNull(magentaOffset);
+            Assert.Equal(Quantum.Max, pixel.GetChannel(magentaOffset.Value));
+
+            var yellowOffset = image.ChannelOffset(PixelChannel.Yellow);
+            Assert.NotNull(yellowOffset);
+            Assert.Equal(Quantum.Max, pixel.GetChannel(yellowOffset.Value));
+
+            var blackOffset = image.ChannelOffset(PixelChannel.Black);
+            Assert.NotNull(blackOffset);
+            Assert.Equal(Quantum.Max, pixel.GetChannel(blackOffset.Value));
+
+            var alphaOffset = image.ChannelOffset(PixelChannel.Alpha);
+            Assert.NotNull(alphaOffset);
+            Assert.Equal(Quantum.Max, pixel.GetChannel(alphaOffset.Value));
 #endif
         }
 
@@ -39,11 +53,25 @@ public partial class MagickImageTests
             using var pixels = image.GetPixelsUnsafe();
             var pixel = pixels.GetPixel(0, 0);
 
-            Assert.Equal(value, pixel.GetChannel(image.ChannelOffset(PixelChannel.Cyan).Value));
-            Assert.Equal(value, pixel.GetChannel(image.ChannelOffset(PixelChannel.Magenta).Value));
-            Assert.Equal(Quantum.Max, pixel.GetChannel(image.ChannelOffset(PixelChannel.Yellow).Value));
-            Assert.Equal(Quantum.Max, pixel.GetChannel(image.ChannelOffset(PixelChannel.Black).Value));
-            Assert.Equal(value, pixel.GetChannel(image.ChannelOffset(PixelChannel.Alpha).Value));
+            var cyanOffset = image.ChannelOffset(PixelChannel.Cyan);
+            Assert.NotNull(cyanOffset);
+            Assert.Equal(value, pixel.GetChannel(cyanOffset.Value));
+
+            var magentaOffset = image.ChannelOffset(PixelChannel.Magenta);
+            Assert.NotNull(magentaOffset);
+            Assert.Equal(value, pixel.GetChannel(magentaOffset.Value));
+
+            var yellowOffset = image.ChannelOffset(PixelChannel.Yellow);
+            Assert.NotNull(yellowOffset);
+            Assert.Equal(Quantum.Max, pixel.GetChannel(yellowOffset.Value));
+
+            var blackOffset = image.ChannelOffset(PixelChannel.Black);
+            Assert.NotNull(blackOffset);
+            Assert.Equal(Quantum.Max, pixel.GetChannel(blackOffset.Value));
+
+            var alphaOffset = image.ChannelOffset(PixelChannel.Alpha);
+            Assert.NotNull(alphaOffset);
+            Assert.Equal(value, pixel.GetChannel(alphaOffset.Value));
 #endif
         }
     }

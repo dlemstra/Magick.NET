@@ -56,7 +56,7 @@ public partial class UnsafePixelCollectionTests
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixelsUnsafe();
-            pixels.SetArea(null, new Span<QuantumType>(new QuantumType[] { 0 }));
+            pixels.SetArea(null!, new Span<QuantumType>(new QuantumType[] { 0 }));
         }
 
         [Fact]

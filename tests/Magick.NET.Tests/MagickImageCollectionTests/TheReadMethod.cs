@@ -20,7 +20,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.Read((byte[])null));
+                Assert.Throws<ArgumentNullException>("data", () => images.Read((byte[])null!));
             }
 
             [Fact]
@@ -55,7 +55,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.Read(null, 0, 0));
+                Assert.Throws<ArgumentNullException>("data", () => images.Read(null!, 0, 0));
             }
 
             [Fact]
@@ -94,7 +94,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.Read(null, 0, 0, MagickFormat.Png));
+                Assert.Throws<ArgumentNullException>("data", () => images.Read(null!, 0, 0, MagickFormat.Png));
             }
 
             [Fact]
@@ -135,7 +135,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.Read(null, 0, 0, settings));
+                Assert.Throws<ArgumentNullException>("data", () => images.Read(null!, 0, 0, settings));
             }
 
             [Fact]
@@ -187,7 +187,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.Read((byte[])null, MagickFormat.Png));
+                Assert.Throws<ArgumentNullException>("data", () => images.Read((byte[])null!, MagickFormat.Png));
             }
 
             [Fact]
@@ -217,7 +217,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.Read((byte[])null, settings));
+                Assert.Throws<ArgumentNullException>("data", () => images.Read((byte[])null!, settings));
             }
 
             [Fact]
@@ -261,7 +261,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null!));
             }
         }
 
@@ -272,7 +272,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null, MagickFormat.Png));
+                Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null!, MagickFormat.Png));
             }
 
             [Fact]
@@ -294,7 +294,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null, settings));
+                Assert.Throws<ArgumentNullException>("file", () => images.Read((FileInfo)null!, settings));
             }
 
             [Fact]
@@ -315,7 +315,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => images.Read((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => images.Read((string)null!));
             }
 
             [Fact]
@@ -356,7 +356,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => images.Read((string)null, MagickFormat.Png));
+                Assert.Throws<ArgumentNullException>("fileName", () => images.Read((string)null!, MagickFormat.Png));
             }
 
             [Fact]
@@ -376,7 +376,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => images.Read((string)null, settings));
+                Assert.Throws<ArgumentNullException>("fileName", () => images.Read((string)null!, settings));
             }
 
             [Fact]
@@ -417,7 +417,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("stream", () => images.Read((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => images.Read((Stream)null!));
             }
 
             [Fact]
@@ -443,7 +443,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("stream", () => images.Read((Stream)null, MagickFormat.Png));
+                Assert.Throws<ArgumentNullException>("stream", () => images.Read((Stream)null!, MagickFormat.Png));
             }
 
             [Fact]
@@ -475,7 +475,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("stream", () => images.Read((Stream)null, settings));
+                Assert.Throws<ArgumentNullException>("stream", () => images.Read((Stream)null!, settings));
             }
 
             [Fact]

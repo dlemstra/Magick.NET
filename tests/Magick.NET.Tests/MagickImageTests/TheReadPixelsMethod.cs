@@ -30,7 +30,7 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("data", () => image.ReadPixels((byte[])null, settings));
+                Assert.Throws<ArgumentNullException>("data", () => image.ReadPixels((byte[])null!, settings));
             }
 
             [Fact]
@@ -48,7 +48,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, null!));
             }
 
             [Fact]
@@ -143,7 +143,7 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("data", () => image.ReadPixels((byte[])null, 0, 0, settings));
+                Assert.Throws<ArgumentNullException>("data", () => image.ReadPixels((byte[])null!, 0, 0, settings));
             }
 
             [Fact]
@@ -161,7 +161,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, null!));
             }
 
             [Fact]
@@ -207,7 +207,7 @@ public partial class MagickImageTests
                 };
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("data", () => image.ReadPixels((QuantumType[])null, settings));
+                Assert.Throws<ArgumentNullException>("data", () => image.ReadPixels((QuantumType[])null!, settings));
             }
 
             [Fact]
@@ -228,7 +228,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new QuantumType[] { 215 }, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new QuantumType[] { 215 }, null!));
             }
 
             [Fact]
@@ -316,7 +316,7 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings();
                 var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("data", () => image.ReadPixels((QuantumType[])null, 0, 0, settings));
+                Assert.Throws<ArgumentNullException>("data", () => image.ReadPixels((QuantumType[])null!, 0, 0, settings));
             }
 
             [Fact]
@@ -334,7 +334,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, 0, 1, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, 0, 1, null!));
             }
 
             [Fact]
@@ -367,7 +367,7 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("file", () => image.ReadPixels((FileInfo)null, settings));
+                Assert.Throws<ArgumentNullException>("file", () => image.ReadPixels((FileInfo)null!, settings));
             }
 
             [Fact]
@@ -375,7 +375,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new FileInfo(Files.CirclePNG), null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new FileInfo(Files.CirclePNG), null!));
             }
 
             [Fact]
@@ -402,7 +402,7 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings();
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => image.ReadPixels((string)null, settings));
+                Assert.Throws<ArgumentNullException>("fileName", () => image.ReadPixels((string)null!, settings));
             }
 
             [Fact]
@@ -419,13 +419,13 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(Files.CirclePNG, null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(Files.CirclePNG, null!));
             }
 
             [Fact]
             public void ShouldThrowExceptionWhenMappingIsNull()
             {
-                var settings = new PixelReadSettings(1, 1, StorageType.Char, null);
+                var settings = new PixelReadSettings(1, 1, StorageType.Char, null!);
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(Files.CirclePNG, settings));
@@ -487,7 +487,7 @@ public partial class MagickImageTests
                 var settings = new PixelReadSettings();
                 var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("stream", () => image.ReadPixels((Stream)null, settings));
+                Assert.Throws<ArgumentNullException>("stream", () => image.ReadPixels((Stream)null!, settings));
             }
 
             [Fact]
@@ -504,7 +504,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new MemoryStream(new byte[] { 215 }), null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new MemoryStream(new byte[] { 215 }), null!));
             }
 
             [Fact]

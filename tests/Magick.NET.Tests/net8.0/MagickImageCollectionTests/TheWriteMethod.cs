@@ -22,7 +22,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null));
+                Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null!));
             }
         }
 
@@ -33,7 +33,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null, MagickFormat.Bmp));
+                Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null!, MagickFormat.Bmp));
             }
 
             [Fact]
@@ -60,7 +60,7 @@ public partial class MagickImageCollectionTests
                 var defines = new TiffWriteDefines();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null, defines));
+                Assert.Throws<ArgumentNullException>("bufferWriter", () => images.Write((IBufferWriter<byte>)null!, defines));
             }
 
             [Fact]
@@ -69,7 +69,7 @@ public partial class MagickImageCollectionTests
                 var bufferWriter = new ArrayBufferWriter<byte>();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("defines", () => images.Write(bufferWriter, null));
+                Assert.Throws<ArgumentNullException>("defines", () => images.Write(bufferWriter, null!));
             }
 
             [Fact]

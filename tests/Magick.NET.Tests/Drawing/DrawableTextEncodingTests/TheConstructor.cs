@@ -13,10 +13,7 @@ public partial class DrawableTextEncodingTests
     {
         public void ShouldThrowExceptionWhenEncodingIsNull()
         {
-            Assert.Throws<ArgumentNullException>("encoding", () =>
-            {
-                new DrawableTextEncoding(null);
-            });
+            Assert.Throws<ArgumentNullException>("encoding", () => { new DrawableTextEncoding(null!); });
         }
     }
 }

@@ -25,7 +25,7 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection(Files.Builtin.Logo);
 
-            Assert.Throws<ArgumentNullException>("terms", () => images.Polynomial(null));
+            Assert.Throws<ArgumentNullException>("terms", () => images.Polynomial(null!));
         }
 
         [Fact]

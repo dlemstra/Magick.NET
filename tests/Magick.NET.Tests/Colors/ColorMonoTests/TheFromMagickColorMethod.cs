@@ -14,7 +14,7 @@ public partial class ColorMonoTests
         [Fact]
         public void ShouldReturnNullWhenValueIsNull()
         {
-            var result = ColorMono.FromMagickColor(null);
+            var result = ColorMono.FromMagickColor(null!);
 
             Assert.Null(result);
         }
@@ -25,7 +25,7 @@ public partial class ColorMonoTests
             var color = MagickColors.Black;
             var grayColor = ColorMono.FromMagickColor(color);
 
-            Assert.Equal(grayColor, (ColorMono)color);
+            Assert.Equal(grayColor, (ColorMono?)color);
         }
     }
 }

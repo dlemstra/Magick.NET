@@ -29,7 +29,7 @@ public partial class MagickColorFactoryTests
 
             Assert.Throws<ArgumentNullException>("color", () =>
             {
-                factory.Create((string)null);
+                factory.Create((string)null!);
             });
         }
 

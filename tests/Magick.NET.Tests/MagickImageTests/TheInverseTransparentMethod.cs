@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("color", () => image.InverseTransparent(null));
+            Assert.Throws<ArgumentNullException>("color", () => image.InverseTransparent(null!));
         }
 
         [Fact]

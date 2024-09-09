@@ -33,6 +33,7 @@ public partial class UnsafePixelCollectionTests
             using var pixels = image.GetPixelsUnsafe();
             var pixel = pixels.GetValue(0, 0);
 
+            Assert.NotNull(pixel);
             Assert.Equal(3, pixel.Length);
             Assert.Equal(Quantum.Max, pixel[0]);
             Assert.Equal(0, pixel[1]);

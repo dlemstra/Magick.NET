@@ -15,18 +15,18 @@ public partial class MagickGeometryTests
         {
             var geometry = new MagickGeometry(10, 5);
 
-            Assert.False(geometry == null);
-            Assert.True(geometry != null);
-            Assert.False(geometry < null);
-            Assert.False(geometry <= null);
-            Assert.True(geometry > null);
-            Assert.True(geometry >= null);
-            Assert.False(null == geometry);
-            Assert.True(null != geometry);
-            Assert.True(null < geometry);
-            Assert.True(null <= geometry);
-            Assert.False(null > geometry);
-            Assert.False(null >= geometry);
+            Assert.False(geometry == null!);
+            Assert.True(geometry != null!);
+            Assert.False(geometry < null!);
+            Assert.False(geometry <= null!);
+            Assert.True(geometry > null!);
+            Assert.True(geometry >= null!);
+            Assert.False(null! == geometry);
+            Assert.True(null! != geometry);
+            Assert.True(null! < geometry);
+            Assert.True(null! <= geometry);
+            Assert.False(null! > geometry);
+            Assert.False(null! >= geometry);
         }
 
         [Fact]

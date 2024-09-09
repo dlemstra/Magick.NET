@@ -38,14 +38,14 @@ public partial class GifOptimizerTests
         {
             [Fact]
             public void ShouldThrowExceptionWhenFileIsNull()
-                => Assert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null));
+                => Assert.Throws<ArgumentNullException>("file", () => Optimizer.Compress((FileInfo)null!));
         }
 
         public class WithFileName : TheCompressMethod
         {
             [Fact]
             public void ShouldThrowExceptionWhenFileNameIsNull()
-                => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null));
+                => Assert.Throws<ArgumentNullException>("fileName", () => Optimizer.Compress((string)null!));
 
             [Fact]
             public void ShouldThrowExceptionWhenFileNameIsEmpty()
@@ -64,7 +64,7 @@ public partial class GifOptimizerTests
         {
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()
-                => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null));
+                => Assert.Throws<ArgumentNullException>("stream", () => Optimizer.Compress((Stream)null!));
 
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNotReadable()

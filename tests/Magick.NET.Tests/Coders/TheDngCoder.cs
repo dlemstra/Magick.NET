@@ -41,15 +41,18 @@ public class TheDngCoder
         Assert.Equal(18432, data.Length);
 
         var type = image.GetAttribute("dng:thumbnail.type");
-        var size = new MagickGeometry(image.GetAttribute("dng:thumbnail.geometry"));
-        var bits = int.Parse(image.GetAttribute("dng:thumbnail.bits"));
-        var colors = int.Parse(image.GetAttribute("dng:thumbnail.colors"));
+        var bits = image.GetAttribute("dng:thumbnail.bits");
+        var colors = image.GetAttribute("dng:thumbnail.colors");
+        var geometry = image.GetAttribute("dng:thumbnail.geometry");
 
         Assert.Equal("bitmap", type);
         Assert.Equal(768U, image.Width);
         Assert.Equal(512U, image.Height);
-        Assert.Equal(8, bits);
-        Assert.Equal(3, colors);
+        Assert.Equal("8", bits);
+        Assert.Equal("3", colors);
+
+        Assert.NotNull(geometry);
+        var size = new MagickGeometry(geometry);
 
         using var thumbnail = new MagickImage();
         thumbnail.ReadPixels(data, new PixelReadSettings(size.Width, size.Height, StorageType.Char, "RGB"));

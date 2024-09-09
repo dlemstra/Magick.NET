@@ -15,22 +15,24 @@ public partial class MagickReadSettingsTests
         [Fact]
         public void ShouldThrowExceptionWhenDefinesIsNull()
         {
-            Assert.Throws<ArgumentNullException>("defines", () => new MagickReadSettings((IReadDefines)null));
+            Assert.Throws<ArgumentNullException>("defines", () => new MagickReadSettings((IReadDefines)null!));
         }
 
         [Fact]
         public void ShouldNotThrowExceptionWhenDefineIsNull()
         {
-            var defines = new TestReadDefines
-            {
-                Defines = new IDefine[] { null },
-            };
+            var defines = new TestReadDefines([null!]);
 
             new MagickReadSettings(defines);
         }
 
         private class TestReadDefines : IReadDefines
         {
+            public TestReadDefines(IEnumerable<IDefine> defines)
+            {
+                Defines = defines;
+            }
+
             public MagickFormat Format { get; set; }
 
             public IEnumerable<IDefine> Defines { get; set; }

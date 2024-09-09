@@ -17,6 +17,8 @@ public partial class EightBimProfileTests
             using var image = new MagickImage(Files.EightBimTIF);
 
             var profile = image.Get8BimProfile();
+            Assert.NotNull(profile);
+
             profile.SetXmpProfile(image.GetXmpProfile());
 
             image.SetProfile(profile);
@@ -28,6 +30,8 @@ public partial class EightBimProfileTests
             image.Read(stream);
 
             profile = image.Get8BimProfile();
+
+            Assert.NotNull(profile);
             Assert.NotNull(profile.GetXmpProfile());
 
             profile.SetXmpProfile(null);
@@ -41,6 +45,8 @@ public partial class EightBimProfileTests
             image.Read(stream);
 
             profile = image.Get8BimProfile();
+            Assert.NotNull(profile);
+
             Assert.Null(profile.GetXmpProfile());
         }
 
@@ -50,8 +56,11 @@ public partial class EightBimProfileTests
             using var image = new MagickImage(Files.EightBimTIF);
 
             var profile = image.Get8BimProfile();
+            Assert.NotNull(profile);
 
             var xmpProfile = image.GetXmpProfile();
+            Assert.NotNull(xmpProfile);
+
             image.RemoveProfile(xmpProfile);
 
             xmpProfile = new XmpProfile([1, 2, 3, 4, 5, 6, 7, 8]);
@@ -68,6 +77,7 @@ public partial class EightBimProfileTests
             profile = image.Get8BimProfile();
             xmpProfile = image.GetXmpProfile();
 
+            Assert.NotNull(profile);
             Assert.NotNull(profile.GetXmpProfile());
             Assert.NotNull(xmpProfile);
             Assert.Equal(8, xmpProfile.ToByteArray().Length);

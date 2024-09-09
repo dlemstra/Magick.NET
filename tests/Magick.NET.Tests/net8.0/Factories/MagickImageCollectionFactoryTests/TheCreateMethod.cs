@@ -54,7 +54,7 @@ public partial class MagickImageCollectionFactoryTests
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
 
                 var factory = new MagickImageCollectionFactory();
-                using var images = factory.Create(new ReadOnlySequence<byte>(bytes), null);
+                using var images = factory.Create(new ReadOnlySequence<byte>(bytes), null!);
             }
 
             [Fact]
@@ -111,7 +111,7 @@ public partial class MagickImageCollectionFactoryTests
                 var bytes = File.ReadAllBytes(Files.CirclePNG);
                 var factory = new MagickImageCollectionFactory();
 
-                using var images = factory.Create(new Span<byte>(bytes), null);
+                using var images = factory.Create(new Span<byte>(bytes), null!);
             }
 
             [Fact]

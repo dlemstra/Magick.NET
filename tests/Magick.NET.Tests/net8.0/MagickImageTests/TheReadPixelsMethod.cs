@@ -40,7 +40,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new Span<byte>(new byte[] { 215 }), null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new Span<byte>(new byte[] { 215 }), null!));
             }
 
             [Fact]
@@ -155,7 +155,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), null));
+                Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new Span<QuantumType>(new QuantumType[] { 215 }), null!));
             }
 
             [Fact]

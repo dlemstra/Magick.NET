@@ -20,6 +20,8 @@ public partial class ChannelMomentsTests
             var second = moments.GetChannel(PixelChannel.Red);
 
             Assert.False(ReferenceEquals(first, second));
+            Assert.NotNull(first);
+            Assert.NotNull(second);
             Assert.True(first.Centroid == second.Centroid);
             Assert.True(first.Centroid.Equals(second.Centroid));
             Assert.True(first.Centroid.Equals((object)second.Centroid));

@@ -24,10 +24,7 @@ public partial class ConvolveMatrixTests
         {
             var matrix = new ConvolveMatrix(1);
 
-            Assert.Throws<ArgumentNullException>("values", () =>
-            {
-                matrix.SetColumn(0, null);
-            });
+            Assert.Throws<ArgumentNullException>("values", () => { matrix.SetColumn(0, null!); });
         }
 
         [Fact]

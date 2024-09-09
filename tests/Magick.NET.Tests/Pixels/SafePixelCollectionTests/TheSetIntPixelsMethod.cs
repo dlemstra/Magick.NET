@@ -17,7 +17,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("values", () => pixels.SetIntPixels(null));
+            Assert.Throws<ArgumentNullException>("values", () => pixels.SetIntPixels(null!));
         }
 
         [Fact]

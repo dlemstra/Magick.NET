@@ -23,7 +23,7 @@ public partial class ColorGrayTests
         {
             var color = new ColorGray(1);
 
-            Assert.False(color.Equals((object)null));
+            Assert.False(color.Equals((object)null!));
         }
 
         [Fact]

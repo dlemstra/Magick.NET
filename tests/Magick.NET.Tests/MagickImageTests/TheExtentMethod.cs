@@ -80,7 +80,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(MagickColors.Black, 1, 1);
 
-                Assert.Throws<ArgumentNullException>("geometry", () => image.Extent(null));
+                Assert.Throws<ArgumentNullException>("geometry", () => image.Extent(null!));
             }
 
             [Fact]

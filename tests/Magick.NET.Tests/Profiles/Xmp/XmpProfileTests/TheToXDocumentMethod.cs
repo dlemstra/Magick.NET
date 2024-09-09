@@ -19,6 +19,9 @@ public partial class XmpProfileTests
             Assert.NotNull(profile);
 
             var doc = profile.ToXDocument();
+
+            Assert.NotNull(doc);
+
             var xml = doc.ToString();
 
             Assert.StartsWith(@"<?xpacket begin="""" id=""W5M0MpCehiHzreSzNTczkc9d""?>", xml);

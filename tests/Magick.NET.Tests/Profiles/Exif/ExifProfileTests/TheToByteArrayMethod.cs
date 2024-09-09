@@ -15,6 +15,9 @@ public partial class ExifProfileTests
         {
             using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
             var profile = image.GetExifProfile();
+
+            Assert.NotNull(profile);
+
             var bytes = profile.ToByteArray();
 
             Assert.Equal(4706, bytes.Length);

@@ -17,6 +17,7 @@ public partial class MagickFormatInfoTests
             var second = MagickFormatInfo.Create(Files.SnakewarePNG);
 
             Assert.True(first == second);
+            Assert.NotNull(first);
             Assert.True(first.Equals(second));
             Assert.True(first.Equals((object)second));
         }

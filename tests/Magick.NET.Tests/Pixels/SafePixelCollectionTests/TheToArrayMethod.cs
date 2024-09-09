@@ -18,6 +18,7 @@ public partial class SafePixelCollectionTests
             var values = pixels.ToArray();
             var length = (int)image.Width * image.Height * image.ChannelCount;
 
+            Assert.NotNull(values);
             Assert.Equal(length, values.Length);
         }
     }

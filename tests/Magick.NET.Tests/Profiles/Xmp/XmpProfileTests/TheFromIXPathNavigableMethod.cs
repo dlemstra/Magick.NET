@@ -16,7 +16,7 @@ public partial class XmpProfileTests
         [Fact]
         public void ShouldThrowExceptionWhenDocumentIsNull()
         {
-            Assert.Throws<ArgumentNullException>("document", () => XmpProfile.FromIXPathNavigable(null));
+            Assert.Throws<ArgumentNullException>("document", () => XmpProfile.FromIXPathNavigable(null!));
         }
 
         [Fact]

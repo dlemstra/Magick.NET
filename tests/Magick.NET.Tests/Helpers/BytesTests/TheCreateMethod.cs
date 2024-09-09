@@ -14,7 +14,7 @@ public partial class BytesTests
     {
         [Fact]
         public void ShouldThrowExceptionWhenStreamIsNull()
-            => Assert.Throws<ArgumentNullException>("stream", () => Bytes.Create(null));
+            => Assert.Throws<ArgumentNullException>("stream", () => Bytes.Create(null!));
 
         [Fact]
         public void ShouldThrowExceptionWhenStreamIsEmpty()

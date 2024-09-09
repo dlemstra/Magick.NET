@@ -20,7 +20,7 @@ public partial class MagickImageInfoTests
             {
                 var imageInfo = new MagickImageInfo();
 
-                Assert.Throws<ArgumentNullException>("data", () => imageInfo.Read((byte[])null));
+                Assert.Throws<ArgumentNullException>("data", () => imageInfo.Read((byte[])null!));
             }
 
             [Fact]
@@ -39,7 +39,7 @@ public partial class MagickImageInfoTests
             {
                 var imageInfo = new MagickImageInfo();
 
-                Assert.Throws<ArgumentNullException>("data", () => imageInfo.Read(null, 0, 0));
+                Assert.Throws<ArgumentNullException>("data", () => imageInfo.Read(null!, 0, 0));
             }
 
             [Fact]
@@ -66,7 +66,7 @@ public partial class MagickImageInfoTests
             {
                 var imageInfo = new MagickImageInfo();
 
-                Assert.Throws<ArgumentNullException>("file", () => imageInfo.Read((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => imageInfo.Read((FileInfo)null!));
             }
         }
 
@@ -77,7 +77,7 @@ public partial class MagickImageInfoTests
             {
                 var imageInfo = new MagickImageInfo();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => imageInfo.Read((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => imageInfo.Read((string)null!));
             }
 
             [Fact]
@@ -112,6 +112,7 @@ public partial class MagickImageInfoTests
                 Assert.EndsWith("ImageMagick.jpg", imageInfo.FileName);
                 Assert.Equal(MagickFormat.Jpeg, imageInfo.Format);
                 Assert.Equal(118U, imageInfo.Height);
+                Assert.NotNull(imageInfo.Density);
                 Assert.Equal(72, imageInfo.Density.X);
                 Assert.Equal(72, imageInfo.Density.Y);
                 Assert.Equal(DensityUnit.PixelsPerInch, imageInfo.Density.Units);
@@ -144,7 +145,7 @@ public partial class MagickImageInfoTests
             {
                 var imageInfo = new MagickImageInfo();
 
-                Assert.Throws<ArgumentNullException>("stream", () => imageInfo.Read((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => imageInfo.Read((Stream)null!));
             }
         }
     }

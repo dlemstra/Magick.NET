@@ -18,7 +18,7 @@ public partial class MagickImageInfoTests
             [Fact]
             public void ShouldThrowExceptionWhenDataIsNull()
             {
-                Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo((byte[])null));
+                Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo((byte[])null!));
             }
 
             [Fact]
@@ -33,7 +33,7 @@ public partial class MagickImageInfoTests
             [Fact]
             public void ShouldThrowExceptionWhenArrayIsNull()
             {
-                Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo(null, 0, 0));
+                Assert.Throws<ArgumentNullException>("data", () => new MagickImageInfo(null!, 0, 0));
             }
 
             [Fact]
@@ -54,7 +54,7 @@ public partial class MagickImageInfoTests
             [Fact]
             public void ShouldThrowExceptionWhenFileIsNull()
             {
-                Assert.Throws<ArgumentNullException>("file", () => new MagickImageInfo((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => new MagickImageInfo((FileInfo)null!));
             }
         }
 
@@ -63,7 +63,7 @@ public partial class MagickImageInfoTests
             [Fact]
             public void ShouldThrowExceptionWhenFileNameIsNull()
             {
-                Assert.Throws<ArgumentNullException>("fileName", () => new MagickImageInfo((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => new MagickImageInfo((string)null!));
             }
 
             [Fact]
@@ -104,7 +104,7 @@ public partial class MagickImageInfoTests
             [Fact]
             public void ShouldThrowExceptionWhenStreamIsNull()
             {
-                Assert.Throws<ArgumentNullException>("stream", () => new MagickImageInfo((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => new MagickImageInfo((Stream)null!));
             }
         }
     }

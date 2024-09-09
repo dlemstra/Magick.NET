@@ -51,7 +51,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(Files.MagickNETIconPNG);
 
-                Assert.Throws<ArgumentNullException>("geometry", () => image.LiquidRescale(null));
+                Assert.Throws<ArgumentNullException>("geometry", () => image.LiquidRescale(null!));
             }
 
             [Fact]

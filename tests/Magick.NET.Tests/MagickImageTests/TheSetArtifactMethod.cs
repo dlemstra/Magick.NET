@@ -18,7 +18,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("name", () => image.SetArtifact(null, false));
+                Assert.Throws<ArgumentNullException>("name", () => image.SetArtifact(null!, false));
             }
 
             [Fact]
@@ -46,7 +46,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("name", () => image.SetArtifact(null, "foo"));
+                Assert.Throws<ArgumentNullException>("name", () => image.SetArtifact(null!, "foo"));
             }
 
             [Fact]
@@ -62,7 +62,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("value", () => image.SetArtifact("foo", null));
+                Assert.Throws<ArgumentNullException>("value", () => image.SetArtifact("foo", null!));
             }
 
             [Fact]
@@ -71,7 +71,10 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.SetArtifact("test", string.Empty);
 
-                Assert.Empty(image.GetArtifact("test"));
+                var value = image.GetArtifact("test");
+
+                Assert.NotNull(value);
+                Assert.Empty(value);
             }
 
             [Fact]

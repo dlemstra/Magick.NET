@@ -17,9 +17,9 @@ internal sealed class PartialStream : TestStream
     public override int Read(byte[] buffer, int offset, int count)
     {
         if (_firstReadDone)
-            return InnerStream.Read(buffer, offset, count);
+            return InnerStream?.Read(buffer, offset, count) ?? -1;
 
         _firstReadDone = true;
-        return InnerStream.Read(buffer, offset, count / 2);
+        return InnerStream?.Read(buffer, offset, count / 2) ?? -1;
     }
 }

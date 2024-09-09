@@ -23,7 +23,7 @@ public partial class ColorYUVTests
         {
             var color = new ColorYUV(1, 1, 1);
 
-            Assert.False(color.Equals((object)null));
+            Assert.False(color.Equals((object?)null));
         }
 
         [Fact]

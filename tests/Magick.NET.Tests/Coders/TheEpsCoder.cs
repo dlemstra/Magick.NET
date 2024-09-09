@@ -58,11 +58,13 @@ public partial class TheEpsCoder
 
         var profile = images[1].Get8BimProfile();
 
+        Assert.NotNull(profile);
+
         var clipPaths = profile.ClipPaths;
 
         Assert.Single(clipPaths);
 
-        var clipPath = clipPaths[0].Path.CreateNavigator().OuterXml;
+        var clipPath = clipPaths[0].Path.CreateNavigator()?.OuterXml;
 
         var expected = @"<svg width=""447"" height=""420"">
   <g>

@@ -33,7 +33,7 @@ public partial class UnsafePixelCollectionTests
             using var pixels = image.GetPixelsUnsafe();
             var pixel = pixels[300, 100];
 
-            ColorAssert.Equal(MagickColors.Red, pixel.ToColor());
+            ColorAssert.Equal(MagickColors.Red, pixel?.ToColor());
         }
     }
 }

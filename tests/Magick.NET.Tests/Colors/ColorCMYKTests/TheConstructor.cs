@@ -15,7 +15,7 @@ public partial class ColorCMYKTests
         [Fact]
         public void ShouldThrowExceptionWhenColorIsNull()
         {
-            Assert.Throws<ArgumentNullException>("color", () => { new ColorCMYK(null); });
+            Assert.Throws<ArgumentNullException>("color", () => { new ColorCMYK(null!); });
         }
 
         [Fact]

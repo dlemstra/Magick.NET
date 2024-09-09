@@ -25,7 +25,7 @@ public partial class TemporaryDefinesTests
         {
             using var image = new MagickImage();
             using var temporaryDefines = new TemporaryDefines(image);
-            temporaryDefines.SetArtifact("foo", (string)null);
+            temporaryDefines.SetArtifact("foo", (string)null!);
 
             Assert.Null(image.GetArtifact("foo"));
         }

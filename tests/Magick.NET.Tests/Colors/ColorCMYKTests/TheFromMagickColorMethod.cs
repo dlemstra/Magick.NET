@@ -24,7 +24,7 @@ public partial class ColorCMYKTests
         [Fact]
         public void ShouldReturnNullWhenValueIsNull()
         {
-            var result = ColorCMYK.FromMagickColor(null);
+            var result = ColorCMYK.FromMagickColor(null!);
 
             Assert.Null(result);
         }
@@ -35,6 +35,7 @@ public partial class ColorCMYKTests
             var color = new MagickColor(Quantum.Max, (QuantumType)(Quantum.Max * 0.75), (QuantumType)(Quantum.Max * 0.5), (QuantumType)(Quantum.Max * 0.25));
             var cmykColor = ColorCMYK.FromMagickColor(color);
 
+            Assert.NotNull(cmykColor);
             Assert.InRange(Quantum.ScaleToDouble(cmykColor.C), 0.99, 1.0);
             Assert.InRange(Quantum.ScaleToDouble(cmykColor.M), 0.74, 0.75);
             Assert.InRange(Quantum.ScaleToDouble(cmykColor.Y), 0.49, 0.5);

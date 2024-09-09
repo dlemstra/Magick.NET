@@ -59,7 +59,7 @@ public partial class SafePixelCollectionTests
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => pixels.SetArea(null, new Span<QuantumType>(new QuantumType[] { 0 })));
+            Assert.Throws<ArgumentNullException>("geometry", () => pixels.SetArea(null!, new Span<QuantumType>(new QuantumType[] { 0 })));
         }
 
         [Fact]

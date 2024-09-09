@@ -23,7 +23,7 @@ public partial class ColorMonoTests
         {
             var color = ColorMono.Black;
 
-            Assert.False(color.Equals((object)null));
+            Assert.False(color.Equals((object)null!));
         }
 
         [Fact]

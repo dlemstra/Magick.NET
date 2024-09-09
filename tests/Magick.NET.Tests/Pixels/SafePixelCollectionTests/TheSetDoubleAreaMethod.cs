@@ -17,7 +17,7 @@ public partial class TheSetDoubleAreaMethod
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("values", () => pixels.SetDoubleArea(10, 10, 1000, 1000, null));
+            Assert.Throws<ArgumentNullException>("values", () => pixels.SetDoubleArea(10, 10, 1000, 1000, null!));
         }
 
         [Fact]
@@ -56,7 +56,7 @@ public partial class TheSetDoubleAreaMethod
             using var image = new MagickImage(Files.ImageMagickJPG);
             using var pixels = image.GetPixels();
 
-            Assert.Throws<ArgumentNullException>("geometry", () => pixels.SetDoubleArea(null, new double[] { 0 }));
+            Assert.Throws<ArgumentNullException>("geometry", () => pixels.SetDoubleArea(null!, new double[] { 0 }));
         }
 
         [Fact]

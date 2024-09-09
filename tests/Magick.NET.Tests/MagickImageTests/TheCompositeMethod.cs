@@ -21,7 +21,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!));
             }
 
             [Fact]
@@ -52,7 +52,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Channels.Red));
             }
 
             [Fact]
@@ -73,7 +73,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, CompositeOperator.CopyCyan));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, CompositeOperator.CopyCyan));
             }
 
             [Fact]
@@ -120,7 +120,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, CompositeOperator.CopyCyan, Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, CompositeOperator.CopyCyan, Channels.Red));
             }
 
             [Fact]
@@ -141,7 +141,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, CompositeOperator.CopyCyan, "3"));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, CompositeOperator.CopyCyan, "3"));
             }
 
             [Fact]
@@ -157,7 +157,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(MagickColors.Red, 10, 10);
                 using var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height);
-                image.Warning += (object sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
+                image.Warning += (object? sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
                 image.Composite(blur, CompositeOperator.Blur, "3");
             }
 
@@ -179,7 +179,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, CompositeOperator.CopyCyan, "3", Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, CompositeOperator.CopyCyan, "3", Channels.Red));
             }
 
             [Fact]
@@ -195,7 +195,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(MagickColors.Red, 10, 10);
                 using var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height);
-                image.Warning += (object sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
+                image.Warning += (object? sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
                 image.Composite(blur, CompositeOperator.Blur, "3", Channels.Red);
             }
 
@@ -217,7 +217,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, 0, 0));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, 0, 0));
             }
 
             [Fact]
@@ -240,7 +240,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, 0, 0, Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, 0, 0, Channels.Red));
             }
 
             [Fact]
@@ -263,7 +263,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, 0, 0, CompositeOperator.CopyAlpha));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, 0, 0, CompositeOperator.CopyAlpha));
             }
 
             [Fact]
@@ -286,7 +286,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, 0, 0, CompositeOperator.CopyAlpha, Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, 0, 0, CompositeOperator.CopyAlpha, Channels.Red));
             }
 
             [Fact]
@@ -309,7 +309,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, 0, 0, CompositeOperator.CopyAlpha, "3"));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, 0, 0, CompositeOperator.CopyAlpha, "3"));
             }
 
             [Fact]
@@ -327,7 +327,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage(MagickColors.Red, 10, 10);
                 using var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height);
 
-                image.Warning += (object sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
+                image.Warning += (object? sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
                 image.Composite(blur, 0, 0, CompositeOperator.Blur, "3");
             }
 
@@ -349,7 +349,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, 0, 0, CompositeOperator.CopyAlpha, "3", Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, 0, 0, CompositeOperator.CopyAlpha, "3", Channels.Red));
             }
 
             [Fact]
@@ -366,7 +366,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage(MagickColors.Red, 10, 10);
                 using var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height);
 
-                image.Warning += (object sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
+                image.Warning += (object? sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
                 image.Composite(blur, 0, 0, CompositeOperator.Blur, "3", Channels.Red);
             }
 
@@ -388,7 +388,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East));
             }
 
             [Fact]
@@ -409,7 +409,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East));
             }
 
             [Fact]
@@ -430,7 +430,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East, CompositeOperator.Blend));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East, CompositeOperator.Blend));
             }
 
             [Fact]
@@ -518,7 +518,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East, CompositeOperator.Blend, Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East, CompositeOperator.Blend, Channels.Red));
             }
 
             [Fact]
@@ -539,7 +539,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East, CompositeOperator.Blend, "3"));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East, CompositeOperator.Blend, "3"));
             }
 
             [Fact]
@@ -555,7 +555,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(MagickColors.Red, 10, 10);
                 using var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height);
-                image.Warning += (object sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
+                image.Warning += (object? sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
                 image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3");
             }
 
@@ -577,7 +577,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East, CompositeOperator.Blend, "3", Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East, CompositeOperator.Blend, "3", Channels.Red));
             }
 
             [Fact]
@@ -594,7 +594,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(MagickColors.Red, 10, 10);
                 using var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height);
-                image.Warning += (object sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
+                image.Warning += (object? sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
                 image.Composite(blur, Gravity.Center, CompositeOperator.Blur, "3", Channels.Red);
             }
 
@@ -616,7 +616,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East, 0, 0));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East, 0, 0));
             }
 
             [Fact]
@@ -637,7 +637,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.West, 0, 0, Channels.Green));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.West, 0, 0, Channels.Green));
             }
 
             [Fact]
@@ -658,7 +658,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East, 0, 0, CompositeOperator.Blend));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East, 0, 0, CompositeOperator.Blend));
             }
 
             [Fact]
@@ -679,7 +679,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East, 0, 0, CompositeOperator.Blend, Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East, 0, 0, CompositeOperator.Blend, Channels.Red));
             }
 
             [Fact]
@@ -700,7 +700,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East, 0, 0, CompositeOperator.Blend, "3"));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East, 0, 0, CompositeOperator.Blend, "3"));
             }
 
             [Fact]
@@ -716,7 +716,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(MagickColors.Red, 10, 10);
                 using var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height);
-                image.Warning += (object sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
+                image.Warning += (object? sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
                 image.Composite(blur, Gravity.Center, 1, 1, CompositeOperator.Blur, "3");
             }
 
@@ -738,7 +738,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage("xc:red", 1, 1);
 
-                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null, Gravity.East, 0, 0, CompositeOperator.Blend, "3", Channels.Red));
+                Assert.Throws<ArgumentNullException>("image", () => image.Composite(null!, Gravity.East, 0, 0, CompositeOperator.Blend, "3", Channels.Red));
             }
 
             [Fact]
@@ -754,7 +754,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage(MagickColors.Red, 10, 10);
                 using var blur = new MagickImage(new MagickColor("#000"), image.Width, image.Height);
-                image.Warning += (object sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
+                image.Warning += (object? sender, WarningEventArgs arguments) => throw new XunitException(arguments.Message);
                 image.Composite(blur, Gravity.Center, 0, 0, CompositeOperator.Blur, "3", Channels.Red);
             }
 

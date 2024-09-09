@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("image", () => image.Texture(null));
+            Assert.Throws<ArgumentNullException>("image", () => image.Texture(null!));
         }
 
         [Fact]

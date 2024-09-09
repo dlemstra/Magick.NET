@@ -25,7 +25,7 @@ public partial class MagickImageCollectionTests
         {
             using var images = new MagickImageCollection();
 
-            Assert.Throws<ArgumentNullException>("complexSettings", () => images.Complex(null));
+            Assert.Throws<ArgumentNullException>("complexSettings", () => images.Complex(null!));
         }
 
         [Fact]

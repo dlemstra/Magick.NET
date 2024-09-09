@@ -16,7 +16,7 @@ public partial class SparseColorArgTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("color", () => new SparseColorArg(0, 0, null));
+            Assert.Throws<ArgumentNullException>("color", () => new SparseColorArg(0, 0, null!));
         }
     }
 }

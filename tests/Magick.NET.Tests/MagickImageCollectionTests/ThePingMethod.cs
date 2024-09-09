@@ -19,7 +19,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.Ping((byte[])null));
+                Assert.Throws<ArgumentNullException>("data", () => images.Ping((byte[])null!));
             }
 
             [Fact]
@@ -55,7 +55,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.Ping(null, 0, 0));
+                Assert.Throws<ArgumentNullException>("data", () => images.Ping(null!, 0, 0));
             }
 
             [Fact]
@@ -96,7 +96,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("data", () => images.Ping(null, 0, 0, settings));
+                Assert.Throws<ArgumentNullException>("data", () => images.Ping(null!, 0, 0, settings));
             }
 
             [Fact]
@@ -167,7 +167,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("file", () => images.Ping((FileInfo)null));
+                Assert.Throws<ArgumentNullException>("file", () => images.Ping((FileInfo)null!));
             }
         }
 
@@ -193,7 +193,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("fileName", () => images.Ping((string)null));
+                Assert.Throws<ArgumentNullException>("fileName", () => images.Ping((string)null!));
             }
 
             [Fact]
@@ -267,7 +267,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                Assert.Throws<ArgumentNullException>("stream", () => images.Ping((Stream)null));
+                Assert.Throws<ArgumentNullException>("stream", () => images.Ping((Stream)null!));
             }
 
             [Fact]

@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("opacity", () => image.Tint(null, MagickColors.Red));
+            Assert.Throws<ArgumentNullException>("opacity", () => image.Tint(null!, MagickColors.Red));
         }
 
         [Fact]
@@ -24,7 +24,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("color", () => image.Tint(new MagickGeometry("2x2"), null));
+            Assert.Throws<ArgumentNullException>("color", () => image.Tint(new MagickGeometry("2x2"), null!));
         }
 
         [Fact]

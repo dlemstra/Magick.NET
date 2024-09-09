@@ -28,7 +28,7 @@ public partial class DrawablesTests
         {
             Assert.Throws<ArgumentNullException>("color", () =>
             {
-                new Drawables().FillColor(null);
+                new Drawables().FillColor(null!);
             });
         }
 

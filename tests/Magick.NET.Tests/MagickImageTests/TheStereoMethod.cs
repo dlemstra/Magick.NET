@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentNullException>("rightImage", () => image.Stereo(null));
+            Assert.Throws<ArgumentNullException>("rightImage", () => image.Stereo(null!));
         }
 
         [Fact]

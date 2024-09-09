@@ -61,7 +61,9 @@ public partial class ColorGrayTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenCastedFromMagickColor()
         {
-            var actual = (ColorGray)new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
+            var actual = (ColorGray?)new MagickColor(Quantum.Max, 0, 0, 0, Quantum.Max);
+
+            Assert.NotNull(actual);
             Assert.InRange(actual.Shade, 0.20, 0.22);
         }
     }

@@ -19,7 +19,7 @@ public partial class DrawablesTests
             {
                 Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    new Drawables().Composite(0, 0, CompositeOperator.In, null);
+                    new Drawables().Composite(0, 0, CompositeOperator.In, null!);
                 });
             }
 
@@ -45,7 +45,7 @@ public partial class DrawablesTests
             {
                 Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    new Drawables().Composite(0, 0, CompositeOperator.Over, null);
+                    new Drawables().Composite(0, 0, CompositeOperator.Over, null!);
                 });
             }
 
@@ -71,7 +71,7 @@ public partial class DrawablesTests
             {
                 Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    new Drawables().Composite(1, 0, 1, 1, CompositeOperator.Over, null);
+                    new Drawables().Composite(1, 0, 1, 1, CompositeOperator.Over, null!);
                 });
             }
 
@@ -97,7 +97,7 @@ public partial class DrawablesTests
             {
                 Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    new Drawables().Composite(0, 0, CompositeOperator.In, null);
+                    new Drawables().Composite(0, 0, CompositeOperator.In, null!);
                 });
             }
 
@@ -123,7 +123,7 @@ public partial class DrawablesTests
             {
                 Assert.Throws<ArgumentNullException>("image", () =>
                 {
-                    new Drawables().Composite(0, 0, CompositeOperator.Over, null);
+                    new Drawables().Composite(0, 0, CompositeOperator.Over, null!);
                 });
             }
 

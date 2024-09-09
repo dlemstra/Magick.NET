@@ -36,7 +36,7 @@ public partial class SafePixelCollectionTests
             using var pixels = image.GetPixels();
             var pixel = pixels[300, 100];
 
-            ColorAssert.Equal(MagickColors.Red, pixel.ToColor());
+            ColorAssert.Equal(MagickColors.Red, pixel?.ToColor());
         }
     }
 }

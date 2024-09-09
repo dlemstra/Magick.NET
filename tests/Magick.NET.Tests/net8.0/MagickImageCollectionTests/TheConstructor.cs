@@ -61,7 +61,7 @@ public partial class MagickImageCollectionTests
             public void ShouldNotThrowExceptionWhenSettingsIsNull()
             {
                 var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-                using var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), null);
+                using var images = new MagickImageCollection(new ReadOnlySequence<byte>(bytes), null!);
 
                 Assert.Single(images);
             }
@@ -113,7 +113,7 @@ public partial class MagickImageCollectionTests
             public void ShouldNotThrowExceptionWhenSettingsIsNull()
             {
                 var bytes = File.ReadAllBytes(Files.SnakewarePNG);
-                using var images = new MagickImageCollection(new Span<byte>(bytes), null);
+                using var images = new MagickImageCollection(new Span<byte>(bytes), null!);
 
                 Assert.Single(images);
             }

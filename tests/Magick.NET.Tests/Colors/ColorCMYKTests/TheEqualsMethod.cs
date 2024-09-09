@@ -23,7 +23,7 @@ public partial class ColorCMYKTests
         {
             var color = new ColorCMYK(1, 2, 3, 4);
 
-            Assert.False(color.Equals((object)null));
+            Assert.False(color.Equals((object)null!));
         }
 
         [Fact]

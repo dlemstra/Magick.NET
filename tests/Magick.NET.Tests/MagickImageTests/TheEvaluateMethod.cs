@@ -28,7 +28,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("arguments", () => image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, null));
+                Assert.Throws<ArgumentNullException>("arguments", () => image.Evaluate(Channels.Red, EvaluateFunction.Arcsin, null!));
             }
 
             [Fact]
@@ -96,7 +96,7 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                Assert.Throws<ArgumentNullException>("geometry", () => image.Evaluate(Channels.Red, null, EvaluateOperator.Set, 0.0));
+                Assert.Throws<ArgumentNullException>("geometry", () => image.Evaluate(Channels.Red, null!, EvaluateOperator.Set, 0.0));
             }
 
             [Fact]
