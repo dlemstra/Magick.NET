@@ -1,14 +1,14 @@
 @echo off
 
 powershell .\install.dependencies.ps1
-if %errorlevel% eq 0 goto installGhostscript
+if %errorlevel% == 0 goto installGhostscript
 
 echo Failed to install dependencies.
 exit /b %errorlevel%
 
 :installGhostscript
 ..\..\tools\windows\gs1000w32.exe /S
-if %errorlevel% eq 0 goto done
+if %errorlevel% == 0 goto done
 
 echo Failed to install Ghostscript.
 exit /b %errorlevel%
