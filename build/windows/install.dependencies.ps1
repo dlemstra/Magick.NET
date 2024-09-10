@@ -7,7 +7,7 @@ $targetNugetExe = "$PSScriptRoot\..\..\tools\windows\nuget.exe"
 Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
 
 Write-Host "Downloading Ghostscript 10.00.0"
-$sourceGhostscriptExe = "https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs1000/gs1000w32.exe"
+$sourceGhostscriptExe = "https://github.com/ImageMagick/ImageMagick-Windows/releases/download/20200615/gs1000w32.exe"
 $targetGhostscriptExe = "$PSScriptRoot\..\..\tools\windows\gs1000w32.exe"
 Invoke-WebRequest $sourceGhostscriptExe -OutFile $targetGhostscriptExe
 
