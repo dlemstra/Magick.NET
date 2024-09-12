@@ -10,9 +10,12 @@ internal static class TestRuntime
 {
     static TestRuntime()
     {
-        HasFlakyLinuxArm64Result = RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && Runtime.Architecture is Architecture.Arm64;
-        HasFlakyMacOSResult = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
-        HasFlakyMacOSArm64Result = HasFlakyMacOSResult && Runtime.Architecture == Architecture.Arm64;
+        var isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+        var isMacOS = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+
+        HasFlakyLinuxArm64Result = isLinux && Runtime.Architecture == Architecture.Arm64;
+        HasFlakyMacOSResult = isMacOS;
+        HasFlakyMacOSArm64Result = isMacOS && Runtime.Architecture == Architecture.Arm64;
     }
 
     public static bool HasFlakyLinuxArm64Result { get; }
@@ -20,6 +23,4 @@ internal static class TestRuntime
     public static bool HasFlakyMacOSResult { get; }
 
     public static bool HasFlakyMacOSArm64Result { get; }
-
-    private static bool IsMacOS { get; }
 }
