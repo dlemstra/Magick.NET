@@ -13,7 +13,7 @@ internal static class NativeLibrary
 
     public const string X64Name = Name + "-" + QuantumName + "-x64.dll";
 
-    public const string ARM64Name = Name + "-" + QuantumName + "-arm64.dll";
+    public const string Arm64Name = Name + "-" + QuantumName + "-arm64.dll";
 
 #if Q8
     private const string Quantum = "Q8";

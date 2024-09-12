@@ -8,14 +8,11 @@ namespace Magick.NET.Tests;
 
 internal static class TestRuntime
 {
-    public static bool HasFlakyLinuxArm64Result
-        => IsLinux && Runtime.IsArm64;
+    public static bool HasFlakyLinuxArm64Result { get; } = IsLinux && Runtime.Architecture is Architecture.Arm64;
 
-    public static bool HasFlakyMacOSResult
-        => IsMacOS;
+    public static bool HasFlakyMacOSResult { get; } = IsMacOS;
 
-    public static bool HasFlakyMacOSArm64Result
-        => IsMacOS && Runtime.IsArm64;
+    public static bool HasFlakyMacOSArm64Result { get; } = IsMacOS && Runtime.Architecture is Architecture.Arm64;
 
     private static bool IsLinux { get; } = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
