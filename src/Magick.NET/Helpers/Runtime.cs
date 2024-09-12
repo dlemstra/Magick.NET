@@ -6,18 +6,24 @@ using System.Runtime.InteropServices;
 
 namespace ImageMagick;
 
-internal static partial class Runtime
+internal static class Runtime
 {
-    public static bool Is64Bit { get; } = Architecture is Architecture.X64 or Architecture.Arm64;
+    static Runtime()
+    {
+        Architecture = GetArchitecture();
+        Is64Bit = Architecture is Architecture.X64 or Architecture.Arm64;
+        IsWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+    }
 
-    public static Architecture Architecture { get; } = GetArchitecture();
+    public static bool Is64Bit { get; }
 
-    public static bool IsWindows { get; } = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+    public static Architecture Architecture { get; }
+
+    public static bool IsWindows { get; }
 
     private static Architecture GetArchitecture()
     {
         var processArchitecture = RuntimeInformation.ProcessArchitecture;
-
         return processArchitecture switch
         {
             Architecture.X64 or Architecture.Arm64 or Architecture.X86 => processArchitecture,
