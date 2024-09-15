@@ -5,7 +5,7 @@
 You have two options to get the Magick.NET binaries in your project:
 - Use NuGet:
   - Right click on the references of your project and choose 'Manage NuGet packages'.
-  - Search for Magick.NET and choose the package that uses the platform of your choice: x86/x64 or AnyCPU.
+  - Search for Magick.NET and choose the package that uses the platform of your choice: x64/arm64/x86 or AnyCPU.
 - Build Magick.NET yourself:
   - Instructions on how to build Magick.NET can be found [here](../Building.md).
 
