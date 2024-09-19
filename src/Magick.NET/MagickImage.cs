@@ -1030,11 +1030,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be thresholded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveThreshold(uint width, uint height, double bias, Channels channels)
-    {
-        Throw.IfNegative(nameof(bias), bias);
-
-        _nativeInstance.AdaptiveThreshold(width, height, bias, channels);
-    }
+        => _nativeInstance.AdaptiveThreshold(width, height, bias, channels);
 
     /// <summary>
     /// Local adaptive threshold image.
