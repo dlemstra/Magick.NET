@@ -7163,8 +7163,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         else
             newReadSettings = new MagickReadSettings(readSettings);
 
-        newReadSettings.ForceSingleFrame();
-
         return newReadSettings;
     }
 

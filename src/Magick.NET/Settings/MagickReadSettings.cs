@@ -125,31 +125,12 @@ public sealed class MagickReadSettings : MagickSettings, IMagickReadSettings<Qua
     /// </summary>
     public uint? Width { get; set; }
 
-    internal void ForceSingleFrame()
-    {
-        FrameCount = 1;
-        ApplyFrame();
-    }
-
     private static string GetDefineKey(IDefine define)
     {
         if (define.Format == MagickFormat.Unknown)
             return define.Name;
 
         return EnumHelper.GetName(define.Format) + ":" + define.Name;
-    }
-
-    private string? GetScenes()
-    {
-        if (!FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
-            return null;
-
-        if (FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
-            return FrameIndex.Value.ToString(CultureInfo.InvariantCulture);
-
-        var frame = FrameIndex ?? 0;
-        var count = FrameCount ?? 1;
-        return string.Format(CultureInfo.InvariantCulture, "{0}-{1}", frame, frame + count);
     }
 
     private void ApplyDefines()
@@ -178,9 +159,13 @@ public sealed class MagickReadSettings : MagickSettings, IMagickReadSettings<Qua
         if (!FrameIndex.HasValue && !FrameCount.HasValue)
             return;
 
-        Scenes = GetScenes();
         Scene = FrameIndex ?? 0;
         NumberScenes = FrameCount ?? 1;
+
+        if (FrameIndex.HasValue && (!FrameCount.HasValue || FrameCount.Value == 1))
+            Scenes = FrameIndex.Value.ToString(CultureInfo.InvariantCulture);
+        else
+            Scenes = string.Format(CultureInfo.InvariantCulture, "{0}-{1}", Scene, Scene + NumberScenes);
     }
 
     private void Copy(IMagickReadSettings<QuantumType> settings)
