@@ -10,22 +10,28 @@ namespace Magick.NET.Tests;
 
 public partial class TheTiffCoder
 {
+    private static readonly string _tag = "32934";
+
     [Fact]
-    public void ShouldIgnoreTheSpecifiedTags()
+    public void ShouldThrowExceptionWhenImageContainsInvalidTag()
     {
-        var tag = "32934";
         using var image = new MagickImage();
 
         var exception = Assert.Throws<MagickCoderErrorException>(() => image.Read(Files.Coders.IgnoreTagTIF));
 
-        Assert.Contains(tag, exception.Message);
+        Assert.Contains(@$"Null count for ""Tag {_tag}""", exception.Message);
+    }
 
-        image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", tag);
+    [Fact]
+    public void ShouldIgnoreTheSpecifiedTags()
+    {
+        using var image = new MagickImage();
+        image.Settings.SetDefine(MagickFormat.Tiff, "ignore-tags", _tag);
         image.Read(Files.Coders.IgnoreTagTIF);
 
         var settings = new MagickReadSettings(new TiffReadDefines
         {
-            IgnoreTags = new string[] { tag },
+            IgnoreTags = new string[] { _tag },
         });
 
         image.Settings.RemoveDefine(MagickFormat.Tiff, "ignore-tags");
