@@ -5,7 +5,7 @@ using System;
 
 namespace ImageMagick;
 
-internal abstract class NativeInstance : NativeHelper, INativeInstance, IDisposable
+internal abstract class NativeInstance : NativeHelper, INativeInstance
 {
     private IntPtr _instance = IntPtr.Zero;
 
