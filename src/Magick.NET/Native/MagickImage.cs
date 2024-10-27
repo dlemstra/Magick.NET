@@ -35,15 +35,11 @@ public partial class MagickImage : IDisposable
     private delegate long TellStreamDelegate(IntPtr user_data);
 
     [NativeInterop(RaiseWarnings = true, StaticDispose = true)]
-    private unsafe sealed partial class NativeMagickImage : NativeInstance
+    private unsafe sealed partial class NativeMagickImage : NativeInstance, INativeMagickImage
     {
         [Throws]
         [Cleanup(Name = nameof(DisposeInstance))]
         public static partial NativeMagickImage Create(IMagickSettings<QuantumType>? settings);
-
-        [Throws]
-        [Cleanup(Name = nameof(DisposeInstance))]
-        public static partial IntPtr Fx(IntPtr image, string expression, Channels channels);
 
         public static partial IntPtr GetNext(IntPtr image);
 
@@ -462,6 +458,9 @@ public partial class MagickImage : IDisposable
         [Throws]
         [SetInstance]
         public partial void Frame(MagickRectangle geometry);
+
+        [Throws]
+        public partial IntPtr Fx(string expression, Channels channels);
 
         [Throws]
         public partial void GammaCorrect(double gamma, Channels channels);

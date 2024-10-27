@@ -572,7 +572,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         Throw.IfNullOrEmpty(nameof(expression), expression);
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
-        return MagickImage.Fx(_images[0], expression, channels);
+        var nativeImage = MagickImage.GetNativeImage(_images[0]);
+        var newInstance = nativeImage.Fx(expression, channels);
+        return MagickImage.Create(newInstance, MagickImage.GetSettings(_images[0]));
     }
 
     /// <summary>

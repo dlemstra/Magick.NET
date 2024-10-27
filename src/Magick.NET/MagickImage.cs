@@ -2899,7 +2899,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNullOrEmpty(nameof(expression), expression);
 
-        _nativeInstance.Instance = NativeMagickImage.Fx(_nativeInstance.Instance, expression, channels);
+        _nativeInstance.Instance = _nativeInstance.Fx(expression, channels);
     }
 
     /// <summary>
@@ -7047,12 +7047,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         return result;
     }
 
-    internal static IMagickImage<QuantumType> Fx(IMagickImage<QuantumType> image, string expression, Channels channels)
-    {
-        var result = NativeMagickImage.Fx(GetInstance(image), expression, channels);
-        return Create(result, GetSettings(image));
-    }
-
     internal static IntPtr GetInstance(IMagickImage? image)
     {
         if (image is null)
@@ -7060,6 +7054,14 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
         if (image is MagickImage magickImage)
             return magickImage._nativeInstance.Instance;
+
+        throw new NotSupportedException();
+    }
+
+    internal static INativeMagickImage GetNativeImage(IMagickImage image)
+    {
+        if (image is MagickImage magickImage)
+            return magickImage._nativeInstance;
 
         throw new NotSupportedException();
     }
