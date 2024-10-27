@@ -7066,7 +7066,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     internal static MagickSettings GetSettings(IMagickImage<QuantumType> image)
     {
-        if (image?.Settings is MagickSettings settings)
+        if (image.Settings is MagickSettings settings)
             return settings;
 
         throw new NotSupportedException();
