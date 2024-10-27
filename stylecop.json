@@ -2,6 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
   "settings": {
     "documentationRules": {
+      "documentInterfaces": false,
       "documentInternalElements": false,
       "xmlHeader": false,
       "copyrightText": "Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.\nLicensed under the Apache License, Version 2.0."
