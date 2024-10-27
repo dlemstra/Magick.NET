@@ -24,8 +24,8 @@ internal class NativeInteropInfo
             .Select(method => new MethodInfo(semanticModel, method))
             .ToList();
 
-        var isNativeInstance = _class.BaseList?.Types.ToString() == "NativeInstance";
-        var isConstNativeInstance = _class.BaseList?.Types.ToString() == "ConstNativeInstance";
+        var isNativeInstance = _class.BaseList?.Types.Any(type => type.ToString() == "NativeInstance") ?? false;
+        var isConstNativeInstance = _class.BaseList?.Types.Any(type => type.ToString() == "ConstNativeInstance") ?? false;
         HasDispose = isNativeInstance;
         HasInstance = isNativeInstance || isConstNativeInstance;
 
