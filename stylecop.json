@@ -1,19 +1,16 @@
 ﻿{
-    "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
-    "settings":
-    {
-      "documentationRules": {
-        "documentInternalElements": false,
-        "xmlHeader": false,
-        "copyrightText": "Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.\nLicensed under the Apache License, Version 2.0."
-      },
-        "indentation":
-        {
-            "indentationSize": 4
-        },
-        "orderingRules":
-        {
-            "usingDirectivesPlacement": "outsideNamespace"
-        }
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "documentInternalElements": false,
+      "xmlHeader": false,
+      "copyrightText": "Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.\nLicensed under the Apache License, Version 2.0."
+    },
+    "indentation": {
+      "indentationSize": 4
+    },
+    "orderingRules": {
+      "usingDirectivesPlacement": "outsideNamespace"
     }
+  }
 }
