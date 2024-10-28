@@ -31,9 +31,6 @@ internal abstract class NativeInstance : NativeHelper, INativeInstance
         }
     }
 
-    public bool IsDisposed
-        => _instance == IntPtr.Zero;
-
     protected abstract string TypeName { get; }
 
     public void Dispose()
