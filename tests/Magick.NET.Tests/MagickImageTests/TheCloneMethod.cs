@@ -24,7 +24,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Logo);
 
-            var clone = image.Clone();
+            using var clone = image.Clone();
 
             Assert.Equal(image, clone);
             Assert.False(ReferenceEquals(image, clone));
