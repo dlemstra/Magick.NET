@@ -19,7 +19,7 @@ using QuantumType = System.Single;
 namespace ImageMagick;
 
 /// <content/>
-public sealed partial class MagickImage
+public partial class MagickImage
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickImage"/> class.

@@ -18,7 +18,7 @@ using QuantumType = System.Single;
 namespace ImageMagick;
 
 /// <content />
-public partial class MagickImage : IDisposable
+public partial class MagickImage
 {
     private NativeMagickImage _nativeInstance;
 
@@ -875,5 +875,8 @@ public partial class MagickImage : IDisposable
 
         [Throws]
         public partial void WriteStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, void* data);
+
+        void INativeMagickImage.Dispose(IntPtr instance)
+            => Dispose(instance);
     }
 }
