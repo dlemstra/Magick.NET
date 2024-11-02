@@ -44,6 +44,15 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     IMagickImage<TQuantumType> Clone();
 
     /// <summary>
+    /// Creates a clone of the current image and executes the action that can be used
+    /// to mutate the clone. This is more efficient because it prevents an extra copy
+    /// of the image.
+    /// </summary>
+    /// <param name="action">The mutate action to execute on the clone.</param>
+    /// <returns>A clone of the current image.</returns>
+    IMagickImage<TQuantumType> CloneAndMutate(Action<IMagickImageCloneMutator> action);
+
+    /// <summary>
     /// Creates a clone of the current image with the specified geometry.
     /// </summary>
     /// <param name="geometry">The area to clone.</param>

@@ -13,7 +13,7 @@ namespace ImageMagick;
 /// <summary>
 /// Interface that represents an ImageMagick image.
 /// </summary>
-public partial interface IMagickImage : IDisposable
+public partial interface IMagickImage : IMagickImageCreateOperations, IDisposable
 {
     /// <summary>
     /// Event that will be raised when progress is reported by this image.
@@ -2627,39 +2627,6 @@ public partial interface IMagickImage : IDisposable
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void ResetPage();
-
-    /// <summary>
-    /// Resize image to specified size.
-    /// <para />
-    /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
-    /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
-    /// </summary>
-    /// <param name="width">The new width.</param>
-    /// <param name="height">The new height.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Resize(uint width, uint height);
-
-    /// <summary>
-    /// Resize image to specified geometry.
-    /// </summary>
-    /// <param name="geometry">The geometry to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Resize(IMagickGeometry geometry);
-
-    /// <summary>
-    /// Resize image to specified percentage.
-    /// </summary>
-    /// <param name="percentage">The percentage.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Resize(Percentage percentage);
-
-    /// <summary>
-    /// Resize image to specified percentage.
-    /// </summary>
-    /// <param name="percentageWidth">The percentage of the width.</param>
-    /// <param name="percentageHeight">The percentage of the height.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Resize(Percentage percentageWidth, Percentage percentageHeight);
 
     /// <summary>
     /// Roll image (rolls image vertically and horizontally).

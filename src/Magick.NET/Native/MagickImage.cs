@@ -670,8 +670,7 @@ public partial class MagickImage
         public partial void Resample(double resolutionX, double resolutionY);
 
         [Throws]
-        [SetInstance]
-        public partial void Resize(string geometry);
+        public partial IntPtr Resize(string geometry);
 
         [Throws]
         [SetInstance]
@@ -875,8 +874,5 @@ public partial class MagickImage
 
         [Throws]
         public partial void WriteStream(IMagickSettings<QuantumType>? settings, ReadWriteStreamDelegate? writer, SeekStreamDelegate? seeker, TellStreamDelegate? teller, ReadWriteStreamDelegate? reader, void* data);
-
-        void INativeMagickImage.Dispose(IntPtr instance)
-            => Dispose(instance);
     }
 }

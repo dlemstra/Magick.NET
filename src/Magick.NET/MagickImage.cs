@@ -1514,6 +1514,21 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => new MagickImage(this);
 
     /// <summary>
+    /// Creates a clone of the current image and executes the action that can be used
+    /// to mutate the clone. This is more efficient because it prevents an extra copy
+    /// of the image.
+    /// </summary>
+    /// <param name="action">The mutate action to execute on the clone.</param>
+    /// <returns>A clone of the current image.</returns>
+    public IMagickImage<QuantumType> CloneAndMutate(Action<IMagickImageCloneMutator> action)
+    {
+        using var imageCreator = new CloneMutator(_nativeInstance);
+        action(imageCreator);
+
+        return Create(imageCreator.GetResult(), _settings);
+    }
+
+    /// <summary>
     /// Creates a clone of the current image with the specified geometry.
     /// </summary>
     /// <param name="geometry">The area to clone.</param>
@@ -5206,7 +5221,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(uint width, uint height)
-        => Resize(new MagickGeometry(width, height));
+    {
+        using var mutator = new Mutater(_nativeInstance);
+        mutator.Resize(width, height);
+    }
 
     /// <summary>
     /// Resize image to specified geometry.
@@ -5215,9 +5233,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(IMagickGeometry geometry)
     {
-        Throw.IfNull(nameof(geometry), geometry);
-
-        _nativeInstance.Resize(geometry.ToString());
+        using var mutator = new Mutater(_nativeInstance);
+        mutator.Resize(geometry);
     }
 
     /// <summary>
@@ -5226,7 +5243,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentage">The percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(Percentage percentage)
-        => Resize(new MagickGeometry(percentage, percentage));
+    {
+        using var mutator = new Mutater(_nativeInstance);
+        mutator.Resize(percentage);
+    }
 
     /// <summary>
     /// Resize image to specified percentage.
@@ -5235,7 +5255,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(Percentage percentageWidth, Percentage percentageHeight)
-        => Resize(new MagickGeometry(percentageWidth, percentageHeight));
+    {
+        using var mutator = new Mutater(_nativeInstance);
+        mutator.Resize(percentageWidth, percentageHeight);
+    }
 
     /// <summary>
     /// Roll image (rolls image vertically and horizontally).
