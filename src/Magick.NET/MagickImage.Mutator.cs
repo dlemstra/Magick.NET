@@ -8,9 +8,9 @@ namespace ImageMagick;
 /// <content />
 public partial class MagickImage
 {
-    private sealed class Mutater : CloneMutator
+    private sealed class Mutator : CloneMutator
     {
-        public Mutater(NativeMagickImage nativeMagickImage)
+        public Mutator(NativeMagickImage nativeMagickImage)
             : base(nativeMagickImage)
         {
         }

@@ -5222,7 +5222,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(uint width, uint height)
     {
-        using var mutator = new Mutater(_nativeInstance);
+        using var mutator = new Mutator(_nativeInstance);
         mutator.Resize(width, height);
     }
 
@@ -5233,7 +5233,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(IMagickGeometry geometry)
     {
-        using var mutator = new Mutater(_nativeInstance);
+        using var mutator = new Mutator(_nativeInstance);
         mutator.Resize(geometry);
     }
 
@@ -5244,7 +5244,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(Percentage percentage)
     {
-        using var mutator = new Mutater(_nativeInstance);
+        using var mutator = new Mutator(_nativeInstance);
         mutator.Resize(percentage);
     }
 
@@ -5256,7 +5256,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resize(Percentage percentageWidth, Percentage percentageHeight)
     {
-        using var mutator = new Mutater(_nativeInstance);
+        using var mutator = new Mutator(_nativeInstance);
         mutator.Resize(percentageWidth, percentageHeight);
     }
 
