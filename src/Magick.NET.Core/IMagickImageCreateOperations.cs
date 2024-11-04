@@ -9,6 +9,27 @@ namespace ImageMagick;
 public interface IMagickImageCreateOperations
 {
     /// <summary>
+    /// Adaptive-blur image with the default blur factor (0x1).
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AdaptiveBlur();
+
+    /// <summary>
+    /// Adaptive-blur image with specified blur factor.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AdaptiveBlur(double radius);
+
+    /// <summary>
+    /// Adaptive-blur image with specified blur factor.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AdaptiveBlur(double radius, double sigma);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

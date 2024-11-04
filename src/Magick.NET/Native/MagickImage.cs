@@ -227,8 +227,7 @@ public partial class MagickImage
         public partial nuint Width_Get();
 
         [Throws]
-        [SetInstance]
-        public partial void AdaptiveBlur(double radius, double sigma);
+        public partial IntPtr AdaptiveBlur(double radius, double sigma);
 
         [Throws]
         [SetInstance]

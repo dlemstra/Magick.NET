@@ -30,6 +30,15 @@ public partial class MagickImage
             return result;
         }
 
+        public void AdaptiveBlur()
+            => AdaptiveBlur(0.0, 1.0);
+
+        public void AdaptiveBlur(double radius)
+            => AdaptiveBlur(radius, 1.0);
+
+        public void AdaptiveBlur(double radius, double sigma)
+            => SetResult(NativeMagickImage.AdaptiveBlur(radius, sigma));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

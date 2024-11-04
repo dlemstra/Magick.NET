@@ -904,7 +904,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveBlur()
-        => AdaptiveBlur(0.0, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveBlur();
+    }
 
     /// <summary>
     /// Adaptive-blur image with specified blur factor.
@@ -912,7 +915,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveBlur(double radius)
-        => AdaptiveBlur(radius, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveBlur(radius);
+    }
 
     /// <summary>
     /// Adaptive-blur image with specified blur factor.
@@ -921,7 +927,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveBlur(double radius, double sigma)
-        => _nativeInstance.AdaptiveBlur(radius, sigma);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveBlur(radius, sigma);
+    }
 
     /// <summary>
     /// Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
