@@ -30,6 +30,28 @@ public interface IMagickImageCreateOperations
     void AdaptiveBlur(double radius, double sigma);
 
     /// <summary>
+    /// Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
+    /// of the original image size. For larger resizing on images a full filtered and slower resize
+    /// function should be used instead.
+    /// <para />
+    /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+    /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
+    /// </summary>
+    /// <param name="width">The new width.</param>
+    /// <param name="height">The new height.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AdaptiveResize(uint width, uint height);
+
+    /// <summary>
+    /// Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
+    /// of the original image size. For larger resizing on images a full filtered and slower resize
+    /// function should be used instead.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AdaptiveResize(IMagickGeometry geometry);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

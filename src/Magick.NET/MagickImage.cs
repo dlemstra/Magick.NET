@@ -944,7 +944,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveResize(uint width, uint height)
-        => AdaptiveResize(new MagickGeometry(width, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveResize(width, height);
+    }
 
     /// <summary>
     /// Resize using mesh interpolation. It works well for small resizes of less than +/- 50%
@@ -955,9 +958,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveResize(IMagickGeometry geometry)
     {
-        Throw.IfNull(nameof(geometry), geometry);
-
-        _nativeInstance.AdaptiveResize(geometry.ToString());
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveResize(geometry);
     }
 
     /// <summary>

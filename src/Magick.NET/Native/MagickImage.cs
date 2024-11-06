@@ -230,8 +230,7 @@ public partial class MagickImage
         public partial IntPtr AdaptiveBlur(double radius, double sigma);
 
         [Throws]
-        [SetInstance]
-        public partial void AdaptiveResize(string geometry);
+        public partial IntPtr AdaptiveResize(string geometry);
 
         [Throws]
         [SetInstance]
