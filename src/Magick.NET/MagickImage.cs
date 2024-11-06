@@ -1019,7 +1019,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height of the pixel neighborhood.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveThreshold(uint width, uint height)
-        => AdaptiveThreshold(width, height, 0.0, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveThreshold(width, height);
+    }
 
     /// <summary>
     /// Local adaptive threshold image.
@@ -1030,7 +1033,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be thresholded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveThreshold(uint width, uint height, Channels channels)
-        => AdaptiveThreshold(width, height, 0.0, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveThreshold(width, height, channels);
+    }
 
     /// <summary>
     /// Local adaptive threshold image.
@@ -1041,7 +1047,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="bias">Constant to subtract from pixel neighborhood mean (+/-)(0-QuantumRange).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveThreshold(uint width, uint height, double bias)
-        => AdaptiveThreshold(width, height, bias, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveThreshold(width, height, bias);
+    }
 
     /// <summary>
     /// Local adaptive threshold image.
@@ -1053,7 +1062,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be thresholded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveThreshold(uint width, uint height, double bias, Channels channels)
-        => _nativeInstance.AdaptiveThreshold(width, height, bias, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveThreshold(width, height, bias, channels);
+    }
 
     /// <summary>
     /// Local adaptive threshold image.
@@ -1064,7 +1076,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="biasPercentage">Constant to subtract from pixel neighborhood mean.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveThreshold(uint width, uint height, Percentage biasPercentage)
-        => AdaptiveThreshold(width, height, biasPercentage, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveThreshold(width, height, biasPercentage);
+    }
 
     /// <summary>
     /// Local adaptive threshold image.

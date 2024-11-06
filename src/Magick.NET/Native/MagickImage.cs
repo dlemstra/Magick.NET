@@ -236,8 +236,7 @@ public partial class MagickImage
         public partial IntPtr AdaptiveSharpen(double radius, double sigma, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void AdaptiveThreshold(nuint width, nuint height, double bias, Channels channels);
+        public partial IntPtr AdaptiveThreshold(nuint width, nuint height, double bias, Channels channels);
 
         [Throws]
         [SetInstance]

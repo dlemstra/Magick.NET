@@ -61,6 +61,24 @@ public partial class MagickImage
         public void AdaptiveSharpen(double radius, double sigma, Channels channels)
             => SetResult(NativeMagickImage.AdaptiveSharpen(radius, sigma, channels));
 
+        public void AdaptiveThreshold(uint width, uint height)
+            => AdaptiveThreshold(width, height, 0.0, ImageMagick.Channels.Undefined);
+
+        public void AdaptiveThreshold(uint width, uint height, Channels channels)
+            => AdaptiveThreshold(width, height, 0.0, channels);
+
+        public void AdaptiveThreshold(uint width, uint height, double bias)
+            => AdaptiveThreshold(width, height, bias, ImageMagick.Channels.Undefined);
+
+        public void AdaptiveThreshold(uint width, uint height, double bias, Channels channels)
+            => SetResult(NativeMagickImage.AdaptiveThreshold(width, height, bias, channels));
+
+        public void AdaptiveThreshold(uint width, uint height, Percentage biasPercentage)
+            => AdaptiveThreshold(width, height, biasPercentage, ImageMagick.Channels.Undefined);
+
+        public void AdaptiveThreshold(uint width, uint height, Percentage biasPercentage, Channels channels)
+            => AdaptiveThreshold(width, height, PercentageHelper.ToQuantum(nameof(biasPercentage), biasPercentage), channels);
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 
