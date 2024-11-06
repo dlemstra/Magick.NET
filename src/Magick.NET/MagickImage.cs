@@ -968,7 +968,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveSharpen()
-        => AdaptiveSharpen(0.0, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveSharpen();
+    }
 
     /// <summary>
     /// Adaptively sharpens the image by sharpening more intensely near image edges and less
@@ -977,7 +980,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be sharpened.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveSharpen(Channels channels)
-        => AdaptiveSharpen(0.0, 1.0, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveSharpen(channels);
+    }
 
     /// <summary>
     /// Adaptively sharpens the image by sharpening more intensely near image edges and less
@@ -987,7 +993,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveSharpen(double radius, double sigma)
-        => AdaptiveSharpen(radius, sigma, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveSharpen(radius, sigma);
+    }
 
     /// <summary>
     /// Adaptively sharpens the image by sharpening more intensely near image edges and less
@@ -997,7 +1006,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <param name="channels">The channel(s) that should be sharpened.</param>
     public void AdaptiveSharpen(double radius, double sigma, Channels channels)
-        => _nativeInstance.AdaptiveSharpen(radius, sigma, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveSharpen(radius, sigma, channels);
+    }
 
     /// <summary>
     /// Local adaptive threshold image.

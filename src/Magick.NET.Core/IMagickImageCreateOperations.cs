@@ -52,6 +52,39 @@ public interface IMagickImageCreateOperations
     void AdaptiveResize(IMagickGeometry geometry);
 
     /// <summary>
+    /// Adaptively sharpens the image by sharpening more intensely near image edges and less
+    /// intensely far from edges.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AdaptiveSharpen();
+
+    /// <summary>
+    /// Adaptively sharpens the image by sharpening more intensely near image edges and less
+    /// intensely far from edges.
+    /// </summary>
+    /// <param name="channels">The channel(s) that should be sharpened.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AdaptiveSharpen(Channels channels);
+
+    /// <summary>
+    /// Adaptively sharpens the image by sharpening more intensely near image edges and less
+    /// intensely far from edges.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AdaptiveSharpen(double radius, double sigma);
+
+    /// <summary>
+    /// Adaptively sharpens the image by sharpening more intensely near image edges and less
+    /// intensely far from edges.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <param name="channels">The channel(s) that should be sharpened.</param>
+    void AdaptiveSharpen(double radius, double sigma, Channels channels);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

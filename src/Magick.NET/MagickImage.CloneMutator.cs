@@ -49,6 +49,18 @@ public partial class MagickImage
             SetResult(NativeMagickImage.AdaptiveResize(geometry.ToString()));
         }
 
+        public void AdaptiveSharpen()
+            => AdaptiveSharpen(0.0, 1.0);
+
+        public void AdaptiveSharpen(Channels channels)
+            => AdaptiveSharpen(0.0, 1.0, channels);
+
+        public void AdaptiveSharpen(double radius, double sigma)
+            => AdaptiveSharpen(radius, sigma, ImageMagick.Channels.Undefined);
+
+        public void AdaptiveSharpen(double radius, double sigma, Channels channels)
+            => SetResult(NativeMagickImage.AdaptiveSharpen(radius, sigma, channels));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

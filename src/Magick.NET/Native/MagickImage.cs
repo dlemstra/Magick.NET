@@ -233,8 +233,7 @@ public partial class MagickImage
         public partial IntPtr AdaptiveResize(string geometry);
 
         [Throws]
-        [SetInstance]
-        public partial void AdaptiveSharpen(double radius, double sigma, Channels channels);
+        public partial IntPtr AdaptiveSharpen(double radius, double sigma, Channels channels);
 
         [Throws]
         [SetInstance]
