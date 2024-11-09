@@ -1091,7 +1091,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be thresholded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AdaptiveThreshold(uint width, uint height, Percentage biasPercentage, Channels channels)
-        => AdaptiveThreshold(width, height, PercentageHelper.ToQuantum(nameof(biasPercentage), biasPercentage), channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AdaptiveThreshold(width, height, biasPercentage, channels);
+    }
 
     /// <summary>
     /// Add noise to image with the specified noise type.
