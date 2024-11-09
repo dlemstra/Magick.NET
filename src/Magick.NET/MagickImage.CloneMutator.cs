@@ -79,6 +79,18 @@ public partial class MagickImage
         public void AdaptiveThreshold(uint width, uint height, Percentage biasPercentage, Channels channels)
             => AdaptiveThreshold(width, height, PercentageHelper.ToQuantum(nameof(biasPercentage), biasPercentage), channels);
 
+        public void AddNoise(NoiseType noiseType)
+            => AddNoise(noiseType, ImageMagick.Channels.Undefined);
+
+        public void AddNoise(NoiseType noiseType, Channels channels)
+            => AddNoise(noiseType, 1.0, channels);
+
+        public void AddNoise(NoiseType noiseType, double attenuate)
+            => AddNoise(noiseType, attenuate, ImageMagick.Channels.Undefined);
+
+        public void AddNoise(NoiseType noiseType, double attenuate, Channels channels)
+            => SetResult(NativeMagickImage.AddNoise(noiseType, attenuate, channels));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

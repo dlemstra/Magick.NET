@@ -254,38 +254,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     uint Width { get; }
 
     /// <summary>
-    /// Add noise to image with the specified noise type.
-    /// </summary>
-    /// <param name="noiseType">The type of noise that should be added to the image.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AddNoise(NoiseType noiseType);
-
-    /// <summary>
-    /// Add noise to the specified channel of the image with the specified noise type.
-    /// </summary>
-    /// <param name="noiseType">The type of noise that should be added to the image.</param>
-    /// <param name="channels">The channel(s) where the noise should be added.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AddNoise(NoiseType noiseType, Channels channels);
-
-    /// <summary>
-    /// Add noise to image with the specified noise type.
-    /// </summary>
-    /// <param name="noiseType">The type of noise that should be added to the image.</param>
-    /// <param name="attenuate">Attenuate the random distribution.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AddNoise(NoiseType noiseType, double attenuate);
-
-    /// <summary>
-    /// Add noise to the specified channel of the image with the specified noise type.
-    /// </summary>
-    /// <param name="noiseType">The type of noise that should be added to the image.</param>
-    /// <param name="attenuate">Attenuate the random distribution.</param>
-    /// <param name="channels">The channel(s) where the noise should be added.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AddNoise(NoiseType noiseType, double attenuate, Channels channels);
-
-    /// <summary>
     /// Affine Transform image.
     /// </summary>
     /// <param name="affineMatrix">The affine matrix to use.</param>

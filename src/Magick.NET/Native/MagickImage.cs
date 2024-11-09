@@ -239,8 +239,7 @@ public partial class MagickImage
         public partial IntPtr AdaptiveThreshold(nuint width, nuint height, double bias, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void AddNoise(NoiseType noiseType, double attenuate, Channels channels);
+        public partial IntPtr AddNoise(NoiseType noiseType, double attenuate, Channels channels);
 
         [Throws]
         [SetInstance]

@@ -146,6 +146,38 @@ public interface IMagickImageCreateOperations
     void AdaptiveThreshold(uint width, uint height, Percentage biasPercentage, Channels channels);
 
     /// <summary>
+    /// Add noise to image with the specified noise type.
+    /// </summary>
+    /// <param name="noiseType">The type of noise that should be added to the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AddNoise(NoiseType noiseType);
+
+    /// <summary>
+    /// Add noise to the specified channel of the image with the specified noise type.
+    /// </summary>
+    /// <param name="noiseType">The type of noise that should be added to the image.</param>
+    /// <param name="channels">The channel(s) where the noise should be added.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AddNoise(NoiseType noiseType, Channels channels);
+
+    /// <summary>
+    /// Add noise to image with the specified noise type.
+    /// </summary>
+    /// <param name="noiseType">The type of noise that should be added to the image.</param>
+    /// <param name="attenuate">Attenuate the random distribution.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AddNoise(NoiseType noiseType, double attenuate);
+
+    /// <summary>
+    /// Add noise to the specified channel of the image with the specified noise type.
+    /// </summary>
+    /// <param name="noiseType">The type of noise that should be added to the image.</param>
+    /// <param name="attenuate">Attenuate the random distribution.</param>
+    /// <param name="channels">The channel(s) where the noise should be added.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AddNoise(NoiseType noiseType, double attenuate, Channels channels);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

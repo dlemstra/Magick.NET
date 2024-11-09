@@ -1102,7 +1102,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="noiseType">The type of noise that should be added to the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddNoise(NoiseType noiseType)
-        => AddNoise(noiseType, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AddNoise(noiseType);
+    }
 
     /// <summary>
     /// Add noise to the specified channel of the image with the specified noise type.
@@ -1111,7 +1114,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) where the noise should be added.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddNoise(NoiseType noiseType, Channels channels)
-        => AddNoise(noiseType, 1.0, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AddNoise(noiseType, channels);
+    }
 
     /// <summary>
     /// Add noise to image with the specified noise type.
@@ -1120,7 +1126,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="attenuate">Attenuate the random distribution.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddNoise(NoiseType noiseType, double attenuate)
-        => AddNoise(noiseType, attenuate, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AddNoise(noiseType, attenuate);
+    }
 
     /// <summary>
     /// Add noise to the specified channel of the image with the specified noise type.
@@ -1130,7 +1139,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) where the noise should be added.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddNoise(NoiseType noiseType, double attenuate, Channels channels)
-        => _nativeInstance.AddNoise(noiseType, attenuate, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AddNoise(noiseType, attenuate, channels);
+    }
 
     /// <summary>
     /// Affine Transform image.
