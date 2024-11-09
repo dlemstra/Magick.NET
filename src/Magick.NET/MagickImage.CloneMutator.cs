@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using ImageMagick.Drawing;
 
 namespace ImageMagick;
 
@@ -90,6 +91,13 @@ public partial class MagickImage
 
         public void AddNoise(NoiseType noiseType, double attenuate, Channels channels)
             => SetResult(NativeMagickImage.AddNoise(noiseType, attenuate, channels));
+
+        public void AffineTransform(IDrawableAffine affineMatrix)
+        {
+            Throw.IfNull(nameof(affineMatrix), affineMatrix);
+
+            SetResult(NativeMagickImage.AffineTransform(affineMatrix.ScaleX, affineMatrix.ScaleY, affineMatrix.ShearX, affineMatrix.ShearY, affineMatrix.TranslateX, affineMatrix.TranslateY));
+        }
 
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));

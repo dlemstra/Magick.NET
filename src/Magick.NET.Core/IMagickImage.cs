@@ -254,13 +254,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     uint Width { get; }
 
     /// <summary>
-    /// Affine Transform image.
-    /// </summary>
-    /// <param name="affineMatrix">The affine matrix to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AffineTransform(IDrawableAffine affineMatrix);
-
-    /// <summary>
     /// Applies the specified alpha option.
     /// </summary>
     /// <param name="value">The option to use.</param>

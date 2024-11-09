@@ -9,6 +9,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using ImageMagick.Drawing;
 
@@ -1151,9 +1152,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AffineTransform(IDrawableAffine affineMatrix)
     {
-        Throw.IfNull(nameof(affineMatrix), affineMatrix);
-
-        _nativeInstance.AffineTransform(affineMatrix.ScaleX, affineMatrix.ScaleY, affineMatrix.ShearX, affineMatrix.ShearY, affineMatrix.TranslateX, affineMatrix.TranslateY);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AffineTransform(affineMatrix);
     }
 
     /// <summary>

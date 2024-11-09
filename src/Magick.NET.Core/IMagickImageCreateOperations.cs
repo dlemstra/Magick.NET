@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using ImageMagick.Drawing;
+
 namespace ImageMagick;
 
 /// <summary>
@@ -176,6 +178,13 @@ public interface IMagickImageCreateOperations
     /// <param name="channels">The channel(s) where the noise should be added.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void AddNoise(NoiseType noiseType, double attenuate, Channels channels);
+
+    /// <summary>
+    /// Affine Transform image.
+    /// </summary>
+    /// <param name="affineMatrix">The affine matrix to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AffineTransform(IDrawableAffine affineMatrix);
 
     /// <summary>
     /// Resize image to specified size.

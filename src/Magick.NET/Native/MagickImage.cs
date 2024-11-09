@@ -242,8 +242,7 @@ public partial class MagickImage
         public partial IntPtr AddNoise(NoiseType noiseType, double attenuate, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void AffineTransform(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
+        public partial IntPtr AffineTransform(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
 
         [Throws]
         public partial void Annotate(DrawingSettings settings, string text, string boundingArea, Gravity gravity, double degrees);
