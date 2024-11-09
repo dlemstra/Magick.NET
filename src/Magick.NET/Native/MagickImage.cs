@@ -269,8 +269,7 @@ public partial class MagickImage
         public partial void BlackThreshold(string threshold, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void BlueShift(double factor);
+        public partial IntPtr BlueShift(double factor);
 
         [Throws]
         [SetInstance]

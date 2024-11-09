@@ -111,6 +111,12 @@ public partial class MagickImage
         public void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma)
             => SetResult(NativeMagickImage.BilateralBlur(width, height, intensitySigma, spatialSigma));
 
+        public void BlueShift()
+            => BlueShift(1.5);
+
+        public void BlueShift(double factor)
+            => SetResult(NativeMagickImage.BlueShift(factor));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

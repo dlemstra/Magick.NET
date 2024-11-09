@@ -1316,7 +1316,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void BlueShift()
-        => BlueShift(1.5);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.BlueShift();
+    }
 
     /// <summary>
     /// Simulate a scene at nighttime in the moonlight.
@@ -1324,7 +1327,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="factor">The factor to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void BlueShift(double factor)
-        => _nativeInstance.BlueShift(factor);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.BlueShift(factor);
+    }
 
     /// <summary>
     /// Blur image with the default blur factor (0x1).

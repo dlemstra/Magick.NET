@@ -211,6 +211,19 @@ public interface IMagickImageCreateOperations
     void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma);
 
     /// <summary>
+    /// Simulate a scene at nighttime in the moonlight.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void BlueShift();
+
+    /// <summary>
+    /// Simulate a scene at nighttime in the moonlight.
+    /// </summary>
+    /// <param name="factor">The factor to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void BlueShift(double factor);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

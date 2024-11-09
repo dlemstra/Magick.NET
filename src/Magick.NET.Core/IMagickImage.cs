@@ -349,19 +349,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void BlackThreshold(Percentage threshold, Channels channels);
 
     /// <summary>
-    /// Simulate a scene at nighttime in the moonlight.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void BlueShift();
-
-    /// <summary>
-    /// Simulate a scene at nighttime in the moonlight.
-    /// </summary>
-    /// <param name="factor">The factor to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void BlueShift(double factor);
-
-    /// <summary>
     /// Blur image with the default blur factor (0x1).
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
