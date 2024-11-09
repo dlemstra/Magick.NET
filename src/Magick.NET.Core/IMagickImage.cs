@@ -324,12 +324,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void AutoLevel(Channels channels);
 
     /// <summary>
-    /// Adjusts an image so that its orientation is suitable for viewing.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void AutoOrient();
-
-    /// <summary>
     /// Automatically selects a threshold and replaces each pixel in the image with a black pixel if
     /// the image intentsity is less than the selected threshold otherwise white.
     /// </summary>

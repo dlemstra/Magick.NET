@@ -9,7 +9,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Channels;
 using System.Threading.Tasks;
 using ImageMagick.Drawing;
 
@@ -1249,7 +1248,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AutoOrient()
-        => _nativeInstance.AutoOrient();
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.AutoOrient();
+    }
 
     /// <summary>
     /// Automatically selects a threshold and replaces each pixel in the image with a black pixel if

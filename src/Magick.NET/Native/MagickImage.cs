@@ -257,8 +257,7 @@ public partial class MagickImage
         public partial void AutoLevel(Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void AutoOrient();
+        public partial IntPtr AutoOrient();
 
         [Throws]
         public partial void AutoThreshold(AutoThresholdMethod method);

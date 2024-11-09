@@ -187,6 +187,12 @@ public interface IMagickImageCreateOperations
     void AffineTransform(IDrawableAffine affineMatrix);
 
     /// <summary>
+    /// Adjusts an image so that its orientation is suitable for viewing.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void AutoOrient();
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

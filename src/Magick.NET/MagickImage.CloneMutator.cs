@@ -99,6 +99,9 @@ public partial class MagickImage
             SetResult(NativeMagickImage.AffineTransform(affineMatrix.ScaleX, affineMatrix.ScaleY, affineMatrix.ShearX, affineMatrix.ShearY, affineMatrix.TranslateX, affineMatrix.TranslateY));
         }
 
+        public void AutoOrient()
+            => SetResult(NativeMagickImage.AutoOrient());
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 
