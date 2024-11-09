@@ -1270,8 +1270,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void BilateralBlur(uint width, uint height)
     {
-        var intensitySigma = Math.Sqrt((width * width) + (height * height));
-        BilateralBlur(width, height, intensitySigma, intensitySigma * 0.25);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.BilateralBlur(width, height);
     }
 
     /// <summary>
@@ -1283,7 +1283,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="spatialSigma">The sigma in the coordinate space.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma)
-        => _nativeInstance.BilateralBlur(width, height, intensitySigma, spatialSigma);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.BilateralBlur(width, height, intensitySigma, spatialSigma);
+    }
 
     /// <summary>
     /// Forces all pixels below the threshold into black while leaving all pixels at or above

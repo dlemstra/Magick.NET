@@ -332,24 +332,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void AutoThreshold(AutoThresholdMethod method);
 
     /// <summary>
-    /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
-    /// </summary>
-    /// <param name="width">The width of the neighborhood in pixels.</param>
-    /// <param name="height">The height of the neighborhood in pixels.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void BilateralBlur(uint width, uint height);
-
-    /// <summary>
-    /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
-    /// </summary>
-    /// <param name="width">The width of the neighborhood in pixels.</param>
-    /// <param name="height">The height of the neighborhood in pixels.</param>
-    /// <param name="intensitySigma">The sigma in the intensity space.</param>
-    /// <param name="spatialSigma">The sigma in the coordinate space.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma);
-
-    /// <summary>
     /// Forces all pixels below the threshold into black while leaving all pixels at or above
     /// the threshold unchanged.
     /// </summary>

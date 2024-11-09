@@ -102,6 +102,15 @@ public partial class MagickImage
         public void AutoOrient()
             => SetResult(NativeMagickImage.AutoOrient());
 
+        public void BilateralBlur(uint width, uint height)
+        {
+            var intensitySigma = Math.Sqrt((width * width) + (height * height));
+            BilateralBlur(width, height, intensitySigma, intensitySigma * 0.25);
+        }
+
+        public void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma)
+            => SetResult(NativeMagickImage.BilateralBlur(width, height, intensitySigma, spatialSigma));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

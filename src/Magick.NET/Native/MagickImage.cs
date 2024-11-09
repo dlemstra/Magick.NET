@@ -263,8 +263,7 @@ public partial class MagickImage
         public partial void AutoThreshold(AutoThresholdMethod method);
 
         [Throws]
-        [SetInstance]
-        public partial void BilateralBlur(nuint width, nuint height, double intensitySigma, double spatialSigma);
+        public partial IntPtr BilateralBlur(nuint width, nuint height, double intensitySigma, double spatialSigma);
 
         [Throws]
         public partial void BlackThreshold(string threshold, Channels channels);

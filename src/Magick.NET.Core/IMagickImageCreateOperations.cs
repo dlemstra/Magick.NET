@@ -193,6 +193,24 @@ public interface IMagickImageCreateOperations
     void AutoOrient();
 
     /// <summary>
+    /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+    /// </summary>
+    /// <param name="width">The width of the neighborhood in pixels.</param>
+    /// <param name="height">The height of the neighborhood in pixels.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void BilateralBlur(uint width, uint height);
+
+    /// <summary>
+    /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+    /// </summary>
+    /// <param name="width">The width of the neighborhood in pixels.</param>
+    /// <param name="height">The height of the neighborhood in pixels.</param>
+    /// <param name="intensitySigma">The sigma in the intensity space.</param>
+    /// <param name="spatialSigma">The sigma in the coordinate space.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
