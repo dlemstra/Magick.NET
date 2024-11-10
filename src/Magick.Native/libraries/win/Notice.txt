@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-39 (2024-10-05) ] copyright:
+[ ImageMagick 7.1.1-40 (2024-11-09) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -2105,7 +2105,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ deflate 1.21.0 (2024-08-04) ] copyright:
+[ deflate 1.22.0 (2024-10-05) ] copyright:
 
 Copyright 2016 Eric Biggers
 Copyright 2024 Google LLC
@@ -2132,7 +2132,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openexr 3.2.4 (2024-03-26) ] copyright:
+[ openexr 3.3.1 (2024-10-09) ] copyright:
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -3425,7 +3425,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.18.2 (2024-08-07) ] copyright:
+[ heif 1.19.1 (2024-11-01) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -4879,7 +4879,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lzma 5.6.2 (2024-05-29) ] copyright:
+[ lzma 5.6.3 (2024-10-01) ] copyright:
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999
@@ -6740,7 +6740,7 @@ THE SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ zip 1.11.1 (2024-09-19) ] copyright:
+[ zip 1.11.2 (2024-10-31) ] copyright:
 
 Copyright (C) 1999-2020 Dieter Baron and Thomas Klausner
 
