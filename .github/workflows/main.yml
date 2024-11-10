@@ -91,7 +91,7 @@ jobs:
 
   macos:
     name: 'MacOS (Q8/Q16/Q16-HDRI)'
-    runs-on: macos-12
+    runs-on: macos-13
 
     steps:
 
