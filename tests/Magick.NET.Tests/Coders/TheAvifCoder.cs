@@ -30,9 +30,6 @@ public class TheAvifCoder
     [Fact]
     public void ShouldIgnoreEmptyExifProfile()
     {
-        using var image = new MagickImage();
-
-        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(Files.Coders.EmptyExifAVIF));
-        Assert.Contains("Invalid clean-aperture specification", exception.Message);
+        using var image = new MagickImage(Files.Coders.EmptyExifAVIF);
     }
 }
