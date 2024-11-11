@@ -129,6 +129,18 @@ public partial class MagickImage
         public void Blur(double radius, double sigma, Channels channels)
             => SetResult(NativeMagickImage.Blur(radius, sigma, channels));
 
+        public void Border(uint size)
+            => Border(size, size);
+
+        public void Border(uint width, uint height)
+        {
+            var rectangle = new MagickRectangle(0, 0, width, height);
+            SetResult(NativeMagickImage.Border(rectangle));
+        }
+
+        public void Border(Percentage percentage)
+            => Border((uint)(NativeMagickImage.Width_Get() * percentage), (uint)(NativeMagickImage.Height_Get() * percentage));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

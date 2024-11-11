@@ -1384,7 +1384,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="size">The size of the border.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Border(uint size)
-        => Border(size, size);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Border(size);
+    }
 
     /// <summary>
     /// Add a border to the image.
@@ -1394,8 +1397,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Border(uint width, uint height)
     {
-        var rectangle = new MagickRectangle(0, 0, width, height);
-        _nativeInstance.Border(rectangle);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Border(width, height);
     }
 
     /// <summary>
@@ -1404,7 +1407,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentage">The size of the border.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Border(Percentage percentage)
-        => Border((uint)(Width * percentage), (uint)(Height * percentage));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Border(percentage);
+    }
 
     /// <summary>
     /// Changes the brightness and/or contrast of an image. It converts the brightness and

@@ -275,8 +275,7 @@ public partial class MagickImage
         public partial IntPtr Blur(double radius, double sigma, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void Border(MagickRectangle value);
+        public partial IntPtr Border(MagickRectangle value);
 
         [Throws]
         public partial void BrightnessContrast(double brightness, double contrast, Channels channels);

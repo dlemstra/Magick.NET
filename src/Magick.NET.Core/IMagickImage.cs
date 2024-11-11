@@ -349,28 +349,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void BlackThreshold(Percentage threshold, Channels channels);
 
     /// <summary>
-    /// Add a border to the image.
-    /// </summary>
-    /// <param name="size">The size of the border.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Border(uint size);
-
-    /// <summary>
-    /// Add a border to the image.
-    /// </summary>
-    /// <param name="width">The width of the border.</param>
-    /// <param name="height">The height of the border.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Border(uint width, uint height);
-
-    /// <summary>
-    /// Add a border to the image.
-    /// </summary>
-    /// <param name="percentage">The size of the border.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Border(Percentage percentage);
-
-    /// <summary>
     /// Changes the brightness and/or contrast of an image. It converts the brightness and
     /// contrast parameters into slope and intercept and calls a polynomical function to apply
     /// to the image.

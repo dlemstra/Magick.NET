@@ -254,6 +254,28 @@ public interface IMagickImageCreateOperations
     void Blur(double radius, double sigma, Channels channels);
 
     /// <summary>
+    /// Add a border to the image.
+    /// </summary>
+    /// <param name="size">The size of the border.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Border(uint size);
+
+    /// <summary>
+    /// Add a border to the image.
+    /// </summary>
+    /// <param name="width">The width of the border.</param>
+    /// <param name="height">The height of the border.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Border(uint width, uint height);
+
+    /// <summary>
+    /// Add a border to the image.
+    /// </summary>
+    /// <param name="percentage">The size of the border.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Border(Percentage percentage);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
