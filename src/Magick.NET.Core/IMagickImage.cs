@@ -349,36 +349,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void BlackThreshold(Percentage threshold, Channels channels);
 
     /// <summary>
-    /// Blur image with the default blur factor (0x1).
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Blur();
-
-    /// <summary>
-    /// Blur the the specified channel(s) of the image with the default blur factor (0x1).
-    /// </summary>
-    /// <param name="channels">The channel(s) that should be blurred.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Blur(Channels channels);
-
-    /// <summary>
-    /// Blur image with specified blur factor.
-    /// </summary>
-    /// <param name="radius">The radius of the Gaussian in pixels, not counting the center pixel.</param>
-    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Blur(double radius, double sigma);
-
-    /// <summary>
-    /// Blur the specified channel(s) of the image with the specified blur factor.
-    /// </summary>
-    /// <param name="radius">The radius of the Gaussian in pixels, not counting the center pixel.</param>
-    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-    /// <param name="channels">The channel(s) that should be blurred.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Blur(double radius, double sigma, Channels channels);
-
-    /// <summary>
     /// Add a border to the image.
     /// </summary>
     /// <param name="size">The size of the border.</param>

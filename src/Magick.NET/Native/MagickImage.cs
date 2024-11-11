@@ -272,8 +272,7 @@ public partial class MagickImage
         public partial IntPtr BlueShift(double factor);
 
         [Throws]
-        [SetInstance]
-        public partial void Blur(double radius, double sigma, Channels channels);
+        public partial IntPtr Blur(double radius, double sigma, Channels channels);
 
         [Throws]
         [SetInstance]

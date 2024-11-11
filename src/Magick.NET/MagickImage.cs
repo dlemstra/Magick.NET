@@ -1337,7 +1337,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Blur()
-        => Blur(0.0, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Blur();
+    }
 
     /// <summary>
     /// Blur the specified channel(s) of the image with the default blur factor (0x1).
@@ -1345,7 +1348,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be blurred.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Blur(Channels channels)
-        => Blur(0.0, 1.0, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Blur(channels);
+    }
 
     /// <summary>
     /// Blur image with specified blur factor.
@@ -1354,7 +1360,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Blur(double radius, double sigma)
-        => Blur(radius, sigma, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Blur(radius, sigma);
+    }
 
     /// <summary>
     /// Blur the specified channel(s) of the image with the specified blur factor.
@@ -1364,7 +1373,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be blurred.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Blur(double radius, double sigma, Channels channels)
-        => _nativeInstance.Blur(radius, sigma, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Blur(radius, sigma, channels);
+    }
 
     /// <summary>
     /// Add a border to the image.

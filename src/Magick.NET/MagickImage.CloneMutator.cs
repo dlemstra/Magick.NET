@@ -117,6 +117,18 @@ public partial class MagickImage
         public void BlueShift(double factor)
             => SetResult(NativeMagickImage.BlueShift(factor));
 
+        public void Blur()
+            => Blur(0.0, 1.0);
+
+        public void Blur(Channels channels)
+            => Blur(0.0, 1.0, channels);
+
+        public void Blur(double radius, double sigma)
+            => Blur(radius, sigma, ImageMagick.Channels.Undefined);
+
+        public void Blur(double radius, double sigma, Channels channels)
+            => SetResult(NativeMagickImage.Blur(radius, sigma, channels));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 
