@@ -173,12 +173,6 @@ public partial class MagickImage
         public void ChopVertical(int offset, uint height)
             => Chop(new MagickGeometry(0, offset, 0, height));
 
-        public void Clamp()
-            => Clamp(ImageMagick.Channels.Undefined);
-
-        public void Clamp(Channels channels)
-             => SetResult(NativeMagickImage.Clamp(channels));
-
         public void Colorize(IMagickColor<QuantumType> color, Percentage alpha)
         {
             Throw.IfNegative(nameof(alpha), alpha);

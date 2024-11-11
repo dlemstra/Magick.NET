@@ -295,7 +295,7 @@ public partial class MagickImage
         public partial void Clahe(nuint xTiles, nuint yTiles, nuint numberBins, double clipLimit);
 
         [Throws]
-        public partial IntPtr Clamp(Channels channels);
+        public partial void Clamp(Channels channels);
 
         [Throws]
         public partial void ClipPath(string pathName, bool inside);

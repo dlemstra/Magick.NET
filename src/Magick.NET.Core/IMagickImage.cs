@@ -394,6 +394,23 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Clahe(uint xTiles, uint yTiles, uint numberBins, double clipLimit);
 
     /// <summary>
+    /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
+    /// the quantum range to the quantum range (Quantum.Max) otherwise the pixel value
+    /// remains unchanged.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Clamp();
+
+    /// <summary>
+    /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
+    /// the quantum range to the quantum range (Quantum.Max) otherwise the pixel value
+    /// remains unchanged.
+    /// </summary>
+    /// <param name="channels">The channel(s) to clamp.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Clamp(Channels channels);
+
+    /// <summary>
     /// Sets the image clip mask based on any clipping path information if it exists. The clipping
     /// path can be removed with <see cref="RemoveWriteMask"/>. This operating takes effect inside
     /// the clipping path.
