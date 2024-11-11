@@ -1786,7 +1786,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public void Colorize(IMagickColor<QuantumType> color, Percentage alpha)
     {
         using var mutator = new Mutator(_nativeInstance);
-        mutator.Colorize(color, alpha, alpha, alpha);
+        mutator.Colorize(color, alpha);
     }
 
     /// <summary>
