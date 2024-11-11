@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Globalization;
 using ImageMagick.Drawing;
 
 #if Q8
@@ -177,6 +178,25 @@ public partial class MagickImage
 
         public void Clamp(Channels channels)
              => SetResult(NativeMagickImage.Clamp(channels));
+
+        public void Colorize(IMagickColor<QuantumType> color, Percentage alpha)
+        {
+            Throw.IfNegative(nameof(alpha), alpha);
+
+            Colorize(color, alpha, alpha, alpha);
+        }
+
+        public void Colorize(IMagickColor<QuantumType> color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue)
+        {
+            Throw.IfNull(nameof(color), color);
+            Throw.IfNegative(nameof(alphaRed), alphaRed);
+            Throw.IfNegative(nameof(alphaGreen), alphaGreen);
+            Throw.IfNegative(nameof(alphaBlue), alphaBlue);
+
+            var blend = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", alphaRed.ToInt32(), alphaGreen.ToInt32(), alphaBlue.ToInt32());
+
+            SetResult(NativeMagickImage.Colorize(color, blend));
+        }
 
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));

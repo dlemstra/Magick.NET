@@ -1785,9 +1785,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Colorize(IMagickColor<QuantumType> color, Percentage alpha)
     {
-        Throw.IfNegative(nameof(alpha), alpha);
-
-        Colorize(color, alpha, alpha, alpha);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Colorize(color, alpha, alpha, alpha);
     }
 
     /// <summary>
@@ -1801,14 +1800,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Colorize(IMagickColor<QuantumType> color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue)
     {
-        Throw.IfNull(nameof(color), color);
-        Throw.IfNegative(nameof(alphaRed), alphaRed);
-        Throw.IfNegative(nameof(alphaGreen), alphaGreen);
-        Throw.IfNegative(nameof(alphaBlue), alphaBlue);
-
-        var blend = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", alphaRed.ToInt32(), alphaGreen.ToInt32(), alphaBlue.ToInt32());
-
-        _nativeInstance.Colorize(color, blend);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Colorize(color, alphaRed, alphaGreen, alphaBlue);
     }
 
     /// <summary>

@@ -313,8 +313,7 @@ public partial class MagickImage
         public partial void ColorDecisionList(string fileName);
 
         [Throws]
-        [SetInstance]
-        public partial void Colorize(IMagickColor<QuantumType>? color, string blend);
+        public partial IntPtr Colorize(IMagickColor<QuantumType>? color, string blend);
 
         [Throws]
         [SetInstance]
