@@ -370,29 +370,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void BrightnessContrast(Percentage brightness, Percentage contrast, Channels channels);
 
     /// <summary>
-    /// Chop image (remove vertical or horizontal subregion of image) using the specified geometry.
-    /// </summary>
-    /// <param name="geometry">The geometry to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Chop(IMagickGeometry geometry);
-
-    /// <summary>
-    /// Chop image (remove horizontal subregion of image).
-    /// </summary>
-    /// <param name="offset">The X offset from origin.</param>
-    /// <param name="width">The width of the part to chop horizontally.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ChopHorizontal(int offset, uint width);
-
-    /// <summary>
-    /// Chop image (remove horizontal subregion of image).
-    /// </summary>
-    /// <param name="offset">The Y offset from origin.</param>
-    /// <param name="height">The height of the part to chop vertically.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ChopVertical(int offset, uint height);
-
-    /// <summary>
     /// A variant of adaptive histogram equalization in which the contrast amplification is limited,
     /// so as to reduce this problem of noise amplification.
     /// </summary>

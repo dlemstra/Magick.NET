@@ -289,8 +289,7 @@ public partial class MagickImage
         public partial IntPtr Charcoal(double radius, double sigma);
 
         [Throws]
-        [SetInstance]
-        public partial void Chop(MagickRectangle geometry);
+        public partial IntPtr Chop(MagickRectangle geometry);
 
         [Throws]
         public partial void Clahe(nuint xTiles, nuint yTiles, nuint numberBins, double clipLimit);

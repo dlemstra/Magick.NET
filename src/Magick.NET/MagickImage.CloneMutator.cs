@@ -153,6 +153,15 @@ public partial class MagickImage
         public void Charcoal(double radius, double sigma)
             => SetResult(NativeMagickImage.Charcoal(radius, sigma));
 
+        public void Chop(IMagickGeometry geometry)
+            => SetResult(NativeMagickImage.Chop(MagickRectangle.FromGeometry(geometry, (uint)NativeMagickImage.Width_Get(), (uint)NativeMagickImage.Height_Get())));
+
+        public void ChopHorizontal(int offset, uint width)
+             => Chop(new MagickGeometry(offset, 0, width, 0));
+
+        public void ChopVertical(int offset, uint height)
+            => Chop(new MagickGeometry(0, offset, 0, height));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

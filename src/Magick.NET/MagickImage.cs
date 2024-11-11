@@ -1487,7 +1487,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The geometry to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Chop(IMagickGeometry geometry)
-        => _nativeInstance.Chop(MagickRectangle.FromGeometry(geometry, this));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Chop(geometry);
+    }
 
     /// <summary>
     /// Chop image (remove horizontal subregion of image).
@@ -1496,7 +1499,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="width">The width of the part to chop horizontally.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ChopHorizontal(int offset, uint width)
-        => Chop(new MagickGeometry(offset, 0, width, 0));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.ChopHorizontal(offset, width);
+    }
 
     /// <summary>
     /// Chop image (remove horizontal subregion of image).
@@ -1505,7 +1511,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height of the part to chop vertically.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ChopVertical(int offset, uint height)
-        => Chop(new MagickGeometry(0, offset, 0, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.ChopVertical(offset, height);
+    }
 
     /// <summary>
     /// A variant of adaptive histogram equalization in which the contrast amplification is limited,

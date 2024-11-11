@@ -35,6 +35,9 @@ internal sealed partial class MagickRectangle
         => NativeMagickRectangle.FromPageSize(pageSize);
 
     public static MagickRectangle FromGeometry(IMagickGeometry geometry, MagickImage image)
+        => FromGeometry(geometry, image.Width, image.Height);
+
+    public static MagickRectangle FromGeometry(IMagickGeometry geometry, uint imageWidth, uint imageHeight)
     {
         Throw.IfNull(nameof(geometry), geometry);
 
@@ -43,8 +46,8 @@ internal sealed partial class MagickRectangle
 
         if (geometry.IsPercentage)
         {
-            width = (uint)(image.Width * new Percentage(geometry.Width));
-            height = (uint)(image.Height * new Percentage(geometry.Height));
+            width = (uint)(imageWidth * new Percentage(geometry.Width));
+            height = (uint)(imageHeight * new Percentage(geometry.Height));
         }
 
         return new MagickRectangle(geometry.X, geometry.Y, width, height);
