@@ -276,6 +276,22 @@ public interface IMagickImageCreateOperations
     void Border(Percentage percentage);
 
     /// <summary>
+    /// Uses a multi-stage algorithm to detect a wide range of edges in images.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void CannyEdge();
+
+    /// <summary>
+    /// Uses a multi-stage algorithm to detect a wide range of edges in images.
+    /// </summary>
+    /// <param name="radius">The radius of the gaussian smoothing filter.</param>
+    /// <param name="sigma">The sigma of the gaussian smoothing filter.</param>
+    /// <param name="lower">Percentage of edge pixels in the lower threshold.</param>
+    /// <param name="upper">Percentage of edge pixels in the upper threshold.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void CannyEdge(double radius, double sigma, Percentage lower, Percentage upper);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

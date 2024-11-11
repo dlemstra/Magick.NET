@@ -141,6 +141,12 @@ public partial class MagickImage
         public void Border(Percentage percentage)
             => Border((uint)(NativeMagickImage.Width_Get() * percentage), (uint)(NativeMagickImage.Height_Get() * percentage));
 
+        public void CannyEdge()
+            => CannyEdge(0.0, 1.0, new Percentage(10), new Percentage(30));
+
+        public void CannyEdge(double radius, double sigma, Percentage lower, Percentage upper)
+            => SetResult(NativeMagickImage.CannyEdge(radius, sigma, lower.ToDouble() / 100, upper.ToDouble() / 100));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

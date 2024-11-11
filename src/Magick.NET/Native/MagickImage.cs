@@ -281,8 +281,7 @@ public partial class MagickImage
         public partial void BrightnessContrast(double brightness, double contrast, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void CannyEdge(double radius, double sigma, double lower, double upper);
+        public partial IntPtr CannyEdge(double radius, double sigma, double lower, double upper);
 
         public partial nuint ChannelOffset(PixelChannel channel);
 

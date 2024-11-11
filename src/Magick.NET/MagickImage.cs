@@ -1440,7 +1440,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void CannyEdge()
-        => CannyEdge(0.0, 1.0, new Percentage(10), new Percentage(30));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.CannyEdge();
+    }
 
     /// <summary>
     /// Uses a multi-stage algorithm to detect a wide range of edges in images.
@@ -1451,7 +1454,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="upper">Percentage of edge pixels in the upper threshold.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void CannyEdge(double radius, double sigma, Percentage lower, Percentage upper)
-        => _nativeInstance.CannyEdge(radius, sigma, lower.ToDouble() / 100, upper.ToDouble() / 100);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.CannyEdge(radius, sigma, lower, upper);
+    }
 
     /// <summary>
     /// Charcoal effect image (looks like charcoal sketch).

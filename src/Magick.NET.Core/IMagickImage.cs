@@ -370,22 +370,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void BrightnessContrast(Percentage brightness, Percentage contrast, Channels channels);
 
     /// <summary>
-    /// Uses a multi-stage algorithm to detect a wide range of edges in images.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CannyEdge();
-
-    /// <summary>
-    /// Uses a multi-stage algorithm to detect a wide range of edges in images.
-    /// </summary>
-    /// <param name="radius">The radius of the gaussian smoothing filter.</param>
-    /// <param name="sigma">The sigma of the gaussian smoothing filter.</param>
-    /// <param name="lower">Percentage of edge pixels in the lower threshold.</param>
-    /// <param name="upper">Percentage of edge pixels in the upper threshold.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void CannyEdge(double radius, double sigma, Percentage lower, Percentage upper);
-
-    /// <summary>
     /// Charcoal effect image (looks like charcoal sketch).
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
