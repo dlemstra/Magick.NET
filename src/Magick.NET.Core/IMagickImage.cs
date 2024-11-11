@@ -370,20 +370,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void BrightnessContrast(Percentage brightness, Percentage contrast, Channels channels);
 
     /// <summary>
-    /// Charcoal effect image (looks like charcoal sketch).
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Charcoal();
-
-    /// <summary>
-    /// Charcoal effect image (looks like charcoal sketch).
-    /// </summary>
-    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
-    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Charcoal(double radius, double sigma);
-
-    /// <summary>
     /// Chop image (remove vertical or horizontal subregion of image) using the specified geometry.
     /// </summary>
     /// <param name="geometry">The geometry to use.</param>

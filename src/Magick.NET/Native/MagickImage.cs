@@ -286,8 +286,7 @@ public partial class MagickImage
         public partial nuint ChannelOffset(PixelChannel channel);
 
         [Throws]
-        [SetInstance]
-        public partial void Charcoal(double radius, double sigma);
+        public partial IntPtr Charcoal(double radius, double sigma);
 
         [Throws]
         [SetInstance]

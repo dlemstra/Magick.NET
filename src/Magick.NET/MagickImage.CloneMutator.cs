@@ -147,6 +147,12 @@ public partial class MagickImage
         public void CannyEdge(double radius, double sigma, Percentage lower, Percentage upper)
             => SetResult(NativeMagickImage.CannyEdge(radius, sigma, lower.ToDouble() / 100, upper.ToDouble() / 100));
 
+        public void Charcoal()
+            => Charcoal(0.0, 1.0);
+
+        public void Charcoal(double radius, double sigma)
+            => SetResult(NativeMagickImage.Charcoal(radius, sigma));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

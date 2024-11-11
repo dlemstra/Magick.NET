@@ -1464,7 +1464,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Charcoal()
-        => Charcoal(0.0, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Charcoal();
+    }
 
     /// <summary>
     /// Charcoal effect image (looks like charcoal sketch).
@@ -1473,7 +1476,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Charcoal(double radius, double sigma)
-        => _nativeInstance.Charcoal(radius, sigma);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Charcoal(radius, sigma);
+    }
 
     /// <summary>
     /// Chop image (remove vertical or horizontal subregion of image) using the specified geometry.
