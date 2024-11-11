@@ -4,12 +4,22 @@
 using System;
 using ImageMagick.Drawing;
 
+#if Q8
+using QuantumType = System.Byte;
+#elif Q16
+using QuantumType = System.UInt16;
+#elif Q16HDRI
+using QuantumType = System.Single;
+#else
+#error Not implemented!
+#endif
+
 namespace ImageMagick;
 
 /// <content />
 public partial class MagickImage
 {
-    private class CloneMutator : IMagickImageCloneMutator, IDisposable
+    private class CloneMutator : IMagickImageCloneMutator<QuantumType>, IDisposable
     {
         private IntPtr _result = IntPtr.Zero;
 

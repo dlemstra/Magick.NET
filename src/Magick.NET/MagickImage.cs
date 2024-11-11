@@ -1623,7 +1623,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <param name="action">The mutate action to execute on the clone.</param>
     /// <returns>A clone of the current image.</returns>
-    public IMagickImage<QuantumType> CloneAndMutate(Action<IMagickImageCloneMutator> action)
+    public IMagickImage<QuantumType> CloneAndMutate(Action<IMagickImageCloneMutator<QuantumType>> action)
     {
         using var imageCreator = new CloneMutator(_nativeInstance);
         action(imageCreator);
