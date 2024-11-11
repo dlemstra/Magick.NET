@@ -167,4 +167,14 @@ public enum FilterType
     /// Cubic spline.
     /// </summary>
     CubicSpline,
+
+    /// <summary>
+    /// Magic kernel sharp 2013.
+    /// </summary>
+    MagicKernelSharp2013,
+
+    /// <summary>
+    /// Magic kernel sharp 2021.
+    /// </summary>
+    MagicKernelSharp2021,
 }
