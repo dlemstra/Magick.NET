@@ -1549,7 +1549,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Clamp()
-        => Clamp(ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Clamp();
+    }
 
     /// <summary>
     /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
@@ -1559,7 +1562,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to clamp.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Clamp(Channels channels)
-        => _nativeInstance.Clamp(channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Clamp(channels);
+    }
 
     /// <summary>
     /// Sets the image clip mask based on any clipping path information if it exists. The clipping

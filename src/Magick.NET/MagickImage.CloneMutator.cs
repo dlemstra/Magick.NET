@@ -172,6 +172,12 @@ public partial class MagickImage
         public void ChopVertical(int offset, uint height)
             => Chop(new MagickGeometry(0, offset, 0, height));
 
+        public void Clamp()
+            => Clamp(ImageMagick.Channels.Undefined);
+
+        public void Clamp(Channels channels)
+             => SetResult(NativeMagickImage.Clamp(channels));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

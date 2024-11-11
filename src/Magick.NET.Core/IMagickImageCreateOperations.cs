@@ -329,6 +329,23 @@ public interface IMagickImageCreateOperations
     void ChopVertical(int offset, uint height);
 
     /// <summary>
+    /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
+    /// the quantum range to the quantum range (Quantum.Max) otherwise the pixel value
+    /// remains unchanged.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Clamp();
+
+    /// <summary>
+    /// Set each pixel whose value is below zero to zero and any the pixel whose value is above
+    /// the quantum range to the quantum range (Quantum.Max) otherwise the pixel value
+    /// remains unchanged.
+    /// </summary>
+    /// <param name="channels">The channel(s) to clamp.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Clamp(Channels channels);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
