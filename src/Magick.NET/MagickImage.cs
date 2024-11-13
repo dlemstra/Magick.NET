@@ -2341,9 +2341,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Convolve(IConvolveMatrix matrix)
     {
-        Throw.IfNull(nameof(matrix), matrix);
-
-        _nativeInstance.Convolve(matrix);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Convolve(matrix);
     }
 
     /// <summary>

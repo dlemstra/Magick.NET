@@ -336,6 +336,13 @@ public interface IMagickImageCreateOperations
     void ColorMatrix(IMagickColorMatrix matrix);
 
     /// <summary>
+    /// Convolve image. Applies a user-specified convolution to the image.
+    /// </summary>
+    /// <param name="matrix">The convolution matrix.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Convolve(IConvolveMatrix matrix);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

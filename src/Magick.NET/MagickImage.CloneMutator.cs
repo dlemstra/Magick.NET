@@ -199,6 +199,13 @@ public partial class MagickImage
             SetResult(NativeMagickImage.ColorMatrix(matrix));
         }
 
+        public void Convolve(IConvolveMatrix matrix)
+        {
+            Throw.IfNull(nameof(matrix), matrix);
+
+            SetResult(NativeMagickImage.Convolve(matrix));
+        }
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

@@ -799,13 +799,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     IEnumerable<PointD> ConvexHull();
 
     /// <summary>
-    /// Convolve image. Applies a user-specified convolution to the image.
-    /// </summary>
-    /// <param name="matrix">The convolution matrix.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Convolve(IConvolveMatrix matrix);
-
-    /// <summary>
     /// Copies pixels from the source image to the destination image.
     /// </summary>
     /// <param name="source">The source image to copy the pixels from.</param>

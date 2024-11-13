@@ -347,8 +347,7 @@ public partial class MagickImage
         public partial IntPtr ConvexHull(out nuint length);
 
         [Throws]
-        [SetInstance]
-        public partial void Convolve(IDoubleMatrix matrix);
+        public partial IntPtr Convolve(IDoubleMatrix matrix);
 
         [Throws]
         public partial void CopyPixels(IMagickImage image, MagickRectangle geometry, OffsetInfo offset, Channels channels);
