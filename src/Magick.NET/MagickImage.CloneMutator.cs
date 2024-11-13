@@ -192,6 +192,13 @@ public partial class MagickImage
             SetResult(NativeMagickImage.Colorize(color, blend));
         }
 
+        public void ColorMatrix(IMagickColorMatrix matrix)
+        {
+            Throw.IfNull(nameof(matrix), matrix);
+
+            SetResult(NativeMagickImage.ColorMatrix(matrix));
+        }
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

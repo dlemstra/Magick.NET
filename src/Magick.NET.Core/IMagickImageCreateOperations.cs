@@ -329,6 +329,13 @@ public interface IMagickImageCreateOperations
     void ChopVertical(int offset, uint height);
 
     /// <summary>
+    /// Apply a color matrix to the image channels.
+    /// </summary>
+    /// <param name="matrix">The color matrix to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void ColorMatrix(IMagickColorMatrix matrix);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

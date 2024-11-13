@@ -316,8 +316,7 @@ public partial class MagickImage
         public partial IntPtr Colorize(IMagickColor<QuantumType>? color, string blend);
 
         [Throws]
-        [SetInstance]
-        public partial void ColorMatrix(IDoubleMatrix matrix);
+        public partial IntPtr ColorMatrix(IDoubleMatrix matrix);
 
         [Throws]
         public partial void ColorThreshold(IMagickColor<QuantumType>? startColor, IMagickColor<QuantumType>? stopColor);

@@ -1805,9 +1805,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ColorMatrix(IMagickColorMatrix matrix)
     {
-        Throw.IfNull(nameof(matrix), matrix);
-
-        _nativeInstance.ColorMatrix(matrix);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.ColorMatrix(matrix);
     }
 
     /// <summary>

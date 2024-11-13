@@ -486,13 +486,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void ColorDecisionList(string fileName);
 
     /// <summary>
-    /// Apply a color matrix to the image channels.
-    /// </summary>
-    /// <param name="matrix">The color matrix to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ColorMatrix(IMagickColorMatrix matrix);
-
-    /// <summary>
     /// Compare current image with another image and returns error information.
     /// </summary>
     /// <param name="image">The other image to compare with this image.</param>
