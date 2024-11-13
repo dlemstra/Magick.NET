@@ -2424,7 +2424,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height of the subregion to crop.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Crop(uint width, uint height)
-        => Crop(width, height, Gravity.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Crop(width, height);
+    }
 
     /// <summary>
     /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
@@ -2435,7 +2438,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="gravity">The position where the cropping should start from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Crop(uint width, uint height, Gravity gravity)
-        => Crop(new MagickGeometry(0, 0, width, height), gravity);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Crop(width, height, gravity);
+    }
 
     /// <summary>
     /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
@@ -2444,7 +2450,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The subregion to crop.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Crop(IMagickGeometry geometry)
-        => Crop(geometry, Gravity.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Crop(geometry);
+    }
 
     /// <summary>
     /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
@@ -2455,9 +2464,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Crop(IMagickGeometry geometry, Gravity gravity)
     {
-        Throw.IfNull(nameof(geometry), geometry);
-
-        _nativeInstance.Crop(geometry.ToString(), gravity);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Crop(geometry, gravity);
     }
 
     /// <summary>

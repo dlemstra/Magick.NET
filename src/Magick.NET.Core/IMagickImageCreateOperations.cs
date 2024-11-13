@@ -343,6 +343,42 @@ public interface IMagickImageCreateOperations
     void Convolve(IConvolveMatrix matrix);
 
     /// <summary>
+    /// Crop image (subregion of original image). <see cref="IMagickImage.ResetPage"/> should be called unless
+    /// the <see cref="IMagickImage.Page"/> information is needed.
+    /// </summary>
+    /// <param name="width">The width of the subregion to crop.</param>
+    /// <param name="height">The height of the subregion to crop.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Crop(uint width, uint height);
+
+    /// <summary>
+    /// Crop image (subregion of original image). <see cref="IMagickImage.ResetPage"/> should be called unless
+    /// the <see cref="Page"/> information is needed.
+    /// </summary>
+    /// <param name="width">The width of the subregion to crop.</param>
+    /// <param name="height">The height of the subregion to crop.</param>
+    /// <param name="gravity">The position where the cropping should start from.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Crop(uint width, uint height, Gravity gravity);
+
+    /// <summary>
+    /// Crop image (subregion of original image). <see cref="IMagickImage.ResetPage"/> should be called unless
+    /// the <see cref="IMagickImage.Page"/> information is needed.
+    /// </summary>
+    /// <param name="geometry">The subregion to crop.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Crop(IMagickGeometry geometry);
+
+    /// <summary>
+    /// Crop image (subregion of original image). <see cref="IMagickImage.ResetPage"/> should be called unless
+    /// the <see cref="IMagickImage.Page"/> information is needed.
+    /// </summary>
+    /// <param name="geometry">The subregion to crop.</param>
+    /// <param name="gravity">The position where the cropping should start from.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Crop(IMagickGeometry geometry, Gravity gravity);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

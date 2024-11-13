@@ -353,8 +353,7 @@ public partial class MagickImage
         public partial void CopyPixels(IMagickImage image, MagickRectangle geometry, OffsetInfo offset, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void Crop(string geometry, Gravity gravity);
+        public partial IntPtr Crop(string geometry, Gravity gravity);
 
         [Throws]
         public partial IntPtr CropToTiles(string geometry);

@@ -854,42 +854,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y, Channels channels);
 
     /// <summary>
-    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
-    /// the <see cref="Page"/> information is needed.
-    /// </summary>
-    /// <param name="width">The width of the subregion to crop.</param>
-    /// <param name="height">The height of the subregion to crop.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Crop(uint width, uint height);
-
-    /// <summary>
-    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
-    /// the <see cref="Page"/> information is needed.
-    /// </summary>
-    /// <param name="width">The width of the subregion to crop.</param>
-    /// <param name="height">The height of the subregion to crop.</param>
-    /// <param name="gravity">The position where the cropping should start from.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Crop(uint width, uint height, Gravity gravity);
-
-    /// <summary>
-    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
-    /// the <see cref="Page"/> information is needed.
-    /// </summary>
-    /// <param name="geometry">The subregion to crop.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Crop(IMagickGeometry geometry);
-
-    /// <summary>
-    /// Crop image (subregion of original image). <see cref="ResetPage"/> should be called unless
-    /// the <see cref="Page"/> information is needed.
-    /// </summary>
-    /// <param name="geometry">The subregion to crop.</param>
-    /// <param name="gravity">The position where the cropping should start from.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Crop(IMagickGeometry geometry, Gravity gravity);
-
-    /// <summary>
     /// Displaces an image's colormap by a given number of positions.
     /// </summary>
     /// <param name="amount">Displace the colormap this amount.</param>

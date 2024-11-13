@@ -206,6 +206,22 @@ public partial class MagickImage
             SetResult(NativeMagickImage.Convolve(matrix));
         }
 
+        public void Crop(uint width, uint height)
+            => Crop(width, height, Gravity.Undefined);
+
+        public void Crop(uint width, uint height, Gravity gravity)
+            => Crop(new MagickGeometry(0, 0, width, height), gravity);
+
+        public void Crop(IMagickGeometry geometry)
+            => Crop(geometry, Gravity.Undefined);
+
+        public void Crop(IMagickGeometry geometry, Gravity gravity)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            SetResult(NativeMagickImage.Crop(geometry.ToString(), gravity));
+        }
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 
