@@ -353,7 +353,7 @@ public interface IMagickImageCreateOperations
 
     /// <summary>
     /// Crop image (subregion of original image). <see cref="IMagickImage.ResetPage"/> should be called unless
-    /// the <see cref="Page"/> information is needed.
+    /// the <see cref="IMagickImage.Page"/> information is needed.
     /// </summary>
     /// <param name="width">The width of the subregion to crop.</param>
     /// <param name="height">The height of the subregion to crop.</param>
