@@ -359,7 +359,6 @@ public partial class MagickImage
         public partial IntPtr CropToTiles(string geometry);
 
         [Throws]
-        [SetInstance]
         public partial void CycleColormap(nint amount);
 
         [Throws]
