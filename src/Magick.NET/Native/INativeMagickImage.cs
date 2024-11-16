@@ -8,5 +8,9 @@ namespace ImageMagick
     internal interface INativeMagickImage
     {
         IntPtr Fx(string expression, Channels channels);
+
+        void RemoveArtifact(string name);
+
+        void SetArtifact(string name, string value);
     }
 }
