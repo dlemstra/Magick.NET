@@ -868,28 +868,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Decipher(string passphrase);
 
     /// <summary>
-    /// Removes skew from the image. Skew is an artifact that occurs in scanned images because of
-    /// the camera being misaligned, imperfections in the scanning or surface, or simply because
-    /// the paper was not placed completely flat when scanned. The value of threshold ranges
-    /// from 0 to QuantumRange.
-    /// </summary>
-    /// <param name="threshold">The threshold.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    /// <returns>The angle that was used.</returns>
-    double Deskew(Percentage threshold);
-
-    /// <summary>
-    /// Removes skew from the image. Skew is an artifact that occurs in scanned images because of
-    /// the camera being misaligned, imperfections in the scanning or surface, or simply because
-    /// the paper was not placed completely flat when scanned. The value of threshold ranges
-    /// from 0 to QuantumRange. After the image is deskewed, it is cropped.
-    /// </summary>
-    /// <param name="threshold">The threshold.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    /// <returns>The angle that was used.</returns>
-    double DeskewAndCrop(Percentage threshold);
-
-    /// <summary>
     /// Despeckle image (reduce speckle noise).
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

@@ -365,8 +365,7 @@ public partial class MagickImage
         public partial void Decipher(string passphrase);
 
         [Throws]
-        [SetInstance]
-        public partial void Deskew(double threshold);
+        public partial IntPtr Deskew(double threshold);
 
         [Throws]
         [SetInstance]

@@ -2520,7 +2520,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     /// <returns>The angle that was used.</returns>
     public double Deskew(Percentage threshold)
-        => Deskew(threshold, autoCrop: false);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        return mutator.Deskew(threshold);
+    }
 
     /// <summary>
     /// Removes skew from the image. Skew is an artifact that occurs in scanned images because of
@@ -2532,7 +2535,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     /// <returns>The angle that was used.</returns>
     public double DeskewAndCrop(Percentage threshold)
-        => Deskew(threshold, autoCrop: true);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        return mutator.DeskewAndCrop(threshold);
+    }
 
     /// <summary>
     /// Despeckle image (reduce speckle noise).
@@ -7291,20 +7297,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
             newReadSettings = new MagickReadSettings(readSettings);
 
         return newReadSettings;
-    }
-
-    private double Deskew(Percentage threshold, bool autoCrop)
-    {
-        using var temporaryDefines = new TemporaryDefines(this);
-        temporaryDefines.SetArtifact("deskew:auto-crop", autoCrop);
-
-        _nativeInstance.Deskew(PercentageHelper.ToQuantum(nameof(threshold), threshold));
-
-        var artifact = GetArtifact("deskew:angle");
-        if (!double.TryParse(artifact, NumberStyles.Any, CultureInfo.InvariantCulture, out var result))
-            return 0.0;
-
-        return result;
     }
 
     private void Dispose(bool disposing)

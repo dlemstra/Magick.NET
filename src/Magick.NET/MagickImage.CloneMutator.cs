@@ -215,6 +215,12 @@ public partial class MagickImage
         public void Crop(IMagickGeometry geometry)
             => Crop(geometry, Gravity.Undefined);
 
+        public double Deskew(Percentage threshold)
+            => Deskew(threshold, autoCrop: false);
+
+        public double DeskewAndCrop(Percentage threshold)
+            => Deskew(threshold, autoCrop: true);
+
         public void Crop(IMagickGeometry geometry, Gravity gravity)
         {
             Throw.IfNull(nameof(geometry), geometry);
@@ -244,6 +250,20 @@ public partial class MagickImage
                 throw new InvalidOperationException("Only a single operation can be executed.");
 
             _result = result;
+        }
+
+        private double Deskew(Percentage threshold, bool autoCrop)
+        {
+            using var temporaryDefines = new TemporaryDefines(NativeMagickImage);
+            temporaryDefines.SetArtifact("deskew:auto-crop", autoCrop);
+
+            SetResult(NativeMagickImage.Deskew(PercentageHelper.ToQuantum(nameof(threshold), threshold)));
+
+            var artifact = NativeMagickImage.GetArtifact("deskew:angle");
+            if (!double.TryParse(artifact, NumberStyles.Any, CultureInfo.InvariantCulture, out var result))
+                return 0.0;
+
+            return result;
         }
     }
 }
