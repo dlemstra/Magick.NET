@@ -215,18 +215,21 @@ public partial class MagickImage
         public void Crop(IMagickGeometry geometry)
             => Crop(geometry, Gravity.Undefined);
 
-        public double Deskew(Percentage threshold)
-            => Deskew(threshold, autoCrop: false);
-
-        public double DeskewAndCrop(Percentage threshold)
-            => Deskew(threshold, autoCrop: true);
-
         public void Crop(IMagickGeometry geometry, Gravity gravity)
         {
             Throw.IfNull(nameof(geometry), geometry);
 
             SetResult(NativeMagickImage.Crop(geometry.ToString(), gravity));
         }
+
+        public double Deskew(Percentage threshold)
+            => Deskew(threshold, autoCrop: false);
+
+        public double DeskewAndCrop(Percentage threshold)
+            => Deskew(threshold, autoCrop: true);
+
+        public void Despeckle()
+            => SetResult(NativeMagickImage.Despeckle());
 
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));

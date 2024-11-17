@@ -401,6 +401,12 @@ public interface IMagickImageCreateOperations
     double DeskewAndCrop(Percentage threshold);
 
     /// <summary>
+    /// Despeckle image (reduce speckle noise).
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Despeckle();
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

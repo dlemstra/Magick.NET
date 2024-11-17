@@ -868,12 +868,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Decipher(string passphrase);
 
     /// <summary>
-    /// Despeckle image (reduce speckle noise).
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Despeckle();
-
-    /// <summary>
     /// Determines the bit depth (bits allocated to red/green/blue components). Use the Depth
     /// property to get the current value.
     /// </summary>

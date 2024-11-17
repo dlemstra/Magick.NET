@@ -2545,7 +2545,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Despeckle()
-        => _nativeInstance.Despeckle();
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Despeckle();
+    }
 
     /// <summary>
     /// Determines the bit depth (bits allocated to red/green/blue components). Use the Depth

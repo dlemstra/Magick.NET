@@ -368,8 +368,7 @@ public partial class MagickImage
         public partial IntPtr Deskew(double threshold);
 
         [Throws]
-        [SetInstance]
-        public partial void Despeckle();
+        public partial IntPtr Despeckle();
 
         [Throws]
         public partial nuint DetermineBitDepth(Channels channels);
