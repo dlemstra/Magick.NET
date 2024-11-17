@@ -906,12 +906,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Draw(IEnumerable<IDrawable> drawables);
 
     /// <summary>
-    /// Applies a digital filter that improves the quality of a noisy image.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Enhance();
-
-    /// <summary>
     /// Applies a histogram equalization to the image.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

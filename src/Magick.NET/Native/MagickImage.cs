@@ -389,8 +389,7 @@ public partial class MagickImage
         public partial IntPtr Encipher(string passphrase);
 
         [Throws]
-        [SetInstance]
-        public partial void Enhance();
+        public partial IntPtr Enhance();
 
         [Throws]
         public partial void Equalize(Channels channels);

@@ -262,6 +262,9 @@ public partial class MagickImage
             SetResult(NativeMagickImage.Encipher(passphrase));
         }
 
+        public void Enhance()
+            => SetResult(NativeMagickImage.Enhance());
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

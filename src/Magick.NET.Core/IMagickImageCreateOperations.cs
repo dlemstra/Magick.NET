@@ -454,6 +454,12 @@ public interface IMagickImageCreateOperations
     void Encipher(string passphrase);
 
     /// <summary>
+    /// Applies a digital filter that improves the quality of a noisy image.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Enhance();
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

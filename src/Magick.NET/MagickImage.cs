@@ -2691,7 +2691,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Enhance()
-        => _nativeInstance.Enhance();
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Enhance();
+    }
 
     /// <summary>
     /// Applies a histogram equalization to the image.
