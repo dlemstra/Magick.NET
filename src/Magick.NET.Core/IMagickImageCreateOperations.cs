@@ -426,6 +426,13 @@ public interface IMagickImageCreateOperations
     void Distort(IDistortSettings settings, params double[] arguments);
 
     /// <summary>
+    /// Edge image (highlight edges in image).
+    /// </summary>
+    /// <param name="radius">The radius of the pixel neighborhood.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Edge(double radius);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

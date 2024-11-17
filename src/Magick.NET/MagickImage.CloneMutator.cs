@@ -246,6 +246,9 @@ public partial class MagickImage
             SetResult(NativeMagickImage.Distort(settings.Method, settings.Bestfit, arguments, (nuint)arguments.Length));
         }
 
+        public void Edge(double radius)
+            => SetResult(NativeMagickImage.Edge(radius));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

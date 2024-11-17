@@ -906,13 +906,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Draw(IEnumerable<IDrawable> drawables);
 
     /// <summary>
-    /// Edge image (highlight edges in image).
-    /// </summary>
-    /// <param name="radius">The radius of the pixel neighborhood.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Edge(double radius);
-
-    /// <summary>
     /// Emboss image (highlight edges with 3D effect) with default value (0x1).
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

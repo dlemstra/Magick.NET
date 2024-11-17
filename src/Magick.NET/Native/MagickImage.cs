@@ -380,8 +380,7 @@ public partial class MagickImage
         public partial IntPtr Distort(DistortMethod method, bool bestfit, double[] arguments, nuint length);
 
         [Throws]
-        [SetInstance]
-        public partial void Edge(double radius);
+        public partial IntPtr Edge(double radius);
 
         [Throws]
         [SetInstance]
