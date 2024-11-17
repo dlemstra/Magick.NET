@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-40 (2024-11-09) ] copyright:
+[ ImageMagick 7.1.1-41 (2024-11-16) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -2132,7 +2132,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openexr 3.3.1 (2024-10-09) ] copyright:
+[ openexr 3.3.2 (2024-11-11) ] copyright:
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -3583,7 +3583,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 10.0.1 (2024-09-24) ] copyright:
+[ harfbuzz 10.1.0 (2024-11-05) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -3630,7 +3630,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.19.1 (2024-11-01) ] copyright:
+[ heif 1.19.3 (2024-11-11) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications are distributed under the terms of the MIT License.
@@ -6122,7 +6122,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ pixman 0.43.4 (2024-02-29) ] copyright:
+[ pixman 0.44.0 (2024-11-05) ] copyright:
 
 The following is the MIT license, agreed upon by most contributors.
 Copyright holders of new code should use this license statement where
