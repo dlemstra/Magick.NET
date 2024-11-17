@@ -906,6 +906,13 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Draw(IEnumerable<IDrawable> drawables);
 
     /// <summary>
+    /// Converts pixels to cipher-pixels.
+    /// </summary>
+    /// <param name="passphrase">The password that to encrypt the image with.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Encipher(string passphrase);
+
+    /// <summary>
     /// Applies a histogram equalization to the image.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

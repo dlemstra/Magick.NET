@@ -447,13 +447,6 @@ public interface IMagickImageCreateOperations
     void Emboss(double radius, double sigma);
 
     /// <summary>
-    /// Converts pixels to cipher-pixels.
-    /// </summary>
-    /// <param name="passphrase">The password that to encrypt the image with.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Encipher(string passphrase);
-
-    /// <summary>
     /// Applies a digital filter that improves the quality of a noisy image.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

@@ -255,13 +255,6 @@ public partial class MagickImage
         public void Emboss(double radius, double sigma)
             => SetResult(NativeMagickImage.Emboss(radius, sigma));
 
-        public void Encipher(string passphrase)
-        {
-            Throw.IfNullOrEmpty(nameof(passphrase), passphrase);
-
-            SetResult(NativeMagickImage.Encipher(passphrase));
-        }
-
         public void Enhance()
             => SetResult(NativeMagickImage.Enhance());
 

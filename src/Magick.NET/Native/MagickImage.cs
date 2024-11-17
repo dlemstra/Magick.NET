@@ -386,7 +386,7 @@ public partial class MagickImage
         public partial IntPtr Emboss(double radius, double sigma);
 
         [Throws]
-        public partial IntPtr Encipher(string passphrase);
+        public partial void Encipher(string passphrase);
 
         [Throws]
         public partial IntPtr Enhance();
