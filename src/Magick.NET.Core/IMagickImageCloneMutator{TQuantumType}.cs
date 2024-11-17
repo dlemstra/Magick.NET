@@ -30,4 +30,40 @@ public interface IMagickImageCloneMutator<TQuantumType> : IMagickImageCreateOper
     /// <param name="alphaBlue">The alpha percentage for blue.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Colorize(IMagickColor<TQuantumType> color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue);
+
+    /// <summary>
+    /// Extend the image as defined by the width and height.
+    /// </summary>
+    /// <param name="width">The width to extend the image to.</param>
+    /// <param name="height">The height to extend the image to.</param>
+    /// <param name="backgroundColor">The background color to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Extent(uint width, uint height, IMagickColor<TQuantumType> backgroundColor);
+
+    /// <summary>
+    /// Extend the image as defined by the width and height.
+    /// </summary>
+    /// <param name="width">The width to extend the image to.</param>
+    /// <param name="height">The height to extend the image to.</param>
+    /// <param name="gravity">The placement gravity.</param>
+    /// <param name="backgroundColor">The background color to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Extent(uint width, uint height, Gravity gravity, IMagickColor<TQuantumType> backgroundColor);
+
+    /// <summary>
+    /// Extend the image as defined by the geometry.
+    /// </summary>
+    /// <param name="geometry">The geometry to extend the image to.</param>
+    /// <param name="backgroundColor">The background color to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Extent(IMagickGeometry geometry, IMagickColor<TQuantumType> backgroundColor);
+
+    /// <summary>
+    /// Extend the image as defined by the geometry.
+    /// </summary>
+    /// <param name="geometry">The geometry to extend the image to.</param>
+    /// <param name="gravity">The placement gravity.</param>
+    /// <param name="backgroundColor">The background color to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Extent(IMagickGeometry geometry, Gravity gravity, IMagickColor<TQuantumType> backgroundColor);
 }

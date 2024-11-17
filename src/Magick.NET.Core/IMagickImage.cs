@@ -966,48 +966,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Evaluate(Channels channels, IMagickGeometry geometry, EvaluateOperator evaluateOperator, Percentage percentage);
 
     /// <summary>
-    /// Extend the image as defined by the width and height.
-    /// </summary>
-    /// <param name="width">The width to extend the image to.</param>
-    /// <param name="height">The height to extend the image to.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(uint width, uint height);
-
-    /// <summary>
-    /// Extend the image as defined by the width and height.
-    /// </summary>
-    /// <param name="x">The X offset from origin.</param>
-    /// <param name="y">The Y offset from origin.</param>
-    /// <param name="width">The width to extend the image to.</param>
-    /// <param name="height">The height to extend the image to.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(int x, int y, uint width, uint height);
-
-    /// <summary>
-    /// Extend the image as defined by the width and height.
-    /// </summary>
-    /// <param name="width">The width to extend the image to.</param>
-    /// <param name="height">The height to extend the image to.</param>
-    /// <param name="gravity">The placement gravity.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(uint width, uint height, Gravity gravity);
-
-    /// <summary>
-    /// Extend the image as defined by the rectangle.
-    /// </summary>
-    /// <param name="geometry">The geometry to extend the image to.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(IMagickGeometry geometry);
-
-    /// <summary>
-    /// Extend the image as defined by the geometry.
-    /// </summary>
-    /// <param name="geometry">The geometry to extend the image to.</param>
-    /// <param name="gravity">The placement gravity.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(IMagickGeometry geometry, Gravity gravity);
-
-    /// <summary>
     /// Flip image (reflect each scanline in the vertical direction).
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

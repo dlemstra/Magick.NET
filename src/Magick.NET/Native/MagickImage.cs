@@ -407,8 +407,7 @@ public partial class MagickImage
         public partial void EvaluateOperator(Channels channels, EvaluateOperator evaluateOperator, double value);
 
         [Throws]
-        [SetInstance]
-        public partial void Extent(string geometry, Gravity gravity);
+        public partial IntPtr Extent(string geometry, Gravity gravity);
 
         [Throws]
         [SetInstance]

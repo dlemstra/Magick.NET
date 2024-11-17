@@ -202,42 +202,6 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     void Draw(IDrawables<TQuantumType> drawables);
 
     /// <summary>
-    /// Extend the image as defined by the width and height.
-    /// </summary>
-    /// <param name="width">The width to extend the image to.</param>
-    /// <param name="height">The height to extend the image to.</param>
-    /// <param name="backgroundColor">The background color to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(uint width, uint height, IMagickColor<TQuantumType> backgroundColor);
-
-    /// <summary>
-    /// Extend the image as defined by the width and height.
-    /// </summary>
-    /// <param name="width">The width to extend the image to.</param>
-    /// <param name="height">The height to extend the image to.</param>
-    /// <param name="gravity">The placement gravity.</param>
-    /// <param name="backgroundColor">The background color to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(uint width, uint height, Gravity gravity, IMagickColor<TQuantumType> backgroundColor);
-
-    /// <summary>
-    /// Extend the image as defined by the geometry.
-    /// </summary>
-    /// <param name="geometry">The geometry to extend the image to.</param>
-    /// <param name="backgroundColor">The background color to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(IMagickGeometry geometry, IMagickColor<TQuantumType> backgroundColor);
-
-    /// <summary>
-    /// Extend the image as defined by the geometry.
-    /// </summary>
-    /// <param name="geometry">The geometry to extend the image to.</param>
-    /// <param name="gravity">The placement gravity.</param>
-    /// <param name="backgroundColor">The background color to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Extent(IMagickGeometry geometry, Gravity gravity, IMagickColor<TQuantumType> backgroundColor);
-
-    /// <summary>
     /// Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
     /// alpha value using method.
     /// </summary>

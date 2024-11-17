@@ -2774,7 +2774,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height to extend the image to.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(uint width, uint height)
-        => Extent(new MagickGeometry(width, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Extent(width, height);
+    }
 
     /// <summary>
     /// Extend the image as defined by the width and height.
@@ -2785,7 +2788,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height to extend the image to.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(int x, int y, uint width, uint height)
-        => Extent(new MagickGeometry(x, y, width, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Extent(x, y, width, height);
+    }
 
     /// <summary>
     /// Extend the image as defined by the width and height.
@@ -2795,7 +2801,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="backgroundColor">The background color to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(uint width, uint height, IMagickColor<QuantumType> backgroundColor)
-        => Extent(new MagickGeometry(width, height), backgroundColor);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Extent(width, height, backgroundColor);
+    }
 
     /// <summary>
     /// Extend the image as defined by the width and height.
@@ -2805,7 +2814,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="gravity">The placement gravity.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(uint width, uint height, Gravity gravity)
-        => Extent(new MagickGeometry(width, height), gravity);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Extent(width, height, gravity);
+    }
 
     /// <summary>
     /// Extend the image as defined by the width and height.
@@ -2816,7 +2828,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="backgroundColor">The background color to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(uint width, uint height, Gravity gravity, IMagickColor<QuantumType> backgroundColor)
-        => Extent(new MagickGeometry(width, height), gravity, backgroundColor);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Extent(width, height, gravity, backgroundColor);
+    }
 
     /// <summary>
     /// Extend the image as defined by the rectangle.
@@ -2824,7 +2839,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The geometry to extend the image to.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(IMagickGeometry geometry)
-        => Extent(geometry, Gravity.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Extent(geometry);
+    }
 
     /// <summary>
     /// Extend the image as defined by the geometry.
@@ -2834,10 +2852,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(IMagickGeometry geometry, IMagickColor<QuantumType> backgroundColor)
     {
-        Throw.IfNull(nameof(backgroundColor), backgroundColor);
-
-        BackgroundColor = backgroundColor;
-        Extent(geometry);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Extent(geometry, backgroundColor);
     }
 
     /// <summary>
@@ -2848,9 +2864,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(IMagickGeometry geometry, Gravity gravity)
     {
-        Throw.IfNull(nameof(geometry), geometry);
-
-        _nativeInstance.Extent(geometry.ToString(), gravity);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Extent(geometry, gravity);
     }
 
     /// <summary>
@@ -2862,10 +2877,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Extent(IMagickGeometry geometry, Gravity gravity, IMagickColor<QuantumType> backgroundColor)
     {
-        Throw.IfNull(nameof(backgroundColor), backgroundColor);
-
-        BackgroundColor = backgroundColor;
-        Extent(geometry, gravity);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Extent(geometry, gravity, backgroundColor);
     }
 
     /// <summary>
