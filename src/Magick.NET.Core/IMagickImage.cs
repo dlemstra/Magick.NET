@@ -906,20 +906,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Draw(IEnumerable<IDrawable> drawables);
 
     /// <summary>
-    /// Emboss image (highlight edges with 3D effect) with default value (0x1).
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Emboss();
-
-    /// <summary>
-    /// Emboss image (highlight edges with 3D effect).
-    /// </summary>
-    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
-    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Emboss(double radius, double sigma);
-
-    /// <summary>
     /// Converts pixels to cipher-pixels.
     /// </summary>
     /// <param name="passphrase">The password that to encrypt the image with.</param>

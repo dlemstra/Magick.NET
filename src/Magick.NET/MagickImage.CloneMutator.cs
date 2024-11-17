@@ -249,6 +249,12 @@ public partial class MagickImage
         public void Edge(double radius)
             => SetResult(NativeMagickImage.Edge(radius));
 
+        public void Emboss()
+            => Emboss(0.0, 1.0);
+
+        public void Emboss(double radius, double sigma)
+            => SetResult(NativeMagickImage.Emboss(radius, sigma));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

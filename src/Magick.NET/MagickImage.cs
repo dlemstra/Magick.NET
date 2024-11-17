@@ -2648,14 +2648,20 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="radius">The radius of the pixel neighborhood.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Edge(double radius)
-        => _nativeInstance.Edge(radius);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Edge(radius);
+    }
 
     /// <summary>
     /// Emboss image (highlight edges with 3D effect) with default value (0x1).
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Emboss()
-        => Emboss(0.0, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Emboss();
+    }
 
     /// <summary>
     /// Emboss image (highlight edges with 3D effect).
@@ -2664,7 +2670,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Emboss(double radius, double sigma)
-        => _nativeInstance.Emboss(radius, sigma);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Emboss(radius, sigma);
+    }
 
     /// <summary>
     /// Converts pixels to cipher-pixels.

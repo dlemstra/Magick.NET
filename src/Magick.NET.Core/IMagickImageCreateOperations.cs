@@ -433,6 +433,20 @@ public interface IMagickImageCreateOperations
     void Edge(double radius);
 
     /// <summary>
+    /// Emboss image (highlight edges with 3D effect) with default value (0x1).
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Emboss();
+
+    /// <summary>
+    /// Emboss image (highlight edges with 3D effect).
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Emboss(double radius, double sigma);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

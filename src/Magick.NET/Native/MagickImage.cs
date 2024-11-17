@@ -383,8 +383,7 @@ public partial class MagickImage
         public partial IntPtr Edge(double radius);
 
         [Throws]
-        [SetInstance]
-        public partial void Emboss(double radius, double sigma);
+        public partial IntPtr Emboss(double radius, double sigma);
 
         [Throws]
         [SetInstance]
