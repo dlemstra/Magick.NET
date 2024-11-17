@@ -892,25 +892,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     ColorType DetermineColorType();
 
     /// <summary>
-    /// Distorts an image using various distortion methods, by mapping color lookups of the source
-    /// image to a new destination image of the same size as the source image.
-    /// </summary>
-    /// <param name="method">The distortion method to use.</param>
-    /// <param name="arguments">An array containing the arguments for the distortion.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Distort(DistortMethod method, params double[] arguments);
-
-    /// <summary>
-    /// Distorts an image using various distortion methods, by mapping color lookups of the source
-    /// image to a new destination image usually of the same size as the source image, unless
-    /// 'bestfit' is set to true.
-    /// </summary>
-    /// <param name="settings">The settings for the distort operation.</param>
-    /// <param name="arguments">An array containing the arguments for the distortion.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Distort(IDistortSettings settings, params double[] arguments);
-
-    /// <summary>
     /// Draw on image using one or more drawables.
     /// </summary>
     /// <param name="drawables">The drawable(s) to draw on the image.</param>

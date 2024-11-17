@@ -231,6 +231,21 @@ public partial class MagickImage
         public void Despeckle()
             => SetResult(NativeMagickImage.Despeckle());
 
+        public void Distort(DistortMethod method, params double[] arguments)
+            => Distort(new DistortSettings(method), arguments);
+
+        public void Distort(IDistortSettings settings, params double[] arguments)
+        {
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfNullOrEmpty(nameof(arguments), arguments);
+
+            using var temporaryDefines = new TemporaryDefines(NativeMagickImage);
+            temporaryDefines.SetArtifact("distort:scale", settings.Scale);
+            temporaryDefines.SetArtifact("distort:viewport", settings.Viewport);
+
+            SetResult(NativeMagickImage.Distort(settings.Method, settings.Bestfit, arguments, (nuint)arguments.Length));
+        }
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

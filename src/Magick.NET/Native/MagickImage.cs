@@ -377,8 +377,7 @@ public partial class MagickImage
         public partial ColorType DetermineColorType();
 
         [Throws]
-        [SetInstance]
-        public partial void Distort(DistortMethod method, bool bestfit, double[] arguments, nuint length);
+        public partial IntPtr Distort(DistortMethod method, bool bestfit, double[] arguments, nuint length);
 
         [Throws]
         [SetInstance]

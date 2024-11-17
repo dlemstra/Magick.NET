@@ -2594,7 +2594,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="arguments">An array containing the arguments for the distortion.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Distort(DistortMethod method, params double[] arguments)
-        => Distort(new DistortSettings(method), arguments);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Distort(new DistortSettings(method), arguments);
+    }
 
     /// <summary>
     /// Distorts an image using various distortion methods, by mapping color lookups of the source
@@ -2606,14 +2609,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Distort(IDistortSettings settings, params double[] arguments)
     {
-        Throw.IfNull(nameof(settings), settings);
-        Throw.IfNullOrEmpty(nameof(arguments), arguments);
-
-        using var temporaryDefines = new TemporaryDefines(this);
-        temporaryDefines.SetArtifact("distort:scale", settings.Scale);
-        temporaryDefines.SetArtifact("distort:viewport", settings.Viewport);
-
-        _nativeInstance.Distort(settings.Method, settings.Bestfit, arguments, (nuint)arguments.Length);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Distort(settings, arguments);
     }
 
     /// <summary>
