@@ -2682,9 +2682,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Encipher(string passphrase)
     {
-        Throw.IfNullOrEmpty(nameof(passphrase), passphrase);
-
-        _nativeInstance.Encipher(passphrase);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Encipher(passphrase);
     }
 
     /// <summary>

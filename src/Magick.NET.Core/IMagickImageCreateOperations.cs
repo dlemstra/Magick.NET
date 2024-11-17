@@ -447,6 +447,13 @@ public interface IMagickImageCreateOperations
     void Emboss(double radius, double sigma);
 
     /// <summary>
+    /// Converts pixels to cipher-pixels.
+    /// </summary>
+    /// <param name="passphrase">The password that to encrypt the image with.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Encipher(string passphrase);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
