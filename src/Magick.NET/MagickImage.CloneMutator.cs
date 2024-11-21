@@ -284,12 +284,6 @@ public partial class MagickImage
             Extent(geometry);
         }
 
-        /// <summary>
-        /// Extend the image as defined by the geometry.
-        /// </summary>
-        /// <param name="geometry">The geometry to extend the image to.</param>
-        /// <param name="gravity">The placement gravity.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Extent(IMagickGeometry geometry, Gravity gravity)
         {
             Throw.IfNull(nameof(geometry), geometry);
@@ -297,13 +291,6 @@ public partial class MagickImage
             SetResult(NativeMagickImage.Extent(geometry.ToString(), gravity));
         }
 
-        /// <summary>
-        /// Extend the image as defined by the geometry.
-        /// </summary>
-        /// <param name="geometry">The geometry to extend the image to.</param>
-        /// <param name="gravity">The placement gravity.</param>
-        /// <param name="backgroundColor">The background color to use.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Extent(IMagickGeometry geometry, Gravity gravity, IMagickColor<QuantumType> backgroundColor)
         {
             Throw.IfNull(nameof(backgroundColor), backgroundColor);
