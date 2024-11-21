@@ -507,6 +507,37 @@ public interface IMagickImageCreateOperations
     void Flop();
 
     /// <summary>
+    /// Frame image with the default geometry (25x25+6+6).
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Frame();
+
+    /// <summary>
+    /// Frame image with the specified geometry.
+    /// </summary>
+    /// <param name="geometry">The geometry of the frame.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Frame(IMagickGeometry geometry);
+
+    /// <summary>
+    /// Frame image with the specified with and height.
+    /// </summary>
+    /// <param name="width">The width of the frame.</param>
+    /// <param name="height">The height of the frame.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Frame(uint width, uint height);
+
+    /// <summary>
+    /// Frame image with the specified with, height, innerBevel and outerBevel.
+    /// </summary>
+    /// <param name="width">The width of the frame.</param>
+    /// <param name="height">The height of the frame.</param>
+    /// <param name="innerBevel">The inner bevel of the frame.</param>
+    /// <param name="outerBevel">The outer bevel of the frame.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Frame(uint width, uint height, int innerBevel, int outerBevel);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

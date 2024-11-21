@@ -3005,7 +3005,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Frame()
-        => Frame(new MagickGeometry(6, 6, 25, 25));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Frame();
+    }
 
     /// <summary>
     /// Frame image with the specified geometry.
@@ -3013,7 +3016,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The geometry of the frame.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Frame(IMagickGeometry geometry)
-        => _nativeInstance.Frame(MagickRectangle.FromGeometry(geometry, this));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Frame(geometry);
+    }
 
     /// <summary>
     /// Frame image with the specified with and height.
@@ -3022,7 +3028,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height of the frame.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Frame(uint width, uint height)
-        => Frame(new MagickGeometry(6, 6, width, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Frame(width, height);
+    }
 
     /// <summary>
     /// Frame image with the specified with, height, innerBevel and outerBevel.
@@ -3033,7 +3042,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="outerBevel">The outer bevel of the frame.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Frame(uint width, uint height, int innerBevel, int outerBevel)
-        => Frame(new MagickGeometry(innerBevel, outerBevel, width, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Frame(width, height, innerBevel, outerBevel);
+    }
 
     /// <summary>
     /// Applies a mathematical expression to the image.

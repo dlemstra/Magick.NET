@@ -426,8 +426,7 @@ public partial class MagickImage
         public partial string? FormatExpression(IMagickSettings<QuantumType>? settings, string expression);
 
         [Throws]
-        [SetInstance]
-        public partial void Frame(MagickRectangle geometry);
+        public partial IntPtr Frame(MagickRectangle geometry);
 
         [Throws]
         public partial IntPtr Fx(string expression, Channels channels);

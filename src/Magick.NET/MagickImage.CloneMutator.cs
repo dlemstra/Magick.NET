@@ -305,6 +305,18 @@ public partial class MagickImage
         public void Flop()
             => SetResult(NativeMagickImage.Flop());
 
+        public void Frame()
+            => Frame(new MagickGeometry(6, 6, 25, 25));
+
+        public void Frame(IMagickGeometry geometry)
+            => SetResult(NativeMagickImage.Frame(MagickRectangle.FromGeometry(geometry, (uint)NativeMagickImage.Width_Get(), (uint)NativeMagickImage.Height_Get())));
+
+        public void Frame(uint width, uint height)
+            => Frame(new MagickGeometry(6, 6, width, height));
+
+        public void Frame(uint width, uint height, int innerBevel, int outerBevel)
+            => Frame(new MagickGeometry(innerBevel, outerBevel, width, height));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 
