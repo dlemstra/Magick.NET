@@ -973,18 +973,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Evaluate(Channels channels, IMagickGeometry geometry, EvaluateOperator evaluateOperator, Percentage percentage);
 
     /// <summary>
-    /// Flip image (reflect each scanline in the vertical direction).
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Flip();
-
-    /// <summary>
-    /// Flop image (reflect each scanline in the horizontal direction).
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Flop();
-
-    /// <summary>
     /// Obtain font metrics for text string given current font, pointsize, and density settings.
     /// </summary>
     /// <param name="text">The text to get the font metrics for.</param>

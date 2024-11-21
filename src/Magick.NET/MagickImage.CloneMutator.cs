@@ -299,6 +299,12 @@ public partial class MagickImage
             Extent(geometry, gravity);
         }
 
+        public void Flip()
+            => SetResult(NativeMagickImage.Flip());
+
+        public void Flop()
+            => SetResult(NativeMagickImage.Flop());
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

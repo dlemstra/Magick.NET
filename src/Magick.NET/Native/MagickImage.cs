@@ -410,15 +410,13 @@ public partial class MagickImage
         public partial IntPtr Extent(string geometry, Gravity gravity);
 
         [Throws]
-        [SetInstance]
-        public partial void Flip();
+        public partial IntPtr Flip();
 
         [Throws]
         public partial void FloodFill(DrawingSettings settings, nint x, nint y, IMagickColor<QuantumType>? target, bool invert);
 
         [Throws]
-        [SetInstance]
-        public partial void Flop();
+        public partial IntPtr Flop();
 
         [Throws]
         [Cleanup(Name = "TypeMetric.Dispose")]

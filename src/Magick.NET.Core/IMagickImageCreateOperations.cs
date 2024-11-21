@@ -495,6 +495,18 @@ public interface IMagickImageCreateOperations
     void Extent(IMagickGeometry geometry, Gravity gravity);
 
     /// <summary>
+    /// Flip image (reflect each scanline in the vertical direction).
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Flip();
+
+    /// <summary>
+    /// Flop image (reflect each scanline in the horizontal direction).
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Flop();
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

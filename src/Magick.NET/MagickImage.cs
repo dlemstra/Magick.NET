@@ -2887,7 +2887,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Flip()
-        => _nativeInstance.Flip();
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Flip();
+    }
 
     /// <summary>
     /// Floodfill pixels matching color (within fuzz factor) of target pixel(x,y) with replacement
@@ -2951,7 +2954,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Flop()
-        => _nativeInstance.Flop();
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Flop();
+    }
 
     /// <summary>
     /// Obtain font metrics for text string given current font, pointsize, and density settings.
