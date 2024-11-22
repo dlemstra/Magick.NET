@@ -3387,7 +3387,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void HoughLine()
-        => HoughLine(0, 0, 40);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.HoughLine();
+    }
 
     /// <summary>
     /// Identifies lines in the image.
@@ -3397,7 +3400,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="threshold">The line count threshold.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void HoughLine(uint width, uint height, uint threshold)
-        => _nativeInstance.HoughLine(width, height, threshold);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.HoughLine(width, height, threshold);
+    }
 
     /// <summary>
     /// Implode image (special effect).

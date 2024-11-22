@@ -1136,21 +1136,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     bool HasProfile(string name);
 
     /// <summary>
-    /// Identifies lines in the image.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void HoughLine();
-
-    /// <summary>
-    /// Identifies lines in the image.
-    /// </summary>
-    /// <param name="width">The width of the neighborhood.</param>
-    /// <param name="height">The height of the neighborhood.</param>
-    /// <param name="threshold">The line count threshold.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void HoughLine(uint width, uint height, uint threshold);
-
-    /// <summary>
     /// Implode image (special effect).
     /// </summary>
     /// <param name="amount">The extent of the implosion.</param>

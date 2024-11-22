@@ -329,6 +329,12 @@ public partial class MagickImage
         public void GaussianBlur(double radius, double sigma, Channels channels)
             => SetResult(NativeMagickImage.GaussianBlur(radius, sigma, channels));
 
+        public void HoughLine()
+            => HoughLine(0, 0, 40);
+
+        public void HoughLine(uint width, uint height, uint threshold)
+            => SetResult(NativeMagickImage.HoughLine(width, height, threshold));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

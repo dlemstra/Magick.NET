@@ -475,8 +475,7 @@ public partial class MagickImage
         public partial IntPtr Histogram(out nuint length);
 
         [Throws]
-        [SetInstance]
-        public partial void HoughLine(nuint width, nuint height, nuint threshold);
+        public partial IntPtr HoughLine(nuint width, nuint height, nuint threshold);
 
         [Throws]
         [SetInstance]

@@ -570,6 +570,21 @@ public interface IMagickImageCreateOperations
     void GaussianBlur(double radius, double sigma, Channels channels);
 
     /// <summary>
+    /// Identifies lines in the image.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void HoughLine();
+
+    /// <summary>
+    /// Identifies lines in the image.
+    /// </summary>
+    /// <param name="width">The width of the neighborhood.</param>
+    /// <param name="height">The height of the neighborhood.</param>
+    /// <param name="threshold">The line count threshold.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void HoughLine(uint width, uint height, uint threshold);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
