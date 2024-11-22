@@ -317,6 +317,18 @@ public partial class MagickImage
         public void Frame(uint width, uint height, int innerBevel, int outerBevel)
             => Frame(new MagickGeometry(innerBevel, outerBevel, width, height));
 
+        public void GaussianBlur(double radius)
+            => GaussianBlur(radius, 1.0);
+
+        public void GaussianBlur(double radius, Channels channels)
+            => GaussianBlur(radius, 1.0, channels);
+
+        public void GaussianBlur(double radius, double sigma)
+            => GaussianBlur(radius, sigma, ImageMagick.Channels.Undefined);
+
+        public void GaussianBlur(double radius, double sigma, Channels channels)
+            => SetResult(NativeMagickImage.GaussianBlur(radius, sigma, channels));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

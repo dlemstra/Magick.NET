@@ -3091,7 +3091,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="radius">The number of neighbor pixels to be included in the convolution.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void GaussianBlur(double radius)
-        => GaussianBlur(radius, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.GaussianBlur(radius);
+    }
 
     /// <summary>
     /// Gaussian blur image.
@@ -3100,7 +3103,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to blur.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void GaussianBlur(double radius, Channels channels)
-        => GaussianBlur(radius, 1.0, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.GaussianBlur(radius, channels);
+    }
 
     /// <summary>
     /// Gaussian blur image.
@@ -3109,7 +3115,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the gaussian bell curve.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void GaussianBlur(double radius, double sigma)
-        => GaussianBlur(radius, sigma, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.GaussianBlur(radius, sigma);
+    }
 
     /// <summary>
     /// Gaussian blur image.
@@ -3119,7 +3128,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to blur.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void GaussianBlur(double radius, double sigma, Channels channels)
-        => _nativeInstance.GaussianBlur(radius, sigma, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.GaussianBlur(radius, sigma, channels);
+    }
 
     /// <summary>
     /// Retrieve the 8bim profile from the image.

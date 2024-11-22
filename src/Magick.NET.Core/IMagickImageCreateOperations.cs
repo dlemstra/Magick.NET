@@ -538,6 +538,38 @@ public interface IMagickImageCreateOperations
     void Frame(uint width, uint height, int innerBevel, int outerBevel);
 
     /// <summary>
+    /// Gaussian blur image.
+    /// </summary>
+    /// <param name="radius">The number of neighbor pixels to be included in the convolution.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void GaussianBlur(double radius);
+
+    /// <summary>
+    /// Gaussian blur image.
+    /// </summary>
+    /// <param name="radius">The number of neighbor pixels to be included in the convolution.</param>
+    /// <param name="channels">The channel(s) to blur.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void GaussianBlur(double radius, Channels channels);
+
+    /// <summary>
+    /// Gaussian blur image.
+    /// </summary>
+    /// <param name="radius">The number of neighbor pixels to be included in the convolution.</param>
+    /// <param name="sigma">The standard deviation of the gaussian bell curve.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void GaussianBlur(double radius, double sigma);
+
+    /// <summary>
+    /// Gaussian blur image.
+    /// </summary>
+    /// <param name="radius">The number of neighbor pixels to be included in the convolution.</param>
+    /// <param name="sigma">The standard deviation of the gaussian bell curve.</param>
+    /// <param name="channels">The channel(s) to blur.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void GaussianBlur(double radius, double sigma, Channels channels);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

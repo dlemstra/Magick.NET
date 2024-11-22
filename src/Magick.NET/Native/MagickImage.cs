@@ -435,8 +435,7 @@ public partial class MagickImage
         public partial void GammaCorrect(double gamma, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void GaussianBlur(double radius, double sigma, Channels channels);
+        public partial IntPtr GaussianBlur(double radius, double sigma, Channels channels);
 
         [Throws]
         public partial string? GetArtifact(string name);
