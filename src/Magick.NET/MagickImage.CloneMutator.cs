@@ -335,6 +335,22 @@ public partial class MagickImage
         public void HoughLine(uint width, uint height, uint threshold)
             => SetResult(NativeMagickImage.HoughLine(width, height, threshold));
 
+        public void InterpolativeResize(uint width, uint height, PixelInterpolateMethod method)
+            => InterpolativeResize(new MagickGeometry(width, height), method);
+
+        public void InterpolativeResize(IMagickGeometry geometry, PixelInterpolateMethod method)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            SetResult(NativeMagickImage.InterpolativeResize(geometry.ToString(), method));
+        }
+
+        public void InterpolativeResize(Percentage percentage, PixelInterpolateMethod method)
+            => InterpolativeResize(new MagickGeometry(percentage, percentage), method);
+
+        public void InterpolativeResize(Percentage percentageWidth, Percentage percentageHeight, PixelInterpolateMethod method)
+            => InterpolativeResize(new MagickGeometry(percentageWidth, percentageHeight), method);
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

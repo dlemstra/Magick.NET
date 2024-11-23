@@ -489,8 +489,7 @@ public partial class MagickImage
         public partial IntPtr Integral();
 
         [Throws]
-        [SetInstance]
-        public partial void InterpolativeResize(string geometry, PixelInterpolateMethod method);
+        public partial IntPtr InterpolativeResize(string geometry, PixelInterpolateMethod method);
 
         [Throws]
         public partial void InverseLevel(double blackPoint, double whitePoint, double gamma, Channels channels);

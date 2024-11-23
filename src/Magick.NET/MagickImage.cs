@@ -3502,7 +3502,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="method">Pixel interpolate method.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InterpolativeResize(uint width, uint height, PixelInterpolateMethod method)
-        => InterpolativeResize(new MagickGeometry(width, height), method);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.InterpolativeResize(width, height, method);
+    }
 
     /// <summary>
     /// Resize image to specified size using the specified interpolation method.
@@ -3512,9 +3515,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InterpolativeResize(IMagickGeometry geometry, PixelInterpolateMethod method)
     {
-        Throw.IfNull(nameof(geometry), geometry);
-
-        _nativeInstance.InterpolativeResize(geometry.ToString(), method);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.InterpolativeResize(geometry, method);
     }
 
     /// <summary>
@@ -3524,7 +3526,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="method">Pixel interpolate method.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InterpolativeResize(Percentage percentage, PixelInterpolateMethod method)
-        => InterpolativeResize(new MagickGeometry(percentage, percentage), method);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.InterpolativeResize(percentage, method);
+    }
 
     /// <summary>
     /// Resize image to specified size using the specified interpolation method.
@@ -3534,7 +3539,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="method">Pixel interpolate method.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InterpolativeResize(Percentage percentageWidth, Percentage percentageHeight, PixelInterpolateMethod method)
-        => InterpolativeResize(new MagickGeometry(percentageWidth, percentageHeight), method);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.InterpolativeResize(percentageWidth, percentageHeight, method);
+    }
 
     /// <summary>
     /// Inverse contrast image (diminish intensity differences in image).

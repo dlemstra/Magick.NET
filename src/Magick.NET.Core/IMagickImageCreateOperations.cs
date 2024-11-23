@@ -585,6 +585,40 @@ public interface IMagickImageCreateOperations
     void HoughLine(uint width, uint height, uint threshold);
 
     /// <summary>
+    /// Resize image to specified size using the specified interpolation method.
+    /// </summary>
+    /// <param name="width">The new width.</param>
+    /// <param name="height">The new height.</param>
+    /// <param name="method">Pixel interpolate method.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void InterpolativeResize(uint width, uint height, PixelInterpolateMethod method);
+
+    /// <summary>
+    /// Resize image to specified size using the specified interpolation method.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <param name="method">Pixel interpolate method.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void InterpolativeResize(IMagickGeometry geometry, PixelInterpolateMethod method);
+
+    /// <summary>
+    /// Resize image to specified size using the specified interpolation method.
+    /// </summary>
+    /// <param name="percentage">The percentage.</param>
+    /// <param name="method">Pixel interpolate method.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void InterpolativeResize(Percentage percentage, PixelInterpolateMethod method);
+
+    /// <summary>
+    /// Resize image to specified size using the specified interpolation method.
+    /// </summary>
+    /// <param name="percentageWidth">The percentage of the width.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
+    /// <param name="method">Pixel interpolate method.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void InterpolativeResize(Percentage percentageWidth, Percentage percentageHeight, PixelInterpolateMethod method);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

@@ -1161,40 +1161,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void ImportPixels(byte[] data, uint offset, IPixelImportSettings settings);
 
     /// <summary>
-    /// Resize image to specified size using the specified interpolation method.
-    /// </summary>
-    /// <param name="width">The new width.</param>
-    /// <param name="height">The new height.</param>
-    /// <param name="method">Pixel interpolate method.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InterpolativeResize(uint width, uint height, PixelInterpolateMethod method);
-
-    /// <summary>
-    /// Resize image to specified size using the specified interpolation method.
-    /// </summary>
-    /// <param name="geometry">The geometry to use.</param>
-    /// <param name="method">Pixel interpolate method.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InterpolativeResize(IMagickGeometry geometry, PixelInterpolateMethod method);
-
-    /// <summary>
-    /// Resize image to specified size using the specified interpolation method.
-    /// </summary>
-    /// <param name="percentage">The percentage.</param>
-    /// <param name="method">Pixel interpolate method.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InterpolativeResize(Percentage percentage, PixelInterpolateMethod method);
-
-    /// <summary>
-    /// Resize image to specified size using the specified interpolation method.
-    /// </summary>
-    /// <param name="percentageWidth">The percentage of the width.</param>
-    /// <param name="percentageHeight">The percentage of the height.</param>
-    /// <param name="method">Pixel interpolate method.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InterpolativeResize(Percentage percentageWidth, Percentage percentageHeight, PixelInterpolateMethod method);
-
-    /// <summary>
     /// Inverse contrast image (diminish intensity differences in image).
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
