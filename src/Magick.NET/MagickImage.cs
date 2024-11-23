@@ -3811,7 +3811,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Kuwahara()
-        => Kuwahara(0.0, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Kuwahara();
+    }
 
     /// <summary>
     /// An edge preserving noise reduction filter.
@@ -3820,7 +3823,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Kuwahara(double radius, double sigma)
-        => _nativeInstance.Kuwahara(radius, sigma);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Kuwahara(radius, sigma);
+    }
 
     /// <summary>
     /// Adjust the levels of the image by scaling the colors falling between specified white and

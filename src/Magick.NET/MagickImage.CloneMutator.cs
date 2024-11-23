@@ -351,6 +351,12 @@ public partial class MagickImage
         public void InterpolativeResize(Percentage percentageWidth, Percentage percentageHeight, PixelInterpolateMethod method)
             => InterpolativeResize(new MagickGeometry(percentageWidth, percentageHeight), method);
 
+        public void Kuwahara()
+            => Kuwahara(0.0, 1.0);
+
+        public void Kuwahara(double radius, double sigma)
+            => SetResult(NativeMagickImage.Kuwahara(radius, sigma));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 

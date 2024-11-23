@@ -1246,20 +1246,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Kmeans(IKmeansSettings settings);
 
     /// <summary>
-    /// An edge preserving noise reduction filter.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Kuwahara();
-
-    /// <summary>
-    /// An edge preserving noise reduction filter.
-    /// </summary>
-    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
-    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Kuwahara(double radius, double sigma);
-
-    /// <summary>
     /// Adjust the levels of the image by scaling the colors falling between specified white and
     /// black points to the full available quantum range.
     /// </summary>

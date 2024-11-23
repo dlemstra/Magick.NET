@@ -498,8 +498,7 @@ public partial class MagickImage
         public partial void Kmeans(nuint numberColors, nuint maxIterations, double tolerance);
 
         [Throws]
-        [SetInstance]
-        public partial void Kuwahara(double radius, double sigma);
+        public partial IntPtr Kuwahara(double radius, double sigma);
 
         [Throws]
         public partial void Level(double blackPoint, double whitePoint, double gamma, Channels channels);
