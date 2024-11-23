@@ -3412,7 +3412,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="method">Pixel interpolate method.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Implode(double amount, PixelInterpolateMethod method)
-        => _nativeInstance.Implode(amount, method);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Implode(amount, method);
+    }
 
     /// <summary>
     /// Import pixels from the specified byte array into the current image.

@@ -478,8 +478,7 @@ public partial class MagickImage
         public partial IntPtr HoughLine(nuint width, nuint height, nuint threshold);
 
         [Throws]
-        [SetInstance]
-        public partial void Implode(double amount, PixelInterpolateMethod method);
+        public partial IntPtr Implode(double amount, PixelInterpolateMethod method);
 
         [Throws]
         public partial void ImportPixels(nint x, nint y, nuint width, nuint height, string map, StorageType storageType, void* data, nuint offsetInBytes);

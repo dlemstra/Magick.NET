@@ -335,6 +335,9 @@ public partial class MagickImage
         public void HoughLine(uint width, uint height, uint threshold)
             => SetResult(NativeMagickImage.HoughLine(width, height, threshold));
 
+        public void Implode(double amount, PixelInterpolateMethod method)
+            => SetResult(NativeMagickImage.Implode(amount, method));
+
         public void InterpolativeResize(uint width, uint height, PixelInterpolateMethod method)
             => InterpolativeResize(new MagickGeometry(width, height), method);
 

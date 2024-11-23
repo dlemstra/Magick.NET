@@ -585,6 +585,14 @@ public interface IMagickImageCreateOperations
     void HoughLine(uint width, uint height, uint threshold);
 
     /// <summary>
+    /// Implode image (special effect).
+    /// </summary>
+    /// <param name="amount">The extent of the implosion.</param>
+    /// <param name="method">Pixel interpolate method.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Implode(double amount, PixelInterpolateMethod method);
+
+    /// <summary>
     /// Resize image to specified size using the specified interpolation method.
     /// </summary>
     /// <param name="width">The new width.</param>

@@ -1136,14 +1136,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     bool HasProfile(string name);
 
     /// <summary>
-    /// Implode image (special effect).
-    /// </summary>
-    /// <param name="amount">The extent of the implosion.</param>
-    /// <param name="method">Pixel interpolate method.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Implode(double amount, PixelInterpolateMethod method);
-
-    /// <summary>
     /// Import pixels from the specified byte array.
     /// </summary>
     /// <param name="data">The byte array to read the image data from.</param>
