@@ -9,7 +9,7 @@ using Xunit;
 
 namespace Magick.NET.SystemDrawing.Tests;
 
-public partial class MagickImageFactoryTests
+public partial class IMagickImageFactoryExtensionsTests
 {
     public partial class TheCreateMethod
     {
