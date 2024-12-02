@@ -125,6 +125,12 @@ public sealed class MagickReadSettings : MagickSettings, IMagickReadSettings<Qua
     /// </summary>
     public uint? Width { get; set; }
 
+    internal void ForceSingleFrame()
+    {
+        FrameCount = 1;
+        ApplyFrame();
+    }
+
     private static string GetDefineKey(IDefine define)
     {
         if (define.Format == MagickFormat.Unknown)
