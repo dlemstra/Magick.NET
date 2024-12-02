@@ -28,33 +28,20 @@ internal sealed class ColorProfileReader
     }
 
     private static ColorSpace DetermineColorSpace(string colorSpace)
-    {
-        switch (colorSpace)
+        => colorSpace switch
         {
-            case "CMY":
-                return ColorSpace.CMY;
-            case "CMYK":
-                return ColorSpace.CMYK;
-            case "GRAY":
-                return ColorSpace.Gray;
-            case "HSL":
-                return ColorSpace.HSL;
-            case "HSV":
-                return ColorSpace.HSV;
-            case "Lab":
-                return ColorSpace.Lab;
-            case "Luv":
-                return ColorSpace.YUV;
-            case "RGB":
-                return ColorSpace.sRGB;
-            case "XYZ":
-                return ColorSpace.XYZ;
-            case "YCbr":
-                return ColorSpace.YCbCr;
-            default:
-                throw new NotSupportedException(colorSpace);
-        }
-    }
+            "CMY" => ColorSpace.CMY,
+            "CMYK" => ColorSpace.CMYK,
+            "GRAY" => ColorSpace.Gray,
+            "HSL" => ColorSpace.HSL,
+            "HSV" => ColorSpace.HSV,
+            "Lab" => ColorSpace.Lab,
+            "Luv" => ColorSpace.YUV,
+            "RGB" => ColorSpace.sRGB,
+            "XYZ" => ColorSpace.XYZ,
+            "YCbr" => ColorSpace.YCbCr,
+            _ => throw new NotSupportedException(colorSpace),
+        };
 
     private void ReadColorSpace()
     {
