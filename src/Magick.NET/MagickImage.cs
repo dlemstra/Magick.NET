@@ -1637,7 +1637,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The area to clone.</param>
     /// <returns>A clone of the current image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(CloneArea)} instead.")]
+    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
     public IMagickImage<QuantumType> Clone(IMagickGeometry geometry)
         => CloneArea(geometry);
 
@@ -1647,7 +1647,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="width">The width of the area to clone.</param>
     /// <param name="height">The height of the area to clone.</param>
     /// <returns>A clone of the current image.</returns>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(CloneArea)} instead.")]
+    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
     public IMagickImage<QuantumType> Clone(uint width, uint height)
         => CloneArea(new MagickGeometry(width, height));
 
@@ -1659,7 +1659,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="width">The width of the area to clone.</param>
     /// <param name="height">The height of the area to clone.</param>
     /// <returns>A clone of the current image.</returns>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(CloneArea)} instead.")]
+    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
     public IMagickImage<QuantumType> Clone(int x, int y, uint width, uint height)
         => CloneArea(new MagickGeometry(x, y, width, height));
 

@@ -58,7 +58,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="geometry">The area to clone.</param>
     /// <returns>A clone of the current image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(CloneArea)} instead.")]
+    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
     IMagickImage<TQuantumType> Clone(IMagickGeometry geometry);
 
     /// <summary>
@@ -67,7 +67,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="width">The width of the area to clone.</param>
     /// <param name="height">The height of the area to clone.</param>
     /// <returns>A clone of the current image.</returns>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(CloneArea)} instead.")]
+    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
     IMagickImage<TQuantumType> Clone(uint width, uint height);
 
     /// <summary>
@@ -78,7 +78,7 @@ public partial interface IMagickImage<TQuantumType> : IMagickImage, IComparable<
     /// <param name="width">The width of the area to clone.</param>
     /// <param name="height">The height of the area to clone.</param>
     /// <returns>A clone of the current image.</returns>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(CloneArea)} instead.")]
+    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
     IMagickImage<TQuantumType> Clone(int x, int y, uint width, uint height);
 
     /// <summary>
