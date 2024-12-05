@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -49,6 +50,7 @@ public sealed class ColorProfile : ImageProfile, IColorProfile
     /// </summary>
     /// <param name="name">The name of the color profile (e.g. icc or icm).</param>
     /// <param name="data">A byte array containing the profile.</param>
+    [Obsolete("This constructor will be removed in the next major release (only 'icc' will be used in the future).")]
     public ColorProfile(string name, byte[] data)
       : base(name, data)
     {

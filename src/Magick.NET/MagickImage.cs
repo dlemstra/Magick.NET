@@ -7496,7 +7496,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         if (info is null || info.Datum is null)
             return null;
 
-        return new ColorProfile(name, info.Datum);
+        return new ColorProfile(info.Datum);
     }
 
     private void OnArtifact(object? sender, ArtifactEventArgs arguments)

@@ -61,7 +61,7 @@ public partial class MagickImageTests
                 profile = image.GetColorProfile();
 
                 Assert.NotNull(profile);
-                Assert.Equal("icm", profile.Name);
+                Assert.Equal("icc", profile.Name);
                 Assert.Equal(3144, profile.ToByteArray().Length);
             }
 
