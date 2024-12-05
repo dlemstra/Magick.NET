@@ -423,6 +423,7 @@ public partial class MagickImage
         public partial TypeMetric FontTypeMetrics(DrawingSettings settings, bool ignoreNewlines);
 
         [Throws]
+        [Cleanup(Name = "MagickMemory.Relinquish")]
         public partial string? FormatExpression(IMagickSettings<QuantumType>? settings, string expression);
 
         [Throws]
