@@ -990,9 +990,9 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     ITypeMetric? FontTypeMetrics(string text, bool ignoreNewlines);
 
     /// <summary>
-    /// Formats the specified expression, more info here: http://www.imagemagick.org/script/escape.php.
+    /// Formats the specified expression (more info can be found here: https://imagemagick.org/script/escape.php).
     /// </summary>
-    /// <param name="expression">The expression, more info here: http://www.imagemagick.org/script/escape.php.</param>
+    /// <param name="expression">The expression.</param>
     /// <returns>The result of the expression.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     string? FormatExpression(string expression);
