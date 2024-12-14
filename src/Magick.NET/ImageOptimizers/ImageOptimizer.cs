@@ -96,7 +96,8 @@ public sealed class ImageOptimizer
     /// <param name="file">The file to check.</param>
     /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
     /// <returns>True when the image could be compressed otherwise false.</returns>
-    public bool IsSupported(FileInfo file) => IsSupported(ImageOptimizerHelper.GetFormatInformation(file));
+    public bool IsSupported(FileInfo file)
+        => IsSupported(ImageOptimizerHelper.GetFormatInformation(file));
 
     /// <summary>
     /// Returns true when the supplied formation information is supported.
@@ -122,7 +123,8 @@ public sealed class ImageOptimizer
     /// </summary>
     /// <param name="fileName">The name of the file to check.</param>
     /// <returns>True when the supplied file name is supported based on the extension of the file.</returns>
-    public bool IsSupported(string fileName) => IsSupported(ImageOptimizerHelper.GetFormatInformation(fileName));
+    public bool IsSupported(string fileName)
+        => IsSupported(ImageOptimizerHelper.GetFormatInformation(fileName));
 
     /// <summary>
     /// Returns true when the supplied stream is supported.
@@ -185,15 +187,13 @@ public sealed class ImageOptimizer
     }
 
     private static Collection<IImageOptimizer> CreateImageOptimizers()
-    {
-        return new Collection<IImageOptimizer>
+        => new Collection<IImageOptimizer>
         {
             new JpegOptimizer(),
             new PngOptimizer(),
             new IcoOptimizer(),
             new GifOptimizer(),
         };
-    }
 
     private bool DoLosslessCompress(FileInfo file)
     {
