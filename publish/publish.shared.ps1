@@ -49,20 +49,13 @@ function copyNuGetPackages($destination) {
     Copy-Item "*.nupkg" $destination
 }
 
-function createAndSignNuGetPackage($xml, $library, $version, $pfxPassword) {
+function createNuGetPackage($xml, $library, $version) {
     $fileName = fullPath "publish\$library.nuspec"
     $xml.Save($fileName)
 
     $nuget = fullPath "tools\windows\nuget.exe"
     & $nuget pack $fileName -NoPackageAnalysis
     checkExitCode "Failed to create NuGet package"
-
-    if ($pfxPassword.Length -gt 0) {
-        $nupkgFile = fullPath "$library*.nupkg"
-        $certificate = fullPath "build\windows\ImageMagick.pfx"
-        & $nuget sign $nupkgFile -CertificatePath "$certificate" -CertificatePassword "$pfxPassword" -Timestamper http://sha256timestamp.ws.symantec.com/sha256/timestamp
-        checkExitCode "Failed to sign NuGet package"
-    }
 }
 
 function loadAndInitNuSpec($library, $version, $commit) {

@@ -4,7 +4,6 @@
 param (
     [string]$quantumName = $env:QuantumName,
     [string]$platformName = $env:PlatformName,
-    [string]$pfxPassword = '',
     [string]$version = $env:NuGetVersion,
     [string]$commit = $env:GitCommitId,
     [parameter(mandatory=$true)][string]$destination
@@ -67,7 +66,7 @@ function addNativeLibraries($xml, $quantumName, $platform) {
     }
 }
 
-function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit, $pfxPassword) {
+function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit) {
     $xml = loadAndInitNuSpec "Magick.NET" $version $commit
 
     $name = "Magick.NET-$quantumName-$platform"
@@ -79,7 +78,7 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit,
     addFile $xml "Magick.NET.targets" "build\netstandard20\$name.targets"
     addFile $xml "Magick.NET.targets" "buildTransitive\netstandard20\$name.targets"
 
-    createAndSignNuGetPackage $xml $name $version $pfxPassword
+    createNuGetPackage $xml $name $version
 }
 
 $platform = $platformName
@@ -88,5 +87,5 @@ if ($platform -eq "Any CPU") {
     $platform = "AnyCPU"
 }
 
-createMagickNetNuGetPackage $quantumName $platform $version $commit $pfxPassword
+createMagickNetNuGetPackage $quantumName $platform $version $commit
 copyNuGetPackages $destination

@@ -3,7 +3,6 @@
 
 param (
     [string]$library,
-    [string]$pfxPassword = '',
     [string]$version = $env:NuGetVersion,
     [string]$commit = $env:GitCommitId,
     [parameter(mandatory=$true)][string]$destination
@@ -12,7 +11,7 @@ param (
 . $PSScriptRoot\..\tools\windows\utils.ps1
 . $PSScriptRoot\publish.shared.ps1
 
-function createMagickNetLibraryNuGetPackage($library, $version, $commit, $pfxPassword) {
+function createMagickNetLibraryNuGetPackage($library, $version, $commit) {
     $xml = loadAndInitNuSpec $library $version $commit
 
     if ($library -eq "Magick.NET.SystemWindowsMedia") {
@@ -27,8 +26,8 @@ function createMagickNetLibraryNuGetPackage($library, $version, $commit, $pfxPas
         addLibrary $xml $library "" "AnyCPU" "net8.0"
     }
 
-    createAndSignNuGetPackage $xml $library $version $pfxPassword
+    createNuGetPackage $xml $library $version
 }
 
-createMagickNetLibraryNuGetPackage $library $version $commit $pfxPassword
+createMagickNetLibraryNuGetPackage $library $version $commit
 copyNuGetPackages $destination
