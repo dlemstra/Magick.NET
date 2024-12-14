@@ -177,6 +177,7 @@ copyMetadata $folder $PSScriptRoot
 copyLibraries $folder $libraries
 copyResources $folder $resources
 copyToTestProjects $windowsLibraries "$testsFolder\Magick.NET.Tests\bin"
+copyToTestProjects $windowsLibraries "$testsFolder\Magick.NET.AvaloniaMediaImaging.Tests\bin"
 copyToTestProjects $windowsLibraries "$testsFolder\Magick.NET.SystemDrawing.Tests\bin"
 copyToTestProjects $windowsLibraries "$testsFolder\Magick.NET.SystemWindowsMedia.Tests\bin"
 copyToSamplesProjects $windowsLibraries $samplesFolder

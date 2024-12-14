@@ -31,6 +31,16 @@ copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.T
 copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net8.0
 copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%platformName%\net8.0
 
+if not exist %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%platformName%\net462 mkdir %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%platformName%\net462
+if not exist %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\AnyCPU\net462 mkdir %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\AnyCPU\net462
+if not exist %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%platformName%\net8.0 mkdir %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%platformName%\net8.0
+copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%platformName%\net462
+copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%platformName%\net462
+copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\AnyCPU\net462
+copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\AnyCPU\net462
+copy /y Magick.Native-%quantumName%-%platformName%.dll %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%platformName%\net8.0
+copy /y Magick.Native-%quantumName%-%platformName%.pdb %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%platformName%\net8.0
+
 if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net462 mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net462
 if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\AnyCPU\net462 mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\AnyCPU\net462
 if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net8.0 mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%platformName%\net8.0
