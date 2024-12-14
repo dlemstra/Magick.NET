@@ -36,6 +36,7 @@ function testMagickNET($quantumName, $platformName) {
             return
         }
 
+        runTests $quantumName $platformName "net8.0" "Magick.NET.AvaloniaMediaImaging"
         runTests $quantumName $platformName "net8.0" "Magick.NET.SystemDrawing"
         runTests $quantumName $platformName "net8.0" "Magick.NET.SystemWindowsMedia"
     } else {

@@ -93,6 +93,7 @@ function updateNuspecFiles() {
     $version = getVersion "Magick.NET"
     updateNuspecFile "Magick.NET" $version
     updateNuspecFile "Magick.NET.Core" $version
+    updateNuspecFile "Magick.NET.AvaloniaMediaImaging" $version
     updateNuspecFile "Magick.NET.SystemDrawing" $version
     updateNuspecFile "Magick.NET.SystemWindowsMedia" $version
 }

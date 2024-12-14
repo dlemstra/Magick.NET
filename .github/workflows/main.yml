@@ -233,7 +233,7 @@ jobs:
 
     strategy:
       matrix:
-        libraryName: [Core, SystemDrawing, SystemWindowsMedia]
+        libraryName: [Core, AvaloniaMediaImaging, SystemDrawing, SystemWindowsMedia]
 
     steps:
 
