@@ -510,8 +510,7 @@ public partial class MagickImage
         public partial void LinearStretch(double blackPoint, double whitePoint);
 
         [Throws]
-        [SetInstance]
-        public partial void LiquidRescale(string geometry, double deltaX, double rigidity);
+        public partial IntPtr LiquidRescale(string geometry, double deltaX, double rigidity);
 
         [Throws]
         [SetInstance]

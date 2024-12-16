@@ -3958,7 +3958,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(uint width, uint height)
-        => LiquidRescale(new MagickGeometry(width, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.LiquidRescale(width, height);
+    }
 
     /// <summary>
     /// Rescales image with seam carving.
@@ -3970,9 +3973,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(uint width, uint height, double deltaX, double rigidity)
     {
-        var geometry = new MagickGeometry(width, height);
-
-        _nativeInstance.LiquidRescale(geometry.ToString(), deltaX, rigidity);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.LiquidRescale(width, height, deltaX, rigidity);
     }
 
     /// <summary>
@@ -3982,9 +3984,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(IMagickGeometry geometry)
     {
-        Throw.IfNull(nameof(geometry), geometry);
-
-        _nativeInstance.LiquidRescale(geometry.ToString(), geometry.X, geometry.Y);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.LiquidRescale(geometry);
     }
 
     /// <summary>
@@ -3993,7 +3994,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentage">The percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(Percentage percentage)
-        => LiquidRescale(new MagickGeometry(percentage, percentage));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.LiquidRescale(percentage);
+    }
 
     /// <summary>
     /// Rescales image with seam carving.
@@ -4002,7 +4006,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight)
-        => LiquidRescale(new MagickGeometry(percentageWidth, percentageHeight));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.LiquidRescale(percentageWidth, percentageHeight);
+    }
 
     /// <summary>
     /// Rescales image with seam carving.
@@ -4014,9 +4021,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity)
     {
-        var geometry = new MagickGeometry(percentageWidth, percentageHeight);
-
-        _nativeInstance.LiquidRescale(geometry.ToString(), deltaX, rigidity);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.LiquidRescale(percentageWidth, percentageHeight, deltaX, rigidity);
     }
 
     /// <summary>

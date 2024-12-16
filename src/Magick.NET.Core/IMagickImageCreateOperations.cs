@@ -641,6 +641,56 @@ public interface IMagickImageCreateOperations
     void Kuwahara(double radius, double sigma);
 
     /// <summary>
+    /// Rescales image with seam carving.
+    /// </summary>
+    /// <param name="width">The new width.</param>
+    /// <param name="height">The new height.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void LiquidRescale(uint width, uint height);
+
+    /// <summary>
+    /// Rescales image with seam carving.
+    /// </summary>
+    /// <param name="width">The new width.</param>
+    /// <param name="height">The new height.</param>
+    /// <param name="deltaX">Maximum seam transversal step (0 means straight seams).</param>
+    /// <param name="rigidity">Introduce a bias for non-straight seams (typically 0).</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void LiquidRescale(uint width, uint height, double deltaX, double rigidity);
+
+    /// <summary>
+    /// Rescales image with seam carving.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void LiquidRescale(IMagickGeometry geometry);
+
+    /// <summary>
+    /// Rescales image with seam carving.
+    /// </summary>
+    /// <param name="percentage">The percentage.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void LiquidRescale(Percentage percentage);
+
+    /// <summary>
+    /// Rescales image with seam carving.
+    /// </summary>
+    /// <param name="percentageWidth">The percentage of the width.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight);
+
+    /// <summary>
+    /// Rescales image with seam carving.
+    /// </summary>
+    /// <param name="percentageWidth">The percentage of the width.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
+    /// <param name="deltaX">Maximum seam transversal step (0 means straight seams).</param>
+    /// <param name="rigidity">Introduce a bias for non-straight seams (typically 0).</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

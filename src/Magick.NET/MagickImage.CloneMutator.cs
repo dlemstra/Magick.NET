@@ -360,6 +360,36 @@ public partial class MagickImage
         public void Kuwahara(double radius, double sigma)
             => SetResult(NativeMagickImage.Kuwahara(radius, sigma));
 
+        public void LiquidRescale(uint width, uint height)
+        => LiquidRescale(new MagickGeometry(width, height));
+
+        public void LiquidRescale(uint width, uint height, double deltaX, double rigidity)
+        {
+            var geometry = new MagickGeometry(width, height);
+
+            SetResult(NativeMagickImage.LiquidRescale(geometry.ToString(), deltaX, rigidity));
+        }
+
+        public void LiquidRescale(IMagickGeometry geometry)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            SetResult(NativeMagickImage.LiquidRescale(geometry.ToString(), geometry.X, geometry.Y));
+        }
+
+        public void LiquidRescale(Percentage percentage)
+            => LiquidRescale(new MagickGeometry(percentage, percentage));
+
+        public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight)
+            => LiquidRescale(new MagickGeometry(percentageWidth, percentageHeight));
+
+        public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity)
+        {
+            var geometry = new MagickGeometry(percentageWidth, percentageHeight);
+
+            SetResult(NativeMagickImage.LiquidRescale(geometry.ToString(), deltaX, rigidity));
+        }
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 
