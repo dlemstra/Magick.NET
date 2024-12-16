@@ -1392,4 +1392,9 @@ public enum MagickFormat
     /// CCIR 601 4:1:1 or 4:2:2.
     /// </summary>
     Yuv,
+
+    /// <summary>
+    /// AVC Image File Format.
+    /// </summary>
+    Avci,
 }
