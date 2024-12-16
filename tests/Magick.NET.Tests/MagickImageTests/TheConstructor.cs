@@ -240,10 +240,9 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldNotUseBaseDirectoryOfCurrentAppDomainWhenFileNameIsTilde()
             {
-                var exception = Assert.Throws<MagickBlobErrorException>(() => new MagickImage("~"));
+                var exception = Assert.Throws<MagickMissingDelegateErrorException>(() => new MagickImage("~"));
 
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
-                Assert.Contains("~", exception.Message);
+                Assert.Contains("error/constitute.c/ReadImage", exception.Message);
             }
         }
 

@@ -479,9 +479,8 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
 
-                var exception = Assert.Throws<MagickBlobErrorException>(() => image.Read("~"));
-                Assert.Contains("~", exception.Message);
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+                var exception = Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read("~"));
+                Assert.Contains("error/constitute.c/ReadImage", exception.Message);
             }
 
             [Fact]
