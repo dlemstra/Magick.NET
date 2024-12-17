@@ -383,6 +383,9 @@ public partial class MagickImage
         public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight)
             => LiquidRescale(new MagickGeometry(percentageWidth, percentageHeight));
 
+        public void Magnify()
+            => SetResult(NativeMagickImage.Magnify());
+
         public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity)
         {
             var geometry = new MagickGeometry(percentageWidth, percentageHeight);

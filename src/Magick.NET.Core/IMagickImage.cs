@@ -1310,12 +1310,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Lower(uint size);
 
     /// <summary>
-    /// Magnify image by integral size.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Magnify();
-
-    /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.
     /// </summary>
     /// <param name="size">The width and height of the pixels neighborhood.</param>

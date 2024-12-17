@@ -691,6 +691,12 @@ public interface IMagickImageCreateOperations
     void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity);
 
     /// <summary>
+    /// Magnify image by integral size.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Magnify();
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

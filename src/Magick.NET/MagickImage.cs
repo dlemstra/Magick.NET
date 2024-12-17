@@ -4057,7 +4057,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Magnify()
-        => _nativeInstance.Magnify();
+     {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Magnify();
+    }
 
     /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.

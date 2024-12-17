@@ -517,8 +517,7 @@ public partial class MagickImage
         public partial void LocalContrast(double radius, double strength, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void Magnify();
+        public partial IntPtr Magnify();
 
         [Throws]
         [SetInstance]
