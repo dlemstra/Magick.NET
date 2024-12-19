@@ -4057,7 +4057,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Magnify()
-     {
+    {
         using var mutator = new Mutator(_nativeInstance);
         mutator.Magnify();
     }
@@ -4067,7 +4067,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <param name="size">The width and height of the pixels neighborhood.</param>
     public void MeanShift(uint size)
-        => MeanShift(size, size);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.MeanShift(size);
+    }
 
     /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.
@@ -4075,7 +4078,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="size">The width and height of the pixels neighborhood.</param>
     /// <param name="colorDistance">The color distance.</param>
     public void MeanShift(uint size, Percentage colorDistance)
-        => MeanShift(size, size, colorDistance);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.MeanShift(size, colorDistance);
+    }
 
     /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.
@@ -4083,7 +4089,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="width">The width of the pixels neighborhood.</param>
     /// <param name="height">The height of the pixels neighborhood.</param>
     public void MeanShift(uint width, uint height)
-        => MeanShift(width, height, new Percentage(10));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.MeanShift(width, height);
+    }
 
     /// <summary>
     /// Delineate arbitrarily shaped clusters in the image.
@@ -4092,7 +4101,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height of the pixels neighborhood.</param>
     /// <param name="colorDistance">The color distance.</param>
     public void MeanShift(uint width, uint height, Percentage colorDistance)
-        => _nativeInstance.MeanShift(width, height, PercentageHelper.ToQuantum(nameof(colorDistance), colorDistance));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.MeanShift(width, height, colorDistance);
+    }
 
     /// <summary>
     /// Filter image by replacing each pixel component with the median color in a circular neighborhood.

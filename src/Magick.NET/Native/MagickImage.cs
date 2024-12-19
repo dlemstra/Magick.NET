@@ -520,8 +520,7 @@ public partial class MagickImage
         public partial IntPtr Magnify();
 
         [Throws]
-        [SetInstance]
-        public partial void MeanShift(nuint width, nuint height, double colorDistance);
+        public partial IntPtr MeanShift(nuint width, nuint height, double colorDistance);
 
         [Throws]
         [SetInstance]

@@ -697,6 +697,34 @@ public interface IMagickImageCreateOperations
     void Magnify();
 
     /// <summary>
+    /// Delineate arbitrarily shaped clusters in the image.
+    /// </summary>
+    /// <param name="size">The width and height of the pixels neighborhood.</param>
+    void MeanShift(uint size);
+
+    /// <summary>
+    /// Delineate arbitrarily shaped clusters in the image.
+    /// </summary>
+    /// <param name="size">The width and height of the pixels neighborhood.</param>
+    /// <param name="colorDistance">The color distance.</param>
+    void MeanShift(uint size, Percentage colorDistance);
+
+    /// <summary>
+    /// Delineate arbitrarily shaped clusters in the image.
+    /// </summary>
+    /// <param name="width">The width of the pixels neighborhood.</param>
+    /// <param name="height">The height of the pixels neighborhood.</param>
+    void MeanShift(uint width, uint height);
+
+    /// <summary>
+    /// Delineate arbitrarily shaped clusters in the image.
+    /// </summary>
+    /// <param name="width">The width of the pixels neighborhood.</param>
+    /// <param name="height">The height of the pixels neighborhood.</param>
+    /// <param name="colorDistance">The color distance.</param>
+    void MeanShift(uint width, uint height, Percentage colorDistance);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
