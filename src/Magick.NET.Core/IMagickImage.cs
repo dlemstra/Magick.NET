@@ -1323,12 +1323,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void MedianFilter(uint radius);
 
     /// <summary>
-    /// Reduce image by integral size.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Minify();
-
-    /// <summary>
     /// Returns the points that form the minimum bounding box around the image foreground objects with
     /// the "Rotating Calipers" algorithm. he method also returns these properties: minimum-bounding-box:area,
     /// minimum-bounding-box:width, minimum-bounding-box:height, and minimum-bounding-box:angle.

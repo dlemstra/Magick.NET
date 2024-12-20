@@ -4126,7 +4126,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Minify()
-        => _nativeInstance.Minify();
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Minify();
+    }
 
     /// <summary>
     /// Returns the points that form the minimum bounding box around the image foreground objects with

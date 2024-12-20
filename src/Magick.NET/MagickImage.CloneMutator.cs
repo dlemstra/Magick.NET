@@ -398,6 +398,9 @@ public partial class MagickImage
         public void MeanShift(uint width, uint height, Percentage colorDistance)
             => SetResult(NativeMagickImage.MeanShift(width, height, PercentageHelper.ToQuantum(nameof(colorDistance), colorDistance)));
 
+        public void Minify()
+            => SetResult(NativeMagickImage.Minify());
+
         public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity)
         {
             var geometry = new MagickGeometry(percentageWidth, percentageHeight);

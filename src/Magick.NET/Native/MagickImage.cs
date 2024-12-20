@@ -523,8 +523,7 @@ public partial class MagickImage
         public partial IntPtr MeanShift(nuint width, nuint height, double colorDistance);
 
         [Throws]
-        [SetInstance]
-        public partial void Minify();
+        public partial IntPtr Minify();
 
         [Throws]
         [Cleanup(Name = "ImageMagick.Moments.DisposeList")]

@@ -725,6 +725,12 @@ public interface IMagickImageCreateOperations
     void MeanShift(uint width, uint height, Percentage colorDistance);
 
     /// <summary>
+    /// Reduce image by integral size.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Minify();
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
