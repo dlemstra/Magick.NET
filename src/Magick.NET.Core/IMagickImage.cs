@@ -1356,13 +1356,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Modulate(Percentage brightness, Percentage saturation, Percentage hue);
 
     /// <summary>
-    /// Applies a kernel to the image according to the given mophology settings.
-    /// </summary>
-    /// <param name="settings">The morphology settings.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Morphology(IMorphologySettings settings);
-
-    /// <summary>
     /// Returns the normalized moments of one or more image channels.
     /// </summary>
     /// <returns>The normalized moments of one or more image channels.</returns>

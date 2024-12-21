@@ -383,6 +383,13 @@ public partial class MagickImage
         public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight)
             => LiquidRescale(new MagickGeometry(percentageWidth, percentageHeight));
 
+        public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity)
+        {
+            var geometry = new MagickGeometry(percentageWidth, percentageHeight);
+
+            SetResult(NativeMagickImage.LiquidRescale(geometry.ToString(), deltaX, rigidity));
+        }
+
         public void Magnify()
             => SetResult(NativeMagickImage.Magnify());
 
@@ -401,11 +408,24 @@ public partial class MagickImage
         public void Minify()
             => SetResult(NativeMagickImage.Minify());
 
-        public void LiquidRescale(Percentage percentageWidth, Percentage percentageHeight, double deltaX, double rigidity)
+        public void Morphology(IMorphologySettings settings)
         {
-            var geometry = new MagickGeometry(percentageWidth, percentageHeight);
+            Throw.IfNull(nameof(settings), settings);
+            Throw.IfTrue(nameof(settings), settings.Iterations < -1, "The number of iterations must be unlimited (-1) or positive");
 
-            SetResult(NativeMagickImage.LiquidRescale(geometry.ToString(), deltaX, rigidity));
+            using var temporaryDefines = new TemporaryDefines(NativeMagickImage);
+            temporaryDefines.SetArtifact("convolve:bias", settings.ConvolveBias);
+            temporaryDefines.SetArtifact("convolve:scale", settings.ConvolveScale);
+
+            if (settings.UserKernel is not null && settings.UserKernel.Length > 0)
+            {
+                SetResult(NativeMagickImage.Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations));
+            }
+            else
+            {
+                var kernel = EnumHelper.GetName(settings.Kernel).ToLowerInvariant() + ":" + settings.KernelArguments;
+                SetResult(NativeMagickImage.Morphology(settings.Method, kernel, settings.Channels, settings.Iterations));
+            }
         }
 
         public void Resize(uint width, uint height)

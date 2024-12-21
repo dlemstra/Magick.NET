@@ -537,8 +537,7 @@ public partial class MagickImage
         public partial IntPtr MinimumBoundingBox(out nuint length);
 
         [Throws]
-        [SetInstance]
-        public partial void Morphology(MorphologyMethod method, string kernel, Channels channels, nint iterations);
+        public partial IntPtr Morphology(MorphologyMethod method, string kernel, Channels channels, nint iterations);
 
         [Throws]
         [SetInstance]

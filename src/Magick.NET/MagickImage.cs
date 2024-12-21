@@ -4193,22 +4193,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Morphology(IMorphologySettings settings)
     {
-        Throw.IfNull(nameof(settings), settings);
-        Throw.IfTrue(nameof(settings), settings.Iterations < -1, "The number of iterations must be unlimited (-1) or positive");
-
-        using var temporaryDefines = new TemporaryDefines(this);
-        temporaryDefines.SetArtifact("convolve:bias", settings.ConvolveBias);
-        temporaryDefines.SetArtifact("convolve:scale", settings.ConvolveScale);
-
-        if (settings.UserKernel is not null && settings.UserKernel.Length > 0)
-        {
-            _nativeInstance.Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations);
-        }
-        else
-        {
-            var kernel = EnumHelper.GetName(settings.Kernel).ToLowerInvariant() + ":" + settings.KernelArguments;
-            _nativeInstance.Morphology(settings.Method, kernel, settings.Channels, settings.Iterations);
-        }
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Morphology(settings);
     }
 
     /// <summary>

@@ -731,6 +731,13 @@ public interface IMagickImageCreateOperations
     void Minify();
 
     /// <summary>
+    /// Applies a kernel to the image according to the given mophology settings.
+    /// </summary>
+    /// <param name="settings">The morphology settings.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Morphology(IMorphologySettings settings);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
