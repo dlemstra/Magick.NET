@@ -540,8 +540,7 @@ public partial class MagickImage
         public partial IntPtr Morphology(MorphologyMethod method, string kernel, Channels channels, nint iterations);
 
         [Throws]
-        [SetInstance]
-        public partial void MotionBlur(double radius, double sigma, double angle);
+        public partial IntPtr MotionBlur(double radius, double sigma, double angle);
 
         [Throws]
         public partial void Negate(bool onlyGrayscale, Channels channels);

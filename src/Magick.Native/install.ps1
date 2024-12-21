@@ -56,8 +56,8 @@ function copyToSamplesProjects($source, $target) {
 }
 
 function copyToTestProjectFolder($source, $target, $quantum, $platform, $configuration, $filename) {
-    [void](New-Item -ItemType directory -Force -Path "$target\$configuration$quantum\$platform\net462")
-    Copy-Item "$source\$fileName" "$target\$configuration$quantum\$platform\net462\$fileName"
+    [void](New-Item -ItemType directory -Force -Path "$target\$configuration$quantum\$platform\net472")
+    Copy-Item "$source\$fileName" "$target\$configuration$quantum\$platform\net472\$fileName"
 
     if ($platform -ne "AnyCPU") {
         [void](New-Item -ItemType directory -Force -Path "$target\$configuration$quantum\$platform\net8.0")

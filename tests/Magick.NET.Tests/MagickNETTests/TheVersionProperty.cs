@@ -39,7 +39,7 @@ public partial class MagickNETTests
         [Fact]
         public void ShouldContainTheCorrectFramework()
         {
-#if NET462
+#if NET472
             Assert.Contains("netstandard20", MagickNET.Version);
 #else
             Assert.Contains("net8.0", MagickNET.Version);

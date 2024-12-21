@@ -738,6 +738,15 @@ public interface IMagickImageCreateOperations
     void Morphology(IMorphologySettings settings);
 
     /// <summary>
+    /// Motion blur image with specified blur factor.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <param name="angle">The angle the object appears to be comming from (zero degrees is from the right).</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void MotionBlur(double radius, double sigma, double angle);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

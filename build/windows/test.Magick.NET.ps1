@@ -27,7 +27,7 @@ function runTests($quantumName, $platformName, $targetFramework, $project) {
 }
 
 function testMagickNET($quantumName, $platformName) {
-    runTests $quantumName $platformName "net462" "Magick.NET"
+    runTests $quantumName $platformName "net472" "Magick.NET"
 
     if ($platformName -ne "Any CPU") {
         runTests $quantumName $platformName "net8.0" "Magick.NET"
@@ -40,7 +40,7 @@ function testMagickNET($quantumName, $platformName) {
         runTests $quantumName $platformName "net8.0" "Magick.NET.SystemDrawing"
         runTests $quantumName $platformName "net8.0" "Magick.NET.SystemWindowsMedia"
     } else {
-        runTests "" $platformName "net462" "Magick.NET.Core"
+        runTests "" $platformName "net472" "Magick.NET.Core"
         runTests "" $platformName "net8.0" "Magick.NET.Core"
     }
 
@@ -48,8 +48,8 @@ function testMagickNET($quantumName, $platformName) {
         return
     }
 
-    runTests $quantumName $platformName "net462" "Magick.NET.SystemDrawing"
-    runTests $quantumName $platformName "net462" "Magick.NET.SystemWindowsMedia"
+    runTests $quantumName $platformName "net472" "Magick.NET.SystemDrawing"
+    runTests $quantumName $platformName "net472" "Magick.NET.SystemWindowsMedia"
 }
 
 testMagickNET $quantumName $platformName

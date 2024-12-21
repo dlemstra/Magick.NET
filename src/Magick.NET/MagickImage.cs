@@ -4223,7 +4223,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="angle">The angle the object appears to be comming from (zero degrees is from the right).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void MotionBlur(double radius, double sigma, double angle)
-        => _nativeInstance.MotionBlur(radius, sigma, angle);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.MotionBlur(radius, sigma, angle);
+    }
 
     /// <summary>
     /// Negate colors in image.

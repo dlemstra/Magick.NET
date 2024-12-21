@@ -428,6 +428,9 @@ public partial class MagickImage
             }
         }
 
+        public void MotionBlur(double radius, double sigma, double angle)
+            => SetResult(NativeMagickImage.MotionBlur(radius, sigma, angle));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 
