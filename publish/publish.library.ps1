@@ -15,11 +15,12 @@ function createMagickNetLibraryNuGetPackage($library, $version, $commit) {
     $xml = loadAndInitNuSpec $library $version $commit
 
     if ($library -eq "Magick.NET.SystemWindowsMedia" -or $library -eq "Magick.NET.AvaloniaMediaImaging") {
-        addLibrary $xml $library "" "AnyCPU" "net462"
         addLibrary $xml $library "" "AnyCPU" "net8.0"
     } elseif ($library -eq "Magick.NET.SystemDrawing") {
         addLibrary $xml $library "" "AnyCPU" "net462"
         addLibrary $xml $library "" "AnyCPU" "netstandard20"
+        addLibrary $xml $library "" "AnyCPU" "net8.0"
+    } else if ($library -eq "Magick.NET.AvaloniaMediaImaging") {
         addLibrary $xml $library "" "AnyCPU" "net8.0"
     } else {
         addLibrary $xml $library "" "AnyCPU" "netstandard20"
