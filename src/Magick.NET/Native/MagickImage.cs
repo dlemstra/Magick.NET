@@ -549,8 +549,7 @@ public partial class MagickImage
         public partial void Normalize();
 
         [Throws]
-        [SetInstance]
-        public partial void OilPaint(double radius, double sigma);
+        public partial IntPtr OilPaint(double radius, double sigma);
 
         [Throws]
         public partial void Opaque(IMagickColor<QuantumType>? target, IMagickColor<QuantumType>? fill, bool invert);

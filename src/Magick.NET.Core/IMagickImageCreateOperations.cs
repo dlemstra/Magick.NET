@@ -747,6 +747,20 @@ public interface IMagickImageCreateOperations
     void MotionBlur(double radius, double sigma, double angle);
 
     /// <summary>
+    /// Oilpaint image (image looks like oil painting).
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void OilPaint();
+
+    /// <summary>
+    /// Oilpaint image (image looks like oil painting).
+    /// </summary>
+    /// <param name="radius">The radius of the circular neighborhood.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void OilPaint(double radius, double sigma);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

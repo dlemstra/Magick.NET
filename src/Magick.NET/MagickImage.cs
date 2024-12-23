@@ -4271,7 +4271,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void OilPaint()
-        => OilPaint(3.0, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.OilPaint();
+    }
 
     /// <summary>
     /// Oilpaint image (image looks like oil painting).
@@ -4280,7 +4283,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void OilPaint(double radius, double sigma)
-        => _nativeInstance.OilPaint(radius, sigma);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.OilPaint(radius, sigma);
+    }
 
     /// <summary>
     /// Changes any pixel that matches target with the color defined by fill.

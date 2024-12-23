@@ -1396,20 +1396,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Normalize();
 
     /// <summary>
-    /// Oilpaint image (image looks like oil painting).
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void OilPaint();
-
-    /// <summary>
-    /// Oilpaint image (image looks like oil painting).
-    /// </summary>
-    /// <param name="radius">The radius of the circular neighborhood.</param>
-    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void OilPaint(double radius, double sigma);
-
-    /// <summary>
     /// Perform a ordered dither based on a number of pre-defined dithering threshold maps, but over
     /// multiple intensity levels.
     /// </summary>

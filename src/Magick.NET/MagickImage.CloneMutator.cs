@@ -431,6 +431,12 @@ public partial class MagickImage
         public void MotionBlur(double radius, double sigma, double angle)
             => SetResult(NativeMagickImage.MotionBlur(radius, sigma, angle));
 
+        public void OilPaint()
+            => OilPaint(3.0, 1.0);
+
+        public void OilPaint(double radius, double sigma)
+            => SetResult(NativeMagickImage.OilPaint(radius, sigma));
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 
