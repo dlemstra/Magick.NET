@@ -576,23 +576,6 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     void Ping(string fileName, IMagickReadSettings<TQuantumType>? readSettings);
 
     /// <summary>
-    /// Remap image colors with closest color from the specified colors.
-    /// </summary>
-    /// <param name="colors">The colors to use.</param>
-    /// <returns>The error informaton.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickErrorInfo Remap(IEnumerable<IMagickColor<TQuantumType>> colors);
-
-    /// <summary>
-    /// Remap image colors with closest color from the specified colors.
-    /// </summary>
-    /// <param name="colors">The colors to use.</param>
-    /// <param name="settings">Quantize settings.</param>
-    /// <returns>The error informaton.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IMagickErrorInfo Remap(IEnumerable<IMagickColor<TQuantumType>> colors, IQuantizeSettings settings);
-
-    /// <summary>
     /// Changes the value of individual pixels based on the intensity of each pixel compared to a
     /// random threshold. The result is a low-contrast, two color image.
     /// </summary>
@@ -847,6 +830,23 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     Task ReadPixelsAsync(string fileName, IPixelReadSettings<TQuantumType> settings, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Remap image colors with closest color from the specified colors.
+    /// </summary>
+    /// <param name="colors">The colors to use.</param>
+    /// <returns>The error informaton.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    IMagickErrorInfo Remap(IEnumerable<IMagickColor<TQuantumType>> colors);
+
+    /// <summary>
+    /// Remap image colors with closest color from the specified colors.
+    /// </summary>
+    /// <param name="colors">The colors to use.</param>
+    /// <param name="settings">Quantize settings.</param>
+    /// <returns>The error informaton.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    IMagickErrorInfo Remap(IEnumerable<IMagickColor<TQuantumType>> colors, IQuantizeSettings settings);
 
     /// <summary>
     /// Separates the channels from the image and returns it as grayscale images.
