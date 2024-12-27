@@ -447,6 +447,12 @@ public partial class MagickImage
             SetResult(NativeMagickImage.Resize(geometry.ToString()));
         }
 
+        public void Resample(double resolutionX, double resolutionY)
+            => SetResult(NativeMagickImage.Resample(resolutionX, resolutionY));
+
+        public void Resample(PointD density)
+            => Resample(density.X, density.Y);
+
         public void Resize(Percentage percentage)
             => Resize(new MagickGeometry(percentage, percentage));
 

@@ -624,8 +624,7 @@ public partial class MagickImage
         public partial void ResetProfileIterator();
 
         [Throws]
-        [SetInstance]
-        public partial void Resample(double resolutionX, double resolutionY);
+        public partial IntPtr Resample(double resolutionX, double resolutionY);
 
         [Throws]
         public partial IntPtr Resize(string geometry);

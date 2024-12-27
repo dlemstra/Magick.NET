@@ -761,6 +761,21 @@ public interface IMagickImageCreateOperations
     void OilPaint(double radius, double sigma);
 
     /// <summary>
+    /// Resize image in terms of its pixel size.
+    /// </summary>
+    /// <param name="resolutionX">The new X resolution.</param>
+    /// <param name="resolutionY">The new Y resolution.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Resample(double resolutionX, double resolutionY);
+
+    /// <summary>
+    /// Resize image in terms of its pixel size.
+    /// </summary>
+    /// <param name="density">The density to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Resample(PointD density);
+
+    /// <summary>
     /// Resize image to specified size.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

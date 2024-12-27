@@ -1858,21 +1858,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void RemoveWriteMask();
 
     /// <summary>
-    /// Resize image in terms of its pixel size.
-    /// </summary>
-    /// <param name="resolutionX">The new X resolution.</param>
-    /// <param name="resolutionY">The new Y resolution.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Resample(double resolutionX, double resolutionY);
-
-    /// <summary>
-    /// Resize image in terms of its pixel size.
-    /// </summary>
-    /// <param name="density">The density to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Resample(PointD density);
-
-    /// <summary>
     /// Resets the page property of this image.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
