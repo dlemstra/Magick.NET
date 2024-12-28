@@ -15,24 +15,16 @@ For more information about ImageMagick go to: [http://www.imagemagick.org/](http
 
 ## Supported platforms
 
-|.NET Version|Platform|Platform specific|AnyCPU|OpenMP|
-|-|-|:-:|:-:|:-:|
-|**.NET Standard 2.1**|windows (x64)|✅|✅|✅|
-||windows (arm64)|✅|✅|✅|
-||linux (x64)|✅|✅|✅|
-||linux-arm64 (arm64)|✅|✅|✅|
-||linux-musl (x64)|✅|✅|✅|
-||macOS (x64)|✅|✅|❌|
-||macOS (arm64)|✅|✅|❌|
-||windows (x86)|✅|✅|❌|
-|**.NET Standard 2.0**|windows (x64)|✅|✅|✅|
-||windows (arm64)|✅|✅|✅|
-||linux (x64)|✅|✅|✅|
-||linux-arm64 (arm64)|✅|✅|✅|
-||linux-musl (x64)|✅|✅|✅|
-||macOS (x64)|✅|✅|❌|
-||macOS (arm64)|✅|✅|❌|
-||windows (x86)|✅|✅|❌|
+|Platform|Platform specific|AnyCPU|OpenMP|
+|-|:-:|:-:|:-:|
+|windows (x64)|✅|✅|✅|
+|windows (arm64)|✅|✅|✅|
+|linux (x64)|✅|✅|✅|
+|linux-arm64 (arm64)|✅|✅|✅|
+|linux-musl (x64)|✅|✅|✅|
+|macOS (x64)|✅|✅|❌|
+|macOS (arm64)|✅|✅|❌|
+|windows (x86)|✅|✅|❌|
 
 More information about Linux and macOS can be found [here](docs/CrossPlatform.md).
 
