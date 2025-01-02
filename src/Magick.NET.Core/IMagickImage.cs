@@ -2076,14 +2076,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     IStatistics Statistics(Channels channels);
 
     /// <summary>
-    /// Create an image which appears in stereo when viewed with red-blue glasses (Red image on
-    /// left, blue on right).
-    /// </summary>
-    /// <param name="rightImage">The image to use as the right part of the resulting image.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Stereo(IMagickImage rightImage);
-
-    /// <summary>
     /// Strips an image of all profiles and comments.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

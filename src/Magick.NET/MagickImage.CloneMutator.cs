@@ -655,6 +655,13 @@ public partial class MagickImage
             SetResult(NativeMagickImage.Stegano(watermark));
         }
 
+        public void Stereo(IMagickImage rightImage)
+        {
+            Throw.IfNull(nameof(rightImage), rightImage);
+
+            SetResult(NativeMagickImage.Stereo(rightImage));
+        }
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

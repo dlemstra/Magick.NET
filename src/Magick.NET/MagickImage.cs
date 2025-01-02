@@ -6381,9 +6381,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Stereo(IMagickImage rightImage)
     {
-        Throw.IfNull(nameof(rightImage), rightImage);
-
-        _nativeInstance.Stereo(rightImage);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Stereo(rightImage);
     }
 
     /// <summary>

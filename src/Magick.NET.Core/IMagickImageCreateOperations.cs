@@ -1137,4 +1137,12 @@ public interface IMagickImageCreateOperations
     /// <param name="watermark">The image to use as a watermark.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Stegano(IMagickImage watermark);
+
+    /// <summary>
+    /// Create an image which appears in stereo when viewed with red-blue glasses (Red image on
+    /// left, blue on right).
+    /// </summary>
+    /// <param name="rightImage">The image to use as the right part of the resulting image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Stereo(IMagickImage rightImage);
 }

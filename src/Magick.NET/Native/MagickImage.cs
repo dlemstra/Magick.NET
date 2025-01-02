@@ -737,8 +737,7 @@ public partial class MagickImage
         public partial IntPtr Stegano(IMagickImage watermark);
 
         [Throws]
-        [SetInstance]
-        public partial void Stereo(IMagickImage rightImage);
+        public partial IntPtr Stereo(IMagickImage rightImage);
 
         [Throws]
         public partial void Strip();
