@@ -756,8 +756,7 @@ public partial class MagickImage
         public partial void Threshold(double threshold, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void Thumbnail(string geometry);
+        public partial IntPtr Thumbnail(string geometry);
 
         [Throws]
         [SetInstance]

@@ -2104,39 +2104,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Threshold(Percentage percentage, Channels channels);
 
     /// <summary>
-    /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
-    /// <para />
-    /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
-    /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
-    /// </summary>
-    /// <param name="width">The new width.</param>
-    /// <param name="height">The new height.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Thumbnail(uint width, uint height);
-
-    /// <summary>
-    /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
-    /// </summary>
-    /// <param name="geometry">The geometry to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Thumbnail(IMagickGeometry geometry);
-
-    /// <summary>
-    /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
-    /// </summary>
-    /// <param name="percentage">The percentage.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Thumbnail(Percentage percentage);
-
-    /// <summary>
-    /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
-    /// </summary>
-    /// <param name="percentageWidth">The percentage of the width.</param>
-    /// <param name="percentageHeight">The percentage of the height.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Thumbnail(Percentage percentageWidth, Percentage percentageHeight);
-
-    /// <summary>
     /// Compose an image repeated across and down the image.
     /// </summary>
     /// <param name="image">The image to composite with this image.</param>

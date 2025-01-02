@@ -6499,7 +6499,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Thumbnail(uint width, uint height)
-        => Thumbnail(new MagickGeometry(width, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Thumbnail(width, height);
+    }
 
     /// <summary>
     /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
@@ -6508,9 +6511,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Thumbnail(IMagickGeometry geometry)
     {
-        Throw.IfNull(nameof(geometry), geometry);
-
-        _nativeInstance.Thumbnail(geometry.ToString());
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Thumbnail(geometry);
     }
 
     /// <summary>
@@ -6519,7 +6521,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentage">The percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Thumbnail(Percentage percentage)
-        => Thumbnail(percentage, percentage);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Thumbnail(percentage);
+    }
 
     /// <summary>
     /// Resize image to thumbnail size and remove all the image profiles except the icc/icm profile.
@@ -6528,7 +6533,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Thumbnail(Percentage percentageWidth, Percentage percentageHeight)
-        => Thumbnail(new MagickGeometry(percentageWidth, percentageHeight));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Thumbnail(percentageWidth, percentageHeight);
+    }
 
     /// <summary>
     /// Compose an image repeated across and down the image.

@@ -668,6 +668,22 @@ public partial class MagickImage
         public void Swirl(PixelInterpolateMethod method, double degrees)
             => SetResult(NativeMagickImage.Swirl(method, degrees));
 
+        public void Thumbnail(uint width, uint height)
+        => Thumbnail(new MagickGeometry(width, height));
+
+        public void Thumbnail(IMagickGeometry geometry)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            SetResult(NativeMagickImage.Thumbnail(geometry.ToString()));
+        }
+
+        public void Thumbnail(Percentage percentage)
+            => Thumbnail(percentage, percentage);
+
+        public void Thumbnail(Percentage percentageWidth, Percentage percentageHeight)
+            => Thumbnail(new MagickGeometry(percentageWidth, percentageHeight));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
