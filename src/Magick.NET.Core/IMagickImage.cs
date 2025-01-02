@@ -2061,13 +2061,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Solarize(Percentage factorPercentage);
 
     /// <summary>
-    /// Splice the background color into the image.
-    /// </summary>
-    /// <param name="geometry">The geometry to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Splice(IMagickGeometry geometry);
-
-    /// <summary>
     /// Spread pixels randomly within image.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

@@ -721,8 +721,7 @@ public partial class MagickImage
         public partial IntPtr SparseColor(Channels channel, SparseColorMethod method, double[] values, nuint length);
 
         [Throws]
-        [SetInstance]
-        public partial void Splice(MagickRectangle geometry);
+        public partial IntPtr Splice(MagickRectangle geometry);
 
         [Throws]
         [SetInstance]

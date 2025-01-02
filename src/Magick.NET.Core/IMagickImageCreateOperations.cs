@@ -1092,4 +1092,11 @@ public interface IMagickImageCreateOperations
     /// <param name="angle">Apply the effect along this angle.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Sketch(double radius, double sigma, double angle);
+
+    /// <summary>
+    /// Splice the background color into the image.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Splice(IMagickGeometry geometry);
 }

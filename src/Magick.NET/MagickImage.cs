@@ -6283,7 +6283,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The geometry to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Splice(IMagickGeometry geometry)
-        => _nativeInstance.Splice(MagickRectangle.FromGeometry(geometry, this));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Splice(geometry);
+    }
 
     /// <summary>
     /// Spread pixels randomly within image.

@@ -633,6 +633,9 @@ public partial class MagickImage
         public void SparseColor(Channels channels, SparseColorMethod method, params ISparseColorArg<QuantumType>[] args)
             => SparseColor(channels, method, (IEnumerable<ISparseColorArg<QuantumType>>)args);
 
+        public void Splice(IMagickGeometry geometry)
+            => SetResult(NativeMagickImage.Splice(MagickRectangle.FromGeometry(geometry, (uint)NativeMagickImage.Width_Get(), (uint)NativeMagickImage.Height_Get())));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
