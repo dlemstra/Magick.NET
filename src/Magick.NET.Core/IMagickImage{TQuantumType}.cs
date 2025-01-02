@@ -872,24 +872,6 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     void SetColormapColor(int index, IMagickColor<TQuantumType> color);
 
     /// <summary>
-    /// Simulate an image shadow.
-    /// </summary>
-    /// <param name="color">The color of the shadow.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Shadow(IMagickColor<TQuantumType> color);
-
-    /// <summary>
-    /// Simulate an image shadow.
-    /// </summary>
-    /// <param name="x ">the shadow x-offset.</param>
-    /// <param name="y">the shadow y-offset.</param>
-    /// <param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
-    /// <param name="alpha">Transparency percentage.</param>
-    /// <param name="color">The color of the shadow.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Shadow(int x, int y, double sigma, Percentage alpha, IMagickColor<TQuantumType> color);
-
-    /// <summary>
     /// Sparse color image, given a set of coordinates, interpolates the colors found at those
     /// coordinates, across the whole image, using various methods.
     /// </summary>

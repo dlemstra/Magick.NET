@@ -694,8 +694,7 @@ public partial class MagickImage
         public partial IntPtr Shade(double azimuth, double elevation, bool colorShading, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void Shadow(nint x, nint y, double sigma, double alphaPercentage);
+        public partial IntPtr Shadow(nint x, nint y, double sigma, double alphaPercentage);
 
         [Throws]
         [SetInstance]

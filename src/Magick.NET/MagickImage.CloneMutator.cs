@@ -539,6 +539,31 @@ public partial class MagickImage
         public void ShadeGrayscale(double azimuth, double elevation, Channels channels)
             => SetResult(NativeMagickImage.Shade(azimuth, elevation, true, channels));
 
+        public void Shadow()
+            => Shadow(5, 5, 0.5, new Percentage(80));
+
+        public void Shadow(IMagickColor<QuantumType> color)
+            => Shadow(5, 5, 0.5, new Percentage(80), color);
+
+        public void Shadow(int x, int y, double sigma, Percentage alpha)
+            => SetResult(NativeMagickImage.Shadow(x, y, sigma, alpha.ToDouble()));
+
+        public void Shadow(int x, int y, double sigma, Percentage alpha, IMagickColor<QuantumType> color)
+        {
+            Throw.IfNull(nameof(color), color);
+
+            var backgroundColor = NativeMagickImage.BackgroundColor_Get();
+            NativeMagickImage.BackgroundColor_Set(color);
+            try
+            {
+                SetResult(NativeMagickImage.Shadow(x, y, sigma, alpha.ToDouble()));
+            }
+            finally
+            {
+            NativeMagickImage.BackgroundColor_Set(backgroundColor);
+            }
+        }
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

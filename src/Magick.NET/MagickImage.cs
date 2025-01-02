@@ -6004,7 +6004,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shadow()
-        => Shadow(5, 5, 0.5, new Percentage(80));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shadow();
+    }
 
     /// <summary>
     /// Simulate an image shadow.
@@ -6012,7 +6015,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="color">The color of the shadow.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shadow(IMagickColor<QuantumType> color)
-        => Shadow(5, 5, 0.5, new Percentage(80), color);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shadow(color);
+    }
 
     /// <summary>
     /// Simulate an image shadow.
@@ -6023,7 +6029,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="alpha">Transparency percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shadow(int x, int y, double sigma, Percentage alpha)
-        => _nativeInstance.Shadow(x, y, sigma, alpha.ToDouble());
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shadow(x, y, sigma, alpha);
+    }
 
     /// <summary>
     /// Simulate an image shadow.
@@ -6036,12 +6045,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shadow(int x, int y, double sigma, Percentage alpha, IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
-
-        var backgroundColor = BackgroundColor;
-        BackgroundColor = color;
-        _nativeInstance.Shadow(x, y, sigma, alpha.ToDouble());
-        BackgroundColor = backgroundColor;
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shadow(x, y, sigma, alpha, color);
     }
 
     /// <summary>

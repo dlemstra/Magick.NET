@@ -1007,4 +1007,20 @@ public interface IMagickImageCreateOperations
     /// <param name="channels">The channel(s) that should be shaded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void ShadeGrayscale(double azimuth, double elevation, Channels channels);
+
+    /// <summary>
+    /// Simulate an image shadow.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Shadow();
+
+    /// <summary>
+    /// Simulate an image shadow.
+    /// </summary>
+    /// <param name="x">the shadow x-offset.</param>
+    /// <param name="y">the shadow y-offset.</param>
+    /// <param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+    /// <param name="alpha">Transparency percentage.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Shadow(int x, int y, double sigma, Percentage alpha);
 }
