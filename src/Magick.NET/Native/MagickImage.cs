@@ -703,8 +703,7 @@ public partial class MagickImage
         public partial IntPtr Shave(nuint leftRight, nuint topBottom);
 
         [Throws]
-        [SetInstance]
-        public partial void Shear(double xAngle, double yAngle);
+        public partial IntPtr Shear(double xAngle, double yAngle);
 
         [Throws]
         public partial void SigmoidalContrast(bool sharpen, double contrast, double midpoint, Channels channels);

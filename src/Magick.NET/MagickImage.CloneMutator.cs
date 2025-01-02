@@ -582,6 +582,9 @@ public partial class MagickImage
         public void Shave(uint leftRight, uint topBottom)
             => SetResult(NativeMagickImage.Shave(leftRight, topBottom));
 
+        public void Shear(double xAngle, double yAngle)
+            => SetResult(NativeMagickImage.Shear(xAngle, yAngle));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

@@ -1067,4 +1067,12 @@ public interface IMagickImageCreateOperations
     /// <param name="topBottom">The number of pixels to shave top and bottom.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Shave(uint leftRight, uint topBottom);
+
+    /// <summary>
+    /// Shear image (create parallelogram by sliding image by X or Y axis).
+    /// </summary>
+    /// <param name="xAngle">Specifies the number of x degrees to shear the image.</param>
+    /// <param name="yAngle">Specifies the number of y degrees to shear the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Shear(double xAngle, double yAngle);
 }

@@ -6124,7 +6124,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="yAngle">Specifies the number of y degrees to shear the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shear(double xAngle, double yAngle)
-        => _nativeInstance.Shear(xAngle, yAngle);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shear(xAngle, yAngle);
+    }
 
     /// <summary>
     /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.

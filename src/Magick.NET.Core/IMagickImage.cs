@@ -2000,14 +2000,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void SetWriteMask(IMagickImage image);
 
     /// <summary>
-    /// Shear image (create parallelogram by sliding image by X or Y axis).
-    /// </summary>
-    /// <param name="xAngle">Specifies the number of x degrees to shear the image.</param>
-    /// <param name="yAngle">Specifies the number of y degrees to shear the image.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Shear(double xAngle, double yAngle);
-
-    /// <summary>
     /// Adjust the image contrast with a non-linear sigmoidal contrast algorithm.
     /// </summary>
     /// <param name="contrast">The contrast to use.</param>
