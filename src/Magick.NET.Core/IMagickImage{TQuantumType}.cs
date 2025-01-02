@@ -905,16 +905,6 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     IMagickSearchResult<TQuantumType>? SubImageSearch(IMagickImage<TQuantumType> image, ErrorMetric metric, double similarityThreshold);
 
     /// <summary>
-    /// Applies a color vector to each pixel in the image. The length of the vector is 0 for black
-    /// and white and at its maximum for the midtones. The vector weighting function is
-    /// f(x)=(1-(4.0*((x-0.5)*(x-0.5)))).
-    /// </summary>
-    /// <param name="opacity">An opacity value used for tinting.</param>
-    /// <param name="color">A color value used for tinting.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Tint(IMagickGeometry opacity, IMagickColor<TQuantumType> color);
-
-    /// <summary>
     /// Add alpha channel to image, setting pixels matching color to transparent.
     /// </summary>
     /// <param name="color">The color to make transparent.</param>

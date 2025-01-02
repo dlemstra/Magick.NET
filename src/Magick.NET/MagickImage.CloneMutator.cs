@@ -684,6 +684,14 @@ public partial class MagickImage
         public void Thumbnail(Percentage percentageWidth, Percentage percentageHeight)
             => Thumbnail(new MagickGeometry(percentageWidth, percentageHeight));
 
+        public void Tint(IMagickGeometry opacity, IMagickColor<QuantumType> color)
+        {
+            Throw.IfNull(nameof(opacity), opacity);
+            Throw.IfNull(nameof(color), color);
+
+            SetResult(NativeMagickImage.Tint(opacity.ToString(), color));
+        }
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

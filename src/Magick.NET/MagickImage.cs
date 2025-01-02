@@ -6577,10 +6577,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Tint(IMagickGeometry opacity, IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(opacity), opacity);
-        Throw.IfNull(nameof(color), color);
-
-        _nativeInstance.Tint(opacity.ToString(), color);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Tint(opacity, color);
     }
 
     /// <summary>

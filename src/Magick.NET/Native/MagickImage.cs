@@ -759,8 +759,7 @@ public partial class MagickImage
         public partial IntPtr Thumbnail(string geometry);
 
         [Throws]
-        [SetInstance]
-        public partial void Tint(string opacity, IMagickColor<QuantumType>? tint);
+        public partial IntPtr Tint(string opacity, IMagickColor<QuantumType>? tint);
 
         [Throws]
         public partial void Transparent(IMagickColor<QuantumType>? color, bool invert);
