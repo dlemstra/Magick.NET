@@ -5501,7 +5501,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="angle">The angle to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void RotationalBlur(double angle)
-        => RotationalBlur(angle, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.RotationalBlur(angle);
+    }
 
     /// <summary>
     /// Rotational blur image.
@@ -5510,7 +5513,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void RotationalBlur(double angle, Channels channels)
-        => _nativeInstance.RotationalBlur(angle, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.RotationalBlur(angle, channels);
+    }
 
     /// <summary>
     /// Resize image by using pixel sampling algorithm.

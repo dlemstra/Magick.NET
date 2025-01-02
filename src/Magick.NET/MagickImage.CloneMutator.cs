@@ -465,6 +465,12 @@ public partial class MagickImage
         public void Rotate(double degrees)
             => SetResult(NativeMagickImage.Rotate(degrees));
 
+        public void RotationalBlur(double angle)
+            => RotationalBlur(angle, ImageMagick.Channels.Undefined);
+
+        public void RotationalBlur(double angle, Channels channels)
+            => SetResult(NativeMagickImage.RotationalBlur(angle, channels));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

@@ -1864,21 +1864,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void ResetPage();
 
     /// <summary>
-    /// Rotational blur image.
-    /// </summary>
-    /// <param name="angle">The angle to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void RotationalBlur(double angle);
-
-    /// <summary>
-    /// Rotational blur image.
-    /// </summary>
-    /// <param name="angle">The angle to use.</param>
-    /// <param name="channels">The channel(s) to use.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void RotationalBlur(double angle, Channels channels);
-
-    /// <summary>
     /// Resize image by using pixel sampling algorithm.
     /// <para />
     /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.

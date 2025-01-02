@@ -636,8 +636,7 @@ public partial class MagickImage
         public partial IntPtr Rotate(double degrees);
 
         [Throws]
-        [SetInstance]
-        public partial void RotationalBlur(double angle, Channels channels);
+        public partial IntPtr RotationalBlur(double angle, Channels channels);
 
         [Throws]
         [SetInstance]

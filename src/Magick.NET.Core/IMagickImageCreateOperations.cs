@@ -823,4 +823,19 @@ public interface IMagickImageCreateOperations
     /// <param name="degrees">The number of degrees to rotate (positive to rotate clockwise, negative to rotate counter-clockwise).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Rotate(double degrees);
+
+    /// <summary>
+    /// Rotational blur image.
+    /// </summary>
+    /// <param name="angle">The angle to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void RotationalBlur(double angle);
+
+    /// <summary>
+    /// Rotational blur image.
+    /// </summary>
+    /// <param name="angle">The angle to use.</param>
+    /// <param name="channels">The channel(s) to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void RotationalBlur(double angle, Channels channels);
 }
