@@ -6864,7 +6864,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void UnsharpMask(double radius, double sigma)
-        => UnsharpMask(radius, sigma, 1.0, 0.05);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.UnsharpMask(radius, sigma);
+    }
 
     /// <summary>
     /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
@@ -6874,7 +6877,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be sharpened.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void UnsharpMask(double radius, double sigma, Channels channels)
-        => UnsharpMask(radius, sigma, 1.0, 0.05, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.UnsharpMask(radius, sigma, channels);
+    }
 
     /// <summary>
     /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
@@ -6886,7 +6892,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="threshold">The threshold in pixels needed to apply the diffence amount.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void UnsharpMask(double radius, double sigma, double amount, double threshold)
-        => UnsharpMask(radius, sigma, amount, threshold, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.UnsharpMask(radius, sigma, amount, threshold);
+    }
 
     /// <summary>
     /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
@@ -6899,7 +6908,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be sharpened.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels)
-        => _nativeInstance.UnsharpMask(radius, sigma, amount, threshold, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.UnsharpMask(radius, sigma, amount, threshold, channels);
+    }
 
     /// <summary>
     /// Softens the edges of the image in vignette style.

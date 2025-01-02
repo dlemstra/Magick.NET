@@ -1207,4 +1207,44 @@ public interface IMagickImageCreateOperations
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Transverse();
+
+    /// <summary>
+    /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void UnsharpMask(double radius, double sigma);
+
+    /// <summary>
+    /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <param name="channels">The channel(s) that should be sharpened.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void UnsharpMask(double radius, double sigma, Channels channels);
+
+    /// <summary>
+    /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <param name="amount">The percentage of the difference between the original and the blur image
+    /// that is added back into the original.</param>
+    /// <param name="threshold">The threshold in pixels needed to apply the diffence amount.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void UnsharpMask(double radius, double sigma, double amount, double threshold);
+
+    /// <summary>
+    /// Replace image with a sharpened version of the original image using the unsharp mask algorithm.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <param name="amount">The percentage of the difference between the original and the blur image
+    /// that is added back into the original.</param>
+    /// <param name="threshold">The threshold in pixels needed to apply the diffence amount.</param>
+    /// <param name="channels">The channel(s) that should be sharpened.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels);
 }

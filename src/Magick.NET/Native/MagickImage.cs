@@ -781,8 +781,7 @@ public partial class MagickImage
         public partial IntPtr UniqueColors();
 
         [Throws]
-        [SetInstance]
-        public partial void UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels);
+        public partial IntPtr UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels);
 
         [Throws]
         [SetInstance]

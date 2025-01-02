@@ -698,6 +698,18 @@ public partial class MagickImage
         public void Transverse()
             => SetResult(NativeMagickImage.Transverse());
 
+        public void UnsharpMask(double radius, double sigma)
+            => UnsharpMask(radius, sigma, 1.0, 0.05);
+
+        public void UnsharpMask(double radius, double sigma, Channels channels)
+            => UnsharpMask(radius, sigma, 1.0, 0.05, channels);
+
+        public void UnsharpMask(double radius, double sigma, double amount, double threshold)
+            => UnsharpMask(radius, sigma, amount, threshold, ImageMagick.Channels.Undefined);
+
+        public void UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels)
+            => SetResult(NativeMagickImage.UnsharpMask(radius, sigma, amount, threshold, channels));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
