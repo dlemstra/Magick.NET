@@ -6054,7 +6054,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sharpen()
-        => Sharpen(0.0, 1.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sharpen();
+    }
 
     /// <summary>
     /// Sharpen pixels in image.
@@ -6062,7 +6065,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be sharpened.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sharpen(Channels channels)
-        => Sharpen(0.0, 1.0, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sharpen(channels);
+    }
 
     /// <summary>
     /// Sharpen pixels in image.
@@ -6071,7 +6077,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sharpen(double radius, double sigma)
-        => Sharpen(radius, sigma, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sharpen(radius, sigma);
+    }
 
     /// <summary>
     /// Sharpen pixels in image.
@@ -6080,7 +6089,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
     /// <param name="channels">The channel(s) that should be sharpened.</param>
     public void Sharpen(double radius, double sigma, Channels channels)
-        => _nativeInstance.Sharpen(radius, sigma, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sharpen(radius, sigma, channels);
+    }
 
     /// <summary>
     /// Shave pixels from image edges.

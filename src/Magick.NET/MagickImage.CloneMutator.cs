@@ -560,9 +560,21 @@ public partial class MagickImage
             }
             finally
             {
-            NativeMagickImage.BackgroundColor_Set(backgroundColor);
+                NativeMagickImage.BackgroundColor_Set(backgroundColor);
             }
         }
+
+        public void Sharpen()
+            => Sharpen(0.0, 1.0);
+
+        public void Sharpen(Channels channels)
+            => Sharpen(0.0, 1.0, channels);
+
+        public void Sharpen(double radius, double sigma)
+            => Sharpen(radius, sigma, ImageMagick.Channels.Undefined);
+
+        public void Sharpen(double radius, double sigma, Channels channels)
+            => SetResult(NativeMagickImage.Sharpen(radius, sigma, channels));
 
         protected virtual void SetResult(IntPtr result)
         {

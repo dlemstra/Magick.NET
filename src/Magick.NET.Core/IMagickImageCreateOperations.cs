@@ -1023,4 +1023,33 @@ public interface IMagickImageCreateOperations
     /// <param name="alpha">Transparency percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Shadow(int x, int y, double sigma, Percentage alpha);
+
+    /// <summary>
+    /// Sharpen pixels in image.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Sharpen();
+
+    /// <summary>
+    /// Sharpen pixels in image.
+    /// </summary>
+    /// <param name="channels">The channel(s) that should be sharpened.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Sharpen(Channels channels);
+
+    /// <summary>
+    /// Sharpen pixels in image.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Sharpen(double radius, double sigma);
+
+    /// <summary>
+    /// Sharpen pixels in image.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <param name="channels">The channel(s) that should be sharpened.</param>
+    void Sharpen(double radius, double sigma, Channels channels);
 }

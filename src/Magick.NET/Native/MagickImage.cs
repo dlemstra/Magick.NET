@@ -697,8 +697,7 @@ public partial class MagickImage
         public partial IntPtr Shadow(nint x, nint y, double sigma, double alphaPercentage);
 
         [Throws]
-        [SetInstance]
-        public partial void Sharpen(double radius, double sigma, Channels channel);
+        public partial IntPtr Sharpen(double radius, double sigma, Channels channel);
 
         [Throws]
         [SetInstance]
