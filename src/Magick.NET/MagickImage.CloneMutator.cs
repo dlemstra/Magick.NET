@@ -695,6 +695,9 @@ public partial class MagickImage
         public void Transpose()
             => SetResult(NativeMagickImage.Transpose());
 
+        public void Transverse()
+            => SetResult(NativeMagickImage.Transverse());
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

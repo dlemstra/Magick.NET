@@ -1200,4 +1200,11 @@ public interface IMagickImageCreateOperations
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Transpose();
+
+    /// <summary>
+    /// Creates a vertical mirror image by reflecting the pixels around the central x-axis while
+    /// rotating them by 270 degrees.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Transverse();
 }

@@ -6771,7 +6771,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Transverse()
-        => _nativeInstance.Transverse();
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Transverse();
+    }
 
     /// <summary>
     /// Trim edges that are the background color from the image. The property <see cref="BoundingBox"/> can be used to the

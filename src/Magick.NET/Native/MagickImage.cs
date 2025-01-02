@@ -771,8 +771,7 @@ public partial class MagickImage
         public partial IntPtr Transpose();
 
         [Throws]
-        [SetInstance]
-        public partial void Transverse();
+        public partial IntPtr Transverse();
 
         [Throws]
         [SetInstance]
