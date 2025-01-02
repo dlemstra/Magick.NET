@@ -586,6 +586,12 @@ public partial class MagickImage
         public void Shear(double xAngle, double yAngle)
             => SetResult(NativeMagickImage.Shear(xAngle, yAngle));
 
+        public void Sketch()
+            => Sketch(0.0, 1.0, 0.0);
+
+        public void Sketch(double radius, double sigma, double angle)
+            => SetResult(NativeMagickImage.Sketch(radius, sigma, angle));
+
         public void SparseColor(SparseColorMethod method, IEnumerable<ISparseColorArg<QuantumType>> args)
             => SparseColor(ImageMagick.Channels.Composite, method, args);
 

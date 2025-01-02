@@ -6224,7 +6224,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sketch()
-        => Sketch(0.0, 1.0, 0.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sketch();
+    }
 
     /// <summary>
     /// Simulates a pencil sketch. We convolve the image with a Gaussian operator of the given
@@ -6236,7 +6239,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="angle">Apply the effect along this angle.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sketch(double radius, double sigma, double angle)
-        => _nativeInstance.Sketch(radius, sigma, angle);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sketch(radius, sigma, angle);
+    }
 
     /// <summary>
     /// Solarize image (similar to effect seen when exposing a photographic film to light during

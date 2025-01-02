@@ -709,17 +709,16 @@ public partial class MagickImage
         public partial void SigmoidalContrast(bool sharpen, double contrast, double midpoint, Channels channels);
 
         [Throws]
-        public partial IntPtr SparseColor(Channels channel, SparseColorMethod method, double[] values, nuint length);
-
-        [Throws]
-        [SetInstance]
-        public partial void Sketch(double radius, double sigma, double angle);
+        public partial IntPtr Sketch(double radius, double sigma, double angle);
 
         [Throws]
         public partial void Solarize(double factor);
 
         [Throws]
         public partial void SortPixels();
+
+        [Throws]
+        public partial IntPtr SparseColor(Channels channel, SparseColorMethod method, double[] values, nuint length);
 
         [Throws]
         [SetInstance]

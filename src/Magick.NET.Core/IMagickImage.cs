@@ -2032,23 +2032,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void SigmoidalContrast(double contrast, Percentage midpointPercentage);
 
     /// <summary>
-    /// Simulates a pencil sketch.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Sketch();
-
-    /// <summary>
-    /// Simulates a pencil sketch. We convolve the image with a Gaussian operator of the given
-    /// radius and standard deviation (sigma). For reasonable results, radius should be larger than sigma.
-    /// Use a radius of 0 and sketch selects a suitable radius for you.
-    /// </summary>
-    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
-    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-    /// <param name="angle">Apply the effect along this angle.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Sketch(double radius, double sigma, double angle);
-
-    /// <summary>
     /// Solarize image (similar to effect seen when exposing a photographic film to light during
     /// the development process).
     /// </summary>
