@@ -5478,7 +5478,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="y">The Y offset from origin.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Roll(int x, int y)
-        => _nativeInstance.Roll(x, y);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Roll(x, y);
+    }
 
     /// <summary>
     /// Rotate image clockwise by specified number of degrees.

@@ -807,4 +807,12 @@ public interface IMagickImageCreateOperations
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Resize(Percentage percentageWidth, Percentage percentageHeight);
+
+    /// <summary>
+    /// Roll image (rolls image vertically and horizontally).
+    /// </summary>
+    /// <param name="x">The X offset from origin.</param>
+    /// <param name="y">The Y offset from origin.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Roll(int x, int y);
 }

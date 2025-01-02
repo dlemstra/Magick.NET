@@ -630,8 +630,7 @@ public partial class MagickImage
         public partial IntPtr Resize(string geometry);
 
         [Throws]
-        [SetInstance]
-        public partial void Roll(nint x, nint y);
+        public partial IntPtr Roll(nint x, nint y);
 
         [Throws]
         [SetInstance]

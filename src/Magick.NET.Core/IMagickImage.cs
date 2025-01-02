@@ -1864,14 +1864,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void ResetPage();
 
     /// <summary>
-    /// Roll image (rolls image vertically and horizontally).
-    /// </summary>
-    /// <param name="x">The X offset from origin.</param>
-    /// <param name="y">The Y offset from origin.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Roll(int x, int y);
-
-    /// <summary>
     /// Rotate image clockwise by specified number of degrees.
     /// </summary>
     /// <remarks>Specify a negative number for <paramref name="degrees"/> to rotate counter-clockwise.</remarks>

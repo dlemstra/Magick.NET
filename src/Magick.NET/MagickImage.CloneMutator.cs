@@ -459,6 +459,9 @@ public partial class MagickImage
         public void Resize(Percentage percentageWidth, Percentage percentageHeight)
             => Resize(new MagickGeometry(percentageWidth, percentageHeight));
 
+        public void Roll(int x, int y)
+            => SetResult(NativeMagickImage.Roll(x, y));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
