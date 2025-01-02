@@ -648,6 +648,13 @@ public partial class MagickImage
         public void Statistic(StatisticType type, uint width, uint height)
             => SetResult(NativeMagickImage.Statistic(type, width, height));
 
+        public void Stegano(IMagickImage watermark)
+        {
+            Throw.IfNull(nameof(watermark), watermark);
+
+            SetResult(NativeMagickImage.Stegano(watermark));
+        }
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

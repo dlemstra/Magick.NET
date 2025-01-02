@@ -1130,4 +1130,11 @@ public interface IMagickImageCreateOperations
     /// <param name="height">The height of the pixel neighborhood.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Statistic(StatisticType type, uint width, uint height);
+
+    /// <summary>
+    /// Add a digital watermark to the image (based on second image).
+    /// </summary>
+    /// <param name="watermark">The image to use as a watermark.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Stegano(IMagickImage watermark);
 }

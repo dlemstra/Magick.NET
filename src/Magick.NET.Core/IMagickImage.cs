@@ -2076,13 +2076,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     IStatistics Statistics(Channels channels);
 
     /// <summary>
-    /// Add a digital watermark to the image (based on second image).
-    /// </summary>
-    /// <param name="watermark">The image to use as a watermark.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Stegano(IMagickImage watermark);
-
-    /// <summary>
     /// Create an image which appears in stereo when viewed with red-blue glasses (Red image on
     /// left, blue on right).
     /// </summary>

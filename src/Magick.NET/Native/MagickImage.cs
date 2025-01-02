@@ -734,8 +734,7 @@ public partial class MagickImage
         public partial IntPtr Statistics(Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void Stegano(IMagickImage watermark);
+        public partial IntPtr Stegano(IMagickImage watermark);
 
         [Throws]
         [SetInstance]

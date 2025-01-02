@@ -6369,9 +6369,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Stegano(IMagickImage watermark)
     {
-        Throw.IfNull(nameof(watermark), watermark);
-
-        _nativeInstance.Stegano(watermark);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Stegano(watermark);
     }
 
     /// <summary>
