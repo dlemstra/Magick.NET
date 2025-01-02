@@ -2082,21 +2082,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Strip();
 
     /// <summary>
-    /// Swirl image (image pixels are rotated by degrees).
-    /// </summary>
-    /// <param name="degrees">The number of degrees.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Swirl(double degrees);
-
-    /// <summary>
-    /// Swirl image (image pixels are rotated by degrees).
-    /// </summary>
-    /// <param name="method">Pixel interpolate method.</param>
-    /// <param name="degrees">The number of degrees.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Swirl(PixelInterpolateMethod method, double degrees);
-
-    /// <summary>
     /// Channel a texture on image background.
     /// </summary>
     /// <param name="image">The image to use as a texture on the image background.</param>

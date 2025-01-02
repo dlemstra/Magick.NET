@@ -662,6 +662,12 @@ public partial class MagickImage
             SetResult(NativeMagickImage.Stereo(rightImage));
         }
 
+        public void Swirl(double degrees)
+            => Swirl(NativeMagickImage.Interpolate_Get(), degrees);
+
+        public void Swirl(PixelInterpolateMethod method, double degrees)
+            => SetResult(NativeMagickImage.Swirl(method, degrees));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

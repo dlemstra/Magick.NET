@@ -747,8 +747,7 @@ public partial class MagickImage
         public partial IntPtr SubImageSearch(IMagickImage reference, ErrorMetric metric, double similarityThreshold, out MagickRectangle offset, out double similarityMetric);
 
         [Throws]
-        [SetInstance]
-        public partial void Swirl(PixelInterpolateMethod method, double degrees);
+        public partial IntPtr Swirl(PixelInterpolateMethod method, double degrees);
 
         [Throws]
         public partial void Texture(IMagickImage image);

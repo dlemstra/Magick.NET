@@ -1145,4 +1145,19 @@ public interface IMagickImageCreateOperations
     /// <param name="rightImage">The image to use as the right part of the resulting image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Stereo(IMagickImage rightImage);
+
+    /// <summary>
+    /// Swirl image (image pixels are rotated by degrees).
+    /// </summary>
+    /// <param name="degrees">The number of degrees.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Swirl(double degrees);
+
+    /// <summary>
+    /// Swirl image (image pixels are rotated by degrees).
+    /// </summary>
+    /// <param name="method">Pixel interpolate method.</param>
+    /// <param name="degrees">The number of degrees.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Swirl(PixelInterpolateMethod method, double degrees);
 }

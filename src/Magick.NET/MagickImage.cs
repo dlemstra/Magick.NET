@@ -6398,7 +6398,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="degrees">The number of degrees.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Swirl(double degrees)
-        => Swirl(Interpolate, degrees);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Swirl(degrees);
+    }
 
     /// <summary>
     /// Swirl image (image pixels are rotated by degrees).
@@ -6407,7 +6410,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="degrees">The number of degrees.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Swirl(PixelInterpolateMethod method, double degrees)
-        => _nativeInstance.Swirl(method, degrees);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Swirl(method, degrees);
+    }
 
     /// <summary>
     /// Search for the specified image at EVERY possible location in this image. This is slow!
