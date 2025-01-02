@@ -1099,4 +1099,25 @@ public interface IMagickImageCreateOperations
     /// <param name="geometry">The geometry to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Splice(IMagickGeometry geometry);
+
+    /// <summary>
+    /// Spread pixels randomly within image.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Spread();
+
+    /// <summary>
+    /// Spread pixels randomly within image by specified amount.
+    /// </summary>
+    /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Spread(double radius);
+
+    /// <summary>
+    /// Spread pixels randomly within image by specified amount.
+    /// </summary>
+    /// <param name="method">Pixel interpolate method.</param>
+    /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Spread(PixelInterpolateMethod method, double radius);
 }

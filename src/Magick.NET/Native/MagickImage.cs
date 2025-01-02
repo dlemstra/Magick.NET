@@ -724,8 +724,7 @@ public partial class MagickImage
         public partial IntPtr Splice(MagickRectangle geometry);
 
         [Throws]
-        [SetInstance]
-        public partial void Spread(PixelInterpolateMethod method, double radius);
+        public partial IntPtr Spread(PixelInterpolateMethod method, double radius);
 
         [Throws]
         [SetInstance]

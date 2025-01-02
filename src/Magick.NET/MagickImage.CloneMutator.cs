@@ -636,6 +636,26 @@ public partial class MagickImage
         public void Splice(IMagickGeometry geometry)
             => SetResult(NativeMagickImage.Splice(MagickRectangle.FromGeometry(geometry, (uint)NativeMagickImage.Width_Get(), (uint)NativeMagickImage.Height_Get())));
 
+        public void Spread()
+            => Spread(NativeMagickImage.Interpolate_Get(), 3);
+
+        /// <summary>
+        /// Spread pixels randomly within image by specified amount.
+        /// </summary>
+        /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Spread(double radius)
+            => Spread(PixelInterpolateMethod.Undefined, radius);
+
+        /// <summary>
+        /// Spread pixels randomly within image by specified amount.
+        /// </summary>
+        /// <param name="method">Pixel interpolate method.</param>
+        /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
+        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+        public void Spread(PixelInterpolateMethod method, double radius)
+            => SetResult(NativeMagickImage.Spread(method, radius));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

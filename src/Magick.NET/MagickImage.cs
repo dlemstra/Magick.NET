@@ -6293,7 +6293,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Spread()
-        => Spread(Interpolate, 3);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Spread();
+    }
 
     /// <summary>
     /// Spread pixels randomly within image by specified amount.
@@ -6301,7 +6304,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Spread(double radius)
-        => Spread(PixelInterpolateMethod.Undefined, radius);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Spread(radius);
+    }
 
     /// <summary>
     /// Spread pixels randomly within image by specified amount.
@@ -6310,7 +6316,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Spread(PixelInterpolateMethod method, double radius)
-        => _nativeInstance.Spread(method, radius);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Spread(method, radius);
+    }
 
     /// <summary>
     /// Makes each pixel the min / max / median / mode / etc. of the neighborhood of the specified width

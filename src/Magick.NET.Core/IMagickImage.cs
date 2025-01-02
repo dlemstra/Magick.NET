@@ -2061,27 +2061,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Solarize(Percentage factorPercentage);
 
     /// <summary>
-    /// Spread pixels randomly within image.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Spread();
-
-    /// <summary>
-    /// Spread pixels randomly within image by specified amount.
-    /// </summary>
-    /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Spread(double radius);
-
-    /// <summary>
-    /// Spread pixels randomly within image by specified amount.
-    /// </summary>
-    /// <param name="method">Pixel interpolate method.</param>
-    /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Spread(PixelInterpolateMethod method, double radius);
-
-    /// <summary>
     /// Makes each pixel the min / max / median / mode / etc. of the neighborhood of the specified width
     /// and height.
     /// </summary>
