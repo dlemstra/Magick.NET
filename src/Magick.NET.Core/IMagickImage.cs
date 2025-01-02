@@ -2221,22 +2221,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Trim(Percentage percentBackground);
 
     /// <summary>
-    /// Softens the edges of the image in vignette style.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Vignette();
-
-    /// <summary>
-    /// Softens the edges of the image in vignette style.
-    /// </summary>
-    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
-    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
-    /// <param name="x">The x ellipse offset.</param>
-    /// <param name="y">the y ellipse offset.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Vignette(double radius, double sigma, int x, int y);
-
-    /// <summary>
     /// Map image pixels to a sine wave.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

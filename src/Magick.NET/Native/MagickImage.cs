@@ -784,8 +784,7 @@ public partial class MagickImage
         public partial IntPtr UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void Vignette(double radius, double sigma, nint x, nint y);
+        public partial IntPtr Vignette(double radius, double sigma, nint x, nint y);
 
         [Throws]
         [SetInstance]

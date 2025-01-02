@@ -6918,7 +6918,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Vignette()
-        => Vignette(0.0, 1.0, 0, 0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Vignette();
+    }
 
     /// <summary>
     /// Softens the edges of the image in vignette style.
@@ -6929,7 +6932,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="y">the y ellipse offset.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Vignette(double radius, double sigma, int x, int y)
-        => _nativeInstance.Vignette(radius, sigma, x, y);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Vignette(radius, sigma, x, y);
+    }
 
     /// <summary>
     /// Map image pixels to a sine wave.

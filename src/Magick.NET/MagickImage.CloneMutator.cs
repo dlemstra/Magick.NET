@@ -710,6 +710,12 @@ public partial class MagickImage
         public void UnsharpMask(double radius, double sigma, double amount, double threshold, Channels channels)
             => SetResult(NativeMagickImage.UnsharpMask(radius, sigma, amount, threshold, channels));
 
+        public void Vignette()
+            => Vignette(0.0, 1.0, 0, 0);
+
+        public void Vignette(double radius, double sigma, int x, int y)
+            => SetResult(NativeMagickImage.Vignette(radius, sigma, x, y));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
