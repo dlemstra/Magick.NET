@@ -2221,19 +2221,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Trim(Percentage percentBackground);
 
     /// <summary>
-    /// Removes noise from the image using a wavelet transform.
-    /// </summary>
-    /// <param name="thresholdPercentage">The threshold for smoothing.</param>
-    void WaveletDenoise(Percentage thresholdPercentage);
-
-    /// <summary>
-    /// Removes noise from the image using a wavelet transform.
-    /// </summary>
-    /// <param name="thresholdPercentage">The threshold for smoothing.</param>
-    /// <param name="softness">Attenuate the smoothing threshold.</param>
-    void WaveletDenoise(Percentage thresholdPercentage, double softness);
-
-    /// <summary>
     /// Apply a white balancing to an image according to a grayworld assumption in the LAB colorspace.
     /// </summary>
     void WhiteBalance();

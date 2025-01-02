@@ -926,17 +926,4 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     /// <returns>The unique colors of an image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     IMagickImage<TQuantumType>? UniqueColors();
-
-    /// <summary>
-    /// Removes noise from the image using a wavelet transform.
-    /// </summary>
-    /// <param name="threshold">The threshold for smoothing.</param>
-    void WaveletDenoise(TQuantumType threshold);
-
-    /// <summary>
-    /// Removes noise from the image using a wavelet transform.
-    /// </summary>
-    /// <param name="threshold">The threshold for smoothing.</param>
-    /// <param name="softness">Attenuate the smoothing threshold.</param>
-    void WaveletDenoise(TQuantumType threshold, double softness);
 }

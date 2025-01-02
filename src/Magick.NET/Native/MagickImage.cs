@@ -790,11 +790,10 @@ public partial class MagickImage
         public partial IntPtr Wave(PixelInterpolateMethod method, double amplitude, double length);
 
         [Throws]
-        public partial void WhiteBalance();
+        public partial IntPtr WaveletDenoise(double threshold, double softness);
 
         [Throws]
-        [SetInstance]
-        public partial void WaveletDenoise(double threshold, double softness);
+        public partial void WhiteBalance();
 
         [Throws]
         public partial void WhiteThreshold(string threshold, Channels channels);

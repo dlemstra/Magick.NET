@@ -1278,4 +1278,17 @@ public interface IMagickImageCreateOperations
     /// <param name="length">The length of the wave.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Wave(PixelInterpolateMethod method, double amplitude, double length);
+
+    /// <summary>
+    /// Removes noise from the image using a wavelet transform.
+    /// </summary>
+    /// <param name="thresholdPercentage">The threshold for smoothing.</param>
+    void WaveletDenoise(Percentage thresholdPercentage);
+
+    /// <summary>
+    /// Removes noise from the image using a wavelet transform.
+    /// </summary>
+    /// <param name="thresholdPercentage">The threshold for smoothing.</param>
+    /// <param name="softness">Attenuate the smoothing threshold.</param>
+    void WaveletDenoise(Percentage thresholdPercentage, double softness);
 }

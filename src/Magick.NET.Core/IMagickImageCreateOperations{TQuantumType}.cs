@@ -133,4 +133,17 @@ public interface IMagickImageCreateOperations<TQuantumType> : IMagickImageCreate
     /// <param name="color">A color value used for tinting.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Tint(IMagickGeometry opacity, IMagickColor<TQuantumType> color);
+
+    /// <summary>
+    /// Removes noise from the image using a wavelet transform.
+    /// </summary>
+    /// <param name="threshold">The threshold for smoothing.</param>
+    void WaveletDenoise(TQuantumType threshold);
+
+    /// <summary>
+    /// Removes noise from the image using a wavelet transform.
+    /// </summary>
+    /// <param name="threshold">The threshold for smoothing.</param>
+    /// <param name="softness">Attenuate the smoothing threshold.</param>
+    void WaveletDenoise(TQuantumType threshold, double softness);
 }

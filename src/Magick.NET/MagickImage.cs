@@ -6965,7 +6965,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <param name="threshold">The threshold for smoothing.</param>
     public void WaveletDenoise(QuantumType threshold)
-        => WaveletDenoise(threshold, 0.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.WaveletDenoise(threshold);
+    }
 
     /// <summary>
     /// Removes noise from the image using a wavelet transform.
@@ -6973,14 +6976,20 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="threshold">The threshold for smoothing.</param>
     /// <param name="softness">Attenuate the smoothing threshold.</param>
     public void WaveletDenoise(QuantumType threshold, double softness)
-        => _nativeInstance.WaveletDenoise(threshold, softness);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.WaveletDenoise(threshold, softness);
+    }
 
     /// <summary>
     /// Removes noise from the image using a wavelet transform.
     /// </summary>
     /// <param name="thresholdPercentage">The threshold for smoothing.</param>
     public void WaveletDenoise(Percentage thresholdPercentage)
-        => WaveletDenoise(PercentageHelper.ToQuantumType(nameof(thresholdPercentage), thresholdPercentage));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.WaveletDenoise(thresholdPercentage);
+    }
 
     /// <summary>
     /// Removes noise from the image using a wavelet transform.
@@ -6988,7 +6997,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="thresholdPercentage">The threshold for smoothing.</param>
     /// <param name="softness">Attenuate the smoothing threshold.</param>
     public void WaveletDenoise(Percentage thresholdPercentage, double softness)
-        => WaveletDenoise(PercentageHelper.ToQuantumType(nameof(thresholdPercentage), thresholdPercentage), softness);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.WaveletDenoise(thresholdPercentage, softness);
+    }
 
     /// <summary>
     /// Apply a white balancing to an image according to a grayworld assumption in the LAB colorspace.

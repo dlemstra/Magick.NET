@@ -722,6 +722,18 @@ public partial class MagickImage
         public void Wave(PixelInterpolateMethod method, double amplitude, double length)
             => SetResult(NativeMagickImage.Wave(method, amplitude, length));
 
+        public void WaveletDenoise(QuantumType threshold)
+            => WaveletDenoise(threshold, 0.0);
+
+        public void WaveletDenoise(QuantumType threshold, double softness)
+            => SetResult(NativeMagickImage.WaveletDenoise(threshold, softness));
+
+        public void WaveletDenoise(Percentage thresholdPercentage)
+            => WaveletDenoise(PercentageHelper.ToQuantumType(nameof(thresholdPercentage), thresholdPercentage));
+
+        public void WaveletDenoise(Percentage thresholdPercentage, double softness)
+            => WaveletDenoise(PercentageHelper.ToQuantumType(nameof(thresholdPercentage), thresholdPercentage), softness);
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
