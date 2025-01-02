@@ -5934,7 +5934,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shade()
-        => Shade(30, 30);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shade();
+    }
 
     /// <summary>
     /// Shade image using distant light source.
@@ -5943,7 +5946,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="elevation">The elevation of the light source direction.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shade(double azimuth, double elevation)
-        => Shade(azimuth, elevation, ImageMagick.Channels.RGB);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shade(azimuth, elevation);
+    }
 
     /// <summary>
     /// Shade image using distant light source.
@@ -5953,14 +5959,20 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be shaded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shade(double azimuth, double elevation, Channels channels)
-        => _nativeInstance.Shade(azimuth, elevation, false, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shade(azimuth, elevation, channels);
+    }
 
     /// <summary>
     /// Shade image using distant light source and make it grayscale.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ShadeGrayscale()
-        => ShadeGrayscale(30, 30);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.ShadeGrayscale();
+    }
 
     /// <summary>
     /// Shade image using distant light source and make it grayscale.
@@ -5969,7 +5981,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="elevation">The elevation of the light source direction.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ShadeGrayscale(double azimuth, double elevation)
-        => ShadeGrayscale(azimuth, elevation, ImageMagick.Channels.RGB);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.ShadeGrayscale(azimuth, elevation);
+    }
 
     /// <summary>
     /// Shade image using distant light source and make it grayscale.
@@ -5979,7 +5994,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) that should be shaded.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ShadeGrayscale(double azimuth, double elevation, Channels channels)
-        => _nativeInstance.Shade(azimuth, elevation, true, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.ShadeGrayscale(azimuth, elevation, channels);
+    }
 
     /// <summary>
     /// Simulate an image shadow.

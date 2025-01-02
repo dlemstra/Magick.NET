@@ -691,8 +691,7 @@ public partial class MagickImage
         public partial void SetWriteMask(IMagickImage? image);
 
         [Throws]
-        [SetInstance]
-        public partial void Shade(double azimuth, double elevation, bool colorShading, Channels channels);
+        public partial IntPtr Shade(double azimuth, double elevation, bool colorShading, Channels channels);
 
         [Throws]
         [SetInstance]

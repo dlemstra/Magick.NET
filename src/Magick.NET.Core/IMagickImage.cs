@@ -2000,52 +2000,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void SetWriteMask(IMagickImage image);
 
     /// <summary>
-    /// Shade image using distant light source.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Shade();
-
-    /// <summary>
-    /// Shade image using distant light source.
-    /// </summary>
-    /// <param name="azimuth">The azimuth of the light source direction.</param>
-    /// <param name="elevation">The elevation of the light source direction.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Shade(double azimuth, double elevation);
-
-    /// <summary>
-    /// Shade image using distant light source.
-    /// </summary>
-    /// <param name="azimuth">The azimuth of the light source direction.</param>
-    /// <param name="elevation">The elevation of the light source direction.</param>
-    /// <param name="channels">The channel(s) that should be shaded.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Shade(double azimuth, double elevation, Channels channels);
-
-    /// <summary>
-    /// Shade image using distant light source and make it grayscale.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ShadeGrayscale();
-
-    /// <summary>
-    /// Shade image using distant light source and make it grayscale.
-    /// </summary>
-    /// <param name="azimuth">The azimuth of the light source direction.</param>
-    /// <param name="elevation">The elevation of the light source direction.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ShadeGrayscale(double azimuth, double elevation);
-
-    /// <summary>
-    /// Shade image using distant light source and make it grayscale.
-    /// </summary>
-    /// <param name="azimuth">The azimuth of the light source direction.</param>
-    /// <param name="elevation">The elevation of the light source direction.</param>
-    /// <param name="channels">The channel(s) that should be shaded.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ShadeGrayscale(double azimuth, double elevation, Channels channels);
-
-    /// <summary>
     /// Simulate an image shadow.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

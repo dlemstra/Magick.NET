@@ -521,6 +521,24 @@ public partial class MagickImage
         public void SepiaTone(Percentage threshold)
             => SetResult(NativeMagickImage.SepiaTone(PercentageHelper.ToQuantum(nameof(threshold), threshold)));
 
+        public void Shade()
+            => Shade(30, 30);
+
+        public void Shade(double azimuth, double elevation)
+            => Shade(azimuth, elevation, ImageMagick.Channels.RGB);
+
+        public void Shade(double azimuth, double elevation, Channels channels)
+            => SetResult(NativeMagickImage.Shade(azimuth, elevation, false, channels));
+
+        public void ShadeGrayscale()
+            => ShadeGrayscale(30, 30);
+
+        public void ShadeGrayscale(double azimuth, double elevation)
+            => ShadeGrayscale(azimuth, elevation, ImageMagick.Channels.RGB);
+
+        public void ShadeGrayscale(double azimuth, double elevation, Channels channels)
+            => SetResult(NativeMagickImage.Shade(azimuth, elevation, true, channels));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
