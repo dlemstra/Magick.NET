@@ -6942,7 +6942,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Wave()
-        => Wave(Interpolate, 25.0, 150.0);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Wave();
+    }
 
     /// <summary>
     /// Map image pixels to a sine wave.
@@ -6952,7 +6955,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="length">The length of the wave.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Wave(PixelInterpolateMethod method, double amplitude, double length)
-        => _nativeInstance.Wave(method, amplitude, length);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Wave(method, amplitude, length);
+    }
 
     /// <summary>
     /// Removes noise from the image using a wavelet transform.

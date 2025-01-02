@@ -787,8 +787,7 @@ public partial class MagickImage
         public partial IntPtr Vignette(double radius, double sigma, nint x, nint y);
 
         [Throws]
-        [SetInstance]
-        public partial void Wave(PixelInterpolateMethod method, double amplitude, double length);
+        public partial IntPtr Wave(PixelInterpolateMethod method, double amplitude, double length);
 
         [Throws]
         public partial void WhiteBalance();

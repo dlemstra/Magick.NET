@@ -1263,4 +1263,19 @@ public interface IMagickImageCreateOperations
     /// <param name="y">the y ellipse offset.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Vignette(double radius, double sigma, int x, int y);
+
+    /// <summary>
+    /// Map image pixels to a sine wave.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Wave();
+
+    /// <summary>
+    /// Map image pixels to a sine wave.
+    /// </summary>
+    /// <param name="method">The pixel interpolate method.</param>
+    /// <param name="amplitude">The amplitude.</param>
+    /// <param name="length">The length of the wave.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Wave(PixelInterpolateMethod method, double amplitude, double length);
 }

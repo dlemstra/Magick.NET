@@ -2221,21 +2221,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Trim(Percentage percentBackground);
 
     /// <summary>
-    /// Map image pixels to a sine wave.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Wave();
-
-    /// <summary>
-    /// Map image pixels to a sine wave.
-    /// </summary>
-    /// <param name="method">The pixel interpolate method.</param>
-    /// <param name="amplitude">The amplitude.</param>
-    /// <param name="length">The length of the wave.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Wave(PixelInterpolateMethod method, double amplitude, double length);
-
-    /// <summary>
     /// Removes noise from the image using a wavelet transform.
     /// </summary>
     /// <param name="thresholdPercentage">The threshold for smoothing.</param>

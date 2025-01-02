@@ -716,6 +716,12 @@ public partial class MagickImage
         public void Vignette(double radius, double sigma, int x, int y)
             => SetResult(NativeMagickImage.Vignette(radius, sigma, x, y));
 
+        public void Wave()
+            => Wave(NativeMagickImage.Interpolate_Get(), 25.0, 150.0);
+
+        public void Wave(PixelInterpolateMethod method, double amplitude, double length)
+            => SetResult(NativeMagickImage.Wave(method, amplitude, length));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
