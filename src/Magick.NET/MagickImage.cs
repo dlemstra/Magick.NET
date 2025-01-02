@@ -6330,7 +6330,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The height of the pixel neighborhood.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Statistic(StatisticType type, uint width, uint height)
-        => _nativeInstance.Statistic(type, width, height);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Statistic(type, width, height);
+    }
 
     /// <summary>
     /// Returns the image statistics.

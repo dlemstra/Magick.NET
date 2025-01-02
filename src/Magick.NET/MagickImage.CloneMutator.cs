@@ -639,22 +639,14 @@ public partial class MagickImage
         public void Spread()
             => Spread(NativeMagickImage.Interpolate_Get(), 3);
 
-        /// <summary>
-        /// Spread pixels randomly within image by specified amount.
-        /// </summary>
-        /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Spread(double radius)
             => Spread(PixelInterpolateMethod.Undefined, radius);
 
-        /// <summary>
-        /// Spread pixels randomly within image by specified amount.
-        /// </summary>
-        /// <param name="method">Pixel interpolate method.</param>
-        /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
-        /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
         public void Spread(PixelInterpolateMethod method, double radius)
             => SetResult(NativeMagickImage.Spread(method, radius));
+
+        public void Statistic(StatisticType type, uint width, uint height)
+            => SetResult(NativeMagickImage.Statistic(type, width, height));
 
         protected virtual void SetResult(IntPtr result)
         {

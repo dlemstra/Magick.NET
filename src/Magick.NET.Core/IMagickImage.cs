@@ -2061,16 +2061,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Solarize(Percentage factorPercentage);
 
     /// <summary>
-    /// Makes each pixel the min / max / median / mode / etc. of the neighborhood of the specified width
-    /// and height.
-    /// </summary>
-    /// <param name="type">The statistic type.</param>
-    /// <param name="width">The width of the pixel neighborhood.</param>
-    /// <param name="height">The height of the pixel neighborhood.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Statistic(StatisticType type, uint width, uint height);
-
-    /// <summary>
     /// Returns the image statistics.
     /// </summary>
     /// <returns>The image statistics.</returns>

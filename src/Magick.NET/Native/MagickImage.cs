@@ -727,8 +727,7 @@ public partial class MagickImage
         public partial IntPtr Spread(PixelInterpolateMethod method, double radius);
 
         [Throws]
-        [SetInstance]
-        public partial void Statistic(StatisticType type, nuint width, nuint height);
+        public partial IntPtr Statistic(StatisticType type, nuint width, nuint height);
 
         [Throws]
         [Cleanup(Name = "ImageMagick.Statistics.DisposeList")]

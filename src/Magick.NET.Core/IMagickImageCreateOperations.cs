@@ -1120,4 +1120,14 @@ public interface IMagickImageCreateOperations
     /// <param name="radius">Choose a random pixel in a neighborhood of this extent.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Spread(PixelInterpolateMethod method, double radius);
+
+    /// <summary>
+    /// Makes each pixel the min / max / median / mode / etc. of the neighborhood of the specified width
+    /// and height.
+    /// </summary>
+    /// <param name="type">The statistic type.</param>
+    /// <param name="width">The width of the pixel neighborhood.</param>
+    /// <param name="height">The height of the pixel neighborhood.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Statistic(StatisticType type, uint width, uint height);
 }
