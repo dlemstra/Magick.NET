@@ -639,8 +639,7 @@ public partial class MagickImage
         public partial IntPtr RotationalBlur(double angle, Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void Sample(string geometry);
+        public partial IntPtr Sample(string geometry);
 
         [Throws]
         [SetInstance]

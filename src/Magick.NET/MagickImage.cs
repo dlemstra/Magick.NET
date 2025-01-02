@@ -5528,7 +5528,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sample(uint width, uint height)
-        => Sample(new MagickGeometry(width, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sample(width, height);
+    }
 
     /// <summary>
     /// Resize image by using pixel sampling algorithm.
@@ -5537,9 +5540,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sample(IMagickGeometry geometry)
     {
-        Throw.IfNull(nameof(geometry), geometry);
-
-        _nativeInstance.Sample(geometry.ToString());
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sample(geometry);
     }
 
     /// <summary>
@@ -5548,7 +5550,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentage">The percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sample(Percentage percentage)
-        => Sample(percentage, percentage);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sample(percentage);
+    }
 
     /// <summary>
     /// Resize image by using pixel sampling algorithm to the specified percentage.
@@ -5557,7 +5562,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Sample(Percentage percentageWidth, Percentage percentageHeight)
-        => Sample(new MagickGeometry(percentageWidth, percentageHeight));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Sample(percentageWidth, percentageHeight);
+    }
 
     /// <summary>
     /// Resize image by using simple ratio algorithm.

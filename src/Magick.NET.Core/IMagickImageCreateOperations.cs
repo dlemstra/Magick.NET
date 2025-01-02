@@ -838,4 +838,37 @@ public interface IMagickImageCreateOperations
     /// <param name="channels">The channel(s) to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void RotationalBlur(double angle, Channels channels);
+
+    /// <summary>
+    /// Resize image by using pixel sampling algorithm.
+    /// <para />
+    /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+    /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
+    /// </summary>
+    /// <param name="width">The new width.</param>
+    /// <param name="height">The new height.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Sample(uint width, uint height);
+
+    /// <summary>
+    /// Resize image by using pixel sampling algorithm.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Sample(IMagickGeometry geometry);
+
+    /// <summary>
+    /// Resize image by using pixel sampling algorithm to the specified percentage.
+    /// </summary>
+    /// <param name="percentage">The percentage.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Sample(Percentage percentage);
+
+    /// <summary>
+    /// Resize image by using pixel sampling algorithm to the specified percentage.
+    /// </summary>
+    /// <param name="percentageWidth">The percentage of the width.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Sample(Percentage percentageWidth, Percentage percentageHeight);
 }

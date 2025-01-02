@@ -471,6 +471,22 @@ public partial class MagickImage
         public void RotationalBlur(double angle, Channels channels)
             => SetResult(NativeMagickImage.RotationalBlur(angle, channels));
 
+        public void Sample(uint width, uint height)
+            => Sample(new MagickGeometry(width, height));
+
+        public void Sample(IMagickGeometry geometry)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            SetResult(NativeMagickImage.Sample(geometry.ToString()));
+        }
+
+        public void Sample(Percentage percentage)
+            => Sample(percentage, percentage);
+
+        public void Sample(Percentage percentageWidth, Percentage percentageHeight)
+            => Sample(new MagickGeometry(percentageWidth, percentageHeight));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
