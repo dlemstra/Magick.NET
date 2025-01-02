@@ -648,8 +648,7 @@ public partial class MagickImage
         public partial void Segment(ColorSpace colorSpace, double clusterThreshold, double smoothingThreshold);
 
         [Throws]
-        [SetInstance]
-        public partial void SelectiveBlur(double radius, double sigma, double threshold, Channels channels);
+        public partial IntPtr SelectiveBlur(double radius, double sigma, double threshold, Channels channels);
 
         [Throws]
         [Cleanup(Name = "MagickImageCollection.DisposeList")]

@@ -5649,7 +5649,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="threshold">Only pixels within this contrast threshold are included in the blur operation.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SelectiveBlur(double radius, double sigma, double threshold)
-        => SelectiveBlur(radius, sigma, threshold, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SelectiveBlur(radius, sigma, threshold);
+    }
 
     /// <summary>
     /// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
@@ -5661,7 +5664,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to blur.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SelectiveBlur(double radius, double sigma, double threshold, Channels channels)
-        => _nativeInstance.SelectiveBlur(radius, sigma, threshold, channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SelectiveBlur(radius, sigma, threshold, channels);
+    }
 
     /// <summary>
     /// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
@@ -5672,7 +5678,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="thresholdPercentage">Only pixels within this contrast threshold are included in the blur operation.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage)
-        => SelectiveBlur(radius, sigma, thresholdPercentage, ImageMagick.Channels.Undefined);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SelectiveBlur(radius, sigma, thresholdPercentage);
+    }
 
     /// <summary>
     /// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
@@ -5684,7 +5693,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="channels">The channel(s) to blur.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage, Channels channels)
-        => _nativeInstance.SelectiveBlur(radius, sigma, PercentageHelper.ToQuantum(nameof(thresholdPercentage), thresholdPercentage), channels);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SelectiveBlur(radius, sigma, thresholdPercentage, channels);
+    }
 
     /// <summary>
     /// Separates the channels from the image and returns it as grayscale images.

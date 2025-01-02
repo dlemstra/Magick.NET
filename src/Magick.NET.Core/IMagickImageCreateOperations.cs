@@ -904,4 +904,46 @@ public interface IMagickImageCreateOperations
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Scale(Percentage percentageWidth, Percentage percentageHeight);
+
+    /// <summary>
+    /// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
+    /// that sharpens everything with contrast above a certain threshold.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+    /// <param name="threshold">Only pixels within this contrast threshold are included in the blur operation.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SelectiveBlur(double radius, double sigma, double threshold);
+
+    /// <summary>
+    /// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
+    /// that sharpens everything with contrast above a certain threshold.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+    /// <param name="threshold">Only pixels within this contrast threshold are included in the blur operation.</param>
+    /// <param name="channels">The channel(s) to blur.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SelectiveBlur(double radius, double sigma, double threshold, Channels channels);
+
+    /// <summary>
+    /// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
+    /// that sharpens everything with contrast above a certain threshold.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+    /// <param name="thresholdPercentage">Only pixels within this contrast threshold are included in the blur operation.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage);
+
+    /// <summary>
+    /// Selectively blur pixels within a contrast threshold. It is similar to the unsharpen mask
+    /// that sharpens everything with contrast above a certain threshold.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
+    /// <param name="thresholdPercentage">Only pixels within this contrast threshold are included in the blur operation.</param>
+    /// <param name="channels">The channel(s) to blur.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage, Channels channels);
 }

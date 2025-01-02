@@ -503,6 +503,18 @@ public partial class MagickImage
         public void Scale(Percentage percentageWidth, Percentage percentageHeight)
             => Scale(new MagickGeometry(percentageWidth, percentageHeight));
 
+        public void SelectiveBlur(double radius, double sigma, double threshold)
+            => SelectiveBlur(radius, sigma, threshold, ImageMagick.Channels.Undefined);
+
+        public void SelectiveBlur(double radius, double sigma, double threshold, Channels channels)
+            => SetResult(NativeMagickImage.SelectiveBlur(radius, sigma, threshold, channels));
+
+        public void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage)
+            => SelectiveBlur(radius, sigma, thresholdPercentage, ImageMagick.Channels.Undefined);
+
+        public void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage, Channels channels)
+            => SetResult(NativeMagickImage.SelectiveBlur(radius, sigma, PercentageHelper.ToQuantum(nameof(thresholdPercentage), thresholdPercentage), channels));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
