@@ -1193,4 +1193,11 @@ public interface IMagickImageCreateOperations
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Thumbnail(Percentage percentageWidth, Percentage percentageHeight);
+
+    /// <summary>
+    /// Creates a horizontal mirror image by reflecting the pixels around the central y-axis while
+    /// rotating them by 90 degrees.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Transpose();
 }

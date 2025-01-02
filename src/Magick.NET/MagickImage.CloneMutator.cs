@@ -692,6 +692,9 @@ public partial class MagickImage
             SetResult(NativeMagickImage.Tint(opacity.ToString(), color));
         }
 
+        public void Transpose()
+            => SetResult(NativeMagickImage.Transpose());
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

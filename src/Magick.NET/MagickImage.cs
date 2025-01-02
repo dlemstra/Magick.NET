@@ -6760,7 +6760,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Transpose()
-        => _nativeInstance.Transpose();
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Transpose();
+    }
 
     /// <summary>
     /// Creates a vertical mirror image by reflecting the pixels around the central x-axis while

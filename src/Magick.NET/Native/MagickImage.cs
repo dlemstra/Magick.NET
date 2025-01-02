@@ -768,8 +768,7 @@ public partial class MagickImage
         public partial void TransparentChroma(IMagickColor<QuantumType>? colorLow, IMagickColor<QuantumType>? colorHigh, bool invert);
 
         [Throws]
-        [SetInstance]
-        public partial void Transpose();
+        public partial IntPtr Transpose();
 
         [Throws]
         [SetInstance]

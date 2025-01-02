@@ -2201,13 +2201,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     bool TransformColorSpace(IColorProfile source, IColorProfile target, ColorTransformMode mode);
 
     /// <summary>
-    /// Creates a horizontal mirror image by reflecting the pixels around the central y-axis while
-    /// rotating them by 90 degrees.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Transpose();
-
-    /// <summary>
     /// Creates a vertical mirror image by reflecting the pixels around the central x-axis while
     /// rotating them by 270 degrees.
     /// </summary>
