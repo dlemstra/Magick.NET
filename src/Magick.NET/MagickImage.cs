@@ -6173,7 +6173,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="args">The sparse color arguments.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SparseColor(SparseColorMethod method, IEnumerable<ISparseColorArg<QuantumType>> args)
-        => SparseColor(ImageMagick.Channels.Composite, method, args);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SparseColor(method, args);
+    }
 
     /// <summary>
     /// Sparse color image, given a set of coordinates, interpolates the colors found at those
@@ -6183,7 +6186,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="args">The sparse color arguments.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SparseColor(SparseColorMethod method, params ISparseColorArg<QuantumType>[] args)
-        => SparseColor(ImageMagick.Channels.Composite, method, (IEnumerable<ISparseColorArg<QuantumType>>)args);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SparseColor(method, args);
+    }
 
     /// <summary>
     /// Sparse color image, given a set of coordinates, interpolates the colors found at those
@@ -6195,34 +6201,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<ISparseColorArg<QuantumType>> args)
     {
-        Throw.IfNull(nameof(args), args);
-
-        var hasRed = EnumHelper.HasFlag(channels, ImageMagick.Channels.Red);
-        var hasGreen = EnumHelper.HasFlag(channels, ImageMagick.Channels.Green);
-        var hasBlue = EnumHelper.HasFlag(channels, ImageMagick.Channels.Blue);
-        var hasAlpha = HasAlpha && EnumHelper.HasFlag(channels, ImageMagick.Channels.Alpha);
-
-        Throw.IfTrue(nameof(channels), !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
-
-        var arguments = new List<double>();
-
-        foreach (var arg in args)
-        {
-            arguments.Add(arg.X);
-            arguments.Add(arg.Y);
-            if (hasRed)
-                arguments.Add(Quantum.ScaleToDouble(arg.Color.R));
-            if (hasGreen)
-                arguments.Add(Quantum.ScaleToDouble(arg.Color.G));
-            if (hasBlue)
-                arguments.Add(Quantum.ScaleToDouble(arg.Color.B));
-            if (hasAlpha)
-                arguments.Add(Quantum.ScaleToDouble(arg.Color.A));
-        }
-
-        Throw.IfTrue(nameof(args), arguments.Count == 0, "Value cannot be empty");
-
-        _nativeInstance.SparseColor(channels, method, arguments.ToArray(), (nuint)arguments.Count);
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SparseColor(channels, method, args);
     }
 
     /// <summary>
@@ -6234,7 +6214,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="args">The sparse color arguments.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SparseColor(Channels channels, SparseColorMethod method, params ISparseColorArg<QuantumType>[] args)
-        => SparseColor(channels, method, (IEnumerable<ISparseColorArg<QuantumType>>)args);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SparseColor(channels, method, args);
+    }
 
     /// <summary>
     /// Simulates a pencil sketch.

@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using ImageMagick.Drawing;
 
@@ -584,6 +585,47 @@ public partial class MagickImage
 
         public void Shear(double xAngle, double yAngle)
             => SetResult(NativeMagickImage.Shear(xAngle, yAngle));
+
+        public void SparseColor(SparseColorMethod method, IEnumerable<ISparseColorArg<QuantumType>> args)
+            => SparseColor(ImageMagick.Channels.Composite, method, args);
+
+        public void SparseColor(SparseColorMethod method, params ISparseColorArg<QuantumType>[] args)
+            => SparseColor(ImageMagick.Channels.Composite, method, (IEnumerable<ISparseColorArg<QuantumType>>)args);
+
+        public void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<ISparseColorArg<QuantumType>> args)
+        {
+            Throw.IfNull(nameof(args), args);
+
+            var hasRed = EnumHelper.HasFlag(channels, ImageMagick.Channels.Red);
+            var hasGreen = EnumHelper.HasFlag(channels, ImageMagick.Channels.Green);
+            var hasBlue = EnumHelper.HasFlag(channels, ImageMagick.Channels.Blue);
+            var hasAlpha = NativeMagickImage.HasAlpha_Get() && EnumHelper.HasFlag(channels, ImageMagick.Channels.Alpha);
+
+            Throw.IfTrue(nameof(channels), !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
+
+            var arguments = new List<double>();
+
+            foreach (var arg in args)
+            {
+                arguments.Add(arg.X);
+                arguments.Add(arg.Y);
+                if (hasRed)
+                    arguments.Add(Quantum.ScaleToDouble(arg.Color.R));
+                if (hasGreen)
+                    arguments.Add(Quantum.ScaleToDouble(arg.Color.G));
+                if (hasBlue)
+                    arguments.Add(Quantum.ScaleToDouble(arg.Color.B));
+                if (hasAlpha)
+                    arguments.Add(Quantum.ScaleToDouble(arg.Color.A));
+            }
+
+            Throw.IfTrue(nameof(args), arguments.Count == 0, "Value cannot be empty");
+
+            SetResult(NativeMagickImage.SparseColor(channels, method, arguments.ToArray(), (nuint)arguments.Count));
+        }
+
+        public void SparseColor(Channels channels, SparseColorMethod method, params ISparseColorArg<QuantumType>[] args)
+            => SparseColor(channels, method, (IEnumerable<ISparseColorArg<QuantumType>>)args);
 
         protected virtual void SetResult(IntPtr result)
         {

@@ -872,44 +872,6 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     void SetColormapColor(int index, IMagickColor<TQuantumType> color);
 
     /// <summary>
-    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
-    /// coordinates, across the whole image, using various methods.
-    /// </summary>
-    /// <param name="method">The sparse color method to use.</param>
-    /// <param name="args">The sparse color arguments.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void SparseColor(SparseColorMethod method, IEnumerable<ISparseColorArg<TQuantumType>> args);
-
-    /// <summary>
-    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
-    /// coordinates, across the whole image, using various methods.
-    /// </summary>
-    /// <param name="method">The sparse color method to use.</param>
-    /// <param name="args">The sparse color arguments.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void SparseColor(SparseColorMethod method, params ISparseColorArg<TQuantumType>[] args);
-
-    /// <summary>
-    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
-    /// coordinates, across the whole image, using various methods.
-    /// </summary>
-    /// <param name="channels">The channel(s) to use.</param>
-    /// <param name="method">The sparse color method to use.</param>
-    /// <param name="args">The sparse color arguments.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<ISparseColorArg<TQuantumType>> args);
-
-    /// <summary>
-    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
-    /// coordinates, across the whole image, using various methods.
-    /// </summary>
-    /// <param name="channels">The channel(s) to use.</param>
-    /// <param name="method">The sparse color method to use.</param>
-    /// <param name="args">The sparse color arguments.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void SparseColor(Channels channels, SparseColorMethod method, params ISparseColorArg<TQuantumType>[] args);
-
-    /// <summary>
     /// Search for the specified image at EVERY possible location in this image. This is slow!
     /// very very slow.. It returns a similarity image such that an exact match location is
     /// completely white and if none of the pixels match, black, otherwise some gray level in-between.

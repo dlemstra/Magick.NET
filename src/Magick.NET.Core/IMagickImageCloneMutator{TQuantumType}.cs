@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Collections.Generic;
 
 namespace ImageMagick;
 
@@ -84,4 +85,42 @@ public interface IMagickImageCloneMutator<TQuantumType> : IMagickImageCreateOper
     /// <param name="color">The color of the shadow.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Shadow(int x, int y, double sigma, Percentage alpha, IMagickColor<TQuantumType> color);
+
+    /// <summary>
+    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
+    /// coordinates, across the whole image, using various methods.
+    /// </summary>
+    /// <param name="method">The sparse color method to use.</param>
+    /// <param name="args">The sparse color arguments.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SparseColor(SparseColorMethod method, IEnumerable<ISparseColorArg<TQuantumType>> args);
+
+    /// <summary>
+    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
+    /// coordinates, across the whole image, using various methods.
+    /// </summary>
+    /// <param name="method">The sparse color method to use.</param>
+    /// <param name="args">The sparse color arguments.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SparseColor(SparseColorMethod method, params ISparseColorArg<TQuantumType>[] args);
+
+    /// <summary>
+    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
+    /// coordinates, across the whole image, using various methods.
+    /// </summary>
+    /// <param name="channels">The channel(s) to use.</param>
+    /// <param name="method">The sparse color method to use.</param>
+    /// <param name="args">The sparse color arguments.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<ISparseColorArg<TQuantumType>> args);
+
+    /// <summary>
+    /// Sparse color image, given a set of coordinates, interpolates the colors found at those
+    /// coordinates, across the whole image, using various methods.
+    /// </summary>
+    /// <param name="channels">The channel(s) to use.</param>
+    /// <param name="method">The sparse color method to use.</param>
+    /// <param name="args">The sparse color arguments.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SparseColor(Channels channels, SparseColorMethod method, params ISparseColorArg<TQuantumType>[] args);
 }
