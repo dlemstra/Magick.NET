@@ -487,6 +487,22 @@ public partial class MagickImage
         public void Sample(Percentage percentageWidth, Percentage percentageHeight)
             => Sample(new MagickGeometry(percentageWidth, percentageHeight));
 
+        public void Scale(uint width, uint height)
+            => Scale(new MagickGeometry(width, height));
+
+        public void Scale(IMagickGeometry geometry)
+        {
+            Throw.IfNull(nameof(geometry), geometry);
+
+            SetResult(NativeMagickImage.Scale(geometry.ToString()));
+        }
+
+        public void Scale(Percentage percentage)
+            => Scale(percentage, percentage);
+
+        public void Scale(Percentage percentageWidth, Percentage percentageHeight)
+            => Scale(new MagickGeometry(percentageWidth, percentageHeight));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

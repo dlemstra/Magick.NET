@@ -5577,7 +5577,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="height">The new height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Scale(uint width, uint height)
-        => Scale(new MagickGeometry(width, height));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Scale(width, height);
+    }
 
     /// <summary>
     /// Resize image by using simple ratio algorithm.
@@ -5586,9 +5589,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Scale(IMagickGeometry geometry)
     {
-        Throw.IfNull(nameof(geometry), geometry);
-
-        _nativeInstance.Scale(geometry.ToString());
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Scale(geometry);
     }
 
     /// <summary>
@@ -5597,7 +5599,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentage">The percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Scale(Percentage percentage)
-        => Scale(percentage, percentage);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Scale(percentage);
+    }
 
     /// <summary>
     /// Resize image by using simple ratio algorithm to the specified percentage.
@@ -5606,7 +5611,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Scale(Percentage percentageWidth, Percentage percentageHeight)
-        => Scale(new MagickGeometry(percentageWidth, percentageHeight));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Scale(percentageWidth, percentageHeight);
+    }
 
     /// <summary>
     /// Segment (coalesce similar image components) by analyzing the histograms of the color

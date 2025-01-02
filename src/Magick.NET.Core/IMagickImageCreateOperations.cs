@@ -871,4 +871,37 @@ public interface IMagickImageCreateOperations
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Sample(Percentage percentageWidth, Percentage percentageHeight);
+
+    /// <summary>
+    /// Resize image by using simple ratio algorithm.
+    /// <para />
+    /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+    /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
+    /// </summary>
+    /// <param name="width">The new width.</param>
+    /// <param name="height">The new height.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Scale(uint width, uint height);
+
+    /// <summary>
+    /// Resize image by using simple ratio algorithm.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Scale(IMagickGeometry geometry);
+
+    /// <summary>
+    /// Resize image by using simple ratio algorithm to the specified percentage.
+    /// </summary>
+    /// <param name="percentage">The percentage.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Scale(Percentage percentage);
+
+    /// <summary>
+    /// Resize image by using simple ratio algorithm to the specified percentage.
+    /// </summary>
+    /// <param name="percentageWidth">The percentage of the width.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Scale(Percentage percentageWidth, Percentage percentageHeight);
 }

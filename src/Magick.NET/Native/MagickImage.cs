@@ -642,8 +642,7 @@ public partial class MagickImage
         public partial IntPtr Sample(string geometry);
 
         [Throws]
-        [SetInstance]
-        public partial void Scale(string geometry);
+        public partial IntPtr Scale(string geometry);
 
         [Throws]
         public partial void Segment(ColorSpace colorSpace, double clusterThreshold, double smoothingThreshold);
