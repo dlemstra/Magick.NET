@@ -462,6 +462,9 @@ public partial class MagickImage
         public void Roll(int x, int y)
             => SetResult(NativeMagickImage.Roll(x, y));
 
+        public void Rotate(double degrees)
+            => SetResult(NativeMagickImage.Rotate(degrees));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

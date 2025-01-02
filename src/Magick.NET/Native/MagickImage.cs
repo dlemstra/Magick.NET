@@ -633,8 +633,7 @@ public partial class MagickImage
         public partial IntPtr Roll(nint x, nint y);
 
         [Throws]
-        [SetInstance]
-        public partial void Rotate(double degrees);
+        public partial IntPtr Rotate(double degrees);
 
         [Throws]
         [SetInstance]

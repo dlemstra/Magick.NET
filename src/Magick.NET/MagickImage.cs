@@ -5490,7 +5490,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="degrees">The number of degrees to rotate (positive to rotate clockwise, negative to rotate counter-clockwise).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Rotate(double degrees)
-        => _nativeInstance.Rotate(degrees);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Rotate(degrees);
+    }
 
     /// <summary>
     /// Rotational blur image.

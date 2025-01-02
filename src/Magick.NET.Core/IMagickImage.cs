@@ -1864,14 +1864,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void ResetPage();
 
     /// <summary>
-    /// Rotate image clockwise by specified number of degrees.
-    /// </summary>
-    /// <remarks>Specify a negative number for <paramref name="degrees"/> to rotate counter-clockwise.</remarks>
-    /// <param name="degrees">The number of degrees to rotate (positive to rotate clockwise, negative to rotate counter-clockwise).</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Rotate(double degrees);
-
-    /// <summary>
     /// Rotational blur image.
     /// </summary>
     /// <param name="angle">The angle to use.</param>
