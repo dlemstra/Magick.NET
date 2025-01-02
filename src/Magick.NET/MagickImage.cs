@@ -5724,7 +5724,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SepiaTone()
-        => SepiaTone(new Percentage(80));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SepiaTone();
+    }
 
     /// <summary>
     /// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
@@ -5733,7 +5736,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="threshold">The tone threshold.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SepiaTone(Percentage threshold)
-        => _nativeInstance.SepiaTone(PercentageHelper.ToQuantum(nameof(threshold), threshold));
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.SepiaTone(threshold);
+    }
 
     /// <summary>
     /// Inserts the artifact with the specified name and value into the artifact tree of the image.

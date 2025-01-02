@@ -946,4 +946,19 @@ public interface IMagickImageCreateOperations
     /// <param name="channels">The channel(s) to blur.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage, Channels channels);
+
+    /// <summary>
+    /// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
+    /// by sepia toning.
+    /// </summary>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SepiaTone();
+
+    /// <summary>
+    /// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
+    /// by sepia toning.
+    /// </summary>
+    /// <param name="threshold">The tone threshold.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void SepiaTone(Percentage threshold);
 }

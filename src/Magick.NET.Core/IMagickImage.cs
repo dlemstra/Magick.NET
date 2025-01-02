@@ -1886,21 +1886,6 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Segment(ColorSpace quantizeColorSpace, double clusterThreshold, double smoothingThreshold);
 
     /// <summary>
-    /// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
-    /// by sepia toning.
-    /// </summary>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void SepiaTone();
-
-    /// <summary>
-    /// Applies a special effect to the image, similar to the effect achieved in a photo darkroom
-    /// by sepia toning.
-    /// </summary>
-    /// <param name="threshold">The tone threshold.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void SepiaTone(Percentage threshold);
-
-    /// <summary>
     /// Inserts the artifact with the specified name and value into the artifact tree of the image.
     /// </summary>
     /// <param name="name">The name of the artifact.</param>

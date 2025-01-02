@@ -515,6 +515,12 @@ public partial class MagickImage
         public void SelectiveBlur(double radius, double sigma, Percentage thresholdPercentage, Channels channels)
             => SetResult(NativeMagickImage.SelectiveBlur(radius, sigma, PercentageHelper.ToQuantum(nameof(thresholdPercentage), thresholdPercentage), channels));
 
+        public void SepiaTone()
+            => SepiaTone(new Percentage(80));
+
+        public void SepiaTone(Percentage threshold)
+            => SetResult(NativeMagickImage.SepiaTone(PercentageHelper.ToQuantum(nameof(threshold), threshold)));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)

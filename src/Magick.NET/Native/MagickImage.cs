@@ -655,8 +655,7 @@ public partial class MagickImage
         public partial IntPtr Separate(Channels channels);
 
         [Throws]
-        [SetInstance]
-        public partial void SepiaTone(double threshold);
+        public partial IntPtr SepiaTone(double threshold);
 
         [Throws]
         public partial void SetAlpha(AlphaOption value);
