@@ -700,8 +700,7 @@ public partial class MagickImage
         public partial IntPtr Sharpen(double radius, double sigma, Channels channel);
 
         [Throws]
-        [SetInstance]
-        public partial void Shave(nuint leftRight, nuint topBottom);
+        public partial IntPtr Shave(nuint leftRight, nuint topBottom);
 
         [Throws]
         [SetInstance]

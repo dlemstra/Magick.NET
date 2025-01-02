@@ -6100,7 +6100,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="size">The size of to shave of the image.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shave(uint size)
-        => Shave(size, size);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shave(size);
+    }
 
     /// <summary>
     /// Shave pixels from image edges.
@@ -6109,7 +6112,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="topBottom">The number of pixels to shave top and bottom.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Shave(uint leftRight, uint topBottom)
-        => _nativeInstance.Shave(leftRight, topBottom);
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Shave(leftRight, topBottom);
+    }
 
     /// <summary>
     /// Shear image (create parallelogram by sliding image by X or Y axis).

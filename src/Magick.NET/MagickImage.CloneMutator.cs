@@ -576,6 +576,12 @@ public partial class MagickImage
         public void Sharpen(double radius, double sigma, Channels channels)
             => SetResult(NativeMagickImage.Sharpen(radius, sigma, channels));
 
+        public void Shave(uint size)
+            => Shave(size, size);
+
+        public void Shave(uint leftRight, uint topBottom)
+            => SetResult(NativeMagickImage.Shave(leftRight, topBottom));
+
         protected virtual void SetResult(IntPtr result)
         {
             if (_result != IntPtr.Zero)
