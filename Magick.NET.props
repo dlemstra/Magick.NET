@@ -2,7 +2,7 @@
   <PropertyGroup>
     <OutputPath>bin/$(Configuration)/$(Platform)/</OutputPath>
     <Authors>Dirk Lemstra</Authors>
-    <Copyright>Copyright 2013-2024 Dirk Lemstra</Copyright>
+    <Copyright>Copyright 2013-2025 Dirk Lemstra</Copyright>
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
   </PropertyGroup>
