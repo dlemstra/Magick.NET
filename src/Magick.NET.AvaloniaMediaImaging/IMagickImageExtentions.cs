@@ -24,8 +24,8 @@ public static partial class IMagickImageExtentions
         where TQuantumType : struct, IConvertible
     {
         var size = new PixelSize((int)self.Width, (int)self.Height);
-        var density = new Vector(self.Density.X, self.Density.Y);
-        var bitmap = new WriteableBitmap(size, density, PixelFormats.Rgba8888, AlphaFormat.Unpremul);
+        var dpi = new Vector(96, 96);
+        var bitmap = new WriteableBitmap(size, dpi, PixelFormats.Rgba8888, AlphaFormat.Unpremul);
 
         using var framebuffer = bitmap.Lock();
         using var pixels = self.GetPixelsUnsafe();
