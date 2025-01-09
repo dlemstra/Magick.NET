@@ -23,24 +23,7 @@ public static partial class IMagickImageExtentions
     public static unsafe WriteableBitmap ToWriteableBitmap<TQuantumType>(this IMagickImage<TQuantumType> self)
         where TQuantumType : struct, IConvertible
     {
-        var size = new PixelSize((int)self.Width, (int)self.Height);
-        var dpi = new Vector(96, 96);
-        var bitmap = new WriteableBitmap(size, dpi, PixelFormats.Rgba8888, AlphaFormat.Unpremul);
-
-        using var framebuffer = bitmap.Lock();
-        using var pixels = self.GetPixelsUnsafe();
-
-        var destination = framebuffer.Address;
-        for (var y = 0; y < self.Height; y++)
-        {
-            var bytes = pixels.ToByteArray(0, y, self.Width, 1, "RGBA");
-            if (bytes != null)
-                Marshal.Copy(bytes, 0, destination, bytes.Length);
-
-            destination += framebuffer.RowBytes;
-        }
-
-        return bitmap;
+        return self.ToWriteableBitmapInternal(false);
     }
     
     /// <summary>
@@ -52,8 +35,14 @@ public static partial class IMagickImageExtentions
     public static unsafe WriteableBitmap ToWriteableBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self)
         where TQuantumType : struct, IConvertible
     {
+        return self.ToWriteableBitmapInternal(true);
+    }
+
+    private static unsafe WriteableBitmap ToWriteableBitmapInternal<TQuantumType>(this IMagickImage<TQuantumType> self, bool withDensity)
+        where TQuantumType : struct, IConvertible
+    {
         var size = new PixelSize((int)self.Width, (int)self.Height);
-        var density = new Vector(self.Density.X, self.Density.Y);
+        var density = withDensity ? new Vector(self.Density.X, self.Density.Y) : new Vector(96, 96);
         var bitmap = new WriteableBitmap(size, density, PixelFormats.Rgba8888, AlphaFormat.Unpremul);
 
         using var framebuffer = bitmap.Lock();
