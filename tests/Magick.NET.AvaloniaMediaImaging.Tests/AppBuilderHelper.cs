@@ -4,36 +4,35 @@
 using System.Threading;
 using Avalonia;
 
-namespace Magick.NET.AvaloniaMediaImaging.Tests
-{
-    internal static class AppBuilderHelper
-    {
-        private static readonly SemaphoreSlim _lock = new(1);
-        private static bool _setupDone;
+namespace Magick.NET.AvaloniaMediaImaging.Tests;
 
-        public static void Setup()
+internal static class AppBuilderHelper
+{
+    private static readonly SemaphoreSlim _lock = new(1);
+    private static bool _setupDone;
+
+    public static void Setup()
+    {
+        if (_setupDone)
+            return;
+
+        _lock.Wait();
+
+        try
         {
             if (_setupDone)
                 return;
 
-            _lock.Wait();
+            _setupDone = true;
 
-            try
-            {
-                if (_setupDone)
-                    return;
-
-                _setupDone = true;
-
-                AppBuilder
-                    .Configure<Application>()
-                    .UsePlatformDetect()
-                    .SetupWithoutStarting();
-            }
-            finally
-            {
-                _lock.Release();
-            }
+            AppBuilder
+                .Configure<Application>()
+                .UsePlatformDetect()
+                .SetupWithoutStarting();
+        }
+        finally
+        {
+            _lock.Release();
         }
     }
 }
