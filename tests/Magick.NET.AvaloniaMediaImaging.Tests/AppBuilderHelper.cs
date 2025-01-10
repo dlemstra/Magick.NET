@@ -20,7 +20,6 @@ namespace Magick.NET.AvaloniaMediaImaging.Tests
 
             try
             {
-
                 if (_setupDone)
                     return;
 
