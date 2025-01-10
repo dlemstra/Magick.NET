@@ -19,11 +19,13 @@ tab_width = 4
 [*.cs]
 
 csharp_prefer_simple_using_statement = false
-csharp_prefer_static_local_function = true: rror
+csharp_prefer_static_local_function = true:error
 
 dotnet_sort_system_directives_first = true:error
 
 csharp_style_implicit_object_creation_when_type_is_apparent = false:error
+
+csharp_style_namespace_declarations = file_scoped:error
 
 csharp_style_pattern_matching_over_as_with_null_check = true:error
 
