@@ -15,34 +15,29 @@ namespace ImageMagick;
 public static partial class IMagickImageExtentions
 {
     /// <summary>
-    /// Converts this instance to a <see cref="WriteableBitmap"/> with a default DPI of 96x96.
+    /// Converts this instance to a <see cref="WriteableBitmap"/> with a default dpi of 96x96.
     /// </summary>
     /// <param name="self">The image.</param>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <returns>A <see cref="WriteableBitmap"/>.</returns>
-    public static unsafe WriteableBitmap ToWriteableBitmap<TQuantumType>(this IMagickImage<TQuantumType> self)
+    public static WriteableBitmap ToWriteableBitmap<TQuantumType>(this IMagickImage<TQuantumType> self)
         where TQuantumType : struct, IConvertible
-    {
-        return self.ToWriteableBitmapInternal(false);
-    }
-    
+        => self.ToWriteableBitmapInternal(new Vector(96, 96));
+
     /// <summary>
     /// Converts this instance to a <see cref="WriteableBitmap"/>.
     /// </summary>
     /// <param name="self">The image.</param>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <returns>A <see cref="WriteableBitmap"/>.</returns>
-    public static unsafe WriteableBitmap ToWriteableBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self)
+    public static WriteableBitmap ToWriteableBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self)
         where TQuantumType : struct, IConvertible
-    {
-        return self.ToWriteableBitmapInternal(true);
-    }
+        => self.ToWriteableBitmapInternal(new Vector(self.Density.X, self.Density.Y));
 
-    private static unsafe WriteableBitmap ToWriteableBitmapInternal<TQuantumType>(this IMagickImage<TQuantumType> self, bool withDensity)
+    private static unsafe WriteableBitmap ToWriteableBitmapInternal<TQuantumType>(this IMagickImage<TQuantumType> self, Vector density)
         where TQuantumType : struct, IConvertible
     {
         var size = new PixelSize((int)self.Width, (int)self.Height);
-        var density = withDensity ? new Vector(self.Density.X, self.Density.Y) : new Vector(96, 96);
         var bitmap = new WriteableBitmap(size, density, PixelFormats.Rgba8888, AlphaFormat.Unpremul);
 
         using var framebuffer = bitmap.Lock();

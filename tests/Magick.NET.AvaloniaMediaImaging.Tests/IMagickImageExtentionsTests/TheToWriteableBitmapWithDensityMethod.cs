@@ -10,7 +10,7 @@ namespace Magick.NET.AvaloniaMediaImaging.Tests;
 
 public partial class IMagickImageExtentionsTests
 {
-    public class TheToWriteableBitmapMethod
+    public class TheToWriteableBitmapWithDensityMethod
     {
         [Fact]
         public void ShouldReturnWriteableBitmap()
@@ -21,7 +21,8 @@ public partial class IMagickImageExtentionsTests
                 .SetupWithoutStarting();
 
             using var input = new MagickImage(Files.MagickNETIconPNG);
-            using var bitmap = input.ToWriteableBitmap();
+            input.Density = new Density(150, 300);
+            using var bitmap = input.ToWriteableBitmapWithDensity();
 
             using var outputStream = new MemoryStream();
             bitmap.Save(outputStream);
@@ -31,7 +32,7 @@ public partial class IMagickImageExtentionsTests
             var distortion = output.Compare(input, ErrorMetric.RootMeanSquared);
 
             Assert.Equal(0.0, distortion);
-            Assert.Equal(new Vector(96, 96), bitmap.Dpi);
+            Assert.Equal(new Vector(150, 300), bitmap.Dpi);
         }
     }
 }
