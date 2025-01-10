@@ -15,10 +15,7 @@ public partial class IMagickImageExtentionsTests
         [Fact]
         public void ShouldReturnWriteableBitmap()
         {
-            AppBuilder
-                .Configure<Application>()
-                .UsePlatformDetect()
-                .SetupWithoutStarting();
+            AppBuilderHelper.Setup();
 
             using var input = new MagickImage(Files.MagickNETIconPNG);
             using var bitmap = input.ToWriteableBitmap();
