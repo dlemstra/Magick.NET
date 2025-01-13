@@ -12,7 +12,7 @@
     <PackageVersion Include="NSubstitute" Version="5.3.0" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
     <PackageVersion Include="xunit" Version="2.9.3" />
-    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.1" />
     <!-- After an upgrade of these libraries the nuspec file should also be updated -->
     <PackageVersion Include="Avalonia" Version="11.2.3" />
     <PackageVersion Include="Avalonia.Desktop" Version="11.2.3" />
