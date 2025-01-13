@@ -53,7 +53,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
 
     internal static ColorSpace[] DefaultColorSpaces { get; } = [ColorSpace.XyY, ColorSpace.HSB];
 
-    internal bool Isvalid
+    internal bool IsValid
         => _channels.ContainsKey(PixelChannel.Red) &&
            _channels.ContainsKey(PixelChannel.Green) &&
            _channels.ContainsKey(PixelChannel.Blue);

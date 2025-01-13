@@ -4371,7 +4371,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         try
         {
             var hash = new PerceptualHash(this, colorSpaces, list);
-            if (!hash.Isvalid)
+            if (!hash.IsValid)
                 return null;
 
             return hash;
