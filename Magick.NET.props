@@ -5,6 +5,7 @@
     <Copyright>Copyright 2013-2025 Dirk Lemstra</Copyright>
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="$(Configuration.Contains('Debug'))">

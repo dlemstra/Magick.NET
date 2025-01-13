@@ -3,11 +3,10 @@
 
 using System.IO;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal static class MemoryStreamExtensions
 {
-    internal static class MemoryStreamExtensions
-    {
-        public static void WriteBytes(this MemoryStream stream, byte[] bytes)
-            => stream.Write(bytes, 0, bytes.Length);
-    }
+    public static void WriteBytes(this MemoryStream stream, byte[] bytes)
+        => stream.Write(bytes, 0, bytes.Length);
 }

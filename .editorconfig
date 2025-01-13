@@ -31,7 +31,7 @@ csharp_style_pattern_matching_over_as_with_null_check = true:error
 
 csharp_style_prefer_range_operator = false
 dotnet_style_prefer_simplified_boolean_expressions = true:error
-csharp_style_prefer_switch_expression = true:error
+csharp_style_prefer_switch_expression = true:suggestion
 
 dotnet_style_predefined_type_for_locals_parameters_members = true:error
 
@@ -43,8 +43,6 @@ dotnet_style_qualification_for_property = false:error
 csharp_style_var_for_built_in_types = true:error
 csharp_style_var_when_type_is_apparent = true:error
 csharp_style_var_elsewhere = true:error
-
-csharp_style_unused_value_assignment_preference = true:error
 
 dotnet_naming_rule.camel_case_for_private_internal_fields.severity = suggestion
 dotnet_naming_rule.camel_case_for_private_internal_fields.symbols  = private_internal_fields

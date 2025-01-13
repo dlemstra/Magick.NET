@@ -3,14 +3,13 @@
 
 using System;
 
-namespace ImageMagick
+namespace ImageMagick;
+
+internal interface INativeMagickImage
 {
-    internal interface INativeMagickImage
-    {
-        IntPtr Fx(string expression, Channels channels);
+    IntPtr Fx(string expression, Channels channels);
 
-        void RemoveArtifact(string name);
+    void RemoveArtifact(string name);
 
-        void SetArtifact(string name, string value);
-    }
+    void SetArtifact(string name, string value);
 }
