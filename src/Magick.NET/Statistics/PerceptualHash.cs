@@ -61,7 +61,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
     /// <summary>
     /// Returns the perceptual hash for the specified channel.
     /// </summary>
-    /// <param name="channel">The channel to get the has for.</param>
+    /// <param name="channel">The channel to get the hash for.</param>
     /// <returns>The perceptual hash for the specified channel.</returns>
     public IChannelPerceptualHash? GetChannel(PixelChannel channel)
     {
