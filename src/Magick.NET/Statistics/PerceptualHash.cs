@@ -113,16 +113,10 @@ public sealed partial class PerceptualHash : IPerceptualHash
             NativePerceptualHash.DisposeList(list);
     }
 
-    private static ChannelPerceptualHash? CreateChannelPerceptualHash(IMagickImage image, ColorSpace[] colorSpaces, IntPtr list, PixelChannel channel)
-    {
-        var instance = NativePerceptualHash.GetInstance(image, list, channel);
-        return new ChannelPerceptualHash(channel, colorSpaces, instance);
-    }
-
     private void AddChannel(IMagickImage image, ColorSpace[] colorSpaces, IntPtr list, PixelChannel channel)
     {
-        var instance = CreateChannelPerceptualHash(image, colorSpaces, list, channel);
-        if (instance is not null)
-            _channels.Add(instance.Channel, instance);
+        var nativeInstance = NativePerceptualHash.GetInstance(image, list, channel);
+        var instance = new ChannelPerceptualHash(channel, colorSpaces, nativeInstance);
+        _channels.Add(instance.Channel, instance);
     }
 }

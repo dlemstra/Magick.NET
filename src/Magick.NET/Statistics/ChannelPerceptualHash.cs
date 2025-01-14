@@ -46,9 +46,10 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     {
         Throw.IfOutOfRange(nameof(index), index, 7);
 
-        var huPhashList = GetHuPhashListByColorSpace(colorSpace);
-        if (huPhashList is null)
+        if (!_huPhashes.TryGetValue(colorSpace, out var huPhashList))
+        {
             throw new ArgumentException("Invalid colorspace specified.", nameof(colorSpace));
+        }
 
         return huPhashList[index];
     }
@@ -100,16 +101,6 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
             6 => 1000000.0,
             _ => 10.0,
         };
-
-    private HuPhashList? GetHuPhashListByColorSpace(ColorSpace colorSpace)
-    {
-        if (_huPhashes.TryGetValue(colorSpace, out var huPhashList))
-        {
-            return huPhashList;
-        }
-
-        return null;
-    }
 
     private void ParseHash(ColorSpace[] colorSpaces, string hash)
     {
