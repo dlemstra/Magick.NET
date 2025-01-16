@@ -153,7 +153,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="image">The image to create a copy of.</param>
     public MagickImage(IMagickImage<QuantumType> image)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         if (image is not MagickImage magickImage)
             throw new NotSupportedException();
@@ -1192,8 +1192,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Annotate(string text, IMagickGeometry boundingArea, Gravity gravity, double angle)
     {
-        Throw.IfNullOrEmpty(nameof(text), text);
-        Throw.IfNull(nameof(boundingArea), boundingArea);
+        Throw.IfNullOrEmpty(text);
+        Throw.IfNull(boundingArea);
 
         _nativeInstance.Annotate(_settings.Drawing, text, boundingArea.ToString(), gravity, angle);
     }
@@ -1206,7 +1206,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Annotate(string text, Gravity gravity)
     {
-        Throw.IfNullOrEmpty(nameof(text), text);
+        Throw.IfNullOrEmpty(text);
 
         _nativeInstance.AnnotateGravity(_settings.Drawing, text, gravity);
     }
@@ -1306,7 +1306,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void BlackThreshold(Percentage threshold, Channels channels)
     {
-        Throw.IfNegative(nameof(threshold), threshold);
+        Throw.IfNegative(threshold);
 
         _nativeInstance.BlackThreshold(threshold.ToString(), channels);
     }
@@ -1580,7 +1580,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Clip(string pathName)
     {
-        Throw.IfNullOrEmpty(nameof(pathName), pathName);
+        Throw.IfNullOrEmpty(pathName);
 
         _nativeInstance.ClipPath(pathName, true);
     }
@@ -1604,7 +1604,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ClipOutside(string pathName)
     {
-        Throw.IfNullOrEmpty(nameof(pathName), pathName);
+        Throw.IfNullOrEmpty(pathName);
 
         _nativeInstance.ClipPath(pathName, false);
     }
@@ -1671,7 +1671,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> CloneArea(IMagickGeometry geometry)
     {
-        Throw.IfNull(nameof(geometry), geometry);
+        Throw.IfNull(geometry);
 
         var clone = new MagickImage();
         clone.SetInstance(_nativeInstance.CloneArea(geometry.Width, geometry.Height));
@@ -1736,7 +1736,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         _nativeInstance.Clut(image, method, channels);
     }
@@ -1748,7 +1748,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ColorAlpha(IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         if (!HasAlpha)
             return;
@@ -1765,7 +1765,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ColorDecisionList(string fileName)
     {
-        Throw.IfNullOrEmpty(nameof(fileName), fileName);
+        Throw.IfNullOrEmpty(fileName);
 
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
         _nativeInstance.ColorDecisionList(filePath);
@@ -1816,8 +1816,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="stopColor">The stop color of the color range.</param>
     public void ColorThreshold(IMagickColor<QuantumType> startColor, IMagickColor<QuantumType> stopColor)
     {
-        Throw.IfNull(nameof(startColor), startColor);
-        Throw.IfNull(nameof(stopColor), stopColor);
+        Throw.IfNull(startColor);
+        Throw.IfNull(stopColor);
 
         _nativeInstance.ColorThreshold(startColor, stopColor);
     }
@@ -1830,7 +1830,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickErrorInfo Compare(IMagickImage image)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         if (_nativeInstance.SetColorMetric(image))
             return new MagickErrorInfo();
@@ -1858,7 +1858,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public double Compare(IMagickImage image, ErrorMetric metric, Channels channels)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         return _nativeInstance.CompareDistortion(image, metric, channels);
     }
@@ -1908,8 +1908,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> Compare(IMagickImage image, ICompareSettings<QuantumType> settings, Channels channels, out double distortion)
     {
-        Throw.IfNull(nameof(image), image);
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNull(image);
+        Throw.IfNull(settings);
 
         using var temporaryDefines = new TemporaryDefines(this);
         temporaryDefines.SetArtifact("compare:highlight-color", settings.HighlightColor);
@@ -2064,7 +2064,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Composite(IMagickImage image, int x, int y, CompositeOperator compose, string? args, Channels channels)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         using var temporaryDefines = new TemporaryDefines(this);
         temporaryDefines.SetArtifact("compose:args", args);
@@ -2209,7 +2209,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Composite(IMagickImage image, Gravity gravity, int x, int y, CompositeOperator compose, string? args, Channels channels)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         using var temporaryDefines = new TemporaryDefines(this);
         temporaryDefines.SetArtifact("compose:args", args);
@@ -2240,7 +2240,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IReadOnlyList<IConnectedComponent<QuantumType>> ConnectedComponents(IConnectedComponentsSettings settings)
     {
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNull(settings);
 
         var objects = IntPtr.Zero;
 
@@ -2309,8 +2309,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ContrastStretch(Percentage blackPoint, Percentage whitePoint, Channels channels)
     {
-        Throw.IfNegative(nameof(blackPoint), blackPoint);
-        Throw.IfNegative(nameof(whitePoint), whitePoint);
+        Throw.IfNegative(blackPoint);
+        Throw.IfNegative(whitePoint);
 
         var contrast = CalculateContrastStretch(blackPoint, whitePoint);
         _nativeInstance.ContrastStretch(contrast.X, contrast.Y, channels);
@@ -2361,7 +2361,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void CopyPixels(IMagickImage source, Channels channels)
     {
-        Throw.IfNull(nameof(source), source);
+        Throw.IfNull(source);
 
         var geometry = new MagickGeometry(0, 0, Math.Min(source.Width, Width), Math.Min(source.Height, Height));
 
@@ -2411,7 +2411,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void CopyPixels(IMagickImage source, IMagickGeometry geometry, int x, int y, Channels channels)
     {
-        Throw.IfNull(nameof(source), source);
+        Throw.IfNull(source);
 
         _nativeInstance.CopyPixels(source, MagickRectangle.FromGeometry(geometry, this), new OffsetInfo(x, y), channels);
     }
@@ -2484,7 +2484,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>New title of the current image.</returns>
     public IReadOnlyList<IMagickImage<QuantumType>> CropToTiles(IMagickGeometry geometry)
     {
-        Throw.IfNull(nameof(geometry), geometry);
+        Throw.IfNull(geometry);
 
         var images = _nativeInstance.CropToTiles(geometry.ToString());
         return CreateList(images);
@@ -2505,7 +2505,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Decipher(string passphrase)
     {
-        Throw.IfNullOrEmpty(nameof(passphrase), passphrase);
+        Throw.IfNullOrEmpty(passphrase);
 
         _nativeInstance.Decipher(passphrase);
     }
@@ -2636,7 +2636,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Draw(IEnumerable<IDrawable> drawables)
     {
-        Throw.IfNull(nameof(drawables), drawables);
+        Throw.IfNull(drawables);
 
         using var wand = new DrawingWand(this);
         wand.Draw(drawables);
@@ -2682,7 +2682,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Encipher(string passphrase)
     {
-        Throw.IfNullOrEmpty(nameof(passphrase), passphrase);
+        Throw.IfNullOrEmpty(passphrase);
 
         _nativeInstance.Encipher(passphrase);
     }
@@ -2721,7 +2721,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Evaluate(Channels channels, EvaluateFunction evaluateFunction, params double[] arguments)
     {
-        Throw.IfNullOrEmpty(nameof(arguments), arguments);
+        Throw.IfNullOrEmpty(arguments);
 
         _nativeInstance.EvaluateFunction(channels, evaluateFunction, arguments, (nuint)arguments.Length);
     }
@@ -2977,7 +2977,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public ITypeMetric? FontTypeMetrics(string text, bool ignoreNewlines)
     {
-        Throw.IfNullOrEmpty(nameof(text), text);
+        Throw.IfNullOrEmpty(text);
 
         var settings = _settings.Drawing;
 
@@ -2995,7 +2995,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public string? FormatExpression(string expression)
     {
-        Throw.IfNullOrEmpty(nameof(expression), expression);
+        Throw.IfNullOrEmpty(expression);
 
         return _nativeInstance.FormatExpression(Settings, expression);
     }
@@ -3063,7 +3063,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Fx(string expression, Channels channels)
     {
-        Throw.IfNullOrEmpty(nameof(expression), expression);
+        Throw.IfNullOrEmpty(expression);
 
         _nativeInstance.Instance = _nativeInstance.Fx(expression, channels);
     }
@@ -3154,7 +3154,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>The value of the artifact with the specified name.</returns>
     public string? GetArtifact(string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         return _nativeInstance.GetArtifact(name);
     }
@@ -3167,7 +3167,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public string? GetAttribute(string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         return _nativeInstance.GetAttribute(name);
     }
@@ -3276,7 +3276,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IImageProfile? GetProfile(string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         var info = _nativeInstance.GetProfile(name);
         if (info is null || info.Datum is null)
@@ -3337,7 +3337,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>A value indicating whether a profile with the specified name already exists on the image.</returns>
     public bool HasProfile(string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         return _nativeInstance.HasProfile(name);
     }
@@ -3358,7 +3358,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void HaldClut(IMagickImage image, Channels channels)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         _nativeInstance.HaldClut(image, channels);
     }
@@ -3425,7 +3425,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ImportPixels(byte[] data, IPixelImportSettings settings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         ImportPixels(data, 0, settings);
     }
@@ -3439,15 +3439,15 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ImportPixels(byte[] data, uint offset, IPixelImportSettings settings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNullOrEmpty(data);
+        Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
+        Throw.IfNull(settings);
         Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
-        Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+        Throw.IfTrue(settings.StorageType == StorageType.Undefined, nameof(settings), "Storage type should not be undefined.");
 
         var length = data.Length - offset;
         var expectedLength = GetExpectedByteLength(settings);
-        Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", data.Length, expectedLength + offset);
+        Throw.IfTrue(length < expectedLength, nameof(data), "The data length is {0} but should be at least {1}.", data.Length, expectedLength + offset);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
     }
@@ -3461,7 +3461,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ImportPixels(QuantumType[] data, IPixelImportSettings settings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         ImportPixels(data, 0, settings);
     }
@@ -3475,15 +3475,15 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ImportPixels(QuantumType[] data, uint offset, IPixelImportSettings settings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNullOrEmpty(data);
+        Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
+        Throw.IfNull(settings);
         Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
-        Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
+        Throw.IfTrue(settings.StorageType != StorageType.Quantum, nameof(settings), $"Storage type should be {nameof(StorageType.Quantum)}.");
 
         var length = data.Length - offset;
         var expectedLength = GetExpectedLength(settings);
-        Throw.IfTrue(nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", data.Length, expectedLength + offset);
+        Throw.IfTrue(data.Length, nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", expectedLength + offset);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
     }
@@ -3774,7 +3774,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseTransparent(IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         _nativeInstance.Transparent(color, true);
     }
@@ -3788,8 +3788,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseTransparentChroma(IMagickColor<QuantumType> colorLow, IMagickColor<QuantumType> colorHigh)
     {
-        Throw.IfNull(nameof(colorLow), colorLow);
-        Throw.IfNull(nameof(colorHigh), colorHigh);
+        Throw.IfNull(colorLow);
+        Throw.IfNull(colorHigh);
 
         _nativeInstance.TransparentChroma(colorLow, colorHigh, true);
     }
@@ -3801,7 +3801,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Kmeans(IKmeansSettings settings)
     {
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNull(settings);
 
         using var temporaryDefines = new TemporaryDefines(this);
         temporaryDefines.SetArtifact("kmeans:seed-colors", settings.SeedColors);
@@ -4177,9 +4177,9 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Modulate(Percentage brightness, Percentage saturation, Percentage hue)
     {
-        Throw.IfNegative(nameof(brightness), brightness);
-        Throw.IfNegative(nameof(saturation), saturation);
-        Throw.IfNegative(nameof(hue), hue);
+        Throw.IfNegative(brightness);
+        Throw.IfNegative(saturation);
+        Throw.IfNegative(hue);
 
         var modulate = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", brightness.ToDouble(), saturation.ToDouble(), hue.ToDouble());
 
@@ -4306,7 +4306,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void OrderedDither(string thresholdMap)
     {
-        Throw.IfNullOrEmpty(nameof(thresholdMap), thresholdMap);
+        Throw.IfNullOrEmpty(thresholdMap);
 
         OrderedDither(thresholdMap, ImageMagick.Channels.Undefined);
     }
@@ -4321,7 +4321,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void OrderedDither(string thresholdMap, Channels channels)
     {
-        Throw.IfNullOrEmpty(nameof(thresholdMap), thresholdMap);
+        Throw.IfNullOrEmpty(thresholdMap);
 
         _nativeInstance.OrderedDither(thresholdMap, channels);
     }
@@ -4410,10 +4410,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
-        Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
-        Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
+        Throw.IfNullOrEmpty(data);
+        Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
+        Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
+        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
 
         Read(data, offset, count, readSettings, true);
     }
@@ -4426,7 +4426,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(byte[] data, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         Ping(data, 0, (uint)data.Length, readSettings);
     }
@@ -4446,7 +4446,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         Read(file.FullName, readSettings, true);
     }
@@ -4494,7 +4494,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Polaroid(string caption, double angle, PixelInterpolateMethod method)
     {
-        Throw.IfNull(nameof(caption), caption);
+        Throw.IfNull(caption);
 
         _nativeInstance.Polaroid(_settings.Drawing, caption, angle, method);
     }
@@ -4554,7 +4554,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickErrorInfo? Quantize(IQuantizeSettings settings)
     {
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNull(settings);
 
         _nativeInstance.Quantize(settings);
 
@@ -4675,10 +4675,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
-        Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
-        Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
+        Throw.IfNullOrEmpty(data);
+        Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
+        Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
+        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
 
         Read(data, offset, count, readSettings, false);
     }
@@ -4691,7 +4691,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data, MagickFormat format)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         Read(data, 0U, (nuint)data.Length, new MagickReadSettings(_settings) { Format = format }, false);
     }
@@ -4704,7 +4704,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         Read(data, 0U, (nuint)data.Length, readSettings, false);
     }
@@ -4726,7 +4726,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(FileInfo file, uint width, uint height)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         Read(file.FullName, width, height);
     }
@@ -4739,7 +4739,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(FileInfo file, MagickFormat format)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         Read(file.FullName, new MagickReadSettings(_settings) { Format = format });
     }
@@ -4752,7 +4752,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         Read(file.FullName, readSettings);
     }
@@ -4766,7 +4766,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(IMagickColor<QuantumType> color, uint width, uint height)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         Read("xc:" + color.ToShortString(), width, height);
         BackgroundColor = color;
@@ -4815,8 +4815,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(string fileName, uint width, uint height)
     {
-        Throw.IfTrue(nameof(width), width == 0, "The width should be positive.");
-        Throw.IfTrue(nameof(height), height == 0, "The height should be positive.");
+        Throw.IfTrue(width == 0, nameof(width), "The width should be positive.");
+        Throw.IfTrue(height == 0, nameof(height), "The height should be positive.");
 
         var settings = new MagickReadSettings(_settings)
         {
@@ -4905,7 +4905,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(FileInfo file, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         return ReadAsync(file.FullName, readSettings, cancellationToken);
     }
@@ -4970,7 +4970,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(stream), stream);
+        Throw.IfNull(stream);
 
         var bytes = await Bytes.CreateAsync(stream, cancellationToken).ConfigureAwait(false);
         Read(bytes.GetData(), 0, (uint)bytes.Length, readSettings);
@@ -5053,7 +5053,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ReadPixels(byte[] data, IPixelReadSettings<QuantumType> settings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         ReadPixels(data, 0, (uint)data.Length, settings);
     }
@@ -5068,19 +5068,19 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ReadPixels(byte[] data, uint offset, uint count, IPixelReadSettings<QuantumType> settings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
-        Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
-        Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
-        Throw.IfNull(nameof(settings), settings);
-        Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
-        Throw.IfTrue(nameof(settings), settings.StorageType == StorageType.Undefined, "Storage type should not be undefined.");
+        Throw.IfNullOrEmpty(data);
+        Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
+        Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
+        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
+        Throw.IfNull(settings);
+        Throw.IfNullOrEmpty(settings.Mapping, nameof(settings), "Pixel storage mapping should be defined.");
+        Throw.IfTrue(settings.StorageType == StorageType.Undefined, nameof(settings), "Storage type should not be undefined.");
 
         var newReadSettings = CreateReadSettings(settings.ReadSettings);
         SetSettings(newReadSettings);
 
         var expectedLength = GetExpectedByteLength(settings);
-        Throw.IfTrue(nameof(count), count < expectedLength, "The count is {0} but should be at least {1}.", count, expectedLength);
+        Throw.IfTrue(count < expectedLength, nameof(count), "The count is {0} but should be at least {1}.", count, expectedLength);
 
         _nativeInstance.ReadPixels(settings.ReadSettings.Width!.Value, settings.ReadSettings.Height!.Value, settings.Mapping, settings.StorageType, data, offset);
     }
@@ -5094,7 +5094,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ReadPixels(QuantumType[] data, IPixelReadSettings<QuantumType> settings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         ReadPixels(data, 0, (uint)data.Length, settings);
     }
@@ -5109,19 +5109,19 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ReadPixels(QuantumType[] data, uint offset, uint count, IPixelReadSettings<QuantumType> settings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(count), count < 1, "The number of items should be at least 1.");
-        Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
-        Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of items should not exceed the length of the array.");
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNullOrEmpty(data);
+        Throw.IfTrue(count < 1, nameof(count), "The number of items should be at least 1.");
+        Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
+        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of items should not exceed the length of the array.");
+        Throw.IfNull(settings);
         Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
-        Throw.IfTrue(nameof(settings), settings.StorageType != StorageType.Quantum, $"Storage type should be {nameof(StorageType.Quantum)}.");
+        Throw.IfTrue(settings.StorageType != StorageType.Quantum, nameof(settings), $"Storage type should be {nameof(StorageType.Quantum)}.");
 
         var newReadSettings = CreateReadSettings(settings.ReadSettings);
         SetSettings(newReadSettings);
 
         var expectedLength = GetExpectedLength(settings);
-        Throw.IfTrue(nameof(count), count < expectedLength, "The count is {0} but should be at least {1}.", count, expectedLength);
+        Throw.IfTrue(count, nameof(count), count < expectedLength, "The count is {0} but should be at least {1}.", expectedLength);
 
         var offsetInBytes = ToByteCount(settings.StorageType, offset);
 
@@ -5137,7 +5137,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ReadPixels(FileInfo file, IPixelReadSettings<QuantumType> settings)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         ReadPixels(file.FullName, settings);
     }
@@ -5150,7 +5150,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ReadPixels(Stream stream, IPixelReadSettings<QuantumType> settings)
     {
-        Throw.IfNullOrEmpty(nameof(stream), stream);
+        Throw.IfNullOrEmpty(stream);
 
         var bytes = Bytes.Create(stream);
         ReadPixels(bytes.GetData(), 0, (uint)bytes.Length, settings);
@@ -5191,7 +5191,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadPixelsAsync(FileInfo file, IPixelReadSettings<QuantumType> settings, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         return ReadPixelsAsync(file.FullName, settings, cancellationToken);
     }
@@ -5216,7 +5216,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public async Task ReadPixelsAsync(Stream stream, IPixelReadSettings<QuantumType> settings, CancellationToken cancellationToken)
     {
-        Throw.IfNullOrEmpty(nameof(stream), stream);
+        Throw.IfNullOrEmpty(stream);
 
         var bytes = await Bytes.CreateAsync(stream, cancellationToken).ConfigureAwait(false);
         ReadPixels(bytes.GetData(), 0, (uint)bytes.Length, settings);
@@ -5281,7 +5281,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickErrorInfo Remap(IEnumerable<IMagickColor<QuantumType>> colors)
     {
-        Throw.IfNull(nameof(colors), colors);
+        Throw.IfNull(colors);
 
         return Remap(colors, new QuantizeSettings());
     }
@@ -5295,7 +5295,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickErrorInfo Remap(IEnumerable<IMagickColor<QuantumType>> colors, IQuantizeSettings settings)
     {
-        Throw.IfNull(nameof(colors), colors);
+        Throw.IfNull(colors);
 
         var colorList = new List<IMagickColor<QuantumType>>(colors);
         if (colorList.Count == 0)
@@ -5327,8 +5327,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickErrorInfo Remap(IMagickImage image, IQuantizeSettings settings)
     {
-        Throw.IfNull(nameof(image), image);
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNull(image);
+        Throw.IfNull(settings);
 
         if (_nativeInstance.Remap(image, settings))
             return new MagickErrorInfo();
@@ -5362,7 +5362,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="profile">The profile to remove.</param>
     public void RemoveProfile(IImageProfile profile)
     {
-        Throw.IfNull(nameof(profile), profile);
+        Throw.IfNull(profile);
 
         RemoveProfile(profile.Name);
     }
@@ -5373,7 +5373,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="name">The name of the profile (e.g. "ICM", "IPTC", or a generic profile name).</param>
     public void RemoveProfile(string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         _nativeInstance.RemoveProfile(name);
     }
@@ -5749,8 +5749,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SetArtifact(string name, string value)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
-        Throw.IfNull(nameof(value), value);
+        Throw.IfNullOrEmpty(name);
+        Throw.IfNull(value);
 
         _nativeInstance.SetArtifact(name, value);
     }
@@ -5763,7 +5763,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SetArtifact(string name, bool flag)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         _nativeInstance.SetArtifact(name, flag ? "true" : "false");
     }
@@ -5783,8 +5783,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SetAttribute(string name, string value)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
-        Throw.IfNull(nameof(value), value);
+        Throw.IfNullOrEmpty(name);
+        Throw.IfNull(value);
 
         _nativeInstance.SetAttribute(name, value);
     }
@@ -5797,7 +5797,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SetAttribute(string name, bool flag)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         _nativeInstance.SetAttribute(name, flag ? "true" : "false");
     }
@@ -5844,7 +5844,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SetColormapColor(int index, IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         _nativeInstance.SetColormapColor((nuint)index, color);
     }
@@ -5864,7 +5864,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SetProfile(IImageProfile profile)
     {
-        Throw.IfNull(nameof(profile), profile);
+        Throw.IfNull(profile);
 
         var datum = profile.ToByteArray();
         if (datum is null || datum.Length == 0)
@@ -5889,7 +5889,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SetProfile(IColorProfile profile, ColorTransformMode mode)
     {
-        Throw.IfNull(nameof(profile), profile);
+        Throw.IfNull(profile);
 
         var datum = profile.ToByteArray();
         if (datum is null || datum.Length == 0)
@@ -5910,7 +5910,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void SetReadMask(IMagickImage image)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         _nativeInstance.SetReadMask(image);
     }
@@ -5924,7 +5924,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>z
     public void SetWriteMask(IMagickImage image)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         _nativeInstance.SetWriteMask(image);
     }
@@ -6450,7 +6450,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickSearchResult<QuantumType>? SubImageSearch(IMagickImage<QuantumType> image, ErrorMetric metric, double similarityThreshold)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         var result = _nativeInstance.SubImageSearch(image, metric, similarityThreshold, out var rectangle, out var similarityMetric);
         if (result == IntPtr.Zero)
@@ -6467,7 +6467,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Texture(IMagickImage image)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         _nativeInstance.Texture(image);
     }
@@ -6556,7 +6556,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Tile(IMagickImage image, CompositeOperator compose, string? args)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         for (var y = 0; y < Height; y += (int)image.Height)
         {
@@ -6681,7 +6681,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>True when the colorspace was transformed otherwise false.</returns>
     public bool TransformColorSpace(IColorProfile target, ColorTransformMode mode)
     {
-        Throw.IfNull(nameof(target), target);
+        Throw.IfNull(target);
 
         if (!HasColorProfile)
             return false;
@@ -6713,8 +6713,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>True when the colorspace was transformed otherwise false.</returns>
     public bool TransformColorSpace(IColorProfile source, IColorProfile target, ColorTransformMode mode)
     {
-        Throw.IfNull(nameof(source), source);
-        Throw.IfNull(nameof(target), target);
+        Throw.IfNull(source);
+        Throw.IfNull(target);
 
         if (source.ColorSpace != ColorSpace)
             return false;
@@ -6734,7 +6734,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Transparent(IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         _nativeInstance.Transparent(color, false);
     }
@@ -6748,8 +6748,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void TransparentChroma(IMagickColor<QuantumType> colorLow, IMagickColor<QuantumType> colorHigh)
     {
-        Throw.IfNull(nameof(colorLow), colorLow);
-        Throw.IfNull(nameof(colorHigh), colorHigh);
+        Throw.IfNull(colorLow);
+        Throw.IfNull(colorHigh);
 
         _nativeInstance.TransparentChroma(colorLow, colorHigh, false);
     }
@@ -7037,7 +7037,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void WhiteThreshold(Percentage threshold, Channels channels)
     {
-        Throw.IfNegative(nameof(threshold), threshold);
+        Throw.IfNegative(threshold);
 
         _nativeInstance.WhiteThreshold(threshold.ToString(), channels);
     }
@@ -7049,7 +7049,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Write(FileInfo file)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         Write(file.FullName);
         file.Refresh();
@@ -7086,7 +7086,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Write(Stream stream)
     {
-        Throw.IfNull(nameof(stream), stream);
+        Throw.IfNull(stream);
 
         _settings.FileName = null;
 
@@ -7189,7 +7189,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task WriteAsync(FileInfo file, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         var format = EnumHelper.ParseMagickFormatFromExtension(file);
         var bytes = format != MagickFormat.Unknown ? ToByteArray(format) : ToByteArray();
@@ -7240,7 +7240,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task WriteAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         var bytes = ToByteArray(format);
         return FileHelper.WriteAllBytesAsync(file.FullName, bytes, cancellationToken);
@@ -7264,7 +7264,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task WriteAsync(Stream stream, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(stream), stream);
+        Throw.IfNull(stream);
 
         var bytes = ToByteArray();
         return stream.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
@@ -7491,8 +7491,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     private static uint GetExpectedLength(IPixelReadSettings<QuantumType> settings)
     {
-        Throw.IfNull(nameof(settings), settings.ReadSettings.Width, "ReadSettings.Width should be defined");
-        Throw.IfNull(nameof(settings), settings.ReadSettings.Height, "ReadSettings.Height should be defined.");
+        Throw.IfNull(settings.ReadSettings.Width, nameof(settings), "ReadSettings.Width should be defined");
+        Throw.IfNull(settings.ReadSettings.Height, nameof(settings), "ReadSettings.Height should be defined.");
 
         return settings.ReadSettings.Width.Value * settings.ReadSettings.Height.Value * (uint)settings.Mapping!.Length;
     }
@@ -7584,7 +7584,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     private void FloodFill(IMagickColor<QuantumType> color, int x, int y, bool invert)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         IMagickColor<QuantumType>? target;
         using var pixels = GetPixelsUnsafe();
@@ -7596,8 +7596,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     private void FloodFill(IMagickColor<QuantumType> color, int x, int y, IMagickColor<QuantumType> target, bool invert)
     {
-        Throw.IfNull(nameof(color), color);
-        Throw.IfNull(nameof(target), target);
+        Throw.IfNull(color);
+        Throw.IfNull(target);
 
         var settings = _settings.Drawing;
 
@@ -7614,7 +7614,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     private void FloodFill(IMagickImage<QuantumType> image, int x, int y, bool invert)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         IMagickColor<QuantumType>? target;
         using var pixels = GetPixelsUnsafe();
@@ -7626,8 +7626,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     private void FloodFill(IMagickImage<QuantumType> image, int x, int y, IMagickColor<QuantumType> target, bool invert)
     {
-        Throw.IfNull(nameof(image), image);
-        Throw.IfNull(nameof(target), target);
+        Throw.IfNull(image);
+        Throw.IfNull(target);
 
         var settings = _settings.Drawing;
 
@@ -7647,16 +7647,16 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     private void LevelColors(IMagickColor<QuantumType> blackColor, IMagickColor<QuantumType> whiteColor, Channels channels, bool invert)
     {
-        Throw.IfNull(nameof(blackColor), blackColor);
-        Throw.IfNull(nameof(whiteColor), whiteColor);
+        Throw.IfNull(blackColor);
+        Throw.IfNull(whiteColor);
 
         _nativeInstance.LevelColors(blackColor, whiteColor, channels, invert);
     }
 
     private void Opaque(IMagickColor<QuantumType> target, IMagickColor<QuantumType> fill, bool invert)
     {
-        Throw.IfNull(nameof(target), target);
-        Throw.IfNull(nameof(fill), fill);
+        Throw.IfNull(target);
+        Throw.IfNull(fill);
 
         _nativeInstance.Opaque(target, fill, invert);
     }
@@ -7707,7 +7707,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     private void Read(Stream stream, IMagickReadSettings<QuantumType>? readSettings, bool ping)
     {
-        Throw.IfNullOrEmpty(nameof(stream), stream);
+        Throw.IfNullOrEmpty(stream);
 
         var bytes = Bytes.FromStreamBuffer(stream);
         if (bytes is not null)

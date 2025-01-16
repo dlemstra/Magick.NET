@@ -87,7 +87,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// {+-}&lt;xoffset&gt;{+-}&lt;yoffset&gt; (where width, height, xoffset, and yoffset are numbers).</param>
     public MagickGeometry(string value)
     {
-        Throw.IfNullOrEmpty(nameof(value), value);
+        Throw.IfNullOrEmpty(value);
 
         using var instance = NativeMagickGeometry.Create();
         var flags = instance.Initialize(value);
@@ -238,7 +238,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <returns>A <see cref="IMagickGeometry"/> instance that represents the specified page size at 72 dpi.</returns>
     public static IMagickGeometry FromPageSize(string pageSize)
     {
-        Throw.IfNullOrEmpty(nameof(pageSize), pageSize);
+        Throw.IfNullOrEmpty(pageSize);
 
         var rectangle = MagickRectangle.FromPageSize(pageSize);
         if (rectangle is null)
@@ -435,8 +435,8 @@ public sealed partial class MagickGeometry : IMagickGeometry
 
     private void InitializeFromPercentage(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
     {
-        Throw.IfNegative(nameof(percentageWidth), percentageWidth);
-        Throw.IfNegative(nameof(percentageHeight), percentageHeight);
+        Throw.IfNegative(percentageWidth);
+        Throw.IfNegative(percentageHeight);
 
         Initialize(x, y, (uint)percentageWidth, (uint)percentageHeight);
         IsPercentage = true;
@@ -444,7 +444,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
 
     private void Initialize(NativeMagickGeometry instance, GeometryFlags flags)
     {
-        Throw.IfTrue(nameof(flags), flags == GeometryFlags.NoValue, "Invalid geometry specified.");
+        Throw.IfTrue(flags == GeometryFlags.NoValue, nameof(flags), "Invalid geometry specified.");
 
         X = (int)instance.X_Get();
         Y = (int)instance.Y_Get();

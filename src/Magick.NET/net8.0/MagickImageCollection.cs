@@ -94,7 +94,7 @@ public sealed partial class MagickImageCollection
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfEmpty(nameof(data), data);
+        Throw.IfEmpty(data);
 
         Clear();
         AddImages(data, readSettings, true);
@@ -116,7 +116,7 @@ public sealed partial class MagickImageCollection
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfEmpty(nameof(data), data);
+        Throw.IfEmpty(data);
 
         Clear();
         AddImages(data, readSettings, true);
@@ -147,7 +147,7 @@ public sealed partial class MagickImageCollection
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(ReadOnlySequence<byte> data, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfEmpty(nameof(data), data);
+        Throw.IfEmpty(data);
 
         Clear();
         AddImages(data, readSettings, false);
@@ -178,7 +178,7 @@ public sealed partial class MagickImageCollection
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(ReadOnlySpan<byte> data, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfEmpty(nameof(data), data);
+        Throw.IfEmpty(data);
 
         Clear();
         AddImages(data, readSettings, false);
@@ -192,7 +192,7 @@ public sealed partial class MagickImageCollection
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Write(IBufferWriter<byte> bufferWriter)
     {
-        Throw.IfNull(nameof(bufferWriter), bufferWriter);
+        Throw.IfNull(bufferWriter);
 
         if (_images.Count == 0)
             return;

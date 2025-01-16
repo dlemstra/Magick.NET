@@ -23,7 +23,7 @@ internal static partial class FileHelper
 
     public static string GetFullPath(string path)
     {
-        Throw.IfNullOrEmpty(nameof(path), path);
+        Throw.IfNullOrEmpty(path);
 
         path = CheckForBaseDirectory(path);
         path = Path.GetFullPath(path);

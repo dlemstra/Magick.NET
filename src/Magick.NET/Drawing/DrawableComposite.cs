@@ -56,7 +56,7 @@ public sealed class DrawableComposite : IDrawableComposite<QuantumType>, IDrawin
 
     private DrawableComposite(IMagickImage<QuantumType> image)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         Image = image;
     }

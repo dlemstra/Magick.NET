@@ -25,9 +25,9 @@ internal sealed partial class Bytes
     public static Bytes Create(Stream stream, bool allowEmptyStream = false)
     {
         if (allowEmptyStream)
-            Throw.IfNull(nameof(stream), stream);
+            Throw.IfNull(stream);
         else
-            Throw.IfNullOrEmpty(nameof(stream), stream);
+            Throw.IfNullOrEmpty(stream);
 
         var data = GetData(stream, out var length);
 
@@ -36,7 +36,7 @@ internal sealed partial class Bytes
 
     public static async Task<Bytes> CreateAsync(Stream stream, CancellationToken cancellationToken)
     {
-        Throw.IfNullOrEmpty(nameof(stream), stream);
+        Throw.IfNullOrEmpty(stream);
 
         var (data, length) = await GetDataAsync(stream, cancellationToken).ConfigureAwait(false);
 

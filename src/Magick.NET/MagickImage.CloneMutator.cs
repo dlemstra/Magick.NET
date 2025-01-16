@@ -57,7 +57,7 @@ public partial class MagickImage
 
         public void AdaptiveResize(IMagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
+            Throw.IfNull(geometry);
 
             SetResult(NativeMagickImage.AdaptiveResize(geometry.ToString()));
         }
@@ -106,7 +106,7 @@ public partial class MagickImage
 
         public void AffineTransform(IDrawableAffine affineMatrix)
         {
-            Throw.IfNull(nameof(affineMatrix), affineMatrix);
+            Throw.IfNull(affineMatrix);
 
             SetResult(NativeMagickImage.AffineTransform(affineMatrix.ScaleX, affineMatrix.ScaleY, affineMatrix.ShearX, affineMatrix.ShearY, affineMatrix.TranslateX, affineMatrix.TranslateY));
         }
@@ -176,17 +176,17 @@ public partial class MagickImage
 
         public void Colorize(IMagickColor<QuantumType> color, Percentage alpha)
         {
-            Throw.IfNegative(nameof(alpha), alpha);
+            Throw.IfNegative(alpha);
 
             Colorize(color, alpha, alpha, alpha);
         }
 
         public void Colorize(IMagickColor<QuantumType> color, Percentage alphaRed, Percentage alphaGreen, Percentage alphaBlue)
         {
-            Throw.IfNull(nameof(color), color);
-            Throw.IfNegative(nameof(alphaRed), alphaRed);
-            Throw.IfNegative(nameof(alphaGreen), alphaGreen);
-            Throw.IfNegative(nameof(alphaBlue), alphaBlue);
+            Throw.IfNull(color);
+            Throw.IfNegative(alphaRed);
+            Throw.IfNegative(alphaGreen);
+            Throw.IfNegative(alphaBlue);
 
             var blend = string.Format(CultureInfo.InvariantCulture, "{0}/{1}/{2}", alphaRed.ToInt32(), alphaGreen.ToInt32(), alphaBlue.ToInt32());
 
@@ -195,14 +195,14 @@ public partial class MagickImage
 
         public void ColorMatrix(IMagickColorMatrix matrix)
         {
-            Throw.IfNull(nameof(matrix), matrix);
+            Throw.IfNull(matrix);
 
             SetResult(NativeMagickImage.ColorMatrix(matrix));
         }
 
         public void Convolve(IConvolveMatrix matrix)
         {
-            Throw.IfNull(nameof(matrix), matrix);
+            Throw.IfNull(matrix);
 
             SetResult(NativeMagickImage.Convolve(matrix));
         }
@@ -218,7 +218,7 @@ public partial class MagickImage
 
         public void Crop(IMagickGeometry geometry, Gravity gravity)
         {
-            Throw.IfNull(nameof(geometry), geometry);
+            Throw.IfNull(geometry);
 
             SetResult(NativeMagickImage.Crop(geometry.ToString(), gravity));
         }
@@ -237,8 +237,8 @@ public partial class MagickImage
 
         public void Distort(IDistortSettings settings, params double[] arguments)
         {
-            Throw.IfNull(nameof(settings), settings);
-            Throw.IfNullOrEmpty(nameof(arguments), arguments);
+            Throw.IfNull(settings);
+            Throw.IfNullOrEmpty(arguments);
 
             using var temporaryDefines = new TemporaryDefines(NativeMagickImage);
             temporaryDefines.SetArtifact("distort:scale", settings.Scale);
@@ -279,7 +279,7 @@ public partial class MagickImage
 
         public void Extent(IMagickGeometry geometry, IMagickColor<QuantumType> backgroundColor)
         {
-            Throw.IfNull(nameof(backgroundColor), backgroundColor);
+            Throw.IfNull(backgroundColor);
 
             NativeMagickImage.BackgroundColor_Set(backgroundColor);
             Extent(geometry);
@@ -287,14 +287,14 @@ public partial class MagickImage
 
         public void Extent(IMagickGeometry geometry, Gravity gravity)
         {
-            Throw.IfNull(nameof(geometry), geometry);
+            Throw.IfNull(geometry);
 
             SetResult(NativeMagickImage.Extent(geometry.ToString(), gravity));
         }
 
         public void Extent(IMagickGeometry geometry, Gravity gravity, IMagickColor<QuantumType> backgroundColor)
         {
-            Throw.IfNull(nameof(backgroundColor), backgroundColor);
+            Throw.IfNull(backgroundColor);
 
             NativeMagickImage.BackgroundColor_Set(backgroundColor);
             Extent(geometry, gravity);
@@ -344,7 +344,7 @@ public partial class MagickImage
 
         public void InterpolativeResize(IMagickGeometry geometry, PixelInterpolateMethod method)
         {
-            Throw.IfNull(nameof(geometry), geometry);
+            Throw.IfNull(geometry);
 
             SetResult(NativeMagickImage.InterpolativeResize(geometry.ToString(), method));
         }
@@ -373,7 +373,7 @@ public partial class MagickImage
 
         public void LiquidRescale(IMagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
+            Throw.IfNull(geometry);
 
             SetResult(NativeMagickImage.LiquidRescale(geometry.ToString(), geometry.X, geometry.Y));
         }
@@ -411,8 +411,8 @@ public partial class MagickImage
 
         public void Morphology(IMorphologySettings settings)
         {
-            Throw.IfNull(nameof(settings), settings);
-            Throw.IfTrue(nameof(settings), settings.Iterations < -1, "The number of iterations must be unlimited (-1) or positive");
+            Throw.IfNull(settings);
+            Throw.IfTrue(settings.Iterations < -1, nameof(settings), "The number of iterations must be unlimited (-1) or positive");
 
             using var temporaryDefines = new TemporaryDefines(NativeMagickImage);
             temporaryDefines.SetArtifact("convolve:bias", settings.ConvolveBias);
@@ -443,7 +443,7 @@ public partial class MagickImage
 
         public void Resize(IMagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
+            Throw.IfNull(geometry);
 
             SetResult(NativeMagickImage.Resize(geometry.ToString()));
         }
@@ -477,7 +477,7 @@ public partial class MagickImage
 
         public void Sample(IMagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
+            Throw.IfNull(geometry);
 
             SetResult(NativeMagickImage.Sample(geometry.ToString()));
         }
@@ -493,7 +493,7 @@ public partial class MagickImage
 
         public void Scale(IMagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
+            Throw.IfNull(geometry);
 
             SetResult(NativeMagickImage.Scale(geometry.ToString()));
         }
@@ -551,7 +551,7 @@ public partial class MagickImage
 
         public void Shadow(int x, int y, double sigma, Percentage alpha, IMagickColor<QuantumType> color)
         {
-            Throw.IfNull(nameof(color), color);
+            Throw.IfNull(color);
 
             var backgroundColor = NativeMagickImage.BackgroundColor_Get();
             NativeMagickImage.BackgroundColor_Set(color);
@@ -600,14 +600,14 @@ public partial class MagickImage
 
         public void SparseColor(Channels channels, SparseColorMethod method, IEnumerable<ISparseColorArg<QuantumType>> args)
         {
-            Throw.IfNull(nameof(args), args);
+            Throw.IfNull(args);
 
             var hasRed = EnumHelper.HasFlag(channels, ImageMagick.Channels.Red);
             var hasGreen = EnumHelper.HasFlag(channels, ImageMagick.Channels.Green);
             var hasBlue = EnumHelper.HasFlag(channels, ImageMagick.Channels.Blue);
             var hasAlpha = NativeMagickImage.HasAlpha_Get() && EnumHelper.HasFlag(channels, ImageMagick.Channels.Alpha);
 
-            Throw.IfTrue(nameof(channels), !hasRed && !hasGreen && !hasBlue && !hasAlpha, "Invalid channels specified.");
+            Throw.IfTrue(!hasRed && !hasGreen && !hasBlue && !hasAlpha, nameof(channels), "Invalid channels specified.");
 
             var arguments = new List<double>();
 
@@ -625,7 +625,7 @@ public partial class MagickImage
                     arguments.Add(Quantum.ScaleToDouble(arg.Color.A));
             }
 
-            Throw.IfTrue(nameof(args), arguments.Count == 0, "Value cannot be empty");
+            Throw.IfTrue(arguments.Count == 0, nameof(args), "Value cannot be empty");
 
             SetResult(NativeMagickImage.SparseColor(channels, method, arguments.ToArray(), (nuint)arguments.Count));
         }
@@ -650,14 +650,14 @@ public partial class MagickImage
 
         public void Stegano(IMagickImage watermark)
         {
-            Throw.IfNull(nameof(watermark), watermark);
+            Throw.IfNull(watermark);
 
             SetResult(NativeMagickImage.Stegano(watermark));
         }
 
         public void Stereo(IMagickImage rightImage)
         {
-            Throw.IfNull(nameof(rightImage), rightImage);
+            Throw.IfNull(rightImage);
 
             SetResult(NativeMagickImage.Stereo(rightImage));
         }
@@ -673,7 +673,7 @@ public partial class MagickImage
 
         public void Thumbnail(IMagickGeometry geometry)
         {
-            Throw.IfNull(nameof(geometry), geometry);
+            Throw.IfNull(geometry);
 
             SetResult(NativeMagickImage.Thumbnail(geometry.ToString()));
         }
@@ -686,8 +686,8 @@ public partial class MagickImage
 
         public void Tint(IMagickGeometry opacity, IMagickColor<QuantumType> color)
         {
-            Throw.IfNull(nameof(opacity), opacity);
-            Throw.IfNull(nameof(color), color);
+            Throw.IfNull(opacity);
+            Throw.IfNull(color);
 
             SetResult(NativeMagickImage.Tint(opacity.ToString(), color));
         }

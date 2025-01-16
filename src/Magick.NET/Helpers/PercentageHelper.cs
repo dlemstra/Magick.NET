@@ -23,7 +23,7 @@ internal static class PercentageHelper
         var value = percentage.ToDouble();
 
 #if !Q16HDRI
-        Throw.IfNegative(paramName, value);
+        Throw.IfNegative(value, paramName);
 #endif
 
         return Quantum.Max * (value / 100);
@@ -34,7 +34,7 @@ internal static class PercentageHelper
         var value = percentage.ToDouble();
 
 #if !Q16HDRI
-        Throw.IfNegative(paramName, value);
+        Throw.IfNegative(value, paramName);
 #endif
 
         return (QuantumType)(Quantum.Max * (value / 100));

@@ -260,7 +260,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="item">The image to add.</param>
     public void Add(IMagickImage<QuantumType> item)
     {
-        Throw.IfNull(nameof(item), item);
+        Throw.IfNull(item);
 
         CheckDuplicate(item);
 
@@ -291,7 +291,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddRange(byte[] data, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         AddImages(data, 0, (uint)data.Length, readSettings, false);
     }
@@ -303,8 +303,8 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddRange(IEnumerable<IMagickImage<QuantumType>> images)
     {
-        Throw.IfNull(nameof(images), images);
-        Throw.IfTrue(nameof(images), images is MagickImageCollection, "Not allowed to add collection.");
+        Throw.IfNull(images);
+        Throw.IfTrue(images is MagickImageCollection, nameof(images), "Not allowed to add collection.");
 
         foreach (var image in images)
         {
@@ -440,7 +440,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Complex(IComplexSettings complexSettings)
     {
-        Throw.IfNull(nameof(complexSettings), complexSettings);
+        Throw.IfNull(complexSettings);
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
         using var temporaryDefines = new TemporaryDefines(_images[0]);
@@ -470,9 +470,9 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         if (_images.Count == 0)
             return;
 
-        Throw.IfNull(nameof(array), array);
-        Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, (uint)_images.Count);
-        Throw.IfOutOfRange(nameof(arrayIndex), arrayIndex, (uint)array.Length);
+        Throw.IfNull(array);
+        Throw.IfOutOfRange(arrayIndex, (uint)_images.Count);
+        Throw.IfOutOfRange(arrayIndex, (uint)array.Length);
 
         var indexI = 0;
         var indexA = arrayIndex;
@@ -569,7 +569,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> Fx(string expression, Channels channels)
     {
-        Throw.IfNullOrEmpty(nameof(expression), expression);
+        Throw.IfNullOrEmpty(expression);
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
         var nativeImage = MagickImage.GetNativeImage(_images[0]);
@@ -629,7 +629,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> Montage(IMontageSettings<QuantumType> settings)
     {
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNull(settings);
 
         if (!string.IsNullOrEmpty(settings.Label))
             _images[0].Label = settings.Label;
@@ -739,10 +739,10 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
-        Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
-        Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
+        Throw.IfNullOrEmpty(data);
+        Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
+        Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
+        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
 
         Clear();
         AddImages(data, offset, count, readSettings, true);
@@ -756,7 +756,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(byte[] data, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         Clear();
         AddImages(data, 0, (uint)data.Length, readSettings, true);
@@ -778,7 +778,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         Ping(file.FullName, readSettings);
     }
@@ -832,7 +832,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// corresponding terms (coefficient and degree pairs).</returns>
     public IMagickImage<QuantumType> Polynomial(double[] terms)
     {
-        Throw.IfNullOrEmpty(nameof(terms), terms);
+        Throw.IfNullOrEmpty(terms);
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
         var image = _nativeInstance.Polynomial(_images[0], terms, (nuint)terms.Length);
@@ -855,8 +855,8 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Remap(IMagickImage image, IQuantizeSettings settings)
     {
-        Throw.IfNull(nameof(image), image);
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNull(image);
+        Throw.IfNull(settings);
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
         _nativeInstance.Remap(_images[0], settings, image);
@@ -878,7 +878,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickErrorInfo? Quantize(IQuantizeSettings settings)
     {
-        Throw.IfNull(nameof(settings), settings);
+        Throw.IfNull(settings);
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
         _nativeInstance.Quantize(_images[0], settings);
@@ -928,10 +928,10 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data, uint offset, uint count, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
-        Throw.IfTrue(nameof(count), count < 1, "The number of bytes should be at least 1.");
-        Throw.IfTrue(nameof(offset), offset >= data.Length, "The offset should not exceed the length of the array.");
-        Throw.IfTrue(nameof(count), offset + count > data.Length, "The number of bytes should not exceed the length of the array.");
+        Throw.IfNullOrEmpty(data);
+        Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
+        Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
+        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
 
         Clear();
         AddImages(data, offset, count, readSettings, false);
@@ -954,7 +954,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(byte[] data, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         Clear();
         AddImages(data, 0, (uint)data.Length, readSettings, false);
@@ -985,7 +985,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         Read(file.FullName, readSettings);
     }
@@ -1087,7 +1087,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(FileInfo file, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         return ReadAsync(file.FullName, readSettings, cancellationToken);
     }
@@ -1402,7 +1402,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Write(FileInfo file)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         Write(file.FullName);
         file.Refresh();
@@ -1442,7 +1442,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Write(Stream stream)
     {
-        Throw.IfNull(nameof(stream), stream);
+        Throw.IfNull(stream);
 
         if (_images.Count == 0)
             return;
@@ -1562,7 +1562,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task WriteAsync(FileInfo file, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         if (_images.Count == 0)
             return Task.CompletedTask;
@@ -1619,7 +1619,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task WriteAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         if (_images.Count == 0)
             return Task.CompletedTask;
@@ -1647,7 +1647,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public async Task WriteAsync(Stream stream, CancellationToken cancellationToken)
     {
-        Throw.IfNull(nameof(stream), stream);
+        Throw.IfNull(stream);
 
         if (_images.Count == 0)
             return;
@@ -1835,7 +1835,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
 
     private void AddImages(Stream stream, IMagickReadSettings<QuantumType>? readSettings, bool ping)
     {
-        Throw.IfNullOrEmpty(nameof(stream), stream);
+        Throw.IfNullOrEmpty(stream);
 
         var bytes = Bytes.FromStreamBuffer(stream);
         if (bytes is not null)
@@ -1915,7 +1915,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
 
     private void SetDefines(IWriteDefines defines)
     {
-        Throw.IfNull(nameof(defines), defines);
+        Throw.IfNull(defines);
 
         foreach (var image in _images)
         {

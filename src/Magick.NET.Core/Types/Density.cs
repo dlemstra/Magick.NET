@@ -163,10 +163,10 @@ public sealed class Density : IEquatable<Density?>
 
     private void Initialize(string value)
     {
-        Throw.IfNullOrEmpty(nameof(value), value);
+        Throw.IfNullOrEmpty(value);
 
         var values = value.Split(' ');
-        Throw.IfTrue(nameof(value), values.Length > 2, "Invalid density specified.");
+        Throw.IfTrue(values.Length > 2, nameof(value), "Invalid density specified.");
 
         if (values.Length == 2)
         {
@@ -179,7 +179,7 @@ public sealed class Density : IEquatable<Density?>
         }
 
         var xyValues = values[0].Split('x');
-        Throw.IfTrue(nameof(value), xyValues.Length > 2, "Invalid density specified.");
+        Throw.IfTrue(xyValues.Length > 2, nameof(value), "Invalid density specified.");
 
         Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var x), "Invalid density specified.");
 

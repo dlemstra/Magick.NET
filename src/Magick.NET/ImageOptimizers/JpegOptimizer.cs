@@ -49,7 +49,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     /// <returns>True when the image could be compressed otherwise false.</returns>
     public bool Compress(FileInfo file, uint quality)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         return DoCompress(file, false, quality);
     }
@@ -109,7 +109,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     /// <returns>True when the image could be compressed otherwise false.</returns>
     public bool LosslessCompress(FileInfo file)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         return DoCompress(file, true, 0);
     }

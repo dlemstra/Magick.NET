@@ -76,7 +76,7 @@ public sealed class IcoOptimizer : IImageOptimizer
     /// <returns>True when the image could be compressed otherwise false.</returns>
     public bool LosslessCompress(FileInfo file)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         return DoCompress(file, true);
     }

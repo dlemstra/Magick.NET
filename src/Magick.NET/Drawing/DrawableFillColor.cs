@@ -24,7 +24,7 @@ public sealed partial class DrawableFillColor : IDrawableFillColor<QuantumType>,
     /// <param name="color">The color to use.</param>
     public DrawableFillColor(IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         Color = color;
     }

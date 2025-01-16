@@ -39,7 +39,7 @@ public struct PointD : IEquatable<PointD>
     public PointD(string value)
       : this()
     {
-        Throw.IfNullOrEmpty(nameof(value), value);
+        Throw.IfNullOrEmpty(value);
 
         Initialize(value);
     }
@@ -108,7 +108,7 @@ public struct PointD : IEquatable<PointD>
     private void Initialize(string value)
     {
         var values = value.Split('x');
-        Throw.IfTrue(nameof(value), values.Length > 2, "Invalid point specified.");
+        Throw.IfTrue(values.Length > 2, nameof(value), "Invalid point specified.");
 
         Throw.IfFalse(nameof(value), double.TryParse(values[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var x), "Invalid point specified.");
 

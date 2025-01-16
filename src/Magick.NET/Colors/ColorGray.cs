@@ -27,7 +27,7 @@ public sealed class ColorGray : ColorBase
     public ColorGray(double shade)
       : base(new MagickColor(0, 0, 0))
     {
-        Throw.IfTrue(nameof(shade), shade < 0.0 || shade > 1.0, "Invalid shade specified");
+        Throw.IfTrue(shade < 0.0 || shade > 1.0, nameof(shade), "Invalid shade specified");
 
         _shade = shade;
     }

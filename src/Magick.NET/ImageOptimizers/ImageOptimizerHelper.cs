@@ -26,7 +26,7 @@ internal static class ImageOptimizerHelper
 
     public static void CheckStream(Stream stream)
     {
-        Throw.IfNullOrEmpty(nameof(stream), stream);
+        Throw.IfNullOrEmpty(stream);
         Throw.IfFalse(nameof(stream), stream.CanRead, "The stream should be readable.");
         Throw.IfFalse(nameof(stream), stream.CanWrite, "The stream should be writeable.");
         Throw.IfFalse(nameof(stream), stream.CanSeek, "The stream should be seekable.");

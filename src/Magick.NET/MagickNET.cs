@@ -205,7 +205,7 @@ public partial class MagickNET : IMagickNET
     /// <returns>The environment variable with the specified name.</returns>
     public static string? GetEnvironmentVariable(string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
         return Environment.GetEnv(name);
     }
 
@@ -236,7 +236,7 @@ public partial class MagickNET : IMagickNET
     /// <returns>The path of the folder that was created and contains the configuration files.</returns>
     public static string Initialize(IConfigurationFiles configFiles)
     {
-        Throw.IfNull(nameof(configFiles), configFiles);
+        Throw.IfNull(configFiles);
 
         var path = Path.Combine(TemporaryDirectory, Guid.NewGuid().ToString());
         Directory.CreateDirectory(path);
@@ -253,7 +253,7 @@ public partial class MagickNET : IMagickNET
     /// <param name="path">The directory to save the configuration files in.</param>
     public static void Initialize(IConfigurationFiles configFiles, string path)
     {
-        Throw.IfNull(nameof(configFiles), configFiles);
+        Throw.IfNull(configFiles);
 
         var newPath = FileHelper.GetFullPath(path);
 
@@ -272,7 +272,7 @@ public partial class MagickNET : IMagickNET
     /// <param name="file">The file to use at the default font file.</param>
     public static void SetDefaultFontFile(FileInfo file)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         SetDefaultFontFile(file.FullName);
     }
@@ -283,7 +283,7 @@ public partial class MagickNET : IMagickNET
     /// <param name="fileName">The file name to use at the default font file.</param>
     public static void SetDefaultFontFile(string fileName)
     {
-        Throw.IfNullOrEmpty(nameof(fileName), fileName);
+        Throw.IfNullOrEmpty(fileName);
 
         NativeMagickNET.SetDefaultFontFile(fileName);
     }
@@ -295,7 +295,7 @@ public partial class MagickNET : IMagickNET
     /// <param name="value">The value of the environment variable.</param>
     public static void SetEnvironmentVariable(string name, string value)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
         Environment.SetEnv(name, value);
     }
 
