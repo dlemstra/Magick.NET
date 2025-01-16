@@ -17,7 +17,7 @@ internal static partial class Throw
             throw new ArgumentException(message, paramName);
     }
 
-    public static void IfFalse<T0>(string paramName, bool condition, string message, T0 arg0)
+    public static void IfFalse<T0>(string paramName, bool condition, [StringSyntax(StringSyntaxAttribute.CompositeFormat)] string message, T0 arg0)
     {
         if (!condition)
             throw new ArgumentException(FormatMessage(message, arg0), paramName);
@@ -106,25 +106,17 @@ internal static partial class Throw
             throw new ArgumentException(message, paramName);
     }
 
-    public static void IfTrue<T0>(bool condition, string paramName, string message, T0 arg0)
+    public static void IfTrue<T0>(bool condition, string paramName, [StringSyntax(StringSyntaxAttribute.CompositeFormat)] string message, T0 arg0)
     {
         if (condition)
             throw new ArgumentException(FormatMessage(message, arg0), paramName);
     }
 
-#if NET8_0
     public static void IfTrue<T0, T1>(bool condition, string paramName, [StringSyntax(StringSyntaxAttribute.CompositeFormat)] string message, T0 arg0, T1 arg1)
     {
         if (condition)
             throw new ArgumentException(FormatMessage(message, arg0, arg1), paramName);
     }
-#else
-    public static void IfTrue<T0, T1>(bool condition, string paramName, string message, T0 arg0, T1 arg1)
-    {
-        if (condition)
-            throw new ArgumentException(FormatMessage(message, arg0, arg1), paramName);
-    }
-#endif
 
     private static string FormatMessage(string message, params object?[] args)
         => string.Format(CultureInfo.InvariantCulture, message, args);

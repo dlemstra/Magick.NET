@@ -1,7 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-#if !NET8_0
+#if NETSTANDARD2_0 || NET462
 namespace System.Runtime.CompilerServices;
 
 /// <summary>Allows capturing of the expressions passed to a method.</summary>

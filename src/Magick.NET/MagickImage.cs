@@ -3483,7 +3483,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
         var length = data.Length - offset;
         var expectedLength = GetExpectedLength(settings);
-        Throw.IfTrue(data.Length, nameof(data), length < expectedLength, "The data length is {0} but should be at least {1}.", expectedLength + offset);
+        Throw.IfTrue(length < expectedLength, nameof(data), "The data length is {0} but should be at least {1}.", data.Length, expectedLength + offset);
 
         _nativeInstance.ImportPixels(settings.X, settings.Y, settings.Width, settings.Height, settings.Mapping, settings.StorageType, data, offset);
     }
@@ -5114,14 +5114,14 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
         Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of items should not exceed the length of the array.");
         Throw.IfNull(settings);
-        Throw.IfNullOrEmpty(nameof(settings), settings.Mapping, "Pixel storage mapping should be defined.");
+        Throw.IfNullOrEmpty(settings.Mapping, nameof(settings), "Pixel storage mapping should be defined.");
         Throw.IfTrue(settings.StorageType != StorageType.Quantum, nameof(settings), $"Storage type should be {nameof(StorageType.Quantum)}.");
 
         var newReadSettings = CreateReadSettings(settings.ReadSettings);
         SetSettings(newReadSettings);
 
         var expectedLength = GetExpectedLength(settings);
-        Throw.IfTrue(count, nameof(count), count < expectedLength, "The count is {0} but should be at least {1}.", expectedLength);
+        Throw.IfTrue(count < expectedLength, nameof(count), "The count is {0} but should be at least {1}.", count, expectedLength);
 
         var offsetInBytes = ToByteCount(settings.StorageType, offset);
 

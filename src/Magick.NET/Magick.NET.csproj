@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0;netstandard20</TargetFrameworks>
     <Platforms>x86;x64;arm64;AnyCPU</Platforms>
@@ -77,6 +77,7 @@
     <Compile Include="../Shared/NotNullAttribute.cs" Link="Helpers/NotNullAttribute.cs" />
     <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
     <Compile Include="../Shared/CallerArgumentExpressionAttribute.cs" Link="Helpers/CallerArgumentExpressionAttribute.cs" />
+    <Compile Include="../Shared/StringSyntaxAttribute.cs" Link="Helpers/StringSyntaxAttribute.cs" />
     <Compile Include="../Shared/TypeHelper.cs" Link="Helpers/TypeHelper.cs" />
   </ItemGroup>
 
