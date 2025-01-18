@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using Xunit;
 
@@ -29,7 +30,7 @@ public partial class IptcValueTests
         [Fact]
         public void ShouldReturnEmptyStringWhenValueIsEmpty()
         {
-            var value = new IptcValue(IptcTag.Caption, []);
+            var value = new IptcValue(IptcTag.Caption, Array.Empty<byte>());
 
             Assert.Empty(value.ToString());
         }
