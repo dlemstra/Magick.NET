@@ -69,7 +69,7 @@ jobs:
 
   linux_arm64:
     name: 'Linux (Q8/Q16/Q16-HDRI, arm64)'
-    runs-on: ubuntu-24-arm
+    runs-on: ubuntu-24.04-arm
 
     steps:
 
