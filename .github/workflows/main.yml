@@ -76,13 +76,23 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: build/linux-arm64/install.dependencies.sh
+
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64'
 
+    - name: Build
+      run: build/shared/build.Magick.NET.sh
+
     - name: Test
-      run: |
-        export path=$(pwd)
-        docker run -v $path:/Magick.NET mcr.microsoft.com/dotnet/sdk:8.0-jammy-arm64v8 /Magick.NET/build/linux-arm64/github-actions.sh
+      run: build/shared/test.Magick.NET.sh
+
+    - name: Build OpenMP
+      run: build/shared/build.Magick.NET.sh OpenMP
+
+    - name: Test OpenMP
+      run: build/shared/test.Magick.NET.sh OpenMP
 
   macos:
     name: 'MacOS (Q8/Q16/Q16-HDRI)'
