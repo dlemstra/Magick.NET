@@ -20,12 +20,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: build/linux-x64/install.dependencies.sh
+
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-
-    - name: Install dependencies
-      run: build/linux-x64/install.dependencies.sh
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64'
@@ -56,6 +56,10 @@ jobs:
     - name: Install dependencies
       run: build/linux-musl-x64/install.dependencies.sh
 
+    - uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64'
 
@@ -80,12 +84,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: build/linux-arm64/install.dependencies.sh
+
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-
-    - name: Install dependencies
-      run: build/linux-arm64/install.dependencies.sh
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64'
@@ -111,12 +115,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: build/macos-x64/install.dependencies.sh
+
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-
-    - name: Install dependencies
-      run: build/macos-x64/install.dependencies.sh
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64'
@@ -136,12 +140,12 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
 
+    - name: Install dependencies
+      run: build/macos-arm64/install.dependencies.sh
+
     - uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
-
-    - name: Install dependencies
-      run: build/macos-arm64/install.dependencies.sh
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos arm64'
