@@ -189,7 +189,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-arm64", "linux-arm64"
 		build\linux-arm64\build.cmd = build\linux-arm64\build.cmd
 		build\linux-arm64\build.openmp.cmd = build\linux-arm64\build.openmp.cmd
 		build\linux-arm64\Dockerfile = build\linux-arm64\Dockerfile
-		build\linux-arm64\github-actions.sh = build\linux-arm64\github-actions.sh
 		build\linux-arm64\install.dependencies.sh = build\linux-arm64\install.dependencies.sh
 		build\linux-arm64\run.cmd = build\linux-arm64\run.cmd
 		build\linux-arm64\run.openmp.cmd = build\linux-arm64\run.openmp.cmd

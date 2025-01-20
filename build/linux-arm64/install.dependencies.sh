@@ -1,12 +1,12 @@
 #!/bin/bash
 set -e
 
-apt-get update
+sudo apt-get update
 
-apt-get install ffmpeg fontconfig unzip -y
+sudo apt-get install ffmpeg fontconfig unzip -y
 
 git clone https://github.com/ImageMagick/msttcorefonts msttcorefonts
 cd msttcorefonts
-. ./install.sh
+sudo ./install.sh
 
 fc-cache

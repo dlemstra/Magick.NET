@@ -4370,11 +4370,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
         try
         {
-            var hash = new PerceptualHash(this, colorSpaces, list);
-            if (!hash.IsValid)
-                return null;
-
-            return hash;
+            return ImageMagick.PerceptualHash.Create(this, colorSpaces, list);
         }
         finally
         {
