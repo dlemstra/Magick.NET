@@ -31,7 +31,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
     /// <param name="colorSpaces">The colorspaces that were used to create this hash.</param>
     public PerceptualHash(string hash, params ColorSpace[] colorSpaces)
     {
-        Throw.IfNullOrEmpty(nameof(hash), hash);
+        Throw.IfNullOrEmpty(hash);
         ValidateColorSpaces(colorSpaces);
 
         var length = 35 * colorSpaces.Length;
