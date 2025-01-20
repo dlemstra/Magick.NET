@@ -85,7 +85,7 @@ public sealed class GifOptimizer : IImageOptimizer
     public bool LosslessCompress(string fileName)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(nameof(fileName), filePath);
+        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         return DoLosslessCompress(new FileInfo(filePath));
     }

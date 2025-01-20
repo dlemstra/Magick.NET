@@ -26,7 +26,7 @@ public abstract partial class DoubleMatrix
         _values = new double[Order * Order];
         if (values is not null)
         {
-            Throw.IfFalse(nameof(values), (Order * Order) == values.Length, "Invalid number of values specified");
+            Throw.IfFalse((Order * Order) == values.Length, nameof(values), "Invalid number of values specified");
             Array.Copy(values, _values, _values.Length);
         }
     }

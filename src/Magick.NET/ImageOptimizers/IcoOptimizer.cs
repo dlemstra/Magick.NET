@@ -53,7 +53,7 @@ public sealed class IcoOptimizer : IImageOptimizer
     public bool Compress(string fileName)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(nameof(fileName), filePath);
+        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         return DoCompress(new FileInfo(filePath), false);
     }
@@ -90,7 +90,7 @@ public sealed class IcoOptimizer : IImageOptimizer
     public bool LosslessCompress(string fileName)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(nameof(fileName), filePath);
+        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         return DoCompress(new FileInfo(filePath), true);
     }

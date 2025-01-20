@@ -11,13 +11,13 @@ namespace ImageMagick;
 
 internal static partial class Throw
 {
-    public static void IfFalse(string paramName, bool condition, string message)
+    public static void IfFalse(bool condition, string paramName, string message)
     {
         if (!condition)
             throw new ArgumentException(message, paramName);
     }
 
-    public static void IfFalse<T0>(string paramName, bool condition, [StringSyntax(StringSyntaxAttribute.CompositeFormat)] string message, T0 arg0)
+    public static void IfFalse<T0>(bool condition, string paramName, [StringSyntax(StringSyntaxAttribute.CompositeFormat)] string message, T0 arg0)
     {
         if (!condition)
             throw new ArgumentException(FormatMessage(message, arg0), paramName);

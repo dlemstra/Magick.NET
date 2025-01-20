@@ -34,7 +34,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
         ValidateColorSpaces(colorSpaces);
 
         var length = 35 * colorSpaces.Length;
-        Throw.IfFalse(nameof(hash), hash.Length == 3 * length, "Invalid hash size.");
+        Throw.IfFalse(hash.Length == 3 * length, nameof(hash), "Invalid hash size.");
 
         _channels[PixelChannel.Red] = new ChannelPerceptualHash(PixelChannel.Red, colorSpaces, hash.Substring(0, length));
         _channels[PixelChannel.Green] = new ChannelPerceptualHash(PixelChannel.Green, colorSpaces, hash.Substring(length, length));
@@ -104,7 +104,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
     {
         Throw.IfNull(colorSpaces);
         Throw.IfOutOfRange(1, 6, colorSpaces.Length, nameof(colorSpaces), "Invalid number of colorspaces, the minimum is 1 and the maximum is 6.");
-        Throw.IfFalse(nameof(colorSpaces), colorSpaces.Distinct().Count() == colorSpaces.Length, "Specifying the same colorspace more than once is not allowed.");
+        Throw.IfFalse(colorSpaces.Distinct().Count() == colorSpaces.Length, nameof(colorSpaces), "Specifying the same colorspace more than once is not allowed.");
     }
 
     internal static void DisposeList(IntPtr list)

@@ -134,7 +134,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
         }
 
         using var instance = NativeMagickColor.Create();
-        Throw.IfFalse(nameof(color), instance.Initialize(color), "Invalid color specified");
+        Throw.IfFalse(instance.Initialize(color), nameof(color), "Invalid color specified");
         Initialize(instance);
     }
 

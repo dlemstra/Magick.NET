@@ -57,7 +57,7 @@ public sealed partial class PdfInfo
     public static PdfInfo Create(string fileName, string password)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(nameof(fileName), filePath);
+        Throw.IfNullOrEmpty(filePath, nameof(fileName));
         filePath = filePath.Replace('\\', '/');
 
         Throw.IfNull(password);

@@ -181,13 +181,13 @@ public sealed class Density : IEquatable<Density?>
         var xyValues = values[0].Split('x');
         Throw.IfTrue(xyValues.Length > 2, nameof(value), "Invalid density specified.");
 
-        Throw.IfFalse(nameof(value), double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var x), "Invalid density specified.");
+        Throw.IfFalse(double.TryParse(xyValues[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var x), nameof(value), "Invalid density specified.");
 
         double y;
         if (xyValues.Length == 1)
             y = x;
         else
-            Throw.IfFalse(nameof(value), double.TryParse(xyValues[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), "Invalid density specified.");
+            Throw.IfFalse(double.TryParse(xyValues[1], NumberStyles.Number, CultureInfo.InvariantCulture, out y), nameof(value), "Invalid density specified.");
 
         X = x;
         Y = y;

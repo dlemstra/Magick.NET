@@ -187,8 +187,8 @@ internal sealed partial class SafePixelCollection : PixelCollection
     private void CheckArea(int x, int y, uint width, uint height)
     {
         CheckIndex(x, y);
-        Throw.IfOutOfRange(1, (int)Image.Width - x, (int)width, "Invalid width: {0}.", width);
-        Throw.IfOutOfRange(1, (int)Image.Height - y, (int)height, "Invalid height: {0}.", height);
+        Throw.IfOutOfRange(1, (int)Image.Width - x, (int)width, "Invalid width: {0}.", width, nameof(width));
+        Throw.IfOutOfRange(1, (int)Image.Height - y, (int)height, "Invalid height: {0}.", height, nameof(height));
     }
 
     private void CheckIndex(int x, int y)
@@ -207,7 +207,7 @@ internal sealed partial class SafePixelCollection : PixelCollection
     {
         CheckIndex(x, y);
         Throw.IfNullOrEmpty(values);
-        Throw.IfFalse(nameof(values), values.Length % Channels == 0, "Values should have {0} channels.", Channels);
+        Throw.IfFalse(values.Length % Channels == 0, nameof(values), "Values should have {0} channels.", Channels);
 
         var length = values.Length;
         var max = width * height * Channels;
