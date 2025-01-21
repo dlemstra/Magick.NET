@@ -23,7 +23,7 @@ internal static partial class Throw
             throw new ArgumentException(FormatMessage(message, arg0), paramName);
     }
 
-    public static void IfNull([NotNull] object? value, [CallerArgumentExpression(nameof(value))] string? paramName = null, string? message = "Must not be null")
+    public static void IfNull([NotNull] object? value, [CallerArgumentExpression(nameof(value))] string? paramName = null, string? message = null)
     {
         if (value is null)
             throw new ArgumentNullException(paramName, message);
