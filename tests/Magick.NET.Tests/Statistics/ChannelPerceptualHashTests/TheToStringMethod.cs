@@ -13,8 +13,7 @@ public partial class ChannelPerceptualHashTests
         [Fact]
         public void ShouldReturnTheDifference()
         {
-            //using var image = new MagickImage(Files.ImageMagickJPG);
-            using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
+            using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();
             Assert.NotNull(phash);
 
