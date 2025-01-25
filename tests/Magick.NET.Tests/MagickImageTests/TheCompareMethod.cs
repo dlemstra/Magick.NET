@@ -81,6 +81,16 @@ public partial class MagickImageTests
         }
 
         [Fact]
+        public void ShouldReturnTheDistortion()
+        {
+            using var image = new MagickImage(new MagickColor("#f1d3bc"), 1, 1);
+            using var other = new MagickImage(new MagickColor("#24292e"), 1, 1);
+            var distortion = image.Compare(other, ErrorMetric.RootMeanSquared);
+
+            Assert.InRange(distortion, 0.68, 0.69);
+        }
+
+        [Fact]
         public void ShouldReturnZeroWhenTheImagesAreEqualAndErrorMetricIsRootMeanSquared()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
