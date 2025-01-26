@@ -26,7 +26,12 @@ internal static partial class Throw
     public static void IfNull([NotNull] object? value, [CallerArgumentExpression(nameof(value))] string? paramName = null, string? message = null)
     {
         if (value is null)
-            throw new ArgumentNullException(paramName, message);
+        {
+            if (message is null)
+                throw new ArgumentNullException(paramName);
+            else
+                throw new ArgumentNullException(paramName, message);
+        }
     }
 
     public static void IfNullOrEmpty(Stream value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
@@ -80,7 +85,12 @@ internal static partial class Throw
     public static void IfOutOfRange(int min, int max, int value, [CallerArgumentExpression(nameof(value))] string? paramName = null, string? message = null)
     {
         if (value < min || value > max)
-            throw new ArgumentOutOfRangeException(paramName, message);
+        {
+            if (message is null)
+                throw new ArgumentOutOfRangeException(paramName);
+            else
+                throw new ArgumentOutOfRangeException(paramName, message);
+        }
     }
 
     public static void IfOutOfRange<T>(int min, int max, int value, string message, T arg0, [CallerArgumentExpression(nameof(value))] string? paramName = null)
@@ -103,7 +113,12 @@ internal static partial class Throw
     public static void IfTrue(bool condition, [CallerArgumentExpression(nameof(condition))] string? paramName = null, string? message = null)
     {
         if (condition)
-            throw new ArgumentException(message, paramName);
+        {
+            if (message is null)
+                throw new ArgumentException(paramName);
+            else
+                throw new ArgumentException(paramName, message);
+        }
     }
 
     public static void IfTrue<T0>(bool condition, string paramName, [StringSyntax(StringSyntaxAttribute.CompositeFormat)] string message, T0 arg0)
