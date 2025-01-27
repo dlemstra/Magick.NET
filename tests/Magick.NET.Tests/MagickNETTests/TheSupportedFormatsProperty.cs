@@ -42,9 +42,9 @@ public partial class MagickNETTests
                 .Count();
 
             if (Runtime.IsWindows)
-                Assert.Equal(252, formatsCount);
+                Assert.Equal(253, formatsCount);
             else
-                Assert.Equal(247, formatsCount);
+                Assert.Equal(248, formatsCount);
         }
 
         [Fact]
@@ -125,8 +125,8 @@ public partial class MagickNETTests
                         break;
                     case MagickFormat.Avci:
                         Assert.True(formatInfo.SupportsMultipleFrames);
-                        Assert.False(formatInfo.SupportsReading);
-                        Assert.False(formatInfo.CanReadMultithreaded);
+                        Assert.True(formatInfo.SupportsReading);
+                        Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
                         Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
