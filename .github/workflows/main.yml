@@ -13,7 +13,7 @@ jobs:
     name: 'Linux (Q8/Q16/Q16-HDRI, x64)'
     container:
       image: mcr.microsoft.com/dotnet/sdk:8.0
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
 
@@ -46,7 +46,7 @@ jobs:
     name: 'Linux musl (Q8/Q16/Q16-HDRI, x64)'
     container:
       image: mcr.microsoft.com/dotnet/sdk:8.0-alpine
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
 

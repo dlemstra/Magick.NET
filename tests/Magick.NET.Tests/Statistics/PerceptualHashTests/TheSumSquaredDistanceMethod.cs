@@ -20,7 +20,7 @@ public partial class PerceptualHashTests
             Assert.NotNull(phash);
 
             var perceptualHash = Substitute.For<IPerceptualHash>();
-            perceptualHash.GetChannel(PixelChannel.Blue).Returns((IChannelPerceptualHash)null!);
+            perceptualHash.GetChannel(PixelChannel.Blue).Returns((IChannelPerceptualHash?)null);
 
             var exception = Assert.Throws<NotSupportedException>(() => phash.SumSquaredDistance(perceptualHash));
             Assert.Equal("The other perceptual hash should contain a red, green and blue channel.", exception.Message);

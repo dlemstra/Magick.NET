@@ -1208,7 +1208,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNullOrEmpty(text);
 
-        _nativeInstance.AnnotateGravity(_settings.Drawing, text, gravity);
+        _nativeInstance.Annotate(_settings.Drawing, text, null, gravity, 0.0);
     }
 
     /// <summary>
