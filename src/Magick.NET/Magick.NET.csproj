@@ -77,7 +77,6 @@
     <Compile Include="../Shared/NotNullAttribute.cs" Link="Helpers/NotNullAttribute.cs" />
     <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
     <Compile Include="../Shared/CallerArgumentExpressionAttribute.cs" Link="Helpers/CallerArgumentExpressionAttribute.cs" />
-    <Compile Include="../Shared/StringSyntaxAttribute.cs" Link="Helpers/StringSyntaxAttribute.cs" />
     <Compile Include="../Shared/TypeHelper.cs" Link="Helpers/TypeHelper.cs" />
   </ItemGroup>
 
