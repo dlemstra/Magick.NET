@@ -1,9 +1,9 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using ImageMagick.ImageOptimizers;
 
 namespace ImageMagick;
@@ -27,7 +27,20 @@ public sealed class ImageOptimizer
     /// </summary>
     public bool OptimalCompression { get; set; }
 
-    private string SupportedFormats => string.Join(", ", _optimizers.Select(o => o.Format.ModuleFormat.ToString()));
+    private string SupportedFormats
+    {
+        get
+        {
+            var formats = new List<string>(_optimizers.Count);
+
+            foreach (var optimizer in _optimizers)
+            {
+                formats.Add(optimizer.Format.ModuleFormat.ToString());
+            }
+
+            return string.Join(", ", formats.ToArray());
+        }
+    }
 
     /// <summary>
     /// Performs compression on the specified file. With some formats the image will be decoded
