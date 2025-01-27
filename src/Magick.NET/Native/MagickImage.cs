@@ -245,10 +245,7 @@ public partial class MagickImage
         public partial IntPtr AffineTransform(double scaleX, double scaleY, double shearX, double shearY, double translateX, double translateY);
 
         [Throws]
-        public partial void Annotate(DrawingSettings settings, string text, string boundingArea, Gravity gravity, double degrees);
-
-        [Throws]
-        public partial void AnnotateGravity(DrawingSettings settings, string text, Gravity gravity);
+        public partial void Annotate(DrawingSettings settings, string text, string? boundingArea, Gravity gravity, double degrees);
 
         [Throws]
         public partial void AutoGamma(Channels channels);
