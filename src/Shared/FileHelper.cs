@@ -23,11 +23,11 @@ internal static partial class FileHelper
 
     public static string GetFullPath(string path)
     {
-        Throw.IfNullOrEmpty(nameof(path), path);
+        Throw.IfNullOrEmpty(path);
 
         path = CheckForBaseDirectory(path);
         path = Path.GetFullPath(path);
-        Throw.IfFalse(nameof(path), Directory.Exists(path), "Unable to find directory: {0}", path);
+        Throw.IfFalse(Directory.Exists(path), nameof(path), "Unable to find directory: {0}", path);
         return path;
     }
 

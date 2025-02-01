@@ -24,7 +24,7 @@ public sealed partial class DrawableStrokeColor : IDrawableStrokeColor<QuantumTy
     /// <param name="color">The color to use.</param>
     public DrawableStrokeColor(IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         Color = color;
     }

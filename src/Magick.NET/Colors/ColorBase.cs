@@ -26,7 +26,7 @@ public abstract class ColorBase : IEquatable<ColorBase?>, IComparable<ColorBase?
     /// <param name="color">The color to use.</param>
     protected ColorBase(IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         Color = color;
     }

@@ -19,7 +19,7 @@ public sealed partial class MagickFormatInfo
     /// <returns>The format information.</returns>
     public static MagickFormatInfo? Create(ReadOnlySpan<byte> data)
     {
-        Throw.IfEmpty(nameof(data), data);
+        Throw.IfEmpty(data);
 
         return NativeMagickFormatInfo.GetInfoWithBlob(data, (nuint)data.Length);
     }

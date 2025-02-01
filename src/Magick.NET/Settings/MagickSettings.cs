@@ -467,7 +467,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <returns>The value of a format-specific option.</returns>
     public string? GetDefine(MagickFormat format, string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         return GetOption(ParseDefine(format, name));
     }
@@ -479,7 +479,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <returns>The value of a format-specific option.</returns>
     public string? GetDefine(string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         return GetOption(name);
     }
@@ -491,7 +491,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <param name="name">The name of the define.</param>
     public void RemoveDefine(MagickFormat format, string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         var key = ParseDefine(format, name);
         if (_options.ContainsKey(key))
@@ -504,7 +504,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <param name="name">The name of the define.</param>
     public void RemoveDefine(string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         if (_options.ContainsKey(name))
             _options.Remove(name);
@@ -536,8 +536,8 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <param name="value">The value of the option.</param>
     public void SetDefine(MagickFormat format, string name, string value)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
-        Throw.IfNull(nameof(value), value);
+        Throw.IfNullOrEmpty(name);
+        Throw.IfNull(value);
 
         SetOption(ParseDefine(format, name), value);
     }
@@ -549,8 +549,8 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <param name="value">The value of the option.</param>
     public void SetDefine(string name, string value)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
-        Throw.IfNull(nameof(value), value);
+        Throw.IfNullOrEmpty(name);
+        Throw.IfNull(value);
 
         SetOption(name, value);
     }
@@ -561,7 +561,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <param name="defines">The defines to set.</param>
     public void SetDefines(IDefines defines)
     {
-        Throw.IfNull(nameof(defines), defines);
+        Throw.IfNull(defines);
 
         foreach (var define in defines.Defines)
         {
@@ -623,7 +623,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     /// <returns>The value of the option.</returns>
     protected string? GetOption(string key)
     {
-        Throw.IfNullOrEmpty(nameof(key), key);
+        Throw.IfNullOrEmpty(key);
 
         if (_options.TryGetValue(key, out var result))
             return result;

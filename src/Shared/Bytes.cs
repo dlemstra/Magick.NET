@@ -25,9 +25,9 @@ internal sealed partial class Bytes
     public static Bytes Create(Stream stream, bool allowEmptyStream = false)
     {
         if (allowEmptyStream)
-            Throw.IfNull(nameof(stream), stream);
+            Throw.IfNull(stream);
         else
-            Throw.IfNullOrEmpty(nameof(stream), stream);
+            Throw.IfNullOrEmpty(stream);
 
         var data = GetData(stream, out var length);
 
@@ -36,7 +36,7 @@ internal sealed partial class Bytes
 
     public static async Task<Bytes> CreateAsync(Stream stream, CancellationToken cancellationToken)
     {
-        Throw.IfNullOrEmpty(nameof(stream), stream);
+        Throw.IfNullOrEmpty(stream);
 
         var (data, length) = await GetDataAsync(stream, cancellationToken).ConfigureAwait(false);
 
@@ -63,7 +63,7 @@ internal sealed partial class Bytes
         if (stream is MemoryStream memStream)
             return GetDataFromMemoryStream(memStream, out length);
 
-        Throw.IfFalse(nameof(stream), stream.CanRead, "The stream is not readable.");
+        Throw.IfFalse(stream.CanRead, nameof(stream), "The stream is not readable.");
 
         if (stream.CanSeek)
             return GetDataWithSeekableStream(stream, out length);
@@ -92,7 +92,7 @@ internal sealed partial class Bytes
             return (bytes, length);
         }
 
-        Throw.IfFalse(nameof(stream), stream.CanRead, "The stream is not readable.");
+        Throw.IfFalse(stream.CanRead, nameof(stream), "The stream is not readable.");
 
         if (stream.CanSeek)
             return await GetDataWithSeekableStreamAsync(stream, cancellationToken).ConfigureAwait(false);
@@ -177,7 +177,7 @@ internal sealed partial class Bytes
     }
 
     private static void CheckLength(long length)
-        => Throw.IfFalse(nameof(length), IsSupportedLength(length), "Streams with a length larger than {0} are not supported, read from file instead.", int.MaxValue);
+        => Throw.IfFalse(IsSupportedLength(length), nameof(length), "Streams with a length larger than {0} are not supported, read from file instead.", int.MaxValue);
 
     private static bool IsSupportedLength(long length)
         => length <= int.MaxValue;

@@ -262,7 +262,7 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         return ReadCollection(file.FullName, readSettings);
     }

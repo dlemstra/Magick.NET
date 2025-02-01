@@ -15,7 +15,7 @@ public sealed class DrawableClipPath : IDrawableClipPath, IDrawingWand
     /// <param name="clipPath">The ID of the clip path.</param>
     public DrawableClipPath(string clipPath)
     {
-        Throw.IfNullOrEmpty(nameof(clipPath), clipPath);
+        Throw.IfNullOrEmpty(clipPath);
 
         ClipPath = clipPath;
     }

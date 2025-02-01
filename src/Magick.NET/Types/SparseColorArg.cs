@@ -26,7 +26,7 @@ public sealed class SparseColorArg : ISparseColorArg<QuantumType>
     /// <param name="color">The color.</param>
     public SparseColorArg(double x, double y, IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         X = x;
         Y = y;

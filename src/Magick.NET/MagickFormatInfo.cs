@@ -84,7 +84,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     /// <returns>The format information.</returns>
     public static IMagickFormatInfo? Create(FileInfo file)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
 
         var format = EnumHelper.ParseMagickFormatFromExtension(file);
 
@@ -115,7 +115,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     /// <returns>The format information.</returns>
     public static IMagickFormatInfo? Create(byte[] data)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         return NativeMagickFormatInfo.GetInfoWithBlob(data, (uint)data.Length);
     }
@@ -129,7 +129,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     public static IMagickFormatInfo? Create(string fileName)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(nameof(fileName), filePath);
+        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         return Create(new FileInfo(filePath));
     }

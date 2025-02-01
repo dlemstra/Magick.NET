@@ -39,7 +39,7 @@ internal sealed partial class MagickRectangle
 
     public static MagickRectangle FromGeometry(IMagickGeometry geometry, uint imageWidth, uint imageHeight)
     {
-        Throw.IfNull(nameof(geometry), geometry);
+        Throw.IfNull(geometry);
 
         var width = geometry.Width;
         var height = geometry.Height;

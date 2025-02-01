@@ -11,7 +11,7 @@ internal sealed class EndianReader
 
     public EndianReader(byte[] data)
     {
-        Throw.IfNullOrEmpty(nameof(data), data);
+        Throw.IfNullOrEmpty(data);
 
         _data = data;
         Index = 0;

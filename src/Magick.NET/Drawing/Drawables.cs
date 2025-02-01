@@ -66,7 +66,7 @@ public sealed partial class Drawables : IDrawables<QuantumType>
     /// <returns>The current instance.</returns>
     public IDrawables<QuantumType> Draw(IMagickImage<QuantumType> image)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         image.Draw(this);
         return this;

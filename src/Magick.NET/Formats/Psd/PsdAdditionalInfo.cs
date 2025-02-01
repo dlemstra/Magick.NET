@@ -38,7 +38,7 @@ public sealed class PsdAdditionalInfo
     /// <returns>The additional info from a <see cref="MagickFormat.Psd"/> image.</returns>
     public static PsdAdditionalInfo? FromImage(IMagickImage<QuantumType> image)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         var profile = image.GetProfile("psd:additional-info");
         if (profile is null)

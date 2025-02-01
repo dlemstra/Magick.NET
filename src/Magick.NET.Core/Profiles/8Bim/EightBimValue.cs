@@ -100,7 +100,7 @@ public sealed class EightBimValue : IEightBimValue
     /// <returns>A string that represents the current value with the specified encoding.</returns>
     public string ToString(Encoding encoding)
     {
-        Throw.IfNull(nameof(encoding), encoding);
+        Throw.IfNull(encoding);
 
         return encoding.GetString(_data);
     }

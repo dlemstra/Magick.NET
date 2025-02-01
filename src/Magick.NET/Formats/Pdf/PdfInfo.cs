@@ -36,7 +36,7 @@ public sealed partial class PdfInfo
     /// <returns>The info of a <see cref="MagickFormat.Pdf"/> file.</returns>
     public static PdfInfo Create(FileInfo file, string password)
     {
-        Throw.IfNull(nameof(file), file);
+        Throw.IfNull(file);
         return Create(file.FullName, password);
     }
 
@@ -57,10 +57,10 @@ public sealed partial class PdfInfo
     public static PdfInfo Create(string fileName, string password)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(nameof(fileName), filePath);
+        Throw.IfNullOrEmpty(filePath, nameof(fileName));
         filePath = filePath.Replace('\\', '/');
 
-        Throw.IfNull(nameof(password), password);
+        Throw.IfNull(password);
 
         var pageCount = NativePdfInfo.PageCount(filePath, password);
         if (pageCount == 0)

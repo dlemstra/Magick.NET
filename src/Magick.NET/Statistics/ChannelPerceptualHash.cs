@@ -44,7 +44,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// <returns>The hu perceptual hash for the specified colorspace.</returns>
     public double HuPhash(ColorSpace colorSpace, int index)
     {
-        Throw.IfOutOfRange(nameof(index), index, 7);
+        Throw.IfOutOfRange(index, 7);
 
         if (!_huPhashes.TryGetValue(colorSpace, out var huPhashList))
         {
@@ -61,7 +61,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// <returns>The sum squared difference between this hash and the other hash.</returns>
     public double SumSquaredDistance(IChannelPerceptualHash other)
     {
-        Throw.IfNull(nameof(other), other);
+        Throw.IfNull(other);
 
         var sumSquaredDistance = 0.0;
 

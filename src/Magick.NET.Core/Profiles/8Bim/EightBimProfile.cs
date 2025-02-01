@@ -59,7 +59,7 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
     public EightBimProfile(IMagickImage image, byte[] data)
       : base("8bim", data)
     {
-        Throw.IfNull(nameof(image), image);
+        Throw.IfNull(image);
 
         _width = image.Width;
         _height = image.Height;

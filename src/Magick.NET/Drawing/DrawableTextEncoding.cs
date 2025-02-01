@@ -16,7 +16,7 @@ public sealed class DrawableTextEncoding : IDrawableTextEncoding, IDrawingWand
     /// <param name="encoding">Encoding to use.</param>
     public DrawableTextEncoding(Encoding encoding)
     {
-        Throw.IfNull(nameof(encoding), encoding);
+        Throw.IfNull(encoding);
 
         Encoding = encoding;
     }

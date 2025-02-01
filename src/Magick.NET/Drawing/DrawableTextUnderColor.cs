@@ -24,7 +24,7 @@ public sealed partial class DrawableTextUnderColor : IDrawableTextUnderColor<Qua
     /// <param name="color">The color to use.</param>
     public DrawableTextUnderColor(IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         Color = color;
     }

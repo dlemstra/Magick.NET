@@ -16,7 +16,7 @@ public sealed class IptcValue : IIptcValue
 
     internal IptcValue(IptcTag tag, byte[] value)
     {
-        Throw.IfNull(nameof(value), value);
+        Throw.IfNull(value);
 
         Tag = tag;
         _data = value;

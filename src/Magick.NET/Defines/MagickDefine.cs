@@ -111,8 +111,8 @@ public sealed class MagickDefine : IDefine
     /// <param name="value">The value of the define.</param>
     public MagickDefine(MagickFormat format, string name, string value)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
-        Throw.IfNullOrEmpty(nameof(value), value);
+        Throw.IfNullOrEmpty(name);
+        Throw.IfNullOrEmpty(value);
 
         Format = format;
         Name = name;

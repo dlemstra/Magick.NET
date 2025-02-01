@@ -59,7 +59,7 @@ public sealed partial class ChannelMoments : IChannelMoments
     /// <returns>The Hu invariants.</returns>
     public double HuInvariants(int index)
     {
-        Throw.IfOutOfRange(nameof(index), index, 8);
+        Throw.IfOutOfRange(index, 8);
 
         return _huInvariants[index];
     }

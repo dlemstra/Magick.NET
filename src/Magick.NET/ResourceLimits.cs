@@ -224,7 +224,7 @@ public partial class ResourceLimits : IResourceLimits
     /// <param name="percentage">The percentage to use.</param>
     public static void LimitMemory(Percentage percentage)
     {
-        Throw.IfOutOfRange(nameof(percentage), percentage);
+        Throw.IfOutOfRange(percentage);
 
         NativeResourceLimits.LimitMemory((double)percentage / 100.0);
     }

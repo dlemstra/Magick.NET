@@ -16,7 +16,7 @@ public sealed class DrawableText : IDrawableText, IDrawingWand
     /// <param name="value">The text to draw.</param>
     public DrawableText(double x, double y, string value)
     {
-        Throw.IfNullOrEmpty(nameof(value), value);
+        Throw.IfNullOrEmpty(value);
 
         X = x;
         Y = y;

@@ -31,11 +31,11 @@ public sealed partial class PerceptualHash : IPerceptualHash
     /// <param name="colorSpaces">The colorspaces that were used to create this hash.</param>
     public PerceptualHash(string hash, params ColorSpace[] colorSpaces)
     {
-        Throw.IfNullOrEmpty(nameof(hash), hash);
+        Throw.IfNullOrEmpty(hash);
         ValidateColorSpaces(colorSpaces);
 
         var length = 35 * colorSpaces.Length;
-        Throw.IfFalse(nameof(hash), hash.Length == 3 * length, "Invalid hash size.");
+        Throw.IfFalse(hash.Length == 3 * length, nameof(hash), "Invalid hash size.");
 
         _red = new ChannelPerceptualHash(PixelChannel.Red, colorSpaces, hash.Substring(0, length));
         _green = new ChannelPerceptualHash(PixelChannel.Green, colorSpaces, hash.Substring(length, length));
@@ -72,7 +72,7 @@ public sealed partial class PerceptualHash : IPerceptualHash
     /// <returns>The sum squared difference between this hash and the other hash.</returns>
     public double SumSquaredDistance(IPerceptualHash other)
     {
-        Throw.IfNull(nameof(other), other);
+        Throw.IfNull(other);
 
         var red = other.GetChannel(PixelChannel.Red);
         var green = other.GetChannel(PixelChannel.Green);
@@ -115,9 +115,9 @@ public sealed partial class PerceptualHash : IPerceptualHash
 
     internal static void ValidateColorSpaces(ColorSpace[] colorSpaces)
     {
-        Throw.IfNull(nameof(colorSpaces), colorSpaces);
-        Throw.IfOutOfRange(nameof(colorSpaces), 1, 6, colorSpaces.Length, "Invalid number of colorspaces, the minimum is 1 and the maximum is 6.");
-        Throw.IfFalse(nameof(colorSpaces), colorSpaces.Distinct().Count() == colorSpaces.Length, "Specifying the same colorspace more than once is not allowed.");
+        Throw.IfNull(colorSpaces);
+        Throw.IfOutOfRange(1, 6, colorSpaces.Length, nameof(colorSpaces), "Invalid number of colorspaces, the minimum is 1 and the maximum is 6.");
+        Throw.IfFalse(colorSpaces.Distinct().Count() == colorSpaces.Length, nameof(colorSpaces), "Specifying the same colorspace more than once is not allowed.");
     }
 
     private static ChannelPerceptualHash CreateChannel(IMagickImage image, ColorSpace[] colorSpaces, IntPtr list, PixelChannel channel)

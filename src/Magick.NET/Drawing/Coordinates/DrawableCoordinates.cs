@@ -13,7 +13,7 @@ internal abstract class DrawableCoordinates<TCoordinateType> : IReadOnlyList<TCo
 
     protected DrawableCoordinates(IEnumerable<TCoordinateType> coordinates, int minCount)
     {
-        Throw.IfNull(nameof(coordinates), coordinates);
+        Throw.IfNull(coordinates);
 
         _coordinates = DrawableCoordinates<TCoordinateType>.CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
     }

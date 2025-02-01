@@ -24,7 +24,7 @@ public sealed partial class DrawableBorderColor : IDrawableBorderColor<QuantumTy
     /// <param name="color">The color of the border.</param>
     public DrawableBorderColor(IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         Color = color;
     }

@@ -20,8 +20,8 @@ public partial class ImageProfile : IImageProfile
     /// <param name="data">A byte array containing the profile.</param>
     public ImageProfile(string name, byte[] data)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
-        Throw.IfNull(nameof(data), data);
+        Throw.IfNullOrEmpty(name);
+        Throw.IfNull(data);
 
         Name = name;
         _data = Copy(data);
@@ -34,7 +34,7 @@ public partial class ImageProfile : IImageProfile
     /// <param name="stream">A stream containing the profile.</param>
     public ImageProfile(string name, Stream stream)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
 
         Name = name;
 
@@ -49,8 +49,8 @@ public partial class ImageProfile : IImageProfile
     /// <param name="fileName">The fully qualified name of the profile file, or the relative profile file name.</param>
     public ImageProfile(string name, string fileName)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
-        Throw.IfNullOrEmpty(nameof(fileName), fileName);
+        Throw.IfNullOrEmpty(name);
+        Throw.IfNullOrEmpty(fileName);
 
         Name = name;
 
@@ -64,7 +64,7 @@ public partial class ImageProfile : IImageProfile
     /// <param name="name">The name of the profile.</param>
     protected ImageProfile(string name)
     {
-        Throw.IfNullOrEmpty(nameof(name), name);
+        Throw.IfNullOrEmpty(name);
         Name = name;
     }
 

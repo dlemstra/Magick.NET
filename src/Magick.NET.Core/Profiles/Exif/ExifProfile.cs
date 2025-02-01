@@ -173,7 +173,7 @@ public sealed class ExifProfile : ImageProfile, IExifProfile
     /// <typeparam name="TValueType">The data type of the tag.</typeparam>
     public void SetValue<TValueType>(ExifTag<TValueType> tag, TValueType value)
     {
-        Throw.IfNull(nameof(value), value);
+        Throw.IfNull(value);
 
         InitializeValues();
         foreach (var exifValue in _data.Values)

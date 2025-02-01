@@ -31,7 +31,7 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
     public XmpProfile(IXPathNavigable document)
       : base("xmp")
     {
-        Throw.IfNull(nameof(document), document);
+        Throw.IfNull(document);
 
         var navigator = document.CreateNavigator();
         if (navigator is not null)
@@ -51,7 +51,7 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
     public XmpProfile(XDocument document)
       : base("xmp")
     {
-        Throw.IfNull(nameof(document), document);
+        Throw.IfNull(document);
 
         using var memStream = new MemoryStream();
         using var writer = CreateXmlWriter(memStream);
@@ -151,7 +151,7 @@ public sealed class XmpProfile : ImageProfile, IXmpProfile
 
     private static byte[] CheckTrailingNULL(byte[] data)
     {
-        Throw.IfNull(nameof(data), data);
+        Throw.IfNull(data);
 
         var length = data.Length;
 
