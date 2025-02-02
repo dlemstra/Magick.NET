@@ -5,38 +5,38 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
+using System.Runtime.CompilerServices;
 
 namespace ImageMagick;
 
 internal static partial class Throw
 {
-    public static void IfFalse(string paramName, bool condition, string message)
+    public static void IfFalse(bool condition, string paramName, string message)
     {
         if (!condition)
             throw new ArgumentException(message, paramName);
     }
 
-    public static void IfFalse<T0>(string paramName, bool condition, string message, T0 arg0)
+    public static void IfFalse<T0>(bool condition, string paramName, string message, T0 arg0)
     {
         if (!condition)
             throw new ArgumentException(FormatMessage(message, arg0), paramName);
     }
 
-    public static void IfNull(string paramName, [NotNull] object? value)
+    public static void IfNull([NotNull] object? value, [CallerArgumentExpression(nameof(value))] string? paramName = null, string? message = null)
     {
         if (value is null)
-            throw new ArgumentNullException(paramName);
+        {
+            if (message is null)
+                throw new ArgumentNullException(paramName);
+            else
+                throw new ArgumentNullException(paramName, message);
+        }
     }
 
-    public static void IfNull(string paramName, [NotNull] object? value, string message)
+    public static void IfNullOrEmpty(Stream value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
     {
-        if (value is null)
-            throw new ArgumentNullException(paramName, message);
-    }
-
-    public static void IfNullOrEmpty(string paramName, Stream value)
-    {
-        IfNull(paramName, value);
+        IfNull(value, paramName);
 
         if (value.CanSeek)
         {
@@ -48,56 +48,58 @@ internal static partial class Throw
         }
     }
 
-    public static void IfNullOrEmpty(string paramName, [NotNull] string? value)
-        => IfNullOrEmpty(paramName, value, "Value cannot be null or empty.");
-
-    public static void IfNullOrEmpty(string paramName, [NotNull] string? value, string message)
+    public static void IfNullOrEmpty([NotNull] string? value, [CallerArgumentExpression(nameof(value))] string? paramName = null, string? message = "Value cannot be null or empty.")
     {
-        IfNull(paramName, value, message);
+        IfNull(value, paramName, message);
 
         if (value.Length == 0)
             throw new ArgumentException(message, paramName);
     }
 
-    public static void IfNullOrEmpty(string paramName, [NotNull] Array value)
+    public static void IfNullOrEmpty([NotNull] Array value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
     {
-        IfNull(paramName, value);
+        IfNull(value, paramName);
 
         if (value.Length == 0)
             throw new ArgumentException("Value cannot be empty.", paramName);
     }
 
-    public static void IfNegative(string paramName, double value)
+    public static void IfNegative(double value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
     {
         if (value < 0.0)
             throw new ArgumentException("Value should not be negative.", paramName);
     }
 
-    public static void IfNegative(string paramName, Percentage value)
+    public static void IfNegative(Percentage value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
     {
         if ((double)value < 0.0)
             throw new ArgumentException("Value should not be negative.", paramName);
     }
 
-    public static void IfOutOfRange(string paramName, int index, uint length)
+    public static void IfOutOfRange(int index, uint length, [CallerArgumentExpression(nameof(index))] string? paramName = null)
     {
         if (index < 0 || index >= length)
             throw new ArgumentOutOfRangeException(paramName);
     }
 
-    public static void IfOutOfRange(string paramName, int min, int max, int value, string message)
+    public static void IfOutOfRange(int min, int max, int value, [CallerArgumentExpression(nameof(value))] string? paramName = null, string? message = null)
     {
         if (value < min || value > max)
-            throw new ArgumentOutOfRangeException(paramName, message);
+        {
+            if (message is null)
+                throw new ArgumentOutOfRangeException(paramName);
+            else
+                throw new ArgumentOutOfRangeException(paramName, message);
+        }
     }
 
-    public static void IfOutOfRange<T>(string paramName, int min, int max, int value, string message, T arg0)
+    public static void IfOutOfRange<T>(int min, int max, int value, string message, T arg0, [CallerArgumentExpression(nameof(value))] string? paramName = null)
     {
         if (value < min || value > max)
             throw new ArgumentOutOfRangeException(paramName, FormatMessage(message, arg0));
     }
 
-    public static void IfOutOfRange(string paramName, Percentage value)
+    public static void IfOutOfRange(Percentage value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
     {
         var val = (double)value;
 
@@ -108,19 +110,24 @@ internal static partial class Throw
             throw new ArgumentOutOfRangeException(paramName, "Value should be smaller than 100.");
     }
 
-    public static void IfTrue(string paramName, bool condition, string message)
+    public static void IfTrue(bool condition, [CallerArgumentExpression(nameof(condition))] string? paramName = null, string? message = null)
     {
         if (condition)
-            throw new ArgumentException(message, paramName);
+        {
+            if (message is null)
+                throw new ArgumentException(paramName);
+            else
+                throw new ArgumentException(paramName, message);
+        }
     }
 
-    public static void IfTrue<T0>(string paramName, bool condition, string message, T0 arg0)
+    public static void IfTrue<T0>(bool condition, string paramName, string message, T0 arg0)
     {
         if (condition)
             throw new ArgumentException(FormatMessage(message, arg0), paramName);
     }
 
-    public static void IfTrue<T0, T1>(string paramName, bool condition, string message, T0 arg0, T1 arg1)
+    public static void IfTrue<T0, T1>(bool condition, string paramName, string message, T0 arg0, T1 arg1)
     {
         if (condition)
             throw new ArgumentException(FormatMessage(message, arg0, arg1), paramName);

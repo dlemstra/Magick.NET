@@ -27,7 +27,7 @@ public static class IExifProfileExtensions
     /// <returns>The thumbnail in the exif profile when available.</returns>
     public static IMagickImage<QuantumType>? CreateThumbnail(this IExifProfile self)
     {
-        Throw.IfNull(nameof(self), self);
+        Throw.IfNull(self);
 
         var thumbnailLength = (int)self.ThumbnailLength;
         var thumbnailOffset = (int)self.ThumbnailOffset;

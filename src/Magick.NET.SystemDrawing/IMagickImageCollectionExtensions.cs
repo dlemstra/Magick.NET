@@ -22,7 +22,7 @@ public static class IMagickImageCollectionExtensions
     public static Bitmap ToBitmap<TQuantumType>(this IMagickImageCollection<TQuantumType> self)
         where TQuantumType : struct, IConvertible
     {
-        Throw.IfNull(nameof(self), self);
+        Throw.IfNull(self);
 
         if (self.Count == 1)
             return self[0].ToBitmap();
@@ -41,8 +41,8 @@ public static class IMagickImageCollectionExtensions
     public static Bitmap ToBitmap<TQuantumType>(this IMagickImageCollection<TQuantumType> self, ImageFormat imageFormat)
         where TQuantumType : struct, IConvertible
     {
-        Throw.IfNull(nameof(self), self);
-        Throw.IfNull(nameof(imageFormat), imageFormat);
+        Throw.IfNull(self);
+        Throw.IfNull(imageFormat);
 
         var format = imageFormat.ToMagickFormat();
 

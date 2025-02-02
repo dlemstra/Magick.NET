@@ -30,5 +30,5 @@ public sealed class MagickColorMatrix : DoubleMatrix, IMagickColorMatrix
     }
 
     private static void CheckOrder(uint order)
-        => Throw.IfTrue(nameof(order), order > 6, "Invalid order specified, range 1-6.");
+        => Throw.IfTrue(order > 6, nameof(order), "Invalid order specified, range 1-6.");
 }

@@ -32,7 +32,7 @@ public sealed class Pixel : IPixel<QuantumType>
     /// <param name="value">The value of the pixel.</param>
     public Pixel(int x, int y, QuantumType[] value)
     {
-        Throw.IfNull(nameof(value), value);
+        Throw.IfNull(value);
 
         CheckChannels(value.Length);
 
@@ -238,7 +238,7 @@ public sealed class Pixel : IPixel<QuantumType>
         => new Pixel(collection, x, y, value);
 
     private static void CheckChannels(int channels)
-        => Throw.IfTrue(nameof(channels), channels < 1 || channels > 5, "Invalid number of channels (supported sizes are 1-5).");
+        => Throw.IfTrue(channels < 1 || channels > 5, nameof(channels), "Invalid number of channels (supported sizes are 1-5).");
 
     private QuantumType[] GetValueWithoutIndexChannel()
     {

@@ -24,8 +24,8 @@ public static partial class IMagickImageExtentions
     public static void Read<TQuantumType>(this IMagickImage<TQuantumType> self, Bitmap bitmap)
         where TQuantumType : struct, IConvertible
     {
-        Throw.IfNull(nameof(self), self);
-        Throw.IfNull(nameof(bitmap), bitmap);
+        Throw.IfNull(self);
+        Throw.IfNull(bitmap);
 
         using var memStream = new MemoryStream();
         if (IsSupportedImageFormat(bitmap.RawFormat))
@@ -84,7 +84,7 @@ public static partial class IMagickImageExtentions
     private static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, bool withDensity)
         where TQuantumType : struct, IConvertible
     {
-        Throw.IfNull(nameof(self), self);
+        Throw.IfNull(self);
 
         var image = self;
 
@@ -133,8 +133,8 @@ public static partial class IMagickImageExtentions
     private static Bitmap ToBitmap<TQuantumType>(IMagickImage<TQuantumType> self, ImageFormat imageFormat, bool withDensity)
         where TQuantumType : struct, IConvertible
     {
-        Throw.IfNull(nameof(self), self);
-        Throw.IfNull(nameof(imageFormat), imageFormat);
+        Throw.IfNull(self);
+        Throw.IfNull(imageFormat);
 
         var format = imageFormat.ToMagickFormat();
 

@@ -34,7 +34,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     /// <param name="color">The color to use.</param>
     public MagickColor(IMagickColor<QuantumType> color)
     {
-        Throw.IfNull(nameof(color), color);
+        Throw.IfNull(color);
 
         R = color.R;
         G = color.G;
@@ -119,7 +119,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     /// For example: #F000, #FF000000, #FFFF000000000000.</param>
     public MagickColor(string color)
     {
-        Throw.IfNullOrEmpty(nameof(color), color);
+        Throw.IfNullOrEmpty(color);
 
         if (color.Equals("transparent", StringComparison.OrdinalIgnoreCase))
         {
@@ -134,7 +134,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
         }
 
         using var instance = NativeMagickColor.Create();
-        Throw.IfFalse(nameof(color), instance.Initialize(color), "Invalid color specified");
+        Throw.IfFalse(instance.Initialize(color), nameof(color), "Invalid color specified");
         Initialize(instance);
     }
 

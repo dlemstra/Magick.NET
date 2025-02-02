@@ -22,7 +22,7 @@ public static class IMagickImageFactoryExtensions
     public static IMagickImage<TQuantumType> Create<TQuantumType>(this IMagickImageFactory<TQuantumType> self, Bitmap bitmap)
         where TQuantumType : struct, IConvertible
     {
-        Throw.IfNull(nameof(self), self);
+        Throw.IfNull(self);
 
         var image = self.Create();
         image.Read(bitmap);

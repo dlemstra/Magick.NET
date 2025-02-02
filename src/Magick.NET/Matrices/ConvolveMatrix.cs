@@ -30,5 +30,5 @@ public sealed class ConvolveMatrix : DoubleMatrix, IConvolveMatrix
     }
 
     private static void CheckOrder(uint order)
-        => Throw.IfTrue(nameof(order), order % 2 == 0, "Order must be an odd number.");
+        => Throw.IfTrue(order % 2 == 0, nameof(order), "Order must be an odd number.");
 }

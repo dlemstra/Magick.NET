@@ -30,7 +30,7 @@ public sealed class DrawableFont : IDrawableFont, IDrawingWand
     /// <param name="stretch">The font stretching type.</param>
     public DrawableFont(string family, FontStyleType style, FontWeight weight, FontStretch stretch)
     {
-        Throw.IfNullOrEmpty(nameof(family), family);
+        Throw.IfNullOrEmpty(family);
 
         Family = family;
         Style = style;

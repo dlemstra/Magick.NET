@@ -163,7 +163,7 @@ public sealed class ColorCMYK : ColorBase
 
     private static IMagickColor<QuantumType> CreateColor(string color)
     {
-        Throw.IfNullOrEmpty(nameof(color), color);
+        Throw.IfNullOrEmpty(color);
 
         if (color[0] == '#')
         {
