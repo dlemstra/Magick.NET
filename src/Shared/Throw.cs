@@ -117,7 +117,7 @@ internal static partial class Throw
             if (message is null)
                 throw new ArgumentException(paramName);
             else
-                throw new ArgumentException(paramName, message);
+                throw new ArgumentException(message, paramName);
         }
     }
 
