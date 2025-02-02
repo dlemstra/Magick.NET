@@ -16,7 +16,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage();
 
-            Assert.Throws<ArgumentException>("threshold", () => image.BlackThreshold(new Percentage(-1)));
+            Assert.Throws<ArgumentException>("threshold", () => image.WhiteThreshold(new Percentage(-1)));
         }
 
         [Fact]
@@ -33,10 +33,10 @@ public partial class MagickImageTests
         public void ShouldThresholdTheSpecifiedChannel()
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
-            image.BlackThreshold(new Percentage(10), Channels.Green);
+            image.WhiteThreshold(new Percentage(10), Channels.Green);
 
-            ColorAssert.Equal(new MagickColor("#347bbd"), image, 43, 74);
-            ColorAssert.Equal(new MagickColor("#a8dff8"), image, 60, 74);
+            ColorAssert.Equal(new MagickColor("#34ffbd"), image, 43, 74);
+            ColorAssert.Equal(new MagickColor("#a8fff8"), image, 60, 74);
         }
     }
 }

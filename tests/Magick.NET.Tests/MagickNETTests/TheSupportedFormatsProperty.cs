@@ -44,7 +44,7 @@ public partial class MagickNETTests
             if (Runtime.IsWindows)
                 Assert.Equal(253, formatsCount);
             else
-                Assert.Equal(248, formatsCount);
+                Assert.Equal(249, formatsCount);
         }
 
         [Fact]
@@ -722,17 +722,8 @@ public partial class MagickNETTests
                         break;
                     case MagickFormat.Http:
                         Assert.True(formatInfo.SupportsMultipleFrames);
-                        if (Runtime.IsWindows)
-                        {
-                            Assert.True(formatInfo.SupportsReading);
-                            Assert.True(formatInfo.CanReadMultithreaded);
-                        }
-                        else
-                        {
-                            Assert.False(formatInfo.SupportsReading);
-                            Assert.False(formatInfo.CanReadMultithreaded);
-                        }
-
+                        Assert.True(formatInfo.SupportsReading);
+                        Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
                         Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
