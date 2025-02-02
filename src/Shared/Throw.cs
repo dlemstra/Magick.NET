@@ -30,7 +30,7 @@ internal static partial class Throw
             if (message is null)
                 throw new ArgumentNullException(paramName);
             else
-                throw new ArgumentNullException(message, paramName);
+                throw new ArgumentNullException(paramName, message);
         }
     }
 
@@ -89,7 +89,7 @@ internal static partial class Throw
             if (message is null)
                 throw new ArgumentOutOfRangeException(paramName);
             else
-                throw new ArgumentOutOfRangeException(message, paramName);
+                throw new ArgumentOutOfRangeException(paramName, message);
         }
     }
 
