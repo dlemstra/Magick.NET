@@ -13,16 +13,13 @@ internal static partial class FileHelper
     public static string CheckForBaseDirectory(string? fileName)
     {
         Throw.IfNullOrEmpty(fileName);
-
-        if (fileName.Length < 2 || fileName[0] != '~')
-            return fileName;
-
-        return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
+        return PrependWithBaseDirectory(fileName);
     }
 
     public static string GetFullPath(string? path)
     {
-        path = CheckForBaseDirectory(path);
+        Throw.IfNullOrEmpty(path);
+        path = PrependWithBaseDirectory(path);
         path = Path.GetFullPath(path);
         Throw.IfFalse(Directory.Exists(path), nameof(path), "Unable to find directory: {0}", path);
         return path;
@@ -48,5 +45,13 @@ internal static partial class FileHelper
         using var fileStream = File.Open(fileName, FileMode.Create, FileAccess.Write);
         await fileStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
 #endif
+    }
+
+    private static string PrependWithBaseDirectory(string fileName)
+    {
+        if (fileName.Length < 2 || fileName[0] != '~')
+            return fileName;
+
+        return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
     }
 }
