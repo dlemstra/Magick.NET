@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-44 beta (2025-01-26) ] copyright:
+[ ImageMagick 7.1.1-44 beta (2025-02-08) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -5991,7 +5991,7 @@ possible. They may also add themselves to the list below.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ png 1.6.45 (2025-01-07) ] copyright:
+[ png 1.6.46 (2025-01-23) ] copyright:
 
 COPYRIGHT NOTICE, DISCLAIMER, and LICENSE
 =========================================
