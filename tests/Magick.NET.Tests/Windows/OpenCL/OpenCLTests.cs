@@ -13,11 +13,11 @@ public partial class OpenCLTests
     [Fact]
     public void Test_IsEnabled()
     {
-        OpenCL.IsEnabled = false;
-        Assert.False(OpenCL.IsEnabled);
-
         OpenCL.IsEnabled = true;
         Assert.True(OpenCL.IsEnabled);
+
+        OpenCL.IsEnabled = false;
+        Assert.False(OpenCL.IsEnabled);
     }
 }
 
