@@ -23,11 +23,11 @@ public partial class ChannelPerceptualHashTests
             Assert.NotNull(green);
 
 #if Q8
-            OpenCLValue.Assert(13.33, 14.48, red.SumSquaredDistance(green));
+            Assert.Equal(14.48, red.SumSquaredDistance(green), 2);
 #elif Q16
-            OpenCLValue.Assert(23.02, 23.06, red.SumSquaredDistance(green));
+            Assert.Equal(23.06, red.SumSquaredDistance(green), 2);
 #else
-            OpenCLValue.Assert(29.99, 29.89, red.SumSquaredDistance(green));
+            Assert.Equal(29.89, red.SumSquaredDistance(green), 2);
 #endif
         }
     }

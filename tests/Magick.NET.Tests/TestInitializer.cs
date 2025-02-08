@@ -38,8 +38,6 @@ public static class TestInitializer
         if (OpenCL.IsEnabled)
             return false;
 
-        OpenCL.IsEnabled = true;
-
         return true;
     }
 
