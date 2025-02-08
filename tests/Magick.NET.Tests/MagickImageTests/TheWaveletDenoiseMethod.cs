@@ -30,7 +30,7 @@ public partial class MagickImageTests
 #elif Q16
             var color = new MagickColor("#deb5deb5deb5");
 #else
-            var color = new MagickColor( "#deb5deb5deb5");
+            var color = new MagickColor("#deb5deb5deb5");
 #endif
 
             ColorAssert.NotEqual(color, image, 130, 123);
