@@ -8,14 +8,17 @@ using Xunit;
 
 namespace Magick.NET.Tests;
 
-public partial class TheDeviceTypeProperty
+public partial class OpenCLDeviceTests
 {
-    [Fact]
-    public void ShouldNotBeUndefines()
+    public partial class TheDeviceTypeProperty
     {
-        foreach (var device in OpenCL.Devices)
+        [Fact]
+        public void ShouldNotBeUndefined()
         {
-            Assert.NotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
+            foreach (var device in OpenCL.Devices)
+            {
+                Assert.NotEqual(OpenCLDeviceType.Undefined, device.DeviceType);
+            }
         }
     }
 }

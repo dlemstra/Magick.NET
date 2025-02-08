@@ -8,14 +8,17 @@ using Xunit;
 
 namespace Magick.NET.Tests;
 
-public partial class TheNameProperty
+public partial class OpenCLDeviceTests
 {
-    [Fact]
-    public void ShouldNotBeNull()
+    public partial class TheNameProperty
     {
-        foreach (var device in OpenCL.Devices)
+        [Fact]
+        public void ShouldNotBeNull()
         {
-            Assert.NotNull(device.Name);
+            foreach (var device in OpenCL.Devices)
+            {
+                Assert.NotNull(device.Name);
+            }
         }
     }
 }

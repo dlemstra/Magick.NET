@@ -8,14 +8,17 @@ using Xunit;
 
 namespace Magick.NET.Tests;
 
-public partial class TheBenchmarkScoreProperty
+public partial class OpenCLDeviceTests
 {
-    [Fact]
-    public void ShouldNotBeZero()
+    public partial class TheBenchmarkScoreProperty
     {
-        foreach (var device in OpenCL.Devices)
+        [Fact]
+        public void ShouldNotBeZero()
         {
-            Assert.NotEqual(0.0, device.BenchmarkScore);
+            foreach (var device in OpenCL.Devices)
+            {
+                Assert.NotEqual(0.0, device.BenchmarkScore);
+            }
         }
     }
 }

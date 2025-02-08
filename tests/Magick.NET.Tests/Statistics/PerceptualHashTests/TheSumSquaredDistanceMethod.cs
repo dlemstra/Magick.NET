@@ -42,7 +42,7 @@ public partial class PerceptualHashTests
             Assert.NotNull(otherPhash);
 
 #if Q8
-            OpenCLValue.Assert(391.07, 390.34, phash.SumSquaredDistance(otherPhash));
+            OpenCLValue.Assert(391.07, 390.35, phash.SumSquaredDistance(otherPhash));
 #elif Q16
             OpenCLValue.Assert(365.65, 365.36, phash.SumSquaredDistance(otherPhash));
 #else

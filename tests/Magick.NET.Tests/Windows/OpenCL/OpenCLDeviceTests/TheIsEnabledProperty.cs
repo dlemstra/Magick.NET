@@ -8,20 +8,23 @@ using Xunit;
 
 namespace Magick.NET.Tests;
 
-public partial class TheIsEnabledProperty
+public partial class OpenCLDeviceTests
 {
-    [Fact]
-    public void ShouldReturnTheCorrectValue()
+    public partial class TheIsEnabledProperty
     {
-        foreach (var device in OpenCL.Devices)
+        [Fact]
+        public void ShouldReturnTheCorrectValue()
         {
-            var isEnabled = device.IsEnabled;
+            foreach (var device in OpenCL.Devices)
+            {
+                var isEnabled = device.IsEnabled;
 
-            device.IsEnabled = !isEnabled;
-            Assert.NotEqual(isEnabled, device.IsEnabled);
+                device.IsEnabled = !isEnabled;
+                Assert.NotEqual(isEnabled, device.IsEnabled);
 
-            device.IsEnabled = isEnabled;
-            Assert.Equal(isEnabled, device.IsEnabled);
+                device.IsEnabled = isEnabled;
+                Assert.Equal(isEnabled, device.IsEnabled);
+            }
         }
     }
 }
