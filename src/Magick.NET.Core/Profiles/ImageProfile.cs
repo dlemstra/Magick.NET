@@ -50,11 +50,9 @@ public partial class ImageProfile : IImageProfile
     public ImageProfile(string name, string fileName)
     {
         Throw.IfNullOrEmpty(name);
-        Throw.IfNullOrEmpty(fileName);
+        var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
         Name = name;
-
-        var filePath = FileHelper.CheckForBaseDirectory(fileName);
         _data = File.ReadAllBytes(filePath);
     }
 

@@ -1765,9 +1765,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ColorDecisionList(string fileName)
     {
-        Throw.IfNullOrEmpty(fileName);
-
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
+
         _nativeInstance.ColorDecisionList(filePath);
     }
 
@@ -5033,7 +5032,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public async Task ReadAsync(string fileName, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         var bytes = await FileHelper.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
 
@@ -5161,7 +5159,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public void ReadPixels(string fileName, IPixelReadSettings<QuantumType> settings)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         var data = File.ReadAllBytes(filePath);
         ReadPixels(data, 0, (uint)data.Length, settings);
@@ -5239,7 +5236,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public async Task ReadPixelsAsync(string fileName, IPixelReadSettings<QuantumType> settings, CancellationToken cancellationToken)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         var data = await FileHelper.ReadAllBytesAsync(filePath, cancellationToken).ConfigureAwait(false);
 
@@ -7137,8 +7133,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
-
         _nativeInstance.FileName_Set(filePath);
         _nativeInstance.WriteFile(_settings);
     }
@@ -7333,7 +7327,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public Task WriteAsync(string fileName, CancellationToken cancellationToken)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         return WriteAsync(new FileInfo(filePath), cancellationToken);
     }
@@ -7383,7 +7376,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     public Task WriteAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         var bytes = ToByteArray(format);
         return FileHelper.WriteAllBytesAsync(filePath, bytes, cancellationToken);
@@ -7737,7 +7729,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     private void Read(string fileName, IMagickReadSettings<QuantumType>? readSettings, bool ping)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         var newReadSettings = CreateReadSettings(readSettings);
         SetSettings(newReadSettings);

@@ -75,7 +75,6 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     public bool Compress(string fileName, uint quality)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         return DoCompress(new FileInfo(fileName), false, quality);
     }
@@ -123,7 +122,6 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     public bool LosslessCompress(string fileName)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         return DoCompress(new FileInfo(fileName), true, 0);
     }

@@ -1153,7 +1153,6 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     public async Task ReadAsync(string fileName, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         var bytes = await FileHelper.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
 
@@ -1504,8 +1503,6 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
-
         if (_images.Count == 0)
             return;
 
@@ -1729,7 +1726,6 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     public Task WriteAsync(string fileName, CancellationToken cancellationToken)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         return WriteAsync(new FileInfo(filePath), cancellationToken);
     }
@@ -1783,7 +1779,6 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     public Task WriteAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         if (_images.Count == 0)
             return Task.CompletedTask;
@@ -1823,7 +1818,6 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     private void AddImages(string fileName, IMagickReadSettings<QuantumType>? readSettings, bool ping)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
-        Throw.IfNullOrEmpty(filePath, nameof(fileName));
 
         var settings = CreateSettings(readSettings);
         settings.FileName = filePath;

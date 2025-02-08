@@ -10,10 +10,9 @@ namespace ImageMagick;
 
 internal static partial class FileHelper
 {
-    public static string CheckForBaseDirectory(string fileName)
+    public static string CheckForBaseDirectory(string? fileName)
     {
-        if (string.IsNullOrEmpty(fileName))
-            return fileName;
+        Throw.IfNullOrEmpty(fileName);
 
         if (fileName.Length < 2 || fileName[0] != '~')
             return fileName;
@@ -21,10 +20,8 @@ internal static partial class FileHelper
         return AppDomain.CurrentDomain.BaseDirectory + fileName.Substring(1);
     }
 
-    public static string GetFullPath(string path)
+    public static string GetFullPath(string? path)
     {
-        Throw.IfNullOrEmpty(path);
-
         path = CheckForBaseDirectory(path);
         path = Path.GetFullPath(path);
         Throw.IfFalse(Directory.Exists(path), nameof(path), "Unable to find directory: {0}", path);
