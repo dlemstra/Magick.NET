@@ -28,9 +28,9 @@ public partial class MagickImageTests
 #if Q8
             var color = new MagickColor("#dd");
 #elif Q16
-            var color = new MagickColor(OpenCLValue.Get("#dea4dea4dea4", "#deb5deb5deb5"));
+            var color = new MagickColor("#deb5deb5deb5");
 #else
-            var color = new MagickColor(OpenCLValue.Get("#dea5dea5dea5", "#deb5deb5deb5"));
+            var color = new MagickColor( "#deb5deb5deb5");
 #endif
 
             ColorAssert.NotEqual(color, image, 130, 123);
