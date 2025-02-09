@@ -211,4 +211,9 @@ public enum ColorSpace
     /// Oklch.
     /// </summary>
     Oklch,
+
+    /// <summary>
+    /// CAT02LMSC.
+    /// </summary>
+    CAT02LMSC,
 }
