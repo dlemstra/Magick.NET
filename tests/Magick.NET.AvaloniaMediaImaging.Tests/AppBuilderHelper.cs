@@ -23,12 +23,12 @@ internal static class AppBuilderHelper
             if (_setupDone)
                 return;
 
-            _setupDone = true;
-
             AppBuilder
                 .Configure<Application>()
                 .UsePlatformDetect()
                 .SetupWithoutStarting();
+
+            _setupDone = true;
         }
         finally
         {
