@@ -17,9 +17,7 @@ internal static class ExceptionAssert
         var message = exception.Message;
 
         if (exception.RelatedExceptions.Count > 0)
-        {
             message += exception.RelatedExceptions[0].Message;
-        }
 
         AssertContains(exceptedSubstring, message);
     }
@@ -27,8 +25,6 @@ internal static class ExceptionAssert
     private static void AssertContains(string exceptedSubstring, string message)
     {
         if (!message.Contains(exceptedSubstring))
-        {
             throw new XunitException($"Expected string to contain: '{exceptedSubstring}'\nActual string was: '{message}'");
-        }
     }
 }
