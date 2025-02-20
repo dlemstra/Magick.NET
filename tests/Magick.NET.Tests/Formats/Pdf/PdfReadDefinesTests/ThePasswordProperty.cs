@@ -53,6 +53,9 @@ public partial class PdfReadDefinesTests
 
             using var image = new MagickImage();
             image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
+
+            Assert.Equal(612U, image.Width);
+            Assert.Equal(792U, image.Height);
         }
 
         [Fact]
