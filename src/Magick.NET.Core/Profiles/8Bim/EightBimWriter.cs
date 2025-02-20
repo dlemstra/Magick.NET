@@ -24,7 +24,7 @@ internal sealed class EightBimWriter
             stream.WriteByte((byte)'I');
             stream.WriteByte((byte)'M');
 
-            stream.WriteBytes(BitConverter.GetBytes(value.Id).Reverse().ToArray());
+            stream.WriteBytes(ByteConverter.FromShortReversed(value.Id));
 
             var length = 0;
             byte[]? bytes = null;
@@ -43,7 +43,7 @@ internal sealed class EightBimWriter
                 stream.WriteByte(0);
 
             bytes = value.ToByteArray();
-            stream.WriteBytes(BitConverter.GetBytes((uint)bytes.Length).Reverse().ToArray());
+            stream.WriteBytes(ByteConverter.FromUnsignedIntegerReversed((uint)bytes.Length));
             if (bytes.Length > 0)
                 stream.WriteBytes(bytes);
 
