@@ -27,11 +27,11 @@ public partial class PngReadDefinesTests
         public void ShouldLimitTheChunkSize()
         {
             using var image = new MagickImage();
-            var message = string.Empty;
+            var warning = string.Empty;
 
             image.Warning += (object? sender, WarningEventArgs e) =>
             {
-                message = e.Message;
+                warning = e.Message;
             };
 
             var settings = new MagickReadSettings
@@ -43,7 +43,7 @@ public partial class PngReadDefinesTests
             };
             image.Read(Files.SnakewarePNG, settings);
 
-            Assert.Contains("IHDR: chunk data is too large", message);
+            Assert.Contains("IHDR: chunk data is too large", warning);
         }
     }
 }
