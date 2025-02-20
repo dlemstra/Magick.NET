@@ -76,7 +76,11 @@ public partial class PdfReadDefinesTests
             }
             catch (MagickDelegateErrorException exception)
             {
+#if WINDOWS_BUILD
                 ExceptionAssert.Contains("This file requires a password for access.", exception);
+#else
+                ExceptionAssert.Contains("Error: Couldn't initialise file.", exception);
+#endif
                 return;
             }
 
