@@ -84,7 +84,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Ping(new ReadOnlySequence<byte>(bytes), settings));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]
@@ -158,7 +158,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Ping(new Span<byte>(bytes), settings));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]

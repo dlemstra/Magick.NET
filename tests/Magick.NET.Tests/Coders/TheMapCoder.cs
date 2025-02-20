@@ -42,7 +42,7 @@ public class TheMapCoder
         using var image = new MagickImage();
 
         var exception = Assert.Throws<MagickOptionErrorException>(() => image.Read(tempFile.File, settings));
-        Assert.Contains("must specify image size", exception.Message);
+        ExceptionAssert.Contains("must specify image size", exception);
     }
 
     [Fact]
@@ -58,7 +58,7 @@ public class TheMapCoder
         using var image = new MagickImage();
 
         var exception = Assert.Throws<MagickOptionErrorException>(() => image.Read(tempFile.File, settings));
-        Assert.Contains("must specify image depth", exception.Message);
+        ExceptionAssert.Contains("must specify image depth", exception);
     }
 
     [Fact]

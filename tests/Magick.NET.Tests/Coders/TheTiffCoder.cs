@@ -19,7 +19,7 @@ public partial class TheTiffCoder
 
         var exception = Assert.Throws<MagickCoderErrorException>(() => image.Read(Files.Coders.IgnoreTagTIF));
 
-        Assert.Contains(@$"Null count for ""Tag {_tag}""", exception.Message);
+        ExceptionAssert.Contains(@$"Null count for ""Tag {_tag}""", exception);
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public partial class TheTiffCoder
 
         var settings = new MagickReadSettings(new TiffReadDefines
         {
-            IgnoreTags = new string[] { _tag },
+            IgnoreTags = [_tag],
         });
 
         image.Settings.RemoveDefine(MagickFormat.Tiff, "ignore-tags");

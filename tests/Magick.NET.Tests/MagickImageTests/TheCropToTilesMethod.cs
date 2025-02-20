@@ -26,7 +26,7 @@ public partial class MagickImageTests
             using var image = new MagickImage();
 
             var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.CropToTiles(0, 1));
-            Assert.Contains("negative or zero image size", exception.Message);
+            ExceptionAssert.Contains("negative or zero image size", exception);
         }
 
         [Fact]
@@ -35,7 +35,7 @@ public partial class MagickImageTests
             using var image = new MagickImage();
 
             var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.CropToTiles(1, 0));
-            Assert.Contains("negative or zero image size", exception.Message);
+            ExceptionAssert.Contains("negative or zero image size", exception);
         }
 
         [Fact]

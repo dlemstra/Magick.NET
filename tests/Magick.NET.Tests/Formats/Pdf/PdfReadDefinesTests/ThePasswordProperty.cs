@@ -76,13 +76,7 @@ public partial class PdfReadDefinesTests
             }
             catch (MagickDelegateErrorException exception)
             {
-                var message = exception.Message;
-
-                var relatedException = exception.RelatedExceptions.FirstOrDefault();
-                if (relatedException is not null)
-                    message += relatedException.Message;
-
-                Assert.Contains("This file requires a password for access.", message);
+                ExceptionAssert.Contains("This file requires a password for access.", exception);
                 return;
             }
 

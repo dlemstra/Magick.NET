@@ -101,7 +101,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = await Assert.ThrowsAsync<FileNotFoundException>(() => image.ReadAsync("~"));
-                Assert.Contains("~", exception.Message);
+                ExceptionAssert.Contains("~", exception);
             }
         }
 
@@ -288,7 +288,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => image.ReadAsync(stream, MagickFormat.Png));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]
@@ -343,7 +343,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => image.ReadAsync(stream, settings));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]

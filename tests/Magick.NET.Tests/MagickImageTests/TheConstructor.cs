@@ -233,8 +233,8 @@ public partial class MagickImageTests
                 var exception = Assert.Throws<MagickBlobErrorException>(() => new MagickImage("~/test.gif"));
                 var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
-                Assert.Contains(baseDirectory, exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
+                ExceptionAssert.Contains(baseDirectory, exception);
             }
 
             [Fact]
@@ -242,7 +242,7 @@ public partial class MagickImageTests
             {
                 var exception = Assert.Throws<MagickMissingDelegateErrorException>(() => new MagickImage("~"));
 
-                Assert.Contains("error/constitute.c/ReadImage", exception.Message);
+                ExceptionAssert.Contains("error/constitute.c/ReadImage", exception);
             }
         }
 

@@ -159,7 +159,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
                 var exception = Assert.Throws<MagickBlobErrorException>(() => images.Add(Files.Missing));
 
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
             }
 
             [Fact]

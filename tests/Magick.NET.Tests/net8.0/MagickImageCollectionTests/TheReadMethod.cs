@@ -70,7 +70,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(new ReadOnlySequence<byte>(bytes), MagickFormat.Png));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
         }
 
@@ -96,7 +96,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(new ReadOnlySequence<byte>(bytes), settings));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]
@@ -152,7 +152,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(new Span<byte>(bytes), MagickFormat.Png));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
         }
 
@@ -178,7 +178,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(new Span<byte>(bytes), settings));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]

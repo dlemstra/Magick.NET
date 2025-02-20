@@ -205,7 +205,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(bytes, MagickFormat.Png));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
         }
 
@@ -240,7 +240,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(bytes, settings));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]
@@ -332,7 +332,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
 
                 var exception = Assert.Throws<MagickBlobErrorException>(() => images.Read(Files.Missing));
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
             }
 
             [Fact]
@@ -463,7 +463,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(stream, MagickFormat.Png));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
         }
 
@@ -510,7 +510,7 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(stream, settings));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
         }
     }

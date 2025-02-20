@@ -18,7 +18,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage(Files.MagickNETIconPNG);
                 var exception = Assert.Throws<MagickOptionErrorException>(() => { image.Frame(6, 6, 7, 7); });
 
-                Assert.Contains("frame is less than image size", exception.Message);
+                ExceptionAssert.Contains("frame is less than image size", exception);
             }
 
             [Fact]

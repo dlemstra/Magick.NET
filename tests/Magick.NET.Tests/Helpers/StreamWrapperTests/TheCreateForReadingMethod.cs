@@ -17,7 +17,7 @@ public partial class StreamWrapperTests
             using var stream = TestStream.ThatCannotRead();
 
             var exception = Assert.Throws<ArgumentException>("stream", () => StreamWrapper.CreateForReading(stream));
-            Assert.Contains("readable", exception.Message);
+            ExceptionAssert.Contains("readable", exception);
         }
 
         [Fact]

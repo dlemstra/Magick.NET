@@ -106,7 +106,7 @@ public partial class MagickImageTests
             using var destination = new MagickImage(MagickColors.Black, 50, 50);
 
             var exception = Assert.Throws<MagickOptionErrorException>(() => destination.CopyPixels(source, new MagickGeometry(51, 50), 0, 0));
-            Assert.Contains("geometry does not contain image", exception.Message);
+            ExceptionAssert.Contains("geometry does not contain image", exception);
         }
 
         [Fact]
@@ -117,7 +117,7 @@ public partial class MagickImageTests
 
             var exception = Assert.Throws<MagickOptionErrorException>(() => destination.CopyPixels(source, new MagickGeometry(50, 51), 0, 0));
 
-            Assert.Contains("geometry does not contain image", exception.Message);
+            ExceptionAssert.Contains("geometry does not contain image", exception);
         }
 
         [Fact]
@@ -128,7 +128,7 @@ public partial class MagickImageTests
 
             var exception = Assert.Throws<MagickOptionErrorException>(() => destination.CopyPixels(source, new MagickGeometry(50, 50), 1, 0));
 
-            Assert.Contains("geometry does not contain image", exception.Message);
+            ExceptionAssert.Contains("geometry does not contain image", exception);
         }
 
         [Fact]
@@ -139,7 +139,7 @@ public partial class MagickImageTests
 
             var exception = Assert.Throws<MagickOptionErrorException>(() => destination.CopyPixels(source, new MagickGeometry(50, 50), 0, 1));
 
-            Assert.Contains("geometry does not contain image", exception.Message);
+            ExceptionAssert.Contains("geometry does not contain image", exception);
         }
 
         [Fact]

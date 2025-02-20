@@ -74,12 +74,12 @@ public partial class PdfInfoTests
 
                 if (exception is MagickDelegateErrorException delegateErrorException)
                 {
-                    Assert.Single(exception.RelatedExceptions);
-                    Assert.Contains("Error: /syntaxerror in pdfopen", exception.RelatedExceptions.First().Message);
+                    Assert.Single(delegateErrorException.RelatedExceptions);
+                    ExceptionAssert.Contains("Error: /syntaxerror in pdfopen", delegateErrorException);
                 }
                 else
                 {
-                    Assert.Contains("Unable to determine the page count.", exception.Message);
+                    ExceptionAssert.Contains("Unable to determine the page count.", exception);
                 }
             }
         }

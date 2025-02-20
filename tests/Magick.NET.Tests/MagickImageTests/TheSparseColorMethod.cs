@@ -34,7 +34,7 @@ public partial class MagickImageTests
             var args = new[] { new SparseColorArg(0, 0, MagickColors.SkyBlue) };
 
             var exception = Assert.Throws<ArgumentException>("channels", () => image.SparseColor(Channels.Black, SparseColorMethod.Barycentric, args));
-            Assert.Contains("Invalid channels specified.", exception.Message);
+            ExceptionAssert.Contains("Invalid channels specified.", exception);
         }
 
         [Fact]

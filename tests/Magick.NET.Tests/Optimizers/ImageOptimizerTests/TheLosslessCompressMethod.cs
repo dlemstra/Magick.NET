@@ -38,7 +38,7 @@ public partial class ImageOptimizerTests
                 var optimizer = new ImageOptimizer();
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => optimizer.LosslessCompress(new FileInfo(Files.InvitationTIF)));
 
-                Assert.Contains("Invalid format", exception.Message);
+                ExceptionAssert.Contains("Invalid format", exception);
             }
 
             [Fact]
@@ -139,7 +139,7 @@ public partial class ImageOptimizerTests
                 var optimizer = new ImageOptimizer();
 
                 var exception = Assert.Throws<MagickBlobErrorException>(() => optimizer.LosslessCompress(Files.Missing));
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
             }
 
             [Fact]
@@ -148,7 +148,7 @@ public partial class ImageOptimizerTests
                 var optimizer = new ImageOptimizer();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => optimizer.Compress(Files.InvitationTIF));
-                Assert.Contains("Invalid format", exception.Message);
+                ExceptionAssert.Contains("Invalid format", exception);
             }
 
             [Fact]
@@ -269,7 +269,7 @@ public partial class ImageOptimizerTests
                 using var fileStream = OpenStream(Files.InvitationTIF);
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => optimizer.Compress(fileStream));
-                Assert.Contains("Invalid format", exception.Message);
+                ExceptionAssert.Contains("Invalid format", exception);
             }
 
             [Fact]

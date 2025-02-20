@@ -39,7 +39,7 @@ public partial class MagickReadSettingsTests
             };
 
             var exception = Assert.Throws<ArgumentException>("readSettings", () => new MagickImage(Files.RoseSparkleGIF, settings));
-            Assert.Contains("The frame count can only be set to 1 when a single image is being read.", exception.Message);
+            ExceptionAssert.Contains("The frame count can only be set to 1 when a single image is being read.", exception);
         }
     }
 }

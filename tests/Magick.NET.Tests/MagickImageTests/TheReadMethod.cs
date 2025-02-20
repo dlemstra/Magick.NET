@@ -204,7 +204,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(bytes, MagickFormat.Png));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]
@@ -257,7 +257,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(bytes, settings));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]
@@ -395,7 +395,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickBlobErrorException>(() => image.Read(Files.Missing));
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
             }
 
             [Fact]
@@ -404,7 +404,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickBlobErrorException>(() => image.Read("png:" + Files.Missing));
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
             }
 
             [Fact]
@@ -470,8 +470,8 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickBlobErrorException>(() => image.Read("~/test.gif"));
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
-                Assert.Contains(baseDirectory, exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
+                ExceptionAssert.Contains(baseDirectory, exception);
             }
 
             [Fact]
@@ -480,7 +480,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickMissingDelegateErrorException>(() => image.Read("~"));
-                Assert.Contains("error/constitute.c/ReadImage", exception.Message);
+                ExceptionAssert.Contains("error/constitute.c/ReadImage", exception);
             }
 
             [Fact]
@@ -728,7 +728,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(stream, MagickFormat.Png));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]
@@ -782,7 +782,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(stream, settings));
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
 
             [Fact]

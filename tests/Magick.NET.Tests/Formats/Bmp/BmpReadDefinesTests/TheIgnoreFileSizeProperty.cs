@@ -62,7 +62,7 @@ public partial class BmpReadDefinesTests
             image.Settings.SetDefines(defines);
 
             var exception = Assert.Throws<MagickCorruptImageErrorException>(() => image.Read(Files.Coders.InvalidCrcBMP));
-            Assert.Contains("length and filesize do not match", exception.Message);
+            ExceptionAssert.Contains("length and filesize do not match", exception);
         }
     }
 }

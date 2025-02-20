@@ -239,7 +239,7 @@ public partial class MagickImageCollectionTests
             {
                 var exception = Assert.Throws<MagickBlobErrorException>(() => new MagickImageCollection(Files.Missing));
 
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
             }
 
             [Fact]

@@ -40,7 +40,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("data", () => image.ReadPixels(Array.Empty<byte>(), settings));
-                Assert.Contains("Value cannot be empty.", exception.Message);
+                ExceptionAssert.Contains("Value cannot be empty.", exception);
             }
 
             [Fact]
@@ -62,7 +62,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(new byte[] { 215 }, settings));
-                Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
+                ExceptionAssert.Contains("Pixel storage mapping should be defined.", exception);
             }
 
             [Fact]
@@ -76,7 +76,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("settings", () => image.ReadPixels(new byte[] { 215 }, settings));
-                Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
+                ExceptionAssert.Contains("Pixel storage mapping should be defined.", exception);
             }
 
             [Fact]
@@ -90,7 +90,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("settings", () => image.ReadPixels(new byte[] { 215 }, settings));
-                Assert.Contains("Storage type should not be undefined.", exception.Message);
+                ExceptionAssert.Contains("Storage type should not be undefined.", exception);
             }
 
             [Fact]
@@ -153,7 +153,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("data", () => image.ReadPixels(Array.Empty<byte>(), 0, 0, settings));
-                Assert.Contains("Value cannot be empty.", exception.Message);
+                ExceptionAssert.Contains("Value cannot be empty.", exception);
             }
 
             [Fact]
@@ -171,7 +171,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("count", () => image.ReadPixels(new byte[] { 215 }, 0, 0, settings));
-                Assert.Contains("The number of bytes should be at least 1.", exception.Message);
+                ExceptionAssert.Contains("The number of bytes should be at least 1.", exception);
             }
 
             [Fact]
@@ -181,7 +181,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("offset", () => image.ReadPixels(new byte[] { 215 }, 1, 1, settings));
-                Assert.Contains("The offset should not exceed the length of the array.", exception.Message);
+                ExceptionAssert.Contains("The offset should not exceed the length of the array.", exception);
             }
 
             [Fact]
@@ -191,7 +191,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("count", () => image.ReadPixels(new byte[] { 215 }, settings));
-                Assert.Contains("The count is 1 but should be at least 3.", exception.Message);
+                ExceptionAssert.Contains("The count is 1 but should be at least 3.", exception);
             }
         }
 
@@ -429,7 +429,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(Files.CirclePNG, settings));
-                Assert.Contains("mapping", exception.Message);
+                ExceptionAssert.Contains("mapping", exception);
             }
 
             [Fact]
@@ -439,7 +439,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("settings", () => image.ReadPixels(Files.CirclePNG, settings));
-                Assert.Contains("mapping", exception.Message);
+                ExceptionAssert.Contains("mapping", exception);
             }
 
             [Fact]
@@ -450,7 +450,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(Files.CirclePNG, settings));
-                Assert.Contains("Width", exception.Message);
+                ExceptionAssert.Contains("Width", exception);
             }
 
             [Fact]
@@ -461,7 +461,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentNullException>("settings", () => image.ReadPixels(Files.CirclePNG, settings));
-                Assert.Contains("Height", exception.Message);
+                ExceptionAssert.Contains("Height", exception);
             }
 
             [Fact]

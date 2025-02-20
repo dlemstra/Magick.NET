@@ -98,7 +98,7 @@ public partial class MagickImageInfoTests
                     imageInfo.Read(Files.Missing);
                 });
 
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
             }
 
             [Fact]

@@ -61,7 +61,7 @@ public partial class MagickNETTests
                             MagickNET.Initialize(path);
                         });
 
-                        Assert.Contains("Unable to find file: " + Path.GetFullPath(fileName), exception.Message);
+                        ExceptionAssert.Contains("Unable to find file: " + Path.GetFullPath(fileName), exception);
                     }
                     finally
                     {
@@ -152,7 +152,7 @@ public partial class MagickNETTests
                     MagickNET.Initialize(ConfigurationFiles.Default, "invalid");
                 });
 
-                Assert.Contains("Unable to find directory", exception.Message);
+                ExceptionAssert.Contains("Unable to find directory", exception);
             }
 
             [Fact]

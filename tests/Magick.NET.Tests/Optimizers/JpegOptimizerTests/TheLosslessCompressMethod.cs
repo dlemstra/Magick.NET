@@ -93,7 +93,7 @@ public partial class JpegOptimizerTests
             public void ShouldThrowExceptionWhenFileNameIsInvalid()
             {
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => Optimizer.LosslessCompress(Files.Missing));
-                Assert.Contains("Input file read error", exception.Message);
+                ExceptionAssert.Contains("Input file read error", exception);
             }
         }
 

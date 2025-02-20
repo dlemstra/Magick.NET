@@ -17,7 +17,7 @@ public partial class StreamWrapperTests
             using var stream = TestStream.ThatCannotWrite();
 
             var exception = Assert.Throws<ArgumentException>("stream", () => StreamWrapper.CreateForWriting(stream));
-            Assert.Contains("writable", exception.Message);
+            ExceptionAssert.Contains("writable", exception);
         }
 
         [Fact]

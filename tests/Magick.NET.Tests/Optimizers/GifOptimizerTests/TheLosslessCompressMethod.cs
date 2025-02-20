@@ -55,7 +55,7 @@ public partial class GifOptimizerTests
             public void ShouldThrowExceptionWhenFileNameIsInvalid()
             {
                 var exception = Assert.Throws<MagickBlobErrorException>(() => Optimizer.LosslessCompress(Files.Missing));
-                Assert.Contains("error/blob.c/OpenBlob", exception.Message);
+                ExceptionAssert.Contains("error/blob.c/OpenBlob", exception);
             }
         }
 

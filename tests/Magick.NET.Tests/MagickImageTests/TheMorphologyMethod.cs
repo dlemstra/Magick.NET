@@ -40,7 +40,7 @@ public partial class MagickImageTests
             };
 
             var exception = Assert.Throws<MagickOptionErrorException>(() => image.Morphology(settings));
-            Assert.Contains("Unable to parse kernel.", exception.Message);
+            ExceptionAssert.Contains("Unable to parse kernel.", exception);
         }
 
         [Fact]

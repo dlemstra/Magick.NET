@@ -86,7 +86,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
-                Assert.Contains("mapping", exception.Message);
+                ExceptionAssert.Contains("mapping", exception);
             }
 
             [Fact]
@@ -97,7 +97,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = await Assert.ThrowsAsync<ArgumentException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
-                Assert.Contains("mapping", exception.Message);
+                ExceptionAssert.Contains("mapping", exception);
             }
 
             [Fact]
@@ -110,7 +110,7 @@ public partial class MagickImageTests
 
                 var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
 
-                Assert.Contains("Width", exception.Message);
+                ExceptionAssert.Contains("Width", exception);
             }
 
             [Fact]
@@ -122,7 +122,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = await Assert.ThrowsAsync<ArgumentNullException>("settings", () => image.ReadPixelsAsync(Files.CirclePNG, settings));
-                Assert.Contains("Height", exception.Message);
+                ExceptionAssert.Contains("Height", exception);
             }
 
             [Fact]

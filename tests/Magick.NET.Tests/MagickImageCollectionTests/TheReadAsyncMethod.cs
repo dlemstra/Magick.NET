@@ -223,7 +223,7 @@ public partial class MagickImageCollectionTests
 
                 var exception = await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => images.ReadAsync(stream, MagickFormat.Png));
 
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
         }
 
@@ -272,7 +272,7 @@ public partial class MagickImageCollectionTests
 
                 var exception = await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => images.ReadAsync(stream, settings));
 
-                Assert.Contains("ReadPNGImage", exception.Message);
+                ExceptionAssert.Contains("ReadPNGImage", exception);
             }
         }
     }

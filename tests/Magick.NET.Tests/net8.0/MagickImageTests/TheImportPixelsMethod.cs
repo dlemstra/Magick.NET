@@ -32,7 +32,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("data", () => image.ImportPixels(Span<byte>.Empty, settings));
-                Assert.Contains("Value cannot be empty.", exception.Message);
+                ExceptionAssert.Contains("Value cannot be empty.", exception);
             }
 
             [Fact]
@@ -50,7 +50,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentNullException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings));
-                Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
+                ExceptionAssert.Contains("Pixel storage mapping should be defined.", exception);
             }
 
             [Fact]
@@ -60,7 +60,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings));
-                Assert.Contains("Pixel storage mapping should be defined.", exception.Message);
+                ExceptionAssert.Contains("Pixel storage mapping should be defined.", exception);
             }
 
             [Fact]
@@ -70,7 +70,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("settings", () => image.ImportPixels(new Span<byte>(new byte[] { 215 }), settings));
-                Assert.Contains("Storage type should not be undefined.", exception.Message);
+                ExceptionAssert.Contains("Storage type should not be undefined.", exception);
             }
 
             [Fact]
@@ -81,7 +81,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 var exception = Assert.Throws<ArgumentException>("data", () => image.ImportPixels(new Span<byte>(new byte[] { 215, 215 }), settings));
-                Assert.Contains("The data length is 2 but should be at least 3.", exception.Message);
+                ExceptionAssert.Contains("The data length is 2 but should be at least 3.", exception);
             }
 
             [Fact]
