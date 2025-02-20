@@ -42,14 +42,14 @@ public partial class EightBimProfileTests
             var bytes = new List<byte>();
             foreach (var obj in objects)
             {
-                if (obj is byte)
-                    bytes.Add((byte)obj);
-                else if (obj is char)
-                    bytes.Add((byte)(char)obj);
-                else if (obj is short)
-                    bytes.AddRange(BitConverter.GetBytes((short)obj).Reverse());
-                else if (obj is int)
-                    bytes.AddRange(BitConverter.GetBytes((int)obj).Reverse());
+                if (obj is byte byteValue)
+                    bytes.Add(byteValue);
+                else if (obj is char charValue)
+                    bytes.Add((byte)charValue);
+                else if (obj is short shortValue)
+                    bytes.AddRange(Enumerable.Reverse(BitConverter.GetBytes(shortValue)));
+                else if (obj is int intValue)
+                    bytes.AddRange(Enumerable.Reverse(BitConverter.GetBytes(intValue)));
             }
 
             return bytes.ToArray();
