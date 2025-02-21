@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-44 beta (2025-02-08) ] copyright:
+[ ImageMagick 7.1.1-44 beta (2025-02-17) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -2162,7 +2162,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ffi 3.4.6 (2024-02-18) ] copyright:
+[ ffi 3.4.7 (2025-02-08) ] copyright:
 
 libffi - Copyright (c) 1996-2024  Anthony Green, Red Hat, Inc and others.
 See source files for details.
@@ -4682,7 +4682,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lcms 2.16.0 (2023-12-03) ] copyright:
+[ lcms 2.17.0 (2025-02-09) ] copyright:
 
 MIT License
 
