@@ -19,7 +19,7 @@ public partial class PngOptimizerTests
             public void ShouldCompressLossless()
             {
                 var result = AssertLosslessCompressSmaller(Files.SnakewarePNG);
-                Assert.Equal(8684, result);
+                Assert.Equal(8715, result);
             }
 
             [Fact]

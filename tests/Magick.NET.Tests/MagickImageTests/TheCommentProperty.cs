@@ -63,7 +63,7 @@ public partial class MagickImageTests
             Assert.Equal(comment, image.Comment);
 
             pngText = image.GetAttribute("png:text");
-            Assert.Equal("3 tEXt/zTXt/iTXt chunks were found", pngText);
+            Assert.Equal("4 tEXt/zTXt/iTXt chunks were found", pngText);
         }
     }
 }

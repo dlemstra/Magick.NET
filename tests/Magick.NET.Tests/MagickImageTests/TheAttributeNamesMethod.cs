@@ -21,8 +21,8 @@ public partial class MagickImageTests
             var names = image.AttributeNames;
             var allNames = string.Join(",", names);
 
-            Assert.Equal(6, names.Count());
-            Assert.Equal("date:create,date:modify,date:timestamp,foo,jpeg:colorspace,jpeg:sampling-factor", allNames);
+            Assert.Equal(7, names.Count());
+            Assert.Equal("date:create,date:modify,date:timestamp,foo,jpeg:colorspace,jpeg:sampling-factor,mime:type", allNames);
         }
     }
 }
