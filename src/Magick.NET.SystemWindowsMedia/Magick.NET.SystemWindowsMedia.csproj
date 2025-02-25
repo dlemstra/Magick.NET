@@ -4,8 +4,8 @@
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>8.0.0</AssemblyVersion>
-    <FileVersion>8.0.4</FileVersion>
-    <Version>8.0.4</Version>
+    <FileVersion>8.0.5</FileVersion>
+    <Version>8.0.5</Version>
     <Configurations>Debug;Test;Release</Configurations>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
