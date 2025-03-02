@@ -168,11 +168,11 @@ public partial class MagickImage
         public void Chop(IMagickGeometry geometry)
             => SetResult(NativeMagickImage.Chop(MagickRectangle.FromGeometry(geometry, (uint)NativeMagickImage.Width_Get(), (uint)NativeMagickImage.Height_Get())));
 
-        public void ChopHorizontal(int offset, uint width)
-             => Chop(new MagickGeometry(offset, 0, width, 0));
+        public void ChopHorizontal(int x, uint width)
+             => Chop(new MagickGeometry(x, 0, width, 0));
 
-        public void ChopVertical(int offset, uint height)
-            => Chop(new MagickGeometry(0, offset, 0, height));
+        public void ChopVertical(int y, uint height)
+            => Chop(new MagickGeometry(0, y, 0, height));
 
         public void Colorize(IMagickColor<QuantumType> color, Percentage alpha)
         {
