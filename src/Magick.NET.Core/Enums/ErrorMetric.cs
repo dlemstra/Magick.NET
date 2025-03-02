@@ -72,4 +72,14 @@ public enum ErrorMetric
     /// Structural dissimilarity.
     /// </summary>
     StructuralDissimilarity,
+
+    /// <summary>
+    /// Phase correlation.
+    /// </summary>
+    PhaseCorrelation,
+
+    /// <summary>
+    /// Dot product correlation.
+    /// </summary>
+    DotProductCorrelation,
 }
