@@ -1495,25 +1495,25 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Chop image (remove horizontal subregion of image).
     /// </summary>
-    /// <param name="offset">The X offset from origin.</param>
+    /// <param name="x">The X offset from origin.</param>
     /// <param name="width">The width of the part to chop horizontally.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void ChopHorizontal(int offset, uint width)
+    public void ChopHorizontal(int x, uint width)
     {
         using var mutator = new Mutator(_nativeInstance);
-        mutator.ChopHorizontal(offset, width);
+        mutator.ChopHorizontal(x, width);
     }
 
     /// <summary>
     /// Chop image (remove horizontal subregion of image).
     /// </summary>
-    /// <param name="offset">The Y offset from origin.</param>
+    /// <param name="y">The Y offset from origin.</param>
     /// <param name="height">The height of the part to chop vertically.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void ChopVertical(int offset, uint height)
+    public void ChopVertical(int y, uint height)
     {
         using var mutator = new Mutator(_nativeInstance);
-        mutator.ChopVertical(offset, height);
+        mutator.ChopVertical(y, height);
     }
 
     /// <summary>
