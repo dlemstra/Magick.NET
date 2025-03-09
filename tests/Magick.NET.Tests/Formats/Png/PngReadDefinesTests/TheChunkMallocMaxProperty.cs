@@ -43,7 +43,7 @@ public partial class PngReadDefinesTests
             };
             image.Read(Files.SnakewarePNG, settings);
 
-            Assert.Contains("IHDR: chunk data is too large", warning);
+            Assert.Contains("tEXt: out of memory", warning);
         }
     }
 }
