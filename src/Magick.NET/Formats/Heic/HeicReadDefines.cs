@@ -28,6 +28,41 @@ public sealed class HeicReadDefines : IReadDefines
         => MagickFormat.Heic;
 
     /// <summary>
+    /// Gets or sets the maximum bayer pattern size (heic:max-bayer-pattern-pixels).
+    /// </summary>
+    public uint? MaxBayerPatternPixels { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of children per box (heic:max-children-per-box).
+    /// </summary>
+    public uint? MaxChildrenPerBox { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of components (heic:max-components).
+    /// </summary>
+    public uint? MaxComponents { get; set; }
+
+    /// <summary>
+    /// Gets or sets themaximum number of extents in iloc box (heic:max-iloc-extents-per-item).
+    /// </summary>
+    public uint? MaxIlocExtentsPerItem { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of items in a box (heic:max-items).
+    /// </summary>
+    public uint? MaxItems { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of tiles (heic:max-number-of-tiles).
+    /// </summary>
+    public ulong? MaxNumberOfTiles { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum size of an entity group (heic:max-size-entity-group).
+    /// </summary>
+    public uint? MaxSizeEntityGroup { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the orientation should be preserved (heic:preserve-orientation).
     /// </summary>
     public bool? PreserveOrientation { get; set; }
@@ -45,6 +80,27 @@ public sealed class HeicReadDefines : IReadDefines
 
             if (DepthImage == true)
                 yield return new MagickDefine(Format, "depth-image", DepthImage.Value);
+
+            if (MaxBayerPatternPixels is not null)
+                yield return new MagickDefine(Format, "max-bayer-pattern-pixels", MaxBayerPatternPixels.Value);
+
+            if (MaxChildrenPerBox is not null)
+                yield return new MagickDefine(Format, "max-children-per-box", MaxChildrenPerBox.Value);
+
+            if (MaxComponents is not null)
+                yield return new MagickDefine(Format, "max-components", MaxComponents.Value);
+
+            if (MaxIlocExtentsPerItem is not null)
+                yield return new MagickDefine(Format, "max-iloc-extents-per-item", MaxIlocExtentsPerItem.Value);
+
+            if (MaxItems is not null)
+                yield return new MagickDefine(Format, "max-items", MaxItems.Value);
+
+            if (MaxNumberOfTiles is not null)
+                yield return new MagickDefine(Format, "max-number-of-tiles", MaxNumberOfTiles.Value);
+
+            if (MaxSizeEntityGroup is not null)
+                yield return new MagickDefine(Format, "max-size-entity-group", MaxSizeEntityGroup.Value);
 
             if (PreserveOrientation == true)
                 yield return new MagickDefine(Format, "preserve-orientation", PreserveOrientation.Value);

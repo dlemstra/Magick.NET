@@ -20,6 +20,13 @@ public partial class HeicReadDefinesTests
             Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "chroma-upsampling"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "depth-image"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "preserve-orientation"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-bayer-pattern-pixels"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-children-per-box"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-components"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-iloc-extents-per-item"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-items"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-number-of-tiles"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-size-entity-group"));
         }
     }
 }
