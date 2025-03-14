@@ -16,6 +16,6 @@
     <!-- After an upgrade of these libraries the nuspec file should also be updated -->
     <PackageVersion Include="Avalonia" Version="11.2.5" />
     <PackageVersion Include="Avalonia.Desktop" Version="11.2.5" />
-    <PackageVersion Include="System.Drawing.Common" Version="8.0.12" />
+    <PackageVersion Include="System.Drawing.Common" Version="8.0.14" />
   </ItemGroup>
 </Project>
