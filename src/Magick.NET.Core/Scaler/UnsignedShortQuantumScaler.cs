@@ -9,5 +9,5 @@ internal sealed class UnsignedShortQuantumScaler : IQuantumScaler<ushort>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public byte ScaleToByte(ushort value)
-        => (byte)((value + 128UL - ((value + 128UL) >> 8)) >> 8);
+        => (byte)((value + 128U - ((value + 128U) >> 8)) >> 8);
 }
