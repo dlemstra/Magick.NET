@@ -96,9 +96,11 @@ public sealed class ColorHSV : ColorBase
     /// </summary>
     protected override void UpdateColor()
     {
+        var quantum = QuantumScaler.Create<QuantumType>();
+
         if (Math.Abs(Saturation) < double.Epsilon)
         {
-            Color.R = Color.G = Color.B = Quantum.ScaleToQuantum(Value);
+            Color.R = Color.G = Color.B = quantum.ScaleFromDouble(Value);
             return;
         }
 
@@ -111,34 +113,34 @@ public sealed class ColorHSV : ColorBase
         {
             case 0:
             default:
-                Color.R = Quantum.ScaleToQuantum(Value);
-                Color.G = Quantum.ScaleToQuantum(t);
-                Color.B = Quantum.ScaleToQuantum(p);
+                Color.R = quantum.ScaleFromDouble(Value);
+                Color.G = quantum.ScaleFromDouble(t);
+                Color.B = quantum.ScaleFromDouble(p);
                 break;
             case 1:
-                Color.R = Quantum.ScaleToQuantum(q);
-                Color.G = Quantum.ScaleToQuantum(Value);
-                Color.B = Quantum.ScaleToQuantum(p);
+                Color.R = quantum.ScaleFromDouble(q);
+                Color.G = quantum.ScaleFromDouble(Value);
+                Color.B = quantum.ScaleFromDouble(p);
                 break;
             case 2:
-                Color.R = Quantum.ScaleToQuantum(p);
-                Color.G = Quantum.ScaleToQuantum(Value);
-                Color.B = Quantum.ScaleToQuantum(t);
+                Color.R = quantum.ScaleFromDouble(p);
+                Color.G = quantum.ScaleFromDouble(Value);
+                Color.B = quantum.ScaleFromDouble(t);
                 break;
             case 3:
-                Color.R = Quantum.ScaleToQuantum(p);
-                Color.G = Quantum.ScaleToQuantum(q);
-                Color.B = Quantum.ScaleToQuantum(Value);
+                Color.R = quantum.ScaleFromDouble(p);
+                Color.G = quantum.ScaleFromDouble(q);
+                Color.B = quantum.ScaleFromDouble(Value);
                 break;
             case 4:
-                Color.R = Quantum.ScaleToQuantum(t);
-                Color.G = Quantum.ScaleToQuantum(p);
-                Color.B = Quantum.ScaleToQuantum(Value);
+                Color.R = quantum.ScaleFromDouble(t);
+                Color.G = quantum.ScaleFromDouble(p);
+                Color.B = quantum.ScaleFromDouble(Value);
                 break;
             case 5:
-                Color.R = Quantum.ScaleToQuantum(Value);
-                Color.G = Quantum.ScaleToQuantum(p);
-                Color.B = Quantum.ScaleToQuantum(q);
+                Color.R = quantum.ScaleFromDouble(Value);
+                Color.G = quantum.ScaleFromDouble(p);
+                Color.B = quantum.ScaleFromDouble(q);
                 break;
         }
     }

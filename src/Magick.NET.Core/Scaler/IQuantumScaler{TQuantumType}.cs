@@ -24,6 +24,13 @@ public interface IQuantumScaler<TQuantumType>
     /// </summary>
     /// <param name="value">The value to scale.</param>
     /// <returns>The value scaled to a quantum type.</returns>
+    TQuantumType ScaleFromDouble(double value);
+
+    /// <summary>
+    /// Scales the specified value to a quantum type.
+    /// </summary>
+    /// <param name="value">The value to scale.</param>
+    /// <returns>The value scaled to a quantum type.</returns>
     TQuantumType ScaleFromUnsignedShort(ushort value);
 
     /// <summary>

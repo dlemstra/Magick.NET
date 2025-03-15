@@ -84,7 +84,8 @@ public sealed class ColorGray : ColorBase
     /// </summary>
     protected override void UpdateColor()
     {
-        var gray = Quantum.ScaleToQuantum(_shade);
+        var quantum = QuantumScaler.Create<QuantumType>();
+        var gray = quantum.ScaleFromDouble(_shade);
         Color.R = gray;
         Color.G = gray;
         Color.B = gray;
