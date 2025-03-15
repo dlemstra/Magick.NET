@@ -10,13 +10,15 @@ public partial class ByteQuantumScalerTests
 {
     public class TheScaleFromByteMethod
     {
-        [Fact]
-        public void ShouldScaleByteToByte()
+        [Theory]
+        [InlineData(byte.MinValue, byte.MinValue)]
+        [InlineData(byte.MaxValue, byte.MaxValue)]
+        public void ShouldScaleByteToByte(byte input, byte output)
         {
             var scaler = new ByteQuantumScaler();
-            var result = scaler.ScaleFromByte(255);
+            var result = scaler.ScaleFromByte(input);
 
-            Assert.Equal(255, result);
+            Assert.Equal(output, result);
         }
     }
 }
