@@ -408,10 +408,11 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     /// <param name="alpha">Alpha component value of this color.</param>
     public void SetFromBytes(byte red, byte green, byte blue, byte alpha)
     {
-        R = Quantum.Convert(red);
-        G = Quantum.Convert(green);
-        B = Quantum.Convert(blue);
-        A = Quantum.Convert(alpha);
+        var quantum = QuantumScalerFactory.Create<QuantumType>();
+        R = quantum.ScaleFromByte(red);
+        G = quantum.ScaleFromByte(green);
+        B = quantum.ScaleFromByte(blue);
+        A = quantum.ScaleFromByte(alpha);
         K = 0;
         IsCmyk = false;
     }

@@ -37,12 +37,13 @@ internal static class HexColor
         else
             return false;
 
+        var quantum = QuantumScalerFactory.Create<QuantumType>();
         for (var i = 1; i < value.Length; i += size)
         {
             if (!TryParseHex(value, i, size, out var channel))
                 return false;
 
-            channels.Add(Quantum.Convert((byte)channel));
+            channels.Add(quantum.ScaleFromByte((byte)channel));
         }
 
         return true;

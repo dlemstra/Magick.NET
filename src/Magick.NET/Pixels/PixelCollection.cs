@@ -83,7 +83,8 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     public virtual void SetByteArea(int x, int y, uint width, uint height, byte[] values)
     {
-        var castedValues = CastArray(values, Quantum.Convert);
+        var quantum = QuantumScalerFactory.Create<QuantumType>();
+        var castedValues = CastArray(values, quantum.ScaleFromByte);
         SetAreaUnchecked(x, y, width, height, castedValues);
     }
 
@@ -92,7 +93,8 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     public virtual void SetBytePixels(byte[] values)
     {
-        var castedValues = CastArray(values, Quantum.Convert);
+        var quantum = QuantumScalerFactory.Create<QuantumType>();
+        var castedValues = CastArray(values, quantum.ScaleFromByte);
         SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
     }
 

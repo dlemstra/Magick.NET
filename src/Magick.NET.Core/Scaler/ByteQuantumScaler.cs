@@ -8,6 +8,10 @@ namespace ImageMagick;
 internal sealed class ByteQuantumScaler : IQuantumScaler<byte>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public byte ScaleFromByte(byte value)
+        => value;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public byte ScaleToByte(byte value)
         => value;
 }

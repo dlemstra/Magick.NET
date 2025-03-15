@@ -48,15 +48,6 @@ public partial class Quantum : IQuantum<QuantumType>
     QuantumType IQuantum<QuantumType>.Max
         => Max;
 
-    internal static QuantumType Convert(byte value)
-    {
-#if Q16 || Q16HDRI
-        return (QuantumType)(257UL * value);
-#else
-        return value;
-#endif
-    }
-
     internal static QuantumType Convert(double value)
     {
         if (value < 0)

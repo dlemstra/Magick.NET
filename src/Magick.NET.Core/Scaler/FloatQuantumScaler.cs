@@ -8,6 +8,10 @@ namespace ImageMagick;
 internal sealed class FloatQuantumScaler : IQuantumScaler<float>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public float ScaleFromByte(byte value)
+        => 257.0f * value;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public byte ScaleToByte(float value)
     {
         if (float.IsNaN(value) || value <= 0.0f)
