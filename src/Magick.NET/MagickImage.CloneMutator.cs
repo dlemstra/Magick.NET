@@ -611,7 +611,7 @@ public partial class MagickImage
 
             var arguments = new List<double>();
 
-            var quantum = QuantumScalerFactory.Create<QuantumType>();
+            var quantum = QuantumScaler.Create<QuantumType>();
             foreach (var arg in args)
             {
                 arguments.Add(arg.X);

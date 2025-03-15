@@ -16,28 +16,28 @@ public partial class QuantumScalerFactoryTests
         {
             Assert.Throws<NotSupportedException>(() =>
             {
-                var factory = QuantumScalerFactory.Create<int>();
+                var factory = QuantumScaler.Create<int>();
             });
         }
 
         [Fact]
         public void ShouldReturnByteQuantumScalerWhenTypeIsByte()
         {
-            var factory = QuantumScalerFactory.Create<byte>();
+            var factory = QuantumScaler.Create<byte>();
             Assert.IsType<ByteQuantumScaler>(factory);
         }
 
         [Fact]
         public void ShouldReturnUnsignedShortQuantumScalerWhenTypeIsUShort()
         {
-            var factory = QuantumScalerFactory.Create<ushort>();
+            var factory = QuantumScaler.Create<ushort>();
             Assert.IsType<UnsignedShortQuantumScaler>(factory);
         }
 
         [Fact]
         public void ShouldReturnFloatQuantumScalerWhenTypeIsFloat()
         {
-            var factory = QuantumScalerFactory.Create<float>();
+            var factory = QuantumScaler.Create<float>();
             Assert.IsType<FloatQuantumScaler>(factory);
         }
     }

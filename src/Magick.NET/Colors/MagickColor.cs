@@ -408,7 +408,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     /// <param name="alpha">Alpha component value of this color.</param>
     public void SetFromBytes(byte red, byte green, byte blue, byte alpha)
     {
-        var quantum = QuantumScalerFactory.Create<QuantumType>();
+        var quantum = QuantumScaler.Create<QuantumType>();
         R = quantum.ScaleFromByte(red);
         G = quantum.ScaleFromByte(green);
         B = quantum.ScaleFromByte(blue);
@@ -423,7 +423,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     /// <returns>The <see cref="byte"/> array.</returns>
     public byte[] ToByteArray()
     {
-        var quantum = QuantumScalerFactory.Create<QuantumType>();
+        var quantum = QuantumScaler.Create<QuantumType>();
 
         if (IsCmyk)
             return [quantum.ScaleToByte(R), quantum.ScaleToByte(G), quantum.ScaleToByte(B), quantum.ScaleToByte(K), quantum.ScaleToByte(A)];
@@ -440,7 +440,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
         if (IsCmyk)
             throw new NotSupportedException("This method only works for non cmyk colors.");
 
-        var quantum = QuantumScalerFactory.Create<QuantumType>();
+        var quantum = QuantumScaler.Create<QuantumType>();
         var r = quantum.ScaleToByte(R);
         var g = quantum.ScaleToByte(G);
         var b = quantum.ScaleToByte(B);
@@ -462,7 +462,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
 
         if (IsCmyk)
         {
-            var quantum = QuantumScalerFactory.Create<QuantumType>();
+            var quantum = QuantumScaler.Create<QuantumType>();
             var r = quantum.ScaleToByte(R);
             var g = quantum.ScaleToByte(G);
             var b = quantum.ScaleToByte(B);
@@ -488,7 +488,7 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     {
         if (IsCmyk)
         {
-            var quantum = QuantumScalerFactory.Create<QuantumType>();
+            var quantum = QuantumScaler.Create<QuantumType>();
             var r = quantum.ScaleToByte(R);
             var g = quantum.ScaleToByte(G);
             var b = quantum.ScaleToByte(B);

@@ -7,9 +7,9 @@ using System.Runtime.CompilerServices;
 namespace ImageMagick;
 
 /// <summary>
-/// Factory for creating quantum scalers.
+/// Class for creating quantum scalers.
 /// </summary>
-public static class QuantumScalerFactory
+public static class QuantumScaler
 {
     /// <summary>
     /// Creates a quantum scaler for the specified quantum type.
