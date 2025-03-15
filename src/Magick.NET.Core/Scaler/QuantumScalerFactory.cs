@@ -17,7 +17,7 @@ public static class QuantumScalerFactory
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <returns>A new <see cref="IQuantumScaler{TQuantumType}"/> instance.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IQuantumScaler<TQuantumType> CreateScaler<TQuantumType>()
+    public static IQuantumScaler<TQuantumType> Create<TQuantumType>()
         where TQuantumType : struct, IConvertible
     {
         if (typeof(TQuantumType) == typeof(byte))
