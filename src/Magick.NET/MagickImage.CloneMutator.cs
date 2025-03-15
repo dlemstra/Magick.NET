@@ -611,18 +611,19 @@ public partial class MagickImage
 
             var arguments = new List<double>();
 
+            var quantum = QuantumScalerFactory.Create<QuantumType>();
             foreach (var arg in args)
             {
                 arguments.Add(arg.X);
                 arguments.Add(arg.Y);
                 if (hasRed)
-                    arguments.Add(Quantum.ScaleToDouble(arg.Color.R));
+                    arguments.Add(quantum.ScaleToDouble(arg.Color.R));
                 if (hasGreen)
-                    arguments.Add(Quantum.ScaleToDouble(arg.Color.G));
+                    arguments.Add(quantum.ScaleToDouble(arg.Color.G));
                 if (hasBlue)
-                    arguments.Add(Quantum.ScaleToDouble(arg.Color.B));
+                    arguments.Add(quantum.ScaleToDouble(arg.Color.B));
                 if (hasAlpha)
-                    arguments.Add(Quantum.ScaleToDouble(arg.Color.A));
+                    arguments.Add(quantum.ScaleToDouble(arg.Color.A));
             }
 
             Throw.IfTrue(arguments.Count == 0, nameof(args), "Value cannot be empty");

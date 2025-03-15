@@ -70,7 +70,4 @@ public partial class Quantum : IQuantum<QuantumType>
 
     internal static QuantumType ScaleToQuantum(double value)
         => (QuantumType)Math.Min(Math.Max(0, value * Max), Max);
-
-    internal static double ScaleToDouble(QuantumType value)
-        => (1.0 / Max) * value;
 }

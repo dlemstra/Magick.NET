@@ -35,12 +35,14 @@ public partial class ColorCMYKTests
             var color = new MagickColor(Quantum.Max, (QuantumType)(Quantum.Max * 0.75), (QuantumType)(Quantum.Max * 0.5), (QuantumType)(Quantum.Max * 0.25));
             var cmykColor = ColorCMYK.FromMagickColor(color);
 
+            var quantum = QuantumScalerFactory.Create<QuantumType>();
+
             Assert.NotNull(cmykColor);
-            Assert.InRange(Quantum.ScaleToDouble(cmykColor.C), 0.99, 1.0);
-            Assert.InRange(Quantum.ScaleToDouble(cmykColor.M), 0.74, 0.75);
-            Assert.InRange(Quantum.ScaleToDouble(cmykColor.Y), 0.49, 0.5);
-            Assert.InRange(Quantum.ScaleToDouble(cmykColor.K), 0.0, 0.01);
-            Assert.InRange(Quantum.ScaleToDouble(cmykColor.A), 0.24, 0.25);
+            Assert.InRange(quantum.ScaleToDouble(cmykColor.C), 0.99, 1.0);
+            Assert.InRange(quantum.ScaleToDouble(cmykColor.M), 0.74, 0.75);
+            Assert.InRange(quantum.ScaleToDouble(cmykColor.Y), 0.49, 0.5);
+            Assert.InRange(quantum.ScaleToDouble(cmykColor.K), 0.0, 0.01);
+            Assert.InRange(quantum.ScaleToDouble(cmykColor.A), 0.24, 0.25);
         }
     }
 }

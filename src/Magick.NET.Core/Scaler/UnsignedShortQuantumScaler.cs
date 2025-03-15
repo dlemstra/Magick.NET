@@ -18,4 +18,8 @@ internal sealed class UnsignedShortQuantumScaler : IQuantumScaler<ushort>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public byte ScaleToByte(ushort value)
         => (byte)((value + 128U - ((value + 128U) >> 8)) >> 8);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public double ScaleToDouble(ushort value)
+        => value / 65535.0;
 }

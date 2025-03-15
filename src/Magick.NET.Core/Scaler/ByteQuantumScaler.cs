@@ -18,4 +18,8 @@ internal sealed class ByteQuantumScaler : IQuantumScaler<byte>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public byte ScaleToByte(byte value)
         => value;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public double ScaleToDouble(byte value)
+        => value / 255.0;
 }

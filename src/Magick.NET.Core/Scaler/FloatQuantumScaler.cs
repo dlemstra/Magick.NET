@@ -27,4 +27,8 @@ internal sealed class FloatQuantumScaler : IQuantumScaler<float>
 
         return (byte)(scaledValue + 0.5f);
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public double ScaleToDouble(float value)
+        => value / 65535.0;
 }

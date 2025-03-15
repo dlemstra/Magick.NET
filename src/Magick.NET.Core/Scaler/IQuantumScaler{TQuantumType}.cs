@@ -32,4 +32,11 @@ public interface IQuantumScaler<TQuantumType>
     /// <param name="value">The value to scale.</param>
     /// <returns>The value scaled to a byte.</returns>
     byte ScaleToByte(TQuantumType value);
+
+    /// <summary>
+    /// Scales the specified value to a double (range is 0.0 to 1.0).
+    /// </summary>
+    /// <param name="value">The value to scale.</param>
+    /// <returns>The value scaled to a double.</returns>
+    double ScaleToDouble(TQuantumType value);
 }
