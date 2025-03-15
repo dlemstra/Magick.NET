@@ -48,7 +48,7 @@ public partial class Quantum : IQuantum<QuantumType>
     QuantumType IQuantum<QuantumType>.Max
         => Max;
 
-    internal static QuantumType Convert(double value)
+    internal static QuantumType ConvertFromDouble(double value)
     {
         if (value < 0)
             return 0;
@@ -58,7 +58,7 @@ public partial class Quantum : IQuantum<QuantumType>
         return (QuantumType)value;
     }
 
-    internal static QuantumType Convert(int value)
+    internal static QuantumType ConvertFromInteger(int value)
     {
         if (value < 0)
             return 0;
