@@ -20,6 +20,13 @@ public interface IQuantumScaler<TQuantumType>
     TQuantumType ScaleFromByte(byte value);
 
     /// <summary>
+    /// Scales the specified value to a quantum type.
+    /// </summary>
+    /// <param name="value">The value to scale.</param>
+    /// <returns>The value scaled to a quantum type.</returns>
+    TQuantumType ScaleFromUnsignedShort(ushort value);
+
+    /// <summary>
     /// Scales the specified value to a byte.
     /// </summary>
     /// <param name="value">The value to scale.</param>

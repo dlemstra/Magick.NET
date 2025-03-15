@@ -12,6 +12,10 @@ internal sealed class FloatQuantumScaler : IQuantumScaler<float>
         => 257.0f * value;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public float ScaleFromUnsignedShort(ushort value)
+        => value;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public byte ScaleToByte(float value)
     {
         if (float.IsNaN(value) || value <= 0.0f)

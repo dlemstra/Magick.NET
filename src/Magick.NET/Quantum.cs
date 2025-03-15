@@ -68,17 +68,6 @@ public partial class Quantum : IQuantum<QuantumType>
         return (QuantumType)value;
     }
 
-#if !Q16
-    internal static QuantumType Convert(ushort value)
-    {
-#if Q8
-        return (QuantumType)((value + 128U) / 257U);
-#elif Q16HDRI
-        return (QuantumType)value;
-#endif
-    }
-#endif
-
     internal static QuantumType ScaleToQuantum(double value)
         => (QuantumType)Math.Min(Math.Max(0, value * Max), Max);
 
