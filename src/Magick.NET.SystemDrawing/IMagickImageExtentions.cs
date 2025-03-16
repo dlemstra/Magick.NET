@@ -81,6 +81,50 @@ public static partial class IMagickImageExtentions
         where TQuantumType : struct, IConvertible
         => ToBitmap(self, imageFormat, withDensity: true);
 
+    private static void CopyPixels<TQuantumType>(IUnsafePixelCollection<TQuantumType> pixels, BitmapData data, IMagickImage<TQuantumType> image, string mapping)
+        where TQuantumType : struct, IConvertible
+    {
+        var destination = data.Scan0;
+        for (var y = 0; y < image.Height; y++)
+        {
+            var bytes = pixels.ToByteArray(0, y, image.Width, 1, mapping);
+            if (bytes is not null)
+                Marshal.Copy(bytes, 0, destination, bytes.Length);
+
+            destination += data.Stride;
+        }
+    }
+
+    private static unsafe void CopyPixelsOptimized<TQuantumType>(IUnsafePixelCollection<TQuantumType> pixels, BitmapData data, IMagickImage<TQuantumType> image, uint blueIndex, uint greenIndex, uint redIndex, int alphaIndex)
+        where TQuantumType : struct, IConvertible
+    {
+#pragma warning disable CS8500 // This takes the address of, gets the size of, or declares a pointer to a managed type
+        var source = (TQuantumType*)pixels.GetAreaPointer(0, 0, image.Width, image.Height);
+#pragma warning restore CS8500
+        var destination = (byte*)data.Scan0;
+        var increment = alphaIndex == -1 ? 3 : 4;
+
+        var quantum = QuantumScaler.Create<TQuantumType>();
+        for (var y = 0; y < image.Height; y++)
+        {
+            var startOfRow = destination;
+
+            for (var x = 0; x < image.Width; x++)
+            {
+                *destination = quantum.ScaleToByte(*(source + blueIndex));
+                *(destination + 1) = quantum.ScaleToByte(*(source + greenIndex));
+                *(destination + 2) = quantum.ScaleToByte(*(source + redIndex));
+                if (alphaIndex != -1)
+                    *(destination + 3) = quantum.ScaleToByte(*(source + alphaIndex));
+
+                source += pixels.Channels;
+                destination += increment;
+            }
+
+            destination = startOfRow + data.Stride;
+        }
+    }
+
     private static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, bool withDensity)
         where TQuantumType : struct, IConvertible
     {
@@ -89,6 +133,12 @@ public static partial class IMagickImageExtentions
         var image = self;
 
         var format = PixelFormat.Format24bppRgb;
+        var mapping = "BGR";
+        if (image.HasAlpha)
+        {
+            format = PixelFormat.Format32bppArgb;
+            mapping = "BGRA";
+        }
 
         try
         {
@@ -98,23 +148,33 @@ public static partial class IMagickImageExtentions
                 image.ColorSpace = ColorSpace.sRGB;
             }
 
-            if (image.HasAlpha)
-                format = PixelFormat.Format32bppArgb;
-
             using var pixels = image.GetPixelsUnsafe();
-            var mapping = GetMapping(format);
+            var blueIndex = pixels.GetChannelIndex(PixelChannel.Blue);
+            var greenIndex = pixels.GetChannelIndex(PixelChannel.Green);
+            var redIndex = pixels.GetChannelIndex(PixelChannel.Red);
+            var alphaIndex = pixels.GetChannelIndex(PixelChannel.Alpha);
 
             var bitmap = new Bitmap((int)image.Width, (int)image.Height, format);
-            for (var y = 0; y < image.Height; y++)
+            var data = bitmap.LockBits(new Rectangle(0, 0, (int)image.Width, (int)image.Height), ImageLockMode.WriteOnly, bitmap.PixelFormat);
+            try
             {
-                var row = new Rectangle(0, y, (int)image.Width, 1);
-                var data = bitmap.LockBits(row, ImageLockMode.WriteOnly, format);
-                var destination = data.Scan0;
-
-                var bytes = pixels.ToByteArray(0, y, image.Width, 1, mapping);
-                if (bytes is not null)
-                    Marshal.Copy(bytes, 0, destination, bytes.Length);
-
+                if (format == PixelFormat.Format32bppArgb)
+                {
+                    if (blueIndex is not null && greenIndex is not null && redIndex is not null && alphaIndex is not null)
+                        CopyPixelsOptimized(pixels, data, image, blueIndex.Value, greenIndex.Value, redIndex.Value, (int)alphaIndex.Value);
+                    else
+                        CopyPixels(pixels, data, image, mapping);
+                }
+                else
+                {
+                    if (blueIndex is not null && greenIndex is not null && redIndex is not null)
+                        CopyPixelsOptimized(pixels, data, image, blueIndex.Value, greenIndex.Value, redIndex.Value, -1);
+                    else
+                        CopyPixels(pixels, data, image, mapping);
+                }
+            }
+            finally
+            {
                 bitmap.UnlockBits(data);
             }
 
@@ -164,14 +224,6 @@ public static partial class IMagickImageExtentions
 
         return image.Density.ChangeUnits(DensityUnit.PixelsPerInch);
     }
-
-    private static string GetMapping(PixelFormat format)
-        => format switch
-        {
-            PixelFormat.Format24bppRgb => "BGR",
-            PixelFormat.Format32bppArgb => "BGRA",
-            _ => throw new NotImplementedException(format.ToString()),
-        };
 
     private static bool IsSupportedImageFormat(ImageFormat format)
         => format.Guid.Equals(ImageFormat.Bmp.Guid) ||
