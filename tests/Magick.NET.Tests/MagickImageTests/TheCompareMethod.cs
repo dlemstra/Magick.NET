@@ -154,5 +154,34 @@ public partial class MagickImageTests
             Assert.Equal(0, result);
             ColorAssert.Equal(new MagickColor("#fd2ff729f28b"), diff, 0, 0);
         }
+
+        [Theory]
+        [InlineData(ErrorMetric.Undefined, 0.0682)]
+        [InlineData(ErrorMetric.Absolute, 6462)]
+        [InlineData(ErrorMetric.Fuzz, 0.4726)]
+        [InlineData(ErrorMetric.MeanAbsolute, 0.2714)]
+#if Q8
+        [InlineData(ErrorMetric.MeanErrorPerPixel, 4536868.5411)]
+#else
+        [InlineData(ErrorMetric.MeanErrorPerPixel, 1165975215.0823)]
+#endif
+        [InlineData(ErrorMetric.MeanSquared, 0.2233)]
+        [InlineData(ErrorMetric.NormalizedCrossCorrelation, 0.0682)]
+        [InlineData(ErrorMetric.PeakAbsolute, 1)]
+        [InlineData(ErrorMetric.PeakSignalToNoiseRatio, 0.1441)]
+        [InlineData(ErrorMetric.PerceptualHash, 0)]
+        [InlineData(ErrorMetric.RootMeanSquared, 0.4726)]
+        [InlineData(ErrorMetric.StructuralSimilarity, 0.4220)]
+        [InlineData(ErrorMetric.StructuralDissimilarity, 0.2889)]
+        [InlineData(ErrorMetric.PhaseCorrelation, 0.0682)]
+        [InlineData(ErrorMetric.DotProductCorrelation, 0.0682)]
+        public void ShouldReturnTheCorrectValueForEachErrorMetric(ErrorMetric errorMetric, double expectedResult)
+        {
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            using var other = image.CloneAndMutate(image => image.Rotate(180));
+
+            var result = image.Compare(other, errorMetric);
+            Assert.InRange(result, expectedResult, expectedResult + 0.0001);
+        }
     }
 }
