@@ -1,11 +1,11 @@
 # Libraries
-Magick.Native [7139d8d407fae6df0454338034b59b8f83f0e402](https://github.com/dlemstra/Magick.Native/commit/7139d8d407fae6df0454338034b59b8f83f0e402) is build with the following libraries:
+Magick.Native [c290e8ffe579dfd2bea364a05318ad42e3e736a3](https://github.com/dlemstra/Magick.Native/commit/c290e8ffe579dfd2bea364a05318ad42e3e736a3) is build with the following libraries:
 
-- ImageMagick 7.1.1-45 (2025-03-09)
+- ImageMagick 7.1.1-46 (2025-03-18)
 - aom 3.12.0 (2025-02-07)
 - brotli 1.1.0 (2023-08-31)
 - bzlib 1.0.8 (2019-07-13)
-- cairo 1.18.2 (2024-09-01)
+- cairo 1.18.4 (2025-03-08)
 - croco 0.6.13 (2019-04-06)
 - de265 1.0.15 (2023-12-20)
 - deflate 1.23.0 (2024-12-15)

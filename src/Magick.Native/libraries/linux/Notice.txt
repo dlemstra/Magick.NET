@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-45 (2025-03-09) ] copyright:
+[ ImageMagick 7.1.1-46 (2025-03-18) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -228,7 +228,7 @@ bzip2/libbzip2 version 1.0.8 of 13 July 2019
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ cairo 1.18.2 (2024-09-01) ] copyright:
+[ cairo 1.18.4 (2025-03-08) ] copyright:
 
 
                   GNU LESSER GENERAL PUBLIC LICENSE
