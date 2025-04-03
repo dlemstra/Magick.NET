@@ -438,6 +438,12 @@ public partial class MagickImage
         public void OilPaint(double radius, double sigma)
             => SetResult(NativeMagickImage.OilPaint(radius, sigma));
 
+        public void Resample(double resolutionX, double resolutionY)
+            => SetResult(NativeMagickImage.Resample(resolutionX, resolutionY));
+
+        public void Resample(PointD density)
+            => Resample(density.X, density.Y);
+
         public void Resize(uint width, uint height)
             => Resize(new MagickGeometry(width, height));
 
@@ -447,12 +453,6 @@ public partial class MagickImage
 
             SetResult(NativeMagickImage.Resize(geometry.ToString()));
         }
-
-        public void Resample(double resolutionX, double resolutionY)
-            => SetResult(NativeMagickImage.Resample(resolutionX, resolutionY));
-
-        public void Resample(PointD density)
-            => Resample(density.X, density.Y);
 
         public void Resize(Percentage percentage)
             => Resize(new MagickGeometry(percentage, percentage));
