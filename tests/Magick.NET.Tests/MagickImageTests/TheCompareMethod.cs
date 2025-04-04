@@ -168,7 +168,7 @@ public partial class MagickImageTests
         [InlineData(ErrorMetric.MeanSquared, 0.2233)]
         [InlineData(ErrorMetric.NormalizedCrossCorrelation, 0.0682)]
         [InlineData(ErrorMetric.PeakAbsolute, 1)]
-        [InlineData(ErrorMetric.PeakSignalToNoiseRatio, -0.1351)]
+        [InlineData(ErrorMetric.PeakSignalToNoiseRatio, 0.2233)]
         [InlineData(ErrorMetric.PerceptualHash, 0)]
         [InlineData(ErrorMetric.RootMeanSquared, 0.4726)]
         [InlineData(ErrorMetric.StructuralSimilarity, 0.4220)]
