@@ -5399,12 +5399,37 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Resize image in terms of its pixel size.
     /// </summary>
+    /// <param name="resolutionX">The new X resolution.</param>
+    /// <param name="resolutionY">The new Y resolution.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Resample(double resolutionX, double resolutionY, FilterType filter)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Resample(resolutionX, resolutionY, filter);
+    }
+
+    /// <summary>
+    /// Resize image in terms of its pixel size.
+    /// </summary>
     /// <param name="density">The density to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Resample(PointD density)
     {
         using var mutator = new Mutator(_nativeInstance);
         mutator.Resample(density);
+    }
+
+    /// <summary>
+    /// Resize image in terms of its pixel size.
+    /// </summary>
+    /// <param name="density">The density to use.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Resample(PointD density, FilterType filter)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Resample(density, filter);
     }
 
     /// <summary>
@@ -5430,6 +5455,22 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
+    /// Resize image to specified size.
+    /// <para />
+    /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+    /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
+    /// </summary>
+    /// <param name="width">The new width.</param>
+    /// <param name="height">The new height.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Resize(uint width, uint height, FilterType filter)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Resize(width, height, filter);
+    }
+
+    /// <summary>
     /// Resize image to specified geometry.
     /// </summary>
     /// <param name="geometry">The geometry to use.</param>
@@ -5438,6 +5479,18 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         using var mutator = new Mutator(_nativeInstance);
         mutator.Resize(geometry);
+    }
+
+    /// <summary>
+    /// Resize image to specified geometry.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Resize(IMagickGeometry geometry, FilterType filter)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Resize(geometry, filter);
     }
 
     /// <summary>
@@ -5454,6 +5507,18 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Resize image to specified percentage.
     /// </summary>
+    /// <param name="percentage">The percentage.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Resize(Percentage percentage, FilterType filter)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Resize(percentage, filter);
+    }
+
+    /// <summary>
+    /// Resize image to specified percentage.
+    /// </summary>
     /// <param name="percentageWidth">The percentage of the width.</param>
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -5461,6 +5526,19 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         using var mutator = new Mutator(_nativeInstance);
         mutator.Resize(percentageWidth, percentageHeight);
+    }
+
+    /// <summary>
+    /// Resize image to specified percentage.
+    /// </summary>
+    /// <param name="percentageWidth">The percentage of the width.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Resize(Percentage percentageWidth, Percentage percentageHeight, FilterType filter)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Resize(percentageWidth, percentageHeight, filter);
     }
 
     /// <summary>
