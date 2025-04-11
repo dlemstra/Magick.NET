@@ -2,24 +2,50 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.Buffers;
 using System.IO;
+#if NETSTANDARD2_1_OR_GREATER
+using System.Buffers;
+#endif
 
 namespace ImageMagick;
 
-internal sealed unsafe class ByteArrayWrapper {
+internal sealed unsafe class ByteArrayWrapper
+{
+    #if NETSTANDARD2_1_OR_GREATER
+
     private static readonly ArrayPool<byte> _pool = ArrayPool<byte>.Create(1024 * 1024 * 64, 1024);
+
     private byte[] _bytes = _pool.Rent(1024 * 1024);
-    private int _length;
+
+    #else
+
+    private byte[] _bytes = new byte[8192];
+
+    #endif
     private int _offset;
+
+    private int _length;
+
+    #if NETSTANDARD2_1_OR_GREATER
 
     public byte[] GetBytes()
     {
-        var  result = new byte[_length];
+        var result = new byte[_length];
         Array.Copy(_bytes, result, Math.Min(_bytes.Length, _length));
         _pool.Return(_bytes, true);
         return result;
     }
+
+    #else
+
+    public byte[] GetBytes()
+    {
+        ResizeBytes(_length);
+
+        return _bytes;
+    }
+
+    #endif
 
     public long Read(IntPtr data, UIntPtr count, IntPtr user_data)
     {
@@ -28,18 +54,18 @@ internal sealed unsafe class ByteArrayWrapper {
             return 0;
         }
 
-        int total = (int) count;
+        var total = (int)count;
 
         if (total == 0)
         {
             return 0;
         }
 
-        int length = Math.Min(total, _length - _offset);
+        var length = Math.Min(total, _length - _offset);
 
         if (length != 0)
         {
-            byte* destination = (byte*) data.ToPointer();
+            var destination = (byte*)data.ToPointer();
 
             fixed (byte* source = _bytes)
             {
@@ -54,12 +80,12 @@ internal sealed unsafe class ByteArrayWrapper {
 
     public long Seek(long offset, IntPtr whence, IntPtr user_data)
     {
-        int newOffset = (int) ((SeekOrigin) whence switch
+        var newOffset = (int)((SeekOrigin)whence switch
                                   {
                                       SeekOrigin.Begin => offset,
                                       SeekOrigin.Current => _offset + offset,
                                       SeekOrigin.End => _length - offset,
-                                      _ => -1
+                                      _ => -1,
                                   });
 
         if (_offset == newOffset)
@@ -89,18 +115,18 @@ internal sealed unsafe class ByteArrayWrapper {
             return 0;
         }
 
-        int total = (int) count;
+        var total = (int)count;
 
         if (total == 0)
         {
             return 0;
         }
 
-        int newOffset = _offset + total;
+        var newOffset = _offset + total;
 
         EnsureLength(newOffset);
 
-        byte* source = (byte*) data.ToPointer();
+        var source = (byte*)data.ToPointer();
 
         fixed (byte* destination = _bytes)
         {
@@ -126,9 +152,11 @@ internal sealed unsafe class ByteArrayWrapper {
             return;
         }
 
-        int newLength = Math.Max(_bytes.Length * 2, _length);
+        var newLength = Math.Max(_bytes.Length * 2, _length);
         ResizeBytes(newLength);
     }
+
+    #if NETSTANDARD2_1_OR_GREATER
 
     private void ResizeBytes(int length)
     {
@@ -137,4 +165,13 @@ internal sealed unsafe class ByteArrayWrapper {
         _pool.Return(_bytes, true);
         _bytes = byte2;
     }
+
+    #else
+
+    private void ResizeBytes(int length)
+    {
+        Array.Resize(ref _bytes, length);
+    }
+
+    #endif
 }
