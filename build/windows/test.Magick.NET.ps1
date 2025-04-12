@@ -18,10 +18,7 @@ function runTests($quantumName, $platformName, $targetFramework, $project) {
     }
 
     $folder = fullPath "tests\$project.Tests\bin\Test$quantumName\$platform\$targetFramework"
-    $fileName = "$folder\$project.Tests.dll"
-
-    $vstest = "$($env:VSINSTALLDIR)\Common7\IDE\Extensions\TestPlatform\vstest.console.exe"
-    & $vstest $fileName /platform:$testPlatform /TestAdapterPath:$folder
+    & "$folder\$project.Tests.exe"
 
     CheckExitCode("Failed to test Magick.NET")
 }
