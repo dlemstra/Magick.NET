@@ -42,7 +42,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.Height = 100000U;
                 Assert.Equal(100000U, ResourceLimits.Height);
+
                 ResourceLimits.Height = height;
+                Assert.Equal(height, ResourceLimits.Height);
             });
         }
     }

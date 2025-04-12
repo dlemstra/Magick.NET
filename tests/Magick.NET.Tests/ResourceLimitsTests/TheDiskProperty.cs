@@ -29,7 +29,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.Disk = 40000U;
                 Assert.Equal(40000U, ResourceLimits.Disk);
+
                 ResourceLimits.Disk = disk;
+                Assert.Equal(disk, ResourceLimits.Disk);
             });
         }
     }

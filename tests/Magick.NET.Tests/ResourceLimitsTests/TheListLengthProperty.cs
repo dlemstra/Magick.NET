@@ -29,7 +29,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.ListLength = 32U;
                 Assert.Equal(32U, ResourceLimits.ListLength);
+
                 ResourceLimits.ListLength = listLength;
+                Assert.Equal(listLength, ResourceLimits.ListLength);
             });
         }
     }

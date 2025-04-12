@@ -29,7 +29,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.Time = 1U;
                 Assert.Equal(1U, ResourceLimits.Time);
+
                 ResourceLimits.Time = time;
+                Assert.Equal(time, ResourceLimits.Time);
             });
         }
     }

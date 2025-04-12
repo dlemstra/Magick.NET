@@ -60,7 +60,10 @@ public partial class ResourceLimitsTests
                 Assert.InRange(ResourceLimits.Memory, (memory * 2) - distance, (memory * 2) + distance);
 
                 ResourceLimits.Area = area;
+                Assert.Equal(area, ResourceLimits.Area);
+
                 ResourceLimits.Memory = memory;
+                Assert.Equal(memory, ResourceLimits.Memory);
             });
         }
 #endif

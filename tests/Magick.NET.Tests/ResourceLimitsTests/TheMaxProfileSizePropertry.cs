@@ -30,7 +30,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.MaxProfileSize = 42U;
                 Assert.Equal(42U, ResourceLimits.MaxProfileSize);
+
                 ResourceLimits.MaxProfileSize = maxProfileSize;
+                Assert.Equal(maxProfileSize, ResourceLimits.MaxProfileSize);
             });
         }
     }

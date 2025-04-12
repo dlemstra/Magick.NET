@@ -42,7 +42,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.Width = 200000U;
                 Assert.Equal(200000U, ResourceLimits.Width);
+
                 ResourceLimits.Width = width;
+                Assert.Equal(width, ResourceLimits.Width);
             });
         }
     }

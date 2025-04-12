@@ -32,7 +32,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.Memory = newMemory;
                 Assert.Equal(newMemory, ResourceLimits.Memory);
+
                 ResourceLimits.Memory = oldMemory;
+                Assert.Equal(oldMemory, ResourceLimits.Memory);
             });
         }
     }

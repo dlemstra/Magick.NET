@@ -32,7 +32,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.MaxMemoryRequest = newMemory;
                 Assert.Equal(newMemory, ResourceLimits.MaxMemoryRequest);
+
                 ResourceLimits.MaxMemoryRequest = oldMemory;
+                Assert.Equal(oldMemory, ResourceLimits.MaxMemoryRequest);
             });
         }
     }

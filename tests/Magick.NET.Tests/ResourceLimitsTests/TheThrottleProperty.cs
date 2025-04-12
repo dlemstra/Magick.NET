@@ -29,7 +29,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.Throttle = 1U;
                 Assert.Equal(1U, ResourceLimits.Throttle);
+
                 ResourceLimits.Throttle = throttle;
+                Assert.Equal(throttle, ResourceLimits.Throttle);
             });
         }
     }

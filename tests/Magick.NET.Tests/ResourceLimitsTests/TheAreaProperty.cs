@@ -31,7 +31,9 @@ public partial class ResourceLimitsTests
 
                 ResourceLimits.Area = 10000000U;
                 Assert.Equal(10000000U, ResourceLimits.Area);
+
                 ResourceLimits.Area = area;
+                Assert.Equal(area, ResourceLimits.Area);
             });
         }
     }

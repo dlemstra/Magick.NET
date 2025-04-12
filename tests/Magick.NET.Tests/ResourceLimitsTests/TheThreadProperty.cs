@@ -31,12 +31,16 @@ public partial class ResourceLimitsTests
                 var thread = ResourceLimits.Thread;
 
                 Assert.NotEqual(1U, ResourceLimits.Thread);
+
                 ResourceLimits.Thread = 1U;
                 Assert.Equal(1U, ResourceLimits.Thread);
+
                 ResourceLimits.Thread = thread;
+                Assert.Equal(thread, ResourceLimits.Thread);
 #else
                 Assert.Equal(1U, ResourceLimits.Thread);
                 ResourceLimits.Thread = 2U;
+
                 Assert.Equal(1U, ResourceLimits.Thread);
 #endif
             });
