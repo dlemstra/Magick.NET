@@ -6,6 +6,7 @@ using System.IO;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
@@ -56,7 +57,7 @@ public partial class PdfInfoTests
             public void ShouldThrowExceptionWhenFileIsPng()
             {
                 if (!Ghostscript.IsAvailable)
-                    return;
+                    throw SkipException.ForSkip("Ghostscript is not available");
 
                 MagickErrorException? exception = null;
 

@@ -4,6 +4,7 @@
 using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
@@ -13,7 +14,7 @@ public partial class ThePdfCoder
     public async Task ShouldReadFileMultithreadedCorrectly()
     {
         if (!Ghostscript.IsAvailable)
-            return;
+            throw SkipException.ForSkip("Ghostscript is not available");
 
         var results = new Task[3];
 
@@ -40,7 +41,7 @@ public partial class ThePdfCoder
     public void ShouldReturnTheCorrectFormatForAiFile()
     {
         if (!Ghostscript.IsAvailable)
-            return;
+            throw SkipException.ForSkip("Ghostscript is not available");
 
         using var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI);
 

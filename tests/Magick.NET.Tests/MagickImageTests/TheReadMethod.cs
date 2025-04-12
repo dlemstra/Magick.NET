@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using ImageMagick;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
@@ -487,7 +488,7 @@ public partial class MagickImageTests
             public void ShouldReadAIFromNonSeekableStream()
             {
                 if (!Ghostscript.IsAvailable)
-                    return;
+                    throw SkipException.ForSkip("Ghostscript is not available");
 
                 using var stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI);
                 using var image = new MagickImage();
