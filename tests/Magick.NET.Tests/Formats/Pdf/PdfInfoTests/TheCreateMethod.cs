@@ -56,8 +56,7 @@ public partial class PdfInfoTests
             [Fact]
             public void ShouldThrowExceptionWhenFileIsPng()
             {
-                if (!Ghostscript.IsAvailable)
-                    throw SkipException.ForSkip("Ghostscript is not available");
+                Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
                 MagickErrorException? exception = null;
 

@@ -12,8 +12,7 @@ public partial class TheEpsCoder
     [Fact]
     public void ShouldReadTwoImages()
     {
-        if (!Ghostscript.IsAvailable)
-            throw SkipException.ForSkip("Ghostscript is not available");
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         using var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS);
 
@@ -31,8 +30,7 @@ public partial class TheEpsCoder
     [Fact]
     public void ShouldReadMonoChromeImageWhenUseMonochromeIsTrue()
     {
-        if (!Ghostscript.IsAvailable)
-            throw SkipException.ForSkip("Ghostscript is not available");
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         var settings = new MagickReadSettings
         {
@@ -52,8 +50,7 @@ public partial class TheEpsCoder
     [Fact]
     public void ShouldReadClipPathsInTiffPreview()
     {
-        if (!Ghostscript.IsAvailable)
-            throw SkipException.ForSkip("Ghostscript is not available");
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         using var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS);
 

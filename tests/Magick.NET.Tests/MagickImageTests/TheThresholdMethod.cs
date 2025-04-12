@@ -51,8 +51,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionOn32BitPlatformWhenChannelIsTooHigh()
         {
-            if (Runtime.Is64Bit)
-                throw SkipException.ForSkip("Runtime is not 32 bit");
+            Assert.SkipWhen(Runtime.Is64Bit, "Runtime is not 32 bit");
 
             using var image = new MagickImage(Files.ImageMagickJPG);
 

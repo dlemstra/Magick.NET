@@ -13,8 +13,7 @@ public partial class ThePdfCoder
     [Fact]
     public async Task ShouldReadFileMultithreadedCorrectly()
     {
-        if (!Ghostscript.IsAvailable)
-            throw SkipException.ForSkip("Ghostscript is not available");
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         var results = new Task[3];
 
@@ -42,8 +41,7 @@ public partial class ThePdfCoder
     [Fact]
     public void ShouldReturnTheCorrectFormatForAiFile()
     {
-        if (!Ghostscript.IsAvailable)
-            throw SkipException.ForSkip("Ghostscript is not available");
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         using var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI);
 

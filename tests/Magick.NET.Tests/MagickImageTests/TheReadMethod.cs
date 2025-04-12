@@ -487,8 +487,7 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldReadAIFromNonSeekableStream()
             {
-                if (!Ghostscript.IsAvailable)
-                    throw SkipException.ForSkip("Ghostscript is not available");
+                Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
                 using var stream = new NonSeekableStream(Files.Coders.CartoonNetworkStudiosLogoAI);
                 using var image = new MagickImage();

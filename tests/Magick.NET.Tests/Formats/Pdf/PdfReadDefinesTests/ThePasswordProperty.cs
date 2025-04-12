@@ -40,8 +40,7 @@ public partial class PdfReadDefinesTests
         [Fact]
         public void ShouldUseThePasswordToReadTheImage()
         {
-            if (!Ghostscript.IsAvailable)
-                throw SkipException.ForSkip("Ghostscript is not available");
+            Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
             var settings = new MagickReadSettings
             {
@@ -61,8 +60,7 @@ public partial class PdfReadDefinesTests
         [Fact]
         public void ShouldNotBeAbleToOpenFileWithNullPassword()
         {
-            if (!Ghostscript.IsAvailable)
-                throw SkipException.ForSkip("Ghostscript is not available");
+            Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
             var settings = new MagickReadSettings
             {

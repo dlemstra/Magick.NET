@@ -14,8 +14,7 @@ public partial class PdfInfoTests
         [Fact]
         public void ShouldReturnTheNumberOfPages()
         {
-            if (!Ghostscript.IsAvailable)
-                throw SkipException.ForSkip("Ghostscript is not available");
+            Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
             var pdfInfo = PdfInfo.Create(Files.Coders.SamplePDF);
             Assert.Equal(2U, pdfInfo.PageCount);
@@ -24,8 +23,7 @@ public partial class PdfInfoTests
         [Fact]
         public void ShouldReturnTheNumberOfPagesForPasswordProtectedFile()
         {
-            if (!Ghostscript.IsAvailable)
-                throw SkipException.ForSkip("Ghostscript is not available");
+            Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
             var pdfInfo = PdfInfo.Create(Files.Coders.PdfExamplePasswordOriginalPDF, "test");
             Assert.Equal(4U, pdfInfo.PageCount);
