@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0;net472</TargetFrameworks>
+    <OutputType>Exe</OutputType>
     <Platforms>AnyCPU</Platforms>
     <Configurations>Debug;Test</Configurations>
   </PropertyGroup>
