@@ -9,7 +9,6 @@ namespace Magick.NET.Tests;
 
 public partial class MagickImageTests
 {
-    [Collection(nameof(RunTestsSeparately))]
     public class TheOrderedDitherMethod
     {
         [Fact]

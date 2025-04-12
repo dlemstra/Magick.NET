@@ -8,23 +8,29 @@ namespace Magick.NET.Tests;
 
 public partial class ResourceLimitsTests
 {
-    [Collection(nameof(RunTestsSeparately))]
+    [Collection(nameof(IsolatedUnitTest))]
     public class TheThrottleProperty
     {
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            Assert.Equal(0U, ResourceLimits.Throttle);
+            IsolatedUnitTest.Execute(() =>
+            {
+                Assert.Equal(0U, ResourceLimits.Throttle);
+            });
         }
 
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            var throttle = ResourceLimits.Throttle;
+            IsolatedUnitTest.Execute(() =>
+            {
+                var throttle = ResourceLimits.Throttle;
 
-            ResourceLimits.Throttle = 1U;
-            Assert.Equal(1U, ResourceLimits.Throttle);
-            ResourceLimits.Throttle = throttle;
+                ResourceLimits.Throttle = 1U;
+                Assert.Equal(1U, ResourceLimits.Throttle);
+                ResourceLimits.Throttle = throttle;
+            });
         }
     }
 }

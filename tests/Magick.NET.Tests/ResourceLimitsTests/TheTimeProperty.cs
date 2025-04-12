@@ -8,23 +8,29 @@ namespace Magick.NET.Tests;
 
 public partial class ResourceLimitsTests
 {
-    [Collection(nameof(RunTestsSeparately))]
+    [Collection(nameof(IsolatedUnitTest))]
     public class TheTimeProperty
     {
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            Assert.Equal(0U, ResourceLimits.Time);
+            IsolatedUnitTest.Execute(() =>
+            {
+                Assert.Equal(0U, ResourceLimits.Time);
+            });
         }
 
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            var time = ResourceLimits.Time;
+            IsolatedUnitTest.Execute(() =>
+            {
+                var time = ResourceLimits.Time;
 
-            ResourceLimits.Time = 1U;
-            Assert.Equal(1U, ResourceLimits.Time);
-            ResourceLimits.Time = time;
+                ResourceLimits.Time = 1U;
+                Assert.Equal(1U, ResourceLimits.Time);
+                ResourceLimits.Time = time;
+            });
         }
     }
 }

@@ -8,24 +8,30 @@ namespace Magick.NET.Tests;
 
 public partial class ResourceLimitsTests
 {
-    [Collection(nameof(RunTestsSeparately))]
+    [Collection(nameof(IsolatedUnitTest))]
     public class TheMaxProfileSizePropertry
     {
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            var maxProfileSize = Runtime.Is64Bit ? (ulong)long.MaxValue : int.MaxValue;
-            Assert.Equal(maxProfileSize, ResourceLimits.MaxProfileSize);
+            IsolatedUnitTest.Execute(() =>
+            {
+                var maxProfileSize = Runtime.Is64Bit ? (ulong)long.MaxValue : int.MaxValue;
+                Assert.Equal(maxProfileSize, ResourceLimits.MaxProfileSize);
+            });
         }
 
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            var maxProfileSize = ResourceLimits.MaxProfileSize;
+            IsolatedUnitTest.Execute(() =>
+            {
+                var maxProfileSize = ResourceLimits.MaxProfileSize;
 
-            ResourceLimits.MaxProfileSize = 42U;
-            Assert.Equal(42U, ResourceLimits.MaxProfileSize);
-            ResourceLimits.MaxProfileSize = maxProfileSize;
+                ResourceLimits.MaxProfileSize = 42U;
+                Assert.Equal(42U, ResourceLimits.MaxProfileSize);
+                ResourceLimits.MaxProfileSize = maxProfileSize;
+            });
         }
     }
 }
