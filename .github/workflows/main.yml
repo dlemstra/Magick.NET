@@ -166,6 +166,7 @@ jobs:
       packages: read
 
     strategy:
+      fail-fast: false
       matrix:
         quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
         platformName: [x86, x64, arm64, Any CPU]
@@ -257,6 +258,7 @@ jobs:
       packages: read
 
     strategy:
+      fail-fast: false
       matrix:
         libraryName: [Core, AvaloniaMediaImaging, SystemDrawing, SystemWindowsMedia]
 
