@@ -20,16 +20,18 @@ public partial class ThePdfCoder
 
         for (var i = 0; i < results.Length; ++i)
         {
-            results[i] = Task.Run(() =>
-            {
-                using var image = new MagickImage();
-                image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+            results[i] = Task.Run(
+                () =>
+                {
+                    using var image = new MagickImage();
+                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
 
-                Assert.Equal(765U, image.Width);
-                Assert.Equal(361U, image.Height);
-                Assert.Equal(MagickFormat.Ai, image.Format);
-            });
-        }
+                    Assert.Equal(765U, image.Width);
+                    Assert.Equal(361U, image.Height);
+                    Assert.Equal(MagickFormat.Ai, image.Format);
+                },
+                TestContext.Current.CancellationToken);
+            }
 
         for (var i = 0; i < results.Length; ++i)
         {
