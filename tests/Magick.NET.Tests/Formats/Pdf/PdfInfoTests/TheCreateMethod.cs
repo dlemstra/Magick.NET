@@ -3,7 +3,6 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
