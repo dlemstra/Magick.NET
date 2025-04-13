@@ -13,6 +13,9 @@ testMagickNET() {
     ./tests/Magick.NET.Tests/bin/$config/AnyCPU/net8.0/Magick.NET.Tests
 }
 
+export FONTCONFIG_PATH=/etc/fonts
+export FONTCONFIG_FILE=/etc/fonts/fonts.conf
+
 testMagickNET "Q8"
 testMagickNET "Q16"
 testMagickNET "Q16-HDRI"
