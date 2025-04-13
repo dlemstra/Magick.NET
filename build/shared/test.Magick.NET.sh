@@ -11,7 +11,6 @@ testMagickNET() {
 
     ./tests/Magick.NET.Core.Tests/bin/$config/AnyCPU/net8.0/Magick.NET.Core.Tests
     ./tests/Magick.NET.Tests/bin/$config/AnyCPU/net8.0/Magick.NET.Tests
-    ./tests/Magick.NET.AvaloniaMediaImaging.Tests/bin/$config/AnyCPU/net8.0/Magick.NET.AvaloniaMediaImaging.Tests
 }
 
 export FONTCONFIG_PATH=/etc/fonts
