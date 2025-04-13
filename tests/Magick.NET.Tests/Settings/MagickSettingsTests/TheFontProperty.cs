@@ -21,6 +21,8 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldSetTheFontWhenReadingImage()
         {
+            Assert.SkipWhen(TestRuntime.HasFlakyMacOSArm64Result, "Flaky result on MacOS arm64.");
+
             using var image = new MagickImage();
 
             Assert.Null(image.Settings.Font);
