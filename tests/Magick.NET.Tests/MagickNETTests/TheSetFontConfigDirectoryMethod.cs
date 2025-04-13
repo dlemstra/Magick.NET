@@ -14,19 +14,13 @@ public partial class MagickNETTests
         [Fact]
         public void ShouldThrowExceptionWhenPathIsNull()
         {
-            Assert.Throws<ArgumentNullException>("path", () =>
-            {
-                MagickNET.SetFontConfigDirectory(null!);
-            });
+            Assert.Throws<ArgumentNullException>("path", () => MagickNET.SetFontConfigDirectory(null!));
         }
 
         [Fact]
         public void ShouldThrowExceptionWhenPathIsInvalid()
         {
-            Assert.Throws<ArgumentException>("path", () =>
-            {
-                MagickNET.SetFontConfigDirectory("Invalid");
-            });
+            Assert.Throws<ArgumentException>("path", () => MagickNET.SetFontConfigDirectory("Invalid"));
         }
     }
 }
