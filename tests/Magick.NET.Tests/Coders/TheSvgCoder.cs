@@ -88,13 +88,11 @@ public class TheSvgCoder
     [Fact]
     public void ShouldReadFontsWithQuotes()
     {
-        Assert.SkipWhen(TestRuntime.HasFlakyMacOSResult, "Flaky result on MacOS.");
-
         var svg = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <svg version=""1.1"" xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" viewBox=""0 0 220 80"">
 <style type=""text/css"">
   .st0{font-family:'Arial';font-size:40}
-  .st1{font-family:""Times New Roman"";font-size:40}
+  .st1{font-family:""Arial"";font-size:40}
 </style>
 <g id=""changable-text"">
   <text transform=""matrix(1 0 0 1 1 35)"" class=""st0"">FONT TEST</text>
@@ -107,13 +105,15 @@ public class TheSvgCoder
         Assert.Equal(220U, image.Width);
         Assert.Equal(80U, image.Height);
 
-        ColorAssert.Equal(MagickColors.White, image, 118, 6);
-        ColorAssert.Equal(MagickColors.Black, image, 120, 6);
-        ColorAssert.Equal(MagickColors.Black, image, 141, 6);
-        ColorAssert.Equal(MagickColors.White, image, 145, 6);
-        ColorAssert.Equal(MagickColors.White, image, 114, 43);
-        ColorAssert.Equal(MagickColors.Black, image, 116, 43);
-        ColorAssert.Equal(MagickColors.Black, image, 135, 43);
+        ColorAssert.Equal(MagickColors.White, image, 118, 7);
+        ColorAssert.Equal(MagickColors.Black, image, 120, 7);
+        ColorAssert.Equal(MagickColors.Black, image, 141, 7);
+        ColorAssert.Equal(MagickColors.White, image, 145, 7);
+
+        ColorAssert.Equal(MagickColors.White, image, 118, 42);
+        ColorAssert.Equal(MagickColors.Black, image, 120, 42);
+        ColorAssert.Equal(MagickColors.Black, image, 141, 42);
+        ColorAssert.Equal(MagickColors.White, image, 145, 42);
     }
 
     [Fact]
