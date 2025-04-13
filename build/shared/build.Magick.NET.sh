@@ -11,6 +11,7 @@ buildMagickNET() {
 
     dotnet build tests/Magick.NET.Core.Tests/Magick.NET.Core.Tests.csproj -f net8.0 -c $config
     dotnet build tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f net8.0 -c $config
+    dotnet build tests/Magick.NET.AvaloniaMediaImaging.Tests.csproj -f net8.0 -c $config
 }
 
 buildMagickNET "Q8"
