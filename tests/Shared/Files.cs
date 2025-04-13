@@ -98,6 +98,7 @@ public static class Files
             @"../../../../",
             @"../../../../../Magick.NET.Tests/", // Other tests projects
             @"../../tests/Magick.NET.Tests/", // Build pipeline from build\windows folder
+            @"tests/Magick.NET.Tests/", // Build pipeline from root
         };
 
         foreach (var path in paths)
