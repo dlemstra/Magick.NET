@@ -21,8 +21,7 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldSetTheFontWhenReadingImage()
         {
-            if (TestRuntime.HasFlakyMacOSResult)
-                return;
+            Assert.SkipWhen(TestRuntime.HasFlakyMacOSResult, "Flaky result on MacOS.");
 
             using var image = new MagickImage();
 

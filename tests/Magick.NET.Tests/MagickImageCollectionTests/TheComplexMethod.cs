@@ -31,8 +31,7 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldApplyTheOperatorToTheImages()
         {
-            if (TestRuntime.HasFlakyLinuxArm64Result)
-                return;
+            Assert.SkipWhen(TestRuntime.HasFlakyLinuxArm64Result, "Flaky result on Linux arm64.");
 
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);
