@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Runtime.InteropServices;
 using ImageMagick;
 using Xunit;
 
@@ -31,7 +32,7 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldApplyTheOperatorToTheImages()
         {
-            Assert.SkipWhen(TestRuntime.HasFlakyLinuxArm64Result, "Flaky result on Linux arm64.");
+            Assert.SkipWhen(Runtime.Architecture == Architecture.Arm64, "Flaky result on Linux and Windows arm64.");
 
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);
