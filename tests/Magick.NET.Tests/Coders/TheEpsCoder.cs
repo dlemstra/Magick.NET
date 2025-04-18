@@ -3,6 +3,7 @@
 
 using ImageMagick;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
@@ -11,8 +12,7 @@ public partial class TheEpsCoder
     [Fact]
     public void ShouldReadTwoImages()
     {
-        if (!Ghostscript.IsAvailable)
-            return;
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         using var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS);
 
@@ -30,8 +30,7 @@ public partial class TheEpsCoder
     [Fact]
     public void ShouldReadMonoChromeImageWhenUseMonochromeIsTrue()
     {
-        if (!Ghostscript.IsAvailable)
-            return;
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         var settings = new MagickReadSettings
         {
@@ -51,8 +50,7 @@ public partial class TheEpsCoder
     [Fact]
     public void ShouldReadClipPathsInTiffPreview()
     {
-        if (!Ghostscript.IsAvailable)
-            return;
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         using var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS);
 

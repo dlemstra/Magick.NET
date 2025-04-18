@@ -91,38 +91,39 @@ public sealed class ColorHSL : ColorBase
         h -= 360.0 * Math.Floor(h / 360.0);
         h /= 60.0;
         var x = c * (1.0 - Math.Abs(h - (2.0 * Math.Floor(h / 2.0)) - 1.0));
+        var quantum = QuantumScaler.Create<QuantumType>();
         switch ((int)Math.Floor(h))
         {
             case 0:
             default:
-                Color.R = Quantum.ScaleToQuantum(min + c);
-                Color.G = Quantum.ScaleToQuantum(min + x);
-                Color.B = Quantum.ScaleToQuantum(min);
+                Color.R = quantum.ScaleFromDouble(min + c);
+                Color.G = quantum.ScaleFromDouble(min + x);
+                Color.B = quantum.ScaleFromDouble(min);
                 break;
             case 1:
-                Color.R = Quantum.ScaleToQuantum(min + x);
-                Color.G = Quantum.ScaleToQuantum(min + c);
-                Color.B = Quantum.ScaleToQuantum(min);
+                Color.R = quantum.ScaleFromDouble(min + x);
+                Color.G = quantum.ScaleFromDouble(min + c);
+                Color.B = quantum.ScaleFromDouble(min);
                 break;
             case 2:
-                Color.R = Quantum.ScaleToQuantum(min);
-                Color.G = Quantum.ScaleToQuantum(min + c);
-                Color.B = Quantum.ScaleToQuantum(min + x);
+                Color.R = quantum.ScaleFromDouble(min);
+                Color.G = quantum.ScaleFromDouble(min + c);
+                Color.B = quantum.ScaleFromDouble(min + x);
                 break;
             case 3:
-                Color.R = Quantum.ScaleToQuantum(min);
-                Color.G = Quantum.ScaleToQuantum(min + x);
-                Color.B = Quantum.ScaleToQuantum(min + c);
+                Color.R = quantum.ScaleFromDouble(min);
+                Color.G = quantum.ScaleFromDouble(min + x);
+                Color.B = quantum.ScaleFromDouble(min + c);
                 break;
             case 4:
-                Color.R = Quantum.ScaleToQuantum(min + x);
-                Color.G = Quantum.ScaleToQuantum(min);
-                Color.B = Quantum.ScaleToQuantum(min + c);
+                Color.R = quantum.ScaleFromDouble(min + x);
+                Color.G = quantum.ScaleFromDouble(min);
+                Color.B = quantum.ScaleFromDouble(min + c);
                 break;
             case 5:
-                Color.R = Quantum.ScaleToQuantum(min + c);
-                Color.G = Quantum.ScaleToQuantum(min);
-                Color.B = Quantum.ScaleToQuantum(min + x);
+                Color.R = quantum.ScaleFromDouble(min + c);
+                Color.G = quantum.ScaleFromDouble(min);
+                Color.B = quantum.ScaleFromDouble(min + x);
                 break;
         }
     }

@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.1-45 (2025-03-09) ] copyright:
+[ ImageMagick 7.1.1-48 beta (2025-04-12) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -228,7 +228,7 @@ bzip2/libbzip2 version 1.0.8 of 13 July 2019
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ cairo 1.18.2 (2024-09-01) ] copyright:
+[ cairo 1.18.4 (2025-03-08) ] copyright:
 
 
                   GNU LESSER GENERAL PUBLIC LICENSE
@@ -2132,7 +2132,7 @@ SOFTWARE.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ openexr 3.3.2 (2024-11-11) ] copyright:
+[ openexr 3.3.3 (2025-03-24) ] copyright:
 
 Copyright (c) Contributors to the OpenEXR Project. All rights reserved.
 
@@ -3583,7 +3583,7 @@ That's all there is to it!
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ harfbuzz 10.4.0 (2025-03-01) ] copyright:
+[ harfbuzz 11.0.1 (2025-04-04) ] copyright:
 
 HarfBuzz is licensed under the so-called "Old MIT" license.  Details follow.
 For parts of HarfBuzz that are licensed under different licenses see individual
@@ -5084,7 +5084,7 @@ Library.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ lzma 5.6.4 (2025-01-23) ] copyright:
+[ lzma 5.8.1 (2025-04-03) ] copyright:
 
                   GNU LESSER GENERAL PUBLIC LICENSE
                        Version 2.1, February 1999

@@ -3,8 +3,8 @@
     <TargetFrameworks>net8.0</TargetFrameworks>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0</FileVersion>
-    <Version>1.1.0</Version>
+    <FileVersion>1.1.1</FileVersion>
+    <Version>1.1.1</Version>
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 

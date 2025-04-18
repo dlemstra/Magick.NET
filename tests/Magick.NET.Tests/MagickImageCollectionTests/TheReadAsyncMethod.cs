@@ -21,7 +21,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null!));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null!, TestContext.Current.CancellationToken));
             }
 
             public class WithFileInfoAndMagickFormat
@@ -31,7 +31,7 @@ public partial class MagickImageCollectionTests
                 {
                     using var images = new MagickImageCollection();
 
-                    await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null!, MagickFormat.Png));
+                    await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null!, MagickFormat.Png, TestContext.Current.CancellationToken));
                 }
 
                 [Fact]
@@ -40,7 +40,7 @@ public partial class MagickImageCollectionTests
                     var file = new FileInfo(Files.SnakewarePNG);
 
                     using var images = new MagickImageCollection();
-                    await images.ReadAsync(file, null);
+                    await images.ReadAsync(file, null, TestContext.Current.CancellationToken);
 
                     Assert.Single(images);
                 }
@@ -55,7 +55,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null!, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("file", () => images.ReadAsync((FileInfo)null!, settings, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -63,7 +63,7 @@ public partial class MagickImageCollectionTests
             {
                 var file = new FileInfo(Files.SnakewarePNG);
                 using var images = new MagickImageCollection();
-                await images.ReadAsync(file, null);
+                await images.ReadAsync(file, null, TestContext.Current.CancellationToken);
 
                 Assert.Single(images);
             }
@@ -76,7 +76,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null!));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null!, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -84,7 +84,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentException>("fileName", () => images.ReadAsync(string.Empty));
+                await Assert.ThrowsAsync<ArgumentException>("fileName", () => images.ReadAsync(string.Empty, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -96,7 +96,7 @@ public partial class MagickImageCollectionTests
                 };
 
                 using var images = new MagickImageCollection();
-                await images.ReadAsync(Files.CirclePNG, settings);
+                await images.ReadAsync(Files.CirclePNG, settings, TestContext.Current.CancellationToken);
 
                 Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
             }
@@ -105,7 +105,7 @@ public partial class MagickImageCollectionTests
             public async Task ShouldUseTheFilename()
             {
                 using var images = new MagickImageCollection();
-                await images.ReadAsync(Files.ImageMagickICO);
+                await images.ReadAsync(Files.ImageMagickICO, TestContext.Current.CancellationToken);
 
                 Assert.Equal(3, images.Count);
                 Assert.Equal(64U, images[0].Width);
@@ -127,7 +127,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null!, MagickFormat.Png));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null!, MagickFormat.Png, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -135,7 +135,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentException>("fileName", () => images.ReadAsync(string.Empty, MagickFormat.Png));
+                await Assert.ThrowsAsync<ArgumentException>("fileName", () => images.ReadAsync(string.Empty, MagickFormat.Png, TestContext.Current.CancellationToken));
             }
         }
 
@@ -147,7 +147,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null!, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("fileName", () => images.ReadAsync((string)null!, settings, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -156,14 +156,14 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentException>("fileName", () => images.ReadAsync(string.Empty, settings));
+                await Assert.ThrowsAsync<ArgumentException>("fileName", () => images.ReadAsync(string.Empty, settings, TestContext.Current.CancellationToken));
             }
 
             [Fact]
             public async Task ShouldNotThrowExceptionWhenSettingsIsNull()
             {
                 using var images = new MagickImageCollection();
-                await images.ReadAsync(Files.CirclePNG, null);
+                await images.ReadAsync(Files.CirclePNG, null, TestContext.Current.CancellationToken);
 
                 Assert.Single(images);
             }
@@ -176,7 +176,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null!));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null!, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -189,7 +189,7 @@ public partial class MagickImageCollectionTests
 
                 using var stream = File.OpenRead(Files.CirclePNG);
                 using var input = new MagickImageCollection();
-                await input.ReadAsync(stream, settings);
+                await input.ReadAsync(stream, settings, TestContext.Current.CancellationToken);
 
                 Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
             }
@@ -202,7 +202,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null!, MagickFormat.Png));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null!, MagickFormat.Png, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -210,7 +210,7 @@ public partial class MagickImageCollectionTests
             {
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentException>("stream", () => images.ReadAsync(new MemoryStream(), MagickFormat.Png));
+                await Assert.ThrowsAsync<ArgumentException>("stream", () => images.ReadAsync(new MemoryStream(), MagickFormat.Png, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -221,7 +221,7 @@ public partial class MagickImageCollectionTests
                 using var stream = new MemoryStream(bytes);
                 using var images = new MagickImageCollection();
 
-                var exception = await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => images.ReadAsync(stream, MagickFormat.Png));
+                var exception = await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => images.ReadAsync(stream, MagickFormat.Png, TestContext.Current.CancellationToken));
 
                 ExceptionAssert.Contains("ReadPNGImage", exception);
             }
@@ -235,7 +235,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null!, settings));
+                await Assert.ThrowsAsync<ArgumentNullException>("stream", () => images.ReadAsync((Stream)null!, settings, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -244,7 +244,7 @@ public partial class MagickImageCollectionTests
                 var settings = new MagickReadSettings();
                 using var images = new MagickImageCollection();
 
-                await Assert.ThrowsAsync<ArgumentException>("stream", () => images.ReadAsync(new MemoryStream(), settings));
+                await Assert.ThrowsAsync<ArgumentException>("stream", () => images.ReadAsync(new MemoryStream(), settings, TestContext.Current.CancellationToken));
             }
 
             [Fact]
@@ -253,7 +253,7 @@ public partial class MagickImageCollectionTests
                 using var fileStream = File.OpenRead(Files.CirclePNG);
                 using var images = new MagickImageCollection();
 
-                await images.ReadAsync(fileStream, null);
+                await images.ReadAsync(fileStream, null, TestContext.Current.CancellationToken);
 
                 Assert.Single(images);
             }
@@ -270,7 +270,7 @@ public partial class MagickImageCollectionTests
                 using var stream = new MemoryStream(bytes);
                 using var images = new MagickImageCollection();
 
-                var exception = await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => images.ReadAsync(stream, settings));
+                var exception = await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => images.ReadAsync(stream, settings, TestContext.Current.CancellationToken));
 
                 ExceptionAssert.Contains("ReadPNGImage", exception);
             }

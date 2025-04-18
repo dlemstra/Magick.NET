@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using ImageMagick;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
@@ -50,8 +51,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldThrowExceptionOn32BitPlatformWhenChannelIsTooHigh()
         {
-            if (Runtime.Is64Bit)
-                return;
+            Assert.SkipWhen(Runtime.Is64Bit, "Runtime is not 32 bit");
 
             using var image = new MagickImage(Files.ImageMagickJPG);
 

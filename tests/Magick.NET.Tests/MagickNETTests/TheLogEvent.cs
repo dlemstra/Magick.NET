@@ -8,19 +8,22 @@ namespace Magick.NET.Tests;
 
 public partial class MagickNETTests
 {
-    [Collection(nameof(RunTestsSeparately))]
+    [Collection(nameof(IsolatedUnitTest))]
     public class TheLogEvent
     {
         [Fact]
         public void ShouldPassOrderedTests()
         {
-            ShouldNotCallLogDelegateWhenLogEventsAreNotSet();
+            IsolatedUnitTest.Execute(() =>
+            {
+                ShouldNotCallLogDelegateWhenLogEventsAreNotSet();
 
-            ShouldCallLogDelegateWhenLogEventsAreSet();
+                ShouldCallLogDelegateWhenLogEventsAreSet();
 
-            ShouldLogTraceEventsWhenLogEventsIsSetToAll();
+                ShouldLogTraceEventsWhenLogEventsIsSetToAll();
 
-            ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
+                ShouldStopCallingLogDelegateWhenLogDelegateIsRemoved();
+            });
         }
 
         private void ShouldNotCallLogDelegateWhenLogEventsAreNotSet()

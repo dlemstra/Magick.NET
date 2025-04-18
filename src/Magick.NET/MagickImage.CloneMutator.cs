@@ -438,27 +438,45 @@ public partial class MagickImage
         public void OilPaint(double radius, double sigma)
             => SetResult(NativeMagickImage.OilPaint(radius, sigma));
 
+        public void Resample(double resolutionX, double resolutionY)
+            => Resample(resolutionX, resolutionY, NativeMagickImage.FilterType_Get());
+
+        public void Resample(double resolutionX, double resolutionY, FilterType filter)
+            => SetResult(NativeMagickImage.Resample(resolutionX, resolutionY, filter));
+
+        public void Resample(PointD density)
+            => Resample(density, NativeMagickImage.FilterType_Get());
+
+        public void Resample(PointD density, FilterType filter)
+            => Resample(density.X, density.Y, filter);
+
         public void Resize(uint width, uint height)
-            => Resize(new MagickGeometry(width, height));
+            => Resize(width, height, NativeMagickImage.FilterType_Get());
+
+        public void Resize(uint width, uint height, FilterType filter)
+            => Resize(new MagickGeometry(width, height), filter);
 
         public void Resize(IMagickGeometry geometry)
+            => Resize(geometry, NativeMagickImage.FilterType_Get());
+
+        public void Resize(IMagickGeometry geometry, FilterType filter)
         {
             Throw.IfNull(geometry);
 
-            SetResult(NativeMagickImage.Resize(geometry.ToString()));
+            SetResult(NativeMagickImage.Resize(geometry.ToString(), filter));
         }
 
-        public void Resample(double resolutionX, double resolutionY)
-            => SetResult(NativeMagickImage.Resample(resolutionX, resolutionY));
-
-        public void Resample(PointD density)
-            => Resample(density.X, density.Y);
-
         public void Resize(Percentage percentage)
-            => Resize(new MagickGeometry(percentage, percentage));
+            => Resize(percentage, NativeMagickImage.FilterType_Get());
+
+        public void Resize(Percentage percentage, FilterType filter)
+            => Resize(new MagickGeometry(percentage, percentage), filter);
 
         public void Resize(Percentage percentageWidth, Percentage percentageHeight)
-            => Resize(new MagickGeometry(percentageWidth, percentageHeight));
+            => Resize(percentageWidth, percentageHeight, NativeMagickImage.FilterType_Get());
+
+        public void Resize(Percentage percentageWidth, Percentage percentageHeight, FilterType filter)
+            => Resize(new MagickGeometry(percentageWidth, percentageHeight), filter);
 
         public void Roll(int x, int y)
             => SetResult(NativeMagickImage.Roll(x, y));
@@ -611,18 +629,19 @@ public partial class MagickImage
 
             var arguments = new List<double>();
 
+            var quantum = QuantumScaler.Create<QuantumType>();
             foreach (var arg in args)
             {
                 arguments.Add(arg.X);
                 arguments.Add(arg.Y);
                 if (hasRed)
-                    arguments.Add(Quantum.ScaleToDouble(arg.Color.R));
+                    arguments.Add(quantum.ScaleToDouble(arg.Color.R));
                 if (hasGreen)
-                    arguments.Add(Quantum.ScaleToDouble(arg.Color.G));
+                    arguments.Add(quantum.ScaleToDouble(arg.Color.G));
                 if (hasBlue)
-                    arguments.Add(Quantum.ScaleToDouble(arg.Color.B));
+                    arguments.Add(quantum.ScaleToDouble(arg.Color.B));
                 if (hasAlpha)
-                    arguments.Add(Quantum.ScaleToDouble(arg.Color.A));
+                    arguments.Add(quantum.ScaleToDouble(arg.Color.A));
             }
 
             Throw.IfTrue(arguments.Count == 0, nameof(args), "Value cannot be empty");

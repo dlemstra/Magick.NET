@@ -48,16 +48,7 @@ public partial class Quantum : IQuantum<QuantumType>
     QuantumType IQuantum<QuantumType>.Max
         => Max;
 
-    internal static QuantumType Convert(byte value)
-    {
-#if Q16 || Q16HDRI
-        return (QuantumType)(257UL * value);
-#else
-        return value;
-#endif
-    }
-
-    internal static QuantumType Convert(double value)
+    internal static QuantumType ConvertFromDouble(double value)
     {
         if (value < 0)
             return 0;
@@ -67,7 +58,7 @@ public partial class Quantum : IQuantum<QuantumType>
         return (QuantumType)value;
     }
 
-    internal static QuantumType Convert(int value)
+    internal static QuantumType ConvertFromInteger(int value)
     {
         if (value < 0)
             return 0;
@@ -76,24 +67,4 @@ public partial class Quantum : IQuantum<QuantumType>
 
         return (QuantumType)value;
     }
-
-#if !Q16
-    internal static QuantumType Convert(ushort value)
-    {
-#if Q8
-        return (QuantumType)((value + 128U) / 257U);
-#elif Q16HDRI
-        return (QuantumType)value;
-#endif
-    }
-#endif
-
-    internal static QuantumType ScaleToQuantum(double value)
-        => (QuantumType)Math.Min(Math.Max(0, value * Max), Max);
-
-    internal static byte ScaleToByte(QuantumType value)
-        => NativeQuantum.ScaleToByte(value);
-
-    internal static double ScaleToDouble(QuantumType value)
-        => (1.0 / Max) * value;
 }

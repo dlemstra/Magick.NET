@@ -8,23 +8,31 @@ namespace Magick.NET.Tests;
 
 public partial class ResourceLimitsTests
 {
-    [Collection(nameof(RunTestsSeparately))]
+    [Collection(nameof(IsolatedUnitTest))]
     public class TheDiskProperty
     {
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            Assert.Equal((ulong)long.MaxValue, ResourceLimits.Disk);
+            IsolatedUnitTest.Execute(() =>
+            {
+                Assert.Equal((ulong)long.MaxValue, ResourceLimits.Disk);
+            });
         }
 
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            var disk = ResourceLimits.Disk;
+            IsolatedUnitTest.Execute(() =>
+            {
+                var disk = ResourceLimits.Disk;
 
-            ResourceLimits.Disk = 40000U;
-            Assert.Equal(40000U, ResourceLimits.Disk);
-            ResourceLimits.Disk = disk;
+                ResourceLimits.Disk = 40000U;
+                Assert.Equal(40000U, ResourceLimits.Disk);
+
+                ResourceLimits.Disk = disk;
+                Assert.Equal(disk, ResourceLimits.Disk);
+            });
         }
     }
 }

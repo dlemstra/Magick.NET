@@ -74,10 +74,14 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         {
             Initialize();
 
-            var clipPaths = new List<IClipPath>(_values.Count);
-            foreach (var value in _values)
+            var clipPathValues = _values
+                .Where(value => value.Id > 1999 && value.Id < 2998)
+                .ToList();
+
+            var clipPaths = new List<IClipPath>(clipPathValues.Count);
+            for (var i = 0; i < clipPathValues.Count; i++)
             {
-                var clipPath = CreateClipPath(value);
+                var clipPath = CreateClipPath(clipPathValues[i], i);
                 if (clipPath is not null)
                     clipPaths.Add(clipPath);
             }
@@ -229,11 +233,8 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         SetData(data);
     }
 
-    private ClipPath? CreateClipPath(IEightBimValue value)
+    private ClipPath? CreateClipPath(IEightBimValue value, int index)
     {
-        if (value.Name is null)
-            return null;
-
         var d = GetClipPath(value.ToByteArray());
         if (string.IsNullOrEmpty(d))
             return null;
@@ -254,7 +255,8 @@ public sealed class EightBimProfile : ImageProfile, IEightBimProfile
         XmlHelper.SetAttribute(path, "stroke-antialiasing", "false");
         XmlHelper.SetAttribute(path, "d", d);
 
-        return new ClipPath(value.Name, doc.CreateNavigator()!);
+        var name = value.Name ?? $"#{index + 1}";
+        return new ClipPath(name, doc.CreateNavigator()!);
     }
 
     private IEightBimValue? FindValue(int id)

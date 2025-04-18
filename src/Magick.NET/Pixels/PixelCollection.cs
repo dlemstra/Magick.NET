@@ -83,7 +83,8 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     public virtual void SetByteArea(int x, int y, uint width, uint height, byte[] values)
     {
-        var castedValues = CastArray(values, Quantum.Convert);
+        var quantum = QuantumScaler.Create<QuantumType>();
+        var castedValues = CastArray(values, quantum.ScaleFromByte);
         SetAreaUnchecked(x, y, width, height, castedValues);
     }
 
@@ -92,13 +93,14 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     public virtual void SetBytePixels(byte[] values)
     {
-        var castedValues = CastArray(values, Quantum.Convert);
+        var quantum = QuantumScaler.Create<QuantumType>();
+        var castedValues = CastArray(values, quantum.ScaleFromByte);
         SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
     }
 
     public virtual void SetDoubleArea(int x, int y, uint width, uint height, double[] values)
     {
-        var castedValues = CastArray(values, Quantum.Convert);
+        var castedValues = CastArray(values, Quantum.ConvertFromDouble);
         SetAreaUnchecked(x, y, width, height, castedValues);
     }
 
@@ -107,13 +109,13 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     public virtual void SetDoublePixels(double[] values)
     {
-        var castedValues = CastArray(values, Quantum.Convert);
+        var castedValues = CastArray(values, Quantum.ConvertFromDouble);
         SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
     }
 
     public virtual void SetIntArea(int x, int y, uint width, uint height, int[] values)
     {
-        var castedValues = CastArray(values, Quantum.Convert);
+        var castedValues = CastArray(values, Quantum.ConvertFromInteger);
         SetAreaUnchecked(x, y, width, height, castedValues);
     }
 
@@ -122,7 +124,7 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     public virtual void SetIntPixels(int[] values)
     {
-        var castedValues = CastArray(values, Quantum.Convert);
+        var castedValues = CastArray(values, Quantum.ConvertFromInteger);
         SetAreaUnchecked(0, 0, Image.Width, Image.Height, castedValues);
     }
 

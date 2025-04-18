@@ -8,23 +8,31 @@ namespace Magick.NET.Tests;
 
 public partial class ResourceLimitsTests
 {
-    [Collection(nameof(RunTestsSeparately))]
+    [Collection(nameof(IsolatedUnitTest))]
     public class TheListLengthProperty
     {
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            Assert.Equal((ulong)long.MaxValue, ResourceLimits.ListLength);
+            IsolatedUnitTest.Execute(() =>
+            {
+                Assert.Equal((ulong)long.MaxValue, ResourceLimits.ListLength);
+            });
         }
 
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            var listLength = ResourceLimits.ListLength;
+            IsolatedUnitTest.Execute(() =>
+            {
+                var listLength = ResourceLimits.ListLength;
 
-            ResourceLimits.ListLength = 32U;
-            Assert.Equal(32U, ResourceLimits.ListLength);
-            ResourceLimits.ListLength = listLength;
+                ResourceLimits.ListLength = 32U;
+                Assert.Equal(32U, ResourceLimits.ListLength);
+
+                ResourceLimits.ListLength = listLength;
+                Assert.Equal(listLength, ResourceLimits.ListLength);
+            });
         }
     }
 }

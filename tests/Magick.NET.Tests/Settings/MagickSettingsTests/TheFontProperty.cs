@@ -21,8 +21,7 @@ public partial class MagickSettingsTests
         [Fact]
         public void ShouldSetTheFontWhenReadingImage()
         {
-            if (TestRuntime.HasFlakyMacOSResult)
-                return;
+            Assert.SkipWhen(TestRuntime.HasFlakyMacOSArm64Result, "Flaky result on MacOS arm64.");
 
             using var image = new MagickImage();
 
@@ -34,7 +33,7 @@ public partial class MagickSettingsTests
 
             Assert.Equal(128U, image.Width);
             Assert.Contains(image.Height, new[] { 58U, 62U });
-            ColorAssert.Equal(MagickColors.Black, image, 26, 22);
+            ColorAssert.Equal(MagickColors.Black, image, 27, 22);
         }
     }
 }

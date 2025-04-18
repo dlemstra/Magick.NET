@@ -9,9 +9,12 @@ testMagickNET() {
         config=$config-OpenMP
     fi
 
-    dotnet test tests/Magick.NET.Core.Tests/Magick.NET.Core.Tests.csproj -f net8.0 --no-build -c $config
-    dotnet test tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f net8.0 --no-build -c $config
+    ./tests/Magick.NET.Core.Tests/bin/$config/AnyCPU/net8.0/Magick.NET.Core.Tests
+    ./tests/Magick.NET.Tests/bin/$config/AnyCPU/net8.0/Magick.NET.Tests
 }
+
+export FONTCONFIG_PATH=/etc/fonts
+export FONTCONFIG_FILE=/etc/fonts/fonts.conf
 
 testMagickNET "Q8"
 testMagickNET "Q16"

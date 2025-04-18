@@ -4,19 +4,22 @@
 #if !NETCOREAPP
 
 using System.Collections.Generic;
+using Magick.NET.Tests;
 using Xunit;
-using Xunit.Abstractions;
+using Xunit.Sdk;
+using Xunit.v3;
 
-[assembly: TestCollectionOrderer("Magick.NET.Tests.TestCollectionOrderer", "Magick.NET.Tests")]
+[assembly: TestCollectionOrderer(typeof(TestCollectionOrderer))]
 
 namespace Magick.NET.Tests;
 
 public sealed class TestCollectionOrderer : ITestCollectionOrderer
 {
-    public IEnumerable<ITestCollection>? OrderTestCollections(IEnumerable<ITestCollection> testCollections)
+    public IReadOnlyCollection<TTestCollection> OrderTestCollections<TTestCollection>(IReadOnlyCollection<TTestCollection> testCollections)
+        where TTestCollection : ITestCollection
     {
         if (!TestInitializer.Initialize())
-            return null;
+            return [];
 
         return testCollections;
     }

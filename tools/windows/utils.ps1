@@ -16,13 +16,12 @@ function buildSolution($solution, $properties) {
     $path = fullPath $solution
     $directory = Split-Path -parent $path
     $filename = Split-Path -leaf $path
-    $nuget = fullPath "tools\windows\nuget.exe"
-
-    & $nuget restore $path
-    & $nuget restore $path
 
     $location = $(Get-Location)
     Set-Location $directory
+
+    msbuild $filename /restore ("/p:$($properties)")
+    checkExitCode "Failed to build: $($path)"
 
     msbuild $filename /m /t:Rebuild ("/p:$($properties)")
     checkExitCode "Failed to build: $($path)"

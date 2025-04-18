@@ -8,17 +8,20 @@ namespace Magick.NET.Tests;
 
 public partial class MagickNETTests
 {
-    [Collection(nameof(RunTestsSeparately))]
+    [Collection(nameof(IsolatedUnitTest))]
     public class TheSetRandomSeedMethod
     {
         [Fact]
         public void ShouldPassOrderedTests()
         {
-            ShouldMakeDifferentPlasmaImageWhenNotSet();
+            IsolatedUnitTest.Execute(() =>
+            {
+                ShouldMakeDifferentPlasmaImageWhenNotSet();
 
-            ShouldMakeDuplicatePlasmaImagesWhenSet();
+                ShouldMakeDuplicatePlasmaImagesWhenSet();
 
-            ShouldMakeDifferentPlasmaImageWhenNotSet();
+                ShouldMakeDifferentPlasmaImageWhenNotSet();
+            });
         }
 
         private void ShouldMakeDuplicatePlasmaImagesWhenSet()

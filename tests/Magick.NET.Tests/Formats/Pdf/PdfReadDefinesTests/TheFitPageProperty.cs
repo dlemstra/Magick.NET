@@ -4,6 +4,7 @@
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
@@ -38,8 +39,7 @@ public partial class PdfReadDefinesTests
         [Fact]
         public void ShouldLimitTheDimensions()
         {
-            if (!Ghostscript.IsAvailable)
-                return;
+            Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
             var settings = new MagickReadSettings
             {

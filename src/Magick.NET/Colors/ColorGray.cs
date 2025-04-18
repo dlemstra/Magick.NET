@@ -35,10 +35,11 @@ public sealed class ColorGray : ColorBase
     private ColorGray(IMagickColor<QuantumType> color)
       : base(color)
     {
+        var quantum = QuantumScaler.Create<QuantumType>();
         _shade =
-            (0.212656 * Quantum.ScaleToDouble(color.R)) +
-            (0.715158 * Quantum.ScaleToDouble(color.G)) +
-            (0.072186 * Quantum.ScaleToDouble(color.B));
+            (0.212656 * quantum.ScaleToDouble(color.R)) +
+            (0.715158 * quantum.ScaleToDouble(color.G)) +
+            (0.072186 * quantum.ScaleToDouble(color.B));
     }
 
     /// <summary>
@@ -83,7 +84,8 @@ public sealed class ColorGray : ColorBase
     /// </summary>
     protected override void UpdateColor()
     {
-        var gray = Quantum.ScaleToQuantum(_shade);
+        var quantum = QuantumScaler.Create<QuantumType>();
+        var gray = quantum.ScaleFromDouble(_shade);
         Color.R = gray;
         Color.G = gray;
         Color.B = gray;

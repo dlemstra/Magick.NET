@@ -18,26 +18,34 @@ namespace Magick.NET.Tests;
 
 public partial class ResourceLimitsTests
 {
-    [Collection(nameof(RunTestsSeparately))]
+    [Collection(nameof(IsolatedUnitTest))]
     public class TheWidthProperty
     {
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            var memoryLimit = Runtime.Is64Bit ? (ulong)long.MaxValue : int.MaxValue;
-            var maxChannels = 64UL;
+            IsolatedUnitTest.Execute(() =>
+            {
+                var memoryLimit = Runtime.Is64Bit ? (ulong)long.MaxValue : int.MaxValue;
+                var maxChannels = 64UL;
 
-            Assert.Equal(memoryLimit / sizeof(QuantumType) / maxChannels, ResourceLimits.Width);
+                Assert.Equal(memoryLimit / sizeof(QuantumType) / maxChannels, ResourceLimits.Width);
+            });
         }
 
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            var width = ResourceLimits.Width;
+            IsolatedUnitTest.Execute(() =>
+            {
+                var width = ResourceLimits.Width;
 
-            ResourceLimits.Width = 200000U;
-            Assert.Equal(200000U, ResourceLimits.Width);
-            ResourceLimits.Width = width;
+                ResourceLimits.Width = 200000U;
+                Assert.Equal(200000U, ResourceLimits.Width);
+
+                ResourceLimits.Width = width;
+                Assert.Equal(width, ResourceLimits.Width);
+            });
         }
     }
 }

@@ -24,7 +24,5 @@ public partial class Quantum
         public static partial nuint Depth_Get();
 
         public static partial QuantumType Max_Get();
-
-        public static partial byte ScaleToByte(QuantumType value);
     }
 }

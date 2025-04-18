@@ -250,14 +250,14 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
         if (color is null)
             return null;
 
-        var red = Quantum.Convert(percentage.Multiply((double)color.R));
-        var green = Quantum.Convert(percentage.Multiply((double)color.G));
-        var blue = Quantum.Convert(percentage.Multiply((double)color.B));
+        var red = Quantum.ConvertFromDouble(percentage.Multiply((double)color.R));
+        var green = Quantum.ConvertFromDouble(percentage.Multiply((double)color.G));
+        var blue = Quantum.ConvertFromDouble(percentage.Multiply((double)color.B));
 
         if (!color.IsCmyk)
             return new MagickColor(red, green, blue, color.A);
 
-        var key = Quantum.Convert(percentage.Multiply((double)color.K));
+        var key = Quantum.ConvertFromDouble(percentage.Multiply((double)color.K));
 
         return new MagickColor(red, green, blue, key, color.A);
     }
@@ -408,10 +408,11 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     /// <param name="alpha">Alpha component value of this color.</param>
     public void SetFromBytes(byte red, byte green, byte blue, byte alpha)
     {
-        R = Quantum.Convert(red);
-        G = Quantum.Convert(green);
-        B = Quantum.Convert(blue);
-        A = Quantum.Convert(alpha);
+        var quantum = QuantumScaler.Create<QuantumType>();
+        R = quantum.ScaleFromByte(red);
+        G = quantum.ScaleFromByte(green);
+        B = quantum.ScaleFromByte(blue);
+        A = quantum.ScaleFromByte(alpha);
         K = 0;
         IsCmyk = false;
     }
@@ -422,10 +423,12 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     /// <returns>The <see cref="byte"/> array.</returns>
     public byte[] ToByteArray()
     {
+        var quantum = QuantumScaler.Create<QuantumType>();
+
         if (IsCmyk)
-            return [Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B), Quantum.ScaleToByte(K), Quantum.ScaleToByte(A)];
+            return [quantum.ScaleToByte(R), quantum.ScaleToByte(G), quantum.ScaleToByte(B), quantum.ScaleToByte(K), quantum.ScaleToByte(A)];
         else
-            return [Quantum.ScaleToByte(R), Quantum.ScaleToByte(G), Quantum.ScaleToByte(B), Quantum.ScaleToByte(A)];
+            return [quantum.ScaleToByte(R), quantum.ScaleToByte(G), quantum.ScaleToByte(B), quantum.ScaleToByte(A)];
     }
 
     /// <summary>
@@ -437,13 +440,14 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
         if (IsCmyk)
             throw new NotSupportedException("This method only works for non cmyk colors.");
 
-        var r = Quantum.ScaleToByte(R);
-        var g = Quantum.ScaleToByte(G);
-        var b = Quantum.ScaleToByte(B);
+        var quantum = QuantumScaler.Create<QuantumType>();
+        var r = quantum.ScaleToByte(R);
+        var g = quantum.ScaleToByte(G);
+        var b = quantum.ScaleToByte(B);
         if (A == Quantum.Max)
             return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}", r, g, b);
 
-        var a = Quantum.ScaleToByte(A);
+        var a = quantum.ScaleToByte(A);
         return string.Format(CultureInfo.InvariantCulture, "#{0:X2}{1:X2}{2:X2}{3:X2}", r, g, b, a);
     }
 
@@ -458,10 +462,11 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
 
         if (IsCmyk)
         {
-            var r = Quantum.ScaleToByte(R);
-            var g = Quantum.ScaleToByte(G);
-            var b = Quantum.ScaleToByte(B);
-            var k = Quantum.ScaleToByte(K);
+            var quantum = QuantumScaler.Create<QuantumType>();
+            var r = quantum.ScaleToByte(R);
+            var g = quantum.ScaleToByte(G);
+            var b = quantum.ScaleToByte(B);
+            var k = quantum.ScaleToByte(K);
 
             return string.Format(CultureInfo.InvariantCulture, "cmyk({0},{1},{2},{3})", r, g, b, k);
         }
@@ -483,10 +488,11 @@ public sealed partial class MagickColor : IMagickColor<QuantumType>
     {
         if (IsCmyk)
         {
-            var r = Quantum.ScaleToByte(R);
-            var g = Quantum.ScaleToByte(G);
-            var b = Quantum.ScaleToByte(B);
-            var k = Quantum.ScaleToByte(K);
+            var quantum = QuantumScaler.Create<QuantumType>();
+            var r = quantum.ScaleToByte(R);
+            var g = quantum.ScaleToByte(G);
+            var b = quantum.ScaleToByte(B);
+            var k = quantum.ScaleToByte(K);
 
             return string.Format(CultureInfo.InvariantCulture, "cmyka({0},{1},{2},{3},{4:0.0###})", r, g, b, k, (double)A / Quantum.Max);
         }

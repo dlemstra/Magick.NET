@@ -4,6 +4,7 @@
 using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
+using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
@@ -12,23 +13,24 @@ public partial class ThePdfCoder
     [Fact]
     public async Task ShouldReadFileMultithreadedCorrectly()
     {
-        if (!Ghostscript.IsAvailable)
-            return;
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         var results = new Task[3];
 
         for (var i = 0; i < results.Length; ++i)
         {
-            results[i] = Task.Run(() =>
-            {
-                using var image = new MagickImage();
-                image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+            results[i] = Task.Run(
+                () =>
+                {
+                    using var image = new MagickImage();
+                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
 
-                Assert.Equal(765U, image.Width);
-                Assert.Equal(361U, image.Height);
-                Assert.Equal(MagickFormat.Ai, image.Format);
-            });
-        }
+                    Assert.Equal(765U, image.Width);
+                    Assert.Equal(361U, image.Height);
+                    Assert.Equal(MagickFormat.Ai, image.Format);
+                },
+                TestContext.Current.CancellationToken);
+            }
 
         for (var i = 0; i < results.Length; ++i)
         {
@@ -39,8 +41,7 @@ public partial class ThePdfCoder
     [Fact]
     public void ShouldReturnTheCorrectFormatForAiFile()
     {
-        if (!Ghostscript.IsAvailable)
-            return;
+        Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
         using var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI);
 

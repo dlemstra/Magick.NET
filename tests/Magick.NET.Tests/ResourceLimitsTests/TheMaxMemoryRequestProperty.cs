@@ -9,25 +9,33 @@ namespace Magick.NET.Tests;
 
 public partial class ResourceLimitsTests
 {
-    [Collection(nameof(RunTestsSeparately))]
+    [Collection(nameof(IsolatedUnitTest))]
     public class TheMaxMemoryRequestProperty
     {
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            if (ResourceLimits.MaxMemoryRequest < 100000000U)
-                throw new XunitException("Invalid memory limit: " + ResourceLimits.MaxMemoryRequest);
+            IsolatedUnitTest.Execute(() =>
+            {
+                if (ResourceLimits.MaxMemoryRequest < 100000000U)
+                    throw new XunitException("Invalid memory limit: " + ResourceLimits.MaxMemoryRequest);
+            });
         }
 
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            var oldMemory = ResourceLimits.MaxMemoryRequest;
-            var newMemory = (ulong)(ResourceLimits.MaxMemoryRequest * 0.8);
+            IsolatedUnitTest.Execute(() =>
+            {
+                var oldMemory = ResourceLimits.MaxMemoryRequest;
+                var newMemory = (ulong)(ResourceLimits.MaxMemoryRequest * 0.8);
 
-            ResourceLimits.MaxMemoryRequest = newMemory;
-            Assert.Equal(newMemory, ResourceLimits.MaxMemoryRequest);
-            ResourceLimits.MaxMemoryRequest = oldMemory;
+                ResourceLimits.MaxMemoryRequest = newMemory;
+                Assert.Equal(newMemory, ResourceLimits.MaxMemoryRequest);
+
+                ResourceLimits.MaxMemoryRequest = oldMemory;
+                Assert.Equal(oldMemory, ResourceLimits.MaxMemoryRequest);
+            });
         }
     }
 }

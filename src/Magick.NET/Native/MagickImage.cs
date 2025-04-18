@@ -621,10 +621,10 @@ public partial class MagickImage
         public partial void ResetProfileIterator();
 
         [Throws]
-        public partial IntPtr Resample(double resolutionX, double resolutionY);
+        public partial IntPtr Resample(double resolutionX, double resolutionY, FilterType filter);
 
         [Throws]
-        public partial IntPtr Resize(string geometry);
+        public partial IntPtr Resize(string geometry, FilterType filter);
 
         [Throws]
         public partial IntPtr Roll(nint x, nint y);

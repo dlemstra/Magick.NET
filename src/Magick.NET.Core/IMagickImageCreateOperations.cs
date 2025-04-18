@@ -771,9 +771,26 @@ public interface IMagickImageCreateOperations
     /// <summary>
     /// Resize image in terms of its pixel size.
     /// </summary>
+    /// <param name="resolutionX">The new X resolution.</param>
+    /// <param name="resolutionY">The new Y resolution.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Resample(double resolutionX, double resolutionY, FilterType filter);
+
+    /// <summary>
+    /// Resize image in terms of its pixel size.
+    /// </summary>
     /// <param name="density">The density to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Resample(PointD density);
+
+    /// <summary>
+    /// Resize image in terms of its pixel size.
+    /// </summary>
+    /// <param name="density">The density to use.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Resample(PointD density, FilterType filter);
 
     /// <summary>
     /// Resize image to specified size.
@@ -787,11 +804,31 @@ public interface IMagickImageCreateOperations
     void Resize(uint width, uint height);
 
     /// <summary>
+    /// Resize image to specified size.
+    /// <para />
+    /// Resize will fit the image into the requested size. It does NOT fill, the requested box size.
+    /// Use the <see cref="IMagickGeometry"/> overload for more control over the resulting size.
+    /// </summary>
+    /// <param name="width">The new width.</param>
+    /// <param name="height">The new height.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Resize(uint width, uint height, FilterType filter);
+
+    /// <summary>
     /// Resize image to specified geometry.
     /// </summary>
     /// <param name="geometry">The geometry to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Resize(IMagickGeometry geometry);
+
+    /// <summary>
+    /// Resize image to specified geometry.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Resize(IMagickGeometry geometry, FilterType filter);
 
     /// <summary>
     /// Resize image to specified percentage.
@@ -803,10 +840,27 @@ public interface IMagickImageCreateOperations
     /// <summary>
     /// Resize image to specified percentage.
     /// </summary>
+    /// <param name="percentage">The percentage.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Resize(Percentage percentage, FilterType filter);
+
+    /// <summary>
+    /// Resize image to specified percentage.
+    /// </summary>
     /// <param name="percentageWidth">The percentage of the width.</param>
     /// <param name="percentageHeight">The percentage of the height.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void Resize(Percentage percentageWidth, Percentage percentageHeight);
+
+    /// <summary>
+    /// Resize image to specified percentage.
+    /// </summary>
+    /// <param name="percentageWidth">The percentage of the width.</param>
+    /// <param name="percentageHeight">The percentage of the height.</param>
+    /// <param name="filter">The filter to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Resize(Percentage percentageWidth, Percentage percentageHeight, FilterType filter);
 
     /// <summary>
     /// Roll image (rolls image vertically and horizontally).

@@ -25,7 +25,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 8.x
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64'
@@ -58,7 +58,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 8.x
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64'
@@ -89,7 +89,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 8.x
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64'
@@ -120,7 +120,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 8.x
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64'
@@ -145,7 +145,7 @@ jobs:
 
     - uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 8.x
 
     - name: Install Magick.Native
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos arm64'
@@ -157,7 +157,7 @@ jobs:
       run: build/shared/test.Magick.NET.sh
 
   windows:
-    name: Windows
+    name: 'Windows (Q8/Q16/Q16-HDRI)'
     runs-on: windows-2022
 
     permissions:
@@ -166,9 +166,10 @@ jobs:
       packages: read
 
     strategy:
+      fail-fast: false
       matrix:
         quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
-        platformName: [x86, x64, arm64, Any CPU]
+        platformName: [x86, x64, Any CPU]
         exclude:
         - quantumName: Q8-OpenMP
           platformName: x86
@@ -203,14 +204,90 @@ jobs:
       working-directory: src/Magick.Native
 
     - name: Build Magick.NET (Test)
-      if: ${{ matrix.platformName != 'arm64' }}
       run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test'
       working-directory: build/windows
 
     - name: Test Magick.NET
-      if: ${{ matrix.platformName != 'arm64' }}
       run: './test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
       working-directory: build/windows
+
+    - name: Build Magick.NET (Release)
+      run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release'
+      working-directory: build/windows
+
+    - name: Set NuGet version
+      run: ./set.version.ps1
+      working-directory: publish
+
+    - name: Create NuGet package
+      run: './publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
+      working-directory: publish
+
+    - name: Azure CLI login with federated credential
+      if: github.event_name != 'pull_request'
+      uses: azure/login@v2
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Sign NuGet package
+      if: ${{ github.event_name != 'pull_request' }}
+      run: sign code trusted-signing *.nupkg `
+        --trusted-signing-account ImageMagick `
+        --trusted-signing-certificate-profile ImageMagick `
+        --trusted-signing-endpoint https://eus.codesigning.azure.net `
+        --verbosity information 
+      working-directory: publish/output
+
+    - name: Upload library
+      uses: actions/upload-artifact@v4
+      with:
+        name: 'Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}'
+        path: publish/output
+
+  windows_arm64:
+    name: 'Windows (Q8/Q16/Q16-HDRI, arm64)'
+    #runs-on: windows-11-arm
+    runs-on: windows-2022
+
+    permissions:
+      id-token: write
+      contents: read
+      packages: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
+        platformName: [arm64]
+
+    steps:
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-tags: true
+
+    - name: Install dependencies
+      run: ./install.dependencies.cmd
+      working-directory: build/windows
+
+    - name: Create nuget.config
+      run: './create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+      working-directory: src/Magick.Native
+
+    - name: Install Magick.Native
+      run: ./install.cmd
+      working-directory: src/Magick.Native
+
+    # - name: Build Magick.NET (Test)
+    #   run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test'
+    #   working-directory: build/windows
+
+    # - name: Test Magick.NET
+    #   run: './test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
+    #   working-directory: build/windows
 
     - name: Build Magick.NET (Release)
       run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release'
@@ -257,6 +334,7 @@ jobs:
       packages: read
 
     strategy:
+      fail-fast: false
       matrix:
         libraryName: [Core, AvaloniaMediaImaging, SystemDrawing, SystemWindowsMedia]
 
