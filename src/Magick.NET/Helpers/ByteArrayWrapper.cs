@@ -35,7 +35,14 @@ internal sealed unsafe class ByteArrayWrapper
         _pool.Return(_bytes, true);
         return result;
     }
-
+    
+~ByteArrayWrapper()
+    {
+        if (_bytes is not null)
+        {
+            _pool.Return(_bytes, true);
+        }
+    }
     #else
 
     public byte[] GetBytes()
@@ -46,7 +53,6 @@ internal sealed unsafe class ByteArrayWrapper
     }
 
     #endif
-
     public long Read(IntPtr data, UIntPtr count, IntPtr user_data)
     {
         if (data == IntPtr.Zero)
