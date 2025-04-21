@@ -11,7 +11,7 @@ namespace ImageMagick;
 
 internal sealed unsafe class ByteArrayWrapper
 {
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
     private static readonly ArrayPool<byte> _pool = ArrayPool<byte>.Create(1024 * 1024 * 64, 128);
 
     private byte[] _bytes = _pool.Rent(8192);
@@ -22,11 +22,10 @@ internal sealed unsafe class ByteArrayWrapper
 
     private int _length = 0;
 
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
     ~ByteArrayWrapper()
         => _pool.Return(_bytes, true);
-#endif
-#if NETSTANDARD2_1_OR_GREATER
+
     public byte[] GetBytes()
     {
         var result = new byte[_length];
@@ -34,6 +33,7 @@ internal sealed unsafe class ByteArrayWrapper
         _pool.Return(_bytes, true);
         return result;
     }
+
 #else
     public byte[] GetBytes()
     {
@@ -129,11 +129,11 @@ internal sealed unsafe class ByteArrayWrapper
         ResizeBytes(newLength);
     }
 
-#if NETSTANDARD2_1_OR_GREATER
+#if !NETSTANDARD2_0
     private void ResizeBytes(int length)
     {
         var newBytes = _pool.Rent(length);
-        Array.Copy(_bytes, newBytes, length);
+        Array.Copy(_bytes, newBytes, _bytes.Length);
         _pool.Return(_bytes, true);
         _bytes = newBytes;
     }
