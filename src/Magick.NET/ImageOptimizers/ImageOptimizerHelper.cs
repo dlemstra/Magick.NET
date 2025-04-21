@@ -106,9 +106,9 @@ internal static class ImageOptimizerHelper
     private static IMagickFormatInfo? GetFormatInformationFromHeader(Stream stream)
     {
         var buffer = new byte[4];
-        stream.Read(buffer, 0, buffer.Length);
+        var count = stream.Read(buffer, 0, buffer.Length);
 
-        if (buffer[0] == 0 && buffer[1] == 0 && buffer[2] == 1 && buffer[3] == 0)
+        if (count == buffer.Length && buffer[0] == 0 && buffer[1] == 0 && buffer[2] == 1 && buffer[3] == 0)
             return MagickFormatInfo.Create(MagickFormat.Ico);
 
         return null;
