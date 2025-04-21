@@ -28,9 +28,10 @@ internal sealed unsafe class ByteArrayWrapper
 
     public byte[] GetBytes()
     {
-        var result = new byte[_length];
+        var result = _pool.Rent(_length);
         Array.Copy(_bytes, result, _length);
-        _pool.Return(_bytes, true);
+        _pool.Return(_bytes);
+        _bytes = result;
         return result;
     }
 
@@ -134,7 +135,7 @@ internal sealed unsafe class ByteArrayWrapper
     {
         var newBytes = _pool.Rent(length);
         Array.Copy(_bytes, newBytes, _bytes.Length);
-        _pool.Return(_bytes, true);
+        _pool.Return(_bytes);
         _bytes = newBytes;
     }
 #else
