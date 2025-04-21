@@ -28,10 +28,8 @@ internal sealed unsafe class ByteArrayWrapper
 
     public byte[] GetBytes()
     {
-        var result = _pool.Rent(_length);
+        var result = new byte[_length];
         Array.Copy(_bytes, result, _length);
-        _pool.Return(_bytes);
-        _bytes = result;
         return result;
     }
 
