@@ -30,6 +30,7 @@ internal sealed unsafe class ByteArrayWrapper
     {
         var result = new byte[_length];
         Array.Copy(_bytes, result, _length);
+        _pool.Return(_bytes);
         return result;
     }
 
