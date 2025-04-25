@@ -3,21 +3,44 @@
 
 using System;
 using System.IO;
+#if !NETSTANDARD2_0
+using System.Buffers;
+#endif
 
 namespace ImageMagick;
 
 internal sealed unsafe class ByteArrayWrapper
 {
+#if !NETSTANDARD2_0
+    private static readonly ArrayPool<byte> _pool = ArrayPool<byte>.Create(1024 * 1024 * 64, 128);
+
+    private byte[] _bytes = _pool.Rent(8192);
+#else
     private byte[] _bytes = new byte[8192];
+#endif
     private int _offset = 0;
+
     private int _length = 0;
 
+#if !NETSTANDARD2_0
+    ~ByteArrayWrapper()
+        => _pool.Return(_bytes);
+
+    public byte[] GetBytes()
+    {
+        var result = new byte[_length];
+        Array.Copy(_bytes, result, _length);
+        return result;
+    }
+
+#else
     public byte[] GetBytes()
     {
         ResizeBytes(_length);
         return _bytes;
     }
 
+#endif
     public long Read(IntPtr data, UIntPtr count, IntPtr user_data)
     {
         if (data == IntPtr.Zero)
@@ -105,6 +128,16 @@ internal sealed unsafe class ByteArrayWrapper
         ResizeBytes(newLength);
     }
 
+#if !NETSTANDARD2_0
+    private void ResizeBytes(int length)
+    {
+        var newBytes = _pool.Rent(length);
+        Array.Copy(_bytes, newBytes, _bytes.Length);
+        _pool.Return(_bytes);
+        _bytes = newBytes;
+    }
+#else
     private void ResizeBytes(int length)
         => Array.Resize(ref _bytes, length);
+#endif
 }
