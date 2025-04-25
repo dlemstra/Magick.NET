@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using ImageMagick;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
