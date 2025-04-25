@@ -24,7 +24,7 @@ internal sealed unsafe class ByteArrayWrapper
 
 #if !NETSTANDARD2_0
     ~ByteArrayWrapper()
-        => _pool.Return(_bytes, true);
+        => _pool.Return(_bytes);
 
     public byte[] GetBytes()
     {
