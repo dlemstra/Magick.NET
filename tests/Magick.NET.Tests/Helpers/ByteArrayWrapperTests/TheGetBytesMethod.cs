@@ -15,7 +15,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldOnlyReturnTheWrittenBytes()
         {
-            var wrapper = new ByteArrayWrapper();
+            using var wrapper = new ByteArrayWrapper();
             wrapper.Seek(42, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
             wrapper.Seek(0, (IntPtr)SeekOrigin.Begin, IntPtr.Zero);
 

@@ -15,7 +15,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnThePositionOfTheWrapper()
         {
-            var wrapper = new ByteArrayWrapper();
+            using var wrapper = new ByteArrayWrapper();
 
             var buffer = new byte[42];
             fixed (byte* p = buffer)
@@ -31,7 +31,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnTheOffsetOfTheWrapper()
         {
-            var wrapper = new ByteArrayWrapper();
+            using var wrapper = new ByteArrayWrapper();
             wrapper.Seek(42, (IntPtr)SeekOrigin.Current, IntPtr.Zero);
 
             var position = wrapper.Tell(IntPtr.Zero);

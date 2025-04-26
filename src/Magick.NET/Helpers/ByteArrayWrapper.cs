@@ -9,7 +9,7 @@ using System.Buffers;
 
 namespace ImageMagick;
 
-internal sealed unsafe class ByteArrayWrapper
+internal sealed unsafe class ByteArrayWrapper : IDisposable
 {
 #if !NETSTANDARD2_0
     private static readonly ArrayPool<byte> _pool = ArrayPool<byte>.Create(1024 * 1024 * 64, 128);
@@ -23,7 +23,7 @@ internal sealed unsafe class ByteArrayWrapper
     private int _length = 0;
 
 #if !NETSTANDARD2_0
-    ~ByteArrayWrapper()
+    public void Dispose()
         => _pool.Return(_bytes);
 
     public byte[] GetBytes()
@@ -34,6 +34,10 @@ internal sealed unsafe class ByteArrayWrapper
     }
 
 #else
+    public void Dispose()
+    {
+    }
+
     public byte[] GetBytes()
     {
         ResizeBytes(_length);

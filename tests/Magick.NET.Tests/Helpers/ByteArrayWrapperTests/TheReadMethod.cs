@@ -15,7 +15,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public void ShouldReturnZeroWhenBufferIsNull()
         {
-            var wrapper = new ByteArrayWrapper();
+            using var wrapper = new ByteArrayWrapper();
 
             var count = wrapper.Read(IntPtr.Zero, (UIntPtr)10, IntPtr.Zero);
             Assert.Equal(0, count);
@@ -24,7 +24,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnZeroWhenNothingShouldBeRead()
         {
-            var wrapper = new ByteArrayWrapper();
+            using var wrapper = new ByteArrayWrapper();
 
             var buffer = new byte[255];
             fixed (byte* p = buffer)
@@ -37,7 +37,7 @@ public partial class ByteArrayWrapperTests
         [Fact]
         public unsafe void ShouldReturnTheNumberOfBytesThatCouldBeRead()
         {
-            var wrapper = new ByteArrayWrapper();
+            using var wrapper = new ByteArrayWrapper();
 
             var offset = 0L;
             var buffer = new byte[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
