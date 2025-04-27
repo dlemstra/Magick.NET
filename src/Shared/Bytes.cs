@@ -69,13 +69,13 @@ internal sealed partial class Bytes
             return GetDataWithSeekableStream(stream, out length);
 
         int count;
-        var buffer = new byte[BufferSize];
+        using var buffer = new PooledByteArray(BufferSize);
         using var tempStream = new MemoryStream();
-        while ((count = stream.Read(buffer, 0, BufferSize)) != 0)
+        while ((count = stream.Read(buffer.Data, 0, BufferSize)) != 0)
         {
             CheckLength(tempStream.Length + count);
 
-            tempStream.Write(buffer, 0, count);
+            tempStream.Write(buffer.Data, 0, count);
         }
 
         return GetDataFromMemoryStream(tempStream, out length);
@@ -98,13 +98,13 @@ internal sealed partial class Bytes
             return await GetDataWithSeekableStreamAsync(stream, cancellationToken).ConfigureAwait(false);
 
         int count;
-        var buffer = new byte[BufferSize];
+        using var buffer = new PooledByteArray(BufferSize);
         using var tempStream = new MemoryStream();
-        while ((count = await stream.ReadAsync(buffer, 0, BufferSize, cancellationToken).ConfigureAwait(false)) != 0)
+        while ((count = await stream.ReadAsync(buffer.Data, 0, BufferSize, cancellationToken).ConfigureAwait(false)) != 0)
         {
             CheckLength(tempStream.Length + count);
 
-            tempStream.Write(buffer, 0, count);
+            tempStream.Write(buffer.Data, 0, count);
         }
 
         bytes = GetDataFromMemoryStream(tempStream, out length);

@@ -11,7 +11,7 @@ internal sealed unsafe class StreamWrapper : IDisposable
 {
     private const int BufferSize = 8192;
 
-    private readonly byte[] _buffer;
+    private readonly PooledByteArray _buffer;
     private readonly byte* _bufferStart;
     private readonly long _streamStart;
     private readonly GCHandle _handle;
@@ -20,8 +20,8 @@ internal sealed unsafe class StreamWrapper : IDisposable
     private StreamWrapper(Stream stream)
     {
         _stream = stream;
-        _buffer = new byte[BufferSize];
-        _handle = GCHandle.Alloc(_buffer, GCHandleType.Pinned);
+        _buffer = new PooledByteArray(BufferSize);
+        _handle = GCHandle.Alloc(_buffer.Data, GCHandleType.Pinned);
         _bufferStart = (byte*)_handle.AddrOfPinnedObject().ToPointer();
 
         try
@@ -49,7 +49,10 @@ internal sealed unsafe class StreamWrapper : IDisposable
     }
 
     public void Dispose()
-        => _handle.Free();
+    {
+        _handle.Free();
+        _buffer.Dispose();
+    }
 
     public long Read(IntPtr data, UIntPtr count, IntPtr user_data)
     {
@@ -69,7 +72,7 @@ internal sealed unsafe class StreamWrapper : IDisposable
 
             try
             {
-                length = _stream.Read(_buffer, 0, (int)length);
+                length = _stream.Read(_buffer.Data, 0, (int)length);
             }
             catch
             {
@@ -138,7 +141,7 @@ internal sealed unsafe class StreamWrapper : IDisposable
 
             try
             {
-                _stream.Write(_buffer, 0, (int)length);
+                _stream.Write(_buffer.Data, 0, (int)length);
             }
             catch
             {

@@ -3,48 +3,21 @@
 
 using System;
 using System.IO;
-#if !NETSTANDARD2_0
-using System.Buffers;
-#endif
 
 namespace ImageMagick;
 
 internal sealed unsafe class ByteArrayWrapper : IDisposable
 {
-#if !NETSTANDARD2_0
-    private static readonly ArrayPool<byte> _pool = ArrayPool<byte>.Create(1024 * 1024 * 64, 128);
-
-    private byte[] _bytes = _pool.Rent(8192);
-#else
-    private byte[] _bytes = new byte[8192];
-#endif
+    private readonly PooledByteArray _bytes = new PooledByteArray(8192);
     private int _offset = 0;
-
     private int _length = 0;
 
-#if !NETSTANDARD2_0
     public void Dispose()
-        => _pool.Return(_bytes);
+        => _bytes.Dispose();
 
     public byte[] GetBytes()
-    {
-        var result = new byte[_length];
-        Array.Copy(_bytes, result, _length);
-        return result;
-    }
+        => _bytes.ToUnpooledArray(_length);
 
-#else
-    public void Dispose()
-    {
-    }
-
-    public byte[] GetBytes()
-    {
-        ResizeBytes(_length);
-        return _bytes;
-    }
-
-#endif
     public long Read(IntPtr data, UIntPtr count, IntPtr user_data)
     {
         if (data == IntPtr.Zero)
@@ -58,7 +31,7 @@ internal sealed unsafe class ByteArrayWrapper : IDisposable
         if (length != 0)
         {
             var destination = (byte*)data.ToPointer();
-            fixed (byte* source = _bytes)
+            fixed (byte* source = _bytes.Data)
             {
                 NativeMemory.Copy(source + _offset, destination, length);
             }
@@ -108,7 +81,7 @@ internal sealed unsafe class ByteArrayWrapper : IDisposable
         EnsureLength(newOffset);
 
         var source = (byte*)data.ToPointer();
-        fixed (byte* destination = _bytes)
+        fixed (byte* destination = _bytes.Data)
         {
             NativeMemory.Copy(source, destination + _offset, total);
         }
@@ -132,16 +105,6 @@ internal sealed unsafe class ByteArrayWrapper : IDisposable
         ResizeBytes(newLength);
     }
 
-#if !NETSTANDARD2_0
     private void ResizeBytes(int length)
-    {
-        var newBytes = _pool.Rent(length);
-        Array.Copy(_bytes, newBytes, _bytes.Length);
-        _pool.Return(_bytes);
-        _bytes = newBytes;
-    }
-#else
-    private void ResizeBytes(int length)
-        => Array.Resize(ref _bytes, length);
-#endif
+        => _bytes.Resize(length);
 }

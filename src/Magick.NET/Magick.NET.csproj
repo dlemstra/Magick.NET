@@ -75,6 +75,7 @@
     <Compile Include="../Shared/FileHelper.cs" Link="Helpers/FileHelper.cs" />
     <Compile Include="../Shared/MemberNotNullAttribute.cs" Link="Helpers/MemberNotNullAttribute.cs" />
     <Compile Include="../Shared/NotNullAttribute.cs" Link="Helpers/NotNullAttribute.cs" />
+    <Compile Include="../Shared/PooledByteArray.cs" Link="Helpers/PooledByteArray.cs" />
     <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
     <Compile Include="../Shared/CallerArgumentExpressionAttribute.cs" Link="Helpers/CallerArgumentExpressionAttribute.cs" />
     <Compile Include="../Shared/TypeHelper.cs" Link="Helpers/TypeHelper.cs" />
