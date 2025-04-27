@@ -34,6 +34,7 @@ internal sealed class PooledByteArray : IDisposable
         var newBytes = _pool.Rent(length);
         Buffer.BlockCopy(_bytes, 0, newBytes, 0, _bytes.Length);
         _pool.Return(_bytes);
+        _bytes = newBytes;
     }
 
     public byte[] ToUnpooledArray(int length)
