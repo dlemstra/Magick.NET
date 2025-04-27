@@ -24,7 +24,13 @@ internal sealed class PooledByteArray : IDisposable
         => _bytes.Length;
 
     public void Dispose()
-        => _pool.Return(_bytes);
+    {
+        if (_bytes == null)
+            return;
+
+        _pool.Return(_bytes);
+        _bytes = null!;
+    }
 
     public void Resize(int length)
     {
