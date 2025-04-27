@@ -159,7 +159,7 @@ public partial class ImageProfile : IImageProfile
     private static byte[] Copy(byte[]? data)
     {
         if (data is null || data.Length == 0)
-            return Array.Empty<byte>();
+            return [];
 
         var result = new byte[data.Length];
         data.CopyTo(result, 0);
