@@ -856,7 +856,7 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     /// <summary>
     /// Displaces an image's colormap by a given number of positions.
     /// </summary>
-    /// <param name="amount">Displace the colormap this amount.</param>
+    /// <param name="amount">The amount to displace the colormap.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void CycleColormap(int amount);
 
