@@ -63,5 +63,14 @@ public partial class SignedRationalTests
             Assert.Equal(0, rational.Numerator);
             Assert.Equal(1, rational.Denominator);
         }
+
+        [Fact]
+        public void ShouldClampTheValue()
+        {
+            var rational = new SignedRational(long.MaxValue * 100.0);
+
+            Assert.Equal(-1, rational.Numerator);
+            Assert.Equal(1, rational.Denominator);
+        }
     }
 }

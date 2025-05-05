@@ -63,5 +63,14 @@ public partial class RationalTests
             Assert.Equal(0U, rational.Numerator);
             Assert.Equal(1U, rational.Denominator);
         }
+
+        [Fact]
+        public void ShouldClampTheValue()
+        {
+            var rational = new Rational(long.MaxValue * 100.0);
+
+            Assert.Equal(uint.MaxValue, rational.Numerator);
+            Assert.Equal(1U, rational.Denominator);
+        }
     }
 }

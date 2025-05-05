@@ -44,6 +44,20 @@ internal struct BigRational : IEquatable<BigRational>
             return;
         }
 
+        if (value >= long.MaxValue)
+        {
+            Numerator = long.MaxValue;
+            Denominator = 1;
+            return;
+        }
+
+        if (Math.Floor(value) == value)
+        {
+            Numerator = (long)value;
+            Denominator = 1;
+            return;
+        }
+
         Numerator = 1;
         Denominator = 1;
 
