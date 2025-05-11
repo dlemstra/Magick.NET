@@ -12,6 +12,7 @@ namespace ImageMagick;
 /// </summary>
 public partial class ChannelPerceptualHash : IChannelPerceptualHash
 {
+    private const int _maximumNumberOfPerceptualHashes = 7;
     private readonly Dictionary<ColorSpace, HuPhashList> _huPhashes = new();
     private string _hash = string.Empty;
 
@@ -44,7 +45,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     /// <returns>The hu perceptual hash for the specified colorspace.</returns>
     public double HuPhash(ColorSpace colorSpace, int index)
     {
-        Throw.IfOutOfRange(index, 7);
+        Throw.IfOutOfRange(index, _maximumNumberOfPerceptualHashes);
 
         if (!_huPhashes.TryGetValue(colorSpace, out var huPhashList))
         {
@@ -67,7 +68,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
 
         foreach (var huPhashList in _huPhashes)
         {
-            for (var i = 0; i < 7; i++)
+            for (var i = 0; i < _maximumNumberOfPerceptualHashes; i++)
             {
                 var a = huPhashList.Value[i];
                 var b = other.HuPhash(huPhashList.Key, i);
@@ -110,7 +111,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
         foreach (var colorSpace in colorSpaces)
         {
             var huPhashList = new HuPhashList();
-            for (var i = 0; i < 7; i++, offset += 5)
+            for (var i = 0; i < _maximumNumberOfPerceptualHashes; i++, offset += 5)
             {
                 if (!int.TryParse(hash.Substring(offset, 5), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var hex))
                     throw new ArgumentException("Invalid hash specified", nameof(hash));
@@ -132,7 +133,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
 
         foreach (var huPhashList in _huPhashes.Values)
         {
-            for (var i = 0; i < 7; i++)
+            for (var i = 0; i < _maximumNumberOfPerceptualHashes; i++)
             {
                 var value = huPhashList[i];
 
@@ -156,7 +157,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
     {
         var huPhashList = new HuPhashList();
 
-        for (var i = 0; i < 7; i++)
+        for (var i = 0; i < _maximumNumberOfPerceptualHashes; i++)
             huPhashList[i] = instance.GetHuPhash(colorSpaceIndex, (uint)i);
 
         _huPhashes[colorSpace] = huPhashList;
@@ -172,9 +173,7 @@ public partial class ChannelPerceptualHash : IChannelPerceptualHash
         }
 
         public HuPhashList(double[] values)
-        {
-            _values = values;
-        }
+            => _values = values;
 
         public double this[int index]
         {
