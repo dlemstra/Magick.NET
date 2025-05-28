@@ -57,7 +57,12 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.MagickNETIconPNG);
             image.BackgroundColor = MagickColors.Cornsilk;
             image.VirtualPixelMethod = VirtualPixelMethod.Background;
-            image.Distort(DistortMethod.Perspective, [0, 0, 0, 0, 0, 90, 0, 90, 90, 0, 90, 25, 90, 90, 90, 65]);
+            image.Distort(DistortMethod.Perspective, [
+                0, 0, 0, 0,
+                0, 90, 0, 90,
+                90, 0, 90, 25,
+                90, 90, 90, 65
+            ]);
             image.Clamp();
 
             ColorAssert.Equal(new MagickColor("#0000"), image, 1, 64);
