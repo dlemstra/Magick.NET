@@ -45,14 +45,14 @@ public struct PointD : IEquatable<PointD>
     }
 
     /// <summary>
-    /// Gets the x-coordinate of this <see cref="PointD"/>.
+    /// Gets or sets the x-coordinate of this <see cref="PointD"/>.
     /// </summary>
-    public double X { get; private set; }
+    public double X { get; set; }
 
     /// <summary>
-    /// Gets the y-coordinate of this <see cref="PointD"/>.
+    /// Gets or sets the y-coordinate of this <see cref="PointD"/>.
     /// </summary>
-    public double Y { get; private set; }
+    public double Y { get; set; }
 
     /// <summary>
     /// Determines whether the specified <see cref="PointD"/> instances are considered equal.
