@@ -11,26 +11,24 @@ namespace ImageMagick;
 /// </summary>
 public sealed partial class MagickGeometry : IMagickGeometry
 {
-    private readonly bool _includeXyInToString;
+    private uint _width;
+    private uint _height;
+    private int _x;
+    private int _y;
+    private GeometryFlags _flags;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class.
     /// </summary>
     public MagickGeometry()
-    {
-        Initialize(0, 0, 0, 0);
-        _includeXyInToString = false;
-    }
+        => Initialize(0, 0, 0, 0, GeometryFlags.NoValue);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
     /// </summary>
     /// <param name="widthAndHeight">The width and height.</param>
     public MagickGeometry(uint widthAndHeight)
-    {
-        Initialize(0, 0, widthAndHeight, widthAndHeight);
-        _includeXyInToString = false;
-    }
+        => Initialize(0, 0, widthAndHeight, widthAndHeight, GeometryFlags.WidthHeight);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
@@ -38,10 +36,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     public MagickGeometry(uint width, uint height)
-    {
-        Initialize(0, 0, width, height);
-        _includeXyInToString = false;
-    }
+        => Initialize(0, 0, width, height, GeometryFlags.WidthHeight);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
@@ -51,10 +46,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     public MagickGeometry(int x, int y, uint width, uint height)
-    {
-        Initialize(x, y, width, height);
-        _includeXyInToString = true;
-    }
+        => Initialize(x, y, width, height, GeometryFlags.XYWidthHeight);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified width and height.
@@ -62,10 +54,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="percentageWidth">The percentage of the width.</param>
     /// <param name="percentageHeight">The percentage of the height.</param>
     public MagickGeometry(Percentage percentageWidth, Percentage percentageHeight)
-    {
-        InitializeFromPercentage(0, 0, percentageWidth, percentageHeight);
-        _includeXyInToString = false;
-    }
+        => InitializeFromPercentage(0, 0, percentageWidth, percentageHeight, GeometryFlags.WidthHeight);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified offsets, width and height.
@@ -75,10 +64,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="percentageWidth">The percentage of the width.</param>
     /// <param name="percentageHeight">The percentage of the height.</param>
     public MagickGeometry(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
-    {
-        InitializeFromPercentage(x, y, percentageWidth, percentageHeight);
-        _includeXyInToString = true;
-    }
+        => InitializeFromPercentage(x, y, percentageWidth, percentageHeight, GeometryFlags.XYWidthHeight);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MagickGeometry"/> class using the specified geometry.
@@ -90,70 +76,140 @@ public sealed partial class MagickGeometry : IMagickGeometry
         Throw.IfNullOrEmpty(value);
 
         using var instance = NativeMagickGeometry.Create();
-        var flags = instance.Initialize(value);
+        _flags = instance.Initialize(value);
 
-        if (!EnumHelper.HasFlag(flags, GeometryFlags.AspectRatio))
-            Initialize(instance, flags);
+        Throw.IfTrue(_flags == GeometryFlags.NoValue, nameof(value), "Invalid geometry specified.");
+
+        _x = (int)instance.X_Get();
+        _y = (int)instance.Y_Get();
+
+        if (AspectRatio)
+        {
+            var ratio = value.Split(':');
+            _width = ParseUInt(ratio[0]);
+            _height = ParseUInt(ratio[1]);
+        }
         else
-            InitializeFromAspectRation(instance, value);
-
-        _includeXyInToString = value.Contains("+") || value.Contains("-");
+        {
+            _width = (uint)instance.Width_Get();
+            _height = (uint)instance.Height_Get();
+        }
     }
 
     /// <summary>
     /// Gets a value indicating whether the value is an aspect ratio.
     /// </summary>
-    public bool AspectRatio { get; internal set; }
+    public bool AspectRatio
+    {
+        get => _flags.HasFlag(GeometryFlags.AspectRatio);
+        internal set => _flags = value ? _flags | GeometryFlags.AspectRatio : _flags & ~GeometryFlags.AspectRatio;
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the image is resized based on the smallest fitting dimension (^).
     /// </summary>
-    public bool FillArea { get; set; }
+    public bool FillArea
+    {
+        get => _flags.HasFlag(GeometryFlags.FillArea);
+        set => _flags = value ? _flags | GeometryFlags.FillArea : _flags & ~GeometryFlags.FillArea;
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the image is resized if image is greater than size (&gt;).
     /// </summary>
-    public bool Greater { get; set; }
+    public bool Greater
+    {
+        get => _flags.HasFlag(GeometryFlags.Greater);
+        set => _flags = value ? _flags | GeometryFlags.Greater : _flags & ~GeometryFlags.Greater;
+    }
 
     /// <summary>
     /// Gets or sets the height of the geometry.
     /// </summary>
-    public uint Height { get; set; }
+    public uint Height
+    {
+        get => _height;
+        set
+        {
+            _height = value;
+            _flags |= GeometryFlags.Height;
+        }
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the image is resized without preserving aspect ratio (!).
     /// </summary>
-    public bool IgnoreAspectRatio { get; set; }
+    public bool IgnoreAspectRatio
+    {
+        get => _flags.HasFlag(GeometryFlags.IgnoreAspectRatio);
+        set => _flags = value ? _flags | GeometryFlags.IgnoreAspectRatio : _flags & ~GeometryFlags.IgnoreAspectRatio;
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the width and height are expressed as percentages.
     /// </summary>
-    public bool IsPercentage { get; set; }
+    public bool IsPercentage
+    {
+        get => _flags.HasFlag(GeometryFlags.Percentage);
+        set => _flags = value ? _flags | GeometryFlags.Percentage : _flags & ~GeometryFlags.Percentage;
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the image is resized if the image is less than size (&lt;).
     /// </summary>
-    public bool Less { get; set; }
+    public bool Less
+    {
+        get => _flags.HasFlag(GeometryFlags.Less);
+        set => _flags = value ? _flags | GeometryFlags.Less : _flags & ~GeometryFlags.Less;
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether the image is resized using a pixel area count limit (@).
     /// </summary>
-    public bool LimitPixels { get; set; }
+    public bool LimitPixels
+    {
+        get => _flags.HasFlag(GeometryFlags.LimitPixels);
+        set => _flags = value ? _flags | GeometryFlags.LimitPixels : _flags & ~GeometryFlags.LimitPixels;
+    }
 
     /// <summary>
     /// Gets or sets the width of the geometry.
     /// </summary>
-    public uint Width { get; set; }
+    public uint Width
+    {
+        get => _width;
+        set
+        {
+            _width = value;
+            _flags |= GeometryFlags.Width;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the X offset from origin.
     /// </summary>
-    public int X { get; set; }
+    public int X
+    {
+        get => _x;
+        set
+        {
+            _x = value;
+            _flags |= GeometryFlags.X;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the Y offset from origin.
     /// </summary>
-    public int Y { get; set; }
+    public int Y
+    {
+        get => _y;
+        set
+        {
+            _y = value;
+            _flags |= GeometryFlags.Y;
+        }
+    }
 
     /// <summary>
     /// Converts the specified string to an instance of this type.
@@ -326,12 +382,7 @@ public sealed partial class MagickGeometry : IMagickGeometry
     /// <param name="width">The width.</param>
     /// <param name="height">The height.</param>
     public void Initialize(int x, int y, uint width, uint height)
-    {
-        X = x;
-        Y = y;
-        Width = width;
-        Height = height;
-    }
+        => Initialize(x, y, width, height, GeometryFlags.XYWidthHeight);
 
     /// <summary>
     /// Returns a string that represents the current <see cref="IMagickGeometry"/>.
@@ -340,55 +391,62 @@ public sealed partial class MagickGeometry : IMagickGeometry
     public override string ToString()
     {
         if (AspectRatio)
-            return Width + ":" + Height;
+            return _width + ":" + _height;
 
         var result = string.Empty;
 
-        if (Width == 0 && Height == 0)
+        if (_flags.HasFlag(GeometryFlags.Width) && _width != 0)
         {
-            result = "0x0";
-        }
-        else
-        {
-            if (Width > 0)
-                result += Width;
-
-            if (Height > 0)
-                result += "x" + Height;
-            else if (!IsPercentage)
+            result += _width;
+            if (IsPercentage)
+                result += "%";
+            else
                 result += "x";
         }
 
-        if (X != 0 || Y != 0 || _includeXyInToString)
+        if (_flags.HasFlag(GeometryFlags.Height) && _height != 0)
         {
-            if (X >= 0)
-                result += '+';
+            if (result.Length == 0 || IsPercentage)
+                result += "x";
 
-            result += X;
-
-            if (Y >= 0)
-                result += '+';
-
-            result += Y;
+            result += _height;
+            if (IsPercentage)
+                result += "%";
         }
 
-        if (IsPercentage)
-            result += '%';
+        if (result.Length == 0 && _flags.HasFlag(GeometryFlags.WidthHeight))
+            result = "0x0";
+
+        if (_flags.HasFlag(GeometryFlags.X))
+        {
+            if (_x >= 0)
+                result += "+";
+
+            result += _x;
+        }
+
+        if (_flags.HasFlag(GeometryFlags.Y))
+        {
+            if (_y >= 0)
+                result += "+";
+
+            result += _y;
+        }
 
         if (IgnoreAspectRatio)
-            result += '!';
+            result += "!";
 
         if (Greater)
-            result += '>';
+            result += ">";
 
         if (Less)
-            result += '<';
+            result += "<";
 
         if (FillArea)
-            result += '^';
+            result += "^";
 
         if (LimitPixels)
-            result += '@';
+            result += "@";
 
         return result;
     }
@@ -433,40 +491,20 @@ public sealed partial class MagickGeometry : IMagickGeometry
         return uint.Parse(value.Substring(start, index - start), CultureInfo.InvariantCulture);
     }
 
-    private void InitializeFromPercentage(int x, int y, Percentage percentageWidth, Percentage percentageHeight)
+    private void Initialize(int x, int y, uint width, uint height, GeometryFlags flags)
+    {
+        _x = x;
+        _y = y;
+        _width = width;
+        _height = height;
+        _flags = flags;
+    }
+
+    private void InitializeFromPercentage(int x, int y, Percentage percentageWidth, Percentage percentageHeight, GeometryFlags flags)
     {
         Throw.IfNegative(percentageWidth);
         Throw.IfNegative(percentageHeight);
 
-        Initialize(x, y, (uint)percentageWidth, (uint)percentageHeight);
-        IsPercentage = true;
-    }
-
-    private void Initialize(NativeMagickGeometry instance, GeometryFlags flags)
-    {
-        Throw.IfTrue(flags == GeometryFlags.NoValue, nameof(flags), "Invalid geometry specified.");
-
-        X = (int)instance.X_Get();
-        Y = (int)instance.Y_Get();
-        Width = (uint)instance.Width_Get();
-        Height = (uint)instance.Height_Get();
-        IsPercentage = EnumHelper.HasFlag(flags, GeometryFlags.PercentValue);
-        IgnoreAspectRatio = EnumHelper.HasFlag(flags, GeometryFlags.IgnoreAspectRatio);
-        FillArea = EnumHelper.HasFlag(flags, GeometryFlags.FillArea);
-        Greater = EnumHelper.HasFlag(flags, GeometryFlags.Greater);
-        Less = EnumHelper.HasFlag(flags, GeometryFlags.Less);
-        LimitPixels = EnumHelper.HasFlag(flags, GeometryFlags.LimitPixels);
-    }
-
-    private void InitializeFromAspectRation(NativeMagickGeometry instance, string value)
-    {
-        AspectRatio = true;
-
-        var ratio = value.Split(':');
-        Width = ParseUInt(ratio[0]);
-        Height = ParseUInt(ratio[1]);
-
-        X = (int)instance.X_Get();
-        Y = (int)instance.Y_Get();
+        Initialize(x, y, (uint)percentageWidth, (uint)percentageHeight, flags | GeometryFlags.Percentage);
     }
 }

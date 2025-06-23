@@ -19,6 +19,14 @@ public partial class MagickGeometryTests
         }
 
         [Fact]
+        public void ShouldOnlyReturnPercentageWidthAndHeight()
+        {
+            var geometry = new MagickGeometry("50%x20%");
+
+            Assert.Equal("50%x20%", geometry.ToString());
+        }
+
+        [Fact]
         public void ShouldReturnCorrectValueForPositiveValues()
         {
             var geometry = new MagickGeometry(1, 2, 10, 20);
@@ -125,6 +133,46 @@ public partial class MagickGeometryTests
             var geometry = new MagickGeometry(0, 0);
 
             Assert.Equal("0x0", geometry.ToString());
+        }
+
+        [Fact]
+        public void ShouldReturnTheCorrectStringWhenWidthAndHeightAreNotSpecified()
+        {
+            var geometry = new MagickGeometry("+5+10");
+
+            Assert.Equal("+5+10", geometry.ToString());
+        }
+
+        [Fact]
+        public void ShouldReturnCorrectWidth()
+        {
+            var geometry = new MagickGeometry("50");
+
+            Assert.Equal("50x", geometry.ToString());
+        }
+
+        [Fact]
+        public void ShouldReturnCorrectHeight()
+        {
+            var geometry = new MagickGeometry("x20");
+
+            Assert.Equal("x20", geometry.ToString());
+        }
+
+        [Fact]
+        public void ShouldReturnCorrectPercentageWidth()
+        {
+            var geometry = new MagickGeometry("50%");
+
+            Assert.Equal("50%", geometry.ToString());
+        }
+
+        [Fact]
+        public void ShouldReturnCorrectPercentageHeight()
+        {
+            var geometry = new MagickGeometry("x20%");
+
+            Assert.Equal("x20%", geometry.ToString());
         }
 
         [Fact]
