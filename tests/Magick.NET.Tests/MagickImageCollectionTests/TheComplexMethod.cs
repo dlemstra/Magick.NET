@@ -32,8 +32,27 @@ public partial class MagickImageCollectionTests
         [Fact]
         public void ShouldApplyTheOperatorToTheImages()
         {
-            Assert.SkipWhen(Runtime.Architecture == Architecture.Arm64, "Flaky result on Linux and Windows arm64.");
+            using var images = new MagickImageCollection();
+            images.Read(Files.RoseSparkleGIF);
 
+            var settings = new ComplexSettings(ComplexOperator.MagnitudePhase);
+            images.Complex(settings);
+
+            Assert.Equal(2, images.Count);
+
+#if Q8
+            ColorAssert.Equal(new MagickColor("#a4a4a39f"), images[1], 10, 10);
+
+#elif Q16
+            ColorAssert.Equal(new MagickColor("#a4cda471a3ce9fff"), images[1], 10, 10);
+#else
+            ColorAssert.Equal(new MagickColor("#a4cca470a3ce9fff"), images[1], 10, 10);
+#endif
+        }
+
+        [Fact]
+        public void ShouldClampTheValuesOfThePixel()
+        {
             using var images = new MagickImageCollection();
             images.Read(Files.RoseSparkleGIF);
 
@@ -42,14 +61,10 @@ public partial class MagickImageCollectionTests
 
             Assert.Equal(2, images.Count);
 
-#if Q8
-            ColorAssert.Equal(new MagickColor("#abb4ba01"), images[1], 10, 10);
-
-#elif Q16
-            ColorAssert.Equal(new MagickColor("#aaabb3b4b9ba0001"), images[1], 10, 10);
+#if Q16HDRI
+            ColorAssert.Equal(new MagickColor("#00000000"), images[1], 39, 10);
 #else
-            images[1].Clamp();
-            ColorAssert.Equal(new MagickColor("#0000000000000000"), images[1], 10, 10);
+            ColorAssert.Equal(new MagickColor("#00000000"), images[1], 10, 10);
 #endif
         }
     }

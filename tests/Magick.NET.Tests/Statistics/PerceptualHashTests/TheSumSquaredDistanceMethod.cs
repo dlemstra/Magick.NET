@@ -42,11 +42,11 @@ public partial class PerceptualHashTests
             Assert.NotNull(otherPhash);
 
 #if Q8
-            Assert.Equal(390.35, phash.SumSquaredDistance(otherPhash), 2);
+            Assert.Equal(821.09, phash.SumSquaredDistance(otherPhash), 2);
 #elif Q16
-            Assert.Equal(365.36, phash.SumSquaredDistance(otherPhash), 2);
+            Assert.Equal(851.76, phash.SumSquaredDistance(otherPhash), 2);
 #else
-            Assert.Equal(356.03, phash.SumSquaredDistance(otherPhash), 2);
+            Assert.Equal(832.24, phash.SumSquaredDistance(otherPhash), 2);
 #endif
         }
     }

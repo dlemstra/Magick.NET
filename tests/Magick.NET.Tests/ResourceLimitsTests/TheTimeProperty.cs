@@ -16,7 +16,7 @@ public partial class ResourceLimitsTests
         {
             IsolatedUnitTest.Execute(() =>
             {
-                Assert.Equal(0U, ResourceLimits.Time);
+                Assert.Equal((ulong)long.MaxValue, ResourceLimits.Time);
             });
         }
 

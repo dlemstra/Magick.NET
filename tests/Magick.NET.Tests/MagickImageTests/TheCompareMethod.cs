@@ -115,7 +115,7 @@ public partial class MagickImageTests
             Assert.InRange(errorInfo.MeanErrorPerPixel, 11450.85, 11450.86);
 #endif
             Assert.Equal(1, errorInfo.NormalizedMaximumError);
-            Assert.InRange(errorInfo.NormalizedMeanError, 0.13, 0.14);
+            Assert.InRange(errorInfo.NormalizedMeanError, 0.40, 0.41);
         }
 
         [Fact]
@@ -156,25 +156,19 @@ public partial class MagickImageTests
         }
 
         [Theory]
-        [InlineData(ErrorMetric.Undefined, 0.0682)]
-        [InlineData(ErrorMetric.Absolute, 6462)]
-        [InlineData(ErrorMetric.Fuzz, 0.4726)]
+        [InlineData(ErrorMetric.Undefined, 0.4726)]
+        [InlineData(ErrorMetric.Absolute, 0.3944)]
+        [InlineData(ErrorMetric.Fuzz, 0.5677)]
         [InlineData(ErrorMetric.MeanAbsolute, 0.2714)]
-#if Q8
-        [InlineData(ErrorMetric.MeanErrorPerPixel, 4536868.5411)]
-#else
-        [InlineData(ErrorMetric.MeanErrorPerPixel, 1165975215.0823)]
-#endif
+        [InlineData(ErrorMetric.MeanErrorPerPixel, 0.2714)]
         [InlineData(ErrorMetric.MeanSquared, 0.2233)]
-        [InlineData(ErrorMetric.NormalizedCrossCorrelation, 0.0682)]
+        [InlineData(ErrorMetric.NormalizedCrossCorrelation, 0.4748)]
         [InlineData(ErrorMetric.PeakAbsolute, 1)]
-        [InlineData(ErrorMetric.PeakSignalToNoiseRatio, 0.2233)]
+        [InlineData(ErrorMetric.PeakSignalToNoiseRatio, 0.0542)]
         [InlineData(ErrorMetric.PerceptualHash, 0)]
         [InlineData(ErrorMetric.RootMeanSquared, 0.4726)]
-        [InlineData(ErrorMetric.StructuralSimilarity, 0.4220)]
-        [InlineData(ErrorMetric.StructuralDissimilarity, 0.2889)]
-        [InlineData(ErrorMetric.PhaseCorrelation, 0.0682)]
-        [InlineData(ErrorMetric.DotProductCorrelation, 0.0682)]
+        [InlineData(ErrorMetric.StructuralSimilarity, 0.2889)]
+        [InlineData(ErrorMetric.StructuralDissimilarity, 0.7110)]
         public void ShouldReturnTheCorrectValueForEachErrorMetric(ErrorMetric errorMetric, double expectedResult)
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
@@ -185,6 +179,19 @@ public partial class MagickImageTests
                 Assert.InRange(result, expectedResult - 0.0001, expectedResult);
             else
                 Assert.InRange(result, expectedResult, expectedResult + 0.0001);
+        }
+
+        [Theory]
+        [InlineData(ErrorMetric.PhaseCorrelation)]
+        [InlineData(ErrorMetric.DotProductCorrelation)]
+        public void ShouldThrowExceptionWhenErrorMetricIsSupported(ErrorMetric errorMetric)
+        {
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var other = image.CloneAndMutate(image => image.Rotate(180));
+
+            var exception = Assert.Throws<MagickImageErrorException>(() => image.Compare(other, errorMetric));
+
+            Assert.Contains("metric not supported", exception.Message);
         }
     }
 }
