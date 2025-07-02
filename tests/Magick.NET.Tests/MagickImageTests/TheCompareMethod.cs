@@ -184,7 +184,7 @@ public partial class MagickImageTests
         [Theory]
         [InlineData(ErrorMetric.PhaseCorrelation)]
         [InlineData(ErrorMetric.DotProductCorrelation)]
-        public void ShouldThrowExceptionWhenErrorMetricIsSupported(ErrorMetric errorMetric)
+        public void ShouldThrowExceptionWhenErrorMetricIsNotSupported(ErrorMetric errorMetric)
         {
             using var image = new MagickImage(Files.Builtin.Logo);
             using var other = image.CloneAndMutate(image => image.Rotate(180));
