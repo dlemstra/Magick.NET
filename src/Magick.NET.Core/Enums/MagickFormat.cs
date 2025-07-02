@@ -1397,4 +1397,9 @@ public enum MagickFormat
     /// AVC Image File Format.
     /// </summary>
     Avci,
+
+    /// <summary>
+    /// Microsoft icon (Icon).
+    /// </summary>
+    Icn,
 }
