@@ -51,6 +51,11 @@ public interface IConfigurationFiles
     IConfigurationFile Log { get; }
 
     /// <summary>
+    /// Gets the mime configuration.
+    /// </summary>
+    IConfigurationFile Mime { get; }
+
+    /// <summary>
     /// Gets the policy configuration.
     /// </summary>
     IConfigurationFile Policy { get; }

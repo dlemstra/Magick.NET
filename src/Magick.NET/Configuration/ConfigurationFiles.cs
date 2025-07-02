@@ -18,6 +18,7 @@ public sealed class ConfigurationFiles : IConfigurationFiles
         English = new ConfigurationFile("english.xml");
         Locale = new ConfigurationFile("locale.xml");
         Log = new ConfigurationFile("log.xml");
+        Mime = new ConfigurationFile("mime.xml");
         Policy = new ConfigurationFile("policy.xml");
         Thresholds = new ConfigurationFile("thresholds.xml");
         Type = new ConfigurationFile("type.xml");
@@ -43,6 +44,7 @@ public sealed class ConfigurationFiles : IConfigurationFiles
             yield return English;
             yield return Locale;
             yield return Log;
+            yield return Mime;
             yield return Policy;
             yield return Thresholds;
             yield return Type;
@@ -85,6 +87,11 @@ public sealed class ConfigurationFiles : IConfigurationFiles
     /// Gets the log configuration.
     /// </summary>
     public IConfigurationFile Log { get; }
+
+    /// <summary>
+    /// Gets the log configuration.
+    /// </summary>
+    public IConfigurationFile Mime { get; }
 
     /// <summary>
     /// Gets the policy configuration.

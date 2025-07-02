@@ -100,6 +100,9 @@
     <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/log.xml" Link="Resources/log.xml">
       <LogicalName>ImageMagick.Resources.Xml.log.xml</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/mime.xml" Link="Resources/mime.xml">
+      <LogicalName>ImageMagick.Resources.Xml.mime.xml</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="../Magick.Native/resources/Release$(QuantumType)/policy.xml" Link="Resources/policy.xml">
       <LogicalName>ImageMagick.Resources.Xml.policy.xml</LogicalName>
     </EmbeddedResource>
