@@ -175,10 +175,7 @@ public partial class MagickImageTests
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, errorMetric);
-            if (expectedResult < 0)
-                Assert.InRange(result, expectedResult - 0.0001, expectedResult);
-            else
-                Assert.InRange(result, expectedResult, expectedResult + 0.0001);
+            Assert.InRange(result, expectedResult, expectedResult + 0.0001);
         }
 
         [Theory]
