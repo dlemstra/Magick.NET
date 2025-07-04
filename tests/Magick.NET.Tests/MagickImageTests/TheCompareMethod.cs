@@ -157,8 +157,8 @@ public partial class MagickImageTests
 
         [Theory]
         [InlineData(ErrorMetric.Undefined, 0.4726)]
-        [InlineData(ErrorMetric.Absolute, 0.3944)]
-        [InlineData(ErrorMetric.Fuzz, 0.5677)]
+        [InlineData(ErrorMetric.Absolute, 0.3944, 0.3945)]
+        [InlineData(ErrorMetric.Fuzz, 0.5677, 0.5676)]
         [InlineData(ErrorMetric.MeanAbsolute, 0.2714)]
         [InlineData(ErrorMetric.MeanErrorPerPixel, 0.2714)]
         [InlineData(ErrorMetric.MeanSquared, 0.2233)]
@@ -169,13 +169,16 @@ public partial class MagickImageTests
         [InlineData(ErrorMetric.RootMeanSquared, 0.4726)]
         [InlineData(ErrorMetric.StructuralSimilarity, 0.4220)]
         [InlineData(ErrorMetric.StructuralDissimilarity, 0.2889)]
-        public void ShouldReturnTheCorrectValueForEachErrorMetric(ErrorMetric errorMetric, double expectedResult)
+        public void ShouldReturnTheCorrectValueForEachErrorMetric(ErrorMetric errorMetric, double expectedResult, double? expectedArm64Result = null)
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, errorMetric);
-            Assert.InRange(result, expectedResult, expectedResult + 0.0001);
+            if (expectedArm64Result != null && (TestRuntime.IsLinuxArm64 || TestRuntime.IsMacOSArm64))
+                Assert.InRange(result, expectedArm64Result.Value, expectedArm64Result.Value + 0.0001);
+            else
+                Assert.InRange(result, expectedResult, expectedResult + 0.0001);
         }
 
         [Theory]
