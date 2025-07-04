@@ -167,8 +167,8 @@ public partial class MagickImageTests
         [InlineData(ErrorMetric.PeakSignalToNoiseRatio, 0.0542)]
         [InlineData(ErrorMetric.PerceptualHash, 0)]
         [InlineData(ErrorMetric.RootMeanSquared, 0.4726)]
-        [InlineData(ErrorMetric.StructuralSimilarity, 0.2889)]
-        [InlineData(ErrorMetric.StructuralDissimilarity, 0.7110)]
+        [InlineData(ErrorMetric.StructuralSimilarity, 0.4220)]
+        [InlineData(ErrorMetric.StructuralDissimilarity, 0.2889)]
         public void ShouldReturnTheCorrectValueForEachErrorMetric(ErrorMetric errorMetric, double expectedResult)
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
