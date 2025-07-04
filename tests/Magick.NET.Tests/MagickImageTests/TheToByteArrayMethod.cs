@@ -28,7 +28,7 @@ public partial class MagickImageTests
 
             Assert.NotNull(data);
 
-            if (TestRuntime.HasFlakyLinuxArm64Result)
+            if (TestRuntime.IsLinuxArm64)
                 Assert.InRange(data.Length, 18830, 18831);
             else
                 Assert.Equal(18830, data.Length);
@@ -50,7 +50,7 @@ public partial class MagickImageTests
 
             Assert.NotNull(data);
 
-            if (TestRuntime.HasFlakyLinuxArm64Result)
+            if (TestRuntime.IsLinuxArm64)
                 Assert.InRange(data.Length, 853, 858);
             else
                 Assert.Equal(853, data.Length);
@@ -68,7 +68,7 @@ public partial class MagickImageTests
 
             Assert.NotNull(data);
 
-            if (TestRuntime.HasFlakyLinuxArm64Result)
+            if (TestRuntime.IsLinuxArm64)
                 Assert.InRange(data.Length, 60301, 60304);
             else
                 Assert.Equal(60304, data.Length);

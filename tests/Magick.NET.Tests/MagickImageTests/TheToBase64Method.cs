@@ -35,7 +35,7 @@ public partial class MagickImageTests
 
             Assert.NotNull(base64);
 
-            if (TestRuntime.HasFlakyLinuxArm64Result)
+            if (TestRuntime.IsLinuxArm64)
                 Assert.InRange(base64.Length, 1140, 1144);
             else
                 Assert.Equal(1140, base64.Length);
@@ -44,7 +44,7 @@ public partial class MagickImageTests
 
             Assert.NotNull(bytes);
 
-            if (TestRuntime.HasFlakyLinuxArm64Result)
+            if (TestRuntime.IsLinuxArm64)
                 Assert.InRange(bytes.Length, 853, 858);
             else
                 Assert.Equal(853, bytes.Length);

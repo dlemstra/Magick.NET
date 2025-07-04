@@ -26,7 +26,7 @@ public class ThePangoCoder
     [Fact]
     public void ShouldUseTextAntiAliasSetting()
     {
-        Assert.SkipWhen(TestRuntime.HasFlakyMacOSArm64Result, "Flaky result on MacOS arm64.");
+        Assert.SkipWhen(TestRuntime.IsMacOSArm64, "Flaky result on MacOS arm64.");
 
         var settings = new MagickReadSettings()
         {

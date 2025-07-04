@@ -88,7 +88,7 @@ public class TheSvgCoder
     [Fact]
     public void ShouldReadFontsWithQuotes()
     {
-        Assert.SkipWhen(TestRuntime.HasFlakyMacOSArm64Result, "Flaky result on MacOS arm64.");
+        Assert.SkipWhen(TestRuntime.IsMacOSArm64, "Flaky result on MacOS arm64.");
 
         var svg = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <svg version=""1.1"" xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"" viewBox=""0 0 220 80"">
