@@ -14,7 +14,7 @@ Licensed under the Apache License, Version 2.0.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ ImageMagick 7.1.2-0 beta (2025-06-29) ] copyright:
+[ ImageMagick 7.1.2-0 beta (2025-07-03) ] copyright:
 
                          ImageMagick License
              https://imagemagick.org/script/license.php
@@ -3630,7 +3630,7 @@ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 
-[ heif 1.19.8 (2025-04-27) ] copyright:
+[ heif 1.20.1 (2025-07-02) ] copyright:
 
 * The library `libheif` is distributed under the terms of the GNU Lesser General Public License.
 * The sample applications and the Go and C++ wrappers are distributed under the terms of the MIT License.
