@@ -156,8 +156,33 @@ public partial class MagickImageTests
         }
 
         [Theory]
+        [InlineData(ErrorMetric.Undefined, 0.3653)]
+        [InlineData(ErrorMetric.Absolute, 0.2905)]
+        [InlineData(ErrorMetric.DotProductCorrelation, 0.4668)]
+        [InlineData(ErrorMetric.Fuzz, 0.4662)]
+        [InlineData(ErrorMetric.MeanAbsolute, 0.1747)]
+        [InlineData(ErrorMetric.MeanErrorPerPixel, 0.1747)]
+        [InlineData(ErrorMetric.MeanSquared, 0.1334)]
+        [InlineData(ErrorMetric.NormalizedCrossCorrelation, 0.4668)]
+        [InlineData(ErrorMetric.PeakAbsolute, 1)]
+        [InlineData(ErrorMetric.PeakSignalToNoiseRatio, 0.0728)]
+        [InlineData(ErrorMetric.PerceptualHash, 0)]
+        [InlineData(ErrorMetric.RootMeanSquared, 0.3653)]
+        [InlineData(ErrorMetric.StructuralSimilarity, 0.1546)]
+        [InlineData(ErrorMetric.StructuralDissimilarity, 0.4226)]
+        public void ShouldReturnTheCorrectValueForEachErrorMetric(ErrorMetric errorMetric, double expectedResult)
+        {
+            using var image = new MagickImage(Files.Builtin.Logo);
+            using var other = image.CloneAndMutate(image => image.Rotate(180));
+
+            var result = image.Compare(other, errorMetric);
+            Assert.InRange(result, expectedResult, expectedResult + 0.0001);
+        }
+
+        [Theory]
         [InlineData(ErrorMetric.Undefined, 0.4726)]
         [InlineData(ErrorMetric.Absolute, 0.3944, 0.3945)]
+        [InlineData(ErrorMetric.DotProductCorrelation, 0.4748)]
         [InlineData(ErrorMetric.Fuzz, 0.5677, 0.5676)]
         [InlineData(ErrorMetric.MeanAbsolute, 0.2714)]
         [InlineData(ErrorMetric.MeanErrorPerPixel, 0.2714)]
@@ -167,31 +192,40 @@ public partial class MagickImageTests
         [InlineData(ErrorMetric.PeakSignalToNoiseRatio, 0.0542)]
         [InlineData(ErrorMetric.PerceptualHash, 0)]
         [InlineData(ErrorMetric.RootMeanSquared, 0.4726)]
-        [InlineData(ErrorMetric.StructuralSimilarity, 0.4220)]
-        [InlineData(ErrorMetric.StructuralDissimilarity, 0.2889)]
-        public void ShouldReturnTheCorrectValueForEachErrorMetric(ErrorMetric errorMetric, double expectedResult, double? expectedArm64Result = null)
+        [InlineData(ErrorMetric.StructuralSimilarity, 0.2889)]
+        [InlineData(ErrorMetric.StructuralDissimilarity, 0.3555)]
+        public void ShouldReturnTheCorrectValueForEachErrorMetricForImageWithAlphaChannel(ErrorMetric errorMetric, double expectedResult, double? expectedArm64Result = null)
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, errorMetric);
-            if (expectedArm64Result != null && (TestRuntime.IsLinuxArm64 || TestRuntime.IsMacOSArm64))
+            if (expectedArm64Result != null && TestRuntime.IsArm64)
                 Assert.InRange(result, expectedArm64Result.Value, expectedArm64Result.Value + 0.0001);
             else
                 Assert.InRange(result, expectedResult, expectedResult + 0.0001);
         }
 
-        [Theory]
-        [InlineData(ErrorMetric.PhaseCorrelation)]
-        [InlineData(ErrorMetric.DotProductCorrelation)]
-        public void ShouldThrowExceptionWhenErrorMetricIsNotSupported(ErrorMetric errorMetric)
+        [Fact]
+        public void ShouldReturnTheCorrectValueForPhaseCorrelationErrorMetric()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
+            image.Resize(64, 64);
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
-            var exception = Assert.Throws<MagickImageErrorException>(() => image.Compare(other, errorMetric));
+            var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
+            Assert.InRange(result, 0.1871, 0.1872);
+        }
 
-            Assert.Contains("metric not supported", exception.Message);
+        [Fact]
+        public void ShouldReturnTheCorrectValueForPhaseCorrelationErrorMetricWithAlphaChannel()
+        {
+            using var image = new MagickImage(Files.MagickNETIconPNG);
+            image.Resize(64, 64);
+            using var other = image.CloneAndMutate(image => image.Rotate(180));
+
+            var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
+            Assert.InRange(result, 0.0085, 0.0086);
         }
     }
 }

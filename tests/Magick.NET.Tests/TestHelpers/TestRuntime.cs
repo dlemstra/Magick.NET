@@ -13,9 +13,12 @@ internal static class TestRuntime
         var isLinux = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
         var isMacOS = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
-        IsLinuxArm64 = isLinux && Runtime.Architecture == Architecture.Arm64;
-        IsMacOSArm64 = isMacOS && Runtime.Architecture == Architecture.Arm64;
+        IsArm64 = Runtime.Architecture == Architecture.Arm64;
+        IsLinuxArm64 = isLinux && IsArm64;
+        IsMacOSArm64 = isMacOS && IsArm64;
     }
+
+    public static bool IsArm64 { get; }
 
     public static bool IsLinuxArm64 { get; }
 
