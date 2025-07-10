@@ -157,7 +157,7 @@ jobs:
       run: build/shared/test.Magick.NET.sh
 
   windows:
-    name: 'Windows (Q8/Q16/Q16-HDRI)'
+    name: 'Windows (${{matrix.quantumName}}, ${{matrix.platform}})'
     runs-on: windows-2022
 
     permissions:
@@ -247,7 +247,7 @@ jobs:
         path: publish/output
 
   windows_arm64:
-    name: 'Windows (Q8/Q16/Q16-HDRI, arm64)'
+    name: 'Windows (${{matrix.quantumName}}, ${{matrix.platform}})'
     #runs-on: windows-11-arm
     runs-on: windows-2022
 
