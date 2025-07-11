@@ -209,23 +209,25 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldReturnTheCorrectValueForPhaseCorrelationErrorMetric()
         {
-            using var image = new MagickImage(Files.Builtin.Logo);
-            image.Resize(64, 64);
+            using var image = new MagickImage(Files.ImageMagickICO);
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
-            Assert.InRange(result, 0.1871, 0.1872);
+            Assert.InRange(result, 0.3225, 0.3226);
         }
 
         [Fact]
         public void ShouldReturnTheCorrectValueForPhaseCorrelationErrorMetricWithAlphaChannel()
         {
-            using var image = new MagickImage(Files.MagickNETIconPNG);
-            image.Resize(64, 64);
+            var settings = new MagickReadSettings
+            {
+                FrameIndex = 1,
+            };
+            using var image = new MagickImage(Files.WandICO, settings);
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
-            Assert.InRange(result, 0.0085, 0.0086);
+            Assert.InRange(result, -0.0250, -0.0249);
         }
     }
 }
