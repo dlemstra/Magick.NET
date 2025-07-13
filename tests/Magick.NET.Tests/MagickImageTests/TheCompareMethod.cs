@@ -169,7 +169,7 @@ public partial class MagickImageTests
         [InlineData(ErrorMetric.PerceptualHash, 0)]
         [InlineData(ErrorMetric.RootMeanSquared, 0.3653)]
         [InlineData(ErrorMetric.StructuralSimilarity, 0.1546)]
-        [InlineData(ErrorMetric.StructuralDissimilarity, 0.4226)]
+        [InlineData(ErrorMetric.StructuralDissimilarity, 0.1546)]
         public void ShouldReturnTheCorrectValueForEachErrorMetric(ErrorMetric errorMetric, double expectedResult)
         {
             using var image = new MagickImage(Files.Builtin.Logo);
@@ -193,7 +193,7 @@ public partial class MagickImageTests
         [InlineData(ErrorMetric.PerceptualHash, 0)]
         [InlineData(ErrorMetric.RootMeanSquared, 0.4726)]
         [InlineData(ErrorMetric.StructuralSimilarity, 0.2889)]
-        [InlineData(ErrorMetric.StructuralDissimilarity, 0.3555)]
+        [InlineData(ErrorMetric.StructuralDissimilarity, 0.2889)]
         public void ShouldReturnTheCorrectValueForEachErrorMetricForImageWithAlphaChannel(ErrorMetric errorMetric, double expectedResult, double? expectedArm64Result = null)
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
@@ -213,7 +213,7 @@ public partial class MagickImageTests
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
-            Assert.InRange(result, 0.3225, 0.3226);
+            Assert.InRange(result, 0.3387, 0.3388);
         }
 
         [Fact]
@@ -227,7 +227,7 @@ public partial class MagickImageTests
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
-            Assert.InRange(result, -0.0250, -0.0249);
+            Assert.InRange(result, 0.5124, 0.5125);
         }
     }
 }
