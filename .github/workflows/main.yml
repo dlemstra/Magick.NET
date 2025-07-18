@@ -237,6 +237,7 @@ jobs:
         --trusted-signing-account ImageMagick `
         --trusted-signing-certificate-profile ImageMagick `
         --trusted-signing-endpoint https://eus.codesigning.azure.net `
+        --azure-credential-type azure-cli `
         --verbosity information 
       working-directory: publish/output
 
@@ -383,6 +384,7 @@ jobs:
         --trusted-signing-account ImageMagick `
         --trusted-signing-certificate-profile ImageMagick `
         --trusted-signing-endpoint https://eus.codesigning.azure.net `
+        --azure-credential-type azure-cli `
         --verbosity information 
       working-directory: publish/output
 
