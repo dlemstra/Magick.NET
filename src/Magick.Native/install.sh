@@ -32,7 +32,7 @@ copyToTestProject() {
 
     folder=resources/Release$quantum
     mkdir -p $folder
-    cp temp/resources/Release$quantum$openmp/$platform/*.xml $folder | true
+    cp temp/resources/Release$quantum$openmp/*.xml $folder | true
 }
 
 copyToTestProjects() {
