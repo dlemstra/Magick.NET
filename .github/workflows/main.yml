@@ -238,7 +238,7 @@ jobs:
         --trusted-signing-certificate-profile ImageMagick `
         --trusted-signing-endpoint https://eus.codesigning.azure.net `
         --azure-credential-type azure-cli `
-        --verbosity information 
+        --verbosity information
       working-directory: publish/output
 
     - name: Upload library
@@ -316,7 +316,7 @@ jobs:
         --trusted-signing-account ImageMagick `
         --trusted-signing-certificate-profile ImageMagick `
         --trusted-signing-endpoint https://eus.codesigning.azure.net `
-        --verbosity information 
+        --verbosity information
       working-directory: publish/output
 
     - name: Upload library
@@ -385,7 +385,7 @@ jobs:
         --trusted-signing-certificate-profile ImageMagick `
         --trusted-signing-endpoint https://eus.codesigning.azure.net `
         --azure-credential-type azure-cli `
-        --verbosity information 
+        --verbosity information
       working-directory: publish/output
 
     - name: Upload library
