@@ -29,9 +29,9 @@ public partial class MagickNETTests
             var formatsCount = MagickNET.SupportedFormats.Count;
 
             if (Runtime.IsWindows)
-                Assert.Equal(276, formatsCount);
+                Assert.Equal(277, formatsCount);
             else
-                Assert.Equal(273, formatsCount);
+                Assert.Equal(274, formatsCount);
         }
 
         [Fact]
@@ -42,9 +42,9 @@ public partial class MagickNETTests
                 .Count();
 
             if (Runtime.IsWindows)
-                Assert.Equal(254, formatsCount);
+                Assert.Equal(255, formatsCount);
             else
-                Assert.Equal(250, formatsCount);
+                Assert.Equal(251, formatsCount);
         }
 
         [Fact]
@@ -55,9 +55,9 @@ public partial class MagickNETTests
                 .Count();
 
             if (Runtime.IsWindows)
-                Assert.Equal(192, formatsCount);
+                Assert.Equal(193, formatsCount);
             else
-                Assert.Equal(191, formatsCount);
+                Assert.Equal(192, formatsCount);
         }
 
         [Fact]
@@ -1594,6 +1594,13 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.CanReadMultithreaded);
                         Assert.False(formatInfo.SupportsWriting);
                         Assert.False(formatInfo.CanWriteMultithreaded);
+                        break;
+                    case MagickFormat.Sf3:
+                        Assert.True(formatInfo.SupportsMultipleFrames);
+                        Assert.True(formatInfo.SupportsReading);
+                        Assert.True(formatInfo.CanReadMultithreaded);
+                        Assert.True(formatInfo.SupportsWriting);
+                        Assert.True(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Scr:
                         Assert.False(formatInfo.SupportsMultipleFrames);

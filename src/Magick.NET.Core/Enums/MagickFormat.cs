@@ -1402,4 +1402,9 @@ public enum MagickFormat
     /// Microsoft icon (Icon).
     /// </summary>
     Icn,
+
+    /// <summary>
+    /// Simple File Format Family Images.
+    /// </summary>
+    Sf3,
 }
