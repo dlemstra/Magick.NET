@@ -1,2 +1,2 @@
 @echo off
-call "Build.cmd" Debug Q16 x64
+call Build.cmd Q16 x64 noHdri noOpenMP
