@@ -25,9 +25,9 @@ function addOpenMPLibrary($xml, $platform) {
     addFile $xml $source $target
 }
 
-function addNotice($xml, $runtime) {
-    $source = fullPath "src\Magick.Native\libraries\$runtime\Notice.txt"
-    $target = "Notice.$runtime.txt"
+function addNotice($xml) {
+    $source = fullPath "src\Magick.Native\libraries\Notice.txt"
+    $target = "Notice.txt"
     addFile $xml $source $target
 }
 
@@ -35,8 +35,6 @@ function addNativeLibrary($xml, $platform, $runtime, $suffix) {
     $source = fullPath "src\Magick.Native\libraries\$runtime\Magick.Native-$suffix"
     $target = "runtimes\$runtime-$platform\native\Magick.Native-$suffix"
     addFile $xml $source $target
-
-    addNotice $xml $runtime
 }
 
 function addNativeLibraries($xml, $quantumName, $platform) {
@@ -75,6 +73,7 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit)
 
     addMagickNetLibraries $xml $quantumName $platform
     addNativeLibraries $xml $quantumName $platform
+    addNotice $xml
     addFile $xml "Magick.NET.targets" "build\netstandard20\$name.targets"
     addFile $xml "Magick.NET.targets" "buildTransitive\netstandard20\$name.targets"
 
