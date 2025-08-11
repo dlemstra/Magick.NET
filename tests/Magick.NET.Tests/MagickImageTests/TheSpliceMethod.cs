@@ -49,7 +49,6 @@ public partial class MagickImageTests
 
             Assert.Equal(296U, image.Width);
             Assert.Equal(87U, image.Height);
-            image.Write("i:/test.png");
             ColorAssert.Equal(MagickColors.Fuchsia, image, 110, 60);
             ColorAssert.Equal(new MagickColor("#0000"), image, 109, 59);
         }
