@@ -144,8 +144,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EE5A8EB5-C872-4837-89B0-11BCAE512DB2}"
 	ProjectSection(SolutionItems) = preProject
 		src\Magick.Native\build\Build.cmd = src\Magick.Native\build\Build.cmd
-		src\Magick.Native\build\Build.Configure.arm64.cmd = src\Magick.Native\build\Build.Configure.arm64.cmd
-		src\Magick.Native\build\Build.Configure.x64.cmd = src\Magick.Native\build\Build.Configure.x64.cmd
 		src\Magick.Native\build\Debug-Q16-arm64.cmd = src\Magick.Native\build\Debug-Q16-arm64.cmd
 		src\Magick.Native\build\Debug-Q16-HDRI-arm64.cmd = src\Magick.Native\build\Debug-Q16-HDRI-arm64.cmd
 		src\Magick.Native\build\Debug-Q16-HDRI-x64.cmd = src\Magick.Native\build\Debug-Q16-HDRI-x64.cmd
