@@ -6359,6 +6359,18 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
+    /// Splice the background color into the image.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <param name="gravity">The gravity to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Splice(IMagickGeometry geometry, Gravity gravity)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.Splice(geometry, gravity);
+    }
+
+    /// <summary>
     /// Spread pixels randomly within image.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>

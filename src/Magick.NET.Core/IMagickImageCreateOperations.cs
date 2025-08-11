@@ -1155,6 +1155,14 @@ public interface IMagickImageCreateOperations
     void Splice(IMagickGeometry geometry);
 
     /// <summary>
+    /// Splice the background color into the image.
+    /// </summary>
+    /// <param name="geometry">The geometry to use.</param>
+    /// <param name="gravity">The gravity to use.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Splice(IMagickGeometry geometry, Gravity gravity);
+
+    /// <summary>
     /// Spread pixels randomly within image.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
