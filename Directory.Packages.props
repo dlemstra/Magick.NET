@@ -15,7 +15,7 @@
     <PackageVersion Include="xunit.v3" Version="3.0.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.3" />
     <!-- After an upgrade of these libraries the nuspec file should also be updated -->
-    <PackageVersion Include="Avalonia" Version="11.3.2" />
+    <PackageVersion Include="Avalonia" Version="11.3.3" />
     <PackageVersion Include="System.Drawing.Common" Version="8.0.14" />
   </ItemGroup>
 </Project>
