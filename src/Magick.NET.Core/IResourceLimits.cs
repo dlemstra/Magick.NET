@@ -1,6 +1,10 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+#if !NETSTANDARD2_0
+using System.Runtime.Versioning;
+#endif
+
 namespace ImageMagick;
 
 /// <summary>
@@ -75,4 +79,14 @@ public interface IResourceLimits
     /// </summary>
     /// <param name="percentage">The percentage to use.</param>
     void LimitMemory(Percentage percentage);
+
+    /// <summary>
+    /// Trims unused heap memory and returns it to the operating system, potentially reducing
+    /// the process memory footprint.
+    /// </summary>
+    /// <returns>true if memory was successfully released; otherwise, false.</returns>
+#if !NETSTANDARD2_0
+    [UnsupportedOSPlatform("windows")]
+#endif
+    bool TrimMemory();
 }

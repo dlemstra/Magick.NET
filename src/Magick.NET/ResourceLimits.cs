@@ -1,6 +1,12 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
+
+#if !NETSTANDARD2_0
+using System.Runtime.Versioning;
+#endif
+
 namespace ImageMagick;
 
 /// <summary>
@@ -230,10 +236,37 @@ public partial class ResourceLimits : IResourceLimits
     }
 
     /// <summary>
+    /// Trims unused heap memory and returns it to the operating system, potentially reducing
+    /// the process memory footprint.
+    /// </summary>
+    /// <returns>true if memory was successfully released; otherwise, false.</returns>
+#if !NETSTANDARD2_0
+    [UnsupportedOSPlatform("windows")]
+#endif
+    public static bool TrimMemory()
+    {
+        if (Runtime.IsWindows)
+            throw new NotSupportedException();
+
+        return NativeResourceLimits.TrimMemory();
+    }
+
+    /// <summary>
     /// Set the maximum percentage of <see cref="Memory"/> that can be used for image data.
     /// This also changes the <see cref="Area"/> limit to four times the number of bytes.
     /// </summary>
     /// <param name="percentage">The percentage to use.</param>
     void IResourceLimits.LimitMemory(Percentage percentage)
         => LimitMemory(percentage);
+
+    /// <summary>
+    /// Trims unused heap memory and returns it to the operating system, potentially reducing
+    /// the process memory footprint.
+    /// </summary>
+    /// <returns>true if memory was successfully released; otherwise, false.</returns>
+#if !NETSTANDARD2_0
+    [UnsupportedOSPlatform("windows")]
+#endif
+    bool IResourceLimits.TrimMemory()
+        => TrimMemory();
 }

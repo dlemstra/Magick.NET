@@ -58,5 +58,7 @@ public partial class ResourceLimits
         public static partial void Width_Set(ulong value);
 
         public static partial void LimitMemory(double percentage);
+
+        public static partial bool TrimMemory();
     }
 }
