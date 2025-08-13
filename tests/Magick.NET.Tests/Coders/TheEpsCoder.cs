@@ -3,10 +3,10 @@
 
 using ImageMagick;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
+[Collection(nameof(IsolatedUnitTest))]
 public partial class TheEpsCoder
 {
     [Fact]
