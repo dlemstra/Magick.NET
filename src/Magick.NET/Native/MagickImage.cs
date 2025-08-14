@@ -718,7 +718,7 @@ public partial class MagickImage
         public partial IntPtr SparseColor(Channels channel, SparseColorMethod method, double[] values, nuint length);
 
         [Throws]
-        public partial IntPtr Splice(MagickRectangle geometry, Gravity gravity);
+        public partial IntPtr Splice(string geometry, Gravity gravity);
 
         [Throws]
         public partial IntPtr Spread(PixelInterpolateMethod method, double radius);

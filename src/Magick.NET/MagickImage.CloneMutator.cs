@@ -656,7 +656,11 @@ public partial class MagickImage
             => Splice(geometry, Gravity.Undefined);
 
         public void Splice(IMagickGeometry geometry, Gravity gravity)
-            => SetResult(NativeMagickImage.Splice(MagickRectangle.FromGeometry(geometry, (uint)NativeMagickImage.Width_Get(), (uint)NativeMagickImage.Height_Get()), gravity));
+        {
+            Throw.IfNull(geometry);
+
+            SetResult(NativeMagickImage.Splice(geometry.ToString(), gravity));
+        }
 
         public void Spread()
             => Spread(NativeMagickImage.Interpolate_Get(), 3);
