@@ -13,13 +13,13 @@ public partial class DrawableAffineTests
         [Fact]
         public void ShouldSetTheCorrectProperties()
         {
-            var affine = new DrawableAffine(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);
-            Assert.Equal(1.0, affine.ScaleX);
-            Assert.Equal(2.0, affine.ScaleY);
-            Assert.Equal(3.0, affine.ShearX);
-            Assert.Equal(4.0, affine.ShearY);
-            Assert.Equal(5.0, affine.TranslateX);
-            Assert.Equal(6.0, affine.TranslateY);
+            var affine = new DrawableAffine(2.0, 3.0, 4.0, 5.0, 6.0, 7.0);
+            Assert.Equal(2.0, affine.ScaleX);
+            Assert.Equal(3.0, affine.ScaleY);
+            Assert.Equal(4.0, affine.ShearX);
+            Assert.Equal(5.0, affine.ShearY);
+            Assert.Equal(6.0, affine.TranslateX);
+            Assert.Equal(7.0, affine.TranslateY);
         }
     }
 }
