@@ -105,10 +105,10 @@ public sealed partial class DrawableAffine : IDrawableAffine, IDrawingWand
     public void TransformRotation(double angle)
         => Transform(new DrawableAffine
         {
-            ScaleX = Math.Cos(DegreesToRadians(Math.IEEERemainder(angle, 360.0))),
-            ScaleY = Math.Cos(DegreesToRadians(Math.IEEERemainder(angle, 360.0))),
-            ShearX = -Math.Sin(DegreesToRadians(Math.IEEERemainder(angle, 360.0))),
-            ShearY = Math.Sin(DegreesToRadians(Math.IEEERemainder(angle, 360.0))),
+            ScaleX = Math.Cos(NormalizeAngleToRadians(angle)),
+            ScaleY = Math.Cos(NormalizeAngleToRadians(angle)),
+            ShearX = -Math.Sin(NormalizeAngleToRadians(angle)),
+            ShearY = Math.Sin(NormalizeAngleToRadians(angle)),
         });
 
     /// <summary>
@@ -130,7 +130,7 @@ public sealed partial class DrawableAffine : IDrawableAffine, IDrawingWand
     public void TransformSkewX(double skewX)
         => Transform(new DrawableAffine
         {
-            ShearX = Math.Tan(DegreesToRadians(Math.IEEERemainder(skewX, 360.0))),
+            ShearX = Math.Tan(NormalizeAngleToRadians(skewX)),
         });
 
     /// <summary>
@@ -140,11 +140,11 @@ public sealed partial class DrawableAffine : IDrawableAffine, IDrawingWand
     public void TransformSkewY(double skewY)
         => Transform(new DrawableAffine
         {
-            ShearY = Math.Tan(DegreesToRadians(Math.IEEERemainder(skewY, 360.0))),
+            ShearY = Math.Tan(NormalizeAngleToRadians(skewY)),
         });
 
-    private static double DegreesToRadians(double x)
-        => Math.PI * x / 180.0;
+    private static double NormalizeAngleToRadians(double angle)
+        => Math.PI * Math.IEEERemainder(angle, 360.0) / 180.0;
 
     private void Transform(DrawableAffine affine)
     {
