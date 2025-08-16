@@ -180,7 +180,7 @@ public interface IMagickImageCreateOperations
     void AddNoise(NoiseType noiseType, double attenuate, Channels channels);
 
     /// <summary>
-    /// Affine Transform image.
+    /// Applies an affine transformation to the image.
     /// </summary>
     /// <param name="affineMatrix">The affine matrix to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
