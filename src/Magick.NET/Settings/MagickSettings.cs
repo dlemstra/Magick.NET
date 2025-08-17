@@ -152,10 +152,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     public string? Font
     {
         get => Drawing.Font;
-        set
-        {
-            Drawing.Font = value;
-        }
+        set => Drawing.Font = value;
     }
 
     /// <summary>
