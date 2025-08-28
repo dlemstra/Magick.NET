@@ -27,7 +27,7 @@ public static class Ghostscript
         if (!Runtime.IsWindows)
             return null;
 
-        foreach (var version in new[] { "10.01.1", "10.00.1" })
+        foreach (var version in new[] { "10.05.1", "10.00.1" })
         {
             var directory = @$"C:\Program Files (x86)\gs\gs{version}\bin";
             if (Directory.Exists(directory))
