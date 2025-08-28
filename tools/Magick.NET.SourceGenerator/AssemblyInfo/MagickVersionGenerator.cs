@@ -29,7 +29,7 @@ internal class MagickVersionGenerator : IIncrementalGenerator
             .ConstructorArguments.FirstOrDefault().Value?.ToString();
 
         var version = assemblyAttributes
-            .Single(attribute => attribute.AttributeClass?.ToDisplayString() == typeof(AssemblyVersionAttribute).FullName)
+            .Single(attribute => attribute.AttributeClass?.ToDisplayString() == typeof(AssemblyFileVersionAttribute).FullName)
             .ConstructorArguments.FirstOrDefault().Value?.ToString();
 
         if (title is null || version is null)
