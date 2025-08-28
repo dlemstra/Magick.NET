@@ -312,11 +312,13 @@ jobs:
 
     - name: Sign NuGet package
       if: ${{ github.event_name != 'pull_request' }}
-      run: sign code trusted-signing *.nupkg `
+      run: sign code trusted-signing `
         --trusted-signing-account ImageMagick `
         --trusted-signing-certificate-profile ImageMagick `
         --trusted-signing-endpoint https://eus.codesigning.azure.net `
-        --verbosity information
+        --azure-credential-type azure-cli `
+        --verbosity information `
+        *.nupkg
       working-directory: publish/output
 
     - name: Upload library
@@ -380,12 +382,13 @@ jobs:
 
     - name: Sign NuGet package
       if: ${{ github.event_name != 'pull_request' }}
-      run: sign code trusted-signing *.nupkg `
+      run: sign code trusted-signing `
         --trusted-signing-account ImageMagick `
         --trusted-signing-certificate-profile ImageMagick `
         --trusted-signing-endpoint https://eus.codesigning.azure.net `
         --azure-credential-type azure-cli `
-        --verbosity information
+        --verbosity information `
+        *.nupkg
       working-directory: publish/output
 
     - name: Upload library
