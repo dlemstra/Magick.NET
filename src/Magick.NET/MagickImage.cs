@@ -7679,7 +7679,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
         var settings = _settings.Drawing;
 
-        using var fillPattern = settings.FillPattern;
+        var fillPattern = settings.FillPattern;
         var fillColor = settings.FillColor;
 
         settings.FillColor = color;
