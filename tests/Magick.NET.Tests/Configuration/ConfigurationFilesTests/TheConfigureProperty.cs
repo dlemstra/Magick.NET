@@ -14,11 +14,14 @@ public partial class ConfigurationFilesTests
     public void ShouldBeInitialized()
     {
         var configurationFiles = ConfigurationFiles.Default;
+        var architecture = Runtime.Architecture.ToString();
+        if (!Runtime.IsWindows && TestRuntime.IsArm64)
+            architecture = "aarch64";
 
         Assert.NotNull(configurationFiles.Configure);
         Assert.Equal("configure.xml", configurationFiles.Configure.FileName);
         Assert.NotNull(configurationFiles.Configure.Data);
         Assert.Contains("<configuremap>", configurationFiles.Configure.Data);
-        Assert.Contains($@"<configure name=""TARGET_CPU"" value=""{Runtime.Architecture}""/>", configurationFiles.Configure.Data, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains($@"<configure name=""TARGET_CPU"" value=""{architecture}""/>", configurationFiles.Configure.Data, StringComparison.OrdinalIgnoreCase);
     }
 }
