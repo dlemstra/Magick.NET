@@ -8,7 +8,7 @@ using ImageMagick;
 using ImageMagick.Configuration;
 using Xunit;
 
-namespace Magick.NET.Tests.Configuration.ConfigurationFilesTests;
+namespace Magick.NET.Tests;
 
 public partial class ConfigurationFilesTests
 {
