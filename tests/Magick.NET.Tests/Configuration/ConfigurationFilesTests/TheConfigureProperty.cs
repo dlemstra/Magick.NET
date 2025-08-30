@@ -1,6 +1,8 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
+using ImageMagick;
 using ImageMagick.Configuration;
 using Xunit;
 
@@ -17,5 +19,6 @@ public partial class ConfigurationFilesTests
         Assert.Equal("configure.xml", configurationFiles.Configure.FileName);
         Assert.NotNull(configurationFiles.Configure.Data);
         Assert.Contains("<configuremap>", configurationFiles.Configure.Data);
+        Assert.Contains($@"<configure name=""TARGET_CPU"" value=""{Runtime.Architecture}""/>", configurationFiles.Configure.Data, StringComparison.OrdinalIgnoreCase);
     }
 }
