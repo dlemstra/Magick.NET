@@ -1,7 +1,9 @@
 #!/bin/bash
 set -e
 
-openmp=$1
+architecture=$1
+openmp=$2
+
 
 testMagickNET() {
     local config=Test$1
@@ -9,8 +11,8 @@ testMagickNET() {
         config=$config-OpenMP
     fi
 
-    ./tests/Magick.NET.Core.Tests/bin/$config/AnyCPU/net8.0/Magick.NET.Core.Tests
-    ./tests/Magick.NET.Tests/bin/$config/AnyCPU/net8.0/Magick.NET.Tests
+    ./tests/Magick.NET.Core.Tests/bin/$config/$architecture/net8.0/Magick.NET.Core.Tests
+    ./tests/Magick.NET.Tests/bin/$config/$architecture/net8.0/Magick.NET.Tests
 }
 
 export FONTCONFIG_PATH=/etc/fonts
