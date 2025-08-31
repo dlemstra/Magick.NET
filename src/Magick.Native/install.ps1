@@ -137,7 +137,7 @@ function copyLibraries($source, $target) {
 
 function copyResource($source, $target, $quantum) {
     [void](New-Item -ItemType directory -Path "$target\Release$quantum")
-    Copy-Item "$source\**\content\resources\Release$quantum\*.xml" -Force "$target\Release$quantum"
+    Copy-Item "$source\**\content\resources\Release$quantum\*" "$target\Release$quantum" -Recurse -Force
 }
 
 function copyResources($source, $target) {
