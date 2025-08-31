@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-openmp=$1
+architecture=$1
+openmp=$2
 
 buildMagickNET() {
     local config=Test$1
@@ -9,8 +10,8 @@ buildMagickNET() {
         config=$config-OpenMP
     fi
 
-    dotnet build tests/Magick.NET.Core.Tests/Magick.NET.Core.Tests.csproj -f net8.0 -c $config
-    dotnet build tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f net8.0 -c $config
+    dotnet build tests/Magick.NET.Core.Tests/Magick.NET.Core.Tests.csproj -f net8.0 -c $config --arch $architecture
+    dotnet build tests/Magick.NET.Tests/Magick.NET.Tests.csproj -f net8.0 -c $config --arch $architecture
 }
 
 buildMagickNET "Q8"

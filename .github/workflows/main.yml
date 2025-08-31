@@ -31,13 +31,13 @@ jobs:
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64'
 
     - name: Build
-      run: build/shared/build.Magick.NET.sh
+      run: build/shared/build.Magick.NET.sh x64
 
     - name: Test
       run: build/shared/test.Magick.NET.sh
 
     - name: Build OpenMP
-      run: build/shared/build.Magick.NET.sh OpenMP
+      run: build/shared/build.Magick.NET.sh x64 OpenMP
 
     - name: Test OpenMP
       run: build/shared/test.Magick.NET.sh OpenMP
@@ -64,13 +64,13 @@ jobs:
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64'
 
     - name: Build
-      run: build/shared/build.Magick.NET.sh
+      run: build/shared/build.Magick.NET.sh x64
 
     - name: Test
       run: build/shared/test.Magick.NET.sh
 
     - name: Build OpenMP
-      run: build/shared/build.Magick.NET.sh OpenMP
+      run: build/shared/build.Magick.NET.sh x64 OpenMP
 
     - name: Test OpenMP
       run: build/shared/test.Magick.NET.sh OpenMP
@@ -95,13 +95,13 @@ jobs:
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64'
 
     - name: Build
-      run: build/shared/build.Magick.NET.sh
+      run: build/shared/build.Magick.NET.sh arm64
 
     - name: Test
       run: build/shared/test.Magick.NET.sh
 
     - name: Build OpenMP
-      run: build/shared/build.Magick.NET.sh OpenMP
+      run: build/shared/build.Magick.NET.sh arm64 OpenMP
 
     - name: Test OpenMP
       run: build/shared/test.Magick.NET.sh OpenMP
@@ -126,7 +126,7 @@ jobs:
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64'
 
     - name: Build
-      run: build/shared/build.Magick.NET.sh
+      run: build/shared/build.Magick.NET.sh x64
 
     - name: Test
       run: build/shared/test.Magick.NET.sh
@@ -151,7 +151,7 @@ jobs:
       run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos arm64'
 
     - name: Build
-      run: build/shared/build.Magick.NET.sh
+      run: build/shared/build.Magick.NET.sh arm64
 
     - name: Test
       run: build/shared/test.Magick.NET.sh
