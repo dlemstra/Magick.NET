@@ -15,8 +15,6 @@ public partial class ConfigurationFilesTests
     {
         var configurationFiles = ConfigurationFiles.Default;
         var architecture = Runtime.Architecture.ToString();
-        if (!Runtime.IsWindows && TestRuntime.IsArm64)
-            architecture = "aarch64";
 
         Assert.NotNull(configurationFiles.Configure);
         Assert.Equal("configure.xml", configurationFiles.Configure.FileName);
