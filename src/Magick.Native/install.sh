@@ -26,7 +26,7 @@ copyToTestProject() {
     local quantum=$3
     local openmp=$4
 
-    folder=../../tests/Magick.NET.Tests/bin/Test$quantum$openmp/AnyCPU/net8.0
+    folder=../../tests/Magick.NET.Tests/bin/Test$quantum$openmp/$architecture/net8.0
     mkdir -p $folder
     cp temp/$platform/Release$quantum$openmp/$architecture/Magick.Native-$quantum$openmp-$architecture.dll* $folder | true
 
