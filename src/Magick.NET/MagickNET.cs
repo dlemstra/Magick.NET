@@ -484,6 +484,9 @@ public partial class MagickNET : IMagickNET
     void IMagickNET.SetRandomSeed(ulong seed)
         => SetRandomSeed(seed);
 
+    internal static string? GetWindowsResource(string id)
+        => NativeMagickNET.GetWindowsResource(id);
+
     private static void CheckImageMagickFiles(string path)
     {
         foreach (var configurationFile in ConfigurationFiles.Default.All)

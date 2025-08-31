@@ -33,6 +33,9 @@ public partial class MagickNET
 
         public static partial string? GetFontName(IntPtr instance, nuint index);
 
+        [Cleanup]
+        public static partial string? GetWindowsResource(string id);
+
         public static partial void ResetRandomSeed();
 
         [Throws]
