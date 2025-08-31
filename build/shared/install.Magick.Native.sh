@@ -3,9 +3,9 @@ set -e
 
 github_username=$1
 github_token=$2
-config=$3
-arch=$4
+platform=$3
+architecture=$4
 
 cd src/Magick.Native
 ./create-nuget-config.sh $github_username $github_token
-./install.sh $config $arch
+./install.sh $platform $architecture

@@ -21,30 +21,30 @@ cleanupPackage() {
 }
 
 copyToTestProject() {
-    local runtime=$1
-    local platform=$2
+    local platform=$1
+    local architecture=$2
     local quantum=$3
     local openmp=$4
 
     folder=../../tests/Magick.NET.Tests/bin/Test$quantum$openmp/AnyCPU/net8.0
     mkdir -p $folder
-    cp temp/$runtime/Release$quantum$openmp/$platform/Magick.Native-$quantum$openmp-$platform.dll* $folder | true
+    cp temp/$platform/Release$quantum$openmp/$architecture/Magick.Native-$quantum$openmp-$architecture.dll* $folder | true
 
-    folder=resources/Release$quantum
+    folder=resources/Release$quantum/$architecture
     mkdir -p $folder
-    cp temp/resources/Release$quantum$openmp/*.xml $folder | true
+    cp temp/resources/Release$quantum$openmp/$architecture/*.xml $folder | true
 }
 
 copyToTestProjects() {
-    local runtime=$1
-    local platform=$2
+    local platform=$1
+    local architecture=$2
 
-    copyToTestProject $runtime $platform "Q8" ""
-    copyToTestProject $runtime $platform "Q16" ""
-    copyToTestProject $runtime $platform "Q16-HDRI" ""
-    copyToTestProject $runtime $platform "Q8" "-OpenMP"
-    copyToTestProject $runtime $platform "Q16" "-OpenMP"
-    copyToTestProject $runtime $platform "Q16-HDRI" "-OpenMP"
+    copyToTestProject $platform $architecture "Q8" ""
+    copyToTestProject $platform $architecture "Q16" ""
+    copyToTestProject $platform $architecture "Q16-HDRI" ""
+    copyToTestProject $platform $architecture "Q8" "-OpenMP"
+    copyToTestProject $platform $architecture "Q16" "-OpenMP"
+    copyToTestProject $platform $architecture "Q16-HDRI" "-OpenMP"
 }
 
 cleanupPackage
