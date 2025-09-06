@@ -17,14 +17,14 @@ public sealed class DrawablePath : IDrawablePath, IDrawingWand
     /// </summary>
     /// <param name="paths">The paths to use.</param>
     public DrawablePath(params IPath[] paths)
-        => _paths = new List<IPath>(paths);
+        => _paths = [.. paths];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="DrawablePath"/> class.
     /// </summary>
     /// <param name="paths">The paths to use.</param>
     public DrawablePath(IEnumerable<IPath> paths)
-        => _paths = new List<IPath>(paths);
+        => _paths = [.. paths];
 
     /// <summary>
     /// Gets the paths to use.
