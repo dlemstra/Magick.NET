@@ -14,12 +14,12 @@ public enum FillRule
     Undefined,
 
     /// <summary>
-    /// EvenOdd.
+    /// Even odd.
     /// </summary>
     EvenOdd,
 
     /// <summary>
-    /// Nonzero.
+    /// Non zero.
     /// </summary>
     Nonzero,
 }
