@@ -81,6 +81,8 @@ internal sealed partial class DrawingSettings
         {
             if (value is not null)
                 _strokeDashArray = new List<double>(value).ToArray();
+            else
+                _strokeDashArray = null;
         }
     }
 
