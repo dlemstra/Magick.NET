@@ -258,7 +258,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
 
     /// <summary>
     /// Gets or sets the distance into the dash pattern to start the dash (default 0) while
-    /// drawing using a dash pattern,.
+    /// drawing using a dash pattern.
     /// </summary>
     public double StrokeDashOffset
     {
