@@ -1,4 +1,5 @@
 @echo off
+setlocal
 set "SCRIPT_DIR=%~dp0"
 
 set quantum=%1
@@ -18,11 +19,13 @@ call "build.cmd" Debug %quantum% %architecture% %hdri% %openMP%
 set quantumName=%quantum%
 if not "%hdri%"=="noHdri" set quantumName=%quantumName%-HDRI
 
-call "copy-resources.cmd" ..\..\..\Magick.NET\src\Magick.Native\resources\Release%quantumName%
+cd ..\..\..\Magick.NET\src\Magick.Native\resources
+
+call ..\..\..\..\Magick.Native\build\windows\copy-resources.cmd Release%quantumName% %architecture%
 
 if not "%openMP%"=="noOpenMP" set quantumName=%quantumName%-OpenMP
 
-cd ..\..\src\Magick.Native\bin\Debug%quantumName%\%architecture%
+cd ..\..\..\..\Magick.Native\src\Magick.Native\bin\Debug%quantumName%\%architecture%
 
 set testfolder=..\..\..\..\..\..\Magick.NET\tests
 

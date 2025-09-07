@@ -1,2 +1,2 @@
 @echo off
-call "Build.cmd" Debug Q8 arm64
+call Build.cmd Q8 arm64 noHdri noOpenMP
