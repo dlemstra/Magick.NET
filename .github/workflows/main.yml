@@ -9,6 +9,7 @@ on:
 name: main
 permissions:
   contents: read
+  packages: read
 jobs:
 
   linux:
