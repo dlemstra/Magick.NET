@@ -10,7 +10,7 @@ name: main
 jobs:
 
   linux:
-    name: 'Linux (Q8/Q16/Q16-HDRI, x64)'
+    name: Linux (Q8/Q16/Q16-HDRI, x64)
     container:
       image: mcr.microsoft.com/dotnet/sdk:8.0
     runs-on: ubuntu-24.04
@@ -28,7 +28,7 @@ jobs:
         dotnet-version: 8.x
 
     - name: Install Magick.Native
-      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64'
+      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64
 
     - name: Build
       run: build/shared/build.Magick.NET.sh x64
@@ -43,7 +43,7 @@ jobs:
       run: build/shared/test.Magick.NET.sh x64 OpenMP
 
   linux_musl:
-    name: 'Linux musl (Q8/Q16/Q16-HDRI, x64)'
+    name: Linux musl (Q8/Q16/Q16-HDRI, x64)
     container:
       image: mcr.microsoft.com/dotnet/sdk:8.0-alpine
     runs-on: ubuntu-24.04
@@ -61,7 +61,7 @@ jobs:
         dotnet-version: 8.x
 
     - name: Install Magick.Native
-      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64'
+      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64
 
     - name: Build
       run: build/shared/build.Magick.NET.sh x64
@@ -76,7 +76,7 @@ jobs:
       run: build/shared/test.Magick.NET.sh x64 OpenMP
 
   linux_arm64:
-    name: 'Linux (Q8/Q16/Q16-HDRI, arm64)'
+    name: Linux (Q8/Q16/Q16-HDRI, arm64)
     runs-on: ubuntu-24.04-arm
 
     steps:
@@ -92,7 +92,7 @@ jobs:
         dotnet-version: 8.x
 
     - name: Install Magick.Native
-      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64'
+      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64
 
     - name: Build
       run: build/shared/build.Magick.NET.sh arm64
@@ -107,7 +107,7 @@ jobs:
       run: build/shared/test.Magick.NET.sh arm64 OpenMP
 
   macos:
-    name: 'MacOS (Q8/Q16/Q16-HDRI)'
+    name: MacOS (Q8/Q16/Q16-HDRI)
     runs-on: macos-13
 
     steps:
@@ -123,7 +123,7 @@ jobs:
         dotnet-version: 8.x
 
     - name: Install Magick.Native
-      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64'
+      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64
 
     - name: Build
       run: build/shared/build.Magick.NET.sh x64
@@ -148,7 +148,7 @@ jobs:
         dotnet-version: 8.x
 
     - name: Install Magick.Native
-      run: 'build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos arm64'
+      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos arm64
 
     - name: Build
       run: build/shared/build.Magick.NET.sh arm64
@@ -157,7 +157,7 @@ jobs:
       run: build/shared/test.Magick.NET.sh arm64
 
   windows:
-    name: 'Windows (${{matrix.quantumName}}, ${{matrix.platformName}})'
+    name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
     runs-on: windows-2022
 
     permissions:
@@ -196,7 +196,7 @@ jobs:
       working-directory: build/windows
 
     - name: Create nuget.config
-      run: './create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+      run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
       working-directory: src/Magick.Native
 
     - name: Install Magick.Native
@@ -204,15 +204,15 @@ jobs:
       working-directory: src/Magick.Native
 
     - name: Build Magick.NET (Test)
-      run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test'
+      run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test
       working-directory: build/windows
 
     - name: Test Magick.NET
-      run: './test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
+      run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
       working-directory: build/windows
 
     - name: Build Magick.NET (Release)
-      run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release'
+      run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
       working-directory: build/windows
 
     - name: Set NuGet version
@@ -220,7 +220,7 @@ jobs:
       working-directory: publish
 
     - name: Create NuGet package
-      run: './publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
+      run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
       working-directory: publish
 
     - name: Azure CLI login with federated credential
@@ -244,11 +244,11 @@ jobs:
     - name: Upload library
       uses: actions/upload-artifact@v4
       with:
-        name: 'Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}'
+        name: Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}
         path: publish/output
 
   windows_arm64:
-    name: 'Windows (${{matrix.quantumName}}, ${{matrix.platformName}})'
+    name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
     #runs-on: windows-11-arm
     runs-on: windows-2022
 
@@ -275,7 +275,7 @@ jobs:
       working-directory: build/windows
 
     - name: Create nuget.config
-      run: './create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+      run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
       working-directory: src/Magick.Native
 
     - name: Install Magick.Native
@@ -283,15 +283,15 @@ jobs:
       working-directory: src/Magick.Native
 
     # - name: Build Magick.NET (Test)
-    #   run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test'
+    #   run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test
     #   working-directory: build/windows
 
     # - name: Test Magick.NET
-    #   run: './test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
+    #   run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
     #   working-directory: build/windows
 
     - name: Build Magick.NET (Release)
-      run: './build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release'
+      run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
       working-directory: build/windows
 
     - name: Set NuGet version
@@ -299,7 +299,7 @@ jobs:
       working-directory: publish
 
     - name: Create NuGet package
-      run: './publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"'
+      run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
       working-directory: publish
 
     - name: Azure CLI login with federated credential
@@ -324,7 +324,7 @@ jobs:
     - name: Upload library
       uses: actions/upload-artifact@v4
       with:
-        name: 'Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}'
+        name: Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}
         path: publish/output
 
   libraries:
@@ -353,15 +353,15 @@ jobs:
       working-directory: build/windows
 
     - name: Create nuget.config
-      run: './create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"'
+      run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
       working-directory: src/Magick.Native
 
     - name: Install Magick.Native
       run: ./install.cmd
       working-directory: src/Magick.Native
 
-    - name: 'Build Magick.NET.${{ matrix.libraryName }} (Release)'
-      run: './build.Magick.NET.cmd "Q8" "Any CPU" Release'
+    - name: Build Magick.NET.${{ matrix.libraryName }} (Release)
+      run: ./build.Magick.NET.cmd "Q8" "Any CPU" Release
       working-directory: build/windows
 
     - name: Set NuGet version
@@ -369,7 +369,7 @@ jobs:
       working-directory: publish
 
     - name: Create NuGet package
-      run: './publish.library.cmd "Magick.NET.${{ matrix.libraryName }}"'
+      run: ./publish.library.cmd "Magick.NET.${{ matrix.libraryName }}"
       working-directory: publish
 
     - name: Azure CLI login with federated credential
@@ -394,5 +394,5 @@ jobs:
     - name: Upload library
       uses: actions/upload-artifact@v4
       with:
-        name: 'Magick.NET.${{ matrix.libraryName }}'
+        name: Magick.NET.${{ matrix.libraryName }}
         path: publish/output
