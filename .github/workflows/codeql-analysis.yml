@@ -15,7 +15,7 @@ permissions:
 jobs:
   csharp:
     name: CodeQL analysis (C#)
-    runs-on: windows-20224
+    runs-on: windows-2022
 
     steps:
     - uses: actions/checkout@v5
