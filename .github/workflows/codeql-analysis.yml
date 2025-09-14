@@ -11,6 +11,7 @@ on:
 name: codeql analysis
 permissions:
   contents: read
+  packages: read
   security-events: write
 jobs:
   csharp:
