@@ -1,0 +1,60 @@
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: 0 6 * * *
+  push:
+    branches:
+    - main
+    paths:
+    - .github/workflows/codeql-analysis.yml
+
+name: codeql analysis
+permissions:
+  contents: read
+  security-events: write
+jobs:
+  csharp:
+    name: CodeQL analysis (C#)
+    runs-on: windows-20224
+
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Install dependencies
+      run: ./install.dependencies.cmd
+      working-directory: build/windows
+
+    - name: Create nuget.config
+      run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
+      working-directory: src/Magick.Native
+
+    - name: Install Magick.Native
+      run: ./install.cmd
+      working-directory: src/Magick.Native
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: csharp
+
+    - name: Build Magick.NET (Release)
+      run: ./build.Magick.NET.cmd Q16-HDRI "x64" Release
+      working-directory: build/windows
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+
+  actions:
+    name: CodeQL analysis (GitHub Actions)
+    runs-on: ubuntu-24.04
+
+    steps:
+    - uses: actions/checkout@v5
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: actions
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
