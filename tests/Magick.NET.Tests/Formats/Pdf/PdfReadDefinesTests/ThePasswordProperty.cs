@@ -8,9 +8,9 @@ using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
-[Collection(nameof(IsolatedUnitTest))]
 public partial class PdfReadDefinesTests
 {
+    [Collection(nameof(IsolatedUnitTest))]
     public class ThePasswordProperty
     {
         [Fact]
