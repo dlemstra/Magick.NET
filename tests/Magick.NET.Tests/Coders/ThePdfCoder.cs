@@ -4,10 +4,10 @@
 using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
+[Collection(nameof(IsolatedUnitTest))]
 public partial class ThePdfCoder
 {
     [Fact]
@@ -15,27 +15,30 @@ public partial class ThePdfCoder
     {
         Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
-        var results = new Task[3];
-
-        for (var i = 0; i < results.Length; ++i)
+        await IsolatedUnitTest.Execute(static async () =>
         {
-            results[i] = Task.Run(
-                () =>
-                {
-                    using var image = new MagickImage();
-                    image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+            var results = new Task[3];
 
-                    Assert.Equal(765U, image.Width);
-                    Assert.Equal(361U, image.Height);
-                    Assert.Equal(MagickFormat.Ai, image.Format);
-                },
-                TestContext.Current.CancellationToken);
+            for (var i = 0; i < results.Length; ++i)
+            {
+                results[i] = Task.Run(
+                    () =>
+                    {
+                        using var image = new MagickImage();
+                        image.Read(Files.Coders.CartoonNetworkStudiosLogoAI);
+
+                        Assert.Equal(765U, image.Width);
+                        Assert.Equal(361U, image.Height);
+                        Assert.Equal(MagickFormat.Ai, image.Format);
+                    },
+                    TestContext.Current.CancellationToken);
             }
 
-        for (var i = 0; i < results.Length; ++i)
-        {
-            await results[i];
-        }
+            for (var i = 0; i < results.Length; ++i)
+            {
+                await results[i];
+            }
+        });
     }
 
     [Fact]
@@ -43,10 +46,13 @@ public partial class ThePdfCoder
     {
         Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
-        using var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI);
+        IsolatedUnitTest.Execute(static () =>
+        {
+            using var image = new MagickImage(Files.Coders.CartoonNetworkStudiosLogoAI);
 
-        Assert.Equal(765U, image.Width);
-        Assert.Equal(361U, image.Height);
-        Assert.Equal(MagickFormat.Ai, image.Format);
+            Assert.Equal(765U, image.Width);
+            Assert.Equal(361U, image.Height);
+            Assert.Equal(MagickFormat.Ai, image.Format);
+        });
     }
 }

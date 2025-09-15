@@ -3,6 +3,7 @@
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace Magick.NET.Tests;
@@ -18,6 +19,19 @@ public class IsolatedUnitTest
         try
         {
             action();
+        }
+        finally
+        {
+            _semaphore.Release();
+        }
+    }
+
+    public static async Task Execute(Func<Task> action)
+    {
+        await _semaphore.WaitAsync();
+        try
+        {
+            await action();
         }
         finally
         {
