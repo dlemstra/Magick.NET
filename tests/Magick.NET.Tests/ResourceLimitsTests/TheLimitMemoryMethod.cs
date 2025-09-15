@@ -27,7 +27,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldChangeAreaAndMemory()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 var area = ResourceLimits.Area;
                 var memory = ResourceLimits.Memory;
@@ -46,7 +46,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldSetMemoryAndAreaToTheCorrectValues()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 var distance = 16384UL;
                 var area = ResourceLimits.Area;

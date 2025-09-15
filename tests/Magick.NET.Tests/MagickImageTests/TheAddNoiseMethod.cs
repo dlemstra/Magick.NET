@@ -14,7 +14,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldCreateDifferentImagesEachRun()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 using var imageA = new MagickImage(MagickColors.Black, 10, 10);
                 using var imageB = new MagickImage(MagickColors.Black, 10, 10);
@@ -28,7 +28,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldUseTheRandomSeed()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 MagickNET.SetRandomSeed(1337);
 

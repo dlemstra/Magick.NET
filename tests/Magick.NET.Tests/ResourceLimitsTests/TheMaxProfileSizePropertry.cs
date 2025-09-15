@@ -14,7 +14,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 var maxProfileSize = Runtime.Is64Bit ? (ulong)long.MaxValue : int.MaxValue;
                 Assert.Equal(maxProfileSize, ResourceLimits.MaxProfileSize);
@@ -24,7 +24,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 var maxProfileSize = ResourceLimits.MaxProfileSize;
 

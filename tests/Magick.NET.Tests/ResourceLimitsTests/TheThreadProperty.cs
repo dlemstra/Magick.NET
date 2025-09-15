@@ -15,7 +15,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 if (ResourceLimits.Thread < 1U)
                     throw new XunitException("Invalid thread limit: " + ResourceLimits.Thread);
@@ -25,7 +25,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
 #if OPENMP
                 var thread = ResourceLimits.Thread;

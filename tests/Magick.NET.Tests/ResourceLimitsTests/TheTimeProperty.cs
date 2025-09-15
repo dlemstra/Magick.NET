@@ -14,7 +14,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 Assert.Equal((ulong)long.MaxValue, ResourceLimits.Time);
             });
@@ -23,7 +23,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 var time = ResourceLimits.Time;
 

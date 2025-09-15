@@ -31,7 +31,7 @@ public partial class MagickNETTests
             [Fact]
             public void ShouldThrowExceptionWhenXmlFileIsMissing()
             {
-                IsolatedUnitTest.Execute(() =>
+                IsolatedUnitTest.Execute(static () =>
                 {
                     var path = Files.Root + @"../../src/Magick.Native/resources/Release";
 #if Q8
@@ -80,7 +80,7 @@ public partial class MagickNETTests
             [Fact]
             public void ShouldWriteAllFilesInTheReturnedPath()
             {
-                IsolatedUnitTest.Execute(() =>
+                IsolatedUnitTest.Execute(static () =>
                 {
                     string? path = null;
                     try
@@ -100,7 +100,7 @@ public partial class MagickNETTests
             [Fact]
             public void ShouldWriteCustomPolicyToDisk()
             {
-                IsolatedUnitTest.Execute(() =>
+                IsolatedUnitTest.Execute(static () =>
                 {
                     var policy = @"<test/>";
 
@@ -149,7 +149,7 @@ public partial class MagickNETTests
             [Fact]
             public void ShouldWriteAllFilesInTheReturnedPath()
             {
-                IsolatedUnitTest.Execute(() =>
+                IsolatedUnitTest.Execute(static () =>
                 {
                     using var directory = new TemporaryDirectory();
                     var path = directory.FullName;
@@ -163,7 +163,7 @@ public partial class MagickNETTests
             [Fact]
             public void CanBeCalledTwice()
             {
-                IsolatedUnitTest.Execute(() =>
+                IsolatedUnitTest.Execute(static () =>
                 {
                     using var directory = new TemporaryDirectory();
                     var path = directory.FullName;

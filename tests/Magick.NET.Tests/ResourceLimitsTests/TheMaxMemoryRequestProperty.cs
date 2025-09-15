@@ -15,7 +15,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldHaveTheCorrectValue()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 if (ResourceLimits.MaxMemoryRequest < 100000000U)
                     throw new XunitException("Invalid memory limit: " + ResourceLimits.MaxMemoryRequest);
@@ -25,7 +25,7 @@ public partial class ResourceLimitsTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenChanged()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 var oldMemory = ResourceLimits.MaxMemoryRequest;
                 var newMemory = (ulong)(ResourceLimits.MaxMemoryRequest * 0.8);

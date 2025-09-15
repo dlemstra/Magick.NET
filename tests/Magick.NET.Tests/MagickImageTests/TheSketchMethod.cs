@@ -14,7 +14,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldSimulatePencilSketch()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 using var image = new MagickImage(Files.FujiFilmFinePixS1ProJPG);
                 image.Resize(400, 400);
@@ -30,7 +30,7 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldUseTheCorrectDefaultValue()
         {
-            IsolatedUnitTest.Execute(() =>
+            IsolatedUnitTest.Execute(static () =>
             {
                 MagickNET.SetRandomSeed(42);
 

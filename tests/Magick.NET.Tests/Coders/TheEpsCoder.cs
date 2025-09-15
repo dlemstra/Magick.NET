@@ -14,7 +14,7 @@ public partial class TheEpsCoder
     {
         Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
-        IsolatedUnitTest.Execute(() =>
+        IsolatedUnitTest.Execute(static () =>
         {
             using var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS);
 
@@ -35,7 +35,7 @@ public partial class TheEpsCoder
     {
         Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
-        IsolatedUnitTest.Execute(() =>
+        IsolatedUnitTest.Execute(static () =>
         {
             var settings = new MagickReadSettings
             {
@@ -58,7 +58,7 @@ public partial class TheEpsCoder
     {
         Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
-        IsolatedUnitTest.Execute(() =>
+        IsolatedUnitTest.Execute(static () =>
         {
             using var images = new MagickImageCollection(Files.Coders.SwedenHeartEPS);
 
