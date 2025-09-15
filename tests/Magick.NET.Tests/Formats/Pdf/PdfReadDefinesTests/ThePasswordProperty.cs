@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System.Linq;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
@@ -9,6 +8,7 @@ using Xunit.Sdk;
 
 namespace Magick.NET.Tests;
 
+[Collection(nameof(IsolatedUnitTest))]
 public partial class PdfReadDefinesTests
 {
     public class ThePasswordProperty
@@ -16,25 +16,31 @@ public partial class PdfReadDefinesTests
         [Fact]
         public void ShouldSetTheDefineWhenValueIsSet()
         {
-            using var image = new MagickImage(MagickColors.Magenta, 1, 1);
-            image.Settings.SetDefines(new PdfReadDefines
+            IsolatedUnitTest.Execute(static () =>
             {
-                Password = "test",
-            });
+                using var image = new MagickImage(MagickColors.Magenta, 1, 1);
+                image.Settings.SetDefines(new PdfReadDefines
+                {
+                    Password = "test",
+                });
 
-            Assert.Equal("test", image.Settings.GetDefine("authenticate"));
+                Assert.Equal("test", image.Settings.GetDefine("authenticate"));
+            });
         }
 
         [Fact]
         public void ShouldNotSetTheDefineWhenValueIsNotSet()
         {
-            using var image = new MagickImage();
-            image.Settings.SetDefines(new PdfReadDefines
+            IsolatedUnitTest.Execute(static () =>
             {
-                Password = null,
-            });
+                using var image = new MagickImage();
+                image.Settings.SetDefines(new PdfReadDefines
+                {
+                    Password = null,
+                });
 
-            Assert.Null(image.Settings.GetDefine("authenticate"));
+                Assert.Null(image.Settings.GetDefine("authenticate"));
+            });
         }
 
         [Fact]
@@ -42,19 +48,22 @@ public partial class PdfReadDefinesTests
         {
             Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
-            var settings = new MagickReadSettings
+            IsolatedUnitTest.Execute(static () =>
             {
-                Defines = new PdfReadDefines
+                var settings = new MagickReadSettings
                 {
-                    Password = "test",
-                },
-            };
+                    Defines = new PdfReadDefines
+                    {
+                        Password = "test",
+                    },
+                };
 
-            using var image = new MagickImage();
-            image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
+                using var image = new MagickImage();
+                image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
 
-            Assert.Equal(612U, image.Width);
-            Assert.Equal(792U, image.Height);
+                Assert.Equal(612U, image.Width);
+                Assert.Equal(792U, image.Height);
+            });
         }
 
         [Fact]
@@ -62,30 +71,33 @@ public partial class PdfReadDefinesTests
         {
             Assert.SkipUnless(Ghostscript.IsAvailable, "Ghostscript is not available");
 
-            var settings = new MagickReadSettings
+            IsolatedUnitTest.Execute(static () =>
             {
-                Defines = new PdfReadDefines
+                var settings = new MagickReadSettings
                 {
-                    Password = null,
-                },
-            };
+                    Defines = new PdfReadDefines
+                    {
+                        Password = null,
+                    },
+                };
 
-            using var image = new MagickImage();
-            try
-            {
-                image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
-            }
-            catch (MagickDelegateErrorException exception)
-            {
+                using var image = new MagickImage();
+                try
+                {
+                    image.Read(Files.Coders.PdfExamplePasswordOriginalPDF, settings);
+                }
+                catch (MagickDelegateErrorException exception)
+                {
 #if WINDOWS_BUILD
-                ExceptionAssert.Contains("This file requires a password for access.", exception);
+                    ExceptionAssert.Contains("This file requires a password for access.", exception);
 #else
                 ExceptionAssert.Contains("Error: Couldn't initialise file.", exception);
 #endif
-                return;
-            }
+                    return;
+                }
 
-            throw new XunitException("Exception should be thrown.");
+                throw new XunitException("Exception should be thrown.");
+            });
         }
     }
 }
