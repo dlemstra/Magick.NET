@@ -231,7 +231,7 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
         if (pixels == IntPtr.Zero)
             throw new InvalidOperationException("Image contains no pixel data.");
 
-        return QuantumConverter.ToArray(pixels, (int)length);
+        return QuantumConverter.ToArray(pixels, (uint)length);
     }
 
     internal void SetPixelUnchecked(int x, int y, QuantumType[] value)
