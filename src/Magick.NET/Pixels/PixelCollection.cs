@@ -156,19 +156,20 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
     public virtual byte[]? ToByteArray(int x, int y, uint width, uint height, string mapping)
     {
         var nativeResult = IntPtr.Zero;
-        byte[]? result = null;
+
+        var length = width * height * mapping.Length;
+        if (length > int.MaxValue)
+            throw new InvalidOperationException("The resulting array is too large.");
 
         try
         {
             nativeResult = NativeInstance.ToByteArray(x, y, width, height, mapping);
-            result = ByteConverter.ToArray(nativeResult, (int)(width * height * mapping.Length));
+            return ByteConverter.ToArray(nativeResult, (int)length);
         }
         finally
         {
             MagickMemory.Relinquish(nativeResult);
         }
-
-        return result;
     }
 
     public virtual byte[]? ToByteArray(int x, int y, uint width, uint height, PixelMapping mapping)
@@ -190,10 +191,14 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
     {
         var nativeResult = IntPtr.Zero;
 
+        var length = width * height * mapping.Length;
+        if (length > int.MaxValue)
+            throw new InvalidOperationException("The resulting array is too large.");
+
         try
         {
             nativeResult = NativeInstance.ToShortArray(x, y, width, height, mapping);
-            return ShortConverter.ToArray(nativeResult, (int)(width * height * mapping.Length));
+            return ShortConverter.ToArray(nativeResult, (int)length);
         }
         finally
         {
