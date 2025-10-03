@@ -223,12 +223,15 @@ internal abstract partial class PixelCollection : IPixelCollection<QuantumType>
 
     internal QuantumType[]? GetAreaUnchecked(int x, int y, uint width, uint height)
     {
+        var length = width * height * (long)Image.ChannelCount;
+        if (length > int.MaxValue)
+            throw new InvalidOperationException("The resulting array is too large.");
+
         var pixels = NativeInstance.GetArea(x, y, width, height);
         if (pixels == IntPtr.Zero)
             throw new InvalidOperationException("Image contains no pixel data.");
 
-        var length = width * height * Image.ChannelCount;
-        return QuantumConverter.ToArray(pixels, length);
+        return QuantumConverter.ToArray(pixels, (int)length);
     }
 
     internal void SetPixelUnchecked(int x, int y, QuantumType[] value)
