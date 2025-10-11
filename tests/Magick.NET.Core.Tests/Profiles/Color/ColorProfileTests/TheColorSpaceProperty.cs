@@ -13,12 +13,12 @@ public partial class ColorProfileTests
         [Fact]
         public void ShouldReturnTheCorrectValue()
         {
-            Assert.Equal(ColorSpace.sRGB, ColorProfile.AdobeRGB1998.ColorSpace);
-            Assert.Equal(ColorSpace.sRGB, ColorProfile.AppleRGB.ColorSpace);
-            Assert.Equal(ColorSpace.CMYK, ColorProfile.CoatedFOGRA39.ColorSpace);
-            Assert.Equal(ColorSpace.sRGB, ColorProfile.ColorMatchRGB.ColorSpace);
-            Assert.Equal(ColorSpace.sRGB, ColorProfile.SRGB.ColorSpace);
-            Assert.Equal(ColorSpace.CMYK, ColorProfile.USWebCoatedSWOP.ColorSpace);
+            Assert.Equal(ColorSpace.sRGB, ColorProfiles.AdobeRGB1998.ColorSpace);
+            Assert.Equal(ColorSpace.sRGB, ColorProfiles.AppleRGB.ColorSpace);
+            Assert.Equal(ColorSpace.CMYK, ColorProfiles.CoatedFOGRA39.ColorSpace);
+            Assert.Equal(ColorSpace.sRGB, ColorProfiles.ColorMatchRGB.ColorSpace);
+            Assert.Equal(ColorSpace.sRGB, ColorProfiles.SRGB.ColorSpace);
+            Assert.Equal(ColorSpace.CMYK, ColorProfiles.USWebCoatedSWOP.ColorSpace);
         }
     }
 }

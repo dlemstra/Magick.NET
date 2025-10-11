@@ -28,7 +28,7 @@ public class TheJpegCoder
     public void ShouldReadImageProfile()
     {
         using var image = new MagickImage(Files.CMYKJPG);
-        image.SetProfile(ColorProfile.USWebCoatedSWOP);
+        image.SetProfile(ColorProfiles.USWebCoatedSWOP);
 
         using var memoryStream = new MemoryStream();
         image.Write(memoryStream);

@@ -26,7 +26,7 @@ public partial class MagickImageTests
             public void ShouldSetTheIccProperties()
             {
                 using var image = new MagickImage(Files.MagickNETIconPNG);
-                image.SetProfile(ColorProfile.SRGB);
+                image.SetProfile(ColorProfiles.SRGB);
 
                 Assert.Equal("sRGB IEC61966-2.1", image.GetAttribute("icc:description"));
                 Assert.Equal("IEC http://www.iec.ch", image.GetAttribute("icc:manufacturer"));
@@ -42,7 +42,7 @@ public partial class MagickImageTests
 
                 Assert.Null(profile);
 
-                image.SetProfile(ColorProfile.SRGB);
+                image.SetProfile(ColorProfiles.SRGB);
 
                 Assert.True(image.HasProfile("icc"));
                 Assert.False(image.HasProfile("icm"));
@@ -56,7 +56,7 @@ public partial class MagickImageTests
 
                 Assert.Null(profile);
 
-                image.SetProfile(new ImageProfile("icm", ColorProfile.SRGB.ToByteArray()));
+                image.SetProfile(new ImageProfile("icm", ColorProfiles.SRGB.ToByteArray()));
 
                 profile = image.GetColorProfile();
 
@@ -69,24 +69,24 @@ public partial class MagickImageTests
             public void ShouldOverwriteExistingProfile()
             {
                 using var image = new MagickImage(Files.SnakewarePNG);
-                image.SetProfile(ColorProfile.SRGB);
+                image.SetProfile(ColorProfiles.SRGB);
 
-                image.SetProfile(ColorProfile.AppleRGB);
+                image.SetProfile(ColorProfiles.AppleRGB);
 
                 var profile = image.GetColorProfile();
 
                 Assert.NotNull(profile);
-                Assert.Equal(ColorProfile.AppleRGB.ToByteArray().Length, profile.ToByteArray().Length);
+                Assert.Equal(ColorProfiles.AppleRGB.ToByteArray().Length, profile.ToByteArray().Length);
             }
 
             [Fact]
             public void ShouldUseTheSpecifiedMode()
             {
                 using var quantumImage = new MagickImage(Files.PictureJPG);
-                quantumImage.SetProfile(ColorProfile.USWebCoatedSWOP);
+                quantumImage.SetProfile(ColorProfiles.USWebCoatedSWOP);
 
                 using var highResImage = new MagickImage(Files.PictureJPG);
-                highResImage.SetProfile(ColorProfile.USWebCoatedSWOP, ColorTransformMode.HighRes);
+                highResImage.SetProfile(ColorProfiles.USWebCoatedSWOP, ColorTransformMode.HighRes);
 
                 var difference = quantumImage.Compare(highResImage, ErrorMetric.RootMeanSquared);
 

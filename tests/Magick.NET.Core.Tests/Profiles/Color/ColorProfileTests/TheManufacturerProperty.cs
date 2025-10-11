@@ -13,12 +13,12 @@ public partial class ColorProfileTests
         [Fact]
         public void ShouldReturnTheCorrectValue()
         {
-            Assert.Null(ColorProfile.AdobeRGB1998.Manufacturer);
-            Assert.Null(ColorProfile.AppleRGB.Manufacturer);
-            Assert.Null(ColorProfile.CoatedFOGRA39.Manufacturer);
-            Assert.Null(ColorProfile.ColorMatchRGB.Manufacturer);
-            Assert.Equal("IEC http://www.iec.ch", ColorProfile.SRGB.Manufacturer);
-            Assert.Null(ColorProfile.USWebCoatedSWOP.Manufacturer);
+            Assert.Null(ColorProfiles.AdobeRGB1998.Manufacturer);
+            Assert.Null(ColorProfiles.AppleRGB.Manufacturer);
+            Assert.Null(ColorProfiles.CoatedFOGRA39.Manufacturer);
+            Assert.Null(ColorProfiles.ColorMatchRGB.Manufacturer);
+            Assert.Equal("IEC http://www.iec.ch", ColorProfiles.SRGB.Manufacturer);
+            Assert.Null(ColorProfiles.USWebCoatedSWOP.Manufacturer);
         }
     }
 }

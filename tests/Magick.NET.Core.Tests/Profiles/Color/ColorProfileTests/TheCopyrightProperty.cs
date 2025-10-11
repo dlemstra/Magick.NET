@@ -14,12 +14,12 @@ public partial class ColorProfileTests
         [Fact]
         public void ShouldReturnTheCorrectValue()
         {
-            Assert.Equal("Copyright 2000 Adobe Systems Incorporated", ColorProfile.AdobeRGB1998.Copyright);
-            Assert.Equal("Copyright 2000 Adobe Systems Incorporated", ColorProfile.AppleRGB.Copyright);
-            Assert.Equal("Copyright 2007 Adobe Systems, Inc.", ColorProfile.CoatedFOGRA39.Copyright);
-            Assert.Equal("Copyright 2000 Adobe Systems Incorporated", ColorProfile.ColorMatchRGB.Copyright);
-            Assert.Equal("Copyright (c) 1998 Hewlett-Packard Company", ColorProfile.SRGB.Copyright);
-            Assert.Equal("Copyright 2000 Adobe Systems, Inc.", ColorProfile.USWebCoatedSWOP.Copyright);
+            Assert.Equal("Copyright 2000 Adobe Systems Incorporated", ColorProfiles.AdobeRGB1998.Copyright);
+            Assert.Equal("Copyright 2000 Adobe Systems Incorporated", ColorProfiles.AppleRGB.Copyright);
+            Assert.Equal("Copyright 2007 Adobe Systems, Inc.", ColorProfiles.CoatedFOGRA39.Copyright);
+            Assert.Equal("Copyright 2000 Adobe Systems Incorporated", ColorProfiles.ColorMatchRGB.Copyright);
+            Assert.Equal("Copyright (c) 1998 Hewlett-Packard Company", ColorProfiles.SRGB.Copyright);
+            Assert.Equal("Copyright 2000 Adobe Systems, Inc.", ColorProfiles.USWebCoatedSWOP.Copyright);
         }
 
         [Fact]

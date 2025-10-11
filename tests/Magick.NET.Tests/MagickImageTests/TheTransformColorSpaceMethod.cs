@@ -14,7 +14,7 @@ public partial class MagickImageTests
         public void ShouldReturnFalseWhenTheImageHasNoProfile()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
-            var result = image.TransformColorSpace(ColorProfile.AdobeRGB1998);
+            var result = image.TransformColorSpace(ColorProfiles.AdobeRGB1998);
 
             Assert.False(result);
         }
@@ -23,7 +23,7 @@ public partial class MagickImageTests
         public void ShouldReturnTrueWhenTheImageHasProfile()
         {
             using var image = new MagickImage(Files.PictureJPG);
-            var result = image.TransformColorSpace(ColorProfile.SRGB);
+            var result = image.TransformColorSpace(ColorProfiles.SRGB);
 
             Assert.True(result);
         }
@@ -32,7 +32,7 @@ public partial class MagickImageTests
         public void ShouldReturnFalseWhenSourceProfileColorSpaceIsIncorrect()
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
-            var result = image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.AdobeRGB1998);
+            var result = image.TransformColorSpace(ColorProfiles.USWebCoatedSWOP, ColorProfiles.AdobeRGB1998);
 
             Assert.False(result);
         }
@@ -41,7 +41,7 @@ public partial class MagickImageTests
         public void ShouldReturnTrueWhenSourceProfileColorSpaceIsCorrect()
         {
             using var image = new MagickImage(Files.MagickNETIconPNG);
-            var result = image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
+            var result = image.TransformColorSpace(ColorProfiles.SRGB, ColorProfiles.AdobeRGB1998);
 
             Assert.True(result);
         }
@@ -50,7 +50,7 @@ public partial class MagickImageTests
         public void ShouldReturnTrueWhenSourceProfileColorSpaceIsCorrectAndTheImageHasNoProfile()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
-            var result = image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
+            var result = image.TransformColorSpace(ColorProfiles.SRGB, ColorProfiles.AdobeRGB1998);
 
             Assert.True(result);
         }
@@ -62,7 +62,7 @@ public partial class MagickImageTests
 
             Assert.Equal(ColorSpace.sRGB, image.ColorSpace);
 
-            image.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.USWebCoatedSWOP);
+            image.TransformColorSpace(ColorProfiles.USWebCoatedSWOP, ColorProfiles.USWebCoatedSWOP);
 
             Assert.Equal(ColorSpace.sRGB, image.ColorSpace);
         }
@@ -74,7 +74,7 @@ public partial class MagickImageTests
 
             Assert.Equal(ColorSpace.sRGB, image.ColorSpace);
 
-            image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
+            image.TransformColorSpace(ColorProfiles.SRGB, ColorProfiles.USWebCoatedSWOP);
 
             Assert.Equal(ColorSpace.CMYK, image.ColorSpace);
         }
@@ -83,7 +83,7 @@ public partial class MagickImageTests
         public void ShouldClampPixels()
         {
             using var image = new MagickImage(MagickColors.White, 1, 1);
-            image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.AdobeRGB1998);
+            image.TransformColorSpace(ColorProfiles.SRGB, ColorProfiles.AdobeRGB1998);
 
 #if Q8 || Q16
             ColorAssert.Equal(new MagickColor("#ffffff"), image, 1, 1);
@@ -96,10 +96,10 @@ public partial class MagickImageTests
         public void ShouldUseTheSpecifiedMode()
         {
             using var quantumImage = new MagickImage(Files.PictureJPG);
-            quantumImage.TransformColorSpace(ColorProfile.USWebCoatedSWOP);
+            quantumImage.TransformColorSpace(ColorProfiles.USWebCoatedSWOP);
 
             using var highResImage = new MagickImage(Files.PictureJPG);
-            highResImage.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorTransformMode.HighRes);
+            highResImage.TransformColorSpace(ColorProfiles.USWebCoatedSWOP, ColorTransformMode.HighRes);
 
             var difference = quantumImage.Compare(highResImage, ErrorMetric.RootMeanSquared);
 

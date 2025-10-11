@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
@@ -13,9 +12,6 @@ namespace ImageMagick;
 /// </summary>
 public sealed class ColorProfile : ImageProfile, IColorProfile
 {
-    private static readonly object _syncRoot = new object();
-    private static readonly Dictionary<string, ColorProfile> _profiles = [];
-
     private ColorProfileData? _data;
 
     /// <summary>
@@ -59,38 +55,44 @@ public sealed class ColorProfile : ImageProfile, IColorProfile
     /// <summary>
     /// Gets the AdobeRGB1998 profile.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.AdobeRGB1998)} instead.")]
     public static ColorProfile AdobeRGB1998
-        => Load("ImageMagick.Resources.ColorProfiles.RGB", "AdobeRGB1998.icc");
+        => ColorProfiles.AdobeRGB1998;
 
     /// <summary>
     /// Gets the AppleRGB profile.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.AppleRGB)} instead.")]
     public static ColorProfile AppleRGB
-        => Load("ImageMagick.Resources.ColorProfiles.RGB", "AppleRGB.icc");
+        => ColorProfiles.AppleRGB;
 
     /// <summary>
     /// Gets the CoatedFOGRA39 profile.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.CoatedFOGRA39)} instead.")]
     public static ColorProfile CoatedFOGRA39
-        => Load("ImageMagick.Resources.ColorProfiles.CMYK", "CoatedFOGRA39.icc");
+        => ColorProfiles.CoatedFOGRA39;
 
     /// <summary>
     /// Gets the ColorMatchRGB profile.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.ColorMatchRGB)} instead.")]
     public static ColorProfile ColorMatchRGB
-        => Load("ImageMagick.Resources.ColorProfiles.RGB", "ColorMatchRGB.icc");
+        => ColorProfiles.ColorMatchRGB;
 
     /// <summary>
     /// Gets the sRGB profile.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.SRGB)} instead.")]
     public static ColorProfile SRGB
-        => Load("ImageMagick.Resources.ColorProfiles.RGB", "SRGB.icm");
+        => ColorProfiles.SRGB;
 
     /// <summary>
     /// Gets the USWebCoatedSWOP profile.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.USWebCoatedSWOP)} instead.")]
     public static ColorProfile USWebCoatedSWOP
-        => Load("ImageMagick.Resources.ColorProfiles.CMYK", "USWebCoatedSWOP.icc");
+        => ColorProfiles.USWebCoatedSWOP;
 
     /// <summary>
     /// Gets the color space of the profile.
@@ -150,23 +152,6 @@ public sealed class ColorProfile : ImageProfile, IColorProfile
             Initialize();
             return _data.Model;
         }
-    }
-
-    private static ColorProfile Load(string resourcePath, string resourceName)
-    {
-        if (!_profiles.ContainsKey(resourceName))
-        {
-            lock (_syncRoot)
-            {
-                if (!_profiles.ContainsKey(resourceName))
-                {
-                    using var stream = TypeHelper.GetManifestResourceStream(typeof(ColorProfile), resourcePath, resourceName);
-                    _profiles[resourceName] = new ColorProfile(stream);
-                }
-            }
-        }
-
-        return _profiles[resourceName];
     }
 
     [MemberNotNull(nameof(_data))]

@@ -12,12 +12,12 @@ public partial class ColorProfileTests
     {
         public void ShouldHaveTheCorrectValue()
         {
-            TestEmbeddedResource(ColorProfile.AdobeRGB1998);
-            TestEmbeddedResource(ColorProfile.AppleRGB);
-            TestEmbeddedResource(ColorProfile.CoatedFOGRA39);
-            TestEmbeddedResource(ColorProfile.ColorMatchRGB);
-            TestEmbeddedResource(ColorProfile.SRGB);
-            TestEmbeddedResource(ColorProfile.USWebCoatedSWOP);
+            TestEmbeddedResource(ColorProfiles.AdobeRGB1998);
+            TestEmbeddedResource(ColorProfiles.AppleRGB);
+            TestEmbeddedResource(ColorProfiles.CoatedFOGRA39);
+            TestEmbeddedResource(ColorProfiles.ColorMatchRGB);
+            TestEmbeddedResource(ColorProfiles.SRGB);
+            TestEmbeddedResource(ColorProfiles.USWebCoatedSWOP);
         }
 
         private static void TestEmbeddedResource(ColorProfile profile)

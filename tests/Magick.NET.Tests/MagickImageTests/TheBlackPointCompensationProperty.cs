@@ -18,7 +18,7 @@ public partial class MagickImageTests
             Assert.False(image.BlackPointCompensation);
             image.RenderingIntent = RenderingIntent.Relative;
 
-            image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
+            image.TransformColorSpace(ColorProfiles.SRGB, ColorProfiles.USWebCoatedSWOP);
 #if Q8 || Q16
             ColorAssert.Equal(new MagickColor("#da478d06323d"), image, 130, 100);
 #else
@@ -33,7 +33,7 @@ public partial class MagickImageTests
             image.RenderingIntent = RenderingIntent.Relative;
             image.BlackPointCompensation = true;
 
-            image.TransformColorSpace(ColorProfile.SRGB, ColorProfile.USWebCoatedSWOP);
+            image.TransformColorSpace(ColorProfiles.SRGB, ColorProfiles.USWebCoatedSWOP);
 #if Q8 || Q16
             ColorAssert.Equal(new MagickColor("#cd0a844e3209"), image, 130, 100);
 #else
