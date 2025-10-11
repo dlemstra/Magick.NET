@@ -4,7 +4,7 @@
 using ImageMagick;
 using Xunit;
 
-namespace Magick.NET.Tests;
+namespace Magick.NET.Core.Tests;
 
 public partial class ImageProfileTests
 {
