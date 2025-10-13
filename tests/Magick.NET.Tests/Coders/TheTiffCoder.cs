@@ -19,7 +19,7 @@ public partial class TheTiffCoder
 
         var exception = Assert.Throws<MagickCoderErrorException>(() => image.Read(Files.Coders.IgnoreTagTIF));
 
-        ExceptionAssert.Contains(@$"Null count for ""Tag {_tag}""", exception);
+        ExceptionAssert.Contains($"Defined set_get_field_type of custom tag {_tag} (Tag {_tag}) is TIFF_SETGET_UNDEFINED", exception);
     }
 
     [Fact]
