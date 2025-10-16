@@ -91,7 +91,7 @@ public partial class PdfReadDefinesTests
 #if WINDOWS_BUILD
                     ExceptionAssert.Contains("This file requires a password for access.", exception);
 #else
-                ExceptionAssert.Contains("Error: Couldn't initialise file.", exception);
+                    ExceptionAssert.Contains("Error: Couldn't initialise file.", exception);
 #endif
                     return;
                 }
