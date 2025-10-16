@@ -4,8 +4,8 @@
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>8.0.0</AssemblyVersion>
-    <FileVersion>8.0.10</FileVersion>
-    <Version>8.0.10</Version>
+    <FileVersion>8.0.11</FileVersion>
+    <Version>8.0.11</Version>
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 
