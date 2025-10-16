@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.IO;
+using System.Linq;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
@@ -136,6 +137,64 @@ public partial class TheTiffCoder
         using var output = new MagickImage(memorystream);
 
         ColorAssert.Equal(MagickColors.White, output, 0, 0);
+    }
+
+    [Fact]
+    public void ShouldReadAndWriteMetaChannelsCorrectlyForRgbaImage()
+    {
+        using var images = new MagickImageCollection
+        {
+            new MagickImage(MagickColors.Red, 1, 1),
+            new MagickImage(MagickColors.Green, 1, 1),
+            new MagickImage(MagickColors.Blue, 1, 1),
+            new MagickImage(MagickColors.Aqua, 1, 1),
+            new MagickImage(MagickColors.Magenta, 1, 1),
+        };
+
+        using var input = images.Combine();
+        using var memorystream = new MemoryStream();
+        input.Write(memorystream, MagickFormat.Tiff);
+        memorystream.Position = 0;
+
+        using var output = new MagickImage(memorystream);
+
+        var channels = output.Channels.ToList();
+        Assert.Equal(5, channels.Count);
+        Assert.Equal(PixelChannel.Red, channels[0]);
+        Assert.Equal(PixelChannel.Green, channels[1]);
+        Assert.Equal(PixelChannel.Blue, channels[2]);
+        Assert.Equal(PixelChannel.Alpha, channels[3]);
+        Assert.Equal(PixelChannel.Meta0, channels[4]);
+    }
+
+    [Fact]
+    public void ShouldReadAndWriteMetaChannelsCorrectlyForChymkaImage()
+    {
+        using var images = new MagickImageCollection
+        {
+            new MagickImage(MagickColors.Cyan, 1, 1),
+            new MagickImage(MagickColors.Magenta, 1, 1),
+            new MagickImage(MagickColors.Yellow, 1, 1),
+            new MagickImage(MagickColors.Khaki, 1, 1),
+            new MagickImage(MagickColors.Aqua, 1, 1),
+            new MagickImage(MagickColors.Magenta, 1, 1),
+        };
+
+        using var input = images.Combine(ColorSpace.CMYK);
+        using var memorystream = new MemoryStream();
+        input.Write(memorystream, MagickFormat.Tiff);
+        memorystream.Position = 0;
+
+        using var output = new MagickImage(memorystream);
+
+        var channels = output.Channels.ToList();
+        Assert.Equal(6, channels.Count);
+        Assert.Equal(PixelChannel.Cyan, channels[0]);
+        Assert.Equal(PixelChannel.Magenta, channels[1]);
+        Assert.Equal(PixelChannel.Yellow, channels[2]);
+        Assert.Equal(PixelChannel.Black, channels[3]);
+        Assert.Equal(PixelChannel.Alpha, channels[4]);
+        Assert.Equal(PixelChannel.Meta0, channels[5]);
     }
 
     private static void TestValue(IIptcProfile profile, IptcTag tag, string expectedValue)
