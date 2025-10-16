@@ -6,3 +6,6 @@ powershell .\update.version.ps1 -library "Magick.NET.AvaloniaMediaImaging" -vers
 powershell .\update.version.ps1 -library "Magick.NET.SystemDrawing" -version "8.0.10"
 powershell .\update.version.ps1 -library "Magick.NET.SystemWindowsMedia" -version "8.0.10"
 powershell .\update.version.ps1
+
+echo Also update the TheVersionProperty.ShouldContainTheCorrectVersion unit test
+pause
