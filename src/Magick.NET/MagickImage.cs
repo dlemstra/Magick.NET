@@ -5544,8 +5544,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Roll image (rolls image vertically and horizontally).
     /// </summary>
-    /// <param name="x">The X offset from origin.</param>
-    /// <param name="y">The Y offset from origin.</param>
+    /// <param name="x">The number of columns to roll in the horizontal direction.</param>
+    /// <param name="y">The number of rows to roll in the vertical direction.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Roll(int x, int y)
     {
