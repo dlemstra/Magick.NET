@@ -20,7 +20,7 @@
     <dependencies>
       <group targetFramework="net8.0">
         <dependency id="Magick.NET.Core" version="14.9.1" />
-        <dependency id="Avalonia" version="11.3.7" />
+        <dependency id="Avalonia" version="11.3.8" />
       </group>
     </dependencies>
   </metadata>
