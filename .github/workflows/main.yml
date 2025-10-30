@@ -245,7 +245,7 @@ jobs:
       working-directory: publish/output
 
     - name: Upload library
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}
         path: publish/output
