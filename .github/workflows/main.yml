@@ -15,7 +15,7 @@ jobs:
   linux:
     name: Linux (Q8/Q16/Q16-HDRI, x64)
     container:
-      image: mcr.microsoft.com/dotnet/sdk:8.0
+      image: mcr.microsoft.com/dotnet/sdk:9.0
     runs-on: ubuntu-24.04
 
     steps:
@@ -25,10 +25,6 @@ jobs:
 
     - name: Install dependencies
       run: build/linux-x64/install.dependencies.sh
-
-    - uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 8.x
 
     - name: Install Magick.Native
       run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64
@@ -48,7 +44,7 @@ jobs:
   linux_musl:
     name: Linux musl (Q8/Q16/Q16-HDRI, x64)
     container:
-      image: mcr.microsoft.com/dotnet/sdk:8.0-alpine
+      image: mcr.microsoft.com/dotnet/sdk:9.0-alpine
     runs-on: ubuntu-24.04
 
     steps:
@@ -58,10 +54,6 @@ jobs:
 
     - name: Install dependencies
       run: build/linux-musl-x64/install.dependencies.sh
-
-    - uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 8.x
 
     - name: Install Magick.Native
       run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64
