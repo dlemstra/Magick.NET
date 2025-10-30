@@ -92,7 +92,9 @@ jobs:
 
     - uses: actions/setup-dotnet@v5
       with:
-        dotnet-version: 8.x
+        dotnet-version: | 
+          8.x
+          9.x
 
     - name: Install Magick.Native
       run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64
