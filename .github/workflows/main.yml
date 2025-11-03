@@ -10,8 +10,8 @@ name: main
 permissions:
   contents: read
   packages: read
-jobs:
 
+jobs:
   linux:
     name: Linux (Q8/Q16/Q16-HDRI, x64)
     container:
@@ -19,31 +19,30 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: Checkout
-      uses: actions/checkout@v5
+      - name: Install dependencies
+        run: build/linux-x64/install.dependencies.sh
 
-    - name: Install dependencies
-      run: build/linux-x64/install.dependencies.sh
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.x
 
-    - uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 8.x
+      - name: Install Magick.Native
+        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64
 
-    - name: Install Magick.Native
-      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64
+      - name: Build
+        run: build/shared/build.Magick.NET.sh x64
 
-    - name: Build
-      run: build/shared/build.Magick.NET.sh x64
+      - name: Test
+        run: build/shared/test.Magick.NET.sh x64
 
-    - name: Test
-      run: build/shared/test.Magick.NET.sh x64
+      - name: Build OpenMP
+        run: build/shared/build.Magick.NET.sh x64 OpenMP
 
-    - name: Build OpenMP
-      run: build/shared/build.Magick.NET.sh x64 OpenMP
-
-    - name: Test OpenMP
-      run: build/shared/test.Magick.NET.sh x64 OpenMP
+      - name: Test OpenMP
+        run: build/shared/test.Magick.NET.sh x64 OpenMP
 
   linux_musl:
     name: Linux musl (Q8/Q16/Q16-HDRI, x64)
@@ -52,114 +51,110 @@ jobs:
     runs-on: ubuntu-24.04
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: Checkout
-      uses: actions/checkout@v5
+      - name: Install dependencies
+        run: build/linux-musl-x64/install.dependencies.sh
 
-    - name: Install dependencies
-      run: build/linux-musl-x64/install.dependencies.sh
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.x
 
-    - uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 8.x
+      - name: Install Magick.Native
+        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64
 
-    - name: Install Magick.Native
-      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64
+      - name: Build
+        run: build/shared/build.Magick.NET.sh x64
 
-    - name: Build
-      run: build/shared/build.Magick.NET.sh x64
+      - name: Test
+        run: build/shared/test.Magick.NET.sh x64
 
-    - name: Test
-      run: build/shared/test.Magick.NET.sh x64
+      - name: Build OpenMP
+        run: build/shared/build.Magick.NET.sh x64 OpenMP
 
-    - name: Build OpenMP
-      run: build/shared/build.Magick.NET.sh x64 OpenMP
-
-    - name: Test OpenMP
-      run: build/shared/test.Magick.NET.sh x64 OpenMP
+      - name: Test OpenMP
+        run: build/shared/test.Magick.NET.sh x64 OpenMP
 
   linux_arm64:
     name: Linux (Q8/Q16/Q16-HDRI, arm64)
     runs-on: ubuntu-24.04-arm
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: Checkout
-      uses: actions/checkout@v5
+      - name: Install dependencies
+        run: build/linux-arm64/install.dependencies.sh
 
-    - name: Install dependencies
-      run: build/linux-arm64/install.dependencies.sh
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: | 
+            8.x
+            9.x
 
-    - uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: | 
-          8.x
-          9.x
+      - name: Install Magick.Native
+        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64
 
-    - name: Install Magick.Native
-      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64
+      - name: Build
+        run: build/shared/build.Magick.NET.sh arm64
 
-    - name: Build
-      run: build/shared/build.Magick.NET.sh arm64
+      - name: Test
+        run: build/shared/test.Magick.NET.sh arm64
 
-    - name: Test
-      run: build/shared/test.Magick.NET.sh arm64
+      - name: Build OpenMP
+        run: build/shared/build.Magick.NET.sh arm64 OpenMP
 
-    - name: Build OpenMP
-      run: build/shared/build.Magick.NET.sh arm64 OpenMP
-
-    - name: Test OpenMP
-      run: build/shared/test.Magick.NET.sh arm64 OpenMP
+      - name: Test OpenMP
+        run: build/shared/test.Magick.NET.sh arm64 OpenMP
 
   macos:
     name: MacOS (Q8/Q16/Q16-HDRI)
     runs-on: macos-13
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: Checkout
-      uses: actions/checkout@v5
+      - name: Install dependencies
+        run: build/macos-x64/install.dependencies.sh
 
-    - name: Install dependencies
-      run: build/macos-x64/install.dependencies.sh
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.x
 
-    - uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 8.x
+      - name: Install Magick.Native
+        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64
 
-    - name: Install Magick.Native
-      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64
+      - name: Build
+        run: build/shared/build.Magick.NET.sh x64
 
-    - name: Build
-      run: build/shared/build.Magick.NET.sh x64
-
-    - name: Test
-      run: build/shared/test.Magick.NET.sh x64
+      - name: Test
+        run: build/shared/test.Magick.NET.sh x64
 
   macos_arm64:
     name: 'MacOS (Q8/Q16/Q16-HDRI, arm64)'
     runs-on: macos-14
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
 
-    - name: Checkout
-      uses: actions/checkout@v5
+      - name: Install dependencies
+        run: build/macos-arm64/install.dependencies.sh
 
-    - name: Install dependencies
-      run: build/macos-arm64/install.dependencies.sh
+      - uses: actions/setup-dotnet@v5
+        with:
+          dotnet-version: 8.x
 
-    - uses: actions/setup-dotnet@v5
-      with:
-        dotnet-version: 8.x
+      - name: Install Magick.Native
+        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos arm64
 
-    - name: Install Magick.Native
-      run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos arm64
+      - name: Build
+        run: build/shared/build.Magick.NET.sh arm64
 
-    - name: Build
-      run: build/shared/build.Magick.NET.sh arm64
-
-    - name: Test
-      run: build/shared/test.Magick.NET.sh arm64
+      - name: Test
+        run: build/shared/test.Magick.NET.sh arm64
 
   windows:
     name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
@@ -190,67 +185,66 @@ jobs:
           platformName: Any CPU
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-tags: true
 
-    - name: Checkout
-      uses: actions/checkout@v5
-      with:
-        fetch-tags: true
+      - name: Install dependencies
+        run: ./install.dependencies.cmd
+        working-directory: build/windows
 
-    - name: Install dependencies
-      run: ./install.dependencies.cmd
-      working-directory: build/windows
+      - name: Create nuget.config
+        run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
+        working-directory: src/Magick.Native
 
-    - name: Create nuget.config
-      run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
-      working-directory: src/Magick.Native
+      - name: Install Magick.Native
+        run: ./install.cmd
+        working-directory: src/Magick.Native
 
-    - name: Install Magick.Native
-      run: ./install.cmd
-      working-directory: src/Magick.Native
+      - name: Build Magick.NET (Test)
+        run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test
+        working-directory: build/windows
 
-    - name: Build Magick.NET (Test)
-      run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test
-      working-directory: build/windows
+      - name: Test Magick.NET
+        run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
+        working-directory: build/windows
 
-    - name: Test Magick.NET
-      run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
-      working-directory: build/windows
+      - name: Build Magick.NET (Release)
+        run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
+        working-directory: build/windows
 
-    - name: Build Magick.NET (Release)
-      run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
-      working-directory: build/windows
+      - name: Set NuGet version
+        run: ./set.version.ps1
+        working-directory: publish
 
-    - name: Set NuGet version
-      run: ./set.version.ps1
-      working-directory: publish
+      - name: Create NuGet package
+        run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
+        working-directory: publish
 
-    - name: Create NuGet package
-      run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
-      working-directory: publish
+      - name: Azure CLI login with federated credential
+        if: github.event_name != 'pull_request'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    - name: Azure CLI login with federated credential
-      if: github.event_name != 'pull_request'
-      uses: azure/login@v2
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Sign NuGet package
+        if: ${{ github.event_name != 'pull_request' }}
+        run: sign code trusted-signing *.nupkg `
+          --trusted-signing-account ImageMagick `
+          --trusted-signing-certificate-profile ImageMagick `
+          --trusted-signing-endpoint https://eus.codesigning.azure.net `
+          --azure-credential-type azure-cli `
+          --verbosity information
+        working-directory: publish/output
 
-    - name: Sign NuGet package
-      if: ${{ github.event_name != 'pull_request' }}
-      run: sign code trusted-signing *.nupkg `
-        --trusted-signing-account ImageMagick `
-        --trusted-signing-certificate-profile ImageMagick `
-        --trusted-signing-endpoint https://eus.codesigning.azure.net `
-        --azure-credential-type azure-cli `
-        --verbosity information
-      working-directory: publish/output
-
-    - name: Upload library
-      uses: actions/upload-artifact@v5
-      with:
-        name: Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}
-        path: publish/output
+      - name: Upload library
+        uses: actions/upload-artifact@v5
+        with:
+          name: Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}
+          path: publish/output
 
   windows_arm64:
     name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
@@ -269,7 +263,6 @@ jobs:
         platformName: [arm64]
 
     steps:
-
     - name: Checkout
       uses: actions/checkout@v5
       with:
@@ -347,57 +340,56 @@ jobs:
         libraryName: [Core, AvaloniaMediaImaging, SystemDrawing, SystemWindowsMedia]
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-tags: true
 
-    - name: Checkout
-      uses: actions/checkout@v5
-      with:
-        fetch-tags: true
+      - name: Install dependencies
+        run: ./install.dependencies.cmd
+        working-directory: build/windows
 
-    - name: Install dependencies
-      run: ./install.dependencies.cmd
-      working-directory: build/windows
+      - name: Create nuget.config
+        run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
+        working-directory: src/Magick.Native
 
-    - name: Create nuget.config
-      run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
-      working-directory: src/Magick.Native
+      - name: Install Magick.Native
+        run: ./install.cmd
+        working-directory: src/Magick.Native
 
-    - name: Install Magick.Native
-      run: ./install.cmd
-      working-directory: src/Magick.Native
+      - name: Build Magick.NET.${{ matrix.libraryName }} (Release)
+        run: ./build.Magick.NET.cmd "Q8" "Any CPU" Release
+        working-directory: build/windows
 
-    - name: Build Magick.NET.${{ matrix.libraryName }} (Release)
-      run: ./build.Magick.NET.cmd "Q8" "Any CPU" Release
-      working-directory: build/windows
+      - name: Set NuGet version
+        run: ./set.version.ps1
+        working-directory: publish
 
-    - name: Set NuGet version
-      run: ./set.version.ps1
-      working-directory: publish
+      - name: Create NuGet package
+        run: ./publish.library.cmd "Magick.NET.${{ matrix.libraryName }}"
+        working-directory: publish
 
-    - name: Create NuGet package
-      run: ./publish.library.cmd "Magick.NET.${{ matrix.libraryName }}"
-      working-directory: publish
+      - name: Azure CLI login with federated credential
+        if: github.event_name != 'pull_request'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    - name: Azure CLI login with federated credential
-      if: github.event_name != 'pull_request'
-      uses: azure/login@v2
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Sign NuGet package
+        if: ${{ github.event_name != 'pull_request' }}
+        run: sign code trusted-signing `
+          --trusted-signing-account ImageMagick `
+          --trusted-signing-certificate-profile ImageMagick `
+          --trusted-signing-endpoint https://eus.codesigning.azure.net `
+          --azure-credential-type azure-cli `
+          --verbosity information `
+          *.nupkg
+        working-directory: publish/output
 
-    - name: Sign NuGet package
-      if: ${{ github.event_name != 'pull_request' }}
-      run: sign code trusted-signing `
-        --trusted-signing-account ImageMagick `
-        --trusted-signing-certificate-profile ImageMagick `
-        --trusted-signing-endpoint https://eus.codesigning.azure.net `
-        --azure-credential-type azure-cli `
-        --verbosity information `
-        *.nupkg
-      working-directory: publish/output
-
-    - name: Upload library
-      uses: actions/upload-artifact@v5
-      with:
-        name: Magick.NET.${{ matrix.libraryName }}
-        path: publish/output
+      - name: Upload library
+        uses: actions/upload-artifact@v5
+        with:
+          name: Magick.NET.${{ matrix.libraryName }}
+          path: publish/output
