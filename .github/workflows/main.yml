@@ -344,6 +344,9 @@ jobs:
           path: packages
           merge-multiple: true
 
+      - name: Install dotnet sign
+        run: dotnet tool install --global sign --prerelease
+
       - name: Azure CLI login with federated credential
         uses: azure/login@v2
         with:
