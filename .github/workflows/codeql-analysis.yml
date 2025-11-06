@@ -19,43 +19,43 @@ jobs:
     runs-on: windows-2022
 
     steps:
-    - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
 
-    - name: Install dependencies
-      run: ./install.dependencies.cmd
-      working-directory: build/windows
+      - name: Install dependencies
+        run: ./install.dependencies.cmd
+        working-directory: build/windows
 
-    - name: Create nuget.config
-      run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
-      working-directory: src/Magick.Native
+      - name: Create nuget.config
+        run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
+        working-directory: src/Magick.Native
 
-    - name: Install Magick.Native
-      run: ./install.cmd
-      working-directory: src/Magick.Native
+      - name: Install Magick.Native
+        run: ./install.cmd
+        working-directory: src/Magick.Native
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v4
-      with:
-        languages: csharp
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: csharp
 
-    - name: Build Magick.NET (Release)
-      run: ./build.Magick.NET.cmd Q16-HDRI "x64" Release
-      working-directory: build/windows
+      - name: Build Magick.NET (Release)
+        run: ./build.Magick.NET.cmd Q16-HDRI "x64" Release
+        working-directory: build/windows
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v4
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
 
   actions:
     name: CodeQL analysis (GitHub Actions)
     runs-on: ubuntu-24.04
 
     steps:
-    - uses: actions/checkout@v5
+      - uses: actions/checkout@v5
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v4
-      with:
-        languages: actions
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: actions
 
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v4
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
