@@ -11,16 +11,14 @@ namespace ImageMagick.Formats;
 /// </summary>
 public sealed class VideoReadDefines : IReadDefines
 {
-    private static readonly List<MagickFormat> AllowedFormats = new List<MagickFormat> { MagickFormat.ThreeGp, MagickFormat.ThreeG2, MagickFormat.APng, MagickFormat.Avi, MagickFormat.Flv, MagickFormat.Mkv, MagickFormat.Mov, MagickFormat.Mpeg, MagickFormat.Mpg, MagickFormat.Mp4, MagickFormat.M2v, MagickFormat.M4v, MagickFormat.WebM, MagickFormat.Wmv };
+    private static readonly List<MagickFormat> AllowedFormats = [MagickFormat.ThreeGp, MagickFormat.ThreeG2, MagickFormat.APng, MagickFormat.Avi, MagickFormat.Flv, MagickFormat.Mkv, MagickFormat.Mov, MagickFormat.Mpeg, MagickFormat.Mpg, MagickFormat.Mp4, MagickFormat.M2v, MagickFormat.M4v, MagickFormat.WebM, MagickFormat.Wmv];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="VideoReadDefines"/> class.
     /// </summary>
     /// <param name="format">The video format.</param>
     public VideoReadDefines(MagickFormat format)
-    {
-        Format = CheckFormat(format);
-    }
+        => Format = CheckFormat(format);
 
     /// <summary>
     /// Gets the format where the defines are for.
