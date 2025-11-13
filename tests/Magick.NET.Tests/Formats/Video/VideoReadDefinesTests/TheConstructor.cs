@@ -29,5 +29,26 @@ public partial class VideoReadDefinesTests
             var exception = Assert.Throws<ArgumentException>("format", () => new VideoReadDefines(MagickFormat.Png));
             Assert.Contains("The specified format is not a video format.", exception.Message);
         }
+
+        [Theory]
+        [InlineData(MagickFormat.ThreeGp)]
+        [InlineData(MagickFormat.ThreeG2)]
+        [InlineData(MagickFormat.APng)]
+        [InlineData(MagickFormat.Avi)]
+        [InlineData(MagickFormat.Flv)]
+        [InlineData(MagickFormat.Mkv)]
+        [InlineData(MagickFormat.Mov)]
+        [InlineData(MagickFormat.Mpeg)]
+        [InlineData(MagickFormat.Mpg)]
+        [InlineData(MagickFormat.Mp4)]
+        [InlineData(MagickFormat.M2v)]
+        [InlineData(MagickFormat.M4v)]
+        [InlineData(MagickFormat.WebM)]
+        [InlineData(MagickFormat.Wmv)]
+        public void ShouldAllowSpecifyingVideoFormats(MagickFormat format)
+        {
+            var defines = new VideoReadDefines(format);
+            Assert.Equal(format, defines.Format);
+        }
     }
 }
