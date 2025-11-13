@@ -26,7 +26,8 @@ public partial class VideoReadDefinesTests
         [Fact]
         public void ShouldThrowExceptionWhenFormatIsInvalid()
         {
-            Assert.Throws<ArgumentException>("format", () => new VideoReadDefines(MagickFormat.Png));
+            var exception = Assert.Throws<ArgumentException>("format", () => new VideoReadDefines(MagickFormat.Png));
+            Assert.Contains("The specified format is not a video format.", exception.Message);
         }
     }
 }
