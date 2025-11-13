@@ -12,6 +12,17 @@ namespace ImageMagick.Formats;
 /// </summary>
 public sealed class PdfWriteDefines : IWriteDefines
 {
+    private static readonly List<MagickFormat> AllowedFormats = [MagickFormat.Pdf, MagickFormat.Pdfa];
+
+    private readonly MagickFormat _format;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PdfWriteDefines"/> class.
+    /// </summary>
+    /// <param name="format">The pdf format.</param>
+    public PdfWriteDefines(MagickFormat format = MagickFormat.Pdf)
+        => _format = CheckFormat(format);
+
     /// <summary>
     /// Gets or sets the author of the pdf document (pdf:author).
     /// </summary>
@@ -31,7 +42,7 @@ public sealed class PdfWriteDefines : IWriteDefines
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
-        => MagickFormat.Pdf;
+        => _format;
 
     /// <summary>
     /// Gets or sets the keywords of the pdf document (pdf:keywords).
@@ -81,38 +92,46 @@ public sealed class PdfWriteDefines : IWriteDefines
         get
         {
             if (Author?.Length > 0)
-                yield return new MagickDefine(Format, "author", Author);
+                yield return new MagickDefine(MagickFormat.Pdf, "author", Author);
 
             if (CreationTime is not null)
-                yield return new MagickDefine(Format, "create-epoch", ToUnixTimeSeconds(CreationTime.Value));
+                yield return new MagickDefine(MagickFormat.Pdf, "create-epoch", ToUnixTimeSeconds(CreationTime.Value));
 
             if (Creator?.Length > 0)
-                yield return new MagickDefine(Format, "creator", Creator);
+                yield return new MagickDefine(MagickFormat.Pdf, "creator", Creator);
 
             if (Keywords?.Length > 0)
-                yield return new MagickDefine(Format, "keywords", Keywords);
+                yield return new MagickDefine(MagickFormat.Pdf, "keywords", Keywords);
 
             if (ModificationTime is not null)
-                yield return new MagickDefine(Format, "modify-epoch", ToUnixTimeSeconds(ModificationTime.Value));
+                yield return new MagickDefine(MagickFormat.Pdf, "modify-epoch", ToUnixTimeSeconds(ModificationTime.Value));
 
             if (NoIdentifier == true)
-                yield return new MagickDefine(Format, "no-identifier", NoIdentifier.Value);
+                yield return new MagickDefine(MagickFormat.Pdf, "no-identifier", NoIdentifier.Value);
 
             if (Producer?.Length > 0)
-                yield return new MagickDefine(Format, "producer", Producer);
+                yield return new MagickDefine(MagickFormat.Pdf, "producer", Producer);
 
             if (Subject?.Length > 0)
-                yield return new MagickDefine(Format, "subject", Subject);
+                yield return new MagickDefine(MagickFormat.Pdf, "subject", Subject);
 
             if (Thumbnail.HasValue)
-                yield return new MagickDefine(Format, "thumbnail", Thumbnail.Value);
+                yield return new MagickDefine(MagickFormat.Pdf, "thumbnail", Thumbnail.Value);
 
             if (Version.HasValue)
-                yield return new MagickDefine(Format, "version", Version.Value.ToString(".0", CultureInfo.InvariantCulture));
+                yield return new MagickDefine(MagickFormat.Pdf, "version", Version.Value.ToString(".0", CultureInfo.InvariantCulture));
 
             if (Title?.Length > 0)
-                yield return new MagickDefine(Format, "title", Title);
+                yield return new MagickDefine(MagickFormat.Pdf, "title", Title);
         }
+    }
+
+    private static MagickFormat CheckFormat(MagickFormat format)
+    {
+        if (!AllowedFormats.Contains(format))
+            throw new ArgumentException("The specified format is not a pdf format.", nameof(format));
+
+        return format;
     }
 
     private static long ToUnixTimeSeconds(DateTime value)

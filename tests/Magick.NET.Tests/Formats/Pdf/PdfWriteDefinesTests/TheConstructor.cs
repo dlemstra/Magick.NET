@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
@@ -28,6 +29,22 @@ public partial class PdfWriteDefinesTests
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "thumbnail"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "title"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "version"));
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionWhenFormatIsInvalid()
+        {
+            var exception = Assert.Throws<ArgumentException>("format", () => new PdfWriteDefines(MagickFormat.Png));
+            Assert.Contains("The specified format is not a pdf format.", exception.Message);
+        }
+
+        [Theory]
+        [InlineData(MagickFormat.Pdf)]
+        [InlineData(MagickFormat.Pdfa)]
+        public void ShouldAllowSpecifyingPdfFormats(MagickFormat format)
+        {
+            var defines = new PdfWriteDefines(format);
+            Assert.Equal(format, defines.Format);
         }
     }
 }
