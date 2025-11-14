@@ -46,5 +46,12 @@ public partial class PdfWriteDefinesTests
             var defines = new PdfWriteDefines(format);
             Assert.Equal(format, defines.Format);
         }
+
+        [Fact]
+        public void ShouldDefaultToPdf()
+        {
+            var defines = new PdfWriteDefines();
+            Assert.Equal(MagickFormat.Pdf, defines.Format);
+        }
     }
 }
