@@ -6,11 +6,11 @@ on:
     branches:
     - main
 
-name: main
 permissions:
   contents: read
   packages: read
 
+name: main
 jobs:
   linux:
     name: Linux (Q8/Q16/Q16-HDRI, x64)
