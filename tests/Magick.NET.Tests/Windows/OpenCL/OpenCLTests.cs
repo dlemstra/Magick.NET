@@ -8,6 +8,7 @@ using Xunit;
 
 namespace Magick.NET.Tests;
 
+[Collection(nameof(IsolatedUnitTest))]
 public partial class OpenCLTests
 {
     [Fact]
