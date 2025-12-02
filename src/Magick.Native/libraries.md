@@ -1,15 +1,14 @@
 # Libraries
-Magick.Native [496089489b0c1c2aa19c81c9ea7f7f64344e54ad](https://github.com/dlemstra/Magick.Native/commit/496089489b0c1c2aa19c81c9ea7f7f64344e54ad) is build with the following libraries:
+Magick.Native [2b993a9bb94339eb64da1242c17ff5bf86ba43ba](https://github.com/dlemstra/Magick.Native/commit/2b993a9bb94339eb64da1242c17ff5bf86ba43ba) is build with the following libraries:
 
-- ImageMagick 7.1.2-9 (Beta) (2025-11-20)
+- ImageMagick 7.1.2-9 (2025-11-30)
 - aom 3.13.1 (2025-09-05)
 - brotli 1.2.0 (2025-10-27)
 - libbzip2 1.0.8 (2019-07-13)
 - cairo 1.18.4 (2025-03-08)
 - libcroco 0.6.13 (2019-04-06)
 - libde265 1.0.16 (2025-05-04)
-- libdeflate 1.25.0 (2025-11-01)
-- openexr 3.4.3 (2025-11-05)
+- openexr 3.4.4 (2025-11-19)
 - libffi 3.5.2 (2025-08-02)
 - fontconfig 2.17.1 (2025-07-02)
 - freetype 2.14.1 (2024-09-11)
@@ -27,10 +26,10 @@ Magick.Native [496089489b0c1c2aa19c81c9ea7f7f64344e54ad](https://github.com/dlem
 - liblzma 5.8.1 (2025-04-03)
 - openh264 2.6.0 (2025-02-12)
 - openjpeg 2.5.4 (2025-09-20)
-- openjph 0.25.0 (2025-10-08)
+- openjph 0.25.3 (2025-11-16)
 - pango 1.45.3 (2020-06-22)
 - pixman 0.46.4 (2025-07-20)
-- libpng 1.6.50 (2025-07-02)
+- libpng 1.6.51 (2025-11-21)
 - libraqm 0.10.3 (2025-08-05)
 - libraw 0.21.4+Snapshot202502 (2025-02-11)
 - librsvg 2.40.20 (2017-12-15)
