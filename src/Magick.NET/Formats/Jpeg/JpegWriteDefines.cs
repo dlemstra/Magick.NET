@@ -33,6 +33,11 @@ public sealed class JpegWriteDefines : IWriteDefines
         => MagickFormat.Jpeg;
 
     /// <summary>
+    /// Gets or sets a value indicating whether the pixels can be written in 12 or 16 bit instead of 8 bit (jpeg:high-bit-depth).
+    /// </summary>
+    public bool? HighBitDepth { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether optimize coding is enabled or disabled (jpeg:optimize-coding).
     /// </summary>
     public bool? OptimizeCoding { get; set; }
@@ -62,6 +67,9 @@ public sealed class JpegWriteDefines : IWriteDefines
 
             if (Extent.HasValue)
                 yield return new MagickDefine(Format, "extent", Extent.Value + "KB");
+
+            if (HighBitDepth.HasValue)
+                yield return new MagickDefine(Format, "high-bit-depth", HighBitDepth.Value);
 
             if (OptimizeCoding.HasValue)
                 yield return new MagickDefine(Format, "optimize-coding", OptimizeCoding.Value);

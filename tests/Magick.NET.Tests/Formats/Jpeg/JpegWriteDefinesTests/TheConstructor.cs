@@ -20,6 +20,7 @@ public partial class JpegWriteDefinesTests
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "arithmetic-coding"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "dct-method"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "extent"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "high-bit-depth"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
