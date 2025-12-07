@@ -116,7 +116,7 @@ jobs:
 
   macos:
     name: MacOS (Q8/Q16/Q16-HDRI)
-    runs-on: macos-13
+    runs-on: macos-15-intel
 
     steps:
       - name: Checkout
