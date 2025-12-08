@@ -46,7 +46,7 @@ jobs:
           echo "publish=$publish" >> $GITHUB_OUTPUT
           echo "publish=$publish"
 
-  linux:
+  linux_x64:
     name: Linux (Q8/Q16/Q16-HDRI, x64)
     container:
       image: mcr.microsoft.com/dotnet/sdk:9.0
@@ -80,7 +80,7 @@ jobs:
       - name: Test OpenMP
         run: build/shared/test.Magick.NET.sh x64 OpenMP
 
-  linux_musl:
+  linux_musl_x64:
     name: Linux musl (Q8/Q16/Q16-HDRI, x64)
     container:
       image: mcr.microsoft.com/dotnet/sdk:9.0-alpine
@@ -148,7 +148,7 @@ jobs:
       - name: Test OpenMP
         run: build/shared/test.Magick.NET.sh arm64 OpenMP
 
-  macos:
+  macos_x64:
     name: MacOS (Q8/Q16/Q16-HDRI)
     runs-on: macos-15-intel
 
@@ -200,7 +200,7 @@ jobs:
       - name: Test
         run: build/shared/test.Magick.NET.sh arm64
 
-  windows:
+  windows_x64:
     name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
     runs-on: windows-2022
     needs:
@@ -365,8 +365,13 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     name: Sign NuGet packages
     needs:
-      - windows
+      - windows_x64
       - windows_arm64
+      - linux_x64
+      - linux_musl_x64
+      - linux_arm64
+      - macos_x64
+      - macos_arm64 
       - libraries
     runs-on: windows-2022
 
@@ -408,4 +413,4 @@ jobs:
           persist-credentials: false
 
       - name: Print cerificate
-        run: ./github/build/windows/print.certificate.cmd
+        run: ./build/windows/print.publickey.cmd
