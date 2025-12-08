@@ -376,6 +376,8 @@ jobs:
   sign:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     name: Sign NuGet packages
+    runs-on: windows-2022
+    environment: nuget
     needs:
       - windows_x64
       - windows_arm64
@@ -385,7 +387,6 @@ jobs:
       - macos_x64
       - macos_arm64 
       - libraries
-    runs-on: windows-2022
 
     permissions:
       id-token: write
@@ -432,3 +433,9 @@ jobs:
         run: |
           pip3 install asn1crypto
           python3 ./build/windows/print.publickey.py
+
+      - name: NuGet login
+        uses: NuGet/login@d22cc5f58ff5b88bf9bd452535b4335137e24544 # v1
+        id: login
+        with:
+          user: dlemstra
