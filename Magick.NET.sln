@@ -106,7 +106,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A
 		build\windows\install.dependencies.ps1 = build\windows\install.dependencies.ps1
 		build\windows\test.Magick.NET.cmd = build\windows\test.Magick.NET.cmd
 		build\windows\print.publickey.py = build\windows\print.publickey.py
-		build\windows\print.publickey.cmd = build\windows\print.publickey.cmd
 		build\windows\test.Magick.NET.ps1 = build\windows\test.Magick.NET.ps1
 	EndProjectSection
 EndProject

@@ -413,4 +413,6 @@ jobs:
           persist-credentials: false
 
       - name: Print cerificate
-        run: ./build/windows/print.publickey.cmd
+        run: |
+          pip3 install asn1crypto
+          python3 ./build/windows/print.publickey.py
