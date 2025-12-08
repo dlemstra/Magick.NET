@@ -12,6 +12,40 @@ permissions:
 
 name: main
 jobs:
+  version:
+    name: Set version
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{steps.version.outputs.version}}
+      commit: ${{steps.version.outputs.commit}}
+      publish: ${{steps.version.outputs.publish}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-tags: true
+          persist-credentials: false
+
+      - name: Set version
+        id: version
+        run: |
+          version=$(git describe --exact-match --tags HEAD 2> /dev/null)
+          publish=false
+          if [ -z "$version" ]; then
+              version=$(git log -1 --date=format:"0.%Y.%m%d.%H%M" --format="%ad")
+          else
+              publish=true
+          fi
+          commit=$(git rev-parse HEAD)
+
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "version=$version"
+          echo "commit=$commit" >> $GITHUB_OUTPUT
+          echo "commit=$commit"
+          echo "publish=$publish" >> $GITHUB_OUTPUT
+          echo "publish=$publish"
+
   linux:
     name: Linux (Q8/Q16/Q16-HDRI, x64)
     container:
@@ -169,6 +203,8 @@ jobs:
   windows:
     name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
     runs-on: windows-2022
+    needs:
+      - version
 
     strategy:
       fail-fast: false
@@ -193,7 +229,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          fetch-tags: true
           persist-credentials: false
 
       - name: Install dependencies
@@ -220,12 +255,8 @@ jobs:
         run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
         working-directory: build/windows
 
-      - name: Set NuGet version
-        run: ./set.version.ps1
-        working-directory: publish
-
       - name: Create NuGet package
-        run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
+        run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" "${{ needs.version.outputs.version }}" "${{ needs.version.outputs.commit }}"
         working-directory: publish
 
       - name: Upload library
@@ -238,6 +269,8 @@ jobs:
     name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
     #runs-on: windows-11-arm
     runs-on: windows-2022
+    needs:
+      - version
 
     strategy:
       fail-fast: false
@@ -249,7 +282,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          fetch-tags: true
           persist-credentials: false
 
       - name: Install dependencies
@@ -276,12 +308,8 @@ jobs:
         run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
         working-directory: build/windows
 
-      - name: Set NuGet version
-        run: ./set.version.ps1
-        working-directory: publish
-
       - name: Create NuGet package
-        run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
+        run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" "${{ needs.version.outputs.version }}" "${{ needs.version.outputs.commit }}"
         working-directory: publish
 
       - name: Upload library
@@ -293,6 +321,8 @@ jobs:
   libraries:
     name: Library
     runs-on: windows-2022
+    needs:
+      - version
 
     strategy:
       fail-fast: false
@@ -303,7 +333,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          fetch-tags: true
           persist-credentials: false
 
       - name: Install dependencies
@@ -322,12 +351,8 @@ jobs:
         run: ./build.Magick.NET.cmd "Q8" "Any CPU" Release
         working-directory: build/windows
 
-      - name: Set NuGet version
-        run: ./set.version.ps1
-        working-directory: publish
-
       - name: Create NuGet package
-        run: ./publish.library.cmd "Magick.NET.${{ matrix.libraryName }}"
+        run: ./publish.library.cmd "Magick.NET.${{ matrix.libraryName }}" "${{ needs.version.outputs.version }}" "${{ needs.version.outputs.commit }}"
         working-directory: publish
 
       - name: Upload library

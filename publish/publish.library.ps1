@@ -3,8 +3,8 @@
 
 param (
     [string]$library,
-    [string]$version = $env:NuGetVersion,
-    [string]$commit = $env:GitCommitId,
+    [string]$version,
+    [string]$commit,
     [parameter(mandatory=$true)][string]$destination
 )
 

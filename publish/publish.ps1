@@ -2,10 +2,10 @@
 # Licensed under the Apache License, Version 2.0.
 
 param (
-    [string]$quantumName = $env:QuantumName,
-    [string]$platformName = $env:PlatformName,
-    [string]$version = $env:NuGetVersion,
-    [string]$commit = $env:GitCommitId,
+    [string]$quantumName,
+    [string]$platformName,
+    [string]$version,
+    [string]$commit,
     [parameter(mandatory=$true)][string]$destination
 )
 

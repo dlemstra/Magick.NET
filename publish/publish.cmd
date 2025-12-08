@@ -2,5 +2,5 @@
 call "..\tools\windows\init.visualstudio.cmd"
 
 set PLATFORM_NAME=%2
-powershell .\publish.ps1 -destination output -quantumName %1 -platformName %PLATFORM_NAME:"='%
+powershell .\publish.ps1 -destination output -quantumName %1 -platformName %PLATFORM_NAME:"='% -version %3 -commit %4
 if %errorlevel% neq 0 exit /b %errorlevel%
