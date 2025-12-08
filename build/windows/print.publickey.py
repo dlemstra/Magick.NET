@@ -5,7 +5,7 @@ import os
 
 COMMON_NAME = 'ImageMagick Studio LLC'
 
-package = [file for file in os.listdir('./packages') if file.endswith('.nupkg')][0]
+package = os.path.join('./packages', [file for file in os.listdir('./packages') if file.endswith('.nupkg')][0])
 
 with zipfile.ZipFile(package, 'r') as zip_ref:
     signature_data = zip_ref.read('.signature.p7s')
