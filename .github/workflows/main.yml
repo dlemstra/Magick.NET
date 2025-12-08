@@ -408,4 +408,4 @@ jobs:
           persist-credentials: false
 
       - name: Print cerificate
-        run: .github\build\windows\print.certificate.cmd
+        run: ./github/build/windows/print.certificate.cmd
