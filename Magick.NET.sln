@@ -19,7 +19,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{6604
 		publish\publish.ps1 = publish\publish.ps1
 		publish\publish.shared.ps1 = publish\publish.shared.ps1
 		publish\push.cmd = publish\push.cmd
-		publish\set.version.ps1 = publish\set.version.ps1
 		publish\update.version.cmd = publish\update.version.cmd
 		publish\update.version.ps1 = publish\update.version.ps1
 	EndProjectSection
@@ -227,6 +226,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{606D8D7D-2AD0-495A-B35E-C90B713CF2AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{4C06E01A-0835-40E5-A9A2-49F002C0C12B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{D4F81290-2DFD-46AD-ACB7-12FF0DEF0A03}"
+	ProjectSection(SolutionItems) = preProject
+		.github\build\windows\print-public-key.py = .github\build\windows\print-public-key.py
+		.github\build\windows\print-public-key.cmd = .github\build\windows\print-public-key.cmd
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1839,6 +1846,8 @@ Global
 		{5B729307-7C82-4CDB-830F-9383F0FD4B76} = {4C06E01A-0835-40E5-A9A2-49F002C0C12B}
 		{606D8D7D-2AD0-495A-B35E-C90B713CF2AD} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 		{4C06E01A-0835-40E5-A9A2-49F002C0C12B} = {CADB374F-AC1D-4456-940E-2317DF1372C2}
+		{02EA681E-C7D8-13C7-8484-4AC65E1B71E8} = {4D648A8A-59E2-45A4-BEFD-44602709E044}
+		{D4F81290-2DFD-46AD-ACB7-12FF0DEF0A03} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}

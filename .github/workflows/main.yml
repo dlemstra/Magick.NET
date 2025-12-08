@@ -401,3 +401,11 @@ jobs:
           --verbosity information `
           *.nupkg
         working-directory: packages
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
+      - name: Print cerificate
+        run: .github\build\windows\print.certificate.cmd
