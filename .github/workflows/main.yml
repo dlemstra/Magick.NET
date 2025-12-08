@@ -30,7 +30,7 @@ jobs:
       - name: Set version
         id: version
         run: |
-          version=$(git describe --exact-match --tags HEAD 2> /dev/null)
+          version=$(git describe --exact-match --tags HEAD 2> /dev/null || true)
           publish=false
           if [ -z "$version" ]; then
               version=$(git log -1 --date=format:"0.%Y.%m%d.%H%M" --format="%ad")
