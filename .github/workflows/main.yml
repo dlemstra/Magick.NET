@@ -381,6 +381,11 @@ jobs:
       packages: read
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+
       - name: Download artifacts
         uses: actions/download-artifact@v6
         with:
@@ -406,11 +411,6 @@ jobs:
           --verbosity information `
           *.nupkg
         working-directory: packages
-
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          persist-credentials: false
 
       - name: Print cerificate
         run: |
