@@ -1,11 +1,6 @@
 # Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 # Licensed under the Apache License, Version 2.0.
 
-Write-Host "Downloading NuGet"
-$sourceNugetExe = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-$targetNugetExe = "$PSScriptRoot\..\..\tools\windows\nuget.exe"
-Invoke-WebRequest $sourceNugetExe -OutFile $targetNugetExe
-
 Write-Host "Downloading Ghostscript 10.00.0"
 $sourceGhostscriptExe = "https://github.com/dlemstra/Magick.NET.BuildDependencies/releases/download/build-binaries-2025-08-30/gs1000w32.exe"
 $targetGhostscriptExe = "$PSScriptRoot\..\..\tools\windows\gs1000w32.exe"

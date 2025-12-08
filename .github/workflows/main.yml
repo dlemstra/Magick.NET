@@ -235,6 +235,10 @@ jobs:
         run: ./install.dependencies.cmd
         working-directory: build/windows
 
+      - name: Install NuGet
+        run: ./install.nuget.cmd
+        working-directory: build/windows
+
       - name: Create nuget.config
         run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
         working-directory: src/Magick.Native
@@ -288,6 +292,10 @@ jobs:
         run: ./install.dependencies.cmd
         working-directory: build/windows
 
+      - name: Install NuGet
+        run: ./install.nuget.cmd
+        working-directory: build/windows
+
       - name: Create nuget.config
         run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
         working-directory: src/Magick.Native
@@ -339,6 +347,10 @@ jobs:
         run: ./install.dependencies.cmd
         working-directory: build/windows
 
+      - name: Install NuGet
+        run: ./install.nuget.cmd
+        working-directory: build/windows
+
       - name: Create nuget.config
         run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
         working-directory: src/Magick.Native
@@ -385,6 +397,10 @@ jobs:
         uses: actions/checkout@v6
         with:
           persist-credentials: false
+
+      - name: Install NuGet
+        run: ./install.nuget.cmd
+        working-directory: build/windows
 
       - name: Download artifacts
         uses: actions/download-artifact@v6
