@@ -23,8 +23,8 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install dependencies
-        run: ./install.dependencies.cmd
+      - name: Install NuGet
+        run: ./install.nuget.cmd
         working-directory: build/windows
 
       - name: Create nuget.config
