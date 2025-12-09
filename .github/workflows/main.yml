@@ -431,7 +431,7 @@ jobs:
 
       - name: Print cerificate
         run: |
-          pip3 install asn1crypto
+          pip3 install asn1crypto > /dev/null
           python3 ./build/windows/print.publickey.py
 
       - name: NuGet login
