@@ -28,7 +28,7 @@ function createMagickNetLibraryNuGetPackage($library, $version, $commit) {
         addLibrary $xml $library "" "AnyCPU" "net8.0"
     }
 
-    createNuGetPackage $xml $library $version
+    createNuGetPackage $xml $library
 }
 
 createMagickNetLibraryNuGetPackage $library $version $commit

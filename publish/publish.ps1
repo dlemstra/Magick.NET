@@ -77,7 +77,7 @@ function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit)
     addFile $xml "Magick.NET.targets" "build\netstandard20\$name.targets"
     addFile $xml "Magick.NET.targets" "buildTransitive\netstandard20\$name.targets"
 
-    createNuGetPackage $xml $name $version
+    createNuGetPackage $xml $name
 }
 
 $platform = $platformName

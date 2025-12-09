@@ -49,7 +49,7 @@ function copyNuGetPackages($destination) {
     Copy-Item "*.nupkg" $destination
 }
 
-function createNuGetPackage($xml, $library, $version) {
+function createNuGetPackage($xml, $library) {
     $fileName = fullPath "publish\$library.nuspec"
     $xml.Save($fileName)
 
