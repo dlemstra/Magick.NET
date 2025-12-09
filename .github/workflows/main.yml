@@ -439,3 +439,10 @@ jobs:
         id: login
         with:
           user: dlemstra
+
+      - name: Publish NuGet packages
+        if: needs.version.outputs.publish == 'true'
+        env:
+          NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
+        run: ../publish/push.cmd
+        working-directory: packages
