@@ -481,9 +481,9 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     /// <summary>
     /// Applies the color decision list from the specified ASC CDL file.
     /// </summary>
-    /// <param name="fileName">The file to read the ASC CDL information from.</param>
+    /// <param name="colorCorrectionCollection">The ASC CDL information.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void ColorDecisionList(string fileName);
+    void ColorDecisionList(string colorCorrectionCollection);
 
     /// <summary>
     /// Compare current image with another image and returns error information.
@@ -878,7 +878,7 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     /// <summary>
     /// Determines the bit depth (bits allocated to red/green/blue components) of the specified channel.
     /// </summary>
-    /// <param name="channels">The channel to get the depth for.</param>
+    /// <param name="channels">The channels to get the depth for.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     /// <returns>The bit depth (bits allocated to red/green/blue components) of the specified channel.</returns>
     uint DetermineBitDepth(Channels channels);

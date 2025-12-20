@@ -1761,14 +1761,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Applies the color decision list from the specified ASC CDL file.
     /// </summary>
-    /// <param name="fileName">The file to read the ASC CDL information from.</param>
+    /// <param name="colorCorrectionCollection">The ASC CDL information.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void ColorDecisionList(string fileName)
-    {
-        var filePath = FileHelper.CheckForBaseDirectory(fileName);
-
-        _nativeInstance.ColorDecisionList(filePath);
-    }
+    public void ColorDecisionList(string colorCorrectionCollection)
+        => _nativeInstance.ColorDecisionList(colorCorrectionCollection);
 
     /// <summary>
     /// Colorize image with the specified color, using specified percent alpha.
@@ -2561,7 +2557,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Determines the bit depth (bits allocated to red/green/blue components) of the specified channel.
     /// </summary>
-    /// <param name="channels">The channel to get the depth for.</param>
+    /// <param name="channels">The channels to get the depth for.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     /// <returns>The bit depth (bits allocated to red/green/blue components) of the specified channel.</returns>
     public uint DetermineBitDepth(Channels channels)
