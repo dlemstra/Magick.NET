@@ -479,7 +479,7 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Clut(IMagickImage image, PixelInterpolateMethod method, Channels channels);
 
     /// <summary>
-    /// Applies the color decision list from the specified ASC CDL file.
+    /// Applies the color decision list from the specified ASC CDL data.
     /// </summary>
     /// <param name="colorCorrectionCollection">The ASC CDL information.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
