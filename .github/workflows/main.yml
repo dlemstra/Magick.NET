@@ -264,7 +264,7 @@ jobs:
         working-directory: publish
 
       - name: Upload library
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}
           path: publish/output
@@ -321,7 +321,7 @@ jobs:
         working-directory: publish
 
       - name: Upload library
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}
           path: publish/output
@@ -368,7 +368,7 @@ jobs:
         working-directory: publish
 
       - name: Upload library
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: Magick.NET.${{ matrix.libraryName }}
           path: publish/output
