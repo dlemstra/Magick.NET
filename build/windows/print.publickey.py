@@ -15,6 +15,6 @@ certificates = asn1_cms.ContentInfo.load(signature_data)['content']['certificate
 for i, cert in enumerate(certificates):
     if cert.chosen['tbs_certificate']['subject'].native['common_name'] == COMMON_NAME:
         cert_b64 = base64.b64encode(cert.dump()).decode()
-        print(f"-----BEGIN CERTIFICATE-----")
+        print(f"\n-----BEGIN CERTIFICATE-----")
         print('\n'.join([cert_b64[j:j+64] for j in range(0, len(cert_b64), 64)]))
         print(f"-----END CERTIFICATE-----")
