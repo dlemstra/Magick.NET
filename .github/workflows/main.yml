@@ -430,7 +430,7 @@ jobs:
           *.nupkg
         working-directory: packages
 
-      - name: Print cerificate
+      - name: Print public key
         run: |
           pip3 install asn1crypto
           python3 ./build/windows/print.publickey.py
