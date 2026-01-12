@@ -373,9 +373,9 @@ jobs:
           name: Magick.NET.${{ matrix.libraryName }}
           path: publish/output
 
-  sign:
+  publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    name: Sign NuGet packages
+    name: Publish packages to NuGet (tagged releases only)
     runs-on: windows-2022
     environment: nuget
     needs:
