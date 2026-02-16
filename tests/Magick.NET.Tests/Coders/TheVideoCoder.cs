@@ -12,6 +12,8 @@ public partial class TheVideoCoder
     [Fact]
     public void ShouldUseWebPAsTheDefaultIntermediateFormat()
     {
+        Assert.SkipWhen(TestRuntime.IsMacOS, "Ffmpeg is not available on MacOS");
+
         using var images = new MagickImageCollection(Files.Coders.TestMP4);
 
         Assert.Equal(2, images.Count);
@@ -30,6 +32,8 @@ public partial class TheVideoCoder
     [Fact]
     public void ShouldUsePamAsTheIntermediateFormatWhenReadModeIsByFrame()
     {
+        Assert.SkipWhen(TestRuntime.IsMacOS, "Ffmpeg is not available on MacOS");
+
         var videoDefines = new VideoReadDefines(MagickFormat.Mp4)
         {
             ReadMode = VideoReadMode.ByFrame,
