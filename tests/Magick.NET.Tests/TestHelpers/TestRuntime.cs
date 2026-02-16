@@ -15,12 +15,15 @@ internal static class TestRuntime
 
         IsArm64 = Runtime.Architecture == Architecture.Arm64;
         IsLinuxArm64 = isLinux && IsArm64;
+        IsMacOS = isMacOS;
         IsMacOSArm64 = isMacOS && IsArm64;
     }
 
     public static bool IsArm64 { get; }
 
     public static bool IsLinuxArm64 { get; }
+
+    public static bool IsMacOS { get; }
 
     public static bool IsMacOSArm64 { get; }
 }
