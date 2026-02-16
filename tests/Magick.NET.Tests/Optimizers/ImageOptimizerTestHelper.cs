@@ -10,32 +10,32 @@ namespace Magick.NET.Tests;
 
 public abstract class ImageOptimizerTestHelper
 {
-    protected long AssertCompressSmaller(string fileName, Func<FileInfo, bool> action)
+    protected static long AssertCompressSmaller(string fileName, Func<FileInfo, bool> action)
         => AssertCompress(fileName, action, resultIsSmaller: true);
 
-    protected long AssertCompressNotSmaller(string fileName, Func<FileInfo, bool> action)
+    protected static long AssertCompressNotSmaller(string fileName, Func<FileInfo, bool> action)
         => AssertCompress(fileName, action, resultIsSmaller: false);
 
-    protected long AssertCompressSmaller(string fileName, Func<Stream, bool> action)
+    protected static long AssertCompressSmaller(string fileName, Func<Stream, bool> action)
         => AssertCompress(fileName, action, resultIsSmaller: true);
 
-    protected long AssertCompressNotSmaller(string fileName, Func<Stream, bool> action)
+    protected static long AssertCompressNotSmaller(string fileName, Func<Stream, bool> action)
         => AssertCompress(fileName, action, resultIsSmaller: false);
 
-    protected long AssertCompressSmaller(string fileName, Func<string, bool> action)
+    protected static long AssertCompressSmaller(string fileName, Func<string, bool> action)
         => AssertCompress(fileName, action, resultIsSmaller: true);
 
-    protected long AssertCompressNotSmaller(string fileName, Func<string, bool> action)
+    protected static long AssertCompressNotSmaller(string fileName, Func<string, bool> action)
         => AssertCompress(fileName, action, resultIsSmaller: false);
 
-    protected void AssertInvalidFileFormat(string fileName, Action<FileInfo> action)
+    protected static void AssertInvalidFileFormat(string fileName, Action<FileInfo> action)
     {
         using var tempFile = new TemporaryFile(fileName);
 
         Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.File));
     }
 
-    protected void AssertInvalidFileFormat(string fileName, Action<Stream> action)
+    protected static void AssertInvalidFileFormat(string fileName, Action<Stream> action)
     {
         using var tempFile = new TemporaryFile(fileName);
         using var fileStream = FileHelper.OpenRead(fileName);
@@ -46,14 +46,14 @@ public abstract class ImageOptimizerTestHelper
         Assert.Throws<MagickCorruptImageErrorException>(() => action(memoryStream));
     }
 
-    protected void AssertInvalidFileFormat(string fileName, Action<string> action)
+    protected static void AssertInvalidFileFormat(string fileName, Action<string> action)
     {
         using var tempFile = new TemporaryFile(fileName);
 
         Assert.Throws<MagickCorruptImageErrorException>(() => action(tempFile.File.FullName));
     }
 
-    private long AssertCompress(string fileName, Func<FileInfo, bool> action, bool resultIsSmaller)
+    private static long AssertCompress(string fileName, Func<FileInfo, bool> action, bool resultIsSmaller)
     {
         using var tempFile = new TemporaryFile(fileName);
 
@@ -73,7 +73,7 @@ public abstract class ImageOptimizerTestHelper
         return after;
     }
 
-    private long AssertCompress(string fileName, Func<Stream, bool> action, bool resultIsSmaller)
+    private static long AssertCompress(string fileName, Func<Stream, bool> action, bool resultIsSmaller)
     {
         using var fileStream = FileHelper.OpenRead(fileName);
         using var memoryStream = new MemoryStream();
@@ -100,7 +100,7 @@ public abstract class ImageOptimizerTestHelper
         return after - 42;
     }
 
-    private long AssertCompress(string fileName, Func<string, bool> action, bool resultIsSmaller)
+    private static long AssertCompress(string fileName, Func<string, bool> action, bool resultIsSmaller)
     {
         using var tempFile = new TemporaryFile(fileName);
 
