@@ -19,7 +19,7 @@ public partial class IcoOptimizerTests
             public void ShouldCompress()
             {
                 var result = AssertCompressSmaller(Files.WandICO);
-                Assert.Equal(29983, result);
+                Assert.Equal(30120, result);
             }
 
             [Fact]

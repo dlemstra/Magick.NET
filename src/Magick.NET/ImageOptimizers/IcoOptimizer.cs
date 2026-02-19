@@ -173,7 +173,7 @@ public sealed class IcoOptimizer : IImageOptimizer
         using var images = new MagickImageCollection(file, settings);
         foreach (var image in images)
         {
-            if (image.Width > 255)
+            if (image.Width > 256)
             {
                 image.Format = MagickFormat.Png;
 

@@ -19,7 +19,7 @@ public partial class IcoOptimizerTests
             public void ShouldCompressLossless()
             {
                 var result = AssertLosslessCompressSmaller(Files.WandICO);
-                Assert.Equal(41247, result);
+                Assert.Equal(30120, result);
             }
 
             [Fact]
