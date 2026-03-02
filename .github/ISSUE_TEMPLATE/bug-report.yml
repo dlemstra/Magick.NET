@@ -24,7 +24,7 @@ body:
     description: List of steps, sample code, failing test or link to a project that reproduces the behavior. Make sure you place a stack trace inside a code (```) block to avoid linking unrelated issues
   validations:
     required: true
-- type: textarea
+- type: upload
   attributes:
     label: Images
     description: Please upload images that can be used to reproduce issues in the area below. If the file type is not supported the file can be zipped and then uploaded instead. And when the zip is too large you will need to split it over multiple zip files. When you cannot provide an image that can be used to reproduce the issue, please provide an explanation why this is not possible.
