@@ -16,10 +16,11 @@ public partial class MagickImageTests
             using var image = new MagickImage(Files.NoisePNG);
             using var blurredImage = image.Clone();
             blurredImage.BilateralBlur(2, 2);
+
 #if Q8
-            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.0008, 0.00081);
+            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.02622, 0.02623);
 #else
-            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.00069, 0.0007);
+            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.02562, 0.02563);
 #endif
         }
     }

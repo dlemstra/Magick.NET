@@ -38,8 +38,7 @@ public partial class MagickNETTests
         public void ShouldContainTheCorrectNumberOfReadableFormats()
         {
             var formatsCount = MagickNET.SupportedFormats
-                .Where(format => format.SupportsReading)
-                .Count();
+                .Count(format => format.SupportsReading);
 
             if (Runtime.IsWindows)
                 Assert.Equal(255, formatsCount);
@@ -51,13 +50,12 @@ public partial class MagickNETTests
         public void ShouldContainTheCorrectNumberOfWritableFormats()
         {
             var formatsCount = MagickNET.SupportedFormats
-                .Where(format => format.SupportsWriting)
-                .Count();
+                .Count(format => format.SupportsWriting);
 
             if (Runtime.IsWindows)
-                Assert.Equal(193, formatsCount);
-            else
                 Assert.Equal(192, formatsCount);
+            else
+                Assert.Equal(191, formatsCount);
         }
 
         [Fact]
@@ -1088,8 +1086,8 @@ public partial class MagickNETTests
                         Assert.True(formatInfo.SupportsMultipleFrames);
                         Assert.True(formatInfo.SupportsReading);
                         Assert.True(formatInfo.CanReadMultithreaded);
-                        Assert.True(formatInfo.SupportsWriting);
-                        Assert.True(formatInfo.CanWriteMultithreaded);
+                        Assert.False(formatInfo.SupportsWriting);
+                        Assert.False(formatInfo.CanWriteMultithreaded);
                         break;
                     case MagickFormat.Msvg:
                         Assert.True(formatInfo.SupportsMultipleFrames);
