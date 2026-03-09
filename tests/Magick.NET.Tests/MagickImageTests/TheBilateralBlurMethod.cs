@@ -13,6 +13,8 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldApplyTheFilter()
         {
+            Assert.Skip("Inconsistent results between debug and release build.");
+
             using var image = new MagickImage(Files.NoisePNG);
             using var blurredImage = image.Clone();
             blurredImage.BilateralBlur(2, 2);
