@@ -34,7 +34,7 @@ public static partial class IMagickImageExtentions
         where TQuantumType : struct, IConvertible
         => self.ToWriteableBitmapInternal(new Vector(self.Density.X, self.Density.Y));
 
-    private static unsafe WriteableBitmap ToWriteableBitmapInternal<TQuantumType>(this IMagickImage<TQuantumType> self, Vector density)
+    private static WriteableBitmap ToWriteableBitmapInternal<TQuantumType>(this IMagickImage<TQuantumType> self, Vector density)
         where TQuantumType : struct, IConvertible
     {
         var size = new PixelSize((int)self.Width, (int)self.Height);
