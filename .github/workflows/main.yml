@@ -411,7 +411,7 @@ jobs:
           merge-multiple: true
 
       - name: Sign executables and libraries
-        uses: ImageMagick/code-signing-action@4d19869732e1cd97bb823ad21ebffb26ad10836c # v1.0.0
+        uses: ImageMagick/code-signing-action@4d19869732e1cd97bb823ad21ebffb26ad10836c #v1.0.0
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
@@ -425,7 +425,7 @@ jobs:
           python3 ./build/windows/print.publickey.py
 
       - name: NuGet login
-        uses: NuGet/login@d22cc5f58ff5b88bf9bd452535b4335137e24544 # v1
+        uses: NuGet/login@d22cc5f58ff5b88bf9bd452535b4335137e24544 #v1
         id: login
         with:
           user: dlemstra
