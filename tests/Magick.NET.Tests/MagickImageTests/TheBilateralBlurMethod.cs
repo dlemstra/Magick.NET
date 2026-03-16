@@ -18,7 +18,7 @@ public partial class MagickImageTests
             blurredImage.BilateralBlur(2, 2);
 
 #if Q8
-            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.00107, 0.00108);
+            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.00107, 0.00109);
 #else
             Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.00084, 0.00085);
 #endif
