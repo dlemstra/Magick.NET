@@ -13,16 +13,14 @@ public partial class MagickImageTests
         [Fact]
         public void ShouldApplyTheFilter()
         {
-            Assert.Skip("Inconsistent results between debug and release build.");
-
             using var image = new MagickImage(Files.NoisePNG);
             using var blurredImage = image.Clone();
             blurredImage.BilateralBlur(2, 2);
 
 #if Q8
-            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.02622, 0.02623);
+            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.00107, 0.00108);
 #else
-            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.02562, 0.02563);
+            Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.00084, 0.00085);
 #endif
         }
     }
