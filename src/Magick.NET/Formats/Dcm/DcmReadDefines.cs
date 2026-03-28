@@ -17,23 +17,23 @@ public sealed class DcmReadDefines : IReadDefines
         => MagickFormat.Dcm;
 
     /// <summary>
-    /// Gets or sets a value indicating whether the interpretation of the rescale slope should be set.
+    /// Gets or sets a value indicating whether the interpretation of the rescale slope should be set (dcm:rescale).
     /// </summary>
     public bool? Rescale { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the display range should be set to the
-    /// minimum and maximum pixel values.
+    /// minimum and maximum pixel values (dcm:display-range=reset).
     /// </summary>
     public bool? ResetDisplayRange { get; set; }
 
     /// <summary>
-    /// Gets or sets the window center.
+    /// Gets or sets the window center (dcm:window).
     /// </summary>
     public double? WindowCenter { get; set; }
 
     /// <summary>
-    /// Gets or sets the window center.
+    /// Gets or sets the window center (dcm:window).
     /// </summary>
     public double? WindowWidth { get; set; }
 
