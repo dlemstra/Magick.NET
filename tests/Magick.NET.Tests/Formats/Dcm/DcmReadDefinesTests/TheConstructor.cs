@@ -17,6 +17,7 @@ public partial class DcmReadDefinesTests
             using var image = new MagickImage();
             image.Settings.SetDefines(new DcmReadDefines());
 
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dcm, "fix-byte-order"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Dcm, "display-range"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Dcm, "rescale"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Dcm, "window"));

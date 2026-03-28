@@ -11,6 +11,11 @@ namespace ImageMagick.Formats;
 public sealed class DcmReadDefines : IReadDefines
 {
     /// <summary>
+    /// Gets or sets a value indicating whether the byte order of the pixels should be fixed (dcm:fix-byte-order).
+    /// </summary>
+    public bool? FixByteOrder { get; set; }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
@@ -44,6 +49,9 @@ public sealed class DcmReadDefines : IReadDefines
     {
         get
         {
+            if (FixByteOrder.HasValue)
+                yield return new MagickDefine(Format, "fix-byte-order", FixByteOrder.Value);
+
             if (Rescale.HasValue)
                 yield return new MagickDefine(Format, "rescale", Rescale.Value);
 
