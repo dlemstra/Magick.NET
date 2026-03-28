@@ -8,15 +8,18 @@ on:
     paths:
     - .github/workflows/codeql-analysis.yml
 
+permissions: {}
+
 name: codeql analysis
-permissions:
-  contents: read
-  packages: read
-  security-events: write
 jobs:
   csharp:
     name: CodeQL analysis (C#)
     runs-on: windows-2022
+
+    permissions:
+      contents: read
+      packages: read
+      security-events: write
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
@@ -50,6 +53,10 @@ jobs:
   actions:
     name: CodeQL analysis (GitHub Actions)
     runs-on: ubuntu-24.04
+
+    permissions:
+      contents: read
+      security-events: write
 
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #v6.0.2
