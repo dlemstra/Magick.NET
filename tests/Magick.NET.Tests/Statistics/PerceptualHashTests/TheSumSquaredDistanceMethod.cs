@@ -2,8 +2,8 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using FakeItEasy;
 using ImageMagick;
-using NSubstitute;
 using Xunit;
 
 namespace Magick.NET.Tests;
@@ -19,8 +19,8 @@ public partial class PerceptualHashTests
             var phash = image.PerceptualHash();
             Assert.NotNull(phash);
 
-            var perceptualHash = Substitute.For<IPerceptualHash>();
-            perceptualHash.GetChannel(PixelChannel.Blue).Returns((IChannelPerceptualHash?)null);
+            var perceptualHash = A.Fake<IPerceptualHash>();
+            A.CallTo(() => perceptualHash.GetChannel(PixelChannel.Red)).Returns(null);
 
             var exception = Assert.Throws<NotSupportedException>(() => phash.SumSquaredDistance(perceptualHash));
             Assert.Equal("The other perceptual hash should contain a red, green and blue channel.", exception.Message);
