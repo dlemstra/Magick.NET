@@ -411,7 +411,7 @@ jobs:
           merge-multiple: true
 
       - name: Sign executables and libraries
-        uses: ImageMagick/code-signing-action@4d19869732e1cd97bb823ad21ebffb26ad10836c #v1.0.0
+        uses: ImageMagick/code-signing-action@11c51f7659405bee4dd3529748e1501a0d388911 #v1.0.1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
