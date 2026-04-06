@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.Runtime.InteropServices;
 using ImageMagick;
 using Xunit;
 
@@ -11,21 +12,20 @@ public partial class MagickNETTests
     public partial class TheImageMagickVersionProperty
     {
         [Fact]
-        public void ShouldContainCorrectQuantum()
+        public void ShoudlReturnTheCorrectValue()
         {
+            var version = "7.1.2-18";
+            var architecture = Runtime.IsWindows
+                ? Runtime.Is64Bit ? Runtime.Architecture == Architecture.Arm64 ? "arm64" : "x64" : "x86"
+                : Runtime.Architecture == Architecture.Arm64 ? "aarch64" : "amd64";
 #if Q8
-            Assert.Contains("Q8", MagickNET.ImageMagickVersion);
+            var quantum = "Q8";
 #elif Q16
-            Assert.Contains("Q16", MagickNET.ImageMagickVersion);
+            var quantum = "Q16";
 #else
-            Assert.Contains("Q16-HDRI", MagickNET.ImageMagickVersion);
+            var quantum = "Q16-HDRI";
 #endif
-        }
-
-        [Fact]
-        public void ShouldContainTheCorrectVersion()
-        {
-            Assert.Contains(" 7.", MagickNET.ImageMagickVersion);
+            Assert.Equal($"ImageMagick {version} {quantum} {architecture} d4e4b2b35:20260322 https://imagemagick.org", MagickNET.ImageMagickVersion);
         }
     }
 }
