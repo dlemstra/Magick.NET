@@ -17,7 +17,7 @@ public partial class MagickNETTests
             var version = "7.1.2-18";
             var architecture = Runtime.IsWindows
                 ? Runtime.Is64Bit ? Runtime.Architecture == Architecture.Arm64 ? "arm64" : "x64" : "x86"
-                : Runtime.Architecture == Architecture.Arm64 ? "aarch64" : "amd64";
+                : Runtime.Architecture == Architecture.Arm64 ? "aarch64" : "x86_64";
 #if Q8
             var quantum = "Q8";
 #elif Q16
