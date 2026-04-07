@@ -8,9 +8,9 @@ using System.Linq;
 
 namespace Magick.NET.Tests;
 
-public class TemporaryDirectory : IDisposable
+public sealed class TemporaryDirectory : IDisposable
 {
-    private DirectoryInfo _tempDirectory;
+    private readonly DirectoryInfo _tempDirectory;
 
     public TemporaryDirectory()
         : this(string.Empty)
@@ -30,8 +30,7 @@ public class TemporaryDirectory : IDisposable
         => Cleanup.DeleteDirectory(_tempDirectory);
 
     public IReadOnlyList<string> GetFileNames()
-        => _tempDirectory
+        => [.. _tempDirectory
             .GetFiles()
-            .Select(f => f.Name)
-            .ToList();
+            .Select(f => f.Name)];
 }
