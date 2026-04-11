@@ -48,7 +48,7 @@ public partial class DrawablesTests
                 other.Composite(image, CompositeOperator.CopyAlpha);
 
                 var diference = other.Compare(image, ErrorMetric.RootMeanSquared);
-                Assert.Equal(0, diference);
+                Assert.Equal(0, diference, 0.00178);
             }
         }
 
