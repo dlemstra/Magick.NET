@@ -36,6 +36,20 @@ public partial class DrawablesTests
                 ColorAssert.Equal(MagickColors.Purple, image, 1, 0);
                 ColorAssert.Equal(MagickColors.Green, image, 2, 0);
             }
+
+            [Fact]
+            public void ShouldCorrectlyCopyTheAlphaChannel()
+            {
+                using var image = new MagickImage(Files.RedPNG);
+                using var other = image.Clone();
+                image.Resize(0, 150);
+                other.Resize(0, 150);
+                other.Alpha(AlphaOption.Off);
+                other.Composite(image, CompositeOperator.CopyAlpha);
+
+                var diference = other.Compare(image, ErrorMetric.RootMeanSquared);
+                Assert.Equal(0, diference);
+            }
         }
 
         public class WithGeometryOffsetAndCompositeOperatorAndImage
