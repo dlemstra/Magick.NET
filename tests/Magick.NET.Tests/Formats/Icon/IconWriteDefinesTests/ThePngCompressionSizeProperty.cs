@@ -9,16 +9,20 @@ namespace Magick.NET.Tests;
 
 public partial class IconWriteDefinesTests
 {
-    public class TheConstructor
+    public class PngCompressionSize
     {
         [Fact]
-        public void ShouldNotSetAnyDefines()
+        public void ShouldSetTheDefine()
         {
-            using var image = new MagickImage();
-            image.Settings.SetDefines(new IconWriteDefines());
+            var defines = new IconWriteDefines
+            {
+                PngCompressionSize = 64,
+            };
 
-            Assert.Null(image.Settings.GetDefine(MagickFormat.Icon, "auto-resize"));
-            Assert.Null(image.Settings.GetDefine(MagickFormat.Icon, "png-compression-size"));
+            using var image = new MagickImage();
+            image.Settings.SetDefines(defines);
+
+            Assert.Equal("64", image.Settings.GetDefine(MagickFormat.Icon, "png-compression-size"));
         }
     }
 }
