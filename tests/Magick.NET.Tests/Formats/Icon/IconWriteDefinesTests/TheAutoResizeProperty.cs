@@ -12,7 +12,7 @@ public partial class IconWriteDefinesTests
     public class TheAutoResizeProperty
     {
         [Fact]
-        public void ShouldSetTheDefine()
+        public void ShouldSetTheDefineWhenSetToTrue()
         {
             var defines = new IconWriteDefines
             {
@@ -26,7 +26,7 @@ public partial class IconWriteDefinesTests
         }
 
         [Fact]
-        public void ShouldEncodeTheImageIn8bitWhenNotSet()
+        public void ShouldSetTheDefineWhenSetToFalse()
         {
             var defines = new IconWriteDefines
             {
