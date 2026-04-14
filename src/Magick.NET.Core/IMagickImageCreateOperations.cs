@@ -1071,8 +1071,8 @@ public interface IMagickImageCreateOperations
     /// <summary>
     /// Simulate an image shadow.
     /// </summary>
-    /// <param name="x">the shadow x-offset.</param>
-    /// <param name="y">the shadow y-offset.</param>
+    /// <param name="x">The shadow x-offset.</param>
+    /// <param name="y">The shadow y-offset.</param>
     /// <param name="sigma">The standard deviation of the Gaussian, in pixels.</param>
     /// <param name="alpha">Transparency percentage.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
