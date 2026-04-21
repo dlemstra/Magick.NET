@@ -82,4 +82,9 @@ public enum ErrorMetric
     /// Dot product correlation.
     /// </summary>
     DotProductCorrelation,
+
+    /// <summary>
+    /// Pixel difference count.
+    /// </summary>
+    PixelDifferenceCount,
 }
