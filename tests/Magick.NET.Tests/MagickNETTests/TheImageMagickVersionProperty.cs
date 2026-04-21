@@ -14,7 +14,7 @@ public partial class MagickNETTests
         [Fact]
         public void ShoudlReturnTheCorrectValue()
         {
-            var version = "7.1.2-20 (Beta)";
+            var version = "7.1.2-21";
             var architecture = Runtime.IsWindows
                 ? Runtime.Is64Bit ? Runtime.Architecture == Architecture.Arm64 ? "arm64" : "x64" : "x86"
                 : Runtime.Architecture == Architecture.Arm64 ? "aarch64" : "x86_64";
@@ -25,7 +25,7 @@ public partial class MagickNETTests
 #else
             var quantum = "Q16-HDRI";
 #endif
-            Assert.Equal($"ImageMagick {version} {quantum} {architecture} 93aac80d3:20260419 https://imagemagick.org", MagickNET.ImageMagickVersion);
+            Assert.Equal($"ImageMagick {version} {quantum} {architecture} c86de049c:20260421 https://imagemagick.org", MagickNET.ImageMagickVersion);
         }
     }
 }
