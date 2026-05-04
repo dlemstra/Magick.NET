@@ -26,8 +26,8 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     event EventHandler<WarningEventArgs> Warning;
 
     /// <summary>
-    /// Gets or sets the time in 1/100ths of a second which must expire before splaying the next image in an
-    /// animated sequence.
+    /// Gets or sets the time in 1/<see cref="AnimationTicksPerSecond"/> of a second which must expire
+    /// before displaying the next image in an animated sequence.
     /// </summary>
     uint AnimationDelay { get; set; }
 

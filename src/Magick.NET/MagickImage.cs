@@ -285,8 +285,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => _nativeInstance.Instance;
 
     /// <summary>
-    /// Gets or sets the time in 1/100ths of a second which must expire before splaying the next image in an
-    /// animated sequence.
+    /// Gets or sets the time in 1/<see cref="AnimationTicksPerSecond"/> of a second which must expire
+    /// before displaying the next image in an animated sequence.
     /// </summary>
     public uint AnimationDelay
     {
