@@ -6,6 +6,7 @@ set quantum=%1
 set architecture=%2
 set hdri=%3
 set openMP=%4
+set config=Debug
 
 if "%quantum%"=="" goto invalid
 if "%architecture%"=="" goto invalid
@@ -14,7 +15,7 @@ if "%openMP%"=="" goto invalid
 
 cd ..\..\..\..\Magick.Native\build\windows
 
-call "build.cmd" Debug %quantum% %architecture% %hdri% %openMP%
+call "build.cmd" %config% %quantum% %architecture% %hdri% %openMP%
 
 set quantumName=%quantum%
 if not "%hdri%"=="noHdri" set quantumName=%quantumName%-HDRI
@@ -25,7 +26,7 @@ call ..\..\..\..\Magick.Native\build\windows\copy-resources.cmd Release%quantumN
 
 if not "%openMP%"=="noOpenMP" set quantumName=%quantumName%-OpenMP
 
-cd ..\..\..\..\Magick.Native\src\Magick.Native\bin\Debug%quantumName%\%architecture%
+cd ..\..\..\..\Magick.Native\src\Magick.Native\bin\%config%%quantumName%\%architecture%
 
 set testfolder=..\..\..\..\..\..\Magick.NET\tests
 
