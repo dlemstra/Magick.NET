@@ -11,6 +11,7 @@ testMagickNET() {
         config=$config-OpenMP
     fi
 
+    echo "\nTesting Magick.NET $config"
     ./tests/Magick.NET.Core.Tests/bin/$config/$architecture/net8.0/Magick.NET.Core.Tests
     ./tests/Magick.NET.Tests/bin/$config/$architecture/net8.0/Magick.NET.Tests
 }
