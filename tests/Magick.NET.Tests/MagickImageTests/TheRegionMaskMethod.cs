@@ -28,17 +28,28 @@ public partial class MagickImageTests
 
             green.Composite(red, CompositeOperator.SrcOver);
 
-            ColorAssert.Equal(MagickColors.Green, green, 0, 0);
-            ColorAssert.Equal(MagickColors.Red, green, 10, 10);
-            ColorAssert.Equal(MagickColors.Green, green, 60, 60);
+            for (var y = 0; y < green.Height; y++)
+            {
+                for (var x = 0; x < green.Width; x++)
+                {
+                    if (x >= 10 && x < 60 && y >= 10 && y < 60)
+                        ColorAssert.Equal(MagickColors.Red, green, x, y);
+                    else
+                        ColorAssert.Equal(MagickColors.Green, green, x, y);
+                }
+            }
 
             green.RemoveRegionMask();
 
             green.Composite(red, CompositeOperator.SrcOver);
 
-            ColorAssert.Equal(MagickColors.Red, green, 0, 0);
-            ColorAssert.Equal(MagickColors.Red, green, 10, 10);
-            ColorAssert.Equal(MagickColors.Red, green, 60, 60);
+            for (var y = 0; y < green.Height; y++)
+            {
+                for (var x = 0; x < green.Width; x++)
+                {
+                    ColorAssert.Equal(MagickColors.Red, green, x, y);
+                }
+            }
         }
     }
 }
