@@ -10,7 +10,7 @@ permissions:
   contents: read
   packages: read
 
-name: main
+name: Main
 jobs:
   version:
     name: Set version

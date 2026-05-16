@@ -10,7 +10,7 @@ on:
 
 permissions: {}
 
-name: codeql analysis
+name: Codeql analysis
 jobs:
   csharp:
     name: CodeQL analysis (C#)
