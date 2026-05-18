@@ -6,7 +6,7 @@ using System;
 namespace ImageMagick;
 
 /// <summary>
-/// Specifies the different IFDs that can be found in an Exif profile.
+/// Specifies the IFD of an Exif tag.
 /// </summary>
 [Flags]
 public enum ExifIfds
@@ -17,22 +17,22 @@ public enum ExifIfds
     None = 0,
 
     /// <summary>
-    /// Primary IFD.
+    /// The IFD0.
     /// </summary>
     Ifd0 = 1,
 
     /// <summary>
-    /// Thumbnail IFD.
+    /// The Exif IFD.
     /// </summary>
-    Exif = 4,
+    Exif = 2,
 
     /// <summary>
-    /// GPS IFD.
+    /// The GPS IFD.
     /// </summary>
-    Gps = 8,
+    Gps = 4,
 
     /// <summary>
-    /// All.
+    /// All IFDs.
     /// </summary>
     All = Ifd0 | Exif | Gps,
 }
