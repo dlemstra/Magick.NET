@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 
 namespace ImageMagick;
@@ -11,8 +12,14 @@ namespace ImageMagick;
 public interface IExifProfile : IImageProfile
 {
     /// <summary>
+    /// Gets or sets which ifds will be written when the profile is added to an image.
+    /// </summary>
+    ExifIfds AllowedIfds { get; set; }
+
+    /// <summary>
     /// Gets or sets which parts will be written when the profile is added to an image.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(AllowedIfds)} instead.")]
     ExifParts Parts { get; set; }
 
     /// <summary>

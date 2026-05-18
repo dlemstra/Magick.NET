@@ -2,7 +2,6 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System.IO;
-using System.Linq;
 using ImageMagick;
 using Xunit;
 
@@ -10,7 +9,7 @@ namespace Magick.NET.Tests;
 
 public partial class ExifProfileTests
 {
-    public class ThePartsProperty
+    public class TheAllowedIfdsProperty
     {
         [Fact]
         public void ShouldFilterTheTagsWhenWritten()
@@ -21,9 +20,9 @@ public partial class ExifProfileTests
 
             Assert.NotNull(profile);
 
-            Assert.Equal(44, profile.Values.Count());
+            Assert.Equal(44, profile.Values.Count);
 
-            profile.Parts = ExifParts.ExifTags;
+            profile.AllowedIfds = ExifIfds.Exif;
             input.SetProfile(profile);
             input.Write(memStream);
 
@@ -32,7 +31,7 @@ public partial class ExifProfileTests
             profile = output.GetExifProfile();
 
             Assert.NotNull(profile);
-            Assert.Equal(24, profile.Values.Count());
+            Assert.Equal(24, profile.Values.Count);
         }
     }
 }

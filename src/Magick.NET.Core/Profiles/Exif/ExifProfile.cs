@@ -52,8 +52,14 @@ public sealed class ExifProfile : ImageProfile, IExifProfile
     }
 
     /// <summary>
+    /// Gets or sets which ifds will be written when the profile is added to an image.
+    /// </summary>
+    public ExifIfds AllowedIfds { get; set; } = ExifIfds.All;
+
+    /// <summary>
     /// Gets or sets which parts will be written when the profile is added to an image.
     /// </summary>
+    [Obsolete($"This property will be removed in the next major release, use {nameof(AllowedIfds)} instead.")]
     public ExifParts Parts { get; set; } = ExifParts.All;
 
     /// <summary>
@@ -209,7 +215,7 @@ public sealed class ExifProfile : ImageProfile, IExifProfile
             return;
         }
 
-        var writer = new ExifWriter(Parts);
+        var writer = new ExifWriter(AllowedIfds);
         SetData(writer.Write(_data.Values));
     }
 

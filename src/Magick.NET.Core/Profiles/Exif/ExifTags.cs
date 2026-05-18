@@ -5,7 +5,7 @@ namespace ImageMagick;
 
 internal static class ExifTags
 {
-    public static ExifParts GetPart(ExifTag tag)
+    public static ExifIfds GetIfd(ExifTag tag)
         => (ExifTagValue)(ushort)tag switch
         {
             ExifTagValue.SubfileType or
@@ -133,7 +133,7 @@ internal static class ExifTags
             ExifTagValue.XPKeywords or
             ExifTagValue.XPSubject or
             ExifTagValue.GDALMetadata or
-            ExifTagValue.GDALNoData => ExifParts.IfdTags,
+            ExifTagValue.GDALNoData => ExifIfds.Ifd0,
 
             ExifTagValue.ExposureTime or
             ExifTagValue.FNumber or
@@ -226,7 +226,7 @@ internal static class ExifTags
             ExifTagValue.LensInfo or
             ExifTagValue.LensMake or
             ExifTagValue.LensModel or
-            ExifTagValue.LensSerialNumber => ExifParts.ExifTags,
+            ExifTagValue.LensSerialNumber => ExifIfds.Exif,
 
             ExifTagValue.GPSVersionID or
             ExifTagValue.GPSLatitudeRef or
@@ -258,8 +258,8 @@ internal static class ExifTags
             ExifTagValue.GPSProcessingMethod or
             ExifTagValue.GPSAreaInformation or
             ExifTagValue.GPSDateStamp or
-            ExifTagValue.GPSDifferential => ExifParts.GpsTags,
+            ExifTagValue.GPSDifferential => ExifIfds.Gps,
 
-            _ => ExifParts.None,
+            _ => ExifIfds.None,
         };
 }

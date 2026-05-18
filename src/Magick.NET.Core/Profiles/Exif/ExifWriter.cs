@@ -12,16 +12,16 @@ internal sealed class ExifWriter
 {
     private const int HeaderSize = 2 + 2 + 4 + 4;
 
-    private readonly ExifParts _allowedParts;
+    private readonly ExifIfds _allowedIfds;
 
-    public ExifWriter(ExifParts allowedParts)
-        => _allowedParts = allowedParts;
+    public ExifWriter(ExifIfds allowedIfds)
+        => _allowedIfds = allowedIfds;
 
     public byte[]? Write(Collection<IExifValue> values)
     {
-        var ifdValues = GetPartValues(values, ExifParts.IfdTags);
-        var exifValues = GetPartValues(values, ExifParts.ExifTags);
-        var gpsValues = GetPartValues(values, ExifParts.GpsTags);
+        var ifdValues = GetPartValues(values, ExifIfds.Ifd0);
+        var exifValues = GetPartValues(values, ExifIfds.Exif);
+        var gpsValues = GetPartValues(values, ExifIfds.Gps);
 
         RemoveOffsetValues(ifdValues, ExifTag.SubIFDOffset, ExifTag.GPSIFDOffset);
 
@@ -297,11 +297,11 @@ internal sealed class ExifWriter
         stream.WriteBytes(BitConverter.GetBytes(value.Denominator));
     }
 
-    private Collection<IExifValue> GetPartValues(Collection<IExifValue> values, ExifParts part)
+    private Collection<IExifValue> GetPartValues(Collection<IExifValue> values, ExifIfds ifd)
     {
         var result = new Collection<IExifValue>();
 
-        if (!EnumHelper.HasFlag(_allowedParts, part))
+        if (!EnumHelper.HasFlag(_allowedIfds, ifd))
             return result;
 
         foreach (var value in values)
@@ -309,7 +309,7 @@ internal sealed class ExifWriter
             if (!HasValue(value))
                 continue;
 
-            if (ExifTags.GetPart(value.Tag) == part)
+            if (ExifTags.GetIfd(value.Tag) == ifd)
                 result.Add(value);
         }
 

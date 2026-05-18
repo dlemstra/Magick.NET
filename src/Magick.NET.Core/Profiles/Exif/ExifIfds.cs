@@ -6,11 +6,10 @@ using System;
 namespace ImageMagick;
 
 /// <summary>
-/// Specifies which parts will be written when the profile is added to an image.
+/// Specifies the different IFDs that can be found in an Exif profile.
 /// </summary>
 [Flags]
-[Obsolete($"This enum will be removed in the next major release, use {nameof(ExifIfds)} instead.")]
-public enum ExifParts
+public enum ExifIfds
 {
     /// <summary>
     /// None.
@@ -18,22 +17,22 @@ public enum ExifParts
     None = 0,
 
     /// <summary>
-    /// IfdTags.
+    /// Primary IFD.
     /// </summary>
-    IfdTags = 1,
+    Ifd0 = 1,
 
     /// <summary>
-    /// ExifTags.
+    /// Thumbnail IFD.
     /// </summary>
-    ExifTags = 4,
+    Exif = 4,
 
     /// <summary>
-    /// GpsTags.
+    /// GPS IFD.
     /// </summary>
-    GpsTags = 8,
+    Gps = 8,
 
     /// <summary>
     /// All.
     /// </summary>
-    All = IfdTags | ExifTags | GpsTags,
+    All = Ifd0 | Exif | Gps,
 }
