@@ -20,7 +20,7 @@ public partial class ExifProfileTests
         }
 
         [Fact]
-        public void ShouldReturnEmptyArrayWhenAllValuesAreInvalid()
+        public void ShouldReturnArrayWhenAllValuesAreUnknown()
         {
             var bytes = new byte[] { 69, 120, 105, 102, 0, 0, 73, 73, 42, 0, 8, 0, 0, 0, 1, 0, 42, 1, 4, 0, 1, 0, 0, 0, 42, 0, 0, 0, 26, 0, 0, 0, 0, 0 };
 
@@ -33,8 +33,15 @@ public partial class ExifProfileTests
             Assert.Equal(42U, value.GetValue());
             Assert.Equal("42", value.ToString());
 
-            bytes = profile.ToByteArray();
-            Assert.Empty(bytes);
+            var result = profile.ToByteArray();
+            profile = new ExifProfile(bytes);
+            Assert.Equal(1, profile.Values.Count);
+
+            value = profile.GetValue(unknownTag);
+
+            Assert.NotNull(value);
+            Assert.Equal(42U, value.GetValue());
+            Assert.Equal("42", value.ToString());
         }
 
         [Fact]
