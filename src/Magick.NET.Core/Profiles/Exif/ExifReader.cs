@@ -33,6 +33,17 @@ internal sealed class ExifReader
         return reader._data;
     }
 
+    private static bool IsDuplicate(Collection<IExifValue> values, IExifValue value)
+    {
+        foreach (var val in values)
+        {
+            if (val == value)
+                return true;
+        }
+
+        return false;
+    }
+
     private static TDataType[] ReadArray<TDataType>(uint numberOfComponents, ReadMethod<TDataType> read)
     {
         var result = new TDataType[numberOfComponents];
@@ -155,17 +166,6 @@ internal sealed class ExifReader
             return null;
 
         return exifValue;
-    }
-
-    private static bool IsDuplicate(Collection<IExifValue> values, IExifValue value)
-    {
-        foreach (var val in values)
-        {
-            if (val == value)
-                return true;
-        }
-
-        return false;
     }
 
     private object ReadValue(ExifDataType dataType, uint numberOfComponents)
