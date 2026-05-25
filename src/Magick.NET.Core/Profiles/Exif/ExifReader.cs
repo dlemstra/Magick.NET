@@ -87,17 +87,7 @@ internal sealed class ExifReader
             if (value is null)
                 continue;
 
-            var duplicate = false;
-            foreach (var val in values)
-            {
-                if (val == value)
-                {
-                    duplicate = true;
-                    break;
-                }
-            }
-
-            if (duplicate)
+            if (IsDuplicate(values, value))
                 continue;
 
             if (value == ExifTag.SubIFDOffset)
@@ -165,6 +155,17 @@ internal sealed class ExifReader
             return null;
 
         return exifValue;
+    }
+
+    private static bool IsDuplicate(Collection<IExifValue> values, IExifValue value)
+    {
+        foreach (var val in values)
+        {
+            if (val == value)
+                return true;
+        }
+
+        return false;
     }
 
     private object ReadValue(ExifDataType dataType, uint numberOfComponents)
