@@ -35,7 +35,7 @@ public partial class ExifProfileTests
 
             var result = profile.ToByteArray();
             profile = new ExifProfile(bytes);
-            Assert.Equal(1, profile.Values.Count);
+            Assert.Single(profile.Values);
 
             value = profile.GetValue(unknownTag);
 
