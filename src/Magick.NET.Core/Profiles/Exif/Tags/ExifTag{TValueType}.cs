@@ -9,8 +9,8 @@ namespace ImageMagick;
 /// <typeparam name="TValueType">The data type of the tag.</typeparam>
 public sealed class ExifTag<TValueType> : ExifTag
 {
-    internal ExifTag(ExifTagValue value)
-        : base((ushort)value)
+    internal ExifTag(ExifIfds ifd, ExifTagValue value)
+        : base(ifd, (ushort)value)
     {
     }
 }

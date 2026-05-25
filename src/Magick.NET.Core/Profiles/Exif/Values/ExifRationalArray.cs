@@ -10,8 +10,8 @@ internal sealed class ExifRationalArray : ExifArrayValue<Rational>
     {
     }
 
-    public ExifRationalArray(ExifTagValue tag)
-        : base(tag)
+    public ExifRationalArray(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
     }
 

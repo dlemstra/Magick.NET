@@ -10,8 +10,8 @@ internal sealed class ExifSignedShortArray : ExifArrayValue<short>
     {
     }
 
-    public ExifSignedShortArray(ExifTagValue tag)
-        : base(tag)
+    public ExifSignedShortArray(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
     }
 

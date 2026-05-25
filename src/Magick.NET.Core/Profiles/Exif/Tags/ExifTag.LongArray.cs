@@ -9,55 +9,55 @@ public abstract partial class ExifTag
     /// <summary>
     /// Gets the ColorResponseUnit exif tag.
     /// </summary>
-    public static ExifTag<uint[]> ColorResponseUnit { get; } = new ExifTag<uint[]>(ExifTagValue.ColorResponseUnit);
+    public static ExifTag<uint[]> ColorResponseUnit { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.ColorResponseUnit);
 
     /// <summary>
     /// Gets the FreeByteCounts exif tag.
     /// </summary>
-    public static ExifTag<uint[]> FreeByteCounts { get; } = new ExifTag<uint[]>(ExifTagValue.FreeByteCounts);
+    public static ExifTag<uint[]> FreeByteCounts { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.FreeByteCounts);
 
     /// <summary>
     /// Gets the FreeOffsets exif tag.
     /// </summary>
-    public static ExifTag<uint[]> FreeOffsets { get; } = new ExifTag<uint[]>(ExifTagValue.FreeOffsets);
+    public static ExifTag<uint[]> FreeOffsets { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.FreeOffsets);
 
     /// <summary>
     /// Gets the IntergraphRegisters exif tag.
     /// </summary>
-    public static ExifTag<uint[]> IntergraphRegisters { get; } = new ExifTag<uint[]>(ExifTagValue.IntergraphRegisters);
+    public static ExifTag<uint[]> IntergraphRegisters { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.IntergraphRegisters);
 
     /// <summary>
     /// Gets the JPEGACTables exif tag.
     /// </summary>
-    public static ExifTag<uint[]> JPEGACTables { get; } = new ExifTag<uint[]>(ExifTagValue.JPEGACTables);
+    public static ExifTag<uint[]> JPEGACTables { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.JPEGACTables);
 
     /// <summary>
     /// Gets the JPEGDCTables exif tag.
     /// </summary>
-    public static ExifTag<uint[]> JPEGDCTables { get; } = new ExifTag<uint[]>(ExifTagValue.JPEGDCTables);
+    public static ExifTag<uint[]> JPEGDCTables { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.JPEGDCTables);
 
     /// <summary>
     /// Gets the JPEGQTables exif tag.
     /// </summary>
-    public static ExifTag<uint[]> JPEGQTables { get; } = new ExifTag<uint[]>(ExifTagValue.JPEGQTables);
+    public static ExifTag<uint[]> JPEGQTables { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.JPEGQTables);
 
     /// <summary>
     /// Gets the SMaxSampleValue exif tag.
     /// </summary>
-    public static ExifTag<uint[]> SMaxSampleValue { get; } = new ExifTag<uint[]>(ExifTagValue.SMaxSampleValue);
+    public static ExifTag<uint[]> SMaxSampleValue { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.SMaxSampleValue);
 
     /// <summary>
     /// Gets the SMinSampleValue exif tag.
     /// </summary>
-    public static ExifTag<uint[]> SMinSampleValue { get; } = new ExifTag<uint[]>(ExifTagValue.SMinSampleValue);
+    public static ExifTag<uint[]> SMinSampleValue { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.SMinSampleValue);
 
     /// <summary>
     /// Gets the StripRowCounts exif tag.
     /// </summary>
-    public static ExifTag<uint[]> StripRowCounts { get; } = new ExifTag<uint[]>(ExifTagValue.StripRowCounts);
+    public static ExifTag<uint[]> StripRowCounts { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.StripRowCounts);
 
     /// <summary>
     /// Gets the TileOffsets exif tag.
     /// </summary>
-    public static ExifTag<uint[]> TileOffsets { get; } = new ExifTag<uint[]>(ExifTagValue.TileOffsets);
+    public static ExifTag<uint[]> TileOffsets { get; } = new ExifTag<uint[]>(ExifIfds.Ifd0, ExifTagValue.TileOffsets);
 }

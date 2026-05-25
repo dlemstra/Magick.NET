@@ -5,30 +5,33 @@ namespace ImageMagick;
 
 internal static partial class ExifValues
 {
-    public static ExifValue? Create(ExifTagValue tag)
-        => CreateValue(tag);
+    public static ExifValue? CreateKnownValue(ExifIfds ifd, ExifTagValue tag)
+    {
+        var value = CreateValue(tag);
+        return value?.Tag.Ifd == ifd ? value : null;
+    }
 
     public static ExifValue? Create(ExifTag tag)
         => CreateValue((ExifTagValue)(ushort)tag);
 
-    public static ExifValue? Create(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
+    public static ExifValue? CreateUnknownValue(ExifIfds ifd, ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
     {
         var isArray = numberOfComponents != 1;
 
         return dataType switch
         {
-            ExifDataType.Byte => isArray ? new ExifByteArray(tag, dataType) : new ExifByte(tag, dataType),
-            ExifDataType.Double => isArray ? new ExifDoubleArray(tag) : new ExifDouble(tag),
-            ExifDataType.Float => isArray ? new ExifFloatArray(tag) : new ExifFloat(tag),
-            ExifDataType.Long => isArray ? new ExifLongArray(tag) : new ExifLong(tag),
-            ExifDataType.Rational => isArray ? new ExifRationalArray(tag) : new ExifRational(tag),
-            ExifDataType.Short => isArray ? new ExifShortArray(tag) : new ExifShort(tag),
-            ExifDataType.SignedByte => isArray ? new ExifSignedByteArray(tag) : new ExifSignedByte(tag),
-            ExifDataType.SignedLong => isArray ? new ExifSignedLongArray(tag) : new ExifSignedLong(tag),
-            ExifDataType.SignedRational => isArray ? new ExifSignedRationalArray(tag) : new ExifSignedRational(tag),
-            ExifDataType.SignedShort => isArray ? new ExifSignedShortArray(tag) : new ExifSignedShort(tag),
-            ExifDataType.String => new ExifString(tag),
-            ExifDataType.Undefined => isArray ? new ExifByteArray(tag, dataType) : new ExifByte(tag, dataType),
+            ExifDataType.Byte => isArray ? new ExifByteArray(ifd, tag, dataType) : new ExifByte(ifd, tag, dataType),
+            ExifDataType.Double => isArray ? new ExifDoubleArray(ifd, tag) : new ExifDouble(ifd, tag),
+            ExifDataType.Float => isArray ? new ExifFloatArray(ifd, tag) : new ExifFloat(ifd, tag),
+            ExifDataType.Long => isArray ? new ExifLongArray(ifd, tag) : new ExifLong(ifd, tag),
+            ExifDataType.Rational => isArray ? new ExifRationalArray(ifd, tag) : new ExifRational(ifd, tag),
+            ExifDataType.Short => isArray ? new ExifShortArray(ifd, tag) : new ExifShort(ifd, tag),
+            ExifDataType.SignedByte => isArray ? new ExifSignedByteArray(ifd, tag) : new ExifSignedByte(ifd, tag),
+            ExifDataType.SignedLong => isArray ? new ExifSignedLongArray(ifd, tag) : new ExifSignedLong(ifd, tag),
+            ExifDataType.SignedRational => isArray ? new ExifSignedRationalArray(ifd, tag) : new ExifSignedRational(ifd, tag),
+            ExifDataType.SignedShort => isArray ? new ExifSignedShortArray(ifd, tag) : new ExifSignedShort(ifd, tag),
+            ExifDataType.String => new ExifString(ifd, tag),
+            ExifDataType.Undefined => isArray ? new ExifByteArray(ifd, tag, dataType) : new ExifByte(ifd, tag, dataType),
             _ => null,
         };
     }

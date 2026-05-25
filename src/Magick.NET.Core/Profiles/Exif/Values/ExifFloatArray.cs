@@ -5,8 +5,8 @@ namespace ImageMagick;
 
 internal sealed class ExifFloatArray : ExifArrayValue<float>
 {
-    public ExifFloatArray(ExifTagValue tag)
-        : base(tag)
+    public ExifFloatArray(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
     }
 

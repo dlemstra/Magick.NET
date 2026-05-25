@@ -9,15 +9,15 @@ public abstract partial class ExifTag
     /// <summary>
     /// Gets the ImageLayer exif tag.
     /// </summary>
-    public static ExifTag<Number[]> ImageLayer { get; } = new ExifTag<Number[]>(ExifTagValue.ImageLayer);
+    public static ExifTag<Number[]> ImageLayer { get; } = new ExifTag<Number[]>(ExifIfds.Ifd0, ExifTagValue.ImageLayer);
 
     /// <summary>
     /// Gets the StripOffsets exif tag.
     /// </summary>
-    public static ExifTag<Number[]> StripOffsets { get; } = new ExifTag<Number[]>(ExifTagValue.StripOffsets);
+    public static ExifTag<Number[]> StripOffsets { get; } = new ExifTag<Number[]>(ExifIfds.Ifd0, ExifTagValue.StripOffsets);
 
     /// <summary>
     /// Gets the TileByteCounts exif tag.
     /// </summary>
-    public static ExifTag<Number[]> TileByteCounts { get; } = new ExifTag<Number[]>(ExifTagValue.TileByteCounts);
+    public static ExifTag<Number[]> TileByteCounts { get; } = new ExifTag<Number[]>(ExifIfds.Ifd0, ExifTagValue.TileByteCounts);
 }

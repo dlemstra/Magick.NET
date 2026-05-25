@@ -12,8 +12,8 @@ internal sealed class ExifRational : ExifValue<Rational>
     {
     }
 
-    public ExifRational(ExifTagValue tag)
-        : base(tag, default)
+    public ExifRational(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag, default)
     {
     }
 

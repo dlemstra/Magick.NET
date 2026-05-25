@@ -13,7 +13,7 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenInstanceIsNull()
         {
-            var tag = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
+            var tag = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
 
             Assert.False(tag == null!);
             Assert.True(tag != null!);
@@ -24,8 +24,8 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenValuesAreEqual()
         {
-            var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
-            var second = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
+            var first = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
+            var second = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
 
             Assert.True(first == second);
             Assert.False(first != second);
@@ -34,8 +34,18 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnTheCorrectValueWhenValuesAreNotEqual()
         {
-            var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
-            var second = new ExifTag<uint>(ExifTagValue.CodingMethods);
+            var first = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
+            var second = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.CodingMethods);
+
+            Assert.False(first == second);
+            Assert.True(first != second);
+        }
+
+        [Fact]
+        public void ShouldReturnTheCorrectValueWhenIfdsAreNotEqual()
+        {
+            var first = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
+            var second = new ExifTag<uint>(ExifIfds.Exif, ExifTagValue.SubIFDOffset);
 
             Assert.False(first == second);
             Assert.True(first != second);

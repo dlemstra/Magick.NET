@@ -10,8 +10,8 @@ internal sealed class ExifShortArray : ExifArrayValue<ushort>
     {
     }
 
-    public ExifShortArray(ExifTagValue tag)
-        : base(tag)
+    public ExifShortArray(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
     }
 

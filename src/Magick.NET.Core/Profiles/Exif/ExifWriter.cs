@@ -309,7 +309,7 @@ internal sealed class ExifWriter
             if (!HasValue(value))
                 continue;
 
-            if (ExifTags.GetIfd(value.Tag) == ifd)
+            if (value.Tag.Ifd == ifd)
                 result.Add(value);
         }
 

@@ -12,8 +12,8 @@ internal sealed class ExifShort : ExifValue<ushort>
     {
     }
 
-    public ExifShort(ExifTagValue tag)
-        : base(tag, default)
+    public ExifShort(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag, default)
     {
     }
 

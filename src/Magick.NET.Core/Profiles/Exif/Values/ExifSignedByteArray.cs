@@ -5,8 +5,8 @@ namespace ImageMagick;
 
 internal sealed class ExifSignedByteArray : ExifArrayValue<sbyte>
 {
-    public ExifSignedByteArray(ExifTagValue tag)
-        : base(tag)
+    public ExifSignedByteArray(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
     }
 

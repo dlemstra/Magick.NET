@@ -18,7 +18,7 @@ public partial class ExifProfileTests
 
             Assert.Throws<NotSupportedException>(() =>
             {
-                exifProfile.SetValue(new ExifTag<int>((ExifTagValue)42), 42);
+                exifProfile.SetValue(new ExifTag<int>(ExifIfds.Ifd0, (ExifTagValue)42), 42);
             });
         }
 

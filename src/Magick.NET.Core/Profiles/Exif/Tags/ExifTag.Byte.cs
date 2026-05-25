@@ -9,15 +9,15 @@ public abstract partial class ExifTag
     /// <summary>
     /// Gets the FaxProfile exif tag.
     /// </summary>
-    public static ExifTag<byte> FaxProfile { get; } = new ExifTag<byte>(ExifTagValue.FaxProfile);
+    public static ExifTag<byte> FaxProfile { get; } = new ExifTag<byte>(ExifIfds.Ifd0, ExifTagValue.FaxProfile);
 
     /// <summary>
     /// Gets the GPSAltitudeRef exif tag.
     /// </summary>
-    public static ExifTag<byte> GPSAltitudeRef { get; } = new ExifTag<byte>(ExifTagValue.GPSAltitudeRef);
+    public static ExifTag<byte> GPSAltitudeRef { get; } = new ExifTag<byte>(ExifIfds.Gps, ExifTagValue.GPSAltitudeRef);
 
     /// <summary>
     /// Gets the ModeNumber exif tag.
     /// </summary>
-    public static ExifTag<byte> ModeNumber { get; } = new ExifTag<byte>(ExifTagValue.ModeNumber);
+    public static ExifTag<byte> ModeNumber { get; } = new ExifTag<byte>(ExifIfds.Ifd0, ExifTagValue.ModeNumber);
 }

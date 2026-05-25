@@ -26,7 +26,7 @@ public partial class ExifProfileTests
 
             var profile = new ExifProfile(bytes);
 
-            var unknownTag = new ExifTag<uint>((ExifTagValue)298);
+            var unknownTag = new ExifTag<uint>(ExifIfds.Ifd0, (ExifTagValue)298);
             var value = profile.GetValue(unknownTag);
 
             Assert.NotNull(value);

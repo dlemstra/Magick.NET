@@ -5,8 +5,8 @@ namespace ImageMagick;
 
 internal sealed class UnknownExifTag : ExifTag
 {
-    internal UnknownExifTag(ExifTagValue value)
-        : base((ushort)value)
+    internal UnknownExifTag(ExifIfds ifd, ExifTagValue value)
+        : base(ifd, (ushort)value)
     {
     }
 }

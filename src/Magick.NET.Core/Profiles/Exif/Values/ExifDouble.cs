@@ -12,8 +12,8 @@ internal sealed class ExifDouble : ExifValue<double>
     {
     }
 
-    public ExifDouble(ExifTagValue tag)
-        : base(tag, default)
+    public ExifDouble(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag, default)
     {
     }
 

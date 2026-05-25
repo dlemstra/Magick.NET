@@ -63,27 +63,27 @@ internal sealed class ExifReader
             return;
 
         var ifdOffset = ReadLong();
-        AddValues(_data.Values, ifdOffset);
+        AddValues(_data.Values, ExifIfds.Ifd0, ifdOffset);
 
         var thumbnailOffset = ReadLong();
         if (thumbnailOffset != 0)
             ReadThumbnail(thumbnailOffset);
 
         if (_exifOffset != 0)
-            AddValues(_data.Values, _exifOffset);
+            AddValues(_data.Values, ExifIfds.Exif, _exifOffset);
 
         if (_gpsOffset != 0)
-            AddValues(_data.Values, _gpsOffset);
+            AddValues(_data.Values, ExifIfds.Gps, _gpsOffset);
     }
 
-    private void AddValues(Collection<IExifValue> values, uint index)
+    private void AddValues(Collection<IExifValue> values, ExifIfds ifd, uint index)
     {
         _reader.Seek(_startIndex + index);
         var count = ReadShort();
 
         for (ushort i = 0; i < count; i++)
         {
-            var value = CreateValue();
+            var value = CreateValue(ifd);
             if (value is null)
                 continue;
 
@@ -109,7 +109,7 @@ internal sealed class ExifReader
         }
     }
 
-    private ExifValue? CreateValue()
+    private ExifValue? CreateValue(ExifIfds ifd)
     {
         if (!_reader.CanRead(12))
             return null;
@@ -131,32 +131,31 @@ internal sealed class ExifReader
 
         if (length <= 4)
         {
-            value = CreateValue(tag, dataType, numberOfComponents);
+            value = CreateValue(ifd, tag, dataType, numberOfComponents);
         }
         else
         {
             var newIndex = _startIndex + ReadLong();
 
             if (_reader.Seek(newIndex) && _reader.CanRead(length))
-                value = CreateValue(tag, dataType, numberOfComponents);
+                value = CreateValue(ifd, tag, dataType, numberOfComponents);
         }
 
         if (value is null)
-            _data.InvalidTags.Add(new UnknownExifTag(tag));
+            _data.InvalidTags.Add(new UnknownExifTag(ifd, tag));
 
         _reader.Seek(oldIndex + 4);
 
         return value;
     }
 
-    private ExifValue? CreateValue(ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
+    private ExifValue? CreateValue(ExifIfds ifd, ExifTagValue tag, ExifDataType dataType, uint numberOfComponents)
     {
         if (!_reader.CanRead(numberOfComponents))
             return null;
 
-        var exifValue = ExifValues.Create(tag);
-        if (exifValue is null)
-            exifValue = ExifValues.Create(tag, dataType, numberOfComponents);
+        var exifValue = ExifValues.CreateKnownValue(ifd, tag);
+        exifValue ??= ExifValues.CreateUnknownValue(ifd, tag, dataType, numberOfComponents);
 
         if (exifValue is null)
             return null;
@@ -310,7 +309,7 @@ internal sealed class ExifReader
     private void ReadThumbnail(uint offset)
     {
         var values = new Collection<IExifValue>();
-        AddValues(values, offset);
+        AddValues(values, ExifIfds.Ifd0, offset);
 
         foreach (var value in values)
         {

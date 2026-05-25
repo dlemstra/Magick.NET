@@ -11,8 +11,8 @@ internal abstract class ExifArrayValue<TValueType> : ExifValue, IExifValue<TValu
         Value = [];
     }
 
-    public ExifArrayValue(ExifTagValue tag)
-        : base(tag)
+    public ExifArrayValue(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
         Value = [];
     }

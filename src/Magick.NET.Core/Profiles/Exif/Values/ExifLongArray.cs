@@ -10,8 +10,8 @@ internal sealed class ExifLongArray : ExifArrayValue<uint>
     {
     }
 
-    public ExifLongArray(ExifTagValue tag)
-        : base(tag)
+    public ExifLongArray(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
     }
 

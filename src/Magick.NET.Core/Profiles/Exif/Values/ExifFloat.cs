@@ -7,8 +7,8 @@ namespace ImageMagick;
 
 internal sealed class ExifFloat : ExifValue<float>
 {
-    public ExifFloat(ExifTagValue tag)
-        : base(tag, default)
+    public ExifFloat(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag, default)
     {
     }
 

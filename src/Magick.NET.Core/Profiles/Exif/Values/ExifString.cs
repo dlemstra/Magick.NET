@@ -12,8 +12,8 @@ internal sealed class ExifString : ExifValue<string>
     {
     }
 
-    public ExifString(ExifTagValue tag)
-        : base(tag, string.Empty)
+    public ExifString(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag, string.Empty)
     {
     }
 

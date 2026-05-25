@@ -7,8 +7,8 @@ namespace ImageMagick;
 
 internal sealed class ExifSignedByte : ExifValue<sbyte>
 {
-    public ExifSignedByte(ExifTagValue tag)
-        : base(tag, default)
+    public ExifSignedByte(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag, default)
     {
     }
 

@@ -12,8 +12,8 @@ internal sealed class ExifLong : ExifValue<uint>
     {
     }
 
-    public ExifLong(ExifTagValue tag)
-        : base(tag, default)
+    public ExifLong(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag, default)
     {
     }
 

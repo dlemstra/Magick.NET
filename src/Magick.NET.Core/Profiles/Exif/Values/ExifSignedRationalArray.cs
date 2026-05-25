@@ -10,8 +10,8 @@ internal sealed class ExifSignedRationalArray : ExifArrayValue<SignedRational>
     {
     }
 
-    public ExifSignedRationalArray(ExifTagValue tag)
-        : base(tag)
+    public ExifSignedRationalArray(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
     }
 

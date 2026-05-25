@@ -16,8 +16,17 @@ public abstract partial class ExifTag : IEquatable<ExifTag?>
     /// Initializes a new instance of the <see cref="ExifTag"/> class.
     /// </summary>
     /// <param name="value">The value.</param>
-    protected ExifTag(ushort value)
-        => _value = value;
+    /// <param name="ifd">The ifd.</param>
+    protected ExifTag(ExifIfds ifd, ushort value)
+    {
+        _value = value;
+        Ifd = ifd;
+    }
+
+    /// <summary>
+    /// Gets the IFD of the tag.
+    /// </summary>
+    public ExifIfds Ifd { get; }
 
     /// <summary>
     /// Converts the specified <see cref="ExifTag"/> to a <see cref="ushort"/>.
@@ -63,7 +72,7 @@ public abstract partial class ExifTag : IEquatable<ExifTag?>
         if (ReferenceEquals(this, other))
             return true;
 
-        return _value == other._value;
+        return _value == other._value && Ifd == other.Ifd;
     }
 
     /// <summary>
@@ -71,7 +80,8 @@ public abstract partial class ExifTag : IEquatable<ExifTag?>
     /// </summary>
     /// <returns>A hash code for the current instance.</returns>
     public override int GetHashCode()
-        => _value.GetHashCode();
+        => _value.GetHashCode() ^
+          Ifd.GetHashCode();
 
     /// <summary>
     /// Returns a string that represents the current object.

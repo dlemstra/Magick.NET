@@ -11,8 +11,8 @@ internal abstract class ExifValue<TValueType> : ExifValue, IExifValue<TValueType
         Value = value;
     }
 
-    public ExifValue(ExifTagValue tag, TValueType value)
-        : base(tag)
+    public ExifValue(ExifIfds ifd, ExifTagValue tag, TValueType value)
+        : base(ifd, tag)
     {
         Value = value;
     }

@@ -12,8 +12,8 @@ internal sealed class ExifSignedRational : ExifValue<SignedRational>
     {
     }
 
-    internal ExifSignedRational(ExifTagValue tag)
-        : base(tag, default)
+    internal ExifSignedRational(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag, default)
     {
     }
 

@@ -10,8 +10,8 @@ internal sealed class ExifDoubleArray : ExifArrayValue<double>
     {
     }
 
-    public ExifDoubleArray(ExifTagValue tag)
-        : base(tag)
+    public ExifDoubleArray(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
     }
 

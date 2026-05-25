@@ -10,8 +10,8 @@ internal sealed class ExifByte : ExifValue<byte>
     public ExifByte(ExifTag<byte> tag, ExifDataType dataType)
         : base(tag, default) => DataType = dataType;
 
-    public ExifByte(ExifTagValue tag, ExifDataType dataType)
-        : base(tag, default) => DataType = dataType;
+    public ExifByte(ExifIfds ifd, ExifTagValue tag, ExifDataType dataType)
+        : base(ifd, tag, default) => DataType = dataType;
 
     public override ExifDataType DataType { get; }
 

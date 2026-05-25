@@ -5,8 +5,8 @@ namespace ImageMagick;
 
 internal sealed class ExifSignedLongArray : ExifArrayValue<int>
 {
-    public ExifSignedLongArray(ExifTagValue tag)
-        : base(tag)
+    public ExifSignedLongArray(ExifIfds ifd, ExifTagValue tag)
+        : base(ifd, tag)
     {
     }
 

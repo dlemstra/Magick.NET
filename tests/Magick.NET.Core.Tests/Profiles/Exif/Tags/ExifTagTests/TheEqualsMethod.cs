@@ -13,7 +13,7 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnFalseWhenInstanceIsNull()
         {
-            var tag = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
+            var tag = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
 
             Assert.False(tag.Equals(null));
         }
@@ -21,7 +21,7 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnTrueWhenInstanceIsTheSame()
         {
-            var tag = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
+            var tag = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
 
             Assert.True(tag.Equals(tag));
         }
@@ -29,7 +29,7 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnTrueWhenObjectIsTheSame()
         {
-            var tag = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
+            var tag = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
 
             Assert.True(tag.Equals((object)tag));
         }
@@ -37,8 +37,8 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnTrueWhenInstanceIsEqual()
         {
-            var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
-            var second = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
+            var first = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
+            var second = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
 
             Assert.True(first.Equals(second));
         }
@@ -46,8 +46,8 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnTrueWhenObjectIsEqual()
         {
-            var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
-            var second = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
+            var first = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
+            var second = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
 
             Assert.True(first.Equals((object)second));
         }
@@ -55,8 +55,8 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnFalseWhenInstanceIsNotEqual()
         {
-            var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
-            var second = new ExifTag<uint>(ExifTagValue.CodingMethods);
+            var first = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
+            var second = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.CodingMethods);
 
             Assert.False(first.Equals(second));
         }
@@ -64,8 +64,26 @@ public partial class ExifTagTests
         [Fact]
         public void ShouldReturnFalseWhenObjectIsNotEqual()
         {
-            var first = new ExifTag<uint>(ExifTagValue.SubIFDOffset);
-            var second = new ExifTag<uint>(ExifTagValue.CodingMethods);
+            var first = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
+            var second = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.CodingMethods);
+
+            Assert.False(first.Equals((object)second));
+        }
+
+        [Fact]
+        public void ShouldReturnFalseWhenInstanceHasDifferentIfd()
+        {
+            var first = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
+            var second = new ExifTag<uint>(ExifIfds.Gps, ExifTagValue.SubIFDOffset);
+
+            Assert.False(first.Equals(second));
+        }
+
+        [Fact]
+        public void ShouldReturnFalseWhenObjectHasDifferentIfd()
+        {
+            var first = new ExifTag<uint>(ExifIfds.Ifd0, ExifTagValue.SubIFDOffset);
+            var second = new ExifTag<uint>(ExifIfds.Exif, ExifTagValue.SubIFDOffset);
 
             Assert.False(first.Equals((object)second));
         }
