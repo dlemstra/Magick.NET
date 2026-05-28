@@ -202,7 +202,7 @@ jobs:
 
   windows_x64:
     name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
-    runs-on: windows-2025
+    runs-on: windows-2025-vs2026
     needs:
       - version
 
@@ -272,7 +272,7 @@ jobs:
   windows_arm64:
     name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
     #runs-on: windows-11-arm
-    runs-on: windows-2025
+    runs-on: windows-2025-vs2026
     needs:
       - version
 
@@ -328,7 +328,7 @@ jobs:
 
   libraries:
     name: Library
-    runs-on: windows-2025
+    runs-on: windows-2025-vs2026
     needs:
       - version
 
@@ -376,7 +376,7 @@ jobs:
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     name: Publish packages to NuGet (tagged releases only)
-    runs-on: windows-2025
+    runs-on: windows-2025-vs2026
     environment: nuget
     needs:
       - libraries
