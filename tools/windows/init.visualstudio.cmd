@@ -1,14 +1,14 @@
 @echo off
 
-set TOOLSDIR=C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\Tools
+set TOOLSDIR=C:\Program Files\Microsoft Visual Studio\18\Community\Common7\Tools
 
 if exist "%TOOLSDIR%" goto found
 
-set TOOLSDIR=C:\Program Files\Microsoft Visual Studio\2022\Professional\Common7\Tools
+set TOOLSDIR=C:\Program Files\Microsoft Visual Studio\18\Professional\Common7\Tools
 
 if exist "%TOOLSDIR%" goto found
 
-set TOOLSDIR=C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\Tools
+set TOOLSDIR=C:\Program Files\Microsoft Visual Studio\18\Enterprise\Common7\Tools
 
 if exist "%TOOLSDIR%" goto found
 
