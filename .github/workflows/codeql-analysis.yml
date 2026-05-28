@@ -14,7 +14,7 @@ name: Codeql analysis
 jobs:
   csharp:
     name: CodeQL analysis (C#)
-    runs-on: windows-2022
+    runs-on: windows-2025-vs2026
 
     permissions:
       contents: read
