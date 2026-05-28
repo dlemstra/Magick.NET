@@ -58,7 +58,7 @@ using var png = new MagickImage(SampleFiles.SnakewareJpg);
 
 // Will use the CMYK profile if the image does not contain a color profile.
 // The second profile will transform the colorspace from CMYK to RGB
-png.TransformColorSpace(ColorProfile.USWebCoatedSWOP, ColorProfile.SRGB);
+png.TransformColorSpace(ColorProfiles.USWebCoatedSWOP, ColorProfiles.SRGB);
 
 // Save image as png
 png.Write("Snakeware.png");
@@ -68,7 +68,7 @@ using var tiff = new MagickImage(SampleFiles.SnakewareJpg);
 
 // Will use the CMYK profile if your image does not contain a color profile.
 // The second profile will transform the colorspace from your custom icc profile
-tiff.TransformColorSpace(ColorProfile.USWebCoatedSWOP, new ColorProfile(SampleFiles.YourProfileIcc));
+tiff.TransformColorSpace(ColorProfiles.USWebCoatedSWOP, new ColorProfile(SampleFiles.YourProfileIcc));
 
 // Save image as tiff
 tiff.Write("Snakeware.tiff");
