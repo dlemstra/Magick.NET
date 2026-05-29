@@ -27,9 +27,6 @@ public partial class ResourceLimitsTests
         {
             Assert.SkipWhen(Runtime.IsWindows, "Will throw exception on Windows.");
 
-            if (Runtime.IsWindows)
-                return;
-
             var result = ResourceLimits.TrimMemory();
             if (result)
                 Assert.True(result);
