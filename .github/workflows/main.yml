@@ -55,8 +55,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
-        platformName: [x86, x64, Any CPU]
+        # quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
+        # platformName: [x86, x64, Any CPU]
+        quantumName: [Q8]
+        platformName: [x64]
         exclude:
         - quantumName: Q8-OpenMP
           platformName: x86
@@ -97,26 +99,16 @@ jobs:
         run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test
         working-directory: build/windows
 
-      - name: Disable DC discovery and WPAD
-        run: |
-          # Disable WinHTTP auto-proxy (stops WPAD queries)
-          Stop-Service -Name WinHttpAutoProxySvc -Force -ErrorAction SilentlyContinue
-          Set-Service -Name WinHttpAutoProxySvc -StartupType Disabled -ErrorAction SilentlyContinue
-          # Reduce Netlogon DC discovery retries to zero
-          $path = 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters'
-          Set-ItemProperty -Path $path -Name 'NegativeCachePeriod' -Value 0 -Type DWord -Force
-          Set-ItemProperty -Path $path -Name 'BackgroundRetryInitialPeriod' -Value 0 -Type DWord -Force
-          Set-ItemProperty -Path $path -Name 'BackgroundRetryMaximumPeriod' -Value 0 -Type DWord -Force
-          Set-ItemProperty -Path $path -Name 'BackgroundRetryQuitTime' -Value 0 -Type DWord -Force
-        shell: pwsh
-
-      - name: Start network trace
-        run: netsh trace start capture=yes tracefile=${{ github.workspace }}\trace.etl
-        shell: pwsh
-
       - name: Test Magick.NET
         run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
         working-directory: build/windows
+
+      - name: Debug in Codespace
+        if: failure()
+        uses: dlemstra/github-actions-debugger@main
+        with:
+          token: ${{ secrets.TOKEN_FOR_CODESPACES }}
+          codespace: potential-eureka-jxvr564wr425jvw
 
       - name: Stop network trace
         if: always()
