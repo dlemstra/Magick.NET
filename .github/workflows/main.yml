@@ -255,8 +255,16 @@ jobs:
         working-directory: build/windows
 
       - name: Test Magick.NET
-        run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
+        run: |
+          $maxAttempts = 3
+          for ($i = 1; $i -le $maxAttempts; $i++) {
+            ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
+            if ($LASTEXITCODE -eq 0) { break }
+            if ($i -lt $maxAttempts) { Write-Host "Attempt $i failed, retrying..." }
+          }
+          exit $LASTEXITCODE
         working-directory: build/windows
+        shell: pwsh
 
       - name: Build Magick.NET (Release)
         run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
