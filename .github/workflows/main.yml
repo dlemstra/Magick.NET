@@ -97,16 +97,17 @@ jobs:
         run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test
         working-directory: build/windows
 
-      - name: Disable WPAD
+      - name: Disable DC discovery and WPAD
         run: |
-          Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name AutoDetect -Value 0
-          netsh winhttp reset proxy
-        shell: pwsh
-
-      - name: Disable Netlogon DC discovery
-        run: |
-          Set-Service -Name Netlogon -StartupType Disabled
-          Stop-Service -Name Netlogon -Force -ErrorAction SilentlyContinue
+          # Disable WinHTTP auto-proxy (stops WPAD queries)
+          Stop-Service -Name WinHttpAutoProxySvc -Force -ErrorAction SilentlyContinue
+          Set-Service -Name WinHttpAutoProxySvc -StartupType Disabled -ErrorAction SilentlyContinue
+          # Reduce Netlogon DC discovery retries to zero
+          $path = 'HKLM:\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters'
+          Set-ItemProperty -Path $path -Name 'NegativeCachePeriod' -Value 0 -Type DWord -Force
+          Set-ItemProperty -Path $path -Name 'BackgroundRetryInitialPeriod' -Value 0 -Type DWord -Force
+          Set-ItemProperty -Path $path -Name 'BackgroundRetryMaximumPeriod' -Value 0 -Type DWord -Force
+          Set-ItemProperty -Path $path -Name 'BackgroundRetryQuitTime' -Value 0 -Type DWord -Force
         shell: pwsh
 
       - name: Start network trace
