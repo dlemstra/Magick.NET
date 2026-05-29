@@ -97,6 +97,12 @@ jobs:
         run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test
         working-directory: build/windows
 
+      - name: Disable WPAD
+        run: |
+          Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name AutoDetect -Value 0
+          netsh winhttp set proxy proxy-server="direct://" bypass-list="*"
+        shell: pwsh
+
       - name: Start network trace
         run: netsh trace start capture=yes tracefile=${{ github.workspace }}\trace.etl
         shell: pwsh
