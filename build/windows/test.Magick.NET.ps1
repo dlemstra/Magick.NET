@@ -17,7 +17,7 @@ function runTests($quantumName, $platformName, $targetFramework, $project) {
       $testPlatform = "x64"
     }
 
-    Write-Host "`nTesting $project $quantumName"
+    Write-Host "`nTesting $project $quantumName $targetFramework"
     $folder = fullPath "tests\$project.Tests\bin\Test$quantumName\$platform\$targetFramework"
     & "$folder\$project.Tests.exe"
 
