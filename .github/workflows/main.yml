@@ -108,7 +108,7 @@ jobs:
         uses: dlemstra/github-actions-debugger@main
         with:
           token: ${{ secrets.TOKEN_FOR_CODESPACES }}
-          codespace: potential-eureka-jxvr564wr425jvw
+          codespace: studious-adventure-rjq7g9rwrqcxgqv
 
       - name: Stop network trace
         if: always()
