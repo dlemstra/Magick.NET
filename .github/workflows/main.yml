@@ -100,7 +100,7 @@ jobs:
       - name: Disable WPAD
         run: |
           Set-ItemProperty -Path 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Internet Settings' -Name AutoDetect -Value 0
-          netsh winhttp set proxy proxy-server="direct://" bypass-list="*"
+          netsh winhttp reset proxy
         shell: pwsh
 
       - name: Start network trace
