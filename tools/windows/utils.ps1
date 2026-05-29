@@ -20,10 +20,10 @@ function buildSolution($solution, $properties) {
     $location = $(Get-Location)
     Set-Location $directory
 
-    msbuild $filename /restore ("/p:$($properties)")
+    msbuild $filename /verbosity:minimal /restore ("/p:$($properties)")
     checkExitCode "Failed to build: $($path)"
 
-    msbuild $filename /m /t:Rebuild ("/p:$($properties)")
+    msbuild $filename /verbosity:minimal /m /t:Rebuild ("/p:$($properties)")
     checkExitCode "Failed to build: $($path)"
 
     Set-Location $location
