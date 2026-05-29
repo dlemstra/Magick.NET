@@ -127,6 +127,7 @@ function copyLibraries($source, $target) {
 
     [void](New-Item -ItemType directory -Path "$target\win")
     Copy-Item "$source\**\content\windows\**\**\*.dll" -Force "$target\win"
+    Copy-Item "$source\**\content\windows\**\**\*.pdb" -Force "$target\win"
 
     [void](New-Item -ItemType directory -Path "$target\linux")
     Copy-Item "$source\**\content\linux\**\**\*.so" -Force "$target\linux"
