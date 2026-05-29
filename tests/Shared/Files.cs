@@ -173,6 +173,9 @@ public static class Files
         public static string TestDDS
             => Root + @"Images/Coders/Test.dds";
 
+        public static string TestEMF
+            => Root + @"Images/Coders/Test.emf";
+
         public static string TestJP2
             => Root + @"Images/Coders/Test.jp2";
 
