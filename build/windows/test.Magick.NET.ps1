@@ -25,10 +25,9 @@ function runTests($quantumName, $platformName, $targetFramework, $project) {
 }
 
 function testMagickNET($quantumName, $platformName) {
-    runTests $quantumName $platformName "net472" "Magick.NET"
-
     if ($platformName -ne "Any CPU") {
         runTests $quantumName $platformName "net8.0" "Magick.NET"
+        runTests $quantumName $platformName "net472" "Magick.NET"
 
         if ($quantumName -like "*OpenMP*") {
             return
@@ -38,8 +37,9 @@ function testMagickNET($quantumName, $platformName) {
         runTests $quantumName $platformName "net8.0" "Magick.NET.SystemDrawing"
         runTests $quantumName $platformName "net8.0" "Magick.NET.SystemWindowsMedia"
     } else {
-        runTests "" $platformName "net472" "Magick.NET.Core"
         runTests "" $platformName "net8.0" "Magick.NET.Core"
+        runTests "" $platformName "net472" "Magick.NET.Core"
+        runTests $quantumName $platformName "net472" "Magick.NET"
     }
 
     if ($quantumName -like "*OpenMP*") {
