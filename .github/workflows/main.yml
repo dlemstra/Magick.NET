@@ -232,7 +232,9 @@ jobs:
           persist-credentials: false
 
       - name: Exclude build directory from Defender
-        run: Add-MpPreference -ExclusionPath ${{ github.workspace }}
+        run: |
+          Add-MpPreference -ExclusionPath ${{ github.workspace }}
+          Add-MpPreference -ExclusionPath $env:TEMP
         shell: pwsh
 
       - name: Install dependencies
@@ -293,7 +295,9 @@ jobs:
           persist-credentials: false
 
       - name: Exclude build directory from Defender
-        run: Add-MpPreference -ExclusionPath ${{ github.workspace }}
+        run: |
+          Add-MpPreference -ExclusionPath ${{ github.workspace }}
+          Add-MpPreference -ExclusionPath $env:TEMP
         shell: pwsh
 
       - name: Install dependencies
@@ -352,7 +356,9 @@ jobs:
           persist-credentials: false
 
       - name: Exclude build directory from Defender
-        run: Add-MpPreference -ExclusionPath ${{ github.workspace }}
+        run: |
+          Add-MpPreference -ExclusionPath ${{ github.workspace }}
+          Add-MpPreference -ExclusionPath $env:TEMP
         shell: pwsh
 
       - name: Install NuGet
