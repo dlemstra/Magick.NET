@@ -20,7 +20,7 @@ function addMagickNetLibraries($xml, $quantumName, $platform) {
 function addOpenMPLibrary($xml, $platform) {
     $redistFolder = "$($env:VSINSTALLDIR)VC\Redist\MSVC"
     $redistVersion = (ls -Directory $redistFolder -Filter 14.* | sort -Descending | select -First 1 -Property Name).Name
-    $source = "$redistFolder\$redistVersion\$platform\Microsoft.VC143.OpenMP\vcomp140.dll"
+    $source = "$redistFolder\$redistVersion\$platform\Microsoft.VC145.OpenMP\vcomp140.dll"
     $target = "runtimes\win-$platform\native\vcomp140.dll"
     addFile $xml $source $target
 }
