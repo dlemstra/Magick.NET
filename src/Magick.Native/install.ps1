@@ -74,6 +74,9 @@ function copyToTestProject($source, $target, $quantum, $platform, $libraryPlatfo
 
     copyToTestProjectFolder $source $target $quantum $platform "Test" $fileName
     copyToTestProjectFolder $source $target $quantum $platform "Debug" $fileName
+
+    $fileName = "Magick.Native-$quantum-$libraryPlatform.pdb"
+    copyToTestProjectFolder $source $target $quantum $platform "Test" $fileName
 }
 
 function copyToTestProjects($source, $target) {
