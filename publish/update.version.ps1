@@ -44,6 +44,7 @@ function updateNugetVersion($library, $version) {
     $xml.package.metadata.version = $version
 
     $xml.Save($fileName)
+    Add-Content $fileName ""
 }
 
 function updateAssemblyVersion($library, $version, $checkAssemblyVersion) {
@@ -87,6 +88,7 @@ function updateNuspecFile($library, $version) {
     updateCoreVersion $xml
 
     $xml.Save($fileName)
+    Add-Content $fileName ""
 }
 
 function updateNuspecFiles() {
