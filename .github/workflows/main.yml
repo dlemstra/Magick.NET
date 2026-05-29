@@ -103,6 +103,12 @@ jobs:
           netsh winhttp reset proxy
         shell: pwsh
 
+      - name: Disable Netlogon DC discovery
+        run: |
+          Set-Service -Name Netlogon -StartupType Disabled
+          Stop-Service -Name Netlogon -Force -ErrorAction SilentlyContinue
+        shell: pwsh
+
       - name: Start network trace
         run: netsh trace start capture=yes tracefile=${{ github.workspace }}\trace.etl
         shell: pwsh
