@@ -55,10 +55,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
-        # platformName: [x86, x64, Any CPU]
-        quantumName: [Q8]
-        platformName: [x86, x64]
+        quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
+        platformName: [x86, x64, Any CPU]
+        # quantumName: [Q8]
+        # platformName: [x86, x64]
         exclude:
         - quantumName: Q8-OpenMP
           platformName: x86
