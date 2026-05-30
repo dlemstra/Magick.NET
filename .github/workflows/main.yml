@@ -103,12 +103,12 @@ jobs:
         run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
         working-directory: build/windows
 
-      - name: Debug in Codespace
-        if: failure()
-        uses: dlemstra/github-actions-debugger@main
-        with:
-          token: ${{ secrets.TOKEN_FOR_CODESPACES }}
-          codespace: studious-adventure-rjq7g9rwrqcxgqv
+      # - name: Debug in Codespace
+      #   if: failure()
+      #   uses: dlemstra/github-actions-debugger@main
+      #   with:
+      #     token: ${{ secrets.TOKEN_FOR_CODESPACES }}
+      #     codespace: studious-adventure-rjq7g9rwrqcxgqv
 
       - name: Stop network trace
         if: always()
