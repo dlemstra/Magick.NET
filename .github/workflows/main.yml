@@ -55,10 +55,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
-        platformName: [x86, x64, Any CPU]
-        # quantumName: [Q8]
-        # platformName: [x86, x64]
+        # quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
+        # platformName: [x86, x64, Any CPU]
+        quantumName: [Q8]
+        platformName: [x86, x64]
         exclude:
         - quantumName: Q8-OpenMP
           platformName: x86
@@ -103,12 +103,12 @@ jobs:
         run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
         working-directory: build/windows
 
-      # - name: Debug in Codespace
-      #   if: failure()
-      #   uses: dlemstra/github-actions-debugger@main
-      #   with:
-      #     token: ${{ secrets.TOKEN_FOR_CODESPACES }}
-      #     codespace: studious-adventure-rjq7g9rwrqcxgqv
+      - name: Debug in Codespace
+        if: failure()
+        uses: dlemstra/github-actions-debugger@main
+        with:
+          token: ${{ secrets.TOKEN_FOR_CODESPACES }}
+          codespace: curly-bassoon-xj7rw69g46cp6w7
 
       # - name: Build Magick.NET (Release)
       #   run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
