@@ -11,7 +11,7 @@ public partial class ChannelPerceptualHashTests
     public class TheSumSquaredDistanceMethod
     {
         [Fact]
-        public void ShouldReturnTheCorrectValue()
+        public void ShouldReturnTheDifference()
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();

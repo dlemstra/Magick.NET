@@ -11,7 +11,7 @@ public partial class ChannelPerceptualHashTests
     public class TheToStringMethod
     {
         [Fact]
-        public void ShouldReturnTheDifference()
+        public void ShouldReturnTheCorrectValue()
         {
             using var image = new MagickImage(Files.ImageMagickJPG);
             var phash = image.PerceptualHash();
