@@ -93,3 +93,5 @@ _A special thanks goes out to [Snakeware](https://www.snakeware.nl) who let me s
 <img src="https://github.com/dlemstra/dlemstra/raw/main/sponsors/aws.svg" width="128" height="128" alt="Amazon Web Services" title="Amazon Web Services" />
 
 [.NET on AWS Open Source Software Fund (July 2024)](https://github.com/aws/dotnet-foss)
+
+[Geodata AS])(https://www.geodata.no)
