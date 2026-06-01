@@ -94,4 +94,4 @@ _A special thanks goes out to [Snakeware](https://www.snakeware.nl) who let me s
 
 [.NET on AWS Open Source Software Fund (July 2024)](https://github.com/aws/dotnet-foss)
 
-[Geodata AS])(https://www.geodata.no)
+[Geodata AS](https://www.geodata.no)
