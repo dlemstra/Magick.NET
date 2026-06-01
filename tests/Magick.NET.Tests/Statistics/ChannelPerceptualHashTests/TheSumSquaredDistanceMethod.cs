@@ -8,7 +8,7 @@ namespace Magick.NET.Tests;
 
 public partial class ChannelPerceptualHashTests
 {
-    public class TheToStringMethod
+    public class TheSumSquaredDistanceMethod
     {
         [Fact]
         public void ShouldReturnTheCorrectValue()
