@@ -77,7 +77,7 @@ public partial class MagickImageTests
                 using var image = new MagickImage(MagickColors.Black, 2, 1);
                 using var mask = new MagickImage(MagickColors.White, 2, 1);
                 using var pixels = mask.GetPixelsUnsafe();
-                pixels.SetPixel(0, 0, new QuantumType[] { 0, 0, 0 });
+                pixels.SetPixel(0, 0, [0, 0, 0]);
 
                 image.SetWriteMask(mask);
 
