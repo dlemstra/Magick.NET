@@ -13,13 +13,12 @@ public class TheSvgCoder
     [Fact]
     public void ShouldDetectFormatFromXmlDeclaration()
     {
-        var data = Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""UTF-8""?><circle />");
+        var data = Encoding.ASCII.GetBytes(@"<?xml version=""1.0"" encoding=""UTF-8"" ?><circle />");
 
-        var info = new MagickImageInfo(data);
+        var exception = Assert.Throws<MagickCorruptImageErrorException>(() => new MagickImageInfo(data));
 
-        Assert.Equal(MagickFormat.Svg, info.Format);
-        Assert.Equal(0U, info.Width);
-        Assert.Equal(0U, info.Height);
+        Assert.Contains("negative or zero image size", exception.Message);
+        Assert.Contains("svg.c", exception.Message);
     }
 
     [Fact]
