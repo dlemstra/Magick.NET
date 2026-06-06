@@ -10,9 +10,6 @@ permissions:
   contents: read
   packages: read
 
-env:
-  DOTNET_CLI_TELEMETRY_OPTOUT: 1
-
 name: Main
 jobs:
   version:
