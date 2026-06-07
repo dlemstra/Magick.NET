@@ -1154,7 +1154,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        var bytes = await FileHelper.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
+        var bytes = await FileHelper.ReadAllBytesAsync(filePath, cancellationToken).ConfigureAwait(false);
 
         cancellationToken.ThrowIfCancellationRequested();
         Clear();
@@ -1507,7 +1507,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
             return;
 
         var settings = GetSettings().Clone();
-        settings.FileName = fileName;
+        settings.FileName = filePath;
 
         using var imageAttacher = new TemporaryImageAttacher(_images);
         _nativeInstance.WriteFile(_images[0], settings);

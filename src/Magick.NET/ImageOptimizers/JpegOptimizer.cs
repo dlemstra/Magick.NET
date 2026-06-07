@@ -76,7 +76,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        return DoCompress(new FileInfo(fileName), false, quality);
+        return DoCompress(new FileInfo(filePath), false, quality);
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ public sealed partial class JpegOptimizer : IImageOptimizer
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        return DoCompress(new FileInfo(fileName), true, 0);
+        return DoCompress(new FileInfo(filePath), true, 0);
     }
 
     /// <summary>
