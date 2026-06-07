@@ -251,7 +251,11 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <returns>A <see cref="IMagickImageInfo"/> iteration.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static IEnumerable<IMagickImageInfo> ReadCollection(FileInfo file)
-        => ReadCollection(file, null);
+    {
+        Throw.IfNull(file);
+
+        return ReadCollection(file.FullName);
+    }
 
     /// <summary>
     /// Read basic information about an image with multiple frames/pages.
@@ -376,7 +380,11 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <param name="file">The file to read the image from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(FileInfo file)
-        => Read(file, null);
+    {
+        Throw.IfNull(file);
+
+        Read(file.FullName);
+    }
 
     /// <summary>
     /// Read basic information about an image.
@@ -386,9 +394,9 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
     {
-        using var image = new MagickImage();
-        image.Ping(file, readSettings);
-        Initialize(image);
+        Throw.IfNull(file);
+
+        Read(file.FullName, readSettings);
     }
 
     /// <summary>

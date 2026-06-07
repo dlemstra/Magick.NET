@@ -768,7 +768,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="file">The file to read the frames from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Ping(FileInfo file)
-        => Ping(file, null);
+    {
+        Throw.IfNull(file);
+
+        Ping(file.FullName);
+    }
 
     /// <summary>
     /// Read only metadata and not the pixel data from all image frames.
@@ -966,7 +970,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="file">The file to read the frames from.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(FileInfo file)
-        => Read(file, null);
+    {
+        Throw.IfNull(file);
+
+        Read(file.FullName);
+    }
 
     /// <summary>
     /// Read all image frames.
@@ -975,7 +983,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="format">The format to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Read(FileInfo file, MagickFormat format)
-        => Read(file, new MagickReadSettings { Format = format });
+    {
+        Throw.IfNull(file);
+
+        Read(file.FullName, format);
+    }
 
     /// <summary>
     /// Read all image frames.
@@ -1055,7 +1067,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(FileInfo file)
-        => ReadAsync(file, CancellationToken.None);
+    {
+        Throw.IfNull(file);
+
+        return ReadAsync(file.FullName);
+    }
 
     /// <summary>
     /// Read all image frames.
@@ -1065,7 +1081,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(FileInfo file, CancellationToken cancellationToken)
-        => ReadAsync(file, null, cancellationToken);
+    {
+        Throw.IfNull(file);
+
+        return ReadAsync(file.FullName, cancellationToken);
+    }
 
     /// <summary>
     /// Read all image frames.
@@ -1075,7 +1095,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
-        => ReadAsync(file, readSettings, CancellationToken.None);
+    {
+        Throw.IfNull(file);
+
+        return ReadAsync(file.FullName, readSettings);
+    }
 
     /// <summary>
     /// Read all image frames.
@@ -1100,7 +1124,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(FileInfo file, MagickFormat format)
-        => ReadAsync(file, format, CancellationToken.None);
+    {
+        Throw.IfNull(file);
+
+        return ReadAsync(file.FullName, format);
+    }
 
     /// <summary>
     /// Read all image frames.
@@ -1111,7 +1139,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
-        => ReadAsync(file, new MagickReadSettings { Format = format }, cancellationToken);
+    {
+        Throw.IfNull(file);
+
+        return ReadAsync(file.FullName, format, cancellationToken);
+    }
 
     /// <summary>
     /// Read all image frames.
@@ -1416,8 +1448,10 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Write(FileInfo file, IWriteDefines defines)
     {
-        SetDefines(defines);
-        Write(file, defines.Format);
+        Throw.IfNull(file);
+
+        Write(file.FullName, defines);
+        file.Refresh();
     }
 
     /// <summary>
@@ -1429,8 +1463,10 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Write(FileInfo file, MagickFormat format)
     {
-        using var tempFormat = new TemporaryMagickFormat(this, format);
-        Write(file);
+        Throw.IfNull(file);
+
+        Write(file.FullName, format);
+        file.Refresh();
     }
 
     /// <summary>
@@ -1546,8 +1582,13 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="file">The file to write the image to.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task WriteAsync(FileInfo file)
-        => WriteAsync(file, CancellationToken.None);
+    public async Task WriteAsync(FileInfo file)
+    {
+        Throw.IfNull(file);
+
+        await WriteAsync(file.FullName);
+        file.Refresh();
+    }
 
     /// <summary>
     /// Writes the images to the specified file. If the output image's file format does not
@@ -1557,15 +1598,12 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task WriteAsync(FileInfo file, CancellationToken cancellationToken)
+    public async Task WriteAsync(FileInfo file, CancellationToken cancellationToken)
     {
         Throw.IfNull(file);
 
-        if (_images.Count == 0)
-            return Task.CompletedTask;
-
-        var formatInfo = MagickFormatInfo.Create(file);
-        return WriteAsyncInternal(file.FullName, formatInfo?.Format, cancellationToken);
+        await WriteAsync(file.FullName, cancellationToken);
+        file.Refresh();
     }
 
     /// <summary>
@@ -1576,8 +1614,13 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="defines">The defines to set.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task WriteAsync(FileInfo file, IWriteDefines defines)
-        => WriteAsync(file, defines, CancellationToken.None);
+    public async Task WriteAsync(FileInfo file, IWriteDefines defines)
+    {
+        Throw.IfNull(file);
+
+        await WriteAsync(file.FullName, defines);
+        file.Refresh();
+    }
 
     /// <summary>
     /// Writes the images to the specified file. If the output image's file format does not
@@ -1588,10 +1631,12 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task WriteAsync(FileInfo file, IWriteDefines defines, CancellationToken cancellationToken)
+    public async Task WriteAsync(FileInfo file, IWriteDefines defines, CancellationToken cancellationToken)
     {
-        SetDefines(defines);
-        return WriteAsync(file, defines.Format, cancellationToken);
+        Throw.IfNull(file);
+
+        await WriteAsync(file.FullName, defines, cancellationToken);
+        file.Refresh();
     }
 
     /// <summary>
@@ -1602,8 +1647,13 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="format">The format to use.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task WriteAsync(FileInfo file, MagickFormat format)
-        => WriteAsync(file, format, CancellationToken.None);
+    public async Task WriteAsync(FileInfo file, MagickFormat format)
+    {
+        Throw.IfNull(file);
+
+        await WriteAsync(file.FullName, format);
+        file.Refresh();
+    }
 
     /// <summary>
     /// Writes the images to the specified file. If the output image's file format does not
@@ -1614,14 +1664,12 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task WriteAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
+    public async Task WriteAsync(FileInfo file, MagickFormat format, CancellationToken cancellationToken)
     {
         Throw.IfNull(file);
 
-        if (_images.Count == 0)
-            return Task.CompletedTask;
-
-        return WriteAsyncInternal(file.FullName, format, cancellationToken);
+        await WriteAsync(file.FullName, format, cancellationToken);
+        file.Refresh();
     }
 
     /// <summary>
@@ -1727,7 +1775,11 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        return WriteAsync(new FileInfo(filePath), cancellationToken);
+        if (_images.Count == 0)
+            return Task.CompletedTask;
+
+        var formatInfo = MagickFormatInfo.Create(filePath);
+        return WriteAsyncInternal(filePath, formatInfo?.Format, cancellationToken);
     }
 
     /// <summary>

@@ -86,12 +86,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     {
         Throw.IfNull(file);
 
-        var format = EnumHelper.ParseMagickFormatFromExtension(file);
-
-        if (format == MagickFormat.Unknown)
-            return null;
-
-        return Create(format);
+        return Create(file.FullName);
     }
 
     /// <summary>
@@ -130,7 +125,12 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        return Create(new FileInfo(filePath));
+        var format = EnumHelper.ParseMagickFormatFromExtension(filePath);
+
+        if (format == MagickFormat.Unknown)
+            return null;
+
+        return Create(format);
     }
 
     /// <summary>

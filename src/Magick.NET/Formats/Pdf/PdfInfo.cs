@@ -26,7 +26,11 @@ public sealed partial class PdfInfo
     /// <param name="file">The pdf file to create the info from.</param>
     /// <returns>The info of a <see cref="MagickFormat.Pdf"/> file.</returns>
     public static PdfInfo Create(FileInfo file)
-        => Create(file, string.Empty);
+    {
+        Throw.IfNull(file);
+
+        return Create(file.FullName);
+    }
 
     /// <summary>
     /// Creates info from a <see cref="MagickFormat.Pdf"/> file.
@@ -37,6 +41,7 @@ public sealed partial class PdfInfo
     public static PdfInfo Create(FileInfo file, string password)
     {
         Throw.IfNull(file);
+
         return Create(file.FullName, password);
     }
 

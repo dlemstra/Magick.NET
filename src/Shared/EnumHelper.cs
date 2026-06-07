@@ -36,11 +36,12 @@ internal static class EnumHelper
         where TEnum : struct, Enum
         => Parse((object)(int)value, defaultValue);
 
-    public static MagickFormat ParseMagickFormatFromExtension(FileInfo file)
+    public static MagickFormat ParseMagickFormatFromExtension(string fileName)
     {
         MagickFormat format = default;
-        if (file.Extension is not null && file.Extension.Length > 1)
-            format = Parse(file.Extension.Substring(1), MagickFormat.Unknown);
+        var extension = Path.GetExtension(fileName);
+        if (extension is not null && extension.Length > 1)
+            format = Parse(extension.Substring(1), MagickFormat.Unknown);
 
         return format;
     }
