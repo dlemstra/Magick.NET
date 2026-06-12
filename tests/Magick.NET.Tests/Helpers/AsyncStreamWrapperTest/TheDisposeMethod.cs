@@ -1,0 +1,23 @@
+﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
+// Licensed under the Apache License, Version 2.0.
+
+using ImageMagick;
+using Xunit;
+
+namespace Magick.NET.Tests;
+
+public partial class AsyncStreamWrapperTest
+{
+    public class TheDisposeMethod
+    {
+        [Fact]
+        public void ShouldNotThrowExceptionWhenCalledTwice()
+        {
+            using var stream = TestStream.ThatCanOnlyRead();
+            var wrapper = StreamWrapper.CreateForReading(stream);
+
+            wrapper.Dispose();
+            wrapper.Dispose();
+        }
+    }
+}

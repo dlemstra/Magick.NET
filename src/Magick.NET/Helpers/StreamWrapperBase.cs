@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace ImageMagick;
 
-internal abstract unsafe class StreamWrapperBase : IDisposable
+internal unsafe abstract class StreamWrapperBase : IDisposable
 {
     private const int BufferSize = 8192;
 
