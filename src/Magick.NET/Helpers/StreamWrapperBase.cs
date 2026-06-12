@@ -57,18 +57,14 @@ internal unsafe abstract class StreamWrapperBase : IDisposable
         {
             var length = (int)Math.Min(total, BufferSize);
 
-            try
-            {
-                length = Read(length);
-                if (length == 0)
-                    break;
-
-                NativeMemory.Copy(_bufferStart, destination, length);
-            }
-            catch
-            {
+            length = Read(length);
+            if (length < 0)
                 return -1;
-            }
+
+            if (length == 0)
+                break;
+
+            NativeMemory.Copy(_bufferStart, destination, length);
 
             if (length == 0)
                 break;
@@ -126,15 +122,9 @@ internal unsafe abstract class StreamWrapperBase : IDisposable
         {
             var length = (int)Math.Min(total, BufferSize);
 
-            try
-            {
-                NativeMemory.Copy(source, _bufferStart, length);
-                Write(length);
-            }
-            catch
-            {
+            NativeMemory.Copy(source, _bufferStart, length);
+            if (!Write(length))
                 return -1;
-            }
 
             source += length;
             total -= length;
@@ -149,5 +139,5 @@ internal unsafe abstract class StreamWrapperBase : IDisposable
 
     protected abstract long Tell();
 
-    protected abstract void Write(int count);
+    protected abstract bool Write(int count);
 }

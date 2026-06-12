@@ -93,14 +93,14 @@ internal class AsyncStreamWrapper : StreamWrapperBase
     protected override int Read(int count)
     {
         if (_exceptionThrown)
-            throw new InvalidOperationException();
+            return -1;
 
         _readCount = count;
         _performRead.Release();
         _readDone.Wait();
 
         if (_exceptionThrown)
-            throw new InvalidOperationException();
+            return -1;
 
         return _readCount;
     }
@@ -111,17 +111,19 @@ internal class AsyncStreamWrapper : StreamWrapperBase
     protected override long Tell()
         => _stream.Position;
 
-    protected override void Write(int count)
+    protected override bool Write(int count)
     {
         if (_exceptionThrown)
-            throw new InvalidOperationException();
+            return false;
 
         _writeCount = count;
         _performWrite.Release();
         _writeDone.Wait();
 
         if (_exceptionThrown)
-            throw new InvalidOperationException();
+            return false;
+
+        return true;
     }
 
     private async Task ReadAsync(CancellationToken cancellationToken)

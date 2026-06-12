@@ -30,7 +30,16 @@ internal sealed class StreamWrapper : StreamWrapperBase
     }
 
     protected override int Read(int count)
-        => _stream.Read(Data, 0, count);
+    {
+        try
+        {
+            return _stream.Read(Data, 0, count);
+        }
+        catch
+        {
+            return -1;
+        }
+    }
 
     protected override long Seek(long offset, SeekOrigin origin)
         => _stream.Seek(offset, origin);
@@ -38,6 +47,16 @@ internal sealed class StreamWrapper : StreamWrapperBase
     protected override long Tell()
         => _stream.Position;
 
-    protected override void Write(int count)
-        => _stream.Write(Data, 0, count);
+    protected override bool Write(int count)
+    {
+        try
+        {
+            _stream.Write(Data, 0, count);
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
+    }
 }
