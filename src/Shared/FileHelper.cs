@@ -25,28 +25,6 @@ internal static partial class FileHelper
         return path;
     }
 
-    public static async Task<byte[]> ReadAllBytesAsync(string fileName, CancellationToken cancellationToken)
-    {
-#if !NETSTANDARD2_0
-        return await File.ReadAllBytesAsync(fileName, cancellationToken).ConfigureAwait(false);
-#else
-        using var fileStream = File.OpenRead(fileName);
-        var bytes = new byte[fileStream.Length];
-        await fileStream.ReadAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
-        return bytes;
-#endif
-    }
-
-    internal static async Task WriteAllBytesAsync(string fileName, byte[] bytes, CancellationToken cancellationToken)
-    {
-#if !NETSTANDARD2_0
-        await File.WriteAllBytesAsync(fileName, bytes, cancellationToken).ConfigureAwait(false);
-#else
-        using var fileStream = File.Open(fileName, FileMode.Create, FileAccess.Write);
-        await fileStream.WriteAsync(bytes, 0, bytes.Length, cancellationToken).ConfigureAwait(false);
-#endif
-    }
-
     private static string PrependWithBaseDirectory(string fileName)
     {
         if (fileName.Length < 2 || fileName[0] != '~')

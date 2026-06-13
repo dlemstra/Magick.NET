@@ -4968,7 +4968,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken)
-        => ReadAsync(stream, new MagickReadSettings(_settings) { Format = format }, cancellationToken);
+        => ReadAsync(stream, null, format, false, cancellationToken);
 
     /// <summary>
     /// Read single image frame.
@@ -4988,13 +4988,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
-    {
-        Throw.IfNull(stream);
-
-        var bytes = await Bytes.CreateAsync(stream, cancellationToken).ConfigureAwait(false);
-        Read(bytes.GetData(), 0, (uint)bytes.Length, readSettings);
-    }
+    public Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
+        => ReadAsync(stream, readSettings, null, false, cancellationToken);
 
     /// <summary>
     /// Read single image frame.
@@ -5037,10 +5032,10 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        var bytes = await FileHelper.ReadAllBytesAsync(filePath, cancellationToken).ConfigureAwait(false);
+        var format = EnumHelper.ParseMagickFormatFromExtension(filePath);
 
-        cancellationToken.ThrowIfCancellationRequested();
-        Read(bytes, 0U, (nuint)bytes.Length, readSettings, false, filePath);
+        using var fileStream = File.OpenRead(filePath);
+        await ReadAsync(fileStream, readSettings, format, false, cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -5266,10 +5261,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        var data = await FileHelper.ReadAllBytesAsync(filePath, cancellationToken).ConfigureAwait(false);
-
-        cancellationToken.ThrowIfCancellationRequested();
-        ReadPixels(data, 0, (uint)data.Length, settings);
+        using var fileStream = File.OpenRead(filePath);
+        await ReadPixelsAsync(fileStream, settings, cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -7294,7 +7287,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(file);
 
-        await WriteAsync(file.FullName);
+        await WriteAsync(file.FullName).ConfigureAwait(false);
         file.Refresh();
     }
 
@@ -7309,7 +7302,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(file);
 
-        await WriteAsync(file.FullName, cancellationToken);
+        await WriteAsync(file.FullName, cancellationToken).ConfigureAwait(false);
         file.Refresh();
     }
 
@@ -7324,7 +7317,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(file);
 
-        await WriteAsync(file, defines);
+        await WriteAsync(file, defines).ConfigureAwait(false);
         file.Refresh();
     }
 
@@ -7340,7 +7333,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(file);
 
-        await WriteAsync(file.FullName, defines, cancellationToken);
+        await WriteAsync(file.FullName, defines, cancellationToken).ConfigureAwait(false);
         file.Refresh();
     }
 
@@ -7355,7 +7348,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(file);
 
-        await WriteAsync(file, format);
+        await WriteAsync(file, format).ConfigureAwait(false);
         file.Refresh();
     }
 
@@ -7371,7 +7364,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         Throw.IfNull(file);
 
-        await WriteAsync(file.FullName, format, cancellationToken);
+        await WriteAsync(file.FullName, format, cancellationToken).ConfigureAwait(false);
         file.Refresh();
     }
 
@@ -7391,12 +7384,34 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task WriteAsync(Stream stream, CancellationToken cancellationToken)
+    public async Task WriteAsync(Stream stream, CancellationToken cancellationToken)
     {
         Throw.IfNull(stream);
 
-        var bytes = ToByteArray();
-        return stream.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
+        _settings.FileName = null;
+
+        using var wrapper = AsyncStreamWrapper.CreateForWriting(stream);
+        await wrapper.WriteAsync(
+            () =>
+            {
+
+                var writer = new ReadWriteStreamDelegate(wrapper.Write);
+                ReadWriteStreamDelegate? reader = null;
+                SeekStreamDelegate? seeker = null;
+                TellStreamDelegate? teller = null;
+
+                if (stream.CanSeek)
+                {
+                    seeker = new SeekStreamDelegate(wrapper.Seek);
+                    teller = new TellStreamDelegate(wrapper.Tell);
+                }
+
+                if (stream.CanRead)
+                    reader = new ReadWriteStreamDelegate(wrapper.Read);
+
+                _nativeInstance.WriteStream(_settings, writer, seeker, teller, reader);
+            },
+            cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -7465,11 +7480,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task WriteAsync(string fileName, CancellationToken cancellationToken)
     {
-        var filePath = FileHelper.CheckForBaseDirectory(fileName);
-
-        var format = EnumHelper.ParseMagickFormatFromExtension(filePath);
-        var bytes = format != MagickFormat.Unknown ? ToByteArray(format) : ToByteArray();
-        return FileHelper.WriteAllBytesAsync(filePath, bytes, cancellationToken);
+        var format = EnumHelper.ParseMagickFormatFromExtension(fileName);
+        return WriteAsync(fileName, format, cancellationToken);
     }
 
     /// <summary>
@@ -7514,12 +7526,12 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task WriteAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
+    public async Task WriteAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        var bytes = ToByteArray(format);
-        return FileHelper.WriteAllBytesAsync(filePath, bytes, cancellationToken);
+        using var fileStream = File.Open(filePath, FileMode.Create, FileAccess.Write);
+        await WriteAsync(fileStream, format, cancellationToken).ConfigureAwait(false);
     }
 
     internal static IMagickImage<QuantumType>? Clone(IMagickImage<QuantumType>? image)
@@ -7878,6 +7890,39 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         _settings.Ping = ping;
 
         _nativeInstance.ReadFile(Settings);
+        ResetSettings();
+    }
+
+    private async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings, MagickFormat? format, bool ping, CancellationToken cancellationToken)
+    {
+        Throw.IfNullOrEmpty(stream);
+
+        var settings = CreateReadSettings(readSettings);
+        SetSettings(settings);
+
+        _settings.Ping = ping;
+        _settings.FileName = null;
+        if (format is not null)
+            _settings.Format = format.Value;
+
+        using var wrapper = AsyncStreamWrapper.CreateForReading(stream);
+        await wrapper.ReadAsync(
+            () =>
+            {
+                var reader = new ReadWriteStreamDelegate(wrapper.Read);
+                SeekStreamDelegate? seeker = null;
+                TellStreamDelegate? teller = null;
+
+                if (stream.CanSeek)
+                {
+                    seeker = new SeekStreamDelegate(wrapper.Seek);
+                    teller = new TellStreamDelegate(wrapper.Tell);
+                }
+
+                _nativeInstance.ReadStream(Settings, reader, seeker, teller);
+            },
+            cancellationToken).ConfigureAwait(false);
+
         ResetSettings();
     }
 

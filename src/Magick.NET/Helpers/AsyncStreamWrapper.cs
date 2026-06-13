@@ -57,7 +57,7 @@ internal class AsyncStreamWrapper : StreamWrapperBase
             CancellationToken.None);
         var readTask = ReadAsync(cancellationToken);
 
-        await Task.WhenAll(actionTask, readTask);
+        await Task.WhenAll(actionTask, readTask).ConfigureAwait(false);
 
         if (_exceptionThrown)
             cancellationToken.ThrowIfCancellationRequested();
@@ -84,7 +84,7 @@ internal class AsyncStreamWrapper : StreamWrapperBase
         var readTask = ReadAsync(cancellationToken);
         var writeTask = WriteAsync(cancellationToken);
 
-        await Task.WhenAll(actionTask, readTask, writeTask);
+        await Task.WhenAll(actionTask, readTask, writeTask).ConfigureAwait(false);
 
         if (_exceptionThrown)
             cancellationToken.ThrowIfCancellationRequested();
