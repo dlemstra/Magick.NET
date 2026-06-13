@@ -313,23 +313,6 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     }
 
     /// <summary>
-    /// Adds the image(s) from the specified file name to the collection.
-    /// </summary>
-    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void AddRange(string fileName)
-        => AddRange(fileName, null);
-
-    /// <summary>
-    /// Adds the image(s) from the specified file name to the collection.
-    /// </summary>
-    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
-    /// <param name="readSettings">The settings to use when reading the image.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void AddRange(string fileName, IMagickReadSettings<QuantumType>? readSettings)
-        => AddImages(fileName, readSettings, false);
-
-    /// <summary>
     /// Adds the image(s) from the specified stream to the collection.
     /// </summary>
     /// <param name="stream">The stream to read the images from.</param>
@@ -345,6 +328,23 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void AddRange(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
         => AddImages(stream, readSettings, false);
+
+    /// <summary>
+    /// Adds the image(s) from the specified file name to the collection.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void AddRange(string fileName)
+        => AddRange(fileName, null);
+
+    /// <summary>
+    /// Adds the image(s) from the specified file name to the collection.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void AddRange(string fileName, IMagickReadSettings<QuantumType>? readSettings)
+        => AddImages(fileName, readSettings, false);
 
     /// <summary>
     /// Creates a single image, by appending all the images in the collection horizontally (+append).
@@ -1148,6 +1148,72 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <summary>
     /// Read all image frames.
     /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task ReadAsync(Stream stream)
+        => ReadAsync(stream, CancellationToken.None);
+
+    /// <summary>
+    /// Read all image frames.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task ReadAsync(Stream stream, CancellationToken cancellationToken)
+        => ReadAsync(stream, null);
+
+    /// <summary>
+    /// Read all image frames.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="format">The format to use.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task ReadAsync(Stream stream, MagickFormat format)
+        => ReadAsync(stream, format, CancellationToken.None);
+
+    /// <summary>
+    /// Read all image frames.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="format">The format to use.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task ReadAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken)
+        => ReadAsync(stream, new MagickReadSettings { Format = format }, cancellationToken);
+
+    /// <summary>
+    /// Read all image frames.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
+        => ReadAsync(stream, readSettings, CancellationToken.None);
+
+    /// <summary>
+    /// Read all image frames.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
+    {
+        var bytes = await Bytes.CreateAsync(stream, cancellationToken).ConfigureAwait(false);
+
+        Clear();
+        AddImages(bytes.GetData(), 0, (uint)bytes.Length, readSettings, false);
+    }
+
+    /// <summary>
+    /// Read all image frames.
+    /// </summary>
     /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
     /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -1213,72 +1279,6 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public Task ReadAsync(string fileName, MagickFormat format, CancellationToken cancellationToken)
         => ReadAsync(fileName, new MagickReadSettings { Format = format }, cancellationToken);
-
-    /// <summary>
-    /// Read all image frames.
-    /// </summary>
-    /// <param name="stream">The stream to read the image data from.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task ReadAsync(Stream stream)
-        => ReadAsync(stream, CancellationToken.None);
-
-    /// <summary>
-    /// Read all image frames.
-    /// </summary>
-    /// <param name="stream">The stream to read the image data from.</param>
-    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task ReadAsync(Stream stream, CancellationToken cancellationToken)
-        => ReadAsync(stream, null);
-
-    /// <summary>
-    /// Read all image frames.
-    /// </summary>
-    /// <param name="stream">The stream to read the image data from.</param>
-    /// <param name="format">The format to use.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task ReadAsync(Stream stream, MagickFormat format)
-        => ReadAsync(stream, format, CancellationToken.None);
-
-    /// <summary>
-    /// Read all image frames.
-    /// </summary>
-    /// <param name="stream">The stream to read the image data from.</param>
-    /// <param name="format">The format to use.</param>
-    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task ReadAsync(Stream stream, MagickFormat format, CancellationToken cancellationToken)
-        => ReadAsync(stream, new MagickReadSettings { Format = format }, cancellationToken);
-
-    /// <summary>
-    /// Read all image frames.
-    /// </summary>
-    /// <param name="stream">The stream to read the image data from.</param>
-    /// <param name="readSettings">The settings to use when reading the image.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
-        => ReadAsync(stream, readSettings, CancellationToken.None);
-
-    /// <summary>
-    /// Read all image frames.
-    /// </summary>
-    /// <param name="stream">The stream to read the image data from.</param>
-    /// <param name="readSettings">The settings to use when reading the image.</param>
-    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
-    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public async Task ReadAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
-    {
-        var bytes = await Bytes.CreateAsync(stream, cancellationToken).ConfigureAwait(false);
-
-        Clear();
-        AddImages(bytes.GetData(), 0, (uint)bytes.Length, readSettings, false);
-    }
 
     /// <summary>
     /// Removes the first occurrence of the specified image from the collection.
@@ -1867,16 +1867,14 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         AddImages(result, settings);
     }
 
-    private void AddImages(string fileName, IMagickReadSettings<QuantumType>? readSettings, bool ping)
+    private void AddImages(IntPtr result, MagickSettings settings)
     {
-        var filePath = FileHelper.CheckForBaseDirectory(fileName);
+        settings.Format = MagickFormat.Unknown;
 
-        var settings = CreateSettings(readSettings);
-        settings.FileName = filePath;
-        settings.Ping = ping;
-
-        var result = _nativeInstance.ReadFile(settings);
-        AddImages(result, settings);
+        foreach (var image in MagickImage.CreateList(result, settings))
+        {
+            _images.Add(image);
+        }
     }
 
     private void AddImages(Stream stream, IMagickReadSettings<QuantumType>? readSettings, bool ping)
@@ -1909,14 +1907,16 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         AddImages(result, settings);
     }
 
-    private void AddImages(IntPtr result, MagickSettings settings)
+    private void AddImages(string fileName, IMagickReadSettings<QuantumType>? readSettings, bool ping)
     {
-        settings.Format = MagickFormat.Unknown;
+        var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        foreach (var image in MagickImage.CreateList(result, settings))
-        {
-            _images.Add(image);
-        }
+        var settings = CreateSettings(readSettings);
+        settings.FileName = filePath;
+        settings.Ping = ping;
+
+        var result = _nativeInstance.ReadFile(settings);
+        AddImages(result, settings);
     }
 
     private void CheckDuplicate(IMagickImage<QuantumType> item)
