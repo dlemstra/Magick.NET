@@ -7394,7 +7394,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         await wrapper.WriteAsync(
             () =>
             {
-
                 var writer = new ReadWriteStreamDelegate(wrapper.Write);
                 ReadWriteStreamDelegate? reader = null;
                 SeekStreamDelegate? seeker = null;
