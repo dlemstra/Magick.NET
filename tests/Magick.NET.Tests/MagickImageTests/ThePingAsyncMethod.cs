@@ -240,7 +240,6 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.PingAsync((Stream)null!, settings, TestContext.Current.CancellationToken));
-
             }
 
             [Fact]
