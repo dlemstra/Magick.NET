@@ -4482,6 +4482,94 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => Read(fileName, readSettings, true);
 
     /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="file">The file to read the image from.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(FileInfo file)
+        => PingAsync(file, CancellationToken.None);
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="file">The file to read the image from.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(FileInfo file, CancellationToken cancellationToken)
+    {
+        Throw.IfNull(file);
+
+        return PingAsync(file.FullName, cancellationToken);
+    }
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="file">The file to read the image from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(FileInfo file, IMagickReadSettings<QuantumType>? readSettings)
+        => PingAsync(file, readSettings, CancellationToken.None);
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="file">The file to read the image from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(FileInfo file, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
+    {
+        Throw.IfNull(file);
+
+        return PingAsync(file.FullName, readSettings, cancellationToken);
+    }
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(Stream stream)
+        => PingAsync(stream, CancellationToken.None);
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(Stream stream, CancellationToken cancellationToken)
+         => PingAsync(stream, null, cancellationToken);
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings)
+        => PingAsync(stream, readSettings, CancellationToken.None);
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
+        => ReadAsync(stream, readSettings, null, true, cancellationToken);
+
+    /// <summary>
     /// Simulates a polaroid picture.
     /// </summary>
     /// <param name="caption">The caption to put on the image.</param>
@@ -4493,6 +4581,53 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfNull(caption);
 
         _nativeInstance.Polaroid(_settings.Drawing, caption, angle, method);
+    }
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(string fileName)
+        => PingAsync(fileName, CancellationToken.None);
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(string fileName, CancellationToken cancellationToken)
+        => PingAsync(fileName, null, cancellationToken);
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public Task PingAsync(string fileName, IMagickReadSettings<QuantumType>? readSettings)
+        => PingAsync(fileName, readSettings, CancellationToken.None);
+
+    /// <summary>
+    /// Reads only metadata and not the pixel data.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <param name="readSettings">The settings to use when reading the image.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public async Task PingAsync(string fileName, IMagickReadSettings<QuantumType>? readSettings, CancellationToken cancellationToken)
+    {
+        var filePath = FileHelper.CheckForBaseDirectory(fileName);
+
+        var format = EnumHelper.ParseMagickFormatFromExtension(filePath);
+
+        using var fileStream = File.OpenRead(filePath);
+        await ReadAsync(fileStream, readSettings, format, true, cancellationToken).ConfigureAwait(false);
     }
 
     /// <summary>
@@ -7901,7 +8036,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
         _settings.Ping = ping;
         _settings.FileName = null;
-        if (format is not null)
+        if (settings.Format == default && format is not null)
             _settings.Format = format.Value;
 
         using var wrapper = AsyncStreamWrapper.CreateForReading(stream);

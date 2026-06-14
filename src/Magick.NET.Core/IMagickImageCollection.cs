@@ -142,6 +142,57 @@ public partial interface IMagickImageCollection : IDisposable
     void Ping(string fileName);
 
     /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
+    /// <param name="file">The file to read the frames from.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    Task PingAsync(FileInfo file);
+
+    /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
+    /// <param name="file">The file to read the frames from.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    Task PingAsync(FileInfo file, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    Task PingAsync(Stream stream);
+
+    /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
+    /// <param name="stream">The stream to read the image data from.</param>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    Task PingAsync(Stream stream, CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    Task PingAsync(string fileName);
+
+    /// <summary>
+    /// Read only metadata and not the pixel data from all image frames.
+    /// </summary>
+    /// <param name="fileName">The fully qualified name of the image file, or the relative image file name.</param>
+    /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+    /// <param name="cancellationToken">The token to monitor for cancellation requests.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    Task PingAsync(string fileName, CancellationToken cancellationToken);
+
+    /// <summary>
     /// Quantize images (reduce number of colors).
     /// </summary>
     /// <returns>The resulting image of the quantize operation.</returns>
