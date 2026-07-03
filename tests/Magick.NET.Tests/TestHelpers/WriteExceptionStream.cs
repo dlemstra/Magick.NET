@@ -14,7 +14,5 @@ internal sealed class WriteExceptionStream : TestStream
     }
 
     public override void Write(byte[] buffer, int offset, int count)
-    {
-        throw new InvalidOperationException();
-    }
+        => throw new InvalidOperationException();
 }
