@@ -7,34 +7,19 @@ function installPackage($version, $target) {
     Remove-Item $target -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $target)
 
-    $temp = "$PSScriptRoot\packages"
-    Remove-Item $temp -Recurse -ErrorAction Ignore
-    [void](New-Item -ItemType directory -Path $temp)
+    $release = Invoke-RestMethod -Uri "https://api.github.com/repos/dlemstra/Magick.Native/releases/tags/$version"
 
-    $nugetPath = fullPath "tools\windows\nuget.exe"
+    Write-Host "Installing Magick.Native $version"
 
-    if (!(Test-Path $nugetPath))
-    {
-        Write-Host "Downloading latest NuGet Package manager."
-
-        Invoke-WebRequest -Uri "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe" -OutFile $nugetPath
+    foreach ($asset in $release.assets) {
+        if ($asset.name -match '^(metadata|windows|linux|macos)') {
+            $zipFile = "$target\$($asset.name)"
+            Write-Host "Downloading $($asset.name)"
+            Invoke-WebRequest -Uri $asset.browser_download_url -OutFile $zipFile
+            Expand-Archive -Path $zipFile -DestinationPath $target -Force
+            Remove-Item $zipFile
+        }
     }
-
-    if (!(Test-Path "nuget.config"))
-    {
-        $username = Read-Host "Enter your GitHub username"
-        $token = Read-Host "Enter your package read token"
-
-        $process = Start-Process -FilePath ".\create-nuget-config.cmd" -ArgumentList "$username $token" -PassThru -NoNewWindow
-        $process.WaitForExit()
-    }
-
-    Write-Host "Installing Magick.Native.$version.nupkg"
-
-    $process = Start-Process -FilePath "$nugetPath" -ArgumentList "install Magick.Native -Version $version -OutputDirectory ""$target""" -PassThru -NoNewWindow
-    $process.WaitForExit()
-
-    Remove-Item $temp -Recurse -ErrorAction Ignore
 }
 
 function copyToSamplesProject($source, $target, $quantum, $platform) {
@@ -101,7 +86,7 @@ function copyToTestProjects($source, $target) {
 }
 
 function copyMetadata($source, $target) {
-    Copy-Item "$source\**\content\*.md" -Force "$target"
+    Copy-Item "$source\metadata\*.md" -Force "$target"
 }
 
 function copyNotice($source, $target) {
@@ -120,24 +105,30 @@ function copyLibraries($source, $target) {
     Remove-Item $target -Recurse -ErrorAction Ignore
     [void](New-Item -ItemType directory -Path $target)
 
-    copyNotice "$source\**\content\Notice.txt" "$target\Notice.txt"
+    copyNotice "$source\metadata\NOTICE.txt" "$target\Notice.txt"
 
     [void](New-Item -ItemType directory -Path "$target\win")
-    Copy-Item "$source\**\content\windows\**\**\*.dll" -Force "$target\win"
+    Copy-Item "$source\windows\*\*\*.dll" -Force "$target\win"
 
-    [void](New-Item -ItemType directory -Path "$target\linux")
-    Copy-Item "$source\**\content\linux\**\**\*.so" -Force "$target\linux"
+    if (Test-Path "$source\linux") {
+        [void](New-Item -ItemType directory -Path "$target\linux")
+        Copy-Item "$source\linux\*\*\*.so" -Force "$target\linux"
+    }
 
-    [void](New-Item -ItemType directory -Path "$target\linux-musl")
-    Copy-Item "$source\**\content\linux-musl\**\**\*.so" -Force "$target\linux-musl"
+    if (Test-Path "$source\linux-musl") {
+        [void](New-Item -ItemType directory -Path "$target\linux-musl")
+        Copy-Item "$source\linux-musl\*\*\*.so" -Force "$target\linux-musl"
+    }
 
-    [void](New-Item -ItemType directory -Path "$target\osx")
-    Copy-Item "$source\**\content\macos\**\**\*.dylib" -Force "$target\osx"
+    if (Test-Path "$source\macos") {
+        [void](New-Item -ItemType directory -Path "$target\osx")
+        Copy-Item "$source\macos\*\*\*.dylib" -Force "$target\osx"
+    }
 }
 
 function copyResource($source, $target, $quantum) {
     [void](New-Item -ItemType directory -Path "$target\Release$quantum")
-    Copy-Item "$source\**\content\resources\Release$quantum\*" "$target\Release$quantum" -Recurse -Force
+    Copy-Item "$source\resources\Release$quantum\*" "$target\Release$quantum" -Recurse -Force
 }
 
 function copyResources($source, $target) {
