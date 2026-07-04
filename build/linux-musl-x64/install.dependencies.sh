@@ -3,7 +3,7 @@ set -e
 
 apk update -q
 
-apk add -q bash curl ffmpeg fontconfig git
+apk add -q bash curl ffmpeg fontconfig git > /dev/null
 
 git clone -q https://github.com/ImageMagick/msttcorefonts msttcorefonts
 cd msttcorefonts

@@ -3,7 +3,7 @@ set -e
 
 sudo apt-get -qq update
 
-sudo apt-get -qq install ffmpeg fontconfig unzip -y
+sudo apt-get -qq install ffmpeg fontconfig unzip -y > /dev/null
 
 git clone -q https://github.com/ImageMagick/msttcorefonts msttcorefonts
 cd msttcorefonts
