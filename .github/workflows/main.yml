@@ -129,7 +129,7 @@ jobs:
 
       - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 #v5.4.0
         with:
-          dotnet-version: | 
+          dotnet-version: |
             8.x
             9.x
 
@@ -200,7 +200,7 @@ jobs:
       - name: Test
         run: build/shared/test.Magick.NET.sh arm64
 
-  windows_x64:
+  windows:
     name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
     runs-on: windows-2025-vs2026
     needs:
@@ -209,21 +209,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
+        quantumName: [Q8, Q16, Q16-HDRI]
         platformName: [x86, x64, Any CPU]
-        exclude:
+        include:
         - quantumName: Q8-OpenMP
-          platformName: x86
+          platformName: x64
         - quantumName: Q16-OpenMP
-          platformName: x86
+          platformName: x64
         - quantumName: Q16-HDRI-OpenMP
-          platformName: x86
-        - quantumName: Q8-OpenMP
-          platformName: Any CPU
-        - quantumName: Q16-OpenMP
-          platformName: Any CPU
-        - quantumName: Q16-HDRI-OpenMP
-          platformName: Any CPU
+          platformName: x64
 
     steps:
       - name: Checkout
@@ -380,10 +374,10 @@ jobs:
       - linux_musl_x64
       - linux_x64
       - macos_arm64
-      - macos_x64 
+      - macos_x64
       - version
+      - windows
       - windows_arm64
-      - windows_x64
 
     permissions:
       id-token: write
