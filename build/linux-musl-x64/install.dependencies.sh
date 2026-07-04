@@ -1,11 +1,11 @@
 #!/bin/sh
 set -e
 
-apk update
+apk update -q
 
-apk add bash curl ffmpeg fontconfig git
+apk add -q bash curl ffmpeg fontconfig git
 
-git clone https://github.com/ImageMagick/msttcorefonts msttcorefonts
+git clone -q https://github.com/ImageMagick/msttcorefonts msttcorefonts
 cd msttcorefonts
 . ./install.sh
 
