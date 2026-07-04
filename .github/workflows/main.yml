@@ -226,8 +226,11 @@ jobs:
           persist-credentials: false
 
       - name: Install dependencies
-        run: ./install.dependencies.cmd
+        run: ./install.dependencies.sh
+        shell: bash
         working-directory: build/windows
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install NuGet
         run: ./install.nuget.cmd
@@ -283,8 +286,11 @@ jobs:
           persist-credentials: false
 
       - name: Install dependencies
-        run: ./install.dependencies.cmd
+        run: ./install.dependencies.sh
+        shell: bash
         working-directory: build/windows
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install NuGet
         run: ./install.nuget.cmd
