@@ -156,7 +156,13 @@ public partial class MagickImageTests
 
         [Theory]
         [InlineData(ErrorMetric.Undefined, 0.3653)]
-        [InlineData(ErrorMetric.Absolute, 0.2905)]
+#if Q8
+        [InlineData(ErrorMetric.Absolute, 13687553.3333)]
+#elif Q16 || Q16HDRI
+        [InlineData(ErrorMetric.Absolute, 3517701206.6666)]
+#else
+#error Not implemented!
+#endif
         [InlineData(ErrorMetric.DotProductCorrelation, 0.4668)]
         [InlineData(ErrorMetric.Fuzz, 0.4662)]
         [InlineData(ErrorMetric.MeanAbsolute, 0.1747)]
@@ -180,7 +186,13 @@ public partial class MagickImageTests
 
         [Theory]
         [InlineData(ErrorMetric.Undefined, 0.4726)]
-        [InlineData(ErrorMetric.Absolute, 0.3944)]
+#if Q8
+        [InlineData(ErrorMetric.Absolute, 1134217.1352)]
+#elif Q16 || Q16HDRI
+        [InlineData(ErrorMetric.Absolute, 291493803.7705)]
+#else
+#error Not implemented!
+#endif
         [InlineData(ErrorMetric.DotProductCorrelation, 0.4748)]
         [InlineData(ErrorMetric.Fuzz, 0.5677)]
         [InlineData(ErrorMetric.MeanAbsolute, 0.2714)]
