@@ -120,8 +120,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Nat
 		src\Magick.Native\Magick.Native.version = src\Magick.Native\Magick.Native.version
 		src\Magick.Native\metadata\libraries.md = src\Magick.Native\metadata\libraries.md
 		src\Magick.Native\TrademarkAttribute.cs = src\Magick.Native\TrademarkAttribute.cs
-		src\Magick.Native\update.trademark.cmd = src\Magick.Native\update.trademark.cmd
-		src\Magick.Native\update.trademark.sh = src\Magick.Native\update.trademark.sh
+		src\Magick.Native\update.native.cmd = src\Magick.Native\update.native.cmd
+		src\Magick.Native\update.native.sh = src\Magick.Native\update.native.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC-32B2-4BA2-93DC-FC990B26D51E}"

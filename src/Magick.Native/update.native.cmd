@@ -1,5 +1,5 @@
 @echo off
 call ..\..\tools\windows\find-bash.cmd
 
-%BASH% update.trademark.sh
+%BASH% update.native.sh
 pause

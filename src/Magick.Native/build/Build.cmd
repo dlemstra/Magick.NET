@@ -22,7 +22,7 @@ if not "%hdri%"=="noHdri" set quantumName=%quantumName%-HDRI
 
 cd ..\..\..\Magick.NET\src\Magick.Native\resources
 
-call ..\..\..\..\Magick.Native\build\windows\copy-resources.cmd Release%quantumName% %architecture%
+call ..\..\..\..\Magick.Native\build\windows\copy-resources.cmd Release%quantumName%\%architecture%
 
 if not "%openMP%"=="noOpenMP" set quantumName=%quantumName%-OpenMP
 
