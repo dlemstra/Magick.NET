@@ -25,7 +25,7 @@ public partial class MagickNETTests
 #else
             var quantum = "Q16-HDRI";
 #endif
-            Assert.Equal($"ImageMagick {version} {quantum} {architecture} 1c86d6b55:20260705 https://imagemagick.org", MagickNET.ImageMagickVersion);
+            Assert.Equal($"ImageMagick {version} {quantum} {architecture} e4c2b403b:20260705 https://imagemagick.org", MagickNET.ImageMagickVersion);
         }
     }
 }
