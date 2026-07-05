@@ -5,8 +5,6 @@ VisualStudioVersion = 18.2.11415.280 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{660486E5-ECAD-49B3-AEBB-A34953E48A72}"
 	ProjectSection(SolutionItems) = preProject
-		publish\convert.pem.cmd = publish\convert.pem.cmd
-		publish\convert.pem.ps1 = publish\convert.pem.ps1
 		publish\Magick.NET.AvaloniaMediaImaging.nuspec = publish\Magick.NET.AvaloniaMediaImaging.nuspec
 		publish\Magick.NET.Core.nuspec = publish\Magick.NET.Core.nuspec
 		publish\Magick.NET.nuspec = publish\Magick.NET.nuspec
@@ -19,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{6604
 		publish\publish.ps1 = publish\publish.ps1
 		publish\publish.shared.ps1 = publish\publish.shared.ps1
 		publish\push.cmd = publish\push.cmd
+		publish\Readme.md = publish\Readme.md
 		publish\update.version.cmd = publish\update.version.cmd
 		publish\update.version.ps1 = publish\update.version.ps1
 	EndProjectSection
@@ -77,10 +76,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "files", "files", "{D6C3708D
 		.gitignore = .gitignore
 		BUILDING.md = BUILDING.md
 		CODE_OF_CONDUCT.md = CODE_OF_CONDUCT.md
-		Copyright.txt = Copyright.txt
 		Directory.Packages.props = Directory.Packages.props
 		License.txt = License.txt
+		Magick.NET.Internal.ruleset = Magick.NET.Internal.ruleset
 		Magick.NET.props = Magick.NET.props
+		Magick.NET.ruleset = Magick.NET.ruleset
+		Magick.NET.snk = Magick.NET.snk
 		Readme.md = Readme.md
 		stylecop.json = stylecop.json
 	EndProjectSection
@@ -113,16 +114,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Native", "{7BDF1AD0-F12F-4149-9C3C-79223B8C1721}"
 	ProjectSection(SolutionItems) = preProject
-		src\Magick.Native\create-nuget-config.cmd = src\Magick.Native\create-nuget-config.cmd
-		src\Magick.Native\create-nuget-config.sh = src\Magick.Native\create-nuget-config.sh
-		src\Magick.Native\install.cmd = src\Magick.Native\install.cmd
 		src\Magick.Native\install.library.sh = src\Magick.Native\install.library.sh
 		src\Magick.Native\install.metadata.sh = src\Magick.Native\install.metadata.sh
-		src\Magick.Native\install.ps1 = src\Magick.Native\install.ps1
 		src\Magick.Native\install.resources.sh = src\Magick.Native\install.resources.sh
-		src\Magick.Native\libraries.md = src\Magick.Native\libraries.md
 		src\Magick.Native\Magick.Native.version = src\Magick.Native\Magick.Native.version
-		src\Magick.Native\nuget.config.template = src\Magick.Native\nuget.config.template
+		src\Magick.Native\metadata\libraries.md = src\Magick.Native\metadata\libraries.md
+		src\Magick.Native\TrademarkAttribute.cs = src\Magick.Native\TrademarkAttribute.cs
+		src\Magick.Native\update.trademark.cmd = src\Magick.Native\update.trademark.cmd
+		src\Magick.Native\update.trademark.sh = src\Magick.Native\update.trademark.sh
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC-32B2-4BA2-93DC-FC990B26D51E}"
@@ -132,6 +131,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{7935EDEC
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{BE60093C-A01F-454E-A0FC-2812D290CD6A}"
 	ProjectSection(SolutionItems) = preProject
+		tools\windows\find-bash.cmd = tools\windows\find-bash.cmd
 		tools\windows\init.visualstudio.cmd = tools\windows\init.visualstudio.cmd
 		tools\windows\utils.ps1 = tools\windows\utils.ps1
 	EndProjectSection
