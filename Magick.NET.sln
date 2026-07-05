@@ -106,6 +106,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "windows", "windows", "{C72A
 		build\windows\install.nuget.cmd = build\windows\install.nuget.cmd
 		build\windows\install.nuget.ps1 = build\windows\install.nuget.ps1
 		build\windows\print.publickey.py = build\windows\print.publickey.py
+		build\windows\test.Magick.NET.arm64.cmd = build\windows\test.Magick.NET.arm64.cmd
 		build\windows\test.Magick.NET.cmd = build\windows\test.Magick.NET.cmd
 		build\windows\test.Magick.NET.ps1 = build\windows\test.Magick.NET.ps1
 	EndProjectSection
@@ -115,8 +116,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Nat
 		src\Magick.Native\create-nuget-config.cmd = src\Magick.Native\create-nuget-config.cmd
 		src\Magick.Native\create-nuget-config.sh = src\Magick.Native\create-nuget-config.sh
 		src\Magick.Native\install.cmd = src\Magick.Native\install.cmd
+		src\Magick.Native\install.library.sh = src\Magick.Native\install.library.sh
 		src\Magick.Native\install.ps1 = src\Magick.Native\install.ps1
-		src\Magick.Native\install.sh = src\Magick.Native\install.sh
+		src\Magick.Native\install.resources.sh = src\Magick.Native\install.resources.sh
+		src\Magick.Native\libraries.md = src\Magick.Native\libraries.md
 		src\Magick.Native\Magick.Native.version = src\Magick.Native\Magick.Native.version
 		src\Magick.Native\nuget.config.template = src\Magick.Native\nuget.config.template
 	EndProjectSection

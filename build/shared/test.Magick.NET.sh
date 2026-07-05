@@ -2,23 +2,12 @@
 set -e
 
 architecture=$1
-openmp=$2
+quantumName=$2
 
-
-testMagickNET() {
-    local config=Test$1
-    if [ "$openmp" == "OpenMP" ]; then
-        config=$config-OpenMP
-    fi
-
-    echo -e "\nTesting Magick.NET $1"
-    ./tests/Magick.NET.Core.Tests/bin/$config/$architecture/net8.0/Magick.NET.Core.Tests
-    ./tests/Magick.NET.Tests/bin/$config/$architecture/net8.0/Magick.NET.Tests
-}
+config=Test$quantumName
 
 export FONTCONFIG_PATH=/etc/fonts
 export FONTCONFIG_FILE=/etc/fonts/fonts.conf
 
-testMagickNET "Q8"
-testMagickNET "Q16"
-testMagickNET "Q16-HDRI"
+./tests/Magick.NET.Core.Tests/bin/$config/$architecture/net8.0/Magick.NET.Core.Tests
+./tests/Magick.NET.Tests/bin/$config/$architecture/net8.0/Magick.NET.Tests

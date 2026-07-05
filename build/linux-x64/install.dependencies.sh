@@ -3,9 +3,15 @@ set -e
 
 apt-get -qq update
 
-apt-get -qq install ffmpeg fontconfig libgomp1 unzip -y > /dev/null
+apt-get -qq install curl ffmpeg fontconfig libgomp1 unzip -y > /dev/null
 
-git clone -q https://github.com/ImageMagick/msttcorefonts msttcorefonts
+curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg -o /usr/share/keyrings/githubcli-archive-keyring.gpg
+chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" > /etc/apt/sources.list.d/github-cli.list
+apt-get -qq update
+apt-get -qq install gh -y > /dev/null
+
+git clone https://github.com/ImageMagick/msttcorefonts msttcorefonts
 cd msttcorefonts
 . ./install.sh
 
