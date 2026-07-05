@@ -47,10 +47,15 @@ jobs:
           echo "publish=$publish"
 
   linux_x64:
-    name: Linux (Q8/Q16/Q16-HDRI, x64)
+    name: Linux (${{ matrix.quantum }}, x64)
     container:
       image: mcr.microsoft.com/dotnet/sdk:9.0
     runs-on: ubuntu-24.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        quantum: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
 
     steps:
       - name: Checkout
@@ -66,25 +71,26 @@ jobs:
           dotnet-version: 8.x
 
       - name: Install Magick.Native
-        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux x64
+        run: build/shared/install.Magick.Native.sh linux x64 ${{ matrix.quantum }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build
-        run: build/shared/build.Magick.NET.sh x64
+        run: build/shared/build.Magick.NET.sh x64 ${{ matrix.quantum }}
 
       - name: Test
-        run: build/shared/test.Magick.NET.sh x64
-
-      - name: Build OpenMP
-        run: build/shared/build.Magick.NET.sh x64 OpenMP
-
-      - name: Test OpenMP
-        run: build/shared/test.Magick.NET.sh x64 OpenMP
+        run: build/shared/test.Magick.NET.sh x64 ${{ matrix.quantum }}
 
   linux_musl_x64:
-    name: Linux musl (Q8/Q16/Q16-HDRI, x64)
+    name: Linux musl (${{ matrix.quantum }}, x64)
     container:
       image: mcr.microsoft.com/dotnet/sdk:9.0-alpine
     runs-on: ubuntu-24.04
+
+    strategy:
+      fail-fast: false
+      matrix:
+        quantum: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
 
     steps:
       - name: Checkout
@@ -100,23 +106,24 @@ jobs:
           dotnet-version: 8.x
 
       - name: Install Magick.Native
-        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux-musl x64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: build/shared/install.Magick.Native.sh linux-musl x64 ${{ matrix.quantum }}
 
       - name: Build
-        run: build/shared/build.Magick.NET.sh x64
+        run: build/shared/build.Magick.NET.sh x64 ${{ matrix.quantum }}
 
       - name: Test
-        run: build/shared/test.Magick.NET.sh x64
-
-      - name: Build OpenMP
-        run: build/shared/build.Magick.NET.sh x64 OpenMP
-
-      - name: Test OpenMP
-        run: build/shared/test.Magick.NET.sh x64 OpenMP
+        run: build/shared/test.Magick.NET.sh x64 ${{ matrix.quantum }}
 
   linux_arm64:
-    name: Linux (Q8/Q16/Q16-HDRI, arm64)
+    name: Linux (${{ matrix.quantum }}, arm64)
     runs-on: ubuntu-24.04-arm
+
+    strategy:
+      fail-fast: false
+      matrix:
+        quantum: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
 
     steps:
       - name: Checkout
@@ -134,23 +141,24 @@ jobs:
             9.x
 
       - name: Install Magick.Native
-        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" linux arm64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: build/shared/install.Magick.Native.sh linux arm64 ${{ matrix.quantum }}
 
       - name: Build
-        run: build/shared/build.Magick.NET.sh arm64
+        run: build/shared/build.Magick.NET.sh arm64 ${{ matrix.quantum }}
 
       - name: Test
-        run: build/shared/test.Magick.NET.sh arm64
-
-      - name: Build OpenMP
-        run: build/shared/build.Magick.NET.sh arm64 OpenMP
-
-      - name: Test OpenMP
-        run: build/shared/test.Magick.NET.sh arm64 OpenMP
+        run: build/shared/test.Magick.NET.sh arm64 ${{ matrix.quantum }}
 
   macos_x64:
-    name: MacOS (Q8/Q16/Q16-HDRI, x64)
+    name: MacOS (${{ matrix.quantum }}, x64)
     runs-on: macos-15-intel
+
+    strategy:
+      fail-fast: false
+      matrix:
+        quantum: [Q8, Q16, Q16-HDRI]
 
     steps:
       - name: Checkout
@@ -166,17 +174,24 @@ jobs:
           dotnet-version: 8.x
 
       - name: Install Magick.Native
-        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos x64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: build/shared/install.Magick.Native.sh macos x64 ${{ matrix.quantum }}
 
       - name: Build
-        run: build/shared/build.Magick.NET.sh x64
+        run: build/shared/build.Magick.NET.sh x64 ${{ matrix.quantum }}
 
       - name: Test
-        run: build/shared/test.Magick.NET.sh x64
+        run: build/shared/test.Magick.NET.sh x64 ${{ matrix.quantum }}
 
   macos_arm64:
-    name: MacOS (Q8/Q16/Q16-HDRI, arm64)
+    name: MacOS (${{ matrix.quantum }}, arm64)
     runs-on: macos-14
+
+    strategy:
+      fail-fast: false
+      matrix:
+        quantum: [Q8, Q16, Q16-HDRI]
 
     steps:
       - name: Checkout
@@ -192,16 +207,18 @@ jobs:
           dotnet-version: 8.x
 
       - name: Install Magick.Native
-        run: build/shared/install.Magick.Native.sh "dlemstra" "${{ secrets.GITHUB_TOKEN }}" macos arm64
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: build/shared/install.Magick.Native.sh macos arm64 ${{ matrix.quantum }}
 
       - name: Build
-        run: build/shared/build.Magick.NET.sh arm64
+        run: build/shared/build.Magick.NET.sh arm64 ${{ matrix.quantum }}
 
       - name: Test
-        run: build/shared/test.Magick.NET.sh arm64
+        run: build/shared/test.Magick.NET.sh arm64 ${{ matrix.quantum }}
 
   windows:
-    name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
+    name: Windows (${{ matrix.quantum }}, ${{ matrix.platform }})
     runs-on: windows-2025-vs2026
     needs:
       - version
@@ -209,15 +226,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        quantumName: [Q8, Q16, Q16-HDRI]
-        platformName: [x86, x64, Any CPU]
+        quantum: [Q8, Q16, Q16-HDRI]
+        platform: [x86, x64, Any CPU]
         include:
-        - quantumName: Q8-OpenMP
-          platformName: x64
-        - quantumName: Q16-OpenMP
-          platformName: x64
-        - quantumName: Q16-HDRI-OpenMP
-          platformName: x64
+        - quantum: Q8-OpenMP
+          platform: x64
+        - quantum: Q16-OpenMP
+          platform: x64
+        - quantum: Q16-HDRI-OpenMP
+          platform: x64
 
     steps:
       - name: Checkout
@@ -232,42 +249,40 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Install Magick.Native
+        run: build/shared/install.Magick.Native.sh windows "${{ matrix.platform }}" ${{ matrix.quantum }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Magick.NET (Test)
+        run: ./build.Magick.NET.cmd ${{ matrix.quantum }} "${{ matrix.platform }}" Test
+        working-directory: build/windows
+
+      - name: Test Magick.NET
+        run: ./test.Magick.NET.cmd ${{ matrix.quantum }} "${{ matrix.platform }}"
+        working-directory: build/windows
+
+      - name: Build Magick.NET (Release)
+        run: ./build.Magick.NET.cmd ${{ matrix.quantum }} "${{ matrix.platform }}" Release
+        working-directory: build/windows
+
       - name: Install NuGet
         run: ./install.nuget.cmd
         working-directory: build/windows
 
-      - name: Create nuget.config
-        run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
-        working-directory: src/Magick.Native
-
-      - name: Install Magick.Native
-        run: ./install.cmd
-        working-directory: src/Magick.Native
-
-      - name: Build Magick.NET (Test)
-        run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test
-        working-directory: build/windows
-
-      - name: Test Magick.NET
-        run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
-        working-directory: build/windows
-
-      - name: Build Magick.NET (Release)
-        run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
-        working-directory: build/windows
-
       - name: Create NuGet package
-        run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" "${{ needs.version.outputs.version }}" "${{ needs.version.outputs.commit }}"
+        run: ./publish.cmd ${{ matrix.quantum }} "${{ matrix.platform }}" "${{ needs.version.outputs.version }}" "${{ needs.version.outputs.commit }}"
         working-directory: publish
 
       - name: Upload library
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
-          name: Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}
+          name: Magick.NET-${{ matrix.quantum }}-${{ matrix.platform }}
           path: publish/output
 
   windows_arm64:
-    name: Windows (${{matrix.quantumName}}, ${{matrix.platformName}})
+    name: Windows (${{matrix.quantum}}, arm64)
     #runs-on: windows-11-arm
     runs-on: windows-2025-vs2026
     needs:
@@ -276,8 +291,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        quantumName: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
-        platformName: [arm64]
+        quantum: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
 
     steps:
       - name: Checkout
@@ -285,45 +299,36 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install dependencies
-        run: ./install.dependencies.sh
+      - name: Install Magick.Native
+        run: build/shared/install.Magick.Native.sh windows arm64 ${{ matrix.quantum }}
         shell: bash
-        working-directory: build/windows
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Build Magick.NET (Test)
+      #   run: ./build.Magick.NET.cmd ${{ matrix.quantum }} "arm64" Test
+      #   working-directory: build/windows
+
+      # - name: Test Magick.NET
+      #   run: ./test.Magick.NET.cmd ${{ matrix.quantum }} "arm64"
+      #   working-directory: build/windows
+
+      - name: Build Magick.NET (Release)
+        run: ./build.Magick.NET.cmd ${{ matrix.quantum }} arm64 Release
+        working-directory: build/windows
 
       - name: Install NuGet
         run: ./install.nuget.cmd
         working-directory: build/windows
 
-      - name: Create nuget.config
-        run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
-        working-directory: src/Magick.Native
-
-      - name: Install Magick.Native
-        run: ./install.cmd
-        working-directory: src/Magick.Native
-
-      # - name: Build Magick.NET (Test)
-      #   run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Test
-      #   working-directory: build/windows
-
-      # - name: Test Magick.NET
-      #   run: ./test.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}"
-      #   working-directory: build/windows
-
-      - name: Build Magick.NET (Release)
-        run: ./build.Magick.NET.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" Release
-        working-directory: build/windows
-
       - name: Create NuGet package
-        run: ./publish.cmd ${{ matrix.quantumName }} "${{ matrix.platformName }}" "${{ needs.version.outputs.version }}" "${{ needs.version.outputs.commit }}"
+        run: ./publish.cmd ${{ matrix.quantum }} arm64 "${{ needs.version.outputs.version }}" "${{ needs.version.outputs.commit }}"
         working-directory: publish
 
       - name: Upload library
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a #v7.0.1
         with:
-          name: Magick.NET-${{ matrix.quantumName }}-${{ matrix.platformName }}
+          name: Magick.NET-${{ matrix.quantum }}-arm64
           path: publish/output
 
   libraries:
@@ -343,20 +348,19 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install NuGet
-        run: ./install.nuget.cmd
-        working-directory: build/windows
-
-      - name: Create nuget.config
-        run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
+      - name: Install resources
+        run: ./install.resources.sh x64 Q8
         working-directory: src/Magick.Native
-
-      - name: Install Magick.Native
-        run: ./install.cmd
-        working-directory: src/Magick.Native
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Magick.NET.${{ matrix.libraryName }} (Release)
         run: ./build.Magick.NET.cmd "Q8" "Any CPU" Release
+        working-directory: build/windows
+
+      - name: Install NuGet
+        run: ./install.nuget.cmd
         working-directory: build/windows
 
       - name: Create NuGet package

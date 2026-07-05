@@ -26,7 +26,7 @@ function addOpenMPLibrary($xml, $platform) {
 }
 
 function addNotice($xml) {
-    $source = fullPath "src\Magick.Native\libraries\Notice.txt"
+    $source = fullPath "src\Magick.Native\metadata\Notice.txt"
     $target = "Notice.txt"
     addFile $xml $source $target
 }
