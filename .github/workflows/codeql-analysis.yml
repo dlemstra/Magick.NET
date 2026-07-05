@@ -26,17 +26,12 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Install NuGet
-        run: ./install.nuget.cmd
-        working-directory: build/windows
-
-      - name: Create nuget.config
-        run: ./create-nuget-config.cmd "dlemstra" "${{ secrets.GITHUB_TOKEN }}"
+      - name: Install resources
+        run: ./install.resources.sh x64 Q16-HDRI
         working-directory: src/Magick.Native
-
-      - name: Install Magick.Native
-        run: ./install.cmd
-        working-directory: src/Magick.Native
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@8aad20d150bbac5944a9f9d289da16a4b0d87c1e #4.36.2
