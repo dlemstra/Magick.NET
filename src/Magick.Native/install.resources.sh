@@ -18,7 +18,7 @@ downloadAsset() {
 architecture=$1
 quantum=$2
 
-case "$quantumName" in
+case "$quantum" in
     *-OpenMP)
         quantum=${quantum%-OpenMP}
         ;;

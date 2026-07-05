@@ -18,13 +18,13 @@ downloadAsset() {
 copyLibrary() {
     local sourceFolder=$1
     local architecture=$2
-    local quantumName=$3
+    local quantum=$3
     local target_architecture=$4
     local test_project="$5.Tests"
     local tfm=$6
 
-    local fileName=$sourceFolder/Magick.Native-$quantumName-$architecture.dll*
-    local folder=../../tests/$test_project/bin/Test$quantumName/$target_architecture/$tfm
+    local fileName=$sourceFolder/Magick.Native-$quantum-$architecture.dll*
+    local folder=../../tests/$test_project/bin/Test$quantum/$target_architecture/$tfm
 
     mkdir -p $folder
     cp $fileName $folder
@@ -38,17 +38,17 @@ copyToTestProject() {
     local openmp=$5
     local target_architecture=${6:-$architecture}
 
-    local quantumName=$quantum$openmp
+    local quantum=$quantum$openmp
 
-    copyLibrary $sourceFolder $architecture $quantumName $target_architecture Magick.NET net8.0
+    copyLibrary $sourceFolder $architecture $quantum $target_architecture Magick.NET net8.0
 
     if [ "$platform" = "windows" ]; then
-        copyLibrary $sourceFolder $architecture $quantumName $target_architecture Magick.NET net472
-        copyLibrary $sourceFolder $architecture $quantumName $target_architecture Magick.NET.AvaloniaMediaImaging net8.0
-        copyLibrary $sourceFolder $architecture $quantumName $target_architecture Magick.NET.SystemDrawing net8.0
-        copyLibrary $sourceFolder $architecture $quantumName $target_architecture Magick.NET.SystemDrawing net472
-        copyLibrary $sourceFolder $architecture $quantumName $target_architecture Magick.NET.SystemWindowsMedia net8.0
-        copyLibrary $sourceFolder $architecture $quantumName $target_architecture Magick.NET.SystemWindowsMedia net472
+        copyLibrary $sourceFolder $architecture $quantum $target_architecture Magick.NET net472
+        copyLibrary $sourceFolder $architecture $quantum $target_architecture Magick.NET.AvaloniaMediaImaging net8.0
+        copyLibrary $sourceFolder $architecture $quantum $target_architecture Magick.NET.SystemDrawing net8.0
+        copyLibrary $sourceFolder $architecture $quantum $target_architecture Magick.NET.SystemDrawing net472
+        copyLibrary $sourceFolder $architecture $quantum $target_architecture Magick.NET.SystemWindowsMedia net8.0
+        copyLibrary $sourceFolder $architecture $quantum $target_architecture Magick.NET.SystemWindowsMedia net472
     fi
 }
 
@@ -57,7 +57,7 @@ architecture=$2
 quantum=$3
 target_architecture=${4:-}
 
-case "$quantumName" in
+case "$quantum" in
     *-OpenMP)
         quantum=${quantum%-OpenMP}
         openmp="-OpenMP"
