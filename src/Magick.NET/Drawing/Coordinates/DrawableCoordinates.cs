@@ -15,7 +15,7 @@ internal abstract class DrawableCoordinates<TCoordinateType> : IReadOnlyList<TCo
     {
         Throw.IfNull(coordinates);
 
-        _coordinates = DrawableCoordinates<TCoordinateType>.CheckCoordinates(new List<TCoordinateType>(coordinates), minCount);
+        _coordinates = DrawableCoordinates<TCoordinateType>.CheckCoordinates([.. coordinates], minCount);
     }
 
     public int Count
