@@ -2,6 +2,7 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
@@ -56,11 +57,11 @@ internal static partial class Throw
             throw new ArgumentException(message, paramName);
     }
 
-    public static void IfNullOrEmpty([NotNull] Array value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
+    public static void IfNullOrEmpty<T>([NotNull] IReadOnlyCollection<T> value, [CallerArgumentExpression(nameof(value))] string? paramName = null)
     {
         IfNull(value, paramName);
 
-        if (value.Length == 0)
+        if (value.Count == 0)
             throw new ArgumentException("Value cannot be empty.", paramName);
     }
 
