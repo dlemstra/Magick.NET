@@ -163,7 +163,7 @@ public partial class MagickImageTests
             }
 
             [Fact]
-            public void ShouldImportPixelsFromByteArray()
+            public void ShouldImportPixelsFromUshortArray()
             {
                 var data = new ushort[]
                 {
