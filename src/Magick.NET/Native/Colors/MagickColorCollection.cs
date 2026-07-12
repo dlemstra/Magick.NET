@@ -6,13 +6,11 @@ using ImageMagick.SourceGenerator;
 
 namespace ImageMagick;
 
-internal static partial class MagickColorCollection
+internal partial class MagickColorCollection
 {
     [NativeInterop]
-    private static partial class NativeMagickColorCollection
+    private partial class NativeMagickColorCollection : NativeInstance
     {
-        public static partial void DisposeList(IntPtr list);
-
-        public static partial IntPtr GetInstance(IntPtr list, nuint index);
+        public partial IntPtr Get(nuint index);
     }
 }

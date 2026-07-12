@@ -3365,16 +3365,8 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IReadOnlyDictionary<IMagickColor<QuantumType>, uint> Histogram()
     {
-        var histogram = IntPtr.Zero;
-        try
-        {
-            histogram = _nativeInstance.Histogram(out var length);
-            return MagickColorCollection.ToDictionary(histogram, (uint)length);
-        }
-        finally
-        {
-            MagickColorCollection.DisposeList(histogram);
-        }
+        var histogram = _nativeInstance.Histogram(out var length);
+        return MagickColorCollection.ToDictionary(histogram, (uint)length);
     }
 
     /// <summary>

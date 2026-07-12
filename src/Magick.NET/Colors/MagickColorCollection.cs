@@ -16,14 +16,8 @@ using QuantumType = System.Single;
 
 namespace ImageMagick;
 
-internal static partial class MagickColorCollection
+internal partial class MagickColorCollection
 {
-    public static void DisposeList(IntPtr list)
-    {
-        if (list != IntPtr.Zero)
-            NativeMagickColorCollection.DisposeList(list);
-    }
-
     public static IReadOnlyDictionary<IMagickColor<QuantumType>, uint> ToDictionary(IntPtr list, uint length)
     {
         var colors = new Dictionary<IMagickColor<QuantumType>, uint>((int)length);
@@ -31,9 +25,11 @@ internal static partial class MagickColorCollection
         if (list == IntPtr.Zero)
             return colors;
 
+        using var colorCollection = new NativeMagickColorCollection(list);
+
         for (var i = 0U; i < length; i++)
         {
-            var instance = NativeMagickColorCollection.GetInstance(list, i);
+            var instance = colorCollection.Get(i);
 
             var color = MagickColor.CreateInstance(instance, out var count);
             if (color is null)
