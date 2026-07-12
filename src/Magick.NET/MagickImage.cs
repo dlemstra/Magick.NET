@@ -3453,11 +3453,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="settings">The import settings to use when importing the pixels.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void ImportPixels(byte[] data, IPixelImportSettings settings)
-    {
-        Throw.IfNullOrEmpty(data);
-
-        ImportPixels(data, 0, settings);
-    }
+        => ImportPixels(data, 0, settings);
 
     /// <summary>
     /// Import pixels from the specified byte array into the current image.
