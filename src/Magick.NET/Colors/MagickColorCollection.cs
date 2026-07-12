@@ -25,7 +25,9 @@ internal partial class MagickColorCollection
         for (var i = 0; i < colors.Count; i++)
         {
             var color = colors[i];
-            _nativeInstance.Set((nuint)i, color);
+
+            if (color is not null)
+                _nativeInstance.Set((nuint)i, color);
         }
     }
 
