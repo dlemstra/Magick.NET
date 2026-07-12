@@ -165,17 +165,31 @@ public partial class MagickImageTests
             [Fact]
             public void ShouldImportPixelsFromUshortArray()
             {
+#if Q8
                 var data = new ushort[]
                 {
-                    1257, 57,
-                    11257, 257,
+                    157, 7,
+                    255, 57,
                 };
 
-                var colors = new MagickColor[65535];
-                colors[57] = MagickColors.PaleGreen;
-                colors[257] = MagickColors.RebeccaPurple;
-                colors[1257] = MagickColors.PaleVioletRed;
-                colors[11257] = MagickColors.Orchid;
+                var colors = new MagickColor[256];
+                colors[7] = MagickColors.PaleGreen;
+                colors[57] = MagickColors.RebeccaPurple;
+                colors[157] = MagickColors.PaleVioletRed;
+                colors[255] = MagickColors.Orchid;
+#else
+                var data = new ushort[]
+                {
+                    11257, 157,
+                    65535, 1257,
+                };
+
+                var colors = new MagickColor[65536];
+                colors[157] = MagickColors.PaleGreen;
+                colors[1257] = MagickColors.RebeccaPurple;
+                colors[11257] = MagickColors.PaleVioletRed;
+                colors[65535] = MagickColors.Orchid;
+#endif
 
                 using var image = new MagickImage();
                 image.ImportIndexedPixels(2, 2, colors, data);
