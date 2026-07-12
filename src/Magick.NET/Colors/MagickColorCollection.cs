@@ -18,6 +18,19 @@ namespace ImageMagick;
 
 internal partial class MagickColorCollection
 {
+    public MagickColorCollection(IReadOnlyList<IMagickColor<QuantumType>> colors)
+    {
+        Count = (uint)colors.Count;
+        _nativeInstance = NativeMagickColorCollection.Create(Count);
+        for (var i = 0; i < colors.Count; i++)
+        {
+            var color = colors[i];
+            _nativeInstance.Set((nuint)i, color);
+        }
+    }
+
+    public uint Count { get; }
+
     public static IReadOnlyDictionary<IMagickColor<QuantumType>, uint> ToDictionary(IntPtr list, uint length)
     {
         var colors = new Dictionary<IMagickColor<QuantumType>, uint>((int)length);
@@ -40,4 +53,10 @@ internal partial class MagickColorCollection
 
         return colors;
     }
+
+    public void Dispose()
+        => _nativeInstance.Dispose();
+
+    internal static IntPtr GetInstance(MagickColorCollection pointInfoCollection)
+        => pointInfoCollection._nativeInstance.Instance;
 }

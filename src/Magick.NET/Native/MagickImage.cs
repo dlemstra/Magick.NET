@@ -479,6 +479,9 @@ public partial class MagickImage
         public partial IntPtr Implode(double amount, PixelInterpolateMethod method);
 
         [Throws]
+        public partial void ImportIndexedPixels(nuint width, nuint height, MagickColorCollection colors, nuint colorCount, StorageType storageType, void* data);
+
+        [Throws]
         public partial void ImportPixels(nint x, nint y, nuint width, nuint height, string map, StorageType storageType, void* data, nuint offsetInBytes);
 
         [Throws]

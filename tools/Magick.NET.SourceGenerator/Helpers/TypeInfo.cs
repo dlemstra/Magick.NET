@@ -52,6 +52,7 @@ internal sealed class TypeInfo
         => ClassName switch
         {
             "PointInfoCollection" => true,
+            "MagickColorCollection" => true,
             "MagickImage" => true,
             _ => false,
         };

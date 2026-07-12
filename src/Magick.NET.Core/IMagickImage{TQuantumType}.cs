@@ -297,6 +297,26 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     IReadOnlyDictionary<IMagickColor<TQuantumType>, uint> Histogram();
 
+    /// <summary>
+    /// Imports the specified indexed pixels into the current image.
+    /// </summary>
+    /// <param name="width">The width of the image.</param>
+    /// <param name="height">The height of the image.</param>
+    /// <param name="colors">The colors.</param>
+    /// <param name="data">The index data.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void ImportIndexedPixels(uint width, uint height, IReadOnlyList<IMagickColor<TQuantumType>> colors, byte[] data);
+
+    /// <summary>
+    /// Imports the specified indexed pixels into the current image.
+    /// </summary>
+    /// <param name="width">The width of the image.</param>
+    /// <param name="height">The height of the image.</param>
+    /// <param name="colors">The colors.</param>
+    /// <param name="data">The index data.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void ImportIndexedPixels(uint width, uint height, IReadOnlyList<IMagickColor<TQuantumType>> colors, ushort[] data);
+
 #if !Q8
     /// <summary>
     /// Import pixels from the specified quantum array into the current image.

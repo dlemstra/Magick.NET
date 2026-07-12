@@ -3405,6 +3405,48 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
+    /// Imports the specified indexed pixels into the current image.
+    /// </summary>
+    /// <param name="width">The width of the image.</param>
+    /// <param name="height">The height of the image.</param>
+    /// <param name="colors">The colors.</param>
+    /// <param name="data">The index data.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void ImportIndexedPixels(uint width, uint height, IReadOnlyList<IMagickColor<QuantumType>> colors, byte[] data)
+    {
+        Throw.IfNullOrEmpty(colors);
+        Throw.IfNullOrEmpty(data);
+
+        var length = data.Length;
+        var expectedLength = width * height;
+        Throw.IfTrue(length < expectedLength, nameof(data), "The data length is {0} but should be at least {1}.", data.Length, expectedLength);
+
+        using var collection = new MagickColorCollection(colors);
+        _nativeInstance.ImportIndexedPixels(width, height, collection, data);
+    }
+
+    /// <summary>
+    /// Imports the specified indexed pixels into the current image.
+    /// </summary>
+    /// <param name="width">The width of the image.</param>
+    /// <param name="height">The height of the image.</param>
+    /// <param name="colors">The colors.</param>
+    /// <param name="data">The index data.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void ImportIndexedPixels(uint width, uint height, IReadOnlyList<IMagickColor<QuantumType>> colors, ushort[] data)
+    {
+        Throw.IfNullOrEmpty(colors);
+        Throw.IfNullOrEmpty(data);
+
+        var length = data.Length;
+        var expectedLength = width * height;
+        Throw.IfTrue(length < expectedLength, nameof(data), "The data length is {0} but should be at least {1}.", data.Length, expectedLength);
+
+        using var collection = new MagickColorCollection(colors);
+        _nativeInstance.ImportIndexedPixels(width, height, collection, data);
+    }
+
+    /// <summary>
     /// Import pixels from the specified byte array into the current image.
     /// </summary>
     /// <param name="data">The byte array to read the image data from.</param>
@@ -8076,6 +8118,22 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
 
     private unsafe sealed partial class NativeMagickImage : NativeInstance
     {
+        public void ImportIndexedPixels(nuint width, nuint height, MagickColorCollection colors, byte[] data)
+        {
+            fixed (byte* dataFixed = data)
+            {
+                ImportIndexedPixels(width, height, colors, colors.Count, StorageType.Char, dataFixed);
+            }
+        }
+
+        public void ImportIndexedPixels(nuint width, nuint height, MagickColorCollection colors, ushort[] data)
+        {
+            fixed (ushort* dataFixed = data)
+            {
+                ImportIndexedPixels(width, height, colors, colors.Count, StorageType.Char, dataFixed);
+            }
+        }
+
         public void ImportPixels(nint x, nint y, nuint width, nuint height, string map, StorageType storageType, byte[] data, nuint offsetInBytes)
         {
             fixed (byte* dataFixed = data)
