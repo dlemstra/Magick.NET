@@ -131,9 +131,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
 
         foreach (var method in uniqueMethods)
         {
-            if (method.NotSupportedInNetstandard20)
-                codeBuilder.AppendLine("#if !NETSTANDARD2_0");
-
             codeBuilder.Append("[DllImport(NativeLibrary.");
             codeBuilder.Append(name);
             codeBuilder.Append("Name, CallingConvention = CallingConvention.Cdecl, EntryPoint = \"");
@@ -144,9 +141,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
             codeBuilder.Append("public static extern ");
             AppendNativeMethodDeclaration(codeBuilder, info, method);
             codeBuilder.AppendLine(";");
-
-            if (method.NotSupportedInNetstandard20)
-                codeBuilder.AppendLine("#endif");
         }
 
         codeBuilder.AppendLine("#endif");
@@ -360,8 +354,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
     private static void AppendNativeMethod(CodeBuilder codeBuilder, NativeInteropInfo info, MethodInfo method)
     {
         codeBuilder.AppendLine();
-        if (method.NotSupportedInNetstandard20)
-            codeBuilder.AppendLine("#if !NETSTANDARD2_0");
 
         codeBuilder.Append("public ");
         if (method.IsStatic)
@@ -540,9 +532,6 @@ internal class NativeInteropGenerator : IIncrementalGenerator
         }
 
         codeBuilder.AppendCloseBrace();
-
-        if (method.NotSupportedInNetstandard20)
-            codeBuilder.AppendLine("#endif");
     }
 
     private static void AppendManagedToNativeMethod(SourceProductionContext context, CodeBuilder codeBuilder, NativeInteropInfo info)

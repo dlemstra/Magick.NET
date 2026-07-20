@@ -79,6 +79,7 @@
     <Compile Include="../Shared/Throw.cs" Link="Helpers/Throw.cs" />
     <Compile Include="../Shared/CallerArgumentExpressionAttribute.cs" Link="Helpers/CallerArgumentExpressionAttribute.cs" />
     <Compile Include="../Shared/TypeHelper.cs" Link="Helpers/TypeHelper.cs" />
+    <Compile Include="../Shared/ReadOnlySequencePolyfill.cs" Link="Helpers/ReadOnlySequencePolyfill.cs" />
   </ItemGroup>
 
   <PropertyGroup>
