@@ -61,7 +61,7 @@ public class TheDngCoder
     }
 
     [Fact]
-    public void ShouldReadMetadatawhenPingingImage()
+    public void ShouldReadMetadataWhenPingingImage()
     {
         using var image = new MagickImage();
         image.Ping(Files.Coders.RawKodakDC50KDC);
