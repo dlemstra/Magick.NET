@@ -68,4 +68,14 @@ public class TheDngCoder
 
         Assert.Equal("DC50", image.GetAttribute("dng:camera.model.name"));
     }
+
+    [Fact]
+    public void ShouldReadXmpProfileWhenPingingImage()
+    {
+        using var image = new MagickImage();
+        image.Ping(Files.Coders.DSC8695DNG);
+
+        var profile = image.GetXmpProfile();
+        Assert.NotNull(profile);
+    }
 }

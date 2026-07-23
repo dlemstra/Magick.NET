@@ -152,6 +152,9 @@ public static class Files
         public static string PageTIF
             => Root + @"Images/Coders/Page.tif";
 
+        public static string DSC8695DNG
+            => Root + @"Images/Coders/DSC8695.dng";
+
         public static string PdfExamplePasswordOriginalPDF
             => Root + @"Images/Coders/pdf-example-password.original.pdf";
 
