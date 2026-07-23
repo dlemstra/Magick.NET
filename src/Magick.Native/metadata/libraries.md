@@ -1,7 +1,7 @@
 # Libraries
-Magick.Native [a06099976a2a5174de61af3af9dd7341136812b0](https://github.com/dlemstra/Magick.Native/commit/a06099976a2a5174de61af3af9dd7341136812b0) is build with the following libraries:
+Magick.Native [82af9fff85e78cc086c9854c5104a99f9c9cdae8](https://github.com/dlemstra/Magick.Native/commit/82af9fff85e78cc086c9854c5104a99f9c9cdae8) is build with the following libraries:
 
-- ImageMagick 7.1.2-27 (2026-07-05)
+- ImageMagick 7.1.2-28 (Beta) (2026-07-21)
 - aom 3.14.1 (2026-05-22)
 - brotli 1.2.0 (2025-10-27)
 - libbzip2 1.0.8 (2019-07-13)
@@ -9,8 +9,8 @@ Magick.Native [a06099976a2a5174de61af3af9dd7341136812b0](https://github.com/dlem
 - libcroco 0.6.13 (2019-04-06)
 - libde265 1.1.1 (2026-06-03)
 - openexr 3.4.13 (2026-06-19)
-- libffi 3.6.0 (2026-06-20)
-- fontconfig 2.18.1 (2026-06-02)
+- libffi 3.7.1 (2026-07-10)
+- fontconfig 2.18.2 (2026-07-09)
 - freetype 2.14.3 (2026-03-22)
 - fribidi 1.0.16 (2024-09-25)
 - gdk-pixbuf 2.44.7 (2026-06-27)
@@ -19,7 +19,7 @@ Magick.Native [a06099976a2a5174de61af3af9dd7341136812b0](https://github.com/dlem
 - libheif 1.23.1 (2026-06-26)
 - libhwy 1.4.0 (2026-04-23)
 - imath 3.2.2 (2025-10-08)
-- libjpeg-turbo 3.1.3 (2025-12-10)
+- libjpeg-turbo 3.2.0 (2025-06-30)
 - libjxl 0.12.0 (2026-07-01)
 - lcms 2.19.1 (2026-05-06)
 - liblqr 0.4.2 (2012-12-04)
@@ -31,7 +31,7 @@ Magick.Native [a06099976a2a5174de61af3af9dd7341136812b0](https://github.com/dlem
 - pixman 0.46.4 (2025-07-20)
 - libpng 1.6.58 (2026-04-15)
 - libraqm 0.10.5 (2026-04-11)
-- libraw 0.22.1 (2026-04-06)
+- libraw 0.22.2 (2026-07-16)
 - librsvg 2.40.20 (2017-12-15)
 - libtiff 4.7.2 (2026-06-26)
 - libwebp 1.6.0 (2025-07-09)
