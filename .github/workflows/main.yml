@@ -66,7 +66,7 @@ jobs:
       - name: Install dependencies
         run: build/linux-x64/install.dependencies.sh
 
-      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 #v5.4.0
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 #v6.0.0
         with:
           dotnet-version: 8.x
 
@@ -101,7 +101,7 @@ jobs:
       - name: Install dependencies
         run: build/linux-musl-x64/install.dependencies.sh
 
-      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 #v5.4.0
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 #v6.0.0
         with:
           dotnet-version: 8.x
 
@@ -134,7 +134,7 @@ jobs:
       - name: Install dependencies
         run: build/linux-arm64/install.dependencies.sh
 
-      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 #v5.4.0
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 #v6.0.0
         with:
           dotnet-version: |
             8.x
@@ -169,7 +169,7 @@ jobs:
       - name: Install dependencies
         run: build/macos-x64/install.dependencies.sh
 
-      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 #v5.4.0
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 #v6.0.0
         with:
           dotnet-version: 8.x
 
@@ -202,7 +202,7 @@ jobs:
       - name: Install dependencies
         run: build/macos-arm64/install.dependencies.sh
 
-      - uses: actions/setup-dotnet@26b0ec14cb23fa6904739307f278c14f94c95bf1 #v5.4.0
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 #v6.0.0
         with:
           dotnet-version: 8.x
 
