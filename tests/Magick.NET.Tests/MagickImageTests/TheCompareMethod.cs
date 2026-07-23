@@ -156,13 +156,7 @@ public partial class MagickImageTests
 
         [Theory]
         [InlineData(ErrorMetric.Undefined, 0.3653)]
-#if Q8
-        [InlineData(ErrorMetric.Absolute, 13687553.3333)]
-#elif Q16 || Q16HDRI
-        [InlineData(ErrorMetric.Absolute, 3517701206.6666)]
-#else
-#error Not implemented!
-#endif
+        [InlineData(ErrorMetric.Absolute, 0.1747)]
         [InlineData(ErrorMetric.DotProductCorrelation, 0.4668)]
         [InlineData(ErrorMetric.Fuzz, 0.4662)]
         [InlineData(ErrorMetric.MeanAbsolute, 0.1747)]
@@ -172,6 +166,7 @@ public partial class MagickImageTests
         [InlineData(ErrorMetric.PeakAbsolute, 1)]
         [InlineData(ErrorMetric.PeakSignalToNoiseRatio, 0.0728)]
         [InlineData(ErrorMetric.PerceptualHash, 0)]
+        [InlineData(ErrorMetric.PixelDifferenceCount, 89244)]
         [InlineData(ErrorMetric.RootMeanSquared, 0.3653)]
         [InlineData(ErrorMetric.StructuralSimilarity, 0.1546)]
         [InlineData(ErrorMetric.StructuralDissimilarity, 0.1546)]
@@ -186,13 +181,7 @@ public partial class MagickImageTests
 
         [Theory]
         [InlineData(ErrorMetric.Undefined, 0.4726)]
-#if Q8
-        [InlineData(ErrorMetric.Absolute, 1134217.1352)]
-#elif Q16 || Q16HDRI
-        [InlineData(ErrorMetric.Absolute, 291493803.7705)]
-#else
-#error Not implemented!
-#endif
+        [InlineData(ErrorMetric.Absolute, 0.2714)]
         [InlineData(ErrorMetric.DotProductCorrelation, 0.4748)]
         [InlineData(ErrorMetric.Fuzz, 0.5677)]
         [InlineData(ErrorMetric.MeanAbsolute, 0.2714)]
@@ -202,6 +191,7 @@ public partial class MagickImageTests
         [InlineData(ErrorMetric.PeakAbsolute, 1)]
         [InlineData(ErrorMetric.PeakSignalToNoiseRatio, 0.0542)]
         [InlineData(ErrorMetric.PerceptualHash, 0)]
+        [InlineData(ErrorMetric.PixelDifferenceCount, 6462)]
         [InlineData(ErrorMetric.RootMeanSquared, 0.4726)]
         [InlineData(ErrorMetric.StructuralSimilarity, 0.2889)]
         [InlineData(ErrorMetric.StructuralDissimilarity, 0.2889)]
@@ -221,7 +211,7 @@ public partial class MagickImageTests
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
-            Assert.InRange(result, 0.3387, 0.3388);
+            Assert.InRange(result, 0.3722, 0.3723);
         }
 
         [Fact]
@@ -235,7 +225,7 @@ public partial class MagickImageTests
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
-            Assert.InRange(result, 0.50251, 0.50252);
+            Assert.InRange(result, 0.5018, 0.5019);
         }
     }
 }
