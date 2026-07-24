@@ -51,14 +51,14 @@ public partial class MagickFormatInfo
 
         public partial string Format_Get();
 
+        public partial string? MimeType_Get();
+
+        public partial string Module_Get();
+
         public partial bool SupportsMultipleFrames_Get();
 
         public partial bool SupportsReading_Get();
 
         public partial bool SupportsWriting_Get();
-
-        public partial string? MimeType_Get();
-
-        public partial string Module_Get();
     }
 }
