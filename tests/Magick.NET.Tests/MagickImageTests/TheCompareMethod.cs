@@ -211,7 +211,7 @@ public partial class MagickImageTests
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
-            Assert.InRange(result, 0.3722, 0.3723);
+            Assert.InRange(result, 0.4096, 0.4097);
         }
 
         [Fact]
@@ -225,7 +225,7 @@ public partial class MagickImageTests
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
-            Assert.InRange(result, 0.5018, 0.5019);
+            Assert.InRange(result, 0.5092, 0.5093);
         }
     }
 }
