@@ -5,16 +5,6 @@ using System;
 using ImageMagick;
 using Xunit;
 
-#if Q8
-using QuantumType = System.Byte;
-#elif Q16
-using QuantumType = System.UInt16;
-#elif Q16HDRI
-using QuantumType = System.Single;
-#else
-#error Not implemented!
-#endif
-
 namespace Magick.NET.Tests;
 
 public partial class MagickImageTests
@@ -211,7 +201,11 @@ public partial class MagickImageTests
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
+#if Q16HDRI
+            Assert.InRange(result, 0.4906, 0.4907);
+#else
             Assert.InRange(result, 0.4096, 0.4097);
+#endif
         }
 
         [Fact]
@@ -225,7 +219,11 @@ public partial class MagickImageTests
             using var other = image.CloneAndMutate(image => image.Rotate(180));
 
             var result = image.Compare(other, ErrorMetric.PhaseCorrelation);
+#if Q16HDRI
+            Assert.InRange(result, 0.5121, 0.5122);
+#else
             Assert.InRange(result, 0.5092, 0.5093);
+#endif
         }
     }
 }
