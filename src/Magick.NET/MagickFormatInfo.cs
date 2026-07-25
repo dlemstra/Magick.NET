@@ -26,6 +26,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
         SupportsWriting = instance.SupportsWriting_Get();
         MimeType = instance.MimeType_Get();
         ModuleFormat = GetFormat(instance.Module_Get());
+        Version = instance.Version_Get();
     }
 
     /// <summary>
@@ -72,6 +73,11 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     /// Gets a value indicating whether the format can be written.
     /// </summary>
     public bool SupportsWriting { get; }
+
+    /// <summary>
+    /// Gets the version.
+    /// </summary>
+    public string? Version { get; }
 
     internal static IReadOnlyCollection<IMagickFormatInfo> All
         => _all.Values;

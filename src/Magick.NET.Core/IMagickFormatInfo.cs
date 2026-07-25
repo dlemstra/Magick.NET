@@ -56,6 +56,11 @@ public interface IMagickFormatInfo : IEquatable<IMagickFormatInfo?>
     bool SupportsWriting { get; }
 
     /// <summary>
+    /// Gets the version.
+    /// </summary>
+    string? Version { get; }
+
+    /// <summary>
     /// Returns a string that represents the current format.
     /// </summary>
     /// <returns>A string that represents the current format.</returns>

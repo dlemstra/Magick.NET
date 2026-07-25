@@ -60,5 +60,7 @@ public partial class MagickFormatInfo
         public partial bool SupportsReading_Get();
 
         public partial bool SupportsWriting_Get();
+
+        public partial string? Version_Get();
     }
 }
