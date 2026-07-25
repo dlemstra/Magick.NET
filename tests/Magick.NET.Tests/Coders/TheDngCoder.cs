@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System.Linq;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
@@ -9,6 +10,15 @@ namespace Magick.NET.Tests;
 
 public class TheDngCoder
 {
+    [Fact]
+    public void ShouldBeTheCorrectVersion()
+    {
+        var format = MagickNET.SupportedFormats.FirstOrDefault(f => f.ModuleFormat == MagickFormat.Dng);
+
+        Assert.NotNull(format);
+        Assert.Equal("0.22.2-Release", format.Version);
+    }
+
     [Fact]
     public void ShouldNotReadTheThumbnailByDefault()
     {
