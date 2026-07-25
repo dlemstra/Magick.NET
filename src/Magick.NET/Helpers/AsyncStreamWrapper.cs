@@ -41,7 +41,7 @@ internal class AsyncStreamWrapper : StreamWrapperBase
 
     public async Task ReadAsync(Action action, CancellationToken cancellationToken)
     {
-        var actionTask = Task.Run(
+        var actionTask = Task.Factory.StartNew(
             () =>
             {
                 try
@@ -54,7 +54,9 @@ internal class AsyncStreamWrapper : StreamWrapperBase
                     _performRead.Release();
                 }
             },
-            CancellationToken.None);
+            CancellationToken.None,
+            TaskCreationOptions.LongRunning,
+            TaskScheduler.Default);
         var readTask = ReadAsync(cancellationToken);
 
         await Task.WhenAll(actionTask, readTask).ConfigureAwait(false);
@@ -65,7 +67,7 @@ internal class AsyncStreamWrapper : StreamWrapperBase
 
     public async Task WriteAsync(Action action, CancellationToken cancellationToken)
     {
-        var actionTask = Task.Run(
+        var actionTask = Task.Factory.StartNew(
             () =>
             {
                 try
@@ -80,7 +82,9 @@ internal class AsyncStreamWrapper : StreamWrapperBase
                     _performWrite.Release();
                 }
             },
-            CancellationToken.None);
+            CancellationToken.None,
+            TaskCreationOptions.LongRunning,
+            TaskScheduler.Default);
         var readTask = ReadAsync(cancellationToken);
         var writeTask = WriteAsync(cancellationToken);
 
