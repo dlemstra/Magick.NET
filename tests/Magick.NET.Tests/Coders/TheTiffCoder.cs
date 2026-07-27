@@ -74,6 +74,8 @@ public partial class TheTiffCoder
 
         using var stream = new MemoryStream();
         image.Write(stream, MagickFormat.Ptif);
+
+        Assert.Equal(481435, stream.Length);
     }
 
     [Theory]
