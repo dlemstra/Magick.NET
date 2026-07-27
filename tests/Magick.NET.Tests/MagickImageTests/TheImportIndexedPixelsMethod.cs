@@ -85,26 +85,26 @@ public partial class MagickImageTests
                 image.ImportIndexedPixels(2, 2, colors, data);
 
                 Assert.Equal(ColorType.Palette, image.ColorType);
-                Assert.Equal(ColorSpace.Gray, image.ColorSpace);
+                Assert.Equal(ColorSpace.sRGB, image.ColorSpace);
 
                 Assert.Equal(2U, image.Width);
                 Assert.Equal(2U, image.Height);
 
                 using var pixels = image.GetPixelsUnsafe();
                 var pixel = pixels.GetPixel(0, 0);
-                Assert.Equal(2U, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.PaleVioletRed);
 
                 pixel = pixels.GetPixel(0, 1);
-                Assert.Equal(2U, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.PaleGreen);
 
                 pixel = pixels.GetPixel(1, 0);
-                Assert.Equal(2U, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.Orchid);
 
                 pixel = pixels.GetPixel(1, 1);
-                Assert.Equal(2U, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.RebeccaPurple);
             }
         }
@@ -163,6 +163,19 @@ public partial class MagickImageTests
             }
 
             [Fact]
+            public void ShouldSetTheCorrectColorspace()
+            {
+                var colors = new MagickColor[] { new MagickColor(0, 0, 0, 0, 0) };
+                var data = new ushort[] { 0 };
+
+                using var image = new MagickImage();
+                image.ImportIndexedPixels(1, 1, colors, data);
+
+                Assert.Equal(ColorType.ColorSeparation, image.ColorType);
+                Assert.Equal(ColorSpace.CMYK, image.ColorSpace);
+            }
+
+            [Fact]
             public void ShouldImportPixelsFromUshortArray()
             {
 #if Q8
@@ -194,30 +207,27 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
                 image.ImportIndexedPixels(2, 2, colors, data);
 
-#if Q8
-                // Due to a bug in ImageMagick 7.1.2-27 this check only works on Q8 builds.
                 Assert.Equal(ColorType.Palette, image.ColorType);
-#endif
-                Assert.Equal(ColorSpace.Gray, image.ColorSpace);
+                Assert.Equal(ColorSpace.sRGB, image.ColorSpace);
 
                 Assert.Equal(2U, image.Width);
                 Assert.Equal(2U, image.Height);
 
                 using var pixels = image.GetPixelsUnsafe();
                 var pixel = pixels.GetPixel(0, 0);
-                Assert.Equal(2U, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.PaleVioletRed);
 
                 pixel = pixels.GetPixel(0, 1);
-                Assert.Equal(2U, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.PaleGreen);
 
                 pixel = pixels.GetPixel(1, 0);
-                Assert.Equal(2U, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.Orchid);
 
                 pixel = pixels.GetPixel(1, 1);
-                Assert.Equal(2U, pixel.Channels);
+                Assert.Equal(4U, pixel.Channels);
                 pixel.Equals(MagickColors.RebeccaPurple);
             }
         }
