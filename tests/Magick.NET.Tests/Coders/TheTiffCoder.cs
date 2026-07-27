@@ -87,6 +87,9 @@ public partial class TheTiffCoder
     [InlineData(CompressionMethod.WebP)]
     public void ShouldBeAbleToUseTheSpecifiedCompression(CompressionMethod compression)
     {
+        if (!Runtime.IsWindows && compression == CompressionMethod.WebP)
+            Assert.Skip("WebP compression is not yet supported on this platform.");
+
         using var input = new MagickImage(Files.ImageMagickJPG);
         input.Settings.Compression = compression;
 
