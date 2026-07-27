@@ -82,9 +82,12 @@ public partial class TheTiffCoder
     [InlineData(CompressionMethod.Fax)]
     [InlineData(CompressionMethod.Group4)]
     [InlineData(CompressionMethod.JPEG)]
+    [InlineData(CompressionMethod.LZW)]
+    [InlineData(CompressionMethod.LZMA)]
+    [InlineData(CompressionMethod.WebP)]
     public void ShouldBeAbleToUseTheSpecifiedCompression(CompressionMethod compression)
     {
-        using var input = new MagickImage(Files.Builtin.Logo);
+        using var input = new MagickImage(Files.ImageMagickJPG);
         input.Settings.Compression = compression;
 
         var bytes = input.ToByteArray(MagickFormat.Tiff);
