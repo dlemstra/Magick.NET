@@ -8126,7 +8126,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         {
             fixed (ushort* dataFixed = data)
             {
-                ImportIndexedPixels(width, height, colors, colors.Count, StorageType.Char, dataFixed);
+                ImportIndexedPixels(width, height, colors, colors.Count, StorageType.Short, dataFixed);
             }
         }
 
