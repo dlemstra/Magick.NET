@@ -3,6 +3,7 @@
 
 using System.IO;
 using Avalonia;
+using Avalonia.Media.Imaging;
 using ImageMagick;
 using Xunit;
 
@@ -21,7 +22,7 @@ public partial class IMagickImageExtentionsTests
             using var bitmap = input.ToWriteableBitmap();
 
             using var outputStream = new MemoryStream();
-            bitmap.Save(outputStream);
+            bitmap.Save(outputStream, PngBitmapEncoderOptions.Default);
 
             outputStream.Position = 0;
             using var output = new MagickImage(outputStream);
