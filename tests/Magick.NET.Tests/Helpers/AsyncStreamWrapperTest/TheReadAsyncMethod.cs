@@ -116,5 +116,28 @@ public partial class AsyncStreamWrapperTest
 
             await Assert.ThrowsAsync<OperationCanceledException>(() => wrapper.ReadAsync(ReadSync, cancellationTokenSource.Token));
         }
+
+        [Fact]
+        public async Task ShouldThrowExceptionWhenOperationIsCancelledAndActionThrowsException()
+        {
+            using var stream = new MemoryStream();
+            using var wrapper = AsyncStreamWrapper.CreateForReading(stream);
+
+            using var cancellationTokenSource = new CancellationTokenSource();
+            cancellationTokenSource.Cancel();
+
+            unsafe void ReadSync()
+            {
+                var buffer = new byte[10];
+                fixed (byte* p = buffer)
+                {
+                    var count = wrapper.Read((IntPtr)p, (UIntPtr)10, IntPtr.Zero);
+                    if (count == -1)
+                        throw new InvalidOperationException("Simulates the exception the native code throws when a read fails (e.g. a corrupt image exception).");
+                }
+            }
+
+            await Assert.ThrowsAsync<OperationCanceledException>(() => wrapper.ReadAsync(ReadSync, cancellationTokenSource.Token));
+        }
     }
 }

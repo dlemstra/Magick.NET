@@ -4,6 +4,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ImageMagick;
 using Xunit;
@@ -196,6 +197,17 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.ReadAsync((Stream)null!, TestContext.Current.CancellationToken));
+            }
+
+            [Fact]
+            public async Task ShouldThrowOperationCanceledExceptionWhenOperationIsCancelled()
+            {
+                using var image = new MagickImage();
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var cancellationTokenSource = new CancellationTokenSource();
+                cancellationTokenSource.Cancel();
+
+                await Assert.ThrowsAsync<OperationCanceledException>(() => image.ReadAsync(stream, cancellationTokenSource.Token));
             }
 
             [Fact]

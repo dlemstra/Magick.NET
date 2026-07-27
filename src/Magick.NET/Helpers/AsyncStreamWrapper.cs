@@ -59,7 +59,18 @@ internal class AsyncStreamWrapper : StreamWrapperBase
             TaskScheduler.Default);
         var readTask = ReadAsync(cancellationToken);
 
-        await Task.WhenAll(actionTask, readTask).ConfigureAwait(false);
+        try
+        {
+            await Task.WhenAll(actionTask, readTask).ConfigureAwait(false);
+        }
+        catch when (_exceptionThrown)
+        {
+            // The native operation failed because a stream operation failed. When that failure was
+            // caused by a cancellation the exception of the native operation (e.g. a corrupt image
+            // exception from the coder) should be replaced with an OperationCanceledException.
+            cancellationToken.ThrowIfCancellationRequested();
+            throw;
+        }
 
         if (_exceptionThrown)
             cancellationToken.ThrowIfCancellationRequested();
@@ -88,7 +99,19 @@ internal class AsyncStreamWrapper : StreamWrapperBase
         var readTask = ReadAsync(cancellationToken);
         var writeTask = WriteAsync(cancellationToken);
 
-        await Task.WhenAll(actionTask, readTask, writeTask).ConfigureAwait(false);
+        try
+        {
+            await Task.WhenAll(actionTask, readTask, writeTask).ConfigureAwait(false);
+        }
+        catch when (_exceptionThrown)
+        {
+            // The native operation failed because a stream operation failed. When that failure was
+            // caused by a cancellation the exception of the native operation (e.g. "Output file
+            // write error --- out of disk space?" from the jpeg coder) should be replaced with
+            // an OperationCanceledException.
+            cancellationToken.ThrowIfCancellationRequested();
+            throw;
+        }
 
         if (_exceptionThrown)
             cancellationToken.ThrowIfCancellationRequested();

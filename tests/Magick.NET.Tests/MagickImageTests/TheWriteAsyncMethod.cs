@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using ImageMagick;
 using ImageMagick.Formats;
@@ -224,6 +225,19 @@ public partial class MagickImageTests
                 using var image = new MagickImage();
 
                 await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.WriteAsync((Stream)null!, TestContext.Current.CancellationToken));
+            }
+
+            [Fact]
+            public async Task ShouldThrowOperationCanceledExceptionWhenOperationIsCancelled()
+            {
+                using var image = new MagickImage(MagickColors.Red, 100, 100);
+                image.Format = MagickFormat.Jpeg;
+
+                using var stream = new MemoryStream();
+                using var cancellationTokenSource = new CancellationTokenSource();
+                cancellationTokenSource.Cancel();
+
+                await Assert.ThrowsAsync<OperationCanceledException>(() => image.WriteAsync(stream, cancellationTokenSource.Token));
             }
         }
 
