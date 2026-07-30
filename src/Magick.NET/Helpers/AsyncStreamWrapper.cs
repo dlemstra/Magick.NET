@@ -48,6 +48,11 @@ internal class AsyncStreamWrapper : StreamWrapperBase
                 {
                     action();
                 }
+                catch
+                {
+                    if (!_exceptionThrown)
+                        throw;
+                }
                 finally
                 {
                     _readCount = -1;
@@ -73,6 +78,11 @@ internal class AsyncStreamWrapper : StreamWrapperBase
                 try
                 {
                     action();
+                }
+                catch
+                {
+                    if (!_exceptionThrown)
+                        throw;
                 }
                 finally
                 {

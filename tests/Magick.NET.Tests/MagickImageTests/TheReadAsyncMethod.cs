@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageMagick;
@@ -52,6 +53,16 @@ public partial class MagickImageTests
             {
                 using var image = new MagickImage();
                 await image.ReadAsync(new FileInfo(Files.CirclePNG), null, TestContext.Current.CancellationToken);
+            }
+
+            [Fact]
+            public async Task ShouldThrowExceptionWhenImageIsInvalid()
+            {
+                using var image = new MagickImage();
+                var bytes = File.ReadAllBytes(Files.SnakewarePNG);
+                using var temporaryFile = new TemporaryFile([.. bytes.Take(42)]);
+
+                await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => image.ReadAsync(temporaryFile.File, TestContext.Current.CancellationToken));
             }
         }
 

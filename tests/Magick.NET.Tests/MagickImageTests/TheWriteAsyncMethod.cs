@@ -66,6 +66,16 @@ public partial class MagickImageTests
 
                 Assert.Equal(MagickFormat.Tiff, output.Format);
             }
+
+            [Fact]
+            public async Task ShouldThrowExceptionWhenImageIsInvalid()
+            {
+                using var image = new MagickImage(Files.Builtin.Logo);
+                image.Settings.Compression = CompressionMethod.WebP;
+
+                using var tempFile = new TemporaryFile("foobar");
+                await Assert.ThrowsAsync<MagickCoderErrorException>(() => image.WriteAsync(tempFile.File, MagickFormat.Tiff, TestContext.Current.CancellationToken));
+            }
         }
 
         public class WithFileInfoAndWriteDefines

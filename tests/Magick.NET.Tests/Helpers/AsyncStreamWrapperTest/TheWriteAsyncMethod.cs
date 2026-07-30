@@ -104,10 +104,28 @@ public partial class AsyncStreamWrapperTest
                 {
                     wrapper.Write((IntPtr)p, (UIntPtr)5, IntPtr.Zero);
                 }
+            }
 
+            await Assert.ThrowsAsync<OperationCanceledException>(() => wrapper.WriteAsync(WriteSync, cancellationTokenSource.Token));
+        }
+
+        [Fact]
+        public async Task ShouldThrowExceptionWhenOperationIsCancelledAndActionThrowsException()
+        {
+            using var stream = new MemoryStream();
+            using var wrapper = AsyncStreamWrapper.CreateForWriting(stream);
+
+            using var cancellationTokenSource = new CancellationTokenSource();
+            cancellationTokenSource.Cancel();
+
+            unsafe void WriteSync()
+            {
+                var buffer = new byte[5];
                 fixed (byte* p = buffer)
                 {
-                    wrapper.Write((IntPtr)p, (UIntPtr)5, IntPtr.Zero);
+                    var count = wrapper.Write((IntPtr)p, (UIntPtr)5, IntPtr.Zero);
+                    if (count == -1)
+                        throw new InvalidOperationException();
                 }
             }
 
