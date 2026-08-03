@@ -129,9 +129,7 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     /// <returns>The format information.</returns>
     public static IMagickFormatInfo? Create(string fileName)
     {
-        var filePath = FileHelper.CheckForBaseDirectory(fileName);
-
-        var format = EnumHelper.ParseMagickFormatFromExtension(filePath);
+        var format = EnumHelper.ParseMagickFormatFromExtension(fileName);
 
         if (format == MagickFormat.Unknown)
             return null;
