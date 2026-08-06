@@ -129,6 +129,8 @@ public sealed partial class MagickFormatInfo : IMagickFormatInfo
     /// <returns>The format information.</returns>
     public static IMagickFormatInfo? Create(string fileName)
     {
+        Throw.IfNullOrEmpty(fileName);
+
         var format = EnumHelper.ParseMagickFormatFromExtension(fileName);
 
         if (format == MagickFormat.Unknown)
