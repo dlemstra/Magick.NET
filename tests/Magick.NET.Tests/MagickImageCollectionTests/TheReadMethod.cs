@@ -284,6 +284,18 @@ public partial class MagickImageCollectionTests
 
                 Assert.Single(images);
             }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                var file = new FileInfo(Files.ImageMagickJPG);
+                using var images = new MagickImageCollection();
+
+                images.Read(file);
+                Assert.Single(images);
+                images.Read(file);
+                Assert.Single(images);
+            }
         }
 
         public class WithFileInfoAndMagickReadSettings
@@ -304,6 +316,19 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
                 images.Read(file, null);
 
+                Assert.Single(images);
+            }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                var file = new FileInfo(Files.ImageMagickJPG);
+                var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
+
+                images.Read(file, settings);
+                Assert.Single(images);
+                images.Read(file, settings);
                 Assert.Single(images);
             }
         }
@@ -346,6 +371,17 @@ public partial class MagickImageCollectionTests
                 input.Read(Files.CirclePNG, settings);
 
                 Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
+            }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                using var images = new MagickImageCollection();
+
+                images.Read(Files.ImageMagickJPG);
+                Assert.Single(images);
+                images.Read(Files.ImageMagickJPG);
+                Assert.Single(images);
             }
         }
 
@@ -408,6 +444,18 @@ public partial class MagickImageCollectionTests
 
                 Assert.Equal(0.0, image.Compare(images[1], ErrorMetric.RootMeanSquared));
             }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
+
+                images.Read(Files.ImageMagickJPG, settings);
+                Assert.Single(images);
+                images.Read(Files.ImageMagickJPG, settings);
+                Assert.Single(images);
+            }
         }
 
         public class WithStream
@@ -433,6 +481,19 @@ public partial class MagickImageCollectionTests
                 input.Read(stream, settings);
 
                 Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
+            }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var images = new MagickImageCollection();
+
+                images.Read(stream);
+                Assert.Single(images);
+                stream.Position = 0;
+                images.Read(stream);
+                Assert.Single(images);
             }
         }
 
@@ -511,6 +572,20 @@ public partial class MagickImageCollectionTests
 
                 var exception = Assert.Throws<MagickCorruptImageErrorException>(() => images.Read(stream, settings));
                 ExceptionAssert.Contains("ReadPNGImage", exception);
+            }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                var settings = new MagickReadSettings();
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var images = new MagickImageCollection();
+
+                images.Read(stream, settings);
+                Assert.Single(images);
+                stream.Position = 0;
+                images.Read(stream, settings);
+                Assert.Single(images);
             }
         }
     }

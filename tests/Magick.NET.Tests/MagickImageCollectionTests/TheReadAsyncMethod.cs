@@ -44,6 +44,18 @@ public partial class MagickImageCollectionTests
 
                     Assert.Single(images);
                 }
+
+                [Fact]
+                public async Task ShouldClearTheCollectionBeforeReading()
+                {
+                    var file = new FileInfo(Files.ImageMagickJPG);
+                    using var images = new MagickImageCollection();
+
+                    await images.ReadAsync(file, TestContext.Current.CancellationToken);
+                    Assert.Single(images);
+                    await images.ReadAsync(file, TestContext.Current.CancellationToken);
+                    Assert.Single(images);
+                }
             }
         }
 
@@ -65,6 +77,19 @@ public partial class MagickImageCollectionTests
                 using var images = new MagickImageCollection();
                 await images.ReadAsync(file, null, TestContext.Current.CancellationToken);
 
+                Assert.Single(images);
+            }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                var file = new FileInfo(Files.ImageMagickJPG);
+                var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
+
+                await images.ReadAsync(file, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                await images.ReadAsync(file, settings, TestContext.Current.CancellationToken);
                 Assert.Single(images);
             }
         }
@@ -118,6 +143,17 @@ public partial class MagickImageCollectionTests
                 Assert.Equal(16U, images[2].Height);
                 Assert.Equal(MagickFormat.Ico, images[2].Format);
             }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                using var images = new MagickImageCollection();
+
+                await images.ReadAsync(Files.ImageMagickJPG, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                await images.ReadAsync(Files.ImageMagickJPG, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+            }
         }
 
         public class WithFileNameAndMagickFormat
@@ -167,6 +203,18 @@ public partial class MagickImageCollectionTests
 
                 Assert.Single(images);
             }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
+
+                await images.ReadAsync(Files.ImageMagickJPG, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                await images.ReadAsync(Files.ImageMagickJPG, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+            }
         }
 
         public class WithStream
@@ -192,6 +240,19 @@ public partial class MagickImageCollectionTests
                 await input.ReadAsync(stream, settings, TestContext.Current.CancellationToken);
 
                 Assert.Equal(MagickFormat.Unknown, input[0].Settings.Format);
+            }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var images = new MagickImageCollection();
+
+                await images.ReadAsync(stream, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                stream.Position = 0;
+                await images.ReadAsync(stream, TestContext.Current.CancellationToken);
+                Assert.Single(images);
             }
         }
 
@@ -273,6 +334,20 @@ public partial class MagickImageCollectionTests
                 var exception = await Assert.ThrowsAsync<MagickCorruptImageErrorException>(() => images.ReadAsync(stream, settings, TestContext.Current.CancellationToken));
 
                 ExceptionAssert.Contains("ReadPNGImage", exception);
+            }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                var settings = new MagickReadSettings();
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var images = new MagickImageCollection();
+
+                await images.ReadAsync(stream, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                stream.Position = 0;
+                await images.ReadAsync(stream, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
             }
         }
     }

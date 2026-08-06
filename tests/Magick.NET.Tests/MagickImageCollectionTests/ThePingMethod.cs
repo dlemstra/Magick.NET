@@ -184,6 +184,19 @@ public partial class MagickImageCollectionTests
                 Assert.Single(images);
                 Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                var file = new FileInfo(Files.ImageMagickJPG);
+                var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
+
+                images.Ping(file, settings);
+                Assert.Single(images);
+                images.Ping(file, settings);
+                Assert.Single(images);
+            }
         }
 
         public class WithFileName
@@ -227,6 +240,17 @@ public partial class MagickImageCollectionTests
                 Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                 Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                using var images = new MagickImageCollection();
+
+                images.Ping(Files.ImageMagickJPG);
+                Assert.Single(images);
+                images.Ping(Files.ImageMagickJPG);
+                Assert.Single(images);
+            }
         }
 
         public class WithFileNameAndMagickReadSettings
@@ -258,6 +282,18 @@ public partial class MagickImageCollectionTests
 
                 Assert.Equal(2, images.Count);
             }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
+
+                images.Ping(Files.ImageMagickJPG, settings);
+                Assert.Single(images);
+                images.Ping(Files.ImageMagickJPG, settings);
+                Assert.Single(images);
+            }
         }
 
         public class WithStream
@@ -285,6 +321,19 @@ public partial class MagickImageCollectionTests
                 Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                 Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var images = new MagickImageCollection();
+
+                images.Ping(stream);
+                Assert.Single(images);
+                stream.Position = 0;
+                images.Ping(stream);
+                Assert.Single(images);
+            }
         }
 
         public class WithStreamAndMagickReadSettings
@@ -298,6 +347,20 @@ public partial class MagickImageCollectionTests
 
                 Assert.Single(images);
                 Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
+            }
+
+            [Fact]
+            public void ShouldClearTheCollectionBeforeReading()
+            {
+                var settings = new MagickReadSettings();
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var images = new MagickImageCollection();
+
+                images.Ping(stream, settings);
+                Assert.Single(images);
+                stream.Position = 0;
+                images.Ping(stream, settings);
+                Assert.Single(images);
             }
         }
     }

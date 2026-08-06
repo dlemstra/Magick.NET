@@ -37,6 +37,19 @@ public partial class MagickImageCollectionTests
                 Assert.Single(images);
                 Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                var file = new FileInfo(Files.ImageMagickJPG);
+                var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
+
+                await images.PingAsync(file, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                await images.PingAsync(file, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+            }
         }
 
         public class WithFileName
@@ -79,6 +92,17 @@ public partial class MagickImageCollectionTests
                 Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                 Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                using var images = new MagickImageCollection();
+
+                await images.PingAsync(Files.ImageMagickJPG, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                await images.PingAsync(Files.ImageMagickJPG, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+            }
         }
 
         public class WithFileNameAndMagickReadSettings
@@ -110,6 +134,18 @@ public partial class MagickImageCollectionTests
 
                 Assert.Equal(2, images.Count);
             }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                var settings = new MagickReadSettings();
+                using var images = new MagickImageCollection();
+
+                await images.PingAsync(Files.ImageMagickJPG, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                await images.PingAsync(Files.ImageMagickJPG, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+            }
         }
 
         public class WithStream
@@ -137,6 +173,19 @@ public partial class MagickImageCollectionTests
                 Assert.Equal(MagickFormat.Unknown, images[0].Settings.Format);
                 Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
             }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var images = new MagickImageCollection();
+
+                await images.PingAsync(stream, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                stream.Position = 0;
+                await images.PingAsync(stream, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+            }
         }
 
         public class WithStreamAndMagickReadSettings
@@ -150,6 +199,20 @@ public partial class MagickImageCollectionTests
 
                 Assert.Single(images);
                 Assert.Throws<InvalidOperationException>(() => images[0].GetPixelsUnsafe());
+            }
+
+            [Fact]
+            public async Task ShouldClearTheCollectionBeforeReading()
+            {
+                var settings = new MagickReadSettings();
+                using var stream = File.OpenRead(Files.ImageMagickJPG);
+                using var images = new MagickImageCollection();
+
+                await images.PingAsync(stream, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
+                stream.Position = 0;
+                await images.PingAsync(stream, settings, TestContext.Current.CancellationToken);
+                Assert.Single(images);
             }
         }
     }

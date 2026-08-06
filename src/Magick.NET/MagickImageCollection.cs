@@ -36,7 +36,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     /// </summary>
     public MagickImageCollection()
     {
-        _images = new List<IMagickImage<QuantumType>>();
+        _images = [];
         _nativeInstance = new NativeMagickImageCollection();
         _nativeInstance.Warning += OnWarning;
     }
@@ -2060,6 +2060,8 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
     private async Task AddImagesAsync(Stream stream, IMagickReadSettings<QuantumType>? readSettings, MagickFormat? format, bool ping, CancellationToken cancellationToken)
     {
         Throw.IfNullOrEmpty(stream);
+
+        Clear();
 
         var settings = CreateSettings(readSettings);
         settings.Ping = ping;
