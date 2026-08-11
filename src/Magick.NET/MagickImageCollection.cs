@@ -2171,7 +2171,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         }
         else
         {
-            using var fileStream = File.Open(fileName, FileMode.Create, FileAccess.Write);
+            using var fileStream = File.Open(fileName, FileMode.Create, FileAccess.ReadWrite);
             if (format is null)
                 await WriteAsync(fileStream, cancellationToken).ConfigureAwait(false);
             else

@@ -7694,7 +7694,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         var filePath = FileHelper.CheckForBaseDirectory(fileName);
 
-        using var fileStream = File.Open(filePath, FileMode.Create, FileAccess.Write);
+        using var fileStream = File.Open(filePath, FileMode.Create, FileAccess.ReadWrite);
         await WriteAsync(fileStream, format, cancellationToken).ConfigureAwait(false);
     }
 
