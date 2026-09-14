@@ -118,5 +118,5 @@ provide you with some help on how to use Magick.NET.
   - Draw text
 
 ## More documentation
-For some great ImageMagick examples please visit the following page: https://imagemagick.org/Usage. Create a [new issue](https://github.com/dlemstra/Magick.NET/issues)
+For some great ImageMagick examples please visit the following page: https://usage.imagemagick.org/. Create a [new issue](https://github.com/dlemstra/Magick.NET/issues)
 if you need help to change one of these examples into code.

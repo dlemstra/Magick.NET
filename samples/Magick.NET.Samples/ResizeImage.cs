@@ -13,7 +13,7 @@ public static class ResizeImageSamples
         using var collection = new MagickImageCollection(SampleFiles.SnakewareGif);
 
         // This will remove the optimization and change the image to how it looks at that point
-        // during the animation. More info here: http://www.imagemagick.org/Usage/anim_basics/#coalesce
+        // during the animation. More info here: https://usage.imagemagick.org/anim_basics/#coalesce
         collection.Coalesce();
 
         // Resize each image in the collection to a width of 200. When zero is specified for the height
