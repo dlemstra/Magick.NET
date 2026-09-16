@@ -18,5 +18,9 @@ public class TestIssue
     [Fact]
     public void RunTest()
     {
+        using var image = new MagickImage(@"I:\issues\im7\2090\1.png");
+        image.SetBitDepth(8);
+        var bytes = image.ToByteArray(MagickFormat.Rgba);
+        Assert.Equal(256 * 256 * 4, bytes.Length);
     }
 }
