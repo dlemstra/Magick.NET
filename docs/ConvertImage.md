@@ -10,7 +10,7 @@ using var image = new MagickImage(SampleFiles.SnakewareGif);
 image.Write(SampleFiles.OutputDirectory + "Snakeware.jpg");
 
 var settings = new MagickReadSettings();
-// Tells the xc: reader the image to create should be 800x600
+/* Tells the xc: reader the image to create should be 800x600 */
 settings.Width = 800;
 settings.Height = 600;
 
@@ -41,7 +41,7 @@ var data = snakeware.ToByteArray();
 // Uses sRGB.icm, eps/pdf produce better result when you set this before loading.
 var settings = new MagickReadSettings
 {
-    ColorSpace = ColorSpace.sRGB
+    ColorSpace = ColorSpace.sRGB,
 };
 
 // Create empty image

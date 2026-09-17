@@ -7,7 +7,7 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class LosslessCompressionSamples
+public static class LosslessCompression
 {
     public static void MakeGooglePageSpeedInsightsHappy()
     {

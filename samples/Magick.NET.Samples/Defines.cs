@@ -5,7 +5,7 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class CommandLineOptionDefineSamples
+public static class Defines
 {
     public static void CommandLineOptionDefine()
     {

@@ -7,14 +7,8 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class ReadImageSamples
+public static class ReadImages
 {
-    private static MemoryStream LoadMemoryStreamImage()
-        => new MemoryStream(LoadImageBytes());
-
-    private static byte[] LoadImageBytes()
-        => File.ReadAllBytes(SampleFiles.SnakewarePng);
-
     public static void ReadImage()
     {
         // Read from file.
@@ -100,4 +94,10 @@ public static class ReadImageSamples
         images.Read(data);
         images.Read(SampleFiles.SnakewarePdf, settings);
     }
+
+    private static MemoryStream LoadMemoryStreamImage()
+        => new MemoryStream(LoadImageBytes());
+
+    private static byte[] LoadImageBytes()
+        => File.ReadAllBytes(SampleFiles.SnakewarePng);
 }

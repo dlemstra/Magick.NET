@@ -5,7 +5,7 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class ResizeImageSamples
+public static class ResizeImage
 {
     public static void ResizeAnimatedGif()
     {
@@ -33,8 +33,8 @@ public static class ResizeImageSamples
         using var image = new MagickImage(SampleFiles.SnakewarePng);
 
         var size = new MagickGeometry(100, 100);
-        // This will resize the image to a fixed size without maintaining the aspect ratio.
-        // Normally an image will be resized to fit inside the specified size.
+        /* This will resize the image to a fixed size without maintaining the aspect ratio.
+           Normally an image will be resized to fit inside the specified size. */
         size.IgnoreAspectRatio = true;
 
         image.Resize(size);

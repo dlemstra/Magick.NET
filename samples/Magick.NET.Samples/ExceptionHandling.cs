@@ -6,19 +6,15 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class ExceptionHandlingSamples
+public static class ExceptionHandling
 {
-    private static void MagickImage_Warning(object? sender, WarningEventArgs arguments)
-        => Console.WriteLine(arguments.Message);
-
-    public static void ExceptionHandling()
+    public static void HandleException()
     {
         try
         {
             // Read invalid jpg file
             using var image = new MagickImage(SampleFiles.InvalidFileJpg);
         }
-        // Catch any MagickException
         catch (MagickException exception)
         {
             // Write excepion raised when reading the invalid jpg to the console
@@ -30,7 +26,6 @@ public static class ExceptionHandlingSamples
             // Read corrupt jpg file
             using var image = new MagickImage(SampleFiles.CorruptImageJpg);
         }
-        // Catch only MagickCorruptImageErrorException
         catch (MagickCorruptImageErrorException exception)
         {
             // Write excepion raised when reading the corrupt jpg to the console
@@ -48,4 +43,7 @@ public static class ExceptionHandlingSamples
         // Read file that will raise a warning.
         image.Read(SampleFiles.FileWithWarningJpg);
     }
+
+    private static void MagickImage_Warning(object? sender, WarningEventArgs arguments)
+        => Console.WriteLine(arguments.Message);
 }

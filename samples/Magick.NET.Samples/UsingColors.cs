@@ -6,9 +6,9 @@ using ImageMagick.Colors;
 
 namespace Magick.NET.Samples;
 
-public static class UsingColorsSamples
+public static class UsingColors
 {
-    public static void UsingColors()
+    public static void CreateAndUseColors()
     {
         using var image = new MagickImage(SampleFiles.SnakewarePng);
 

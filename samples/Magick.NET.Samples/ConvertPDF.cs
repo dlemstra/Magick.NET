@@ -8,18 +8,18 @@ namespace Magick.NET.Samples;
 /// <summary>
 /// You need to install the latest version of GhostScript before you can convert a pdf using
 /// Magick.NET. Make sure you only install the version of GhostScript with the same platform. If
-/// you use the 64-bit version of Magick.NET you should also install the 64-bit version of 
+/// you use the 64-bit version of Magick.NET you should also install the 64-bit version of
 /// Ghostscript. You can use the 32-bit version together with the 64-version but you will get a
 /// better performance if you keep the platforms the same.
 /// </summary>
-public static class ConvertPDFSamples
+public static class ConvertPDF
 {
     public static void ConvertPDFToMultipleImages()
     {
         // Settings the density to 300 dpi will create an image with a better quality
         var settings = new MagickReadSettings
         {
-            Density = new Density(300, 300)
+            Density = new Density(300, 300),
         };
 
         using var images = new MagickImageCollection();
@@ -32,8 +32,10 @@ public static class ConvertPDFSamples
         {
             // Write page to file that contains the page number
             image.Write(SampleFiles.OutputDirectory + "Snakeware.Page" + page + ".png");
+
             // Writing to a specific format works the same as for a single image
             image.Format = MagickFormat.Ptif;
+
             image.Write(SampleFiles.OutputDirectory + "Snakeware.Page" + page + ".tif");
             page++;
         }
@@ -44,7 +46,7 @@ public static class ConvertPDFSamples
         // Settings the density to 300 dpi will create an image with a better quality
         var settings = new MagickReadSettings
         {
-            Density = new Density(300)
+            Density = new Density(300),
         };
 
         using var images = new MagickImageCollection();
@@ -71,6 +73,7 @@ public static class ConvertPDFSamples
 
         // Add first page
         images.Add(new MagickImage(SampleFiles.SnakewareJpg));
+
         // Add second page
         images.Add(new MagickImage(SampleFiles.SnakewareJpg));
 

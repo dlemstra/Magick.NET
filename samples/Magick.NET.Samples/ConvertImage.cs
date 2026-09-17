@@ -6,7 +6,7 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class ConvertImageSamples
+public static class ConvertImage
 {
     public static void ConvertImageFromOneFormatToAnother()
     {
@@ -17,7 +17,7 @@ public static class ConvertImageSamples
         image.Write(SampleFiles.OutputDirectory + "Snakeware.jpg");
 
         var settings = new MagickReadSettings();
-        // Tells the xc: reader the image to create should be 800x600
+        /* Tells the xc: reader the image to create should be 800x600 */
         settings.Width = 800;
         settings.Height = 600;
 
@@ -47,7 +47,7 @@ public static class ConvertImageSamples
         // Uses sRGB.icm, eps/pdf produce better result when you set this before loading.
         var settings = new MagickReadSettings
         {
-            ColorSpace = ColorSpace.sRGB
+            ColorSpace = ColorSpace.sRGB,
         };
 
         // Create empty image

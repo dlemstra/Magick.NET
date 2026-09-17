@@ -5,7 +5,7 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class WatermarkSamples
+public static class Watermark
 {
     public static void CreateWatermark()
     {

@@ -6,7 +6,7 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class DetailedDebugInformationSamples
+public static class DetailedDebugInformation
 {
     public static void MagickNET_Log(object? sender, LogEventArgs arguments)
     {

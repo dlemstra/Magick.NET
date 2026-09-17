@@ -6,14 +6,14 @@ using ImageMagick.Formats;
 
 namespace Magick.NET.Samples;
 
-public static class ReadRawThumbnailSamples
+public static class ReadRawThumbnail
 {
-    public static void ReadRawThumbnail()
+    public static void ReadRawThumbnailFromImage()
     {
         // Setup DNG read defines
         var defines = new DngReadDefines
         {
-            ReadThumbnail = true
+            ReadThumbnail = true,
         };
 
         // Create empty image

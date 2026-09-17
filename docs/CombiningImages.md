@@ -39,7 +39,7 @@ images[1].Flip();
 // Optionally reduce colors
 var settings = new QuantizeSettings
 {
-    Colors = 256
+    Colors = 256,
 };
 images.Quantize(settings);
 

@@ -6,7 +6,7 @@
 // Setup DNG read defines
 var defines = new DngReadDefines
 {
-    ReadThumbnail = true
+    ReadThumbnail = true,
 };
 
 // Create empty image

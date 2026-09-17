@@ -5,7 +5,7 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class CombiningImagesSamples
+public static class CombiningImages
 {
     public static void MergeMultipleImages()
     {
@@ -44,7 +44,7 @@ public static class CombiningImagesSamples
         // Optionally reduce colors
         var settings = new QuantizeSettings
         {
-            Colors = 256
+            Colors = 256,
         };
         images.Quantize(settings);
 

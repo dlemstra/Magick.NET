@@ -6,7 +6,7 @@ using ImageMagick;
 
 namespace Magick.NET.Samples;
 
-public static class ExifDataSamples
+public static class ExifData
 {
     public static void ReadExifData()
     {

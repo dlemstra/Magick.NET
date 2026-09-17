@@ -8,7 +8,6 @@ try
     // Read invalid jpg file
     using var image = new MagickImage(SampleFiles.InvalidFileJpg);
 }
-// Catch any MagickException
 catch (MagickException exception)
 {
     // Write excepion raised when reading the invalid jpg to the console
@@ -20,7 +19,6 @@ try
     // Read corrupt jpg file
     using var image = new MagickImage(SampleFiles.CorruptImageJpg);
 }
-// Catch only MagickCorruptImageErrorException
 catch (MagickCorruptImageErrorException exception)
 {
     // Write excepion raised when reading the corrupt jpg to the console

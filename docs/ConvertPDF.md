@@ -28,8 +28,10 @@ foreach (var image in images)
 {
     // Write page to file that contains the page number
     image.Write("Snakeware.Page" + page + ".png");
+
     // Writing to a specific format works the same as for a single image
     image.Format = MagickFormat.Ptif;
+
     image.Write("Snakeware.Page" + page + ".tif");
     page++;
 }
@@ -41,7 +43,7 @@ foreach (var image in images)
 // Settings the density to 300 dpi will create an image with a better quality
 var settings = new MagickReadSettings
 {
-    Density = new Density(300)
+    Density = new Density(300),
 };
 
 using var images = new MagickImageCollection();
@@ -69,6 +71,7 @@ using var images = new MagickImageCollection();
 
 // Add first page
 images.Add(new MagickImage(SampleFiles.SnakewareJpg));
+
 // Add second page
 images.Add(new MagickImage(SampleFiles.SnakewareJpg));
 
