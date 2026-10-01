@@ -235,6 +235,17 @@ public partial class MagickImageTests
 
                 await Assert.ThrowsAsync<ArgumentNullException>("stream", () => image.WriteAsync((Stream)null!, TestContext.Current.CancellationToken));
             }
+
+            [Fact]
+            public async Task ShouldThrowExceptionWhenWritingFailed()
+            {
+                using var memoryStream = new MemoryStream();
+                using var writeExceptionStream = new WriteExceptionStream(memoryStream);
+
+                using var image = new MagickImage(Files.MagickNETIconPNG);
+
+                await Assert.ThrowsAsync<MagickBlobErrorException>(() => image.WriteAsync(writeExceptionStream, TestContext.Current.CancellationToken));
+            }
         }
 
         public class WithStreamAndMagickFormat

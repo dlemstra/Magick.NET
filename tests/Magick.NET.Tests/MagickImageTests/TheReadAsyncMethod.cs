@@ -273,6 +273,18 @@ public partial class MagickImageTests
                 Assert.Equal(image.Format, testImage.Format);
                 Assert.Equal(0.0, image.Compare(testImage, ErrorMetric.RootMeanSquared));
             }
+
+            [Fact]
+            public async Task ShouldThrowExceptionWhenReadingFailed()
+            {
+                byte[] input = [1, 2, 3, 4, 5];
+                using var memoryStream = new MemoryStream(input);
+                using var readExceptionStream = new ReadExceptionStream(memoryStream);
+
+                using var image = new MagickImage();
+
+                await Assert.ThrowsAsync<MagickMissingDelegateErrorException>(() => image.ReadAsync(readExceptionStream, TestContext.Current.CancellationToken));
+            }
         }
 
         public class WithStreamAndMagickFormat

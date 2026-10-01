@@ -50,8 +50,10 @@ internal class AsyncStreamWrapper : StreamWrapperBase
                 }
                 catch
                 {
-                    if (!_exceptionThrown)
-                        throw;
+                    if (_exceptionThrown)
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                    throw;
                 }
                 finally
                 {
@@ -82,8 +84,10 @@ internal class AsyncStreamWrapper : StreamWrapperBase
                 }
                 catch
                 {
-                    if (!_exceptionThrown)
-                        throw;
+                    if (_exceptionThrown)
+                        cancellationToken.ThrowIfCancellationRequested();
+
+                    throw;
                 }
                 finally
                 {
