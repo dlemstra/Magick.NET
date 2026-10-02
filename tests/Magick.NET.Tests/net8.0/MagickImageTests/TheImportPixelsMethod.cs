@@ -188,7 +188,7 @@ public partial class MagickImageTests
                 };
                 var settings = new PixelImportSettings(1, 2, StorageType.Quantum, PixelMapping.RGBA);
                 using var image = new MagickImage(MagickColors.Green, 2, 2);
-                image.Alpha(AlphaOption.On);
+                image.Alpha(AlphaAction.On);
                 image.ImportPixels(new Span<QuantumType>(data), settings);
 
                 Assert.Equal(2U, image.Width);
