@@ -53,48 +53,6 @@ public sealed class ColorProfile : ImageProfile, IColorProfile
     }
 
     /// <summary>
-    /// Gets the AdobeRGB1998 profile.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.AdobeRGB1998)} instead.")]
-    public static ColorProfile AdobeRGB1998
-        => ColorProfiles.AdobeRGB1998;
-
-    /// <summary>
-    /// Gets the AppleRGB profile.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.AppleRGB)} instead.")]
-    public static ColorProfile AppleRGB
-        => ColorProfiles.AppleRGB;
-
-    /// <summary>
-    /// Gets the CoatedFOGRA39 profile.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.CoatedFOGRA39)} instead.")]
-    public static ColorProfile CoatedFOGRA39
-        => ColorProfiles.CoatedFOGRA39;
-
-    /// <summary>
-    /// Gets the ColorMatchRGB profile.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.ColorMatchRGB)} instead.")]
-    public static ColorProfile ColorMatchRGB
-        => ColorProfiles.ColorMatchRGB;
-
-    /// <summary>
-    /// Gets the sRGB profile.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.SRGB)} instead.")]
-    public static ColorProfile SRGB
-        => ColorProfiles.SRGB;
-
-    /// <summary>
-    /// Gets the USWebCoatedSWOP profile.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release. Use {nameof(ColorProfiles)}.{nameof(ColorProfiles.USWebCoatedSWOP)} instead.")]
-    public static ColorProfile USWebCoatedSWOP
-        => ColorProfiles.USWebCoatedSWOP;
-
-    /// <summary>
     /// Gets the color space of the profile.
     /// </summary>
     public ColorSpace ColorSpace
