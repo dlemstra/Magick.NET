@@ -57,12 +57,6 @@ public sealed class ExifProfile : ImageProfile, IExifProfile
     public ExifIfds AllowedIfds { get; set; } = ExifIfds.All;
 
     /// <summary>
-    /// Gets or sets which parts will be written when the profile is added to an image.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(AllowedIfds)} instead.")]
-    public ExifParts Parts { get; set; } = ExifParts.All;
-
-    /// <summary>
     /// Gets the tags that where found but contained an invalid value.
     /// </summary>
     public IReadOnlyList<ExifTag> InvalidTags

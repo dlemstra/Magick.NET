@@ -17,12 +17,6 @@ public interface IExifProfile : IImageProfile
     ExifIfds AllowedIfds { get; set; }
 
     /// <summary>
-    /// Gets or sets which parts will be written when the profile is added to an image.
-    /// </summary>
-    [Obsolete($"This property will be removed in the next major release, use {nameof(AllowedIfds)} instead.")]
-    ExifParts Parts { get; set; }
-
-    /// <summary>
     /// Gets the tags that where found but contained an invalid value.
     /// </summary>
     IReadOnlyList<ExifTag> InvalidTags { get; }
