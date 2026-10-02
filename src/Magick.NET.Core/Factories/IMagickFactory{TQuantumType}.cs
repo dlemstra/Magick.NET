@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using ImageMagick.Drawing;
 
 namespace ImageMagick.Factories;
@@ -11,7 +10,7 @@ namespace ImageMagick.Factories;
 /// </summary>
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
 public interface IMagickFactory<TQuantumType> : IMagickFactory
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Gets a factory that can be used to create <see cref="IMagickColorFactory{TQuantumType}"/> instances.

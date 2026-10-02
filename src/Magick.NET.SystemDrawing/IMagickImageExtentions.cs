@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -22,7 +21,7 @@ public static partial class IMagickImageExtentions
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public static void Read<TQuantumType>(this IMagickImage<TQuantumType> self, Bitmap bitmap)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
     {
         Throw.IfNull(self);
         Throw.IfNull(bitmap);
@@ -44,7 +43,7 @@ public static partial class IMagickImageExtentions
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
     public static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
         => ToBitmap(self, withDensity: false);
 
     /// <summary>
@@ -54,7 +53,7 @@ public static partial class IMagickImageExtentions
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <returns>A <see cref="Bitmap"/> that has the format <see cref="ImageFormat.Bmp"/>.</returns>
     public static Bitmap ToBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
         => ToBitmap(self, withDensity: true);
 
     /// <summary>
@@ -66,7 +65,7 @@ public static partial class IMagickImageExtentions
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
     public static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, ImageFormat imageFormat)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
         => ToBitmap(self, imageFormat, withDensity: false);
 
     /// <summary>
@@ -78,11 +77,11 @@ public static partial class IMagickImageExtentions
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <returns>A <see cref="Bitmap"/> that has the specified <see cref="ImageFormat"/>.</returns>
     public static Bitmap ToBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self, ImageFormat imageFormat)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
         => ToBitmap(self, imageFormat, withDensity: true);
 
     private static void CopyPixels<TQuantumType>(IUnsafePixelCollection<TQuantumType> pixels, BitmapData data, IMagickImage<TQuantumType> image, string mapping)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
     {
         var destination = data.Scan0;
         for (var y = 0; y < image.Height; y++)
@@ -96,7 +95,7 @@ public static partial class IMagickImageExtentions
     }
 
     private static unsafe void CopyPixelsOptimized<TQuantumType>(IUnsafePixelCollection<TQuantumType> pixels, BitmapData data, IMagickImage<TQuantumType> image, uint blueIndex, uint greenIndex, uint redIndex, int alphaIndex)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
     {
 #pragma warning disable CS8500 // This takes the address of, gets the size of, or declares a pointer to a managed type
         var source = (TQuantumType*)pixels.GetAreaPointer(0, 0, image.Width, image.Height);
@@ -126,7 +125,7 @@ public static partial class IMagickImageExtentions
     }
 
     private static Bitmap ToBitmap<TQuantumType>(this IMagickImage<TQuantumType> self, bool withDensity)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
     {
         Throw.IfNull(self);
 
@@ -191,7 +190,7 @@ public static partial class IMagickImageExtentions
     }
 
     private static Bitmap ToBitmap<TQuantumType>(IMagickImage<TQuantumType> self, ImageFormat imageFormat, bool withDensity)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
     {
         Throw.IfNull(self);
         Throw.IfNull(imageFormat);
@@ -211,7 +210,7 @@ public static partial class IMagickImageExtentions
     }
 
     private static void SetBitmapDensity<TQuantumType>(IMagickImage<TQuantumType> image, Bitmap bitmap)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
     {
         var dpi = GetDefaultDensity(image);
         bitmap.SetResolution((float)dpi.X, (float)dpi.Y);

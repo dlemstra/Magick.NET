@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Runtime.InteropServices;
 using Avalonia;
 using Avalonia.Media.Imaging;
@@ -21,7 +20,7 @@ public static partial class IMagickImageExtentions
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <returns>A <see cref="WriteableBitmap"/>.</returns>
     public static WriteableBitmap ToWriteableBitmap<TQuantumType>(this IMagickImage<TQuantumType> self)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
         => self.ToWriteableBitmapInternal(new Vector(96, 96));
 
     /// <summary>
@@ -31,11 +30,11 @@ public static partial class IMagickImageExtentions
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     /// <returns>A <see cref="WriteableBitmap"/>.</returns>
     public static WriteableBitmap ToWriteableBitmapWithDensity<TQuantumType>(this IMagickImage<TQuantumType> self)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
         => self.ToWriteableBitmapInternal(new Vector(self.Density.X, self.Density.Y));
 
     private static WriteableBitmap ToWriteableBitmapInternal<TQuantumType>(this IMagickImage<TQuantumType> self, Vector density)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
     {
         var size = new PixelSize((int)self.Width, (int)self.Height);
         var bitmap = new WriteableBitmap(size, density, PixelFormats.Rgba8888, AlphaFormat.Unpremul);

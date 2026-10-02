@@ -1,8 +1,6 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-
 namespace ImageMagick.Drawing;
 
 /// <summary>
@@ -10,7 +8,7 @@ namespace ImageMagick.Drawing;
 /// </summary>
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
 public interface IDrawableBorderColor<TQuantumType> : IDrawable
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Gets the color to use.

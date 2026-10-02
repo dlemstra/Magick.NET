@@ -1,8 +1,6 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-
 namespace ImageMagick;
 
 /// <summary>
@@ -10,7 +8,7 @@ namespace ImageMagick;
 /// </summary>
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
 public partial interface IMagickColors<TQuantumType>
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Gets a system-defined color that has an RGBA value of #00000000.

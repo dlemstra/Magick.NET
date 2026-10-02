@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.IO;
 
 namespace ImageMagick;
@@ -11,7 +10,7 @@ namespace ImageMagick;
 /// </summary>
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
 public partial interface IMagickImageInfo<TQuantumType> : IMagickImageInfo
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Read basic information about an image.

@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Collections.Generic;
 
 namespace ImageMagick;
@@ -11,7 +10,7 @@ namespace ImageMagick;
 /// </summary>
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
 public interface IMagickImageCreateOperations<TQuantumType> : IMagickImageCreateOperations
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Colorize image with the specified color, using specified percent alpha.

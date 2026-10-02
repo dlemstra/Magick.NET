@@ -18,7 +18,7 @@ public static class QuantumScaler
     /// <returns>A new <see cref="IQuantumScaler{TQuantumType}"/> instance.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IQuantumScaler<TQuantumType> Create<TQuantumType>()
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
     {
         if (typeof(TQuantumType) == typeof(byte))
             return (IQuantumScaler<TQuantumType>)(object)new ByteQuantumScaler();

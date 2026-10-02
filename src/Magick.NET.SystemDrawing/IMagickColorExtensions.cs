@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Drawing;
 
 namespace ImageMagick;
@@ -18,7 +17,7 @@ public static class IMagickColorExtensions
     /// <param name="color">The <see cref="Color"/> to convert.</param>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public static void SetFromColor<TQuantumType>(this IMagickColor<TQuantumType> self, Color color)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
         => self?.SetFromBytes(color.R, color.G, color.B, color.A);
 
     /// <summary>
@@ -28,7 +27,7 @@ public static class IMagickColorExtensions
     /// <returns>A <see cref="Color"/> instance.</returns>
     /// <typeparam name="TQuantumType">The quantum type.</typeparam>
     public static Color ToColor<TQuantumType>(this IMagickColor<TQuantumType> self)
-        where TQuantumType : struct, IConvertible
+        where TQuantumType : unmanaged
     {
         if (self is null)
             return default;

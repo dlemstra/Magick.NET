@@ -1,7 +1,6 @@
 // Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Collections.Generic;
 using ImageMagick.SourceGenerator;
 
@@ -13,7 +12,7 @@ namespace ImageMagick.Drawing;
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
 [Drawables]
 public partial interface IDrawables<TQuantumType> : IEnumerable<IDrawable>
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Applies the DrawableComposite operation to the <see cref="IDrawables{TQuantumType}" />.

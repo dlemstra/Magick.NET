@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-
 namespace ImageMagick;
 
 /// <summary>
@@ -10,7 +8,7 @@ namespace ImageMagick;
 /// </summary>
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
 public interface IMontageSettings<TQuantumType>
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Gets or sets the color of the background that thumbnails are composed on.

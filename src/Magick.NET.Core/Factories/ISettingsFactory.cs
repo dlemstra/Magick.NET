@@ -1,8 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
-
 namespace ImageMagick.Factories;
 
 /// <summary>
@@ -10,7 +8,7 @@ namespace ImageMagick.Factories;
 /// </summary>
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
 public interface ISettingsFactory<TQuantumType>
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Initializes a new instance that implements <see cref="ICompareSettings{TQuantumType}"/>.

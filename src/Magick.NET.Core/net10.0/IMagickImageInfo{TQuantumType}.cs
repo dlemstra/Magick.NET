@@ -10,7 +10,7 @@ namespace ImageMagick;
 
 /// <content />
 public partial interface IMagickImageInfo<TQuantumType> : IMagickImageInfo
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Read basic information about an image.

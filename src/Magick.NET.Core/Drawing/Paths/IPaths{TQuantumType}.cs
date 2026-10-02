@@ -1,7 +1,6 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
-using System;
 using System.Collections.Generic;
 using ImageMagick.SourceGenerator;
 
@@ -13,7 +12,7 @@ namespace ImageMagick.Drawing;
 /// <typeparam name="TQuantumType">The quantum type.</typeparam>
 [Paths]
 public partial interface IPaths<TQuantumType> : IEnumerable<IPath>
-    where TQuantumType : struct, IConvertible
+    where TQuantumType : unmanaged
 {
     /// <summary>
     /// Applies the PathCurveToAbs operation to the <see cref="IPaths{TQuantumType}" />.
