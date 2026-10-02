@@ -42,17 +42,6 @@ public sealed class ColorProfile : ImageProfile, IColorProfile
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ColorProfile"/> class.
-    /// </summary>
-    /// <param name="name">The name of the color profile (e.g. icc or icm).</param>
-    /// <param name="data">A byte array containing the profile.</param>
-    [Obsolete("This constructor will be removed in the next major release (only 'icc' will be used in the future).")]
-    public ColorProfile(string name, byte[] data)
-      : base(name, data)
-    {
-    }
-
-    /// <summary>
     /// Gets the color space of the profile.
     /// </summary>
     public ColorSpace ColorSpace
