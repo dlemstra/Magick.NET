@@ -315,26 +315,6 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     IMagickImage<TQuantumType>? Integral();
 
     /// <summary>
-    /// Floodfill pixels not matching color (within fuzz factor) of target pixel(x,y) with
-    /// replacement alpha value using method.
-    /// </summary>
-    /// <param name="alpha">The alpha to use.</param>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseFloodFill(TQuantumType alpha, int x, int y);
-
-    /// <summary>
-    /// Flood-fill texture across pixels that do not match the color of the target pixel and are
-    /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseFloodFill(IMagickColor<TQuantumType> color, int x, int y);
-
-    /// <summary>
     /// Flood-fill texture across pixels that do not match the color of the target pixel and are
     /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
     /// </summary>
@@ -344,16 +324,6 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     /// <param name="target">The target color.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void InverseFloodFill(IMagickColor<TQuantumType> color, int x, int y, IMagickColor<TQuantumType> target);
-
-    /// <summary>
-    /// Flood-fill texture across pixels that do not match the color of the target pixel and are
-    /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void InverseFloodFill(IMagickImage<TQuantumType> image, int x, int y);
 
     /// <summary>
     /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors

@@ -3548,28 +3548,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         => _nativeInstance.Contrast(false);
 
     /// <summary>
-    /// Floodfill pixels not matching color (within fuzz factor) of target pixel(x,y) with
-    /// replacement alpha value using method.
-    /// </summary>
-    /// <param name="alpha">The alpha to use.</param>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void InverseFloodFill(QuantumType alpha, int x, int y)
-        => FloodFill(alpha, x, y, true);
-
-    /// <summary>
-    /// Flood-fill texture across pixels that do not match the color of the target pixel and are
-    /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
-    /// </summary>
-    /// <param name="color">The color to use.</param>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void InverseFloodFill(IMagickColor<QuantumType> color, int x, int y)
-        => FloodFill(color, x, y, true);
-
-    /// <summary>
     /// Flood-fill texture across pixels that do not match the color of the target pixel and are
     /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
     /// </summary>
@@ -3580,17 +3558,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void InverseFloodFill(IMagickColor<QuantumType> color, int x, int y, IMagickColor<QuantumType> target)
         => FloodFill(color, x, y, target, true);
-
-    /// <summary>
-    /// Flood-fill texture across pixels that do not match the color of the target pixel and are
-    /// neighbors of the target pixel. Uses current fuzz setting when determining color match.
-    /// </summary>
-    /// <param name="image">The image to use.</param>
-    /// <param name="x">The X coordinate.</param>
-    /// <param name="y">The Y coordinate.</param>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void InverseFloodFill(IMagickImage<QuantumType> image, int x, int y)
-        => FloodFill(image, x, y, true);
 
     /// <summary>
     /// Flood-fill texture across pixels that match the color of the target pixel and are neighbors
