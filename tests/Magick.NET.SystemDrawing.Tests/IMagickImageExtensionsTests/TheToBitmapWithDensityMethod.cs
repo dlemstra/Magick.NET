@@ -93,7 +93,7 @@ public partial class IMagickImageExtensionsTests
         public void ShouldBeAbleToConvertRgbaImage()
         {
             using var image = new MagickImage(MagickColors.Magenta, 5, 1);
-            image.Alpha(AlphaOption.On);
+            image.Alpha(AlphaAction.On);
 
             var color = MagickColors.Magenta;
             color.A = Quantum.Max;

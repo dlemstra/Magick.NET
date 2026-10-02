@@ -20,7 +20,7 @@ public partial class TiffWriteDefinesTests
                 Alpha = TiffAlpha.Associated,
             });
 
-            image.Alpha(AlphaOption.Set);
+            image.Alpha(AlphaAction.Set);
 
             using var output = WriteTiff(image);
             Assert.Equal("associated", output.GetAttribute("tiff:alpha"));

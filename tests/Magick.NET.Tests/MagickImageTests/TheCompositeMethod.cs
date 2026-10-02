@@ -104,7 +104,7 @@ public partial class MagickImageTests
 
                 using var image = new MagickImage("label:Test", settings);
                 using var alpha = image.Clone();
-                alpha.Alpha(AlphaOption.Extract);
+                alpha.Alpha(AlphaAction.Extract);
                 alpha.ShadeGrayscale(130, 30);
                 alpha.Composite(image, CompositeOperator.CopyAlpha);
 

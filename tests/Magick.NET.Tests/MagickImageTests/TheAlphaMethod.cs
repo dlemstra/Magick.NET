@@ -17,7 +17,7 @@ public partial class MagickImageTests
 
             Assert.False(image.HasAlpha);
 
-            image.Alpha(AlphaOption.Transparent);
+            image.Alpha(AlphaAction.Transparent);
 
             Assert.True(image.HasAlpha);
             ColorAssert.Equal(new MagickColor("#fff0"), image, 0, 0);
@@ -27,11 +27,11 @@ public partial class MagickImageTests
         public void ShouldUseTheBackgroundColor()
         {
             using var image = new MagickImage(Files.Builtin.Wizard);
-            image.Alpha(AlphaOption.Transparent);
+            image.Alpha(AlphaAction.Transparent);
 
             image.BackgroundColor = new MagickColor("red");
-            image.Alpha(AlphaOption.Background);
-            image.Alpha(AlphaOption.Off);
+            image.Alpha(AlphaAction.Background);
+            image.Alpha(AlphaAction.Off);
 
             Assert.False(image.HasAlpha);
             ColorAssert.Equal(new MagickColor(Quantum.Max, 0, 0), image, 0, 0);
@@ -41,11 +41,11 @@ public partial class MagickImageTests
         public void ShouldRemoveAlphaChannelIfAllPixelsAreOpaque()
         {
             using var image = new MagickImage(MagickColors.Red, 2, 2);
-            image.Alpha(AlphaOption.On);
+            image.Alpha(AlphaAction.On);
 
             Assert.True(image.HasAlpha);
 
-            image.Alpha(AlphaOption.OffIfOpaque);
+            image.Alpha(AlphaAction.OffIfOpaque);
 
             Assert.False(image.HasAlpha);
         }
@@ -54,7 +54,7 @@ public partial class MagickImageTests
         public void ShouldKeepAlphaChannelIfSinglePixesIsNotOpaque()
         {
             using var image = new MagickImage(MagickColors.Red, 2, 2);
-            image.Alpha(AlphaOption.On);
+            image.Alpha(AlphaAction.On);
 
             Assert.True(image.HasAlpha);
 
@@ -62,7 +62,7 @@ public partial class MagickImageTests
             var pixel = pixels.GetPixel(1, 1);
             pixel[3] = 0;
 
-            image.Alpha(AlphaOption.OffIfOpaque);
+            image.Alpha(AlphaAction.OffIfOpaque);
 
             Assert.True(image.HasAlpha);
         }

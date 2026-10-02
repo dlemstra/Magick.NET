@@ -658,7 +658,7 @@ public partial class MagickImage
         public partial IntPtr SepiaTone(double threshold);
 
         [Throws]
-        public partial void SetAlpha(AlphaOption value);
+        public partial void SetAlpha(AlphaAction value);
 
         [Throws]
         public partial void SetArtifact(string name, string value);

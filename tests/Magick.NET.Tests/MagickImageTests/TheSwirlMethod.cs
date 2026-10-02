@@ -14,7 +14,7 @@ public partial class MagickImageTests
         public void ShouldSwirlTheImage()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
-            image.Alpha(AlphaOption.Deactivate);
+            image.Alpha(AlphaAction.Deactivate);
 
             ColorAssert.Equal(MagickColors.Red, image, 287, 74);
             ColorAssert.NotEqual(MagickColors.White, image, 363, 333);

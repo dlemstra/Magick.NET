@@ -44,7 +44,7 @@ public partial class DrawablesTests
                 using var other = image.Clone();
                 image.Resize(0, 150);
                 other.Resize(0, 150);
-                other.Alpha(AlphaOption.Off);
+                other.Alpha(AlphaAction.Off);
                 other.Composite(image, CompositeOperator.CopyAlpha);
 
                 var diference = other.Compare(image, ErrorMetric.RootMeanSquared);

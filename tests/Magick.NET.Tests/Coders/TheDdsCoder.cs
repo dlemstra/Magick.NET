@@ -22,7 +22,7 @@ public class TheDdsCoder
     public void ShouldUseDxt5AsTheDefaultCompressionForImagesWithAnAlphaChannel()
     {
         using var input = new MagickImage(Files.Builtin.Logo);
-        input.Alpha(AlphaOption.Set);
+        input.Alpha(AlphaAction.Set);
         using var output = WriteDds(input);
 
         Assert.Equal(CompressionMethod.DXT5, output.Compression);

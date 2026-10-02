@@ -58,7 +58,7 @@ public partial class DdsWriteDefinesTests
         public void ShouldUseDxt1CompressionWhenSetToDxt1AndImageHasAlphaChannel()
         {
             using var input = new MagickImage(Files.Builtin.Logo);
-            input.Alpha(AlphaOption.Set);
+            input.Alpha(AlphaAction.Set);
 
             input.Settings.SetDefines(new DdsWriteDefines
             {

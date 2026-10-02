@@ -258,7 +258,7 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     /// </summary>
     /// <param name="value">The option to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    void Alpha(AlphaOption value);
+    void Alpha(AlphaAction value);
 
     /// <summary>
     /// Annotate using specified text, and bounding area.

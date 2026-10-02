@@ -16,10 +16,10 @@ public partial class MagickImageTests
             using var first = new MagickImage(Files.MagickNETIconPNG);
             first.LevelColors(MagickColors.Fuchsia, MagickColors.Goldenrod, Channels.Blue);
             first.InverseLevelColors(MagickColors.Fuchsia, MagickColors.Goldenrod, Channels.Blue);
-            first.Alpha(AlphaOption.Background);
+            first.Alpha(AlphaAction.Background);
 
             using var second = new MagickImage(Files.MagickNETIconPNG);
-            second.Alpha(AlphaOption.Background);
+            second.Alpha(AlphaAction.Background);
 
 #if Q8 || Q16
             Assert.Equal(0.0, first.Compare(second, ErrorMetric.RootMeanSquared));

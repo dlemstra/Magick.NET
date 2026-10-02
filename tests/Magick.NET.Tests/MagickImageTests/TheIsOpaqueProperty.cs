@@ -22,7 +22,7 @@ public partial class MagickImageTests
         public void ShouldReturnFalseWhenImageIsNotOpaque()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
-            image.Alpha(AlphaOption.Transparent);
+            image.Alpha(AlphaAction.Transparent);
 
             Assert.False(image.IsOpaque);
         }

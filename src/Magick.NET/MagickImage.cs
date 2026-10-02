@@ -661,7 +661,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
             if (HasAlpha != value)
             {
                 if (value)
-                    Alpha(AlphaOption.Opaque);
+                    Alpha(AlphaAction.Opaque);
                 _nativeInstance.HasAlpha_Set(value);
             }
         }
@@ -1160,7 +1160,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <param name="value">The option to use.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public void Alpha(AlphaOption value)
+    public void Alpha(AlphaAction value)
         => _nativeInstance.SetAlpha(value);
 
     /// <summary>

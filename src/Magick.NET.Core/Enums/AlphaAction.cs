@@ -4,9 +4,9 @@
 namespace ImageMagick;
 
 /// <summary>
-/// Specifies alpha options.
+/// Specifies alpha actions.
 /// </summary>
-public enum AlphaOption
+public enum AlphaAction
 {
     /// <summary>
     /// Undefined.

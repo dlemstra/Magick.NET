@@ -70,7 +70,7 @@ public class ThePsdCoder
             ColorSpace = ColorSpace.Gray,
         });
 
-        input.Alpha(AlphaOption.Opaque);
+        input.Alpha(AlphaAction.Opaque);
 
         using var memoryStream = new MemoryStream();
         input.Settings.Compression = CompressionMethod.RLE;

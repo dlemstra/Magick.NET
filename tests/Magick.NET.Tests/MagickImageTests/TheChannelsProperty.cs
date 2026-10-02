@@ -28,7 +28,7 @@ public partial class MagickImageTests
 
             Assert.Equal(rgba, image.Channels.ToArray());
 
-            image.Alpha(AlphaOption.Off);
+            image.Alpha(AlphaAction.Off);
 
             Assert.Equal(rgb, image.Channels.ToArray());
         }
@@ -54,7 +54,7 @@ public partial class MagickImageTests
 
             Assert.Equal(gray, redChannel.Channels.ToArray());
 
-            redChannel.Alpha(AlphaOption.On);
+            redChannel.Alpha(AlphaAction.On);
 
             Assert.Equal(grayAlpha, redChannel.Channels.ToArray());
         }
@@ -77,7 +77,7 @@ public partial class MagickImageTests
 
             Assert.Equal(cmyka, image.Channels.ToArray());
 
-            image.Alpha(AlphaOption.Off);
+            image.Alpha(AlphaAction.Off);
 
             Assert.Equal(cmyk, image.Channels.ToArray());
         }

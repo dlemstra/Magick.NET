@@ -15,7 +15,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Wizard);
             image.ContrastStretch(new Percentage(50), new Percentage(80));
-            image.Alpha(AlphaOption.Opaque);
+            image.Alpha(AlphaAction.Opaque);
 
             ColorAssert.Equal(MagickColors.Black, image, 160, 300);
             ColorAssert.Equal(MagickColors.Red, image, 325, 175);
@@ -26,7 +26,7 @@ public partial class MagickImageTests
         {
             using var image = new MagickImage(Files.Builtin.Wizard);
             image.ContrastStretch(new Percentage(50), new Percentage(80), Channels.Red);
-            image.Alpha(AlphaOption.Opaque);
+            image.Alpha(AlphaAction.Opaque);
 
             ColorAssert.Equal(new MagickColor("#005bc9ff"), image, 160, 300);
             ColorAssert.Equal(new MagickColor("#fffcdcff"), image, 325, 175);

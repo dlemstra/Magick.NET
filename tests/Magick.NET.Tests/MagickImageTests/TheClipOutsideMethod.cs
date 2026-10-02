@@ -31,9 +31,9 @@ public partial class MagickImageTests
         public void ShouldSetTheCorrectColors()
         {
             using var image = new MagickImage(Files.InvitationTIF);
-            image.Alpha(AlphaOption.Transparent);
+            image.Alpha(AlphaAction.Transparent);
             image.ClipOutside("Pad A");
-            image.Alpha(AlphaOption.Opaque);
+            image.Alpha(AlphaAction.Opaque);
 
             using var mask = image.GetWriteMask();
 
