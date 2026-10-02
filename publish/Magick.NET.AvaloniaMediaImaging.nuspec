@@ -18,7 +18,7 @@
     <copyright>Copyright 2013-2026 Dirk Lemstra</copyright>
     <tags>ImageMagick Magick.NET Image Convert Resize Draw Effects</tags>
     <dependencies>
-      <group targetFramework="net8.0">
+      <group targetFramework="net10.0">
         <dependency id="Magick.NET.Core" version="14.17.2" />
         <dependency id="Avalonia" version="12.1.0" />
       </group>

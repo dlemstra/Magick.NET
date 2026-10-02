@@ -32,37 +32,37 @@ set testfolder=..\..\..\..\..\..\Magick.NET\tests
 
 if not exist %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net472 mkdir %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net472
 if not exist %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\AnyCPU\net472 mkdir %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\AnyCPU\net472
-if not exist %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net8.0 mkdir %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net8.0
+if not exist %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net10.0 mkdir %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net10.0
 copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net472
 copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net472
 copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\AnyCPU\net472
 copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\AnyCPU\net472
-copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net8.0
-copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net8.0
+copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net10.0
+copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.Tests\bin\%config%%quantumName%\%architecture%\net10.0
 
-if not exist %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%architecture%\net8.0 mkdir %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%architecture%\net8.0
-copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%architecture%\net8.0
-copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%architecture%\net8.0
+if not exist %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%architecture%\net10.0 mkdir %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%architecture%\net10.0
+copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%architecture%\net10.0
+copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.AvaloniaMediaImaging.Tests\bin\%config%%quantumName%\%architecture%\net10.0
 
 if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net472 mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net472
 if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\AnyCPU\net472 mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\AnyCPU\net472
-if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net8.0 mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net8.0
+if not exist %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net10.0 mkdir %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net10.0
 copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net472
 copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net472
 copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\AnyCPU\net472
 copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\AnyCPU\net472
-copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net8.0
-copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net8.0
+copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net10.0
+copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.SystemDrawing.Tests\bin\%config%%quantumName%\%architecture%\net10.0
 
 if not exist %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net472 mkdir %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net472
 if not exist %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\AnyCPU\net472 mkdir %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\AnyCPU\net472
-if not exist %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net8.0 mkdir %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net8.0
+if not exist %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net10.0 mkdir %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net10.0
 copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net472
 copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net472
 copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\AnyCPU\net472
 copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\AnyCPU\net472
-copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net8.0
-copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net8.0
+copy /y Magick.Native-%quantumName%-%architecture%.dll %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net10.0
+copy /y Magick.Native-%quantumName%-%architecture%.pdb %testfolder%\Magick.NET.SystemWindowsMedia.Tests\bin\%config%%quantumName%\%architecture%\net10.0
 
 goto done
 

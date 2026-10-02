@@ -21,7 +21,7 @@
       <group targetFramework=".NETStandard2.0">
         <dependency id="Magick.NET.Core" version="14.17.2" />
       </group>
-      <group targetFramework="net8.0">
+      <group targetFramework="net10.0">
         <dependency id="Magick.NET.Core" version="14.17.2" />
       </group>
     </dependencies>

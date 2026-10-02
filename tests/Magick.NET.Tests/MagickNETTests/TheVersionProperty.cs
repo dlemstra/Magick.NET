@@ -42,7 +42,7 @@ public partial class MagickNETTests
 #if NET472
             Assert.Contains("netstandard20", MagickNET.Version);
 #else
-            Assert.Contains("net8.0", MagickNET.Version);
+            Assert.Contains("net10.0", MagickNET.Version);
 #endif
         }
 

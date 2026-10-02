@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net472</TargetFrameworks>
+    <TargetFrameworks>net10.0;net472</TargetFrameworks>
     <OutputType>Exe</OutputType>
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <Platforms>x86;x64;arm64;AnyCPU</Platforms>

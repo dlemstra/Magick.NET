@@ -14,7 +14,7 @@ For more information about ImageMagick go to: [http://www.imagemagick.org/](http
 
 ## Download
 
-This library has been tested on Windows, Linux and macOS. The library is available as a NuGet package. There are both platform specific packages and AnyCPU packages available. The platform specific packages can be used to reduce the size of the final application when the target platform is known. The AnyCPU packages can be used when the target platform is unknown. This library is available for `net8.0` and `netstandard20`.
+This library has been tested on Windows, Linux and macOS. The library is available as a NuGet package. There are both platform specific packages and AnyCPU packages available. The platform specific packages can be used to reduce the size of the final application when the target platform is known. The AnyCPU packages can be used when the target platform is unknown. This library is available for `net10.0` and `netstandard20`.
 
 More information about Linux and macOS can be found [here](docs/CrossPlatform.md).
 
@@ -62,7 +62,7 @@ Follow me on bluesky ([@dirk.lemstra.org](https://bsky.app/profile/dirk.lemstra.
 
 Besides the quantum specific packages there are also some extra libraries in this project. One of these libraries is the [Magick.NET.Core](https://www.nuget.org/packages/Magick.NET.Core) library that is a dependency of the quantum specific packages. This library can be used to add extra functionality and interact with the Magick.NET libraries. Examples of those libraries can be found below.
 
-|Package|Download|net8.0|netstandard20|net462
+|Package|Download|net10.0|netstandard20|net462
 |-|-|:-:|:-:|:-:|
 |Magick.NET.SystemDrawing|[![NuGet](https://img.shields.io/nuget/v/Magick.NET.SystemDrawing.svg)](https://www.nuget.org/packages/Magick.NET.SystemDrawing)|✅|✅|✅|
 |Magick.NET.SystemWindowsMedia|[![NuGet](https://img.shields.io/nuget/v/Magick.NET.SystemWindowsMedia.svg)](https://www.nuget.org/packages/Magick.NET.SystemWindowsMedia)|✅||✅|
