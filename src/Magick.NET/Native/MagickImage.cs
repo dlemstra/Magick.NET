@@ -185,9 +185,9 @@ public partial class MagickImage
 
         public partial double NormalizedMeanError_Get();
 
-        public partial OrientationType Orientation_Get();
+        public partial Orientation Orientation_Get();
 
-        public partial void Orientation_Set(OrientationType value);
+        public partial void Orientation_Set(Orientation value);
 
         public partial MagickRectangle? Page_Get();
 

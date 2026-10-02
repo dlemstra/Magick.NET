@@ -48,7 +48,7 @@ public partial interface IMagickImageInfo
     /// <summary>
     /// Gets the orientation of the image.
     /// </summary>
-    OrientationType Orientation { get; }
+    Orientation Orientation { get; }
 
     /// <summary>
     /// Gets the JPEG/MIFF/PNG compression level.

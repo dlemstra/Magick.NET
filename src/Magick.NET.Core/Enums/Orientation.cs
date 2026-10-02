@@ -6,7 +6,7 @@ namespace ImageMagick;
 /// <summary>
 /// Specified the photo orientation of the image.
 /// </summary>
-public enum OrientationType
+public enum Orientation
 {
     /// <summary>
     /// Undefined.

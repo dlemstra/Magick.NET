@@ -119,7 +119,7 @@ public partial class MagickImageInfoTests
                 Assert.Equal(Interlace.NoInterlace, imageInfo.Interlace);
                 Assert.Equal(100U, imageInfo.Quality);
                 Assert.Equal(123U, imageInfo.Width);
-                Assert.Equal(OrientationType.Undefined, imageInfo.Orientation);
+                Assert.Equal(Orientation.Undefined, imageInfo.Orientation);
             }
         }
 

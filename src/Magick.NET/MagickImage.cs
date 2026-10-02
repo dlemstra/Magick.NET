@@ -731,7 +731,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <summary>
     /// Gets or sets the photo orientation of the image.
     /// </summary>
-    public OrientationType Orientation
+    public Orientation Orientation
     {
         get => _nativeInstance.Orientation_Get();
         set => _nativeInstance.Orientation_Set(value);

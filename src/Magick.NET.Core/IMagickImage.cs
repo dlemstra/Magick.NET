@@ -210,7 +210,7 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     /// <summary>
     /// Gets or sets the photo orientation of the image.
     /// </summary>
-    OrientationType Orientation { get; set; }
+    Orientation Orientation { get; set; }
 
     /// <summary>
     /// Gets or sets the preferred size and location of an image canvas.

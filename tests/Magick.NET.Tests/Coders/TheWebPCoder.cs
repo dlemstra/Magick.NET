@@ -54,7 +54,7 @@ public partial class TheWebPCoder
         input.SetProfile(new XmpProfile(_xmpData));
 
         input.Density = new Density(1234.5678, 5, DensityUnit.PixelsPerCentimeter);
-        input.Orientation = OrientationType.LeftBottom;
+        input.Orientation = Orientation.LeftBottom;
 
         var data = input.ToByteArray(MagickFormat.WebP);
         using var output = new MagickImage(data);
@@ -65,7 +65,7 @@ public partial class TheWebPCoder
         Assert.Equal(1234.5678, output.Density.X);
         Assert.Equal(5, output.Density.Y);
         Assert.Equal(DensityUnit.PixelsPerCentimeter, output.Density.Units);
-        Assert.Equal(OrientationType.LeftBottom, output.Orientation);
+        Assert.Equal(Orientation.LeftBottom, output.Orientation);
 
         var expectedProfile = @"
 <x:xmpmeta xmlns:x=""adobe:ns:meta/"" x:xmptk=""XMPTk 2.8"">

@@ -17,14 +17,14 @@ public partial class MagickImageTests
 
             Assert.Equal(600U, image.Width);
             Assert.Equal(400U, image.Height);
-            Assert.Equal(OrientationType.TopLeft, image.Orientation);
+            Assert.Equal(Orientation.TopLeft, image.Orientation);
 
-            image.Orientation = OrientationType.RightTop;
+            image.Orientation = Orientation.RightTop;
             image.AutoOrient();
 
             Assert.Equal(400U, image.Width);
             Assert.Equal(600U, image.Height);
-            Assert.Equal(OrientationType.TopLeft, image.Orientation);
+            Assert.Equal(Orientation.TopLeft, image.Orientation);
         }
     }
 }

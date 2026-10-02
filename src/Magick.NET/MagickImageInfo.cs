@@ -170,7 +170,7 @@ public sealed partial class MagickImageInfo : IMagickImageInfo<QuantumType>
     /// <summary>
     /// Gets the orientation of the image.
     /// </summary>
-    public OrientationType Orientation { get; private set; }
+    public Orientation Orientation { get; private set; }
 
     /// <summary>
     /// Gets the JPEG/MIFF/PNG compression level.

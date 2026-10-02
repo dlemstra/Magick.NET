@@ -134,9 +134,9 @@ public partial class MagickImageTests
             {
                 using var input = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
 
-                Assert.Equal(OrientationType.TopLeft, input.Orientation);
+                Assert.Equal(Orientation.TopLeft, input.Orientation);
 
-                input.Orientation = OrientationType.RightTop;
+                input.Orientation = Orientation.RightTop;
 
                 using var memStream = new MemoryStream();
                 await input.WriteAsync(memStream, TestContext.Current.CancellationToken);
@@ -145,7 +145,7 @@ public partial class MagickImageTests
                 using var output = new MagickImage(Files.FujiFilmFinePixS1ProPNG);
                 await output.ReadAsync(memStream, TestContext.Current.CancellationToken);
 
-                Assert.Equal(OrientationType.RightTop, output.Orientation);
+                Assert.Equal(Orientation.RightTop, output.Orientation);
 
                 var profile = output.GetExifProfile();
 
