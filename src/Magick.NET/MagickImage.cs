@@ -1637,38 +1637,6 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="geometry">The area to clone.</param>
     /// <returns>A clone of the current image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
-    public IMagickImage<QuantumType> Clone(IMagickGeometry geometry)
-        => CloneArea(geometry);
-
-    /// <summary>
-    /// Creates a clone of the current image.
-    /// </summary>
-    /// <param name="width">The width of the area to clone.</param>
-    /// <param name="height">The height of the area to clone.</param>
-    /// <returns>A clone of the current image.</returns>
-    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
-    public IMagickImage<QuantumType> Clone(uint width, uint height)
-        => CloneArea(new MagickGeometry(width, height));
-
-    /// <summary>
-    /// Creates a clone of the current image.
-    /// </summary>
-    /// <param name="x">The X offset from origin.</param>
-    /// <param name="y">The Y offset from origin.</param>
-    /// <param name="width">The width of the area to clone.</param>
-    /// <param name="height">The height of the area to clone.</param>
-    /// <returns>A clone of the current image.</returns>
-    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
-    public IMagickImage<QuantumType> Clone(int x, int y, uint width, uint height)
-        => CloneArea(new MagickGeometry(x, y, width, height));
-
-    /// <summary>
-    /// Creates a clone of the current image with the specified geometry.
-    /// </summary>
-    /// <param name="geometry">The area to clone.</param>
-    /// <returns>A clone of the current image.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> CloneArea(IMagickGeometry geometry)
     {
         Throw.IfNull(geometry);

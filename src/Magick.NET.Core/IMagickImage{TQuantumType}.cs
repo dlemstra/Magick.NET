@@ -58,35 +58,6 @@ public partial interface IMagickImage<TQuantumType> : IMagickImageCreateOperatio
     /// <param name="geometry">The area to clone.</param>
     /// <returns>A clone of the current image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
-    IMagickImage<TQuantumType> Clone(IMagickGeometry geometry);
-
-    /// <summary>
-    /// Creates a clone of the current image.
-    /// </summary>
-    /// <param name="width">The width of the area to clone.</param>
-    /// <param name="height">The height of the area to clone.</param>
-    /// <returns>A clone of the current image.</returns>
-    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
-    IMagickImage<TQuantumType> Clone(uint width, uint height);
-
-    /// <summary>
-    /// Creates a clone of the current image.
-    /// </summary>
-    /// <param name="x">The X offset from origin.</param>
-    /// <param name="y">The Y offset from origin.</param>
-    /// <param name="width">The width of the area to clone.</param>
-    /// <param name="height">The height of the area to clone.</param>
-    /// <returns>A clone of the current image.</returns>
-    [Obsolete($"This method will be removed in the next major release, use {nameof(CloneArea)} instead.")]
-    IMagickImage<TQuantumType> Clone(int x, int y, uint width, uint height);
-
-    /// <summary>
-    /// Creates a clone of the current image with the specified geometry.
-    /// </summary>
-    /// <param name="geometry">The area to clone.</param>
-    /// <returns>A clone of the current image.</returns>
-    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     IMagickImage<TQuantumType> CloneArea(IMagickGeometry geometry);
 
     /// <summary>
