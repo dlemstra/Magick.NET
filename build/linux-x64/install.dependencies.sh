@@ -3,7 +3,7 @@ set -e
 
 apt-get -qq update
 
-apt-get -qq install curl ffmpeg fontconfig libgomp1 unzip -y > /dev/null
+apt-get -qq install curl ffmpeg fontconfig gdb libgomp1 unzip -y > /dev/null
 
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg -o /usr/share/keyrings/githubcli-archive-keyring.gpg
 chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg
