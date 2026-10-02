@@ -96,10 +96,10 @@ public sealed partial class PerceptualHash : IPerceptualHash
            _green.ToString() +
            _blue.ToString();
 
-    internal static PerceptualHash? Create(IMagickImage image, ColorSpace[] colorSpaces, IntPtr list)
+    internal static PerceptualHash Create(IMagickImage image, ColorSpace[] colorSpaces, IntPtr list)
     {
         if (list == IntPtr.Zero)
-            return null;
+            throw new InvalidOperationException();
 
         var red = CreateChannel(image, colorSpaces, list, PixelChannel.Red);
         var green = CreateChannel(image, colorSpaces, list, PixelChannel.Green);

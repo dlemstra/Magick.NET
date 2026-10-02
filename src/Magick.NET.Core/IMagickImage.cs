@@ -1437,7 +1437,7 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     /// </summary>
     /// <returns>The perceptual hash of this image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IPerceptualHash? PerceptualHash();
+    IPerceptualHash PerceptualHash();
 
     /// <summary>
     /// Returns the perceptual hash of this image.
@@ -1445,7 +1445,7 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     /// <param name="colorSpaces">The colorspaces to get the perceptual hash for.</param>
     /// <returns>The perceptual hash of this image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    IPerceptualHash? PerceptualHash(params ColorSpace[] colorSpaces);
+    IPerceptualHash PerceptualHash(params ColorSpace[] colorSpaces);
 
     /// <summary>
     /// Reads only metadata and not the pixel data.

@@ -4344,7 +4344,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <returns>The perceptual hash of this image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IPerceptualHash? PerceptualHash()
+    public IPerceptualHash PerceptualHash()
         => PerceptualHash(ImageMagick.PerceptualHash.DefaultColorSpaces);
 
     /// <summary>
@@ -4353,7 +4353,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// <param name="colorSpaces">The colorspaces to get the perceptual hash for.</param>
     /// <returns>The perceptual hash of this image.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
-    public IPerceptualHash? PerceptualHash(params ColorSpace[] colorSpaces)
+    public IPerceptualHash PerceptualHash(params ColorSpace[] colorSpaces)
     {
         ImageMagick.PerceptualHash.ValidateColorSpaces(colorSpaces);
 
