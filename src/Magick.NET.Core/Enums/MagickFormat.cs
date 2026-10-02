@@ -59,9 +59,24 @@ public enum MagickFormat
     Arw,
 
     /// <summary>
+    /// Aseprite Sprite Format.
+    /// </summary>
+    Ase,
+
+    /// <summary>
+    /// Aseprite Sprite Format.
+    /// </summary>
+    Aseprite,
+
+    /// <summary>
     /// Image sequence laid out in continuous irregular courses (Unknown).
     /// </summary>
     Ashlar,
+
+    /// <summary>
+    /// AVC Image File Format.
+    /// </summary>
+    Avci,
 
     /// <summary>
     /// Microsoft Audio/Visual Interleaved.
@@ -132,6 +147,11 @@ public enum MagickFormat
     /// Raw cyan samples.
     /// </summary>
     C,
+
+    /// <summary>
+    /// C2PA Provenance Metadata.
+    /// </summary>
+    C2pa,
 
     /// <summary>
     /// Continuous Acquisition and Life-cycle Support Type 1.
@@ -499,6 +519,11 @@ public enum MagickFormat
     Icb,
 
     /// <summary>
+    /// Microsoft icon (Icon).
+    /// </summary>
+    Icn,
+
+    /// <summary>
     /// Microsoft icon.
     /// </summary>
     Ico,
@@ -622,6 +647,11 @@ public enum MagickFormat
     /// Kodak Digital Camera Raw Format.
     /// </summary>
     Kdc,
+
+    /// <summary>
+    /// Morphology Kernel.
+    /// </summary>
+    Kernel,
 
     /// <summary>
     /// Image label.
@@ -1119,6 +1149,11 @@ public enum MagickFormat
     Sct,
 
     /// <summary>
+    /// Simple File Format Family Images.
+    /// </summary>
+    Sf3,
+
+    /// <summary>
     /// Seattle Film Works.
     /// </summary>
     Sfw,
@@ -1309,6 +1344,11 @@ public enum MagickFormat
     Vst,
 
     /// <summary>
+    /// Amiga Workbench Icon.
+    /// </summary>
+    Wbinfo,
+
+    /// <summary>
     /// WebP Image Format.
     /// </summary>
     WebP,
@@ -1392,44 +1432,4 @@ public enum MagickFormat
     /// CCIR 601 4:1:1 or 4:2:2.
     /// </summary>
     Yuv,
-
-    /// <summary>
-    /// AVC Image File Format.
-    /// </summary>
-    Avci,
-
-    /// <summary>
-    /// Microsoft icon (Icon).
-    /// </summary>
-    Icn,
-
-    /// <summary>
-    /// Simple File Format Family Images.
-    /// </summary>
-    Sf3,
-
-    /// <summary>
-    /// Aseprite Sprite Format.
-    /// </summary>
-    Ase,
-
-    /// <summary>
-    /// Aseprite Sprite Format.
-    /// </summary>
-    Aseprite,
-
-    /// <summary>
-    /// C2PA Provenance Metadata.
-    /// </summary>
-    C2pa,
-
-    /// <summary>
-    /// Morphology Kernel.
-    /// </summary>
-    Kernel,
-
-    /// <summary>
-    /// Amiga Workbench Icon.
-    /// </summary>
-    Wbinfo,
 }
