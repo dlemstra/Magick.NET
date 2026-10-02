@@ -24,7 +24,7 @@ public partial class MagickSettingsTests
         {
             using var image = new MagickImage(MagickColors.SkyBlue, 100, 60);
 
-            image.Settings.FillRule = FillRule.Nonzero;
+            image.Settings.FillRule = FillRule.NonZero;
             image.Settings.FillColor = MagickColors.White;
             image.Settings.StrokeColor = MagickColors.Black;
             image.Draw(new DrawablePath(

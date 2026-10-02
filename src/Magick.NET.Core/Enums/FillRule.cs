@@ -21,5 +21,5 @@ public enum FillRule
     /// <summary>
     /// Non zero.
     /// </summary>
-    Nonzero,
+    NonZero,
 }

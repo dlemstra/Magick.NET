@@ -37,7 +37,7 @@ public partial class DrawablesTests
               .FillColor(MagickColors.Purple)
               .FillOpacity(new Percentage(1.0))
               .FillPatternUrl("foo")
-              .FillRule(FillRule.Nonzero)
+              .FillRule(FillRule.NonZero)
               .Font("foo")
               .Font("foo", FontStyleType.Normal, FontWeight.Normal, FontStretch.Normal)
               .FontPointSize(1.0)

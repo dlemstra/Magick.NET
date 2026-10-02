@@ -29,7 +29,7 @@ public class DrawableTests
         image.Draw(new DrawableBorderColor(MagickColors.Fuchsia));
         image.Draw(new DrawableCircle(0, 0, 50, 50));
         image.Draw(new DrawableClipPath("foo"));
-        image.Draw(new DrawableClipRule(FillRule.Nonzero));
+        image.Draw(new DrawableClipRule(FillRule.NonZero));
         image.Draw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
         image.Draw(new DrawableColor(0, 0, PaintMethod.Floodfill));
 
@@ -99,7 +99,7 @@ public class DrawableTests
         AssertDraw(new DrawableBorderColor(MagickColors.Fuchsia));
         AssertDraw(new DrawableCircle(0, 0, 50, 50));
         AssertDraw(new DrawableClipPath("foo"));
-        AssertDraw(new DrawableClipRule(FillRule.Nonzero));
+        AssertDraw(new DrawableClipRule(FillRule.NonZero));
         AssertDraw(new DrawableClipUnits(ClipPathUnit.UserSpaceOnUse));
         AssertDraw(new DrawableColor(0, 0, PaintMethod.Floodfill));
 
