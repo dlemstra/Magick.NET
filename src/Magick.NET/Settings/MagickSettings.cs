@@ -412,7 +412,7 @@ public partial class MagickSettings : IMagickSettings<QuantumType>
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether verbose output os turned on or off.
+    /// Gets or sets a value indicating whether verbose output is turned on or off.
     /// </summary>
     public bool Verbose { get; set; }
 

@@ -219,7 +219,7 @@ public interface IMagickSettings<TQuantumType>
     IMagickColor<TQuantumType>? TextUnderColor { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether verbose output os turned on or off.
+    /// Gets or sets a value indicating whether verbose output is turned on or off.
     /// </summary>
     bool Verbose { get; set; }
 
