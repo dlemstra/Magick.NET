@@ -30,11 +30,6 @@ case "$architecture" in
     x64|"Any CPU")
         ./install.library.sh linux x64 $quantum $target_architecture
         ./install.library.sh linux-musl x64 $quantum $target_architecture
-
-        case "$quantum" in
-            *-OpenMP) ;;
-            *) ./install.library.sh macos x64 $quantum $target_architecture ;;
-        esac
         ;;
 esac
 

@@ -22,18 +22,18 @@ More information about Linux and macOS can be found [here](docs/CrossPlatform.md
 
 |Package|Download|windows|linux|linux-musl|macOS|
 |-|-|:-:|:-:|:-:|:-:|
-|Magick.NET-Q8-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-x64)|✅|✅|✅|✅
+|Magick.NET-Q8-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-x64)|✅|✅|✅
 |Magick.NET-Q8-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-arm64)|✅|✅||✅
 |Magick.NET-Q8-x86|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x86.svg)](https://www.nuget.org/packages/Magick.NET-Q8-x86)|✅
 |Magick.NET-Q8-OpenMP-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-OpenMP-x64)|✅|✅|✅
 |Magick.NET-Q8-OpenMP-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-OpenMP-arm64)|✅|✅
-|Magick.NET-Q16-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x64)|✅|✅|✅|✅
+|Magick.NET-Q16-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x64)|✅|✅|✅
 |Magick.NET-Q16-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-arm64)|✅|✅||✅
 |Magick.NET-Q16-x86|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x86.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x86)|✅
 |Magick.NET-Q16-OpenMP-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-OpenMP-x64)|✅|✅|✅
 |Magick.NET-Q16-OpenMP-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-OpenMP-arm64)|✅|✅
 |Magick.NET-Q16-OpenMP-x86|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x86.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x86)|✅
-|Magick.NET-Q16-HDRI-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x64)|✅|✅|✅|✅
+|Magick.NET-Q16-HDRI-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x64)|✅|✅|✅
 |Magick.NET-Q16-HDRI-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-arm64)|✅|✅||✅
 |Magick.NET-Q16-HDRI-x86|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x86.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x86)|✅
 |Magick.NET-Q16-HDRI-OpenMP-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-x64)|✅|✅|✅
@@ -46,15 +46,15 @@ More information about Linux and macOS can be found [here](docs/CrossPlatform.md
 |Magick.NET-Q8-AnyCPU|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q8-AnyCPU)|windows|✅|✅|✅
 |||linux|✅|✅
 |||linux-musl|✅
-|||macOS|✅|✅
+|||macOS||✅
 |Magick.NET-Q16-AnyCPU|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-AnyCPU)|windows|✅|✅|✅
 |||linux|✅|✅
 |||linux-musl|✅
-|||macOS|✅|✅
+|||macOS||✅
 |Magick.NET-Q16-HDRI-AnyCPU|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-AnyCPU.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-AnyCPU)|windows|✅|✅|✅
 |||linux|✅|✅
 |||linux-musl|✅
-|||macOS|✅|✅
+|||macOS||✅
 
 Follow me on bluesky ([@dirk.lemstra.org](https://bsky.app/profile/dirk.lemstra.org)) to receive information about new downloads and changes to Magick.NET and ImageMagick.
 

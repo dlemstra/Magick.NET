@@ -152,40 +152,6 @@ jobs:
       - name: Test
         run: build/shared/test.Magick.NET.sh arm64 ${{ matrix.quantum }}
 
-  macos_x64:
-    name: MacOS (${{ matrix.quantum }}, x64)
-    runs-on: macos-15-intel
-
-    strategy:
-      fail-fast: false
-      matrix:
-        quantum: [Q8, Q16, Q16-HDRI]
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
-        with:
-          persist-credentials: false
-
-      - name: Install dependencies
-        run: build/macos-x64/install.dependencies.sh
-
-      - name: Install net10.0
-        uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 #v6.0.0
-        with:
-          dotnet-version: 10.x
-
-      - name: Install Magick.Native
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: build/shared/install.Magick.Native.sh macos x64 ${{ matrix.quantum }}
-
-      - name: Build
-        run: build/shared/build.Magick.NET.sh x64 ${{ matrix.quantum }}
-
-      - name: Test
-        run: build/shared/test.Magick.NET.sh x64 ${{ matrix.quantum }}
-
   macos_arm64:
     name: MacOS (${{ matrix.quantum }}, arm64)
     runs-on: macos-14
@@ -387,7 +353,6 @@ jobs:
       - linux_musl_x64
       - linux_x64
       - macos_arm64
-      - macos_x64
       - version
       - windows
       - windows_arm64
