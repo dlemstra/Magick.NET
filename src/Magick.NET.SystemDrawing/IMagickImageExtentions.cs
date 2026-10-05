@@ -97,9 +97,7 @@ public static partial class IMagickImageExtentions
     private static unsafe void CopyPixelsOptimized<TQuantumType>(IUnsafePixelCollection<TQuantumType> pixels, BitmapData data, IMagickImage<TQuantumType> image, uint blueIndex, uint greenIndex, uint redIndex, int alphaIndex)
         where TQuantumType : unmanaged
     {
-#pragma warning disable CS8500 // This takes the address of, gets the size of, or declares a pointer to a managed type
         var source = (TQuantumType*)pixels.GetAreaPointer(0, 0, image.Width, image.Height);
-#pragma warning restore CS8500
         var destination = (byte*)data.Scan0;
         var increment = alphaIndex == -1 ? 3 : 4;
 
