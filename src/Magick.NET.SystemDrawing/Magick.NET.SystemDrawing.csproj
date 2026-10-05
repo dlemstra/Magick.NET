@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net10.0;netstandard20;net462</TargetFrameworks>
+    <TargetFrameworks>net10.0;netstandard20;net47</TargetFrameworks>
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <Platforms>AnyCPU</Platforms>
     <AssemblyVersion>8.0.0</AssemblyVersion>
@@ -9,11 +9,11 @@
     <Configurations>Debug;Test;Release</Configurations>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net47'">
     <Reference Include="System.Drawing" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' != 'net462'">
+  <ItemGroup Condition="'$(TargetFramework)' != 'net47'">
     <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
 

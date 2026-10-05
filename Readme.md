@@ -62,7 +62,7 @@ Follow me on bluesky ([@dirk.lemstra.org](https://bsky.app/profile/dirk.lemstra.
 
 Besides the quantum specific packages there are also some extra libraries in this project. One of these libraries is the [Magick.NET.Core](https://www.nuget.org/packages/Magick.NET.Core) library that is a dependency of the quantum specific packages. This library can be used to add extra functionality and interact with the Magick.NET libraries. Examples of those libraries can be found below.
 
-|Package|Download|net10.0|netstandard20|net462
+|Package|Download|net10.0|netstandard20|net47
 |-|-|:-:|:-:|:-:|
 |Magick.NET.SystemDrawing|[![NuGet](https://img.shields.io/nuget/v/Magick.NET.SystemDrawing.svg)](https://www.nuget.org/packages/Magick.NET.SystemDrawing)|✅|✅|✅|
 |Magick.NET.SystemWindowsMedia|[![NuGet](https://img.shields.io/nuget/v/Magick.NET.SystemWindowsMedia.svg)](https://www.nuget.org/packages/Magick.NET.SystemWindowsMedia)|✅||✅|
