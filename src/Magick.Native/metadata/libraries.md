@@ -1,7 +1,7 @@
 # Libraries
-Magick.Native [46f618367b2849badbc394556fc6d416974e9bf2](https://github.com/dlemstra/Magick.Native/commit/46f618367b2849badbc394556fc6d416974e9bf2) is build with the following libraries:
+Magick.Native [4dcdad28530c14c8d35687fdeb1ecc8d39b01e30](https://github.com/dlemstra/Magick.Native/commit/4dcdad28530c14c8d35687fdeb1ecc8d39b01e30) is build with the following libraries:
 
-- ImageMagick 7.1.2-33 (Beta) (2026-10-10)
+- ImageMagick 7.1.2-33 (2026-10-10)
 - aom 3.15.1 (2026-09-22)
 - brotli 1.2.0 (2025-10-27)
 - libbzip2 1.0.8 (2019-07-13)
