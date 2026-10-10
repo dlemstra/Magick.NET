@@ -49,7 +49,7 @@ public partial class MagickNETTests
         [Fact]
         public void ShouldContainTheCorrectVersion()
         {
-            Assert.Contains("14.17.2", MagickNET.Version);
+            Assert.Contains("15.0.0", MagickNET.Version);
         }
     }
 }
