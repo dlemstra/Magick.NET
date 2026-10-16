@@ -40,12 +40,6 @@ the only application that uses memory it would be wise to make that limit higher
 with the percentage of total memory that should be used. The maximum value that should be used would be around 80/90%. When ImageMagick reaches
 the memory limit, it will not stop functioning. Instead it will use temporary page files to compensate for the memory limit.
 
-## OpenMP
-
-Magick.NET does not use OpenMP because the C++ Redistributable is statically linked and the OpenMP library cannot be statically linked. OpenMP is
-used to perform multithreaded operation on an image to increase the performance. The best use case for this would be a standalone desktop application.
-Starting with Magick.NET 7.0.7.700 there are extra packages for the x64 build of Magick.NET that have OpenMP support.
-
 ## Ghostscript
 
 You only need to install Ghostscript if you want to convert EPS/PDF/PS files. Make sure you only install the version of GhostScript with the same
