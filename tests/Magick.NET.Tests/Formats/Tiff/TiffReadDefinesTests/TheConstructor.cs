@@ -19,6 +19,7 @@ public partial class TiffReadDefinesTests
 
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "assume-alpha"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "exif-properties"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "gps-properties"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-layers"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "ignore-tags"));
         }

@@ -27,6 +27,12 @@ public sealed class TiffReadDefines : IReadDefines
     public bool? IgnoreExifProperties { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether GPS properties should be ignored (tiff:gps-properties).
+    /// GPS properties are read by default.
+    /// </summary>
+    public bool? IgnoreGpsProperties { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether the layers should be ignored (tiff:ignore-layers).
     /// </summary>
     public bool? IgnoreLayers { get; set; }
@@ -48,6 +54,9 @@ public sealed class TiffReadDefines : IReadDefines
 
             if (IgnoreExifProperties.Equals(true))
                 yield return new MagickDefine(Format, "exif-properties", false);
+
+            if (IgnoreGpsProperties.Equals(true))
+                yield return new MagickDefine(Format, "gps-properties", false);
 
             if (IgnoreLayers is not null)
                 yield return new MagickDefine(Format, "ignore-layers", IgnoreLayers.Value);
