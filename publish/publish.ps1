@@ -58,10 +58,7 @@ function addNativeLibraries($xml, $quantumName, $platform) {
     }
 
     addNativeLibrary $xml $platform "linux" "$quantumName-$platform.dll.so"
-
-    if ($platform -eq "x64") {
-        addNativeLibrary $xml $platform "linux-musl" "$quantumName-$platform.dll.so"
-    }
+    addNativeLibrary $xml $platform "linux-musl" "$quantumName-$platform.dll.so"
 }
 
 function createMagickNetNuGetPackage($quantumName, $platform, $version, $commit) {

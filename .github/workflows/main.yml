@@ -118,6 +118,39 @@ jobs:
       - name: Test
         run: build/shared/test.Magick.NET.sh x64 ${{ matrix.quantum }}
 
+  linux_musl_arm64:
+    name: Linux musl (${{ matrix.quantum }}, arm64)
+    runs-on: ubuntu-24.04-arm
+
+    strategy:
+      fail-fast: false
+      matrix:
+        quantum: [Q8, Q8-OpenMP, Q16, Q16-OpenMP, Q16-HDRI, Q16-HDRI-OpenMP]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 #v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build and test
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          QUANTUM: ${{ matrix.quantum }}
+        run: |
+          docker run --rm \
+            --volume "$GITHUB_WORKSPACE:/workspace" \
+            --workdir /workspace \
+            --env GH_TOKEN \
+            --env QUANTUM \
+            --entrypoint /bin/sh \
+            mcr.microsoft.com/dotnet/sdk:10.0-alpine -ec '
+              build/linux-musl-arm64/install.dependencies.sh
+              bash build/shared/install.Magick.Native.sh linux-musl arm64 "$QUANTUM"
+              bash build/shared/build.Magick.NET.sh arm64 "$QUANTUM"
+              bash build/shared/test.Magick.NET.sh arm64 "$QUANTUM"
+            '
+
   linux_arm64:
     name: Linux (${{ matrix.quantum }}, arm64)
     runs-on: ubuntu-24.04-arm
@@ -350,6 +383,7 @@ jobs:
     needs:
       - libraries
       - linux_arm64
+      - linux_musl_arm64
       - linux_musl_x64
       - linux_x64
       - macos_arm64

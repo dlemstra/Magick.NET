@@ -36,6 +36,13 @@
       <Visible>false</Visible>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <NativeLinuxMuslArm64DLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\linux-musl-arm64\native\*.so" />
+    <None Include="@(NativeLinuxMuslArm64DLL)">
+      <Link Condition="'$(TargetFrameworkIdentifier)' != '.NETFramework'">%(FileName)%(Extension)</Link>
+      <Link Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'">lib%(FileName)%(Extension)</Link>
+      <Visible>false</Visible>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup Condition="'$(MagickCopyNativeMacOS)' == 'true'">
     <NativeMacOSArm64DLL Include="$(MSBuildThisFileDirectory)\..\..\runtimes\osx-arm64\native\*.dylib" />
