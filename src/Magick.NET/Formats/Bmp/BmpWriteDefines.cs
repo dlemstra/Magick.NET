@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 
 namespace ImageMagick.Formats;
@@ -10,11 +11,24 @@ namespace ImageMagick.Formats;
 /// </summary>
 public sealed class BmpWriteDefines : IWriteDefines
 {
+    private MagickFormat _format = MagickFormat.Bmp;
+
     /// <summary>
-    /// Gets the format where the defines are for.
+    /// Gets or sets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
-        => MagickFormat.Bmp;
+    {
+        get => _format;
+        set
+        {
+            if (value != MagickFormat.Bmp &&
+                value != MagickFormat.Bmp2 &&
+                value != MagickFormat.Bmp3)
+                throw new InvalidOperationException("The format must be Bmp, Bmp2 or Bmp3.");
+
+            _format = value;
+        }
+    }
 
     /// <summary>
     /// Gets or sets the subtype that will be used (bmp:subtype).
