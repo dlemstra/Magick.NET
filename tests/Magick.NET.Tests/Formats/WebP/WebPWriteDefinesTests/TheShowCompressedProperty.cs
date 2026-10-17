@@ -20,7 +20,7 @@ public partial class WebPWriteDefinesTests
                 ShowCompressed = true,
             });
 
-            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
+            Assert.Equal("1", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
         }
 
         [Fact]
@@ -32,7 +32,7 @@ public partial class WebPWriteDefinesTests
                 ShowCompressed = false,
             });
 
-            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
+            Assert.Equal("0", image.Settings.GetDefine(MagickFormat.WebP, "show-compressed"));
         }
     }
 }

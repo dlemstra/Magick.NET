@@ -115,6 +115,7 @@ public sealed class WebPWriteDefines : IWriteDefines
 
     /// <summary>
     /// Gets or sets a value indicating whether the compressed picture should be exported back (webp:show-compressed).
+    /// The value is serialized as 1 or 0 for the native integer option.
     /// </summary>
     public bool? ShowCompressed { get; set; }
 
@@ -135,6 +136,7 @@ public sealed class WebPWriteDefines : IWriteDefines
 
     /// <summary>
     /// Gets or sets a value indicating whether multi-threaded encoding should be enabled (webp:thread-level).
+    /// The value is serialized as 1 or 0 for the native integer option.
     /// </summary>
     public bool? ThreadLevel { get; set; }
 
@@ -210,7 +212,7 @@ public sealed class WebPWriteDefines : IWriteDefines
                 yield return new MagickDefine(Format, "segments", Segments.Value);
 
             if (ShowCompressed.HasValue)
-                yield return new MagickDefine(Format, "show-compressed", ShowCompressed.Value);
+                yield return new MagickDefine(Format, "show-compressed", ShowCompressed.Value ? 1 : 0);
 
             if (SnsStrength.HasValue)
                 yield return new MagickDefine(Format, "sns-strength", SnsStrength.Value);
@@ -222,7 +224,7 @@ public sealed class WebPWriteDefines : IWriteDefines
                 yield return new MagickDefine(Format, "target-size", TargetSize.Value);
 
             if (ThreadLevel.HasValue)
-                yield return new MagickDefine(Format, "thread-level", ThreadLevel.Value);
+                yield return new MagickDefine(Format, "thread-level", ThreadLevel.Value ? 1 : 0);
 
             if (UseSharpYuv.HasValue)
                 yield return new MagickDefine(Format, "use-sharp-yuv", UseSharpYuv.Value);

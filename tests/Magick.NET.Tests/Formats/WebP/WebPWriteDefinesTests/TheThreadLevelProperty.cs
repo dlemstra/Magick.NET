@@ -20,7 +20,7 @@ public partial class WebPWriteDefinesTests
                 ThreadLevel = true,
             });
 
-            Assert.Equal("true", image.Settings.GetDefine(MagickFormat.WebP, "thread-level"));
+            Assert.Equal("1", image.Settings.GetDefine(MagickFormat.WebP, "thread-level"));
         }
 
         [Fact]
@@ -32,7 +32,7 @@ public partial class WebPWriteDefinesTests
                 ThreadLevel = false,
             });
 
-            Assert.Equal("false", image.Settings.GetDefine(MagickFormat.WebP, "thread-level"));
+            Assert.Equal("0", image.Settings.GetDefine(MagickFormat.WebP, "thread-level"));
         }
     }
 }
