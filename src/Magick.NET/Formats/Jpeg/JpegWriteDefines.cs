@@ -48,6 +48,11 @@ public sealed class JpegWriteDefines : IWriteDefines
     public string? QuantizationTables { get; set; }
 
     /// <summary>
+    /// Gets or sets the restart interval in MCU blocks (jpeg:restart-interval).
+    /// </summary>
+    public int? RestartInterval { get; set; }
+
+    /// <summary>
     /// Gets or sets jpeg sampling factor (jpeg:sampling-factor).
     /// </summary>
     public JpegSamplingFactor? SamplingFactor { get; set; }
@@ -76,6 +81,9 @@ public sealed class JpegWriteDefines : IWriteDefines
 
             if (QuantizationTables is not null && QuantizationTables.Length > 0)
                 yield return new MagickDefine(Format, "q-table", QuantizationTables);
+
+            if (RestartInterval.HasValue)
+                yield return new MagickDefine(Format, "restart-interval", RestartInterval.Value);
 
             if (SamplingFactor.HasValue)
                 yield return new MagickDefine(Format, "sampling-factor", CreateSamplingFactors(SamplingFactor.Value));

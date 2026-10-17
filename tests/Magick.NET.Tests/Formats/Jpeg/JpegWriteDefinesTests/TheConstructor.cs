@@ -24,6 +24,7 @@ public partial class JpegWriteDefinesTests
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "optimize-coding"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "quality"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "q-table"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "restart-interval"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jpeg, "sampling-factor"));
         }
 
