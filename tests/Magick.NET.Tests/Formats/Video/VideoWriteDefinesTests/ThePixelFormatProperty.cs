@@ -23,13 +23,15 @@ public partial class VideoWriteDefinesTests
             Assert.Equal("magick", image.Settings.GetDefine("video:pixel-format"));
         }
 
-        [Fact]
-        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void ShouldNotSetTheDefineWhenValueIsNullOrEmpty(string? value)
         {
             using var image = new MagickImage();
             image.Settings.SetDefines(new VideoWriteDefines(MagickFormat.Mp4)
             {
-                PixelFormat = null,
+                PixelFormat = value,
             });
 
             Assert.Null(image.Settings.GetDefine("video:pixel-format"));

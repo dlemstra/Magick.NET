@@ -23,13 +23,15 @@ public partial class PdfWriteDefinesTests
             Assert.Equal("magick", image.Settings.GetDefine(MagickFormat.Pdf, "creator"));
         }
 
-        [Fact]
-        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void ShouldNotSetTheDefineWhenValueIsNullOrEmpty(string? value)
         {
             using var image = new MagickImage();
             image.Settings.SetDefines(new PdfWriteDefines
             {
-                Creator = null,
+                Creator = value,
             });
 
             Assert.Null(image.Settings.GetDefine(MagickFormat.Pdf, "creator"));
