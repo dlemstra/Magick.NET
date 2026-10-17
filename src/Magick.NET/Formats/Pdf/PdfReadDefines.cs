@@ -32,9 +32,21 @@ public sealed class PdfReadDefines : IReadDefines
     public bool? Interpolate { get; set; }
 
     /// <summary>
+    /// Gets or sets whether the PDF should be rendered for print rather than screen display (pdf:printed).
+    /// The native default is false.
+    /// </summary>
+    public bool? Printed { get; set; }
+
+    /// <summary>
     /// Gets or sets the password that should be used to open the pdf (authenticate).
     /// </summary>
     public string? Password { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether PDF errors should stop processing (pdf:stop-on-error).
+    /// Errors do not stop processing by default.
+    /// </summary>
+    public bool? StopOnError { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether use of the cropbox should be forced (pdf:use-trimbox).
@@ -64,6 +76,12 @@ public sealed class PdfReadDefines : IReadDefines
 
             if (Password?.Length > 0)
                 yield return new MagickDefine("authenticate", Password);
+
+            if (Printed.HasValue)
+                yield return new MagickDefine(Format, "printed", Printed.Value);
+
+            if (StopOnError == true)
+                yield return new MagickDefine(Format, "stop-on-error", StopOnError.Value);
 
             if (UseCropBox.HasValue)
                 yield return new MagickDefine(Format, "use-cropbox", UseCropBox.Value);
