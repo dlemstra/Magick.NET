@@ -37,6 +37,11 @@ public sealed class TiffWriteDefines : IWriteDefines
     public TiffJpegTablesMode? JpegTablesMode { get; set; }
 
     /// <summary>
+    /// Gets or sets the JPEG sampling factor used when writing JPEG-compressed TIFF images (jpeg:sampling-factor).
+    /// </summary>
+    public JpegSamplingFactor? SamplingFactor { get; set; }
+
+    /// <summary>
     /// Gets or sets the prediction scheme with LZW (tiff:predictor).
     /// </summary>
     public int? Predictor { get; set; }
@@ -79,6 +84,9 @@ public sealed class TiffWriteDefines : IWriteDefines
 
             if (JpegTablesMode.HasValue)
                 yield return new MagickDefine(Format, "jpeg-tables-mode", (int)JpegTablesMode.Value);
+
+            if (SamplingFactor.HasValue)
+                yield return new MagickDefine("jpeg:sampling-factor", JpegWriteDefines.CreateSamplingFactors(SamplingFactor.Value));
 
             if (Predictor.HasValue)
                 yield return new MagickDefine(Format, "predictor", Predictor.Value);

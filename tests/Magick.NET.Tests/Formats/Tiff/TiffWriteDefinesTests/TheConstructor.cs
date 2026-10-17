@@ -22,6 +22,7 @@ public partial class TiffWriteDefinesTests
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "fill-order"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "predictor"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "preserve-compression"));
+            Assert.Null(image.Settings.GetDefine("jpeg:sampling-factor"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "rows-per-strip"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "tile-geometry"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Tiff, "write-layers"));

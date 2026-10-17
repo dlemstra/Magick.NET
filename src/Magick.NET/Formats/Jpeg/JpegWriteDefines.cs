@@ -90,7 +90,7 @@ public sealed class JpegWriteDefines : IWriteDefines
         }
     }
 
-    private static string CreateSamplingFactors(JpegSamplingFactor samplingFactor)
+    internal static string CreateSamplingFactors(JpegSamplingFactor samplingFactor)
         => samplingFactor switch
         {
             JpegSamplingFactor.Ratio410 => "4x2,1x1,1x1",
