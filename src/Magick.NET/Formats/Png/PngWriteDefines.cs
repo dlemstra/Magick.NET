@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace ImageMagick.Formats;
 
@@ -11,6 +12,8 @@ namespace ImageMagick.Formats;
 /// </summary>
 public sealed class PngWriteDefines : IWriteDefines
 {
+    private MagickFormat _format = MagickFormat.Png;
+
     /// <summary>
     /// Gets or sets the bit depth for the PNG image.
     /// Valid values: 1, 2, 4, 8, 16.
@@ -48,6 +51,27 @@ public sealed class PngWriteDefines : IWriteDefines
     public PngChunkFlags? ExcludeChunks { get; set; }
 
     /// <summary>
+    /// Gets or sets the format where the defines are for.
+    /// </summary>
+    public MagickFormat Format
+    {
+        get => _format;
+        set
+        {
+            if (value != MagickFormat.Png &&
+                value != MagickFormat.Png00 &&
+                value != MagickFormat.Png8 &&
+                value != MagickFormat.Png24 &&
+                value != MagickFormat.Png32 &&
+                value != MagickFormat.Png48 &&
+                value != MagickFormat.Png64)
+                throw new InvalidOperationException("The format must be Png, Png00, Png8, Png24, Png32, Png48 or Png64.");
+
+            _format = value;
+        }
+    }
+
+    /// <summary>
     /// Gets or sets the chunks to be included.
     /// </summary>
     public PngChunkFlags? IncludeChunks { get; set; }
@@ -63,10 +87,10 @@ public sealed class PngWriteDefines : IWriteDefines
     public bool PreserveColorMap { get; set; }
 
     /// <summary>
-    /// Gets the format where the defines are for.
+    /// Gets or sets the PNG modification timestamp in UTC as yyyy-MM-ddTHH:mm:ssZ (png:tIME).
+    /// The native coder uses this option only when the image is unmodified.
     /// </summary>
-    public MagickFormat Format
-        => MagickFormat.Png;
+    public DateTime? Timestamp { get; set; }
 
     /// <summary>
     /// Gets the defines that should be set as a define on an image.
@@ -104,10 +128,13 @@ public sealed class PngWriteDefines : IWriteDefines
 
             if (PreserveColorMap)
                 yield return new MagickDefine(Format, "preserve-colormap", PreserveColorMap);
+
+            if (Timestamp.HasValue)
+                yield return new MagickDefine(Format, "tIME", Timestamp.Value.ToUniversalTime().ToString("yyyy-MM-dd'T'HH:mm:ss'Z'", CultureInfo.InvariantCulture));
         }
     }
 
-    private int GetPngColorTypeValue(ColorType colorType)
+    private static int GetPngColorTypeValue(ColorType colorType)
         => colorType switch
         {
             ImageMagick.ColorType.Grayscale => 0,
