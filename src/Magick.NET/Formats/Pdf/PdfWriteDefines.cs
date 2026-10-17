@@ -65,6 +65,12 @@ public sealed class PdfWriteDefines : IWriteDefines
     public string? Producer { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether pages should be displayed from right to left (pdf:page-direction).
+    /// When true, emits right-to-left; false and null leave the native option unset.
+    /// </summary>
+    public bool? RightToLeft { get; set; }
+
+    /// <summary>
     /// Gets or sets the subject of the pdf document (pdf:subject).
     /// </summary>
     public string? Subject { get; set; }
@@ -111,6 +117,9 @@ public sealed class PdfWriteDefines : IWriteDefines
 
             if (Producer?.Length > 0)
                 yield return new MagickDefine(MagickFormat.Pdf, "producer", Producer);
+
+            if (RightToLeft == true)
+                yield return new MagickDefine(MagickFormat.Pdf, "page-direction", "right-to-left");
 
             if (Subject?.Length > 0)
                 yield return new MagickDefine(MagickFormat.Pdf, "subject", Subject);
