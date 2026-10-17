@@ -17,7 +17,10 @@ public partial class JxlWriteDefinesTests
             using var image = new MagickImage();
             image.Settings.SetDefines(new JxlWriteDefines());
 
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jxl, "decoding-speed"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jxl, "distance"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Jxl, "effort"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Jxl, "quality"));
         }
     }
 }
