@@ -16,6 +16,11 @@ public sealed class DngReadDefines : IReadDefines
     public bool? DisableAutoBrightness { get; set; }
 
     /// <summary>
+    /// Gets or sets the maximum raw buffer size in megabytes (dng:max-raw-memory). The native default is 8192.
+    /// </summary>
+    public uint? MaxRawMemory { get; set; }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
@@ -38,6 +43,12 @@ public sealed class DngReadDefines : IReadDefines
     public bool? ReadThumbnail { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether embedded thumbnails should be returned as images instead of the full raw image
+    /// (dng:read-thumbnails). By default, the full raw image is read.
+    /// </summary>
+    public bool? ReadThumbnails { get; set; }
+
+    /// <summary>
     /// Gets or sets a value indicating whether auto white balance should be used (dng:use-auto-wb).
     /// </summary>
     public bool? UseAutoWhiteBalance { get; set; }
@@ -57,6 +68,9 @@ public sealed class DngReadDefines : IReadDefines
             if (InterpolationQuality.HasValue)
                 yield return new MagickDefine(Format, "interpolation-quality", (int)InterpolationQuality.Value);
 
+            if (MaxRawMemory.HasValue)
+                yield return new MagickDefine(Format, "max-raw-memory", MaxRawMemory.Value);
+
             if (DisableAutoBrightness.HasValue)
                 yield return new MagickDefine(Format, "no-auto-bright", DisableAutoBrightness.Value);
 
@@ -65,6 +79,9 @@ public sealed class DngReadDefines : IReadDefines
 
             if (ReadThumbnail.HasValue)
                 yield return new MagickDefine(Format, "read-thumbnail", ReadThumbnail.Value);
+
+            if (ReadThumbnails == true)
+                yield return new MagickDefine(Format, "read-thumbnails", ReadThumbnails.Value);
 
             if (UseCameraWhiteBalance.HasValue)
                 yield return new MagickDefine(Format, "use-camera-wb", UseCameraWhiteBalance.Value);

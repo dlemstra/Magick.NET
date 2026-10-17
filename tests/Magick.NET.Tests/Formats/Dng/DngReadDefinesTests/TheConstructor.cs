@@ -18,9 +18,11 @@ public partial class DngReadDefinesTests
             image.Settings.SetDefines(new DngReadDefines());
 
             Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "interpolation-quality"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "max-raw-memory"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "no-auto-bright"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "output-color"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "read-thumbnail"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "read-thumbnails"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "use-camera-wb"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Dng, "use-auto-wb"));
         }
