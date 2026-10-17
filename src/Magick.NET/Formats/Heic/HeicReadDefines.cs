@@ -28,6 +28,12 @@ public sealed class HeicReadDefines : IReadDefines
         => MagickFormat.Heic;
 
     /// <summary>
+    /// Gets or sets a value indicating whether only the primary image should be read (heic:primary-image).
+    /// By default, all images in a sequence are read.
+    /// </summary>
+    public bool? PrimaryImage { get; set; }
+
+    /// <summary>
     /// Gets or sets the maximum bayer pattern size (heic:max-bayer-pattern-pixels).
     /// </summary>
     public uint? MaxBayerPatternPixels { get; set; }
@@ -101,6 +107,9 @@ public sealed class HeicReadDefines : IReadDefines
 
             if (MaxSizeEntityGroup is not null)
                 yield return new MagickDefine(Format, "max-size-entity-group", MaxSizeEntityGroup.Value);
+
+            if (PrimaryImage == true)
+                yield return new MagickDefine(Format, "primary-image", PrimaryImage.Value);
 
             if (PreserveOrientation == true)
                 yield return new MagickDefine(Format, "preserve-orientation", PreserveOrientation.Value);

@@ -27,6 +27,7 @@ public partial class HeicReadDefinesTests
             Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-items"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-number-of-tiles"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "max-size-entity-group"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Heic, "primary-image"));
         }
     }
 }
