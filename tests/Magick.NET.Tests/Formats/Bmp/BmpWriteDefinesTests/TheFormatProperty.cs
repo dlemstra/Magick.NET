@@ -40,7 +40,10 @@ public partial class BmpWriteDefinesTests
         [InlineData((MagickFormat)int.MaxValue)]
         public void ShouldThrowExceptionWhenFormatIsInvalid(MagickFormat format)
         {
-            var defines = new BmpWriteDefines();
+            var defines = new BmpWriteDefines()
+            {
+                Format = MagickFormat.Bmp2,
+            };
 
             var exception = Assert.Throws<InvalidOperationException>(() => defines.Format = format);
 
