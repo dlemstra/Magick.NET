@@ -18,6 +18,7 @@ public partial class PsdWriteDefinesTests
             image.Settings.SetDefines(new PsdWriteDefines());
 
             Assert.Equal("none", image.Settings.GetDefine(MagickFormat.Psd, "additional-info"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Psd, "write-layers"));
         }
     }
 }

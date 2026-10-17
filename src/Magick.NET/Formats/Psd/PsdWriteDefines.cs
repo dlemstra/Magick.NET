@@ -22,6 +22,12 @@ public sealed class PsdWriteDefines : IWriteDefines
         => MagickFormat.Psd;
 
     /// <summary>
+    /// Gets or sets a value indicating whether Photoshop layers should be written (psd:write-layers).
+    /// Layers are written by default; false disables them.
+    /// </summary>
+    public bool? WriteLayers { get; set; }
+
+    /// <summary>
     /// Gets the defines that should be set as a define on an image.
     /// </summary>
     public IEnumerable<IDefine> Defines
@@ -29,6 +35,9 @@ public sealed class PsdWriteDefines : IWriteDefines
         get
         {
             yield return new MagickDefine(Format, "additional-info", AdditionalInfo);
+
+            if (WriteLayers.HasValue)
+                yield return new MagickDefine(Format, "write-layers", WriteLayers.Value);
         }
     }
 }
