@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using ImageMagick;
 using ImageMagick.Formats;
 using Xunit;
@@ -12,6 +13,7 @@ public partial class WebPWriteDefinesTests
     public class TheSegmentProperty : WebPWriteDefinesTests
     {
         [Fact]
+        [Obsolete]
         public void ShouldSetTheDefine()
         {
             using var image = new MagickImage(Files.Builtin.Logo);
@@ -20,7 +22,7 @@ public partial class WebPWriteDefinesTests
                 Segment = 3,
             });
 
-            Assert.Equal("3", image.Settings.GetDefine(MagickFormat.WebP, "segment"));
+            Assert.Equal("3", image.Settings.GetDefine(MagickFormat.WebP, "segments"));
         }
     }
 }

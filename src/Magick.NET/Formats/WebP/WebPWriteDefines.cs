@@ -1,6 +1,7 @@
 ﻿// Copyright Dirk Lemstra https://github.com/dlemstra/Magick.NET.
 // Licensed under the Apache License, Version 2.0.
 
+using System;
 using System.Collections.Generic;
 
 namespace ImageMagick.Formats;
@@ -102,9 +103,15 @@ public sealed class WebPWriteDefines : IWriteDefines
     public WebPPreprocessing? Preprocessing { get; set; }
 
     /// <summary>
-    /// Gets or sets  the maximum number of segments to use, choose from 1 to 4 (webp:segment).
+    /// Gets or sets the maximum number of segments to use, from 1 to 4 (webp:segments).
     /// </summary>
+    [Obsolete($"This method will be removed in the next major release, use {nameof(Segments)} instead.")]
     public int? Segment { get; set; }
+
+    /// <summary>
+    /// Gets or sets the maximum number of segments to use, from 1 to 4 (webp:segments).
+    /// </summary>
+    public int? Segments { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether the compressed picture should be exported back (webp:show-compressed).
@@ -194,8 +201,13 @@ public sealed class WebPWriteDefines : IWriteDefines
             if (Preprocessing.HasValue)
                 yield return new MagickDefine(Format, "preprocessing", (int)Preprocessing.Value);
 
+#pragma warning disable CS0618 // Type or member is obsolete
             if (Segment.HasValue)
-                yield return new MagickDefine(Format, "segment", Segment.Value);
+                yield return new MagickDefine(Format, "segments", Segment.Value);
+#pragma warning restore CS0618 // Type or member is obsolete
+
+            if (Segments.HasValue)
+                yield return new MagickDefine(Format, "segments", Segments.Value);
 
             if (ShowCompressed.HasValue)
                 yield return new MagickDefine(Format, "show-compressed", ShowCompressed.Value);
