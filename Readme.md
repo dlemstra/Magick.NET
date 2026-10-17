@@ -26,18 +26,20 @@ More information about Linux and macOS can be found [here](docs/CrossPlatform.md
 |Magick.NET-Q8-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-arm64)|✅|✅|✅|✅
 |Magick.NET-Q8-x86|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-x86.svg)](https://www.nuget.org/packages/Magick.NET-Q8-x86)|✅
 |Magick.NET-Q8-OpenMP-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-OpenMP-x64)|✅|✅|✅
-|Magick.NET-Q8-OpenMP-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-OpenMP-arm64)|✅|✅|✅
+|Magick.NET-Q8-OpenMP-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q8-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q8-OpenMP-arm64)|✅|✅|✅|✅
 |Magick.NET-Q16-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x64)|✅|✅|✅
 |Magick.NET-Q16-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-arm64)|✅|✅|✅|✅
 |Magick.NET-Q16-x86|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x86.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x86)|✅
 |Magick.NET-Q16-OpenMP-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-OpenMP-x64)|✅|✅|✅
-|Magick.NET-Q16-OpenMP-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-OpenMP-arm64)|✅|✅|✅
+|Magick.NET-Q16-OpenMP-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-OpenMP-arm64)|✅|✅|✅|✅
 |Magick.NET-Q16-OpenMP-x86|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-x86.svg)](https://www.nuget.org/packages/Magick.NET-Q16-x86)|✅
 |Magick.NET-Q16-HDRI-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x64)|✅|✅|✅
 |Magick.NET-Q16-HDRI-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-arm64)|✅|✅|✅|✅
 |Magick.NET-Q16-HDRI-x86|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-x86.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-x86)|✅
 |Magick.NET-Q16-HDRI-OpenMP-x64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-OpenMP-x64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-x64)|✅|✅|✅
-|Magick.NET-Q16-HDRI-OpenMP-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-arm64)|✅|✅|✅
+|Magick.NET-Q16-HDRI-OpenMP-arm64|[![NuGet](https://img.shields.io/nuget/v/Magick.NET-Q16-HDRI-OpenMP-arm64.svg)](https://www.nuget.org/packages/Magick.NET-Q16-HDRI-OpenMP-arm64)|✅|✅|✅|✅
+
+The macOS OpenMP packages require the external OpenMP runtime, installed with `brew install libomp`.
 
 ### Download (AnyCPU)
 
