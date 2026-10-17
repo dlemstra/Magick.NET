@@ -18,6 +18,7 @@ public partial class CaptionReadDefinesTests
             image.Settings.SetDefines(new CaptionReadDefines());
 
             Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "max-pointsize"));
+            Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "split"));
             Assert.Null(image.Settings.GetDefine(MagickFormat.Caption, "start-pointsize"));
         }
     }

@@ -11,6 +11,12 @@ namespace ImageMagick.Formats;
 public sealed class CaptionReadDefines : IReadDefines
 {
     /// <summary>
+    /// Gets or sets a value indicating whether text should be split when needed to fit the caption canvas (caption:split).
+    /// Text is not split by default.
+    /// </summary>
+    public bool? Split { get; set; }
+
+    /// <summary>
     /// Gets the format where the defines are for.
     /// </summary>
     public MagickFormat Format
@@ -38,6 +44,9 @@ public sealed class CaptionReadDefines : IReadDefines
 
             if (StartFontPointsize.HasValue)
                 yield return new MagickDefine(Format, "start-pointsize", StartFontPointsize.Value);
+
+            if (Split.HasValue)
+                yield return new MagickDefine(Format, "split", Split.Value);
         }
     }
 }
