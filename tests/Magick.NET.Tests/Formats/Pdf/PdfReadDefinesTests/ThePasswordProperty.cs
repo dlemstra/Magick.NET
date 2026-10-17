@@ -28,15 +28,17 @@ public partial class PdfReadDefinesTests
             });
         }
 
-        [Fact]
-        public void ShouldNotSetTheDefineWhenValueIsNotSet()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void ShouldNotSetTheDefineWhenValueIsNullOrEmpty(string? value)
         {
-            IsolatedUnitTest.Execute(static () =>
+            IsolatedUnitTest.Execute(() =>
             {
                 using var image = new MagickImage();
                 image.Settings.SetDefines(new PdfReadDefines
                 {
-                    Password = null,
+                    Password = value,
                 });
 
                 Assert.Null(image.Settings.GetDefine("authenticate"));

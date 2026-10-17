@@ -62,7 +62,7 @@ public sealed class PdfReadDefines : IReadDefines
             if (Interpolate == true)
                 yield return new MagickDefine(Format, "interpolate", Interpolate.Value);
 
-            if (Password is not null)
+            if (Password?.Length > 0)
                 yield return new MagickDefine("authenticate", Password);
 
             if (UseCropBox.HasValue)
