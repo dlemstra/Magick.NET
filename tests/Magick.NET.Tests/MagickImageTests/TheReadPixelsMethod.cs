@@ -175,6 +175,15 @@ public partial class MagickImageTests
             }
 
             [Fact]
+            public void ShouldThrowExceptionWhenOffsetAndCountOverflow()
+            {
+                var settings = new PixelReadSettings(1, 1, StorageType.Char, PixelMapping.RGB);
+                using var image = new MagickImage();
+
+                Assert.Throws<OverflowException>(() => image.ReadPixels(new byte[] { 0, 215 }, 1, uint.MaxValue, settings));
+            }
+
+            [Fact]
             public void ShouldThrowExceptionWhenOffsetExceedsArrayLength()
             {
                 var settings = new PixelReadSettings();
@@ -345,6 +354,15 @@ public partial class MagickImageTests
 
                 var exception = Assert.Throws<ArgumentException>("count", () => image.ReadPixels(new QuantumType[] { 215 }, 0, 0, settings));
                 Assert.Contains("The number of items should be at least 1.", exception.Message);
+            }
+
+            [Fact]
+            public void ShouldThrowExceptionWhenOffsetAndCountOverflow()
+            {
+                var settings = new PixelReadSettings(1, 1, StorageType.Quantum, PixelMapping.RGB);
+                using var image = new MagickImage();
+
+                Assert.Throws<OverflowException>(() => image.ReadPixels(new QuantumType[] { 0, 215 }, 1, uint.MaxValue, settings));
             }
 
             [Fact]

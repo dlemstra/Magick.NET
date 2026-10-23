@@ -75,6 +75,14 @@ public partial class MagickImageCollectionTests
             }
 
             [Fact]
+            public void ShouldThrowExceptionWhenOffsetAndCountOverflow()
+            {
+                using var images = new MagickImageCollection();
+
+                Assert.Throws<OverflowException>(() => images.Ping(new byte[] { 0, 215 }, 1, uint.MaxValue));
+            }
+
+            [Fact]
             public void ShouldPingImage()
             {
                 using var images = new MagickImageCollection();

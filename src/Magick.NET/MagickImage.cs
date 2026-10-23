@@ -4369,7 +4369,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfNullOrEmpty(data);
         Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
         Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
-        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
+        Throw.IfTrue(checked(offset + count) > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
 
         Read(data, offset, count, readSettings, true);
     }
@@ -4774,7 +4774,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfNullOrEmpty(data);
         Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
         Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
-        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
+        Throw.IfTrue(checked(offset + count) > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
 
         Read(data, offset, count, readSettings, false);
     }
@@ -5185,7 +5185,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfNullOrEmpty(data);
         Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
         Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
-        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
+        Throw.IfTrue(checked(offset + count) > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
         Throw.IfNull(settings);
         Throw.IfNullOrEmpty(settings.Mapping, nameof(settings), "Pixel storage mapping should be defined.");
         Throw.IfTrue(settings.StorageType == StorageType.Undefined, nameof(settings), "Storage type should not be undefined.");
@@ -5226,7 +5226,7 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
         Throw.IfNullOrEmpty(data);
         Throw.IfTrue(count < 1, nameof(count), "The number of items should be at least 1.");
         Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
-        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of items should not exceed the length of the array.");
+        Throw.IfTrue(checked(offset + count) > data.Length, nameof(count), "The number of items should not exceed the length of the array.");
         Throw.IfNull(settings);
         Throw.IfNullOrEmpty(settings.Mapping, nameof(settings), "Pixel storage mapping should be defined.");
         Throw.IfTrue(settings.StorageType != StorageType.Quantum, nameof(settings), $"Storage type should be {nameof(StorageType.Quantum)}.");

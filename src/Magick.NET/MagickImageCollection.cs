@@ -742,7 +742,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         Throw.IfNullOrEmpty(data);
         Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
         Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
-        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
+        Throw.IfTrue(checked(offset + count) > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
 
         Clear();
         AddImages(data, offset, count, readSettings, true);
@@ -1070,7 +1070,7 @@ public sealed partial class MagickImageCollection : IMagickImageCollection<Quant
         Throw.IfNullOrEmpty(data);
         Throw.IfTrue(count < 1, nameof(count), "The number of bytes should be at least 1.");
         Throw.IfTrue(offset >= data.Length, nameof(offset), "The offset should not exceed the length of the array.");
-        Throw.IfTrue(offset + count > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
+        Throw.IfTrue(checked(offset + count) > data.Length, nameof(count), "The number of bytes should not exceed the length of the array.");
 
         Clear();
         AddImages(data, offset, count, readSettings, false);
