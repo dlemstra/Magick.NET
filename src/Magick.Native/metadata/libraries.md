@@ -1,5 +1,5 @@
 # Libraries
-Magick.Native [30b6a85095a2731623c51baf0f8297f4d4cfb568](https://github.com/dlemstra/Magick.Native/commit/30b6a85095a2731623c51baf0f8297f4d4cfb568) is build with the following libraries:
+Magick.Native [c34abb8006513f3f6be9977209702b6c5261d0bd](https://github.com/dlemstra/Magick.Native/commit/c34abb8006513f3f6be9977209702b6c5261d0bd) is build with the following libraries:
 
 - ImageMagick 7.1.2-34 (Beta) (2026-10-14)
 - aom 3.15.2 (2026-10-09)
