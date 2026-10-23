@@ -37,5 +37,16 @@ public partial class MagickImageTests
             ColorAssert.Equal(new MagickColor("#00000000b3ef"), colorRange, 101, 99);
 #endif
         }
+
+        [Fact]
+        public void ShouldOnlyNormalizeTheSpecifiedChannels()
+        {
+            using var image = new MagickImage("gradient:gray70-gray30", 100, 100);
+            using var original = image.Clone();
+            image.Normalize(Channels.Red);
+
+            Assert.NotEqual(0, original.Compare(image, ErrorMetric.RootMeanSquared, Channels.Red));
+            Assert.Equal(0, original.Compare(image, ErrorMetric.RootMeanSquared, Channels.Green | Channels.Blue));
+        }
     }
 }

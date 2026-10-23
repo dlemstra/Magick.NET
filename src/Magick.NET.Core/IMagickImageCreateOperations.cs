@@ -205,10 +205,30 @@ public interface IMagickImageCreateOperations
     /// </summary>
     /// <param name="width">The width of the neighborhood in pixels.</param>
     /// <param name="height">The height of the neighborhood in pixels.</param>
+    /// <param name="channels">The channel(s) that should be blurred.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void BilateralBlur(uint width, uint height, Channels channels);
+
+    /// <summary>
+    /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+    /// </summary>
+    /// <param name="width">The width of the neighborhood in pixels.</param>
+    /// <param name="height">The height of the neighborhood in pixels.</param>
     /// <param name="intensitySigma">The sigma in the intensity space.</param>
     /// <param name="spatialSigma">The sigma in the coordinate space.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma);
+
+    /// <summary>
+    /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+    /// </summary>
+    /// <param name="width">The width of the neighborhood in pixels.</param>
+    /// <param name="height">The height of the neighborhood in pixels.</param>
+    /// <param name="intensitySigma">The sigma in the intensity space.</param>
+    /// <param name="spatialSigma">The sigma in the coordinate space.</param>
+    /// <param name="channels">The channel(s) that should be blurred.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma, Channels channels);
 
     /// <summary>
     /// Simulate a scene at nighttime in the moonlight.
@@ -745,6 +765,16 @@ public interface IMagickImageCreateOperations
     /// <param name="angle">The angle the object appears to be comming from (zero degrees is from the right).</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     void MotionBlur(double radius, double sigma, double angle);
+
+    /// <summary>
+    /// Motion blur the specified channel(s) of the image with the specified blur factor.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <param name="angle">The angle the object appears to be comming from (zero degrees is from the right).</param>
+    /// <param name="channels">The channel(s) that should be blurred.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void MotionBlur(double radius, double sigma, double angle, Channels channels);
 
     /// <summary>
     /// Oilpaint image (image looks like oil painting).

@@ -23,5 +23,16 @@ public partial class MagickImageTests
             Assert.InRange(image.Compare(blurredImage, ErrorMetric.RootMeanSquared), 0.00084, 0.00085);
 #endif
         }
+
+        [Fact]
+        public void ShouldOnlyBlurTheSpecifiedChannels()
+        {
+            using var image = new MagickImage(Files.NoisePNG);
+            using var original = image.Clone();
+            image.BilateralBlur(2, 2, Channels.Red);
+
+            Assert.NotEqual(0, original.Compare(image, ErrorMetric.RootMeanSquared, Channels.Red));
+            Assert.Equal(0, original.Compare(image, ErrorMetric.RootMeanSquared, Channels.Green | Channels.Blue));
+        }
     }
 }

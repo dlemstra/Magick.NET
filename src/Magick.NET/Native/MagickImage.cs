@@ -260,7 +260,7 @@ public partial class MagickImage
         public partial void AutoThreshold(AutoThresholdMethod method);
 
         [Throws]
-        public partial IntPtr BilateralBlur(nuint width, nuint height, double intensitySigma, double spatialSigma);
+        public partial IntPtr BilateralBlur(nuint width, nuint height, double intensitySigma, double spatialSigma, Channels channels);
 
         [Throws]
         public partial void BlackThreshold(string threshold, Channels channels);
@@ -537,16 +537,16 @@ public partial class MagickImage
         public partial IntPtr MinimumBoundingBox(out nuint length);
 
         [Throws]
-        public partial IntPtr Morphology(MorphologyMethod method, string kernel, Channels channels, nint iterations);
+        public partial IntPtr Morphology(MorphologyMethod method, string kernel, nint iterations, Channels channels);
 
         [Throws]
-        public partial IntPtr MotionBlur(double radius, double sigma, double angle);
+        public partial IntPtr MotionBlur(double radius, double sigma, double angle, Channels channels);
 
         [Throws]
         public partial void Negate(bool onlyGrayscale, Channels channels);
 
         [Throws]
-        public partial void Normalize();
+        public partial void Normalize(Channels channels);
 
         [Throws]
         public partial IntPtr OilPaint(double radius, double sigma);

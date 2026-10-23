@@ -115,13 +115,19 @@ public partial class MagickImage
             => SetResult(NativeMagickImage.AutoOrient());
 
         public void BilateralBlur(uint width, uint height)
+            => BilateralBlur(width, height, ImageMagick.Channels.Undefined);
+
+        public void BilateralBlur(uint width, uint height, Channels channels)
         {
             var intensitySigma = Math.Sqrt((width * width) + (height * height));
-            BilateralBlur(width, height, intensitySigma, intensitySigma * 0.25);
+            BilateralBlur(width, height, intensitySigma, intensitySigma * 0.25, channels);
         }
 
         public void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma)
-            => SetResult(NativeMagickImage.BilateralBlur(width, height, intensitySigma, spatialSigma));
+            => BilateralBlur(width, height, intensitySigma, spatialSigma, ImageMagick.Channels.Undefined);
+
+        public void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma, Channels channels)
+            => SetResult(NativeMagickImage.BilateralBlur(width, height, intensitySigma, spatialSigma, channels));
 
         public void BlueShift()
             => BlueShift(1.5);
@@ -420,17 +426,20 @@ public partial class MagickImage
 
             if (settings.UserKernel is not null && settings.UserKernel.Length > 0)
             {
-                SetResult(NativeMagickImage.Morphology(settings.Method, settings.UserKernel, settings.Channels, settings.Iterations));
+                SetResult(NativeMagickImage.Morphology(settings.Method, settings.UserKernel, settings.Iterations, settings.Channels));
             }
             else
             {
                 var kernel = EnumHelper.GetName(settings.Kernel).ToLowerInvariant() + ":" + settings.KernelArguments;
-                SetResult(NativeMagickImage.Morphology(settings.Method, kernel, settings.Channels, settings.Iterations));
+                SetResult(NativeMagickImage.Morphology(settings.Method, kernel, settings.Iterations, settings.Channels));
             }
         }
 
         public void MotionBlur(double radius, double sigma, double angle)
-            => SetResult(NativeMagickImage.MotionBlur(radius, sigma, angle));
+            => MotionBlur(radius, sigma, angle, ImageMagick.Channels.Undefined);
+
+        public void MotionBlur(double radius, double sigma, double angle, Channels channels)
+            => SetResult(NativeMagickImage.MotionBlur(radius, sigma, angle, channels));
 
         public void OilPaint()
             => OilPaint(3.0, 1.0);

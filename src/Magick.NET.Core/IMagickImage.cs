@@ -1396,6 +1396,14 @@ public partial interface IMagickImage : IMagickImageCreateOperations, IDisposabl
     void Normalize();
 
     /// <summary>
+    /// Normalize the specified channel(s) of the image (increase contrast by normalizing the pixel
+    /// values to span the full range of color values).
+    /// </summary>
+    /// <param name="channels">The channel(s) that should be normalized.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    void Normalize(Channels channels);
+
+    /// <summary>
     /// Perform a ordered dither based on a number of pre-defined dithering threshold maps, but over
     /// multiple intensity levels.
     /// </summary>

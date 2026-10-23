@@ -1279,6 +1279,19 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <param name="width">The width of the neighborhood in pixels.</param>
     /// <param name="height">The height of the neighborhood in pixels.</param>
+    /// <param name="channels">The channel(s) that should be blurred.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void BilateralBlur(uint width, uint height, Channels channels)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.BilateralBlur(width, height, channels);
+    }
+
+    /// <summary>
+    /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+    /// </summary>
+    /// <param name="width">The width of the neighborhood in pixels.</param>
+    /// <param name="height">The height of the neighborhood in pixels.</param>
     /// <param name="intensitySigma">The sigma in the intensity space.</param>
     /// <param name="spatialSigma">The sigma in the coordinate space.</param>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -1286,6 +1299,21 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     {
         using var mutator = new Mutator(_nativeInstance);
         mutator.BilateralBlur(width, height, intensitySigma, spatialSigma);
+    }
+
+    /// <summary>
+    /// Applies a non-linear, edge-preserving, and noise-reducing smoothing filter.
+    /// </summary>
+    /// <param name="width">The width of the neighborhood in pixels.</param>
+    /// <param name="height">The height of the neighborhood in pixels.</param>
+    /// <param name="intensitySigma">The sigma in the intensity space.</param>
+    /// <param name="spatialSigma">The sigma in the coordinate space.</param>
+    /// <param name="channels">The channel(s) that should be blurred.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void BilateralBlur(uint width, uint height, double intensitySigma, double spatialSigma, Channels channels)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.BilateralBlur(width, height, intensitySigma, spatialSigma, channels);
     }
 
     /// <summary>
@@ -4189,6 +4217,20 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     }
 
     /// <summary>
+    /// Motion blur the specified channel(s) of the image with the specified blur factor.
+    /// </summary>
+    /// <param name="radius">The radius of the Gaussian, in pixels, not counting the center pixel.</param>
+    /// <param name="sigma">The standard deviation of the Laplacian, in pixels.</param>
+    /// <param name="angle">The angle the object appears to be comming from (zero degrees is from the right).</param>
+    /// <param name="channels">The channel(s) that should be blurred.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void MotionBlur(double radius, double sigma, double angle, Channels channels)
+    {
+        using var mutator = new Mutator(_nativeInstance);
+        mutator.MotionBlur(radius, sigma, angle, channels);
+    }
+
+    /// <summary>
     /// Negate colors in image.
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
@@ -4224,7 +4266,16 @@ public sealed partial class MagickImage : IMagickImage<QuantumType>, INativeInst
     /// </summary>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public void Normalize()
-        => _nativeInstance.Normalize();
+        => Normalize(ImageMagick.Channels.Undefined);
+
+    /// <summary>
+    /// Normalize the specified channel(s) of the image (increase contrast by normalizing the pixel
+    /// values to span the full range of color values).
+    /// </summary>
+    /// <param name="channels">The channel(s) that should be normalized.</param>
+    /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
+    public void Normalize(Channels channels)
+        => _nativeInstance.Normalize(channels);
 
     /// <summary>
     /// Oilpaint image (image looks like oil painting).
