@@ -34,7 +34,7 @@ public sealed partial class MagickImageFactory : IMagickImageFactory<QuantumType
     /// Initializes a new instance that implements <see cref="IMagickImage{TQuantumType}"/>.
     /// </summary>
     /// <param name="data">The byte array to read the image data from.</param>
-    /// <returns>A new <see cref="IMagickImage{TQuantumType>"/> instance.</returns>
+    /// <returns>A new <see cref="IMagickImage{TQuantumType}"/> instance.</returns>
     /// <exception cref="MagickException">Thrown when an error is raised by ImageMagick.</exception>
     public IMagickImage<QuantumType> Create(byte[] data)
         => new MagickImage(data);

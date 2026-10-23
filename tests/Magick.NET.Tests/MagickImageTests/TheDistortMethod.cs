@@ -61,7 +61,7 @@ public partial class MagickImageTests
                 0, 0, 0, 0,
                 0, 90, 0, 90,
                 90, 0, 90, 25,
-                90, 90, 90, 65
+                90, 90, 90, 65,
             ]);
             image.Clamp();
 

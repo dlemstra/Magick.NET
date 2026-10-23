@@ -39,7 +39,7 @@ internal sealed class EightBimWriter
             if (bytes is not null)
                 stream.WriteBytes(bytes);
 
-            if ((length + 1 & 0x01) != 0)
+            if (((length + 1) & 0x01) != 0)
                 stream.WriteByte(0);
 
             bytes = value.ToByteArray();

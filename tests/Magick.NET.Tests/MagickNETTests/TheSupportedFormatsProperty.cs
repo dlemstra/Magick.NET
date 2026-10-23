@@ -298,7 +298,7 @@ public partial class MagickNETTests
                 MagickFormat.Y,
                 MagickFormat.Ycbcr,
                 MagickFormat.Ycbcra,
-                MagickFormat.Yuv
+                MagickFormat.Yuv,
             ];
 
             if (Runtime.IsWindows)
@@ -513,7 +513,7 @@ public partial class MagickNETTests
                 MagickFormat.Yaml,
                 MagickFormat.Ycbcr,
                 MagickFormat.Ycbcra,
-                MagickFormat.Yuv
+                MagickFormat.Yuv,
             ];
 
             if (Runtime.IsWindows)

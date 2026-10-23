@@ -30,7 +30,5 @@ public sealed class TemporaryDirectory : IDisposable
         => Cleanup.DeleteDirectory(_tempDirectory);
 
     public IReadOnlyList<string> GetFileNames()
-        => [.. _tempDirectory
-            .GetFiles()
-            .Select(f => f.Name)];
+        => [.. _tempDirectory.GetFiles().Select(f => f.Name)];
 }

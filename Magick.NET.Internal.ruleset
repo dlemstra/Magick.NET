@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RuleSet Name="Magick.NET" ToolsVersion="14.0">
   <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
-    <Rule Id="SA1101" Action="None" />    <!-- SA1101PrefixLocalCallsWithThis -->
-    <Rule Id="SA1121" Action="None" />    <!-- SA1121UseBuiltInTypeAlias -->
-    <Rule Id="SA1309" Action="None" />    <!-- SA1309FieldNamesMustNotBeginWithUnderscore -->
-    <Rule Id="SA1503" Action="None" />    <!-- SA1503BracesMustNotBeOmitted -->
-    <Rule Id="SA1520" Action="None" />    <!-- SA1520UseBracesConsistently -->
-    <Rule Id="SX1101" Action="Warning" /> <!-- SX1101DoNotPrefixLocalMembersWithThis -->
-    <Rule Id="SX1309" Action="Warning" /> <!-- SX1309FieldNamesMustBeginWithUnderscore -->
+    <Rule Id="SA1101" Action="None" />    <!-- Prefix local calls with this -->
+    <Rule Id="SA1121" Action="None" />    <!-- Use built-in type alias -->
+    <Rule Id="SA1309" Action="None" />    <!-- Field names should begin with underscore -->
+    <Rule Id="SA1503" Action="None" />    <!-- Braces should not be omitted -->
+    <Rule Id="SA1504" Action="None" />    <!-- All accessors should be single-line or multi-line -->
+    <Rule Id="SA1520" Action="None" />    <!-- Use braces consistently -->
+    <Rule Id="SX1101" Action="Warning" /> <!-- Do not prefix local calls with 'this.' -->
+    <Rule Id="SX1309" Action="Warning" /> <!-- Field names should begin with underscore -->
     <!-- These rules are only for projects that are not published as a NuGet package -->
-    <Rule Id="SA0001" Action="None" />    <!-- SA0001XmlCommentAnalysisDisabled -->
-    <Rule Id="SA1131" Action="None" />    <!-- SA1131UseReadableConditions -->
-    <Rule Id="SA1600" Action="None" />    <!-- SA1600ElementsMustBeDocumented -->
-    <Rule Id="SA1601" Action="None" />    <!-- SA1601PartialElementsMustBeDocumented -->
-    <Rule Id="SA1602" Action="None" />    <!-- SA1602EnumerationItemsMustBeDocumented -->
+    <Rule Id="SA0001" Action="None" />    <!-- XML comment analysis disabled -->
+    <Rule Id="SA1131" Action="None" />    <!-- Use readable conditions -->
+    <Rule Id="SA1143" Action="None" />    <!-- Conditional expressions must be formatted consistently -->
+    <Rule Id="SA1600" Action="None" />    <!-- Elements should be documented -->
+    <Rule Id="SA1601" Action="None" />    <!-- Partial elements should be documented -->
+    <Rule Id="SA1602" Action="None" />    <!-- Enumeration items should be documented -->
   </Rules>
 </RuleSet>

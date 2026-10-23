@@ -8,9 +8,7 @@ using System.Buffers;
 
 namespace ImageMagick.Factories;
 
-/// <summary>
-/// Class that can be used to create <see cref="IMagickImageInfo"/> instances.
-/// </summary>
+/// <content />
 public partial interface IMagickImageInfoFactory
 {
     /// <summary>
