@@ -16,7 +16,7 @@ public class TheDngCoder
         var format = MagickNET.SupportedFormats.FirstOrDefault(f => f.ModuleFormat == MagickFormat.Dng);
 
         Assert.NotNull(format);
-        Assert.Equal("0.22.2-Release", format.Version);
+        Assert.Equal("0.22.3-Release", format.Version);
     }
 
     [Fact]
