@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.2.11415.280 d18.0
+VisualStudioVersion = 18.2.11415.280
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "publish", "publish", "{660486E5-ECAD-49B3-AEBB-A34953E48A72}"
 	ProjectSection(SolutionItems) = preProject
@@ -117,8 +117,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Magick.Native", "Magick.Nat
 		src\Magick.Native\install.library.sh = src\Magick.Native\install.library.sh
 		src\Magick.Native\install.metadata.sh = src\Magick.Native\install.metadata.sh
 		src\Magick.Native\install.resources.sh = src\Magick.Native\install.resources.sh
-		src\Magick.Native\Magick.Native.version = src\Magick.Native\Magick.Native.version
 		src\Magick.Native\metadata\libraries.md = src\Magick.Native\metadata\libraries.md
+		src\Magick.Native\Magick.Native.version = src\Magick.Native\Magick.Native.version
 		src\Magick.Native\TrademarkAttribute.cs = src\Magick.Native\TrademarkAttribute.cs
 		src\Magick.Native\update.native.cmd = src\Magick.Native\update.native.cmd
 		src\Magick.Native\update.native.sh = src\Magick.Native\update.native.sh
@@ -223,6 +223,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{606D8D7D-2AD0-495A-B35E-C90B713CF2AD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{4C06E01A-0835-40E5-A9A2-49F002C0C12B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "linux-musl-arm64", "linux-musl-arm64", "{40AC3535-431A-4895-8083-31901D62A3DC}"
+	ProjectSection(SolutionItems) = preProject
+		build\linux-musl-arm64\install.dependencies.sh = build\linux-musl-arm64\install.dependencies.sh
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -1834,6 +1839,7 @@ Global
 		{5B729307-7C82-4CDB-830F-9383F0FD4B76} = {4C06E01A-0835-40E5-A9A2-49F002C0C12B}
 		{606D8D7D-2AD0-495A-B35E-C90B713CF2AD} = {61345F8D-8813-4CA8-B037-2DE221FFB5D2}
 		{4C06E01A-0835-40E5-A9A2-49F002C0C12B} = {CADB374F-AC1D-4456-940E-2317DF1372C2}
+		{40AC3535-431A-4895-8083-31901D62A3DC} = {F6E20621-E266-4314-ADE0-A899270F2312}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {4F6887AA-E540-48B3-BDC0-068B342ABEBE}
