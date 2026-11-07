@@ -8,6 +8,7 @@ namespace ImageMagick;
 internal sealed class StreamWrapper : StreamWrapperBase
 {
     private readonly Stream _stream;
+    private bool _exceptionThrown;
 
     private StreamWrapper(Stream stream)
         : base(stream)
@@ -31,12 +32,16 @@ internal sealed class StreamWrapper : StreamWrapperBase
 
     protected override int Read(int count)
     {
+        if (_exceptionThrown)
+            return -1;
+
         try
         {
             return _stream.Read(Data, 0, count);
         }
         catch
         {
+            _exceptionThrown = true;
             return -1;
         }
     }
@@ -49,6 +54,9 @@ internal sealed class StreamWrapper : StreamWrapperBase
 
     protected override bool Write(int count)
     {
+        if (_exceptionThrown)
+            return false;
+
         try
         {
             _stream.Write(Data, 0, count);
@@ -56,6 +64,7 @@ internal sealed class StreamWrapper : StreamWrapperBase
         }
         catch
         {
+            _exceptionThrown = true;
             return false;
         }
     }
