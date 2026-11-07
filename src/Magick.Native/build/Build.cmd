@@ -16,6 +16,7 @@ if "%openMP%"=="" goto invalid
 cd ..\..\..\..\Magick.Native\build\windows
 
 call "build.cmd" %config% %quantum% %architecture% %hdri% %openMP%
+if %errorlevel% neq 0 exit /b %errorlevel%
 
 set quantumName=%quantum%
 if not "%hdri%"=="noHdri" set quantumName=%quantumName%-HDRI
