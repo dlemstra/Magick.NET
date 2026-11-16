@@ -31,12 +31,12 @@ public partial class MagickImageTests
             image.WhiteBalance(new Percentage(70));
 
 #if Q8
-            ColorAssert.Equal(new MagickColor("#00cb91"), image, 45, 25);
+            ColorAssert.Equal(new MagickColor("#00a13b"), image, 45, 25);
 #elif Q16
-            ColorAssert.Equal(new MagickColor("#0000cc33926f"), image, 45, 25);
+            ColorAssert.Equal(new MagickColor("#0000a1fd3c35"), image, 45, 25);
 #else
             image.Clamp();
-            ColorAssert.Equal(new MagickColor("#0000cc32926f"), image, 45, 25);
+            ColorAssert.Equal(new MagickColor("#0000a1fd3c35"), image, 45, 25);
 #endif
         }
     }
