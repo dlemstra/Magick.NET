@@ -2,7 +2,9 @@
 // Licensed under the Apache License, Version 2.0.
 
 using System;
+using System.IO;
 using ImageMagick;
+using ImageMagick.Factories;
 using Xunit;
 
 namespace Magick.NET.Tests;
@@ -27,6 +29,17 @@ public partial class MagickNETTests
             {
                 MagickNET.SetGhostscriptFontDirectory("Invalid");
             });
+        }
+
+        [Fact]
+        public void ShouldSetFontPathWhenCalledThroughInterface()
+        {
+            var directory = Path.GetTempPath();
+            var magickNET = new MagickFactory().MagickNET;
+
+            magickNET.SetGhostscriptFontDirectory(directory);
+
+            Assert.Equal(Path.GetFullPath(directory), MagickNET.GetEnvironmentVariable("MAGICK_GHOSTSCRIPT_FONT_PATH"));
         }
     }
 }
