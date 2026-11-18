@@ -451,7 +451,7 @@ public partial class MagickNET : IMagickNET
     /// </summary>
     /// <param name="path">The path of the Ghostscript font directory.</param>
     void IMagickNET.SetGhostscriptFontDirectory(string path)
-        => SetGhostscriptDirectory(path);
+        => SetGhostscriptFontDirectory(path);
 
     /// <summary>
     /// Set the events that will be written to the log. The log will be written to the Log event
