@@ -371,7 +371,7 @@ jobs:
           path: publish/output
 
   publish:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: needs.version.outputs.publish == 'true'
     name: Publish packages to NuGet (tagged releases only)
     runs-on: windows-2025-vs2026
     environment: nuget
@@ -428,7 +428,6 @@ jobs:
           user: dlemstra
 
       - name: Publish NuGet packages
-        if: needs.version.outputs.publish == 'true'
         env:
           NUGET_API_KEY: ${{ steps.login.outputs.NUGET_API_KEY }}
         run: ../publish/push.cmd
