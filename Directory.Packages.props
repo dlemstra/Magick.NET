@@ -21,6 +21,6 @@
   <ItemGroup>
     <!-- After an upgrade of these libraries the nuspec file should also be updated -->
     <PackageVersion Include="Avalonia" Version="12.1.6" />
-    <PackageVersion Include="System.Drawing.Common" Version="10.0.15" />
+    <PackageVersion Include="System.Drawing.Common" Version="11.0.0" />
   </ItemGroup>
 </Project>
